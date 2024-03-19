@@ -8,6 +8,22 @@ import data from './mock-story-data'
 import type {SelectPanelProps} from './SelectPanel'
 import {SelectPanel} from './SelectPanel'
 
+// window.matchMedia() is not implemented by JSDOM so we have to create a mock:
+// https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // deprecated
+    removeListener: jest.fn(), // deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+})
+
 const Fixture = ({onSubmit, onCancel}: Pick<SelectPanelProps, 'onSubmit' | 'onCancel'>) => {
   const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
   const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)

@@ -11,19 +11,27 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
   elementClass: new () => I,
   tagName: string,
   events: E | undefined = undefined,
-) =>
-  Object.assign(
-    styled(
-      create<I, E>({
-        tagName,
-        elementClass,
-        react: React,
-        events,
-      }),
+) => {
+  const output = Object.assign(
+    Object.assign(
+      styled(
+        create<I, E>({
+          tagName,
+          elementClass,
+          react: React,
+          events,
+        }),
+      ),
+      {
+        displayName: rename(tagName),
+      },
     )(sx),
     {
       displayName: rename(tagName),
     },
   )
+
+  return output
+}
 
 export default createComponent
