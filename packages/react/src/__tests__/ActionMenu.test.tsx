@@ -3,11 +3,12 @@ import userEvent from '@testing-library/user-event'
 import {axe} from 'jest-axe'
 import React from 'react'
 import theme from '../theme'
-import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider, Tooltip, Button} from '..'
+import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider, Tooltip, Button, IconButton} from '..'
 import {Tooltip as TooltipV2} from '../TooltipV2/Tooltip'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
 import {MixedSelection} from '../ActionMenu/ActionMenu.examples.stories'
+import {KebabHorizontalIcon} from '@primer/octicons-react'
 
 function Example(): JSX.Element {
   return (
@@ -375,6 +376,39 @@ describe('ActionMenu', () => {
           <BaseStyles>
             <ActionMenu>
               <ActionMenu.Button id={buttonId}>Toggle Menu</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Item>New file</ActionList.Item>
+                  <ActionList.Divider />
+                  <ActionList.Item>Copy link</ActionList.Item>
+                  <ActionList.Item>Edit file</ActionList.Item>
+                  <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
+                    Delete file
+                  </ActionList.Item>
+                  <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
+                    Github
+                  </ActionList.LinkItem>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
+        </SSRProvider>
+      </ThemeProvider>,
+    )
+    const button = component.getByRole('button')
+
+    expect(button.id).toBe(buttonId)
+  })
+  it('should pass the "id" prop from ActionMenu.Anchor to anchor child', async () => {
+    const buttonId = 'toggle-menu-custom-id'
+    const component = HTMLRender(
+      <ThemeProvider theme={theme}>
+        <SSRProvider>
+          <BaseStyles>
+            <ActionMenu>
+              <ActionMenu.Anchor id={buttonId}>
+                <IconButton icon={KebabHorizontalIcon} aria-label="Open menu" />
+              </ActionMenu.Anchor>
               <ActionMenu.Overlay>
                 <ActionList>
                   <ActionList.Item>New file</ActionList.Item>
