@@ -25,7 +25,9 @@ import MarkdownToolbarElement from '@github/markdown-toolbar-element'
 const MarkdownToolbarComponent = createComponent(MarkdownToolbarElement, 'markdown-toolbar')
 MarkdownToolbarComponent.displayName = 'MarkdownToolbar'
 
-export type MarkdownToolbarProps = ComponentProps<typeof MarkdownToolbarComponent>
+export interface MarkdownToolbarProps extends ComponentProps<typeof MarkdownToolbarComponent> {
+  for?: string
+}
 
 function MarkdownToolbar({children, ...props}: MarkdownToolbarProps) {
   return (
