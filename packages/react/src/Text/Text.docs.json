@@ -3,9 +3,7 @@
   "name": "Text",
   "status": "alpha",
   "a11yReviewed": true,
-  "stories": [
-    /* falls back to features when empty */
-  ],
+  "stories": [],
   "props": [
     {
       "name": "as",

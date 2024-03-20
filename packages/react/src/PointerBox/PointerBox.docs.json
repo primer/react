@@ -3,9 +3,7 @@
   "name": "PointerBox",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [
-    /* falls back to features when empty */
-  ],
+  "stories": [],
   "props": [
     {
       "name": "caret",

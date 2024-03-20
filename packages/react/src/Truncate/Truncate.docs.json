@@ -3,9 +3,7 @@
   "name": "Truncate",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [
-    /* falls back to features when empty */
-  ],
+  "stories": [],
   "props": [
     {
       "name": "maxWidth",

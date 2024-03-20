@@ -3,9 +3,7 @@
   "name": "Dialog",
   "status": "draft",
   "a11yReviewed": false,
-  "stories": [
-    /* falls back to features when empty */
-  ],
+  "stories": [],
   "props": [
     {
       "name": "title",

@@ -3,9 +3,7 @@
   "name": "ActionMenu",
   "status": "beta",
   "a11yReviewed": false,
-  "stories": [
-    /* falls back to features when empty */
-  ],
+  "stories": [],
   "props": [
     {
       "name": "children",

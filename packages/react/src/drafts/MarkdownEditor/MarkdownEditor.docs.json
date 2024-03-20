@@ -3,9 +3,7 @@
   "name": "MarkdownEditor",
   "status": "deprecated",
   "a11yReviewed": false,
-  "stories": [
-    /* falls back to features when empty */
-  ],
+  "stories": [],
   "props": [
     {
       "name": "value",
