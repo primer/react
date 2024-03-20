@@ -6,7 +6,7 @@
   "stories": [],
   "props": [
     {
-      "name": "ariaLabel",
+      "name": "aria-label",
       "type": "string",
       "defaultValue": "",
       "description": "Specifies the aria-label attribute, which is read verbatim by screen readers "

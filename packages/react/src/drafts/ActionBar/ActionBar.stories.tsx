@@ -13,11 +13,13 @@ import {
   ListUnorderedIcon,
   ListOrderedIcon,
   TasklistIcon,
+  ReplyIcon,
 } from '@primer/octicons-react'
 import {MarkdownInput} from '../MarkdownEditor/_MarkdownInput'
 import {ViewSwitch} from '../MarkdownEditor/_ViewSwitch'
 import type {MarkdownViewMode} from '../MarkdownEditor/_ViewSwitch'
-import {Box} from '../..'
+import {Box, Dialog, Button} from '../..'
+import {Divider} from '../../deprecated/ActionList/Divider'
 
 export default {
   title: 'Drafts/Components/ActionBar',
@@ -59,6 +61,8 @@ export const CommentBox = () => {
     //console.log('loadPreview')
   }, [])
   const [value, setValue] = React.useState('')
+  const [isOpen, setIsOpen] = React.useState(false)
+  const buttonRef = React.useRef(null)
   return (
     <Box
       sx={{
@@ -106,6 +110,12 @@ export const CommentBox = () => {
             <ActionBar.IconButton icon={ListUnorderedIcon} aria-label="Unordered List"></ActionBar.IconButton>
             <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List"></ActionBar.IconButton>
             <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
+            <ActionBar.IconButton
+              ref={buttonRef}
+              onClick={() => setIsOpen(true)}
+              icon={ReplyIcon}
+              aria-label="Saved Replies"
+            ></ActionBar.IconButton>
           </ActionBar>
         </Box>
       </Box>
@@ -122,6 +132,40 @@ export const CommentBox = () => {
         monospace={false}
         pasteUrlsAsPlainText={false}
       />
+      <Dialog aria-labelledby="header" returnFocusRef={buttonRef} isOpen={isOpen} onDismiss={() => setIsOpen(false)}>
+        <Dialog.Header id="header">Select a reply</Dialog.Header>
+        <Box p={3}>Show saved replies</Box>
+        <Divider />
+        <Button variant="invisible">Create your own saved reply</Button>
+      </Dialog>
+    </Box>
+  )
+}
+
+export const ActionBarWithMenuTrigger = () => {
+  const [isOpen, setIsOpen] = React.useState(false)
+  const buttonRef = React.useRef(null)
+
+  return (
+    <Box>
+      <ActionBar>
+        <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
+        <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
+        <ActionBar.IconButton icon={CodeIcon} aria-label="Code"></ActionBar.IconButton>
+        <ActionBar.IconButton
+          ref={buttonRef}
+          onClick={() => setIsOpen(true)}
+          icon={ReplyIcon}
+          aria-label="Saved Replies"
+        ></ActionBar.IconButton>
+      </ActionBar>
+
+      <Dialog aria-labelledby="header" returnFocusRef={buttonRef} isOpen={isOpen} onDismiss={() => setIsOpen(false)}>
+        <Dialog.Header id="header">Select a reply</Dialog.Header>
+        <Box p={3}>Show saved replies</Box>
+        <Divider />
+        <Button variant="invisible">Create your own saved reply</Button>
+      </Dialog>
     </Box>
   )
 }
