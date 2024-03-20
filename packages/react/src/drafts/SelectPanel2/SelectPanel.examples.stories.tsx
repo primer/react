@@ -1,6 +1,6 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, ActionMenu, Avatar, Box, Button, Text, Octicon, Flash} from '../../index'
+import {ActionList, ActionMenu, Avatar, Box, Button, Text, Octicon, Flash, FormControl, TextInput} from '../../index'
 import {Dialog} from '../../drafts'
 import {
   ArrowRightIcon,
@@ -12,6 +12,7 @@ import {
   GitPullRequestIcon,
   GitMergeIcon,
   GitPullRequestDraftIcon,
+  PlusCircleIcon,
 } from '@primer/octicons-react'
 import data from './mock-story-data'
 
@@ -843,6 +844,219 @@ export const NestedSelection = () => {
         <SelectPanel.Footer />
       </SelectPanel>
     </>
+  )
+}
+
+export const CreateNewRow = () => {
+  const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
+  const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
+
+  /* Selection */
+  const onLabelSelect = (labelId: string) => {
+    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
+    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
+  }
+  const onClearSelection = () => {
+    setSelectedLabelIds([])
+  }
+
+  const onSubmit = () => {
+    data.issue.labelIds = selectedLabelIds // pretending to persist changes
+  }
+
+  /* Filtering */
+  const [filteredLabels, setFilteredLabels] = React.useState(data.labels)
+  const [query, setQuery] = React.useState('')
+
+  const onSearchInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
+    const query = event.currentTarget.value
+    setQuery(query)
+
+    if (query === '') setFilteredLabels(data.labels)
+    else {
+      setFilteredLabels(
+        data.labels
+          .map(label => {
+            if (label.name.toLowerCase().startsWith(query)) return {priority: 1, label}
+            else if (label.name.toLowerCase().includes(query)) return {priority: 2, label}
+            else if (label.description?.toLowerCase().includes(query)) return {priority: 3, label}
+            else return {priority: -1, label}
+          })
+          .filter(result => result.priority > 0)
+          .map(result => result.label),
+      )
+    }
+  }
+
+  const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
+    const initialSelectedIds = data.issue.labelIds
+    if (initialSelectedIds.includes(itemA.id) && initialSelectedIds.includes(itemB.id)) return 1
+    else if (initialSelectedIds.includes(itemA.id)) return -1
+    else if (initialSelectedIds.includes(itemB.id)) return 1
+    else return 1
+  }
+
+  const itemsToShow = query ? filteredLabels : data.labels.sort(sortingFn)
+
+  /* 
+    Controlled state + Create new label Dialog 
+    We only have to do this until https://github.com/primer/react/pull/3840 is merged
+  */
+  const [panelOpen, setPanelOpen] = React.useState(false)
+  const [newLabelDialogOpen, setNewLabelDialogOpen] = React.useState(false)
+
+  const openCreateLabelDialog = () => {
+    setPanelOpen(false)
+    setNewLabelDialogOpen(true)
+  }
+
+  const onNewLabelDialogSave = (id: string) => {
+    setNewLabelDialogOpen(false)
+
+    setQuery('') // clear search input
+    onLabelSelect(id) // select newly created label
+
+    setPanelOpen(true)
+
+    // focus newly created label once it renders
+    window.requestAnimationFrame(() => {
+      const newLabelElement = document.querySelector(`[data-id=${id}]`) as HTMLLIElement
+      newLabelElement.focus()
+    })
+  }
+
+  return (
+    <>
+      <h1>Create new item from panel</h1>
+
+      <SelectPanel
+        title="Select labels"
+        open={panelOpen}
+        onSubmit={onSubmit}
+        onCancel={() => setPanelOpen(false)}
+        onClearSelection={onClearSelection}
+      >
+        <SelectPanel.Button onClick={() => setPanelOpen(true)}>Assign label</SelectPanel.Button>
+
+        <SelectPanel.Header>
+          <SelectPanel.SearchInput value={query} onChange={onSearchInputChange} />
+        </SelectPanel.Header>
+
+        {itemsToShow.length === 0 ? (
+          <SelectPanel.Message variant="empty" title={`No labels found for "${query}"`}>
+            <Text>Select the button below to create this label</Text>
+            <Button onClick={openCreateLabelDialog}>Create &quot;{query}&quot;</Button>
+          </SelectPanel.Message>
+        ) : (
+          <>
+            <ActionList>
+              {itemsToShow.map(label => (
+                <ActionList.Item
+                  key={label.id}
+                  onSelect={() => onLabelSelect(label.id)}
+                  selected={selectedLabelIds.includes(label.id)}
+                  data-id={label.id}
+                >
+                  <ActionList.LeadingVisual>
+                    <Box
+                      sx={{width: 14, height: 14, borderRadius: '100%'}}
+                      style={{backgroundColor: `#${label.color}`}}
+                    />
+                  </ActionList.LeadingVisual>
+                  {label.name}
+                  <ActionList.Description variant="block">{label.description}</ActionList.Description>
+                </ActionList.Item>
+              ))}
+            </ActionList>
+            {query && (
+              <Box sx={{padding: 2, borderTop: '1px solid', borderColor: 'border.default', flexShrink: 0}}>
+                <Button
+                  variant="invisible"
+                  leadingVisual={PlusCircleIcon}
+                  block
+                  alignContent="start"
+                  sx={{'[data-component=text]': {fontWeight: 'normal'}}}
+                  onClick={openCreateLabelDialog}
+                >
+                  Create new label &quot;{query}&quot;...
+                </Button>
+              </Box>
+            )}
+          </>
+        )}
+
+        <SelectPanel.Footer>
+          <SelectPanel.SecondaryAction variant="button">Edit labels</SelectPanel.SecondaryAction>
+        </SelectPanel.Footer>
+      </SelectPanel>
+
+      {newLabelDialogOpen && (
+        <CreateNewLabelDialog
+          initialValue={query}
+          onSave={onNewLabelDialogSave}
+          onCancel={() => {
+            setNewLabelDialogOpen(false)
+            setPanelOpen(true)
+          }}
+        />
+      )}
+    </>
+  )
+}
+
+const CreateNewLabelDialog = ({
+  initialValue,
+  onSave,
+  onCancel,
+}: {
+  initialValue: string
+  onSave: (id: string) => void
+  onCancel: () => void
+}) => {
+  const formSubmitRef = React.useRef<HTMLButtonElement>(null)
+
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    const formData = new FormData(event.target as HTMLFormElement)
+    const {name, color, description} = Object.fromEntries(formData) as Record<string, string>
+
+    // pretending to persist changes
+    const id = Math.random().toString(26).slice(6)
+    const createdAt = new Date().toISOString()
+    data.labels.unshift({id, name, color, description, createdAt})
+    onSave(id)
+  }
+
+  return (
+    <Dialog
+      title="Create new Label"
+      onClose={onCancel}
+      width="medium"
+      footerButtons={[
+        {buttonType: 'default', content: 'Cancel', onClick: onCancel},
+        {type: 'submit', buttonType: 'primary', content: 'Save', onClick: () => formSubmitRef.current?.click()},
+      ]}
+    >
+      <Flash sx={{marginBottom: 2}} variant="warning">
+        Note this Dialog is not accessible. Do not copy this.
+      </Flash>
+      <form onSubmit={onSubmit}>
+        <FormControl sx={{marginBottom: 2}}>
+          <FormControl.Label>Name</FormControl.Label>
+          <TextInput name="name" block defaultValue={initialValue} autoFocus />
+        </FormControl>
+        <FormControl sx={{marginBottom: 2}}>
+          <FormControl.Label>Color</FormControl.Label>
+          <TextInput name="color" block defaultValue="fae17d" leadingVisual="#" />
+        </FormControl>
+        <FormControl>
+          <FormControl.Label>Description</FormControl.Label>
+          <TextInput name="description" block placeholder="Good first issues" />
+        </FormControl>
+        <button type="submit" hidden ref={formSubmitRef}></button>
+      </form>
+    </Dialog>
   )
 }
 
