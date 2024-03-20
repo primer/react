@@ -802,7 +802,6 @@ exports[`TextInput renders leadingVisual 1`] = `
       fill="currentColor"
       focusable="false"
       height={16}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -959,7 +958,6 @@ exports[`TextInput renders leadingVisual 2`] = `
       fill="currentColor"
       focusable="false"
       height={16}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -2197,7 +2195,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
         fill="currentColor"
         focusable="false"
         height={16}
-        role="img"
         style={
           {
             "display": "inline-block",
@@ -3347,7 +3344,6 @@ exports[`TextInput renders trailingVisual 1`] = `
       fill="currentColor"
       focusable="false"
       height={16}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -3504,7 +3500,6 @@ exports[`TextInput renders trailingVisual 2`] = `
       fill="currentColor"
       focusable="false"
       height={16}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -4575,7 +4570,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -4845,7 +4839,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -5115,7 +5108,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -5386,7 +5378,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -5656,7 +5647,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -5882,7 +5872,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6125,7 +6114,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6201,7 +6189,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6435,7 +6422,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6511,7 +6497,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6752,7 +6737,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6828,7 +6812,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",

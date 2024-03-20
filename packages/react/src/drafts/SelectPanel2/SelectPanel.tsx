@@ -10,6 +10,7 @@ import type {OverlayProps} from '../../Overlay/Overlay'
 import {StyledOverlay, heightMap} from '../../Overlay/Overlay'
 import InputLabel from '../../internal/components/InputLabel'
 import {invariant} from '../../utils/invariant'
+import {Status} from '../../internal/components/Status'
 import {useResponsiveValue} from '../../hooks/useResponsiveValue'
 import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
 
@@ -569,9 +570,9 @@ const SelectPanelSecondaryAction: React.FC<SelectPanelSecondaryActionProps> = ({
   else if (variant === 'checkbox') return <SecondaryCheckbox {...props} />
 }
 
-const SelectPanelLoading: React.FC<{children: string}> = ({children = 'Fetching items...'}) => {
+const SelectPanelLoading = ({children = 'Fetching items...'}: React.PropsWithChildren) => {
   return (
-    <Box
+    <Status
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -585,7 +586,7 @@ const SelectPanelLoading: React.FC<{children: string}> = ({children = 'Fetching 
     >
       <Spinner size="medium" />
       <Text sx={{fontSize: 1, color: 'fg.muted'}}>{children}</Text>
-    </Box>
+    </Status>
   )
 }
 
