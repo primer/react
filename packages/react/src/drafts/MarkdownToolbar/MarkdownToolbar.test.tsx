@@ -9,15 +9,15 @@ describe('MarkdownToolbar', () => {
   behavesAsComponent({
     Component: MarkdownToolbar,
     options: {skipAs: true, skipSx: true},
-    toRender: () => <MarkdownToolbar />,
+    toRender: () => <MarkdownToolbar for="dummy" />,
   })
 
   it('renders a <markdown-toolbar>', () => {
-    expect(render(<MarkdownToolbar />).type).toEqual('markdown-toolbar')
+    expect(render(<MarkdownToolbar for="dummy" />).type).toEqual('markdown-toolbar')
   })
 
   it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<MarkdownToolbar>hello</MarkdownToolbar>)
+    const {container} = HTMLRender(<MarkdownToolbar for="dummy">hello</MarkdownToolbar>)
     const results = await axe(container)
     expect(results).toHaveNoViolations()
   })

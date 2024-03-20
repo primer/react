@@ -26,7 +26,7 @@ const MarkdownToolbarComponent = createComponent(MarkdownToolbarElement, 'markdo
 MarkdownToolbarComponent.displayName = 'MarkdownToolbar'
 
 export interface MarkdownToolbarProps extends ComponentProps<typeof MarkdownToolbarComponent> {
-  for?: string
+  for: string
 }
 
 function MarkdownToolbar({children, ...props}: MarkdownToolbarProps) {
