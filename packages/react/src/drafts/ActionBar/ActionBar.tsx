@@ -47,7 +47,6 @@ const NavigationList = styled.div`
 `
 
 const MORE_BTN_HEIGHT = 45
-const GAP = 8
 const MoreMenuListItem = styled.li`
   display: flex;
   align-items: center;
@@ -63,7 +62,6 @@ const listStyles = {
   margin: 0,
   marginBottom: '-1px',
   alignItems: 'center',
-  gap: `${GAP}px`,
   position: 'relative',
 }
 
