@@ -3,7 +3,9 @@
   "name": "MarkdownViewer",
   "status": "deprecated",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    /* falls back to features when empty */
+  ],
   "props": [
     {
       "name": "markdownValue",

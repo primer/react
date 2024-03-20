@@ -3,7 +3,9 @@
   "name": "FilteredSearch",
   "status": "deprecated",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    /* falls back to features when empty */
+  ],
   "props": [
     {
       "name": "children",

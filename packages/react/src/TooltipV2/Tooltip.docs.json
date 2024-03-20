@@ -3,7 +3,9 @@
   "name": "Tooltip",
   "status": "beta",
   "a11yReviewed": true,
-  "stories": [],
+  "stories": [
+    /* falls back to features when empty */
+  ],
   "props": [
     {
       "name": "direction",

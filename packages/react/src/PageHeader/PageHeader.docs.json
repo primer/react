@@ -3,7 +3,9 @@
   "name": "PageHeader",
   "status": "draft",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    /* falls back to features when empty */
+  ],
   "props": [
     {
       "name": "aria-label",
