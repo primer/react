@@ -26,6 +26,7 @@ import {invariant} from '../../utils/invariant'
 import {Status} from '../../internal/components/Status'
 import {useResponsiveValue} from '../../hooks/useResponsiveValue'
 import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
+import VisuallyHidden from '../../_VisuallyHidden'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -366,14 +367,19 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
   }, [inputProps.id])
 
   const selectPanelButtonId = `${inputProps.id}--select-panel-button`
+  const punctuationId = `${inputProps.id}--select-panel-button-punctuation`
+  const punctuation = ','
   if (inputProps.id && labelId) {
     return (
-      <Button
-        ref={anchorRef}
-        aria-labelledby={`${labelId} ${selectPanelButtonId}`}
-        {...inputProps}
-        id={selectPanelButtonId}
-      />
+      <>
+        <VisuallyHidden id={punctuationId}>{punctuation}</VisuallyHidden>
+        <Button
+          ref={anchorRef}
+          aria-labelledby={`${labelId} ${punctuationId} ${selectPanelButtonId}`}
+          {...inputProps}
+          id={selectPanelButtonId}
+        />
+      </>
     )
   } else {
     return <Button ref={anchorRef} {...props} />
