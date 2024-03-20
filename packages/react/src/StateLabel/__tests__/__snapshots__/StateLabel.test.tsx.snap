@@ -37,7 +37,6 @@ exports[`StateLabel renders children 1`] = `
     fill="currentColor"
     focusable="false"
     height={16}
-    role="img"
     style={
       {
         "display": "inline-block",
@@ -97,7 +96,6 @@ exports[`StateLabel respects the status prop 1`] = `
     fill="currentColor"
     focusable="false"
     height={16}
-    role="img"
     style={
       {
         "display": "inline-block",
@@ -156,7 +154,6 @@ exports[`StateLabel respects the status prop 2`] = `
     fill="currentColor"
     focusable="false"
     height={16}
-    role="img"
     style={
       {
         "display": "inline-block",
@@ -215,7 +212,6 @@ exports[`StateLabel respects the status prop 3`] = `
     fill="currentColor"
     focusable="false"
     height={16}
-    role="img"
     style={
       {
         "display": "inline-block",
@@ -271,7 +267,6 @@ exports[`StateLabel respects the status prop 4`] = `
     fill="currentColor"
     focusable="false"
     height={16}
-    role="img"
     style={
       {
         "display": "inline-block",
@@ -327,7 +322,6 @@ exports[`StateLabel respects the status prop 5`] = `
     fill="currentColor"
     focusable="false"
     height={16}
-    role="img"
     style={
       {
         "display": "inline-block",
@@ -383,7 +377,6 @@ exports[`StateLabel respects the variant prop 1`] = `
     fill="currentColor"
     focusable="false"
     height={16}
-    role="img"
     style={
       {
         "display": "inline-block",
@@ -442,7 +435,6 @@ exports[`StateLabel respects the variant prop 2`] = `
     fill="currentColor"
     focusable="false"
     height={16}
-    role="img"
     style={
       {
         "display": "inline-block",
