@@ -3,12 +3,7 @@ import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {OverlayProps} from '../Overlay'
-import {
-  useProvidedRefOrCreate,
-  useProvidedStateOrCreate,
-  useMenuKeyboardNavigation,
-  useRefObjectAsForwardedRef,
-} from '../hooks'
+import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigation} from '../hooks'
 import {Divider} from '../ActionList/Divider'
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
 import type {ButtonProps} from '../Button'
@@ -160,10 +155,7 @@ const MenuButton = React.forwardRef(({...props}, anchorRef) => {
 }) as PolymorphicForwardRefComponent<'button', ActionMenuButtonProps>
 
 export type MenuItemAnchorProps = ActionListItemProps
-const MenuItemAnchor = React.forwardRef(({children, onKeyDown: externalOnKeyDown, ...props}, forwardedRef) => {
-  const anchorRef = React.useRef<HTMLLIElement>(null)
-  useRefObjectAsForwardedRef(forwardedRef, anchorRef)
-
+const MenuItemAnchor = React.forwardRef(({children, onKeyDown: externalOnKeyDown, ...props}, anchorRef) => {
   const {onOpen} = React.useContext(MenuContext)
 
   /** Treat right arrow key press as click. */
