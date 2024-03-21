@@ -42,7 +42,7 @@ export type ActionBarProps = {
 
 export type ActionBarIconButtonProps = IconButtonProps
 
-const NavigationList = styled.ul`
+const NavigationList = styled.div`
   ${sx};
 `
 
@@ -54,7 +54,7 @@ const MoreMenuListItem = styled.li`
   height: ${MORE_BTN_HEIGHT}px;
 `
 
-const ulStyles = {
+const listStyles = {
   display: 'flex',
   listStyle: 'none',
   whiteSpace: 'nowrap',
@@ -188,7 +188,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   }, [])
 
   const navRef = useRef<HTMLDivElement>(null)
-  const listRef = useRef<HTMLUListElement>(null)
+  const listRef = useRef<HTMLDivElement>(null)
   const moreMenuRef = useRef<HTMLLIElement>(null)
   const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
   const containerRef = React.useRef<HTMLUListElement>(null)
@@ -254,7 +254,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   return (
     <ActionBarContext.Provider value={{size, setChildrenWidth}}>
       <Box ref={navRef} sx={getNavStyles()}>
-        <NavigationList sx={ulStyles} ref={listRef} role="list">
+        <NavigationList sx={listStyles} ref={listRef} role="toolbar">
           {listItems}
           {menuItems.length > 0 && (
             <MoreMenuListItem ref={moreMenuRef}>
