@@ -94,7 +94,7 @@
     "@primer/behaviors": "^1.5.1",
     "@primer/live-region-element": "^0.2.0",
     "@primer/octicons-react": "^19.9.0",
-    "@primer/primitives": "^7.15.3",
+    "@primer/primitives": "^7.15.14",
     "@styled-system/css": "^5.1.5",
     "@styled-system/props": "^5.1.5",
     "@styled-system/theme-get": "^5.1.2",
