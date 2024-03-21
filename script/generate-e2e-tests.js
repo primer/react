@@ -1334,6 +1334,17 @@ const components = new Map([
     },
   ],
   [
+    'TabPages',
+    {
+      stories: [
+        {
+          id: 'components-tabpages--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
     'Timeline',
     {
       stories: [

@@ -13,6 +13,7 @@ type ContextProps = {
   // to be more specific here, this is as good as (...args: any[]) => unknown
   // eslint-disable-next-line @typescript-eslint/ban-types
   afterSelect?: Function
+  enableFocusZone?: boolean
 }
 
 export const ActionListContainerContext = React.createContext<ContextProps>({})

@@ -1,17 +1,18 @@
 import React from 'react'
 import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon, AlertIcon, ArrowLeftIcon} from '@primer/octicons-react'
-import {FocusKeys} from '@primer/behaviors'
 
 import type {ButtonProps, TextInputProps, ActionListProps, LinkProps, CheckboxProps} from '../../index'
 import {Button, IconButton, Heading, Box, Tooltip, TextInput, Spinner, Text, Octicon, Link, Checkbox} from '../../index'
 import {ActionListContainerContext} from '../../ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
-import {useFocusZone} from '../../hooks/useFocusZone'
 import type {OverlayProps} from '../../Overlay/Overlay'
 import {StyledOverlay, heightMap} from '../../Overlay/Overlay'
 import InputLabel from '../../internal/components/InputLabel'
 import {invariant} from '../../utils/invariant'
+import {Status} from '../../internal/components/Status'
+import {useResponsiveValue} from '../../hooks/useResponsiveValue'
+import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -35,10 +36,12 @@ const SelectPanelContext = React.createContext<{
   moveFocusToList: () => {},
 })
 
+const responsiveButtonSizes: ResponsiveValue<'small' | 'medium'> = {narrow: 'medium', regular: 'small'}
+
 export type SelectPanelProps = {
   title: string
   description?: string
-  variant?: 'anchored' | 'modal'
+  variant?: 'anchored' | 'modal' | ResponsiveValue<'anchored' | 'modal', 'full-screen' | 'bottom-sheet'>
   selectionVariant?: ActionListProps['selectionVariant'] | 'instant'
   id?: string
 
@@ -61,7 +64,7 @@ export type SelectPanelProps = {
 const Panel: React.FC<SelectPanelProps> = ({
   title,
   description,
-  variant = 'anchored',
+  variant: propsVariant,
   selectionVariant = 'multiple',
   id,
 
@@ -78,6 +81,12 @@ const Panel: React.FC<SelectPanelProps> = ({
   ...props
 }) => {
   const [internalOpen, setInternalOpen] = React.useState(defaultOpen)
+
+  const responsiveVariants = Object.assign(
+    {regular: 'anchored', narrow: 'full-screen'}, // defaults
+    typeof propsVariant === 'string' ? {regular: propsVariant} : propsVariant,
+  )
+  const currentVariant = useResponsiveValue(responsiveVariants, 'anchored')
 
   // sync open state with props
   if (propsOpen !== undefined && internalOpen !== propsOpen) setInternalOpen(propsOpen)
@@ -100,7 +109,7 @@ const Panel: React.FC<SelectPanelProps> = ({
       Anchor = React.cloneElement(child, {
         // @ts-ignore TODO
         ref: anchorRef,
-        onClick: onAnchorClick,
+        onClick: child.props.onClick || onAnchorClick,
         'aria-haspopup': true,
         'aria-expanded': internalOpen,
       })
@@ -143,15 +152,6 @@ const Panel: React.FC<SelectPanelProps> = ({
   /* Panel plumbing */
   const panelId = useId(id)
   const [slots, childrenInBody] = useSlots(contents, {header: SelectPanelHeader, footer: SelectPanelFooter})
-
-  /* Arrow keys navigation for list items */
-  const {containerRef: listContainerRef} = useFocusZone(
-    {
-      bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
-      focusableElementFilter: element => element.tagName === 'LI',
-    },
-    [internalOpen],
-  )
 
   // used in SelectPanel.SearchInput
   const moveFocusToList = () => {
@@ -240,6 +240,7 @@ const Panel: React.FC<SelectPanelProps> = ({
         width={width}
         height="fit-content"
         maxHeight={maxHeight}
+        data-variant={currentVariant}
         sx={{
           // to avoid a visible position shift, we delay the overlay animating-in
           // to wait until the correct position is set (see useAnchoredPosition above for more)
@@ -251,15 +252,37 @@ const Panel: React.FC<SelectPanelProps> = ({
           padding: 0,
           '&[open]': {display: 'flex'}, // to fit children
 
-          ...(variant === 'anchored' ? {margin: 0, top: position?.top, left: position?.left} : {}),
-          '::backdrop': {backgroundColor: variant === 'anchored' ? 'transparent' : 'primer.canvas.backdrop'},
-
-          '@keyframes selectpanel-gelatine': {
-            '0%': {transform: 'scale(1, 1)'},
-            '25%': {transform: 'scale(0.9, 1.1)'},
-            '50%': {transform: 'scale(1.1, 0.9)'},
-            '75%': {transform: 'scale(0.95, 1.05)'},
-            '100%': {transform: 'scale(1, 1)'},
+          '&[data-variant="anchored"], &[data-variant="full-screen"]': {
+            margin: 0,
+            top: position?.top,
+            left: position?.left,
+            '::backdrop': {backgroundColor: 'transparent'},
+          },
+          '&[data-variant="modal"]': {
+            '::backdrop': {backgroundColor: 'primer.canvas.backdrop'},
+          },
+          '&[data-variant="full-screen"]': {
+            margin: 0,
+            top: 0,
+            left: 0,
+            width: '100%',
+            maxWidth: '100vw',
+            height: '100%',
+            maxHeight: '100vh',
+            '--max-height': '100vh',
+            borderRadius: 'unset',
+          },
+          '&[data-variant="bottom-sheet"]': {
+            margin: 0,
+            top: 'auto',
+            bottom: 0,
+            left: 0,
+            width: '100%',
+            maxWidth: '100vw',
+            maxHeight: 'calc(100vh - 64px)',
+            '--max-height': 'calc(100vh - 64px)',
+            borderBottomRightRadius: 0,
+            borderBottomLeftRadius: 0,
           },
         }}
         {...props}
@@ -292,12 +315,10 @@ const Panel: React.FC<SelectPanelProps> = ({
 
                 <Box
                   as="div"
-                  ref={listContainerRef as React.RefObject<HTMLDivElement>}
                   sx={{
                     flexShrink: 1,
                     flexGrow: 1,
                     overflow: 'hidden',
-
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
@@ -312,6 +333,7 @@ const Panel: React.FC<SelectPanelProps> = ({
                       selectionVariant: selectionVariant === 'instant' ? 'single' : selectionVariant,
                       afterSelect: internalAfterSelect,
                       listLabelledBy: `${panelId}--title`,
+                      enableFocusZone: true, // Arrow keys navigation for list items
                     }}
                   >
                     {childrenInBody}
@@ -452,7 +474,10 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({
           }}
         />
       }
-      sx={{'&:has(input:placeholder-shown) .TextInput-action': {display: 'none'}}}
+      sx={{
+        paddingLeft: 2, // align with list checkboxes
+        '&:has(input:placeholder-shown) .TextInput-action': {display: 'none'},
+      }}
       onChange={internalOnChange}
       onKeyDown={internalKeyDown}
       {...props}
@@ -465,6 +490,7 @@ const SelectPanelFooter = ({...props}) => {
   const {onCancel, selectionVariant} = React.useContext(SelectPanelContext)
 
   const hidePrimaryActions = selectionVariant === 'instant'
+  const buttonSize = useResponsiveValue(responsiveButtonSizes, 'small')
 
   if (hidePrimaryActions && !props.children) {
     // nothing to render
@@ -490,10 +516,10 @@ const SelectPanelFooter = ({...props}) => {
 
         {hidePrimaryActions ? null : (
           <Box sx={{display: 'flex', gap: 2}}>
-            <Button size="small" type="button" onClick={() => onCancel()}>
+            <Button type="button" size={buttonSize} onClick={() => onCancel()}>
               Cancel
             </Button>
-            <Button size="small" type="submit" variant="primary">
+            <Button type="submit" size={buttonSize} variant="primary">
               Save
             </Button>
           </Box>
@@ -504,13 +530,15 @@ const SelectPanelFooter = ({...props}) => {
 }
 
 const SecondaryButton: React.FC<ButtonProps> = props => {
-  return <Button type="button" size="small" block {...props} />
+  const size = useResponsiveValue(responsiveButtonSizes, 'small')
+  return <Button type="button" size={size} block {...props} />
 }
 
 const SecondaryLink: React.FC<LinkProps> = props => {
+  const size = useResponsiveValue(responsiveButtonSizes, 'small')
   return (
     // @ts-ignore TODO: is as prop is not recognised by button?
-    <Button as={Link} size="small" variant="invisible" block {...props} sx={{fontSize: 0}}>
+    <Button as={Link} size={size} variant="invisible" block {...props} sx={{fontSize: 0}}>
       {props.children}
     </Button>
   )
@@ -555,9 +583,9 @@ const SelectPanelSecondaryAction: React.FC<SelectPanelSecondaryActionProps> = ({
   else if (variant === 'checkbox') return <SecondaryCheckbox {...props} />
 }
 
-const SelectPanelLoading: React.FC<{children: string}> = ({children = 'Fetching items...'}) => {
+const SelectPanelLoading = ({children = 'Fetching items...'}: React.PropsWithChildren) => {
   return (
-    <Box
+    <Status
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -571,7 +599,7 @@ const SelectPanelLoading: React.FC<{children: string}> = ({children = 'Fetching 
     >
       <Spinner size="medium" />
       <Text sx={{fontSize: 1, color: 'fg.muted'}}>{children}</Text>
-    </Box>
+    </Status>
   )
 }
 
@@ -617,7 +645,11 @@ const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
           <Octicon icon={AlertIcon} sx={{color: variant === 'error' ? 'danger.fg' : 'attention.fg', marginBottom: 2}} />
         ) : null}
         <Text sx={{fontSize: 1, fontWeight: 'semibold'}}>{title}</Text>
-        <Text sx={{fontSize: 1, color: 'fg.muted'}}>{children}</Text>
+        <Text
+          sx={{fontSize: 1, color: 'fg.muted', display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center'}}
+        >
+          {children}
+        </Text>
       </Box>
     )
   } else {
