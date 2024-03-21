@@ -526,14 +526,17 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
 
       <Box
         sx={{
+          '--content-width': contentWidths[width],
           width: '100%',
-          maxWidth: contentWidths[width],
+          maxWidth: 'calc(var(--content-width) + var(--pane-width))',
+          // maxWidth: contentWidths[width],
           marginX: 'auto',
           flexGrow: 1,
           padding: SPACING_MAP[padding],
         }}
       >
-        {children}
+        {/* {children} */}
+        <Box sx={{maxWidth: 'var(--content-width)', marginRight: 'auto'}}>{children}</Box>
       </Box>
 
       {/* Track the bottom of the content region so we can calculate the height of the pane region */}
@@ -711,6 +714,12 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       }
     }
 
+    const GlobalStyle = createGlobalStyle`
+      :root {
+        --pane-width: ${paneWidth}px;
+      }
+    `
+
     useRefObjectAsForwardedRef(forwardRef, paneRef)
 
     const hasOverflow = useOverflow(paneRef)
@@ -770,6 +779,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           )
         }
       >
+        <GlobalStyle />
         {/* Show a horizontal divider when viewport is narrow. Otherwise, show a vertical divider. */}
         <HorizontalDivider
           variant={{narrow: dividerVariant, regular: 'none'}}
@@ -777,10 +787,10 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         />
         <Box
           ref={paneRef}
-          style={{
-            // @ts-ignore CSS custom properties are not supported by TypeScript
-            '--pane-width': `${paneWidth}px`,
-          }}
+          // style={{
+          //   // @ts-ignore CSS custom properties are not supported by TypeScript
+          //   '--pane-width': `${paneWidth}px`,
+          // }}
           sx={(theme: Theme) => ({
             '--pane-min-width': isCustomWidthOptions(width) ? width.min : `${minWidth}px`,
             '--pane-max-width-diff': '511px',
@@ -789,7 +799,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               ? ['100%', null, 'clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width))']
               : isPaneWidth(width)
               ? paneWidths[width]
-              : width.default,
+              : 'var(--pane-width)',
             padding: SPACING_MAP[padding],
             overflow: [null, null, 'auto'],
 
