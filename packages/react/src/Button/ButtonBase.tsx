@@ -10,7 +10,23 @@ import {StyledButton} from './types'
 import {getVariantStyles, getButtonStyles, getAlignContentSize} from './styles'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import {VisuallyHidden} from '../internal/components/VisuallyHidden'
+import Spinner from '../Spinner'
 import CounterLabel from '../CounterLabel'
+import {useId} from '../hooks'
+import {ConditionalWrapper} from '../internal/components/ConditionalWrapper'
+import {Status} from '../internal/components/Status'
+
+const iconWrapStyles = {
+  display: 'flex',
+  pointerEvents: 'none',
+}
+
+const renderVisual = (Visual: React.ElementType, loading: boolean, visualName: string) => (
+  <Box as="span" data-component={visualName} sx={{...iconWrapStyles}}>
+    {loading ? <Spinner size="small" /> : <Visual />}
+  </Box>
+)
 
 const ButtonBase = forwardRef(
   ({children, as: Component = 'button', sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
@@ -18,13 +34,19 @@ const ButtonBase = forwardRef(
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
       trailingAction: TrailingAction,
+      ['aria-describedby']: ariaDescribedBy,
+      ['aria-labelledby']: ariaLabelledBy,
       count,
       icon: Icon,
+      id,
       variant = 'default',
       size = 'medium',
       alignContent = 'center',
       block = false,
+      loading = false,
+      loadingAnnouncement = 'Loading',
       inactive,
+      onClick,
       ...rest
     } = props
 
@@ -38,10 +60,9 @@ const ButtonBase = forwardRef(
     const sxStyles = useMemo(() => {
       return merge<BetterSystemStyleObject>(baseStyles, sxProp)
     }, [baseStyles, sxProp])
-    const iconWrapStyles = {
-      display: 'flex',
-      pointerEvents: 'none',
-    }
+    const uuid = useId(id)
+    const loadingAnnouncementID = `${uuid}-loading-announcement`
+    const buttonLabelID = ariaLabelledBy || `${uuid}-label`
 
     if (__DEV__) {
       /**
@@ -64,45 +85,63 @@ const ButtonBase = forwardRef(
     }
 
     return (
-      <StyledButton
-        as={Component}
-        sx={sxStyles}
-        {...rest}
-        ref={innerRef}
-        data-block={block ? 'block' : null}
-        data-size={size === 'small' || size === 'large' ? size : undefined}
-        data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
-        data-inactive={inactive ? true : undefined}
-      >
-        {Icon ? (
-          <Icon />
-        ) : (
-          <>
-            <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
-              {LeadingVisual && (
-                <Box as="span" data-component="leadingVisual" sx={{...iconWrapStyles}}>
-                  <LeadingVisual />
+      <ConditionalWrapper if={Boolean(loading)} sx={{display: block ? 'block' : 'inline-block'}} data-loading-wrapper>
+        <StyledButton
+          as={Component}
+          sx={sxStyles}
+          {...rest}
+          ref={innerRef}
+          data-block={block ? 'block' : null}
+          data-inactive={inactive ? true : undefined}
+          data-loading={Boolean(loading)}
+          data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
+          data-size={size === 'small' || size === 'large' ? size : undefined}
+          aria-disabled={loading ? true : undefined}
+          aria-describedby={[loadingAnnouncementID, ariaDescribedBy]
+            .filter(descriptionID => Boolean(descriptionID))
+            .join(' ')}
+          // aria-labelledby is needed because the accessible name becomes unset when the button is in a loading state
+          aria-labelledby={buttonLabelID}
+          id={id}
+          onClick={loading ? undefined : onClick}
+        >
+          {Icon ? (
+            loading ? (
+              <Spinner size="small" />
+            ) : (
+              <Icon />
+            )
+          ) : (
+            <>
+              <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
+                {loading && !LeadingVisual && !TrailingVisual && renderVisual(Spinner, loading, 'loadingSpinner')}
+                {LeadingVisual && renderVisual(LeadingVisual, loading, 'leadingVisual')}
+                {children && (
+                  <span data-component="text" id={buttonLabelID}>
+                    {children}
+                    {count !== undefined && !TrailingVisual && (
+                      <CounterLabel data-component="ButtonCounter" sx={{ml: 2}}>
+                        {count}
+                      </CounterLabel>
+                    )}
+                  </span>
+                )}
+                {TrailingVisual && renderVisual(TrailingVisual, loading && !LeadingVisual, 'trailingVisual')}
+              </Box>
+              {TrailingAction && (
+                <Box as="span" data-component="trailingAction" sx={{...iconWrapStyles}}>
+                  <TrailingAction />
                 </Box>
               )}
-              {children && <span data-component="text">{children}</span>}
-              {count !== undefined && !TrailingVisual ? (
-                <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
-                  <CounterLabel data-component="ButtonCounter">{count}</CounterLabel>
-                </Box>
-              ) : TrailingVisual ? (
-                <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
-                  <TrailingVisual />
-                </Box>
-              ) : null}
-            </Box>
-            {TrailingAction && (
-              <Box as="span" data-component="trailingAction" sx={{...iconWrapStyles}}>
-                <TrailingAction />
-              </Box>
-            )}
-          </>
+            </>
+          )}
+        </StyledButton>
+        {loading && (
+          <VisuallyHidden>
+            <Status id={loadingAnnouncementID}>{loadingAnnouncement}</Status>
+          </VisuallyHidden>
         )}
-      </StyledButton>
+      </ConditionalWrapper>
     )
   },
 ) as PolymorphicForwardRefComponent<'button' | 'a', ButtonProps>
