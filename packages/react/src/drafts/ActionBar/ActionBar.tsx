@@ -83,17 +83,6 @@ const menuItemStyles = {
   textDecoration: 'none',
 }
 
-const moreBtnStyles = {
-  //set margin 0 here because safari puts extra margin around the button, rest is to reset style to make it look like a list element
-  margin: 0,
-  border: 0,
-  background: 'transparent',
-  fontWeight: 'normal',
-  boxShadow: 'none',
-  paddingY: 1,
-  paddingX: 2,
-}
-
 const getValidChildren = (children: React.ReactNode) => {
   return React.Children.toArray(children).filter(child => {
     return React.isValidElement(child)
@@ -209,7 +198,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   const moreMenuRef = useRef<HTMLLIElement>(null)
   const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
   const containerRef = React.useRef<HTMLUListElement>(null)
-  const disclosureWidgetId = React.useId()
 
   const validChildren = getValidChildren(children)
   // Responsive props object manages which items are in the list and which items are in the menu.
@@ -237,36 +225,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
     navWidth !== 0 && overflowEffect(navWidth, moreMenuWidth, validChildren, childWidthArray, updateListAndMenu)
   }, navRef as RefObject<HTMLElement>)
-
-  const [isWidgetOpen, setIsWidgetOpen] = useState(false)
-
-  const closeOverlay = React.useCallback(() => {
-    setIsWidgetOpen(false)
-  }, [setIsWidgetOpen])
-
-  const focusOnMoreMenuBtn = React.useCallback(() => {
-    moreMenuBtnRef.current?.focus()
-  }, [])
-
-  const onAnchorClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
-    if (event.defaultPrevented || event.button !== 0) {
-      return
-    }
-    setIsWidgetOpen(isWidgetOpen => !isWidgetOpen)
-  }, [])
-
-  useOnEscapePress(
-    (event: KeyboardEvent) => {
-      if (isWidgetOpen) {
-        event.preventDefault()
-        closeOverlay()
-        focusOnMoreMenuBtn()
-      }
-    },
-    [isWidgetOpen],
-  )
-
-  useOnOutsideClick({onClickOutside: closeOverlay, containerRef, ignoreClickRefs: [moreMenuBtnRef]})
 
   return (
     <ActionBarContext.Provider value={{size, setChildrenWidth}}>
@@ -319,8 +277,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                             onClick={(
                               event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
                             ) => {
-                              closeOverlay()
-                              focusOnMoreMenuBtn()
                               typeof onClick === 'function' && onClick(event)
                             }}
                           >
