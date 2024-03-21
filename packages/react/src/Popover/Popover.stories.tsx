@@ -1,5 +1,5 @@
 import React from 'react'
-import {Meta, ComponentStory} from '@storybook/react'
+import type {Meta, ComponentStory} from '@storybook/react'
 import Heading from '../Heading'
 import Popover from './Popover'
 import Text from '../Text'

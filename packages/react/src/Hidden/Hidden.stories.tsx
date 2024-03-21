@@ -1,5 +1,5 @@
 import React from 'react'
-import {ComponentMeta, ComponentStory} from '@storybook/react'
+import type {ComponentMeta, ComponentStory} from '@storybook/react'
 
 import Hidden from '.'
 import Text from '../Text'

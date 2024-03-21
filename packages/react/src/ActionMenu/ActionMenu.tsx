@@ -1,15 +1,17 @@
 import React from 'react'
 import {TriangleDownIcon} from '@primer/octicons-react'
-import {AnchoredOverlay, AnchoredOverlayProps} from '../AnchoredOverlay'
-import {OverlayProps} from '../Overlay'
+import type {AnchoredOverlayProps} from '../AnchoredOverlay'
+import {AnchoredOverlay} from '../AnchoredOverlay'
+import type {OverlayProps} from '../Overlay'
 import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigation} from '../hooks'
 import {Divider} from '../ActionList/Divider'
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
-import {Button, ButtonProps} from '../Button'
+import type {ButtonProps} from '../Button'
+import {Button} from '../Button'
 import {useId} from '../hooks/useId'
-import {MandateProps} from '../utils/types'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {Tooltip} from '../drafts/Tooltip/Tooltip'
+import type {MandateProps} from '../utils/types'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {Tooltip} from '../TooltipV2/Tooltip'
 
 export type MenuContextProps = Pick<
   AnchoredOverlayProps,
@@ -104,7 +106,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   )
 }
 
-export type ActionMenuAnchorProps = {children: React.ReactElement}
+export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string}
 const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, ...anchorProps}, anchorRef) => {
   return React.cloneElement(children, {...anchorProps, ref: anchorRef})
 })

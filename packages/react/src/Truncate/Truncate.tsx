@@ -1,9 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
-import {maxWidth, MaxWidthProps} from 'styled-system'
-import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import type {MaxWidthProps} from 'styled-system'
+import {maxWidth} from 'styled-system'
+import type {SxProp} from '../sx'
+import sx from '../sx'
+import type {ComponentProps} from '../utils/types'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 type StyledTruncateProps = {
   title: string

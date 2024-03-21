@@ -1,4 +1,4 @@
-import {Theme} from '../ThemeProvider'
+import type {Theme} from '../ThemeProvider'
 
 // The gap between the list items. It is a constant because the gap is used to calculate the possible number of items that can fit in the container.
 export const GAP = 8
@@ -128,7 +128,7 @@ export const getLinkStyles = (theme?: Theme, ariaCurrent?: string | boolean) => 
 })
 
 export const menuItemStyles = {
-  // This is needed to hide the selected check icon on the menu item. https://github.com/primer/react/blob/main/src/ActionList/Selection.tsx#L32
+  // This is needed to hide the selected check icon on the menu item. https://github.com/primer/react/tree/main/packages/react/src/ActionList/Selection.tsx#L32
   '& > span': {
     display: 'none',
   },

@@ -1,11 +1,10 @@
 import React from 'react'
-import {Story, Meta} from '@storybook/react'
+import type {Story, Meta} from '@storybook/react'
 import PointerBox from './PointerBox'
-import {ComponentProps} from '../utils/types'
+import type {ComponentProps} from '../utils/types'
 
 export default {
   title: 'Components/PointerBox',
-  component: PointerBox,
 } as Meta<typeof PointerBox>
 
 export const Default = () => <PointerBox>Pointer box content</PointerBox>

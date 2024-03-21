@@ -1,6 +1,6 @@
 import React from 'react'
 import InputLabel from '../internal/components/InputLabel'
-import {SxProp} from '../sx'
+import type {SxProp} from '../sx'
 import {useFormControlContext} from './_FormControlContext'
 
 export type Props = {

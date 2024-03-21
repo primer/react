@@ -1,5 +1,5 @@
 import React from 'react'
-import {ComponentStory, Meta} from '@storybook/react'
+import type {ComponentStory, Meta} from '@storybook/react'
 import Text from './Text'
 
 export default {

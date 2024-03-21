@@ -1,5 +1,6 @@
 import React from 'react'
-import Tooltip, {TooltipProps} from './Tooltip'
+import type {TooltipProps} from './Tooltip'
+import Tooltip from './Tooltip'
 import {render, renderClasses, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import {axe} from 'jest-axe'

@@ -1,6 +1,7 @@
-import React from 'react'
+import type React from 'react'
 import styled from 'styled-components'
-import sx, {SxProp} from '../sx'
+import type {SxProp} from '../sx'
+import sx from '../sx'
 import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 
 export const StyledButton = styled.button<SxProp>`
@@ -36,6 +37,14 @@ export type ButtonBaseProps = {
    */
   block?: boolean
   /**
+   * When true, the button is in a loading state.
+   */
+  loading?: boolean
+  /**
+   * The content to announce to screen readers when loading.
+   */
+  loadingAnnouncement?: string
+  /*
    * Whether the button looks visually disabled, but can still accept all the same
    * interactions as an enabled button.
    */
