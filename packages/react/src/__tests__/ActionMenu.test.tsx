@@ -94,14 +94,18 @@ function ExampleWithSubmenus(): JSX.Element {
                 <ActionList.Divider />
                 <ActionList.Item>Paste</ActionList.Item>
                 <ActionMenu>
-                  <ActionMenu.MenuItemAnchor>Paste special</ActionMenu.MenuItemAnchor>
+                  <ActionMenu.Anchor>
+                    <ActionList.Item>Paste special</ActionList.Item>
+                  </ActionMenu.Anchor>
                   <ActionMenu.Overlay>
                     <ActionList>
                       <ActionList.Item>Paste plain text</ActionList.Item>
                       <ActionList.Item>Paste formulas</ActionList.Item>
                       <ActionList.Item>Paste with formatting</ActionList.Item>
                       <ActionMenu>
-                        <ActionMenu.MenuItemAnchor>Paste from</ActionMenu.MenuItemAnchor>
+                        <ActionMenu.Anchor>
+                          <ActionList.Item>Paste from</ActionList.Item>
+                        </ActionMenu.Anchor>
                         <ActionMenu.Overlay>
                           <ActionList>
                             <ActionList.Item

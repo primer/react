@@ -1,6 +1,15 @@
 import React from 'react'
 import {ActionMenu, ActionList, Box} from '../'
-import {WorkflowIcon, ArchiveIcon, GearIcon, CopyIcon, RocketIcon, CommentIcon, BookIcon} from '@primer/octicons-react'
+import {
+  WorkflowIcon,
+  ArchiveIcon,
+  GearIcon,
+  CopyIcon,
+  RocketIcon,
+  CommentIcon,
+  BookIcon,
+  SparkleFillIcon,
+} from '@primer/octicons-react'
 
 export default {
   title: 'Components/ActionMenu/Features',
@@ -189,14 +198,23 @@ export const Submenus = () => (
         <ActionList.Item>Copy</ActionList.Item>
         <ActionList.Item>Paste</ActionList.Item>
         <ActionMenu>
-          <ActionMenu.MenuItemAnchor>Paste special</ActionMenu.MenuItemAnchor>
+          <ActionMenu.Anchor>
+            <ActionList.Item>
+              <ActionList.LeadingVisual>
+                <SparkleFillIcon />
+              </ActionList.LeadingVisual>
+              Paste special
+            </ActionList.Item>
+          </ActionMenu.Anchor>
           <ActionMenu.Overlay>
             <ActionList>
               <ActionList.Item>Paste plain text</ActionList.Item>
               <ActionList.Item>Paste formulas</ActionList.Item>
               <ActionList.Item>Paste with formatting</ActionList.Item>
               <ActionMenu>
-                <ActionMenu.MenuItemAnchor>Paste from</ActionMenu.MenuItemAnchor>
+                <ActionMenu.Anchor>
+                  <ActionList.Item>Paste from</ActionList.Item>
+                </ActionMenu.Anchor>
                 <ActionMenu.Overlay>
                   <ActionList>
                     <ActionList.Item>Current clipboard</ActionList.Item>

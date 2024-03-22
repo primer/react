@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useCallback, useContext} from 'react'
 import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -12,7 +12,7 @@ import {useId} from '../hooks/useId'
 import type {MandateProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {Tooltip} from '../TooltipV2/Tooltip'
-import {ActionList, type ActionListItemProps} from '../ActionList'
+import {ActionList} from '../ActionList'
 
 export type MenuCloseHandler = (
   gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select' | 'arrow-left',
@@ -111,7 +111,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
         renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
       }
       return null
-    } else if (child.type === MenuButton || child.type === MenuItemAnchor) {
+    } else if (child.type === MenuButton) {
       renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
       return null
     } else {
@@ -139,7 +139,36 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
 
 export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string}
 const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, ...anchorProps}, anchorRef) => {
-  return React.cloneElement(children, {...anchorProps, ref: anchorRef})
+  const {onOpen, isSubmenu} = React.useContext(MenuContext)
+
+  const openSubmenuOnRightArrow: React.KeyboardEventHandler<HTMLElement> = useCallback(
+    event => {
+      children.props.onKeyDown?.(event)
+      if (isSubmenu && event.key === 'ArrowRight' && !event.defaultPrevented) onOpen?.('anchor-key-press')
+    },
+    [children, isSubmenu, onOpen],
+  )
+
+  // Add right chevron icon to submenu anchors (note that unlike other anchor logic this doesn't work if the menu
+  // item is wrapped in Tooltip [see logic in top-level `ActionMenu` component], which is OK here since tooltips are
+  // really not a good idea inside submenus)
+  const grandChildren =
+    isSubmenu && children.type === ActionList.Item
+      ? [
+          children.props.children,
+          // eslint-disable-next-line primer-react/direct-slot-children
+          <ActionList.TrailingVisual key="trailingVisual">
+            <ChevronRightIcon />
+          </ActionList.TrailingVisual>,
+        ]
+      : children.props.children
+
+  return React.cloneElement(children, {
+    ...anchorProps,
+    ref: anchorRef,
+    onKeyDown: openSubmenuOnRightArrow,
+    children: grandChildren,
+  })
 })
 
 /** this component is syntactical sugar 🍭 */
@@ -153,30 +182,6 @@ const MenuButton = React.forwardRef(({...props}, anchorRef) => {
     </Anchor>
   )
 }) as PolymorphicForwardRefComponent<'button', ActionMenuButtonProps>
-
-export type MenuItemAnchorProps = ActionListItemProps
-const MenuItemAnchor = React.forwardRef(({children, onKeyDown: externalOnKeyDown, ...props}, anchorRef) => {
-  const {onOpen} = React.useContext(MenuContext)
-
-  /** Treat right arrow key press as click. */
-  const onKeyDown: React.KeyboardEventHandler<HTMLLIElement> = event => {
-    externalOnKeyDown?.(event)
-    if (event.key === 'ArrowRight' && !event.defaultPrevented) onOpen?.('anchor-key-press')
-  }
-
-  return (
-    <Anchor ref={anchorRef}>
-      <ActionList.Item {...props} onKeyDown={onKeyDown}>
-        {/* Slots will grab the first TrailingVisual encountered. so by putting children first we allow the consumer
-        to override the chevron icon. */}
-        {children}
-        <ActionList.TrailingVisual>
-          <ChevronRightIcon />
-        </ActionList.TrailingVisual>
-      </ActionList.Item>
-    </Anchor>
-  )
-}) as PolymorphicForwardRefComponent<'li', MenuItemAnchorProps>
 
 type MenuOverlayProps = Partial<OverlayProps> &
   Pick<AnchoredOverlayProps, 'align' | 'side'> & {
@@ -238,4 +243,4 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
 }
 
 Menu.displayName = 'ActionMenu'
-export const ActionMenu = Object.assign(Menu, {Button: MenuButton, MenuItemAnchor, Anchor, Overlay, Divider})
+export const ActionMenu = Object.assign(Menu, {Button: MenuButton, Anchor, Overlay, Divider})
