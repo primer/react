@@ -238,6 +238,12 @@ describe('Button', () => {
     }, 0)
   })
 
+  it('allows the consumer to override `aria-disabled`', () => {
+    const container = render(<Button aria-disabled>content</Button>)
+
+    expect(container.getByRole('button')).toHaveAttribute('aria-disabled', 'true')
+  })
+
   it('should preserve the accessible button name when the button is in a loading state', () => {
     const container = render(<Button loading>content</Button>)
 
