@@ -366,19 +366,13 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
     }
   }, [inputProps.id])
 
-  const selectPanelButtonId = `${inputProps.id}--select-panel-button`
   const punctuationId = `${inputProps.id}--select-panel-button-punctuation`
   const punctuation = ','
   if (inputProps.id && labelId) {
     return (
       <>
         <VisuallyHidden id={punctuationId}>{punctuation}</VisuallyHidden>
-        <Button
-          ref={anchorRef}
-          aria-labelledby={`${labelId} ${punctuationId} ${selectPanelButtonId}`}
-          {...inputProps}
-          id={selectPanelButtonId}
-        />
+        <Button ref={anchorRef} aria-labelledby={`${labelId} ${punctuationId} ${inputProps.id}`} {...inputProps} />
       </>
     )
   } else {
