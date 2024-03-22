@@ -13,6 +13,7 @@ export default {
     title: 'Select labels',
     selectionVariant: 'multiple',
     secondaryActionVariant: 'button',
+    variant: {regular: 'anchored', narrow: 'full-screen'},
   },
   argTypes: {
     secondaryActionVariant: {
@@ -93,6 +94,7 @@ export const Playground: StoryFn = args => {
       <SelectPanel
         title={args.title}
         description={args.description}
+        variant={args.variant}
         selectionVariant={args.selectionVariant}
         onSubmit={onSubmit}
         onCancel={onCancel}

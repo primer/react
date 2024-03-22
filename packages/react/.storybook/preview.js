@@ -5,7 +5,6 @@ import clsx from 'clsx'
 
 import './storybook.css'
 import './primitives-v8.css'
-import './primitives-v7.css'
 
 let storybookViewports = {}
 Object.entries(PrimerBreakpoints).forEach(([viewport, value]) => {
