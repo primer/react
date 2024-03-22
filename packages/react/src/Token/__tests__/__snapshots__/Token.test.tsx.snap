@@ -206,7 +206,6 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
       fill="currentColor"
       focusable="false"
       height={12}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -432,7 +431,6 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
       fill="currentColor"
       focusable="false"
       height={15}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -658,7 +656,6 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
       fill="currentColor"
       focusable="false"
       height={18}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -886,7 +883,6 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
       fill="currentColor"
       focusable="false"
       height={24}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -1240,7 +1236,6 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
       fill="currentColor"
       focusable="false"
       height={15}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -1413,7 +1408,6 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
       fill="currentColor"
       focusable="false"
       height={12}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -1586,7 +1580,6 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
       fill="currentColor"
       focusable="false"
       height={15}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -1759,7 +1752,6 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
       fill="currentColor"
       focusable="false"
       height={18}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -1934,7 +1926,6 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
       fill="currentColor"
       focusable="false"
       height={24}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -2107,7 +2098,6 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
       fill="currentColor"
       focusable="false"
       height={15}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -2280,7 +2270,6 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
       fill="currentColor"
       focusable="false"
       height={15}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -2564,7 +2553,6 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
       fill="currentColor"
       focusable="false"
       height={15}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -2744,7 +2732,6 @@ exports[`Token components Token renders all sizes 1`] = `
       fill="currentColor"
       focusable="false"
       height={12}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -2924,7 +2911,6 @@ exports[`Token components Token renders all sizes 2`] = `
       fill="currentColor"
       focusable="false"
       height={15}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -3104,7 +3090,6 @@ exports[`Token components Token renders all sizes 3`] = `
       fill="currentColor"
       focusable="false"
       height={18}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -3286,7 +3271,6 @@ exports[`Token components Token renders all sizes 4`] = `
       fill="currentColor"
       focusable="false"
       height={24}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -3649,7 +3633,6 @@ exports[`Token components Token renders with a remove button 1`] = `
       fill="currentColor"
       focusable="false"
       height={15}
-      role="img"
       style={
         {
           "display": "inline-block",
