@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import type {EventName} from '@lit-labs/react'
 import {createComponent as create} from '@lit-labs/react'
 import sx, {type SxProp} from '../sx'
+import type { d } from '@storybook/channels/dist/main-c55d8855'
 
 export interface ElementRender {
   renderShadow(): string
@@ -40,11 +41,13 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
 
   if (hasShadow(elementClass)) {
     // Generate a key for the template
-    const key = Math.random().toString(36).slice(2)
+    const templateKey = Math.random().toString(36).slice(2)
+    const divKey = Math.random().toString(36).slice(2)
     const dangerouslySetInnerHTML = {__html: elementClass.renderShadow()}
+    const div = React.createElement('div', {dangerouslySetInnerHTML, key: divKey})
     return ({children, ...props}: React.ComponentProps<typeof Output> & SxProp) => {
       const {shadowrootmode = 'open', ...templateProps} = elementClass.shadowRootOptions || {}
-      const template = React.createElement('template', {shadowrootmode, key, dangerouslySetInnerHTML, ...templateProps})
+      const template = React.createElement('template', {shadowrootmode, key: templateKey, ...templateProps}, [div])
       // @ts-ignore - Type instantiation is excessively deep and possibly infinite
       return React.createElement(Output, props, [template, ...children])
     }
