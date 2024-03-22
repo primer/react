@@ -44,10 +44,12 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
     const templateKey = Math.random().toString(36).slice(2)
     const divKey = Math.random().toString(36).slice(2)
     const dangerouslySetInnerHTML = {__html: elementClass.renderShadow()}
-    const div = React.createElement('div', {dangerouslySetInnerHTML, key: divKey})
+    // const div = React.createElement('div', {dangerouslySetInnerHTML, key: divKey})
+    // const documentFragment = new DocumentFragment()
+    // documentFragment.appendChild(div)
     return ({children, ...props}: React.ComponentProps<typeof Output> & SxProp) => {
       const {shadowrootmode = 'open', ...templateProps} = elementClass.shadowRootOptions || {}
-      const template = React.createElement('template', {shadowrootmode, key: templateKey, ...templateProps}, [div])
+      const template = React.createElement('template', {shadowrootmode, key: templateKey, dangerouslySetInnerHTML, ...templateProps})
       // @ts-ignore - Type instantiation is excessively deep and possibly infinite
       return React.createElement(Output, props, [template, ...children])
     }
