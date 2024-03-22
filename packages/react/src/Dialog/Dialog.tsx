@@ -132,6 +132,11 @@ export interface DialogProps extends SxProp {
    * The position of the dialog
    */
   position?: 'center' | 'left' | 'right' | ResponsiveValue<'left' | 'right' | 'bottom' | 'fullscreen' | 'center'>
+
+  /**
+   * Return focus to this element when the Dialog closes
+   */
+  returnFocusRef?: React.RefObject<HTMLElement>
 }
 
 /**
@@ -396,6 +401,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     height = 'auto',
     footerButtons = [],
     position = defaultPosition,
+    returnFocusRef,
     sx,
   } = props
   const dialogLabelId = useId()
@@ -411,7 +417,13 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const dialogRef = useRef<HTMLDivElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, dialogRef)
   const backdropRef = useRef<HTMLDivElement>(null)
-  useFocusTrap({containerRef: dialogRef, restoreFocusOnCleanUp: true, initialFocusRef: autoFocusedFooterButtonRef})
+
+  useFocusTrap({
+    containerRef: dialogRef,
+    initialFocusRef: autoFocusedFooterButtonRef,
+    restoreFocusOnCleanUp: returnFocusRef?.current ? false : true,
+    returnFocusRef,
+  })
 
   useOnEscapePress(
     (event: KeyboardEvent) => {
