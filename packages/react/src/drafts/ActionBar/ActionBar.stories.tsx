@@ -196,7 +196,7 @@ export const ActionbarToggle = () => {
   }
   const loginName = mockData.collaborators[1].login
   const [showEditView, setEditView] = React.useState(false)
-  const [description, setDescription] = React.useState('')
+  const [description /*, setDescription*/] = React.useState('')
   const anchorRef = React.useRef(null)
   return (
     <Box sx={descriptionStyles}>

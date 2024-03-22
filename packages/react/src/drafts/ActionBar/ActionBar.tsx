@@ -62,29 +62,15 @@ const listStyles = {
   position: 'relative',
 }
 
-const menuStyles = {
-  position: 'absolute',
-  zIndex: 1,
-  top: '90%',
-  right: '0',
-  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
-  borderRadius: '12px',
-  backgroundColor: 'canvas.overlay',
-  listStyle: 'none',
-  // Values are from ActionMenu
-  minWidth: '192px',
-  maxWidth: '640px',
-}
-
 const MORE_BTN_WIDTH = 86
-const getNavStyles = () => ({
+const navStyles = {
   display: 'flex',
   paddingX: 3,
   justifyContent: 'flex-end',
   align: 'row',
   alignItems: 'center',
   maxHeight: '32px',
-})
+}
 
 const menuItemStyles = {
   textDecoration: 'none',
@@ -187,7 +173,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   const moreMenuRef = useRef<HTMLLIElement>(null)
   const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
   const containerRef = React.useRef<HTMLUListElement>(null)
-  const disclosureWidgetId = React.useId()
 
   const validChildren = getValidChildren(children)
   // Responsive props object manages which items are in the list and which items are in the menu.
@@ -241,7 +226,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
 
   return (
     <ActionBarContext.Provider value={{size, setChildrenWidth}}>
-      <Box ref={navRef} sx={getNavStyles()}>
+      <Box ref={navRef} sx={navStyles}>
         <NavigationList sx={listStyles} ref={listRef} role="toolbar">
           {listItems}
           {menuItems.length > 0 && (
