@@ -5,6 +5,7 @@ import {Dialog} from './Dialog'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {axe} from 'jest-axe'
+import {Button} from '../Button'
 
 let matchMedia: MatchMediaMock
 
@@ -123,5 +124,76 @@ describe('Dialog', () => {
     const {getByRole} = render(<Dialog onClose={() => {}} position={{narrow: 'bottom', regular: 'center'}} />)
     expect(getByRole('dialog')).toHaveAttribute('data-position-narrow', 'bottom')
     expect(getByRole('dialog')).toHaveAttribute('data-position-regular', 'center')
+  })
+
+  it('automatically returns focus to the trigger element when the dialog closes', async () => {
+    const Fixture = () => {
+      const [isOpen, setIsOpen] = React.useState(false)
+
+      return (
+        <>
+          <Button onClick={() => setIsOpen(true)}>Open dialog</Button>
+          {isOpen && (
+            <Dialog title="title" onClose={() => setIsOpen(false)}>
+              body
+            </Dialog>
+          )}
+        </>
+      )
+    }
+
+    const {getByRole, getByLabelText, queryByRole} = render(<Fixture />)
+    const triggerButton = getByRole('button', {name: 'Open dialog'})
+
+    const user = userEvent.setup()
+    await user.tab() // tab into the story, this should focus on the first button
+    expect(triggerButton).toHaveFocus()
+
+    await user.click(triggerButton)
+    await waitFor(() => expect(getByRole('dialog')).toBeInTheDocument())
+
+    await user.click(getByLabelText('Close'))
+
+    expect(queryByRole('dialog')).toBeNull()
+    expect(triggerButton).toHaveFocus()
+  })
+
+  it('returns focus to the element passed in returnFocusRef when the dialog closes', async () => {
+    const Fixture = () => {
+      const [isOpen, setIsOpen] = React.useState(false)
+      const triggerRef = React.useRef<HTMLButtonElement>(null)
+
+      if (!isOpen) {
+        return (
+          <Button variant="primary" onClick={() => setIsOpen(true)}>
+            Show dialog (button 1)
+          </Button>
+        )
+      } else {
+        return (
+          <>
+            <Button variant="primary" ref={triggerRef}>
+              Show dialog (button 2)
+            </Button>
+            <Dialog title="title" onClose={() => setIsOpen(false)} returnFocusRef={triggerRef}>
+              body
+            </Dialog>
+          </>
+        )
+      }
+    }
+
+    const {getByRole, getByLabelText} = render(<Fixture />)
+    const triggerButton = getByRole('button', {name: 'Show dialog (button 1)'})
+
+    const user = userEvent.setup()
+    await user.tab() // tab into the story, this should focus on the first button
+    expect(triggerButton).toHaveFocus()
+
+    await user.click(triggerButton)
+    await user.click(getByLabelText('Close'))
+
+    expect(triggerButton).toNotHaveFocus()
+    expect(getByRole('button', {name: 'Show dialog (button 2)'})).toHaveFocus()
   })
 })
