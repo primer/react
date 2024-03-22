@@ -134,7 +134,8 @@ export interface DialogProps extends SxProp {
   position?: 'center' | 'left' | 'right' | ResponsiveValue<'left' | 'right' | 'bottom' | 'fullscreen' | 'center'>
 
   /**
-   * Return focus to this element when the Dialog closes
+   * Return focus to this element when the Dialog closes,
+   * instead of the element that had focus immediately before the Dialog opened
    */
   returnFocusRef?: React.RefObject<HTMLElement>
 }
