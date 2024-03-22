@@ -29,6 +29,7 @@
     "test:coverage": "npm run test -- --coverage",
     "test:type-check": "tsc --noEmit",
     "type-check": "tsc --noEmit && npm run type-check -ws --if-present",
+    "type-version": "tsc --version",
     "release": "npm run build && changeset publish",
     "size": "size-limit",
     "prepare": "husky install"
@@ -95,5 +96,8 @@
   ],
   "lint-staged": {
     "**/*.{js,ts,tsx,md,mdx}": "npm run lint"
+  },
+  "dependencies": {
+    "@github/tab-container-element": "file:../tab-container-element"
   }
 }

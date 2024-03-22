@@ -11,7 +11,8 @@ import getGlobalFocusStyles from '../../internal/utils/getGlobalFocusStyles'
 
 const TAB_CLASS = 'TabPanel-tab'
 
-const TabContainer = styled(createComponent(TabContainerElement, 'tab-container'))`
+const tabContainerElement = createComponent(TabContainerElement, 'tab-container')
+const TabContainer = styled(tabContainerElement)`
   & > :not([role='tabpanel']) {
     display: inline-block;
   }
@@ -101,13 +102,13 @@ function TabPanels({children, defaultTabIndex, ...props}: TabPanelsProps) {
   const childrenWithProps = React.Children.map(children, child => {
     if (React.isValidElement<TabPanelsTabProps>(child) && child.type === Tab && !child.props.id) {
       if (props.selectedTabIndex === tabIndex) {
-        return React.cloneElement(child, {id: `${parentId}-tab-${tabIndex++}`, selected: true})
+        return React.cloneElement(child, {id: `${parentId}-tab-${tabIndex++}`, selected: true, slot: 'tablist'})
       }
 
-      return React.cloneElement(child, {id: `${parentId}-tab-${tabIndex++}`})
+      return React.cloneElement(child, {id: `${parentId}-tab-${tabIndex++}`, slot: 'tablist'})
     }
     if (React.isValidElement<TabPanelsPanelProps>(child) && child.type === Panel && !child.props['aria-labelledby']) {
-      return React.cloneElement(child, {'aria-labelledby': `${parentId}-tab-${panelIndex++}`})
+      return React.cloneElement(child, {'aria-labelledby': `${parentId}-tab-${panelIndex++}`, slot: 'panel'})
     }
     return child
   })
@@ -124,6 +125,7 @@ function TabPanels({children, defaultTabIndex, ...props}: TabPanelsProps) {
 export type TabPanelsTabProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
   id?: string
   selected?: boolean
+  slot?: string
 } & SxProp
 
 const Tab = styled.button.attrs<TabPanelsTabProps>(props => ({
@@ -165,6 +167,7 @@ Tab.displayName = 'TabPanels.Tab'
 export type TabPanelsPanelProps = {
   'aria-labelledby'?: string
   children: React.ReactNode
+  slot?: string
 } & SxProp
 
 const Panel = styled.div.attrs<TabPanelsPanelProps>(props => ({

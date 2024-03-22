@@ -12,7 +12,7 @@ export interface ElementRender {
   }
 }
 
-function isElementRender(elementClass: unknown): elementClass is ElementRender {
+function hasShadow(elementClass: object): elementClass is ElementRender {
   return 'renderShadow' in elementClass && typeof elementClass.renderShadow === 'function'
 }
 
@@ -38,17 +38,19 @@ export const createComponent = <I extends HTMLElement, E extends EventNames = {}
     },
   )
 
-  if (isElementRender(elementClass)) {
+  if (hasShadow(elementClass)) {
+    // Generate a key for the template
+    const key = Math.random().toString(36).slice(2)
+    const dangerouslySetInnerHTML = {__html: elementClass.renderShadow()}
     return ({children, ...props}: React.ComponentProps<typeof Output> & SxProp) => {
       const {shadowrootmode = 'open', ...templateProps} = elementClass.shadowRootOptions || {}
-      return React.createElement(Output, props, [
-        React.createElement('template', {shadowrootmode, ...templateProps}),
-        ...children,
-      ])
+      const template = React.createElement('template', {shadowrootmode, key, dangerouslySetInnerHTML, ...templateProps})
+      // @ts-ignore - Type instantiation is excessively deep and possibly infinite
+      return React.createElement(Output, props, [template, ...children])
     }
   }
 
-  return Output as React.ComponentType<React.ComponentProps<typeof Output> & SxProp>
+  return Output
 }
 
 export default createComponent
