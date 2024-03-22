@@ -71,7 +71,9 @@ export const StyledOverlay = styled.div<StyledOverlayProps>`
   border-radius: 12px;
   overflow: ${props => (props.overflow ? props.overflow : 'hidden')};
   animation: overlay-appear ${animationDuration}ms ${get('animation.easeOutCubic')};
+  animation-fill-mode: forwards;
 
+  opacity: 0;
   @keyframes overlay-appear {
     0% {
       opacity: 0;

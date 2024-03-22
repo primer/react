@@ -26,6 +26,7 @@ export function useAnchoredPosition(
   floatingElementRef: React.RefObject<Element>
   anchorElementRef: React.RefObject<Element>
   position: AnchorPosition | undefined
+  updatePosition: () => void
 } {
   const floatingElementRef = useProvidedRefOrCreate(settings?.floatingElementRef)
   const anchorElementRef = useProvidedRefOrCreate(settings?.anchorElementRef)
@@ -51,5 +52,6 @@ export function useAnchoredPosition(
     floatingElementRef,
     anchorElementRef,
     position,
+    updatePosition,
   }
 }
