@@ -371,7 +371,9 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
   if (inputProps.id && labelId) {
     return (
       <>
-        <VisuallyHidden id={punctuationId}>{punctuation}</VisuallyHidden>
+        <VisuallyHidden id={punctuationId} aria-hidden="true">
+          {punctuation}
+        </VisuallyHidden>
         <Button ref={anchorRef} aria-labelledby={`${labelId} ${punctuationId} ${inputProps.id}`} {...inputProps} />
       </>
     )
