@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import type {EventName} from '@lit-labs/react'
 import {createComponent as create} from '@lit-labs/react'
 import sx, {type SxProp} from '../sx'
-import type { d } from '@storybook/channels/dist/main-c55d8855'
 
 export interface ElementRender {
   renderShadow(): string
