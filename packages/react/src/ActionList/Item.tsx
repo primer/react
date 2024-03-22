@@ -320,7 +320,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                     id={labelId}
                     sx={{
                       flexGrow: slots.inlineDescription ? 0 : 1,
-                      fontWeight: slots.inlineDescription || slots.blockDescription ? 'bold' : 'normal',
+                      fontWeight: slots.inlineDescription || slots.blockDescription || active ? 'bold' : 'normal',
                       marginBlockEnd: slots.blockDescription ? '4px' : undefined,
                     }}
                   >
