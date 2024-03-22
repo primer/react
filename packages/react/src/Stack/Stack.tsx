@@ -507,6 +507,9 @@ const StyledStackItem = styled.div`
   }
 `
 
+type ExpandScale = 'true' | 'false'
+type Expand = ExpandScale | ResponsiveValue<ExpandScale>
+
 type StackItemProps<As> = React.PropsWithChildren<{
   /**
    * Customize the element type of the rendered container
@@ -515,15 +518,17 @@ type StackItemProps<As> = React.PropsWithChildren<{
 
   /**
    * Allow item to keep size or expand to fill the available space
-   * @default true
+   * @default false
    */
-  expand?: boolean
+
+  // someone help make this a boolean
+  expand?: Expand
 }>
 
 function StackItem<As extends ElementType>({
   as,
   children,
-  expand = true,
+  expand = 'false',
   ...rest
 }: StackItemProps<As> & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>) {
   const BaseComponent = as ?? 'div'

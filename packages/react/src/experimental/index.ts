@@ -2,5 +2,5 @@
 
 export * from '../drafts'
 
-export {Stack} from '../Stack'
-export type {StackProps} from '../Stack'
+export {Stack, StackItem} from '../Stack'
+export type {StackProps, StackItemProps} from '../Stack'

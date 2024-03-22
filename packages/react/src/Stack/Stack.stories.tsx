@@ -393,13 +393,127 @@ export const Playground: Story = {
       align={{narrow: args.alignNarrow, regular: args.alignRegular, wide: args.alignWide}}
       spread={{narrow: args.spreadNarrow, regular: args.spreadRegular, wide: args.spreadWide}}
       wrap={{narrow: args.wrapNarrow, regular: args.wrapRegular, wide: args.wrapWide}}
+      className="demoStack"
     >
-      <StackItem expand={{narrow: false}}>
-        <div style={{background: 'pink'}}>First</div>
+      <div
+        style={{
+          background: 'var(--display-lemon-bgColor-muted)',
+          borderRadius: 'var(--borderRadius-medium)',
+          padding: 'var(--base-size-8)',
+        }}
+      >
+        First
+      </div>
+      <div
+        style={{
+          background: 'var(--display-olive-bgColor-muted)',
+          borderRadius: 'var(--borderRadius-medium)',
+          padding: 'var(--base-size-8)',
+        }}
+      >
+        Second
+      </div>
+      <div
+        style={{
+          background: 'var(--display-lime-bgColor-muted)',
+          borderRadius: 'var(--borderRadius-medium)',
+          padding: 'var(--base-size-8)',
+        }}
+      >
+        Third
+      </div>
+    </Stack>
+  ),
+}
+
+export const StackItemPlayground: Story = {
+  args: {
+    expand: true,
+    expandNarrow: true,
+    expandRegular: true,
+    expandWide: true,
+  },
+  argTypes: {
+    expand: {
+      control: {
+        type: 'boolean',
+      },
+      table: {
+        category: 'Properties',
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    expandNarrow: {
+      control: {
+        type: 'boolean',
+      },
+      table: {
+        category: 'Narrow properties',
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    expandRegular: {
+      control: {
+        type: 'boolean',
+      },
+      table: {
+        category: 'Regular properties',
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    expandWide: {
+      control: {
+        type: 'boolean',
+      },
+      table: {
+        category: 'Wide properties',
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+  },
+  render: args => (
+    <Stack gap="normal" orientation="horizontal" align="center" spread="distribute" wrap="nowrap">
+      <StackItem expand={{narrow: args.expandNarrow, regular: args.expandRegular, wide: args.expandWide}}>
+        <div
+          style={{
+            background: 'var(--display-indigo-bgColor-muted)',
+            borderRadius: 'var(--borderRadius-medium)',
+            padding: 'var(--base-size-8)',
+          }}
+        >
+          Adjust this item
+        </div>
       </StackItem>
-      <div style={{background: 'pink'}}>First</div>
-      <div style={{background: 'orange'}}>Second</div>
-      <div style={{background: 'yellow'}}>Third</div>
+      <StackItem>
+        <div
+          style={{
+            background: 'var(--display-purple-bgColor-muted)',
+            borderRadius: 'var(--borderRadius-medium)',
+            padding: 'var(--base-size-8)',
+          }}
+        >
+          Fixed width
+        </div>
+      </StackItem>
+      <StackItem>
+        <div
+          style={{
+            background: 'var(--display-purple-bgColor-muted)',
+            borderRadius: 'var(--borderRadius-medium)',
+            padding: 'var(--base-size-8)',
+          }}
+        >
+          Fixed width
+        </div>
+      </StackItem>
     </Stack>
   ),
 }
