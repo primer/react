@@ -59,11 +59,32 @@ const Fixture = ({onSubmit, onCancel}: Pick<SelectPanelProps, 'onSubmit' | 'onCa
   )
 }
 
-function SelectPanelWithForm(): JSX.Element {
+function SelectPanelWithinForm(): JSX.Element {
   return (
     <FormControl>
       <FormControl.Label>Select Panel Label</FormControl.Label>
       <Fixture />
+    </FormControl>
+  )
+}
+
+function SelectPanelWithComplexButtonWithinForm(): JSX.Element {
+  return (
+    <FormControl>
+      <FormControl.Label>Select Panel Label</FormControl.Label>
+      <SelectPanel title="Select labels" onSubmit={() => {}} onCancel={() => {}}>
+        <SelectPanel.Button>
+          <div>Assign label</div>
+        </SelectPanel.Button>
+
+        <ActionList>
+          <ActionList.Item key={'Item'} onSelect={() => {}} selected={true}>
+            Item
+            <ActionList.Description variant="block">Item description</ActionList.Description>
+          </ActionList.Item>
+        </ActionList>
+        <SelectPanel.Footer />
+      </SelectPanel>
     </FormControl>
   )
 }
@@ -159,10 +180,20 @@ describe('SelectPanel', () => {
   })
 
   it('SelectPanel within FormControl should be labelled by FormControl.Label', async () => {
-    const component = render(<SelectPanelWithForm />)
-    const button = component.getByLabelText('Select Panel Label')
-    expect(button).toBeVisible()
+    const component = render(<SelectPanelWithinForm />)
+    const buttonByLabel = component.getByLabelText('Select Panel Label')
     const buttonByRole = component.getByRole('button')
-    expect(button.id).toBe(buttonByRole.id)
+    expect(buttonByLabel.id).toBe(buttonByRole.id)
+    expect(buttonByLabel).toBeVisible()
+    expect(buttonByLabel).toHaveAttribute('aria-label', 'Select Panel Label, Assign label')
+  })
+
+  it('SelectPanel with complex button within FormControl should be labelled by FormControl.Label', async () => {
+    const component = render(<SelectPanelWithComplexButtonWithinForm />)
+    const buttonByLabel = component.getByLabelText('Select Panel Label')
+    const buttonByRole = component.getByRole('button')
+    expect(buttonByLabel.id).toBe(buttonByRole.id)
+    expect(buttonByLabel).toBeVisible()
+    expect(buttonByLabel).toHaveAttribute('aria-label', 'Select Panel Label, Assign label')
   })
 })
