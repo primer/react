@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, type MutableRefObject} from 'react'
 import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon, AlertIcon, ArrowLeftIcon} from '@primer/octicons-react'
 
 import type {ButtonProps, TextInputProps, ActionListProps, LinkProps, CheckboxProps} from '../../index'
@@ -26,7 +26,6 @@ import {invariant} from '../../utils/invariant'
 import {Status} from '../../internal/components/Status'
 import {useResponsiveValue} from '../../hooks/useResponsiveValue'
 import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
-import VisuallyHidden from '../../_VisuallyHidden'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -352,30 +351,21 @@ const Panel: React.FC<SelectPanelProps> = ({
 
 const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((props, anchorRef) => {
   const inputProps = useFormControlForwardedProps(props)
-  const [labelId, setLabelId] = useState('')
+  const [labelText, setLabelText] = useState('')
   useEffect(() => {
     const label = document.querySelector(`[for='${inputProps.id}']`)
-    if (label) {
-      if (label.id) {
-        setLabelId(label.id)
-      } else {
-        const newLabelId = `${inputProps.id}--select-panel-button-label`
-        label.id = newLabelId
-        setLabelId(newLabelId)
-      }
+    if (label?.textContent) {
+      setLabelText(label.textContent)
     }
   }, [inputProps.id])
 
-  const punctuationId = `${inputProps.id}--select-panel-button-punctuation`
-  const punctuation = ','
-  if (inputProps.id && labelId) {
+  if (labelText && inputProps.children) {
     return (
-      <>
-        <VisuallyHidden id={punctuationId} aria-hidden="true">
-          {punctuation}
-        </VisuallyHidden>
-        <Button ref={anchorRef} aria-labelledby={`${labelId} ${punctuationId} ${inputProps.id}`} {...inputProps} />
-      </>
+      <Button
+        ref={anchorRef}
+        aria-label={`${labelText}, ${(anchorRef as MutableRefObject<HTMLButtonElement>).current.textContent}`}
+        {...inputProps}
+      />
     )
   } else {
     return <Button ref={anchorRef} {...props} />
