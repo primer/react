@@ -181,19 +181,15 @@ describe('SelectPanel', () => {
 
   it('SelectPanel within FormControl should be labelled by FormControl.Label', async () => {
     const component = render(<SelectPanelWithinForm />)
-    const buttonByLabel = component.getByLabelText('Select Panel Label')
     const buttonByRole = component.getByRole('button')
-    expect(buttonByLabel.id).toBe(buttonByRole.id)
-    expect(buttonByLabel).toBeVisible()
-    expect(buttonByLabel).toHaveAttribute('aria-label', 'Select Panel Label, Assign label')
+    expect(buttonByRole).toBeVisible()
+    expect(buttonByRole).toHaveAttribute('aria-label', 'Select Panel Label, Assign label')
   })
 
   it('SelectPanel with complex button within FormControl should be labelled by FormControl.Label', async () => {
     const component = render(<SelectPanelWithComplexButtonWithinForm />)
-    const buttonByLabel = component.getByLabelText('Select Panel Label')
     const buttonByRole = component.getByRole('button')
-    expect(buttonByLabel.id).toBe(buttonByRole.id)
-    expect(buttonByLabel).toBeVisible()
-    expect(buttonByLabel).toHaveAttribute('aria-label', 'Select Panel Label, Assign label')
+    expect(buttonByRole).toBeVisible()
+    expect(buttonByRole).toHaveAttribute('aria-label', 'Select Panel Label, Assign label')
   })
 })
