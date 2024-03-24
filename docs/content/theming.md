@@ -150,10 +150,20 @@ A "color scheme", on the other hand, is a collection of colors that can be assoc
 
 By default, Primer React is in `day` mode. To change the color mode, use the `colorMode` prop on `ThemeProvider` or the `setColorMode` function from the `useTheme` hook:
 
+#### [data-color-mode] style
+Firstly, you must set `background-color` in your something like `global.css` file:
+
+```css
+[data-color-mode] {
+  background-color: var(--bgColor-default);
+}
+```
+
 #### `colorMode` prop
 
 ```jsx
 import {ThemeProvider} from '@primer/react'
+import "./global.css"
 
 function App() {
   return (
