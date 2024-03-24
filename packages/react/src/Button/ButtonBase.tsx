@@ -89,6 +89,7 @@ const ButtonBase = forwardRef(
         <StyledButton
           as={Component}
           sx={sxStyles}
+          aria-disabled={loading ? true : undefined}
           {...rest}
           ref={innerRef}
           data-block={block ? 'block' : null}
@@ -96,7 +97,6 @@ const ButtonBase = forwardRef(
           data-loading={Boolean(loading)}
           data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
           data-size={size === 'small' || size === 'large' ? size : undefined}
-          aria-disabled={loading ? true : undefined}
           aria-describedby={[loadingAnnouncementID, ariaDescribedBy]
             .filter(descriptionID => Boolean(descriptionID))
             .join(' ')}
