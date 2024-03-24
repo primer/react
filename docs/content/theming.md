@@ -96,7 +96,7 @@ function App() {
 }
 ```
 
-See the [Styled System Reference Table](https://styled-system.com/table) for a complete list of mappings.
+See the [Styled System Reference Table](https://github.com/styled-system/styled-system/blob/master/docs/table.md) for a complete list of mappings.
 
 ### themeGet
 
