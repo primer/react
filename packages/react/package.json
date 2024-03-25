@@ -92,7 +92,7 @@
     "@lit-labs/react": "1.2.1",
     "@oddbird/popover-polyfill": "^0.3.1",
     "@primer/behaviors": "^1.5.1",
-    "@primer/live-region-element": "^0.2.0",
+    "@primer/live-region-element": "^0.4.0",
     "@primer/octicons-react": "^19.9.0",
     "@primer/primitives": "^7.15.3",
     "@styled-system/css": "^5.1.5",

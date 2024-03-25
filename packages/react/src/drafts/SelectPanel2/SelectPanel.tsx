@@ -13,6 +13,7 @@ import {invariant} from '../../utils/invariant'
 import {Status} from '../../internal/components/Status'
 import {useResponsiveValue} from '../../hooks/useResponsiveValue'
 import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
+import {LiveRegionProvider, LiveRegion} from '../../internal/components/LiveRegionNext'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -223,115 +224,118 @@ const Panel: React.FC<SelectPanelProps> = ({
     <>
       {Anchor}
 
-      <StyledOverlay
-        as="dialog"
-        ref={dialogRef}
-        aria-labelledby={`${panelId}--title`}
-        aria-describedby={description ? `${panelId}--description` : undefined}
-        width={width}
-        height="fit-content"
-        maxHeight={maxHeight}
-        data-variant={currentVariant}
-        sx={{
-          '--max-height': heightMap[maxHeight],
-          // reset dialog default styles
-          border: 'none',
-          padding: 0,
-          '&[open]': {display: 'flex'}, // to fit children
+      <LiveRegionProvider>
+        <StyledOverlay
+          as="dialog"
+          ref={dialogRef}
+          aria-labelledby={`${panelId}--title`}
+          aria-describedby={description ? `${panelId}--description` : undefined}
+          width={width}
+          height="fit-content"
+          maxHeight={maxHeight}
+          data-variant={currentVariant}
+          sx={{
+            '--max-height': heightMap[maxHeight],
+            // reset dialog default styles
+            border: 'none',
+            padding: 0,
+            '&[open]': {display: 'flex'}, // to fit children
 
-          '&[data-variant="anchored"], &[data-variant="full-screen"]': {
-            margin: 0,
-            top: position?.top,
-            left: position?.left,
-            '::backdrop': {backgroundColor: 'transparent'},
-          },
-          '&[data-variant="modal"]': {
-            '::backdrop': {backgroundColor: 'primer.canvas.backdrop'},
-          },
-          '&[data-variant="full-screen"]': {
-            margin: 0,
-            top: 0,
-            left: 0,
-            width: '100%',
-            maxWidth: '100vw',
-            height: '100%',
-            maxHeight: '100vh',
-            '--max-height': '100vh',
-            borderRadius: 'unset',
-          },
-          '&[data-variant="bottom-sheet"]': {
-            margin: 0,
-            top: 'auto',
-            bottom: 0,
-            left: 0,
-            width: '100%',
-            maxWidth: '100vw',
-            maxHeight: 'calc(100vh - 64px)',
-            '--max-height': 'calc(100vh - 64px)',
-            borderBottomRightRadius: 0,
-            borderBottomLeftRadius: 0,
-          },
-        }}
-        {...props}
-        onClick={event => {
-          if (event.target === event.currentTarget) onClickOutside()
-        }}
-      >
-        {internalOpen && (
-          <>
-            <SelectPanelContext.Provider
-              value={{
-                panelId,
-                title,
-                description,
-                onCancel: onInternalCancel,
-                onClearSelection: propsOnClearSelection ? onInternalClearSelection : undefined,
-                searchQuery,
-                setSearchQuery,
-                selectionVariant,
-                moveFocusToList,
-              }}
-            >
-              <Box
-                as="form"
-                method="dialog"
-                onSubmit={onInternalSubmit}
-                sx={{display: 'flex', flexDirection: 'column', width: '100%'}}
+            '&[data-variant="anchored"], &[data-variant="full-screen"]': {
+              margin: 0,
+              top: position?.top,
+              left: position?.left,
+              '::backdrop': {backgroundColor: 'transparent'},
+            },
+            '&[data-variant="modal"]': {
+              '::backdrop': {backgroundColor: 'primer.canvas.backdrop'},
+            },
+            '&[data-variant="full-screen"]': {
+              margin: 0,
+              top: 0,
+              left: 0,
+              width: '100%',
+              maxWidth: '100vw',
+              height: '100%',
+              maxHeight: '100vh',
+              '--max-height': '100vh',
+              borderRadius: 'unset',
+            },
+            '&[data-variant="bottom-sheet"]': {
+              margin: 0,
+              top: 'auto',
+              bottom: 0,
+              left: 0,
+              width: '100%',
+              maxWidth: '100vw',
+              maxHeight: 'calc(100vh - 64px)',
+              '--max-height': 'calc(100vh - 64px)',
+              borderBottomRightRadius: 0,
+              borderBottomLeftRadius: 0,
+            },
+          }}
+          {...props}
+          onClick={event => {
+            if (event.target === event.currentTarget) onClickOutside()
+          }}
+        >
+          {internalOpen && (
+            <>
+              <SelectPanelContext.Provider
+                value={{
+                  panelId,
+                  title,
+                  description,
+                  onCancel: onInternalCancel,
+                  onClearSelection: propsOnClearSelection ? onInternalClearSelection : undefined,
+                  searchQuery,
+                  setSearchQuery,
+                  selectionVariant,
+                  moveFocusToList,
+                }}
               >
-                {slots.header ?? /* render default header as fallback */ <SelectPanelHeader />}
-
                 <Box
-                  as="div"
-                  sx={{
-                    flexShrink: 1,
-                    flexGrow: 1,
-                    overflow: 'hidden',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    ul: {overflowY: 'auto', flexGrow: 1},
-                  }}
+                  as="form"
+                  method="dialog"
+                  onSubmit={onInternalSubmit}
+                  sx={{display: 'flex', flexDirection: 'column', width: '100%'}}
                 >
-                  <ActionListContainerContext.Provider
-                    value={{
-                      container: 'SelectPanel',
-                      listRole: 'listbox',
-                      selectionAttribute: 'aria-selected',
-                      selectionVariant: selectionVariant === 'instant' ? 'single' : selectionVariant,
-                      afterSelect: internalAfterSelect,
-                      listLabelledBy: `${panelId}--title`,
-                      enableFocusZone: true, // Arrow keys navigation for list items
+                  {slots.header ?? /* render default header as fallback */ <SelectPanelHeader />}
+
+                  <Box
+                    as="div"
+                    sx={{
+                      flexShrink: 1,
+                      flexGrow: 1,
+                      overflow: 'hidden',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      ul: {overflowY: 'auto', flexGrow: 1},
                     }}
                   >
-                    {childrenInBody}
-                  </ActionListContainerContext.Provider>
+                    <ActionListContainerContext.Provider
+                      value={{
+                        container: 'SelectPanel',
+                        listRole: 'listbox',
+                        selectionAttribute: 'aria-selected',
+                        selectionVariant: selectionVariant === 'instant' ? 'single' : selectionVariant,
+                        afterSelect: internalAfterSelect,
+                        listLabelledBy: `${panelId}--title`,
+                        enableFocusZone: true, // Arrow keys navigation for list items
+                      }}
+                    >
+                      {childrenInBody}
+                    </ActionListContainerContext.Provider>
+                  </Box>
+                  {slots.footer}
                 </Box>
-                {slots.footer}
-              </Box>
-            </SelectPanelContext.Provider>
-          </>
-        )}
-      </StyledOverlay>
+              </SelectPanelContext.Provider>
+            </>
+          )}
+          <LiveRegion />
+        </StyledOverlay>
+      </LiveRegionProvider>
     </>
   )
 }

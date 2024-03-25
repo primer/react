@@ -4,11 +4,15 @@ import Box from '../../Box'
 import {useEffectOnce} from '../hooks/useEffectOnce'
 
 export type AnnounceProps = React.ComponentPropsWithoutRef<typeof Box> & {
+  delayMs?: number
+
   /**
    * The politeness level to use for the announcement
    * @default polite
    */
   politeness?: 'polite' | 'assertive'
+
+  skipFirstAnnouncement?: boolean
 }
 
 /**
@@ -16,37 +20,61 @@ export type AnnounceProps = React.ComponentPropsWithoutRef<typeof Box> & {
  * `children` passed in to screen readers using the given politeness level. It
  * will also announce any changes to the text content of `children`
  */
-export function Announce({children, politeness = 'polite', ...rest}: AnnounceProps) {
+export function Announce({
+  children,
+  delayMs,
+  politeness = 'polite',
+  skipFirstAnnouncement = false,
+  ...rest
+}: AnnounceProps) {
   const ref = useRef<ElementRef<'div'>>(null)
   const savedPoliteness = useRef(politeness)
+  const savedDelayMs = useRef(delayMs)
+  const savedCancel = useRef<(() => void) | null>(null)
 
   useEffect(() => {
     savedPoliteness.current = politeness
   }, [politeness])
 
+  useEffect(() => {
+    savedDelayMs.current = delayMs
+  }, [delayMs])
+
   // Announce the initial message, this is wrapped in `useEffectOnce` so that it
   // does not announce twice in StrictMode
   useEffectOnce(() => {
-    if (ref.current !== null) {
-      announceFromElement(ref.current, {
+    const {current: container} = ref
+    if (container === null) {
+      return
+    }
+
+    if (!skipFirstAnnouncement) {
+      savedCancel.current = announceFromElement(container, {
+        delayMs: savedDelayMs.current,
         politeness: savedPoliteness.current,
+        from: container,
       })
     }
   })
 
   useEffect(() => {
-    if (ref.current === null) {
+    const {current: container} = ref
+    if (container === null) {
       return
     }
-
-    const {current: container} = ref
 
     // When the text of the container changes, announce the new text
     const observer = new MutationObserver(mutationList => {
       for (const mutation of mutationList) {
         if (mutation.type === 'characterData') {
-          announceFromElement(container, {
+          if (savedCancel.current !== null) {
+            savedCancel.current()
+          }
+
+          savedCancel.current = announceFromElement(container, {
+            delayMs: savedDelayMs.current,
             politeness: savedPoliteness.current,
+            from: container,
           })
           break
         }
@@ -60,6 +88,15 @@ export function Announce({children, politeness = 'polite', ...rest}: AnnouncePro
 
     return () => {
       observer.disconnect()
+    }
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      if (savedCancel.current !== null) {
+        savedCancel.current()
+        savedCancel.current = null
+      }
     }
   }, [])
 

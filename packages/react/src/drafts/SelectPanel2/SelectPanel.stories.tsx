@@ -2,6 +2,9 @@ import React from 'react'
 import {SelectPanel} from './SelectPanel'
 import {ActionList, Box} from '../../index'
 import data from './mock-story-data'
+import {VisuallyHidden} from '../../internal/components/VisuallyHidden'
+import {Status} from '../../internal/components/Status'
+import {useAnnounce} from '../../internal/components/LiveRegionNext'
 
 export default {
   title: 'Drafts/Components/SelectPanel',
@@ -9,6 +12,7 @@ export default {
 }
 
 export const Default = () => {
+  const [announce, cancel] = useAnnounce()
   const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
   const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
 
@@ -36,20 +40,27 @@ export const Default = () => {
   const onSearchInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
     const query = event.currentTarget.value
     setQuery(query)
+    cancel()
 
-    if (query === '') setFilteredLabels(data.labels)
-    else {
-      setFilteredLabels(
-        data.labels
-          .map(label => {
-            if (label.name.toLowerCase().startsWith(query)) return {priority: 1, label}
-            else if (label.name.toLowerCase().includes(query)) return {priority: 2, label}
-            else if (label.description?.toLowerCase().includes(query)) return {priority: 3, label}
-            else return {priority: -1, label}
-          })
-          .filter(result => result.priority > 0)
-          .map(result => result.label),
-      )
+    if (query === '') {
+      setFilteredLabels(data.labels)
+      announce(`${data.labels} results available`, {
+        delayMs: 500,
+      })
+    } else {
+      const labels = data.labels
+        .map(label => {
+          if (label.name.toLowerCase().startsWith(query)) return {priority: 1, label}
+          else if (label.name.toLowerCase().includes(query)) return {priority: 2, label}
+          else if (label.description?.toLowerCase().includes(query)) return {priority: 3, label}
+          else return {priority: -1, label}
+        })
+        .filter(result => result.priority > 0)
+        .map(result => result.label)
+      setFilteredLabels(labels)
+      announce(`${labels.length} results available`, {
+        delayMs: 500,
+      })
     }
   }
 
