@@ -19,7 +19,7 @@ jobs:
         with:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.PRIVATE_KEY }}
-      - uses: actions/github-script@v7
+      - uses: actions/github-script@v7.0.1
         with:
           github-token: ${{ steps.generate_token.outputs.token }}
           script: |
