@@ -73,6 +73,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       inlineDescription: [Description, props => props.variant !== 'block'],
     })
 
+    const {container, afterSelect, selectionAttribute, defaultTrailingVisual} =
+      React.useContext(ActionListContainerContext)
+    const trailingVisual = slots.trailingVisual ?? defaultTrailingVisual
+
     const {
       variant: listVariant,
       role: listRole,
@@ -80,7 +84,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       selectionVariant: listSelectionVariant,
     } = React.useContext(ListContext)
     const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
-    const {container, afterSelect, selectionAttribute} = React.useContext(ActionListContainerContext)
     const inactive = Boolean(inactiveText)
     const showInactiveIndicator = inactive && container === undefined
 
@@ -307,7 +310,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
             >
               <ConditionalBox
-                if={Boolean(slots.trailingVisual) || (showInactiveIndicator && !slots.leadingVisual)}
+                if={Boolean(trailingVisual) || (showInactiveIndicator && !slots.leadingVisual)}
                 sx={{display: 'flex', flexGrow: 1}}
               >
                 <ConditionalBox
@@ -337,7 +340,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                   ) : (
                     // If it's not inactive, or it has a leading visual that can be replaced,
                     // just render the trailing visual slot.
-                    slots.trailingVisual
+                    trailingVisual
                   )
                 }
               </ConditionalBox>

@@ -1,4 +1,4 @@
-import React, {useCallback, useContext} from 'react'
+import React, {useCallback, useContext, useMemo} from 'react'
 import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -12,7 +12,6 @@ import {useId} from '../hooks/useId'
 import type {MandateProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {Tooltip} from '../TooltipV2/Tooltip'
-import {ActionList} from '../ActionList'
 
 export type MenuCloseHandler = (
   gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select' | 'arrow-left',
@@ -149,26 +148,23 @@ const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, 
     [children, isSubmenu, onOpen],
   )
 
-  // Add right chevron icon to submenu anchors (note that unlike other anchor logic this doesn't work if the menu
-  // item is wrapped in Tooltip [see logic in top-level `ActionMenu` component], which is OK here since tooltips are
-  // really not a good idea inside submenus)
-  const grandChildren =
-    isSubmenu && children.type === ActionList.Item
-      ? [
-          children.props.children,
-          // eslint-disable-next-line primer-react/direct-slot-children
-          <ActionList.TrailingVisual key="trailingVisual">
-            <ChevronRightIcon />
-          </ActionList.TrailingVisual>,
-        ]
-      : children.props.children
+  // Add right chevron icon to submenu anchors rendered using `ActionList.Item`
+  const parentActionListContext = useContext(ActionListContainerContext)
+  const thisActionListContext = useMemo(
+    () =>
+      isSubmenu ? {...parentActionListContext, defaultTrailingVisual: <ChevronRightIcon />} : parentActionListContext,
+    [isSubmenu, parentActionListContext],
+  )
 
-  return React.cloneElement(children, {
-    ...anchorProps,
-    ref: anchorRef,
-    onKeyDown: openSubmenuOnRightArrow,
-    children: grandChildren,
-  })
+  return (
+    <ActionListContainerContext.Provider value={thisActionListContext}>
+      {React.cloneElement(children, {
+        ...anchorProps,
+        ref: anchorRef,
+        onKeyDown: openSubmenuOnRightArrow,
+      })}
+    </ActionListContainerContext.Provider>
+  )
 })
 
 /** this component is syntactical sugar 🍭 */
