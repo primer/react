@@ -1,4 +1,4 @@
-import {EyeIcon, ChevronRightIcon, HeartIcon} from '@primer/octicons-react'
+import {EyeIcon, ChevronRightIcon, HeartIcon, DownloadIcon} from '@primer/octicons-react'
 import React, {forwardRef} from 'react'
 import {Button} from '.'
 
@@ -80,5 +80,25 @@ const ReactRouterLikeLink = forwardRef<HTMLAnchorElement, ReactRouterLikeLinkPro
 export const WithReactRouter = () => (
   <Button to="/dummy" as={ReactRouterLikeLink}>
     Default
+  </Button>
+)
+
+export const Loading = () => <Button loading>Default</Button>
+
+export const LoadingCustomAnnouncement = () => (
+  <Button as="a" href="/" loading loadingAnnouncement="This is a custom loading announcement">
+    Default
+  </Button>
+)
+
+export const LoadingWithLeadingVisual = () => (
+  <Button as="a" href="/" loading leadingVisual={DownloadIcon}>
+    Export
+  </Button>
+)
+
+export const LoadingWithTrailingVisual = () => (
+  <Button as="a" href="/" loading trailingVisual={DownloadIcon}>
+    Export
   </Button>
 )
