@@ -363,7 +363,7 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
     return (
       <Button
         ref={anchorRef}
-        aria-label={`${labelText}, ${(anchorRef as MutableRefObject<HTMLButtonElement>).current.textContent}`}
+        aria-label={`${(anchorRef as MutableRefObject<HTMLButtonElement>).current.textContent}, ${labelText}`}
         aria-labelledby={inputProps.id}
         {...inputProps}
       />

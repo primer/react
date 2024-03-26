@@ -183,7 +183,7 @@ describe('SelectPanel', () => {
     const component = render(<SelectPanelWithinForm />)
     const buttonByRole = component.getByRole('button')
     expect(buttonByRole).toBeVisible()
-    expect(buttonByRole).toHaveAttribute('aria-label', 'Select Panel Label, Assign label')
+    expect(buttonByRole).toHaveAttribute('aria-label', 'Assign label, Select Panel Label')
     expect(buttonByRole).toHaveAttribute('aria-labelledby', buttonByRole.id)
   })
 
@@ -191,7 +191,7 @@ describe('SelectPanel', () => {
     const component = render(<SelectPanelWithComplexButtonWithinForm />)
     const buttonByRole = component.getByRole('button')
     expect(buttonByRole).toBeVisible()
-    expect(buttonByRole).toHaveAttribute('aria-label', 'Select Panel Label, Assign label')
+    expect(buttonByRole).toHaveAttribute('aria-label', 'Assign label, Select Panel Label')
     expect(buttonByRole).toHaveAttribute('aria-labelledby', buttonByRole.id)
   })
 })
