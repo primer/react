@@ -84,7 +84,7 @@
     "npm": ">=7"
   },
   "dependencies": {
-    "@github/combobox-nav": "^2.1.5",
+    "@github/combobox-nav": "^3.0.1",
     "@github/markdown-toolbar-element": "^2.1.0",
     "@github/paste-markdown": "^1.4.0",
     "@github/relative-time-element": "^4.1.2",
