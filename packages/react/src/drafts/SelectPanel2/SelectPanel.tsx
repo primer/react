@@ -359,7 +359,7 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
     }
   }, [inputProps.id])
 
-  if (labelText && inputProps.children) {
+  if (labelText) {
     return (
       <Button
         ref={anchorRef}

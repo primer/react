@@ -194,4 +194,12 @@ describe('SelectPanel', () => {
     expect(buttonByRole).toHaveAttribute('aria-label', 'Assign label, Select Panel Label')
     expect(buttonByRole).toHaveAttribute('aria-labelledby', buttonByRole.id)
   })
+
+  it('SelectPanel outside of FormControl should not be automatically assigned aria-label and aria-labelledby', async () => {
+    const component = render(<Fixture />)
+    const buttonByRole = component.getByRole('button')
+    expect(buttonByRole).toBeVisible()
+    expect(buttonByRole).not.toHaveAttribute('aria-label', 'Assign label, Select Panel Label')
+    expect(buttonByRole).not.toHaveAttribute('aria-labelledby', buttonByRole.id)
+  })
 })
