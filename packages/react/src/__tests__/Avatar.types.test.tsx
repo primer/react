@@ -1,7 +1,12 @@
 import React from 'react'
 import Avatar from '../Avatar'
 
-export function shouldAcceptCallWithNoProps() {
+export function shouldNotAcceptCallWithNoProps() {
+  // @ts-expect-error requires src prop
+  return <Avatar />
+}
+
+export function shouldAcceptCallWithOnlySrcProp() {
   return <Avatar src="https://avatars.githubusercontent.com/primer" />
 }
 

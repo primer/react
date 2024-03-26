@@ -1,11 +1,11 @@
 import React from 'react'
-import type {ComponentMeta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import Avatar from './Avatar'
 
 export default {
   title: 'Components/Avatar/Features',
   component: Avatar,
-} as ComponentMeta<typeof Avatar>
+} as Meta<typeof Avatar>
 
 export const Square = () => <Avatar square src="https://avatars.githubusercontent.com/primer" />
 
@@ -40,3 +40,8 @@ export const SizeResponsive = () => (
     <Avatar size={{narrow: 48, regular: 56, wide: 64}} src="https://avatars.githubusercontent.com/u/92997159?v=4" />
   </div>
 )
+
+export const ObjectSource = () => {
+  const src = {src: 'https://avatars.githubusercontent.com/u/92997159?v=4'}
+  return <Avatar src={src} />
+}
