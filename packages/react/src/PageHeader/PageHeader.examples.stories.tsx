@@ -174,7 +174,8 @@ export const FilesPage = () => (
             </ActionMenu.Anchor>
             <ActionMenu.Overlay width="medium">
               <ActionList>
-                <ActionList.Group title="Raw file content">
+                <ActionList.Group>
+                  <ActionList.GroupHeading>Raw file content</ActionList.GroupHeading>
                   <ActionList.Item onSelect={() => alert('Download')}>Download</ActionList.Item>
                 </ActionList.Group>
                 <ActionList.Divider />
@@ -192,7 +193,8 @@ export const FilesPage = () => (
                   <ActionList.TrailingVisual>⌘⇧,</ActionList.TrailingVisual>
                 </ActionList.Item>
                 <ActionList.Divider />
-                <ActionList.Group title="View Options">
+                <ActionList.Group>
+                  <ActionList.GroupHeading>View Options</ActionList.GroupHeading>
                   <ActionList.Item onSelect={() => alert('Show code folding buttons')}>
                     Show code folding buttons
                   </ActionList.Item>
@@ -228,7 +230,8 @@ export const FilesPage = () => (
             </ActionMenu.Anchor>
             <ActionMenu.Overlay width="medium">
               <ActionList>
-                <ActionList.Group title="Raw file content">
+                <ActionList.Group>
+                  <ActionList.GroupHeading>Raw file content</ActionList.GroupHeading>
                   <ActionList.Item onSelect={() => alert('Download')}>Download</ActionList.Item>
                 </ActionList.Group>
                 <ActionList.Divider />
@@ -246,7 +249,8 @@ export const FilesPage = () => (
                   <ActionList.TrailingVisual>⌘⇧,</ActionList.TrailingVisual>
                 </ActionList.Item>
                 <ActionList.Divider />
-                <ActionList.Group title="View Options">
+                <ActionList.Group>
+                  <ActionList.GroupHeading>View Options</ActionList.GroupHeading>
                   <ActionList.Item onSelect={() => alert('Show code folding buttons')}>
                     Show code folding buttons
                   </ActionList.Item>

@@ -1,4 +1,6 @@
 import type {Theme} from '../ThemeProvider'
+import type {BetterSystemStyleObject} from '../sx'
+import {getAnchoredPosition} from '@primer/behaviors'
 
 // The gap between the list items. It is a constant because the gap is used to calculate the possible number of items that can fit in the container.
 export const GAP = 8
@@ -136,16 +138,34 @@ export const menuItemStyles = {
   textDecoration: 'none',
 }
 
-export const menuStyles = {
+export const baseMenuMinWidth = 192
+export const baseMenuStyles: BetterSystemStyleObject = {
   position: 'absolute',
   zIndex: 1,
   top: '90%',
-  right: '0',
   boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
   borderRadius: '12px',
   backgroundColor: 'canvas.overlay',
   listStyle: 'none',
   // Values are from ActionMenu
-  minWidth: '192px',
+  minWidth: `${baseMenuMinWidth}px`,
   maxWidth: '640px',
+  right: '0',
+}
+
+/**
+ *
+ * @param containerRef The Menu List Container Reference.
+ * @param listRef The Underline Nav Container Reference.
+ * @description This calculates the position of the menu
+ */
+export const menuStyles = (containerRef: Element | null, listRef: Element | null): BetterSystemStyleObject => {
+  if (containerRef && listRef) {
+    const {left} = getAnchoredPosition(containerRef, listRef, {align: 'start', side: 'outside-bottom'})
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const {right, ...rest} = baseMenuStyles
+    return {...rest, left}
+  }
+
+  return baseMenuStyles
 }

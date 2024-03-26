@@ -1,5 +1,5 @@
-import {HeartIcon} from '@primer/octicons-react'
-import React from 'react'
+import {HeartIcon, DownloadIcon} from '@primer/octicons-react'
+import React, {useState} from 'react'
 import {IconButton} from '.'
 
 export default {
@@ -18,4 +18,19 @@ export const Small = () => <IconButton size="small" icon={HeartIcon} aria-label=
 
 export const Medium = () => <IconButton size="medium" icon={HeartIcon} aria-label="Favorite" />
 
-export const Large = () => <IconButton size="large" icon={HeartIcon} aria-label="Favorite" />
+export const Large = () => <IconButton size="large" icon={HeartIcon} aria-label="Default" />
+
+export const Loading = () => <IconButton loading icon={HeartIcon} variant="primary" aria-label="Primary" />
+
+export const LoadingTrigger = () => {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleClick = () => {
+    setIsLoading(true)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 3000)
+  }
+
+  return <IconButton loading={isLoading} onClick={handleClick} icon={DownloadIcon} aria-label="Download" />
+}

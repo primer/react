@@ -36,7 +36,8 @@ export const LinksAndActions = () => (
           </ActionList.LeadingVisual>
         </ActionList.Item>
         <ActionList.Divider />
-        <ActionList.Group title="GitHub projects">
+        <ActionList.Group>
+          <ActionList.GroupHeading>GitHub projects</ActionList.GroupHeading>
           <ActionList.LinkItem href="/">
             What&apos;s new
             <ActionList.LeadingVisual>
@@ -155,7 +156,8 @@ export const InactiveItems = () => (
           </ActionList.LeadingVisual>
         </ActionList.Item>
         <ActionList.Divider />
-        <ActionList.Group title="Github projects">
+        <ActionList.Group>
+          <ActionList.GroupHeading>Github projects</ActionList.GroupHeading>
           <ActionList.LinkItem href="/">
             What&apos;s new
             <ActionList.LeadingVisual>

@@ -101,6 +101,29 @@
       ]
     },
     {
+      "name": "ActionList.Heading",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "defaultValue": "",
+          "required": true,
+          "description": "Use to give a heading to list"
+        },
+        {
+          "name": "as",
+          "type": "h1 | h2 | h3 | h4 | h5 | h6",
+          "defaultValue": "h3",
+          "required": false,
+          "description": "The level of the heading"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
       "name": "ActionList.LinkItem",
       "props": [
         {

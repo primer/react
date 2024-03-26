@@ -3,7 +3,7 @@ import {parse} from '@babel/parser'
 import traverse from '@babel/traverse'
 import type {ArrowFunctionExpression, Identifier, FunctionDeclaration} from '@babel/types'
 import Ajv from 'ajv'
-import {pascalCase} from 'change-case'
+import {pascalCase, kebabCase} from 'change-case'
 import glob from 'fast-glob'
 import fs from 'fs'
 import keyBy from 'lodash.keyby'
@@ -23,6 +23,16 @@ const ajv = new Ajv()
 // Get all JSON files matching `src/**/*.docs.json`
 const docsFiles = glob.sync('src/**/*.docs.json')
 
+// Get the story name prefix for the default story id
+const storyPrefix = {
+  draft: 'drafts-',
+  experimental: 'experimental-',
+  deprecated: 'deprecated-',
+  alpha: '',
+  beta: '',
+  stable: '',
+}
+
 const components = docsFiles.map(docsFilepath => {
   const docs = JSON.parse(fs.readFileSync(docsFilepath, 'utf-8'))
 
@@ -38,15 +48,6 @@ const components = docsFiles.map(docsFilepath => {
   // Example: src/components/Box/Box.docs.json -> src/components/Box/Box.stories.tsx
   const defaultStoryFilepath = docsFilepath.replace(/\.docs\.json$/, '.stories.tsx')
 
-  // Get the story name prefix for the default story id
-  const storyPrefix = {
-    draft: 'drafts-',
-    experimental: 'experimental-',
-    deprecated: 'deprecated-',
-    alpha: '',
-    beta: '',
-    stable: '',
-  }
   // Get the default story id
   const defaultStoryId = `${storyPrefix[docs.status]}components-${String(docs.name).toLowerCase()}--default`
 
@@ -63,7 +64,8 @@ const components = docsFiles.map(docsFilepath => {
   const exampleStorySourceCode = getStorySourceCode(exampleStoryFilepath)
 
   // Populate source code for each feature story
-  const stories = docs.stories
+  // if stories are not defined in *.docs.json, fill feature stories as default
+  const stories = (docs.stories.length > 0 ? docs.stories : getStoryIds(docs, Object.keys(featureStorySourceCode)))
     // Filter out the default story
     .filter(({id}) => id !== defaultStoryId)
     .map(({id}) => {
@@ -183,4 +185,13 @@ function getStorySourceCode(filepath: string) {
 function getStoryName(id: string) {
   const parts = id.split('--')
   return pascalCase(parts[parts.length - 1])
+}
+
+function getStoryIds(docs: Component, storyNames: string[]) {
+  const ids = storyNames.map(
+    storyName =>
+      `${storyPrefix[docs.status]}components-${String(docs.name).toLowerCase()}-features--${kebabCase(storyName)}`,
+  )
+
+  return ids.map(id => ({id}))
 }

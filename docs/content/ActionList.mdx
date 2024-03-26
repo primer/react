@@ -200,7 +200,8 @@ const SelectFields = () => {
 
   return (
     <ActionList selectionVariant="multiple">
-      <ActionList.Group title="Visible fields">
+      <ActionList.Group>
+        <ActionList.GroupHeading>Visible fields</ActionList.GroupHeading>
         {visibleOptions.map(option => (
           <ActionList.Item key={option.text} selected={true} onSelect={() => toggle(option.text)}>
             {option.text}
@@ -208,12 +209,12 @@ const SelectFields = () => {
         ))}
       </ActionList.Group>
       <ActionList.Group
-        title="Hidden fields"
         selectionVariant={
           /** selectionVariant override on Group: disable selection if there are no options */
           hiddenOptions.length ? 'multiple' : false
         }
       >
+        <ActionList.GroupHeading>Hidden fields</ActionList.GroupHeading>
         {hiddenOptions.map((option, index) => (
           <ActionList.Item key={option.text} selected={false} onSelect={() => toggle(option.text)}>
             {option.text}

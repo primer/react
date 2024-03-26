@@ -3,6 +3,11 @@
   .story-wrap {
     font-family: var(--fontStack-system);
     color: var(--fgColor-default);
+    background: var(--bgColor-default);
+  }
+
+  [data-color-mode] {
+    background-color: var(--bgColor-default);
   }
 
   #storybook-preview-wrapper {
