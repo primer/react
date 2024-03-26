@@ -21,6 +21,14 @@ exports[`NavList renders a simple list 1`] = `
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
+  font-weight: 600;
+}
+
+.c8 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
   font-weight: 400;
 }
 
@@ -357,7 +365,7 @@ exports[`NavList renders a simple list 1`] = `
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              class="c6"
+              class="c8"
               id=":r2:--label"
             >
               About
@@ -380,7 +388,7 @@ exports[`NavList renders a simple list 1`] = `
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              class="c6"
+              class="c8"
               id=":r3:--label"
             >
               Contact
@@ -434,6 +442,14 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c10 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-weight: 600;
+}
+
+.c12 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -825,7 +841,7 @@ exports[`NavList renders with groups 1`] = `
                 data-component="ActionList.Item--DividerContainer"
               >
                 <span
-                  class="c10"
+                  class="c12"
                   id=":r8:--label"
                 >
                   Avatar
@@ -894,6 +910,14 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
+.c14 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-weight: 600;
+}
+
 .c10 {
   padding: 0;
   margin: 0;
@@ -917,8 +941,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   --divider-color: transparent !important;
 }
 
-.c14:hover:not([aria-disabled]):not([data-inactive]) + .c3,
-.c14[data-focus-visible-added] + li {
+.c15:hover:not([aria-disabled]):not([data-inactive]) + .c3,
+.c15[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
@@ -1287,7 +1311,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
                   data-component="ActionList.Item--DividerContainer"
                 >
                   <span
-                    class="c1 c7"
+                    class="c1 c14"
                     id=":r22:--label"
                   >
                     Sub Item
@@ -1334,14 +1358,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   flex-grow: 1;
 }
 
-.c7 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-weight: 400;
-}
-
 .c8 {
   height: 20px;
   -webkit-flex-shrink: 0;
@@ -1361,6 +1377,14 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   padding: 0;
   margin: 0;
   display: none;
+}
+
+.c7 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-weight: 600;
 }
 
 .c9 {

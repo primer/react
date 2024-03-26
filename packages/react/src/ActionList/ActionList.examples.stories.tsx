@@ -143,7 +143,8 @@ export function MixedSelection(): JSX.Element {
       </p>
 
       <ActionList>
-        <ActionList.Group title="Group by" selectionVariant="single" role="listbox">
+        <ActionList.Group selectionVariant="single" role="listbox">
+          <ActionList.GroupHeading>Group by</ActionList.GroupHeading>
           {options.map((option, index) => (
             <ActionList.Item
               key={index}
@@ -262,7 +263,8 @@ export function MemexSortable(): JSX.Element {
     // @ts-ignore react-dnd needs to be updated to support React 18
     <DndProvider backend={HTML5Backend}>
       <ActionList selectionVariant="multiple" role="menu">
-        <ActionList.Group title="Visible fields (can be reordered)">
+        <ActionList.Group>
+          <ActionList.GroupHeading>Visible fields (can be reordered)</ActionList.GroupHeading>
           {visibleOptions.map(option => (
             <SortableItem
               key={option.text}
@@ -274,12 +276,12 @@ export function MemexSortable(): JSX.Element {
           ))}
         </ActionList.Group>
         <ActionList.Group
-          title="Hidden fields"
           selectionVariant={
             /** selectionVariant override on Group: disable selection if there are no options */
             hiddenOptions.length ? 'multiple' : false
           }
         >
+          <ActionList.GroupHeading>Hidden fields</ActionList.GroupHeading>
           {hiddenOptions.map((option, index) => (
             <ActionList.Item
               key={index}

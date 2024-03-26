@@ -1757,15 +1757,19 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   cursor: auto;
 }
 
-.c4:disabled {
+.c4:disabled,
+.c4[aria-disabled][data-loading="false"] {
   cursor: not-allowed;
   box-shadow: none;
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
 .c4:disabled [data-component=ButtonCounter],
+.c4[aria-disabled][data-loading="false"] [data-component=ButtonCounter],
 .c4:disabled [data-component="leadingVisual"],
-.c4:disabled [data-component="trailingAction"] {
+.c4[aria-disabled][data-loading="false"] [data-component="leadingVisual"],
+.c4:disabled [data-component="trailingAction"],
+.c4[aria-disabled][data-loading="false"] [data-component="trailingAction"] {
   color: inherit;
 }
 
@@ -1840,6 +1844,14 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c4 [data-component="text"] {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
@@ -1874,11 +1886,21 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   margin-right: 8px;
 }
 
-.c4:hover:not([disabled]) {
+.c4 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+}
+
+.c4 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
+.c4:hover:not([disabled]):not([aria-disabled][data-loading="false"]) {
   background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
 }
 
-.c4:active:not([disabled]) {
+.c4:active:not([disabled]):not([aria-disabled][data-loading="false"]) {
   background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
 }
 
@@ -1898,11 +1920,13 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
 }
 
-.c4:disabled[data-no-visuals] {
+.c4:disabled[data-no-visuals],
+.c4[aria-disabled][data-loading="false"][data-no-visuals] {
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c4:disabled[data-no-visuals] [data-component=ButtonCounter] {
+.c4:disabled[data-no-visuals] [data-component=ButtonCounter],
+.c4[aria-disabled][data-loading="false"][data-no-visuals] [data-component=ButtonCounter] {
   color: inherit;
 }
 
@@ -2176,10 +2200,12 @@ exports[`TextInput renders trailingAction icon button 1`] = `
     className="c3 TextInput-action"
   >
     <button
-      aria-labelledby=":r1:"
+      aria-describedby=":r4:-loading-announcement"
+      aria-labelledby=":r3:"
       className="c4"
       data-block={null}
       data-component="IconButton"
+      data-loading={false}
       data-no-visuals={true}
       data-size="small"
       onBlur={[Function]}
@@ -2215,7 +2241,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
       aria-hidden={true}
       className="c5"
       data-direction="s"
-      id=":r1:"
+      id=":r3:"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
     >
@@ -2326,15 +2352,19 @@ exports[`TextInput renders trailingAction text button 1`] = `
   cursor: auto;
 }
 
-.c4:disabled {
+.c4:disabled,
+.c4[aria-disabled][data-loading="false"] {
   cursor: not-allowed;
   box-shadow: none;
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
 .c4:disabled [data-component=ButtonCounter],
+.c4[aria-disabled][data-loading="false"] [data-component=ButtonCounter],
 .c4:disabled [data-component="leadingVisual"],
-.c4:disabled [data-component="trailingAction"] {
+.c4[aria-disabled][data-loading="false"] [data-component="leadingVisual"],
+.c4:disabled [data-component="trailingAction"],
+.c4[aria-disabled][data-loading="false"] [data-component="trailingAction"] {
   color: inherit;
 }
 
@@ -2409,6 +2439,14 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c4 [data-component="text"] {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
@@ -2443,11 +2481,21 @@ exports[`TextInput renders trailingAction text button 1`] = `
   margin-right: 8px;
 }
 
-.c4:hover:not([disabled]) {
+.c4 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+}
+
+.c4 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
+.c4:hover:not([disabled]):not([aria-disabled][data-loading="false"]) {
   background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
 }
 
-.c4:active:not([disabled]) {
+.c4:active:not([disabled]):not([aria-disabled][data-loading="false"]) {
   background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
 }
 
@@ -2477,11 +2525,13 @@ exports[`TextInput renders trailingAction text button 1`] = `
   color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
 }
 
-.c4:disabled[data-no-visuals] {
+.c4:disabled[data-no-visuals],
+.c4[aria-disabled][data-loading="false"][data-no-visuals] {
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c4:disabled[data-no-visuals] [data-component=ButtonCounter] {
+.c4:disabled[data-no-visuals] [data-component=ButtonCounter],
+.c4[aria-disabled][data-loading="false"][data-no-visuals] [data-component=ButtonCounter] {
   color: inherit;
 }
 
@@ -2630,8 +2680,11 @@ exports[`TextInput renders trailingAction text button 1`] = `
     className="c3 TextInput-action"
   >
     <button
+      aria-describedby=":r0:-loading-announcement"
+      aria-labelledby=":r0:-label"
       className="c4"
       data-block={null}
+      data-loading={false}
       data-no-visuals={true}
       onClick={[MockFunction]}
       style={{}}
@@ -2643,6 +2696,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
       >
         <span
           data-component="text"
+          id=":r0:-label"
         >
           Clear
         </span>
@@ -2753,15 +2807,19 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   cursor: auto;
 }
 
-.c4:disabled {
+.c4:disabled,
+.c4[aria-disabled][data-loading="false"] {
   cursor: not-allowed;
   box-shadow: none;
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
 .c4:disabled [data-component=ButtonCounter],
+.c4[aria-disabled][data-loading="false"] [data-component=ButtonCounter],
 .c4:disabled [data-component="leadingVisual"],
-.c4:disabled [data-component="trailingAction"] {
+.c4[aria-disabled][data-loading="false"] [data-component="leadingVisual"],
+.c4:disabled [data-component="trailingAction"],
+.c4[aria-disabled][data-loading="false"] [data-component="trailingAction"] {
   color: inherit;
 }
 
@@ -2836,6 +2894,14 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c4 [data-component="text"] {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
@@ -2870,11 +2936,21 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   margin-right: 8px;
 }
 
-.c4:hover:not([disabled]) {
+.c4 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+}
+
+.c4 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
+.c4:hover:not([disabled]):not([aria-disabled][data-loading="false"]) {
   background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
 }
 
-.c4:active:not([disabled]) {
+.c4:active:not([disabled]):not([aria-disabled][data-loading="false"]) {
   background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
 }
 
@@ -2904,11 +2980,13 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
 }
 
-.c4:disabled[data-no-visuals] {
+.c4:disabled[data-no-visuals],
+.c4[aria-disabled][data-loading="false"][data-no-visuals] {
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c4:disabled[data-no-visuals] [data-component=ButtonCounter] {
+.c4:disabled[data-no-visuals] [data-component=ButtonCounter],
+.c4[aria-disabled][data-loading="false"][data-no-visuals] [data-component=ButtonCounter] {
   color: inherit;
 }
 
@@ -3170,9 +3248,11 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
     className="c3 TextInput-action"
   >
     <button
-      aria-describedby=":r0:"
+      aria-describedby=":r2:-loading-announcement :r1:"
+      aria-labelledby=":r2:-label"
       className="c4"
       data-block={null}
+      data-loading={false}
       data-no-visuals={true}
       onBlur={[Function]}
       onClick={[MockFunction]}
@@ -3188,6 +3268,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
       >
         <span
           data-component="text"
+          id=":r2:-label"
         >
           Clear
         </span>
@@ -3196,7 +3277,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
     <span
       className="c6"
       data-direction="s"
-      id=":r0:"
+      id=":r1:"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
       role="tooltip"
