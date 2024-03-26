@@ -83,8 +83,18 @@ const AutocompleteInput = React.forwardRef(
           setInputValue('')
           inputRef.current.value = ''
         }
+        if (inputValue + event.key === autocompleteSuggestion && inputRef.current?.value === autocompleteSuggestion) {
+          event.preventDefault()
+          // @ts-ignore - _valueTracker is a private property, responsible for tracking input value changes. React relies on this to track changes.
+          const reactValueTracker = inputRef.current._valueTracker
+          if (!reactValueTracker) {
+            return
+          }
+          reactValueTracker.setValue()
+          inputRef.current.dispatchEvent(new Event('input', {bubbles: true}))
+        }
       },
-      [inputRef, setInputValue, setHighlightRemainingText, onKeyDown],
+      [onKeyDown, inputRef, inputValue, autocompleteSuggestion, setInputValue],
     )
 
     const handleInputKeyUp: KeyboardEventHandler<HTMLInputElement> = useCallback(
@@ -123,10 +133,6 @@ const AutocompleteInput = React.forwardRef(
       if (!autocompleteSuggestion) {
         inputRef.current.value = inputValue
       }
-
-      // TODO: fix bug where this function prevents `onChange` from being triggered if the highlighted item text
-      //       is the same as what I'm typing
-      //       e.g.: typing 'tw' highlights 'two', but when I 'two', the text input change does not get triggered
       if (highlightRemainingText && autocompleteSuggestion && (inputValue || isMenuDirectlyActivated)) {
         inputRef.current.value = autocompleteSuggestion
 
