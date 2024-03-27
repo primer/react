@@ -75,11 +75,7 @@ export const WithVisualListHeading = () => (
     </ActionList.Group>
 
     <ActionList.Group>
-<<<<<<< HEAD
       <ActionList.GroupHeading as="h4">Advanced</ActionList.GroupHeading>
-=======
-      <ActionList.GroupHeading>Advanced</ActionList.GroupHeading>
->>>>>>> main
       <ActionList.Item onClick={() => {}}>
         <ActionList.LeadingVisual>
           <PlusCircleIcon />
