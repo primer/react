@@ -1,7 +1,17 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, Avatar, Box, Button, Link, Text, ToggleSwitch} from '../../index'
-import {TagIcon, GearIcon} from '@primer/octicons-react'
+import {
+  ActionList,
+  Avatar,
+  Box,
+  Button,
+  Link,
+  SegmentedControl,
+  Text,
+  ToggleSwitch,
+  useResponsiveValue,
+} from '../../index'
+import {TagIcon, GearIcon, ArrowBothIcon} from '@primer/octicons-react'
 import data from './mock-story-data'
 
 export default {
@@ -454,4 +464,167 @@ export const AsModal = () => {
       </SelectPanel>
     </>
   )
+}
+
+export const ResponsiveVariants = () => {
+  /* Selection */
+  const initialAssigneeIds = data.issue.assigneeIds // mock initial state
+  const [selectedAssigneeIds, setSelectedAssigneeIds] = React.useState<string[]>(initialAssigneeIds)
+
+  const onCollaboratorSelect = (colloratorId: string) => {
+    if (!selectedAssigneeIds.includes(colloratorId)) setSelectedAssigneeIds([...selectedAssigneeIds, colloratorId])
+    else setSelectedAssigneeIds(selectedAssigneeIds.filter(id => id !== colloratorId))
+  }
+
+  const onClearSelection = () => setSelectedAssigneeIds([])
+  const onSubmit = () => {
+    data.issue.assigneeIds = selectedAssigneeIds // pretending to persist changes
+  }
+
+  /* Filtering */
+  const [filteredUsers, setFilteredUsers] = React.useState(data.collaborators)
+  const [query, setQuery] = React.useState('')
+
+  const onSearchInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
+    const query = event.currentTarget.value
+    setQuery(query)
+
+    if (query === '') setFilteredUsers(data.collaborators)
+    else {
+      setFilteredUsers(
+        data.collaborators
+          .map(collaborator => {
+            if (collaborator.login.toLowerCase().startsWith(query)) return {priority: 1, collaborator}
+            else if (collaborator.name.startsWith(query)) return {priority: 2, collaborator}
+            else if (collaborator.login.toLowerCase().includes(query)) return {priority: 3, collaborator}
+            else if (collaborator.name.toLowerCase().includes(query)) return {priority: 4, collaborator}
+            else return {priority: -1, collaborator}
+          })
+          .filter(result => result.priority > 0)
+          .map(result => result.collaborator),
+      )
+    }
+  }
+
+  const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
+    const initialSelectedIds = data.issue.assigneeIds
+    if (initialSelectedIds.includes(itemA.id) && initialSelectedIds.includes(itemB.id)) return 1
+    else if (initialSelectedIds.includes(itemA.id)) return -1
+    else if (initialSelectedIds.includes(itemB.id)) return 1
+    else return 1
+  }
+
+  const itemsToShow = query ? filteredUsers : data.collaborators.sort(sortingFn)
+
+  /** Controls for story/example */
+  const {variant, Controls} = useResponsiveControlsForStory()
+
+  return (
+    <>
+      <h1>Responsive SelectPanel</h1>
+
+      {Controls}
+
+      <SelectPanel title="Set assignees" variant={variant} onSubmit={onSubmit} onClearSelection={onClearSelection}>
+        <SelectPanel.Button
+          variant="invisible"
+          trailingAction={GearIcon}
+          sx={{width: '200px', '[data-component=buttonContent]': {justifyContent: 'start'}}}
+        >
+          Assignees
+        </SelectPanel.Button>
+        <SelectPanel.Header>
+          <SelectPanel.SearchInput onChange={onSearchInputChange} />
+        </SelectPanel.Header>
+
+        {itemsToShow.length === 0 ? (
+          <SelectPanel.Message variant="empty" title={`No labels found for "${query}"`}>
+            Try a different search term
+          </SelectPanel.Message>
+        ) : (
+          <ActionList>
+            {itemsToShow.map(collaborator => (
+              <ActionList.Item
+                key={collaborator.id}
+                onSelect={() => onCollaboratorSelect(collaborator.id)}
+                selected={selectedAssigneeIds.includes(collaborator.id)}
+              >
+                <ActionList.LeadingVisual>
+                  <Avatar src={`https://github.com/${collaborator.login}.png`} />
+                </ActionList.LeadingVisual>
+                {collaborator.login}
+                <ActionList.Description>{collaborator.login}</ActionList.Description>
+              </ActionList.Item>
+            ))}
+          </ActionList>
+        )}
+
+        <SelectPanel.Footer />
+      </SelectPanel>
+    </>
+  )
+}
+
+// pulling this out of story so that the docs look clean
+const useResponsiveControlsForStory = () => {
+  const [variant, setVariant] = React.useState<{regular: 'anchored' | 'modal'; narrow: 'full-screen' | 'bottom-sheet'}>(
+    {regular: 'anchored', narrow: 'full-screen'},
+  )
+
+  const isNarrow = useResponsiveValue({narrow: true}, false)
+
+  const Controls = (
+    <Box sx={{display: 'flex', flexDirection: 'column', gap: 2, marginBottom: 4, maxWidth: 480, fontSize: 1}}>
+      <Box sx={{display: 'flex', minHeight: 42}}>
+        <Box sx={{flexGrow: 1}}>
+          <Text sx={{display: 'block'}}>Regular variant</Text>
+          {isNarrow ? (
+            <Text sx={{color: 'attention.fg'}}>
+              <ArrowBothIcon size={16} /> Resize screen to see regular variant
+            </Text>
+          ) : null}
+        </Box>
+        <SegmentedControl aria-label="Regular variant" size="small">
+          <SegmentedControl.Button
+            selected={variant.regular === 'anchored'}
+            onClick={() => setVariant({...variant, regular: 'anchored'})}
+          >
+            Anchored
+          </SegmentedControl.Button>
+          <SegmentedControl.Button
+            selected={variant.regular === 'modal'}
+            onClick={() => setVariant({...variant, regular: 'modal'})}
+          >
+            Modal
+          </SegmentedControl.Button>
+        </SegmentedControl>
+      </Box>
+      <Box sx={{display: 'flex', minHeight: 42}}>
+        <Box sx={{flexGrow: 1}}>
+          <Text sx={{display: 'block'}}>Narrow variant</Text>
+          {isNarrow ? null : (
+            <Text sx={{color: 'attention.fg'}}>
+              <ArrowBothIcon size={16} /> Resize screen to see narrow variant
+            </Text>
+          )}
+        </Box>
+        <SegmentedControl aria-label="Narrow variant" size="small">
+          <SegmentedControl.Button
+            selected={variant.narrow === 'full-screen'}
+            onClick={() => setVariant({...variant, narrow: 'full-screen'})}
+          >
+            Full screen
+          </SegmentedControl.Button>
+          <SegmentedControl.Button
+            selected={variant.narrow === 'bottom-sheet'}
+            onClick={() => setVariant({...variant, narrow: 'bottom-sheet'})}
+          >
+            Bottom sheet
+          </SegmentedControl.Button>
+        </SegmentedControl>
+      </Box>
+    </Box>
+  )
+
+  return {variant, Controls}
 }
