@@ -76,7 +76,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const {container, afterSelect, selectionAttribute, defaultTrailingVisual} =
       React.useContext(ActionListContainerContext)
-    const trailingVisual = slots.trailingVisual ?? defaultTrailingVisual
+    const trailingVisual = slots.trailingVisual ?? <TrailingVisual>{defaultTrailingVisual}</TrailingVisual>
 
     const {
       variant: listVariant,
