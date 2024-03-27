@@ -33,7 +33,7 @@ const NavBox = styled.nav<SxProp>(sx)
 const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
   return (
     <NavBox {...props} ref={ref}>
-      <ActionList>{children}</ActionList>
+      <ActionList role="list">{children}</ActionList>
     </NavBox>
   )
 })

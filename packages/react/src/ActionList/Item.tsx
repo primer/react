@@ -87,7 +87,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const onSelect = React.useCallback(
       (
-        event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>,
+        event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>,
         // eslint-disable-next-line @typescript-eslint/ban-types
         afterSelect?: Function,
       ) => {
@@ -136,6 +136,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         bg: 'accent.fg',
         borderRadius: 2,
       },
+    }
+
+    const listItemStyles = {
+      display: 'flex',
+      // show between 2 items
+      ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
     }
 
     const styles = {
@@ -223,7 +229,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     }
 
     const clickHandler = React.useCallback(
-      (event: React.MouseEvent<HTMLLIElement>) => {
+      (event: React.MouseEvent<HTMLElement>) => {
         if (disabled || inactive) return
         onSelect(event, afterSelect)
       },
@@ -231,7 +237,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     )
 
     const keyPressHandler = React.useCallback(
-      (event: React.KeyboardEvent<HTMLLIElement>) => {
+      (event: React.KeyboardEvent<HTMLElement>) => {
         if (disabled || inactive) return
         if ([' ', 'Enter'].includes(event.key)) {
           if (event.key === ' ') {
@@ -251,8 +257,22 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const inlineDescriptionId = `${itemId}--inline-description`
     const blockDescriptionId = `${itemId}--block-description`
     const inactiveWarningId = inactive && !showInactiveIndicator ? `${itemId}--warning-message` : undefined
+    const validRole = listRole === 'listbox' || listRole === 'menu' || listRole === 'list' || inactive
 
-    const ItemWrapper = _PrivateItemWrapper || React.Fragment
+    const ButtonItemWrapper = React.forwardRef(({as: Component = 'button', children, ...props}, forwardedRef) => {
+      return (
+        <Box
+          as={Component as React.ElementType}
+          sx={merge<BetterSystemStyleObject>(styles, sxProp)}
+          ref={forwardedRef}
+          {...props}
+        >
+          {children}
+        </Box>
+      )
+    }) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>
+
+    const ItemWrapper = _PrivateItemWrapper || (validRole ? React.Fragment : ButtonItemWrapper)
 
     // only apply aria-selected and aria-checked to selectable items
     const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option']
@@ -273,20 +293,31 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       id: itemId,
     }
 
-    const containerProps = _PrivateItemWrapper ? {role: itemRole ? 'none' : undefined} : menuItemProps
+    const containerProps = _PrivateItemWrapper
+      ? {role: itemRole ? 'none' : undefined, ...props}
+      : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        (validRole && {...menuItemProps, ...props, ref: forwardedRef}) || {}
 
-    const wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
+    const wrapperProps = _PrivateItemWrapper
+      ? menuItemProps
+      : !validRole && {
+          ...menuItemProps,
+          ...props,
+          styles: merge<BetterSystemStyleObject>(styles, sxProp),
+          ref: forwardedRef,
+        }
 
     return (
       <ItemContext.Provider
         value={{variant, disabled, inactive: Boolean(inactiveText), inlineDescriptionId, blockDescriptionId}}
       >
         <LiBox
-          ref={forwardedRef}
-          sx={merge<BetterSystemStyleObject>(styles, sxProp)}
+          sx={merge<BetterSystemStyleObject>(
+            validRole || _PrivateItemWrapper ? styles : listItemStyles,
+            validRole || _PrivateItemWrapper ? sxProp : {},
+          )}
           data-variant={variant === 'danger' ? variant : undefined}
           {...containerProps}
-          {...props}
         >
           <ItemWrapper {...wrapperProps}>
             <Selection selected={selected} />
