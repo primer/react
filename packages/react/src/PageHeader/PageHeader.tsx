@@ -11,7 +11,6 @@ import Link from '../Link'
 
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
-import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
 import {useProvidedRefOrCreate} from '../hooks'
 
@@ -146,14 +145,13 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
           })
         )
       })
-
-      // PageHeader.TitleArea should be the first element in the DOM if ContextArea or LeadingAction is present.
-      // Motivation behind this rule to make sure context area and leading action are always rendered after the title (a heading tag)
+      // PageHeader.TitleArea should be the first element in the DOM.
+      // Motivation behind this rule to make sure context area and leading action (if they exist) are always rendered after the title (a heading tag)
       // so that screen reader users who are navigating via heading menu won't miss these actions.
       if (hasContextArea || hasLeadingAction) {
-        invariant(
-          !hasInteractiveContent,
-          'When PageHeader.ContextArea or PageHeader.LeadingAction is present, PageHeader.TitleArea cannot include interactive elements to make sure the focus order is intact.',
+        warning(
+          hasInteractiveContent,
+          'When PageHeader.ContextArea or PageHeader.LeadingAction is present, we recommended not to include any interactive items in the PageHeader.TitleArea to make sure the focus order is logical.',
         )
       }
     }, [children, rootRef, hasContextArea, hasLeadingAction])
