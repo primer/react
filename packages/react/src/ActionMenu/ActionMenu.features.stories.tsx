@@ -191,9 +191,6 @@ export const InactiveItems = () => (
   </ActionMenu>
 )
 
-// Showing that it works with wrapped components
-const PasteFromMenuItem = () => <ActionList.Item>Paste from</ActionList.Item>
-
 export const Submenus = () => (
   <ActionMenu>
     <ActionMenu.Button>Edit</ActionMenu.Button>
@@ -218,7 +215,7 @@ export const Submenus = () => (
               <ActionList.Item>Paste with formatting</ActionList.Item>
               <ActionMenu>
                 <ActionMenu.Anchor>
-                  <PasteFromMenuItem />
+                  <ActionList.Item>Paste from</ActionList.Item>
                 </ActionMenu.Anchor>
                 <ActionMenu.Overlay>
                   <ActionList>
