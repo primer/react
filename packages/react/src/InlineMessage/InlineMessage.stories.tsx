@@ -10,7 +10,7 @@ const meta = {
 export default meta
 
 export const Default = () => {
-  return <InlineMessage>An example inline message</InlineMessage>
+  return <InlineMessage variant="unavailable">An example inline message</InlineMessage>
 }
 
 export const Playground: StoryObj<typeof InlineMessage> = {

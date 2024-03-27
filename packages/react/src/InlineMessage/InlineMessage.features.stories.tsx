@@ -1,4 +1,4 @@
-import type {Meta, StoryObj} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import React from 'react'
 import {InlineMessage} from '../InlineMessage'
 
@@ -8,10 +8,6 @@ const meta = {
 } satisfies Meta<typeof InlineMessage>
 
 export default meta
-
-export const Info = () => {
-  return <InlineMessage variant="info">An example inline message</InlineMessage>
-}
 
 export const Warning = () => {
   return <InlineMessage variant="warning">An example inline message</InlineMessage>

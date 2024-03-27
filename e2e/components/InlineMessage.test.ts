@@ -8,12 +8,8 @@ const stories = [
     id: 'drafts-components-inlinemessage--default',
   },
   {
-    title: 'Info',
-    id: 'drafts-components-inlinemessage-features--info',
-  },
-  {
     title: 'Warning',
-    id: 'drafts-components-inlinemessage-features--info',
+    id: 'drafts-components-inlinemessage-features--warning',
   },
   {
     title: 'Critical',
