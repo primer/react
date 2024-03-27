@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import {Announce} from '../internal/components/Announce'
 import {get} from '../constants'
 
-type MessageVariant = 'info' | 'warning' | 'critical' | 'success' | 'unvailable'
+type MessageVariant = 'info' | 'warning' | 'critical' | 'success' | 'unavailable'
 
 export type InlineMessageProps = React.ComponentPropsWithoutRef<'div'> & {
   /**
@@ -39,7 +39,8 @@ const StyledMessage = styled.div`
   }
 
   &[data-variant='unavailable'] {
-    --inline-message-fgColor: ${get('colors.neutral.fg')};
+    /* TODO: --fgColor-neutral */
+    --inline-message-fgColor: ${get('colors.fg.subtle')};
   }
 
   & .InlineMessageIcon {
@@ -53,7 +54,7 @@ const variantToIcon: Record<MessageVariant, React.ReactNode> = {
   warning: <AlertIcon className="InlineMessageIcon" />,
   critical: <StopIcon className="InlineMessageIcon" />,
   success: <IssueClosedIcon className="InlineMessageIcon" />,
-  unvailable: <AlertIcon className="InlineMessageIcon" />,
+  unavailable: <AlertIcon className="InlineMessageIcon" />,
 }
 
 export function InlineMessage({children, variant = 'info', ...rest}: InlineMessageProps) {

@@ -26,5 +26,5 @@ export const Success = () => {
 }
 
 export const Unavailable = () => {
-  return <InlineMessage variant="unvailable">An example inline message</InlineMessage>
+  return <InlineMessage variant="unavailable">An example inline message</InlineMessage>
 }
