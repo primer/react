@@ -47,7 +47,7 @@ export const WithVisualListHeading = () => (
   <ActionList>
     <ActionList.Heading as="h2">Filter by</ActionList.Heading>
     <ActionList.Group>
-      <ActionList.GroupHeading>Path</ActionList.GroupHeading>
+      <ActionList.GroupHeading as="h4">Repositories</ActionList.GroupHeading>
       <ActionList.Item onClick={() => {}}>
         <ActionList.LeadingVisual>
           <FileDirectoryIcon />
@@ -75,7 +75,7 @@ export const WithVisualListHeading = () => (
     </ActionList.Group>
 
     <ActionList.Group>
-      <ActionList.GroupHeading>Advanced</ActionList.GroupHeading>
+      <ActionList.GroupHeading as="h4">Advanced</ActionList.GroupHeading>
       <ActionList.Item onClick={() => {}}>
         <ActionList.LeadingVisual>
           <PlusCircleIcon />
