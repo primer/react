@@ -11,6 +11,9 @@
 export {Blankslate} from '../Blankslate'
 export type {BlankslateProps} from '../Blankslate'
 
+export {Banner} from '../Banner'
+export type {BannerProps} from '../Banner'
+
 export {DataTable, Table, createColumnHelper} from '../DataTable'
 export type {
   DataTableProps,
