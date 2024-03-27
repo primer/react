@@ -86,7 +86,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
       <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>
         {title && !slots.groupHeading ? (
           // Escape hatch: supports old API <ActionList.Group title="group title"> in a non breaking way
-          <GroupHeading variant={variant} auxiliaryText={auxiliaryText} unsafeTitle={title} />
+          <GroupHeading variant={variant} auxiliaryText={auxiliaryText} internalBackwardCompatibleTitle={title} />
         ) : null}
         {/* Supports new API ActionList.GroupHeading */}
         {!title && slots.groupHeading ? React.cloneElement(slots.groupHeading) : null}
@@ -112,7 +112,7 @@ export type GroupHeadingProps = Pick<ActionListGroupProps, 'variant' | 'auxiliar
   SxProp &
   React.HTMLAttributes<HTMLElement> & {
     as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-    unsafeTitle?: string
+    internalBackwardCompatibleTitle?: string
   }
 
 /**
@@ -127,7 +127,7 @@ export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> 
   as,
   variant,
   // We are not recommending this prop to be used, it should only be used internally for incremental rollout.
-  unsafeTitle,
+  internalBackwardCompatibleTitle,
   auxiliaryText,
   children,
   sx = defaultSxProp,
@@ -172,14 +172,14 @@ export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> 
       {/* for listbox (SelectPanel) and menu (ActionMenu) roles, group titles are presentational. */}
       {listRole && listRole !== 'list' ? (
         <Box sx={styles} role="presentation" aria-hidden="true" {...props}>
-          <span id={groupHeadingId}>{unsafeTitle ?? children}</span>
+          <span id={groupHeadingId}>{internalBackwardCompatibleTitle ?? children}</span>
           {auxiliaryText && <span>{auxiliaryText}</span>}
         </Box>
       ) : (
         // for explicit (role="list" is passed as prop) and implicit list roles (ActionList ins rendered as list by default), group titles are proper heading tags.
         <>
           <Heading as={as || 'h3'} id={groupHeadingId} sx={merge<BetterSystemStyleObject>(styles, sx)} {...props}>
-            {unsafeTitle ?? children}
+            {internalBackwardCompatibleTitle ?? children}
           </Heading>
           {auxiliaryText && <span>{auxiliaryText}</span>}
         </>

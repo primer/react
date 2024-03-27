@@ -263,15 +263,19 @@ describe('ActionList', () => {
     expect(heading).toHaveTextContent('Group Heading')
   })
   it('should throw an error if ActionList.GroupHeading is used without an `as` prop when no role is specified (for list role)', async () => {
-    const spy = jest.spyOn(console, 'error').mockImplementationOnce(() => {})
-
-    HTMLRender(
-      <ActionList>
-        <ActionList.Heading as="h1">Heading</ActionList.Heading>
-        <ActionList.Group>
-          <ActionList.GroupHeading>Group Heading</ActionList.GroupHeading>
-        </ActionList.Group>
-      </ActionList>,
+    const spy = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
+    expect(
+      HTMLRender(
+        <ActionList>
+          <ActionList.Heading as="h1">Heading</ActionList.Heading>
+          <ActionList.Group>
+            <ActionList.GroupHeading>Group Heading</ActionList.GroupHeading>
+            <ActionList.Item>Item</ActionList.Item>
+          </ActionList.Group>
+        </ActionList>,
+      ),
+    ).toThrow(
+      'You are setting a heading for a list, that requires a heading level. Please use `as` prop to set a proper heading level.',
     )
     expect(spy).toHaveBeenCalled()
     spy.mockRestore()
