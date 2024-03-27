@@ -44,7 +44,7 @@ export function Announce({children, politeness = 'polite', ...rest}: AnnouncePro
     // When the text of the container changes, announce the new text
     const observer = new MutationObserver(mutationList => {
       for (const mutation of mutationList) {
-        if (mutation.type === 'characterData') {
+        if (mutation.type === 'characterData' || mutation.type === 'childList') {
           announceFromElement(container, {
             politeness: savedPoliteness.current,
           })
@@ -55,6 +55,7 @@ export function Announce({children, politeness = 'polite', ...rest}: AnnouncePro
 
     observer.observe(container, {
       subtree: true,
+      childList: true,
       characterData: true,
     })
 

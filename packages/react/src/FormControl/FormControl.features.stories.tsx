@@ -306,3 +306,33 @@ export const DisabledInputs = () => (
     </FormControl>
   </Box>
 )
+
+export const ErrorOnlyValidationExample = () => {
+  const [value, setValue] = React.useState('monalisa')
+  const [validationResult, setValidationResult] = React.useState('')
+  const doesValueContainSpaces = (inputValue: string) => /\s/g.test(inputValue)
+  const handleInputChange = (e: {currentTarget: {value: React.SetStateAction<string>}}) => {
+    setValue(e.currentTarget.value)
+  }
+
+  React.useEffect(() => {
+    if (doesValueContainSpaces(value)) {
+      setValidationResult('noSpaces')
+    } else if (value) {
+      setValidationResult('validName')
+    }
+  }, [value])
+
+  return (
+    <FormControl>
+      <FormControl.Label>GitHub handle</FormControl.Label>
+      <TextInput block value={value} onChange={handleInputChange} />
+      {validationResult === 'noSpaces' && (
+        <FormControl.Validation variant="error">GitHub handles cannot contain spaces</FormControl.Validation>
+      )}
+      <FormControl.Caption>
+        Input will show an error message if value contains spaces. Try typing a space in the input field.
+      </FormControl.Caption>
+    </FormControl>
+  )
+}
