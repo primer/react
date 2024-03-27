@@ -2,10 +2,6 @@
 title: Getting started
 ---
 
-import DeprecationBanner from '../components/DeprecationBanner'
-
-<DeprecationBanner replacementUrl={'/design/guides/development/react'} />
-
 ## Installation
 
 To get started using Primer React, install the package and its peer dependencies with your package manager of choice:
