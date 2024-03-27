@@ -76,6 +76,22 @@ const components = new Map([
           id: 'components-actionlist-features--disabled-selected-multiselect',
           name: 'Disabled Selected Multiselect',
         },
+        {
+          id: 'components-actionlist-dev--group-with-filled-title-old-api',
+          name: 'Group With Filled Title Old Api',
+        },
+        {
+          id: 'components-actionlist-dev--group-with-subtle-title-old-api',
+          name: 'Group With Subtle Title Old Api',
+        },
+        {
+          id: 'components-actionlist-features--group-with-filled-title',
+          name: 'Group With Filled Title',
+        },
+        {
+          id: 'components-actionlist-features--group-with-subtle-title',
+          name: 'Group With Subtle Title',
+        },
       ],
     },
   ],
@@ -1328,6 +1344,17 @@ const components = new Map([
       stories: [
         {
           id: 'components-tabnav--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
+    'TabPages',
+    {
+      stories: [
+        {
+          id: 'components-tabpages--default',
           name: 'Default',
         },
       ],
