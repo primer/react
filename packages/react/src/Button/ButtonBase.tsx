@@ -62,7 +62,6 @@ const ButtonBase = forwardRef(
     }, [baseStyles, sxProp])
     const uuid = useId(id)
     const loadingAnnouncementID = `${uuid}-loading-announcement`
-    const buttonLabelID = ariaLabelledBy || `${uuid}-label`
 
     if (__DEV__) {
       /**
@@ -103,7 +102,7 @@ const ButtonBase = forwardRef(
           // aria-labelledby is needed because the accessible name becomes unset when the button is in a loading state.
           // We only set it when the button is in a loading state because it will supercede the aria-label when the screen
           // reader announces the button name.
-          aria-labelledby={loading ? buttonLabelID : undefined}
+          aria-labelledby={loading ? `${uuid}-label` : ariaLabelledBy}
           id={id}
           onClick={loading ? undefined : onClick}
         >
@@ -119,7 +118,7 @@ const ButtonBase = forwardRef(
                 {loading && !LeadingVisual && !TrailingVisual && renderVisual(Spinner, loading, 'loadingSpinner')}
                 {LeadingVisual && renderVisual(LeadingVisual, loading, 'leadingVisual')}
                 {children && (
-                  <span data-component="text" id={buttonLabelID}>
+                  <span data-component="text" id={loading ? `${uuid}-label` : undefined}>
                     {children}
                     {count !== undefined && !TrailingVisual && (
                       <CounterLabel data-component="ButtonCounter" sx={{ml: 2}}>
