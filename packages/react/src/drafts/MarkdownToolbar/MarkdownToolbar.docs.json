@@ -1,0 +1,168 @@
+{
+  "id": "drafts_markdown_toolbar",
+  "name": "MarkdownToolbar",
+  "status": "draft",
+  "a11yReviewed": false,
+  "stories": [],
+  "props": [
+    {
+      "name": "for",
+      "required": true,
+      "type": "string",
+      "description": "An IDREF pointing to the textarea this toolbar applies to."
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "MarkdownToolbar.Header1Button",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.Header2Button",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.Header3Button",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.BoldButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.ItalicButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.QuoteButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.CodeButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.LinkButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.ImageButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.UnorderedListButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.OrderedListButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.TaskListButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.MentionButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.ReferenceButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.StrikethroughButton",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "MarkdownToolbar.DefaultButtons",
+      "props": []
+    },
+    {
+      "name": "MarkdownToolbar.InlineFormattingButtons",
+      "props": []
+    },
+    {
+      "name": "MarkdownToolbar.ListButtons",
+      "props": []
+    }
+  ]
+}
