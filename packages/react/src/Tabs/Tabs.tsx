@@ -28,22 +28,15 @@ function Tabs({children, defaultValue, value: controlledValue, onValueChange}: T
       onValueChange?.({value})
     },
   })
-  const savedOnValueChange = React.useRef(onValueChange)
   const value: TabsContextValue = React.useMemo(() => {
     return {
       baseId,
       selectedValue,
       selectTab(value: string) {
         setSelectedValue(value)
-        savedOnValueChange.current?.({value})
-        onValueChange?.({value})
       },
     }
-  }, [selectedValue])
-
-  React.useEffect(() => {
-    savedOnValueChange.current = onValueChange
-  })
+  }, [selectedValue, setSelectedValue])
 
   return <TabsContext.Provider value={value}>{children}</TabsContext.Provider>
 }

@@ -1,10 +1,8 @@
-import {Tabs, TabList, Tab, TabPanel} from './Tabs'
+import {Tabs as TabsImpl, TabList, Tab, TabPanel} from './Tabs'
 
-const ComposedTabs = Object.assign(Tabs, {
+export const Tabs = Object.assign(TabsImpl, {
   TabList,
   Tab,
   TabPanel,
 })
-
-export {ComposedTabs as Tabs}
 export type {TabsProps, TabListProps, TabProps, TabPanelProps} from './Tabs'
