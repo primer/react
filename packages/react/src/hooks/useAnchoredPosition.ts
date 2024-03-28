@@ -5,9 +5,12 @@ import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 import {useResizeObserver} from './useResizeObserver'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
-export interface AnchoredPositionHookSettings extends Partial<PositionSettings> {
-  floatingElementRef?: React.RefObject<Element>
-  anchorElementRef?: React.RefObject<Element>
+export interface AnchoredPositionHookSettings<
+  TAnchorElement extends Element = HTMLDivElement,
+  TFloatingElement extends Element = HTMLDivElement,
+> extends Partial<PositionSettings> {
+  floatingElementRef?: React.RefObject<TFloatingElement>
+  anchorElementRef?: React.RefObject<TAnchorElement>
 }
 
 /**
@@ -19,16 +22,19 @@ export interface AnchoredPositionHookSettings extends Partial<PositionSettings> 
  * @returns An object of {top: number, left: number} to absolutely-position the
  * floating element.
  */
-export function useAnchoredPosition(
-  settings?: AnchoredPositionHookSettings,
+export function useAnchoredPosition<
+  TAnchorElement extends Element = HTMLDivElement,
+  TFloatingElement extends Element = HTMLDivElement,
+>(
+  settings?: AnchoredPositionHookSettings<TAnchorElement, TFloatingElement>,
   dependencies: React.DependencyList = [],
 ): {
-  floatingElementRef: React.RefObject<Element>
-  anchorElementRef: React.RefObject<Element>
+  floatingElementRef: React.RefObject<TFloatingElement>
+  anchorElementRef: React.RefObject<TAnchorElement>
   position: AnchorPosition | undefined
 } {
-  const floatingElementRef = useProvidedRefOrCreate(settings?.floatingElementRef)
-  const anchorElementRef = useProvidedRefOrCreate(settings?.anchorElementRef)
+  const floatingElementRef = useProvidedRefOrCreate<TFloatingElement>(settings?.floatingElementRef)
+  const anchorElementRef = useProvidedRefOrCreate<TAnchorElement>(settings?.anchorElementRef)
   const [position, setPosition] = React.useState<AnchorPosition | undefined>(undefined)
 
   const updatePosition = React.useCallback(

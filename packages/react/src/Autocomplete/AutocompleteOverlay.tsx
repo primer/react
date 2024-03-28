@@ -57,7 +57,7 @@ function AutocompleteOverlay({
       preventFocusOnOpen={true}
       onClickOutside={closeOptionList}
       onEscape={closeOptionList}
-      ref={floatingElementRef as React.RefObject<HTMLDivElement>}
+      ref={floatingElementRef}
       top={position?.top}
       left={position?.left}
       sx={{

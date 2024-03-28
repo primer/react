@@ -144,19 +144,8 @@ export const CenteredOnScreen = () => {
   })
   // The outer Position element simply fills all available space
   return (
-    <Box
-      ref={anchorElementRef as React.RefObject<HTMLDivElement>}
-      position="absolute"
-      top={0}
-      bottom={0}
-      left={0}
-      right={0}
-    >
-      <Float
-        ref={floatingElementRef as React.RefObject<HTMLDivElement>}
-        top={position?.top ?? 0}
-        left={position?.left ?? 0}
-      >
+    <Box ref={anchorElementRef} position="absolute" top={0} bottom={0} left={0} right={0}>
+      <Float ref={floatingElementRef} top={position?.top ?? 0} left={position?.left ?? 0}>
         <p>Screen-Centered Floating Element </p>
         <p>
           <small>
@@ -277,7 +266,7 @@ export const WithPortal = () => {
   const mainRef = React.useRef<HTMLElement>(null)
 
   // Calculate the position of the menu
-  const {floatingElementRef, anchorElementRef, position} = useAnchoredPosition(
+  const {floatingElementRef, anchorElementRef, position} = useAnchoredPosition<HTMLButtonElement>(
     {
       side: 'outside-bottom',
       align: 'start',
@@ -307,13 +296,13 @@ export const WithPortal = () => {
           with <code>useAnchoredPosition</code>, we can break out of this constraint.
         </p>
         <Box sx={{textAlign: 'right'}}>
-          <Button variant="primary" onClick={toggleMenu} ref={anchorElementRef as React.RefObject<HTMLButtonElement>}>
+          <Button variant="primary" onClick={toggleMenu} ref={anchorElementRef}>
             Show the overlay!
           </Button>
           {showMenu ? (
             <Portal>
               <Float
-                ref={floatingElementRef as React.RefObject<HTMLDivElement>}
+                ref={floatingElementRef}
                 style={{top: `${position?.top ?? 0}px`, left: `${position?.left ?? 0}px`}}
                 width={250}
                 height={400}
