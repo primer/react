@@ -2,6 +2,8 @@ import type {RefObject, MutableRefObject} from 'react'
 import React, {useState, useCallback, useRef, forwardRef} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {ActionList} from '../../ActionList'
+import {ActionMenu} from '../../ActionMenu'
+
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 import styled from 'styled-components'
 import sx from '../../sx'
@@ -67,20 +69,6 @@ const listStyles = {
   position: 'relative',
 }
 
-const menuStyles = {
-  position: 'absolute',
-  zIndex: 1,
-  top: '90%',
-  right: '0',
-  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
-  borderRadius: '12px',
-  backgroundColor: 'canvas.overlay',
-  listStyle: 'none',
-  // Values are from ActionMenu
-  minWidth: '192px',
-  maxWidth: '640px',
-}
-
 const MORE_BTN_WIDTH = 86
 const getNavStyles = () => ({
   display: 'flex',
@@ -93,17 +81,6 @@ const getNavStyles = () => ({
 
 const menuItemStyles = {
   textDecoration: 'none',
-}
-
-const moreBtnStyles = {
-  //set margin 0 here because safari puts extra margin around the button, rest is to reset style to make it look like a list element
-  margin: 0,
-  border: 0,
-  background: 'transparent',
-  fontWeight: 'normal',
-  boxShadow: 'none',
-  paddingY: 1,
-  paddingX: 2,
 }
 
 const getValidChildren = (children: React.ReactNode) => {
@@ -177,6 +154,35 @@ const overflowEffect = (
   }
 }
 
+export const ActionBarIconButton = forwardRef((props: ActionBarIconButtonProps, forwardedRef) => {
+  const backupRef = useRef<HTMLElement>(null)
+  const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
+  const {size, setChildrenWidth} = React.useContext(ActionBarContext)
+  useIsomorphicLayoutEffect(() => {
+    const text = props['aria-label'] ? props['aria-label'] : ''
+    const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
+    setChildrenWidth({text, width: domRect.width})
+  }, [ref, setChildrenWidth])
+  return <IconButton ref={ref} size={size} {...props} variant="invisible" />
+})
+
+type ActionBarSubMenuButtonProps = ActionBarIconButtonProps
+
+export const ActionBarSubMenuButton = forwardRef((props: ActionBarSubMenuButtonProps, forwardedRef) => {
+  const backupRef = useRef<HTMLElement>(null)
+  const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
+  const actionMenuRef = useRef<HTMLElement>(null)
+  const {children, ...rest} = props
+  return (
+    <ActionMenu>
+      <ActionMenu.Anchor ref={actionMenuRef}>
+        <ActionBarIconButton ref={ref} {...rest}></ActionBarIconButton>
+      </ActionMenu.Anchor>
+      <ActionMenu.Overlay>{children}</ActionMenu.Overlay>
+    </ActionMenu>
+  )
+})
+
 export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = props => {
   const {size = 'medium', children, 'aria-label': ariaLabel} = props
   const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
@@ -192,7 +198,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   const moreMenuRef = useRef<HTMLLIElement>(null)
   const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
   const containerRef = React.useRef<HTMLUListElement>(null)
-  const disclosureWidgetId = React.useId()
 
   const validChildren = getValidChildren(children)
   // Responsive props object manages which items are in the list and which items are in the menu.
@@ -221,36 +226,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     navWidth !== 0 && overflowEffect(navWidth, moreMenuWidth, validChildren, childWidthArray, updateListAndMenu)
   }, navRef as RefObject<HTMLElement>)
 
-  const [isWidgetOpen, setIsWidgetOpen] = useState(false)
-
-  const closeOverlay = React.useCallback(() => {
-    setIsWidgetOpen(false)
-  }, [setIsWidgetOpen])
-
-  const focusOnMoreMenuBtn = React.useCallback(() => {
-    moreMenuBtnRef.current?.focus()
-  }, [])
-
-  const onAnchorClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
-    if (event.defaultPrevented || event.button !== 0) {
-      return
-    }
-    setIsWidgetOpen(isWidgetOpen => !isWidgetOpen)
-  }, [])
-
-  useOnEscapePress(
-    (event: KeyboardEvent) => {
-      if (isWidgetOpen) {
-        event.preventDefault()
-        closeOverlay()
-        focusOnMoreMenuBtn()
-      }
-    },
-    [isWidgetOpen],
-  )
-
-  useOnOutsideClick({onClickOutside: closeOverlay, containerRef, ignoreClickRefs: [moreMenuBtnRef]})
-
   return (
     <ActionBarContext.Provider value={{size, setChildrenWidth}}>
       <Box ref={navRef} sx={getNavStyles()}>
@@ -258,55 +233,66 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
           {listItems}
           {menuItems.length > 0 && (
             <MoreMenuListItem ref={moreMenuRef}>
-              <IconButton
-                ref={moreMenuBtnRef}
-                sx={moreBtnStyles}
-                aria-controls={disclosureWidgetId}
-                aria-expanded={isWidgetOpen}
-                onClick={onAnchorClick}
-                aria-label={`More ${ariaLabel} items`}
-                icon={KebabHorizontalIcon}
-              />
-              <ActionList
-                ref={containerRef}
-                id={disclosureWidgetId}
-                sx={menuStyles}
-                style={{display: isWidgetOpen ? 'block' : 'none'}}
-              >
-                {menuItems.map((menuItem, index) => {
-                  if (menuItem.type === ActionList.Divider) {
-                    return <ActionList.Divider key={index} />
-                  } else {
-                    const {
-                      children: menuItemChildren,
-                      //'aria-current': ariaCurrent,
-                      onClick,
-                      icon: Icon,
-                      'aria-label': ariaLabel,
-                    } = menuItem.props
-                    return (
-                      <ActionList.LinkItem
-                        key={menuItemChildren}
-                        sx={menuItemStyles}
-                        onClick={(
-                          event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
-                        ) => {
-                          closeOverlay()
-                          focusOnMoreMenuBtn()
-                          typeof onClick === 'function' && onClick(event)
-                        }}
-                      >
-                        {Icon ? (
-                          <ActionList.LeadingVisual>
-                            <Icon />
-                          </ActionList.LeadingVisual>
-                        ) : null}
-                        {ariaLabel}
-                      </ActionList.LinkItem>
-                    )
-                  }
-                })}
-              </ActionList>
+              <ActionMenu>
+                <ActionMenu.Anchor ref={moreMenuBtnRef}>
+                  <ActionBarIconButton
+                    aria-label={`More ${ariaLabel} items`}
+                    icon={KebabHorizontalIcon}
+                  ></ActionBarIconButton>
+                </ActionMenu.Anchor>
+                <ActionMenu.Overlay>
+                  <ActionList>
+                    {menuItems.map((menuItem, index) => {
+                      if (menuItem.type === ActionList.Divider) {
+                        return <ActionList.Divider key={index} />
+                      }
+                      if (menuItem.type === ActionBarSubMenuButton) {
+                        const {children} = menuItem.props
+                        debugger
+                        const text = menuItem.props['aria-label']
+                        const Icon = menuItem.props['icon']
+                        return (
+                          <ActionMenu>
+                            <ActionMenu.MenuItemAnchor>
+                              <ActionList.LeadingVisual>
+                                <Icon />
+                              </ActionList.LeadingVisual>
+                              {text}
+                            </ActionMenu.MenuItemAnchor>
+                            <ActionMenu.Overlay>{children}</ActionMenu.Overlay>
+                          </ActionMenu>
+                        )
+                      } else {
+                        const {
+                          children: menuItemChildren,
+                          //'aria-current': ariaCurrent,
+                          onClick,
+                          icon: Icon,
+                          'aria-label': ariaLabel,
+                        } = menuItem.props
+                        return (
+                          <ActionList.LinkItem
+                            key={menuItemChildren}
+                            sx={menuItemStyles}
+                            onClick={(
+                              event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
+                            ) => {
+                              typeof onClick === 'function' && onClick(event)
+                            }}
+                          >
+                            {Icon ? (
+                              <ActionList.LeadingVisual>
+                                <Icon />
+                              </ActionList.LeadingVisual>
+                            ) : null}
+                            {ariaLabel}
+                          </ActionList.LinkItem>
+                        )
+                      }
+                    })}
+                  </ActionList>
+                </ActionMenu.Overlay>
+              </ActionMenu>
             </MoreMenuListItem>
           )}
         </NavigationList>
@@ -314,18 +300,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     </ActionBarContext.Provider>
   )
 }
-
-export const ActionBarIconButton = forwardRef((props: ActionBarIconButtonProps, forwardedRef) => {
-  const backupRef = useRef<HTMLElement>(null)
-  const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
-  const {size, setChildrenWidth} = React.useContext(ActionBarContext)
-  useIsomorphicLayoutEffect(() => {
-    const text = props['aria-label'] ? props['aria-label'] : ''
-    const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
-    setChildrenWidth({text, width: domRect.width})
-  }, [ref, setChildrenWidth])
-  return <IconButton ref={ref} size={size} {...props} variant="invisible" />
-})
 
 const sizeToHeight = {
   small: '24px',

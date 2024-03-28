@@ -14,11 +14,12 @@ import {
   ListOrderedIcon,
   TasklistIcon,
   ReplyIcon,
+  ThreeBarsIcon,
 } from '@primer/octicons-react'
 import {MarkdownInput} from '../MarkdownEditor/_MarkdownInput'
 import {ViewSwitch} from '../MarkdownEditor/_ViewSwitch'
 import type {MarkdownViewMode} from '../MarkdownEditor/_ViewSwitch'
-import {Box, Dialog, Button} from '../..'
+import {Box, Dialog, Button, ActionList} from '../..'
 import {Divider} from '../../deprecated/ActionList/Divider'
 
 export default {
@@ -116,6 +117,13 @@ export const CommentBox = () => {
               icon={ReplyIcon}
               aria-label="Saved Replies"
             ></ActionBar.IconButton>
+            <ActionBar.SubMenuButton aria-label="Open Random Menu" icon={ThreeBarsIcon}>
+              <ActionList>
+                <ActionList.Item>First Item</ActionList.Item>
+                <ActionList.Item>Second Item</ActionList.Item>
+                <ActionList.Item>Third Item</ActionList.Item>
+              </ActionList>
+            </ActionBar.SubMenuButton>
           </ActionBar>
         </Box>
       </Box>
