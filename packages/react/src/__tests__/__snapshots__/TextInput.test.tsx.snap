@@ -1984,7 +1984,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   display: block;
   right: 0;
   left: 0;
-  height: 8px;
+  height: var(--overlay-offset,0.25rem);
   content: '';
 }
 
@@ -3032,7 +3032,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   display: block;
   right: 0;
   left: 0;
-  height: 8px;
+  height: var(--overlay-offset,0.25rem);
   content: '';
 }
 
