@@ -152,8 +152,15 @@ const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, 
   const parentActionListContext = useContext(ActionListContainerContext)
   const thisActionListContext = useMemo(
     () =>
-      isSubmenu ? {...parentActionListContext, defaultTrailingVisual: <ChevronRightIcon />} : parentActionListContext,
-    [isSubmenu, parentActionListContext],
+      isSubmenu
+        ? {
+            ...parentActionListContext,
+            defaultTrailingVisual: <ChevronRightIcon />,
+            // Default behavior is to close after selecting; we want to open the submenu instead
+            afterSelect: () => onOpen?.('anchor-click'),
+          }
+        : parentActionListContext,
+    [isSubmenu, onOpen, parentActionListContext],
   )
 
   return (

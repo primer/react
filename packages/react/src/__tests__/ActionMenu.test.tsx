@@ -533,7 +533,7 @@ describe('ActionMenu', () => {
 
       await user.keyboard('{ArrowRight}')
       expect(component.queryByRole('menu')).not.toBeInTheDocument()
-      expect(baseAnchor).not.toHaveAttribute('aria-expanded')
+      expect(baseAnchor).not.toHaveAttribute('aria-expanded', 'true')
     })
 
     it('opens submenus on enter or right arrow key press', async () => {
@@ -544,15 +544,15 @@ describe('ActionMenu', () => {
       await user.click(baseAnchor)
 
       const submenuAnchor = component.getByRole('menuitem', {name: 'Paste special'})
-      expect(submenuAnchor).toHaveAttribute('aria-haspopup')
+      expect(submenuAnchor).toHaveAttribute('aria-haspopup', 'true')
       submenuAnchor.focus()
       await user.keyboard('{Enter}')
-      expect(submenuAnchor).toHaveAttribute('aria-expanded')
+      expect(submenuAnchor).toHaveAttribute('aria-expanded', 'true')
 
       const subSubmenuAnchor = component.getByRole('menuitem', {name: 'Paste from'})
       subSubmenuAnchor.focus()
       await user.keyboard('{ArrowRight}')
-      expect(subSubmenuAnchor).toHaveAttribute('aria-expanded')
+      expect(subSubmenuAnchor).toHaveAttribute('aria-expanded', 'true')
     })
 
     it('closes top menu on escape or left arrow key press', async () => {
@@ -568,16 +568,16 @@ describe('ActionMenu', () => {
       const subSubmenuAnchor = component.getByRole('menuitem', {name: 'Paste from'})
       await user.click(subSubmenuAnchor)
 
-      expect(subSubmenuAnchor).toHaveAttribute('aria-expanded')
+      expect(subSubmenuAnchor).toHaveAttribute('aria-expanded', 'true')
 
       await user.keyboard('{Escape}')
-      expect(subSubmenuAnchor).not.toHaveAttribute('aria-expanded')
-      expect(submenuAnchor).toHaveAttribute('aria-expanded')
+      expect(subSubmenuAnchor).not.toHaveAttribute('aria-expanded', 'true')
+      expect(submenuAnchor).toHaveAttribute('aria-expanded', 'true')
 
       await user.keyboard('{ArrowLeft}')
-      expect(submenuAnchor).not.toHaveAttribute('aria-expanded')
+      expect(submenuAnchor).not.toHaveAttribute('aria-expanded', 'true')
 
-      expect(baseAnchor).toHaveAttribute('aria-expanded')
+      expect(baseAnchor).toHaveAttribute('aria-expanded', 'true')
     })
 
     it('closes all menus when an item is selected', async () => {
@@ -596,7 +596,7 @@ describe('ActionMenu', () => {
       const subSubmenuItem = component.getByRole('menuitem', {name: 'Current clipboard'})
       await user.click(subSubmenuItem)
 
-      expect(baseAnchor).not.toHaveAttribute('aria-expanded')
+      expect(baseAnchor).not.toHaveAttribute('aria-expanded', 'true')
     })
   })
 })
