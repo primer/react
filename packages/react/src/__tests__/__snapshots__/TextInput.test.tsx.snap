@@ -2681,7 +2681,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
   >
     <button
       aria-describedby=":r0:-loading-announcement"
-      aria-labelledby=":r0:-label"
       className="c4"
       data-block={null}
       data-loading={false}
@@ -2696,7 +2695,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
       >
         <span
           data-component="text"
-          id=":r0:-label"
         >
           Clear
         </span>
@@ -3249,7 +3247,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   >
     <button
       aria-describedby=":r2:-loading-announcement :r1:"
-      aria-labelledby=":r2:-label"
       className="c4"
       data-block={null}
       data-loading={false}
@@ -3268,7 +3265,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
       >
         <span
           data-component="text"
-          id=":r2:-label"
         >
           Clear
         </span>
