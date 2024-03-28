@@ -1,8 +1,9 @@
-import React, {useLayoutEffect} from 'react'
+import React from 'react'
 import {getAnchoredPosition} from '@primer/behaviors'
 import type {AnchorPosition, PositionSettings} from '@primer/behaviors'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'
 import {useResizeObserver} from './useResizeObserver'
+import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
 export interface AnchoredPositionHookSettings<
   TAnchorElement extends Element = HTMLDivElement,
