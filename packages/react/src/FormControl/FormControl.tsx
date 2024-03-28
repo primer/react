@@ -18,6 +18,7 @@ import FormControlLabel from './_FormControlLabel'
 import FormControlLeadingVisual from './_FormControlLeadingVisual'
 import FormControlValidation from './_FormControlValidation'
 import {FormControlContextProvider} from './_FormControlContext'
+import {Status} from '../internal/components/Status'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -200,9 +201,11 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
                 React.isValidElement(child) &&
                 !expectedInputComponents.some(inputComponent => child.type === inputComponent),
             )}
-            {slots.validation ? (
-              <ValidationAnimationContainer show>{slots.validation}</ValidationAnimationContainer>
-            ) : null}
+            <Status>
+              {slots.validation ? (
+                <ValidationAnimationContainer show>{slots.validation}</ValidationAnimationContainer>
+              ) : null}
+            </Status>
             {slots.caption}
           </Box>
         )}
