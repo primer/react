@@ -264,7 +264,6 @@ exports[`Button respects block prop 1`] = `
 
 <button
   aria-describedby="test-button-loading-announcement"
-  aria-labelledby="test-button-label"
   class="c0"
   data-block="block"
   data-loading="false"
@@ -278,7 +277,6 @@ exports[`Button respects block prop 1`] = `
   >
     <span
       data-component="text"
-      id="test-button-label"
     >
       Block
     </span>
@@ -550,7 +548,6 @@ exports[`Button respects the alignContent prop 1`] = `
 
 <button
   aria-describedby="test-button-loading-announcement"
-  aria-labelledby="test-button-label"
   class="c0"
   data-loading="false"
   data-no-visuals="true"
@@ -563,7 +560,6 @@ exports[`Button respects the alignContent prop 1`] = `
   >
     <span
       data-component="text"
-      id="test-button-label"
     >
       Align start
     </span>
@@ -835,7 +831,6 @@ exports[`Button respects the large size prop 1`] = `
 
 <button
   aria-describedby="test-button-loading-announcement"
-  aria-labelledby="test-button-label"
   class="c0"
   data-loading="false"
   data-no-visuals="true"
@@ -849,7 +844,6 @@ exports[`Button respects the large size prop 1`] = `
   >
     <span
       data-component="text"
-      id="test-button-label"
     >
       Smol
     </span>
@@ -1121,7 +1115,6 @@ exports[`Button respects the small size prop 1`] = `
 
 <button
   aria-describedby="test-button-loading-announcement"
-  aria-labelledby="test-button-label"
   class="c0"
   data-loading="false"
   data-no-visuals="true"
@@ -1135,7 +1128,6 @@ exports[`Button respects the small size prop 1`] = `
   >
     <span
       data-component="text"
-      id="test-button-label"
     >
       Smol
     </span>
@@ -1410,7 +1402,6 @@ exports[`Button styles danger button appropriately 1`] = `
 
 <button
   aria-describedby="test-button-loading-announcement"
-  aria-labelledby="test-button-label"
   class="c0"
   data-loading="false"
   data-no-visuals="true"
@@ -1423,7 +1414,6 @@ exports[`Button styles danger button appropriately 1`] = `
   >
     <span
       data-component="text"
-      id="test-button-label"
     >
       Danger
     </span>
@@ -1707,7 +1697,6 @@ exports[`Button styles invisible button appropriately 1`] = `
 
 <button
   aria-describedby="test-button-loading-announcement"
-  aria-labelledby="test-button-label"
   class="c0"
   data-loading="false"
   data-no-visuals="true"
@@ -1720,7 +1709,6 @@ exports[`Button styles invisible button appropriately 1`] = `
   >
     <span
       data-component="text"
-      id="test-button-label"
     >
       Invisible
     </span>
@@ -1991,7 +1979,6 @@ exports[`Button styles primary button appropriately 1`] = `
 
 <button
   aria-describedby="test-button-loading-announcement"
-  aria-labelledby="test-button-label"
   class="c0"
   data-loading="false"
   data-no-visuals="true"
@@ -2004,7 +1991,6 @@ exports[`Button styles primary button appropriately 1`] = `
   >
     <span
       data-component="text"
-      id="test-button-label"
     >
       Primary
     </span>
