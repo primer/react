@@ -28,37 +28,19 @@
       "name": "placeholder",
       "type": "string",
       "defaultValue": "",
-      "description": ""
+      "description": "Text used in anchor when there are no selected items"
+    },
+    {
+      "name": "placeholderText",
+      "type": "string",
+      "defaultValue": "Filter items",
+      "description": "Text used as placeholder for search input"
     },
     {
       "name": "inputLabel",
       "type": "string",
       "defaultValue": "Same as placeholderText",
       "description": "The aria-label for the filter input"
-    },
-    {
-      "name": "overlayProps",
-      "type": "Partial<OverlayProps>",
-      "defaultValue": "",
-      "description": "See [Overlay props](/react/Overlay#props)."
-    },
-    {
-      "name": "title",
-      "type": "string",
-      "defaultValue": "",
-      "description": ""
-    },
-    {
-      "name": "inputLabel",
-      "type": "string",
-      "defaultValue": "",
-      "description": ""
-    },
-    {
-      "name": "inputPlaceholder",
-      "type": "string",
-      "defaultValue": "",
-      "description": ""
     },
     {
       "name": "selected",
@@ -71,6 +53,24 @@
       "type": "(selected: ItemInput | ItemInput[]) => void",
       "defaultValue": "",
       "description": "Provide a callback called when the selected item(s) change"
+    },
+    {
+      "name": "overlayProps",
+      "type": "Partial<OverlayProps>",
+      "defaultValue": "",
+      "description": "See [Overlay props](/react/Overlay#props)."
+    },
+    {
+      "name": "textInputProps",
+      "type": "Partial<Omit<TextInputProps, 'onChange'>>",
+      "defaultValue": "",
+      "description": "See [TextInput props](/react/TextInput#props)."
+    },
+    {
+      "name": "footer",
+      "type": "string | React.ReactElement",
+      "defaultValue": "null",
+      "description": "Footer rendered at the end of the panel"
     }
   ],
   "subcomponents": []
