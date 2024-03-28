@@ -1,6 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react'
 import React from 'react'
-import {Stack, StackItem} from './Stack'
+import {Stack} from '../Stack'
+import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 
 type Story = StoryObj<typeof Stack>
 
@@ -384,57 +385,75 @@ export const Playground: Story = {
       },
     },
   },
-  render: args => (
-    <Stack
-      {...args}
-      gap={{narrow: args.gapNarrow, regular: args.gapRegular, wide: args.gapWide}}
-      orientation={{narrow: args.orientationNarrow, regular: args.orientationRegular, wide: args.orientationWide}}
-      padding={{narrow: args.paddingNarrow, regular: args.paddingRegular, wide: args.paddingWide}}
-      align={{narrow: args.alignNarrow, regular: args.alignRegular, wide: args.alignWide}}
-      spread={{narrow: args.spreadNarrow, regular: args.spreadRegular, wide: args.spreadWide}}
-      wrap={{narrow: args.wrapNarrow, regular: args.wrapRegular, wide: args.wrapWide}}
-      className="demoStack"
-    >
-      <div
-        style={{
-          background: 'var(--display-lemon-bgColor-muted)',
-          borderRadius: 'var(--borderRadius-medium)',
-          padding: 'var(--base-size-8)',
-        }}
+  render: args => {
+    return (
+      <Stack
+        {...args}
+        gap={getControlValues(args.gap, {narrow: args.gapNarrow, regular: args.gapRegular, wide: args.gapWide})}
+        orientation={getControlValues(args.orientation, {
+          narrow: args.orientationNarrow,
+          regular: args.orientationRegular,
+          wide: args.orientationWide,
+        })}
+        padding={getControlValues(args.padding, {
+          narrow: args.paddingNarrow,
+          regular: args.paddingRegular,
+          wide: args.paddingWide,
+        })}
+        align={getControlValues(args.align, {
+          narrow: args.alignNarrow,
+          regular: args.alignRegular,
+          wide: args.alignWide,
+        })}
+        spread={getControlValues(args.spread, {
+          narrow: args.spreadNarrow,
+          regular: args.spreadRegular,
+          wide: args.spreadWide,
+        })}
+        wrap={getControlValues(args.wrap, {narrow: args.wrapNarrow, regular: args.wrapRegular, wide: args.wrapWide})}
+        className="demoStack"
       >
-        First
-      </div>
-      <div
-        style={{
-          background: 'var(--display-olive-bgColor-muted)',
-          borderRadius: 'var(--borderRadius-medium)',
-          padding: 'var(--base-size-8)',
-        }}
-      >
-        Second
-      </div>
-      <div
-        style={{
-          background: 'var(--display-lime-bgColor-muted)',
-          borderRadius: 'var(--borderRadius-medium)',
-          padding: 'var(--base-size-8)',
-        }}
-      >
-        Third
-      </div>
-    </Stack>
-  ),
+        <div
+          style={{
+            background: 'var(--display-lemon-bgColor-muted)',
+            borderRadius: 'var(--borderRadius-medium)',
+            padding: 'var(--base-size-8)',
+          }}
+        >
+          First
+        </div>
+        <div
+          style={{
+            background: 'var(--display-olive-bgColor-muted)',
+            borderRadius: 'var(--borderRadius-medium)',
+            padding: 'var(--base-size-8)',
+          }}
+        >
+          Second
+        </div>
+        <div
+          style={{
+            background: 'var(--display-lime-bgColor-muted)',
+            borderRadius: 'var(--borderRadius-medium)',
+            padding: 'var(--base-size-8)',
+          }}
+        >
+          Third
+        </div>
+      </Stack>
+    )
+  },
 }
 
 export const StackItemPlayground: Story = {
   args: {
-    expand: true,
-    expandNarrow: true,
-    expandRegular: true,
-    expandWide: true,
+    grow: true,
+    growNarrow: true,
+    growRegular: true,
+    growWide: true,
   },
   argTypes: {
-    expand: {
+    grow: {
       control: {
         type: 'boolean',
       },
@@ -445,7 +464,7 @@ export const StackItemPlayground: Story = {
         },
       },
     },
-    expandNarrow: {
+    growNarrow: {
       control: {
         type: 'boolean',
       },
@@ -456,7 +475,7 @@ export const StackItemPlayground: Story = {
         },
       },
     },
-    expandRegular: {
+    growRegular: {
       control: {
         type: 'boolean',
       },
@@ -467,7 +486,7 @@ export const StackItemPlayground: Story = {
         },
       },
     },
-    expandWide: {
+    growWide: {
       control: {
         type: 'boolean',
       },
@@ -479,41 +498,66 @@ export const StackItemPlayground: Story = {
       },
     },
   },
-  render: args => (
-    <Stack gap="normal" orientation="horizontal" align="center" spread="distribute" wrap="nowrap">
-      <StackItem expand={{narrow: args.expandNarrow, regular: args.expandRegular, wide: args.expandWide}}>
-        <div
-          style={{
-            background: 'var(--display-indigo-bgColor-muted)',
-            borderRadius: 'var(--borderRadius-medium)',
-            padding: 'var(--base-size-8)',
-          }}
+  render: args => {
+    return (
+      <Stack gap="normal" orientation="horizontal" align="center" spread="distribute" wrap="nowrap">
+        <Stack.Item
+          grow={getControlValues(args.grow, {
+            narrow: args.growNarrow,
+            regular: args.growRegular,
+            wide: args.growWide,
+          })}
         >
-          Adjust this item
-        </div>
-      </StackItem>
-      <StackItem>
-        <div
-          style={{
-            background: 'var(--display-purple-bgColor-muted)',
-            borderRadius: 'var(--borderRadius-medium)',
-            padding: 'var(--base-size-8)',
-          }}
-        >
-          Fixed width
-        </div>
-      </StackItem>
-      <StackItem>
-        <div
-          style={{
-            background: 'var(--display-purple-bgColor-muted)',
-            borderRadius: 'var(--borderRadius-medium)',
-            padding: 'var(--base-size-8)',
-          }}
-        >
-          Fixed width
-        </div>
-      </StackItem>
-    </Stack>
-  ),
+          <div
+            style={{
+              background: 'var(--display-indigo-bgColor-muted)',
+              borderRadius: 'var(--borderRadius-medium)',
+              padding: 'var(--base-size-8)',
+            }}
+          >
+            Adjust this item
+          </div>
+        </Stack.Item>
+        <Stack.Item>
+          <div
+            style={{
+              background: 'var(--display-purple-bgColor-muted)',
+              borderRadius: 'var(--borderRadius-medium)',
+              padding: 'var(--base-size-8)',
+            }}
+          >
+            Fixed width
+          </div>
+        </Stack.Item>
+        <Stack.Item>
+          <div
+            style={{
+              background: 'var(--display-purple-bgColor-muted)',
+              borderRadius: 'var(--borderRadius-medium)',
+              padding: 'var(--base-size-8)',
+            }}
+          >
+            Fixed width
+          </div>
+        </Stack.Item>
+      </Stack>
+    )
+  },
+}
+
+const types = ['narrow', 'regular', 'wide'] as const
+
+/**
+ * Helper utility to get the value for a prop based on control args. This is
+ * helpful when an arg can have both responsive values and a plain value. In
+ * cases where both are defined, responsive values will take preference
+ */
+function getControlValues<T>(normal: T, responsive: ResponsiveValue<T>) {
+  const match = types.some(type => {
+    return responsive[type]
+  })
+  if (match) {
+    return responsive
+  }
+  return normal
 }

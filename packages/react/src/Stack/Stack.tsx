@@ -452,63 +452,58 @@ function getResponsiveAttributes<T>(property: string, values?: T | ResponsiveVal
     }
   }
 
+  if (typeof values === 'boolean' && values) {
+    return {
+      [`data-${property}`]: values,
+    }
+  }
+
   return Object.fromEntries(
-    Object.entries(values).map(([key, value]) => {
-      return [`data-${property}-${key}`, value]
-    }),
+    Object.entries(values)
+      .filter(([_key, value]) => {
+        if (typeof value === 'boolean') {
+          return value
+        }
+        return true
+      })
+      .map(([key, value]) => {
+        if (typeof value === 'boolean' && value) {
+          return [`data-${property}-${key}`, '']
+        }
+        return [`data-${property}-${key}`, value]
+      }),
   )
 }
-
-// this needs work
 
 const StyledStackItem = styled.div`
   flex: 0 1 auto;
   min-inline-size: 0;
 
-  &[data-expand='true'] {
+  &[data-grow] {
     flex-grow: 1;
-  }
-
-  &[data-expand='false'] {
-    flex-grow: 0;
   }
 
   // @custom-media --veiwportRange-narrow
   @media (max-width: calc(48rem - 0.02px)) {
-    &[data-expand-narrow='true'] {
+    &[data-grow-narrow] {
       flex-grow: 1;
-    }
-
-    &[data-expand-narrow='false'] {
-      flex-grow: 0;
     }
   }
 
   // @custom-media --veiwportRange-regular
   @media (min-width: 48rem) {
-    &[data-expand-regular='true'] {
+    &[data-grow-regular] {
       flex-grow: 1;
-    }
-
-    &[data-expand-regular='false'] {
-      flex-grow: 0;
     }
   }
 
   // @custom-media --viewportRange-wide
   @media (min-width: 87.5rem) {
-    &[data-expand-wide='true'] {
+    &[data-grow-wide] {
       flex-grow: 1;
-    }
-
-    &[data-expand-wide='false'] {
-      flex-grow: 0;
     }
   }
 `
-
-type ExpandScale = 'true' | 'false'
-type Expand = ExpandScale | ResponsiveValue<ExpandScale>
 
 type StackItemProps<As> = React.PropsWithChildren<{
   /**
@@ -520,21 +515,19 @@ type StackItemProps<As> = React.PropsWithChildren<{
    * Allow item to keep size or expand to fill the available space
    * @default false
    */
-
-  // someone help make this a boolean
-  expand?: Expand
+  grow?: boolean | ResponsiveValue<boolean>
 }>
 
 function StackItem<As extends ElementType>({
   as,
   children,
-  expand = 'false',
+  grow = false,
   ...rest
 }: StackItemProps<As> & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>) {
   const BaseComponent = as ?? 'div'
 
   return (
-    <StyledStackItem {...rest} as={BaseComponent} {...getResponsiveAttributes('expand', expand)}>
+    <StyledStackItem {...rest} as={BaseComponent} {...getResponsiveAttributes('grow', grow)}>
       {children}
     </StyledStackItem>
   )
