@@ -9,13 +9,29 @@
 
 ## Context
 
-- Responsive values, or props, allow users the ability to provide different
-  values for a prop depending on the current screen size
-- Responsive values can be accessed in JavaScript or CSS
-- Responsive values in JS lead to layout shift in SSR due to the default values
-  shifting
-- There are a variety of ways to interact with responsive values in CSS and we
-  would like to formalize them
+There are situations where a component prop can support a value or a "responsive
+value" that results in the value changing depending on the viewport size. For
+example:
+
+```tsx
+// Value
+<Stack gap="condensed" />
+
+// Responsive value
+<Stack gap={{ narrow: 'condensed', regular: 'normal', wide: 'spacious' />
+```
+
+Typically, a responsive value will support all of our named breakpoints: narrow,
+regular, and wide. Authors can use a hook called `useResponsiveValue` to support
+resolving the value of a prop based on the current viewport size. The
+implementation of this hook uses [`matchMedia`](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia)
+which, unfortunately, has a downside: the value of a prop may shift when the
+component is server-side rendered. If the prop is used for styles or layout, then this will lead to a layout shift
+when the component hydrates and the viewport size is different than the fallback
+size on the server.
+
+As a result, we would like to offer a paved path for providing responsive props
+in a way tha twill not lead to layout shift during server-side rendering.
 
 ## Decision
 
@@ -25,8 +41,8 @@ JavaScript-driven mechanisms for controlling responsive values in order to
 prevent layout shift during SSR.
 
 For example, consider a `Stack` component that has a `gap` prop. This prop can
-receive a plain value or one that is responsive. To support this, we should use
-the following patterns:
+receive a plain value or one that is a responsive value. To support this,
+authors should use the following patterns:
 
 ```tsx
 type GapScale = 'none' | 'condensed' | 'normal' | 'spacious'
@@ -55,48 +71,79 @@ const StyledStack = styled.div`
     /* ... */
   }
 
-  &[data-gap='normal'] {
+  /* ... */
+
+  &[data-gap-narrow='none'] {
     /* ... */
   }
 
-  &[data-gap='spacious'] {
+  &[data-gap-narrow='condensed'] {
     /* ... */
-  }
-
-  // @custom-media --veiwportRange-narrow
-  @media (max-width: calc(48rem - 0.02px)) {
-    &[data-gap-narrow='none'] {
-      /* ... */
-    }
-
-    &[data-gap-narrow='condensed'] {
-      /* ... */
-    }
-
-    &[data-gap-narrow='normal'] {
-      /* ... */
-    }
-
-    &[data-gap-narrow='spacious'] {
-      /* ... */
-    }
   }
 
   /* ... */
+
+  // @custom-media --viewportRange-regular
+  @media (min-width: 768px) {
+    &[data-gap-regular='none'] {
+      /* ... */
+    }
+
+    &[data-gap-regular='condensed'] {
+      /* ... */
+    }
+
+    /* ... */
+  }
+
+  // @custom-media --viewportRange-wide
+  @media (min-width: 1400px) {
+    &[data-gap-wide='none'] {
+      /* ... */
+    }
+
+    &[data-gap-wide='condensed'] {
+      /* ... */
+    }
+
+    /* ... */
+  }
 `
 ```
 
-- Authoring
-  - CSS
-  - TypeScript
-- Stories
-- Helpers
-  - data attributes
-  - controls
-- Types of values
-  - Strings
-  - Booleans
-- Fallback
+By default, this approach uses the following conventions:
+
+- Props which may have responsive values should have a value that is
+  serializable, ideally as a `string` or `boolean`
+- Props will be provided on the component as a data attribute, using the format:
+  `data-{propName}`
+- For responsive values, the breakpoint name will be appended to the data
+  attribute name specified above. For example: `data-{propName}-{breakpoint}`
+
+Data attributes will act as a bridge between JavaScript and CSS. In CSS, authors
+should use these data attributes to apply styles based on the value of the
+attribute per-breakpoint.
+
+> [!NOTE]
+> There is a utility named `getResponsiveAttributes` that can be used to generate
+> the corresponding `data-*` attributes for the props which may have responsive
+> values.
+
+### Storybook
+
+When authoring playgrounds for components that have responsive values, use
+the following strategy for writing controls:
+
+- Provide a control for the plain value of the prop, for example `gap`
+- For each supported responsive value, provide a control with the name of the
+  breakpoint appended to the prop name, for example:
+  - `gapNarrow`
+  - `gapNormal`
+  - `gapWide`
+- Use the `getRespnosiveControlValues` helper to resolve between the plain and
+  responsive value for the prop. By default, this helper will pass along a
+  responsive value if one is defined. If none are defined, the plain value will
+  be used
 
 ### Impact
 
