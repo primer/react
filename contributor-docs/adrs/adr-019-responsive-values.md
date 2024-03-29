@@ -152,5 +152,14 @@ the following strategy for writing controls:
   the `getResponsiveAttributes` helper
 - Storybook stories that use responsive values should follow the practices
   and format outlined above
+- We should update both our internal ESLint config and plugin to discourage use
+  of `useResponsiveValue`
+
+The following components are impacted by this ADR:
+
+- `PageHeader`
+- `PageLayout`
+- `SegmentedControl`
+- `SelectPanel2`
 
 ## FAQ
