@@ -124,7 +124,7 @@
     "@babel/plugin-proposal-optional-chaining": "7.21.0",
     "@babel/plugin-transform-modules-commonjs": "7.23.3",
     "@babel/preset-react": "7.23.3",
-    "@babel/preset-typescript": "7.23.3",
+    "@babel/preset-typescript": "7.24.1",
     "@primer/css": "^21.0.1",
     "@rollup/plugin-babel": "6.0.4",
     "@rollup/plugin-commonjs": "25.0.4",
