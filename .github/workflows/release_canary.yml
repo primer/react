@@ -6,9 +6,15 @@ on:
       - 'next-major'
       - 'changeset-release/**'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   release:
-    concurrency: npm-canary
+    concurrency:
+      group: npm-canary
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
