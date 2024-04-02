@@ -1,5 +1,5 @@
 import type {ComponentProps, KeyboardEvent} from 'react'
-import React from 'react'
+import React, {forwardRef} from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
@@ -130,7 +130,7 @@ const StyledTokenBase = styled.span<
   ${sx}
 `
 
-const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLSpanElement | undefined, TokenBaseProps>(
+const TokenBase = forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLSpanElement | undefined, TokenBaseProps>(
   ({onRemove, onKeyDown, id, size = defaultTokenSize, ...rest}, forwardedRef) => {
     return (
       <StyledTokenBase

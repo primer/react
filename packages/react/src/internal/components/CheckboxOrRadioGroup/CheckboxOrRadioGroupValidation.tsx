@@ -1,4 +1,5 @@
 import React from 'react'
+import type {FC, PropsWithChildren} from 'react'
 import InputValidation from '../InputValidation'
 import type {SxProp} from '../../../sx'
 import type {FormValidationStatus} from '../../../utils/types/FormValidationStatus'
@@ -9,7 +10,7 @@ export type CheckboxOrRadioGroupValidationProps = {
   variant: FormValidationStatus
 } & SxProp
 
-const CheckboxOrRadioGroupValidation: React.FC<React.PropsWithChildren<CheckboxOrRadioGroupValidationProps>> = ({
+const CheckboxOrRadioGroupValidation: FC<PropsWithChildren<CheckboxOrRadioGroupValidationProps>> = ({
   children,
   variant,
   sx,

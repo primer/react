@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {forwardRef} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import Link from '../Link'
 import type {SxProp} from '../sx'
@@ -24,7 +24,7 @@ type LinkProps = {
 export type ActionListLinkItemProps = Pick<ActionListItemProps, 'active' | 'children' | 'sx' | 'inactiveText'> &
   LinkProps
 
-export const LinkItem = React.forwardRef(({sx = {}, active, inactiveText, as: Component, ...props}, forwardedRef) => {
+export const LinkItem = forwardRef(({sx = {}, active, inactiveText, as: Component, ...props}, forwardedRef) => {
   const styles = {
     // occupy full size of Item
     paddingX: 2,

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import type {ChangeEventHandler, InputHTMLAttributes, ReactElement} from 'react'
-import React, {useContext} from 'react'
+import React, {forwardRef, useContext} from 'react'
 import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
@@ -72,7 +72,7 @@ const StyledRadio = styled.input`
 /**
  * An accessible, native radio component for selecting one option from a list.
  */
-const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
+const Radio = forwardRef<HTMLInputElement, RadioProps>(
   (
     {checked, disabled, name: nameProp, onChange, sx: sxProp, required, validationStatus, value, ...rest}: RadioProps,
     ref,

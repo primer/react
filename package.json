@@ -20,6 +20,7 @@
     "build:docs": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs",
     "build:docs:preview": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs preview",
     "build:components.json": "npm run build:components.json -w @primer/react",
+    "build:prop-docs": "tsx packages/react/script/prop-docs/build.ts",
     "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0",
     "lint:fix": "npm run lint -- --fix",
     "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!.github\" \"!.changeset\" \"!**/node_modules/**\" \"!**/CHANGELOG.md\"",
@@ -73,6 +74,8 @@
     "markdownlint-cli2": "^0.11.0",
     "markdownlint-cli2-formatter-pretty": "0.0.3",
     "prettier": "3.0.3",
+    "react-docgen": "7.0.3",
+    "react-docgen-typescript": "2.2.2",
     "rimraf": "5.0.5",
     "size-limit": "11.0.2",
     "typescript": "5.3.3"

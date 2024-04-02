@@ -2,7 +2,7 @@ import {FocusKeys} from '@primer/behaviors'
 import {isFocusable} from '@primer/behaviors/utils'
 import {omit} from '@styled-system/props'
 import type {FocusEventHandler, KeyboardEventHandler, MouseEventHandler, RefObject} from 'react'
-import React, {useRef, useState} from 'react'
+import React, {forwardRef, useRef, useState} from 'react'
 import {isValidElementType} from 'react-is'
 import Box from '../Box'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
@@ -369,7 +369,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   )
 }
 
-const TextInputWithTokens = React.forwardRef(TextInputWithTokensInnerComponent)
+const TextInputWithTokens = forwardRef(TextInputWithTokensInnerComponent)
 
 TextInputWithTokens.displayName = 'TextInputWithTokens'
 

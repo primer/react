@@ -1,4 +1,5 @@
 import React from 'react'
+import type {FC, PropsWithChildren} from 'react'
 import ReactDOM from 'react-dom'
 import {ThemeProvider as SCThemeProvider} from 'styled-components'
 import defaultTheme from './theme'
@@ -49,7 +50,7 @@ const getServerHandoff = () => {
   return {}
 }
 
-export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>> = ({children, ...props}) => {
+export const ThemeProvider: FC<PropsWithChildren<ThemeProviderProps>> = ({children, ...props}) => {
   // Get fallback values from parent ThemeProvider (if exists)
   const {
     theme: fallbackTheme,

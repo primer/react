@@ -1,4 +1,5 @@
 import React from 'react'
+import type {FC, PropsWithChildren} from 'react'
 import type {SxProp} from '..'
 import type {
   PageLayoutContentProps,
@@ -13,7 +14,7 @@ import {PageLayout} from '../PageLayout'
 
 export type SplitPageLayoutProps = SxProp
 
-export const Root: React.FC<React.PropsWithChildren<SplitPageLayoutProps>> = props => {
+export const Root: FC<PropsWithChildren<SplitPageLayoutProps>> = props => {
   return (
     <PageLayout
       containerWidth="full"
@@ -36,7 +37,7 @@ Root.displayName = 'SplitPageLayout'
 
 export type SplitPageLayoutHeaderProps = PageLayoutHeaderProps
 
-export const Header: React.FC<React.PropsWithChildren<SplitPageLayoutHeaderProps>> = ({
+export const Header: FC<PropsWithChildren<SplitPageLayoutHeaderProps>> = ({
   padding = 'normal',
   divider = 'line',
   ...props
@@ -52,7 +53,7 @@ Header.displayName = 'SplitPageLayout.Header'
 
 export type SplitPageLayoutContentProps = PageLayoutContentProps
 
-export const Content: React.FC<React.PropsWithChildren<SplitPageLayoutContentProps>> = ({
+export const Content: FC<PropsWithChildren<SplitPageLayoutContentProps>> = ({
   width = 'large',
   padding = 'normal',
   ...props
@@ -67,7 +68,7 @@ Content.displayName = 'SplitPageLayout.Content'
 
 export type SplitPageLayoutPaneProps = PageLayoutPaneProps
 
-export const Pane: React.FC<React.PropsWithChildren<SplitPageLayoutPaneProps>> = ({
+export const Pane: FC<PropsWithChildren<SplitPageLayoutPaneProps>> = ({
   position = 'start',
   sticky = true,
   padding = 'normal',
@@ -91,7 +92,7 @@ Pane.displayName = 'SplitPageLayout.Pane'
 
 export type SplitPageLayoutFooterProps = PageLayoutFooterProps
 
-export const Footer: React.FC<React.PropsWithChildren<SplitPageLayoutFooterProps>> = ({
+export const Footer: FC<PropsWithChildren<SplitPageLayoutFooterProps>> = ({
   padding = 'normal',
   divider = 'line',
   ...props

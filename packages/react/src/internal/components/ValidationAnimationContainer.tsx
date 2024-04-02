@@ -1,5 +1,6 @@
 import type {HTMLProps} from 'react'
 import React, {useEffect, useState} from 'react'
+import type {FC, PropsWithChildren} from 'react'
 import styled, {keyframes, css} from 'styled-components'
 import Box from '../../Box'
 
@@ -24,7 +25,7 @@ const AnimatedElement = styled.div<Props>`
     animation: none;
   }
 `
-const ValidationAnimationContainer: React.FC<React.PropsWithChildren<Props>> = ({show, children}) => {
+const ValidationAnimationContainer: FC<PropsWithChildren<Props>> = ({show, children}) => {
   const [shouldRender, setRender] = useState(show)
 
   useEffect(() => {

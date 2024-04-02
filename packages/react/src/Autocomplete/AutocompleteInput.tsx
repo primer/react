@@ -1,5 +1,5 @@
 import type {ChangeEventHandler, FocusEventHandler, KeyboardEventHandler} from 'react'
-import React, {useCallback, useContext, useEffect, useState} from 'react'
+import React, {forwardRef, useCallback, useContext, useEffect, useState} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {AutocompleteContext} from './AutocompleteContext'
 import TextInput from '../TextInput'
@@ -12,7 +12,7 @@ type InternalAutocompleteInputProps = {
   as?: React.ComponentType<React.PropsWithChildren<any>>
 }
 
-const AutocompleteInput = React.forwardRef(
+const AutocompleteInput = forwardRef(
   (
     {as: Component = TextInput, onFocus, onBlur, onChange, onKeyDown, onKeyUp, onKeyPress, value, ...props},
     forwardedRef,

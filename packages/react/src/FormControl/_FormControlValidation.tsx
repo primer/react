@@ -1,4 +1,5 @@
 import React from 'react'
+import type {FC, PropsWithChildren} from 'react'
 import InputValidation from '../internal/components/InputValidation'
 import type {SxProp} from '../sx'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
@@ -9,12 +10,7 @@ export type FormControlValidationProps = {
   id?: string
 } & SxProp
 
-const FormControlValidation: React.FC<React.PropsWithChildren<FormControlValidationProps>> = ({
-  children,
-  variant,
-  sx,
-  id,
-}) => {
+const FormControlValidation: FC<PropsWithChildren<FormControlValidationProps>> = ({children, variant, sx, id}) => {
   const {validationMessageId} = useFormControlContext()
   return (
     <InputValidation validationStatus={variant} id={id || validationMessageId || ''} sx={sx}>

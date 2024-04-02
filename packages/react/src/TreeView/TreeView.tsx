@@ -5,7 +5,8 @@ import {
   FileDirectoryOpenFillIcon,
 } from '@primer/octicons-react'
 import clsx from 'clsx'
-import React, {useCallback, useEffect} from 'react'
+import React, {forwardRef, useCallback, useEffect} from 'react'
+import type {FC} from 'react'
 import styled, {keyframes} from 'styled-components'
 import {ConfirmationDialog} from '../ConfirmationDialog/ConfirmationDialog'
 import Spinner from '../Spinner'
@@ -250,12 +251,7 @@ const UlBox = styled.ul<SxProp>`
   ${sx}
 `
 
-const Root: React.FC<TreeViewProps> = ({
-  'aria-label': ariaLabel,
-  'aria-labelledby': ariaLabelledby,
-  children,
-  flat,
-}) => {
+const Root: FC<TreeViewProps> = ({'aria-label': ariaLabel, 'aria-labelledby': ariaLabelledby, children, flat}) => {
   const containerRef = React.useRef<HTMLUListElement>(null)
   const mouseDownRef = React.useRef<boolean>(false)
   const [ariaLiveMessage, setAriaLiveMessage] = React.useState('')
@@ -335,7 +331,7 @@ export type TreeViewItemProps = {
   onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
 }
 
-const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
+const Item = forwardRef<HTMLElement, TreeViewItemProps>(
   (
     {
       id: itemId,
@@ -517,7 +513,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
 )
 
 /** Lines to indicate the depth of an item in a TreeView */
-const LevelIndicatorLines: React.FC<{level: number}> = ({level}) => {
+const LevelIndicatorLines: FC<{level: number}> = ({level}) => {
   return (
     <div style={{width: '100%', display: 'flex'}}>
       {Array.from({length: level - 1}).map((_, index) => (
@@ -543,7 +539,7 @@ export type TreeViewSubTreeProps = {
   count?: number
 }
 
-const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
+const SubTree: FC<TreeViewSubTreeProps> = ({count, state, children}) => {
   const {announceUpdate} = React.useContext(RootContext)
   const {itemId, isExpanded, isSubTreeEmpty, setIsSubTreeEmpty} = React.useContext(ItemContext)
   const loadingItemRef = React.useRef<HTMLElement>(null)
@@ -737,7 +733,7 @@ type LoadingItemProps = {
   count?: number
 }
 
-const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, ref) => {
+const LoadingItem = forwardRef<HTMLElement, LoadingItemProps>(({count}, ref) => {
   const itemId = useId()
 
   if (count) {
@@ -789,7 +785,7 @@ export type TreeViewVisualProps = {
   label?: string
 }
 
-const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
+const LeadingVisual: FC<TreeViewVisualProps> = props => {
   const {isExpanded, leadingVisualId} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
@@ -806,7 +802,7 @@ const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
 
 LeadingVisual.displayName = 'TreeView.LeadingVisual'
 
-const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
+const TrailingVisual: FC<TreeViewVisualProps> = props => {
   const {isExpanded, trailingVisualId} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
@@ -846,7 +842,7 @@ export type TreeViewErrorDialogProps = {
   onDismiss?: () => void
 }
 
-const ErrorDialog: React.FC<TreeViewErrorDialogProps> = ({title = 'Error', children, onRetry, onDismiss}) => {
+const ErrorDialog: FC<TreeViewErrorDialogProps> = ({title = 'Error', children, onRetry, onDismiss}) => {
   const {itemId, setIsExpanded} = React.useContext(ItemContext)
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions

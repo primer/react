@@ -1,4 +1,5 @@
-import React, {useCallback, useContext, useMemo} from 'react'
+import React, {useCallback, useContext, useMemo, forwardRef} from 'react'
+import type {FC, PropsWithChildren} from 'react'
 import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -43,7 +44,7 @@ export type ActionMenuProps = {
   onOpenChange?: (s: boolean) => void
 } & Pick<AnchoredOverlayProps, 'anchorRef'>
 
-const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
+const Menu: FC<PropsWithChildren<ActionMenuProps>> = ({
   anchorRef: externalAnchorRef,
   open,
   onOpenChange,
@@ -137,7 +138,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
 }
 
 export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string}
-const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, ...anchorProps}, anchorRef) => {
+const Anchor = forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, ...anchorProps}, anchorRef) => {
   const {onOpen, isSubmenu} = React.useContext(MenuContext)
 
   const openSubmenuOnRightArrow: React.KeyboardEventHandler<HTMLElement> = useCallback(
@@ -178,7 +179,7 @@ const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, 
 export type ActionMenuButtonProps = Omit<ButtonProps, 'children'> & {
   children: React.ReactNode
 }
-const MenuButton = React.forwardRef(({...props}, anchorRef) => {
+const MenuButton = forwardRef(({...props}, anchorRef) => {
   return (
     <Anchor ref={anchorRef}>
       <Button type="button" trailingAction={TriangleDownIcon} {...props} />

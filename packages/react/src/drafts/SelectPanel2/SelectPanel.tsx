@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {forwardRef} from 'react'
+import type {FC} from 'react'
 import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon, AlertIcon, ArrowLeftIcon} from '@primer/octicons-react'
 
 import type {ButtonProps, TextInputProps, ActionListProps, LinkProps, CheckboxProps} from '../../index'
@@ -61,7 +62,7 @@ export type SelectPanelProps = {
   children: React.ReactNode
 }
 
-const Panel: React.FC<SelectPanelProps> = ({
+const Panel: FC<SelectPanelProps> = ({
   title,
   description,
   variant: propsVariant,
@@ -336,11 +337,11 @@ const Panel: React.FC<SelectPanelProps> = ({
   )
 }
 
-const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((props, anchorRef) => {
+const SelectPanelButton = forwardRef<HTMLButtonElement, ButtonProps>((props, anchorRef) => {
   return <Button ref={anchorRef} {...props} />
 })
 
-const SelectPanelHeader: React.FC<React.PropsWithChildren & {onBack?: () => void}> = ({children, onBack, ...props}) => {
+const SelectPanelHeader: FC<React.PropsWithChildren & {onBack?: () => void}> = ({children, onBack, ...props}) => {
   const [slots, childrenWithoutSlots] = useSlots(children, {
     searchInput: SelectPanelSearchInput,
   })
@@ -414,11 +415,7 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren & {onBack?: () => void
   )
 }
 
-const SelectPanelSearchInput: React.FC<TextInputProps> = ({
-  onChange: propsOnChange,
-  onKeyDown: propsOnKeyDown,
-  ...props
-}) => {
+const SelectPanelSearchInput: FC<TextInputProps> = ({onChange: propsOnChange, onKeyDown: propsOnKeyDown, ...props}) => {
   // TODO: use forwardedRef
   const inputRef = React.createRef<HTMLInputElement>()
 
@@ -516,12 +513,12 @@ const SelectPanelFooter = ({...props}) => {
   )
 }
 
-const SecondaryButton: React.FC<ButtonProps> = props => {
+const SecondaryButton: FC<ButtonProps> = props => {
   const size = useResponsiveValue(responsiveButtonSizes, 'small')
   return <Button type="button" size={size} block {...props} />
 }
 
-const SecondaryLink: React.FC<LinkProps> = props => {
+const SecondaryLink: FC<LinkProps> = props => {
   const size = useResponsiveValue(responsiveButtonSizes, 'small')
   return (
     // @ts-ignore TODO: is as prop is not recognised by button?
@@ -531,7 +528,7 @@ const SecondaryLink: React.FC<LinkProps> = props => {
   )
 }
 
-const SecondaryCheckbox: React.FC<CheckboxProps> = ({id, children, ...props}) => {
+const SecondaryCheckbox: FC<CheckboxProps> = ({id, children, ...props}) => {
   const checkboxId = useId(id)
   const {selectionVariant} = React.useContext(SelectPanelContext)
 
@@ -557,7 +554,7 @@ export type SelectPanelSecondaryActionProps = {children: React.ReactNode} & (
   | ({variant: 'checkbox'; id?: string} & CheckboxProps)
 )
 
-const SelectPanelSecondaryAction: React.FC<SelectPanelSecondaryActionProps> = ({variant, ...props}) => {
+const SelectPanelSecondaryAction: FC<SelectPanelSecondaryActionProps> = ({variant, ...props}) => {
   const insideFooter = React.useContext(FooterContext)
   invariant(insideFooter, 'SelectPanel.SecondaryAction is only allowed inside SelectPanel.Footer')
 
@@ -603,7 +600,7 @@ export type SelectPanelMessageProps = {children: React.ReactNode} & (
     }
 )
 
-const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
+const SelectPanelMessage: FC<SelectPanelMessageProps> = ({
   variant = 'warning',
   size = variant === 'empty' ? 'full' : 'inline',
   title,

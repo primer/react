@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {forwardRef} from 'react'
 import styled from 'styled-components'
 import type {StyledWrapperProps} from './internal/components/TextInputWrapper'
 import TextInputWrapper from './internal/components/TextInputWrapper'
@@ -75,7 +75,7 @@ const ArrowIndicator = styled(ArrowIndicatorSVG)`
   transform: translateY(-50%);
 `
 
-const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
+const Select = forwardRef<HTMLSelectElement, SelectProps>(
   (
     {block, children, contrast, disabled, placeholder, size, required, validationStatus, sx = {}, ...rest}: SelectProps,
     ref,

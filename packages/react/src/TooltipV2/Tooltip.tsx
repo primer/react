@@ -1,4 +1,4 @@
-import React, {Children, useEffect, useRef, useState} from 'react'
+import React, {forwardRef, Children, useEffect, useRef, useState} from 'react'
 import type {SxProp} from '../sx'
 import sx from '../sx'
 import {useId, useProvidedRefOrCreate} from '../hooks'
@@ -186,7 +186,7 @@ const isInteractive = (element: HTMLElement) => {
 }
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 
-export const Tooltip = React.forwardRef(
+export const Tooltip = forwardRef(
   ({direction = 's', text, type = 'description', children, id, ...rest}: TooltipProps, forwardedRef) => {
     const tooltipId = useId(id)
     const child = Children.only(children)

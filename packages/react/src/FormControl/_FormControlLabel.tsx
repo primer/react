@@ -1,4 +1,5 @@
 import React from 'react'
+import type {FC, ComponentProps, PropsWithChildren} from 'react'
 import InputLabel from '../internal/components/InputLabel'
 import type {SxProp} from '../sx'
 import {useFormControlContext} from './_FormControlContext'
@@ -11,9 +12,15 @@ export type Props = {
   id?: string
 } & SxProp
 
-const FormControlLabel: React.FC<
-  React.PropsWithChildren<{htmlFor?: string} & React.ComponentProps<typeof InputLabel> & Props>
-> = ({as, children, htmlFor, id, visuallyHidden, sx, ...props}) => {
+const FormControlLabel: FC<PropsWithChildren<{htmlFor?: string} & ComponentProps<typeof InputLabel> & Props>> = ({
+  as,
+  children,
+  htmlFor,
+  id,
+  visuallyHidden,
+  sx,
+  ...props
+}) => {
   const {disabled, id: formControlId, required} = useFormControlContext()
 
   /**

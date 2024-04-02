@@ -1,4 +1,5 @@
 import React from 'react'
+import type {FC, PropsWithChildren} from 'react'
 import styled from 'styled-components'
 import {XIcon} from '@primer/octicons-react'
 import {getFocusableChild} from '@primer/behaviors/utils'
@@ -145,7 +146,7 @@ const OverlayToggle: React.FC<
   ) : null
 
 // TODO: reduce re-renders
-const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
+const LabelGroup: FC<PropsWithChildren<LabelGroupProps>> = ({
   children,
   visibleChildCount,
   overflowStyle = 'overlay',

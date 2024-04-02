@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {forwardRef, useContext} from 'react'
 import Autocomplete from '../Autocomplete'
 import Box from '../Box'
 import Checkbox from '../Checkbox'
@@ -40,7 +40,7 @@ export type FormControlProps = {
   layout?: 'horizontal' | 'vertical'
 } & SxProp
 
-const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
+const FormControl = forwardRef<HTMLDivElement, FormControlProps>(
   ({children, disabled: disabledProp, layout = 'vertical', id: idProp, required, sx}, ref) => {
     const [slots, childrenWithoutSlots] = useSlots(children, {
       caption: FormControlCaption,

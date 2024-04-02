@@ -48,7 +48,7 @@ export type ActionListItemProps = {
    * Private API for use internally only. Used by LinkItem to wrap contents in an anchor
    */
   _PrivateItemWrapper?: React.FC<React.PropsWithChildren<MenuItemProps>>
-} & SxProp
+}
 
 type MenuItemProps = {
   onClick?: (event: React.MouseEvent) => void

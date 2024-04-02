@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {forwardRef} from 'react'
+import type {FC, PropsWithChildren} from 'react'
 import {Box} from '..'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
@@ -59,7 +60,7 @@ export type PageHeaderProps = {
   as?: React.ElementType | 'header' | 'div'
 } & SxProp
 
-const Root: React.FC<React.PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, as = 'div'}) => {
+const Root: FC<PropsWithChildren<PageHeaderProps>> = ({children, sx = {}, as = 'div'}) => {
   const rootStyles = {
     display: 'flex',
     flexDirection: 'column',
@@ -104,7 +105,7 @@ type LinkProps = Pick<
 export type ParentLinkProps = React.PropsWithChildren<ChildrenPropTypes & LinkProps>
 
 // PageHeader.ParentLink : Only visible on narrow viewports by default to let users navigate up in the hierarchy.
-const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
+const ParentLink = forwardRef<HTMLAnchorElement, ParentLinkProps>(
   ({children, sx = {}, href, 'aria-label': ariaLabel, as = 'a', hidden = hiddenOnRegularAndWide}, ref) => {
     return (
       <>

@@ -1,6 +1,6 @@
 import {SortAscIcon, SortDescIcon} from '@primer/octicons-react'
 import clsx from 'clsx'
-import React from 'react'
+import React, {forwardRef} from 'react'
 import styled, {keyframes} from 'styled-components'
 import Box from '../Box'
 import Text from '../Text'
@@ -266,7 +266,7 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   cellPadding?: 'condensed' | 'normal' | 'spacious'
 }
 
-const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
+const Table = forwardRef<HTMLTableElement, TableProps>(function Table(
   {'aria-labelledby': labelledby, cellPadding = 'normal', className, gridTemplateColumns, ...rest},
   ref,
 ) {
@@ -503,7 +503,7 @@ export type TableTitleProps = React.PropsWithChildren<{
   id: string
 }>
 
-const TableTitle = React.forwardRef<HTMLElement, TableTitleProps>(function TableTitle({as = 'h2', children, id}, ref) {
+const TableTitle = forwardRef<HTMLElement, TableTitleProps>(function TableTitle({as = 'h2', children, id}, ref) {
   return (
     <Box
       as={as}

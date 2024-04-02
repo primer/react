@@ -1,5 +1,5 @@
 import type {Key} from 'react'
-import React from 'react'
+import React, {forwardRef} from 'react'
 import type {AriaRole} from '../../utils/types'
 import type {GroupProps} from './Group'
 import {Group} from './Group'
@@ -146,7 +146,7 @@ function useListVariant(variant: ListProps['variant'] = 'inset'): {
 /**
  * Lists `Item`s, either grouped or ungrouped, with a `Divider` between each `Group`.
  */
-export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwardedRef): JSX.Element => {
+export const List = forwardRef<HTMLDivElement, ListProps>((props, forwardedRef): JSX.Element => {
   // Get `sx` prop values for `List` children matching the given `List` style variation.
   const {firstGroupStyle, lastGroupStyle, headerStyle, itemStyle} = useListVariant(props.variant)
 

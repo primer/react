@@ -1,4 +1,5 @@
 import React, {useCallback, useReducer, useRef} from 'react'
+import type {FC, PropsWithChildren} from 'react'
 import type {ComponentProps} from '../utils/types'
 import {AutocompleteContext} from './AutocompleteContext'
 import AutocompleteInput from './AutocompleteInput'
@@ -45,7 +46,7 @@ const reducer = (state: State, action: Action) => {
   }
 }
 
-const Autocomplete: React.FC<React.PropsWithChildren<{id?: string}>> = ({children, id: idProp}) => {
+const Autocomplete: FC<PropsWithChildren<{id?: string}>> = ({children, id: idProp}) => {
   const activeDescendantRef = useRef<HTMLElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)

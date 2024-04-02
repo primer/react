@@ -1,4 +1,5 @@
 import React from 'react'
+import type {FC, PropsWithChildren} from 'react'
 import Box from '../Box'
 import {get} from '../constants'
 import type {SxProp} from '../sx'
@@ -7,7 +8,7 @@ import {ItemContext, TEXT_ROW_HEIGHT, getVariantStyles} from './shared'
 
 export type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
 
-export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
+export const LeadingVisualContainer: FC<PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
   return (
     <Box
       as="span"

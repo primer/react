@@ -1,4 +1,5 @@
-import React, {useRef} from 'react'
+import React, {forwardRef, useRef} from 'react'
+import type {FC, PropsWithChildren} from 'react'
 import {createGlobalStyle} from 'styled-components'
 import Box from '../Box'
 import {useId} from '../hooks/useId'
@@ -67,7 +68,7 @@ const containerWidths = {
 }
 
 // TODO: refs
-const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
+const Root: FC<PropsWithChildren<PageLayoutProps>> = ({
   containerWidth = 'xlarge',
   padding = 'normal',
   rowGap = 'normal',
@@ -625,7 +626,7 @@ const paneWidths = {
 
 const defaultPaneWidth = {small: 256, medium: 296, large: 320}
 
-const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
+const Pane = forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
   (
     {
       'aria-label': label,

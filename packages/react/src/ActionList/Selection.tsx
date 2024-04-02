@@ -1,4 +1,5 @@
 import React from 'react'
+import type {FC, PropsWithChildren} from 'react'
 import {CheckIcon} from '@primer/octicons-react'
 import type {ActionListGroupProps} from './Group'
 import {GroupContext} from './Group'
@@ -7,7 +8,7 @@ import {LeadingVisualContainer} from './Visuals'
 import Box from '../Box'
 
 type SelectionProps = Pick<ActionListItemProps, 'selected'>
-export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({selected}) => {
+export const Selection: FC<PropsWithChildren<SelectionProps>> = ({selected}) => {
   const {selectionVariant: listSelectionVariant, role: listRole} = React.useContext(ListContext)
   const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
 

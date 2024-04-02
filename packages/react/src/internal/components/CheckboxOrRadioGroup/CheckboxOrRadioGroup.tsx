@@ -12,7 +12,7 @@ import VisuallyHidden from '../../../_VisuallyHidden'
 import {useSlots} from '../../../hooks/useSlots'
 import type {SxProp} from '../../../sx'
 
-export type CheckboxOrRadioGroupProps = {
+export interface CheckboxOrRadioGroupProps extends React.PropsWithChildren, SxProp {
   /**
    * Used when associating the input group with a label other than `CheckboxOrRadioGroup.Label`
    */
@@ -30,7 +30,7 @@ export type CheckboxOrRadioGroupProps = {
    * If true, the user must make a selection before the owning form can be submitted
    */
   required?: boolean
-} & SxProp
+}
 
 const Body = styled.div`
   display: flex;
@@ -44,14 +44,14 @@ const Body = styled.div`
   }
 `
 
-const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGroupProps>> = ({
+const CheckboxOrRadioGroup = ({
   'aria-labelledby': ariaLabelledby,
   children,
   disabled = false,
   id: idProp,
   required = false,
   sx,
-}) => {
+}: CheckboxOrRadioGroupProps) => {
   const [slots, rest] = useSlots(children, {
     caption: CheckboxOrRadioGroupCaption,
     label: CheckboxOrRadioGroupLabel,

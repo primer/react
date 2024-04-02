@@ -1,5 +1,5 @@
 import type {MouseEventHandler} from 'react'
-import React, {useCallback, useEffect} from 'react'
+import React, {forwardRef, useCallback, useEffect} from 'react'
 import styled, {css} from 'styled-components'
 import {variant} from 'styled-system'
 import Box from '../Box'
@@ -208,7 +208,7 @@ const hiddenTextStyles: BetterSystemStyleObject = {
   height: 0,
 }
 
-const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren<ToggleSwitchProps>>(
+const ToggleSwitch = forwardRef<HTMLButtonElement, React.PropsWithChildren<ToggleSwitchProps>>(
   function ToggleSwitch(props, ref) {
     const {
       'aria-labelledby': ariaLabelledby,

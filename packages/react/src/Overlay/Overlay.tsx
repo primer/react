@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import type {ComponentPropsWithRef, ReactElement} from 'react'
-import React, {useEffect, useRef} from 'react'
+import React, {forwardRef, useEffect, useRef} from 'react'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {get} from '../constants'
 import type {AriaRole, Merge} from '../utils/types'
@@ -133,7 +133,7 @@ type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
  * @param position Optional. Sets how an element is positioned in a document. Defaults to `absolute` positioning.
  * @param portalContainerName Optional. The name of the portal container to render the Overlay into.
  */
-const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
+const Overlay = forwardRef<HTMLDivElement, OwnOverlayProps>(
   (
     {
       onClickOutside,

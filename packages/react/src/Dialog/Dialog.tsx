@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import React, {forwardRef, useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import type {ButtonProps} from '../Button'
 import {Button} from '../Button'
@@ -383,7 +383,7 @@ const defaultPosition = {
   regular: 'center',
 }
 
-const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
+const _Dialog = forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
   const {
     title = 'Dialog',
     subtitle = '',

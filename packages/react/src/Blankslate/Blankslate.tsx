@@ -5,7 +5,7 @@ import Link from '../Link'
 import {get} from '../constants'
 import styled from 'styled-components'
 
-export type BlankslateProps = React.PropsWithChildren<{
+interface BlankslateProps extends React.PropsWithChildren {
   /**
    * Add a border around this component
    */
@@ -20,7 +20,7 @@ export type BlankslateProps = React.PropsWithChildren<{
    * Increase the padding of this component
    */
   spacious?: boolean
-}>
+}
 
 const StyledBlankslate = styled.div`
   container-type: inline-size;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {forwardRef} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import styled from 'styled-components'
 import type {SxProp} from '../sx'
@@ -14,7 +14,7 @@ import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 
 const ListBox = styled.ul<SxProp>(sx)
 
-export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
+export const List = forwardRef<HTMLUListElement, ActionListProps>(
   (
     {variant = 'inset', selectionVariant, showDividers = false, role, sx: sxProp = defaultSxProp, ...props},
     forwardedRef,

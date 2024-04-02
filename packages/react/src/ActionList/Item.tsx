@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {forwardRef} from 'react'
 import styled from 'styled-components'
 import {AlertIcon} from '@primer/octicons-react'
 
@@ -50,7 +50,7 @@ const InactiveIndicator: React.FC<{
   </Tooltip>
 )
 
-export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
+export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
   (
     {
       variant = 'default',

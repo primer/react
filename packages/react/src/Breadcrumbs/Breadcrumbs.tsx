@@ -40,13 +40,11 @@ const BreadcrumbsBase = styled.nav<SxProp>`
   ${sx};
 `
 
-export type BreadcrumbsProps = React.PropsWithChildren<
-  {
-    className?: string
-  } & SxProp
->
+export interface BreadcrumbsProps extends React.PropsWithChildren, SxProp {
+  className?: string
+}
 
-function Breadcrumbs({className, children, sx: sxProp}: React.PropsWithChildren<BreadcrumbsProps>) {
+function Breadcrumbs({className, children, sx: sxProp}: BreadcrumbsProps) {
   const wrappedChildren = React.Children.map(children, child => <Wrapper>{child}</Wrapper>)
   return (
     <BreadcrumbsBase className={className} aria-label="Breadcrumbs" sx={sxProp}>

@@ -1,6 +1,13 @@
 import styled from 'styled-components'
 import {useProvidedRefOrCreate} from '../hooks'
-import React, {useContext, useEffect, type ChangeEventHandler, type InputHTMLAttributes, type ReactElement} from 'react'
+import React, {
+  forwardRef,
+  useContext,
+  useEffect,
+  type ChangeEventHandler,
+  type InputHTMLAttributes,
+  type ReactElement,
+} from 'react'
 import sx, {type SxProp} from '../sx'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
@@ -138,7 +145,7 @@ const StyledCheckbox = styled.input`
 /**
  * An accessible, native checkbox component
  */
-const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
+const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
   (
     {
       checked,

@@ -1,5 +1,5 @@
 import type {MouseEventHandler} from 'react'
-import React, {useCallback, useState} from 'react'
+import React, {forwardRef, useCallback, useState} from 'react'
 import {isValidElementType} from 'react-is'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import clsx from 'clsx'
@@ -54,7 +54,7 @@ export type TextInputNonPassthroughProps = {
 export type TextInputProps = Merge<React.ComponentPropsWithoutRef<'input'>, TextInputNonPassthroughProps>
 
 // using forwardRef is important so that other components can autofocus the input
-const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
+const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
   (
     {
       icon: IconComponent,

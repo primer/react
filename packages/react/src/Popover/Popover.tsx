@@ -220,3 +220,11 @@ PopoverContent.displayName = 'Popover.Content'
 export type PopoverProps = ComponentProps<typeof Popover>
 export type PopoverContentProps = ComponentProps<typeof PopoverContent>
 export default Object.assign(Popover, {Content: PopoverContent})
+
+// const PopoverComponent = Object.assign(Popover, {Content: PopoverContent})
+
+// PopoverComponent.displayName = 'Popover'
+
+// export type PopoverProps = ComponentProps<typeof Popover>
+// export type PopoverContentProps = ComponentProps<typeof PopoverContent>
+// export default PopoverComponent

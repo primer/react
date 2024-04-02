@@ -1,10 +1,11 @@
 import React from 'react'
+import type {FC, PropsWithChildren} from 'react'
 import Box from '../Box'
 import {get} from '../constants'
 import type {SxProp} from '../sx'
 import {useFormControlContext} from './_FormControlContext'
 
-const FormControlLeadingVisual: React.FC<React.PropsWithChildren<SxProp>> = ({children, sx}) => {
+const FormControlLeadingVisual: FC<PropsWithChildren<SxProp>> = ({children, sx}) => {
   const {disabled, captionId} = useFormControlContext()
   return (
     <Box

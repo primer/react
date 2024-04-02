@@ -1,6 +1,6 @@
 import {ChevronDownIcon} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import React, {isValidElement} from 'react'
+import React, {forwardRef, isValidElement} from 'react'
 import styled from 'styled-components'
 import type {ActionListDividerProps, ActionListLeadingVisualProps, ActionListTrailingVisualProps} from '../ActionList'
 import {ActionList} from '../ActionList'
@@ -30,7 +30,7 @@ export type NavListProps = {
 
 const NavBox = styled.nav<SxProp>(sx)
 
-const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
+const Root = forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
   return (
     <NavBox {...props} ref={ref}>
       <ActionList>{children}</ActionList>
@@ -51,7 +51,7 @@ export type NavListItemProps = {
   inactiveText?: string
 } & SxProp
 
-const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
+const Item = forwardRef<HTMLAnchorElement, NavListItemProps>(
   ({'aria-current': ariaCurrent, children, defaultOpen, sx: sxProp = defaultSxProp, ...props}, ref) => {
     const {depth} = React.useContext(SubNavContext)
 
