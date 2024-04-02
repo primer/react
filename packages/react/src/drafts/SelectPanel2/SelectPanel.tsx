@@ -58,6 +58,8 @@ export type SelectPanelProps = {
   height?: 'fit-content' // not used, keeping it around temporary for backward compatibility
   maxHeight?: Exclude<OverlayProps['maxHeight'], 'xsmall'>
 
+  className: string
+
   children: React.ReactNode
 }
 
