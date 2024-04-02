@@ -172,7 +172,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           ref: anchorRef,
           id: anchorId,
           'aria-haspopup': 'true',
-          'aria-expanded': open,
+          'aria-expanded': open ? 'true' : undefined,
           tabIndex: 0,
           onClick: onAnchorClick,
           onKeyDown: onAnchorKeyDown,
