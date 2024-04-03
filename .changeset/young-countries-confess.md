@@ -1,6 +1,5 @@
 ---
-"@primer/react": patch
-"docs": patch
+"@primer/react": minor
 ---
 
 Dialog v2: Add support for `returnFocusRef`
