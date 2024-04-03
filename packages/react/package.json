@@ -76,7 +76,7 @@
     "!lib-esm/__tests__",
     "!lib-esm/stories",
     "generated",
-    ".changeset"
+    "CHANGELOG.md"
   ],
   "author": "GitHub, Inc.",
   "license": "MIT",
