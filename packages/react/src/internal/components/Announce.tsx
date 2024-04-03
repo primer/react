@@ -19,6 +19,7 @@ export type AnnounceProps = React.ComponentPropsWithoutRef<typeof Box> & {
 export function Announce({children, politeness = 'polite', ...rest}: AnnounceProps) {
   const ref = useRef<ElementRef<'div'>>(null)
   const savedPoliteness = useRef(politeness)
+  const savedTextContent = useRef<string | null>(null)
 
   useEffect(() => {
     savedPoliteness.current = politeness
@@ -41,16 +42,16 @@ export function Announce({children, politeness = 'polite', ...rest}: AnnouncePro
 
     const {current: container} = ref
 
-    // When the text of the container changes, announce the new text
-    const observer = new MutationObserver(mutationList => {
-      for (const mutation of mutationList) {
-        if (mutation.type === 'characterData' || mutation.type === 'childList') {
-          announceFromElement(container, {
-            politeness: savedPoliteness.current,
-          })
-          break
-        }
+    const observer = new MutationObserver(() => {
+      const textContent = getTextContent(container)
+      if (savedTextContent.current !== null && savedTextContent.current === textContent) {
+        return
       }
+
+      savedTextContent.current = textContent
+      announceFromElement(container, {
+        politeness: savedPoliteness.current,
+      })
     })
 
     observer.observe(container, {
@@ -69,4 +70,11 @@ export function Announce({children, politeness = 'polite', ...rest}: AnnouncePro
       {children}
     </Box>
   )
+}
+
+function getTextContent(element: HTMLElement): string {
+  // Note: we are matching the behavior for getting text content from
+  // aria-live.ts and live-region-element
+  // eslint-disable-next-line github/no-innerText
+  return (element.getAttribute('aria-label') || element.innerText || element.textContent || '').trim()
 }
