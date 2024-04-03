@@ -249,4 +249,27 @@ describe('Button', () => {
 
     expect(container.getByRole('button')).toHaveAccessibleName('content')
   })
+
+  it('should add be labelled by only text content', () => {
+    const container = render(<Button trailingVisual={() => 'hello'}>content</Button>)
+
+    expect(container.getByRole('button')).toHaveAccessibleName('content')
+  })
+
+  it('should prefer aria-label over text content', () => {
+    const container = render(<Button aria-label="Custom label">content</Button>)
+
+    expect(container.getByRole('button')).toHaveAccessibleName('Custom label')
+  })
+
+  it('should prefer aria-labelledby over text content', () => {
+    const container = render(
+      <>
+        <span id="label">different label</span>
+        <Button aria-labelledby="label">content</Button>
+      </>,
+    )
+
+    expect(container.getByRole('button')).toHaveAccessibleName('different label')
+  })
 })
