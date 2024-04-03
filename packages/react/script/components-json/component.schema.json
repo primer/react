@@ -67,7 +67,7 @@
     },
     "docsId": {
       "type": "string",
-      "description": "A unique identifier to group components that have multiple versions i.e. Tooltip and Tooltip v1."
+      "description": "A unique identifier to group components that have multiple versions i.e. Tooltip and Tooltip v2."
     },
     "a11yReviewed": {
       "type": "boolean",
