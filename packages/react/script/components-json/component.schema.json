@@ -65,6 +65,10 @@
       "description": "The status of the component.",
       "enum": ["draft", "alpha", "beta", "stable", "deprecated"]
     },
+    "docsId": {
+      "type": "string",
+      "description": "A unique identifier to group components that have multiple versions i.e. Tooltip and Tooltip v1."
+    },
     "a11yReviewed": {
       "type": "boolean",
       "description": "Indicate whether the component has been reviewed by the Accessibility team."
