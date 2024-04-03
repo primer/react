@@ -60,9 +60,14 @@ const ButtonBase = forwardRef(
     const sxStyles = useMemo(() => {
       return merge<BetterSystemStyleObject>(baseStyles, sxProp)
     }, [baseStyles, sxProp])
+
     const uuid = useId(id)
     const loadingAnnouncementID = `${uuid}-loading-announcement`
-    const buttonLabelID = ariaLabelledBy || `${uuid}-label`
+
+    // generate a fallback aria-labelledby to point to text content,
+    // but only if the instance does not have an aria-label
+    const textContentId = `${uuid}-label`
+    const fallbackAriaLabelledById = props['aria-label'] ? undefined : textContentId
 
     if (__DEV__) {
       /**
@@ -101,7 +106,7 @@ const ButtonBase = forwardRef(
             .filter(descriptionID => Boolean(descriptionID))
             .join(' ')}
           // aria-labelledby is needed because the accessible name becomes unset when the button is in a loading state
-          aria-labelledby={buttonLabelID}
+          aria-labelledby={ariaLabelledBy || fallbackAriaLabelledById}
           id={id}
           onClick={loading ? undefined : onClick}
         >
@@ -117,7 +122,7 @@ const ButtonBase = forwardRef(
                 {loading && !LeadingVisual && !TrailingVisual && renderVisual(Spinner, loading, 'loadingSpinner')}
                 {LeadingVisual && renderVisual(LeadingVisual, loading, 'leadingVisual')}
                 {children && (
-                  <span data-component="text" id={buttonLabelID}>
+                  <span data-component="text" id={textContentId}>
                     {children}
                     {count !== undefined && !TrailingVisual && (
                       <CounterLabel data-component="ButtonCounter" sx={{ml: 2}}>
