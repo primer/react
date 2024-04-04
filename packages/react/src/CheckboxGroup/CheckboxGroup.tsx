@@ -1,4 +1,4 @@
-import type {ChangeEvent, ChangeEventHandler, FC} from 'react'
+import type {ChangeEvent, ChangeEventHandler, FC, PropsWithChildren} from 'react'
 import React from 'react'
 import type {CheckboxOrRadioGroupProps} from '../internal/components/CheckboxOrRadioGroup'
 import CheckboxOrRadioGroup from '../internal/components/CheckboxOrRadioGroup'
@@ -19,7 +19,7 @@ type CheckboxGroupProps = {
 } & CheckboxOrRadioGroupProps &
   SxProp
 
-const CheckboxGroup: FC<React.PropsWithChildren<CheckboxGroupProps>> = ({children, disabled, onChange, ...rest}) => {
+const CheckboxGroup: FC<PropsWithChildren<CheckboxGroupProps>> = ({children, disabled, onChange, ...rest}) => {
   const formControlComponentChildren = React.Children.toArray(children)
     .filter(child => React.isValidElement(child) && child.type === FormControl)
     .map(formControlComponent =>

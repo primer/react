@@ -1,7 +1,8 @@
 import React from 'react'
+import type {PropsWithChildren} from 'react'
 import {ConfirmationDialog} from '../ConfirmationDialog/ConfirmationDialog'
 
-export type TableErrorDialogProps = React.PropsWithChildren<{
+export type TableErrorDialogProps = PropsWithChildren<{
   /**
    * Provide an optional title for the dialog
    * @default 'Error'
@@ -19,6 +20,11 @@ export type TableErrorDialogProps = React.PropsWithChildren<{
   onDismiss?: () => void
 }>
 
+/**
+ * A dialog for showing an error when rendering a DataTable
+ * @alias Table.ErrorDialog
+ * @primerparentid data_table
+ */
 export function ErrorDialog({title = 'Error', children, onRetry, onDismiss}: TableErrorDialogProps) {
   return (
     <ConfirmationDialog

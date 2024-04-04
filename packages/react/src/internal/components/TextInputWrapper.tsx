@@ -5,6 +5,7 @@ import {get} from '../../constants'
 import type {SxProp} from '../../sx'
 import sx from '../../sx'
 import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
+import type {FC, PropsWithChildren} from 'react'
 
 export type TextInputSizes = 'small' | 'medium' | 'large'
 
@@ -192,7 +193,9 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
   ${sx};
 `
 
-const TextInputWrapper = styled(TextInputBaseWrapper)<StyledWrapperProps>`
+const TextInputWrapper: FC<PropsWithChildren<StyledBaseWrapperProps>> = styled(
+  TextInputBaseWrapper,
+)<StyledWrapperProps>`
   background-repeat: no-repeat; // Repeat and position set for form states (success, error, etc)
   background-position: right 8px center; // For form validation. This keeps images 8px from right and centered vertically.
 

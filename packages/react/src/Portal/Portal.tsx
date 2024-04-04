@@ -1,4 +1,5 @@
 import React from 'react'
+import type {FC, PropsWithChildren} from 'react'
 import {createPortal} from 'react-dom'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
@@ -13,7 +14,12 @@ const portalRootRegistry: Partial<Record<string, Element>> = {}
  * @param name The name of the container, to be used with the `containerName` prop on the Portal Component.
  * If name is not specified, registers the default portal root.
  */
-export function registerPortalRoot(root: Element, name = DEFAULT_PORTAL_CONTAINER_NAME): void {
+export function registerPortalRoot(
+  /** The element to portal into */
+  root: Element,
+  /** The name of the portal to register */
+  name = DEFAULT_PORTAL_CONTAINER_NAME,
+): void {
   portalRootRegistry[name] = root
 }
 
@@ -60,11 +66,7 @@ export interface PortalProps {
  * Creates a React Portal, placing all children in a separate physical DOM root node.
  * @see https://reactjs.org/docs/portals.html
  */
-export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
-  children,
-  onMount,
-  containerName: _containerName,
-}) => {
+export const Portal: FC<PropsWithChildren<PortalProps>> = ({children, onMount, containerName: _containerName}) => {
   const elementRef = React.useRef<HTMLDivElement | null>(null)
   if (!elementRef.current) {
     const div = document.createElement('div')

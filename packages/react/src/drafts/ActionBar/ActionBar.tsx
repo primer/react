@@ -1,4 +1,4 @@
-import type {RefObject, MutableRefObject} from 'react'
+import type {FC, PropsWithChildren, RefObject, MutableRefObject} from 'react'
 import React, {useState, useCallback, useRef, forwardRef} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {ActionList} from '../../ActionList'
@@ -177,7 +177,7 @@ const overflowEffect = (
   }
 }
 
-export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = props => {
+export const ActionBar: FC<PropsWithChildren<ActionBarProps>> = props => {
   const {size = 'medium', children, 'aria-label': ariaLabel} = props
   const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
   const setChildrenWidth = useCallback((size: ChildSize) => {

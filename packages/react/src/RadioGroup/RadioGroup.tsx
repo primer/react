@@ -1,4 +1,4 @@
-import type {ChangeEvent, ChangeEventHandler, FC} from 'react'
+import type {ChangeEvent, ChangeEventHandler, FC, PropsWithChildren} from 'react'
 import React, {createContext} from 'react'
 import type {CheckboxOrRadioGroupProps} from '../internal/components/CheckboxOrRadioGroup'
 import CheckboxOrRadioGroup from '../internal/components/CheckboxOrRadioGroup'
@@ -26,7 +26,7 @@ export const RadioGroupContext = createContext<{
   name: string
 } | null>(null)
 
-const RadioGroup: FC<React.PropsWithChildren<RadioGroupProps>> = ({children, disabled, onChange, name, ...rest}) => {
+const RadioGroup: FC<PropsWithChildren<RadioGroupProps>> = ({children, disabled, onChange, name, ...rest}) => {
   const [selectedRadioValue, setSelectedRadioValue] = useRenderForcingRef<string | null>(null)
 
   const updateSelectedCheckboxes: ChangeEventHandler<HTMLInputElement> = e => {

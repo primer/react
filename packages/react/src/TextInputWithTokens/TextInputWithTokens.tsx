@@ -1,7 +1,16 @@
 import {FocusKeys} from '@primer/behaviors'
 import {isFocusable} from '@primer/behaviors/utils'
 import {omit} from '@styled-system/props'
-import type {FocusEventHandler, KeyboardEventHandler, MouseEventHandler, RefObject} from 'react'
+import type {
+  ComponentType,
+  CSSProperties,
+  FocusEventHandler,
+  ForwardedRef,
+  KeyboardEventHandler,
+  MouseEventHandler,
+  PropsWithChildren,
+  RefObject,
+} from 'react'
 import React, {forwardRef, useRef, useState} from 'react'
 import {isValidElementType} from 'react-is'
 import Box from '../Box'
@@ -18,7 +27,7 @@ import UnstyledTextInput from '../internal/components/UnstyledTextInput'
 import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type AnyReactComponent = React.ComponentType<React.PropsWithChildren<any>>
+type AnyReactComponent = ComponentType<PropsWithChildren<any>>
 
 // NOTE: if these props or their JSDoc comments are updated, be sure to also update
 // the prop table in docs/content/TextInputTokens.mdx
@@ -26,9 +35,7 @@ export type TextInputWithTokensProps<TokenComponentType extends AnyReactComponen
   /**
    * The array of tokens to render
    */
-  tokens: TokenComponentType extends React.ComponentType<React.PropsWithChildren<infer TokenProps>>
-    ? TokenProps[]
-    : never
+  tokens: TokenComponentType extends ComponentType<PropsWithChildren<infer TokenProps>> ? TokenProps[] : never
   /**
    * The function that gets called when a token is removed
    */
@@ -41,7 +48,7 @@ export type TextInputWithTokensProps<TokenComponentType extends AnyReactComponen
    * The maximum height of the component. If the content in the input exceeds this height,
    * it will scroll vertically
    */
-  maxHeight?: React.CSSProperties['maxHeight']
+  maxHeight?: CSSProperties['maxHeight']
   /**
    * Whether tokens should render inline horizontally. By default, tokens wrap to new lines.
    */
@@ -95,7 +102,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     visibleTokenCount,
     ...rest
   }: TextInputWithTokensProps<TokenComponentType | typeof Token>,
-  forwardedRef: React.ForwardedRef<HTMLInputElement>,
+  forwardedRef: ForwardedRef<HTMLInputElement>,
 ) {
   const {onBlur, onFocus, onKeyDown, ...inputPropsRest} = omit(rest)
   const ref = useRef<HTMLInputElement>(null)

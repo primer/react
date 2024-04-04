@@ -1,4 +1,5 @@
 import React, {forwardRef, useCallback, useEffect, useRef, useState} from 'react'
+import type {PropsWithChildren} from 'react'
 import styled from 'styled-components'
 import type {ButtonProps} from '../Button'
 import {Button} from '../Button'
@@ -383,7 +384,7 @@ const defaultPosition = {
   regular: 'center',
 }
 
-const _Dialog = forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
+const _Dialog = forwardRef<HTMLDivElement, PropsWithChildren<DialogProps>>((props, forwardedRef) => {
   const {
     title = 'Dialog',
     subtitle = '',
@@ -395,9 +396,9 @@ const _Dialog = forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>
     width = 'xlarge',
     height = 'auto',
     footerButtons = [],
-    position = defaultPosition,
+    position = defaultPosition as DialogProps['position'],
     sx,
-  } = props
+  }: DialogProps = props
   const dialogLabelId = useId()
   const dialogDescriptionId = useId()
   const autoFocusedFooterButtonRef = useRef<HTMLButtonElement>(null)

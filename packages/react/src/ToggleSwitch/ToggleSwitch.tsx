@@ -1,4 +1,4 @@
-import type {MouseEventHandler} from 'react'
+import type {HTMLAttributes, MouseEventHandler, PropsWithChildren} from 'react'
 import React, {forwardRef, useCallback, useEffect} from 'react'
 import styled, {css} from 'styled-components'
 import {variant} from 'styled-system'
@@ -14,7 +14,7 @@ import type {CellAlignment} from '../DataTable/column'
 const TRANSITION_DURATION = '80ms'
 const EASE_OUT_QUAD_CURVE = 'cubic-bezier(0.5, 1, 0.89, 1)'
 
-export interface ToggleSwitchProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>, SxProp {
+export interface ToggleSwitchProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>, SxProp {
   /** Uncontrolled - whether the switch is turned on */
   defaultChecked?: boolean
   /** Whether the switch is ready for user input */
@@ -208,7 +208,7 @@ const hiddenTextStyles: BetterSystemStyleObject = {
   height: 0,
 }
 
-const ToggleSwitch = forwardRef<HTMLButtonElement, React.PropsWithChildren<ToggleSwitchProps>>(
+const ToggleSwitch = forwardRef<HTMLButtonElement, PropsWithChildren<ToggleSwitchProps>>(
   function ToggleSwitch(props, ref) {
     const {
       'aria-labelledby': ariaLabelledby,

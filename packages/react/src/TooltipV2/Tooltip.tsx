@@ -1,4 +1,5 @@
 import React, {forwardRef, Children, useEffect, useRef, useState} from 'react'
+import type {PropsWithChildren} from 'react'
 import type {SxProp} from '../sx'
 import sx from '../sx'
 import {useId, useProvidedRefOrCreate} from '../hooks'
@@ -6,7 +7,6 @@ import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
 import styled from 'styled-components'
 import {get} from '../constants'
-import type {ComponentProps} from '../utils/types'
 import {getAnchoredPosition} from '@primer/behaviors'
 import type {AnchorSide, AnchorAlignment} from '@primer/behaviors'
 import {isSupported, apply} from '@oddbird/popover-polyfill/fn'
@@ -124,13 +124,15 @@ const StyledTooltip = styled.span`
 `
 
 type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
-export type TooltipProps = React.PropsWithChildren<
+export type TooltipProps = PropsWithChildren<
   {
+    /** The direction of the tooltip in relation to the trigger */
     direction?: TooltipDirection
+    /** Text in the tooltip */
     text: string
+    /** Whether the tooltip content is used to label the trigger (like IconButton), or describe the trigger (most other uses) */
     type?: 'label' | 'description'
-  } & SxProp &
-    ComponentProps<typeof StyledTooltip>
+  } & SxProp
 >
 
 export type TriggerPropsType = {
@@ -186,7 +188,7 @@ const isInteractive = (element: HTMLElement) => {
 }
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 
-export const Tooltip = forwardRef(
+export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
   ({direction = 's', text, type = 'description', children, id, ...rest}: TooltipProps, forwardedRef) => {
     const tooltipId = useId(id)
     const child = Children.only(children)

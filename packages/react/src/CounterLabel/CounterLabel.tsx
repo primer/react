@@ -13,7 +13,7 @@ export type CounterLabelProps = React.PropsWithChildren<
 >
 
 const CounterLabel = forwardRef<HTMLSpanElement, CounterLabelProps>(
-  ({scheme = 'secondary', sx = defaultSxProp, children, ...props}, forwardedRef) => {
+  ({scheme = 'secondary', sx = defaultSxProp, children, ...props}: CounterLabelProps, forwardedRef) => {
     return (
       <>
         <Box
