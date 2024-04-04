@@ -1,7 +1,7 @@
 {
   "$id": "component.schema.json",
   "type": "object",
-  "required": ["id", "name", "status", "a11yReviewed", "stories", "props"],
+  "required": ["id", "name", "status", "a11yReviewed", "stories", "importPath", "props"],
   "additionalProperties": false,
   "definitions": {
     "prop": {
