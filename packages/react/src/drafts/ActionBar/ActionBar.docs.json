@@ -54,6 +54,19 @@
     {
       "name": "ActionBar.Divider",
       "props": []
+    },
+    {
+      "name": "ActionBar.SubMenu",
+      "description": "Component to be used when having a menu in the actionbar. This facilitates smooth transition to submenu during overflow cases",
+      "props": [
+        {
+          "name": "anchor",
+          "type": "React.ReactElement",
+          "required": true,
+          "description": "This is the anchor element to be used as menu trigger. Ideally ActionBar.IconButton"
+        },
+        {"name": "children", "type": "React.ReactElement", "required": true}
+      ]
     }
   ]
 }
