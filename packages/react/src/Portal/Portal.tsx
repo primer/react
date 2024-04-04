@@ -95,6 +95,16 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
     onMount?.()
 
     return () => {
+      // When removing the element from the DOM, check to see if it contains the
+      // activeElement of the page. In Safari, a Portal that has an
+      // activeElement can cause the page to scroll as it tries to keep track of
+      // the activeElement. In this case, we use a `blur()` event to signal that
+      // this no longer has focus.
+      if (element.contains(document.activeElement)) {
+        if (document.activeElement instanceof HTMLElement) {
+          document.activeElement.blur()
+        }
+      }
       parentElement.removeChild(element)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
