@@ -41,11 +41,6 @@ Playground.argTypes = {
   trailingIcon: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
   trailingAction: OcticonArgType([ChevronRightIcon]),
   href: {control: 'text'},
-  loading: {
-    control: {
-      type: 'boolean',
-    },
-  },
 }
 Playground.args = {
   block: false,
@@ -55,7 +50,6 @@ Playground.args = {
   trailingIcon: null,
   leadingIcon: null,
   href: '/',
-  loading: false,
 }
 
 export const Default = () => (

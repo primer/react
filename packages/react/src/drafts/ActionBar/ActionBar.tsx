@@ -13,6 +13,7 @@ import {useOnOutsideClick} from '../../hooks/useOnOutsideClick'
 import type {IconButtonProps} from '../../Button'
 import {IconButton} from '../../Button'
 import Box from '../../Box'
+import {ActionMenu} from '../..'
 
 type ChildSize = {
   text: string
@@ -46,13 +47,7 @@ const NavigationList = styled.div`
   ${sx};
 `
 
-const MORE_BTN_HEIGHT = 45
 const GAP = 8
-const MoreMenuListItem = styled.li`
-  display: flex;
-  align-items: center;
-  height: ${MORE_BTN_HEIGHT}px;
-`
 
 const listStyles = {
   display: 'flex',
@@ -67,29 +62,15 @@ const listStyles = {
   position: 'relative',
 }
 
-const menuStyles = {
-  position: 'absolute',
-  zIndex: 1,
-  top: '90%',
-  right: '0',
-  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
-  borderRadius: '12px',
-  backgroundColor: 'canvas.overlay',
-  listStyle: 'none',
-  // Values are from ActionMenu
-  minWidth: '192px',
-  maxWidth: '640px',
-}
-
 const MORE_BTN_WIDTH = 86
-const getNavStyles = () => ({
+const navStyles = {
   display: 'flex',
   paddingX: 3,
   justifyContent: 'flex-end',
   align: 'row',
   alignItems: 'center',
   maxHeight: '32px',
-})
+}
 
 const menuItemStyles = {
   textDecoration: 'none',
@@ -192,7 +173,6 @@ export const ActionBar: FC<PropsWithChildren<ActionBarProps>> = props => {
   const moreMenuRef = useRef<HTMLLIElement>(null)
   const moreMenuBtnRef = useRef<HTMLButtonElement>(null)
   const containerRef = React.useRef<HTMLUListElement>(null)
-  const disclosureWidgetId = React.useId()
 
   const validChildren = getValidChildren(children)
   // Responsive props object manages which items are in the list and which items are in the menu.
@@ -231,13 +211,6 @@ export const ActionBar: FC<PropsWithChildren<ActionBarProps>> = props => {
     moreMenuBtnRef.current?.focus()
   }, [])
 
-  const onAnchorClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
-    if (event.defaultPrevented || event.button !== 0) {
-      return
-    }
-    setIsWidgetOpen(isWidgetOpen => !isWidgetOpen)
-  }, [])
-
   useOnEscapePress(
     (event: KeyboardEvent) => {
       if (isWidgetOpen) {
@@ -253,61 +226,52 @@ export const ActionBar: FC<PropsWithChildren<ActionBarProps>> = props => {
 
   return (
     <ActionBarContext.Provider value={{size, setChildrenWidth}}>
-      <Box ref={navRef} sx={getNavStyles()}>
+      <Box ref={navRef} sx={navStyles}>
         <NavigationList sx={listStyles} ref={listRef} role="toolbar">
           {listItems}
           {menuItems.length > 0 && (
-            <MoreMenuListItem ref={moreMenuRef}>
-              <IconButton
-                ref={moreMenuBtnRef}
-                sx={moreBtnStyles}
-                aria-controls={disclosureWidgetId}
-                aria-expanded={isWidgetOpen}
-                onClick={onAnchorClick}
-                aria-label={`More ${ariaLabel} items`}
-                icon={KebabHorizontalIcon}
-              />
-              <ActionList
-                ref={containerRef}
-                id={disclosureWidgetId}
-                sx={menuStyles}
-                style={{display: isWidgetOpen ? 'block' : 'none'}}
-              >
-                {menuItems.map((menuItem, index) => {
-                  if (menuItem.type === ActionList.Divider) {
-                    return <ActionList.Divider key={index} />
-                  } else {
-                    const {
-                      children: menuItemChildren,
-                      //'aria-current': ariaCurrent,
-                      onClick,
-                      icon: Icon,
-                      'aria-label': ariaLabel,
-                    } = menuItem.props
-                    return (
-                      <ActionList.LinkItem
-                        key={menuItemChildren}
-                        sx={menuItemStyles}
-                        onClick={(
-                          event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
-                        ) => {
-                          closeOverlay()
-                          focusOnMoreMenuBtn()
-                          typeof onClick === 'function' && onClick(event)
-                        }}
-                      >
-                        {Icon ? (
-                          <ActionList.LeadingVisual>
-                            <Icon />
-                          </ActionList.LeadingVisual>
-                        ) : null}
-                        {ariaLabel}
-                      </ActionList.LinkItem>
-                    )
-                  }
-                })}
-              </ActionList>
-            </MoreMenuListItem>
+            <ActionMenu>
+              <ActionMenu.Anchor>
+                <IconButton sx={moreBtnStyles} aria-label={`More ${ariaLabel} items`} icon={KebabHorizontalIcon} />
+              </ActionMenu.Anchor>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  {menuItems.map((menuItem, index) => {
+                    if (menuItem.type === ActionList.Divider) {
+                      return <ActionList.Divider key={index} />
+                    } else {
+                      const {
+                        children: menuItemChildren,
+                        //'aria-current': ariaCurrent,
+                        onClick,
+                        icon: Icon,
+                        'aria-label': ariaLabel,
+                      } = menuItem.props
+                      return (
+                        <ActionList.LinkItem
+                          key={menuItemChildren}
+                          sx={menuItemStyles}
+                          onClick={(
+                            event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
+                          ) => {
+                            closeOverlay()
+                            focusOnMoreMenuBtn()
+                            typeof onClick === 'function' && onClick(event)
+                          }}
+                        >
+                          {Icon ? (
+                            <ActionList.LeadingVisual>
+                              <Icon />
+                            </ActionList.LeadingVisual>
+                          ) : null}
+                          {ariaLabel}
+                        </ActionList.LinkItem>
+                      )
+                    }
+                  })}
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
           )}
         </NavigationList>
       </Box>
