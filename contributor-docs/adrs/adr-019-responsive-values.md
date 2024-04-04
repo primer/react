@@ -63,20 +63,12 @@ function Stack({children, gap}: StackProps) {
 }
 
 const StyledStack = styled.div`
-  &[data-gap='none'] {
-    /* ... */
-  }
-
-  &[data-gap='condensed'] {
-    /* ... */
-  }
-
-  /* ... */
-
+  &[data-gap='none'],
   &[data-gap-narrow='none'] {
     /* ... */
   }
 
+  &[data-gap='condensed'],
   &[data-gap-narrow='condensed'] {
     /* ... */
   }
