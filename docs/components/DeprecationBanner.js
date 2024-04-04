@@ -12,3 +12,6 @@ const DeprecationBanner = ({replacementUrl}) => {
 }
 
 export default DeprecationBanner
+
+
+// this is a smaple comment
