@@ -1,6 +1,7 @@
 {
-  "id": "tooltip",
-  "name": "Tooltip",
+  "id": "tooltip_v2",
+  "name": "TooltipV2",
+  "docsId": "tooltip",
   "status": "beta",
   "a11yReviewed": true,
   "stories": [],
