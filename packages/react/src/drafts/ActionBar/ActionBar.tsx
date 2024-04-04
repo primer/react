@@ -14,6 +14,7 @@ import type {IconButtonProps} from '../../Button'
 import {IconButton} from '../../Button'
 import Box from '../../Box'
 import {ActionMenu} from '../../ActionMenu'
+import {Action} from 'history'
 
 type ChildSize = {
   text: string
@@ -264,6 +265,24 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                   {menuItems.map((menuItem, index) => {
                     if (menuItem.type === ActionList.Divider) {
                       return <ActionList.Divider key={index} />
+                    } else if (menuItem.type === ActionBarSubMenu) {
+                      const {children: menuItemChildren, anchor} = menuItem.props
+                      const {icon: Icon, 'aria-label': ariaLabel} = anchor.props
+                      return (
+                        <ActionMenu>
+                          <ActionMenu.Anchor>
+                            <ActionList.Item>
+                              {Icon ? (
+                                <ActionList.LeadingVisual>
+                                  <Icon />
+                                </ActionList.LeadingVisual>
+                              ) : null}
+                              {ariaLabel}
+                            </ActionList.Item>
+                          </ActionMenu.Anchor>
+                          <ActionMenu.Overlay>{menuItemChildren}</ActionMenu.Overlay>
+                        </ActionMenu>
+                      )
                     } else {
                       const {
                         children: menuItemChildren,
