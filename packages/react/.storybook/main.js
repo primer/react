@@ -53,4 +53,25 @@ module.exports = {
   typescript: {
     reactDocgen: 'react-docgen',
   },
+  // typescript: {
+  //   reactDocgen: 'react-docgen-typescript',
+  //   reactDocgenTypescriptOptions: {
+  //     compilerOptions: {
+  //       allowSyntheticDefaultImports: false,
+  //       esModuleInterop: false,
+  //       savePropValueAsString: true,
+  //       propFilter: (prop, component) => {
+  //         if (prop.declarations !== undefined && prop.declarations.length > 0) {
+  //           const hasPropAdditionalDescription = prop.declarations.find(declaration => {
+  //             return !declaration.fileName.includes('node_modules')
+  //           })
+
+  //           return Boolean(hasPropAdditionalDescription)
+  //         }
+
+  //         return true
+  //       },
+  //     },
+  //   },
+  // },
 }
