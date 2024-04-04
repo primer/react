@@ -1,6 +1,7 @@
 {
   "id": "tooltip",
   "name": "Tooltip",
+  "docsId": "tooltip",
   "status": "alpha",
   "a11yReviewed": false,
   "stories": [],
