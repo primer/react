@@ -102,6 +102,10 @@ export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
       // this no longer has focus.
       if (element.contains(document.activeElement)) {
         if (document.activeElement instanceof HTMLElement) {
+          // It seems like we need to specifically call `blur` so that we can
+          // appropriately restore focus, like with usage in
+          // `useOpenAndCloseFocus`, due to behavior with Portals in Safari.
+          // eslint-disable-next-line github/no-blur
           document.activeElement.blur()
         }
       }
