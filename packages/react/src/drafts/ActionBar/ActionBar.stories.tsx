@@ -120,6 +120,13 @@ export const CommentBox = () => {
               icon={ReplyIcon}
               aria-label="Saved Replies"
             ></ActionBar.IconButton>
+            <ActionBar.SubMenu anchor={<ActionBar.IconButton icon={ThreeBarsIcon} aria-label="Random Menu" />}>
+              <ActionList>
+                <ActionList.Item>First Item</ActionList.Item>
+                <ActionList.Item>Second Item</ActionList.Item>
+                <ActionList.Item>Third Item</ActionList.Item>
+              </ActionList>
+            </ActionBar.SubMenu>
           </ActionBar>
         </Box>
       </Box>

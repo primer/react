@@ -13,7 +13,7 @@ import {useOnOutsideClick} from '../../hooks/useOnOutsideClick'
 import type {IconButtonProps} from '../../Button'
 import {IconButton} from '../../Button'
 import Box from '../../Box'
-import {ActionMenu} from '../..'
+import {ActionMenu} from '../../ActionMenu'
 
 type ChildSize = {
   text: string
@@ -42,6 +42,31 @@ export type ActionBarProps = {
 }
 
 export type ActionBarIconButtonProps = IconButtonProps
+
+export const ActionBarIconButton = forwardRef((props: ActionBarIconButtonProps, forwardedRef) => {
+  const backupRef = useRef<HTMLElement>(null)
+  const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
+  const {size, setChildrenWidth} = React.useContext(ActionBarContext)
+  useIsomorphicLayoutEffect(() => {
+    const text = props['aria-label'] ? props['aria-label'] : ''
+    const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
+    setChildrenWidth({text, width: domRect.width})
+  }, [ref, setChildrenWidth])
+  return <IconButton ref={ref} size={size} {...props} variant="invisible" />
+})
+
+export type ActionBarSubMenuProps = {anchor: React.ReactElement; children: React.ReactElement[] | React.ReactElement}
+
+export const ActionBarSubMenu = (props: ActionBarSubMenuProps) => {
+  const {anchor, children} = props
+
+  return (
+    <ActionMenu>
+      <ActionMenu.Anchor>{anchor}</ActionMenu.Anchor>
+      <ActionMenu.Overlay>{children}</ActionMenu.Overlay>
+    </ActionMenu>
+  )
+}
 
 const NavigationList = styled.div`
   ${sx};
@@ -278,18 +303,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     </ActionBarContext.Provider>
   )
 }
-
-export const ActionBarIconButton = forwardRef((props: ActionBarIconButtonProps, forwardedRef) => {
-  const backupRef = useRef<HTMLElement>(null)
-  const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
-  const {size, setChildrenWidth} = React.useContext(ActionBarContext)
-  useIsomorphicLayoutEffect(() => {
-    const text = props['aria-label'] ? props['aria-label'] : ''
-    const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
-    setChildrenWidth({text, width: domRect.width})
-  }, [ref, setChildrenWidth])
-  return <IconButton ref={ref} size={size} {...props} variant="invisible" />
-})
 
 const sizeToHeight = {
   small: '24px',
