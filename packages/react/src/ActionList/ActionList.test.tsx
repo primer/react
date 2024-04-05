@@ -249,6 +249,35 @@ describe('ActionList', () => {
     expect(spy).toHaveBeenCalled()
     spy.mockRestore()
   })
+
+  it('should throw an error when ActionList.GroupHeading has an `as` prop when it is used within ActionMenu context', async () => {
+    const spy = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
+    expect(() =>
+      HTMLRender(
+        <ThemeProvider theme={theme}>
+          <SSRProvider>
+            <BaseStyles>
+              <ActionMenu open={true}>
+                <ActionMenu.Button>Trigger</ActionMenu.Button>
+                <ActionMenu.Overlay>
+                  <ActionList>
+                    <ActionList.Group>
+                      <ActionList.GroupHeading as="h2">Group Heading</ActionList.GroupHeading>
+                    </ActionList.Group>
+                  </ActionList>
+                </ActionMenu.Overlay>
+              </ActionMenu>
+            </BaseStyles>
+          </SSRProvider>
+        </ThemeProvider>,
+      ),
+    ).toThrow(
+      "Looks like you are trying to set a heading level to a menu role. Group headings for menu type action lists are for representational purposes, and rendered as divs. Therefore they don't need a heading level.",
+    )
+    expect(spy).toHaveBeenCalled()
+    spy.mockRestore()
+  })
+
   it('should render the ActionList.GroupHeading component as a heading with the given heading level', async () => {
     const container = HTMLRender(
       <ActionList>
@@ -262,18 +291,22 @@ describe('ActionList', () => {
     expect(heading).toBeInTheDocument()
     expect(heading).toHaveTextContent('Group Heading')
   })
-  it('should throw a warning if ActionList.Group is used without as prop when no role is specified (for list role)', async () => {
-    const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
-
-    HTMLRender(
-      <ActionList>
-        <ActionList.Heading as="h1">Heading</ActionList.Heading>
-        <ActionList.Group>
-          <ActionList.GroupHeading>Group Heading</ActionList.GroupHeading>
-        </ActionList.Group>
-      </ActionList>,
+  it('should throw an error if ActionList.GroupHeading is used without an `as` prop when no role is specified (for list role)', async () => {
+    const spy = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
+    expect(() =>
+      HTMLRender(
+        <ActionList>
+          <ActionList.Heading as="h1">Heading</ActionList.Heading>
+          <ActionList.Group>
+            <ActionList.GroupHeading>Group Heading</ActionList.GroupHeading>
+            <ActionList.Item>Item</ActionList.Item>
+          </ActionList.Group>
+        </ActionList>,
+      ),
+    ).toThrow(
+      "You are setting a heading for a list, that requires a heading level. Please use 'as' prop to set a proper heading level.",
     )
-    expect(spy).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalled()
     spy.mockRestore()
   })
   it('should render the ActionList.GroupHeading component as a span (not a heading tag) when role is specified as listbox', async () => {

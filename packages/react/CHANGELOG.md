@@ -1,5 +1,17 @@
 # @primer/react
 
+## 36.12.0
+
+### Minor Changes
+
+- [#4380](https://github.com/primer/react/pull/4380) [`a392556c734bcc1966f18370d1b3ddf6dcd7d0d4`](https://github.com/primer/react/commit/a392556c734bcc1966f18370d1b3ddf6dcd7d0d4) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Tooltip v1: Remove the caret from the tooltip to make it consistent with the new tooltip design
+
+- [#4364](https://github.com/primer/react/pull/4364) [`2f65ea526fce085f1e55b78c32a6b462d8f3583f`](https://github.com/primer/react/commit/2f65ea526fce085f1e55b78c32a6b462d8f3583f) Thanks [@joshblack](https://github.com/joshblack)! - Update IconButton default color to use fgColor-muted
+
+### Patch Changes
+
+- [#4379](https://github.com/primer/react/pull/4379) [`cb54f4298700d369e616aaefb2e7df4830231736`](https://github.com/primer/react/commit/cb54f4298700d369e616aaefb2e7df4830231736) Thanks [@langermank](https://github.com/langermank)! - Bug fix: default Button disabled bg-color
+
 ## 36.11.0
 
 ### Minor Changes
