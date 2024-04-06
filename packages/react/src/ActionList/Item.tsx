@@ -74,15 +74,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       inlineDescription: [Description, props => props.variant !== 'block'],
     })
 
-    const {container, afterSelect, selectionAttribute, defaultTrailingVisual} =
-      React.useContext(ActionListContainerContext)
-
-    // Be sure to avoid rendering the container unless there is a default
-    const wrappedDefaultTrailingVisual = defaultTrailingVisual ? (
-      <TrailingVisual>{defaultTrailingVisual}</TrailingVisual>
-    ) : null
-    const trailingVisual = slots.trailingVisual ?? wrappedDefaultTrailingVisual
-
     const {
       variant: listVariant,
       role: listRole,
@@ -90,6 +81,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       selectionVariant: listSelectionVariant,
     } = React.useContext(ListContext)
     const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
+    const {container, afterSelect, selectionAttribute} = React.useContext(ActionListContainerContext)
     const inactive = Boolean(inactiveText)
     const showInactiveIndicator = inactive && container === undefined
 
@@ -316,7 +308,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
             >
               <ConditionalWrapper
-                if={Boolean(trailingVisual) || (showInactiveIndicator && !slots.leadingVisual)}
+                if={Boolean(slots.trailingVisual) || (showInactiveIndicator && !slots.leadingVisual)}
                 sx={{display: 'flex', flexGrow: 1}}
               >
                 <ConditionalWrapper
@@ -346,7 +338,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                   ) : (
                     // If it's not inactive, or it has a leading visual that can be replaced,
                     // just render the trailing visual slot.
-                    trailingVisual
+                    slots.trailingVisual
                   )
                 }
               </ConditionalWrapper>
