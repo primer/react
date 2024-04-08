@@ -11,7 +11,7 @@ module.exports = {
     }),
     require('postcss-custom-properties-fallback')({
       importFrom: {
-        customProperties: require('@primer/primitives/tokens-next-private/fallbacks/color-fallbacks.json'),
+        customProperties: require('@primer/primitives/dist/fallbacks/color-fallbacks.json'),
       },
     }),
   ],
