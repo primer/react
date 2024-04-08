@@ -62,7 +62,7 @@ const StyledTooltip = styled.span`
     display: block;
     right: 0;
     left: 0;
-    height: 8px;
+    height: var(--overlay-offset, 0.25rem);
     content: '';
   }
 
