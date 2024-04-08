@@ -1,7 +1,7 @@
 {
   "$id": "component.schema.json",
   "type": "object",
-  "required": ["id", "name", "status", "a11yReviewed", "stories", "props"],
+  "required": ["id", "name", "status", "a11yReviewed", "stories", "importPath", "props"],
   "additionalProperties": false,
   "definitions": {
     "prop": {
@@ -73,6 +73,11 @@
       "type": "boolean",
       "description": "Indicate whether the component has been reviewed by the Accessibility team."
     },
+    "importPath": {
+      "type": "string",
+      "description": "The path to import the component from. i.e. '@primer/react/experimental'"
+    },
+
     "stories": {
       "type": "array",
       "description": "An array of Storybook story IDs to embed in the docs.",

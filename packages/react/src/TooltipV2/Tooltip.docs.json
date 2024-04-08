@@ -4,6 +4,7 @@
   "docsId": "tooltip",
   "status": "beta",
   "a11yReviewed": true,
+  "importPath": "@primer/react/next",
   "stories": [],
   "props": [
     {
