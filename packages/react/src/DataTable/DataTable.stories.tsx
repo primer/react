@@ -189,8 +189,8 @@ export const Playground = (args: DataTableProps<UniqueRow> & ColWidthArgTypes) =
     return args[`colWidth${colIndex}`] !== 'explicit width'
       ? args[`colWidth${colIndex}`]
       : args[`explicitColWidth${colIndex}`]
-        ? args[`explicitColWidth${colIndex}`]
-        : 'grow'
+      ? args[`explicitColWidth${colIndex}`]
+      : 'grow'
   }
 
   const align = args.align as CellAlignment
