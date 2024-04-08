@@ -1,5 +1,5 @@
-import React, {useEffect, useState, useCallback, useContext, useMemo} from 'react'
-import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
+import React, {useEffect, useState} from 'react'
+import {TriangleDownIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {OverlayProps} from '../Overlay'
