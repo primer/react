@@ -263,7 +263,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       onKeyPress: keyPressHandler,
       'aria-disabled': disabled ? true : undefined,
       'data-inactive': inactive ? true : undefined,
-      tabIndex: disabled || showInactiveIndicator ? undefined : 0,
+      tabIndex: (disabled && !inferredItemRole) || showInactiveIndicator ? undefined : 0,
       'aria-labelledby': `${labelId} ${slots.inlineDescription ? inlineDescriptionId : ''}`,
       'aria-describedby': slots.blockDescription
         ? [blockDescriptionId, inactiveWarningId].join(' ')
