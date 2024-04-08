@@ -48,16 +48,6 @@ Playground.argTypes = {
       type: 'boolean',
     },
   },
-  loading: {
-    control: {
-      type: 'boolean',
-    },
-  },
-  count: {
-    control: {
-      type: 'number',
-    },
-  },
   leadingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
   trailingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
   trailingAction: OcticonArgType([TriangleDownIcon]),
@@ -69,7 +59,6 @@ Playground.args = {
   inactive: false,
   variant: 'default',
   alignContent: 'center',
-  loading: false,
   trailingVisual: null,
   leadingVisual: null,
   trailingAction: null,

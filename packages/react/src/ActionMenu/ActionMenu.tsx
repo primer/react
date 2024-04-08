@@ -1,5 +1,5 @@
-import React, {useCallback, useContext, useMemo} from 'react'
-import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
+import React from 'react'
+import {TriangleDownIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {OverlayProps} from '../Overlay'
@@ -13,16 +13,11 @@ import type {MandateProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {Tooltip} from '../TooltipV2/Tooltip'
 
-export type MenuCloseHandler = (
-  gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select' | 'arrow-left',
-) => void
-
 export type MenuContextProps = Pick<
   AnchoredOverlayProps,
   'anchorRef' | 'renderAnchor' | 'open' | 'onOpen' | 'anchorId'
 > & {
-  onClose?: MenuCloseHandler
-  isSubmenu?: boolean
+  onClose?: (gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab') => void
 }
 const MenuContext = React.createContext<MenuContextProps>({renderAnchor: null, open: false})
 
@@ -49,23 +44,9 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   onOpenChange,
   children,
 }: ActionMenuProps) => {
-  const parentMenuContext = useContext(MenuContext)
-
   const [combinedOpenState, setCombinedOpenState] = useProvidedStateOrCreate(open, onOpenChange, false)
   const onOpen = React.useCallback(() => setCombinedOpenState(true), [setCombinedOpenState])
-  const onClose: MenuCloseHandler = React.useCallback(
-    gesture => {
-      setCombinedOpenState(false)
-
-      // Close the parent stack when an item is selected or the user tabs out of the menu entirely
-      switch (gesture) {
-        case 'tab':
-        case 'item-select':
-          parentMenuContext.onClose?.(gesture)
-      }
-    },
-    [setCombinedOpenState, parentMenuContext],
-  )
+  const onClose = React.useCallback(() => setCombinedOpenState(false), [setCombinedOpenState])
 
   const menuButtonChild = React.Children.toArray(children).find(
     child => React.isValidElement<ActionMenuButtonProps>(child) && (child.type === MenuButton || child.type === Anchor),
@@ -119,18 +100,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   })
 
   return (
-    <MenuContext.Provider
-      value={{
-        anchorRef,
-        renderAnchor,
-        anchorId,
-        open: combinedOpenState,
-        onOpen,
-        onClose,
-        // will be undefined for the outermost level, then false for the top menu, then true inside that
-        isSubmenu: parentMenuContext.isSubmenu !== undefined,
-      }}
-    >
+    <MenuContext.Provider value={{anchorRef, renderAnchor, anchorId, open: combinedOpenState, onOpen, onClose}}>
       {contents}
     </MenuContext.Provider>
   )
@@ -138,40 +108,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
 
 export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string}
 const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, ...anchorProps}, anchorRef) => {
-  const {onOpen, isSubmenu} = React.useContext(MenuContext)
-
-  const openSubmenuOnRightArrow: React.KeyboardEventHandler<HTMLElement> = useCallback(
-    event => {
-      children.props.onKeyDown?.(event)
-      if (isSubmenu && event.key === 'ArrowRight' && !event.defaultPrevented) onOpen?.('anchor-key-press')
-    },
-    [children, isSubmenu, onOpen],
-  )
-
-  // Add right chevron icon to submenu anchors rendered using `ActionList.Item`
-  const parentActionListContext = useContext(ActionListContainerContext)
-  const thisActionListContext = useMemo(
-    () =>
-      isSubmenu
-        ? {
-            ...parentActionListContext,
-            defaultTrailingVisual: <ChevronRightIcon />,
-            // Default behavior is to close after selecting; we want to open the submenu instead
-            afterSelect: () => onOpen?.('anchor-click'),
-          }
-        : parentActionListContext,
-    [isSubmenu, onOpen, parentActionListContext],
-  )
-
-  return (
-    <ActionListContainerContext.Provider value={thisActionListContext}>
-      {React.cloneElement(children, {
-        ...anchorProps,
-        ref: anchorRef,
-        onKeyDown: openSubmenuOnRightArrow,
-      })}
-    </ActionListContainerContext.Provider>
-  )
+  return React.cloneElement(children, {...anchorProps, ref: anchorRef})
 })
 
 /** this component is syntactical sugar 🍭 */
@@ -196,24 +133,19 @@ type MenuOverlayProps = Partial<OverlayProps> &
 const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
   children,
   align = 'start',
-  side,
+  side = 'outside-bottom',
   'aria-labelledby': ariaLabelledby,
   ...overlayProps
 }) => {
   // we typecast anchorRef as required instead of optional
   // because we know that we're setting it in context in Menu
-  const {
-    anchorRef,
-    renderAnchor,
-    anchorId,
-    open,
-    onOpen,
-    onClose,
-    isSubmenu = false,
-  } = React.useContext(MenuContext) as MandateProps<MenuContextProps, 'anchorRef'>
+  const {anchorRef, renderAnchor, anchorId, open, onOpen, onClose} = React.useContext(MenuContext) as MandateProps<
+    MenuContextProps,
+    'anchorRef'
+  >
 
   const containerRef = React.useRef<HTMLDivElement>(null)
-  useMenuKeyboardNavigation(open, onClose, containerRef, anchorRef, isSubmenu)
+  useMenuKeyboardNavigation(open, onClose, containerRef, anchorRef)
 
   return (
     <AnchoredOverlay
@@ -224,7 +156,7 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
       onOpen={onOpen}
       onClose={onClose}
       align={align}
-      side={side ?? (isSubmenu ? 'outside-right' : 'outside-bottom')}
+      side={side}
       overlayProps={overlayProps}
       focusZoneSettings={{focusOutBehavior: 'wrap'}}
     >
@@ -235,7 +167,7 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
             listRole: 'menu',
             listLabelledBy: ariaLabelledby || anchorId,
             selectionAttribute: 'aria-checked', // Should this be here?
-            afterSelect: () => onClose?.('item-select'),
+            afterSelect: onClose,
           }}
         >
           {children}
