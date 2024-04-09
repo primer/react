@@ -62,7 +62,7 @@ const StyledTooltip = styled.span`
     display: block;
     right: 0;
     left: 0;
-    height: 8px;
+    height: var(--overlay-offset, 0.25rem);
     content: '';
   }
 
@@ -196,7 +196,12 @@ export const Tooltip = React.forwardRef(
     const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)
 
     const openTooltip = () => {
-      if (tooltipElRef.current && triggerRef.current && !tooltipElRef.current.matches(':popover-open')) {
+      if (
+        tooltipElRef.current &&
+        triggerRef.current &&
+        tooltipElRef.current.hasAttribute('popover') &&
+        !tooltipElRef.current.matches(':popover-open')
+      ) {
         const tooltip = tooltipElRef.current
         const trigger = triggerRef.current
         tooltip.showPopover()
@@ -216,7 +221,12 @@ export const Tooltip = React.forwardRef(
       }
     }
     const closeTooltip = () => {
-      if (tooltipElRef.current && triggerRef.current && tooltipElRef.current.matches(':popover-open')) {
+      if (
+        tooltipElRef.current &&
+        triggerRef.current &&
+        tooltipElRef.current.hasAttribute('popover') &&
+        tooltipElRef.current.matches(':popover-open')
+      ) {
         tooltipElRef.current.hidePopover()
       }
     }

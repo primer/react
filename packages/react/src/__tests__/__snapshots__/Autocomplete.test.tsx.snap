@@ -1163,7 +1163,6 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
               fill="currentColor"
               focusable="false"
               height={16}
-              role="img"
               style={
                 {
                   "display": "inline-block",
