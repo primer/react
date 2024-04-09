@@ -163,24 +163,22 @@ describe('Dialog', () => {
       const [isOpen, setIsOpen] = React.useState(false)
       const triggerRef = React.useRef<HTMLButtonElement>(null)
 
-      if (!isOpen) {
-        return (
+      return (
+        <>
           <Button variant="primary" onClick={() => setIsOpen(true)}>
             Show dialog (button 1)
           </Button>
-        )
-      } else {
-        return (
-          <>
-            <Button variant="primary" ref={triggerRef}>
-              Show dialog (button 2)
-            </Button>
+          <Button variant="primary" ref={triggerRef}>
+            return focus to (button 2)
+          </Button>
+
+          {isOpen && (
             <Dialog title="title" onClose={() => setIsOpen(false)} returnFocusRef={triggerRef}>
               body
             </Dialog>
-          </>
-        )
-      }
+          )}
+        </>
+      )
     }
 
     const {getByRole, getByLabelText} = render(<Fixture />)
@@ -193,7 +191,6 @@ describe('Dialog', () => {
     await user.click(triggerButton)
     await user.click(getByLabelText('Close'))
 
-    expect(triggerButton).toNotHaveFocus()
-    expect(getByRole('button', {name: 'Show dialog (button 2)'})).toHaveFocus()
+    expect(getByRole('button', {name: 'return focus to (button 2)'})).toHaveFocus()
   })
 })
