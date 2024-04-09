@@ -47,13 +47,6 @@ const NavigationList = styled.div`
   ${sx};
 `
 
-const MORE_BTN_HEIGHT = 45
-const MoreMenuListItem = styled.li`
-  display: flex;
-  align-items: center;
-  height: ${MORE_BTN_HEIGHT}px;
-`
-
 const listStyles = {
   display: 'flex',
   listStyle: 'none',
@@ -102,8 +95,7 @@ const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: numb
   let breakpoint = childWidthArray.length // assume all items will fit
   let sumsOfChildWidth = 0
   for (const [index, childWidth] of childWidthArray.entries()) {
-    sumsOfChildWidth = sumsOfChildWidth + childWidth.width // + 
-    
+    sumsOfChildWidth = sumsOfChildWidth + childWidth.width
     if (sumsOfChildWidth > widthToFit) {
       breakpoint = index
       break
