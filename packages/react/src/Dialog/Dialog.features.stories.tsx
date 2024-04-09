@@ -296,7 +296,7 @@ export const ReturnFocusRef = () => {
   if (!isOpen) return triggerButton
 
   return (
-    <React.Suspense fallback={<Button loading>Show Dialog</Button>}>
+    <React.Suspense fallback={<Button>Show Dialog</Button>}>
       {triggerButton}
       <Dialog title="title" onClose={onDialogClose} returnFocusRef={triggerRef}>
         body
