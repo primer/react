@@ -35,6 +35,8 @@ export async function visit(page: Page, options: Options) {
     url.searchParams.set('globals', params)
   }
 
+  console.log(url.toString())
+
   await page.goto(url.toString())
   await page.waitForSelector('body.sb-show-main:not(.sb-show-preparing-story)')
   await page.waitForSelector('#storybook-root > *')

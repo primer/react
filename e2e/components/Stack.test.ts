@@ -1,113 +1,21 @@
 import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
+import {matrix, serialize} from '../test-helpers/matrix'
+
+const scenarios = matrix({
+  orientation: ['horizontal', 'vertical'],
+  align: ['stretch', 'start', 'center', 'end', 'baseline'],
+  wrap: ['wrap', 'nowrap'],
+  spread: ['start', 'center', 'end', 'distribute', 'distributeEvently'],
+  padding: ['none', 'condensed', 'normal', 'spacious'],
+  gap: ['none', 'condensed', 'normal', 'spacious'],
+})
 
 const stories = [
   {
     title: 'Default',
     id: 'drafts-components-stack--default',
-  },
-  {
-    title: 'Orientation',
-    id: 'drafts-components-stack--playground',
-    args: [
-      {
-        orientation: 'horizontal',
-      },
-      {
-        orientation: 'vertical',
-      },
-    ],
-  },
-  {
-    title: 'Align',
-    id: 'drafts-components-stack--playground',
-    args: [
-      {
-        align: 'stretch',
-      },
-      {
-        align: 'start',
-      },
-      {
-        align: 'center',
-      },
-      {
-        align: 'end',
-      },
-      {
-        align: 'baseline',
-      },
-    ],
-  },
-  {
-    title: 'Wrap',
-    id: 'drafts-components-stack--playground',
-    args: [
-      {
-        wrap: 'wrap',
-      },
-      {
-        wrap: 'nowrap',
-      },
-    ],
-  },
-  {
-    title: 'Spread',
-    id: 'drafts-components-stack--playground',
-    args: [
-      {
-        spread: 'start',
-      },
-      {
-        spread: 'center',
-      },
-      {
-        spread: 'end',
-      },
-      {
-        spread: 'distribute',
-      },
-      {
-        spread: 'distributeEvently',
-      },
-    ],
-  },
-  {
-    title: 'Padding',
-    id: 'drafts-components-stack--playground',
-    args: [
-      {
-        padding: 'none',
-      },
-      {
-        padding: 'condensed',
-      },
-      {
-        padding: 'normal',
-      },
-      {
-        padding: 'spacious',
-      },
-    ],
-  },
-  {
-    title: 'Gap',
-    id: 'drafts-components-stack--playground',
-    args: [
-      {
-        gap: 'none',
-      },
-      {
-        gap: 'condensed',
-      },
-      {
-        gap: 'normal',
-      },
-      {
-        gap: 'spacious',
-      },
-    ],
   },
 ]
 
@@ -139,6 +47,18 @@ test.describe('Stack', () => {
           })
         })
       }
+    })
+  }
+
+  for (const scenario of scenarios) {
+    const id = serialize(scenario)
+
+    test(`${id} @vrt`, async ({page}) => {
+      await visit(page, {
+        id: 'drafts-components-stack--playground',
+        args: scenario,
+      })
+      expect(await page.screenshot()).toMatchSnapshot(`Stack.${id}.png`)
     })
   }
 })
