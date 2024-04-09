@@ -41,7 +41,8 @@ export const GroupsAndDescriptions = () => {
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
         <ActionList selectionVariant="single" showDividers>
-          <ActionList.Group title="Open">
+          <ActionList.Group>
+            <ActionList.GroupHeading>Open</ActionList.GroupHeading>
             {milestones
               .filter(milestone => !milestone.name.includes('21'))
               .map((milestone, index) => (
@@ -58,7 +59,8 @@ export const GroupsAndDescriptions = () => {
                 </ActionList.Item>
               ))}
           </ActionList.Group>
-          <ActionList.Group title="Closed">
+          <ActionList.Group>
+            <ActionList.GroupHeading>Closed</ActionList.GroupHeading>
             {milestones
               .filter(milestone => milestone.name.includes('21'))
               .map((milestone, index) => (
@@ -310,7 +312,8 @@ export const MixedSelection = () => {
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
         <ActionList>
-          <ActionList.Group selectionVariant="single" title="Group by">
+          <ActionList.Group selectionVariant="single">
+            <ActionList.GroupHeading>Group by</ActionList.GroupHeading>
             {options.map((option, index) => (
               <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
                 <ActionList.LeadingVisual>
@@ -349,7 +352,8 @@ export const MultipleSections = () => {
       </ActionMenu.Anchor>
       <ActionMenu.Overlay width="small">
         <ActionList>
-          <ActionList.Group title="Raw file content" selectionVariant="multiple">
+          <ActionList.Group selectionVariant="multiple">
+            <ActionList.GroupHeading>Raw file content</ActionList.GroupHeading>
             <ActionList.Item onSelect={() => alert('Workflows clicked')}>Download</ActionList.Item>
             <ActionList.Divider />
             <ActionList.Item onSelect={() => alert('Workflows clicked')}>Jump to line</ActionList.Item>
@@ -359,7 +363,8 @@ export const MultipleSections = () => {
             <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy permalink</ActionList.Item>
           </ActionList.Group>
           <ActionList.Divider />
-          <ActionList.Group title="View options" selectionVariant="multiple">
+          <ActionList.Group selectionVariant="multiple">
+            <ActionList.GroupHeading>View options</ActionList.GroupHeading>
             {items.map((item, index) => (
               <ActionList.Item
                 key={index}
@@ -371,7 +376,8 @@ export const MultipleSections = () => {
             ))}
           </ActionList.Group>
           <ActionList.Divider />
-          <ActionList.Group title="View options" selectionVariant="multiple">
+          <ActionList.Group selectionVariant="multiple">
+            <ActionList.GroupHeading>View options</ActionList.GroupHeading>
             <ActionList.Item onSelect={() => alert('Delete file')} variant="danger">
               Delete file
             </ActionList.Item>
@@ -488,7 +494,8 @@ export const OnlyInactiveItems = () => (
           </ActionList.LeadingVisual>
         </ActionList.Item>
         <ActionList.Divider />
-        <ActionList.Group title="Github projects">
+        <ActionList.Group>
+          <ActionList.GroupHeading>Github projects</ActionList.GroupHeading>
           <ActionList.LinkItem href="/" inactiveText="Unavailable due to an outage">
             What&apos;s new
             <ActionList.LeadingVisual>
