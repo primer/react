@@ -2,7 +2,7 @@ import React from 'react'
 import {iterateFocusableElements} from '@primer/behaviors/utils'
 import {useMenuInitialFocus} from './useMenuInitialFocus'
 import {useMnemonics} from './useMnemonics'
-import type {MenuCloseHandler} from '../ActionMenu'
+import type {MenuContextProps} from '../ActionMenu'
 
 /**
  * Keyboard navigation is a mix of 4 hooks
@@ -13,16 +13,14 @@ import type {MenuCloseHandler} from '../ActionMenu'
  */
 export const useMenuKeyboardNavigation = (
   open: boolean,
-  onClose: MenuCloseHandler | undefined,
+  onClose: MenuContextProps['onClose'],
   containerRef: React.RefObject<HTMLElement>,
   anchorRef: React.RefObject<HTMLElement>,
-  isSubmenu: boolean,
 ) => {
   useMenuInitialFocus(open, containerRef, anchorRef)
   useMnemonics(open, containerRef)
   useCloseMenuOnTab(open, onClose, containerRef, anchorRef)
   useMoveFocusToMenuItem(open, containerRef, anchorRef)
-  useCloseSubmenuOnArrow(open, isSubmenu, onClose, containerRef)
 }
 
 /**
@@ -31,7 +29,7 @@ export const useMenuKeyboardNavigation = (
  */
 const useCloseMenuOnTab = (
   open: boolean,
-  onClose: MenuCloseHandler | undefined,
+  onClose: MenuContextProps['onClose'],
   containerRef: React.RefObject<HTMLElement>,
   anchorRef: React.RefObject<HTMLElement>,
 ) => {
@@ -50,29 +48,6 @@ const useCloseMenuOnTab = (
       anchor?.removeEventListener('keydown', handler)
     }
   }, [open, onClose, containerRef, anchorRef])
-}
-
-/**
- * Close submenu when left arrow key is pressed.
- */
-const useCloseSubmenuOnArrow = (
-  open: boolean,
-  isSubmenu: boolean,
-  onClose: MenuCloseHandler | undefined,
-  containerRef: React.RefObject<HTMLElement>,
-) => {
-  React.useEffect(() => {
-    const container = containerRef.current
-
-    const handler = (event: KeyboardEvent) => {
-      if (open && isSubmenu && event.key === 'ArrowLeft') onClose?.('arrow-left')
-    }
-
-    container?.addEventListener('keydown', handler)
-    return () => {
-      container?.removeEventListener('keydown', handler)
-    }
-  }, [open, onClose, containerRef, isSubmenu])
 }
 
 /**
