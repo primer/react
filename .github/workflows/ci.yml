@@ -27,6 +27,7 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
       - name: Check for unformatted files
@@ -37,19 +38,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
-
+      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
-
       - name: Lint JavaScript
         run: npm run lint
-
       - name: Lint markdown
         run: npm run lint:md
 
@@ -58,19 +56,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
-
+      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
-
       - name: Build
         run: npm run build
-
       - name: Test
         run: npm run test -- --coverage
 
@@ -79,19 +74,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
-
+      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
-
       - name: Build project
         run: npm run build
-
       - name: Type check
         run: npm run type-check
 
@@ -105,6 +97,7 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
       - name: Build
@@ -123,6 +116,7 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
@@ -137,7 +131,7 @@ jobs:
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run VRT
-        uses: docker://mcr.microsoft.com/playwright:v1.37.0-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.43.0-jammy
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:
@@ -163,6 +157,7 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+      - run: npm i -g npm@^10.5.1
       - name: install dependencies
         run: npm ci
       - name: download all reports
@@ -195,6 +190,7 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
@@ -209,7 +205,7 @@ jobs:
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run AAT
-        uses: docker://mcr.microsoft.com/playwright:v1.37.0-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.43.0-jammy
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:
@@ -235,6 +231,7 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+      - run: npm i -g npm@^10.5.1
       - name: install dependencies
         run: npm ci
       - name: download all reports
@@ -264,6 +261,7 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
       - name: Build components.json
@@ -279,6 +277,7 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
       - name: Build

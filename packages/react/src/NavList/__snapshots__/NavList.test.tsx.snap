@@ -21,6 +21,14 @@ exports[`NavList renders a simple list 1`] = `
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
+  font-weight: 600;
+}
+
+.c8 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
   font-weight: 400;
 }
 
@@ -323,32 +331,9 @@ exports[`NavList renders a simple list 1`] = `
       >
         <a
           aria-current="page"
-          aria-labelledby=":r1:--label "
-          class="c3 c4"
-          href="/"
-          id=":r1:"
-          tabindex="0"
-        >
-          <div
-            class="c5"
-            data-component="ActionList.Item--DividerContainer"
-          >
-            <span
-              class="c6"
-              id=":r1:--label"
-            >
-              Home
-            </span>
-          </div>
-        </a>
-      </li>
-      <li
-        class="c1 c7"
-      >
-        <a
           aria-labelledby=":r2:--label "
           class="c3 c4"
-          href="/about"
+          href="/"
           id=":r2:"
           tabindex="0"
         >
@@ -360,7 +345,7 @@ exports[`NavList renders a simple list 1`] = `
               class="c6"
               id=":r2:--label"
             >
-              About
+              Home
             </span>
           </div>
         </a>
@@ -371,7 +356,7 @@ exports[`NavList renders a simple list 1`] = `
         <a
           aria-labelledby=":r3:--label "
           class="c3 c4"
-          href="/contact"
+          href="/about"
           id=":r3:"
           tabindex="0"
         >
@@ -380,8 +365,31 @@ exports[`NavList renders a simple list 1`] = `
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              class="c6"
+              class="c8"
               id=":r3:--label"
+            >
+              About
+            </span>
+          </div>
+        </a>
+      </li>
+      <li
+        class="c1 c7"
+      >
+        <a
+          aria-labelledby=":r4:--label "
+          class="c3 c4"
+          href="/contact"
+          id=":r4:"
+          tabindex="0"
+        >
+          <div
+            class="c5"
+            data-component="ActionList.Item--DividerContainer"
+          >
+            <span
+              class="c8"
+              id=":r4:--label"
             >
               Contact
             </span>
@@ -434,6 +442,14 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c10 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-weight: 600;
+}
+
+.c12 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -758,12 +774,12 @@ exports[`NavList renders with groups 1`] = `
       >
         <h3
           class="c3"
-          id=":r5:"
+          id=":r7:"
         >
           Overview
         </h3>
         <ul
-          aria-labelledby=":r5:"
+          aria-labelledby=":r7:"
           class="c4"
         >
           <li
@@ -771,10 +787,10 @@ exports[`NavList renders with groups 1`] = `
           >
             <a
               aria-current="page"
-              aria-labelledby=":r6:--label "
+              aria-labelledby=":r8:--label "
               class="c7 c8"
               href="/getting-started"
-              id=":r6:"
+              id=":r8:"
               tabindex="0"
             >
               <div
@@ -783,7 +799,7 @@ exports[`NavList renders with groups 1`] = `
               >
                 <span
                   class="c10"
-                  id=":r6:--label"
+                  id=":r8:--label"
                 >
                   Getting started
                 </span>
@@ -802,22 +818,22 @@ exports[`NavList renders with groups 1`] = `
       >
         <h3
           class="c3"
-          id=":r7:"
+          id=":r9:"
         >
           Components
         </h3>
         <ul
-          aria-labelledby=":r7:"
+          aria-labelledby=":r9:"
           class="c4"
         >
           <li
             class="c5 c11"
           >
             <a
-              aria-labelledby=":r8:--label "
+              aria-labelledby=":ra:--label "
               class="c7 c8"
               href="/Avatar"
-              id=":r8:"
+              id=":ra:"
               tabindex="0"
             >
               <div
@@ -825,8 +841,8 @@ exports[`NavList renders with groups 1`] = `
                 data-component="ActionList.Item--DividerContainer"
               >
                 <span
-                  class="c10"
-                  id=":r8:--label"
+                  class="c12"
+                  id=":ra:--label"
                 >
                   Avatar
                 </span>
@@ -894,6 +910,14 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
+.c14 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-weight: 600;
+}
+
 .c10 {
   padding: 0;
   margin: 0;
@@ -917,8 +941,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   --divider-color: transparent !important;
 }
 
-.c14:hover:not([aria-disabled]):not([data-inactive]) + .c3,
-.c14[data-focus-visible-added] + li {
+.c15:hover:not([aria-disabled]):not([data-inactive]) + .c3,
+.c15[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
@@ -1220,15 +1244,15 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
       class="c0"
     >
       <li
-        aria-labelledby=":r1v:"
+        aria-labelledby=":r23:"
         class="c1 c2"
       >
         <button
-          aria-controls=":r20:"
+          aria-controls=":r24:"
           aria-expanded="true"
-          aria-labelledby=":r1v:--label "
+          aria-labelledby=":r23:--label "
           class="c3 c4"
-          id=":r1v:"
+          id=":r23:"
           tabindex="0"
         >
           <div
@@ -1240,7 +1264,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
             >
               <span
                 class="c1 c7"
-                id=":r1v:--label"
+                id=":r23:--label"
               >
                 Item
               </span>
@@ -1253,7 +1277,6 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
                   fill="currentColor"
                   focusable="false"
                   height="16"
-                  role="img"
                   style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
                   viewBox="0 0 16 16"
                   width="16"
@@ -1268,19 +1291,19 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
         </button>
         <div>
           <ul
-            aria-labelledby=":r1v:"
+            aria-labelledby=":r23:"
             class="c1 c10"
-            id=":r20:"
+            id=":r24:"
           >
             <li
               class="c3 c11"
             >
               <a
                 aria-current="page"
-                aria-labelledby=":r22:--label "
+                aria-labelledby=":r26:--label "
                 class="c12 c13"
                 href="#"
-                id=":r22:"
+                id=":r26:"
                 tabindex="0"
               >
                 <div
@@ -1288,8 +1311,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
                   data-component="ActionList.Item--DividerContainer"
                 >
                   <span
-                    class="c1 c7"
-                    id=":r22:--label"
+                    class="c1 c14"
+                    id=":r26:--label"
                   >
                     Sub Item
                   </span>
@@ -1335,14 +1358,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   flex-grow: 1;
 }
 
-.c7 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-weight: 400;
-}
-
 .c8 {
   height: 20px;
   -webkit-flex-shrink: 0;
@@ -1362,6 +1377,14 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   padding: 0;
   margin: 0;
   display: none;
+}
+
+.c7 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-weight: 600;
 }
 
 .c9 {
@@ -1713,15 +1736,15 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
       class="c0"
     >
       <li
-        aria-labelledby=":r1q:"
+        aria-labelledby=":r1t:"
         class="c1 c2"
       >
         <button
-          aria-controls=":r1r:"
+          aria-controls=":r1u:"
           aria-expanded="false"
-          aria-labelledby=":r1q:--label "
+          aria-labelledby=":r1t:--label "
           class="c3 c4"
-          id=":r1q:"
+          id=":r1t:"
           tabindex="0"
         >
           <div
@@ -1733,7 +1756,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
             >
               <span
                 class="c1 c7"
-                id=":r1q:--label"
+                id=":r1t:--label"
               >
                 Item
               </span>
@@ -1746,7 +1769,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
                   fill="currentColor"
                   focusable="false"
                   height="16"
-                  role="img"
                   style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
                   viewBox="0 0 16 16"
                   width="16"
@@ -1761,19 +1783,19 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
         </button>
         <div>
           <ul
-            aria-labelledby=":r1q:"
+            aria-labelledby=":r1t:"
             class="c1 c10"
-            id=":r1r:"
+            id=":r1u:"
           >
             <li
               class="c3 c11"
             >
               <a
                 aria-current="page"
-                aria-labelledby=":r1t:--label "
+                aria-labelledby=":r20:--label "
                 class="c12 c13"
                 href="#"
-                id=":r1t:"
+                id=":r20:"
                 tabindex="0"
               >
                 <div
@@ -1782,7 +1804,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
                 >
                   <span
                     class="c1 c7"
-                    id=":r1t:--label"
+                    id=":r20:--label"
                   >
                     Sub Item
                   </span>
