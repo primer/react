@@ -7965,7 +7965,327 @@
     "description": "",
     "displayName": "TextInputWithTokens",
     "methods": [],
-    "props": {}
+    "props": {
+      "tokens": {
+        "defaultValue": null,
+        "description": "The array of tokens to render",
+        "name": "tokens",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInputWithTokens/TextInputWithTokens.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "any[] | (Omit<(Omit<DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>, \"ref\"> & { ...; }) | (Omit<...> & { ...; }) | (Omit<...> & { ...; }), keyof TokenProps> & TokenProps & { ...; })[]"
+        }
+      },
+      "onTokenRemove": {
+        "defaultValue": null,
+        "description": "The function that gets called when a token is removed",
+        "name": "onTokenRemove",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInputWithTokens/TextInputWithTokens.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "(tokenId: string | number) => void"
+        }
+      },
+      "tokenComponent": {
+        "defaultValue": null,
+        "description": "The component used to render each token",
+        "name": "tokenComponent",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInputWithTokens/TextInputWithTokens.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "AnyReactComponent | ForwardRefComponent<\"a\" | \"button\" | \"span\", TokenProps>"
+        }
+      },
+      "maxHeight": {
+        "defaultValue": null,
+        "description": "The maximum height of the component. If the content in the input exceeds this height,\nit will scroll vertically",
+        "name": "maxHeight",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInputWithTokens/TextInputWithTokens.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "MaxHeight<number | (string & {})>"
+        }
+      },
+      "preventTokenWrapping": {
+        "defaultValue": null,
+        "description": "Whether tokens should render inline horizontally. By default, tokens wrap to new lines.",
+        "name": "preventTokenWrapping",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInputWithTokens/TextInputWithTokens.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "size": {
+        "defaultValue": null,
+        "description": "The size of the tokens and text input",
+        "name": "size",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInputWithTokens/TextInputWithTokens.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "TokenSizeKeys"
+        }
+      },
+      "hideTokenRemoveButtons": {
+        "defaultValue": null,
+        "description": "Whether the remove buttons should be rendered in the tokens",
+        "name": "hideTokenRemoveButtons",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInputWithTokens/TextInputWithTokens.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "visibleTokenCount": {
+        "defaultValue": null,
+        "description": "The number of tokens to display before truncating",
+        "name": "visibleTokenCount",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInputWithTokens/TextInputWithTokens.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "monospace": {
+        "defaultValue": null,
+        "description": "",
+        "name": "monospace",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "block": {
+        "defaultValue": null,
+        "description": "",
+        "name": "block",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "icon": {
+        "defaultValue": null,
+        "description": "@deprecated Use `leadingVisual` or `trailingVisual` prop instead",
+        "name": "icon",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInput/TextInput.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.ElementType"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      },
+      "disabled": {
+        "defaultValue": null,
+        "description": "",
+        "name": "disabled",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "variant": {
+        "defaultValue": null,
+        "description": "@deprecated Use `size` prop instead",
+        "name": "variant",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "TextInputSizes"
+        }
+      },
+      "contrast": {
+        "defaultValue": null,
+        "description": "",
+        "name": "contrast",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "validationStatus": {
+        "defaultValue": null,
+        "description": "",
+        "name": "validationStatus",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "FormValidationStatus"
+        }
+      },
+      "loading": {
+        "defaultValue": null,
+        "description": "Whether the to show a loading indicator in the input",
+        "name": "loading",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInput/TextInput.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "loaderPosition": {
+        "defaultValue": null,
+        "description": "Which position to render the loading indicator\n'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the beginning\n'leading': at the beginning of the input\n'trailing': at the end of the input",
+        "name": "loaderPosition",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInput/TextInput.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"auto\" | \"leading\" | \"trailing\""
+        }
+      },
+      "leadingVisual": {
+        "defaultValue": null,
+        "description": "A visual that renders inside the input before the typing area",
+        "name": "leadingVisual",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInput/TextInput.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "trailingVisual": {
+        "defaultValue": null,
+        "description": "A visual that renders inside the input after the typing area",
+        "name": "trailingVisual",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInput/TextInput.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "trailingAction": {
+        "defaultValue": null,
+        "description": "A visual that renders inside the input after the typing area",
+        "name": "trailingAction",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInput/TextInput.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.ReactElement<React.HTMLProps<HTMLButtonElement>>"
+        }
+      }
+    }
   },
   {
     "tags": {},

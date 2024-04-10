@@ -3656,7 +3656,155 @@
     "stories": [
       ""
     ],
-    "props": [],
+    "props": [
+      {
+        "name": "tokens",
+        "type": "any[] | (Omit<(Omit<DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>, \"ref\"> & { ...; }) | (Omit<...> & { ...; }) | (Omit<...> & { ...; }), keyof TokenProps> & TokenProps & { ...; })[]",
+        "required": true,
+        "description": "The array of tokens to render",
+        "defaultValue": null
+      },
+      {
+        "name": "onTokenRemove",
+        "type": "(tokenId: string | number) => void",
+        "required": true,
+        "description": "The function that gets called when a token is removed",
+        "defaultValue": null
+      },
+      {
+        "name": "tokenComponent",
+        "type": "AnyReactComponent | ForwardRefComponent<\"a\" | \"button\" | \"span\", TokenProps>",
+        "required": false,
+        "description": "The component used to render each token",
+        "defaultValue": null
+      },
+      {
+        "name": "maxHeight",
+        "type": "MaxHeight<number | (string & {})>",
+        "required": false,
+        "description": "The maximum height of the component. If the content in the input exceeds this height,\nit will scroll vertically",
+        "defaultValue": null
+      },
+      {
+        "name": "preventTokenWrapping",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether tokens should render inline horizontally. By default, tokens wrap to new lines.",
+        "defaultValue": null
+      },
+      {
+        "name": "size",
+        "type": "TokenSizeKeys",
+        "required": false,
+        "description": "The size of the tokens and text input",
+        "defaultValue": null
+      },
+      {
+        "name": "hideTokenRemoveButtons",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether the remove buttons should be rendered in the tokens",
+        "defaultValue": null
+      },
+      {
+        "name": "visibleTokenCount",
+        "type": "number",
+        "required": false,
+        "description": "The number of tokens to display before truncating",
+        "defaultValue": null
+      },
+      {
+        "name": "monospace",
+        "type": "boolean",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "icon",
+        "type": "React.ElementType",
+        "required": false,
+        "description": "@deprecated Use `leadingVisual` or `trailingVisual` prop instead",
+        "defaultValue": null
+      },
+      {
+        "name": "sx",
+        "type": "BetterSystemStyleObject",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "variant",
+        "type": "TextInputSizes",
+        "required": false,
+        "description": "@deprecated Use `size` prop instead",
+        "defaultValue": null
+      },
+      {
+        "name": "contrast",
+        "type": "boolean",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "validationStatus",
+        "type": "FormValidationStatus",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether the to show a loading indicator in the input",
+        "defaultValue": null
+      },
+      {
+        "name": "loaderPosition",
+        "type": "\"auto\" | \"leading\" | \"trailing\"",
+        "required": false,
+        "description": "Which position to render the loading indicator\n'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the beginning\n'leading': at the beginning of the input\n'trailing': at the end of the input",
+        "defaultValue": null
+      },
+      {
+        "name": "leadingVisual",
+        "type": "any",
+        "required": false,
+        "description": "A visual that renders inside the input before the typing area",
+        "defaultValue": null
+      },
+      {
+        "name": "trailingVisual",
+        "type": "any",
+        "required": false,
+        "description": "A visual that renders inside the input after the typing area",
+        "defaultValue": null
+      },
+      {
+        "name": "trailingAction",
+        "type": "React.ReactElement<React.HTMLProps<HTMLButtonElement>>",
+        "required": false,
+        "description": "A visual that renders inside the input after the typing area",
+        "defaultValue": null
+      }
+    ],
     "subcomponents": []
   },
   {
