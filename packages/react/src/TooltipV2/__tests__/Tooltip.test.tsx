@@ -57,7 +57,7 @@ describe('Tooltip', () => {
     const {getByRole, getByText} = HTMLRender(<TooltipComponent />)
     const triggerEL = getByRole('button')
     const tooltipEl = getByText('Tooltip text')
-    expect(triggerEL).toHaveAttribute('aria-describedby', tooltipEl.id)
+    expect(triggerEL.getAttribute('aria-describedby')).toContain(tooltipEl.id)
   })
   it('should render the tooltip element with role="tooltip" when the tooltip type is description (by default)', () => {
     const {getByText} = HTMLRender(<TooltipComponent />)
@@ -74,7 +74,7 @@ describe('Tooltip', () => {
     )
     const menuButton = getByRole('button')
     const tooltip = getByText('Additional context about the menu button')
-    expect(menuButton).toHaveAttribute('aria-describedby', tooltip.id)
+    expect(menuButton.getAttribute('aria-describedby')).toContain(tooltip.id)
     expect(menuButton).toHaveAttribute('aria-haspopup', 'true')
   })
 
@@ -90,7 +90,7 @@ describe('Tooltip', () => {
     )
     const menuButton = getByRole('button')
     const tooltip = getByText('Additional context about the menu button')
-    expect(menuButton).toHaveAttribute('aria-describedby', tooltip.id)
+    expect(menuButton.getAttribute('aria-describedby')).toContain(tooltip.id)
     expect(menuButton).toHaveAttribute('aria-haspopup', 'true')
   })
   it('should use the custom tooltip id (if present) to label the trigger element', () => {
@@ -109,6 +109,6 @@ describe('Tooltip', () => {
       </Tooltip>,
     )
     const triggerEL = getByRole('button')
-    expect(triggerEL).toHaveAttribute('aria-describedby', 'custom-tooltip-id')
+    expect(triggerEL.getAttribute('aria-describedby')).toContain('custom-tooltip-id')
   })
 })

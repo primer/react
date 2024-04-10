@@ -7,15 +7,15 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       color: 'btn.text',
       backgroundColor: 'btn.bg',
       boxShadow: `${theme?.shadows.btn.shadow}, ${theme?.shadows.btn.insetShadow}`,
-      '&:hover:not([disabled]):not([data-inactive])': {
+      '&:hover:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive])': {
         backgroundColor: 'btn.hoverBg',
         borderColor: `var(--button-default-borderColor-hover, ${theme?.colors.btn.hoverBorder})`,
       },
-      '&:active:not([disabled]):not([data-inactive])': {
+      '&:active:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive])': {
         backgroundColor: 'btn.activeBg',
         borderColor: `var(--button-default-borderColor-active, ${theme?.colors.btn.activeBorder})`,
       },
-      '&:disabled': {
+      '&:disabled, &[aria-disabled][data-loading="false"]': {
         color: 'primer.fg.disabled',
         borderColor: `var(--button-default-borderColor-disabled, ${theme?.colors.btn.border})`,
         backgroundColor: `var(--button-default-bgColor-disabled, ${theme?.colors.input.disabledBg})`,
@@ -42,21 +42,21 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       backgroundColor: 'btn.primary.bg',
       borderColor: 'btn.primary.border',
       boxShadow: `${theme?.shadows.btn.primary.shadow}`,
-      '&:hover:not([disabled]):not([data-inactive])': {
+      '&:hover:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive])': {
         color: 'btn.primary.hoverText',
         backgroundColor: 'btn.primary.hoverBg',
       },
-      '&:focus:not([disabled])': {
+      '&:focus:not([disabled]):not([aria-disabled][data-loading="false"])': {
         boxShadow: 'inset 0 0 0 3px',
       },
-      '&:focus-visible:not([disabled])': {
+      '&:focus-visible:not([disabled]):not([aria-disabled][data-loading="false"])': {
         boxShadow: 'inset 0 0 0 3px',
       },
-      '&:active:not([disabled]):not([data-inactive])': {
+      '&:active:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive])': {
         backgroundColor: 'btn.primary.selectedBg',
         boxShadow: `${theme?.shadows.btn.primary.selectedShadow}`,
       },
-      '&:disabled': {
+      '&:disabled, &[aria-disabled][data-loading="false"]': {
         color: 'btn.primary.disabledText',
         backgroundColor: 'btn.primary.disabledBg',
         borderColor: 'btn.primary.disabledBorder',
@@ -77,7 +77,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       color: 'btn.danger.text',
       backgroundColor: 'btn.bg',
       boxShadow: `${theme?.shadows.btn.shadow}`,
-      '&:hover:not([disabled]):not([data-inactive])': {
+      '&:hover:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive])': {
         color: 'btn.danger.hoverText',
         backgroundColor: 'btn.danger.hoverBg',
         borderColor: 'btn.danger.hoverBorder',
@@ -87,13 +87,13 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
           color: 'btn.danger.hoverCounterFg',
         },
       },
-      '&:active:not([disabled]):not([data-inactive])': {
+      '&:active:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive])': {
         color: 'btn.danger.selectedText',
         backgroundColor: 'btn.danger.selectedBg',
         boxShadow: `${theme?.shadows.btn.danger.selectedShadow}`,
         borderColor: 'btn.danger.selectedBorder',
       },
-      '&:disabled': {
+      '&:disabled, &[aria-disabled][data-loading="false"]': {
         color: 'btn.danger.disabledText',
         backgroundColor: 'btn.danger.disabledBg',
         borderColor: `var(--button-default-borderColor-disabled, ${theme?.colors.btn.border})`,
@@ -118,13 +118,13 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       backgroundColor: 'transparent',
       borderColor: 'transparent',
       boxShadow: 'none',
-      '&:hover:not([disabled])': {
+      '&:hover:not([disabled]):not([aria-disabled][data-loading="false"])': {
         backgroundColor: 'actionListItem.default.hoverBg',
       },
-      '&:active:not([disabled])': {
+      '&:active:not([disabled]):not([aria-disabled][data-loading="false"])': {
         backgroundColor: 'actionListItem.default.activeBg',
       },
-      '&:disabled': {
+      '&:disabled, &[aria-disabled][data-loading="false"]': {
         color: 'primer.fg.disabled',
         '[data-component=ButtonCounter], [data-component="leadingVisual"], [data-component="trailingAction"]': {
           color: 'inherit',
@@ -148,7 +148,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '&:has([data-component="ButtonCounter"])': {
         color: 'btn.text',
       },
-      '&:disabled[data-no-visuals]': {
+      '&:disabled[data-no-visuals], &[aria-disabled][data-loading="false"][data-no-visuals]': {
         color: 'primer.fg.disabled',
         '[data-component=ButtonCounter]': {
           color: 'inherit',
@@ -161,7 +161,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       borderColor: `var(--button-default-borderColor-rest, ${theme?.colors.btn.border})`,
       backgroundColor: 'btn.bg',
 
-      '&:hover:not([disabled]):not([data-inactive])': {
+      '&:hover:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive])': {
         color: 'btn.outline.hoverText',
         backgroundColor: 'btn.outline.hoverBg',
         borderColor: `${theme?.colors.btn.outline.hoverBorder}`,
@@ -171,14 +171,14 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
           color: 'btn.outline.hoverCounterFg',
         },
       },
-      '&:active:not([disabled]):not([data-inactive])': {
+      '&:active:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive])': {
         color: 'btn.outline.selectedText',
         backgroundColor: 'btn.outline.selectedBg',
         boxShadow: `${theme?.shadows.btn.outline.selectedShadow}`,
         borderColor: `${theme?.colors.btn.outline.selectedBorder}`,
       },
 
-      '&:disabled': {
+      '&:disabled, &[aria-disabled][data-loading="false"]': {
         color: 'btn.outline.disabledText',
         backgroundColor: 'btn.outline.disabledBg',
         borderColor: 'btn.border',
@@ -239,7 +239,7 @@ export const getBaseStyles = (theme?: Theme) => ({
   '&[data-inactive]': {
     cursor: 'auto',
   },
-  '&:disabled': {
+  '&:disabled, &[aria-disabled][data-loading="false"]': {
     cursor: 'not-allowed',
     boxShadow: 'none',
   },
@@ -316,6 +316,8 @@ export const getButtonStyles = (theme?: Theme) => {
       gridArea: 'leadingVisual',
     },
     '[data-component="text"]': {
+      alignItems: 'center',
+      display: 'flex',
       gridArea: 'text',
       lineHeight: 'calc(20/14)',
       whiteSpace: 'nowrap',
@@ -336,6 +338,14 @@ export const getButtonStyles = (theme?: Theme) => {
     },
     '[data-component="buttonContent"] > :not(:last-child)': {
       mr: '8px',
+    },
+    '[data-component="loadingSpinner"]': {
+      gridArea: 'text',
+      marginRight: '0px !important',
+      placeSelf: 'center',
+    },
+    '[data-component="loadingSpinner"] + [data-component="text"]': {
+      visibility: 'hidden',
     },
   }
   return styles
