@@ -1,6 +1,7 @@
 import React, {type ElementType} from 'react'
 import styled from 'styled-components'
-import {type ResponsiveValue} from '../hooks/useResponsiveValue'
+import type {ResponsiveValue} from '../hooks/useResponsiveValue'
+import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
 
 // TODO
 // - Add divider support
@@ -373,40 +374,6 @@ function Stack<As extends ElementType>({
     >
       {children}
     </StyledStack>
-  )
-}
-
-function getResponsiveAttributes<T>(property: string, values?: T | ResponsiveValue<T>) {
-  if (!values) {
-    return undefined
-  }
-
-  if (typeof values === 'string') {
-    return {
-      [`data-${property}`]: values,
-    }
-  }
-
-  if (typeof values === 'boolean' && values) {
-    return {
-      [`data-${property}`]: values,
-    }
-  }
-
-  return Object.fromEntries(
-    Object.entries(values)
-      .filter(([_key, value]) => {
-        if (typeof value === 'boolean') {
-          return value
-        }
-        return true
-      })
-      .map(([key, value]) => {
-        if (typeof value === 'boolean' && value) {
-          return [`data-${property}-${key}`, '']
-        }
-        return [`data-${property}-${key}`, value]
-      }),
   )
 }
 
