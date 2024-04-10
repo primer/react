@@ -53,7 +53,7 @@ const useCloseMenuOnTab = (
 }
 
 /**
- * Close submenu when left arrow key is pressed.
+ * Close submenu when left arrow key is pressed
  */
 const useCloseSubmenuOnArrow = (
   open: boolean,
