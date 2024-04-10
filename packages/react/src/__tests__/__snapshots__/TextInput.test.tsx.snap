@@ -2200,8 +2200,8 @@ exports[`TextInput renders trailingAction icon button 1`] = `
     className="c3 TextInput-action"
   >
     <button
-      aria-describedby=":r4:-loading-announcement"
-      aria-labelledby=":r3:"
+      aria-describedby=":ro:-loading-announcement"
+      aria-labelledby=":rn:"
       className="c4"
       data-block={null}
       data-component="IconButton"
@@ -2241,7 +2241,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
       aria-hidden={true}
       className="c5"
       data-direction="s"
-      id=":r3:"
+      id=":rn:"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
     >
@@ -2680,7 +2680,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
     className="c3 TextInput-action"
   >
     <button
-      aria-describedby=":r0:-loading-announcement"
+      aria-describedby=":ri:-loading-announcement"
       className="c4"
       data-block={null}
       data-loading={false}
@@ -3246,7 +3246,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
     className="c3 TextInput-action"
   >
     <button
-      aria-describedby=":r2:-loading-announcement :r1:"
+      aria-describedby=":rl:-loading-announcement :rk:"
       className="c4"
       data-block={null}
       data-loading={false}
@@ -3273,7 +3273,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
     <span
       className="c6"
       data-direction="s"
-      id=":r1:"
+      id=":rk:"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
       role="tooltip"
