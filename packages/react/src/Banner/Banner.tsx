@@ -88,7 +88,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
   return (
     <BannerContext.Provider value={value}>
       <StyledBanner {...rest} aria-labelledby={titleId} as="section" data-variant={variant} tabIndex={-1} ref={ref}>
-        <div className="BannerIcon">{icon ?? iconForVariant[variant]}</div>
+        <div className="BannerIcon">{icon && variant === 'info' ? icon : iconForVariant[variant]}</div>
         <div className="BannerContainer">
           <div className="BannerContent">
             {title ? <BannerTitle>{title}</BannerTitle> : null}
@@ -251,6 +251,7 @@ type HeadingElement = 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
 export type BannerTitleProps<As extends HeadingElement> = {
   as?: As
+  className?: string
 } & React.ComponentPropsWithoutRef<As extends 'h2' ? 'h2' : As>
 
 export function BannerTitle<As extends HeadingElement>(props: BannerTitleProps<As>) {
