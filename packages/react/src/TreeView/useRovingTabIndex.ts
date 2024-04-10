@@ -55,7 +55,7 @@ export function useRovingTabIndex({
       if (
         document.activeElement instanceof HTMLElement &&
         containerRef.current?.contains(document.activeElement) &&
-        document.activeElement.role === 'treeitem'
+        document.activeElement.getAttribute('role') === 'treeitem'
       ) {
         return document.activeElement
       }
