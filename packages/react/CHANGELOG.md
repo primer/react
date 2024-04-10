@@ -1,5 +1,45 @@
 # @primer/react
 
+## 36.13.0
+
+### Minor Changes
+
+- [#4395](https://github.com/primer/react/pull/4395) [`c2557d102b80ea4ccc280e041bea212e8602573e`](https://github.com/primer/react/commit/c2557d102b80ea4ccc280e041bea212e8602573e) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - ActionList.Group: deprecate `title` prop - please use `ActionList.GroupHeading` instead
+  ActionList.GroupHeading: update the warning to be an error if there is no explict `as` prop for list `role` action lists.
+  ActionList.GroupHeading: There shouldn't be an `as` prop on `ActionList.GroupHeading` for `listbox` or `menu` role action lists. console.error if there is one
+
+- [#4241](https://github.com/primer/react/pull/4241) [`5f94a236adf6511a4817e720d1f7358f38233b31`](https://github.com/primer/react/commit/5f94a236adf6511a4817e720d1f7358f38233b31) Thanks [@owenniblock](https://github.com/owenniblock)! - Adds new alpha component: TabPanels to match Primer View Components.
+
+  TabPanels should be used when semantic tabs are required and the tablist is not a navigation element.
+
+- [#4407](https://github.com/primer/react/pull/4407) [`4a7e44a510d94802acb865e8e5530f8b5fae8dee`](https://github.com/primer/react/commit/4a7e44a510d94802acb865e8e5530f8b5fae8dee) Thanks [@joshblack](https://github.com/joshblack)! - experimental/SelectPanel: Add support for announcements to SelectPanel.Loading
+
+- [#4417](https://github.com/primer/react/pull/4417) [`d7f4f7c71ef86b80d62683cb6e0f0d36ea370681`](https://github.com/primer/react/commit/d7f4f7c71ef86b80d62683cb6e0f0d36ea370681) Thanks [@joshblack](https://github.com/joshblack)! - Update @primer/octicons-react to 19.9.0
+
+### Patch Changes
+
+- [#4305](https://github.com/primer/react/pull/4305) [`37c47708d7755c0387cdc94f68389226799ee707`](https://github.com/primer/react/commit/37c47708d7755c0387cdc94f68389226799ee707) Thanks [@keithamus](https://github.com/keithamus)! - Render SSR date for RelativeTime
+
+- [#4385](https://github.com/primer/react/pull/4385) [`254e289b845c5167febd304be082fe8493aa87ab`](https://github.com/primer/react/commit/254e289b845c5167febd304be082fe8493aa87ab) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - ActionMenu: Add `id` to `ActionMenu.Anchor` types
+
+- [#4388](https://github.com/primer/react/pull/4388) [`c4a4674907f747ee154ca4e2a4ccd8bf2c0c3541`](https://github.com/primer/react/commit/c4a4674907f747ee154ca4e2a4ccd8bf2c0c3541) Thanks [@keithamus](https://github.com/keithamus)! - ActionBar now produces valid HTML
+
+- [#4403](https://github.com/primer/react/pull/4403) [`d4edf2a7f85d944859e744b9c978d89ed92ac6f7`](https://github.com/primer/react/commit/d4edf2a7f85d944859e744b9c978d89ed92ac6f7) Thanks [@keithamus](https://github.com/keithamus)! - Improve display names for React components built from Custom Elements
+
+- [#4446](https://github.com/primer/react/pull/4446) [`a3355a5483e37bebe077c7aa000ae8e4ed0f77b9`](https://github.com/primer/react/commit/a3355a5483e37bebe077c7aa000ae8e4ed0f77b9) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Tooltipv2: Update the threshold value to match with the offset
+
+- [#4440](https://github.com/primer/react/pull/4440) [`674437d421bc6a1237b286d6840a0043a1a67314`](https://github.com/primer/react/commit/674437d421bc6a1237b286d6840a0043a1a67314) Thanks [@joshblack](https://github.com/joshblack)! - Update DataTable to avoid layout overflow when visually hidden selectors are used in Table headers
+
+- [#4277](https://github.com/primer/react/pull/4277) [`69915d9e9cbba2d378e0acc065474a93bf5411b0`](https://github.com/primer/react/commit/69915d9e9cbba2d378e0acc065474a93bf5411b0) Thanks [@siddharthkp](https://github.com/siddharthkp)! - experimental/SelectPanel: Add responsive variants
+
+- [#4426](https://github.com/primer/react/pull/4426) [`369c3036c8701f227ac5e49b38d32f65f6a8ce97`](https://github.com/primer/react/commit/369c3036c8701f227ac5e49b38d32f65f6a8ce97) Thanks [@iansan5653](https://github.com/iansan5653)! - Fixes a bug where consumers cannot override buttons' aria-disabled attribute
+
+- [#4424](https://github.com/primer/react/pull/4424) [`392a3ca508b5de1b7440ff9f6f0700414560f2cf`](https://github.com/primer/react/commit/392a3ca508b5de1b7440ff9f6f0700414560f2cf) Thanks [@pksjce](https://github.com/pksjce)! - ActionBar: The overflow menu was earlier bootlegged with heavily customised ActionList. This is being replaced with ActionMenu which is cleaner and more robust.
+
+- [#4234](https://github.com/primer/react/pull/4234) [`8bbb8e5d7be39bc46d0c9ee1687533f1a9fc6efa`](https://github.com/primer/react/commit/8bbb8e5d7be39bc46d0c9ee1687533f1a9fc6efa) Thanks [@Rebstorm](https://github.com/Rebstorm)! - `<UnderlineNav>` menu now uses the Anchored Position on smaller screen sizes to not clip, or go out of bounds.
+
+- [#4392](https://github.com/primer/react/pull/4392) [`f100683a756c48c433fdd96f0837db9d1525b195`](https://github.com/primer/react/commit/f100683a756c48c433fdd96f0837db9d1525b195) Thanks [@langermank](https://github.com/langermank)! - Bug fix: make `active` label bold in ActionList
+
 ## 36.12.0
 
 ### Minor Changes
