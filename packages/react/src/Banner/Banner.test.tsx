@@ -40,5 +40,5 @@ describe('Banner', () => {
 
   test('custom icon', () => {
     //
-  });
+  })
 })
