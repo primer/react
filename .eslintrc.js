@@ -43,6 +43,7 @@ module.exports = {
     'consumer-test/**/*',
     'contributor-docs/adrs/*',
     'examples/nextjs/**',
+    'examples/codesandbox/**',
     // Note: this file is inlined from an external dependency
     'packages/react/src/utils/polymorphic.ts',
     'storybook-static',
@@ -205,6 +206,7 @@ module.exports = {
         'no-unused-vars': 'off',
         'prettier/prettier': 'off',
         'react/jsx-no-undef': 'off',
+        'react/no-unescaped-entities': 'off',
         'primer-react/direct-slot-children': 'off',
       },
     },

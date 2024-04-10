@@ -1,6 +1,6 @@
 import type {KeyPaths} from './utils/types/KeyPaths'
-import {colors} from './legacy-theme/ts/colors'
-import {partitionColors, fontStack, omitScale} from './utils/theme'
+import {fontStack} from './utils/theme'
+import {colorSchemes} from './legacy-theme/ts/color-schemes'
 
 const animation = {
   easeOutCubic: 'cubic-bezier(0.33, 1, 0.68, 1)',
@@ -57,23 +57,6 @@ const sizes = {
 const fontSizes = ['12px', '14px', '16px', '20px', '24px', '32px', '40px', '48px', '56px']
 
 const space = ['0', '4px', '8px', '16px', '24px', '32px', '40px', '48px', '64px', '80px', '96px', '112px', '128px']
-
-type Scheme = keyof typeof colors
-type SchemeValue = Record<'colors' | 'shadows', Partial<typeof colors.light>>
-
-const colorSchemes: Record<Scheme, SchemeValue> = Object.entries(colors).reduce(
-  (acc, [name, variables]) => {
-    const {colors, shadows} = partitionColors(variables)
-    return {
-      ...acc,
-      [name]: {
-        colors: omitScale(colors),
-        shadows: omitScale(shadows),
-      },
-    }
-  },
-  {} as Record<Scheme, SchemeValue>,
-)
 
 const theme = {
   animation,

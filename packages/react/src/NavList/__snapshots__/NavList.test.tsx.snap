@@ -21,6 +21,14 @@ exports[`NavList renders a simple list 1`] = `
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
   flex-grow: 1;
+  font-weight: 600;
+}
+
+.c8 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
   font-weight: 400;
 }
 
@@ -261,7 +269,7 @@ exports[`NavList renders a simple list 1`] = `
   }
 
   .c2:focus-visible,
-  .c2 > a:focus-visible,
+  .c2 > a.focus-visible,
   .c2:focus.focus-visible {
     outline: none;
     border: 2 solid;
@@ -275,7 +283,9 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c2:focus {
+  .c2:focus,
+  .c2:focus-visible,
+  .c2 > a.focus-visible {
     outline: solid 1px transparent !important;
   }
 }
@@ -288,7 +298,7 @@ exports[`NavList renders a simple list 1`] = `
   }
 
   .c7:focus-visible,
-  .c7 > a:focus-visible,
+  .c7 > a.focus-visible,
   .c7:focus.focus-visible {
     outline: none;
     border: 2 solid;
@@ -302,7 +312,9 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c7:focus {
+  .c7:focus,
+  .c7:focus-visible,
+  .c7 > a.focus-visible {
     outline: solid 1px transparent !important;
   }
 }
@@ -353,7 +365,7 @@ exports[`NavList renders a simple list 1`] = `
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              class="c6"
+              class="c8"
               id=":r2:--label"
             >
               About
@@ -376,7 +388,7 @@ exports[`NavList renders a simple list 1`] = `
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              class="c6"
+              class="c8"
               id=":r3:--label"
             >
               Contact
@@ -430,6 +442,14 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c10 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-weight: 600;
+}
+
+.c12 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -687,7 +707,7 @@ exports[`NavList renders with groups 1`] = `
   }
 
   .c6:focus-visible,
-  .c6 > a:focus-visible,
+  .c6 > a.focus-visible,
   .c6:focus.focus-visible {
     outline: none;
     border: 2 solid;
@@ -701,7 +721,9 @@ exports[`NavList renders with groups 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c6:focus {
+  .c6:focus,
+  .c6:focus-visible,
+  .c6 > a.focus-visible {
     outline: solid 1px transparent !important;
   }
 }
@@ -714,7 +736,7 @@ exports[`NavList renders with groups 1`] = `
   }
 
   .c11:focus-visible,
-  .c11 > a:focus-visible,
+  .c11 > a.focus-visible,
   .c11:focus.focus-visible {
     outline: none;
     border: 2 solid;
@@ -728,7 +750,9 @@ exports[`NavList renders with groups 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c11:focus {
+  .c11:focus,
+  .c11:focus-visible,
+  .c11 > a.focus-visible {
     outline: solid 1px transparent !important;
   }
 }
@@ -817,7 +841,7 @@ exports[`NavList renders with groups 1`] = `
                 data-component="ActionList.Item--DividerContainer"
               >
                 <span
-                  class="c10"
+                  class="c12"
                   id=":r8:--label"
                 >
                   Avatar
@@ -886,6 +910,14 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
+.c14 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-weight: 600;
+}
+
 .c10 {
   padding: 0;
   margin: 0;
@@ -909,8 +941,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   --divider-color: transparent !important;
 }
 
-.c14:hover:not([aria-disabled]):not([data-inactive]) + .c3,
-.c14[data-focus-visible-added] + li {
+.c15:hover:not([aria-disabled]):not([data-inactive]) + .c3,
+.c15[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
@@ -1154,7 +1186,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   }
 
   .c11:focus-visible,
-  .c11 > a:focus-visible,
+  .c11 > a.focus-visible,
   .c11:focus.focus-visible {
     outline: none;
     border: 2 solid;
@@ -1168,7 +1200,9 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 @media (forced-colors:active) {
-  .c11:focus {
+  .c11:focus,
+  .c11:focus-visible,
+  .c11 > a.focus-visible {
     outline: solid 1px transparent !important;
   }
 }
@@ -1181,7 +1215,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   }
 
   .c4:focus-visible,
-  .c4 > a:focus-visible,
+  .c4 > a.focus-visible,
   .c4:focus.focus-visible {
     outline: none;
     border: 2 solid;
@@ -1195,7 +1229,9 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 @media (forced-colors:active) {
-  .c4:focus {
+  .c4:focus,
+  .c4:focus-visible,
+  .c4 > a.focus-visible {
     outline: solid 1px transparent !important;
   }
 }
@@ -1241,7 +1277,6 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
                   fill="currentColor"
                   focusable="false"
                   height="16"
-                  role="img"
                   style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
                   viewBox="0 0 16 16"
                   width="16"
@@ -1276,7 +1311,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
                   data-component="ActionList.Item--DividerContainer"
                 >
                   <span
-                    class="c1 c7"
+                    class="c1 c14"
                     id=":r22:--label"
                   >
                     Sub Item
@@ -1323,14 +1358,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   flex-grow: 1;
 }
 
-.c7 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-weight: 400;
-}
-
 .c8 {
   height: 20px;
   -webkit-flex-shrink: 0;
@@ -1350,6 +1377,14 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   padding: 0;
   margin: 0;
   display: none;
+}
+
+.c7 {
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-weight: 600;
 }
 
 .c9 {
@@ -1635,7 +1670,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   }
 
   .c11:focus-visible,
-  .c11 > a:focus-visible,
+  .c11 > a.focus-visible,
   .c11:focus.focus-visible {
     outline: none;
     border: 2 solid;
@@ -1649,7 +1684,9 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 @media (forced-colors:active) {
-  .c11:focus {
+  .c11:focus,
+  .c11:focus-visible,
+  .c11 > a.focus-visible {
     outline: solid 1px transparent !important;
   }
 }
@@ -1670,7 +1707,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   }
 
   .c4:focus-visible,
-  .c4 > a:focus-visible,
+  .c4 > a.focus-visible,
   .c4:focus.focus-visible {
     outline: none;
     border: 2 solid;
@@ -1684,7 +1721,9 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 @media (forced-colors:active) {
-  .c4:focus {
+  .c4:focus,
+  .c4:focus-visible,
+  .c4 > a.focus-visible {
     outline: solid 1px transparent !important;
   }
 }
@@ -1730,7 +1769,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
                   fill="currentColor"
                   focusable="false"
                   height="16"
-                  role="img"
                   style="display: inline-block; user-select: none; vertical-align: text-bottom; overflow: visible;"
                   viewBox="0 0 16 16"
                   width="16"

@@ -11,7 +11,7 @@ import {Button} from '../Button'
 import {useId} from '../hooks/useId'
 import type {MandateProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {Tooltip} from '../drafts/Tooltip/Tooltip'
+import {Tooltip} from '../TooltipV2/Tooltip'
 
 export type MenuContextProps = Pick<
   AnchoredOverlayProps,
@@ -106,7 +106,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   )
 }
 
-export type ActionMenuAnchorProps = {children: React.ReactElement}
+export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string}
 const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, ...anchorProps}, anchorRef) => {
   return React.cloneElement(children, {...anchorProps, ref: anchorRef})
 })

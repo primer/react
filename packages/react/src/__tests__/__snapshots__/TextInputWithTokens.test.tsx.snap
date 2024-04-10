@@ -87,20 +87,28 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -193,7 +201,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 }
 
 .c5:hover {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
@@ -240,7 +248,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
@@ -305,7 +313,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       fill="currentColor"
       focusable="false"
       height={16}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -371,7 +378,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -422,7 +428,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -473,7 +478,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -524,7 +528,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -575,7 +578,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -626,7 +628,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -677,7 +678,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -728,7 +728,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -756,7 +755,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       fill="currentColor"
       focusable="false"
       height={16}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -868,20 +866,28 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -974,7 +980,7 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 }
 
 .c5:hover {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
@@ -1021,7 +1027,7 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
@@ -1126,7 +1132,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -1177,7 +1182,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -1294,20 +1298,28 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -1491,20 +1503,28 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -1599,7 +1619,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 }
 
 .c5:hover {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
@@ -1646,7 +1666,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
@@ -1751,7 +1771,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -1802,7 +1821,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -1853,7 +1871,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -1904,7 +1921,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -1955,7 +1971,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -2006,7 +2021,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -2057,7 +2071,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -2108,7 +2121,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -2224,20 +2236,28 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -2328,7 +2348,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 }
 
 .c5:hover {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
@@ -2375,7 +2395,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
@@ -2480,7 +2500,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
           fill="currentColor"
           focusable="false"
           height={12}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -2531,7 +2550,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
           fill="currentColor"
           focusable="false"
           height={12}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -2582,7 +2600,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
           fill="currentColor"
           focusable="false"
           height={12}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -2633,7 +2650,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
           fill="currentColor"
           focusable="false"
           height={12}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -2684,7 +2700,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
           fill="currentColor"
           focusable="false"
           height={12}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -2735,7 +2750,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
           fill="currentColor"
           focusable="false"
           height={12}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -2786,7 +2800,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
           fill="currentColor"
           focusable="false"
           height={12}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -2837,7 +2850,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
           fill="currentColor"
           focusable="false"
           height={12}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -2953,20 +2965,28 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -3057,7 +3077,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 }
 
 .c5:hover {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
@@ -3104,7 +3124,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
@@ -3209,7 +3229,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
           fill="currentColor"
           focusable="false"
           height={15}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -3260,7 +3279,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
           fill="currentColor"
           focusable="false"
           height={15}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -3311,7 +3329,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
           fill="currentColor"
           focusable="false"
           height={15}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -3362,7 +3379,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
           fill="currentColor"
           focusable="false"
           height={15}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -3413,7 +3429,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
           fill="currentColor"
           focusable="false"
           height={15}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -3464,7 +3479,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
           fill="currentColor"
           focusable="false"
           height={15}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -3515,7 +3529,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
           fill="currentColor"
           focusable="false"
           height={15}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -3566,7 +3579,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
           fill="currentColor"
           focusable="false"
           height={15}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -3675,20 +3687,28 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -3779,7 +3799,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 }
 
 .c5:hover {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
@@ -3826,7 +3846,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
@@ -3935,7 +3955,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
           fill="currentColor"
           focusable="false"
           height={18}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -3986,7 +4005,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
           fill="currentColor"
           focusable="false"
           height={18}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4037,7 +4055,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
           fill="currentColor"
           focusable="false"
           height={18}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4088,7 +4105,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
           fill="currentColor"
           focusable="false"
           height={18}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4139,7 +4155,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
           fill="currentColor"
           focusable="false"
           height={18}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4190,7 +4205,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
           fill="currentColor"
           focusable="false"
           height={18}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4241,7 +4255,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
           fill="currentColor"
           focusable="false"
           height={18}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4292,7 +4305,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
           fill="currentColor"
           focusable="false"
           height={18}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4401,20 +4413,28 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -4507,7 +4527,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 }
 
 .c5:hover {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
@@ -4554,7 +4574,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
@@ -4663,7 +4683,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4714,7 +4733,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4765,7 +4783,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4816,7 +4833,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4867,7 +4883,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4918,7 +4933,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4969,7 +4983,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -5020,7 +5033,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -5130,20 +5142,28 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -5237,7 +5257,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 }
 
 .c5:hover {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
@@ -5284,7 +5304,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 
 .c8:hover,
 .c8:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
@@ -5389,7 +5409,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -5440,7 +5459,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -5491,7 +5509,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -5542,7 +5559,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -5593,7 +5609,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -5644,7 +5659,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -5695,7 +5709,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -5746,7 +5759,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -5855,20 +5867,28 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -5960,7 +5980,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 }
 
 .c5:hover {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
@@ -6304,20 +6324,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -6410,7 +6438,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c5:hover {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
@@ -6457,7 +6485,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
@@ -6566,7 +6594,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6617,7 +6644,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6668,7 +6694,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6719,7 +6744,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6770,7 +6794,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6821,7 +6844,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6872,7 +6894,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6923,7 +6944,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -7087,20 +7107,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -7193,7 +7221,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c7:hover {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
@@ -7240,7 +7268,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c10:hover,
 .c10:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c10:active {
@@ -7387,7 +7415,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -7438,7 +7465,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -7489,7 +7515,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -7540,7 +7565,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -7591,7 +7615,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -7642,7 +7665,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -7693,7 +7715,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -7744,7 +7765,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -7902,20 +7922,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -8008,7 +8036,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c5:hover {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
@@ -8055,7 +8083,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
@@ -8164,7 +8192,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -8215,7 +8242,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -8266,7 +8292,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -8317,7 +8342,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -8368,7 +8392,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -8419,7 +8442,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -8470,7 +8492,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -8521,7 +8542,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -8694,20 +8714,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -8800,7 +8828,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c8:hover {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
@@ -8847,7 +8875,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c11:hover,
 .c11:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c11:active {
@@ -8923,7 +8951,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -9025,7 +9052,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -9076,7 +9102,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -9127,7 +9152,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -9178,7 +9202,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -9229,7 +9252,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -9280,7 +9302,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -9331,7 +9352,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -9382,7 +9402,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -9555,20 +9574,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -9661,7 +9688,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c8:hover {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
@@ -9708,7 +9735,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c11:hover,
 .c11:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c11:active {
@@ -9784,7 +9811,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -9886,7 +9912,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -9937,7 +9962,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -9988,7 +10012,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -10039,7 +10062,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -10090,7 +10112,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -10141,7 +10162,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -10192,7 +10212,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -10243,7 +10262,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -10416,20 +10434,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -10522,7 +10548,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c8:hover {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
@@ -10569,7 +10595,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c11:hover,
 .c11:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c11:active {
@@ -10645,7 +10671,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -10747,7 +10772,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -10798,7 +10822,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -10849,7 +10872,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -10900,7 +10922,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -10951,7 +10972,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11002,7 +11022,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11053,7 +11072,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11104,7 +11122,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11271,20 +11288,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -11377,7 +11402,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c5:hover {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
@@ -11424,7 +11449,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
@@ -11533,7 +11558,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11584,7 +11608,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11635,7 +11658,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11686,7 +11708,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11737,7 +11758,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11788,7 +11808,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11839,7 +11858,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11890,7 +11908,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11925,7 +11942,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -12094,20 +12110,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -12200,7 +12224,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c7:hover {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
@@ -12247,7 +12271,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c10:hover,
 .c10:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c10:active {
@@ -12394,7 +12418,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -12445,7 +12468,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -12496,7 +12518,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -12547,7 +12568,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -12598,7 +12618,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -12649,7 +12668,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -12700,7 +12718,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -12751,7 +12768,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -12786,7 +12802,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -12949,20 +12964,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -13055,7 +13078,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c5:hover {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
@@ -13102,7 +13125,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
@@ -13211,7 +13234,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -13262,7 +13284,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -13313,7 +13334,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -13364,7 +13384,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -13415,7 +13434,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -13466,7 +13484,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -13517,7 +13534,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -13568,7 +13584,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -13603,7 +13618,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -13788,20 +13802,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -13892,7 +13914,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c8:hover {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
@@ -13939,7 +13961,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c11:hover,
 .c11:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c11:active {
@@ -14015,7 +14037,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -14117,7 +14138,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={12}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -14168,7 +14188,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={12}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -14219,7 +14238,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={12}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -14270,7 +14288,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={12}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -14321,7 +14338,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={12}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -14372,7 +14388,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={12}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -14423,7 +14438,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={12}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -14474,7 +14488,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={12}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -14509,7 +14522,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -14687,20 +14699,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -14793,7 +14813,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c8:hover {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
@@ -14840,7 +14860,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c11:hover,
 .c11:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c11:active {
@@ -14916,7 +14936,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -15018,7 +15037,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -15069,7 +15087,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -15120,7 +15137,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -15171,7 +15187,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -15222,7 +15237,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -15273,7 +15287,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -15324,7 +15337,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -15375,7 +15387,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -15410,7 +15421,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -15588,20 +15598,28 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -15692,7 +15710,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c8:hover {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
@@ -15739,7 +15757,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c11:hover,
 .c11:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c11:active {
@@ -15815,7 +15833,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -15917,7 +15934,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={18}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -15968,7 +15984,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={18}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -16019,7 +16034,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={18}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -16070,7 +16084,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={18}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -16121,7 +16134,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={18}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -16172,7 +16184,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={18}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -16223,7 +16234,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={18}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -16274,7 +16284,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={18}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -16309,7 +16318,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -16453,20 +16461,28 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -16559,7 +16575,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 }
 
 .c5:hover {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
@@ -16606,7 +16622,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 
 .c8:hover,
 .c8:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c8:active {
@@ -16711,7 +16727,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -16762,7 +16777,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -16813,7 +16827,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -16864,7 +16877,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -16915,7 +16927,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -16966,7 +16977,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17017,7 +17027,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17068,7 +17077,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17164,20 +17172,28 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -17329,7 +17345,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 
 .c7:hover,
 .c7:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c7:active {
@@ -17429,7 +17445,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17475,7 +17490,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17521,7 +17535,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17567,7 +17580,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17613,7 +17625,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17659,7 +17670,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17705,7 +17715,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17751,7 +17760,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17847,20 +17855,28 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
