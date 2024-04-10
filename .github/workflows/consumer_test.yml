@@ -16,6 +16,7 @@ jobs:
         with:
           node-version: 20
           cache: npm
+      - run: npm i -g npm@^10.5.1
       - name: Remove "prepare" script
         run: npm pkg delete scripts.prepare
       - name: Install dependencies
