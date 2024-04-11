@@ -257,7 +257,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const inlineDescriptionId = `${itemId}--inline-description`
     const blockDescriptionId = `${itemId}--block-description`
     const inactiveWarningId = inactive && !showInactiveIndicator ? `${itemId}--warning-message` : undefined
-    const validRole = listRole === 'listbox' || listRole === 'menu' || listRole === 'list' || inactive
+    const validRole = listRole === 'listbox' || listRole === 'menu' || container === 'NavList' || inactive
 
     const ButtonItemWrapper = React.forwardRef(({as: Component = 'button', children, ...props}, forwardedRef) => {
       return (

@@ -325,7 +325,6 @@ exports[`NavList renders a simple list 1`] = `
   >
     <ul
       class="c0"
-      role="list"
     >
       <li
         class="c1 c2"
@@ -423,16 +422,6 @@ exports[`NavList renders with groups 1`] = `
   margin-top: 8px;
 }
 
-.c3 {
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-left: 16px;
-  padding-right: 16px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-}
-
 .c4 {
   padding-inline-start: 0;
 }
@@ -466,6 +455,19 @@ exports[`NavList renders with groups 1`] = `
   -ms-flex-positive: 1;
   flex-grow: 1;
   font-weight: 400;
+}
+
+.c3 {
+  font-weight: 600;
+  font-size: 32px;
+  margin: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
 .c0 {
@@ -761,7 +763,6 @@ exports[`NavList renders with groups 1`] = `
   >
     <ul
       class="c0"
-      role="list"
     >
       <li
         aria-hidden="true"
@@ -770,23 +771,16 @@ exports[`NavList renders with groups 1`] = `
       />
       <li
         class="c2"
-        role="none"
       >
-        <div
-          aria-hidden="true"
+        <h3
           class="c3"
-          role="presentation"
+          id=":r5:"
         >
-          <span
-            id=":r5:"
-          >
-            Overview
-          </span>
-        </div>
+          Overview
+        </h3>
         <ul
-          aria-label="Overview"
+          aria-labelledby=":r5:"
           class="c4"
-          role="group"
         >
           <li
             class="c5 c6"
@@ -821,23 +815,16 @@ exports[`NavList renders with groups 1`] = `
       />
       <li
         class="c2"
-        role="none"
       >
-        <div
-          aria-hidden="true"
+        <h3
           class="c3"
-          role="presentation"
+          id=":r7:"
         >
-          <span
-            id=":r7:"
-          >
-            Components
-          </span>
-        </div>
+          Components
+        </h3>
         <ul
-          aria-label="Components"
+          aria-labelledby=":r7:"
           class="c4"
-          role="group"
         >
           <li
             class="c5 c11"
@@ -1255,7 +1242,6 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   >
     <ul
       class="c0"
-      role="list"
     >
       <li
         aria-labelledby=":r1v:"
@@ -1748,7 +1734,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   >
     <ul
       class="c0"
-      role="list"
     >
       <li
         aria-labelledby=":r1q:"
