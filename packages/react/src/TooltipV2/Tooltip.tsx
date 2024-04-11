@@ -198,7 +198,12 @@ export const Tooltip = React.forwardRef(
     const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
     const openTooltip = () => {
-      if (tooltipElRef.current && triggerRef.current && !tooltipElRef.current.matches(':popover-open')) {
+      if (
+        tooltipElRef.current &&
+        triggerRef.current &&
+        tooltipElRef.current.hasAttribute('popover') &&
+        !tooltipElRef.current.matches(':popover-open')
+      ) {
         const tooltip = tooltipElRef.current
         const trigger = triggerRef.current
         tooltip.showPopover()
@@ -219,7 +224,12 @@ export const Tooltip = React.forwardRef(
       }
     }
     const closeTooltip = () => {
-      if (tooltipElRef.current && triggerRef.current && tooltipElRef.current.matches(':popover-open')) {
+      if (
+        tooltipElRef.current &&
+        triggerRef.current &&
+        tooltipElRef.current.hasAttribute('popover') &&
+        tooltipElRef.current.matches(':popover-open')
+      ) {
         tooltipElRef.current.hidePopover()
         setIsPopoverOpen(false)
       }
