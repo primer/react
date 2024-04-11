@@ -18,6 +18,7 @@ import {
   ActionMenu,
 } from '..'
 import type {AnchorSide} from '@primer/behaviors'
+import {Tooltip} from '../TooltipV2'
 
 export default {
   title: 'Private/Components/Overlay',
@@ -302,15 +303,17 @@ export const NestedOverlays = () => {
               </CheckboxGroup>
             </Box>
             <ActionList.Divider />
-            <Button
-              variant="invisible"
-              ref={secondaryButtonRef}
-              sx={{px: 2, mx: 2, display: 'flex'}}
-              leadingVisual={PlusIcon}
-              onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}
-            >
-              Create list
-            </Button>
+            <Tooltip text="Allows you to add more lists">
+              <Button
+                variant="invisible"
+                ref={secondaryButtonRef}
+                sx={{px: 2, mx: 2, display: 'flex'}}
+                leadingVisual={PlusIcon}
+                onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}
+              >
+                Create list
+              </Button>
+            </Tooltip>
           </Box>
           {createListOverlayOpen && (
             <Overlay

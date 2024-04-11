@@ -1,7 +1,7 @@
 import React, {Children, useEffect, useRef, useState} from 'react'
 import type {SxProp} from '../sx'
 import sx from '../sx'
-import {useId, useProvidedRefOrCreate} from '../hooks'
+import {useId, useProvidedRefOrCreate, useOnEscapePress} from '../hooks'
 import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
 import styled from 'styled-components'
@@ -62,7 +62,7 @@ const StyledTooltip = styled.span`
     display: block;
     right: 0;
     left: 0;
-    height: 8px;
+    height: var(--overlay-offset, 0.25rem);
     content: '';
   }
 
@@ -195,11 +195,19 @@ export const Tooltip = React.forwardRef(
 
     const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)
 
+    const [isPopoverOpen, setIsPopoverOpen] = useState(false)
+
     const openTooltip = () => {
-      if (tooltipElRef.current && triggerRef.current && !tooltipElRef.current.matches(':popover-open')) {
+      if (
+        tooltipElRef.current &&
+        triggerRef.current &&
+        tooltipElRef.current.hasAttribute('popover') &&
+        !tooltipElRef.current.matches(':popover-open')
+      ) {
         const tooltip = tooltipElRef.current
         const trigger = triggerRef.current
         tooltip.showPopover()
+        setIsPopoverOpen(true)
         /*
          * TOOLTIP POSITIONING
          */
@@ -216,8 +224,14 @@ export const Tooltip = React.forwardRef(
       }
     }
     const closeTooltip = () => {
-      if (tooltipElRef.current && triggerRef.current && tooltipElRef.current.matches(':popover-open')) {
+      if (
+        tooltipElRef.current &&
+        triggerRef.current &&
+        tooltipElRef.current.hasAttribute('popover') &&
+        tooltipElRef.current.matches(':popover-open')
+      ) {
         tooltipElRef.current.hidePopover()
+        setIsPopoverOpen(false)
       }
     }
 
@@ -258,6 +272,17 @@ export const Tooltip = React.forwardRef(
       const tooltip = tooltipElRef.current
       tooltip.setAttribute('popover', 'auto')
     }, [tooltipElRef, triggerRef, direction, type])
+
+    useOnEscapePress(
+      (event: KeyboardEvent) => {
+        if (isPopoverOpen) {
+          event.stopImmediatePropagation()
+          event.preventDefault()
+          closeTooltip()
+        }
+      },
+      [isPopoverOpen],
+    )
 
     return (
       <TooltipContext.Provider value={{tooltipId}}>

@@ -4,6 +4,7 @@
   "status": "draft",
   "a11yReviewed": false,
   "stories": [],
+  "importPath": "@primer/react/experimental",
   "props": [
     {
       "name": "title",
@@ -52,6 +53,11 @@
     {
       "name": "height",
       "type": "'small' | 'large' | 'auto'"
+    },
+    {
+      "name": "returnFocusRef",
+      "type": "React.RefObject<HTMLElement>",
+      "describedby": "Return focus to this element when the Dialog closes, instead of the element that had focus immediately before the Dialog opened"
     }
   ],
   "subcomponents": []
