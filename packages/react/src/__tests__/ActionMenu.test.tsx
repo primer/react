@@ -328,7 +328,10 @@ describe('ActionMenu', () => {
       ),
     )
     const button = component.getByRole('button')
-    button.focus()
+    act(() => {
+      button.focus()
+    })
+
     expect(component.getByRole('tooltip')).toBeInTheDocument()
   })
 
