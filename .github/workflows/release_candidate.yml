@@ -11,6 +11,9 @@ jobs:
     if: github.ref_name == 'changeset-release/main'
     name: Candidate (@next)
     runs-on: ubuntu-latest
+    concurrency:
+      group: npm
+      cancel-in-progress: false
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
