@@ -13,12 +13,8 @@ import {useOnOutsideClick} from '../../hooks/useOnOutsideClick'
 import type {IconButtonProps} from '../../Button'
 import {IconButton} from '../../Button'
 import Box from '../../Box'
-import {ActionMenu, useFocusZone} from '../..'
-
-const FocusKeys = {
-  ArrowHorizontal: 1,
-  HomeAndEnd: 16,
-}
+import {ActionMenu} from '../../ActionMenu'
+import {useFocusZone, FocusKeys} from '../../hooks/useFocusZone'
 
 type ChildSize = {
   text: string
