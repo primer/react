@@ -4,6 +4,7 @@
   "status": "beta",
   "a11yReviewed": true,
   "stories": [],
+  "importPath": "@primer/react",
   "props": [
     {
       "name": "afterSelect",
