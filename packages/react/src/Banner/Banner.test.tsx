@@ -111,7 +111,7 @@ describe('Banner', () => {
   })
 
   it('should support a custom icon only for info variants', () => {
-    const CustomIcon = jest.fn(() => <svg data-testid="icon" />)
+    const CustomIcon = jest.fn(() => <svg data-testid="icon" aria-hidden="true" />)
     const {rerender} = render(
       <Banner title="test" description="test-description" variant="info" icon={<CustomIcon />} />,
     )
