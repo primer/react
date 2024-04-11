@@ -122,9 +122,9 @@ const StyledBanner = styled.div`
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: start;
   background-color: var(--banner-bgColor);
-  border: 1px solid var(--banner-borderColor);
-  padding: 0.5rem;
-  border-radius: ${get('radii.2')};
+  border: var(--borderWidth-thin, 1px) solid var(--banner-borderColor);
+  padding: var(--base-size-8, 0.5rem);
+  border-radius: var(--borderRadius-medium, ${get('radii.2')});
 
   &[data-variant='critical'] {
     --banner-bgColor: ${get('colors.danger.subtle')};
@@ -161,45 +161,46 @@ const StyledBanner = styled.div`
   .BannerIcon {
     display: grid;
     place-items: center;
-    padding: 0.5rem;
+    padding: var(--base-size-8, 0.5rem);
   }
 
   .BannerIcon svg {
     color: var(--banner-icon-bgColor);
     fill: var(--banner-icon-bgColor);
-    height: 1.25rem;
+    /* 20px is the line box height of the trailing action buttons */
+    height: var(--base-size-20, 1.25rem);
   }
 
   /* BannerContainer -------------------------------------------------------- */
 
   .BannerContainer {
     display: grid;
-    font-size: 0.875rem;
+    font-size: var(--text-body-size-medium, 0.875rem);
     align-items: start;
-    line-height: calc(20 / 14);
-    row-gap: 0.25rem;
-    column-gap: 0.25rem;
+    line-height: var(--text-body-lineHeight-medium, calc(20 / 14));
+    row-gap: var(--base-size-4, 0.25rem);
+    column-gap: var(--base-size-4, 0.25rem);
   }
 
   /* BannerContent ---------------------------------------------------------- */
 
   .BannerContent {
     display: grid;
-    row-gap: 0.25rem;
+    row-gap: var(--base-size-4, 0.25rem);
     grid-column-start: 1;
-    margin-block: 0.5rem;
+    margin-block: var(--base-size-8, 0.5rem);
   }
 
   .BannerTitle {
     margin: 0;
     font-size: inherit;
-    font-weight: 600;
+    font-weight: var(--base-text-weight-semibold, 600);
   }
 
   /* BannerActions ---------------------------------------------------------- */
   .BannerActionsContainer {
     display: flex;
-    column-gap: 0.5rem;
+    column-gap: var(--base-size-8, 0.5rem);
     align-items: center;
   }
 
@@ -209,7 +210,7 @@ const StyledBanner = styled.div`
 
   @media screen and (min-width: 544px) {
     .BannerActionsContainer {
-      column-gap: 0.25rem;
+      column-gap: var(--base-size-4, 0.25rem);
     }
 
     .BannerActions {
@@ -232,10 +233,10 @@ const StyledBanner = styled.div`
   .BannerDismiss {
     display: grid;
     place-items: center;
-    padding: 0.5rem;
+    padding: var(--base-size-8, 0.5rem);
     width: 2rem;
     height: 2rem;
-    margin-inline-start: 0.25rem;
+    margin-inline-start: var(--base-size-4, 0.25rem);
   }
 
   .BannerDismiss svg {
