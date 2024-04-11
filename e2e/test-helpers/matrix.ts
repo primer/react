@@ -8,8 +8,8 @@ type Combination<Input> = {
 type Config<Input> = {
   [Property in InputKeys<Input>]: Input[Property] extends ReadonlyArray<unknown> ? Input[Property] : never
 } & {
-  include?: Array<Combination<Input>>
-  exclude?: Array<Combination<Input>>
+  include?: ReadonlyArray<Combination<Input>>
+  exclude?: ReadonlyArray<Combination<Input>>
 }
 
 type Values<Input> = {
@@ -34,8 +34,8 @@ export function matrix<Input extends Config<Input>>(input: Input): Array<Combina
       ) as Combination<Input>
     })
     .filter(set => {
-      const match = excluded.some(scenario => {
-        return scenario.every(([key, value]) => {
+      const match = excluded.some(combination => {
+        return combination.every(([key, value]) => {
           return set[key] === value
         })
       })
@@ -56,13 +56,16 @@ function product<Sets extends ReadonlyArray<ReadonlyArray<unknown>>>([a, b, ...r
   return product([product([a, b]), ...rest])
 }
 
-export function serialize<T>(scenario: Record<string, T>): string {
+export function serialize<T extends string | boolean>(scenario: Record<string, T>): string {
   return Object.entries(scenario)
     .sort((a, b) => {
       return a[0].localeCompare(b[0])
     })
     .map(([key, value]) => {
-      return `${key}: ${value}`
+      if (typeof value === 'string') {
+        return `${key}:"${value}"`
+      }
+      return `${key}:${value}`
     })
     .join(', ')
 }

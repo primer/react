@@ -3,9 +3,6 @@ import styled from 'styled-components'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
 
-// TODO
-// - Add divider support
-
 const StyledStack = styled.div`
   --Stack-gap-whenRegular: var(--stack-gap-normal, 16px);
   --Stack-gap-whenNarrow: var(--stack-gap-normal, 16px);
@@ -99,13 +96,13 @@ const StyledStack = styled.div`
     justify-content: flex-end;
   }
 
-  &[data-spread='distribute'],
-  &[data-spread-narrow='distribute'] {
+  &[data-spread='space-between'],
+  &[data-spread-narrow='space-between'] {
     justify-content: space-between;
   }
 
-  &[data-spread='distributeEvenly'],
-  &[data-spread-narrow='distributeEvenly'] {
+  &[data-spread='space-evenly'],
+  &[data-spread-narrow='space-evenly'] {
     justify-content: space-evenly;
   }
 
@@ -189,11 +186,11 @@ const StyledStack = styled.div`
       justify-content: flex-end;
     }
 
-    &[data-spread-regular='distribute'] {
+    &[data-spread-regular='space-between'] {
       justify-content: space-between;
     }
 
-    &[data-spread-regular='distributeEvenly'] {
+    &[data-spread-regular='space-evenly'] {
       justify-content: space-evenly;
     }
 
@@ -278,11 +275,11 @@ const StyledStack = styled.div`
       justify-content: flex-end;
     }
 
-    &[data-spread-wide='distribute'] {
+    &[data-spread-wide='space-between'] {
       justify-content: space-between;
     }
 
-    &[data-spread-wide='distributeEvenly'] {
+    &[data-spread-wide='space-evenly'] {
       justify-content: space-evenly;
     }
   }
@@ -291,8 +288,8 @@ const StyledStack = styled.div`
 type GapScale = 'none' | 'condensed' | 'normal' | 'spacious'
 type Gap = GapScale | ResponsiveValue<GapScale>
 
-type OrientationScale = 'horizontal' | 'vertical'
-type Orientation = OrientationScale | ResponsiveValue<OrientationScale>
+type DirectionScale = 'horizontal' | 'vertical'
+type Direction = DirectionScale | ResponsiveValue<DirectionScale>
 
 type AlignScale = 'stretch' | 'start' | 'center' | 'end' | 'baseline'
 type Align = AlignScale | ResponsiveValue<AlignScale>
@@ -300,8 +297,8 @@ type Align = AlignScale | ResponsiveValue<AlignScale>
 type WrapScale = 'wrap' | 'nowrap'
 type Wrap = WrapScale | ResponsiveValue<WrapScale>
 
-type SpreadScale = 'start' | 'center' | 'end' | 'distribute' | 'distributeEvenly'
-type Spread = SpreadScale | ResponsiveValue<SpreadScale>
+type JustifyScale = 'start' | 'center' | 'end' | 'space-between' | 'space-evenly'
+type Justify = JustifyScale | ResponsiveValue<JustifyScale>
 
 type PaddingScale = 'none' | 'condensed' | 'normal' | 'spacious'
 type Padding = PaddingScale | ResponsiveValue<PaddingScale>
@@ -321,7 +318,7 @@ type StackProps<As> = React.PropsWithChildren<{
    * Specify the orientation for the stack container
    * @default vertical
    */
-  orientation?: Orientation
+  direction?: Direction
 
   /**
    * Specify the alignment between items in the cross-axis of the orientation
@@ -330,19 +327,19 @@ type StackProps<As> = React.PropsWithChildren<{
   align?: Align
 
   /**
-   * Sets whether items are forced onto one line or can wrap onto multiple lines
+   * Specify whether items are forced onto one line or can wrap onto multiple lines
    * @default nowrap
    */
   wrap?: Wrap
 
   /**
-   * Sets how items will be distributed in the stacking direction
+   * Specify how items will be distributed in the stacking direction
    * @default start
    */
-  spread?: Spread
+  justify?: Justify
 
   /**
-   * Sets the padding of the stack container
+   * Specify the padding of the stack container
    * @default none
    */
   padding?: Padding
@@ -351,12 +348,12 @@ type StackProps<As> = React.PropsWithChildren<{
 function Stack<As extends ElementType>({
   as,
   children,
-  gap,
-  orientation = 'vertical',
   align = 'stretch',
-  wrap = 'nowrap',
-  spread = 'start',
+  direction = 'vertical',
+  gap,
+  justify = 'start',
   padding = 'none',
+  wrap = 'nowrap',
   ...rest
 }: StackProps<As> & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>) {
   const BaseComponent = as ?? 'div'
@@ -366,10 +363,10 @@ function Stack<As extends ElementType>({
       {...rest}
       as={BaseComponent}
       {...getResponsiveAttributes('gap', gap)}
-      {...getResponsiveAttributes('orientation', orientation)}
+      {...getResponsiveAttributes('direction', direction)}
       {...getResponsiveAttributes('align', align)}
       {...getResponsiveAttributes('wrap', wrap)}
-      {...getResponsiveAttributes('spread', spread)}
+      {...getResponsiveAttributes('justify', justify)}
       {...getResponsiveAttributes('padding', padding)}
     >
       {children}

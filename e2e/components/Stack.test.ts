@@ -3,21 +3,21 @@ import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 import {matrix, serialize} from '../test-helpers/matrix'
 
-const scenarios = matrix({
-  orientation: ['horizontal', 'vertical'],
-  align: ['stretch', 'start', 'center', 'end', 'baseline'],
-  wrap: ['wrap', 'nowrap'],
-  spread: ['start', 'center', 'end', 'distribute', 'distributeEvently'],
-  padding: ['none', 'condensed', 'normal', 'spacious'],
-  gap: ['none', 'condensed', 'normal', 'spacious'],
-})
-
 const stories = [
   {
     title: 'Default',
     id: 'drafts-components-stack--default',
   },
 ]
+
+const scenarios = matrix({
+  align: ['stretch', 'start', 'center', 'end', 'baseline'],
+  spread: ['start', 'center', 'end', 'space-around', 'space-evenly'],
+  direction: ['horizontal', 'vertical'],
+  wrap: ['wrap', 'nowrap'],
+  padding: ['none', 'normal'],
+  gap: ['none', 'normal'],
+})
 
 test.describe('Stack', () => {
   for (const story of stories) {

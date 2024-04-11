@@ -39,7 +39,7 @@ export const Playground: Story = {
         },
       },
     },
-    orientation: {
+    direction: {
       control: {
         type: 'radio',
       },
@@ -84,13 +84,13 @@ export const Playground: Story = {
         },
       },
     },
-    spread: {
+    justify: {
       control: {
         type: 'radio',
       },
       type: {
         name: 'enum',
-        value: ['start', 'center', 'end', 'distribute', 'distributeEvenly'],
+        value: ['start', 'center', 'end', 'space-between', 'space-betweenEvenly'],
       },
       table: {
         category: 'Properties',
@@ -129,7 +129,7 @@ export const Playground: Story = {
         },
       },
     },
-    orientationNarrow: {
+    directionNarrow: {
       control: {
         type: 'radio',
       },
@@ -174,13 +174,13 @@ export const Playground: Story = {
         },
       },
     },
-    spreadNarrow: {
+    justifyNarrow: {
       control: {
         type: 'radio',
       },
       type: {
         name: 'enum',
-        value: ['start', 'center', 'end', 'distribute', 'distributeEvenly'],
+        value: ['start', 'center', 'end', 'space-between', 'space-betweenEvenly'],
       },
       table: {
         category: 'Narrow properties',
@@ -219,7 +219,7 @@ export const Playground: Story = {
         },
       },
     },
-    orientationRegular: {
+    directionRegular: {
       control: {
         type: 'radio',
       },
@@ -264,13 +264,13 @@ export const Playground: Story = {
         },
       },
     },
-    spreadRegular: {
+    justifyRegular: {
       control: {
         type: 'radio',
       },
       type: {
         name: 'enum',
-        value: ['start', 'center', 'end', 'distribute', 'distributeEvenly'],
+        value: ['start', 'center', 'end', 'space-between', 'space-betweenEvenly'],
       },
       table: {
         category: 'Regular properties',
@@ -309,7 +309,7 @@ export const Playground: Story = {
         },
       },
     },
-    orientationWide: {
+    directionWide: {
       control: {
         type: 'radio',
       },
@@ -354,13 +354,13 @@ export const Playground: Story = {
         },
       },
     },
-    spreadWide: {
+    justifyWide: {
       control: {
         type: 'radio',
       },
       type: {
         name: 'enum',
-        value: ['start', 'center', 'end', 'distribute', 'distributeEvenly'],
+        value: ['start', 'center', 'end', 'space-between', 'space-betweenEvenly'],
       },
       table: {
         category: 'Wide properties',
@@ -390,10 +390,10 @@ export const Playground: Story = {
       <Stack
         {...args}
         gap={getControlValues(args.gap, {narrow: args.gapNarrow, regular: args.gapRegular, wide: args.gapWide})}
-        orientation={getControlValues(args.orientation, {
-          narrow: args.orientationNarrow,
-          regular: args.orientationRegular,
-          wide: args.orientationWide,
+        direction={getControlValues(args.direction, {
+          narrow: args.directionNarrow,
+          regular: args.directionRegular,
+          wide: args.directionWide,
         })}
         padding={getControlValues(args.padding, {
           narrow: args.paddingNarrow,
@@ -405,10 +405,10 @@ export const Playground: Story = {
           regular: args.alignRegular,
           wide: args.alignWide,
         })}
-        spread={getControlValues(args.spread, {
-          narrow: args.spreadNarrow,
-          regular: args.spreadRegular,
-          wide: args.spreadWide,
+        justify={getControlValues(args.justify, {
+          narrow: args.justifyNarrow,
+          regular: args.justifyRegular,
+          wide: args.justifyWide,
         })}
         wrap={getControlValues(args.wrap, {narrow: args.wrapNarrow, regular: args.wrapRegular, wide: args.wrapWide})}
         className="demoStack"
@@ -500,7 +500,7 @@ export const StackItemPlayground: Story = {
   },
   render: args => {
     return (
-      <Stack gap="normal" orientation="horizontal" align="center" spread="distribute" wrap="nowrap">
+      <Stack gap="normal" direction="horizontal" align="center" justify="space-between" wrap="nowrap">
         <Stack.Item
           grow={getControlValues(args.grow, {
             narrow: args.growNarrow,
