@@ -172,6 +172,8 @@
       url: /drafts/PageHeader
     - title: SelectPanel v2
       url: /drafts/SelectPanel
+    - title: TabPanels
+      url: /drafts/TabPanels
 - title: Deprecated
   children:
     - title: ActionList (legacy)

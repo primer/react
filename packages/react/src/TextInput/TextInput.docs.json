@@ -4,6 +4,7 @@
   "status": "alpha",
   "a11yReviewed": false,
   "stories": [],
+  "importPath": "@primer/react",
   "props": [
     {
       "name": "aria-label",
@@ -128,7 +129,7 @@
         {
           "name": "tooltipDirection",
           "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
-          "defaultValue": "n",
+          "defaultValue": "s",
           "description": "Sets where the tooltip renders in relation to the target."
         },
         {

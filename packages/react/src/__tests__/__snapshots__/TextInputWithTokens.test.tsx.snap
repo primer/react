@@ -313,7 +313,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       fill="currentColor"
       focusable="false"
       height={16}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -379,7 +378,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -430,7 +428,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -481,7 +478,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -532,7 +528,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -583,7 +578,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -634,7 +628,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -685,7 +678,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -736,7 +728,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -764,7 +755,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       fill="currentColor"
       focusable="false"
       height={16}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -1142,7 +1132,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -1193,7 +1182,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -1783,7 +1771,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -1834,7 +1821,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -1885,7 +1871,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -1936,7 +1921,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -1987,7 +1971,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -2038,7 +2021,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -2089,7 +2071,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -2140,7 +2121,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -2520,7 +2500,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
           fill="currentColor"
           focusable="false"
           height={12}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -2571,7 +2550,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
           fill="currentColor"
           focusable="false"
           height={12}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -2622,7 +2600,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
           fill="currentColor"
           focusable="false"
           height={12}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -2673,7 +2650,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
           fill="currentColor"
           focusable="false"
           height={12}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -2724,7 +2700,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
           fill="currentColor"
           focusable="false"
           height={12}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -2775,7 +2750,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
           fill="currentColor"
           focusable="false"
           height={12}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -2826,7 +2800,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
           fill="currentColor"
           focusable="false"
           height={12}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -2877,7 +2850,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
           fill="currentColor"
           focusable="false"
           height={12}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -3257,7 +3229,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
           fill="currentColor"
           focusable="false"
           height={15}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -3308,7 +3279,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
           fill="currentColor"
           focusable="false"
           height={15}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -3359,7 +3329,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
           fill="currentColor"
           focusable="false"
           height={15}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -3410,7 +3379,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
           fill="currentColor"
           focusable="false"
           height={15}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -3461,7 +3429,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
           fill="currentColor"
           focusable="false"
           height={15}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -3512,7 +3479,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
           fill="currentColor"
           focusable="false"
           height={15}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -3563,7 +3529,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
           fill="currentColor"
           focusable="false"
           height={15}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -3614,7 +3579,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
           fill="currentColor"
           focusable="false"
           height={15}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -3991,7 +3955,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
           fill="currentColor"
           focusable="false"
           height={18}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4042,7 +4005,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
           fill="currentColor"
           focusable="false"
           height={18}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4093,7 +4055,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
           fill="currentColor"
           focusable="false"
           height={18}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4144,7 +4105,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
           fill="currentColor"
           focusable="false"
           height={18}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4195,7 +4155,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
           fill="currentColor"
           focusable="false"
           height={18}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4246,7 +4205,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
           fill="currentColor"
           focusable="false"
           height={18}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4297,7 +4255,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
           fill="currentColor"
           focusable="false"
           height={18}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4348,7 +4305,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
           fill="currentColor"
           focusable="false"
           height={18}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4727,7 +4683,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4778,7 +4733,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4829,7 +4783,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4880,7 +4833,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4931,7 +4883,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -4982,7 +4933,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -5033,7 +4983,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -5084,7 +5033,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -5461,7 +5409,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -5512,7 +5459,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -5563,7 +5509,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -5614,7 +5559,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -5665,7 +5609,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -5716,7 +5659,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -5767,7 +5709,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -5818,7 +5759,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -6654,7 +6594,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6705,7 +6644,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6756,7 +6694,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6807,7 +6744,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6858,7 +6794,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6909,7 +6844,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6960,7 +6894,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -7011,7 +6944,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -7483,7 +7415,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -7534,7 +7465,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -7585,7 +7515,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -7636,7 +7565,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -7687,7 +7615,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -7738,7 +7665,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -7789,7 +7715,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -7840,7 +7765,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -8268,7 +8192,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -8319,7 +8242,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -8370,7 +8292,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -8421,7 +8342,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -8472,7 +8392,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -8523,7 +8442,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -8574,7 +8492,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -8625,7 +8542,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -9035,7 +8951,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -9137,7 +9052,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -9188,7 +9102,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -9239,7 +9152,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -9290,7 +9202,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -9341,7 +9252,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -9392,7 +9302,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -9443,7 +9352,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -9494,7 +9402,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -9904,7 +9811,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -10006,7 +9912,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -10057,7 +9962,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -10108,7 +10012,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -10159,7 +10062,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -10210,7 +10112,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -10261,7 +10162,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -10312,7 +10212,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -10363,7 +10262,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -10773,7 +10671,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -10875,7 +10772,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -10926,7 +10822,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -10977,7 +10872,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11028,7 +10922,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11079,7 +10972,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11130,7 +11022,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11181,7 +11072,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11232,7 +11122,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11669,7 +11558,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11720,7 +11608,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11771,7 +11658,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11822,7 +11708,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11873,7 +11758,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11924,7 +11808,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -11975,7 +11858,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -12026,7 +11908,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -12061,7 +11942,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -12538,7 +12418,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -12589,7 +12468,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -12640,7 +12518,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -12691,7 +12568,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -12742,7 +12618,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -12793,7 +12668,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -12844,7 +12718,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -12895,7 +12768,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -12930,7 +12802,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -13363,7 +13234,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -13414,7 +13284,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -13465,7 +13334,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -13516,7 +13384,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -13567,7 +13434,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -13618,7 +13484,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -13669,7 +13534,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -13720,7 +13584,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -13755,7 +13618,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -14175,7 +14037,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -14277,7 +14138,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={12}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -14328,7 +14188,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={12}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -14379,7 +14238,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={12}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -14430,7 +14288,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={12}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -14481,7 +14338,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={12}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -14532,7 +14388,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={12}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -14583,7 +14438,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={12}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -14634,7 +14488,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={12}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -14669,7 +14522,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -15084,7 +14936,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -15186,7 +15037,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -15237,7 +15087,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -15288,7 +15137,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -15339,7 +15187,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -15390,7 +15237,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -15441,7 +15287,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -15492,7 +15337,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -15543,7 +15387,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={24}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -15578,7 +15421,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -15991,7 +15833,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -16093,7 +15934,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={18}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -16144,7 +15984,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={18}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -16195,7 +16034,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={18}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -16246,7 +16084,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={18}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -16297,7 +16134,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={18}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -16348,7 +16184,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={18}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -16399,7 +16234,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={18}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -16450,7 +16284,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={18}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -16485,7 +16318,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -16895,7 +16727,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -16946,7 +16777,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -16997,7 +16827,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17048,7 +16877,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17099,7 +16927,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17150,7 +16977,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17201,7 +17027,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17252,7 +17077,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17621,7 +17445,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17667,7 +17490,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17713,7 +17535,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17759,7 +17580,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17805,7 +17625,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17851,7 +17670,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17897,7 +17715,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",
@@ -17943,7 +17760,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
           fill="currentColor"
           focusable="false"
           height={24}
-          role="img"
           style={
             {
               "display": "inline-block",

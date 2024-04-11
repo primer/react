@@ -18,7 +18,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm i -g npm@9.x
+      - run: npm i -g npm@^10.5.1
       - run: npm ci
       - uses: ./.github/actions/pagerduty
         id: pagerduty

@@ -11,6 +11,7 @@
     {"id": "components-treeview-features--async-with-count"},
     {"id": "components-treeview-features--controlled"}
   ],
+  "importPath": "@primer/react",
   "props": [
     {
       "name": "children",
