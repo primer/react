@@ -197,11 +197,6 @@ const StyledBanner = styled.div`
   }
 
   /* BannerActions ---------------------------------------------------------- */
-
-  .BannerActions {
-    justify-self: end;
-  }
-
   .BannerActionsContainer {
     display: flex;
     column-gap: 0.5rem;
@@ -220,6 +215,7 @@ const StyledBanner = styled.div`
     .BannerActions {
       grid-column-start: 2;
       grid-row-start: 1;
+      justify-self: end;
     }
 
     .BannerActions [data-hide-on-sm] {
