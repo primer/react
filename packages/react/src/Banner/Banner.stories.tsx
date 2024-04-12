@@ -32,36 +32,42 @@ export const Default = () => {
 }
 
 export const Playground: StoryObj<typeof Banner> = {
-  render: ({onDismiss, variant, ...rest}) => {
+  render: ({onDismiss, primaryAction, secondaryAction, ...rest}) => {
     return (
       <Banner
-        {...rest}
         onDismiss={onDismiss ? action('onDismiss') : undefined}
-        title="Banner title"
-        description={
-          <>
-            GitHub users are{' '}
-            <Link inline underline href="#">
-              now required
-            </Link>{' '}
-            to enable two-factor authentication as an additional security measure.
-          </>
-        }
-        variant={variant}
+        primaryAction={primaryAction ? <Banner.PrimaryAction>{primaryAction}</Banner.PrimaryAction> : null}
+        secondaryAction={secondaryAction ? <Banner.SecondaryAction>{secondaryAction}</Banner.SecondaryAction> : null}
+        {...rest}
       />
     )
   },
+  args: {
+    title: 'Banner title',
+    description:
+      'GitHub users are now required to en able two-factor authentication as an additional security measure.',
+    variant: 'info',
+  },
   argTypes: {
+    title: {
+      control: 'text',
+      defaultValue: 'Banner title',
+    },
+    description: {
+      control: 'text',
+    },
     onDismiss: {
-      controls: {
-        type: 'boolean',
-      },
+      control: 'boolean',
       defaultValue: false,
     },
+    primaryAction: {
+      control: 'text',
+    },
+    secondaryAction: {
+      control: 'text',
+    },
     variant: {
-      controls: {
-        type: 'radio',
-      },
+      control: 'select',
       options: ['critical', 'info', 'success', 'upsell', 'warning'],
     },
   },
