@@ -209,7 +209,7 @@ function Tooltip({direction = 'n', children, className, text, noDelay, align, wr
   return (
     // This provider is used to check if an icon button is wrapped with tooltip or not.
     <TooltipContext.Provider value={value}>
-      <TooltipBase role="tooltip" aria-label={text} {...rest} className={classes}>
+      <TooltipBase role="tooltip" aria-label={text} id={tooltipId} {...rest} className={classes}>
         {children}
       </TooltipBase>
     </TooltipContext.Provider>
