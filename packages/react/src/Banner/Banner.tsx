@@ -234,8 +234,6 @@ const StyledBanner = styled.div`
     display: grid;
     place-items: center;
     padding: var(--base-size-8, 0.5rem);
-    width: 2rem;
-    height: 2rem;
     margin-inline-start: var(--base-size-4, 0.25rem);
   }
 
