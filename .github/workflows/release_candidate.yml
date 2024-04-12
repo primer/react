@@ -67,7 +67,7 @@ jobs:
   release-candidate-next-major:
     if: github.ref_name == 'changeset-release/next-major'
     name: Candidate (@next-major)
-    uses: primer/.github/.github/workflows/release_candidate.yml@main
+    uses: primer/.github/.github/workflows/release_candidate.yml@v1.0.0
     with:
       tag: next-major
     secrets:
