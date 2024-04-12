@@ -145,9 +145,9 @@ const StyledBanner = styled.div`
   }
 
   &[data-variant='upsell'] {
-    --banner-bgColor: ${get('colors.done.subtle')};
-    --banner-borderColor: ${get('colors.done.muted')};
-    --banner-icon-bgColor: ${get('colors.done.fg')};
+    --banner-bgColor: var(--fgColor-upsell, ${get('colors.done.subtle')});
+    --banner-borderColor: var(--bgColor-upsell-muted, ${get('colors.done.muted')});
+    --banner-icon-bgColor: var(--borderColor-upsell-muted, ${get('colors.done.fg')});
   }
 
   &[data-variant='warning'] {
