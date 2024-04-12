@@ -1,0 +1,26 @@
+diff --git a/node_modules/@changesets/cli/dist/changesets-cli.cjs.js b/node_modules/@changesets/cli/dist/changesets-cli.cjs.js
+index 02083f3..f674096 100644
+--- a/node_modules/@changesets/cli/dist/changesets-cli.cjs.js
++++ b/node_modules/@changesets/cli/dist/changesets-cli.cjs.js
+@@ -817,7 +817,7 @@ async function internalPublish(pkgName, opts, twoFactorState) {
+   } = publishTool.name === "pnpm" ? await spawn__default["default"]("pnpm", ["publish", "--json", ...publishFlags], {
+     env: Object.assign({}, process.env, envOverride),
+     cwd: opts.cwd
+-  }) : await spawn__default["default"](publishTool.name, ["publish", opts.publishDir, "--json", ...publishFlags], {
++  }) : await spawn__default["default"](publishTool.name, ["publish", opts.publishDir, "--json", "--verbose", ...publishFlags], {
+     env: Object.assign({}, process.env, envOverride)
+   });
+ 
+diff --git a/node_modules/@changesets/cli/dist/changesets-cli.esm.js b/node_modules/@changesets/cli/dist/changesets-cli.esm.js
+index 6b0c2ce..17c7d8e 100644
+--- a/node_modules/@changesets/cli/dist/changesets-cli.esm.js
++++ b/node_modules/@changesets/cli/dist/changesets-cli.esm.js
+@@ -776,7 +776,7 @@ async function internalPublish(pkgName, opts, twoFactorState) {
+   } = publishTool.name === "pnpm" ? await spawn$1("pnpm", ["publish", "--json", ...publishFlags], {
+     env: Object.assign({}, process.env, envOverride),
+     cwd: opts.cwd
+-  }) : await spawn$1(publishTool.name, ["publish", opts.publishDir, "--json", ...publishFlags], {
++  }) : await spawn$1(publishTool.name, ["publish", opts.publishDir, "--json", "--verbose", ...publishFlags], {
+     env: Object.assign({}, process.env, envOverride)
+   });
+ 
