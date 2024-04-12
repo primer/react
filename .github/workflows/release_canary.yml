@@ -40,8 +40,8 @@ jobs:
       - name: Publish canary release
         run: |
           echo -e "---\n$( jq .name packages/react/package.json ): patch\n---\n\nFake entry to force publishing" > .changeset/force-snapshot-release.md
-          npx changeset version --snapshot
-          npx changeset publish --tag canary
+          npx changeset version --snapshot --verbose
+          npx changeset publish --tag canary --verbose
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Output canary version
