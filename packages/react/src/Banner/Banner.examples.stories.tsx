@@ -10,6 +10,7 @@ import Radio from '../Radio'
 import {Button} from '../Button'
 import React from 'react'
 import {useFocus} from '../internal/hooks/useFocus'
+import {PageLayout} from '../PageLayout'
 
 const meta = {
   title: 'Drafts/Components/Banner/Examples',
@@ -105,5 +106,21 @@ export const WithCustomHeading = () => {
         to enable two-factor authentication as an additional security measure.
       </Banner.Description>
     </Banner>
+  )
+}
+
+export const Sidebar = () => {
+  return (
+    <PageLayout>
+      <PageLayout.Pane position="start">
+        <Banner
+          title="Info"
+          description="Description"
+          primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
+          secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
+        />
+      </PageLayout.Pane>
+      <PageLayout.Content>Body</PageLayout.Content>
+    </PageLayout>
   )
 }
