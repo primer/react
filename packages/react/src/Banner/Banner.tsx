@@ -129,31 +129,31 @@ const StyledBanner = styled.div`
   &[data-variant='critical'] {
     --banner-bgColor: ${get('colors.danger.subtle')};
     --banner-borderColor: ${get('colors.danger.muted')};
-    --banner-icon-bgColor: ${get('colors.danger.fg')};
+    --banner-icon-fgColor: ${get('colors.danger.fg')};
   }
 
   &[data-variant='info'] {
     --banner-bgColor: ${get('colors.accent.subtle')};
     --banner-borderColor: ${get('colors.accent.muted')};
-    --banner-icon-bgColor: ${get('colors.accent.fg')};
+    --banner-icon-fgColor: ${get('colors.accent.fg')};
   }
 
   &[data-variant='success'] {
     --banner-bgColor: ${get('colors.success.subtle')};
     --banner-borderColor: ${get('colors.success.muted')};
-    --banner-icon-bgColor: ${get('colors.success.fg')};
+    --banner-icon-fgColor: ${get('colors.success.fg')};
   }
 
   &[data-variant='upsell'] {
-    --banner-bgColor: var(--fgColor-upsell, ${get('colors.done.subtle')});
-    --banner-borderColor: var(--bgColor-upsell-muted, ${get('colors.done.muted')});
-    --banner-icon-bgColor: var(--borderColor-upsell-muted, ${get('colors.done.fg')});
+    --banner-bgColor: var(--bgColor-upsell-muted, ${get('colors.done.subtle')});
+    --banner-borderColor: var(--borderColor-upsell-muted, ${get('colors.done.muted')});
+    --banner-icon-fgColor: var(--fgColor-upsell-muted, ${get('colors.done.fg')});
   }
 
   &[data-variant='warning'] {
     --banner-bgColor: ${get('colors.attention.subtle')};
     --banner-borderColor: ${get('colors.attention.muted')};
-    --banner-icon-bgColor: ${get('colors.attention.fg')};
+    --banner-icon-fgColor: ${get('colors.attention.fg')};
   }
 
   /* BannerIcon ------------------------------------------------------------- */
@@ -165,8 +165,8 @@ const StyledBanner = styled.div`
   }
 
   .BannerIcon svg {
-    color: var(--banner-icon-bgColor);
-    fill: var(--banner-icon-bgColor);
+    color: var(--banner-icon-fgColor);
+    fill: var(--banner-icon-fgColor);
     /* 20px is the line box height of the trailing action buttons */
     height: var(--base-size-20, 1.25rem);
   }
@@ -238,7 +238,7 @@ const StyledBanner = styled.div`
   }
 
   .BannerDismiss svg {
-    color: var(--banner-icon-bgColor);
+    color: var(--banner-icon-fgColor);
   }
 `
 
