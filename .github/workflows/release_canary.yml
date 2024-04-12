@@ -39,6 +39,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
       - name: Publish canary release
         run: |
+          echo "$( jq '.version = "0.0.0"' packages/react/package.json )" > packages/react/package.json
           echo -e "---\n$( jq .name packages/react/package.json ): patch\n---\n\nFake entry to force publishing" > .changeset/force-snapshot-release.md
           npx changeset version --snapshot --verbose
           npx changeset publish --tag canary --verbose
