@@ -12,7 +12,7 @@ export function useFeatureFlags<T extends ReadonlyArray<string>>(flags: T): Flag
   const context = useContext(FeatureFlagContext)
   return Object.fromEntries(
     flags.map(flag => {
-      return [flag, context ? context.enabled(flag) : false]
+      return [flag, context.enabled(flag)]
     }),
   ) as FlagValue<T>
 }
