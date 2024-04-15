@@ -1,0 +1,30 @@
+name: Test Unpublish old canary versions
+on:
+  push:
+
+jobs:
+  test_unpublish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test Unpublish old canary versions
+        uses: actions/checkout@v4
+        with:
+          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
+          fetch-depth: 0
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 16
+      - run: npm i -g npm@^10.5.0
+      - name: Create .npmrc
+        run: |
+          cat << EOF > "$HOME/.npmrc"
+            //https://registry.npmjs.org/:_authToken=$NPM_TOKEN
+          EOF
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
+      - name: Unpublish canary release
+        run: |
+          npm unpublish @primer/react@0.0.0-2021118184718
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
