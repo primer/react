@@ -87,3 +87,18 @@ function ExampleComponent(props: ClassicProps | NextProps): React.ReactNode {
 By default, using `ClassicProps | NextProps` as the type signature would allow
 both props to be applied to a component. Using the function overload, TypeScript
 will error if you mix between the two.
+
+## Testing
+
+Use the `FeatureFlags` component to set the value of specific feature flags
+during tests.
+
+```tsx
+render(
+  <FeatureFlags flags={{enableNewFeature: true}}>
+    <ExampleComponent />
+  </FeatureFlags>,
+)
+```
+
+## Storybook
