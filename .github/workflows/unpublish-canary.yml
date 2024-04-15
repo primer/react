@@ -1,0 +1,76 @@
+name: Unpublish Canary Release
+on:
+  workflow_dispatch:
+    inputs:
+      debug:
+        type: boolean
+        description: 'Debug the workflow, this will not unpublish canary versions'
+        default: false
+
+jobs:
+  unpublish:
+    runs-on: ubuntu-latest
+    steps:
+      # - name: Create .npmrc
+      # run: |
+      # cat << EOF > "$HOME/.npmrc"
+      # //registry.npmjs.org/:_authToken=$NPM_TOKEN
+      # EOF
+      # env:
+      # NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
+      - uses: actions/github-script@v7
+        env:
+          DEBUG_RELEASE_SCRIPT: ${{ github.event.inputs.debug }}
+        with:
+          script: |
+            const childProcess = require('node:child_process');
+            const util = require('node:util');
+            const exec = util.promisify(childProcess.exist);
+
+            const DEBUG_RELEASE_SCRIPT = process.env.DEBUG_RELEASE_SCRIPT === 'true' ? true : false;
+
+            const today = new Date();
+            const year = today.getFullYear();
+            const pkg = await getPackage('@primer/react');
+            const CANARY_REGEX = /0.0.0-[0-9]+/g;
+            const canaries = Object.keys(pkg.versions).filter((version) => {
+              const match = version.match(CANARY_REGEX);
+              if (!match) {
+                return false;
+              }
+
+              const time = pkg.time[version];
+              if (!time) {
+                return false;
+              }
+
+              const published = new Date(time);
+              return year - published.getFullYear() > 1;
+            });
+
+            if (DEBUG_RELEASE_SCRIPT) {
+              core.info('Found %s canary versions to unpublish', canaries.length);
+            }
+
+            core.startGroup('Unpublish canary versions');
+            for (const canary of canaries) {
+              if (DEBUG_RELEASE_SCRIPT) {
+                core.info(`Running command: npm unpublish @primer/react@${canary}`);
+              } else {
+                // await exec(`npm unpublish @primer/react@${canary}`);
+              }
+            }
+            core.endGroup();
+
+            // GET /{package}
+            // Response: https://github.com/npm/registry/blob/master/docs/responses/package-metadata.md
+            async function getPackage(name) {
+              const url = new URL(name, 'https://registry.npmjs.com');
+              const response = await fetch(url);
+              if (response.status === 200) {
+                const json = await response.json();
+                return json;
+              }
+              const result = await response.text();
+              throw new Error(`Received non-200 response with text: ${result}`);
+            }
