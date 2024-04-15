@@ -30,7 +30,7 @@ export default {
 } as Meta<typeof ActionBar>
 
 export const Default = () => (
-  <ActionBar>
+  <ActionBar aria-label="Toolbar">
     <ActionBar.IconButton icon={BoldIcon} aria-label="Default"></ActionBar.IconButton>
     <ActionBar.IconButton icon={ItalicIcon} aria-label="Default"></ActionBar.IconButton>
     <ActionBar.IconButton icon={CodeIcon} aria-label="Default"></ActionBar.IconButton>
@@ -48,7 +48,7 @@ export const Default = () => (
 )
 
 export const SmallActionBar = () => (
-  <ActionBar size="small">
+  <ActionBar size="small" aria-label="Toolbar">
     <ActionBar.IconButton icon={BoldIcon} aria-label="Default"></ActionBar.IconButton>
     <ActionBar.IconButton icon={ItalicIcon} aria-label="Default"></ActionBar.IconButton>
     <ActionBar.IconButton icon={CodeIcon} aria-label="Default"></ActionBar.IconButton>
@@ -103,7 +103,7 @@ export const CommentBox = () => {
           />
         </Box>
         <Box sx={{width: '50%'}}>
-          <ActionBar>
+          <ActionBar aria-label="Toolbar">
             <ActionBar.IconButton icon={HeadingIcon} aria-label="Heading"></ActionBar.IconButton>
             <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
             <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
@@ -152,7 +152,7 @@ export const ActionBarWithMenuTrigger = () => {
 
   return (
     <Box>
-      <ActionBar>
+      <ActionBar aria-label="Toolbar">
         <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
         <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
         <ActionBar.IconButton icon={CodeIcon} aria-label="Code"></ActionBar.IconButton>

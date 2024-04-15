@@ -38,7 +38,7 @@ type Size = 'small' | 'medium' | 'large'
 
 export type ActionBarProps = {
   size?: Size
-  'aria-label'?: React.AriaAttributes['aria-label']
+  'aria-label': React.AriaAttributes['aria-label']
   children: React.ReactNode
 }
 
