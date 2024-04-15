@@ -151,7 +151,9 @@ The following components are impacted by this ADR:
 
 - `PageHeader`
 - `PageLayout`
+- `SplitPageLayout`
 - `SegmentedControl`
 - `SelectPanel2`
+- `Hidden`
 
 ## FAQ
