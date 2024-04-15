@@ -86,7 +86,8 @@ jobs:
         run: npm run build
       - name: Type check
         run: npm run type-check
-      - uses: './.github/actions/arethetypeswrong'
+      - name: Check published types
+        uses: './.github/actions/arethetypeswrong'
         with:
           workspace: packages/react
 
