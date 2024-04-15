@@ -7,21 +7,6 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20
-        cache: 'npm'
-    - run: npm i -g npm@^10.5.1
-      shell: bash
-    - name: Install dependencies
-      run: npm ci
-      shell: bash
-    - name: Build project
-      run: npm run build
-      shell: bash
     - name: Run arethetypeswrong
       working-directory: ${{ inputs.workspace }}
       run: npx @arethetypeswrong/cli --pack .
