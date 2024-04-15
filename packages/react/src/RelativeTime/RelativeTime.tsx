@@ -1,7 +1,7 @@
 import React from 'react'
 import {RelativeTimeElement} from '@github/relative-time-element'
 import type {ComponentProps} from '../utils/types'
-import {createComponent} from '../utils/custom-element'
+import {createComponent} from '../utils/customElement'
 
 const RelativeTimeComponent = createComponent(RelativeTimeElement, 'relative-time')
 
