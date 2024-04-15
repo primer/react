@@ -1,4 +1,4 @@
-import React, {Children, useEffect, useRef, useState} from 'react'
+import React, {Children, useEffect, useRef, useState, useMemo} from 'react'
 import type {SxProp} from '../sx'
 import sx from '../sx'
 import {useId, useProvidedRefOrCreate, useOnEscapePress} from '../hooks'
@@ -123,7 +123,7 @@ const StyledTooltip = styled.span`
   ${sx};
 `
 
-type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
+export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<
   {
     direction?: TooltipDirection
@@ -235,6 +235,9 @@ export const Tooltip = React.forwardRef(
       }
     }
 
+    // context value
+    const value = useMemo(() => ({tooltipId}), [tooltipId])
+
     useEffect(() => {
       if (!tooltipElRef.current || !triggerRef.current) return
       /*
@@ -285,7 +288,7 @@ export const Tooltip = React.forwardRef(
     )
 
     return (
-      <TooltipContext.Provider value={{tooltipId}}>
+      <TooltipContext.Provider value={value}>
         <>
           {React.isValidElement(child) &&
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
@@ -299,6 +302,14 @@ export const Tooltip = React.forwardRef(
                 child.props.onBlur?.(event)
               },
               onFocus: (event: React.FocusEvent) => {
+                // only show tooltip on :focus-visible, not on :focus
+                try {
+                  if (!event.target.matches(':focus-visible')) return
+                } catch (error) {
+                  // jsdom (jest) does not support `:focus-visible` yet and would throw an error
+                  // https://github.com/jsdom/jsdom/issues/3426
+                }
+
                 openTooltip()
                 child.props.onFocus?.(event)
               },
