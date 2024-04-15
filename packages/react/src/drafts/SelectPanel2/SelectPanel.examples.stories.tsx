@@ -1,7 +1,19 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, ActionMenu, Avatar, Box, Button, Text} from '../../index'
-import {ArrowRightIcon, EyeIcon, GitBranchIcon, TriangleDownIcon, GearIcon} from '@primer/octicons-react'
+import {ActionList, ActionMenu, Avatar, Box, Button, Text, Octicon, Flash, FormControl, TextInput} from '../../index'
+import {Dialog} from '../../drafts'
+import {
+  ArrowRightIcon,
+  EyeIcon,
+  GitBranchIcon,
+  TriangleDownIcon,
+  GearIcon,
+  TagIcon,
+  GitPullRequestIcon,
+  GitMergeIcon,
+  GitPullRequestDraftIcon,
+  PlusCircleIcon,
+} from '@primer/octicons-react'
 import data from './mock-story-data'
 
 export default {
@@ -29,6 +41,9 @@ export const Minimal = () => {
     // eslint-disable-next-line no-console
     console.log('form submitted')
   }
+  const onCancel = () => {
+    setSelectedLabelIds(initialSelectedLabels)
+  }
 
   const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
     const initialSelectedIds = data.issue.labelIds
@@ -44,7 +59,7 @@ export const Minimal = () => {
     <>
       <h1>Minimal SelectPanel</h1>
 
-      <SelectPanel title="Select labels" onSubmit={onSubmit}>
+      <SelectPanel title="Select labels" onSubmit={onSubmit} onCancel={onCancel}>
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
         <ActionList>
@@ -79,6 +94,9 @@ export const WithGroups = () => {
   const onClearSelection = () => setSelectedAssigneeIds([])
   const onSubmit = () => {
     data.issue.assigneeIds = selectedAssigneeIds // pretending to persist changes
+  }
+  const onCancel = () => {
+    setSelectedAssigneeIds(initialAssigneeIds)
   }
 
   /* Filtering */
@@ -120,7 +138,12 @@ export const WithGroups = () => {
     <>
       <h1>SelectPanel with groups</h1>
 
-      <SelectPanel title="Request up to 100 reviewers" onSubmit={onSubmit} onClearSelection={onClearSelection}>
+      <SelectPanel
+        title="Request up to 100 reviewers"
+        onSubmit={onSubmit}
+        onCancel={onCancel}
+        onClearSelection={onClearSelection}
+      >
         <SelectPanel.Button
           variant="invisible"
           trailingAction={GearIcon}
@@ -194,7 +217,12 @@ export const AsyncWithSuspendedList = () => {
   return (
     <>
       <h1>Async: Suspended list</h1>
-      <p>Fetching items once when the panel is opened (like repo labels)</p>
+      <p>
+        Fetching items once when the panel is opened (like repo labels)
+        <br />
+        Note: Save and Cancel is not implemented in this demo
+      </p>
+
       <SelectPanel title="Select labels">
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
@@ -344,13 +372,16 @@ export const AsyncSearchWithUseTransition = () => {
     // eslint-disable-next-line no-console
     console.log('form submitted')
   }
+  const onCancel = () => {
+    setSelectedUserIds(initialAssigneeIds)
+  }
 
   return (
     <>
       <h1>Async: search with useTransition</h1>
       <p>Fetching items on every keystroke search (like github users)</p>
 
-      <SelectPanel title="Select collaborators" onSubmit={onSubmit}>
+      <SelectPanel title="Select collaborators" onSubmit={onSubmit} onCancel={onCancel}>
         <SelectPanel.Button>Select assignees</SelectPanel.Button>
         <SelectPanel.Header>
           <SelectPanel.SearchInput loading={isPending} onChange={onSearchInputChange} />
@@ -481,6 +512,9 @@ export const WithFilterButtons = () => {
     // eslint-disable-next-line no-console
     console.log('form submitted')
   }
+  const onCancel = () => {
+    setSelectedRef(savedInitialRef)
+  }
 
   /* Filter */
   const [query, setQuery] = React.useState('')
@@ -522,9 +556,9 @@ export const WithFilterButtons = () => {
 
   return (
     <>
-      <h1>With Filter Buttons</h1>
+      <h1>With Filter Buttons {savedInitialRef}</h1>
 
-      <SelectPanel title="Switch branches/tags" onSubmit={onSubmit}>
+      <SelectPanel title="Switch branches/tags" onSubmit={onSubmit} onCancel={onCancel}>
         <SelectPanel.Button leadingVisual={GitBranchIcon} trailingVisual={TriangleDownIcon}>
           {savedInitialRef}
         </SelectPanel.Button>
@@ -582,12 +616,16 @@ export const WithFilterButtons = () => {
 }
 
 export const ShortSelectPanel = () => {
-  const [channels, setChannels] = React.useState({GitHub: false, Email: false})
+  const initialChannels = {GitHub: false, Email: false}
+  const [channels, setChannels] = React.useState(initialChannels)
   const [onlyFailures, setOnlyFailures] = React.useState(false)
 
   const onSubmit = () => {
     // eslint-disable-next-line no-console
     console.log('form submitted')
+  }
+  const onCancel = () => {
+    setChannels(initialChannels)
   }
 
   const toggleChannel = (channel: keyof typeof channels) => {
@@ -602,7 +640,7 @@ export const ShortSelectPanel = () => {
       <p>
         Use <code>height=fit-content</code> to match height of contents
       </p>
-      <SelectPanel title="Select notification channels" onSubmit={onSubmit}>
+      <SelectPanel title="Select notification channels" onSubmit={onSubmit} onCancel={onCancel}>
         <SelectPanel.Button>
           <Text sx={{color: 'fg.muted'}}>Notify me:</Text>{' '}
           {Object.keys(channels)
@@ -636,6 +674,389 @@ export const ShortSelectPanel = () => {
         <SelectPanel.Footer />
       </SelectPanel>
     </>
+  )
+}
+
+export const InsideSidebar = () => {
+  const [selectedTag, setSelectedTag] = React.useState<string>()
+  const [sidebarOpen, setSidebarOpen] = React.useState(false)
+
+  return (
+    <>
+      <h1>Opening SelectPanel inside a sidebar</h1>
+
+      <Button onClick={() => setSidebarOpen(true)}>Open sidebar</Button>
+      {sidebarOpen && (
+        <Dialog position="right" title="Sidebar" onClose={() => setSidebarOpen(false)}>
+          <Box p={3}>
+            <SelectPanel
+              title="Choose a tag"
+              selectionVariant="instant"
+              onSubmit={() => {
+                if (!selectedTag) return
+                data.ref = selectedTag // pretending to persist changes
+              }}
+            >
+              <SelectPanel.Button leadingVisual={TagIcon}>{selectedTag || 'Choose a tag'}</SelectPanel.Button>
+
+              <ActionList>
+                {data.tags.map(tag => (
+                  <ActionList.Item
+                    key={tag.id}
+                    onSelect={() => setSelectedTag(tag.id)}
+                    selected={selectedTag === tag.id}
+                  >
+                    {tag.name}
+                  </ActionList.Item>
+                ))}
+              </ActionList>
+            </SelectPanel>
+          </Box>
+        </Dialog>
+      )}
+    </>
+  )
+}
+
+export const NestedSelection = () => {
+  const [panelToShow, setPanelToShow] = React.useState<null | 'repos' | 'pull_requests'>(null)
+
+  const anchorRef = React.useRef<HTMLButtonElement>(null)
+
+  /* First level: Repo selection */
+  const [selectedRepo, setSelectedRepo] = React.useState<string>('')
+
+  const reposToShow = data.repos
+
+  /* Second level: Pull request selection */
+  const iconMap = {
+    open: <Octicon icon={GitPullRequestIcon} sx={{color: 'open.emphasis'}} />,
+    merged: <Octicon icon={GitMergeIcon} sx={{color: 'done.emphasis'}} />,
+    draft: <Octicon icon={GitPullRequestDraftIcon} />,
+  }
+
+  const initialSelectedPullRequestIds = ['4278']
+  const [selectedPullRequestIds, setSelectedPullRequestIds] = React.useState<string[]>(initialSelectedPullRequestIds)
+  /* Selection */
+  const onPullRequestSelect = (pullId: string) => {
+    if (!selectedPullRequestIds.includes(pullId)) setSelectedPullRequestIds([...selectedPullRequestIds, pullId])
+    else setSelectedPullRequestIds(selectedPullRequestIds.filter(id => id !== pullId))
+  }
+
+  return (
+    <>
+      <h1>Nested selection</h1>
+
+      <Flash variant="warning" sx={{mb: 2}}>
+        This story is not fully accesible, do not copy it without review!
+      </Flash>
+
+      <Button
+        ref={anchorRef}
+        onClick={() => setPanelToShow('repos')}
+        variant="invisible"
+        trailingAction={GearIcon}
+        sx={{width: '200px', '[data-component=buttonContent]': {justifyContent: 'start'}}}
+      >
+        Development
+      </Button>
+
+      <ActionList>
+        {data.pulls
+          .filter(pull => selectedPullRequestIds.includes(pull.id))
+          .map(pull => (
+            <ActionList.Item key={pull.name}>
+              <ActionList.LeadingVisual>{iconMap[pull.status as keyof typeof iconMap]}</ActionList.LeadingVisual>
+              {pull.name}
+              <ActionList.Description variant="inline">#{pull.id}</ActionList.Description>
+              <ActionList.Description variant="block">{pull.description}</ActionList.Description>
+            </ActionList.Item>
+          ))}
+      </ActionList>
+
+      <SelectPanel
+        open={panelToShow === 'repos'}
+        anchorRef={anchorRef}
+        title="Link a pull request or branch"
+        description="Select a repository first to search for pull requests orbranches."
+        selectionVariant="instant"
+        onSubmit={() => setPanelToShow('pull_requests')}
+        onCancel={() => setPanelToShow(null)}
+      >
+        <SelectPanel.Header>
+          <SelectPanel.SearchInput placeholder="Search (not implemented in demo)" />
+        </SelectPanel.Header>
+
+        <ActionList showDividers role="list">
+          {reposToShow.map(repo => (
+            <ActionList.Item
+              key={repo.name}
+              selected={selectedRepo === `${repo.org}/${repo.name}`}
+              onSelect={() => setSelectedRepo(`${repo.org}/${repo.name}`)}
+              sx={{'[data-component="ActionList.Selection"]': {display: 'none'}}}
+            >
+              <ActionList.LeadingVisual>
+                <Avatar src={`https://github.com/${repo.org}.png`} />
+              </ActionList.LeadingVisual>
+              {repo.org}/{repo.name}
+              <ActionList.Description>{repo.description}</ActionList.Description>
+              <ActionList.TrailingVisual>
+                <ArrowRightIcon />
+              </ActionList.TrailingVisual>
+            </ActionList.Item>
+          ))}
+        </ActionList>
+
+        <SelectPanel.Footer />
+      </SelectPanel>
+
+      <SelectPanel
+        open={panelToShow === 'pull_requests'}
+        anchorRef={anchorRef}
+        title={selectedRepo}
+        description="Link a pull request"
+        selectionVariant="multiple"
+        onSubmit={() => setPanelToShow(null)}
+        onCancel={() => {
+          setSelectedPullRequestIds(initialSelectedPullRequestIds)
+          setPanelToShow('repos')
+        }}
+      >
+        <SelectPanel.Header onBack={() => setPanelToShow('repos')}>
+          <SelectPanel.SearchInput placeholder="Search (not implemented in demo)" />
+        </SelectPanel.Header>
+
+        <ActionList showDividers>
+          {data.pulls.map(pull => (
+            <ActionList.Item
+              key={pull.name}
+              selected={selectedPullRequestIds.includes(pull.id)}
+              onSelect={() => onPullRequestSelect(pull.id)}
+            >
+              <ActionList.LeadingVisual>{iconMap[pull.status as keyof typeof iconMap]}</ActionList.LeadingVisual>
+              {pull.name}
+              <ActionList.Description variant="inline">#{pull.id}</ActionList.Description>
+              <ActionList.Description variant="block">{pull.description}</ActionList.Description>
+            </ActionList.Item>
+          ))}
+        </ActionList>
+
+        <SelectPanel.Footer />
+      </SelectPanel>
+    </>
+  )
+}
+
+export const CreateNewRow = () => {
+  const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
+  const [selectedLabelIds, setSelectedLabelIds] = React.useState<string[]>(initialSelectedLabels)
+
+  /* Selection */
+  const onLabelSelect = (labelId: string) => {
+    if (!selectedLabelIds.includes(labelId)) setSelectedLabelIds([...selectedLabelIds, labelId])
+    else setSelectedLabelIds(selectedLabelIds.filter(id => id !== labelId))
+  }
+  const onClearSelection = () => {
+    setSelectedLabelIds([])
+  }
+
+  const onSubmit = () => {
+    data.issue.labelIds = selectedLabelIds // pretending to persist changes
+  }
+
+  /* Filtering */
+  const [filteredLabels, setFilteredLabels] = React.useState(data.labels)
+  const [query, setQuery] = React.useState('')
+
+  const onSearchInputChange: React.ChangeEventHandler<HTMLInputElement> = event => {
+    const query = event.currentTarget.value
+    setQuery(query)
+
+    if (query === '') setFilteredLabels(data.labels)
+    else {
+      setFilteredLabels(
+        data.labels
+          .map(label => {
+            if (label.name.toLowerCase().startsWith(query)) return {priority: 1, label}
+            else if (label.name.toLowerCase().includes(query)) return {priority: 2, label}
+            else if (label.description?.toLowerCase().includes(query)) return {priority: 3, label}
+            else return {priority: -1, label}
+          })
+          .filter(result => result.priority > 0)
+          .map(result => result.label),
+      )
+    }
+  }
+
+  const sortingFn = (itemA: {id: string}, itemB: {id: string}) => {
+    const initialSelectedIds = data.issue.labelIds
+    if (initialSelectedIds.includes(itemA.id) && initialSelectedIds.includes(itemB.id)) return 1
+    else if (initialSelectedIds.includes(itemA.id)) return -1
+    else if (initialSelectedIds.includes(itemB.id)) return 1
+    else return 1
+  }
+
+  const itemsToShow = query ? filteredLabels : data.labels.sort(sortingFn)
+
+  /* 
+    Controlled state + Create new label Dialog 
+    We only have to do this until https://github.com/primer/react/pull/3840 is merged
+  */
+  const [panelOpen, setPanelOpen] = React.useState(false)
+  const [newLabelDialogOpen, setNewLabelDialogOpen] = React.useState(false)
+
+  const openCreateLabelDialog = () => {
+    setPanelOpen(false)
+    setNewLabelDialogOpen(true)
+  }
+
+  const onNewLabelDialogSave = (id: string) => {
+    setNewLabelDialogOpen(false)
+
+    setQuery('') // clear search input
+    onLabelSelect(id) // select newly created label
+
+    setPanelOpen(true)
+
+    // focus newly created label once it renders
+    window.requestAnimationFrame(() => {
+      const newLabelElement = document.querySelector(`[data-id=${id}]`) as HTMLLIElement
+      newLabelElement.focus()
+    })
+  }
+
+  return (
+    <>
+      <h1>Create new item from panel</h1>
+
+      <SelectPanel
+        title="Select labels"
+        open={panelOpen}
+        onSubmit={onSubmit}
+        onCancel={() => setPanelOpen(false)}
+        onClearSelection={onClearSelection}
+      >
+        <SelectPanel.Button onClick={() => setPanelOpen(true)}>Assign label</SelectPanel.Button>
+
+        <SelectPanel.Header>
+          <SelectPanel.SearchInput value={query} onChange={onSearchInputChange} />
+        </SelectPanel.Header>
+
+        {itemsToShow.length === 0 ? (
+          <SelectPanel.Message variant="empty" title={`No labels found for "${query}"`}>
+            <Text>Select the button below to create this label</Text>
+            <Button onClick={openCreateLabelDialog}>Create &quot;{query}&quot;</Button>
+          </SelectPanel.Message>
+        ) : (
+          <>
+            <ActionList>
+              {itemsToShow.map(label => (
+                <ActionList.Item
+                  key={label.id}
+                  onSelect={() => onLabelSelect(label.id)}
+                  selected={selectedLabelIds.includes(label.id)}
+                  data-id={label.id}
+                >
+                  <ActionList.LeadingVisual>
+                    <Box
+                      sx={{width: 14, height: 14, borderRadius: '100%'}}
+                      style={{backgroundColor: `#${label.color}`}}
+                    />
+                  </ActionList.LeadingVisual>
+                  {label.name}
+                  <ActionList.Description variant="block">{label.description}</ActionList.Description>
+                </ActionList.Item>
+              ))}
+            </ActionList>
+            {query && (
+              <Box sx={{padding: 2, borderTop: '1px solid', borderColor: 'border.default', flexShrink: 0}}>
+                <Button
+                  variant="invisible"
+                  leadingVisual={PlusCircleIcon}
+                  block
+                  alignContent="start"
+                  sx={{'[data-component=text]': {fontWeight: 'normal'}}}
+                  onClick={openCreateLabelDialog}
+                >
+                  Create new label &quot;{query}&quot;...
+                </Button>
+              </Box>
+            )}
+          </>
+        )}
+
+        <SelectPanel.Footer>
+          <SelectPanel.SecondaryAction variant="button">Edit labels</SelectPanel.SecondaryAction>
+        </SelectPanel.Footer>
+      </SelectPanel>
+
+      {newLabelDialogOpen && (
+        <CreateNewLabelDialog
+          initialValue={query}
+          onSave={onNewLabelDialogSave}
+          onCancel={() => {
+            setNewLabelDialogOpen(false)
+            setPanelOpen(true)
+          }}
+        />
+      )}
+    </>
+  )
+}
+
+const CreateNewLabelDialog = ({
+  initialValue,
+  onSave,
+  onCancel,
+}: {
+  initialValue: string
+  onSave: (id: string) => void
+  onCancel: () => void
+}) => {
+  const formSubmitRef = React.useRef<HTMLButtonElement>(null)
+
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    const formData = new FormData(event.target as HTMLFormElement)
+    const {name, color, description} = Object.fromEntries(formData) as Record<string, string>
+
+    // pretending to persist changes
+    const id = Math.random().toString(26).slice(6)
+    const createdAt = new Date().toISOString()
+    data.labels.unshift({id, name, color, description, createdAt})
+    onSave(id)
+  }
+
+  return (
+    <Dialog
+      title="Create new Label"
+      onClose={onCancel}
+      width="medium"
+      footerButtons={[
+        {buttonType: 'default', content: 'Cancel', onClick: onCancel},
+        {type: 'submit', buttonType: 'primary', content: 'Save', onClick: () => formSubmitRef.current?.click()},
+      ]}
+    >
+      <Flash sx={{marginBottom: 2}} variant="warning">
+        Note this Dialog is not accessible. Do not copy this.
+      </Flash>
+      <form onSubmit={onSubmit}>
+        <FormControl sx={{marginBottom: 2}}>
+          <FormControl.Label>Name</FormControl.Label>
+          <TextInput name="name" block defaultValue={initialValue} autoFocus />
+        </FormControl>
+        <FormControl sx={{marginBottom: 2}}>
+          <FormControl.Label>Color</FormControl.Label>
+          <TextInput name="color" block defaultValue="fae17d" leadingVisual="#" />
+        </FormControl>
+        <FormControl>
+          <FormControl.Label>Description</FormControl.Label>
+          <TextInput name="description" block placeholder="Good first issues" />
+        </FormControl>
+        <button type="submit" hidden ref={formSubmitRef}></button>
+      </form>
+    </Dialog>
   )
 }
 

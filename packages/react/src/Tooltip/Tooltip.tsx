@@ -1,29 +1,17 @@
 import clsx from 'clsx'
-import React from 'react'
+import React, {useMemo} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
+import {useId} from '../hooks'
 
 /* Tooltip v1 */
 
 const TooltipBase = styled.span<SxProp>`
   position: relative;
   display: inline-block;
-
-  &::before {
-    position: absolute;
-    z-index: 1000001;
-    display: none;
-    width: 0px;
-    height: 0px;
-    color: ${get('colors.neutral.emphasisPlus')};
-    pointer-events: none;
-    content: '';
-    border: 6px solid transparent;
-    opacity: 0;
-  }
 
   &::after {
     position: absolute;
@@ -62,7 +50,6 @@ const TooltipBase = styled.span<SxProp>`
   &:active,
   &:focus,
   &:focus-within {
-    &::before,
     &::after {
       display: inline-block;
       text-decoration: none;
@@ -70,7 +57,7 @@ const TooltipBase = styled.span<SxProp>`
       animation-duration: 0.1s;
       animation-fill-mode: forwards;
       animation-timing-function: ease-in;
-      animation-delay: 0.4s;
+      animation-delay: 0s;
     }
   }
 
@@ -78,7 +65,6 @@ const TooltipBase = styled.span<SxProp>`
   &.tooltipped-no-delay:active,
   &.tooltipped-no-delay:focus,
   &.tooltipped-no-delay:focus-within {
-    &::before,
     &::after {
       animation-delay: 0s;
     }
@@ -102,14 +88,6 @@ const TooltipBase = styled.span<SxProp>`
       right: 50%;
       margin-top: 6px;
     }
-
-    &::before {
-      top: auto;
-      right: 50%;
-      bottom: -7px;
-      margin-right: -6px;
-      border-bottom-color: ${get('colors.neutral.emphasisPlus')};
-    }
   }
 
   &.tooltipped-se {
@@ -132,14 +110,6 @@ const TooltipBase = styled.span<SxProp>`
       right: 50%;
       bottom: 100%;
       margin-bottom: 6px;
-    }
-
-    &::before {
-      top: -7px;
-      right: 50%;
-      bottom: auto;
-      margin-right: -6px;
-      border-top-color: ${get('colors.neutral.emphasisPlus')};
     }
   }
 
@@ -169,14 +139,6 @@ const TooltipBase = styled.span<SxProp>`
       margin-right: 6px;
       transform: translateY(50%);
     }
-
-    &::before {
-      top: 50%;
-      bottom: 50%;
-      left: -7px;
-      margin-top: -6px;
-      border-left-color: ${get('colors.neutral.emphasisPlus')};
-    }
   }
 
   // tooltipped to the right
@@ -186,14 +148,6 @@ const TooltipBase = styled.span<SxProp>`
       left: 100%;
       margin-left: 6px;
       transform: translateY(50%);
-    }
-
-    &::before {
-      top: 50%;
-      right: -7px;
-      bottom: 50%;
-      margin-top: -6px;
-      border-right-color: ${get('colors.neutral.emphasisPlus')};
     }
   }
 
@@ -224,17 +178,9 @@ const TooltipBase = styled.span<SxProp>`
     margin-right: 0;
   }
 
-  &.tooltipped-align-right-2::before {
-    right: 15px;
-  }
-
   &.tooltipped-align-left-2::after {
     left: 0;
     margin-left: 0;
-  }
-
-  &.tooltipped-align-left-2::before {
-    left: 10px;
   }
 
   ${sx};
@@ -248,7 +194,9 @@ export type TooltipProps = {
   wrap?: boolean
 } & ComponentProps<typeof TooltipBase>
 
-function Tooltip({direction = 'n', children, className, text, noDelay, align, wrap, ...rest}: TooltipProps) {
+export const TooltipContext = React.createContext<{tooltipId?: string}>({})
+function Tooltip({direction = 'n', children, className, text, noDelay, align, wrap, id, ...rest}: TooltipProps) {
+  const tooltipId = useId(id)
   const classes = clsx(
     className,
     `tooltipped-${direction}`,
@@ -256,10 +204,15 @@ function Tooltip({direction = 'n', children, className, text, noDelay, align, wr
     noDelay && 'tooltipped-no-delay',
     wrap && 'tooltipped-multiline',
   )
+
+  const value = useMemo(() => ({tooltipId}), [tooltipId])
   return (
-    <TooltipBase role="tooltip" aria-label={text} {...rest} className={classes}>
-      {children}
-    </TooltipBase>
+    // This provider is used to check if an icon button is wrapped with tooltip or not.
+    <TooltipContext.Provider value={value}>
+      <TooltipBase role="tooltip" aria-label={text} id={tooltipId} {...rest} className={classes}>
+        {children}
+      </TooltipBase>
+    </TooltipContext.Provider>
   )
 }
 

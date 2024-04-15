@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, ActionMenu, ActionList, Button, IconButton} from '../'
+import {Box, ActionMenu, ActionList, Button, IconButton, FormControl, TextInput} from '../'
 import {
   GearIcon,
   MilestoneIcon,
@@ -41,7 +41,8 @@ export const GroupsAndDescriptions = () => {
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
         <ActionList selectionVariant="single" showDividers>
-          <ActionList.Group title="Open">
+          <ActionList.Group>
+            <ActionList.GroupHeading>Open</ActionList.GroupHeading>
             {milestones
               .filter(milestone => !milestone.name.includes('21'))
               .map((milestone, index) => (
@@ -58,7 +59,8 @@ export const GroupsAndDescriptions = () => {
                 </ActionList.Item>
               ))}
           </ActionList.Group>
-          <ActionList.Group title="Closed">
+          <ActionList.Group>
+            <ActionList.GroupHeading>Closed</ActionList.GroupHeading>
             {milestones
               .filter(milestone => milestone.name.includes('21'))
               .map((milestone, index) => (
@@ -184,6 +186,15 @@ export const ShortcutMenu = () => {
       <br />
 
       {/**
+       * This is used to demonstrate mouse/keyboard modality
+       * and how it might affect `:focus-visible` styles in the menu.
+       */}
+      <FormControl>
+        <FormControl.Label>Default label</FormControl.Label>
+        <TextInput />
+      </FormControl>
+
+      {/**
        * Even though the state is controlled externally,
        * we can pass an Anchor for the menu to "anchor to"
        */}
@@ -209,6 +220,7 @@ export const ShortcutMenu = () => {
               Edit comment
               <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
             </ActionList.Item>
+            <ActionList.LinkItem href="#">View file</ActionList.LinkItem>
             <ActionList.Divider />
             <ActionList.Item variant="danger">
               Delete file
@@ -224,6 +236,35 @@ export const ShortcutMenu = () => {
 export const CustomAnchor = () => (
   <ActionMenu>
     <ActionMenu.Anchor>
+      <IconButton icon={KebabHorizontalIcon} aria-label="Open menu" />
+    </ActionMenu.Anchor>
+    <ActionMenu.Overlay width="medium">
+      <ActionList>
+        <ActionList.Item onSelect={() => alert('Copy link clicked')}>
+          Copy link
+          <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+        </ActionList.Item>
+        <ActionList.Item onSelect={() => alert('Quote reply clicked')}>
+          Quote reply
+          <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
+        </ActionList.Item>
+        <ActionList.Item onSelect={() => alert('Edit comment clicked')}>
+          Edit comment
+          <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
+        </ActionList.Item>
+        <ActionList.Divider />
+        <ActionList.Item variant="danger" onSelect={() => alert('Delete file clicked')}>
+          Delete file
+          <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+        </ActionList.Item>
+      </ActionList>
+    </ActionMenu.Overlay>
+  </ActionMenu>
+)
+
+export const CustomAnchorId = () => (
+  <ActionMenu>
+    <ActionMenu.Anchor id="custom-anchor-id">
       <IconButton icon={KebabHorizontalIcon} aria-label="Open menu" />
     </ActionMenu.Anchor>
     <ActionMenu.Overlay width="medium">
@@ -271,7 +312,8 @@ export const MixedSelection = () => {
       </ActionMenu.Button>
       <ActionMenu.Overlay width="medium">
         <ActionList>
-          <ActionList.Group selectionVariant="single" title="Group by">
+          <ActionList.Group selectionVariant="single">
+            <ActionList.GroupHeading>Group by</ActionList.GroupHeading>
             {options.map((option, index) => (
               <ActionList.Item key={index} selected={index === selectedIndex} onSelect={() => setSelectedIndex(index)}>
                 <ActionList.LeadingVisual>
@@ -310,7 +352,8 @@ export const MultipleSections = () => {
       </ActionMenu.Anchor>
       <ActionMenu.Overlay width="small">
         <ActionList>
-          <ActionList.Group title="Raw file content" selectionVariant="multiple">
+          <ActionList.Group selectionVariant="multiple">
+            <ActionList.GroupHeading>Raw file content</ActionList.GroupHeading>
             <ActionList.Item onSelect={() => alert('Workflows clicked')}>Download</ActionList.Item>
             <ActionList.Divider />
             <ActionList.Item onSelect={() => alert('Workflows clicked')}>Jump to line</ActionList.Item>
@@ -320,7 +363,8 @@ export const MultipleSections = () => {
             <ActionList.Item onSelect={() => alert('Workflows clicked')}>Copy permalink</ActionList.Item>
           </ActionList.Group>
           <ActionList.Divider />
-          <ActionList.Group title="View options" selectionVariant="multiple">
+          <ActionList.Group selectionVariant="multiple">
+            <ActionList.GroupHeading>View options</ActionList.GroupHeading>
             {items.map((item, index) => (
               <ActionList.Item
                 key={index}
@@ -332,7 +376,8 @@ export const MultipleSections = () => {
             ))}
           </ActionList.Group>
           <ActionList.Divider />
-          <ActionList.Group title="View options" selectionVariant="multiple">
+          <ActionList.Group selectionVariant="multiple">
+            <ActionList.GroupHeading>View options</ActionList.GroupHeading>
             <ActionList.Item onSelect={() => alert('Delete file')} variant="danger">
               Delete file
             </ActionList.Item>
@@ -449,7 +494,8 @@ export const OnlyInactiveItems = () => (
           </ActionList.LeadingVisual>
         </ActionList.Item>
         <ActionList.Divider />
-        <ActionList.Group title="Github projects">
+        <ActionList.Group>
+          <ActionList.GroupHeading>Github projects</ActionList.GroupHeading>
           <ActionList.LinkItem href="/" inactiveText="Unavailable due to an outage">
             What&apos;s new
             <ActionList.LeadingVisual>

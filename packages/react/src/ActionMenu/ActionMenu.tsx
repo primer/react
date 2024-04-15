@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -11,7 +11,7 @@ import {Button} from '../Button'
 import {useId} from '../hooks/useId'
 import type {MandateProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {Tooltip} from '../drafts/Tooltip/Tooltip'
+import {Tooltip} from '../TooltipV2/Tooltip'
 
 export type MenuContextProps = Pick<
   AnchoredOverlayProps,
@@ -106,7 +106,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   )
 }
 
-export type ActionMenuAnchorProps = {children: React.ReactElement}
+export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string}
 const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, ...anchorProps}, anchorRef) => {
   return React.cloneElement(children, {...anchorProps, ref: anchorRef})
 })
@@ -147,6 +147,17 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
   const containerRef = React.useRef<HTMLDivElement>(null)
   useMenuKeyboardNavigation(open, onClose, containerRef, anchorRef)
 
+  // If the menu anchor is an icon button, we need to label the menu by tooltip that also labelled the anchor.
+  const [anchorAriaLabelledby, setAnchorAriaLabelledby] = useState<null | string>(null)
+  useEffect(() => {
+    if (anchorRef.current) {
+      const ariaLabelledby = anchorRef.current.getAttribute('aria-labelledby')
+      if (ariaLabelledby) {
+        setAnchorAriaLabelledby(ariaLabelledby)
+      }
+    }
+  }, [anchorRef])
+
   return (
     <AnchoredOverlay
       anchorRef={anchorRef}
@@ -165,7 +176,8 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
           value={{
             container: 'ActionMenu',
             listRole: 'menu',
-            listLabelledBy: ariaLabelledby || anchorId,
+            // If there is a custom aria-labelledby, use that. Otherwise, if exists, use the id that labels the anchor such as tooltip. If none of them exist, use anchor id.
+            listLabelledBy: ariaLabelledby || anchorAriaLabelledby || anchorId,
             selectionAttribute: 'aria-checked', // Should this be here?
             afterSelect: onClose,
           }}

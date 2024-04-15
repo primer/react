@@ -16,7 +16,7 @@ export const sharedCheckboxAndRadioStyles = css`
   width: var(--base-size-16, 16px);
 
   &:disabled {
-    background-color: var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2));
-    border-color: ${get('colors.border.default')};
+    background-color: ${get('colors.input.disabledBg')};
+    border-color: var(--control-borderColor-disabled, ${get('colors.border.default')});
   }
 `
