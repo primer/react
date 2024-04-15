@@ -1,10 +1,11 @@
 import clsx from 'clsx'
-import React from 'react'
+import React, {useMemo} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
+import {useId} from '../hooks'
 
 /* Tooltip v1 */
 
@@ -193,7 +194,9 @@ export type TooltipProps = {
   wrap?: boolean
 } & ComponentProps<typeof TooltipBase>
 
-function Tooltip({direction = 'n', children, className, text, noDelay, align, wrap, ...rest}: TooltipProps) {
+export const TooltipContext = React.createContext<{tooltipId?: string}>({})
+function Tooltip({direction = 'n', children, className, text, noDelay, align, wrap, id, ...rest}: TooltipProps) {
+  const tooltipId = useId(id)
   const classes = clsx(
     className,
     `tooltipped-${direction}`,
@@ -201,10 +204,15 @@ function Tooltip({direction = 'n', children, className, text, noDelay, align, wr
     noDelay && 'tooltipped-no-delay',
     wrap && 'tooltipped-multiline',
   )
+
+  const value = useMemo(() => ({tooltipId}), [tooltipId])
   return (
-    <TooltipBase role="tooltip" aria-label={text} {...rest} className={classes}>
-      {children}
-    </TooltipBase>
+    // This provider is used to check if an icon button is wrapped with tooltip or not.
+    <TooltipContext.Provider value={value}>
+      <TooltipBase role="tooltip" aria-label={text} id={tooltipId} {...rest} className={classes}>
+        {children}
+      </TooltipBase>
+    </TooltipContext.Provider>
   )
 }
 
