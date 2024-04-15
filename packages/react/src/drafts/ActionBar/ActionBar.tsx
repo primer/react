@@ -13,7 +13,8 @@ import {useOnOutsideClick} from '../../hooks/useOnOutsideClick'
 import type {IconButtonProps} from '../../Button'
 import {IconButton} from '../../Button'
 import Box from '../../Box'
-import {ActionMenu} from '../..'
+import {ActionMenu} from '../../ActionMenu'
+import {useFocusZone, FocusKeys} from '../../hooks/useFocusZone'
 
 type ChildSize = {
   text: string
@@ -223,6 +224,12 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   )
 
   useOnOutsideClick({onClickOutside: closeOverlay, containerRef, ignoreClickRefs: [moreMenuBtnRef]})
+
+  useFocusZone({
+    containerRef: listRef,
+    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
+    focusOutBehavior: 'wrap',
+  })
 
   return (
     <ActionBarContext.Provider value={{size, setChildrenWidth}}>
