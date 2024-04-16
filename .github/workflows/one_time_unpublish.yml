@@ -1,0 +1,26 @@
+name: One time unpublish
+on:
+  workflow_dispatch:
+
+jobs:
+  one_time_unpublish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
+          fetch-depth: 0
+      - name: Set up Node
+        uses: actions/setup-node@v4
+      - name: Create .npmrc
+        run: |
+          cat << EOF > "$HOME/.npmrc"
+            //registry.npmjs.org/:_authToken=$NPM_TOKEN
+          EOF
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
+      - name: Unpublish canary releases from a list
+        run: npm run unpublish-old-canaries
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}

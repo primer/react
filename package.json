@@ -31,7 +31,8 @@
     "type-check": "tsc --noEmit && npm run type-check -ws --if-present",
     "release": "npm run build && changeset publish",
     "size": "size-limit",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "unpublish-old-canaries": "node script/unpublish-old-canaries/index"
   },
   "author": "GitHub, Inc.",
   "license": "MIT",
