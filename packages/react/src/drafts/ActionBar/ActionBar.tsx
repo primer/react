@@ -37,11 +37,14 @@ small (28px), medium (32px), large (40px)
 */
 type Size = 'small' | 'medium' | 'large'
 
+type A11yProps =
+  | {'aria-label': React.AriaAttributes['aria-label']; 'aria-labelledby'?: undefined}
+  | {'aria-label'?: undefined; 'aria-labelledby': React.AriaAttributes['aria-labelledby']}
+
 export type ActionBarProps = {
   size?: Size
-  'aria-label': React.AriaAttributes['aria-label']
   children: React.ReactNode
-}
+} & A11yProps
 
 export type ActionBarIconButtonProps = IconButtonProps
 
@@ -231,13 +234,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
     focusOutBehavior: 'wrap',
   })
-
-  if (__DEV__) {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      invariant(ariaLabel, 'Use the `aria-label` prop to provide an accessible label for assistive technology')
-    })
-  }
 
   return (
     <ActionBarContext.Provider value={{size, setChildrenWidth}}>
