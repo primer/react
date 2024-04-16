@@ -3,7 +3,7 @@
 /* eslint-disable no-console */
 
 const {exec} = require('child_process')
-const versionsObject = require('./canary_versions_2021.json')
+const versionsObject = require('./canary_versions_2022.json')
 
 const startAtIndex = 0
 
@@ -39,7 +39,7 @@ const run = async index => {
   console.log(`-----------------`)
 
   await unpublish(version)
-  await sleep(1000) // to avoid hitting rate limit
+  await sleep(250) // to avoid hitting rate limit
   run(index + 1)
 }
 
