@@ -59,7 +59,10 @@ export const SmallActionBar = () => (
   </ActionBar>
 )
 
-export const CommentBox = () => {
+type CommentBoxProps = {'aria-label': string}
+
+export const CommentBox = (props: CommentBoxProps) => {
+  const {'aria-label': ariaLabel} = props
   const [view, setView] = React.useState<MarkdownViewMode>('edit')
   const loadPreview = React.useCallback(() => {
     //console.log('loadPreview')
@@ -67,6 +70,7 @@ export const CommentBox = () => {
   const [value, setValue] = React.useState('')
   const [isOpen, setIsOpen] = React.useState(false)
   const buttonRef = React.useRef(null)
+  const toolBarLabel = `${ariaLabel} toolbar`
   return (
     <Box
       sx={{
@@ -103,7 +107,7 @@ export const CommentBox = () => {
           />
         </Box>
         <Box sx={{width: '50%'}}>
-          <ActionBar aria-label="Toolbar">
+          <ActionBar aria-label={toolBarLabel}>
             <ActionBar.IconButton icon={HeadingIcon} aria-label="Heading"></ActionBar.IconButton>
             <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
             <ActionBar.IconButton icon={ItalicIcon} aria-label="Italic"></ActionBar.IconButton>
@@ -242,7 +246,7 @@ export const ActionbarToggle = () => {
       <Box sx={bottomSectionStyles}>
         {showEditView ? (
           <Box>
-            <CommentBox />
+            <CommentBox aria-label="Comment box" />
             <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', p: 2, gap: 2}}>
               <Button
                 variant="primary"
@@ -273,7 +277,7 @@ export const MultipleActionBars = () => {
       <Box sx={{p: 3}}>
         {showFirstCommentBox ? (
           <Box>
-            <CommentBox key={1} />
+            <CommentBox aria-label="First Comment Box" />
             <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', p: 2, gap: 2}}>
               <Button
                 variant="primary"
@@ -295,7 +299,7 @@ export const MultipleActionBars = () => {
       <Box sx={{p: 3}}>
         {showSecondCommentBox ? (
           <Box>
-            <CommentBox key={2} />
+            <CommentBox aria-label="Second Comment Box" />
             <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', p: 2, gap: 2}}>
               <Button
                 variant="primary"
