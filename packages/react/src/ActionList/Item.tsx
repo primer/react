@@ -330,6 +330,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                       flexGrow: slots.inlineDescription ? 0 : 1,
                       fontWeight: slots.inlineDescription || slots.blockDescription || active ? 'bold' : 'normal',
                       marginBlockEnd: slots.blockDescription ? '4px' : undefined,
+                      wordBreak: 'break-word',
                     }}
                   >
                     {childrenWithoutSlots}
