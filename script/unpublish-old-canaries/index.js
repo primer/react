@@ -9,8 +9,10 @@ const startAtIndex = 0
 
 const runCommand = async cmd => {
   const child = exec(cmd, err => {
-    if (err) console.error(err)
-    process.exit(1) // exit on first error
+    if (err) {
+      console.error(err)
+      process.exit(1) // exit on first error
+    }
   })
   child.stderr.pipe(process.stderr)
   child.stdout.pipe(process.stdout)
