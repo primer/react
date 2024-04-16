@@ -1,5 +1,6 @@
 name: One time unpublish
 on:
+  push:
   workflow_dispatch:
 
 jobs:
