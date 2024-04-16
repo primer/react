@@ -50,6 +50,7 @@
     "build:storybook:visual-testing": "storybook build",
     "build:components.json": "tsx script/components-json/build.ts",
     "build:precompile-color-schemes": "tsx script/precompile-color-schemes.ts",
+    "figma:sync": "export $(cat .env | xargs) && npx figma connect publish",
     "storybook": "storybook",
     "type-check": "tsc --noEmit"
   },
@@ -126,6 +127,7 @@
     "@babel/plugin-transform-modules-commonjs": "7.23.3",
     "@babel/preset-react": "7.23.3",
     "@babel/preset-typescript": "7.24.1",
+    "@figma/code-connect": "^0.1.1",
     "@primer/css": "^21.0.1",
     "@rollup/plugin-babel": "6.0.4",
     "@rollup/plugin-commonjs": "25.0.4",
@@ -214,6 +216,7 @@
     "storybook-addon-turbo-build": "2.0.1",
     "styled-components": "5.3.11",
     "terser": "5.27.0",
+    "ts-node": "10.9.2",
     "ts-toolbelt": "9.6.0",
     "tsx": "4.7.0",
     "typescript": "5.3.3",
