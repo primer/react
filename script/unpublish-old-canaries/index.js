@@ -34,7 +34,10 @@ const versions = Object.keys(versionsObject)
 
 const run = async index => {
   const version = versions[index]
+  console.log(`-----------------`)
   console.log(`Attempting to unpublish ${version}`)
+  console.log(`-----------------`)
+
   await unpublish(version)
   await sleep(1000) // to avoid hitting rate limit
   run(index + 1)
