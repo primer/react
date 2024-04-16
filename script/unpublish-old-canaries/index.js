@@ -5,7 +5,7 @@
 const {exec} = require('child_process')
 const versionsObject = require('./canary_versions_2022.json')
 
-const startAtIndex = 0
+const startAtVersion = '0.0.0-202212321238'
 
 const runCommand = async cmd => {
   const child = exec(cmd, err => {
@@ -42,5 +42,7 @@ const run = async index => {
   await sleep(250) // to avoid hitting rate limit
   run(index + 1)
 }
+
+const startAtIndex = versions.indexOf(startAtVersion)
 
 run(startAtIndex)
