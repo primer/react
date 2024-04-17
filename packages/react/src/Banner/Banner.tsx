@@ -250,6 +250,11 @@ const StyledBanner = styled.div`
 
 const BannerContainerQuery = `
   @container banner (max-width: 500px) {
+    .BannerContainer {
+      display: grid;
+      grid-template-rows: auto auto;
+    }
+
     .BannerActions [data-primary-action="trailing"] {
       display: none;
     }
