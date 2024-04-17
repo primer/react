@@ -8,7 +8,7 @@ import {Tooltip as TooltipV2} from '../TooltipV2/Tooltip'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
 import {MixedSelection} from '../ActionMenu/ActionMenu.examples.stories'
-import {KebabHorizontalIcon} from '@primer/octicons-react'
+import {SearchIcon, KebabHorizontalIcon} from '@primer/octicons-react'
 
 function Example(): JSX.Element {
   return (
@@ -434,5 +434,34 @@ describe('ActionMenu', () => {
     const button = component.getByRole('button')
 
     expect(button.id).toBe(buttonId)
+  })
+  it('should use the tooltip id to name the menu when the anchor is icon button', async () => {
+    const component = HTMLRender(
+      <ThemeProvider theme={theme}>
+        <SSRProvider>
+          <BaseStyles>
+            <ActionMenu>
+              <ActionMenu.Anchor>
+                <IconButton icon={SearchIcon} aria-label="More actions" unsafeDisableTooltip={false} />
+              </ActionMenu.Anchor>
+
+              <ActionMenu.Overlay width="medium">
+                <ActionList>
+                  <ActionList.Item onSelect={() => alert('Copy link clicked')}>
+                    Copy link
+                    <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+                  </ActionList.Item>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
+        </SSRProvider>
+      </ThemeProvider>,
+    )
+
+    const toggleButton = component.getByRole('button', {name: 'More actions'})
+    await userEvent.click(toggleButton)
+    expect(toggleButton).toHaveAttribute('aria-labelledby')
+    expect(component.getByRole('menu')).toHaveAttribute('aria-labelledby', toggleButton.getAttribute('aria-labelledby'))
   })
 })
