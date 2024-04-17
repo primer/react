@@ -128,7 +128,7 @@ const StyledBanner = styled.div`
   border-radius: var(--borderRadius-medium, ${get('radii.2')});
 
   @supports (container-type: inline-size) {
-    container: banner / inline-size;
+    // container: banner / inline-size;
   }
 
   &[data-variant='critical'] {
@@ -199,6 +199,12 @@ const StyledBanner = styled.div`
     row-gap: var(--base-size-4, 0.25rem);
     grid-column-start: 1;
     margin-block: var(--base-size-8, 0.5rem);
+  }
+
+  @media screen and (min-width: 544px) {
+    .BannerContent {
+      flex: 1 1 0%;
+    }
   }
 
   .BannerTitle {
