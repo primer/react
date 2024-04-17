@@ -10,6 +10,7 @@ describe('Banner', () => {
     // Note: this error occurs due to our usage of `@container` within a
     // `<style>` tag in Banner. The CSS parser for jsdom does not support this
     // syntax and will fail with an error containing the message below.
+    // eslint-disable-next-line no-console
     const originalConsoleError = console.error
     spy = jest.spyOn(console, 'error').mockImplementation((value, ...args) => {
       if (!value?.message?.includes('Could not parse CSS stylesheet')) {

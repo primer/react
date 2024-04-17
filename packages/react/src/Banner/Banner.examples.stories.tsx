@@ -132,9 +132,7 @@ export const InSidebar = () => {
           />
         </PageLayout.Pane>
         <PageLayout.Content>
-          <main>
-            <h1>PageLayout Content</h1>
-          </main>
+          <h1>PageLayout Content</h1>
         </PageLayout.Content>
       </PageLayout>
     </>
