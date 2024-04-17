@@ -184,7 +184,6 @@ describe('SelectPanel', () => {
     const buttonByRole = component.getByRole('button')
     expect(buttonByRole).toBeVisible()
     expect(buttonByRole).toHaveAttribute('aria-label', 'Assign label, Select Panel Label')
-    expect(buttonByRole).toHaveAttribute('aria-labelledby', buttonByRole.id)
   })
 
   it('SelectPanel with complex button within FormControl should be labelled by FormControl.Label', async () => {
@@ -192,7 +191,6 @@ describe('SelectPanel', () => {
     const buttonByRole = component.getByRole('button')
     expect(buttonByRole).toBeVisible()
     expect(buttonByRole).toHaveAttribute('aria-label', 'Assign label, Select Panel Label')
-    expect(buttonByRole).toHaveAttribute('aria-labelledby', buttonByRole.id)
   })
 
   it('SelectPanel outside of FormControl should not be automatically assigned aria-label and aria-labelledby', async () => {
@@ -200,6 +198,5 @@ describe('SelectPanel', () => {
     const buttonByRole = component.getByRole('button')
     expect(buttonByRole).toBeVisible()
     expect(buttonByRole).not.toHaveAttribute('aria-label', 'Assign label, Select Panel Label')
-    expect(buttonByRole).not.toHaveAttribute('aria-labelledby', buttonByRole.id)
   })
 })
