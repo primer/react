@@ -237,6 +237,7 @@ exports[`@primer/react/deprecated should not update exports without a semver cha
 
 exports[`@primer/react/drafts should not update exports without a semver change 1`] = `
 [
+  "ActionBar",
   "type ActionBarProps",
   "Blankslate",
   "type BlankslateProps",
@@ -327,6 +328,7 @@ exports[`@primer/react/drafts should not update exports without a semver change 
 
 exports[`@primer/react/experimental should not update exports without a semver change 1`] = `
 [
+  "ActionBar",
   "type ActionBarProps",
   "Blankslate",
   "type BlankslateProps",
