@@ -4,8 +4,8 @@
 
 | Stage    | Status |
 | -------- | ------ |
-| Approved |        |
-| Adopted  |        |
+| Approved | ✅     |
+| Adopted  | 🚧     |
 
 ## Context
 
@@ -139,13 +139,12 @@ the following strategy for writing controls:
 
 ### Impact
 
-- Use of the `useResponsiveValue` hook should be deprecated and discouraged
+- Use of the `useResponsiveValue` hook is discouraged in cases where layout is
+  dependent on the value of a prop
 - Usage of `useResponsiveValue` should migrate to data attributes, ideally using
   the `getResponsiveAttributes` helper
 - Storybook stories that use responsive values should follow the practices
   and format outlined above
-- We should update both our internal ESLint config and plugin to discourage use
-  of `useResponsiveValue`
 
 The following components are impacted by this ADR:
 
