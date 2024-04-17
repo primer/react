@@ -125,8 +125,8 @@ const StyledBanner = styled.div`
   border: var(--borderWidth-thin, 1px) solid var(--banner-borderColor);
   padding: var(--base-size-8, 0.5rem);
   border-radius: var(--borderRadius-medium, ${get('radii.2')});
-  container-type: inline-size;
-  container-name: banner;
+  /* container-type: inline-size;
+  container-name: banner; */
 
   &[data-variant='critical'] {
     --banner-bgColor: ${get('colors.danger.subtle')};
@@ -182,13 +182,14 @@ const StyledBanner = styled.div`
     line-height: var(--text-body-lineHeight-medium, calc(20 / 14));
     row-gap: var(--base-size-4, 0.25rem);
     column-gap: var(--base-size-4, 0.25rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), auto));
 
-    @supports not (container-type: inline-size) {
+    /* @supports not (container-type: inline-size) {
       // fallback for container query
       grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), auto));
-    }
+    } */
 
-    @supports (container-type: inline-size) {
+    /* @supports (container-type: inline-size) {
       grid-template-columns: auto;
       grid-template-rows: min-content min-content;
 
@@ -196,7 +197,7 @@ const StyledBanner = styled.div`
         grid-template-columns: auto auto !important;
         grid-template-rows: 1fr !important;
       }
-    }
+    } */
   }
 
   /* BannerContent ---------------------------------------------------------- */
@@ -224,19 +225,25 @@ const StyledBanner = styled.div`
   .BannerActions {
     justify-self: start;
 
-    @supports (container-type: inline-size) {
+    /* @supports (container-type: inline-size) {
       @container banner (min-width: 544px) {
         justify-self: end;
       }
-    }
+    } */
 
-    @supports not (container-type: inline-size) {
+    /* @supports not (container-type: inline-size) {
       /// fallback for container query
       @media screen and (min-width: 544px) {
         .BannerActions {
           justify-self: end !important;
         }
       }
+    } */
+  }
+
+  @media screen and (min-width: 544px) {
+    .BannerActions {
+      justify-self: end !important;
     }
   }
 
