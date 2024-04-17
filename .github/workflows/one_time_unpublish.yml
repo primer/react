@@ -21,7 +21,7 @@ jobs:
           EOF
         env:
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
-      - name: Unpublish canary releases from a list
-        run: npm run unpublish-old-canaries
+      - name: Unpublish 0.0.0-2021118184718
+        run: npm unpublish @primer/react@0.0.0-2021118184718 --loglevel silly
         env:
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
