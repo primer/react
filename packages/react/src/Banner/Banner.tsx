@@ -88,6 +88,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
   return (
     <BannerContext.Provider value={value}>
       <StyledBanner {...rest} aria-labelledby={titleId} as="section" data-variant={variant} tabIndex={-1} ref={ref}>
+        <style>{BannerContainerQuery}</style>
         <div className="BannerIcon">{icon && variant === 'info' ? icon : iconForVariant[variant]}</div>
         <div className="BannerContainer">
           <div className="BannerContent">
@@ -125,6 +126,10 @@ const StyledBanner = styled.div`
   border: var(--borderWidth-thin, 1px) solid var(--banner-borderColor);
   padding: var(--base-size-8, 0.5rem);
   border-radius: var(--borderRadius-medium, ${get('radii.2')});
+
+  @supports (container-type: inline-size) {
+    container: banner / inline-size;
+  }
 
   &[data-variant='critical'] {
     --banner-bgColor: ${get('colors.danger.subtle')};
@@ -174,12 +179,17 @@ const StyledBanner = styled.div`
   /* BannerContainer -------------------------------------------------------- */
 
   .BannerContainer {
-    display: grid;
     font-size: var(--text-body-size-medium, 0.875rem);
     align-items: start;
     line-height: var(--text-body-lineHeight-medium, calc(20 / 14));
     row-gap: var(--base-size-4, 0.25rem);
     column-gap: var(--base-size-4, 0.25rem);
+  }
+
+  & :where(.BannerContainer) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 
   /* BannerContent ---------------------------------------------------------- */
@@ -204,26 +214,16 @@ const StyledBanner = styled.div`
     align-items: center;
   }
 
-  .BannerActions [data-hide-on-sm] {
+  .BannerActions :where([data-primary-action='trailing']) {
     display: none;
   }
 
   @media screen and (min-width: 544px) {
-    .BannerActionsContainer {
-      column-gap: var(--base-size-4, 0.25rem);
-    }
-
-    .BannerActions {
-      grid-column-start: 2;
-      grid-row-start: 1;
-      justify-self: end;
-    }
-
-    .BannerActions [data-hide-on-sm] {
+    .BannerActions :where([data-primary-action='trailing']) {
       display: flex;
     }
 
-    .BannerActions [data-hide-on-md] {
+    .BannerActions :where([data-primary-action='leading']) {
       display: none;
     }
   }
@@ -239,6 +239,33 @@ const StyledBanner = styled.div`
 
   .BannerDismiss svg {
     color: var(--banner-icon-fgColor);
+  }
+`
+
+const BannerContainerQuery = `
+  @container banner (max-width: 500px) {
+    .BannerActions [data-primary-action="trailing"] {
+      display: none;
+    }
+
+    .BannerActions [data-primary-action="leading"] {
+      display: flex;
+    }
+  }
+
+  @container banner (min-width: 500px) {
+    .BannerContainer {
+      display: grid;
+      grid-template-columns: auto auto;
+    }
+
+    .BannerActions [data-primary-action="trailing"] {
+      display: flex;
+    }
+
+    .BannerActions [data-primary-action="leading"] {
+      display: none;
+    }
   }
 `
 
@@ -278,11 +305,11 @@ export type BannerActionsProps = {
 export function BannerActions({primaryAction, secondaryAction}: BannerActionsProps) {
   return (
     <div className="BannerActions">
-      <div className="BannerActionsContainer" data-hide-on-sm="">
+      <div className="BannerActionsContainer" data-primary-action="trailing">
         {secondaryAction ?? null}
         {primaryAction ?? null}
       </div>
-      <div className="BannerActionsContainer" data-hide-on-md="">
+      <div className="BannerActionsContainer" data-primary-action="leading">
         {primaryAction ?? null}
         {secondaryAction ?? null}
       </div>

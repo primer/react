@@ -1,11 +1,13 @@
 import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
+import {viewports} from '../test-helpers/viewports'
 
-const stories = [
+const stories: Array<{title: string; id: string; viewports?: Array<keyof typeof viewports>}> = [
   {
     title: 'Default',
     id: 'drafts-components-banner--default',
+    viewports: ['primer.breakpoint.xs', 'primer.breakpoint.sm'],
   },
   {
     title: 'Critical',
@@ -30,14 +32,25 @@ const stories = [
   {
     title: 'Dismiss',
     id: 'drafts-components-banner-features--dismiss',
+    viewports: ['primer.breakpoint.xs', 'primer.breakpoint.sm'],
   },
   {
-    title: 'WithNoTitle',
-    id: 'drafts-components-banner-features--with-no-title',
+    title: 'WithHiddenTitle',
+    id: 'drafts-components-banner-features--with-hidden-title',
   },
   {
     title: 'WithActions',
     id: 'drafts-components-banner-features--with-actions',
+    viewports: ['primer.breakpoint.xs', 'primer.breakpoint.sm'],
+  },
+  {
+    title: 'InSidebar',
+    id: 'drafts-components-banner-examples--in-sidebar',
+  },
+  {
+    title: 'Multiline',
+    id: 'drafts-components-banner-examples--multiline',
+    viewports: ['primer.breakpoint.xs', 'primer.breakpoint.sm'],
   },
 ]
 
@@ -69,25 +82,23 @@ test.describe('Banner', () => {
           })
         })
       }
+
+      if (story.viewports) {
+        for (const name of story.viewports) {
+          test(`${name} @vrt`, async ({page}) => {
+            await visit(page, {
+              id: story.id,
+            })
+            const width = viewports[name]
+
+            await page.setViewportSize({
+              width,
+              height: 667,
+            })
+            expect(await page.screenshot()).toMatchSnapshot(`Banner.${story.title}.${name}.png`)
+          })
+        }
+      }
     })
   }
-
-  // Responsive
-  test('Responsive behavior', async ({page}) => {
-    await visit(page, {
-      id: 'drafts-components-banner--default',
-    })
-
-    // Small
-    // await page.setViewportSize({width: 375, height: 667})
-    // expect(await page.screenshot()).toMatchSnapshot('Banner.Responsive.Small.png')
-
-    // Medium
-    // await page.setViewportSize({width: 1024, height: 768})
-    // expect(await page.screenshot()).toMatchSnapshot('Banner.Responsive.Medium.png')
-
-    // Large
-    // await page.setViewportSize({width: 1024, height: 768})
-    // expect(await page.screenshot()).toMatchSnapshot('Banner.Responsive.Large.png')
-  })
 })

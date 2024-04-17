@@ -124,7 +124,7 @@ export const Dismiss = () => {
   )
 }
 
-export const WithNoTitle = () => {
+export const WithHiddenTitle = () => {
   return (
     <Banner variant="warning">
       <VisuallyHidden>
