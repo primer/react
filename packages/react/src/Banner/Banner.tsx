@@ -128,7 +128,7 @@ const StyledBanner = styled.div`
   border-radius: var(--borderRadius-medium, ${get('radii.2')});
 
   @supports (container-type: inline-size) {
-    // container: banner / inline-size;
+    container: banner / inline-size;
   }
 
   &[data-variant='critical'] {
