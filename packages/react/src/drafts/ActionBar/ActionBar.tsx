@@ -52,6 +52,7 @@ const GAP = 8
 
 const listStyles = {
   display: 'flex',
+  minWidth: 0,
   listStyle: 'none',
   whiteSpace: 'nowrap',
   paddingY: 0,
