@@ -350,6 +350,8 @@ exports[`@primer/react/experimental should not update exports without a semver c
   "type DialogProps",
   "type DialogWidth",
   "type Emoji",
+  "FeatureFlags",
+  "type FeatureFlagsProps",
   "type FileType",
   "type FileUploadResult",
   "Hidden",
