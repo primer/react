@@ -438,7 +438,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       >
         {/* @ts-ignore Box doesn't have type support for `ref` used in combination with `as` */}
         <li
-          className={clsx("PRIVATE_TreeView-item", className)}
+          className={clsx('PRIVATE_TreeView-item', className)}
           ref={ref as React.ForwardedRef<HTMLLIElement>}
           tabIndex={0}
           id={itemId}
