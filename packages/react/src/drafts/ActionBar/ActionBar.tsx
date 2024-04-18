@@ -1,5 +1,5 @@
 import type {RefObject, MutableRefObject} from 'react'
-import React, {useState, useEffect, useCallback, useRef, forwardRef} from 'react'
+import React, {useState, useCallback, useRef, forwardRef} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {ActionList} from '../../ActionList'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
@@ -15,7 +15,6 @@ import {IconButton} from '../../Button'
 import Box from '../../Box'
 import {ActionMenu} from '../../ActionMenu'
 import {useFocusZone, FocusKeys} from '../../hooks/useFocusZone'
-import {invariant} from '../../utils/invariant'
 
 type ChildSize = {
   text: string
