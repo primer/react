@@ -237,6 +237,7 @@ exports[`@primer/react/deprecated should not update exports without a semver cha
 
 exports[`@primer/react/drafts should not update exports without a semver change 1`] = `
 [
+  "ActionBar",
   "type ActionBarProps",
   "Blankslate",
   "type BlankslateProps",
@@ -315,6 +316,7 @@ exports[`@primer/react/drafts should not update exports without a semver change 
   "type TitleProps",
   "Tooltip",
   "TooltipContext",
+  "type TooltipDirection",
   "type TooltipProps",
   "type Trigger",
   "type TriggerPropsType",
@@ -329,6 +331,7 @@ exports[`@primer/react/drafts should not update exports without a semver change 
 
 exports[`@primer/react/experimental should not update exports without a semver change 1`] = `
 [
+  "ActionBar",
   "type ActionBarProps",
   "Blankslate",
   "type BlankslateProps",
@@ -350,6 +353,8 @@ exports[`@primer/react/experimental should not update exports without a semver c
   "type DialogProps",
   "type DialogWidth",
   "type Emoji",
+  "FeatureFlags",
+  "type FeatureFlagsProps",
   "type FileType",
   "type FileUploadResult",
   "Hidden",
@@ -407,6 +412,7 @@ exports[`@primer/react/experimental should not update exports without a semver c
   "type TitleProps",
   "Tooltip",
   "TooltipContext",
+  "type TooltipDirection",
   "type TooltipProps",
   "type Trigger",
   "type TriggerPropsType",

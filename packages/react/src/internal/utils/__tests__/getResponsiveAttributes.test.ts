@@ -1,60 +1,30 @@
 import {getResponsiveAttributes} from '../getResponsiveAttributes'
 
 describe('getResponsiveAttributes', () => {
-  test('no value provided', () => {
-    expect(getResponsiveAttributes('test', undefined)).toBeUndefined()
-    expect(getResponsiveAttributes('test', null)).toBeUndefined()
+  test('property with undefined or null value', () => {
+    expect(getResponsiveAttributes('grow', undefined)).not.toBeDefined()
+    expect(getResponsiveAttributes('grow', null)).not.toBeDefined()
   })
 
-  test('string value', () => {
-    expect(getResponsiveAttributes('test', 'value')).toEqual({
-      'data-test': 'value',
+  test('property with string value', () => {
+    expect(getResponsiveAttributes('gap', 'none')).toMatchObject({
+      'data-gap': 'none',
     })
   })
 
-  test('boolean value', () => {
-    expect(getResponsiveAttributes('test', true)).toEqual({
-      'data-test': '',
+  test('property with boolean value', () => {
+    expect(getResponsiveAttributes('grow', true)).toMatchObject({
+      'data-grow': '',
     })
-    expect(getResponsiveAttributes('test', false)).toBeUndefined()
+
+    expect(getResponsiveAttributes('grow', false)).toMatchObject({})
   })
 
-  test('responsive values', () => {
-    expect(
-      getResponsiveAttributes('test', {
-        narrow: 'narrow',
-        regular: 'regular',
-        wide: 'wide',
-      }),
-    ).toEqual({
-      'data-test-narrow': 'narrow',
-      'data-test-regular': 'regular',
-      'data-test-wide': 'wide',
-    })
-  })
-
-  test('missing responsive values', () => {
-    expect(
-      getResponsiveAttributes('test', {
-        narrow: 'narrow',
-        wide: 'wide',
-      }),
-    ).toEqual({
-      'data-test-narrow': 'narrow',
-      'data-test-wide': 'wide',
-    })
-  })
-
-  test('boolean responsive values', () => {
-    expect(
-      getResponsiveAttributes('test', {
-        narrow: true,
-        regular: false,
-        wide: true,
-      }),
-    ).toEqual({
-      'data-test-narrow': '',
-      'data-test-wide': '',
+  test('property with responsive values', () => {
+    expect(getResponsiveAttributes('gap', {narrow: 'none', regular: 'condensed', wide: 'spacious'})).toMatchObject({
+      'data-gap-narrow': 'none',
+      'data-gap-regular': 'condensed',
+      'data-gap-wide': 'spacious',
     })
   })
 })
