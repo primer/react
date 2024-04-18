@@ -36,11 +36,14 @@ small (28px), medium (32px), large (40px)
 */
 type Size = 'small' | 'medium' | 'large'
 
+type A11yProps =
+  | {'aria-label': React.AriaAttributes['aria-label']; 'aria-labelledby'?: undefined}
+  | {'aria-label'?: undefined; 'aria-labelledby': React.AriaAttributes['aria-labelledby']}
+
 export type ActionBarProps = {
   size?: Size
-  'aria-label'?: React.AriaAttributes['aria-label']
   children: React.ReactNode
-}
+} & A11yProps
 
 export type ActionBarIconButtonProps = IconButtonProps
 
@@ -52,6 +55,7 @@ const GAP = 8
 
 const listStyles = {
   display: 'flex',
+  minWidth: 0,
   listStyle: 'none',
   whiteSpace: 'nowrap',
   paddingY: 0,
