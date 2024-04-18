@@ -100,5 +100,3 @@ render(
   </FeatureFlags>,
 )
 ```
-
-## Storybook

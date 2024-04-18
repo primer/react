@@ -1,5 +1,5 @@
 import {createContext} from 'react'
 import type {FeatureFlagScope} from './FeatureFlagScope'
-import {GlobalFeatureFlags} from './GlobalFeatureFlags'
+import {DefaultFeatureFlags} from './DefaultFeatureFlags'
 
-export const FeatureFlagContext = createContext<FeatureFlagScope>(GlobalFeatureFlags)
+export const FeatureFlagContext = createContext<FeatureFlagScope>(DefaultFeatureFlags)
