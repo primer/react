@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import {AlertIcon, InfoIcon, StopIcon, CheckCircleIcon, XIcon} from '@primer/octicons-react'
 import {Button, IconButton} from '../Button'
 import {get} from '../constants'
+import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 
 type BannerVariant = 'critical' | 'info' | 'success' | 'upsell' | 'warning'
 
@@ -13,6 +14,11 @@ export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
    * supplemental information about the Banner
    */
   description?: React.ReactNode
+
+  /**
+   * Specify whether the title of the Banner should be visible or not.
+   */
+  hideTitle?: boolean
 
   /**
    * Provide an icon for the banner.
@@ -59,7 +65,7 @@ const iconForVariant: Record<BannerVariant, React.ReactNode> = {
 }
 
 export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner(
-  {children, description, icon, onDismiss, primaryAction, secondaryAction, title, variant = 'info', ...rest},
+  {children, description, hideTitle, icon, onDismiss, primaryAction, secondaryAction, title, variant = 'info', ...rest},
   ref,
 ) {
   const titleId = useId()
@@ -87,12 +93,29 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
 
   return (
     <BannerContext.Provider value={value}>
-      <StyledBanner {...rest} aria-labelledby={titleId} as="section" data-variant={variant} tabIndex={-1} ref={ref}>
+      <StyledBanner
+        {...rest}
+        aria-labelledby={titleId}
+        as="section"
+        data-dismissible={onDismiss ? '' : undefined}
+        data-title-hidden={hideTitle ? '' : undefined}
+        data-variant={variant}
+        tabIndex={-1}
+        ref={ref}
+      >
         <style>{BannerContainerQuery}</style>
         <div className="BannerIcon">{icon && variant === 'info' ? icon : iconForVariant[variant]}</div>
         <div className="BannerContainer">
           <div className="BannerContent">
-            {title ? <BannerTitle>{title}</BannerTitle> : null}
+            {title ? (
+              hideTitle ? (
+                <VisuallyHidden>
+                  <BannerTitle>{title}</BannerTitle>
+                </VisuallyHidden>
+              ) : (
+                <BannerTitle>{title}</BannerTitle>
+              )
+            ) : null}
             {description ? <BannerDescription>{description}</BannerDescription> : null}
             {children}
           </div>
@@ -176,6 +199,10 @@ const StyledBanner = styled.div`
     height: var(--base-size-20, 1.25rem);
   }
 
+  &[data-title-hidden=''] .BannerIcon svg {
+    height: var(--base-size-16, 1rem);
+  }
+
   /* BannerContainer -------------------------------------------------------- */
 
   .BannerContainer {
@@ -192,6 +219,12 @@ const StyledBanner = styled.div`
     justify-content: space-between;
   }
 
+  &[data-dismissible] .BannerContainer {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+  }
+
   /* BannerContent ---------------------------------------------------------- */
 
   .BannerContent {
@@ -199,6 +232,10 @@ const StyledBanner = styled.div`
     row-gap: var(--base-size-4, 0.25rem);
     grid-column-start: 1;
     margin-block: var(--base-size-8, 0.5rem);
+  }
+
+  &[data-title-hidden=''] .BannerContent {
+    margin-block: var(--space-small, 0.375rem);
   }
 
   @media screen and (min-width: 544px) {
@@ -234,6 +271,18 @@ const StyledBanner = styled.div`
     }
   }
 
+  &[data-dismissible] .BannerActions {
+    margin-block-end: var(--size-small, 0.375rem);
+  }
+
+  &[data-dismissible] .BannerActionsContainer[data-primary-action='trailing'] {
+    display: none;
+  }
+
+  &[data-dismissible] .BannerActionsContainer[data-primary-action='leading'] {
+    display: flex;
+  }
+
   /* BannerDismiss ---------------------------------------------------------- */
 
   .BannerDismiss {
@@ -253,6 +302,10 @@ const BannerContainerQuery = `
     .BannerContainer {
       display: grid;
       grid-template-rows: auto auto;
+    }
+
+    .BannerActions {
+      margin-block-end: var(--size-small, 0.375rem);
     }
 
     .BannerActions [data-primary-action="trailing"] {
@@ -290,7 +343,6 @@ export type BannerTitleProps<As extends HeadingElement> = {
 export function BannerTitle<As extends HeadingElement>(props: BannerTitleProps<As>) {
   const {as: Heading = 'h2', className, children, ...rest} = props
   const banner = useBanner()
-
   return (
     <Heading {...rest} id={banner.titleId} className={cx('BannerTitle', className)}>
       {children}

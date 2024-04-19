@@ -3,7 +3,6 @@ import {action} from '@storybook/addon-actions'
 import type {Meta} from '@storybook/react'
 import {Banner} from '../Banner'
 import Link from '../Link'
-import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 
 const meta = {
   title: 'Drafts/Components/Banner/Features',
@@ -124,20 +123,63 @@ export const Dismiss = () => {
   )
 }
 
+export const DismissWithActions = () => {
+  return (
+    <Banner
+      title="Notice"
+      description={
+        <>
+          GitHub users are{' '}
+          <Link inline underline href="#">
+            now required
+          </Link>{' '}
+          to enable two-factor authentication as an additional security measure.
+        </>
+      }
+      onDismiss={action('onDismiss')}
+      primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
+      secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
+    />
+  )
+}
+
 export const WithHiddenTitle = () => {
   return (
-    <Banner variant="warning">
-      <VisuallyHidden>
-        <Banner.Title>Warning</Banner.Title>
-      </VisuallyHidden>
-      <Banner.Description>
-        GitHub users are{' '}
-        <Link inline underline href="#">
-          now required
-        </Link>{' '}
-        to enable two-factor authentication as an additional security measure.
-      </Banner.Description>
-    </Banner>
+    <Banner
+      title="Warning"
+      hideTitle
+      description={
+        <>
+          GitHub users are{' '}
+          <Link inline underline href="#">
+            now required
+          </Link>{' '}
+          to enable two-factor authentication as an additional security measure.
+        </>
+      }
+      variant="warning"
+    />
+  )
+}
+
+export const WithHiddenTitleAndActions = () => {
+  return (
+    <Banner
+      title="Warning"
+      hideTitle
+      description={
+        <>
+          GitHub users are{' '}
+          <Link inline underline href="#">
+            now required
+          </Link>{' '}
+          to enable two-factor authentication as an additional security measure.
+        </>
+      }
+      variant="warning"
+      primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
+      secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
+    />
   )
 }
 
