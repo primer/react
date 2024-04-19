@@ -195,7 +195,7 @@ describe('SelectPanel', () => {
 
   it('SelectPanel outside of FormControl should not be automatically assigned aria-label and aria-labelledby', async () => {
     const component = render(<Fixture />)
-    const buttonByRole = component.getByRole('button')
+    const buttonByRole = component.getByRole('button2')
     expect(buttonByRole).toBeVisible()
     expect(buttonByRole).not.toHaveAttribute('aria-label', 'Assign label, Select Panel Label')
   })
