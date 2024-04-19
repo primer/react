@@ -45,6 +45,10 @@ export {useRefObjectAsForwardedRef} from './hooks/useRefObjectAsForwardedRef'
 export {useResizeObserver} from './hooks/useResizeObserver'
 export {useResponsiveValue} from './hooks/useResponsiveValue'
 
+// Utils
+export {createComponent} from './utils/create-component'
+export type {ComponentProps} from './utils/types/ComponentProps'
+
 // Components
 export {default as Radio} from './Radio'
 export type {RadioProps} from './Radio'
