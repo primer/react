@@ -14,6 +14,14 @@ const stories: Array<{title: string; id: string; viewports?: Array<keyof typeof 
     id: 'drafts-components-banner-features--critical',
   },
   {
+    title: 'Dismiss',
+    id: 'drafts-components-banner-features--dismiss',
+  },
+  {
+    title: 'Dismiss With Actions',
+    id: 'drafts-components-banner-features--dismiss-with-actions',
+  },
+  {
     title: 'Info',
     id: 'drafts-components-banner-features--info',
   },
@@ -30,8 +38,8 @@ const stories: Array<{title: string; id: string; viewports?: Array<keyof typeof 
     id: 'drafts-components-banner-features--warning',
   },
   {
-    title: 'Dismiss',
-    id: 'drafts-components-banner-features--dismiss',
+    title: 'WithActions',
+    id: 'drafts-components-banner-features--with-actions',
     viewports: ['primer.breakpoint.xs', 'primer.breakpoint.sm'],
   },
   {
@@ -39,8 +47,8 @@ const stories: Array<{title: string; id: string; viewports?: Array<keyof typeof 
     id: 'drafts-components-banner-features--with-hidden-title',
   },
   {
-    title: 'WithActions',
-    id: 'drafts-components-banner-features--with-actions',
+    title: 'WithHiddenTitleAndActions',
+    id: 'drafts-components-banner-features--with-hidden-title-and-actions',
     viewports: ['primer.breakpoint.xs', 'primer.breakpoint.sm'],
   },
   {
