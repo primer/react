@@ -2,6 +2,7 @@ import type {Meta, StoryObj} from '@storybook/react'
 import React from 'react'
 import Link from '../Link'
 import {Banner} from '../Banner'
+import {PageLayout} from '../PageLayout'
 import {action} from '@storybook/addon-actions'
 
 const meta = {
@@ -34,12 +35,29 @@ export const Default = () => {
 export const Playground: StoryObj<typeof Banner> = {
   render: ({onDismiss, primaryAction, secondaryAction, ...rest}) => {
     return (
-      <Banner
-        onDismiss={onDismiss ? action('onDismiss') : undefined}
-        primaryAction={primaryAction ? <Banner.PrimaryAction>{primaryAction}</Banner.PrimaryAction> : null}
-        secondaryAction={secondaryAction ? <Banner.SecondaryAction>{secondaryAction}</Banner.SecondaryAction> : null}
-        {...rest}
-      />
+      <PageLayout>
+        <PageLayout.Pane divider="line" position="start">
+          <Banner
+            onDismiss={onDismiss ? action('onDismiss') : undefined}
+            primaryAction={primaryAction ? <Banner.PrimaryAction>{primaryAction}</Banner.PrimaryAction> : null}
+            secondaryAction={
+              secondaryAction ? <Banner.SecondaryAction>{secondaryAction}</Banner.SecondaryAction> : null
+            }
+            {...rest}
+          />
+        </PageLayout.Pane>
+
+        <PageLayout.Content>
+          <Banner
+            onDismiss={onDismiss ? action('onDismiss') : undefined}
+            primaryAction={primaryAction ? <Banner.PrimaryAction>{primaryAction}</Banner.PrimaryAction> : null}
+            secondaryAction={
+              secondaryAction ? <Banner.SecondaryAction>{secondaryAction}</Banner.SecondaryAction> : null
+            }
+            {...rest}
+          />
+        </PageLayout.Content>
+      </PageLayout>
     )
   },
   args: {
