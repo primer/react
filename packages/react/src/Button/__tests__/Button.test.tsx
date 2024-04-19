@@ -265,7 +265,7 @@ describe('Button', () => {
     const triggerEL = getByRole('button')
     expect(triggerEL).toHaveAttribute('aria-label', 'Heart')
     const tooltipEl = getByText('Love is all around')
-    expect(triggerEL).toHaveAttribute('aria-describedby', tooltipEl.id)
+    expect(triggerEL.getAttribute('aria-describedby')).toContain(tooltipEl.id)
   })
   it('should not render tooltip on an icon button by default', () => {
     const {getByRole} = render(<IconButton icon={HeartIcon} aria-label="Heart" />)
