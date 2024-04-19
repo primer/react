@@ -1,0 +1,10 @@
+#!/bin/bash
+
+npx rollup -c
+
+files=$(find ./dist/cjs -name '*.d.ts')
+
+# Rename *.d.ts to *.d.cts for CommonJS
+for file in $files; do
+  mv -- "$file" "${file%.d.ts}.d.cts"
+done

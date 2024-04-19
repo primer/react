@@ -1,0 +1,58 @@
+{
+  "name": "@primer/list-overflow-element",
+  "version": "0.0.0",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "types": {
+      "import": "./dist/esm/index.d.ts",
+      "require": "./dist/cjs/index.d.cts"
+    },
+    "node": {
+      "import": "./dist/esm/node/index.js",
+      "require": "./dist/cjs/node/index.cjs"
+    },
+    "import": "./dist/esm/index.js",
+    "require": "./dist/cjs/index.cjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/primer/react.git",
+    "directory": "packages/popover-overflow-element"
+  },
+  "license": "MIT",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "script/build",
+    "type-check": "tsc --noEmit",
+    "watch": "rollup -c -w"
+  },
+  "dependencies": {
+    "@lit-labs/ssr-dom-shim": "1.2.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-inject": "5.0.5",
+    "@rollup/plugin-replace": "5.0.5",
+    "esbuild": "0.20.2",
+    "rollup": "4.14.3",
+    "rollup-plugin-esbuild": "6.1.1",
+    "rollup-plugin-typescript2": "0.36.0",
+    "typescript": "5.4.5"
+  },
+  "sideEffects": [
+    "./src/define.ts",
+    "./src/index.ts",
+    "./dist/esm/define.js",
+    "./dist/esm/index.js",
+    "./dist/cjs/define.cjs",
+    "./dist/cjs/index.cjs",
+    "./dist/esm/node/define.js",
+    "./dist/esm/node/index.js",
+    "./dist/cjs/node/define.cjs",
+    "./dist/cjs/node/index.cjs"
+  ]
+}
