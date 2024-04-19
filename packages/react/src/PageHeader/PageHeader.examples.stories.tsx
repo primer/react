@@ -1,6 +1,20 @@
 import React from 'react'
 import type {Meta} from '@storybook/react'
-import {Button, IconButton, Breadcrumbs, Link, Text, StateLabel, BranchName, Box, PageLayout} from '..'
+import {
+  Button,
+  IconButton,
+  Breadcrumbs,
+  Link,
+  Text,
+  StateLabel,
+  BranchName,
+  Box,
+  PageLayout,
+  Timeline,
+  Octicon,
+  Heading,
+  Token,
+} from '..'
 import {
   KebabHorizontalIcon,
   GitBranchIcon,
@@ -13,6 +27,8 @@ import {
   TriangleDownIcon,
   CheckIcon,
   CopyIcon,
+  CrossReferenceIcon,
+  PaperclipIcon,
 } from '@primer/octicons-react'
 
 import {PageHeader} from './PageHeader'
@@ -386,6 +402,146 @@ export const WithPageLayout = () => {
           <Box>
             <Text sx={{fontSize: 0, fontWeight: 'bold', display: 'block', color: 'fg.muted'}}>Labels</Text>
             <Text sx={{fontSize: 0, color: 'fg.muted', lineHeight: 'condensed'}}>None yet</Text>
+          </Box>
+        </Box>
+      </PageLayout.Pane>
+    </PageLayout>
+  )
+}
+
+export const IssuesPage = () => {
+  return (
+    <PageLayout>
+      <PageLayout.Header>
+        <PageHeader>
+          <PageHeader.TitleArea>
+            <PageHeader.Title as="h1">
+              PageHeader component: A11y sign-off review - React to alpha &nbsp;
+              <Link href="https://github.com/github/primer/issues/1115" sx={{color: 'fg.muted', fontWeight: 'light'}}>
+                #1115
+              </Link>
+            </PageHeader.Title>
+          </PageHeader.TitleArea>
+          <PageHeader.ContextArea>
+            <PageHeader.ContextBar sx={{gap: '8px'}}>
+              <Button>Edit</Button>
+              <Button variant="primary">New Issue</Button>
+            </PageHeader.ContextBar>
+            <PageHeader.ContextAreaActions>
+              <IconButton
+                aria-label="Copy permalink"
+                icon={CopyIcon}
+                variant="invisible"
+                unsafeDisableTooltip={false}
+              />
+            </PageHeader.ContextAreaActions>
+          </PageHeader.ContextArea>
+          <PageHeader.Actions>
+            <Hidden when={['narrow']}>
+              <Box sx={{display: 'flex', gap: '0.5rem'}}>
+                <Button>Edit</Button>
+                <Button variant="primary">New Issue</Button>
+                <IconButton
+                  aria-label="Copy permalink"
+                  icon={CopyIcon}
+                  variant="invisible"
+                  unsafeDisableTooltip={false}
+                />
+              </Box>
+            </Hidden>
+          </PageHeader.Actions>
+          <PageHeader.Description>
+            <StateLabel status="issueOpened">Open</StateLabel>
+          </PageHeader.Description>
+        </PageHeader>
+      </PageLayout.Header>
+      <PageLayout.Content>
+        <Box
+          sx={{
+            border: '1px solid',
+            borderRadius: 2,
+            borderColor: 'border.default',
+            height: 'auto',
+            padding: 3,
+            paddingTop: 0,
+          }}
+        >
+          <h2>Context</h2>
+          PageHeader will be responsible to determine the arrangement of the top-level headings, side actions, header
+          metadata, parent links, and how all these elements adapt to different devices, pointer types, and smaller,
+          mobile-friendly viewports.
+          <h2 id="helpful-links">Helpful Links</h2>
+          <ul aria-labelledby='helpful-links"'>
+            <li>Link 1</li>
+            <li>Link 1</li>
+            <li>Link 1</li>
+          </ul>
+        </Box>
+        <Box>
+          <Timeline>
+            <Timeline.Item>
+              <Timeline.Badge>
+                <Octicon icon={CrossReferenceIcon} />
+              </Timeline.Badge>
+              <Timeline.Body>
+                <Link
+                  href="https://github.com/broccolinisoup"
+                  sx={{fontWeight: 'bold', color: 'fg.default', mr: 1}}
+                  muted
+                >
+                  broccolinisoup
+                </Link>
+                mentioned this on Jul 20, 2022
+              </Timeline.Body>
+            </Timeline.Item>
+            <Timeline.Item>
+              <Timeline.Badge>
+                <Octicon icon={PaperclipIcon} />
+              </Timeline.Badge>
+              <Timeline.Body>
+                <Link
+                  href="https://github.com/lesliecdubbs"
+                  sx={{fontWeight: 'bold', color: 'fg.default', mr: 1}}
+                  muted
+                >
+                  lesliecdubbs
+                </Link>
+                added react and accessibility labels on Jul 12, 2022
+              </Timeline.Body>
+            </Timeline.Item>
+          </Timeline>
+        </Box>
+      </PageLayout.Content>
+      <PageLayout.Pane>
+        <Box sx={{display: 'flex', flexDirection: 'column', gap: 3}}>
+          <Box>
+            <Heading as="h2" sx={{fontSize: 0, fontWeight: 'bold', display: 'block', color: 'fg.muted'}}>
+              Assignees
+            </Heading>
+            <Text sx={{fontSize: 0, color: 'fg.muted', lineHeight: 'condensed', display: 'flex', alignItems: 'center'}}>
+              No one —
+              <Button
+                variant="invisible"
+                onClick={() => {
+                  alert('Assign yourself')
+                }}
+                sx={{color: 'fg.muted'}}
+              >
+                assign yourself
+              </Button>
+            </Text>
+          </Box>
+          <Box>
+            <Heading
+              as="h2"
+              sx={{fontSize: 0, fontWeight: 'bold', display: 'block', color: 'fg.muted', paddingBottom: 2}}
+            >
+              Labels
+            </Heading>
+            <Box sx={{display: 'flex', alignItems: 'center', gap: 1}}>
+              <Token as="button" onClick={() => alert('token')} text="react" />
+              <Token as="button" onClick={() => alert('token')} text="accessibility" />
+            </Box>
           </Box>
         </Box>
       </PageLayout.Pane>
