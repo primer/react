@@ -7,7 +7,7 @@ import ActionBar from './'
 import {BoldIcon, CodeIcon, ItalicIcon, LinkIcon} from '@primer/octicons-react'
 
 const SimpleActionBar = () => (
-  <ActionBar>
+  <ActionBar aria-label="Toolbar">
     <ActionBar.IconButton icon={BoldIcon} aria-label="Default"></ActionBar.IconButton>
     <ActionBar.IconButton icon={ItalicIcon} aria-label="Default"></ActionBar.IconButton>
     <ActionBar.Divider />
