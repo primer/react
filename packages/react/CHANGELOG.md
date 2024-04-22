@@ -1,5 +1,11 @@
 # @primer/react
 
+## 36.16.0
+
+### Minor Changes
+
+- [#4512](https://github.com/primer/react/pull/4512) [`622b1447d12232559e1bf2659a94c191e07da225`](https://github.com/primer/react/commit/622b1447d12232559e1bf2659a94c191e07da225) Thanks [@colebemis](https://github.com/colebemis)! - Added `className` props to `TreeView` and `TreeView.Item` components for custom styling.
+
 ## 36.15.0
 
 ### Minor Changes
