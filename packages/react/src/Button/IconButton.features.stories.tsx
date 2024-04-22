@@ -1,5 +1,5 @@
-import React from 'react'
-import {HeartIcon, InboxIcon, ChevronDownIcon} from '@primer/octicons-react'
+import React, {useState} from 'react'
+import {HeartIcon, InboxIcon, ChevronDownIcon, DownloadIcon} from '@primer/octicons-react'
 import {IconButton} from '.'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
