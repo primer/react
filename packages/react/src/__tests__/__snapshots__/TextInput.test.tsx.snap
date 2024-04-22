@@ -2176,7 +2176,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
     className="c3 TextInput-action"
   >
     <button
-      aria-labelledby=":r1:"
+      aria-labelledby=":rl:"
       className="c4"
       data-block={null}
       data-component="IconButton"
@@ -2215,7 +2215,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
       aria-hidden={true}
       className="c5"
       data-direction="s"
-      id=":r1:"
+      id=":rl:"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
     >
@@ -3170,7 +3170,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
     className="c3 TextInput-action"
   >
     <button
-      aria-describedby=":r0:"
+      aria-describedby=":rj:"
       className="c4"
       data-block={null}
       data-no-visuals={true}
@@ -3196,7 +3196,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
     <span
       className="c6"
       data-direction="s"
-      id=":r0:"
+      id=":rj:"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
       role="tooltip"

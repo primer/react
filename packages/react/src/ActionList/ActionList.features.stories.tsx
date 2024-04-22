@@ -528,6 +528,15 @@ export const TextWrapAndTruncation = () => (
           <ArrowLeftIcon />
         </ActionList.TrailingVisual>
       </ActionList.Item>
+      <ActionList.Item>
+        <ActionList.LeadingVisual>
+          <ArrowRightIcon />
+        </ActionList.LeadingVisual>
+        SomethingSomething/SomethingElse.Some.Thing.Lalala.la
+        <ActionList.TrailingVisual>
+          <ArrowLeftIcon />
+        </ActionList.TrailingVisual>
+      </ActionList.Item>
     </ActionList>
   </Box>
 )

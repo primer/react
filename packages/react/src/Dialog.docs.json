@@ -1,5 +1,6 @@
 {
   "id": "dialog",
+  "docsId": "dialog",
   "name": "Dialog",
   "status": "alpha",
   "a11yReviewed": false,

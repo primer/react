@@ -1,7 +1,7 @@
-import React, {Children, useEffect, useRef, useState} from 'react'
+import React, {Children, useEffect, useRef, useState, useMemo} from 'react'
 import type {SxProp} from '../sx'
 import sx from '../sx'
-import {useId, useProvidedRefOrCreate} from '../hooks'
+import {useId, useProvidedRefOrCreate, useOnEscapePress} from '../hooks'
 import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
 import styled from 'styled-components'
@@ -123,7 +123,7 @@ const StyledTooltip = styled.span`
   ${sx};
 `
 
-type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
+export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<
   {
     direction?: TooltipDirection
@@ -195,11 +195,19 @@ export const Tooltip = React.forwardRef(
 
     const [calculatedDirection, setCalculatedDirection] = useState<TooltipDirection>(direction)
 
+    const [isPopoverOpen, setIsPopoverOpen] = useState(false)
+
     const openTooltip = () => {
-      if (tooltipElRef.current && triggerRef.current && !tooltipElRef.current.matches(':popover-open')) {
+      if (
+        tooltipElRef.current &&
+        triggerRef.current &&
+        tooltipElRef.current.hasAttribute('popover') &&
+        !tooltipElRef.current.matches(':popover-open')
+      ) {
         const tooltip = tooltipElRef.current
         const trigger = triggerRef.current
         tooltip.showPopover()
+        setIsPopoverOpen(true)
         /*
          * TOOLTIP POSITIONING
          */
@@ -216,10 +224,19 @@ export const Tooltip = React.forwardRef(
       }
     }
     const closeTooltip = () => {
-      if (tooltipElRef.current && triggerRef.current && tooltipElRef.current.matches(':popover-open')) {
+      if (
+        tooltipElRef.current &&
+        triggerRef.current &&
+        tooltipElRef.current.hasAttribute('popover') &&
+        tooltipElRef.current.matches(':popover-open')
+      ) {
         tooltipElRef.current.hidePopover()
+        setIsPopoverOpen(false)
       }
     }
+
+    // context value
+    const value = useMemo(() => ({tooltipId}), [tooltipId])
 
     useEffect(() => {
       if (!tooltipElRef.current || !triggerRef.current) return
@@ -259,8 +276,19 @@ export const Tooltip = React.forwardRef(
       tooltip.setAttribute('popover', 'auto')
     }, [tooltipElRef, triggerRef, direction, type])
 
+    useOnEscapePress(
+      (event: KeyboardEvent) => {
+        if (isPopoverOpen) {
+          event.stopImmediatePropagation()
+          event.preventDefault()
+          closeTooltip()
+        }
+      },
+      [isPopoverOpen],
+    )
+
     return (
-      <TooltipContext.Provider value={{tooltipId}}>
+      <TooltipContext.Provider value={value}>
         <>
           {React.isValidElement(child) &&
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
@@ -274,6 +302,14 @@ export const Tooltip = React.forwardRef(
                 child.props.onBlur?.(event)
               },
               onFocus: (event: React.FocusEvent) => {
+                // only show tooltip on :focus-visible, not on :focus
+                try {
+                  if (!event.target.matches(':focus-visible')) return
+                } catch (error) {
+                  // jsdom (jest) does not support `:focus-visible` yet and would throw an error
+                  // https://github.com/jsdom/jsdom/issues/3426
+                }
+
                 openTooltip()
                 child.props.onFocus?.(event)
               },
