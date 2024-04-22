@@ -318,12 +318,12 @@ export const getButtonStyles = (theme?: Theme) => {
     '&[data-truncation="wrap"]': {
       minWidth: 'fit-content',
       height: 'unset',
-      minHeight: 'var(--control-medium-size)',
+      minHeight: 'var(--control-medium-size, 2rem)',
 
       '[data-component="buttonContent"]': {
         flex: '1 1 auto',
         alignSelf: 'stretch',
-        paddingBlock: 'calc(var(--control-medium-paddingBlock) - 2px)',
+        paddingBlock: 'calc(var(--control-medium-paddingBlock, 0.375rem) - 2px)',
       },
 
       '[data-component="text"]': {
@@ -333,20 +333,20 @@ export const getButtonStyles = (theme?: Theme) => {
 
       '&[data-size="small"]': {
         height: 'unset',
-        minHeight: 'var(--control-small-size)',
+        minHeight: 'var(--control-small-size, 1.75rem)',
 
         '[data-component="buttonContent"]': {
-          paddingBlock: 'calc(var(--control-small-paddingBlock) - 2px)',
+          paddingBlock: 'calc(var(--control-small-paddingBlock, 0.25rem) - 2px)',
         },
       },
 
       '&[data-size="large"]': {
         height: 'unset',
-        minHeight: 'var(--control-large-size)',
-        paddingInline: 'var(--control-large-paddingInline-spacious)',
+        minHeight: 'var(--control-large-size, 2.5rem)',
+        paddingInline: 'var(--control-large-paddingInline-spacious, 1rem)',
 
         '[data-component="buttonContent"]': {
-          paddingBlock: 'calc(var(--control-large-paddingBlock) - 2px)',
+          paddingBlock: 'calc(var(--control-large-paddingBlock, 0.625rem) - 2px)',
         },
       },
     },
