@@ -16,7 +16,9 @@ import {useProvidedRefOrCreate} from '../hooks'
 import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
-import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
+import {LiveRegionProvider, LiveRegion} from '../internal/LiveRegion'
+import {Status} from '../internal/components/Status'
+import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -175,7 +177,7 @@ export function SelectPanel({
   }, [inputLabel, textInputProps])
 
   return (
-    <LiveRegion>
+    <LiveRegionProvider>
       <AnchoredOverlay
         renderAnchor={renderMenuAnchor}
         anchorRef={anchorRef}
@@ -191,16 +193,16 @@ export function SelectPanel({
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
       >
-        <LiveRegionOutlet />
-        <Message
-          value={
-            filterValue === ''
+        <LiveRegion />
+        <VisuallyHidden>
+          <Status skipInitialAnnouncement>
+            {filterValue === ''
               ? 'Showing all items'
               : items.length <= 0
               ? 'No matching items'
-              : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
-          }
-        />
+              : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`}
+          </Status>
+        </VisuallyHidden>
         <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}>
           <Box sx={{pt: 2, px: 3}}>
             <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
@@ -241,7 +243,7 @@ export function SelectPanel({
           )}
         </Box>
       </AnchoredOverlay>
-    </LiveRegion>
+    </LiveRegionProvider>
   )
 }
 

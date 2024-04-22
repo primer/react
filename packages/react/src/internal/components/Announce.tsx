@@ -9,6 +9,14 @@ export type AnnounceProps = React.ComponentPropsWithoutRef<typeof Box> & {
    * @default polite
    */
   politeness?: 'polite' | 'assertive'
+
+  /**
+   * Specify if the contents should be announced when the component is rendered
+   * or if the component should wait until the contents of the component changes
+   * for an announcement to occur
+   * @default false
+   */
+  skipInitialAnnouncement?: boolean
 }
 
 /**
@@ -16,7 +24,7 @@ export type AnnounceProps = React.ComponentPropsWithoutRef<typeof Box> & {
  * `children` passed in to screen readers using the given politeness level. It
  * will also announce any changes to the text content of `children`
  */
-export function Announce({children, politeness = 'polite', ...rest}: AnnounceProps) {
+export function Announce({children, politeness = 'polite', skipInitialAnnouncement = false, ...rest}: AnnounceProps) {
   const ref = useRef<ElementRef<'div'>>(null)
   const savedPoliteness = useRef(politeness)
 
@@ -27,6 +35,10 @@ export function Announce({children, politeness = 'polite', ...rest}: AnnouncePro
   // Announce the initial message, this is wrapped in `useEffectOnce` so that it
   // does not announce twice in StrictMode
   useEffectOnce(() => {
+    if (skipInitialAnnouncement) {
+      return
+    }
+
     if (ref.current !== null) {
       announceFromElement(ref.current, {
         politeness: savedPoliteness.current,
