@@ -48,6 +48,12 @@ Playground.argTypes = {
       type: 'boolean',
     },
   },
+  truncation: {
+    control: {
+      type: 'radio',
+    },
+    options: ['ellipses', 'wrap', 'none'],
+  },
   leadingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
   trailingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
   trailingAction: OcticonArgType([TriangleDownIcon]),
@@ -62,6 +68,7 @@ Playground.args = {
   trailingVisual: null,
   leadingVisual: null,
   trailingAction: null,
+  truncation: 'none',
 }
 
 export const Default = () => <Button>Default</Button>

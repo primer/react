@@ -1,6 +1,7 @@
 import {EyeIcon, TriangleDownIcon, HeartIcon} from '@primer/octicons-react'
 import React, {useState} from 'react'
 import {Button} from '.'
+import {Stack} from '../Stack/Stack'
 
 export default {
   title: 'Components/Button/Features',
@@ -96,3 +97,37 @@ export const Small = () => <Button size="small">Default</Button>
 export const Medium = () => <Button size="medium">Default</Button>
 
 export const Large = () => <Button size="large">Default</Button>
+
+export const TruncationEllipses = () => {
+  return (
+    <Stack style={{width: '200px'}}>
+      <Button truncation="ellipses">This button label will show an ellipses if the label is too long</Button>
+      <Button truncation="ellipses" leadingVisual={HeartIcon} trailingVisual={EyeIcon}>
+        This button label will show an ellipses if the label is too long
+      </Button>
+      <Button truncation="ellipses" trailingAction={TriangleDownIcon}>
+        This button label will show an ellipses if the label is too long
+      </Button>
+    </Stack>
+  )
+}
+
+export const TruncationWrap = () => {
+  return (
+    <Stack style={{width: '200px'}}>
+      <Button truncation="wrap">This button label will wrap if the label is too long</Button>
+      <Button size="small" truncation="wrap">
+        This small button label will wrap if the label is too long
+      </Button>
+      <Button size="large" truncation="wrap">
+        This large button label will wrap if the label is too long
+      </Button>
+      <Button truncation="wrap" leadingVisual={HeartIcon} trailingVisual={EyeIcon}>
+        This button label will wrap if the label is too long
+      </Button>
+      <Button truncation="wrap" trailingAction={TriangleDownIcon}>
+        This button label will wrap if the label is too long
+      </Button>
+    </Stack>
+  )
+}

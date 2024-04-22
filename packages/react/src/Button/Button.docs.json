@@ -82,6 +82,12 @@
       "type": "'default'\n| 'primary'\n| 'danger'\n| 'invisible'",
       "defaultValue": "'default'",
       "description": "Change the visual style of the button."
+    },
+    {
+      "name": "truncation",
+      "type": "'ellipses'\n| 'wrap'\n| 'none'\n|",
+      "defaultValue": "'none'",
+      "description": "Determines how the button label text will overflow."
     }
   ],
   "passthrough": {
