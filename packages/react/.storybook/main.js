@@ -53,14 +53,22 @@ module.exports = {
   typescript: {
     reactDocgen: 'react-docgen',
   },
-  webpackFinal(config, mode) {
-    config.watchOptions = {
-      ignored: /node_modules\/(?!@primer\/)/,
+  webpackFinal(config) {
+    /**
+     * @see https://webpack.js.org/configuration/other-options/#managedpaths
+     */
+    config.snapshot = {
+      managedPaths: [/^(.+?[\\/]node_modules[\\/](?!(@primer))(@.+?[\\/])?.+?)[\\/]/],
     }
-    // config.watchOptions = {
-    // ignored: [],
-    // }
-    console.log(config)
+
+    /**
+     * @see https://webpack.js.org/configuration/watch/#watchoptionsignored
+     */
+    config.watchOptions = {
+      ...config.watchOptions,
+      ignored: /^(.+?[\\/]node_modules[\\/](?!(@primer))(@.+?[\\/])?.+?)[\\/]/,
+    }
+
     return config
   },
 }

@@ -70,11 +70,14 @@ const ESM_ONLY = new Set([
   '@lit-labs/react',
   '@oddbird/popover-polyfill',
 ])
+const INLINE_DEPENDENCY = new Set(['@primer/list-overflow-element'])
 const dependencies = [
   ...Object.keys(packageJson.peerDependencies ?? {}),
   ...Object.keys(packageJson.dependencies ?? {}),
   ...Object.keys(packageJson.devDependencies ?? {}),
-]
+].filter(dependency => {
+  return !INLINE_DEPENDENCY.has(dependency)
+})
 
 function createPackageRegex(name) {
   return new RegExp(`^${name}(/.*)?`)
