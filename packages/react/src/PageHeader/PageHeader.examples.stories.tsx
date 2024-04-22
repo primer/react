@@ -472,9 +472,8 @@ export const IssuesPage = () => {
           mobile-friendly viewports.
           <h2 id="helpful-links">Helpful Links</h2>
           <ul aria-labelledby='helpful-links"'>
-            <li>Link 1</li>
-            <li>Link 1</li>
-            <li>Link 1</li>
+            <li>Primer documentation site: https://primer.style</li>
+            <li>Primer React storybook: https://primer.style/react/storybook/</li>
           </ul>
         </Box>
         <Box>
