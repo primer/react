@@ -14,7 +14,6 @@
     },
     {
       "name": "count",
-      "required": true,
       "type": "number | string",
       "description": "For counter buttons, the number to display."
     },
