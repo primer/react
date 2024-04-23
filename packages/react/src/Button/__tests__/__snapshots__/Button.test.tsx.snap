@@ -163,6 +163,66 @@ exports[`Button respects block prop 1`] = `
   width: 100%;
 }
 
+.c0[data-truncation="ellipses"] {
+  min-width: -webkit-min-content;
+  min-width: -moz-min-content;
+  min-width: min-content;
+}
+
+.c0[data-truncation="ellipses"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.c0[data-truncation="ellipses"] [data-component="text"] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}
+
+.c0[data-truncation="wrap"] {
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  height: unset;
+  min-height: var(--control-medium-size,2rem);
+}
+
+.c0[data-truncation="wrap"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
+}
+
+.c0[data-truncation="wrap"] [data-component="text"] {
+  white-space: unset;
+  word-break: break-word;
+}
+
+.c0[data-truncation="wrap"][data-size="small"] {
+  height: unset;
+  min-height: var(--control-small-size,1.75rem);
+}
+
+.c0[data-truncation="wrap"][data-size="small"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
+}
+
+.c0[data-truncation="wrap"][data-size="large"] {
+  height: unset;
+  min-height: var(--control-large-size,2.5rem);
+  padding-inline: var(--control-large-paddingInline-spacious,1rem);
+}
+
+.c0[data-truncation="wrap"][data-size="large"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
+}
+
 .c0[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,undefined);
   border-color: var(--button-inactive-bgColor,undefined);
@@ -246,6 +306,7 @@ exports[`Button respects block prop 1`] = `
   class="c0"
   data-block="block"
   data-no-visuals="true"
+  data-truncation="none"
   type="button"
 >
   <span
@@ -424,6 +485,66 @@ exports[`Button respects the alignContent prop 1`] = `
   width: 100%;
 }
 
+.c0[data-truncation="ellipses"] {
+  min-width: -webkit-min-content;
+  min-width: -moz-min-content;
+  min-width: min-content;
+}
+
+.c0[data-truncation="ellipses"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.c0[data-truncation="ellipses"] [data-component="text"] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}
+
+.c0[data-truncation="wrap"] {
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  height: unset;
+  min-height: var(--control-medium-size,2rem);
+}
+
+.c0[data-truncation="wrap"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
+}
+
+.c0[data-truncation="wrap"] [data-component="text"] {
+  white-space: unset;
+  word-break: break-word;
+}
+
+.c0[data-truncation="wrap"][data-size="small"] {
+  height: unset;
+  min-height: var(--control-small-size,1.75rem);
+}
+
+.c0[data-truncation="wrap"][data-size="small"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
+}
+
+.c0[data-truncation="wrap"][data-size="large"] {
+  height: unset;
+  min-height: var(--control-large-size,2.5rem);
+  padding-inline: var(--control-large-paddingInline-spacious,1rem);
+}
+
+.c0[data-truncation="wrap"][data-size="large"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
+}
+
 .c0[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,undefined);
   border-color: var(--button-inactive-bgColor,undefined);
@@ -506,6 +627,7 @@ exports[`Button respects the alignContent prop 1`] = `
 <button
   class="c0"
   data-no-visuals="true"
+  data-truncation="none"
   type="button"
 >
   <span
@@ -684,6 +806,66 @@ exports[`Button respects the large size prop 1`] = `
   width: 100%;
 }
 
+.c0[data-truncation="ellipses"] {
+  min-width: -webkit-min-content;
+  min-width: -moz-min-content;
+  min-width: min-content;
+}
+
+.c0[data-truncation="ellipses"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.c0[data-truncation="ellipses"] [data-component="text"] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}
+
+.c0[data-truncation="wrap"] {
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  height: unset;
+  min-height: var(--control-medium-size,2rem);
+}
+
+.c0[data-truncation="wrap"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
+}
+
+.c0[data-truncation="wrap"] [data-component="text"] {
+  white-space: unset;
+  word-break: break-word;
+}
+
+.c0[data-truncation="wrap"][data-size="small"] {
+  height: unset;
+  min-height: var(--control-small-size,1.75rem);
+}
+
+.c0[data-truncation="wrap"][data-size="small"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
+}
+
+.c0[data-truncation="wrap"][data-size="large"] {
+  height: unset;
+  min-height: var(--control-large-size,2.5rem);
+  padding-inline: var(--control-large-paddingInline-spacious,1rem);
+}
+
+.c0[data-truncation="wrap"][data-size="large"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
+}
+
 .c0[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,undefined);
   border-color: var(--button-inactive-bgColor,undefined);
@@ -767,6 +949,7 @@ exports[`Button respects the large size prop 1`] = `
   class="c0"
   data-no-visuals="true"
   data-size="large"
+  data-truncation="none"
   type="button"
 >
   <span
@@ -945,6 +1128,66 @@ exports[`Button respects the small size prop 1`] = `
   width: 100%;
 }
 
+.c0[data-truncation="ellipses"] {
+  min-width: -webkit-min-content;
+  min-width: -moz-min-content;
+  min-width: min-content;
+}
+
+.c0[data-truncation="ellipses"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.c0[data-truncation="ellipses"] [data-component="text"] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}
+
+.c0[data-truncation="wrap"] {
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  height: unset;
+  min-height: var(--control-medium-size,2rem);
+}
+
+.c0[data-truncation="wrap"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
+}
+
+.c0[data-truncation="wrap"] [data-component="text"] {
+  white-space: unset;
+  word-break: break-word;
+}
+
+.c0[data-truncation="wrap"][data-size="small"] {
+  height: unset;
+  min-height: var(--control-small-size,1.75rem);
+}
+
+.c0[data-truncation="wrap"][data-size="small"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
+}
+
+.c0[data-truncation="wrap"][data-size="large"] {
+  height: unset;
+  min-height: var(--control-large-size,2.5rem);
+  padding-inline: var(--control-large-paddingInline-spacious,1rem);
+}
+
+.c0[data-truncation="wrap"][data-size="large"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
+}
+
 .c0[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,undefined);
   border-color: var(--button-inactive-bgColor,undefined);
@@ -1028,6 +1271,7 @@ exports[`Button respects the small size prop 1`] = `
   class="c0"
   data-no-visuals="true"
   data-size="small"
+  data-truncation="none"
   type="button"
 >
   <span
@@ -1208,6 +1452,66 @@ exports[`Button styles danger button appropriately 1`] = `
   width: 100%;
 }
 
+.c0[data-truncation="ellipses"] {
+  min-width: -webkit-min-content;
+  min-width: -moz-min-content;
+  min-width: min-content;
+}
+
+.c0[data-truncation="ellipses"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.c0[data-truncation="ellipses"] [data-component="text"] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}
+
+.c0[data-truncation="wrap"] {
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  height: unset;
+  min-height: var(--control-medium-size,2rem);
+}
+
+.c0[data-truncation="wrap"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
+}
+
+.c0[data-truncation="wrap"] [data-component="text"] {
+  white-space: unset;
+  word-break: break-word;
+}
+
+.c0[data-truncation="wrap"][data-size="small"] {
+  height: unset;
+  min-height: var(--control-small-size,1.75rem);
+}
+
+.c0[data-truncation="wrap"][data-size="small"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
+}
+
+.c0[data-truncation="wrap"][data-size="large"] {
+  height: unset;
+  min-height: var(--control-large-size,2.5rem);
+  padding-inline: var(--control-large-paddingInline-spacious,1rem);
+}
+
+.c0[data-truncation="wrap"][data-size="large"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
+}
+
 .c0[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,undefined);
   border-color: var(--button-inactive-bgColor,undefined);
@@ -1291,6 +1595,7 @@ exports[`Button styles danger button appropriately 1`] = `
 <button
   class="c0"
   data-no-visuals="true"
+  data-truncation="none"
   type="button"
 >
   <span
@@ -1468,6 +1773,66 @@ exports[`Button styles invisible button appropriately 1`] = `
   width: 100%;
 }
 
+.c0[data-truncation="ellipses"] {
+  min-width: -webkit-min-content;
+  min-width: -moz-min-content;
+  min-width: min-content;
+}
+
+.c0[data-truncation="ellipses"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.c0[data-truncation="ellipses"] [data-component="text"] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}
+
+.c0[data-truncation="wrap"] {
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  height: unset;
+  min-height: var(--control-medium-size,2rem);
+}
+
+.c0[data-truncation="wrap"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
+}
+
+.c0[data-truncation="wrap"] [data-component="text"] {
+  white-space: unset;
+  word-break: break-word;
+}
+
+.c0[data-truncation="wrap"][data-size="small"] {
+  height: unset;
+  min-height: var(--control-small-size,1.75rem);
+}
+
+.c0[data-truncation="wrap"][data-size="small"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
+}
+
+.c0[data-truncation="wrap"][data-size="large"] {
+  height: unset;
+  min-height: var(--control-large-size,2.5rem);
+  padding-inline: var(--control-large-paddingInline-spacious,1rem);
+}
+
+.c0[data-truncation="wrap"][data-size="large"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
+}
+
 .c0[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,undefined);
   border-color: var(--button-inactive-bgColor,undefined);
@@ -1559,6 +1924,7 @@ exports[`Button styles invisible button appropriately 1`] = `
 <button
   class="c0"
   data-no-visuals="true"
+  data-truncation="none"
   type="button"
 >
   <span
@@ -1738,6 +2104,66 @@ exports[`Button styles primary button appropriately 1`] = `
   width: 100%;
 }
 
+.c0[data-truncation="ellipses"] {
+  min-width: -webkit-min-content;
+  min-width: -moz-min-content;
+  min-width: min-content;
+}
+
+.c0[data-truncation="ellipses"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.c0[data-truncation="ellipses"] [data-component="text"] {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+}
+
+.c0[data-truncation="wrap"] {
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  height: unset;
+  min-height: var(--control-medium-size,2rem);
+}
+
+.c0[data-truncation="wrap"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
+}
+
+.c0[data-truncation="wrap"] [data-component="text"] {
+  white-space: unset;
+  word-break: break-word;
+}
+
+.c0[data-truncation="wrap"][data-size="small"] {
+  height: unset;
+  min-height: var(--control-small-size,1.75rem);
+}
+
+.c0[data-truncation="wrap"][data-size="small"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
+}
+
+.c0[data-truncation="wrap"][data-size="large"] {
+  height: unset;
+  min-height: var(--control-large-size,2.5rem);
+  padding-inline: var(--control-large-paddingInline-spacious,1rem);
+}
+
+.c0[data-truncation="wrap"][data-size="large"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
+}
+
 .c0[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,undefined);
   border-color: var(--button-inactive-bgColor,undefined);
@@ -1818,6 +2244,7 @@ exports[`Button styles primary button appropriately 1`] = `
 <button
   class="c0"
   data-no-visuals="true"
+  data-truncation="none"
   type="button"
 >
   <span
