@@ -53,6 +53,7 @@ export const TestSxProp = () => {
           },
           [`@media screen and (max-width: 768px)`]: {
             color: 'maroon',
+            backgroundColor: '#F6F8FA',
           },
           '@media screen and (min-width: 768px)': {
             ':focus': {
@@ -61,6 +62,7 @@ export const TestSxProp = () => {
           },
           '@media (min-width: 1440)': {
             color: 'firebrick',
+            backgroundColor: '#F6F8FA',
           },
         }}
       >
