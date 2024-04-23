@@ -40,6 +40,7 @@ export const TestSxProp = () => {
         size="medium"
         sx={{
           color: 'firebrick',
+          backgroundColor: '#F6F8FA',
         }}
       >
         Medium Red
