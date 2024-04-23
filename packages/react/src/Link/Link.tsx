@@ -27,16 +27,21 @@ const hoverColor = system({
 const StyledLink = styled.a<StyledLinkProps>`
   color: ${props => (props.muted ? get('colors.fg.muted')(props) : get('colors.accent.fg')(props))};
 
-  /* By default, Link does not have underline */
+  /* By default, Link is not underlined. */
   text-decoration: none;
 
-  /* You can add one by setting underline={true} */
+  /* If inline or underline are set to true Link is underlined. */
   text-decoration: ${props => (props.underline ? 'underline' : undefined)};
+  text-decoration: ${props => (props.inline ? 'underline' : undefined)};
 
-  /* Inline links (inside a text block), however, should have underline based on accessibility setting set in data-attribute */
-  /* Note: setting underline={false} does not override this */
+  /* Inline links, adjacent to text, can be controlled using a data-attribute. */
+  /* This way the inline property can be overwritten based on the attribute.
+  /* On github.com this is used for a user preference in the accessibility settings. */
   [data-a11y-link-underlines='true'] &[data-inline='true'] {
     text-decoration: underline;
+  }
+  [data-a11y-link-underlines='false'] &[data-inline='true'] {
+    text-decoration: none;
   }
 
   &:hover {
