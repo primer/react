@@ -1,5 +1,51 @@
 # @primer/react
 
+## 36.16.0
+
+### Minor Changes
+
+- [#4512](https://github.com/primer/react/pull/4512) [`622b1447d12232559e1bf2659a94c191e07da225`](https://github.com/primer/react/commit/622b1447d12232559e1bf2659a94c191e07da225) Thanks [@colebemis](https://github.com/colebemis)! - Added `className` props to `TreeView` and `TreeView.Item` components for custom styling.
+
+## 36.15.0
+
+### Minor Changes
+
+- [#4506](https://github.com/primer/react/pull/4506) [`d1419184511be5a3418fca437c805293456f0845`](https://github.com/primer/react/commit/d1419184511be5a3418fca437c805293456f0845) Thanks [@owenniblock](https://github.com/owenniblock)! - Export ActionBar default as ActionBar so it can be imported correctly
+
+- [#4423](https://github.com/primer/react/pull/4423) [`ee4608833ae79a9c05cbaa76f3602e40c9ba8554`](https://github.com/primer/react/commit/ee4608833ae79a9c05cbaa76f3602e40c9ba8554) Thanks [@langermank](https://github.com/langermank)! - Add support for the experimental Stack component
+
+- [#4276](https://github.com/primer/react/pull/4276) [`13971c92669013ce6f5afe51782d251a5e2c5a17`](https://github.com/primer/react/commit/13971c92669013ce6f5afe51782d251a5e2c5a17) Thanks [@joshblack](https://github.com/joshblack)! - Add support for an experimental FeatureFlags component for working with feature flags in Primer
+
+### Patch Changes
+
+- [#4501](https://github.com/primer/react/pull/4501) [`8bfab0a2760eb0734aea19b38ba5957a5deb8ca2`](https://github.com/primer/react/commit/8bfab0a2760eb0734aea19b38ba5957a5deb8ca2) Thanks [@pksjce](https://github.com/pksjce)! - ActionBar: Make it such that either aria-label or aria-labelledby is present
+
+- [#4331](https://github.com/primer/react/pull/4331) [`77846c4e93cb0b7711654272162fa6f73d9cc90e`](https://github.com/primer/react/commit/77846c4e93cb0b7711654272162fa6f73d9cc90e) Thanks [@langermank](https://github.com/langermank)! - Bug fix: Add `word-break` to ActionList items
+
+## 36.14.0
+
+### Minor Changes
+
+- [#4224](https://github.com/primer/react/pull/4224) [`8e9267fbc77946c65844a5cb3a714ba57291fc5c`](https://github.com/primer/react/commit/8e9267fbc77946c65844a5cb3a714ba57291fc5c) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - IconButton: introduce tooltips on icon buttons behind the `unsafeDisableTooltip` prop for an incremental rollout.
+
+  In the next release, we plan to update the default value of `unsafeDisableTooltip` to `false` so that the tooltip behaviour becomes the default.
+
+- [#4425](https://github.com/primer/react/pull/4425) [`6682d28bbb8fe5aa2c959f8013cbcfc4f3c7030e`](https://github.com/primer/react/commit/6682d28bbb8fe5aa2c959f8013cbcfc4f3c7030e) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Dialog v2: Add support for `returnFocusRef`
+
+### Patch Changes
+
+- [#4463](https://github.com/primer/react/pull/4463) [`4b001296005e1fa2c11afe0b41bc852f44a5b905`](https://github.com/primer/react/commit/4b001296005e1fa2c11afe0b41bc852f44a5b905) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - TooltipV2: Check if tooltip element has `popover` attribute before calling `showPopover` and `hidePopover`
+
+- [#4451](https://github.com/primer/react/pull/4451) [`2f4939375a9d3b81f7f618ad2ea6f1a77cad187e`](https://github.com/primer/react/commit/2f4939375a9d3b81f7f618ad2ea6f1a77cad187e) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Utilize `getGlobalFocusStyle` to prevent `outline-offset` from being overridden by default browser styles
+
+- [#4471](https://github.com/primer/react/pull/4471) [`aa8b6d83467ebd0d18939fc375340471a585deea`](https://github.com/primer/react/commit/aa8b6d83467ebd0d18939fc375340471a585deea) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Tooltipv2: Prevent closing other overlays when tooltip has the focus when ESC is hit
+
+- [#4393](https://github.com/primer/react/pull/4393) [`57e1742c1538be83b208e08ff97b31df02acb5fa`](https://github.com/primer/react/commit/57e1742c1538be83b208e08ff97b31df02acb5fa) Thanks [@maximedegreve](https://github.com/maximedegreve)! - Add our react template to the README.md
+
+- [#4270](https://github.com/primer/react/pull/4270) [`ae14db7378efa90cad8623d6729747f0ca8f098b`](https://github.com/primer/react/commit/ae14db7378efa90cad8623d6729747f0ca8f098b) Thanks [@lukeed](https://github.com/lukeed)! - TreeView: Toggle subtree via Space key (in addition to Enter key)
+
+- [#4477](https://github.com/primer/react/pull/4477) [`054de02df44c2f1144db58e9778350d7bc0fb863`](https://github.com/primer/react/commit/054de02df44c2f1144db58e9778350d7bc0fb863) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ThemeProvider + SSR: Fix incorrect theme with multiple ThemeProviders on page
+
 ## 36.13.0
 
 ### Minor Changes

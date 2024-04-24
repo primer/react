@@ -1,5 +1,6 @@
 {
-  "id": "drafts_dialog",
+  "id": "dialog_v2",
+  "docsId": "dialog",
   "name": "Dialog",
   "status": "draft",
   "a11yReviewed": false,

@@ -2,8 +2,9 @@ import React from 'react'
 import type {TooltipProps} from './Tooltip'
 import Tooltip from './Tooltip'
 import {render, renderClasses, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
+import {render as HTMLRender, screen} from '@testing-library/react'
 import {axe} from 'jest-axe'
+import {CodeIcon} from '@primer/octicons-react'
 
 /* Tooltip v1 */
 
@@ -48,5 +49,15 @@ describe('Tooltip', () => {
 
   it('respects the "wrap" prop', () => {
     expect(rendersClass(<Tooltip wrap />, 'tooltipped-multiline')).toBe(true)
+  })
+  it('should label the link', () => {
+    HTMLRender(
+      <Tooltip aria-label="Tooltip text" id="tooltip-unique-id">
+        <a aria-labelledby="tooltip-unique-id" href="#href">
+          <CodeIcon />
+        </a>
+      </Tooltip>,
+    )
+    expect(screen.getByRole('link')).toHaveAccessibleName('Tooltip text')
   })
 })
