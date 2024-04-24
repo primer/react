@@ -16,6 +16,15 @@ export const LeadingVisual = () => <Button leadingVisual={HeartIcon}>Leading vis
 
 export const TrailingVisual = () => <Button trailingVisual={EyeIcon}>Trailing visual</Button>
 
+export const TrailingButtonNothing = () => {
+  const [count, setCount] = useState(0)
+  return (
+    <Button onClick={() => setCount(count + 1)} count={count}>
+      Watch
+    </Button>
+  )
+}
+
 export const TrailingCounterWithAriaLabel = () => {
   const [count, setCount] = useState(0)
   return (
