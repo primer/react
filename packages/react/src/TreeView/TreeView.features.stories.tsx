@@ -1,8 +1,15 @@
-import {DiffAddedIcon, DiffModifiedIcon, DiffRemovedIcon, DiffRenamedIcon, FileIcon} from '@primer/octicons-react'
+import {
+  DiffAddedIcon,
+  DiffModifiedIcon,
+  DiffRemovedIcon,
+  DiffRenamedIcon,
+  FileIcon,
+  KebabHorizontalIcon,
+} from '@primer/octicons-react'
 import type {Meta, Story} from '@storybook/react'
 import React from 'react'
 import Box from '../Box'
-import {Button} from '../Button'
+import {Button, IconButton} from '../Button'
 import Octicon from '../Octicon'
 import type {SubTreeState} from './TreeView'
 import {TreeView} from './TreeView'
@@ -883,6 +890,57 @@ export const InitialFocus: Story = () => (
               <FileIcon />
             </TreeView.LeadingVisual>
             ReallyLongFileNameThatShouldBeTruncated.tsx
+          </TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+    </TreeView>
+    <Button>Focusable element after TreeView</Button>
+  </div>
+)
+
+export const FocusManagement: Story = () => (
+  <div>
+    <Button>Focusable element before TreeView</Button>
+    <TreeView aria-label="Test tree">
+      <TreeView.Item id="src" defaultExpanded>
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        src
+        <TreeView.SubTree>
+          <TreeView.Item id="src/Avatar.tsx">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Avatar.tsx
+            <IconButton
+              variant="invisible"
+              icon={KebabHorizontalIcon}
+              aria-label="Secondary actions"
+              aria-hidden
+              tabIndex={-1}
+            ></IconButton>
+          </TreeView.Item>
+          <TreeView.Item id="src/Button" defaultExpanded>
+            <TreeView.LeadingVisual>
+              <TreeView.DirectoryIcon />
+            </TreeView.LeadingVisual>
+            Button
+            <TreeView.SubTree>
+              <TreeView.Item id="src/Button/Button.tsx">
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                Button.tsx
+                <IconButton
+                  variant="invisible"
+                  icon={KebabHorizontalIcon}
+                  aria-label="Secondary actions"
+                  aria-hidden
+                  tabIndex={-1}
+                ></IconButton>
+              </TreeView.Item>
+            </TreeView.SubTree>
           </TreeView.Item>
         </TreeView.SubTree>
       </TreeView.Item>
