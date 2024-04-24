@@ -1,5 +1,6 @@
 import {EyeIcon, TriangleDownIcon, HeartIcon} from '@primer/octicons-react'
 import React, {useState} from 'react'
+import {Status} from '../internal/components/Status'
 import {Button} from '.'
 
 export default {
@@ -19,7 +20,7 @@ export const TrailingVisual = () => <Button trailingVisual={EyeIcon}>Trailing vi
 export const TrailingCounter = () => {
   const [count, setCount] = useState(0)
   return (
-    <Button onClick={() => setCount(count + 1)} count={count}>
+    <Button aria-live="polite" aria-atomic="true" onClick={() => setCount(count + 1)} count={count}>
       Watch
     </Button>
   )
