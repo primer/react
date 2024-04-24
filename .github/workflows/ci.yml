@@ -140,10 +140,11 @@ jobs:
         run: kill ${{ steps.storybook.outputs.pid }}
       - name: Upload report
         if: ${{ always() }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: vrt
+          name: vrt-${{ matrix.shard }}
           path: blob-report
+          retention-days: 1
 
   vrt:
     if: ${{ always() }}
@@ -160,14 +161,15 @@ jobs:
       - name: install dependencies
         run: npm ci
       - name: download all reports
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
-          name: vrt
           path: all-blob-reports
+          pattern: vrt-*
+          merge-multiple: true
       - name: merge all reports
         run: npx playwright merge-reports --reporter html ./all-blob-reports
       - name: Upload report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: vrt
           path: playwright-report
@@ -212,10 +214,11 @@ jobs:
         run: kill ${{ steps.storybook.outputs.pid }}
       - name: Upload report
         if: ${{ always() }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: axe
+          name: axe-${{ matrix.shard }}
           path: blob-report
+          retention-days: 1
 
   aat:
     if: ${{ always() }}
@@ -232,14 +235,15 @@ jobs:
       - name: install dependencies
         run: npm ci
       - name: download all reports
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
-          name: axe
           path: all-blob-reports
+          pattern: axe-*
+          merge-multiple: true
       - name: merge all reports
         run: npx playwright merge-reports --reporter html ./all-blob-reports
       - name: Upload report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: axe
           path: playwright-report
