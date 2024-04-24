@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-Fix returning focus on TreeView when active element is not a treeitem
+TreeView: Fix returning focus when active element is not a treeitem
