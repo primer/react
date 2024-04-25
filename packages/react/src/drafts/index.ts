@@ -72,3 +72,6 @@ export * from './ActionBar'
 
 export {Stack} from '../Stack'
 export type {StackProps, StackItemProps} from '../Stack'
+
+export {Label} from './Label'
+export type {LabelProps} from './Label'
