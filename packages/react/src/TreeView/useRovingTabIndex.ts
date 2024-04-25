@@ -52,7 +52,11 @@ export function useRovingTabIndex({
       }
 
       // Otherwise, focus the activeElement if it's a treeitem
-      if (document.activeElement instanceof HTMLElement && containerRef.current?.contains(document.activeElement)) {
+      if (
+        document.activeElement instanceof HTMLElement &&
+        containerRef.current?.contains(document.activeElement) &&
+        document.activeElement.getAttribute('role') === 'treeitem'
+      ) {
         return document.activeElement
       }
 
