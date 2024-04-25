@@ -1,8 +1,7 @@
 import {EyeIcon, TriangleDownIcon, HeartIcon} from '@primer/octicons-react'
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import {Button} from '.'
 import {announce} from '@primer/live-region-element'
-import {Status} from '../internal/components/Status'
 
 export default {
   title: 'Components/Button/Features',
@@ -33,6 +32,27 @@ export const TrailingCounterWithAriaLabel = () => {
     <Button aria-label={`Watch (${count})`} onClick={() => setCount(count + 1)} count={count}>
       Watch
     </Button>
+  )
+}
+
+export const TrailingCounterWithFocusBouncing = () => {
+  const [count, setCount] = useState(0)
+  const onClick = () => {
+    setCount(count + 1)
+    // i think the proper react way is to pass a ref??
+    const button = document.querySelector('#test-1') as HTMLElement
+    // eslint-disable-next-line github/no-blur
+    button.blur()
+    setTimeout(() => {
+      button.focus()
+    }, 250)
+  }
+  return (
+    <div>
+      <Button id="test-1" onClick={onClick} count={count}>
+        Watch
+      </Button>
+    </div>
   )
 }
 
