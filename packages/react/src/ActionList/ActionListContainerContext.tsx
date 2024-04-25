@@ -1,4 +1,4 @@
-/** This context can be used by components that compose ActionList inside a Menu */
+/** This context can be used by components that compose ActionList inside ActionMenu or SelectPanel */
 
 import React from 'react'
 import type {AriaRole} from '../utils/types'
@@ -14,6 +14,8 @@ type ContextProps = {
   // eslint-disable-next-line @typescript-eslint/ban-types
   afterSelect?: Function
   enableFocusZone?: boolean
+  // SelectPanel v2 uses a radio instead of checkmark
+  singleSelectionVisual?: 'check' | 'radio'
 }
 
 export const ActionListContainerContext = React.createContext<ContextProps>({})

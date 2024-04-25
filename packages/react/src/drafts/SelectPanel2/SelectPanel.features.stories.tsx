@@ -55,7 +55,37 @@ export const InstantSelectionVariant = () => {
   )
 }
 
-export const SingleSelection = () => <h1>TODO</h1>
+export const SingleSelection = () => {
+  const [selectedTag, setSelectedTag] = React.useState<string>()
+
+  const onSubmit = () => {
+    if (!selectedTag) return
+    data.ref = selectedTag // pretending to persist changes
+  }
+
+  const itemsToShow = data.tags
+
+  return (
+    <>
+      <h1>Instant selection variant</h1>
+
+      <SelectPanel title="Choose a tag" selectionVariant="single" onSubmit={onSubmit}>
+        <SelectPanel.Button leadingVisual={TagIcon}>{selectedTag || 'Choose a tag'}</SelectPanel.Button>
+
+        <ActionList>
+          {itemsToShow.map(tag => (
+            <ActionList.Item key={tag.id} onSelect={() => setSelectedTag(tag.id)} selected={selectedTag === tag.id}>
+              {tag.name}
+            </ActionList.Item>
+          ))}
+        </ActionList>
+        <SelectPanel.Footer>
+          <SelectPanel.SecondaryAction variant="button">Edit tags</SelectPanel.SecondaryAction>
+        </SelectPanel.Footer>
+      </SelectPanel>
+    </>
+  )
+}
 
 export const WithWarning = () => {
   /* Selection */

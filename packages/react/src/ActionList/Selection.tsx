@@ -5,11 +5,14 @@ import {GroupContext} from './Group'
 import {type ActionListProps, type ActionListItemProps, ListContext} from './shared'
 import {LeadingVisualContainer} from './Visuals'
 import Box from '../Box'
+import {ActionListContainerContext} from './ActionListContainerContext'
+import {StyledRadio} from '../Radio/Radio'
 
 type SelectionProps = Pick<ActionListItemProps, 'selected'>
 export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({selected}) => {
   const {selectionVariant: listSelectionVariant, role: listRole} = React.useContext(ListContext)
   const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
+  const {singleSelectionVisual} = React.useContext(ActionListContainerContext)
 
   /** selectionVariant in Group can override the selectionVariant in List root */
   /** fallback to selectionVariant from container menu if any (ActionMenu, SelectPanel ) */
@@ -31,7 +34,14 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
 
   if (selectionVariant === 'single' || listRole === 'menu') {
     return (
-      <LeadingVisualContainer data-component="ActionList.Selection">{selected && <CheckIcon />}</LeadingVisualContainer>
+      <LeadingVisualContainer data-component="ActionList.Selection">
+        {/* we use StyledRadio instead of Radio because we should not add a radio input, only a visual radio  */}
+        {singleSelectionVisual === 'radio' ? (
+          <StyledRadio as="span" data-checked={selected ? true : undefined} />
+        ) : (
+          selected && <CheckIcon />
+        )}
+      </LeadingVisualContainer>
     )
   }
 

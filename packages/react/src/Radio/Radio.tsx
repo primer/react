@@ -42,14 +42,15 @@ export type RadioProps = {
 } & InputHTMLAttributes<HTMLInputElement> &
   SxProp
 
-const StyledRadio = styled.input`
+export const StyledRadio = styled.input`
   ${sharedCheckboxAndRadioStyles};
   border-radius: var(--borderRadius-full, 100vh);
   transition:
     background-color,
     border-color 80ms cubic-bezier(0.33, 1, 0.68, 1); /* checked -> unchecked - add 120ms delay to fully see animation-out */
 
-  &:checked {
+  &:checked,
+  &[data-checked] {
     border-color: ${get('colors.accent.fg')};
     border-width: var(--base-size-4, 4px);
 

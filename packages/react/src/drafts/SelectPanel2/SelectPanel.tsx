@@ -334,6 +334,7 @@ const Panel: React.FC<SelectPanelProps> = ({
                       afterSelect: internalAfterSelect,
                       listLabelledBy: `${panelId}--title`,
                       enableFocusZone: true, // Arrow keys navigation for list items
+                      singleSelectionVisual: 'radio',
                     }}
                   >
                     {childrenInBody}
