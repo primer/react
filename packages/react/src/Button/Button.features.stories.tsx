@@ -1,6 +1,8 @@
 import {EyeIcon, TriangleDownIcon, HeartIcon} from '@primer/octicons-react'
 import React, {useState} from 'react'
 import {Button} from '.'
+import {announce} from '@primer/live-region-element'
+import {Status} from '../internal/components/Status'
 
 export default {
   title: 'Components/Button/Features',
@@ -43,11 +45,16 @@ export const TrailingCounterWithPoliteLiveRegion = () => {
   )
 }
 
-export const TrailingCounterWithWrapperLiveRegion = () => {
+export const TrailingCounterWithAdjacentLiveRegion = () => {
   const [count, setCount] = useState(0)
+
+  const onClick = () => {
+    setCount(count + 1)
+    announce(`Watch (${count + 1})`)
+  }
   return (
-    <div aria-live="polite" aria-atomic="true">
-      <Button onClick={() => setCount(count + 1)} count={count}>
+    <div>
+      <Button onClick={onClick} count={count}>
         Watch
       </Button>
     </div>
