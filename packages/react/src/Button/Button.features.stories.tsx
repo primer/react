@@ -46,8 +46,8 @@ export const TrailingCounterWithPoliteLiveRegion = () => {
 export const TrailingCounterWithWrapperLiveRegion = () => {
   const [count, setCount] = useState(0)
   return (
-    <div>
-      <Button aria-live="polite" aria-atomic="true" onClick={() => setCount(count + 1)} count={count}>
+    <div aria-live="polite" aria-atomic="true">
+      <Button onClick={() => setCount(count + 1)} count={count}>
         Watch
       </Button>
     </div>
