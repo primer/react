@@ -102,7 +102,9 @@ const ButtonBase = forwardRef(
           // aria-labelledby is needed because the accessible name becomes unset when the button is in a loading state.
           // We only set it when the button is in a loading state because it will supercede the aria-label when the screen
           // reader announces the button name.
-          aria-labelledby={loading ? `${uuid}-label` : ariaLabelledBy}
+          aria-labelledby={
+            loading ? [`${uuid}-label`, ariaLabelledBy].filter(labelID => Boolean(labelID)).join(' ') : ariaLabelledBy
+          }
           id={id}
           onClick={loading ? undefined : onClick}
         >
