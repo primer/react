@@ -1,6 +1,6 @@
 import {EyeIcon, TriangleDownIcon, HeartIcon} from '@primer/octicons-react'
 import React, {useState} from 'react'
-import {Button} from '.'
+import {Button, Link} from '.'
 
 export default {
   title: 'Components/Button/Features',
@@ -28,9 +28,9 @@ const AccessibilityNote = () => {
         </p>
         <p>
           Learn more about at{' '}
-          <a href="https://github.com/github/accessibility/blob/b297154027f524858420c9edf4a51fc5999bf1b2/docs/wiki/screen-reader-testing/dynamically-updated-buttons-support-april-2024.md">
+          <Link href="https://github.com/github/accessibility/blob/b297154027f524858420c9edf4a51fc5999bf1b2/docs/wiki/screen-reader-testing/dynamically-updated-buttons-support-april-2024.md">
             Staff-only: Dynamically updated button labels
-          </a>
+          </Link>
           .
         </p>
       </>
