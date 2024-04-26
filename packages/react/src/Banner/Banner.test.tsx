@@ -25,12 +25,38 @@ describe('Banner', () => {
 
   it('should render as a region element', () => {
     render(<Banner title="test" />)
-    expect(screen.getByRole('region', {name: 'test'})).toBeInTheDocument()
+    expect(screen.getByRole('region', {name: 'Information'})).toBeInTheDocument()
+    expect(screen.getByRole('heading', {name: 'test'})).toBeInTheDocument()
   })
 
-  it('should label the landmark element with the title prop', () => {
+  it('should label the landmark element with the corresponding variant label text', () => {
     render(<Banner title="test" />)
-    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('test'))
+    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Information'))
+  })
+
+  it('should label the landmark element with the label for the critical variant', () => {
+    render(<Banner title="test" variant="critical" />)
+    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Critical'))
+  })
+
+  it('should label the landmark element with the label for the info variant', () => {
+    render(<Banner title="test" variant="info" />)
+    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Information'))
+  })
+
+  it('should label the landmark element with the label for the success variant', () => {
+    render(<Banner title="test" variant="success" />)
+    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Success'))
+  })
+
+  it('should label the landmark element with the label for the upsell variant', () => {
+    render(<Banner title="test" variant="upsell" />)
+    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Recommendation'))
+  })
+
+  it('should label the landmark element with the label for the warning variant', () => {
+    render(<Banner title="test" variant="warning" />)
+    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Warning'))
   })
 
   it('should default the title to a h2', () => {
@@ -50,7 +76,7 @@ describe('Banner', () => {
   it('should rendering a description with the `description` prop', () => {
     render(<Banner title="test" description="test-description" />)
     expect(screen.getByText('test-description')).toBeInTheDocument()
-    expect(screen.getByRole('region', {name: 'test'})).toContainElement(screen.getByText('test-description'))
+    expect(screen.getByRole('region', {name: 'Information'})).toContainElement(screen.getByText('test-description'))
   })
 
   it('should support a primary action', async () => {
