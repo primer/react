@@ -33,3 +33,11 @@ describe('ActionBar', () => {
     expect(results).toHaveNoViolations()
   })
 })
+
+/* Test suite
+1. Did it render all the iconbuttons?
+2. Are all of them variant invisible?
+3. Dont add any normal button?
+4. Reduce size of container and see if all the icon buttons went into the dropdown? Did dividers move correctly?
+5. Aria labels are all correct?
+*/
