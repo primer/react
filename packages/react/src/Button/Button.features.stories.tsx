@@ -16,44 +16,89 @@ export const LeadingVisual = () => <Button leadingVisual={HeartIcon}>Leading vis
 
 export const TrailingVisual = () => <Button trailingVisual={EyeIcon}>Trailing visual</Button>
 
+const AccessibilityNote = () => {
+  {
+    return (
+      <>
+        <p>
+          <b>Accessibility note</b>: When a Button label is dynamically updated, such as in this example, the update
+          must be communicated to screen reader users. This will not happen reliably without additional markup
+          considerations. Upon testing various approaches, we discovered that updating the <code>aria-label</code> when
+          the button label is updated, results in the most consistent announcement across screen readers and browsers.
+        </p>
+        <p>
+          Learn more about at{' '}
+          <a href="https://github.com/github/accessibility/blob/b297154027f524858420c9edf4a51fc5999bf1b2/docs/wiki/screen-reader-testing/dynamically-updated-buttons-support-april-2024.md">
+            Staff-only: Dynamically updated button labels
+          </a>
+          .
+        </p>
+      </>
+    )
+  }
+}
 export const TrailingCounter = () => {
   const [count, setCount] = useState(0)
   return (
-    <Button onClick={() => setCount(count + 1)} count={count}>
-      Watch
-    </Button>
+    <>
+      <Button aria-label={`Watch (${count})`} onClick={() => setCount(count + 1)} count={count}>
+        Watch
+      </Button>
+      <AccessibilityNote />
+    </>
   )
 }
 
 export const TrailingCounterAllVariants = () => {
   const [count, setCount] = useState(0)
   return (
-    <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
-      <Button onClick={() => setCount(count + 1)} count={count}>
-        Watch
-      </Button>
-      <Button disabled onClick={() => setCount(count + 1)} count={count}>
-        Watch
-      </Button>
-      <Button variant="primary" onClick={() => setCount(count + 1)} count={count}>
-        Watch
-      </Button>
-      <Button variant="primary" disabled onClick={() => setCount(count + 1)} count={count}>
-        Watch
-      </Button>
-      <Button variant="danger" onClick={() => setCount(count + 1)} count={count}>
-        Watch
-      </Button>
-      <Button variant="danger" disabled onClick={() => setCount(count + 1)} count={count}>
-        Watch
-      </Button>
-      <Button variant="invisible" onClick={() => setCount(count + 1)} count={count}>
-        Watch
-      </Button>
-      <Button variant="invisible" disabled onClick={() => setCount(count + 1)} count={count}>
-        Watch
-      </Button>
-    </div>
+    <>
+      <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
+        <Button aria-label={`Watch (${count})`} onClick={() => setCount(count + 1)} count={count}>
+          Watch
+        </Button>
+        <Button aria-label={`Watch (${count})`} disabled onClick={() => setCount(count + 1)} count={count}>
+          Watch
+        </Button>
+        <Button aria-label={`Watch (${count})`} variant="primary" onClick={() => setCount(count + 1)} count={count}>
+          Watch
+        </Button>
+        <Button
+          aria-label={`Watch (${count})`}
+          variant="primary"
+          disabled
+          onClick={() => setCount(count + 1)}
+          count={count}
+        >
+          Watch
+        </Button>
+        <Button aria-label={`Watch (${count})`} variant="danger" onClick={() => setCount(count + 1)} count={count}>
+          Watch
+        </Button>
+        <Button
+          aria-label={`Watch (${count})`}
+          variant="danger"
+          disabled
+          onClick={() => setCount(count + 1)}
+          count={count}
+        >
+          Watch
+        </Button>
+        <Button aria-label={`Watch (${count})`} variant="invisible" onClick={() => setCount(count + 1)} count={count}>
+          Watch
+        </Button>
+        <Button
+          aria-label={`Watch (${count})`}
+          variant="invisible"
+          disabled
+          onClick={() => setCount(count + 1)}
+          count={count}
+        >
+          Watch
+        </Button>
+      </div>
+      <AccessibilityNote />
+    </>
   )
 }
 
