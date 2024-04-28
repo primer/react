@@ -1,5 +1,27 @@
 # @primer/react
 
+## 36.16.0
+
+### Minor Changes
+
+- [#4512](https://github.com/primer/react/pull/4512) [`622b1447d12232559e1bf2659a94c191e07da225`](https://github.com/primer/react/commit/622b1447d12232559e1bf2659a94c191e07da225) Thanks [@colebemis](https://github.com/colebemis)! - Added `className` props to `TreeView` and `TreeView.Item` components for custom styling.
+
+## 36.15.0
+
+### Minor Changes
+
+- [#4506](https://github.com/primer/react/pull/4506) [`d1419184511be5a3418fca437c805293456f0845`](https://github.com/primer/react/commit/d1419184511be5a3418fca437c805293456f0845) Thanks [@owenniblock](https://github.com/owenniblock)! - Export ActionBar default as ActionBar so it can be imported correctly
+
+- [#4423](https://github.com/primer/react/pull/4423) [`ee4608833ae79a9c05cbaa76f3602e40c9ba8554`](https://github.com/primer/react/commit/ee4608833ae79a9c05cbaa76f3602e40c9ba8554) Thanks [@langermank](https://github.com/langermank)! - Add support for the experimental Stack component
+
+- [#4276](https://github.com/primer/react/pull/4276) [`13971c92669013ce6f5afe51782d251a5e2c5a17`](https://github.com/primer/react/commit/13971c92669013ce6f5afe51782d251a5e2c5a17) Thanks [@joshblack](https://github.com/joshblack)! - Add support for an experimental FeatureFlags component for working with feature flags in Primer
+
+### Patch Changes
+
+- [#4501](https://github.com/primer/react/pull/4501) [`8bfab0a2760eb0734aea19b38ba5957a5deb8ca2`](https://github.com/primer/react/commit/8bfab0a2760eb0734aea19b38ba5957a5deb8ca2) Thanks [@pksjce](https://github.com/pksjce)! - ActionBar: Make it such that either aria-label or aria-labelledby is present
+
+- [#4331](https://github.com/primer/react/pull/4331) [`77846c4e93cb0b7711654272162fa6f73d9cc90e`](https://github.com/primer/react/commit/77846c4e93cb0b7711654272162fa6f73d9cc90e) Thanks [@langermank](https://github.com/langermank)! - Bug fix: Add `word-break` to ActionList items
+
 ## 36.14.0
 
 ### Minor Changes
