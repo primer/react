@@ -424,8 +424,21 @@ export const IssuesPage = () => {
           </PageHeader.TitleArea>
           <PageHeader.ContextArea>
             <PageHeader.ContextBar sx={{gap: '8px'}}>
-              <Button>Edit</Button>
-              <Button variant="primary">New Issue</Button>
+              <Button
+                onClick={() => {
+                  alert('The title will go into edit mode')
+                }}
+              >
+                Edit
+              </Button>
+              <Button
+                variant="primary"
+                onClick={() => {
+                  alert('New issue modal will open')
+                }}
+              >
+                New Issue
+              </Button>
             </PageHeader.ContextBar>
             <PageHeader.ContextAreaActions>
               <IconButton
@@ -433,19 +446,38 @@ export const IssuesPage = () => {
                 icon={CopyIcon}
                 variant="invisible"
                 unsafeDisableTooltip={false}
+                onClick={() => {
+                  alert('This button copies the permalink to the clipboard')
+                }}
               />
             </PageHeader.ContextAreaActions>
           </PageHeader.ContextArea>
           <PageHeader.Actions>
             <Hidden when={['narrow']}>
               <Box sx={{display: 'flex', gap: '0.5rem'}}>
-                <Button>Edit</Button>
-                <Button variant="primary">New Issue</Button>
+                <Button
+                  onClick={() => {
+                    alert('The title will go into edit mode')
+                  }}
+                >
+                  Edit
+                </Button>
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    alert('New issue modal will open')
+                  }}
+                >
+                  New Issue
+                </Button>
                 <IconButton
                   aria-label="Copy permalink"
                   icon={CopyIcon}
                   variant="invisible"
                   unsafeDisableTooltip={false}
+                  onClick={() => {
+                    alert('This button copies the permalink to the clipboard')
+                  }}
                 />
               </Box>
             </Hidden>
@@ -522,7 +554,7 @@ export const IssuesPage = () => {
               <Button
                 variant="invisible"
                 onClick={() => {
-                  alert('Assign yourself')
+                  alert('This button assigns the issue to the logged-in user')
                 }}
                 sx={{color: 'fg.muted'}}
               >
@@ -538,8 +570,8 @@ export const IssuesPage = () => {
               Labels
             </Heading>
             <Box sx={{display: 'flex', alignItems: 'center', gap: 1}}>
-              <Token as="button" onClick={() => alert('token')} text="react" />
-              <Token as="button" onClick={() => alert('token')} text="accessibility" />
+              <Token as="button" onClick={() => alert('react token is selected')} text="react" />
+              <Token as="button" onClick={() => alert('accessibility token is selected')} text="accessibility" />
             </Box>
           </Box>
         </Box>
