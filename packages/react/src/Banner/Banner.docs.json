@@ -1,0 +1,68 @@
+{
+  "id": "banner",
+  "name": "Banner",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "importPath": "@primer/react/experimental",
+  "stories": [],
+  "props": [
+    {
+      "name": "description",
+      "type": "React.ReactNode",
+      "description": "Provide an optional description for the Banner. This should provide supplemental information about the Banner"
+    },
+    {
+      "name": "icon",
+      "type": "React.ReactNode",
+      "description": "Provide an icon for the banner"
+    },
+    {
+      "name": "onDismiss",
+      "type": "() => void",
+      "description": "Optionally provide a handler to be called when the banner is dismissed. Providing this prop will show a dismiss button"
+    },
+    {
+      "name": "primaryAction",
+      "type": "React.ReactNode",
+      "description": ""
+    },
+    {
+      "name": "secondaryAction",
+      "type": "React.ReactNode",
+      "description": ""
+    },
+    {
+      "name": "title",
+      "type": "React.ReactNode",
+      "description": "The title for the Banner. This will be used as the accessible name and is required unless `Banner.Title` is used as a child"
+    },
+    {
+      "name": "variant",
+      "type": "'critical' | 'info' | 'success' | 'upsell' | 'warning'",
+      "description": ""
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Banner.Title",
+      "props": [
+        {
+          "name": "as",
+          "type": "'h2' | 'h3' | 'h4' | 'h5' | 'h6'"
+        }
+      ]
+    },
+    {
+      "name": "Banner.Description",
+      "props": []
+    },
+    {
+      "name": "Banner.PrimaryAction",
+      "props": []
+    },
+    {
+      "name": "Banner.SecondaryAction",
+      "props": []
+    }
+  ]
+}

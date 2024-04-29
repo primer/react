@@ -1,8 +1,21 @@
-import React from 'react'
+import React, {useEffect, useState, type MutableRefObject} from 'react'
 import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon, AlertIcon, ArrowLeftIcon} from '@primer/octicons-react'
 
 import type {ButtonProps, TextInputProps, ActionListProps, LinkProps, CheckboxProps} from '../../index'
-import {Button, IconButton, Heading, Box, Tooltip, TextInput, Spinner, Text, Octicon, Link, Checkbox} from '../../index'
+import {
+  Button,
+  IconButton,
+  Heading,
+  Box,
+  Tooltip,
+  TextInput,
+  Spinner,
+  Text,
+  Octicon,
+  Link,
+  Checkbox,
+  useFormControlForwardedProps,
+} from '../../index'
 import {ActionListContainerContext} from '../../ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
@@ -337,7 +350,26 @@ const Panel: React.FC<SelectPanelProps> = ({
 }
 
 const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((props, anchorRef) => {
-  return <Button ref={anchorRef} {...props} />
+  const inputProps = useFormControlForwardedProps(props)
+  const [labelText, setLabelText] = useState('')
+  useEffect(() => {
+    const label = document.querySelector(`[for='${inputProps.id}']`)
+    if (label?.textContent) {
+      setLabelText(label.textContent)
+    }
+  }, [inputProps.id])
+
+  if (labelText) {
+    return (
+      <Button
+        ref={anchorRef}
+        aria-label={`${(anchorRef as MutableRefObject<HTMLButtonElement>).current.textContent}, ${labelText}`}
+        {...inputProps}
+      />
+    )
+  } else {
+    return <Button ref={anchorRef} {...props} />
+  }
 })
 
 const SelectPanelHeader: React.FC<React.PropsWithChildren & {onBack?: () => void}> = ({children, onBack, ...props}) => {
