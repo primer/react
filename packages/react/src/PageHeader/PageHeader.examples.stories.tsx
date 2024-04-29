@@ -294,6 +294,15 @@ export const FilesPage = () => (
         </ActionMenu>
       </PageHeader.Actions>
     </PageHeader>
+    <Box
+      sx={{
+        border: '1px solid grey',
+        padding: '1em',
+        margin: '1em',
+      }}
+    >
+      This is where the content of the file will be displayed.
+    </Box>
   </Box>
 )
 
