@@ -11,6 +11,12 @@ type BannerVariant = 'critical' | 'info' | 'success' | 'upsell' | 'warning'
 
 export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
   /**
+   * Provide an optional label to override the default name for the Banner
+   * landmark region
+   */
+  'aria-label'?: string
+
+  /**
    * Provide an optional description for the Banner. This should provide
    * supplemental information about the Banner
    */
@@ -74,7 +80,19 @@ const labels: Record<BannerVariant, string> = {
 }
 
 export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner(
-  {children, description, hideTitle, icon, onDismiss, primaryAction, secondaryAction, title, variant = 'info', ...rest},
+  {
+    'aria-label': label,
+    children,
+    description,
+    hideTitle,
+    icon,
+    onDismiss,
+    primaryAction,
+    secondaryAction,
+    title,
+    variant = 'info',
+    ...rest
+  },
   forwardRef,
 ) {
   const dismissible = variant !== 'critical' && onDismiss
@@ -107,7 +125,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
   return (
     <StyledBanner
       {...rest}
-      aria-label={labels[variant]}
+      aria-label={label ?? labels[variant]}
       as="section"
       data-dismissible={onDismiss ? '' : undefined}
       data-title-hidden={hideTitle ? '' : undefined}

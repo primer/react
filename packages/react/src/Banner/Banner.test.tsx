@@ -59,6 +59,11 @@ describe('Banner', () => {
     expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Warning'))
   })
 
+  it('should support the `aria-label` prop to override the default label for the landmark', () => {
+    render(<Banner aria-label="test" title="test" variant="warning" />)
+    expect(screen.getByRole('region')).toHaveAttribute('aria-label', 'test')
+  });
+
   it('should default the title to a h2', () => {
     render(<Banner title="test" />)
     expect(screen.getByRole('heading', {level: 2})).toBeInTheDocument()
