@@ -59,7 +59,7 @@ const InputLabel: React.FC<React.PropsWithChildren<Props>> = ({
       {required ? (
         <Box display="flex" as="span">
           <Box mr={1}>{children}</Box>
-          {requiredIndicator && <span>{requiredText}</span>}
+          {requiredText && <span aria-hidden={!requiredIndicator ? true : undefined}>{requiredText}</span>}
         </Box>
       ) : (
         children
