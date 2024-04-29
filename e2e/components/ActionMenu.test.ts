@@ -13,8 +13,8 @@ test.describe('ActionMenu', () => {
               colorScheme: theme,
             },
           })
+          // Open state
           await page.getByRole('button', {name: 'Open menu'}).click()
-          // Default state
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`ActionMenu.Default.${theme}.png`)
         })
 
@@ -43,10 +43,9 @@ test.describe('ActionMenu', () => {
             },
           })
 
-          // Open menu
+          // Open state
           await page.locator('button', {hasText: 'Open menu'}).waitFor()
           await page.getByRole('button', {name: 'Open menu'}).click()
-          // Default state
           expect(await page.screenshot()).toMatchSnapshot(`ActionMenu.Inactive Items.${theme}.png`)
         })
 
@@ -77,9 +76,8 @@ test.describe('ActionMenu', () => {
             },
           })
 
-          // Open Menu
+          // Open state
           await page.getByRole('button', {name: 'Open menu'}).click()
-          // Default state
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `ActionMenu.Links And Actions.${theme}.png`,
           )
@@ -111,9 +109,8 @@ test.describe('ActionMenu', () => {
             },
           })
 
-          // Open Menu
+          // Open state
           await page.getByRole('button', {name: 'Display'}).click()
-          // Default state
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `ActionMenu.Multi Select.${theme}.png`,
           )
@@ -127,7 +124,7 @@ test.describe('ActionMenu', () => {
             },
           })
 
-          // Open Menu
+          // Open state
           await page.getByRole('button', {name: 'Display'}).click()
           await expect(page).toHaveNoViolations()
         })
@@ -146,7 +143,8 @@ test.describe('ActionMenu', () => {
             },
           })
 
-          // Default state
+          // Open state
+          await page.getByRole('button', {name: 'Options: fast Forward'}).click()
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `ActionMenu.Single Select.${theme}.png`,
           )
@@ -159,6 +157,9 @@ test.describe('ActionMenu', () => {
               colorScheme: theme,
             },
           })
+
+          // Open state
+          await page.getByRole('button', {name: 'Options: fast Forward'}).click()
           await expect(page).toHaveNoViolations()
         })
       })
@@ -176,7 +177,7 @@ test.describe('ActionMenu', () => {
             },
           })
 
-          // Default state
+          await page.getByRole('button', {name: 'Open Menu'}).click()
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `ActionMenu.Controlled Menu.${theme}.png`,
           )
@@ -189,6 +190,9 @@ test.describe('ActionMenu', () => {
               colorScheme: theme,
             },
           })
+
+          // Open state
+          await page.getByRole('button', {name: 'Open Menu'}).click()
           await expect(page).toHaveNoViolations()
         })
       })
@@ -266,7 +270,7 @@ test.describe('ActionMenu', () => {
             },
           })
 
-          // Default state
+          // Open state
           expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `ActionMenu.Groups And Descriptions.${theme}.png`,
           )
@@ -279,13 +283,9 @@ test.describe('ActionMenu', () => {
               colorScheme: theme,
             },
           })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'aria-required-children': {
-                enabled: false,
-              },
-            },
-          })
+
+          // Open state
+          await expect(page).toHaveNoViolations()
         })
       })
     }
