@@ -306,3 +306,18 @@ export const DisabledInputs = () => (
     </FormControl>
   </Box>
 )
+
+export const CustomRequired = () => (
+  <Box sx={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
+    <FormControl required={true}>
+      <FormControl.Label requiredText="(required)">Form Input Label</FormControl.Label>
+      <FormControl.Caption>This is form field with a custom required indicator</FormControl.Caption>
+      <TextInput />
+    </FormControl>
+    <FormControl required={true}>
+      <FormControl.Label requiredIndicator={false}>Form Input Label</FormControl.Label>
+      <FormControl.Caption>This is form field without a required indicator</FormControl.Caption>
+      <TextInput />
+    </FormControl>
+  </Box>
+)
