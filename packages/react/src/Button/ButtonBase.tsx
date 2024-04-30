@@ -63,7 +63,6 @@ const ButtonBase = forwardRef(
         }
       }, [innerRef])
     }
-    console.log('dynamicallyUpdated', dynamicallyUpdated)
     return (
       <StyledButton
         as={Component}
