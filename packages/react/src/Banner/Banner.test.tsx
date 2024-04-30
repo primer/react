@@ -62,7 +62,7 @@ describe('Banner', () => {
   it('should support the `aria-label` prop to override the default label for the landmark', () => {
     render(<Banner aria-label="Test" title="test" variant="warning" />)
     expect(screen.getByRole('region')).toHaveAttribute('aria-label', 'test')
-  });
+  })
 
   it('should default the title to a h2', () => {
     render(<Banner title="test" />)
