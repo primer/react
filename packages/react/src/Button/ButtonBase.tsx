@@ -19,6 +19,7 @@ const ButtonBase = forwardRef(
       trailingVisual: TrailingVisual,
       trailingAction: TrailingAction,
       count,
+      dynamicallyUpdated,
       icon: Icon,
       variant = 'default',
       size = 'medium',
@@ -78,7 +79,13 @@ const ButtonBase = forwardRef(
           <Icon />
         ) : (
           <>
-            <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
+            <Box
+              as="span"
+              data-component="buttonContent"
+              sx={getAlignContentSize(alignContent)}
+              aria-live={dynamicallyUpdated ? undefined : 'polite'}
+              aria-atomic={dynamicallyUpdated ? undefined : 'true'}
+            >
               {LeadingVisual && (
                 <Box as="span" data-component="leadingVisual" sx={{...iconWrapStyles}}>
                   <LeadingVisual />

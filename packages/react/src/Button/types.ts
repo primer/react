@@ -72,7 +72,7 @@ export type ButtonProps = {
   trailingAction?: React.ElementType | null
 
   children?: React.ReactNode
-
+  dynamicallyUpdated?: true
   count?: number
 } & ButtonBaseProps
 

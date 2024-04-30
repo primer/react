@@ -2,6 +2,7 @@ import {EyeIcon, TriangleDownIcon, HeartIcon} from '@primer/octicons-react'
 import React, {useState, useRef} from 'react'
 import {Button} from '.'
 import {announce} from '@primer/live-region-element'
+import VisuallyHidden from '../_VisuallyHidden'
 
 export default {
   title: 'Components/Button/Features',
@@ -74,7 +75,20 @@ export const TrailingCounterWithAdjacentLiveRegion = () => {
   }
   return (
     <div>
-      <Button onClick={onClick} count={count}>
+      <Button onClick={onClick}>Watch</Button>
+    </div>
+  )
+}
+
+export const TrailingCounterWithNestedLiveRegion = () => {
+  const [count, setCount] = useState(0)
+
+  const onClick = () => {
+    setCount(count + 1)
+  }
+  return (
+    <div>
+      <Button dynamicallyUpdated={true} onClick={onClick} count={count}>
         Watch
       </Button>
     </div>
