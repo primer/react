@@ -123,8 +123,6 @@ const UlBox = styled.ul<SxProp>`
       }
 
       .PRIVATE_TreeView-item-drag-handle {
-        grid-area: drag;
-        height: 100%;
         visibility: visible;
       }
     }
@@ -157,6 +155,9 @@ const UlBox = styled.ul<SxProp>`
     grid-area: drag;
     height: 100%;
     visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .PRIVATE_TreeView-item[aria-current='true'] > .PRIVATE_TreeView-item-container {

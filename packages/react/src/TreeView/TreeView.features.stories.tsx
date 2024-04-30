@@ -698,15 +698,7 @@ export const NestedTrees: Story = () => {
 
 export const WithDragHandle: Story = () => {
   const dragHandle = (
-    <IconButton
-      sx={{p: 1, cursor: 'grab', mr: 1}}
-      aria-label={`Move`}
-      variant="invisible"
-      // When dragging, the button is no longer a button, but has the role application to allow
-      // keyboard movements to not be registered by the screen reader
-      icon={GrabberIcon}
-      size="large"
-    />
+    <IconButton sx={{p: 1, cursor: 'grab', mr: 1}} aria-label={`Move`} variant="invisible" icon={GrabberIcon} />
   )
 
   const [isLoading, setIsLoading] = React.useState(false)
