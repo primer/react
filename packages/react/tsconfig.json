@@ -10,6 +10,7 @@
     "src/**/*.js",
     "src/**/*.ts",
     "src/**/*.tsx",
+    "!src/**/*.figma.tsx",
     "script/**/*.ts"
   ]
 }

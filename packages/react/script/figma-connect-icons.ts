@@ -181,8 +181,6 @@ ${icons
  * Entry point for the script
  */
 async function generateCodeConnectIcons() {
-  console.log('fetching published component info')
-
   const components = await fetchPublishedFileComponents()
   const icons: IconInfo[] = []
 
@@ -208,6 +206,7 @@ async function generateCodeConnectIcons() {
     name = name.replace(/[0-9]+/g, '')
 
     // extract the size from the name
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_match, size] = figmaName.match(/([0-9]+)/) ?? [null, '16'] // default to 16 if no size specified in the Figma name
 
     const info: IconInfo = {
@@ -219,7 +218,7 @@ async function generateCodeConnectIcons() {
     }
     icons.push(info)
   }
-
+  // eslint-disable-next-line no-console
   console.log(`found ${icons.length} published icons`)
 
   await writeCodeConnectFile('.', icons)
