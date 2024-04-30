@@ -63,7 +63,7 @@ const ButtonBase = forwardRef(
         }
       }, [innerRef])
     }
-
+    console.log('dynamicallyUpdated', dynamicallyUpdated)
     return (
       <StyledButton
         as={Component}
@@ -83,8 +83,8 @@ const ButtonBase = forwardRef(
               as="span"
               data-component="buttonContent"
               sx={getAlignContentSize(alignContent)}
-              aria-live={dynamicallyUpdated ? undefined : 'polite'}
-              aria-atomic={dynamicallyUpdated ? undefined : 'true'}
+              aria-live={dynamicallyUpdated ? 'polite' : undefined}
+              aria-atomic={dynamicallyUpdated ? 'true' : undefined}
             >
               {LeadingVisual && (
                 <Box as="span" data-component="leadingVisual" sx={{...iconWrapStyles}}>
