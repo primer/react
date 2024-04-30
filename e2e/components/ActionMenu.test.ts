@@ -46,7 +46,9 @@ test.describe('ActionMenu', () => {
           // Open state
           await page.locator('button', {hasText: 'Open menu'}).waitFor()
           await page.getByRole('button', {name: 'Open menu'}).click()
-          expect(await page.screenshot()).toMatchSnapshot(`ActionMenu.Inactive Items.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `ActionMenu.Inactive Items.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
