@@ -5,7 +5,7 @@ import {
   FileDirectoryOpenFillIcon,
 } from '@primer/octicons-react'
 import clsx from 'clsx'
-import React, {useCallback, useEffect} from 'react'
+import React, {useCallback, useEffect, type ReactElement} from 'react'
 import styled, {keyframes} from 'styled-components'
 import {ConfirmationDialog} from '../ConfirmationDialog/ConfirmationDialog'
 import Spinner from '../Spinner'
@@ -65,6 +65,7 @@ export type TreeViewProps = {
   children: React.ReactNode
   flat?: boolean
   className?: string
+  dragAndDrop?: boolean
 }
 
 const UlBox = styled.ul<SxProp>`
@@ -120,6 +121,12 @@ const UlBox = styled.ul<SxProp>`
         outline: 2px solid transparent;
         outline-offset: -2px;
       }
+
+      .PRIVATE_TreeView-item-drag-handle {
+        grid-area: drag;
+        height: 100%;
+        visibility: visible;
+      }
     }
 
     @media (pointer: coarse) {
@@ -139,6 +146,17 @@ const UlBox = styled.ul<SxProp>`
 
   &[data-omit-spacer='true'] .PRIVATE_TreeView-item-container {
     grid-template-columns: 0 0 1fr;
+  }
+
+  &[data-drag-and-drop='true'] .PRIVATE_TreeView-item-container {
+    grid-template-columns: 1.5rem calc(calc(var(--level) - 1) * (var(--toggle-width) / 2)) var(--toggle-width) 1fr;
+    grid-template-areas: 'drag spacer toggle content';
+  }
+
+  .PRIVATE_TreeView-item-drag-handle {
+    grid-area: drag;
+    height: 100%;
+    visibility: hidden;
   }
 
   .PRIVATE_TreeView-item[aria-current='true'] > .PRIVATE_TreeView-item-container {
@@ -257,6 +275,7 @@ const Root: React.FC<TreeViewProps> = ({
   children,
   flat,
   className,
+  dragAndDrop,
 }) => {
   const containerRef = React.useRef<HTMLUListElement>(null)
   const mouseDownRef = React.useRef<boolean>(false)
@@ -312,6 +331,7 @@ const Root: React.FC<TreeViewProps> = ({
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledby}
           data-omit-spacer={flat}
+          data-drag-and-drop={dragAndDrop}
           onMouseDown={onMouseDown}
           className={className}
         >
@@ -337,6 +357,7 @@ export type TreeViewItemProps = {
   onExpandedChange?: (expanded: boolean) => void
   onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
   className?: string
+  dragHandle?: ReactElement
 }
 
 const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
@@ -351,6 +372,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       onSelect,
       children,
       className,
+      dragHandle,
     },
     ref,
   ) => {
@@ -488,6 +510,12 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             <div style={{gridArea: 'spacer', display: 'flex'}}>
               <LevelIndicatorLines level={level} />
             </div>
+            {dragHandle ? (
+              // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+              <div className="PRIVATE_TreeView-item-drag-handle" onMouseDown={() => setIsExpanded(false)}>
+                {dragHandle}
+              </div>
+            ) : null}
             {hasSubTree ? (
               // This lint rule is disabled due to the guidelines in the `TreeView` api docs.
               // https://github.com/github/primer/blob/main/apis/tree-view-api.md#the-expandcollapse-chevron-toggle

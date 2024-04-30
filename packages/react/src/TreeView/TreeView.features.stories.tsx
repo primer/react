@@ -4,6 +4,7 @@ import {
   DiffRemovedIcon,
   DiffRenamedIcon,
   FileIcon,
+  GrabberIcon,
   KebabHorizontalIcon,
 } from '@primer/octicons-react'
 import type {Meta, Story} from '@storybook/react'
@@ -685,6 +686,97 @@ export const NestedTrees: Story = () => {
           </TreeView.SubTree>
         </TreeView.Item>
         <TreeView.Item id="another-file">
+          <TreeView.LeadingVisual>
+            <FileIcon />
+          </TreeView.LeadingVisual>
+          Another file
+        </TreeView.Item>
+      </TreeView>
+    </nav>
+  )
+}
+
+export const WithDragHandle: Story = () => {
+  const dragHandle = (
+    <IconButton
+      sx={{p: 1, cursor: 'grab', mr: 1}}
+      aria-label={`Move`}
+      variant="invisible"
+      // When dragging, the button is no longer a button, but has the role application to allow
+      // keyboard movements to not be registered by the screen reader
+      icon={GrabberIcon}
+      size="large"
+    />
+  )
+
+  const [isLoading, setIsLoading] = React.useState(false)
+  const [asyncItems, setAsyncItems] = React.useState<string[]>([])
+
+  let state: SubTreeState = 'initial'
+
+  if (isLoading) {
+    state = 'loading'
+  } else if (asyncItems.length > 0) {
+    state = 'done'
+  }
+
+  return (
+    <nav aria-label="Files">
+      <TreeView aria-label="Files" dragAndDrop>
+        <TreeView.Item id="file-1" dragHandle={dragHandle}>
+          <TreeView.LeadingVisual>
+            <FileIcon />
+          </TreeView.LeadingVisual>
+          Some file
+        </TreeView.Item>
+        <TreeView.Item
+          id="async-directory"
+          dragHandle={dragHandle}
+          onExpandedChange={async isExpanded => {
+            if (asyncItems.length === 0 && isExpanded) {
+              setIsLoading(true)
+
+              // Load items
+              const items = await loadItems(1000)
+
+              setIsLoading(false)
+              setAsyncItems(items)
+            }
+          }}
+        >
+          <TreeView.LeadingVisual>
+            <TreeView.DirectoryIcon />
+          </TreeView.LeadingVisual>
+          Directory with async items
+          <TreeView.SubTree state={state}>
+            {asyncItems.map(item => (
+              <TreeView.Item id={`item-${item}`} key={item}>
+                <TreeView.LeadingVisual>
+                  <FileIcon />
+                </TreeView.LeadingVisual>
+                {item}
+              </TreeView.Item>
+            ))}
+            <TreeView.Item id="nested-directory">
+              Nested Sub-tree
+              <TreeView.SubTree state="done">
+                <TreeView.Item id="nested-directory/file-1">
+                  <TreeView.LeadingVisual>
+                    <FileIcon />
+                  </TreeView.LeadingVisual>
+                  Some file
+                </TreeView.Item>
+                <TreeView.Item id="nested-directory/another-file">
+                  <TreeView.LeadingVisual>
+                    <FileIcon />
+                  </TreeView.LeadingVisual>
+                  Another file
+                </TreeView.Item>
+              </TreeView.SubTree>
+            </TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+        <TreeView.Item id="another-file" dragHandle={dragHandle}>
           <TreeView.LeadingVisual>
             <FileIcon />
           </TreeView.LeadingVisual>
