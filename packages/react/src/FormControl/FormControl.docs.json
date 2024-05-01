@@ -59,7 +59,7 @@
         {
           "name": "requiredText",
           "type": "string",
-          "defaultValue": "*",
+          "defaultValue": "'*'",
           "description": "The text to display when the field is required"
         },
         {

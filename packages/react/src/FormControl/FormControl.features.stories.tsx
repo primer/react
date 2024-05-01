@@ -316,6 +316,15 @@ export const CustomRequired = () => (
     </FormControl>
     <FormControl required={true}>
       <FormControl.Label requiredIndicator={false}>Form Input Label</FormControl.Label>
+      <FormControl.Caption>
+        This is form field with a required indicator that is hidden in the accessibility tree
+      </FormControl.Caption>
+      <TextInput />
+    </FormControl>
+    <FormControl required={true}>
+      <FormControl.Label requiredIndicator={false} requiredText="">
+        Form Input Label
+      </FormControl.Label>
       <FormControl.Caption>This is form field without a required indicator</FormControl.Caption>
       <TextInput />
     </FormControl>
