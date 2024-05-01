@@ -11,6 +11,12 @@ export const Border = () => (
   <Box sx={{borderWidth: 1, borderStyle: 'solid', borderColor: 'border.default', p: 3}}>Box with border</Box>
 )
 
+export const LiveRegionTest = () => (
+  <Box aria-live="polite" aria-atomic="true">
+    Test
+  </Box>
+)
+
 export const BorderBottom = () => (
   <Box sx={{borderBottomWidth: 1, borderBottomStyle: 'solid', borderColor: 'border.default', p: 3}}>
     Box with bottom border
