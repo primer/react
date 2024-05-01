@@ -47,7 +47,6 @@ export {useResponsiveValue} from './hooks/useResponsiveValue'
 
 // Utils
 export {createComponent} from './utils/create-component'
-export type {ComponentProps} from './utils/types/ComponentProps'
 
 // Components
 export {default as Radio} from './Radio'
