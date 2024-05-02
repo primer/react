@@ -9,7 +9,7 @@ export default {
 } as Meta<ComponentProps<typeof UnderlinePanels>>
 
 export const Default = () => (
-  <UnderlinePanels aria-label="Select a tab" id="tab-panels">
+  <UnderlinePanels aria-label="Select a tab">
     <UnderlinePanels.Tab>Tab 1</UnderlinePanels.Tab>
     <UnderlinePanels.Tab>Tab 2</UnderlinePanels.Tab>
     <UnderlinePanels.Tab>Tab 3</UnderlinePanels.Tab>

@@ -85,16 +85,6 @@ const UnderlinePanels: FC<PropsWithChildren<UnderlineTabbedInterfaceProps>> = ({
   )
   const tabsHaveIcons = tabs.current.some(tab => React.isValidElement(tab) && tab.props.icon)
 
-  if (__DEV__) {
-    const selectedTabs = tabs.current.filter(tab => {
-      const ariaSelected = React.isValidElement(tab) && tab.props['aria-selected']
-
-      return ariaSelected === true || ariaSelected === 'true'
-    })
-
-    invariant(selectedTabs.length <= 1, 'Only one tab can be selected at a time')
-  }
-
   // this is a workaround to get the list's width on the first render
   const [listWidth, setListWidth] = useState(0)
   useLayoutEffect(() => {
@@ -116,6 +106,23 @@ const UnderlinePanels: FC<PropsWithChildren<UnderlineTabbedInterfaceProps>> = ({
 
     setIconsVisible(wrapperWidth > listWidth)
   }, wrapperRef)
+
+  if (__DEV__) {
+    // only one tab can be selected at a time
+    const selectedTabs = tabs.current.filter(tab => {
+      const ariaSelected = React.isValidElement(tab) && tab.props['aria-selected']
+
+      return ariaSelected === true || ariaSelected === 'true'
+    })
+
+    invariant(selectedTabs.length <= 1, 'Only one tab can be selected at a time.')
+
+    // every tab has its panel
+    invariant(
+      tabs.current?.length === tabPanels.current?.length,
+      `The number of tabs and panels must be equal. Counted ${tabs.current?.length} tabs and ${tabPanels.current?.length} panels.`,
+    )
+  }
 
   return (
     <TabContainerComponent>
