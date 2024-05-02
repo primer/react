@@ -26,6 +26,7 @@ import {invariant} from '../../utils/invariant'
 import {Status} from '../../internal/components/Status'
 import {useResponsiveValue} from '../../hooks/useResponsiveValue'
 import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
+import {useFormControlContext} from '../../FormControl/_FormControlContext'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -232,6 +233,11 @@ const Panel: React.FC<SelectPanelProps> = ({
   */
   const onClickOutside = onInternalCancel
 
+  /*  
+    If SelectPanel is used inside a <form>, we should not render another <form> inside it to avoid invalid DOM nested
+  */
+  const isInsideForm = Object.keys(useFormControlContext()).length > 0
+
   return (
     <>
       {Anchor}
@@ -306,8 +312,8 @@ const Panel: React.FC<SelectPanelProps> = ({
               }}
             >
               <Box
-                as="form"
-                method="dialog"
+                as={isInsideForm ? 'div' : 'form'}
+                method={isInsideForm ? undefined : 'dialog'}
                 onSubmit={onInternalSubmit}
                 sx={{display: 'flex', flexDirection: 'column', width: '100%'}}
               >
