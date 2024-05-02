@@ -1,3 +1,6 @@
+// TODO: remove once this PR is merged: https://github.com/primer/octicons/pull/1023
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import React from 'react'
 import figma from '@figma/code-connect'
 import {
@@ -27,13 +30,11 @@ import {
   MoveToBottomIcon,
   XIcon,
   PencilIcon,
-  CopilotIcon,
   PaperclipIcon,
   PaperAirplaneIcon,
   HashIcon,
   UndoIcon,
   UnlinkIcon,
-  EyeSlashIcon,
   EllipsisIcon,
   VideoIcon,
   ArrowBothIcon,
@@ -54,7 +55,7 @@ import {
   TelescopeIcon,
   RepoLockedIcon,
   ArrowUpIcon,
-  XCircleIcon,
+  CircleXIcon,
   QuestionIcon,
   LinkExternalIcon,
   ShieldCheckIcon,
@@ -67,6 +68,7 @@ import {
   DownloadIcon,
   FileIcon,
   SlidersIcon,
+  CopilotIcon,
   RocketIcon,
   ChevronLeftIcon,
   HomeFillIcon,
@@ -74,7 +76,6 @@ import {
   ZoomInIcon,
   StarFillIcon,
   RedoIcon,
-  VscodeCopilotExplorerIcon,
   FileRemovedIcon,
   SidebarCollapseIcon,
   SkipFillIcon,
@@ -111,17 +112,14 @@ import {
   MortarBoardIcon,
   NoteIcon,
   CodescanIcon,
-  FileSymlinkIcon,
   WorkflowIcon,
   CommentIcon,
   BookmarkIcon,
   ArrowRightIcon,
-  ProjectBoardIcon,
   SunIcon,
   DiffModifiedIcon,
   HorizontalRuleIcon,
   ContainerIcon,
-  ClippyIcon,
   EyeIcon,
   CloudOfflineIcon,
   ClockIcon,
@@ -143,9 +141,8 @@ import {
   BrowserIcon,
   SidebarExpandIcon,
   SquirrelIcon,
-  UnverifedIcon,
   MoveToTopIcon,
-  ProjectTableIcon,
+  UnverifiedIcon,
   PersonIcon,
   LogIcon,
   TypographyIcon,
@@ -172,7 +169,6 @@ import {
   GitBranchIcon,
   MuteIcon,
   DependabotIcon,
-  DotFilledIcon,
   DiffAddedIcon,
   FilterIcon,
   PulseIcon,
@@ -208,7 +204,6 @@ import {
   SponsorTiersIcon,
   KeyAsteriskIcon,
   ArrowDownIcon,
-  RequestChangesIcon,
   SignOutIcon,
   PaintbrushIcon,
   CacheIcon,
@@ -221,8 +216,6 @@ import {
   BeakerIcon,
   FeedDiscussionIcon,
   NoEntryIcon,
-  UnverifiedIcon,
-  VscodeCopilotWarningIcon,
   CopyIcon,
   ShareIcon,
   SyncIcon,
@@ -240,29 +233,24 @@ import {
   MoonIcon,
   DashIcon,
   AccessibilityIcon,
-  IssueClosedIcon,
   CodeSquareIcon,
-  FireIcon,
   LinkIcon,
   PlayIcon,
   RepoForkedIcon,
-  CopilotErrorIcon,
   ShieldIcon,
   TerminalIcon,
-  VscodeCopilotErrorIcon,
   BlockedIcon,
   DiffIgnoredIcon,
-  IssueTrackedByIcon,
   CodescanCheckmarkIcon,
   InfoIcon,
   GitPullRequestDraftIcon,
   HomeIcon,
   RepoTemplateIcon,
   SignInIcon,
-  DesktopDeviceIcon,
-  CopilotWarningIcon,
   FeedStarIcon,
+  DeviceDesktopIcon,
   BugIcon,
+  DiffIcon,
   GitCompareIcon,
   FeedTagIcon,
   FeedForkedIcon,
@@ -282,6 +270,7 @@ import {
   TelescopeFillIcon,
   UploadIcon,
   CircleXFillIcon,
+  TableIcon,
   StarIcon,
   AlertIcon,
   PlusIcon,
@@ -289,9 +278,8 @@ import {
   TagIcon,
   ImageIcon,
   LightBulbIcon,
-  BookmarkFilledIcon,
+  ProjectIcon,
   CheckboxIcon,
-  LightbulbIcon,
   RepoIcon,
   EyeClosedIcon,
   VerifiedIcon,
@@ -299,7 +287,6 @@ import {
   FileDirectoryIcon,
   CodeIcon,
   CodespacesIcon,
-  XCircleFillIcon,
   DeviceCameraIcon,
   IssueOpenedIcon,
   ChecklistIcon,
@@ -312,12 +299,19 @@ import {
   FileBadgeIcon,
   DotFillIcon,
   TriangleDownIcon,
+  IssueClosedIcon,
   OrganizationIcon,
   FileDirectoryFillIcon,
   CircleCheckFillIcon,
   StackIcon,
-  IssueTrackedInIcon,
+  CopilotErrorIcon,
+  IssueTracksIcon,
+  IssueTrackedByIcon,
+  CopilotWarningIcon,
   ListUnorderedIcon,
+  FlameIcon,
+  PasteIcon,
+  FileSymlinkFileIcon,
   PlusCircleIcon,
   CirclePlusIcon,
 } from '@primer/octicons-react'
@@ -405,9 +399,6 @@ figma.connect(PencilIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-i
 figma.connect(DiffRemovedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-250', {
   example: () => <DiffRemovedIcon size={16} />,
 })
-figma.connect(CopilotIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3567-107', {
-  example: () => <CopilotIcon size={16} />,
-})
 figma.connect(PaperclipIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3751-104', {
   example: () => <PaperclipIcon size={16} />,
 })
@@ -422,9 +413,6 @@ figma.connect(UndoIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=
 })
 figma.connect(UnlinkIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4297-115', {
   example: () => <UnlinkIcon size={16} />,
-})
-figma.connect(EyeSlashIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-965', {
-  example: () => <EyeSlashIcon size={24} />,
 })
 figma.connect(EllipsisIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=966-39', {
   example: () => <EllipsisIcon size={16} />,
@@ -486,8 +474,8 @@ figma.connect(RepoLockedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?no
 figma.connect(ArrowUpIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-321', {
   example: () => <ArrowUpIcon size={16} />,
 })
-figma.connect(XCircleIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=964-28', {
-  example: () => <XCircleIcon size={16} />,
+figma.connect(CircleXIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=964-28', {
+  example: () => <CircleXIcon size={16} />,
 })
 figma.connect(QuestionIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-970', {
   example: () => <QuestionIcon size={24} />,
@@ -552,9 +540,6 @@ figma.connect(StarFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node
 figma.connect(RedoIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5452-326', {
   example: () => <RedoIcon size={24} />,
 })
-figma.connect(VscodeCopilotExplorerIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4977-111', {
-  example: () => <VscodeCopilotExplorerIcon size={16} />,
-})
 figma.connect(FileRemovedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3480-123', {
   example: () => <FileRemovedIcon size={16} />,
 })
@@ -572,9 +557,6 @@ figma.connect(BellIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=
 })
 figma.connect(MarkGithubIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-947', {
   example: () => <MarkGithubIcon size={24} />,
-})
-figma.connect(XCircleIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=210-7', {
-  example: () => <XCircleIcon size={24} />,
 })
 figma.connect(PeopleIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1034', {
   example: () => <PeopleIcon size={24} />,
@@ -699,9 +681,6 @@ figma.connect(NoteIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=
 figma.connect(CodescanIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1944-12', {
   example: () => <CodescanIcon size={24} />,
 })
-figma.connect(FileSymlinkIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-872', {
-  example: () => <FileSymlinkIcon size={24} />,
-})
 figma.connect(WorkflowIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-899', {
   example: () => <WorkflowIcon size={24} />,
 })
@@ -720,9 +699,6 @@ figma.connect(CreditCardIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?no
 figma.connect(FileRemovedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5458-457', {
   example: () => <FileRemovedIcon size={24} />,
 })
-figma.connect(ProjectBoardIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1007', {
-  example: () => <ProjectBoardIcon size={24} />,
-})
 figma.connect(FileIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-871', {
   example: () => <FileIcon size={24} />,
 })
@@ -737,9 +713,6 @@ figma.connect(HorizontalRuleIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ
 })
 figma.connect(ContainerIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1508-116', {
   example: () => <ContainerIcon size={24} />,
-})
-figma.connect(ClippyIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-898', {
-  example: () => <ClippyIcon size={24} />,
 })
 figma.connect(EyeIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1011', {
   example: () => <EyeIcon size={24} />,
@@ -813,14 +786,11 @@ figma.connect(ColumnsIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-
 figma.connect(SquirrelIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1000-26', {
   example: () => <SquirrelIcon size={24} />,
 })
-figma.connect(UnverifedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-984', {
-  example: () => <UnverifedIcon size={24} />,
-})
 figma.connect(MoveToTopIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4986-155', {
   example: () => <MoveToTopIcon size={24} />,
 })
-figma.connect(ProjectTableIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1914-4', {
-  example: () => <ProjectTableIcon size={24} />,
+figma.connect(UnverifiedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-984', {
+  example: () => <UnverifiedIcon size={24} />,
 })
 figma.connect(PersonIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-905', {
   example: () => <PersonIcon size={24} />,
@@ -908,9 +878,6 @@ figma.connect(MuteIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=
 })
 figma.connect(DependabotIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1944-14', {
   example: () => <DependabotIcon size={24} />,
-})
-figma.connect(DotFilledIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-935', {
-  example: () => <DotFilledIcon size={24} />,
 })
 figma.connect(DiffAddedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5478-549', {
   example: () => <DiffAddedIcon size={24} />,
@@ -1050,9 +1017,6 @@ figma.connect(KeyAsteriskIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?n
 figma.connect(ArrowDownIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-327', {
   example: () => <ArrowDownIcon size={16} />,
 })
-figma.connect(RequestChangesIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-954', {
-  example: () => <RequestChangesIcon size={24} />,
-})
 figma.connect(MoveToTopIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4986-137', {
   example: () => <MoveToTopIcon size={16} />,
 })
@@ -1085,9 +1049,6 @@ figma.connect(SignOutIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-
 })
 figma.connect(PersonFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2510-78', {
   example: () => <PersonFillIcon size={16} />,
-})
-figma.connect(CheckCircleFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2617-90', {
-  example: () => <CheckCircleFillIcon size={12} />,
 })
 figma.connect(EllipsisIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5460-511', {
   example: () => <EllipsisIcon size={24} />,
@@ -1130,9 +1091,6 @@ figma.connect(NoEntryIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-
 })
 figma.connect(UnverifiedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-10', {
   example: () => <UnverifiedIcon size={16} />,
-})
-figma.connect(VscodeCopilotWarningIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5199-122', {
-  example: () => <VscodeCopilotWarningIcon size={16} />,
 })
 figma.connect(GitPullRequestIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-200', {
   example: () => <GitPullRequestIcon size={16} />,
@@ -1263,9 +1221,6 @@ figma.connect(AccessibilityIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/
 figma.connect(ArrowUpIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-916', {
   example: () => <ArrowUpIcon size={24} />,
 })
-figma.connect(IssueClosedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-956', {
-  example: () => <IssueClosedIcon size={24} />,
-})
 figma.connect(AppsIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5420-122', {
   example: () => <AppsIcon size={24} />,
 })
@@ -1274,9 +1229,6 @@ figma.connect(CloudOfflineIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?
 })
 figma.connect(CodeSquareIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-276', {
   example: () => <CodeSquareIcon size={16} />,
-})
-figma.connect(FireIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1050', {
-  example: () => <FireIcon size={24} />,
 })
 figma.connect(LinkIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-902', {
   example: () => <LinkIcon size={24} />,
@@ -1299,9 +1251,6 @@ figma.connect(RepoForkedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?no
 figma.connect(FileBinaryIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=32-97', {
   example: () => <FileBinaryIcon size={16} />,
 })
-figma.connect(CopilotErrorIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3567-111', {
-  example: () => <CopilotErrorIcon size={16} />,
-})
 figma.connect(SkipIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-58', {
   example: () => <SkipIcon size={16} />,
 })
@@ -1310,9 +1259,6 @@ figma.connect(ShieldIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-i
 })
 figma.connect(TerminalIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-906', {
   example: () => <TerminalIcon size={24} />,
-})
-figma.connect(VscodeCopilotErrorIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5199-124', {
-  example: () => <VscodeCopilotErrorIcon size={16} />,
 })
 figma.connect(BlockedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1923-78', {
   example: () => <BlockedIcon size={16} />,
@@ -1325,9 +1271,6 @@ figma.connect(TriangleUpIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?no
 })
 figma.connect(BoldIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-312', {
   example: () => <BoldIcon size={16} />,
-})
-figma.connect(IssueTrackedByIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4098-111', {
-  example: () => <IssueTrackedByIcon size={16} />,
 })
 figma.connect(CodescanCheckmarkIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1944-13', {
   example: () => <CodescanCheckmarkIcon size={24} />,
@@ -1356,12 +1299,6 @@ figma.connect(SignInIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-i
 figma.connect(ZapIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=966-29', {
   example: () => <ZapIcon size={24} />,
 })
-figma.connect(DesktopDeviceIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-892', {
-  example: () => <DesktopDeviceIcon size={24} />,
-})
-figma.connect(CopilotWarningIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3567-109', {
-  example: () => <CopilotWarningIcon size={16} />,
-})
 figma.connect(CodeReviewIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-278', {
   example: () => <CodeReviewIcon size={16} />,
 })
@@ -1371,11 +1308,11 @@ figma.connect(ScreenNormalIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?
 figma.connect(FeedStarIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2772-552', {
   example: () => <FeedStarIcon size={16} />,
 })
+figma.connect(DeviceDesktopIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-892', {
+  example: () => <DeviceDesktopIcon size={24} />,
+})
 figma.connect(SkipFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4119-123', {
   example: () => <SkipFillIcon size={16} />,
-})
-figma.connect(RequestChangesIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-84', {
-  example: () => <RequestChangesIcon size={16} />,
 })
 figma.connect(EyeIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-238', {
   example: () => <EyeIcon size={16} />,
@@ -1389,6 +1326,9 @@ figma.connect(BugIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2
 figma.connect(IssueDraftIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2246-19', {
   example: () => <IssueDraftIcon size={16} />,
 })
+figma.connect(DiffIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-84', {
+  example: () => <DiffIcon size={16} />,
+})
 figma.connect(LinkExternalIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1016', {
   example: () => <LinkExternalIcon size={24} />,
 })
@@ -1397,9 +1337,6 @@ figma.connect(SignInIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-i
 })
 figma.connect(RssIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-80', {
   example: () => <RssIcon size={16} />,
-})
-figma.connect(IssueTrackedByIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4098-109', {
-  example: () => <IssueTrackedByIcon size={16} />,
 })
 figma.connect(LogoGistIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5452-335', {
   example: () => <LogoGistIcon size={16} />,
@@ -1464,9 +1401,6 @@ figma.connect(ContainerIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?nod
 figma.connect(PersonAddIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1910-76', {
   example: () => <PersonAddIcon size={16} />,
 })
-figma.connect(FileSymlinkIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-226', {
-  example: () => <FileSymlinkIcon size={16} />,
-})
 figma.connect(DependabotIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1944-21', {
   example: () => <DependabotIcon size={16} />,
 })
@@ -1527,8 +1461,8 @@ figma.connect(CircleXFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?n
 figma.connect(TriangleRightIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-22', {
   example: () => <TriangleRightIcon size={16} />,
 })
-figma.connect(ProjectTableIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1914-7', {
-  example: () => <ProjectTableIcon size={16} />,
+figma.connect(TableIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1914-7', {
+  example: () => <TableIcon size={16} />,
 })
 figma.connect(HomeFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5448-177', {
   example: () => <HomeFillIcon size={16} />,
@@ -1578,17 +1512,11 @@ figma.connect(LocationIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node
 figma.connect(GoalIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4238-106', {
   example: () => <GoalIcon size={16} />,
 })
-figma.connect(DesktopDeviceIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=32-77', {
-  example: () => <DesktopDeviceIcon size={16} />,
-})
 figma.connect(BrowserIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1917-85', {
   example: () => <BrowserIcon size={16} />,
 })
 figma.connect(StopwatchIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-48', {
   example: () => <StopwatchIcon size={16} />,
-})
-figma.connect(ClippyIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-284', {
-  example: () => <ClippyIcon size={16} />,
 })
 figma.connect(SponsorTiersIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4297-126', {
   example: () => <SponsorTiersIcon size={16} />,
@@ -1601,9 +1529,6 @@ figma.connect(InboxIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id
 })
 figma.connect(PaintbrushIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=949-41', {
   example: () => <PaintbrushIcon size={16} />,
-})
-figma.connect(FireIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-220', {
-  example: () => <FireIcon size={16} />,
 })
 figma.connect(UnmuteIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-12', {
   example: () => <UnmuteIcon size={16} />,
@@ -1677,14 +1602,11 @@ figma.connect(MortarBoardIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?n
 figma.connect(DeviceMobileIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-260', {
   example: () => <DeviceMobileIcon size={16} />,
 })
-figma.connect(ProjectBoardIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-102', {
-  example: () => <ProjectBoardIcon size={16} />,
-})
 figma.connect(MegaphoneIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=17-2', {
   example: () => <MegaphoneIcon size={16} />,
 })
-figma.connect(BookmarkFilledIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5421-130', {
-  example: () => <BookmarkFilledIcon size={16} />,
+figma.connect(ProjectIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-102', {
+  example: () => <ProjectIcon size={16} />,
 })
 figma.connect(GraphIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-194', {
   example: () => <GraphIcon size={16} />,
@@ -1739,9 +1661,6 @@ figma.connect(CheckboxIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node
 })
 figma.connect(CheckboxIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3752-130', {
   example: () => <CheckboxIcon size={24} />,
-})
-figma.connect(LightbulbIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1037', {
-  example: () => <LightbulbIcon size={24} />,
 })
 figma.connect(XIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4834-124', {
   example: () => <XIcon size={16} />,
@@ -1856,9 +1775,6 @@ figma.connect(DotIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1
 })
 figma.connect(MilestoneIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-136', {
   example: () => <MilestoneIcon size={16} />,
-})
-figma.connect(XCircleFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2621-76', {
-  example: () => <XCircleFillIcon size={12} />,
 })
 figma.connect(DeviceCameraIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5479-552', {
   example: () => <DeviceCameraIcon size={16} />,
@@ -2037,9 +1953,6 @@ figma.connect(NoEntryIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-
 figma.connect(CircleSlashIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-286', {
   example: () => <CircleSlashIcon size={16} />,
 })
-figma.connect(XCircleFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=964-34', {
-  example: () => <XCircleFillIcon size={16} />,
-})
 figma.connect(OrganizationIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-865', {
   example: () => <OrganizationIcon size={24} />,
 })
@@ -2055,11 +1968,38 @@ figma.connect(StackIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id
 figma.connect(DashIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=186-7', {
   example: () => <DashIcon size={16} />,
 })
-figma.connect(IssueTrackedInIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4098-110', {
-  example: () => <IssueTrackedInIcon size={16} />,
+figma.connect(CopilotIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4977-111', {
+  example: () => <CopilotIcon size={16} />,
 })
-figma.connect(IssueTrackedInIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4098-112', {
-  example: () => <IssueTrackedInIcon size={16} />,
+figma.connect(IssueClosedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-956', {
+  example: () => <IssueClosedIcon size={24} />,
+})
+figma.connect(LightBulbIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1037', {
+  example: () => <LightBulbIcon size={24} />,
+})
+figma.connect(CopilotErrorIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5199-124', {
+  example: () => <CopilotErrorIcon size={16} />,
+})
+figma.connect(IssueTracksIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4098-111', {
+  example: () => <IssueTracksIcon size={16} />,
+})
+figma.connect(IssueTrackedByIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4098-112', {
+  example: () => <IssueTrackedByIcon size={16} />,
+})
+figma.connect(CopilotWarningIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5199-122', {
+  example: () => <CopilotWarningIcon size={16} />,
+})
+figma.connect(IssueTracksIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4098-109', {
+  example: () => <IssueTracksIcon size={16} />,
+})
+figma.connect(IssueTrackedByIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4098-110', {
+  example: () => <IssueTrackedByIcon size={16} />,
+})
+figma.connect(EyeClosedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-965', {
+  example: () => <EyeClosedIcon size={24} />,
+})
+figma.connect(BookmarkFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5421-130', {
+  example: () => <BookmarkFillIcon size={16} />,
 })
 figma.connect(ListUnorderedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-960', {
   example: () => <ListUnorderedIcon size={24} />,
@@ -2069,6 +2009,51 @@ figma.connect(ListUnorderedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/
 })
 figma.connect(SingleSelectIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2062-16', {
   example: () => <SingleSelectIcon size={24} />,
+})
+figma.connect(CircleXIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=210-7', {
+  example: () => <CircleXIcon size={24} />,
+})
+figma.connect(DeviceDesktopIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=32-77', {
+  example: () => <DeviceDesktopIcon size={16} />,
+})
+figma.connect(DiffIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-954', {
+  example: () => <DiffIcon size={24} />,
+})
+figma.connect(FlameIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1050', {
+  example: () => <FlameIcon size={24} />,
+})
+figma.connect(PasteIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-284', {
+  example: () => <PasteIcon size={16} />,
+})
+figma.connect(FileSymlinkFileIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-872', {
+  example: () => <FileSymlinkFileIcon size={24} />,
+})
+figma.connect(ProjectIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1007', {
+  example: () => <ProjectIcon size={24} />,
+})
+figma.connect(PasteIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-898', {
+  example: () => <PasteIcon size={24} />,
+})
+figma.connect(FlameIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-220', {
+  example: () => <FlameIcon size={16} />,
+})
+figma.connect(TableIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1914-4', {
+  example: () => <TableIcon size={24} />,
+})
+figma.connect(CircleXFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=964-34', {
+  example: () => <CircleXFillIcon size={16} />,
+})
+figma.connect(DotFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-935', {
+  example: () => <DotFillIcon size={24} />,
+})
+figma.connect(FileSymlinkFileIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-226', {
+  example: () => <FileSymlinkFileIcon size={16} />,
+})
+figma.connect(CircleXFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2621-76', {
+  example: () => <CircleXFillIcon size={12} />,
+})
+figma.connect(CircleCheckFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2617-90', {
+  example: () => <CircleCheckFillIcon size={12} />,
 })
 figma.connect(CpuIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-270', {
   example: () => <CpuIcon size={16} />,
