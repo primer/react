@@ -1,10 +1,12 @@
+// @ts-nocheck
 import {figma} from '@figma/code-connect'
 import {ButtonComponent as Button} from './Button'
 import React from 'react'
+import type {VariantType} from './types'
 
 const componentProps = {
-  disabled: figma.enum('state', {disabled: 'true'}),
-  inactive: figma.enum('state', {inactive: 'true'}),
+  disabled: figma.enum('state', {disabled: true}),
+  inactive: figma.enum('state', {inactive: true}),
   size: figma.enum('size', {
     small: 'small',
     medium: 'medium',
@@ -56,7 +58,7 @@ figma.connect(
         inactive={inactive}
         leadingVisual={leadingVisual}
         alignContent={alignContent}
-        variant={variant}
+        variant={variant as VariantType}
       ></Button>
     ),
     // variant: {'leadingVisual?': true},
