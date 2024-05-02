@@ -60,7 +60,6 @@ export const Minimal = () => {
       <h1>Minimal SelectPanel</h1>
 
       <SelectPanel title="Select labels" onSubmit={onSubmit} onCancel={onCancel}>
-
         <ActionList>
           {itemsToShow.map(label => (
             <ActionList.Item
