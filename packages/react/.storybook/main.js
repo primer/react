@@ -14,7 +14,6 @@ module.exports = {
     '@storybook/addon-interactions',
     '@storybook/addon-a11y',
     '@storybook/addon-links',
-    '@storybook/addon-blocks',
     {
       name: 'storybook-addon-turbo-build',
       options: {

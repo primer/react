@@ -7,11 +7,9 @@ import {Button} from '.'
 
 # Multi-state Buttons
 
-When a button's visible label changes as a result of it being activated, make sure that this information is also communicated to assistive technology users. This will require implementing one of the following approaches due to varying screen reader and browser support (as of April 2024).
+When a button's visible label changes as a result of it being activated, make sure that this information is also communicated to assistive technology users. This will require implementing one of the following approaches.
 
-Learn more about at [Staff-only: Dynamically updated button labels](https://github.com/github/accessibility/blob/8b300b36d8bca28fd5e3e70ffa077a6f8ee65c05/docs/wiki/screen-reader-testing/dynamically-updated-buttons-support-april-2024.md).
-
-Reach out to #primer or #accessibility on Slack if you need additional guidance.
+Learn more about at [Staff-only: Dynamically updated button labels](https://github.com/github/accessibility/blob/8b300b36d8bca28fd5e3e70ffa077a6f8ee65c05/docs/wiki/screen-reader-testing/dynamically-updated-buttons-support-april-2024.md), and reach out to #primer or #accessibility on Slack if you need additional guidance.
 
 ## Approach 1. Populate a pre-existing live region _outside of the button_
 
@@ -25,13 +23,13 @@ This approach is recommended for most scenarios.
 
 <Canvas of={ButtonStories.TrailingCounter} />
 
-## Approach 2. Update the `aria-label` (recommended in specific scenarios)
+## Approach 2. Update the `aria-label` (specific scenario only)
 
-This approach is recommended **only** in the specific scenario where the button **already** has an `aria-label` that overrides the visual label (e.g. to provide helpful context to assistive technology users).
+This approach is recommended **only** in scenarios where the button **already** has an `aria-label` that overrides the visual label (e.g. to provide helpful context to assistive technology users).
 
-When updating the button's visible label, the `aria-label` should also be updated. Keeping both in sync should always be done anyways, but this is often forgotten leading to confusing experiences for assistive technology users.
+When updating the button's visible label, the `aria-label` should also be updated. Both should always be in sync, but this commonly forgotten, leading to confusing experiences for assistive technology users.
 
-As of time of testing (April 2024), a change in `aria-label` will automatically trigger a screen reader announcement consistently across most browsers and screen readers, so there is a live region announcement is not necessary.
+As of time of testing (April 2024), a change in `aria-label` will automatically trigger a screen reader announcement consistently across most browsers and screen readers making live regions unnecessary.
 
 <Canvas of={ButtonStories.WithMultipleStatesAndAriaLabel} />
 

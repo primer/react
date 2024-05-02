@@ -203,6 +203,7 @@ module.exports = {
         'mdx/code-blocks': true,
       },
       rules: {
+        'import/namespace': 'off',
         'no-unused-vars': 'off',
         'prettier/prettier': 'off',
         'react/jsx-no-undef': 'off',

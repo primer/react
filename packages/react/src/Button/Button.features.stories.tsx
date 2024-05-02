@@ -133,10 +133,6 @@ export const Medium = () => <Button size="medium">Default</Button>
 
 export const Large = () => <Button size="large">Default</Button>
 
-export const WithAriaLabelOverride = () => {
-  return <Button aria-label="Reply to @monalisa">Reply</Button>
-}
-
 export const WithMultipleStates = () => {
   const [isSubscribed, setIsSubscribed] = useState<boolean>(false)
 
