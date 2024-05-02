@@ -29,6 +29,9 @@ const getArgsByChildComponent = ({
   menuLoading,
   selectionVariant,
 
+  // Autocomplete.Input
+  openOnFocus,
+
   // Autocomplete.Overlay
   anchorSide,
   height,
@@ -65,6 +68,7 @@ any) => {
   }
   return {
     menuArgs: {emptyStateText, loading: menuLoading, selectionVariant},
+    inputArgs: {openOnFocus},
     overlayArgs: {anchorSide, height, maxHeight: overlayMaxHeight, width},
     textInputArgs,
     textInputWithTokensArgs: {
@@ -131,6 +135,7 @@ const autocompleteStoryMeta: Meta = {
     emptyStateText: 'No selectable options',
     menuLoading: false,
     selectionVariant: 'single',
+    openOnFocus: true,
     anchorSide: undefined,
     height: 'auto',
     overlayMaxHeight: undefined,
@@ -158,6 +163,16 @@ const autocompleteStoryMeta: Meta = {
       options: ['single', 'multiple'],
       table: {
         category: 'Autocomplete.Menu',
+      },
+    },
+
+    // Autocomplete.Input
+    openOnFocus: {
+      control: {
+        type: 'boolean',
+      },
+      table: {
+        category: 'Autocomplete.Input',
       },
     },
 
@@ -217,7 +232,7 @@ const autocompleteStoryMeta: Meta = {
 
 export const Default = (args: FormControlArgs<AutocompleteArgs>) => {
   const {parentArgs, labelArgs, captionArgs, validationArgs} = getFormControlArgsByChildComponent(args)
-  const {menuArgs, overlayArgs, textInputArgs} = getArgsByChildComponent(args)
+  const {menuArgs, inputArgs, overlayArgs, textInputArgs} = getArgsByChildComponent(args)
   const isMultiselect = menuArgs.selectionVariant === 'multiple'
   const [selectedItemIds, setSelectedItemIds] = useState<Array<string>>([])
   const onSelectedChange = (newlySelectedItems: Datum | Datum[]) => {
@@ -228,12 +243,19 @@ export const Default = (args: FormControlArgs<AutocompleteArgs>) => {
     setSelectedItemIds(newlySelectedItems.map(item => item.id))
   }
 
+  const autocompleteInput = {...inputArgs, ...textInputArgs}
+  const formValidationId = 'validation-field'
   return (
     <Box as="form" sx={{p: 3}}>
       <FormControl {...parentArgs}>
         <FormControl.Label id="autocompleteLabel" {...labelArgs} />
         <Autocomplete>
-          <Autocomplete.Input {...textInputArgs} size={textInputArgs.inputSize} data-testid="autocompleteInput" />
+          <Autocomplete.Input
+            aria-describedby={formValidationId}
+            {...autocompleteInput}
+            size={textInputArgs.inputSize}
+            data-testid="autocompleteInput"
+          />
           <Autocomplete.Overlay {...overlayArgs}>
             <Autocomplete.Menu
               items={items}
@@ -246,7 +268,7 @@ export const Default = (args: FormControlArgs<AutocompleteArgs>) => {
         </Autocomplete>
         {captionArgs.children && <FormControl.Caption {...captionArgs} />}
         {validationArgs.children && validationArgs.variant && (
-          <FormControl.Validation {...validationArgs} variant={validationArgs.variant} />
+          <FormControl.Validation id={formValidationId} {...validationArgs} variant={validationArgs.variant} />
         )}
       </FormControl>
     </Box>
