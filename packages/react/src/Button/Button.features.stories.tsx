@@ -23,10 +23,9 @@ const AccessibilityNote = () => {
     return (
       <>
         <p>
-          <b>Accessibility note</b>: If a button is dynamically updated to communicate a change (e.g. an action was
-          successful), please make sure that this is also properly communicated to screen reader users. This may not
-          happen reliably without additional markup considerations. Make sure to choose an approach that is appropriate
-          for your usecase.
+          <b>Accessibility note</b>: When a button&apos;s text is updated to communicate different states, make sure
+          that this change is also communicated to screen reader users. This requires additional markup considerations.
+          Choose an approach that is appropriate for your usecase.
         </p>
         <p>
           Learn more about at{' '}
@@ -50,8 +49,6 @@ export const TrailingCounter = () => {
       <Button onClick={onClick} count={count}>
         Watch
       </Button>
-      <AccessibilityNote />
-      <p>In this example, a live region has been implemented to communicate the change.</p>
     </>
   )
 }
@@ -135,3 +132,32 @@ export const Small = () => <Button size="small">Default</Button>
 export const Medium = () => <Button size="medium">Default</Button>
 
 export const Large = () => <Button size="large">Default</Button>
+
+export const WithAriaLabelOverride = () => {
+  return <Button aria-label="Reply to @monalisa">Reply</Button>
+}
+
+export const WithMultipleStates = () => {
+  const [isSubscribed, setIsSubscribed] = useState<boolean>(false)
+
+  const onClick = () => {
+    setIsSubscribed(!isSubscribed)
+    // Ensures that screen reader users are informed of the change.
+    announce(!isSubscribed ? 'You have been subscribed.' : 'You have been unsubscribed.')
+  }
+  return <Button onClick={onClick}>{!isSubscribed ? 'Subscribe' : 'Unsubscribe'}</Button>
+}
+
+export const WithMultipleStatesAndAriaLabel = () => {
+  const [isSubscribed, setIsSubscribed] = useState<boolean>(false)
+
+  const onClick = () => {
+    setIsSubscribed(!isSubscribed)
+  }
+  // Updates to `aria-label` will be announced by screen readers.
+  return (
+    <Button aria-label={!isSubscribed ? 'You have been subscribed.' : 'You have been unsubscribed.'} onClick={onClick}>
+      {!isSubscribed ? 'Subscribe' : 'Unsubscribe'}
+    </Button>
+  )
+}

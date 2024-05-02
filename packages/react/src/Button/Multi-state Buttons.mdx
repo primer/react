@@ -1,0 +1,43 @@
+import {Meta, Canvas, Story} from '@storybook/blocks'
+import Box from '../Box'
+import * as ButtonStories from './Button.features.stories'
+import {Button} from '.'
+
+<Meta of={ButtonStories} title="Components/Button/Features/MultiStateButtons" />
+
+# Multi-state Buttons
+
+When a button's visible label changes as a result of it being activated, make sure that this information is also communicated to assistive technology users. This will require implementing one of the following approaches due to varying screen reader and browser support (as of April 2024).
+
+Learn more about at [Staff-only: Dynamically updated button labels](https://github.com/github/accessibility/blob/8b300b36d8bca28fd5e3e70ffa077a6f8ee65c05/docs/wiki/screen-reader-testing/dynamically-updated-buttons-support-april-2024.md).
+
+Reach out to #primer or #accessibility on Slack if you need additional guidance.
+
+## Approach 1. Populate a pre-existing live region _outside of the button_
+
+In the following examples, the `announce` live region utility is called to populate a live region on the page, on top of updating the visual label.
+
+This `announce` utility will automatically populate a pre-existing live region on the page.
+
+This approach is recommended for most scenarios.
+
+<Canvas of={ButtonStories.WithMultipleStates} />
+
+<Canvas of={ButtonStories.TrailingCounter} />
+
+## Approach 2. Update the `aria-label` (recommended in specific scenarios)
+
+This approach is recommended **only** in the specific scenario where the button **already** has an `aria-label` that overrides the visual label (e.g. to provide helpful context to assistive technology users).
+
+When updating the button's visible label, the `aria-label` should also be updated. Keeping both in sync should always be done anyways, but this is often forgotten leading to confusing experiences for assistive technology users.
+
+As of time of testing (April 2024), a change in `aria-label` will automatically trigger a screen reader announcement consistently across most browsers and screen readers, so there is a live region announcement is not necessary.
+
+<Canvas of={ButtonStories.WithMultipleStatesAndAriaLabel} />
+
+## Not recommended ❌
+
+### Setting `aria-live="polite"` or `role="status"` on the button itself
+
+While setting an `aria-live="polite"` or `role="status"` on the button itself is the most intuitive approach, this approach is not well-supported across screen readers and browsers, as of time of this writing (April 2024).
+Until future testing proves otherwise, avoid this approach.
