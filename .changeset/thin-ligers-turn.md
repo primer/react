@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-Fixing text color for branchName as span
+BranchName: Fixing text color when rendered as span
