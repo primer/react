@@ -1,13 +1,4 @@
-import React, {
-  Children,
-  isValidElement,
-  cloneElement,
-  useState,
-  useRef,
-  type FC,
-  type PropsWithChildren,
-  useLayoutEffect,
-} from 'react'
+import React, {Children, isValidElement, cloneElement, useState, useRef, type FC, type PropsWithChildren} from 'react'
 import {TabContainerElement} from '@github/tab-container-element'
 import createComponent from '../../utils/custom-element'
 import {
@@ -22,8 +13,9 @@ import type {IconProps} from '@primer/octicons-react'
 import {merge, type BetterSystemStyleObject, type SxProp} from '../../sx'
 import {defaultSxProp} from '../../utils/defaultSxProp'
 import {useResizeObserver, type ResizeObserverEntry} from '../../hooks/useResizeObserver'
+import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 
-type UnderlineTabButtonProps = {
+export type UnderlineTabButtonProps = {
   /**
    * Whether this is the selected tab
    */
@@ -38,7 +30,7 @@ type UnderlineTabButtonProps = {
   icon?: FC<IconProps>
 } & SxProp
 
-type UnderlineTabbedInterfaceProps = {
+export type UnderlineTabbedInterfaceProps = {
   /**
    * Tabs (UnderlinePanels.Tab) and panels (UnderlinePanels.Panel) to render
    */
@@ -109,13 +101,13 @@ const UnderlinePanels: FC<PropsWithChildren<UnderlineTabbedInterfaceProps>> = ({
 
   // this is a workaround to get the list's width on the first render
   const [listWidth, setListWidth] = useState(0)
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (!tabsHaveIcons) {
       return
     }
 
     setListWidth(listRef.current?.getBoundingClientRect().width ?? 0)
-  }, [])
+  }, [tabsHaveIcons])
 
   // when the wrapper resizes, check if the icons should be visible
   // by comparing the wrapper width to the list width
@@ -141,8 +133,8 @@ const UnderlinePanels: FC<PropsWithChildren<UnderlineTabbedInterfaceProps>> = ({
 
     // every tab has its panel
     invariant(
-      tabs.current?.length === tabPanels.current?.length,
-      `The number of tabs and panels must be equal. Counted ${tabs.current?.length} tabs and ${tabPanels.current?.length} panels.`,
+      tabs.current.length === tabPanels.current.length,
+      `The number of tabs and panels must be equal. Counted ${tabs.current.length} tabs and ${tabPanels.current.length} panels.`,
     )
   }
 
