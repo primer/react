@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import React from 'react'
 import BranchName from './BranchName'
 import figma from '@figma/code-connect'
@@ -15,12 +17,11 @@ figma.connect(
   'https://www.figma.com/file/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?type=design&node-id=3655-7208&mode=design&t=HqwKHI6akvFT5reK-4',
   {
     props: {
-      type: figma.enum('type', {
-        default: 'default',
-        link: 'link',
+      as: figma.enum('type', {
+        text: 'span',
+        link: undefined,
       }),
-      leadingIcon: figma.boolean('leadingIcon?'),
     },
-    example: () => <BranchName />,
+    example: ({as}) => <BranchName as={as} />,
   },
 )
