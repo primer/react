@@ -2,8 +2,7 @@
 set -e
 
 if [ -n "$1" ]; then
-  # export DEPLOY_ENV="preview"
-  export DEPLOY_ENV="production"
+  export DEPLOY_ENV="preview"
   npm run build:preview -w docs
   npm run build:storybook preview
 else
