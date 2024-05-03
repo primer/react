@@ -212,7 +212,7 @@ export const UnderlineTab = forwardRef(
     forwardedRef,
   ) => {
     return (
-      <StyledUnderlineTab ref={forwardedRef} as={as} {...rest}>
+      <StyledUnderlineTab ref={forwardedRef} as={as} sx={sxProp} {...rest}>
         {iconsVisible && Icon && (
           <span data-component="icon">
             <Icon />
