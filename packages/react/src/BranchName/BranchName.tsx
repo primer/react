@@ -13,7 +13,7 @@ const BranchName = styled.a<SxProp>`
   background-color: var(--bgColor-accent-muted, ${get('colors.accent.subtle')});
   border-radius: var(--borderRadius-medium, ${get('radii.2')});
   text-decoration: none;
-  &:is(span) {
+  &:is(:not(a)) {
     color: var(--fgColor-muted);
   }
   ${sx};
