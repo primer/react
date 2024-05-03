@@ -17,7 +17,7 @@ export const StyledUnderlineWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   /* make space for the underline */
-  min-height: calc(var(--control-xlarge-size) + 1px);
+  min-height: var(--control-xlarge-size);
   /* using a box-shadow instead of a border to accomodate 'overflow-y: hidden' on UnderlinePanels */
   box-shadow: inset 0px -1px var(--borderColor-muted);
 
@@ -30,7 +30,6 @@ export const StyledUnderlineTabList = styled.ul`
   white-space: nowrap;
   padding: 0;
   margin: 0;
-  margin-bottom: -1px;
   align-items: center;
   gap: ${GAP}px;
   position: relative;
