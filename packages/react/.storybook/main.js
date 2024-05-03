@@ -57,7 +57,7 @@ module.exports = {
   typescript: {
     reactDocgen: 'react-docgen',
   },
-  managerHead: head => {
+  previewHead: head => {
     if (DEPLOY_ENV === 'development') {
       return head
     }
