@@ -7,13 +7,15 @@ import type {ComponentProps} from '../utils/types'
 const BranchName = styled.a<SxProp>`
   display: inline-block;
   padding: 2px 6px;
-  font-size: ${get('fontSizes.0')};
-  font-family: ${get('fonts.mono')};
-  color: ${get('colors.accent.fg')};
-  background-color: ${get('colors.accent.subtle')};
-  border-radius: ${get('radii.2')};
+  font-size: var(--text-body-size-small, ${get('fontSizes.0')});
+  font-family: var(--fontStack-monospace, ${get('fonts.mono')});
+  color: var(--fgColor-link, ${get('colors.accent.fg')});
+  background-color: var(--bgColor-accent-muted, ${get('colors.accent.subtle')});
+  border-radius: var(--borderRadius-medium, ${get('radii.2')});
   text-decoration: none;
-
+  &:is(span) {
+    color: var(--fgColor-muted);
+  }
   ${sx};
 `
 
