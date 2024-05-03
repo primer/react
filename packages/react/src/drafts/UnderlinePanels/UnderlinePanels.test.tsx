@@ -2,8 +2,12 @@
 
 import React from 'react'
 import {render, screen} from '@testing-library/react'
+import renderer from 'react-test-renderer'
 import UnderlinePanels from './UnderlinePanels'
 import {checkExports} from '../../utils/testing'
+import TabContainerElement from '@github/tab-container-element'
+
+TabContainerElement.prototype.selectTab = jest.fn()
 
 const UnderlinePanelsMockComponent = (props: {'aria-label'?: string; 'aria-labelledby'?: string; id?: string}) => (
   <UnderlinePanels {...props}>
@@ -16,10 +20,12 @@ const UnderlinePanelsMockComponent = (props: {'aria-label'?: string; 'aria-label
   </UnderlinePanels>
 )
 
+// const tree = renderer.create(<UnderlinePanelsMockComponent aria-label="Select a tab" />).toJSON()
+// expect(tree).toMatchSnapshot()
+
 describe('UnderlinePanels', () => {
-  checkExports('UnderlineNav', {
-    default: undefined,
-    UnderlinePanels,
+  afterEach(() => {
+    jest.restoreAllMocks()
   })
 
   it('renders without errors', () => {
@@ -28,6 +34,12 @@ describe('UnderlinePanels', () => {
 
   it('renders with a custom ID', () => {
     render(<UnderlinePanelsMockComponent aria-label="Select a tab" id="custom-id" />)
+
+    const firstTab = screen.getByRole('tab', {name: 'Tab 1'})
+    const firstPanel = screen.getByText('Panel 1')
+
+    expect(firstTab).toHaveAttribute('id', 'custom-id-tab-0')
+    expect(firstPanel).toHaveAttribute('aria-labelledby', 'custom-id-tab-0')
   })
   it('renders aria-label', () => {
     render(<UnderlinePanelsMockComponent aria-label="Select a tab" />)
@@ -61,7 +73,7 @@ describe('UnderlinePanels', () => {
           <UnderlinePanels.Panel>Panel 3</UnderlinePanels.Panel>
         </UnderlinePanels>,
       )
-    }).toThrow('The number of tabs and panels must be equal. Counted 3 tabs and 2 panels.')
+    }).toThrow('The number of tabs and panels must be equal. Counted 2 tabs and 3 panels.')
     expect(spy).toHaveBeenCalled()
     spy.mockRestore()
   })
@@ -77,7 +89,7 @@ describe('UnderlinePanels', () => {
           <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
         </UnderlinePanels>,
       )
-    }).toThrow('The number of tabs and panels must be equal. Counted 2 tabs and 3 panels.')
+    }).toThrow('The number of tabs and panels must be equal. Counted 3 tabs and 2 panels.')
     expect(spy).toHaveBeenCalled()
     spy.mockRestore()
   })

@@ -64,6 +64,8 @@ type UnderlineTabbedInterfaceProps = {
 const TabContainerComponent = createComponent(TabContainerElement, 'tab-container')
 
 const UnderlinePanels: FC<PropsWithChildren<UnderlineTabbedInterfaceProps>> = ({
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledBy,
   children,
   loadingCounters,
   sx: sxProp = defaultSxProp,
@@ -164,7 +166,7 @@ const UnderlinePanels: FC<PropsWithChildren<UnderlineTabbedInterfaceProps>> = ({
         )}
         {...props}
       >
-        <StyledUnderlineTabList ref={listRef} role="tablist">
+        <StyledUnderlineTabList ref={listRef} aria-label={ariaLabel} aria-labelledby={ariaLabelledBy} role="tablist">
           {tabs.current}
         </StyledUnderlineTabList>
       </StyledUnderlineWrapper>

@@ -3,7 +3,8 @@
 import React, {forwardRef, type FC, type PropsWithChildren} from 'react'
 import type {IconProps} from '@primer/octicons-react'
 import styled, {keyframes} from 'styled-components'
-import {CounterLabel, sx, type SxProp} from '../..'
+import CounterLabel from '../../CounterLabel'
+import sx, {type SxProp} from '../../sx'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
 import {defaultSxProp} from '../../utils/defaultSxProp'
 
