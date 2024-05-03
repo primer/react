@@ -3,7 +3,6 @@
 import {figma} from '@figma/code-connect'
 import {ButtonComponent as Button} from './Button'
 import React from 'react'
-import type {VariantType} from './types'
 
 const componentProps = {
   disabled: figma.enum('state', {disabled: true}),
@@ -26,6 +25,10 @@ const componentProps = {
   // leadingVisual: figma.instance('leadingVisual'),
   leadingVisual: figma.boolean('leadingVisual?', {
     true: figma.instance('leadingVisual'),
+    false: undefined,
+  }),
+  trailingVisual: figma.boolean('trailingVisual?', {
+    true: figma.instance('trailingVisual'),
     false: undefined,
   }),
 }
@@ -52,35 +55,17 @@ figma.connect(
   'https://www.figma.com/file/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?type=design&node-id=30258%3A5582&mode=design&t=TVF2yeiff0ZtzQll-1',
   {
     props: componentProps,
-    example: ({size, disabled, inactive, leadingVisual, alignContent, variant}) => (
+    example: ({size, disabled, inactive, leadingVisual, trailingVisual, alignContent, variant}) => (
       <Button
         size={size}
         disabled={disabled}
         inactive={inactive}
         leadingVisual={leadingVisual}
+        trailingVisual={trailingVisual}
         alignContent={alignContent}
-        variant={variant as VariantType}
+        variant={variant}
       ></Button>
     ),
     // variant: {'leadingVisual?': true},
   },
 )
-// {
-//   example: IconButton,
-//   match: { 'HasIcon': true }
-// },
-// import { figma } from '@figma/code-connect'
-// design: {
-//       type: 'figma',
-//       url: '',
-//       examples: ['Playground'],
-//       props: {
-//         size: figma.enum('size', {
-//           small: 'small',
-//           medium: 'medium',
-//           large: 'large',
-//         }),
-//         disabled: figma.enum('state', {disabled: 'true'}),
-//         inactive: figma.enum('state', {inactive: 'true'}),
-//       },
-//     },
