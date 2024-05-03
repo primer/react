@@ -1,3 +1,7 @@
+'use strict'
+
+const {DEPLOY_ENV = 'development'} = process.env
+
 /**
  * @type {import('@storybook/core-common').StorybookConfig}
  */
@@ -52,5 +56,17 @@ module.exports = {
   },
   typescript: {
     reactDocgen: 'react-docgen',
+  },
+  managerHead: head => {
+    if (DEPLOY_ENV === 'development') {
+      return head
+    }
+    return `${head}\n<meta name="ha-url" content="https://collector.githubapp.com/primer/collect">`
+  },
+  previewBody: body => {
+    if (DEPLOY_ENV === 'development') {
+      return body
+    }
+    return `${body}\n<script src="https://analytics.githubassets.com/hydro-marketing.min.js"></script>`
   },
 }
