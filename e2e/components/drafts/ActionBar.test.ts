@@ -41,8 +41,9 @@ test.describe('ActionBar', () => {
             },
           })
 
-          await page.setViewportSize({width: viewports['primer.breakpoint.sm'], height: 768})
-          await page.locator('button', {hasText: 'More Comment Box Items'}).waitFor()
+          await page.setViewportSize({width: viewports['primer.breakpoint.xs'], height: 768})
+          const moreButtonSelector = `button[aria-label="More Comment box toolbar items"]`
+          await page.locator(moreButtonSelector).click()
           await page.getByText('Saved Replies').click()
         })
       })
