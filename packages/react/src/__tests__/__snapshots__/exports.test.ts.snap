@@ -239,6 +239,8 @@ exports[`@primer/react/drafts should not update exports without a semver change 
 [
   "ActionBar",
   "type ActionBarProps",
+  "Banner",
+  "type BannerProps",
   "Blankslate",
   "type BlankslateProps",
   "callbackCancelledResult",
@@ -333,6 +335,8 @@ exports[`@primer/react/experimental should not update exports without a semver c
 [
   "ActionBar",
   "type ActionBarProps",
+  "Banner",
+  "type BannerProps",
   "Blankslate",
   "type BlankslateProps",
   "callbackCancelledResult",
