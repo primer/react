@@ -15,7 +15,7 @@ export type Props = {
 
 const FormControlLabel: React.FC<
   React.PropsWithChildren<{htmlFor?: string} & React.ComponentProps<typeof InputLabel> & Props>
-> = ({as, children, htmlFor, id, visuallyHidden, requiredIndicator = true, requiredText = '*', sx, ...props}) => {
+> = ({as, children, htmlFor, id, visuallyHidden, requiredIndicator = true, requiredText, sx, ...props}) => {
   const {disabled, id: formControlId, required} = useFormControlContext()
 
   /**
