@@ -229,7 +229,7 @@ export const Default = (args: FormControlArgs<AutocompleteArgs>) => {
   }
 
   return (
-    <Box as="form" sx={{p: 3}}>
+    <Box as="form" sx={{p: 3}} onSubmit={event => event.preventDefault()}>
       <FormControl {...parentArgs}>
         <FormControl.Label id="autocompleteLabel" {...labelArgs} />
         <Autocomplete>
