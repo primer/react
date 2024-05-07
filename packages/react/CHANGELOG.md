@@ -1,5 +1,17 @@
 # @primer/react
 
+## 36.17.0
+
+### Minor Changes
+
+- [#4389](https://github.com/primer/react/pull/4389) [`02035fef00d927cdf6ff97ce005592657f9a6d13`](https://github.com/primer/react/commit/02035fef00d927cdf6ff97ce005592657f9a6d13) Thanks [@JeffreyKozik](https://github.com/JeffreyKozik)! - experimental/SelectPanel + FormControl: Automatically wires SelectPanel v2 to the accessibility and validation provided by the FormControl component it's nested within
+
+- [#4335](https://github.com/primer/react/pull/4335) [`8b4d838b84af07b0baa7abeda96c5502b9339f19`](https://github.com/primer/react/commit/8b4d838b84af07b0baa7abeda96c5502b9339f19) Thanks [@joshblack](https://github.com/joshblack)! - Add support for experimental Banner component
+
+### Patch Changes
+
+- [#4484](https://github.com/primer/react/pull/4484) [`1c847bdf75e28d62015c5b8e9d77c26e5b0995dc`](https://github.com/primer/react/commit/1c847bdf75e28d62015c5b8e9d77c26e5b0995dc) Thanks [@JelloBagel](https://github.com/JelloBagel)! - TreeView: Fix returning focus when active element is not a treeitem
+
 ## 36.16.0
 
 ### Minor Changes
