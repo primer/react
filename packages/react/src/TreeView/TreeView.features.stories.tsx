@@ -411,9 +411,16 @@ AsyncSuccess.args = {
 }
 
 export const AsyncWithCount: Story = args => {
+  const [isLoading, setIsLoading] = React.useState(false)
   const [asyncItems, setAsyncItems] = React.useState<string[]>([])
 
   let state: SubTreeState = 'initial'
+
+  if (isLoading) {
+    state = 'loading'
+  } else if (asyncItems.length > 0) {
+    state = 'done'
+  }
 
   return (
     <nav aria-label="Files">

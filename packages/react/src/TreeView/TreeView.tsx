@@ -5,7 +5,7 @@ import {
   FileDirectoryOpenFillIcon,
 } from '@primer/octicons-react'
 import clsx from 'clsx'
-import React, {useCallback, useEffect, type ReactElement} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import styled, {keyframes} from 'styled-components'
 import {ConfirmationDialog} from '../ConfirmationDialog/ConfirmationDialog'
 import Spinner from '../Spinner'
@@ -65,7 +65,6 @@ export type TreeViewProps = {
   children: React.ReactNode
   flat?: boolean
   className?: string
-  dragAndDrop?: boolean
 }
 
 const UlBox = styled.ul<SxProp>`
@@ -98,7 +97,6 @@ const UlBox = styled.ul<SxProp>`
         outline-offset: -2;
       }
     }
-
     &[data-has-leading-action] {
       --has-leading-action: 1;
     }
@@ -261,15 +259,6 @@ const UlBox = styled.ul<SxProp>`
     border-width: 0;
   }
 
-  .PRIVATE_TreeView-item-toggle {
-    grid-area: toggle;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    color: ${get('colors.fg.muted')};
-  }
-
   ${sx}
 `
 
@@ -359,7 +348,7 @@ export type TreeViewItemProps = {
   onExpandedChange?: (expanded: boolean) => void
   onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
   className?: string
-  leadingAction?: ReactElement
+  leadingAction?: React.ReactElement
 }
 
 const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(

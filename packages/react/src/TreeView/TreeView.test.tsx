@@ -320,7 +320,7 @@ describe('Markup', () => {
     expect(item1).toHaveFocus()
   })
 
-  it("should have 'data-drag-and-drop' attribute when dragAndDrop is passed to TreeView", () => {
+  it.todo("should have 'data-drag-and-drop' attribute when dragAndDrop is passed to TreeView", () => {
     const {queryByRole} = renderWithTheme(
       <TreeView aria-label="Test tree" dragAndDrop>
         <TreeView.Item id="item-1">Item 1</TreeView.Item>
