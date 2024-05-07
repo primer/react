@@ -6,6 +6,8 @@ import {
   FileIcon,
   GrabberIcon,
   KebabHorizontalIcon,
+  IssueClosedIcon,
+  IssueOpenedIcon,
 } from '@primer/octicons-react'
 import type {Meta, Story} from '@storybook/react'
 import React from 'react'
@@ -409,16 +411,9 @@ AsyncSuccess.args = {
 }
 
 export const AsyncWithCount: Story = args => {
-  const [isLoading, setIsLoading] = React.useState(false)
   const [asyncItems, setAsyncItems] = React.useState<string[]>([])
 
   let state: SubTreeState = 'initial'
-
-  if (isLoading) {
-    state = 'loading'
-  } else if (asyncItems.length > 0) {
-    state = 'done'
-  }
 
   return (
     <nav aria-label="Files">
@@ -686,89 +681,6 @@ export const NestedTrees: Story = () => {
           </TreeView.SubTree>
         </TreeView.Item>
         <TreeView.Item id="another-file">
-          <TreeView.LeadingVisual>
-            <FileIcon />
-          </TreeView.LeadingVisual>
-          Another file
-        </TreeView.Item>
-      </TreeView>
-    </nav>
-  )
-}
-
-export const WithDragHandle: Story = () => {
-  const dragHandle = (
-    <IconButton sx={{p: 1, cursor: 'grab', mr: 1}} aria-label={`Move`} variant="invisible" icon={GrabberIcon} />
-  )
-
-  const [isLoading, setIsLoading] = React.useState(false)
-  const [asyncItems, setAsyncItems] = React.useState<string[]>([])
-
-  let state: SubTreeState = 'initial'
-
-  if (isLoading) {
-    state = 'loading'
-  } else if (asyncItems.length > 0) {
-    state = 'done'
-  }
-
-  return (
-    <nav aria-label="Files">
-      <TreeView aria-label="Files" dragAndDrop>
-        <TreeView.Item id="file-1" dragHandle={dragHandle}>
-          <TreeView.LeadingVisual>
-            <FileIcon />
-          </TreeView.LeadingVisual>
-          Some file
-        </TreeView.Item>
-        <TreeView.Item
-          id="async-directory"
-          dragHandle={dragHandle}
-          onExpandedChange={async isExpanded => {
-            if (asyncItems.length === 0 && isExpanded) {
-              setIsLoading(true)
-
-              // Load items
-              const items = await loadItems(1000)
-
-              setIsLoading(false)
-              setAsyncItems(items)
-            }
-          }}
-        >
-          <TreeView.LeadingVisual>
-            <TreeView.DirectoryIcon />
-          </TreeView.LeadingVisual>
-          Directory with async items
-          <TreeView.SubTree state={state}>
-            {asyncItems.map(item => (
-              <TreeView.Item id={`item-${item}`} key={item}>
-                <TreeView.LeadingVisual>
-                  <FileIcon />
-                </TreeView.LeadingVisual>
-                {item}
-              </TreeView.Item>
-            ))}
-            <TreeView.Item id="nested-directory">
-              Nested Sub-tree
-              <TreeView.SubTree state="done">
-                <TreeView.Item id="nested-directory/file-1">
-                  <TreeView.LeadingVisual>
-                    <FileIcon />
-                  </TreeView.LeadingVisual>
-                  Some file
-                </TreeView.Item>
-                <TreeView.Item id="nested-directory/another-file">
-                  <TreeView.LeadingVisual>
-                    <FileIcon />
-                  </TreeView.LeadingVisual>
-                  Another file
-                </TreeView.Item>
-              </TreeView.SubTree>
-            </TreeView.Item>
-          </TreeView.SubTree>
-        </TreeView.Item>
-        <TreeView.Item id="another-file" dragHandle={dragHandle}>
           <TreeView.LeadingVisual>
             <FileIcon />
           </TreeView.LeadingVisual>
@@ -1072,5 +984,47 @@ export const WithoutIndentation: Story = () => (
     </TreeView>
   </nav>
 )
+
+export const WithLeadingAction: Story = () => {
+  // todo: implement fold on click
+  const dragAction = <IconButton aria-label="Reorder item" variant="invisible" icon={GrabberIcon} />
+
+  return (
+    <TreeView aria-label="Issues">
+      <TreeView.Item id="item-0" leadingAction={dragAction}>
+        <TreeView.LeadingVisual>
+          <Octicon icon={IssueClosedIcon} sx={{color: 'done.fg'}} />
+        </TreeView.LeadingVisual>
+        Item 1
+      </TreeView.Item>
+      <TreeView.Item id="item-2" leadingAction={dragAction}>
+        <TreeView.LeadingVisual>
+          <Octicon icon={IssueOpenedIcon} sx={{color: 'open.fg'}} />
+        </TreeView.LeadingVisual>
+        Item 2
+        <TreeView.SubTree>
+          <TreeView.Item id="item-2-sub-task-1">
+            <TreeView.LeadingVisual>
+              <Octicon icon={IssueOpenedIcon} sx={{color: 'open.fg'}} />
+            </TreeView.LeadingVisual>
+            sub task 1
+          </TreeView.Item>
+          <TreeView.Item id="item-2-sub-task-2">
+            <TreeView.LeadingVisual>
+              <Octicon icon={IssueOpenedIcon} sx={{color: 'open.fg'}} />
+            </TreeView.LeadingVisual>
+            sub task 2
+          </TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+      <TreeView.Item id="item-3" leadingAction={dragAction}>
+        <TreeView.LeadingVisual>
+          <Octicon icon={IssueOpenedIcon} sx={{color: 'open.fg'}} />
+        </TreeView.LeadingVisual>
+        Item 3
+      </TreeView.Item>
+    </TreeView>
+  )
+}
 
 export default meta

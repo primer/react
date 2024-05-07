@@ -98,6 +98,10 @@ const UlBox = styled.ul<SxProp>`
         outline-offset: -2;
       }
     }
+
+    &[data-has-leading-action] {
+      --has-leading-action: 1;
+    }
   }
 
   .PRIVATE_TreeView-item-container {
@@ -105,8 +109,10 @@ const UlBox = styled.ul<SxProp>`
     --toggle-width: 1rem; /* 16px */
     position: relative;
     display: grid;
-    grid-template-columns: calc(calc(var(--level) - 1) * (var(--toggle-width) / 2)) var(--toggle-width) 1fr;
-    grid-template-areas: 'spacer toggle content';
+    --leading-action-width: calc(var(--has-leading-action, 0) * 1.5rem);
+    --spacer-width: calc(calc(var(--level) - 1) * (var(--toggle-width) / 2));
+    grid-template-columns: var(--leading-action-width) var(--spacer-width) var(--toggle-width) 1fr;
+    grid-template-areas: 'leadingAction spacer toggle content';
     width: 100%;
     min-height: 2rem; /* 32px */
     font-size: ${get('fontSizes.1')};
@@ -120,10 +126,6 @@ const UlBox = styled.ul<SxProp>`
       @media (forced-colors: active) {
         outline: 2px solid transparent;
         outline-offset: -2px;
-      }
-
-      .PRIVATE_TreeView-item-drag-handle {
-        visibility: visible;
       }
     }
 
@@ -143,21 +145,7 @@ const UlBox = styled.ul<SxProp>`
   }
 
   &[data-omit-spacer='true'] .PRIVATE_TreeView-item-container {
-    grid-template-columns: 0 0 1fr;
-  }
-
-  &[data-drag-and-drop='true'] .PRIVATE_TreeView-item-container {
-    grid-template-columns: 1.5rem calc(calc(var(--level) - 1) * (var(--toggle-width) / 2)) var(--toggle-width) 1fr;
-    grid-template-areas: 'drag spacer toggle content';
-  }
-
-  .PRIVATE_TreeView-item-drag-handle {
-    grid-area: drag;
-    height: 100%;
-    visibility: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    grid-template-columns: 0 0 0 1fr;
   }
 
   .PRIVATE_TreeView-item[aria-current='true'] > .PRIVATE_TreeView-item-container {
@@ -221,6 +209,12 @@ const UlBox = styled.ul<SxProp>`
     color: ${get('colors.fg.muted')};
   }
 
+  .PRIVATE_TreeView-item-leading-action {
+    display: flex;
+    color: ${get('colors.fg.muted')};
+    grid-area: 'leadingAction';
+  }
+
   .PRIVATE_TreeView-item-level-line {
     width: 100%;
     height: 100%;
@@ -267,6 +261,15 @@ const UlBox = styled.ul<SxProp>`
     border-width: 0;
   }
 
+  .PRIVATE_TreeView-item-toggle {
+    grid-area: toggle;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: ${get('colors.fg.muted')};
+  }
+
   ${sx}
 `
 
@@ -276,7 +279,6 @@ const Root: React.FC<TreeViewProps> = ({
   children,
   flat,
   className,
-  dragAndDrop,
 }) => {
   const containerRef = React.useRef<HTMLUListElement>(null)
   const mouseDownRef = React.useRef<boolean>(false)
@@ -332,7 +334,6 @@ const Root: React.FC<TreeViewProps> = ({
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledby}
           data-omit-spacer={flat}
-          data-drag-and-drop={dragAndDrop}
           onMouseDown={onMouseDown}
           className={className}
         >
@@ -358,7 +359,7 @@ export type TreeViewItemProps = {
   onExpandedChange?: (expanded: boolean) => void
   onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
   className?: string
-  dragHandle?: ReactElement
+  leadingAction?: ReactElement
 }
 
 const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
@@ -373,7 +374,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       onSelect,
       children,
       className,
-      dragHandle,
+      leadingAction,
     },
     ref,
   ) => {
@@ -472,6 +473,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           aria-expanded={isSubTreeEmpty ? undefined : isExpanded}
           aria-current={isCurrentItem ? 'true' : undefined}
           aria-selected={isFocused ? 'true' : 'false'}
+          data-has-leading-action={leadingAction ? true : undefined}
           onKeyDown={handleKeyDown}
           onFocus={event => {
             // Scroll the first child into view when the item receives focus
@@ -508,15 +510,10 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
               containIntrinsicSize,
             }}
           >
+            {leadingAction ? <div className="PRIVATE_TreeView-item-leading-action">{leadingAction}</div> : null}
             <div style={{gridArea: 'spacer', display: 'flex'}}>
               <LevelIndicatorLines level={level} />
             </div>
-            {dragHandle ? (
-              // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-              <div className="PRIVATE_TreeView-item-drag-handle" onMouseDown={() => setIsExpanded(false)}>
-                {dragHandle}
-              </div>
-            ) : null}
             {hasSubTree ? (
               // This lint rule is disabled due to the guidelines in the `TreeView` api docs.
               // https://github.com/github/primer/blob/main/apis/tree-view-api.md#the-expandcollapse-chevron-toggle
