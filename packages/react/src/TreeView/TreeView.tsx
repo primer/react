@@ -848,9 +848,6 @@ TrailingVisual.displayName = 'TreeView.TrailingVisual'
 // ----------------------------------------------------------------------------
 // TreeView.LeadingAction
 
-// ----------------------------------------------------------------------------
-// TreeView.LeadingAction
-
 const LeadingAction: React.FC<TreeViewVisualProps> = props => {
   const {isExpanded, leadingVisualId} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
