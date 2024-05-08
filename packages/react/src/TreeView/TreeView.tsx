@@ -64,6 +64,7 @@ export type TreeViewProps = {
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
   children: React.ReactNode
   flat?: boolean
+  className?: string
 }
 
 const UlBox = styled.ul<SxProp>`
@@ -255,6 +256,7 @@ const Root: React.FC<TreeViewProps> = ({
   'aria-labelledby': ariaLabelledby,
   children,
   flat,
+  className,
 }) => {
   const containerRef = React.useRef<HTMLUListElement>(null)
   const mouseDownRef = React.useRef<boolean>(false)
@@ -311,6 +313,7 @@ const Root: React.FC<TreeViewProps> = ({
           aria-labelledby={ariaLabelledby}
           data-omit-spacer={flat}
           onMouseDown={onMouseDown}
+          className={className}
         >
           {children}
         </UlBox>
@@ -333,6 +336,7 @@ export type TreeViewItemProps = {
   expanded?: boolean
   onExpandedChange?: (expanded: boolean) => void
   onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
+  className?: string
 }
 
 const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
@@ -346,6 +350,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       onExpandedChange,
       onSelect,
       children,
+      className,
     },
     ref,
   ) => {
@@ -433,7 +438,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       >
         {/* @ts-ignore Box doesn't have type support for `ref` used in combination with `as` */}
         <li
-          className="PRIVATE_TreeView-item"
+          className={clsx('PRIVATE_TreeView-item', className)}
           ref={ref as React.ForwardedRef<HTMLLIElement>}
           tabIndex={0}
           id={itemId}
