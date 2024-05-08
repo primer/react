@@ -36,13 +36,13 @@ const StyledStack = styled.div`
     padding: var(--stack-padding-spacious, 24px);
   }
 
-  &[data-orientation='horizontal'],
-  &[data-orientation-narrow='horizontal'] {
+  &[data-direction='horizontal'],
+  &[data-direction-narrow='horizontal'] {
     flex-flow: row;
   }
 
-  &[data-orientation='vertical'],
-  &[data-orientation-narrow='vertical'] {
+  &[data-direction='vertical'],
+  &[data-direction-narrow='vertical'] {
     flex-flow: column;
   }
 
@@ -134,11 +134,11 @@ const StyledStack = styled.div`
       padding: var(--stack-padding-spacious, 24px);
     }
 
-    &[data-orientation-regular='horizontal'] {
+    &[data-direction-regular='horizontal'] {
       flex-flow: row;
     }
 
-    &[data-orientation-regular='vertical'] {
+    &[data-direction-regular='vertical'] {
       flex-flow: column;
     }
 
@@ -223,11 +223,11 @@ const StyledStack = styled.div`
       padding: var(--stack-padding-spacious, 24px);
     }
 
-    &[data-orientation-wide='horizontal'] {
+    &[data-direction-wide='horizontal'] {
       flex-flow: row;
     }
 
-    &[data-orientation-wide='vertical'] {
+    &[data-direction-wide='vertical'] {
       flex-flow: column;
     }
 
@@ -315,13 +315,13 @@ type StackProps<As> = React.PropsWithChildren<{
   gap?: Gap
 
   /**
-   * Specify the orientation for the stack container
+   * Specify the direction for the stack container
    * @default vertical
    */
   direction?: Direction
 
   /**
-   * Specify the alignment between items in the cross-axis of the orientation
+   * Specify the alignment between items in the cross-axis of the direction
    * @default stretch
    */
   align?: Align

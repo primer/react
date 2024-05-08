@@ -35,8 +35,14 @@ export async function visit(page: Page, options: Options) {
     url.searchParams.set('globals', params)
   }
 
+  /** Mock live avatar urls to make them stable for visual diffing (vrt) */
+  await page.route('https://github.com/*.png', async route => {
+    await route.continue({url: 'https://github.com/primer.png'})
+  })
+
   await page.goto(url.toString())
   await page.waitForSelector('body.sb-show-main:not(.sb-show-preparing-story)')
   await page.waitForSelector('#storybook-root > *')
+
   await waitForImages(page)
 }
