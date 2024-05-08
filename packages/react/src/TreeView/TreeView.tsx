@@ -21,6 +21,7 @@ import sx from '../sx'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
+import {IconButton, type IconButtonProps} from '../Button'
 
 // ----------------------------------------------------------------------------
 // Context
@@ -849,8 +850,8 @@ TrailingVisual.displayName = 'TreeView.TrailingVisual'
 // ----------------------------------------------------------------------------
 // TreeView.LeadingAction
 
-const LeadingAction: React.FC<{children: React.ReactElement}> = props => {
-  return <div className="PRIVATE_TreeView-item-leading-action" {...props} />
+const LeadingAction: React.FC<IconButtonProps> = props => {
+  return <IconButton variant="invisible" className="PRIVATE_TreeView-item-leading-action" {...props} />
 }
 
 LeadingAction.displayName = 'TreeView.LeadingAction'

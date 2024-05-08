@@ -996,19 +996,18 @@ export const LeadingAction: Story = () => {
   // todo: implement fold on click
   // todo: implement hide until hovered
   // todo: check if draggy boi should be aria-hidden
-  const dragAction = <IconButton aria-label="Reorder item" variant="invisible" icon={GrabberIcon} />
 
   return (
     <TreeView aria-label="Issues">
       <TreeView.Item id="item-0">
-        <TreeView.LeadingAction>{dragAction}</TreeView.LeadingAction>
+        <TreeView.LeadingAction icon={GrabberIcon} aria-label="Reorder item 1" />
         <TreeView.LeadingVisual>
           <Octicon icon={IssueClosedIcon} sx={{color: 'done.fg'}} />
         </TreeView.LeadingVisual>
         Item 1
       </TreeView.Item>
       <TreeView.Item id="item-2">
-        <TreeView.LeadingAction>{dragAction}</TreeView.LeadingAction>
+        <TreeView.LeadingAction icon={GrabberIcon} aria-label="Reorder item 2" />
         <TreeView.LeadingVisual>
           <Octicon icon={IssueOpenedIcon} sx={{color: 'open.fg'}} />
         </TreeView.LeadingVisual>
@@ -1029,7 +1028,7 @@ export const LeadingAction: Story = () => {
         </TreeView.SubTree>
       </TreeView.Item>
       <TreeView.Item id="item-3">
-        <TreeView.LeadingAction>{dragAction}</TreeView.LeadingAction>
+        <TreeView.LeadingAction icon={GrabberIcon} aria-label="Reorder item 3" />
         <TreeView.LeadingVisual>
           <Octicon icon={IssueOpenedIcon} sx={{color: 'open.fg'}} />
         </TreeView.LeadingVisual>
