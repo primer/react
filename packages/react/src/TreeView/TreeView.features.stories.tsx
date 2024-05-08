@@ -995,6 +995,7 @@ export const WithoutIndentation: Story = () => (
 export const WithLeadingAction: Story = () => {
   // todo: implement fold on click
   // todo: implement hide until hovered
+  // todo: check if draggy boi should be aria-hidden
   const dragAction = <IconButton aria-label="Reorder item" variant="invisible" icon={GrabberIcon} />
 
   return (

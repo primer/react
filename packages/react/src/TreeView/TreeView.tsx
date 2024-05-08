@@ -109,8 +109,8 @@ const UlBox = styled.ul<SxProp>`
     display: grid;
     --leading-action-width: calc(var(--has-leading-action, 0) * 1.5rem);
     --spacer-width: calc(calc(var(--level) - 1) * (var(--toggle-width) / 2));
-    grid-template-columns: var(--leading-action-width) var(--spacer-width) var(--toggle-width) 1fr;
-    grid-template-areas: 'leadingAction spacer toggle content';
+    grid-template-columns: var(--spacer-width) var(--leading-action-width) var(--toggle-width) 1fr;
+    grid-template-areas: 'spacer leadingAction toggle content';
     width: 100%;
     min-height: 2rem; /* 32px */
     font-size: ${get('fontSizes.1')};
@@ -501,10 +501,10 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
               containIntrinsicSize,
             }}
           >
-            {slots.leadingAction}
             <div style={{gridArea: 'spacer', display: 'flex'}}>
               <LevelIndicatorLines level={level} />
             </div>
+            {slots.leadingAction}
             {hasSubTree ? (
               // This lint rule is disabled due to the guidelines in the `TreeView` api docs.
               // https://github.com/github/primer/blob/main/apis/tree-view-api.md#the-expandcollapse-chevron-toggle
