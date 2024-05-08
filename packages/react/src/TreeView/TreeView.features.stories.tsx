@@ -992,7 +992,7 @@ export const WithoutIndentation: Story = () => (
   </nav>
 )
 
-export const WithLeadingAction: Story = () => {
+export const LeadingAction: Story = () => {
   // todo: implement fold on click
   // todo: implement hide until hovered
   // todo: check if draggy boi should be aria-hidden
