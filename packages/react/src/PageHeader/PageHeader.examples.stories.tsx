@@ -23,7 +23,6 @@ import {
   CommitIcon,
   ChecklistIcon,
   FileDiffIcon,
-  ArrowRightIcon,
   TriangleDownIcon,
   CheckIcon,
   CopyIcon,
