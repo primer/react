@@ -67,6 +67,9 @@ export type TreeViewProps = {
   className?: string
 }
 
+/* Size of toggle icon in pixels. */
+const TOGGLE_ICON_SIZE = 12
+
 const UlBox = styled.ul<SxProp>`
   list-style: none;
   padding: 0;
@@ -102,12 +105,13 @@ const UlBox = styled.ul<SxProp>`
   .PRIVATE_TreeView-item-container {
     --level: 1; /* default level */
     --toggle-width: 1rem; /* 16px */
+    --min-item-height: 2rem; /* 32px */
     position: relative;
     display: grid;
     grid-template-columns: calc(calc(var(--level) - 1) * (var(--toggle-width) / 2)) var(--toggle-width) 1fr;
     grid-template-areas: 'spacer toggle content';
     width: 100%;
-    min-height: 2rem; /* 32px */
+    min-height: var(--min-item-height);
     font-size: ${get('fontSizes.1')};
     color: ${get('colors.fg.default')};
     border-radius: ${get('radii.2')};
@@ -124,7 +128,7 @@ const UlBox = styled.ul<SxProp>`
 
     @media (pointer: coarse) {
       --toggle-width: 1.5rem; /* 24px */
-      min-height: 2.75rem; /* 44px */
+      --min-item-height: 2.75rem; /* 44px */
     }
 
     &:has(.PRIVATE_TreeView-item-skeleton):hover {
@@ -163,9 +167,9 @@ const UlBox = styled.ul<SxProp>`
 
   .PRIVATE_TreeView-item-toggle {
     grid-area: toggle;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    /* The toggle should appear vertically centered for single-line items, but remain at the top for items that wrap
+    across more lines. */
+    padding-top: calc(var(--min-item-height) / 2 - ${TOGGLE_ICON_SIZE}px);
     height: 100%;
     color: ${get('colors.fg.muted')};
   }
@@ -506,7 +510,11 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                   }
                 }}
               >
-                {isExpanded ? <ChevronDownIcon size={12} /> : <ChevronRightIcon size={12} />}
+                {isExpanded ? (
+                  <ChevronDownIcon size={TOGGLE_ICON_SIZE} />
+                ) : (
+                  <ChevronRightIcon size={TOGGLE_ICON_SIZE} />
+                )}
               </div>
             ) : null}
             <div id={labelId} className="PRIVATE_TreeView-item-content">
