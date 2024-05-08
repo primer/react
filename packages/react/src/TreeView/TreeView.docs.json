@@ -72,11 +72,6 @@
         {
           "name": "ref",
           "type": "React.Ref<HTMLElement>"
-        },
-        {
-          "name": "leadingAction",
-          "type": "ReactElement",
-          "description": "An action that can be rendered at the start of an Item"
         }
       ]
     },
@@ -107,6 +102,16 @@
           "name": "label",
           "type": "string",
           "description": "Provide an accessible label for the visual. This is not necessary for decorative visuals."
+        }
+      ]
+    },
+    {
+      "name": "TreeView.LeadingAction",
+      "props": [
+        {
+          "name": "children",
+          "required": true,
+          "type": "React.ReactNode"
         }
       ]
     },

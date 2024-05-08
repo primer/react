@@ -348,7 +348,6 @@ export type TreeViewItemProps = {
   onExpandedChange?: (expanded: boolean) => void
   onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
   className?: string
-  leadingAction?: React.ReactElement
 }
 
 const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
@@ -363,11 +362,14 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       onSelect,
       children,
       className,
-      leadingAction,
     },
     ref,
   ) => {
-    const [slots, rest] = useSlots(children, {leadingVisual: LeadingVisual, trailingVisual: TrailingVisual})
+    const [slots, rest] = useSlots(children, {
+      leadingAction: LeadingAction,
+      leadingVisual: LeadingVisual,
+      trailingVisual: TrailingVisual,
+    })
     const {expandedStateCache} = React.useContext(RootContext)
     const labelId = useId()
     const leadingVisualId = useId()
@@ -462,7 +464,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           aria-expanded={isSubTreeEmpty ? undefined : isExpanded}
           aria-current={isCurrentItem ? 'true' : undefined}
           aria-selected={isFocused ? 'true' : 'false'}
-          data-has-leading-action={leadingAction ? true : undefined}
+          data-has-leading-action={slots.leadingAction ? true : undefined}
           onKeyDown={handleKeyDown}
           onFocus={event => {
             // Scroll the first child into view when the item receives focus
@@ -499,7 +501,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
               containIntrinsicSize,
             }}
           >
-            {leadingAction ? <div className="PRIVATE_TreeView-item-leading-action">{leadingAction}</div> : null}
+            {slots.leadingAction}
             <div style={{gridArea: 'spacer', display: 'flex'}}>
               <LevelIndicatorLines level={level} />
             </div>
@@ -845,6 +847,15 @@ const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
 TrailingVisual.displayName = 'TreeView.TrailingVisual'
 
 // ----------------------------------------------------------------------------
+// TreeView.LeadingAction
+
+const LeadingAction: React.FC<{children: React.ReactElement}> = props => {
+  return <div className="PRIVATE_TreeView-item-leading-action" {...props} />
+}
+
+LeadingAction.displayName = 'TreeView.LeadingAction'
+
+// ----------------------------------------------------------------------------
 // TreeView.DirectoryIcon
 
 const DirectoryIcon = () => {
@@ -913,6 +924,7 @@ ErrorDialog.displayName = 'TreeView.ErrorDialog'
 export const TreeView = Object.assign(Root, {
   Item,
   SubTree,
+  LeadingAction,
   LeadingVisual,
   TrailingVisual,
   DirectoryIcon,
