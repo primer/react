@@ -3,6 +3,7 @@ import type {Meta, Story} from '@storybook/react'
 import React from 'react'
 import Box from '../Box'
 import {TreeView} from './TreeView'
+import {IconButton} from '../Button'
 
 const meta: Meta = {
   title: 'Components/TreeView/Examples',
@@ -53,16 +54,18 @@ const ControlledDraggableItem: React.FC<{id: string; children: React.ReactNode}>
   return (
     <>
       <TreeView.Item id={id} className="treeview-item" expanded={expanded} onExpandedChange={setExpanded}>
-        <TreeView.LeadingAction
-          icon={GrabberIcon}
-          aria-label="Reorder item"
-          className="treeview-leading-action"
-          draggable="true"
-          onDragStart={() => {
-            setExpanded(false)
-            // other drag logic to follow
-          }}
-        />
+        <TreeView.LeadingAction>
+          <IconButton
+            icon={GrabberIcon}
+            aria-label="Reorder item"
+            className="treeview-leading-action"
+            draggable="true"
+            onDragStart={() => {
+              setExpanded(false)
+              // other drag logic to follow
+            }}
+          />
+        </TreeView.LeadingAction>
         {children}
       </TreeView.Item>
     </>
