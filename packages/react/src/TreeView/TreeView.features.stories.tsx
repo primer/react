@@ -993,10 +993,6 @@ export const WithoutIndentation: Story = () => (
 )
 
 export const LeadingAction: Story = () => {
-  // todo: implement fold on click
-  // todo: implement hide until hovered
-  // todo: check if draggy boi should be aria-hidden
-
   return (
     <TreeView aria-label="Issues">
       <TreeView.Item id="item-0">

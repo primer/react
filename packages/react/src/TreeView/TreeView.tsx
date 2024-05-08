@@ -211,7 +211,7 @@ const UlBox = styled.ul<SxProp>`
   .PRIVATE_TreeView-item-leading-action {
     display: flex;
     color: ${get('colors.fg.muted')};
-    grid-area: 'leadingAction';
+    grid-area: leadingAction;
   }
 
   .PRIVATE_TreeView-item-level-line {
@@ -851,7 +851,11 @@ TrailingVisual.displayName = 'TreeView.TrailingVisual'
 // TreeView.LeadingAction
 
 const LeadingAction: React.FC<IconButtonProps> = props => {
-  return <IconButton variant="invisible" className="PRIVATE_TreeView-item-leading-action" {...props} />
+  return (
+    <div className="PRIVATE_TreeView-item-leading-action">
+      <IconButton variant="invisible" {...props} />
+    </div>
+  )
 }
 
 LeadingAction.displayName = 'TreeView.LeadingAction'
