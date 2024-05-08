@@ -67,7 +67,22 @@ describe('Dialog', () => {
 
     await user.click(getByLabelText('Close'))
 
-    expect(onClose).toHaveBeenCalled()
+    expect(onClose).toHaveBeenCalledWith('close-button')
+    expect(onClose).toHaveBeenCalledTimes(1) // Ensure it's not called with a backdrop gesture as well
+  })
+
+  it('calls `onClose` when clicking the backdrop', async () => {
+    const user = userEvent.setup()
+    const onClose = jest.fn()
+    const {getByRole} = render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
+
+    expect(onClose).not.toHaveBeenCalled()
+
+    const dialog = getByRole('dialog')
+    const backdrop = dialog.parentElement!
+    await user.click(backdrop)
+
+    expect(onClose).toHaveBeenCalledWith('backdrop')
   })
 
   it('calls `onClose` when keying "Escape"', async () => {
@@ -80,7 +95,7 @@ describe('Dialog', () => {
 
     await user.keyboard('{Escape}')
 
-    expect(onClose).toHaveBeenCalled()
+    expect(onClose).toHaveBeenCalledWith('escape')
   })
 
   it('changes the <body> style for `overflow` if it is not set to "hidden"', () => {

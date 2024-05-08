@@ -19,7 +19,7 @@ export interface ConfirmationDialogProps {
    * Required. This callback is invoked when a gesture to close the dialog
    * is performed. The first argument indicates the gesture.
    */
-  onClose: (gesture: 'confirm' | 'close-button' | 'cancel' | 'escape') => void
+  onClose: (gesture: 'confirm' | 'close-button' | 'backdrop' | 'cancel' | 'escape') => void
 
   /**
    * Required. The title of the ConfirmationDialog. This is usually a brief
