@@ -1,5 +1,6 @@
 {
-  "id": "selectpanel_v2",
+  "id": "select_panel_v2",
+  "docsId": "select_panel",
   "name": "SelectPanel",
   "status": "draft",
   "a11yReviewed": false,
@@ -14,6 +15,7 @@
     {"id": "drafts-components-selectpanel-examples--async-with-suspended-list"},
     {"id": "drafts-components-selectpanel-examples--with-filter-buttons"}
   ],
+  "importPath": "@primer/react/experimental",
   "props": [
     {
       "name": "title",

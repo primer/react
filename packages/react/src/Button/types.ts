@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import type {SxProp} from '../sx'
 import sx from '../sx'
 import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
+import type {TooltipDirection} from '../TooltipV2'
 
 export const StyledButton = styled.button<SxProp>`
   ${getGlobalFocusStyles('-2px')};
@@ -37,14 +38,6 @@ export type ButtonBaseProps = {
    */
   block?: boolean
   /**
-   * When true, the button is in a loading state.
-   */
-  loading?: boolean
-  /**
-   * The content to announce to screen readers when loading.
-   */
-  loadingAnnouncement?: string
-  /*
    * Whether the button looks visually disabled, but can still accept all the same
    * interactions as an enabled button.
    */
@@ -85,6 +78,9 @@ export type ButtonProps = {
 
 export type IconButtonProps = ButtonA11yProps & {
   icon: React.ElementType
+  unsafeDisableTooltip?: boolean
+  description?: string
+  tooltipDirection?: TooltipDirection
 } & Omit<ButtonBaseProps, 'aria-label' | 'aria-labelledby'>
 
 // adopted from React.AnchorHTMLAttributes

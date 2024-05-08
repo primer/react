@@ -1,7 +1,7 @@
 {
   "$id": "component.schema.json",
   "type": "object",
-  "required": ["id", "name", "status", "a11yReviewed", "stories", "props"],
+  "required": ["id", "name", "status", "a11yReviewed", "stories", "importPath", "props"],
   "additionalProperties": false,
   "definitions": {
     "prop": {
@@ -65,10 +65,19 @@
       "description": "The status of the component.",
       "enum": ["draft", "alpha", "beta", "stable", "deprecated"]
     },
+    "docsId": {
+      "type": "string",
+      "description": "A unique identifier to group components that have multiple versions i.e. Tooltip and Tooltip v2."
+    },
     "a11yReviewed": {
       "type": "boolean",
       "description": "Indicate whether the component has been reviewed by the Accessibility team."
     },
+    "importPath": {
+      "type": "string",
+      "description": "The path to import the component from. i.e. '@primer/react/experimental'"
+    },
+
     "stories": {
       "type": "array",
       "description": "An array of Storybook story IDs to embed in the docs.",
