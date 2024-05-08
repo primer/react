@@ -208,6 +208,7 @@ const UlBox = styled.ul<SxProp>`
   }
 
   .PRIVATE_TreeView-item-leading-action {
+    display: flex;
     color: ${get('colors.fg.muted')};
     grid-area: leadingAction;
   }

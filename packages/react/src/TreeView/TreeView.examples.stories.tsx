@@ -57,6 +57,7 @@ const ControlledDraggableItem: React.FC<{id: string; children: React.ReactNode}>
         <TreeView.LeadingAction>
           <IconButton
             icon={GrabberIcon}
+            variant="invisible"
             aria-label="Reorder item"
             className="treeview-leading-action"
             draggable="true"
