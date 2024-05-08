@@ -2,4 +2,4 @@
 "@primer/react": patch
 ---
 
-Fix expanding/collapsing tree items when <kbd>Space</kbd> is pressed
+TreeView: Fix toggling subtree via Space key (in addition to Enter key)
