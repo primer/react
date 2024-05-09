@@ -1,18 +1,18 @@
 import React from 'react'
-import {Label} from '../Label'
+import {IssueLabel} from '../IssueLabel'
 import type {Meta, StoryObj} from '@storybook/react'
 
 const meta = {
   title: 'Drafts/Components/Label',
-  component: Label,
-} satisfies Meta<typeof Label>
+  component: IssueLabel,
+} satisfies Meta<typeof IssueLabel>
 
 export default meta
 
-export const Default = () => <Label>Issue label</Label>
+export const Default = () => <IssueLabel>Issue label</IssueLabel>
 
-export const Playground: StoryObj<typeof Label> = {
-  render: args => <Label {...args}>Issue label</Label>,
+export const Playground: StoryObj<typeof IssueLabel> = {
+  render: args => <IssueLabel {...args}>Issue label</IssueLabel>,
   args: {},
   argTypes: {
     size: {

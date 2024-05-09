@@ -25,7 +25,7 @@ type LabelColorVariant =
 
 // These colors should overlap with label
 
-export interface LabelProps extends React.PropsWithChildren {
+export interface IssueLabelProps extends React.PropsWithChildren {
   /**
    *
    */
@@ -42,7 +42,7 @@ export interface LabelProps extends React.PropsWithChildren {
   variant?: LabelColorVariant
 }
 
-export function Label({children, fillColor, size = 'small', variant = 'gray', ...rest}: LabelProps) {
+export function IssueLabel({children, fillColor, size = 'small', variant = 'gray', ...rest}: IssueLabelProps) {
   return (
     <StyledLabel {...rest} data-size={size} data-variant={fillColor ? undefined : variant}>
       {children}
