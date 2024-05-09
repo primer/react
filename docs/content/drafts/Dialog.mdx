@@ -157,13 +157,13 @@ render(<ShorthandExample2 />)
 
 ### ConfirmationDialogProps
 
-| Prop name            | Type                                                                  | Default    | Description                                                                                                                   |
-| :------------------- | :-------------------------------------------------------------------- | :--------- | :---------------------------------------------------------------------------------------------------------------------------- |
-| title                | `React.ReactNode`                                                     |            | Required. Sets the title of the dialog, which by default is also used as the `aria-labelledby` attribute.                     |
-| onClose              | `(gesture: 'confirm' │ 'cancel' │ 'close-button' │ 'escape') => void` |            | Required. This callback is invoked when a gesture to close the dialog is performed. The first argument indicates the gesture. |
-| cancelButtonContent  | `React.ReactNode`                                                     | `"Cancel"` | The content to use for the cancel button.                                                                                     |
-| confirmButtonContent | `React.ReactNode`                                                     | `"OK"`     | The content to use for the confirm button.                                                                                    |
-| confirmButtonType    | `"normal" │ "primary" │ "danger"`                                     | `Button`   | The type of button to use for the confirm button.                                                                             |
+| Prop name            | Type                                             | Default                        | Description                                                                                               |
+| :------------------- | :----------------------------------------------- | :----------------------------- | :-------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| title                | `React.ReactNode`                                |                                | Required. Sets the title of the dialog, which by default is also used as the `aria-labelledby` attribute. |
+| onClose              | `(gesture: 'confirm' │ 'cancel' │ 'close-button' | 'backdrop │ 'escape') => void` |                                                                                                           | Required. This callback is invoked when a gesture to close the dialog is performed. The first argument indicates the gesture. |
+| cancelButtonContent  | `React.ReactNode`                                | `"Cancel"`                     | The content to use for the cancel button.                                                                 |
+| confirmButtonContent | `React.ReactNode`                                | `"OK"`                         | The content to use for the confirm button.                                                                |
+| confirmButtonType    | `"normal" │ "primary" │ "danger"`                | `Button`                       | The type of button to use for the confirm button.                                                         |
 
 ### ConfirmOptions
 
