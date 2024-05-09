@@ -63,7 +63,7 @@ export function useTypeahead({containerRef, onFocusChange}: TypeaheadOptions) {
 
     function onKeyDown(event: KeyboardEvent) {
       // Ignore key presses that don't produce a character value
-      if (!event.key || event.key.length > 1) return
+      if (!event.key || event.key.length > 1 || event.key === ' ') return
 
       // Ignore key presses that occur with a modifier
       if (event.ctrlKey || event.altKey || event.metaKey) return
