@@ -2,7 +2,7 @@ import {Box, Heading, Text, ThemeProvider} from '@primer/react'
 import React from 'react'
 import {Container} from '@primer/gatsby-theme-doctocat'
 import heroIllustration from '../primer-components-hero.svg'
-import {version} from '../../../../../package.json'
+import packageJson from '../../../../../packages/react/package.json'
 
 export default function Hero() {
   return (
@@ -13,7 +13,7 @@ export default function Hero() {
             Primer React
           </Heading>
           <Text as="p" fontFamily="mono" mt={0} mb={2} color="fg.default" fontSize={2}>
-            v{version}
+            v{packageJson.version}
           </Text>
           <img src={heroIllustration} alt="" width="100%" />
         </Container>

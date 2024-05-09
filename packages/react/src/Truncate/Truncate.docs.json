@@ -1,0 +1,38 @@
+{
+  "id": "truncate",
+  "name": "Truncate",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "maxWidth",
+      "type": "number",
+      "defaultValue": "125",
+      "description": "Sets the max-width of the text."
+    },
+    {
+      "name": "inline",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Displays text as inline block and vertical aligns to the top."
+    },
+    {
+      "name": "expandable",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Allows the truncated text to be displayed on hover."
+    },
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'div'"
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

@@ -1,0 +1,43 @@
+{
+  "id": "tab_nav",
+  "name": "TabNav",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Used to set the `aria-label` on the top level `<nav>` element."
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "TabNav.Link",
+      "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'a'"
+        },
+        {
+          "name": "href",
+          "type": "string"
+        },
+        {
+          "name": "selected",
+          "type": "boolean"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    }
+  ]
+}

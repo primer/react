@@ -18,11 +18,9 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
-      - name: Install docs dependencies
-        run: npm ci --legacy-peer-deps
-        working-directory: docs
       - name: Build docs preview
         run: npm run build:docs:preview
       - uses: actions/upload-pages-artifact@v3
@@ -57,7 +55,7 @@ jobs:
       deployments: write
     runs-on: ubuntu-latest
     steps:
-      - uses: chrnorm/deployment-action@v2.0.5
+      - uses: chrnorm/deployment-action@v2.0.7
         name: Create GitHub deployment for storybook
         id: storybook
         with:
@@ -66,7 +64,7 @@ jobs:
           environment_url: '${{ needs.deploy-preview.outputs.deployment_url }}/storybook'
       - name: Update storybook deployment status (success)
         if: success()
-        uses: chrnorm/deployment-status@v2.0.1
+        uses: chrnorm/deployment-status@v2.0.3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           environment-url: '${{ needs.deploy-preview.outputs.deployment_url }}/storybook'
@@ -74,7 +72,7 @@ jobs:
           deployment-id: ${{ steps.storybook.outputs.deployment_id }}
       - name: Update storybook deployment status (failure)
         if: failure()
-        uses: chrnorm/deployment-status@v2.0.1
+        uses: chrnorm/deployment-status@v2.0.3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           state: 'failure'

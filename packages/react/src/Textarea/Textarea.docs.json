@@ -1,0 +1,66 @@
+{
+  "id": "textarea",
+  "name": "Textarea",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "required",
+      "type": "boolean",
+      "defaultValue": "",
+      "description": "Indicates to the user and assistive technologies that the field value is required"
+    },
+    {
+      "name": "cols",
+      "type": "number",
+      "defaultValue": "",
+      "description": "Specifies the visible width of a text area."
+    },
+    {
+      "name": "rows",
+      "type": "number",
+      "defaultValue": "",
+      "description": "Specifies the visible height of a text area."
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Expands with width of the component to fill the parent elements"
+    },
+    {
+      "name": "resize",
+      "type": "'both' | 'horizontal' | 'vertical' | 'none'",
+      "defaultValue": "'both'",
+      "description": "Changes the resize behavior"
+    },
+    {
+      "name": "contrast",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Changes background color to a higher contrast color"
+    },
+    {
+      "name": "validationStatus",
+      "type": "'success' | 'error' | undefined",
+      "defaultValue": "",
+      "description": "Style the textarea to match the current form validation status"
+    },
+    {
+      "name": "ref",
+      "type": "React.RefObject<HTMLTextAreaElement>"
+    },
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "\"input\""
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

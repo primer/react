@@ -1,0 +1,59 @@
+{
+  "id": "pagination",
+  "name": "Pagination",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "currentPage",
+      "type": "number",
+      "defaultValue": "",
+      "required": true,
+      "description": "The currently selected page."
+    },
+    {
+      "name": "pageCount",
+      "type": "number",
+      "defaultValue": "",
+      "required": true,
+      "description": "The total number of pages."
+    },
+    {
+      "name": "hrefBuilder",
+      "type": "function",
+      "defaultValue": "",
+      "description": "A function to generate links based on page number."
+    },
+    {
+      "name": "marginPageCount",
+      "type": "number",
+      "defaultValue": "1",
+      "description": "How many pages to always show at the left and right of the component."
+    },
+    {
+      "name": "onPageChange",
+      "type": "function",
+      "defaultValue": "no-op",
+      "description": "Called with event and page number when a page is clicked."
+    },
+    {
+      "name": "showPages",
+      "type": "boolean | { narrow?: boolean, regular?: boolean, wide?: boolean }",
+      "defaultValue": "true",
+      "description": "Whether or not to show the individual page links."
+    },
+    {
+      "name": "surroundingPageCount",
+      "type": "number",
+      "defaultValue": "2",
+      "description": "How many pages to display on each side of the currently selected page."
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

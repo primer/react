@@ -1,0 +1,34 @@
+{
+  "id": "tooltip_v2",
+  "name": "Tooltip",
+  "docsId": "tooltip",
+  "status": "beta",
+  "a11yReviewed": true,
+  "importPath": "@primer/react/next",
+  "stories": [],
+  "props": [
+    {
+      "name": "direction",
+      "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
+      "defaultValue": "s",
+      "description": "Sets where the tooltip renders in relation to the target."
+    },
+    {
+      "name": "text",
+      "required": true,
+      "type": "string",
+      "description": "The text to be displayed in the tooltip"
+    },
+    {
+      "name": "type",
+      "type": "'label' | 'description'",
+      "defaultValue": "description",
+      "description": "The type of tooltip. `label` is used for labelling the element that triggers tooltip. `description` is used for describing or adding a suplementary information to the element that triggers the tooltip."
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

@@ -1,0 +1,158 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AnchoredOverlay should render consistently when open 1`] = `
+.c0 {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  line-height: 1.5;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+}
+
+.c3 {
+  background-color: var(--overlay-bgColor,var(--color-canvas-overlay,#ffffff));
+  box-shadow: var(--shadow-floating-small,var(--color-overlay-shadow,0 1px 3px rgba(31,35,40,0.12),0 8px 24px rgba(66,74,83,0.12)));
+  position: absolute;
+  min-width: 192px;
+  height: auto;
+  width: auto;
+  border-radius: 12px;
+  overflow: hidden;
+  -webkit-animation: overlay-appear 200ms cubic-bezier(0.33,1,0.68,1);
+  animation: overlay-appear 200ms cubic-bezier(0.33,1,0.68,1);
+  visibility: var(--styled-overlay-visibility);
+}
+
+.c3:focus {
+  outline: none;
+}
+
+.c1 {
+  position: relative;
+  display: inline-block;
+  padding: 6px 16px;
+  font-family: inherit;
+  font-weight: 600;
+  line-height: 20px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+}
+
+.c1:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:focus {
+  outline: none;
+}
+
+.c1:disabled {
+  cursor: default;
+}
+
+.c1:disabled svg {
+  opacity: 0.6;
+}
+
+.c2 {
+  color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
+  background-color: var(--button-default-bgColor-rest,var(--color-btn-bg,#f6f8fa));
+  border: 1px solid var(--button-default-borderColor-rest,var(--color-btn-border,rgba(31,35,40,0.15)));
+  box-shadow: var(--button-default-shadow-resting,var(--color-btn-shadow,0 1px 0 rgba(31,35,40,0.04))),var(--button-default-shadow-inset,var(--color-btn-inset-shadow,inset 0 1px 0 rgba(255,255,255,0.25)));
+}
+
+.c2:hover {
+  background-color: var(--button-default-bgColor-hover,var(--color-btn-hover-bg,#f3f4f6));
+  border-color: var(--button-default-borderColor-hover,var(--color-btn-hover-border,rgba(31,35,40,0.15)));
+}
+
+.c2:focus {
+  outline: solid 2px var(--fgColor-accent,var(--color-accent-fg,#0969da));
+}
+
+.c2:active {
+  background-color: var(--button-default-bgColor-selected,var(--color-btn-selected-bg,hsla(220,14%,94%,1)));
+}
+
+.c2:disabled {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--button-default-bgColor-rest,var(--color-btn-bg,#f6f8fa));
+  border-color: var(--button-default-borderColor-rest,var(--color-btn-border,rgba(31,35,40,0.15)));
+}
+
+@media (forced-colors:active) {
+  .c3 {
+    outline: solid 1px transparent;
+  }
+}
+
+<div>
+  <div
+    class="c0"
+    color="fg.default"
+    data-color-mode="light"
+    data-dark-theme="dark"
+    data-light-theme="light"
+    data-portal-root="true"
+    font-family="normal"
+  >
+    <button
+      aria-expanded="true"
+      aria-haspopup="true"
+      class="c1 c2"
+      id=":rd:"
+      tabindex="0"
+    >
+      Anchor Button
+    </button>
+    <div
+      id="__primerPortalRoot__"
+      style="position: absolute; top: 0px; left: 0px;"
+    >
+      <div
+        style="position: relative; z-index: 1;"
+      >
+        <div
+          class="c3"
+          data-focus-trap="active"
+          height="auto"
+          role="none"
+          style="left: 0px; top: 4px; --styled-overlay-visibility: visible;"
+          width="auto"
+        >
+          <span
+            aria-hidden="true"
+            class="sentinel"
+            tabindex="0"
+          />
+          <button
+            class="focus-visible"
+            data-focus-visible-added=""
+            tabindex="0"
+            type="button"
+          >
+            Focusable Child
+          </button>
+          <span
+            aria-hidden="true"
+            class="sentinel"
+            tabindex="0"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

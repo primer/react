@@ -2,11 +2,11 @@
 componentId: pagehead
 title: Pagehead
 description: Use Pagehead to provide a clear, separated page title.
-source: https://github.com/primer/react/blob/main/src/Pagehead
+source: https://github.com/primer/react/tree/main/packages/react/src/Pagehead
 status: Alpha
 ---
 
-import data from '../../src/Pagehead/Pagehead.docs.json'
+import data from '../../packages/react/src/Pagehead/Pagehead.docs.json'
 import DeprecationBanner from '../components/DeprecationBanner'
 
 <DeprecationBanner replacementUrl={'/components/pagehead/react/latest'} />

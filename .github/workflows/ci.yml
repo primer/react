@@ -27,6 +27,7 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
       - name: Check for unformatted files
@@ -37,19 +38,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
-
+      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
-
       - name: Lint JavaScript
         run: npm run lint
-
       - name: Lint markdown
         run: npm run lint:md
 
@@ -58,19 +56,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
-
+      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
-
       - name: Build
         run: npm run build
-
       - name: Test
         run: npm run test -- --coverage
 
@@ -79,44 +74,34 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
-
+      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
-
+      - name: Build project
+        run: npm run build
       - name: Type check
-        run: npm run test:type-check
+        run: npm run type-check
 
   examples:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
-
+      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
-
       - name: Build
-        run: npm run build
-
-      - name: Install examples dependencies
-        working-directory: examples/nextjs
-        run: npm ci
-
-      - name: Build examples
-        working-directory: examples/nextjs
-        run: npm run build
+        run: npm run build -ws --if-present
 
   vrt-runner:
     runs-on: ubuntu-latest-8-cores
@@ -131,19 +116,22 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
         run: npx storybook build
+        working-directory: packages/react
       - name: Run storybook
         id: storybook
+        working-directory: packages/react
         run: |
           npx serve -l 6006 storybook-static &
           pid=$!
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run VRT
-        uses: docker://mcr.microsoft.com/playwright:v1.37.0-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.43.0-jammy
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:
@@ -152,10 +140,11 @@ jobs:
         run: kill ${{ steps.storybook.outputs.pid }}
       - name: Upload report
         if: ${{ always() }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: vrt
+          name: vrt-${{ matrix.shard }}
           path: blob-report
+          retention-days: 1
 
   vrt:
     if: ${{ always() }}
@@ -168,17 +157,19 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+      - run: npm i -g npm@^10.5.1
       - name: install dependencies
         run: npm ci
       - name: download all reports
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
-          name: vrt
           path: all-blob-reports
+          pattern: vrt-*
+          merge-multiple: true
       - name: merge all reports
         run: npx playwright merge-reports --reporter html ./all-blob-reports
       - name: Upload report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: vrt
           path: playwright-report
@@ -199,19 +190,22 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
         run: npx storybook build
+        working-directory: packages/react
       - name: Run storybook
         id: storybook
+        working-directory: packages/react
         run: |
           npx serve -l 6006 storybook-static &
           pid=$!
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run AAT
-        uses: docker://mcr.microsoft.com/playwright:v1.37.0-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.43.0-jammy
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:
@@ -220,10 +214,11 @@ jobs:
         run: kill ${{ steps.storybook.outputs.pid }}
       - name: Upload report
         if: ${{ always() }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: axe
+          name: axe-${{ matrix.shard }}
           path: blob-report
+          retention-days: 1
 
   aat:
     if: ${{ always() }}
@@ -236,17 +231,19 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+      - run: npm i -g npm@^10.5.1
       - name: install dependencies
         run: npm ci
       - name: download all reports
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
-          name: axe
           path: all-blob-reports
+          pattern: axe-*
+          merge-multiple: true
       - name: merge all reports
         run: npx playwright merge-reports --reporter html ./all-blob-reports
       - name: Upload report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: axe
           path: playwright-report
@@ -264,6 +261,7 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
       - name: Build components.json
@@ -279,9 +277,10 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
       - name: Build
         run: npm run build
       - name: Get export sizes
-        run: node script/get-export-sizes.js
+        run: node packages/react/script/get-export-sizes.js
