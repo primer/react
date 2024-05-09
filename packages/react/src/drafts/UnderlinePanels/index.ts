@@ -1,2 +1,2 @@
 export {default} from './UnderlinePanels'
-export type {UnderlineTabButtonProps, UnderlineTabbedInterfaceProps} from './UnderlinePanels'
+export type {UnderlinePanelsProps, TabProps, PanelProps} from './UnderlinePanels'

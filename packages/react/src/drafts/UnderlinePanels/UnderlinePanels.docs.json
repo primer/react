@@ -94,7 +94,12 @@
     },
     {
       "name": "UnderlinePanels.Tab",
-      "props": [],
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
       "passthrough": {
         "element": "div",
         "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#Attributes"

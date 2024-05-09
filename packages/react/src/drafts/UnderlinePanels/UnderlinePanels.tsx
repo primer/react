@@ -7,6 +7,7 @@ import {
   UnderlineTab,
   type UnderlineTabProps,
 } from '../../internal/components/UnderlineTabbedInterface'
+import Box, {type BoxProps} from '../../Box'
 import {useId} from '../../hooks'
 import {invariant} from '../../utils/invariant'
 import type {IconProps} from '@primer/octicons-react'
@@ -15,22 +16,7 @@ import {defaultSxProp} from '../../utils/defaultSxProp'
 import {useResizeObserver, type ResizeObserverEntry} from '../../hooks/useResizeObserver'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 
-export type UnderlineTabButtonProps = {
-  /**
-   * Whether this is the selected tab
-   */
-  'aria-selected'?: boolean
-  /**
-   * Content of CounterLabel rendered after tab text label
-   */
-  counter?: number | string
-  /**
-   *  Icon rendered before the tab text label
-   */
-  icon?: FC<IconProps>
-} & SxProp
-
-export type UnderlineTabbedInterfaceProps = {
+export type UnderlinePanelsProps = {
   /**
    * Tabs (UnderlinePanels.Tab) and panels (UnderlinePanels.Panel) to render
    */
@@ -53,9 +39,27 @@ export type UnderlineTabbedInterfaceProps = {
   loadingCounters?: boolean
 } & SxProp
 
+export type TabProps = PropsWithChildren<{
+  /**
+   * Whether this is the selected tab
+   */
+  'aria-selected'?: boolean
+  /**
+   * Content of CounterLabel rendered after tab text label
+   */
+  counter?: number | string
+  /**
+   *  Icon rendered before the tab text label
+   */
+  icon?: FC<IconProps>
+}> &
+  SxProp
+
+export type PanelProps = Omit<BoxProps, 'as'>
+
 const TabContainerComponent = createComponent(TabContainerElement, 'tab-container')
 
-const UnderlinePanels: FC<PropsWithChildren<UnderlineTabbedInterfaceProps>> = ({
+const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledBy,
   children,
@@ -167,8 +171,6 @@ const UnderlinePanels: FC<PropsWithChildren<UnderlineTabbedInterfaceProps>> = ({
   )
 }
 
-type TabProps = PropsWithChildren<UnderlineTabButtonProps>
-
 const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, sx: sxProp = defaultSxProp, ...props}) => {
   const tabIndex = ariaSelected ? 0 : -1
 
@@ -177,10 +179,8 @@ const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, sx: sxProp = defaultS
 
 Tab.displayName = 'UnderlinePanels.Tab'
 
-type PanelProps = PropsWithChildren<Omit<React.HTMLProps<HTMLDivElement>, 'role'>>
-
 const Panel: FC<PanelProps> = props => {
-  return <div role="tabpanel" {...props} />
+  return <Box as="div" role="tabpanel" {...props} />
 }
 
 Panel.displayName = 'UnderlinePanels.Panel'
