@@ -86,5 +86,5 @@ export type {UnderlinePanelsProps, UnderlinePanelsTabProps, UnderlinePanelsPanel
 
 export {SkeletonBox, SkeletonText, SkeletonAvatar} from './Skeleton'
 
-export {Label} from './Label'
-export type {LabelProps} from './Label'
+export {IssueLabel} from './IssueLabel'
+export type {IssueLabelProps} from './IssueLabel'
