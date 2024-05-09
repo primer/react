@@ -21,7 +21,6 @@ import sx from '../sx'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
-import {IconButton, type IconButtonProps} from '../Button'
 
 // ----------------------------------------------------------------------------
 // Context
@@ -850,16 +849,20 @@ TrailingVisual.displayName = 'TreeView.TrailingVisual'
 // ----------------------------------------------------------------------------
 // TreeView.LeadingAction
 
-const LeadingAction: React.FC<IconButtonProps> = props => {
+const LeadingAction: React.FC<TreeViewVisualProps> = props => {
+  const {isExpanded, leadingVisualId} = React.useContext(ItemContext)
+  const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
-    <div className="PRIVATE_TreeView-item-leading-action">
-      <IconButton variant="invisible" {...props} />
-    </div>
+    <>
+      <div className="PRIVATE_VisuallyHidden" aria-hidden={true} id={leadingVisualId}>
+        {props.label}
+      </div>
+      <div className="PRIVATE_TreeView-item-leading-action">{children}</div>
+    </>
   )
 }
 
 LeadingAction.displayName = 'TreeView.LeadingAction'
-
 // ----------------------------------------------------------------------------
 // TreeView.DirectoryIcon
 

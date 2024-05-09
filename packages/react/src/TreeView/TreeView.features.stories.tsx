@@ -996,14 +996,18 @@ export const LeadingAction: Story = () => {
   return (
     <TreeView aria-label="Issues">
       <TreeView.Item id="item-0">
-        <TreeView.LeadingAction icon={GrabberIcon} aria-label="Reorder item 1" />
+        <TreeView.LeadingAction>
+          <IconButton icon={GrabberIcon} aria-label="Reorder item 1" variant="invisible" />
+        </TreeView.LeadingAction>
         <TreeView.LeadingVisual>
           <Octicon icon={IssueClosedIcon} sx={{color: 'done.fg'}} />
         </TreeView.LeadingVisual>
         Item 1
       </TreeView.Item>
       <TreeView.Item id="item-2">
-        <TreeView.LeadingAction icon={GrabberIcon} aria-label="Reorder item 2" />
+        <TreeView.LeadingAction>
+          <IconButton icon={GrabberIcon} aria-label="Reorder item 2" variant="invisible" />
+        </TreeView.LeadingAction>
         <TreeView.LeadingVisual>
           <Octicon icon={IssueOpenedIcon} sx={{color: 'open.fg'}} />
         </TreeView.LeadingVisual>
@@ -1024,7 +1028,9 @@ export const LeadingAction: Story = () => {
         </TreeView.SubTree>
       </TreeView.Item>
       <TreeView.Item id="item-3">
-        <TreeView.LeadingAction icon={GrabberIcon} aria-label="Reorder item 3" />
+        <TreeView.LeadingAction>
+          <IconButton icon={GrabberIcon} aria-label="Reorder item 3" variant="invisible" />
+        </TreeView.LeadingAction>
         <TreeView.LeadingVisual>
           <Octicon icon={IssueOpenedIcon} sx={{color: 'open.fg'}} />
         </TreeView.LeadingVisual>
