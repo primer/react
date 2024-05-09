@@ -168,7 +168,7 @@ const UlBox = styled.ul<SxProp>`
   .PRIVATE_TreeView-item-toggle {
     grid-area: toggle;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: flex-start;
     /* The toggle should appear vertically centered for single-line items, but remain at the top for items that wrap
     across more lines. */
