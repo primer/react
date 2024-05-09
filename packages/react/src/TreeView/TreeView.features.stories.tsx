@@ -482,7 +482,6 @@ AsyncWithCount.argTypes = {
 async function alwaysFails(responseTime: number) {
   await wait(responseTime)
   throw new Error('Failed to load items')
-  return []
 }
 
 export const AsyncError: Story = args => {
@@ -984,6 +983,69 @@ export const WithoutIndentation: Story = () => (
         <TreeView.TrailingVisual>
           <Octicon icon={DiffModifiedIcon} color="attention.fg" aria-label="Modified" />
         </TreeView.TrailingVisual>
+      </TreeView.Item>
+    </TreeView>
+  </nav>
+)
+
+export const MultilineItems: Story = () => (
+  <nav aria-label="Files changed">
+    <TreeView aria-label="Files changed">
+      <TreeView.Item id="src" defaultExpanded>
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        <div style={{whiteSpace: 'wrap'}}>
+          this is a very long directory name that we have intentionally allowed to wrap over multiple lines to
+          demonstrate alignment
+        </div>
+
+        <TreeView.SubTree>
+          <TreeView.Item id="src/Avatar.tsx">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Avatar.tsx
+            <TreeView.TrailingVisual>
+              <Octicon icon={DiffAddedIcon} color="success.fg" aria-label="Added" />
+            </TreeView.TrailingVisual>
+          </TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+      <TreeView.Item id="src" defaultExpanded>
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        this is a very long directory name that we have intentionally NOT allowed to wrap over multiple lines to
+        demonstrate alignment
+        <TreeView.SubTree>
+          <TreeView.Item id="src/Avatar.tsx">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Avatar.tsx
+            <TreeView.TrailingVisual>
+              <Octicon icon={DiffAddedIcon} color="success.fg" aria-label="Added" />
+            </TreeView.TrailingVisual>
+          </TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+      <TreeView.Item id="src" defaultExpanded>
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        short name
+        <TreeView.SubTree>
+          <TreeView.Item id="src/Avatar.tsx">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Avatar.tsx
+            <TreeView.TrailingVisual>
+              <Octicon icon={DiffAddedIcon} color="success.fg" aria-label="Added" />
+            </TreeView.TrailingVisual>
+          </TreeView.Item>
+        </TreeView.SubTree>
       </TreeView.Item>
     </TreeView>
   </nav>
