@@ -236,47 +236,49 @@ export const FilesPage = () => (
       </PageHeader.TrailingAction>
 
       <PageHeader.Actions>
-        <ActionMenu>
-          <ActionMenu.Anchor>
-            <IconButton size="small" aria-label="More file actions" icon={KebabHorizontalIcon} />
-          </ActionMenu.Anchor>
-          <ActionMenu.Overlay width="medium">
-            <ActionList>
-              <ActionList.Group>
-                <ActionList.GroupHeading>Raw file content</ActionList.GroupHeading>
-                <ActionList.Item onSelect={() => alert('Download')}>Download</ActionList.Item>
-              </ActionList.Group>
-              <ActionList.Divider />
-              <ActionList.Item onSelect={() => alert('Jump to line')}>
-                Jump to line
-                <ActionList.TrailingVisual>L</ActionList.TrailingVisual>
-              </ActionList.Item>
-              <ActionList.Divider />
-              <ActionList.Item onSelect={() => alert('Copy path')}>
-                Copy path
-                <ActionList.TrailingVisual>⌘⇧.</ActionList.TrailingVisual>
-              </ActionList.Item>
-              <ActionList.Item onSelect={() => alert('Copy permalink')}>
-                Copy permalink
-                <ActionList.TrailingVisual>⌘⇧,</ActionList.TrailingVisual>
-              </ActionList.Item>
-              <ActionList.Divider />
-              <ActionList.Group>
-                <ActionList.GroupHeading>View Options</ActionList.GroupHeading>
-                <ActionList.Item onSelect={() => alert('Show code folding buttons')}>
-                  Show code folding buttons
+        <Hidden when={['narrow']}>
+          <ActionMenu>
+            <ActionMenu.Anchor>
+              <IconButton size="small" aria-label="More file actions" icon={KebabHorizontalIcon} />
+            </ActionMenu.Anchor>
+            <ActionMenu.Overlay width="medium">
+              <ActionList>
+                <ActionList.Group>
+                  <ActionList.GroupHeading>Raw file content</ActionList.GroupHeading>
+                  <ActionList.Item onSelect={() => alert('Download')}>Download</ActionList.Item>
+                </ActionList.Group>
+                <ActionList.Divider />
+                <ActionList.Item onSelect={() => alert('Jump to line')}>
+                  Jump to line
+                  <ActionList.TrailingVisual>L</ActionList.TrailingVisual>
                 </ActionList.Item>
-                <ActionList.Item onSelect={() => alert('Wrap lines')}>Wrap lines</ActionList.Item>
-                <ActionList.Item onSelect={() => alert('Center content')}>Center content</ActionList.Item>
-              </ActionList.Group>
-              <ActionList.Divider />
-              <ActionList.Item variant="danger" onSelect={() => alert('Delete file clicked')}>
-                Delete file
-                <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
-              </ActionList.Item>
-            </ActionList>
-          </ActionMenu.Overlay>
-        </ActionMenu>
+                <ActionList.Divider />
+                <ActionList.Item onSelect={() => alert('Copy path')}>
+                  Copy path
+                  <ActionList.TrailingVisual>⌘⇧.</ActionList.TrailingVisual>
+                </ActionList.Item>
+                <ActionList.Item onSelect={() => alert('Copy permalink')}>
+                  Copy permalink
+                  <ActionList.TrailingVisual>⌘⇧,</ActionList.TrailingVisual>
+                </ActionList.Item>
+                <ActionList.Divider />
+                <ActionList.Group>
+                  <ActionList.GroupHeading>View Options</ActionList.GroupHeading>
+                  <ActionList.Item onSelect={() => alert('Show code folding buttons')}>
+                    Show code folding buttons
+                  </ActionList.Item>
+                  <ActionList.Item onSelect={() => alert('Wrap lines')}>Wrap lines</ActionList.Item>
+                  <ActionList.Item onSelect={() => alert('Center content')}>Center content</ActionList.Item>
+                </ActionList.Group>
+                <ActionList.Divider />
+                <ActionList.Item variant="danger" onSelect={() => alert('Delete file clicked')}>
+                  Delete file
+                  <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+                </ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </Hidden>
       </PageHeader.Actions>
     </PageHeader>
     <Box
