@@ -23,7 +23,7 @@
         {
           "name": "openOnFocus",
           "type": "boolean",
-          "defaultValue": true,
+          "defaultValue": "true",
           "description": "Whether the associated autocomplete menu should open on an input focus event"
         }
       ],
