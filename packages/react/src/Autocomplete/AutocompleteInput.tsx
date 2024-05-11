@@ -15,6 +15,8 @@ type InternalAutocompleteInputProps = {
   openOnFocus?: boolean
 }
 
+const ARROW_KEYS_NAV = new Set(['ArrowUp', 'ArrowDown'])
+
 const AutocompleteInput = React.forwardRef(
   (
     {
@@ -98,6 +100,9 @@ const AutocompleteInput = React.forwardRef(
         if (event.key === 'Escape' && inputRef.current?.value) {
           setInputValue('')
           inputRef.current.value = ''
+        }
+        if (!showMenu && ARROW_KEYS_NAV.has(event.key) && !event.altKey) {
+          setShowMenu(true)
         }
       },
       [inputRef, setInputValue, setHighlightRemainingText, onKeyDown],
