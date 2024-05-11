@@ -105,7 +105,7 @@ const AutocompleteInput = React.forwardRef(
           setShowMenu(true)
         }
       },
-      [inputRef, setInputValue, setHighlightRemainingText, onKeyDown],
+      [inputRef, setInputValue, setHighlightRemainingText, onKeyDown, showMenu],
     )
 
     const handleInputKeyUp: KeyboardEventHandler<HTMLInputElement> = useCallback(
