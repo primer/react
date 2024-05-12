@@ -231,12 +231,14 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
     const acceptsInteraction = !disabled && !loading
     const handleToggleClick: MouseEventHandler = useCallback(
       e => {
+        if (!acceptsInteraction) return
+        
         if (!isControlled) {
           setIsOn(!isOn)
         }
         onClick && onClick(e)
       },
-      [onClick, isControlled, isOn, setIsOn],
+      [onClick, isControlled, isOn, setIsOn, acceptsInteraction],
     )
 
     useEffect(() => {
