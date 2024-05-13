@@ -26,7 +26,7 @@
       "id": "drafts-components-underlinepanels-features--with-icons-hidden-on-narrow-screen"
     }
   ],
-  "importPath": "@primer/react",
+  "importPath": "@primer/react/experimental",
   "props": [
     {
       "name": "aria-label",
