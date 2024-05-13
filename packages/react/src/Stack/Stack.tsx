@@ -4,15 +4,16 @@ import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
 
 const StyledStack = styled.div`
-  --Stack-gap-whenRegular: var(--stack-gap-normal, 16px);
-  --Stack-gap-whenNarrow: var(--stack-gap-normal, 16px);
-  --Stack-gap-whenWide: var(--Stack-gap-whenRegular);
+  --stack-gap-none: 0;
+  --stack-gap-condensed: 0.5rem;
+  --stack-gap-normal: 1rem;
+  --stack-gap-spacious: 2rem;
 
   display: flex;
   flex-flow: column;
   align-items: stretch;
   align-content: flex-start;
-  gap: var(--Stack-gap-whenNarrow);
+  gap: var(--stack-gap, var(--stack-gap-normal));
 
   // non-responsive values
 
@@ -48,17 +49,22 @@ const StyledStack = styled.div`
 
   &[data-gap='none'],
   &[data-gap-narrow='none'] {
-    --Stack-gap-whenNarrow: 0;
+    --stack-gap: var(--stack-gap-none);
   }
 
   &[data-gap='condensed'],
   &[data-gap-narrow='condensed'] {
-    --Stack-gap-whenNarrow: var(--stack-gap-condensed, 8px);
+    --stack-gap: var(--stack-gap-condensed);
   }
 
   &[data-gap='normal'],
   &[data-gap-narrow='normal'] {
-    --Stack-gap-whenNarrow: var(--stack-gap-normal, 16px);
+    --stack-gap: var(--stack-gap-normal);
+  }
+
+  &[data-gap='spacious'],
+  &[data-gap-narrow='spacious'] {
+    --stack-gap: var(--stack-gap-spacious);
   }
 
   &[data-align='start'],
@@ -143,19 +149,19 @@ const StyledStack = styled.div`
     }
 
     &[data-gap-regular='none'] {
-      --Stack-gap-whenRegular: 0;
+      --stack-gap: var(--stack-gap-none);
     }
 
     &[data-gap-regular='condensed'] {
-      --Stack-gap-whenRegular: var(--stack-gap-condensed, 8px);
+      --stack-gap: var(--stack-gap-condensed);
     }
 
     &[data-gap-regular='normal'] {
-      --Stack-gap-whenRegular: var(--stack-gap-normal, 16px);
+      --stack-gap: var(--stack-gap-normal);
     }
 
     &[data-gap-regular='spacious'] {
-      --Stack-gap-whenRegular: var(--stack-gap-spacious, 24px);
+      --stack-gap: var(--stack-gap-spacious);
     }
 
     &[data-align-regular='start'] {
@@ -205,8 +211,6 @@ const StyledStack = styled.div`
 
   // @custom-media --viewportRange-wide
   @media (min-width: 87.5rem) {
-    gap: var(--Stack-gap-whenWide);
-
     &[data-padding-wide='none'] {
       padding: 0;
     }
@@ -232,19 +236,19 @@ const StyledStack = styled.div`
     }
 
     &[data-gap-wide='none'] {
-      --Stack-gap-whenWide: 0;
+      --stack-gap: var(--stack-gap-none);
     }
 
     &[data-gap-wide='condensed'] {
-      --Stack-gap-whenWide: var(--stack-gap-condensed, 8px);
+      --stack-gap: var(--stack-gap-condensed);
     }
 
     &[data-gap-wide='normal'] {
-      --Stack-gap-whenWide: var(--stack-gap-normal, 16px);
+      --stack-gap: var(--stack-gap-normal);
     }
 
     &[data-gap-wide='spacious'] {
-      --Stack-gap-whenWide: var(--stack-gap-spacious, 24px);
+      --stack-gap: var(--stack-gap-spacious);
     }
 
     &[data-align-wide='start'] {
