@@ -71,7 +71,6 @@ module.exports = {
         allow: ['dark_dimmed'],
       },
     ],
-    'primer-react/no-deprecated-colors': ['warn', {checkAllStrings: true}],
 
     // Overrides from updating plugin:github
     'filenames/match-regex': 'off',
@@ -237,7 +236,6 @@ module.exports = {
         'jsx-a11y/label-has-for': 'off',
         '@typescript-eslint/no-unnecessary-condition': 'off',
         '@typescript-eslint/no-unused-vars': 'off',
-        'primer-react/no-deprecated-colors': ['error', {skipImportCheck: true}],
         'no-redeclare': 'off',
         'ssr-friendly/no-dom-globals-in-module-scope': 'off',
         'ssr-friendly/no-dom-globals-in-react-fc': 'off',
