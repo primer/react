@@ -41,7 +41,8 @@ export const GroupWithSubtleTitleOldAPI = () => {
         under features.
       </p>
       <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
-        <ActionList.Group title="Everyone">
+        <ActionList.Group>
+          <ActionList.GroupHeading>Everyone</ActionList.GroupHeading>
           {users.slice(2).map(user => (
             <ActionList.Item
               role="menuitemcheckbox"
@@ -80,7 +81,8 @@ export const GroupWithFilledTitleOldAPI = () => {
         under features.
       </p>
       <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
-        <ActionList.Group title="Everyone" variant="filled">
+        <ActionList.Group variant="filled">
+          <ActionList.GroupHeading>Everyone</ActionList.GroupHeading>
           {users.slice(2).map(user => (
             <ActionList.Item
               role="menuitemcheckbox"

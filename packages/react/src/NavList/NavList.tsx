@@ -259,7 +259,8 @@ const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defau
     <>
       {/* Hide divider if the group is the first item in the list */}
       <ActionList.Divider sx={{'&:first-child': {display: 'none'}}} />
-      <ActionList.Group {...props} title={title} sx={sxProp}>
+      <ActionList.Group {...props} sx={sxProp}>
+        <ActionList.GroupHeading>{title}</ActionList.GroupHeading>
         {children}
       </ActionList.Group>
     </>
