@@ -4,16 +4,11 @@ import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
 
 const StyledStack = styled.div`
-  --stack-gap-none: 0;
-  --stack-gap-condensed: 0.5rem;
-  --stack-gap-normal: 1rem;
-  --stack-gap-spacious: 2rem;
-
   display: flex;
   flex-flow: column;
   align-items: stretch;
   align-content: flex-start;
-  gap: var(--stack-gap, var(--stack-gap-normal));
+  gap: var(--stack-gap, var(--stack-gap-normal, 1rem));
 
   // non-responsive values
 
@@ -49,22 +44,22 @@ const StyledStack = styled.div`
 
   &[data-gap='none'],
   &[data-gap-narrow='none'] {
-    --stack-gap: var(--stack-gap-none);
+    --stack-gap: var(--stack-gap-none, 0);
   }
 
   &[data-gap='condensed'],
   &[data-gap-narrow='condensed'] {
-    --stack-gap: var(--stack-gap-condensed);
+    --stack-gap: var(--stack-gap-condensed, 0.5rem);
   }
 
   &[data-gap='normal'],
   &[data-gap-narrow='normal'] {
-    --stack-gap: var(--stack-gap-normal);
+    --stack-gap: var(--stack-gap-normal, 1rem);
   }
 
   &[data-gap='spacious'],
   &[data-gap-narrow='spacious'] {
-    --stack-gap: var(--stack-gap-spacious);
+    --stack-gap: var(--stack-gap-spacious, 1.5rem);
   }
 
   &[data-align='start'],
@@ -149,19 +144,19 @@ const StyledStack = styled.div`
     }
 
     &[data-gap-regular='none'] {
-      --stack-gap: var(--stack-gap-none);
+      --stack-gap: var(--stack-gap-none, 0);
     }
 
     &[data-gap-regular='condensed'] {
-      --stack-gap: var(--stack-gap-condensed);
+      --stack-gap: var(--stack-gap-condensed, 0.5rem);
     }
 
     &[data-gap-regular='normal'] {
-      --stack-gap: var(--stack-gap-normal);
+      --stack-gap: var(--stack-gap-normal, 1rem);
     }
 
     &[data-gap-regular='spacious'] {
-      --stack-gap: var(--stack-gap-spacious);
+      --stack-gap: var(--stack-gap-spacious, 1.5rem);
     }
 
     &[data-align-regular='start'] {
@@ -236,19 +231,19 @@ const StyledStack = styled.div`
     }
 
     &[data-gap-wide='none'] {
-      --stack-gap: var(--stack-gap-none);
+      --stack-gap: var(--stack-gap-none, 0);
     }
 
     &[data-gap-wide='condensed'] {
-      --stack-gap: var(--stack-gap-condensed);
+      --stack-gap: var(--stack-gap-condensed, 0.5rem);
     }
 
     &[data-gap-wide='normal'] {
-      --stack-gap: var(--stack-gap-normal);
+      --stack-gap: var(--stack-gap-normal, 1rem);
     }
 
     &[data-gap-wide='spacious'] {
-      --stack-gap: var(--stack-gap-spacious);
+      --stack-gap: var(--stack-gap-spacious, 1.5rem);
     }
 
     &[data-align-wide='start'] {
