@@ -41,8 +41,8 @@ export const GroupWithSubtleTitleOldAPI = () => {
         under features.
       </p>
       <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
-        <ActionList.Group>
-          <ActionList.GroupHeading>Everyone</ActionList.GroupHeading>
+        {/* eslint-disable-next-line primer-react/no-deprecated-props */}
+        <ActionList.Group title="Everyone">
           {users.slice(2).map(user => (
             <ActionList.Item
               role="menuitemcheckbox"
@@ -81,8 +81,8 @@ export const GroupWithFilledTitleOldAPI = () => {
         under features.
       </p>
       <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
-        <ActionList.Group variant="filled">
-          <ActionList.GroupHeading>Everyone</ActionList.GroupHeading>
+        {/* eslint-disable-next-line primer-react/no-deprecated-props */}
+        <ActionList.Group title="Everyone" variant="filled">
           {users.slice(2).map(user => (
             <ActionList.Item
               role="menuitemcheckbox"
