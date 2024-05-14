@@ -2,10 +2,10 @@ import React, {Children, isValidElement, cloneElement, useState, useRef, type FC
 import {TabContainerElement} from '@github/tab-container-element'
 import {createComponent} from '../../utils/create-component'
 import {
-  StyledUnderlineTabList,
+  StyledUnderlineItemList,
   StyledUnderlineWrapper,
-  UnderlineTab,
-  type UnderlineTabProps,
+  UnderlineItem,
+  type UnderlineItemProps,
 } from '../../internal/components/UnderlineTabbedInterface'
 import Box, {type BoxProps} from '../../Box'
 import {useId} from '../../hooks'
@@ -81,7 +81,7 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   let panelIndex = 0
 
   const childrenWithProps = Children.map(children, child => {
-    if (isValidElement<UnderlineTabProps>(child) && child.type === Tab) {
+    if (isValidElement<UnderlineItemProps>(child) && child.type === Tab) {
       return cloneElement(child, {id: `${parentId}-tab-${tabIndex++}`, loadingCounters, iconsVisible})
     }
 
@@ -162,20 +162,25 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
         )}
         {...props}
       >
-        <StyledUnderlineTabList ref={listRef} aria-label={ariaLabel} aria-labelledby={ariaLabelledBy} role="tablist">
+        <StyledUnderlineItemList ref={listRef} aria-label={ariaLabel} aria-labelledby={ariaLabelledBy} role="tablist">
           {tabs.current}
-        </StyledUnderlineTabList>
+        </StyledUnderlineItemList>
       </StyledUnderlineWrapper>
       {tabPanels.current}
     </TabContainerComponent>
   )
 }
 
-const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, sx: sxProp = defaultSxProp, ...props}) => {
-  const tabIndex = ariaSelected ? 0 : -1
-
-  return <UnderlineTab as="button" role="tab" tabIndex={tabIndex} aria-selected={ariaSelected} sx={sxProp} {...props} />
-}
+const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, sx: sxProp = defaultSxProp, ...props}) => (
+  <UnderlineItem
+    as="button"
+    role="tab"
+    tabIndex={ariaSelected ? 0 : -1}
+    aria-selected={ariaSelected}
+    sx={sxProp}
+    {...props}
+  />
+)
 
 Tab.displayName = 'UnderlinePanels.Tab'
 

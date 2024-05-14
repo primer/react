@@ -24,7 +24,7 @@ export const StyledUnderlineWrapper = styled.div`
   ${sx};
 `
 
-export const StyledUnderlineTabList = styled.ul`
+export const StyledUnderlineItemList = styled.ul`
   display: flex;
   list-style: none;
   white-space: nowrap;
@@ -35,7 +35,7 @@ export const StyledUnderlineTabList = styled.ul`
   position: relative;
 `
 
-export const StyledUnderlineTab = styled.div`
+export const StyledUnderlineItem = styled.div`
   /* button resets */
   appearance: none;
   background-color: transparent;
@@ -187,7 +187,7 @@ export const LoadingCounter = styled.span`
 //   height: 45px;
 // `
 
-export type UnderlineTabProps = {
+export type UnderlineItemProps = {
   as?: React.ElementType | 'a' | 'button'
   iconsVisible?: boolean
   loadingCounters?: boolean
@@ -196,7 +196,7 @@ export type UnderlineTabProps = {
   id?: string
 } & SxProp
 
-export const UnderlineTab = forwardRef(
+export const UnderlineItem = forwardRef(
   (
     {
       as = 'a',
@@ -207,11 +207,11 @@ export const UnderlineTab = forwardRef(
       loadingCounters,
       sx: sxProp = defaultSxProp,
       ...rest
-    }: PropsWithChildren<UnderlineTabProps>,
+    }: PropsWithChildren<UnderlineItemProps>,
     forwardedRef,
   ) => {
     return (
-      <StyledUnderlineTab ref={forwardedRef} as={as} sx={sxProp} {...rest}>
+      <StyledUnderlineItem ref={forwardedRef} as={as} sx={sxProp} {...rest}>
         {iconsVisible && Icon && (
           <span data-component="icon">
             <Icon />
@@ -233,7 +233,7 @@ export const UnderlineTab = forwardRef(
             </span>
           )
         )}
-      </StyledUnderlineTab>
+      </StyledUnderlineItem>
     )
   },
-) as PolymorphicForwardRefComponent<'a', UnderlineTabProps>
+) as PolymorphicForwardRefComponent<'a', UnderlineItemProps>

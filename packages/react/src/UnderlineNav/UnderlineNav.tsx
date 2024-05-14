@@ -11,7 +11,7 @@ import type {ChildWidthArray, ResponsiveProps, ChildSize} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
 import {moreBtnStyles, getDividerStyle, menuStyles, menuItemStyles, baseMenuStyles, baseMenuMinWidth} from './styles'
 import {
-  StyledUnderlineTabList,
+  StyledUnderlineItemList,
   StyledUnderlineWrapper,
   LoadingCounter,
   GAP,
@@ -312,7 +312,7 @@ export const UnderlineNav = forwardRef(
       >
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
         <StyledUnderlineWrapper as={as} aria-label={ariaLabel} ref={navRef} sx={sxProp}>
-          <StyledUnderlineTabList ref={listRef} role="list">
+          <StyledUnderlineItemList ref={listRef} role="list">
             {listItems}
             {menuItems.length > 0 && (
               <MoreMenuListItem ref={moreMenuRef}>
@@ -404,7 +404,7 @@ export const UnderlineNav = forwardRef(
                 </ActionList>
               </MoreMenuListItem>
             )}
-          </StyledUnderlineTabList>
+          </StyledUnderlineItemList>
         </StyledUnderlineWrapper>
       </UnderlineNavContext.Provider>
     )
