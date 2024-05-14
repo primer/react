@@ -107,11 +107,14 @@ expect.extend({
       message: () => {
         return results.violations
           .map(err => {
-            return `Expected the HTML found in the document to have no violations, but received:\n\n${
-              err.help
-            }\n\n${err.nodes
-              .map((node, index) => `${index + 1}. ${node.html}\n\n${node.failureSummary}\n`)
-              .join('\n')}\n\nMore information can be found at: ${err.helpUrl}\n\n${'─'.repeat(20)}
+            return `Expected the HTML found in the document to have no violations, but received:
+            \n${err.help}
+            \n${err.nodes
+              .map(
+                (node, index) => `${index + 1}. ${node.html}
+              \n${node.failureSummary}\n`,
+              )
+              .join('\n')}\nMore information can be found at: ${err.helpUrl}\n${'─'.repeat(20)}
           `
           })
           .join('\n')
