@@ -45,7 +45,6 @@ const ItemContext = React.createContext<{
   setIsExpanded: (isExpanded: boolean) => void
   leadingVisualId: string
   trailingVisualId: string
-  leadingActionId: string
 }>({
   itemId: '',
   level: 1,
@@ -55,7 +54,6 @@ const ItemContext = React.createContext<{
   setIsExpanded: () => {},
   leadingVisualId: '',
   trailingVisualId: '',
-  leadingActionId: '',
 })
 
 // ----------------------------------------------------------------------------
@@ -376,7 +374,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
     const labelId = useId()
     const leadingVisualId = useId()
     const trailingVisualId = useId()
-    const leadingActionId = useId()
+
     const [isExpanded, setIsExpanded] = useControllableState({
       name: itemId,
       // If the item was previously mounted, it's expanded state might be cached.
@@ -452,7 +450,6 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           setIsExpanded: setIsExpandedWithCache,
           leadingVisualId,
           trailingVisualId,
-          leadingActionId,
         }}
       >
         {/* @ts-ignore Box doesn't have type support for `ref` used in combination with `as` */}
@@ -854,11 +851,11 @@ TrailingVisual.displayName = 'TreeView.TrailingVisual'
 // TreeView.LeadingAction
 
 const LeadingAction: React.FC<TreeViewVisualProps> = props => {
-  const {isExpanded, leadingActionId} = React.useContext(ItemContext)
+  const {isExpanded} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
     <>
-      <div className="PRIVATE_VisuallyHidden" aria-hidden={true} id={leadingActionId}>
+      <div className="PRIVATE_VisuallyHidden" aria-hidden={true}>
         {props.label}
       </div>
       <div className="PRIVATE_TreeView-item-leading-action" aria-hidden={true}>
