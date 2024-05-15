@@ -29,8 +29,8 @@ jobs:
           BRANCH: "prc-integration-test-for-4358"
           WORKFLOW_ID: "primer-react-pr-test.yml"
           RUN_NAME: 'GitHub CI - Actions'
-          # GH_TOKEN: ${{ steps.get-github-access-token.outputs.access-token }}
         with:
+          # github-token: ${{ steps.get-github-access-token.outputs.access-token }}
           github-token: ${{ secrets.TEMP_SID_PAT }}
           script: |
             const { BRANCH, WORKFLOW_ID, RUN_NAME } = process.env;
@@ -42,15 +42,15 @@ jobs:
             });
 
             const run = data.workflow_runs.find(run => run.name === RUN_NAME)
-            return run.id
+            return {id: run.id, html_url: run.html_url}
       - id: get-golden-jobs-results
         name: Get golden-jobs-results
         uses: actions/github-script@v7
         env:
-          RUN_ID: ${{steps.get-workflow-run.outputs.result}}
+          RUN_ID: ${{steps.get-workflow-run.outputs.result.id}}
           JOB_NAME: 'golden-jobs-results'
-          # GH_TOKEN: ${{ steps.get-github-access-token.outputs.access-token }}
         with:
+          # github-token: ${{ steps.get-github-access-token.outputs.access-token }}
           github-token: ${{ secrets.TEMP_SID_PAT }}
           script: |
             const { RUN_ID, JOB_NAME } = process.env;
