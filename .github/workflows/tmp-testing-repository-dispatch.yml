@@ -17,6 +17,6 @@ jobs:
           installation-id: ${{ vars.PRIMER_ISSUE_TRIAGE_APP_INSTALLATION_ID_FOR_GITHUB }}
       - name: trigger workflow
         run: |
-          gh api /repos/github/primer/dispatches -f "event_type=test-dispatch-receiver"
+          gh api /repos/github/primer/dispatches -f event_type="test-dispatch-receiver"
         env:
           GH_TOKEN: ${{ steps.get-github-access-token.outputs.access-token }}
