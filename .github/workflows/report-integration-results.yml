@@ -34,11 +34,11 @@ jobs:
           script: |
             const { BRANCH, WORKFLOW_ID } = process.env;
 
-            const { data: workflow_runs } = await github.rest.actions.listWorkflowRunsForRepo({
+            const { data } = await github.rest.actions.listWorkflowRunsForRepo({
               owner: 'github',
               repo: 'github',
               branch: BRANCH
             });
 
-            const workflowId = workflow_runs.filter(run => run.name === $RUN_NAME)
+            const workflowId = data.workflow_runs.filter(run => run.name === $RUN_NAME)
             console.log(workflowId)
