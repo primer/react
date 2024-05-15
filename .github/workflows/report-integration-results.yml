@@ -41,9 +41,8 @@ jobs:
               branch: BRANCH
             });
 
-            const runId = data.workflow_runs.find(run => run.name === RUN_NAME)
-            console.log(runId)
-            return runId
+            const run = data.workflow_runs.find(run => run.name === RUN_NAME)
+            return run.id
       - id: get-golden-jobs-results
         name: Get golden-jobs-results
         uses: actions/github-script@v7
