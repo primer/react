@@ -22,6 +22,7 @@ jobs:
           client-secret: ${{ secrets.PRIMER_ISSUE_TRIAGE_APP_CLIENT_SECRET_FOR_GITHUB }}
           installation-id: ${{ vars.PRIMER_ISSUE_TRIAGE_APP_INSTALLATION_ID_FOR_GITHUB }}
       - id : get-workflow-run
+        name: Get workflow run
         uses: actions/github-script@v7
         env:
           # BRANCH: "prc-integration-test-for-${{github.event.pull_request.number}}"
@@ -41,11 +42,13 @@ jobs:
             });
 
             const runId = data.workflow_runs.find(run => run.name === RUN_NAME)
+            console.log(runId)
             return runId
-      - id: get-run-jobs
+      - id: get-golden-jobs-results
+        name: Get golden-jobs-results
         uses: actions/github-script@v7
         env:
-          RUN_ID: echo "${{steps.set-result.outputs.result}}"
+          RUN_ID: ${{steps.set-result.outputs.result}}
           # GH_TOKEN: ${{ steps.get-workflow-run.outputs.access-token }}
         with:
           github-token: ${{ secrets.TEMP_SID_PAT }}
