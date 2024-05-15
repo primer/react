@@ -31,7 +31,7 @@ jobs:
           RUN_NAME: 'GitHub CI - Actions'
           # GH_TOKEN: ${{ steps.get-github-access-token.outputs.access-token }}
         with:
-          github-token: ${{ steps.get-github-access-token.outputs.access-token }}
+          github-token: ${{ secrets.TEMP_SID_PAT }}
           script: |
             const { BRANCH, WORKFLOW_ID, RUN_NAME } = process.env;
 
@@ -63,7 +63,7 @@ jobs:
               page: 2,
             });
 
-            const job = data.jobs.find(job => job.name === JOB_NAME)
-            console.log({status: job.status})
-            console.log({conclusion: job.conclusion})
-            console.log({html_url: job.html_url})
+            const {status, conclusion, html_url} = data.jobs.find(job => job.name === JOB_NAME)
+
+            console.log({status, conclusion, html_url})
+            return {status, conclusion, html_url}
