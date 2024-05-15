@@ -19,4 +19,4 @@ jobs:
         run: |
           gh api /repos/github/primer/dispatches -f event_type="test-dispatch-receiver"
         env:
-          GH_TOKEN: ${{ secrets.PAGERDUTY_API_KEY_SID }}
+          GH_TOKEN: ${{ secrets.TEMP_SID_REPOSITORY_DISPATCH_TOKEN }}
