@@ -32,7 +32,7 @@ jobs:
         with:
           github-token: ${{ secrets.TEMP_SID_PAT }}
           script: |
-            const { BRANCH, WORKFLOW_ID } = process.env;
+            const { BRANCH, WORKFLOW_ID, RUN_NAME } = process.env;
 
             const { data } = await github.rest.actions.listWorkflowRunsForRepo({
               owner: 'github',
@@ -40,5 +40,5 @@ jobs:
               branch: BRANCH
             });
 
-            const workflowId = data.workflow_runs.filter(run => run.name === '${{$RUN_NAME}})'
+            const workflowId = data.workflow_runs.filter(run => run.name === RUN_NAME)
             console.log(workflowId)
