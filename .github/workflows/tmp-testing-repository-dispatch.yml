@@ -1,0 +1,18 @@
+name: TMP Testing repository dispatch
+
+on: [push]
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Workflow
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.actions.createWorkflowDispatch({
+              owner: 'github',
+              repo: 'primer',
+              workflow_id: 'test-dispatch-receiver.yml',
+              ref: 'main',
+            })
