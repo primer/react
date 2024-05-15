@@ -97,6 +97,9 @@ const UlBox = styled.ul<SxProp>`
         outline-offset: -2;
       }
     }
+    &[data-has-leading-action] {
+      --has-leading-action: 1;
+    }
   }
 
   .PRIVATE_TreeView-item-container {
@@ -104,8 +107,10 @@ const UlBox = styled.ul<SxProp>`
     --toggle-width: 1rem; /* 16px */
     position: relative;
     display: grid;
-    grid-template-columns: calc(calc(var(--level) - 1) * (var(--toggle-width) / 2)) var(--toggle-width) 1fr;
-    grid-template-areas: 'spacer toggle content';
+    --leading-action-width: calc(var(--has-leading-action, 0) * 1.5rem);
+    --spacer-width: calc(calc(var(--level) - 1) * (var(--toggle-width) / 2));
+    grid-template-columns: var(--spacer-width) var(--leading-action-width) var(--toggle-width) 1fr;
+    grid-template-areas: 'spacer leadingAction toggle content';
     width: 100%;
     min-height: 2rem; /* 32px */
     font-size: ${get('fontSizes.1')};
@@ -138,7 +143,7 @@ const UlBox = styled.ul<SxProp>`
   }
 
   &[data-omit-spacer='true'] .PRIVATE_TreeView-item-container {
-    grid-template-columns: 0 0 1fr;
+    grid-template-columns: 0 0 0 1fr;
   }
 
   .PRIVATE_TreeView-item[aria-current='true'] > .PRIVATE_TreeView-item-container {
@@ -200,6 +205,12 @@ const UlBox = styled.ul<SxProp>`
   .PRIVATE_TreeView-item-visual {
     display: flex;
     color: ${get('colors.fg.muted')};
+  }
+
+  .PRIVATE_TreeView-item-leading-action {
+    display: flex;
+    color: ${get('colors.fg.muted')};
+    grid-area: leadingAction;
   }
 
   .PRIVATE_TreeView-item-level-line {
@@ -354,11 +365,16 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
     },
     ref,
   ) => {
-    const [slots, rest] = useSlots(children, {leadingVisual: LeadingVisual, trailingVisual: TrailingVisual})
+    const [slots, rest] = useSlots(children, {
+      leadingAction: LeadingAction,
+      leadingVisual: LeadingVisual,
+      trailingVisual: TrailingVisual,
+    })
     const {expandedStateCache} = React.useContext(RootContext)
     const labelId = useId()
     const leadingVisualId = useId()
     const trailingVisualId = useId()
+
     const [isExpanded, setIsExpanded] = useControllableState({
       name: itemId,
       // If the item was previously mounted, it's expanded state might be cached.
@@ -449,6 +465,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           aria-expanded={isSubTreeEmpty ? undefined : isExpanded}
           aria-current={isCurrentItem ? 'true' : undefined}
           aria-selected={isFocused ? 'true' : 'false'}
+          data-has-leading-action={slots.leadingAction ? true : undefined}
           onKeyDown={handleKeyDown}
           onFocus={event => {
             // Scroll the first child into view when the item receives focus
@@ -488,6 +505,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             <div style={{gridArea: 'spacer', display: 'flex'}}>
               <LevelIndicatorLines level={level} />
             </div>
+            {slots.leadingAction}
             {hasSubTree ? (
               // This lint rule is disabled due to the guidelines in the `TreeView` api docs.
               // https://github.com/github/primer/blob/main/apis/tree-view-api.md#the-expandcollapse-chevron-toggle
@@ -830,6 +848,25 @@ const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
 TrailingVisual.displayName = 'TreeView.TrailingVisual'
 
 // ----------------------------------------------------------------------------
+// TreeView.LeadingAction
+
+const LeadingAction: React.FC<TreeViewVisualProps> = props => {
+  const {isExpanded} = React.useContext(ItemContext)
+  const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
+  return (
+    <>
+      <div className="PRIVATE_VisuallyHidden" aria-hidden={true}>
+        {props.label}
+      </div>
+      <div className="PRIVATE_TreeView-item-leading-action" aria-hidden={true}>
+        {children}
+      </div>
+    </>
+  )
+}
+
+LeadingAction.displayName = 'TreeView.LeadingAction'
+// ----------------------------------------------------------------------------
 // TreeView.DirectoryIcon
 
 const DirectoryIcon = () => {
@@ -898,6 +935,7 @@ ErrorDialog.displayName = 'TreeView.ErrorDialog'
 export const TreeView = Object.assign(Root, {
   Item,
   SubTree,
+  LeadingAction,
   LeadingVisual,
   TrailingVisual,
   DirectoryIcon,

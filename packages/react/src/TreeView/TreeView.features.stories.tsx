@@ -4,7 +4,10 @@ import {
   DiffRemovedIcon,
   DiffRenamedIcon,
   FileIcon,
+  GrabberIcon,
   KebabHorizontalIcon,
+  IssueClosedIcon,
+  IssueOpenedIcon,
 } from '@primer/octicons-react'
 import type {Meta, Story} from '@storybook/react'
 import React from 'react'
@@ -988,5 +991,53 @@ export const WithoutIndentation: Story = () => (
     </TreeView>
   </nav>
 )
+
+export const LeadingAction: Story = () => {
+  return (
+    <TreeView aria-label="Issues">
+      <TreeView.Item id="item-0">
+        <TreeView.LeadingAction>
+          <IconButton icon={GrabberIcon} aria-label="Reorder item 1" variant="invisible" />
+        </TreeView.LeadingAction>
+        <TreeView.LeadingVisual>
+          <Octicon icon={IssueClosedIcon} sx={{color: 'done.fg'}} />
+        </TreeView.LeadingVisual>
+        Item 1
+      </TreeView.Item>
+      <TreeView.Item id="item-2">
+        <TreeView.LeadingAction>
+          <IconButton icon={GrabberIcon} aria-label="Reorder item 2" variant="invisible" />
+        </TreeView.LeadingAction>
+        <TreeView.LeadingVisual>
+          <Octicon icon={IssueOpenedIcon} sx={{color: 'open.fg'}} />
+        </TreeView.LeadingVisual>
+        Item 2
+        <TreeView.SubTree>
+          <TreeView.Item id="item-2-sub-task-1">
+            <TreeView.LeadingVisual>
+              <Octicon icon={IssueOpenedIcon} sx={{color: 'open.fg'}} />
+            </TreeView.LeadingVisual>
+            sub task 1
+          </TreeView.Item>
+          <TreeView.Item id="item-2-sub-task-2">
+            <TreeView.LeadingVisual>
+              <Octicon icon={IssueOpenedIcon} sx={{color: 'open.fg'}} />
+            </TreeView.LeadingVisual>
+            sub task 2
+          </TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+      <TreeView.Item id="item-3">
+        <TreeView.LeadingAction>
+          <IconButton icon={GrabberIcon} aria-label="Reorder item 3" variant="invisible" />
+        </TreeView.LeadingAction>
+        <TreeView.LeadingVisual>
+          <Octicon icon={IssueOpenedIcon} sx={{color: 'open.fg'}} />
+        </TreeView.LeadingVisual>
+        Item 3
+      </TreeView.Item>
+    </TreeView>
+  )
+}
 
 export default meta
