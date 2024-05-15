@@ -27,6 +27,7 @@ jobs:
           # BRANCH: "prc-integration-test-for-${{github.event.pull_request.number}}"
           BRANCH: "prc-integration-test-for-4358"
           WORKFLOW_ID: "primer-react-pr-test.yml"
+          RUN_NAME: 'GitHub CI - Actions'
           # GH_TOKEN: ${{ steps.get-github-access-token.outputs.access-token }}
         with:
           github-token: ${{ secrets.TEMP_SID_PAT }}
@@ -39,4 +40,5 @@ jobs:
               branch: BRANCH
             });
 
-            console.log(workflow_runs)
+            const workflowId = workflow_runs.filter(run => run.name === $RUN_NAME)
+            console.log(workflowId)
