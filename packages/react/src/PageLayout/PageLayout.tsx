@@ -642,7 +642,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       dividerWhenNarrow = 'inherit',
       sticky = false,
       offsetHeader = 0,
-      scrollbarGutter,
+      scrollbarGutter = 'auto',
       hidden: responsiveHidden = false,
       children,
       id,
