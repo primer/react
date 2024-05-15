@@ -40,5 +40,5 @@ jobs:
               branch: BRANCH
             });
 
-            const workflowId = data.workflow_runs.filter(run => run.name === $RUN_NAME)
+            const workflowId = data.workflow_runs.filter(run => run.name === '${{$RUN_NAME}})'
             console.log(workflowId)
