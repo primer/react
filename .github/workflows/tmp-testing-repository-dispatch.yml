@@ -6,6 +6,15 @@ jobs:
   dispatch:
     runs-on: ubuntu-latest
     steps:
+      # from .github/workflows/add_to_inbox.yml
+      - id: get-github-access-token
+        uses: camertron/github-app-installation-auth-action@v1
+        with:
+          app-id: ${{ vars.PRIMER_ISSUE_TRIAGE_APP_ID_FOR_GITHUB }}
+          private-key: ${{ secrets.PRIMER_ISSUE_TRIAGE_APP_PRIVATE_KEY_FOR_GITHUB }}
+          client-id: ${{ vars.PRIMER_ISSUE_TRIAGE_APP_CLIENT_ID_FOR_GITHUB }}
+          client-secret: ${{ secrets.PRIMER_ISSUE_TRIAGE_APP_CLIENT_SECRET_FOR_GITHUB }}
+          installation-id: ${{ vars.PRIMER_ISSUE_TRIAGE_APP_INSTALLATION_ID_FOR_GITHUB }}
       - name: trigger workflow
         run: |
           gh api \
@@ -15,4 +24,4 @@ jobs:
             /repos/github/primer/dispatches \
              -f "event_type=test-dispatch-receiver"
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ steps.get-github-access-token.outputs.access-token }}
