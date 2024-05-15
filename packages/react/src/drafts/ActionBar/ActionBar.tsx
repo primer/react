@@ -299,7 +299,7 @@ export const ActionBarIconButton = forwardRef((props: ActionBarIconButtonProps, 
     const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
     setChildrenWidth({text, width: domRect.width})
   }, [ref, setChildrenWidth])
-  return <IconButton ref={ref} size={size} {...props} variant="invisible" />
+  return <IconButton ref={ref} size={size} {...props} variant="invisible" unsafeDisableTooltip={false} />
 })
 
 const sizeToHeight = {
