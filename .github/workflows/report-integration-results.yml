@@ -10,6 +10,8 @@ on:
 jobs:
   report-results:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - id: get-github-access-token
         uses: camertron/github-app-installation-auth-action@v1
