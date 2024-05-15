@@ -23,7 +23,7 @@ jobs:
         uses: actions/github-script@v7
         env:
           # BRANCH: "prc-integration-test-for-${{github.event.pull_request.number}}"
-          BRANCH: "prc-integration-test-for-4484"
+          BRANCH: "prc-integration-test-for-4358"
           WORKFLOW_ID: "primer-react-pr-test.yml"
           # GH_TOKEN: ${{ steps.get-github-access-token.outputs.access-token }}
           GH_TOKEN: ${{secrets.TEMP_SID_PAT}}
