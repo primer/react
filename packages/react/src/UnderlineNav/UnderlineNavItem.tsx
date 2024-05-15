@@ -7,7 +7,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import {UnderlineNavContext} from './UnderlineNavContext'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {defaultSxProp} from '../utils/defaultSxProp'
-import {UnderlineTab} from '../internal/components/UnderlineTabbedInterface'
+import {UnderlineItem} from '../internal/components/UnderlineTabbedInterface'
 
 // adopted from React.AnchorHTMLAttributes
 export type LinkProps = {
@@ -112,7 +112,7 @@ export const UnderlineNavItem = forwardRef(
 
     return (
       <Box as="li" sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-        <UnderlineTab
+        <UnderlineItem
           ref={ref}
           as={Component}
           href={href}
@@ -127,7 +127,7 @@ export const UnderlineNavItem = forwardRef(
           {...props}
         >
           {children}
-        </UnderlineTab>
+        </UnderlineItem>
       </Box>
     )
   },
