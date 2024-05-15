@@ -48,7 +48,7 @@ jobs:
         name: Get golden-jobs-results
         uses: actions/github-script@v7
         env:
-          RUN_ID: ${{steps.get-workflow-run.outputs.result.id}}
+          RUN_ID: ${{steps.get-workflow-run.outputs.id}}
           JOB_NAME: 'golden-jobs-results'
         with:
           # github-token: ${{ steps.get-github-access-token.outputs.access-token }}
