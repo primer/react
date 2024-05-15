@@ -6,13 +6,11 @@ jobs:
   dispatch:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Workflow
-        uses: actions/github-script@v6
-        with:
-          script: |
-            github.rest.actions.createWorkflowDispatch({
-              owner: 'github',
-              repo: 'primer',
-              workflow_id: 'test-dispatch-receiver.yml',
-              ref: 'main',
-            })
+     - name: trigger workflow
+       env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         EVENT: test-dispatch-receiver
+         ORG: github
+         REPO: primer
+       run: |
+         curl -d "{\"event_type\": \"${EVENT}\"}" -H "Content-Type: application/json" -H "Authorization: token ${GITHUB_TOKEN}" -H "Accept: application/vnd.github.everest-preview+json" "https://api.github.com/repos/${ORG}/${REPO}/dispatches"
