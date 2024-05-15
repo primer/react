@@ -53,7 +53,7 @@ jobs:
         with:
           github-token: ${{ secrets.TEMP_SID_PAT }}
           script: |
-            const { RUN_ID } = process.env;
+            const { RUN_ID, JOB_NAME } = process.env;
 
             const { data } = await github.rest.actions.listJobsForWorkflowRun({
               owner: 'github',
