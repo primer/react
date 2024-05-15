@@ -19,14 +19,14 @@ jobs:
           client-id: ${{ vars.PRIMER_ISSUE_TRIAGE_APP_CLIENT_ID_FOR_GITHUB }}
           client-secret: ${{ secrets.PRIMER_ISSUE_TRIAGE_APP_CLIENT_SECRET_FOR_GITHUB }}
           installation-id: ${{ vars.PRIMER_ISSUE_TRIAGE_APP_INSTALLATION_ID_FOR_GITHUB }}
-
       - name: Get workflow run
         uses: actions/github-script@v7
         env:
           # BRANCH: "prc-integration-test-for-${{github.event.pull_request.number}}"
           BRANCH: "prc-integration-test-for-4484"
           WORKFLOW_ID: "primer-react-pr-test.yml"
-          GH_TOKEN: ${{ steps.get-github-access-token.outputs.access-token }}
+          # GH_TOKEN: ${{ steps.get-github-access-token.outputs.access-token }}
+          GH_TOKEN: ${{secrets.TEMP_SID_PAT}}
         with:
           script: |
             const { BRANCH, WORKFLOW_ID } = process.env;
