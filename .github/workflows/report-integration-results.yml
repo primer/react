@@ -29,7 +29,7 @@ jobs:
           WORKFLOW_ID: "primer-react-pr-test.yml"
           # GH_TOKEN: ${{ steps.get-github-access-token.outputs.access-token }}
         with:
-          github-token: ${{ steps.get-github-access-token.outputs.access-token }}
+          github-token: ${{ secrets.TEMP_SID_PAT }}
           script: |
             const { BRANCH, WORKFLOW_ID } = process.env;
 
