@@ -256,7 +256,8 @@
           "name": "title",
           "type": "string",
           "defaultValue": "",
-          "description": "Title of the group."
+          "description": "Please use `ActionList.GroupHeading` instead.",
+          "deprecated": true
         },
         {
           "name": "auxiliaryText",

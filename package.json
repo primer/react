@@ -43,6 +43,7 @@
     "@babel/eslint-parser": "7.23.3",
     "@changesets/changelog-github": "0.4.8",
     "@changesets/cli": "2.27.1",
+    "@github/axe-github": "0.6.1",
     "@github/markdownlint-github": "^0.6.0",
     "@github/prettier-config": "0.0.6",
     "@mdx-js/react": "1.6.22",
@@ -75,7 +76,7 @@
     "prettier": "3.0.3",
     "rimraf": "5.0.5",
     "size-limit": "11.0.2",
-    "typescript": "5.3.3"
+    "typescript": "5.4.5"
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "^4.9.6"
