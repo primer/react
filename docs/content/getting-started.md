@@ -4,7 +4,7 @@ title: Getting started
 
 import DeprecationBanner from '../components/DeprecationBanner'
 
-<DeprecationBanner replacementUrl={'/design/guides/development/react'} />
+<DeprecationBanner replacementUrl={'/guides/react'} />
 
 ## Installation
 
