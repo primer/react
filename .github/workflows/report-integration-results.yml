@@ -40,9 +40,10 @@ jobs:
               });
               core.setOutput('branch', BRANCH);
             } catch (error) {
+              // TODO: instead of checking branch, we could also check if the pr-test-workflow has finished running without errors
               core.setFailed(`
                 branch "${BRANCH}" does not exist. 
-                Please make sure you have run the integration tests workflow. 
+                Please make sure you have run the integration tests workflow and it has finished running.
                 See guide here: https://github.com/github/primer-engineering/blob/main/how-we-work/testing-primer-react-pr-at-dotcom.md
               `);
             }
@@ -71,7 +72,7 @@ jobs:
               core.setOutput('id', run.id);
               core.setOutput('html_url', run.html_url);
               // TODO: the workflow run might exist, but it might still be pending / running
-              // = no jobs
+              // = no results job, should count as a pending/fail state
             } else {
               // TODO: if the branch exists, is it still possible that workflow run doesn't exist?
             }
@@ -87,15 +88,19 @@ jobs:
           script: |
             const { RUN_ID, JOB_NAME } = process.env;
 
-            const { data } = await github.rest.actions.listJobsForWorkflowRun({
+            const { data: { jobs } } = await github.rest.actions.listJobsForWorkflowRun({
               owner: 'github',
               repo: 'github',
               run_id: RUN_ID,
               per_page: 100,
-              page: 2,
+              page: 2, // this is silly but we know golden-jobs-results is generated right at the end
             });
 
-            const {status, conclusion, html_url} = data.jobs.find(job => job.name === JOB_NAME)
-
-            console.log({status, conclusion, html_url})
-            return {status, conclusion, html_url}
+            const job = jobs.find(job => job.name === JOB_NAME)
+            if (job) {
+              const {status, conclusion, html_url} = job
+              console.log({status, conclusion, html_url})
+              return {status, conclusion, html_url}
+            } else {
+              // TODO: is it possible that the workflow completed, but the job results still don't exist?
+            }
