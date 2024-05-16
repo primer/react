@@ -1,10 +1,31 @@
 import userEvent from '@testing-library/user-event'
-import {render, screen, getByRole, queryByRole, queryAllByRole} from '@testing-library/react'
+import {render, screen, queryAllByRole} from '@testing-library/react'
 import React from 'react'
 import {DataTable, Table} from '../../DataTable'
 import type {Column} from '../column'
 import {createColumnHelper} from '../column'
 import {getGridTemplateFromColumns} from '../useTable'
+
+const getColumnHeaderByName = (name: string) =>
+  screen.getByRole('columnheader', {
+    name,
+  })
+
+const getCellContentByColumnHeaderName = (headerName: string) => {
+  const columnIndex = screen.queryAllByRole('columnheader').findIndex(el => el.textContent === headerName)
+  if (columnIndex === -1) {
+    throw Error(`Column with name ${headerName} not found`)
+  }
+  return screen
+    .getAllByRole('row')
+    .filter(row => {
+      return queryAllByRole(row, 'cell').length
+    })
+    .map(row => {
+      const cells = queryAllByRole(row, 'cell')
+      return cells[columnIndex].textContent
+    })
+}
 
 describe('DataTable', () => {
   it('should render a semantic <table> through `data` and `columns`', () => {
@@ -277,6 +298,37 @@ describe('DataTable', () => {
 
   describe('sorting', () => {
     describe('initial state', () => {
+      it('should not sort if columns are sortable `initialSortColumn` and `initialSortDirection` are not provided', () => {
+        render(
+          <DataTable
+            data={[
+              {
+                id: 1,
+                value: 3,
+              },
+              {
+                id: 2,
+                value: 1,
+              },
+              {
+                id: 3,
+                value: 2,
+              },
+            ]}
+            columns={[
+              {
+                header: 'Value',
+                field: 'value',
+                sortBy: true,
+              },
+            ]}
+          />,
+        )
+
+        expect(getColumnHeaderByName('Value')).not.toHaveAttribute('aria-sort')
+        expect(getCellContentByColumnHeaderName('Value')).toEqual(['3', '1', '2'])
+      })
+
       it('should set the default sort state of a sortable table', () => {
         render(
           <DataTable
@@ -306,21 +358,8 @@ describe('DataTable', () => {
           />,
         )
 
-        const header = screen.getByRole('columnheader', {
-          name: 'Value',
-        })
-        expect(header).toHaveAttribute('aria-sort', 'ascending')
-
-        const rows = screen
-          .getAllByRole('row')
-          .filter(row => {
-            return queryByRole(row, 'cell')
-          })
-          .map(row => {
-            const cell = getByRole(row, 'cell')
-            return cell.textContent
-          })
-        expect(rows).toEqual(['1', '2', '3'])
+        expect(getColumnHeaderByName('Value')).toHaveAttribute('aria-sort', 'ascending')
+        expect(getCellContentByColumnHeaderName('Value')).toEqual(['1', '2', '3'])
       })
 
       it('should set the default sort state if `initialSortColumn` is provided', () => {
@@ -358,10 +397,7 @@ describe('DataTable', () => {
           />,
         )
 
-        const header = screen.getByRole('columnheader', {
-          name: 'Field One',
-        })
-        expect(header).toHaveAttribute('aria-sort', 'ascending')
+        expect(getColumnHeaderByName('Field One')).toHaveAttribute('aria-sort', 'ascending')
       })
 
       it('should not set a default sort state if `initialSortColumn` is provided but no columns are sortable', () => {
@@ -488,23 +524,50 @@ describe('DataTable', () => {
           />,
         )
 
-        const header = screen.getByRole('columnheader', {
-          name: 'Field Two',
-        })
-        expect(header).toHaveAttribute('aria-sort', 'ascending')
+        expect(getColumnHeaderByName('Field Two')).toHaveAttribute('aria-sort', 'ascending')
+        expect(getCellContentByColumnHeaderName('Field Two')).toEqual(['a', 'b', 'c'])
+      })
 
-        const body = screen.getByRole('table').querySelector('tbody') as HTMLTableSectionElement
-        const rows = queryAllByRole(body, 'row').map(row => {
-          const cells = queryAllByRole(row, 'cell').map(cell => {
-            return cell.textContent
-          })
-          return cells
-        })
-        expect(rows).toEqual([
-          ['a', 'c'],
-          ['b', 'b'],
-          ['c', 'a'],
-        ])
+      it('should sort using `initialSortColumn` and `initialSortDirection` using sortBy option', () => {
+        render(
+          <DataTable
+            data={[
+              {
+                id: 1,
+                fieldOne: 'b',
+                fieldTwo: 'z2',
+              },
+              {
+                id: 2,
+                fieldOne: 'a',
+                fieldTwo: 'z11',
+              },
+              {
+                id: 3,
+                fieldOne: 'c',
+                fieldTwo: 'z3',
+              },
+            ]}
+            columns={[
+              {
+                header: 'Field One',
+                field: 'fieldOne',
+                sortBy: true,
+              },
+              {
+                header: 'Field Two',
+                field: 'fieldTwo',
+                sortBy: 'alphanumeric',
+              },
+            ]}
+            initialSortDirection="DESC"
+            initialSortColumn="fieldTwo"
+          />,
+        )
+
+        expect(getColumnHeaderByName('Field Two')).toHaveAttribute('aria-sort', 'descending')
+
+        expect(getCellContentByColumnHeaderName('Field Two')).toEqual(['z11', 'z3', 'z2'])
       })
 
       it('should not set a default sort state if `initialSortDirection` is provided but no columns are sortable', () => {
@@ -591,40 +654,19 @@ describe('DataTable', () => {
         />,
       )
 
-      const header = screen.getByRole('columnheader', {
-        name: 'Value',
-      })
-      expect(header).toHaveAttribute('aria-sort', 'ascending')
+      expect(getColumnHeaderByName('Value')).toHaveAttribute('aria-sort', 'ascending')
 
       // Change to descending
       await user.click(screen.getByText('Value'))
 
-      let rows = screen
-        .getAllByRole('row')
-        .filter(row => {
-          return queryByRole(row, 'cell')
-        })
-        .map(row => {
-          const cell = getByRole(row, 'cell')
-          return cell.textContent
-        })
-
-      expect(rows).toEqual(['3', '2', '1', '', ''])
+      expect(getColumnHeaderByName('Value')).toHaveAttribute('aria-sort', 'descending')
+      expect(getCellContentByColumnHeaderName('Value')).toEqual(['3', '2', '1', '', ''])
 
       // Change to ascending
       await user.click(screen.getByText('Value'))
 
-      rows = screen
-        .getAllByRole('row')
-        .filter(row => {
-          return queryByRole(row, 'cell')
-        })
-        .map(row => {
-          const cell = getByRole(row, 'cell')
-          return cell.textContent
-        })
-
-      expect(rows).toEqual(['1', '2', '3', '', ''])
+      expect(getColumnHeaderByName('Value')).toHaveAttribute('aria-sort', 'ascending')
+      expect(getCellContentByColumnHeaderName('Value')).toEqual(['1', '2', '3', '', ''])
     })
 
     it('should change the sort direction on mouse click', async () => {
@@ -657,27 +699,15 @@ describe('DataTable', () => {
         />,
       )
 
-      function getRowOrder() {
-        return screen
-          .getAllByRole('row')
-          .filter(row => {
-            return queryByRole(row, 'cell')
-          })
-          .map(row => {
-            const cell = getByRole(row, 'cell')
-            return cell.textContent
-          })
-      }
-
-      expect(getRowOrder()).toEqual(['1', '2', '3'])
+      expect(getCellContentByColumnHeaderName('Value')).toEqual(['1', '2', '3'])
 
       // Transition from ASC -> DESC order
       await user.click(screen.getByText('Value'))
-      expect(getRowOrder()).toEqual(['3', '2', '1'])
+      expect(getCellContentByColumnHeaderName('Value')).toEqual(['3', '2', '1'])
 
       // Transition from DESC -> ASC order
       await user.click(screen.getByText('Value'))
-      expect(getRowOrder()).toEqual(['1', '2', '3'])
+      expect(getCellContentByColumnHeaderName('Value')).toEqual(['1', '2', '3'])
     })
 
     it('should change the sort direction on keyboard Enter or Space', async () => {
@@ -710,49 +740,31 @@ describe('DataTable', () => {
         />,
       )
 
-      function getRowOrder() {
-        return screen
-          .getAllByRole('row')
-          .filter(row => {
-            return queryByRole(row, 'cell')
-          })
-          .map(row => {
-            const cell = getByRole(row, 'cell')
-            return cell.textContent
-          })
-      }
-
-      function getSortHeader() {
-        return screen.getByRole('columnheader', {
-          name: 'Value',
-        })
-      }
-
-      expect(getRowOrder()).toEqual(['1', '2', '3'])
-      expect(getSortHeader()).toHaveAttribute('aria-sort', 'ascending')
+      expect(getCellContentByColumnHeaderName('Value')).toEqual(['1', '2', '3'])
+      expect(getColumnHeaderByName('Value')).toHaveAttribute('aria-sort', 'ascending')
 
       // Focus columnheader, it should be the first focusable element
       await user.tab()
 
       // Transition from ASC -> DESC order
       await user.keyboard('{Enter}')
-      expect(getRowOrder()).toEqual(['3', '2', '1'])
-      expect(getSortHeader()).toHaveAttribute('aria-sort', 'descending')
+      expect(getCellContentByColumnHeaderName('Value')).toEqual(['3', '2', '1'])
+      expect(getColumnHeaderByName('Value')).toHaveAttribute('aria-sort', 'descending')
 
       // Transition from DESC -> ASC order
       await user.keyboard('{Enter}')
-      expect(getRowOrder()).toEqual(['1', '2', '3'])
-      expect(getSortHeader()).toHaveAttribute('aria-sort', 'ascending')
+      expect(getCellContentByColumnHeaderName('Value')).toEqual(['1', '2', '3'])
+      expect(getColumnHeaderByName('Value')).toHaveAttribute('aria-sort', 'ascending')
 
       // Transition from ASC -> DESC order
       await user.keyboard(' ')
-      expect(getRowOrder()).toEqual(['3', '2', '1'])
-      expect(getSortHeader()).toHaveAttribute('aria-sort', 'descending')
+      expect(getCellContentByColumnHeaderName('Value')).toEqual(['3', '2', '1'])
+      expect(getColumnHeaderByName('Value')).toHaveAttribute('aria-sort', 'descending')
 
       // Transition from DESC -> ASC order
       await user.keyboard(' ')
-      expect(getRowOrder()).toEqual(['1', '2', '3'])
-      expect(getSortHeader()).toHaveAttribute('aria-sort', 'ascending')
+      expect(getCellContentByColumnHeaderName('Value')).toEqual(['1', '2', '3'])
+      expect(getColumnHeaderByName('Value')).toHaveAttribute('aria-sort', 'ascending')
     })
 
     it('should reset the sort direction when a new column is selected', async () => {
@@ -792,47 +804,19 @@ describe('DataTable', () => {
         />,
       )
 
-      function getRowOrder() {
-        return screen
-          .getAllByRole('row')
-          .filter(row => {
-            return queryAllByRole(row, 'cell').length > 0
-          })
-          .map(row => {
-            const cells = queryAllByRole(row, 'cell')
-            return [cells[0].textContent, cells[1].textContent].map(value => {
-              return parseInt(value as string, 10)
-            })
-          })
-      }
-
-      function getSortHeader(name: string) {
-        return screen.getByRole('columnheader', {
-          name,
-        })
-      }
-
       // Start in an ASC sort order
-      expect(getSortHeader('Column A')).toHaveAttribute('aria-sort', 'ascending')
-      expect(getRowOrder()).toEqual([
-        [1, 3],
-        [2, 2],
-        [3, 1],
-      ])
+      expect(getColumnHeaderByName('Column A')).toHaveAttribute('aria-sort', 'ascending')
+      expect(getCellContentByColumnHeaderName('Column A')).toEqual(['1', '2', '3'])
 
       // Transition to a DESC sort order
       await user.click(screen.getByText('Column A'))
-      expect(getSortHeader('Column A')).toHaveAttribute('aria-sort', 'descending')
+      expect(getColumnHeaderByName('Column A')).toHaveAttribute('aria-sort', 'descending')
 
       // When interacting with Column B, sort order should reset to ASC
       await user.click(screen.getByText('Column B'))
-      expect(getSortHeader('Column A')).not.toHaveAttribute('aria-sort')
-      expect(getSortHeader('Column B')).toHaveAttribute('aria-sort', 'ascending')
-      expect(getRowOrder()).toEqual([
-        [3, 1],
-        [2, 2],
-        [1, 3],
-      ])
+      expect(getColumnHeaderByName('Column A')).not.toHaveAttribute('aria-sort')
+      expect(getColumnHeaderByName('Column B')).toHaveAttribute('aria-sort', 'ascending')
+      expect(getCellContentByColumnHeaderName('Column B')).toEqual(['1', '2', '3'])
     })
 
     it('should support a custom sort function', async () => {
@@ -869,21 +853,9 @@ describe('DataTable', () => {
         />,
       )
 
-      function getRowOrder() {
-        return screen
-          .getAllByRole('row')
-          .filter(row => {
-            return queryByRole(row, 'cell')
-          })
-          .map(row => {
-            const cell = getByRole(row, 'cell')
-            return cell.textContent
-          })
-      }
-
       await user.click(screen.getByText('Value'))
       expect(customSortFn).toHaveBeenCalled()
-      expect(getRowOrder()).toEqual(['3', '2', '1'])
+      expect(getCellContentByColumnHeaderName('Value')).toEqual(['3', '2', '1'])
     })
   })
 

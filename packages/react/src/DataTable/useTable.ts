@@ -49,7 +49,7 @@ export function useTable<Data extends UniqueRow>({
   initialSortDirection,
 }: TableConfig<Data>): Table<Data> {
   const [rowOrder, setRowOrder] = useState(data)
-  const [prevData, setPrevData] = useState(data)
+  const [prevData, setPrevData] = useState<typeof data | null>(null)
   const [prevColumns, setPrevColumns] = useState(columns)
   const [sortByColumn, setSortByColumn] = useState<ColumnSortState>(() => {
     return getInitialSortState(columns, initialSortColumn, initialSortDirection)
