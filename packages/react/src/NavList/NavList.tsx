@@ -260,6 +260,7 @@ const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defau
       {/* Hide divider if the group is the first item in the list */}
       <ActionList.Divider sx={{'&:first-child': {display: 'none'}}} />
       <ActionList.Group {...props} sx={sxProp}>
+        {/* Setting up the default value for the heading level. TODO: API update to give flexibility to NavList.Group title's heading level */}
         <ActionList.GroupHeading as="h3">{title}</ActionList.GroupHeading>
         {children}
       </ActionList.Group>
