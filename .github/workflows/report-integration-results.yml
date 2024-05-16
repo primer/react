@@ -21,6 +21,33 @@ jobs:
           client-id: ${{ vars.PRIMER_ISSUE_TRIAGE_APP_CLIENT_ID_FOR_GITHUB }}
           client-secret: ${{ secrets.PRIMER_ISSUE_TRIAGE_APP_CLIENT_SECRET_FOR_GITHUB }}
           installation-id: ${{ vars.PRIMER_ISSUE_TRIAGE_APP_INSTALLATION_ID_FOR_GITHUB }}
+      - id: check-if-branch-exists
+        name: Check if branch exists
+        uses: actions/github-script@v7
+        env:
+          # BRANCH: "prc-integration-test-for-${{github.event.pull_request.number}}"
+          BRANCH: "prc-integration-test-for-4358"
+        with:
+          # github-token: ${{ steps.get-github-access-token.outputs.access-token }}
+          github-token: ${{ secrets.TEMP_SID_PAT }}
+          script: |
+            const { BRANCH } = process.env;
+            try {
+              const { data } = await github.rest.repos.getBranch({
+                owner: 'github',
+                repo: 'github',
+                branch: BRANCH
+              });
+            } catch (error) {
+              // TODO: add comment that branch does not exist yet
+              core.setFailed(`
+                ${BRANCH} does not exist. 
+                Please make sure you have run the integration tests workflow. 
+                See guide here: https://github.com/github/primer-engineering/blob/main/how-we-work/testing-primer-react-pr-at-dotcom.md
+              `);
+            }
+
+            core.setOutput('branch', BRANCH);
       - id : get-workflow-run
         name: Get workflow run
         uses: actions/github-script@v7
