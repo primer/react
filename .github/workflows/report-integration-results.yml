@@ -26,7 +26,7 @@ jobs:
         uses: actions/github-script@v7
         env:
           # BRANCH: "prc-integration-test-for-${{github.event.pull_request.number}}"
-          BRANCH: "prc-integration-test-for-4358"
+          BRANCH: "prc-integration-test-for-4358-failing-case"
         with:
           # github-token: ${{ steps.get-github-access-token.outputs.access-token }}
           github-token: ${{ secrets.TEMP_SID_PAT }}
