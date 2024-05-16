@@ -999,7 +999,28 @@ export const MultilineItems: Story = () => (
           this is a very long directory name that we have intentionally allowed to wrap over multiple lines to
           demonstrate alignment
         </div>
-
+        <TreeView.SubTree>
+          <TreeView.Item id="src/Avatar.tsx">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Avatar.tsx
+            <TreeView.TrailingVisual>
+              <Octicon icon={DiffAddedIcon} color="success.fg" aria-label="Added" />
+            </TreeView.TrailingVisual>
+          </TreeView.Item>
+        </TreeView.SubTree>
+      </TreeView.Item>
+      <TreeView.Item id="src" defaultExpanded>
+        <TreeView.LeadingVisual>
+          <TreeView.DirectoryIcon />
+        </TreeView.LeadingVisual>
+        <div style={{whiteSpace: 'wrap'}}>
+          this is a medium directory name that we wrap over 2 lines to demonstrate alignment
+        </div>
+        <TreeView.TrailingVisual>
+          <Octicon icon={DiffAddedIcon} color="success.fg" aria-label="Added" />
+        </TreeView.TrailingVisual>
         <TreeView.SubTree>
           <TreeView.Item id="src/Avatar.tsx">
             <TreeView.LeadingVisual>
