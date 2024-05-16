@@ -485,6 +485,7 @@ AsyncWithCount.argTypes = {
 async function alwaysFails(responseTime: number) {
   await wait(responseTime)
   throw new Error('Failed to load items')
+  return []
 }
 
 export const AsyncError: Story = args => {
