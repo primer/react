@@ -40,7 +40,6 @@ jobs:
               });
               core.setOutput('branch', BRANCH);
             } catch (error) {
-              core.summary.addRaw('Testing summary content', true)
               core.setFailed(`
                 branch "${BRANCH}" does not exist. 
                 Please make sure you have run the integration tests workflow. 
@@ -60,15 +59,22 @@ jobs:
           script: |
             const { BRANCH, WORKFLOW_ID, RUN_NAME } = process.env;
 
-            const { data } = await github.rest.actions.listWorkflowRunsForRepo({
+            const { data: {workflow_runs} } = await github.rest.actions.listWorkflowRunsForRepo({
               owner: 'github',
               repo: 'github',
               branch: BRANCH
             });
 
-            const run = data.workflow_runs.find(run => run.name === RUN_NAME)
-            core.setOutput('id', run.id);
-            core.setOutput('html_url', run.html_url);
+            const run = workflow_runs.find(run => run.name === RUN_NAME)
+
+            if (run) {
+              core.setOutput('id', run.id);
+              core.setOutput('html_url', run.html_url);
+              // TODO: the workflow run might exist, but it might still be pending / running
+              // = no jobs
+            } else {
+              // TODO: if the branch exists, is it still possible that workflow run doesn't exist?
+            }
       - id: get-golden-jobs-results
         name: Get golden-jobs-results
         uses: actions/github-script@v7
