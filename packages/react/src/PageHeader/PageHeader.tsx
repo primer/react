@@ -335,17 +335,17 @@ const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Title
             //  --custom-font-size, --custom-line-height, --custom-font-weight are custom properties (passed by sx) that can be used to override the below values
             // We don't want these values to be overriden but still want to allow consumers to override them if needed.
             '&[data-size-variant="large"] [data-component="PH_Title"]': {
-              fontSize: fontSize ?? 'var(--text-title-size-large, 2rem)',
+              fontSize: fontSize ? fontSize : 'var(--text-title-size-large, 2rem)',
               lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-large, 1.5))', // calc(48/32)
               fontWeight: 'var(--custom-font-weight, var(--base-text-weight-normal, 400))',
             },
             '&[data-size-variant="medium"] [data-component="PH_Title"]': {
-              fontSize: fontSize ?? 'var(--text-title-size-medium, 1.25rem)',
+              fontSize: fontSize ? fontSize : 'var(--text-title-size-medium, 1.25rem)',
               lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6))', // calc(32/20)
               fontWeight: 'var(--custom-font-weight, var(--base-text-weight-semibold, 600))',
             },
             '&[data-size-variant="subtitle"] [data-component="PH_Title"]': {
-              fontSize: fontSize ?? 'var(--text-title-size-medium, 1.25rem)',
+              fontSize: fontSize ? fontSize : 'var(--text-title-size-medium, 1.25rem)',
               lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6))', // calc(32/20)
               fontWeight: 'var(--custom-font-weight, var(--base-text-weight-normal, 400))',
             },
