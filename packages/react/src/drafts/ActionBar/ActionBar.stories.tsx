@@ -68,7 +68,7 @@ export const CommentBox = (props: CommentBoxProps) => {
   const [value, setValue] = React.useState('')
   const [isOpen, setIsOpen] = React.useState(false)
   const buttonRef = React.useRef(null)
-  const toolBarLabel = `${ariaLabel} toolbar`
+  const toolBarLabel = `${ariaLabel ? ariaLabel : 'Comment box'} toolbar`
   return (
     <Box
       sx={{
