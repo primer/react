@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {Box} from '..'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
@@ -111,11 +111,11 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
       )
     }
 
-    const [hasContextArea, setHasContextArea] = React.useState(false)
-    const [hasLeadingAction, setHasLeadingAction] = React.useState(false)
-    const [titleVariant, setTitleVariant] = React.useState<string | undefined>('')
+    const [hasContextArea, setHasContextArea] = useState(false)
+    const [hasLeadingAction, setHasLeadingAction] = useState(false)
+    const [titleVariant, setTitleVariant] = useState<string | undefined>('')
 
-    React.useEffect(() => {
+    useEffect(() => {
       if (!rootRef.current || rootRef.current.children.length <= 0) return
       const titleArea = Array.from(rootRef.current.children as HTMLCollection).find(child => {
         return child instanceof HTMLElement && child.getAttribute('data-component') === 'TitleArea'
@@ -289,58 +289,75 @@ type TitleAreaProps = {
   variant?: 'subtitle' | 'medium' | 'large' | ResponsiveValue<'subtitle' | 'medium' | 'large'>
 } & ChildrenPropTypes
 // PageHeader.TitleArea: The main title area of the page. Visible on all viewports.
-// PageHeader.TitleArea Sub Components: PageHeader.LeadingVisual,
-// PageHeader.Title, PageTitle.TrailingVisual
+// PageHeader.TitleArea Sub Components: PageHeader.LeadingVisual, PageHeader.Title, PageTitle.TrailingVisual
 // ---------------------------------------------------------------------
 
-const TitleArea: React.FC<React.PropsWithChildren<TitleAreaProps>> = ({
-  children,
-  sx = {},
-  hidden = false,
-  variant = 'medium',
-}) => {
-  const currentVariant = useResponsiveValue(variant, 'medium')
-  return (
-    <Box
-      data-component="TitleArea"
-      data-size-variant={currentVariant}
-      sx={merge<BetterSystemStyleObject>(
-        {
-          gridRow: GRID_ROW_ORDER.TitleArea,
-          gridArea: 'title-area',
-          display: 'flex',
-          gap: '0.5rem',
-          ...getBreakpointDeclarations(hidden, 'display', value => {
-            return value ? 'none' : 'flex'
-          }),
-          flexDirection: 'row',
-          alignItems: 'flex-start',
-          // line-height is calculated with calc(height/font-size) and the below numbers are from @primer/primitives
-          //  --custom-font-size, --custom-line-height, --custom-font-weight are custom properties (passed by sx) that can be used to override the below values
-          // We don't want these values to be overriden but still want to allow consumers to override them if needed.
-          '&[data-size-variant="large"] [data-component="PH_Title"]': {
-            fontSize: 'var(--custom-font-size, var(--text-title-size-large, 2rem))',
-            lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-large, 1.5))', // calc(48/32)
-            fontWeight: 'var(--custom-font-weight, var(--base-text-weight-normal, 400))',
+const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<TitleAreaProps>>(
+  ({children, sx = {}, hidden = false, variant = 'medium'}, forwardedRef) => {
+    const titleAreaRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
+    const currentVariant = useResponsiveValue(variant, 'medium')
+    const [fontSize, setFontSize] = useState<string | null | number | string[]>(null)
+
+    useEffect(() => {
+      if (!titleAreaRef.current || titleAreaRef.current.children.length <= 0) return
+      const title = Array.from(titleAreaRef.current.children as HTMLCollection).find(child => {
+        return child instanceof HTMLElement && child.getAttribute('data-component') === 'PH_Title'
+      })
+
+      const styles = getComputedStyle(title as HTMLHeadingElement)
+      const customfontSize = styles.getPropertyValue('--custom-font-size')
+      // This is cumbersome but needed to handle the array format of font-size
+      if (customfontSize.includes(',')) {
+        const values = customfontSize.split(',')
+        setFontSize(values)
+      } else {
+        setFontSize(customfontSize)
+      }
+      // We only need this on the pageload
+    }, [titleAreaRef])
+    return (
+      <Box
+        ref={titleAreaRef}
+        data-component="TitleArea"
+        data-size-variant={currentVariant}
+        sx={merge<BetterSystemStyleObject>(
+          {
+            gridRow: GRID_ROW_ORDER.TitleArea,
+            gridArea: 'title-area',
+            display: 'flex',
+            gap: '0.5rem',
+            ...getBreakpointDeclarations(hidden, 'display', value => {
+              return value ? 'none' : 'flex'
+            }),
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+            // line-height is calculated with calc(height/font-size) and the below numbers are from @primer/primitives
+            //  --custom-font-size, --custom-line-height, --custom-font-weight are custom properties (passed by sx) that can be used to override the below values
+            // We don't want these values to be overriden but still want to allow consumers to override them if needed.
+            '&[data-size-variant="large"] [data-component="PH_Title"]': {
+              fontSize: fontSize ?? 'var(--text-title-size-large, 2rem)',
+              lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-large, 1.5))', // calc(48/32)
+              fontWeight: 'var(--custom-font-weight, var(--base-text-weight-normal, 400))',
+            },
+            '&[data-size-variant="medium"] [data-component="PH_Title"]': {
+              fontSize: fontSize ?? 'var(--text-title-size-medium, 1.25rem)',
+              lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6))', // calc(32/20)
+              fontWeight: 'var(--custom-font-weight, var(--base-text-weight-semibold, 600))',
+            },
+            '&[data-size-variant="subtitle"] [data-component="PH_Title"]': {
+              fontSize: fontSize ?? 'var(--text-title-size-medium, 1.25rem)',
+              lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6))', // calc(32/20)
+              fontWeight: 'var(--custom-font-weight, var(--base-text-weight-normal, 400))',
+            },
           },
-          '&[data-size-variant="medium"] [data-component="PH_Title"]': {
-            fontSize: 'var(--custom-font-size, var(--text-title-size-medium, 1.25rem))',
-            lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6))', // calc(32/20)
-            fontWeight: 'var(--custom-font-weight, var(--base-text-weight-semibold, 600))',
-          },
-          '&[data-size-variant="subtitle"] [data-component="PH_Title"]': {
-            fontSize: 'var(--custom-font-size, var(--text-title-size-medium, 1.25rem))',
-            lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6))', // calc(32/20)
-            fontWeight: 'var(--custom-font-weight, var(--base-text-weight-normal, 400))',
-          },
-        },
-        sx,
-      )}
-    >
-      {children}
-    </Box>
-  )
-}
+          sx,
+        )}
+      >
+        {children}
+      </Box>
+    )
+  },
+) as PolymorphicForwardRefComponent<'div', TitleAreaProps>
 
 // PageHeader.LeadingAction and PageHeader.TrailingAction should only be visible on regular viewports.
 // So they come as hidden on narrow viewports by default and their visibility can be managed by their `hidden` prop.

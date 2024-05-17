@@ -43,3 +43,53 @@ export const LargeVariantWithMultilineTitle = () => (
     </PageHeader>
   </Box>
 )
+
+export const ArrayTypeFontSizeOnTitle = () => (
+  <Box sx={{padding: 3}}>
+    <PageHeader>
+      <PageHeader.TitleArea>
+        <PageHeader.Title
+          sx={{
+            lineHeight: '1.25',
+            fontWeight: 'normal',
+            fontSize: ['26px', '26px', 'var(--text-title-size-large, 32px)', 'var(--text-title-size-large, 32px)'], // it doesn't support this format right now.
+          }}
+        >
+          Issue Title
+        </PageHeader.Title>
+      </PageHeader.TitleArea>
+    </PageHeader>
+  </Box>
+)
+
+export const ThemeBaseFontSizeOnTitle = () => (
+  <Box sx={{padding: 3}}>
+    <PageHeader>
+      <PageHeader.TitleArea>
+        <PageHeader.Title
+          sx={{
+            fontSize: 8,
+          }}
+        >
+          Issue Title
+        </PageHeader.Title>
+      </PageHeader.TitleArea>
+    </PageHeader>
+  </Box>
+)
+
+export const StringTypeFontSizeOnTitle = () => (
+  <Box sx={{padding: 3}}>
+    <PageHeader>
+      <PageHeader.TitleArea>
+        <PageHeader.Title
+          sx={{
+            fontSize: '56px',
+          }}
+        >
+          Issue Title
+        </PageHeader.Title>
+      </PageHeader.TitleArea>
+    </PageHeader>
+  </Box>
+)
