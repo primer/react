@@ -13,7 +13,8 @@ import {useOnOutsideClick} from '../../hooks/useOnOutsideClick'
 import type {IconButtonProps} from '../../Button'
 import {IconButton} from '../../Button'
 import Box from '../../Box'
-import {ActionMenu} from '../..'
+import {ActionMenu} from '../../ActionMenu'
+import {useFocusZone, FocusKeys} from '../../hooks/useFocusZone'
 
 type ChildSize = {
   text: string
@@ -35,11 +36,14 @@ small (28px), medium (32px), large (40px)
 */
 type Size = 'small' | 'medium' | 'large'
 
+type A11yProps =
+  | {'aria-label': React.AriaAttributes['aria-label']; 'aria-labelledby'?: undefined}
+  | {'aria-label'?: undefined; 'aria-labelledby': React.AriaAttributes['aria-labelledby']}
+
 export type ActionBarProps = {
   size?: Size
-  'aria-label'?: React.AriaAttributes['aria-label']
   children: React.ReactNode
-}
+} & A11yProps
 
 export type ActionBarIconButtonProps = IconButtonProps
 
@@ -51,6 +55,7 @@ const GAP = 8
 
 const listStyles = {
   display: 'flex',
+  minWidth: 0,
   listStyle: 'none',
   whiteSpace: 'nowrap',
   paddingY: 0,
@@ -224,6 +229,12 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
 
   useOnOutsideClick({onClickOutside: closeOverlay, containerRef, ignoreClickRefs: [moreMenuBtnRef]})
 
+  useFocusZone({
+    containerRef: listRef,
+    bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.HomeAndEnd,
+    focusOutBehavior: 'wrap',
+  })
+
   return (
     <ActionBarContext.Provider value={{size, setChildrenWidth}}>
       <Box ref={navRef} sx={navStyles}>
@@ -288,7 +299,7 @@ export const ActionBarIconButton = forwardRef((props: ActionBarIconButtonProps, 
     const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
     setChildrenWidth({text, width: domRect.width})
   }, [ref, setChildrenWidth])
-  return <IconButton ref={ref} size={size} {...props} variant="invisible" />
+  return <IconButton ref={ref} size={size} {...props} variant="invisible" unsafeDisableTooltip={false} />
 })
 
 const sizeToHeight = {

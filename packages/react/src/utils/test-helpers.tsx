@@ -36,6 +36,9 @@ if (typeof document !== 'undefined') {
     // eslint-disable-next-line no-invalid-this
     this.open = false
   })
+
+  // Add a fallback for getContext if it does not exist in the test, used for axe
+  global.HTMLCanvasElement.prototype.getContext = jest.fn()
 }
 
 // Add a fallback for scrollIntoView if it does not exist in the test

@@ -1,5 +1,6 @@
 {
   "id": "select_panel",
+  "docsId": "select_panel",
   "name": "SelectPanel",
   "status": "alpha",
   "a11yReviewed": false,

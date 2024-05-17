@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 import {Dialog} from './Dialog'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import {behavesAsComponent, checkExports} from '../utils/testing'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 import {Button} from '../Button'
 
 let matchMedia: MatchMediaMock
@@ -101,7 +101,7 @@ describe('Dialog', () => {
 
   it('should have no axe violations', async () => {
     const {container} = render(<Dialog onClose={() => {}}>Pay attention to me</Dialog>)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 

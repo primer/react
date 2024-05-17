@@ -1,13 +1,13 @@
 import React from 'react'
 import {behavesAsComponent} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 
 import ActionBar from './'
 import {BoldIcon, CodeIcon, ItalicIcon, LinkIcon} from '@primer/octicons-react'
 
 const SimpleActionBar = () => (
-  <ActionBar>
+  <ActionBar aria-label="Toolbar">
     <ActionBar.IconButton icon={BoldIcon} aria-label="Default"></ActionBar.IconButton>
     <ActionBar.IconButton icon={ItalicIcon} aria-label="Default"></ActionBar.IconButton>
     <ActionBar.Divider />
@@ -29,7 +29,7 @@ describe('ActionBar', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<SimpleActionBar />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 })
