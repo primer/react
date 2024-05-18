@@ -12,6 +12,7 @@ import sx, {merge} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {useId} from '../hooks/useId'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {useFeatureFlag} from '../FeatureFlags'
 
 const getSubnavStyles = (depth: number) => {
   return {
@@ -32,15 +33,21 @@ export type NavListProps = {
 const NavBox = styled.nav<SxProp>(sx)
 
 const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
+  const listSemantics = useFeatureFlag('action-list-item-as-button')
+
   return (
     <NavBox {...props} ref={ref}>
-      <ActionListContainerContext.Provider
-        value={{
-          container: 'NavList',
-        }}
-      >
+      {listSemantics ? (
+        <ActionListContainerContext.Provider
+          value={{
+            container: 'NavList',
+          }}
+        >
+          <ActionList>{children}</ActionList>
+        </ActionListContainerContext.Provider>
+      ) : (
         <ActionList>{children}</ActionList>
-      </ActionListContainerContext.Provider>
+      )}
     </NavBox>
   )
 })

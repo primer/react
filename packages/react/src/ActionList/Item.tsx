@@ -21,6 +21,7 @@ import {getVariantStyles, ItemContext, TEXT_ROW_HEIGHT, ListContext} from './sha
 import type {VisualProps} from './Visuals'
 import {LeadingVisual, TrailingVisual} from './Visuals'
 import {ConditionalWrapper} from '../internal/components/ConditionalWrapper'
+import {useFeatureFlag} from '../FeatureFlags'
 
 const LiBox = styled.li<SxProp>(sx)
 
@@ -76,6 +77,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const {container, afterSelect, selectionAttribute, defaultTrailingVisual} =
       React.useContext(ActionListContainerContext)
+
+    const buttonSemantics = useFeatureFlag('action-list-item-as-button')
 
     // Be sure to avoid rendering the container unless there is a default
     const wrappedDefaultTrailingVisual = defaultTrailingVisual ? (
@@ -265,22 +268,24 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const inlineDescriptionId = `${itemId}--inline-description`
     const blockDescriptionId = `${itemId}--block-description`
     const inactiveWarningId = inactive && !showInactiveIndicator ? `${itemId}--warning-message` : undefined
-    const validRole = listRole === 'listbox' || listRole === 'menu' || container === 'NavList' || inactive
+    const validRole = listRole === 'listbox' || listRole === 'menu' || listRole === 'list' || inactive
 
-    const ButtonItemWrapper = React.forwardRef(({as: Component = 'button', children, ...props}, forwardedRef) => {
-      return (
-        <Box
-          as={Component as React.ElementType}
-          sx={merge<BetterSystemStyleObject>(styles, sxProp)}
-          ref={forwardedRef}
-          {...props}
-        >
-          {children}
-        </Box>
-      )
-    }) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>
+    const ButtonItemWrapper = buttonSemantics
+      ? (React.forwardRef(({as: Component = 'button', children, ...props}, forwardedRef) => {
+          return (
+            <Box
+              as={Component as React.ElementType}
+              sx={merge<BetterSystemStyleObject>(styles, sxProp)}
+              ref={forwardedRef}
+              {...props}
+            >
+              {children}
+            </Box>
+          )
+        }) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>)
+      : React.Fragment
 
-    const ItemWrapper = _PrivateItemWrapper || (validRole ? React.Fragment : ButtonItemWrapper)
+    const ItemWrapper = _PrivateItemWrapper || (validRole || !buttonSemantics ? React.Fragment : ButtonItemWrapper)
 
     // only apply aria-selected and aria-checked to selectable items
     const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option']
@@ -301,29 +306,42 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       id: itemId,
     }
 
-    const containerProps = _PrivateItemWrapper
-      ? {role: itemRole ? 'none' : undefined, ...props}
-      : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-        (validRole && {...menuItemProps, ...props, ref: forwardedRef}) || {}
+    let containerProps
+    let wrapperProps
 
-    const wrapperProps = _PrivateItemWrapper
-      ? menuItemProps
-      : !validRole && {
-          ...menuItemProps,
-          ...props,
-          styles: merge<BetterSystemStyleObject>(styles, sxProp),
-          ref: forwardedRef,
-        }
+    if (buttonSemantics) {
+      containerProps = _PrivateItemWrapper
+        ? {role: itemRole ? 'none' : undefined, ...props}
+        : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          (validRole && {...menuItemProps, ...props, ref: forwardedRef}) || {}
+
+      wrapperProps = _PrivateItemWrapper
+        ? menuItemProps
+        : !validRole && {
+            ...menuItemProps,
+            ...props,
+            styles: merge<BetterSystemStyleObject>(styles, sxProp),
+            ref: forwardedRef,
+          }
+    } else {
+      containerProps = _PrivateItemWrapper ? {role: itemRole ? 'none' : undefined} : {...menuItemProps, ...props}
+      wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
+    }
 
     return (
       <ItemContext.Provider
         value={{variant, disabled, inactive: Boolean(inactiveText), inlineDescriptionId, blockDescriptionId}}
       >
         <LiBox
-          sx={merge<BetterSystemStyleObject>(
-            validRole || _PrivateItemWrapper ? styles : listItemStyles,
-            validRole || _PrivateItemWrapper ? sxProp : {},
-          )}
+          ref={buttonSemantics ? forwardedRef : null}
+          sx={
+            buttonSemantics
+              ? merge<BetterSystemStyleObject>(
+                  validRole || _PrivateItemWrapper ? styles : listItemStyles,
+                  validRole || _PrivateItemWrapper ? sxProp : {},
+                )
+              : merge<BetterSystemStyleObject>(styles, sxProp)
+          }
           data-variant={variant === 'danger' ? variant : undefined}
           {...containerProps}
         >
