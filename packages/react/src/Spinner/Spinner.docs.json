@@ -10,6 +10,12 @@
       "name": "size",
       "type": "'small' | 'medium' | 'large'",
       "description": "Sets the width and height of the spinner."
+    },
+    {
+      "name": "alt",
+      "type": "string",
+      "description": "Sets the alt text for the spinner image. For no alt, set to '', defaults to 'Loading...'",
+      "defaultValue": "Loading..."
     }
   ],
   "subcomponents": []

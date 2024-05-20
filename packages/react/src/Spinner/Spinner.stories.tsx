@@ -22,4 +22,7 @@ Playground.argTypes = {
     },
     options: ['small', 'medium', 'large'],
   },
+  alt: {
+    type: 'string',
+  }
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useId } from 'react'
 import styled from 'styled-components'
 import type {SxProp} from '../sx'
 import sx from '../sx'
@@ -13,13 +13,24 @@ const sizeMap = {
 export interface SpinnerInternalProps {
   /** Sets the width and height of the spinner. */
   size?: keyof typeof sizeMap
+  alt?: string
 }
 
-function Spinner({size: sizeKey = 'medium', ...props}: SpinnerInternalProps) {
+function Spinner({size: sizeKey = 'medium', alt = 'Loading...', ...props}: SpinnerInternalProps) {
   const size = sizeMap[sizeKey]
 
+  let title: React.JSX.Element | null = null
+  let titleId: string | undefined
+
+  if (alt && alt.trim() !== "") {
+    // Get an id for the title
+    titleId = useId()
+    title = <title id={titleId}>{alt}</title>
+  }
+
   return (
-    <svg height={size} width={size} viewBox="0 0 16 16" fill="none" {...props}>
+    <svg height={size} width={size} aria-labelledby={titleId} viewBox="0 0 16 16" fill="none" {...props}>
+      {title}
       <circle
         cx="8"
         cy="8"
