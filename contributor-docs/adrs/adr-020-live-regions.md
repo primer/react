@@ -28,7 +28,7 @@ In components, we see the following scenarios in Primer React:
 - Announce a message programmatically, such as the number of results for a query
 
 Currently, contributors may reach for roles such as `alert` or `status` to
-achieve these scenarios. They may also add `aria-live` to an element explicitly.
+achieve these scenarios. They may also add `aria-live="assertive"` or `aria-live="polite"` with an an `aria-atomic="true"` to an element explicitly.
 However, both of these approaches do not announce consistently across screen
 readers.
 
