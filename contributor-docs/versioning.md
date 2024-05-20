@@ -13,6 +13,7 @@
   - [The type of a prop is broadened](#the-type-of-a-prop-is-broadened)
   - [The type of a prop is narrowed](#the-type-of-a-prop-is-narrowed)
   - [The `display` property used for the container of `children` is changed](#the-display-property-used-for-the-container-of-children-is-changed)
+  - [A component changes its usage of a CSS Custom Property](#a-component-changes-its-usage-of-a-css-custom-property)
   - [A component includes a landmark role](#a-component-includes-a-landmark-role)
   - [A component no longer includes a landmark role](#a-component-no-longer-includes-a-landmark-role)
   - [The element onto which props are spread is changed](#the-element-onto-which-props-are-spread-is-changed)
@@ -62,6 +63,7 @@ For a full list of releases, visit our [releases](https://github.com/primer/reac
 |               | The version of a dependency is increased to a newer minor or patch version                                                                    | `minor`             |
 |               | The version of a dependency is increased to a newer major version                                                                             | `major`             |
 | CSS           | [The `display` property used for the container of `children` is changed](#the-display-property-used-for-the-container-of-children-is-changed) | potentially `major` |
+|               | [A component changes its usage of a CSS Custom Property](#a-component-changes-its-usage-of-a-css-custom-property)                             | potentially `major` |
 | Accessibility | [A component includes a landmark role](#a-component-includes-a-landmark-role)                                                                 | potentially `major` |
 |               | [A component no longer includes a landmark role](#a-component-no-longer-includes-a-landmark-role)                                             | potentially `major` |
 
@@ -131,6 +133,67 @@ markup:
 In this situation, changing the layout of the `button` to `flex` would collapse
 the whitespace present between the text "Save" and "changes" and would be
 considered a breaking change.
+
+### A component changes its usage of a CSS Custom Property
+
+semver bump: potentially **major**
+
+When a component changes how it uses a CSS Custom Property, the change could be
+considered breaking if the CSS Custom Property is a part of the component's
+public API or participates in a broader system for design tokens. The breakage
+occurs when a consumer of the component is setting the value of this CSS Custom
+Property in some way expecting a change in the component. For example:
+
+```diff
+/* ExampleComponent.css */
+.ExampleComponent {
+  display: flex;
+-  column-gap: var(--example-component-gap, 1rem);
++  column-gap: var(--gap, 1rem);
+}
+```
+
+```css
+/* Consumer.css */
+.ExampleClassName {
+  --example-component-gap: var(--gap-none);
+}
+```
+
+In this case, the consumer of the component is setting the value of `--example-component-gap` but this will no longer have an effect after the change. There is an expectation that `--example-component-gap` is a part of the public API and therefore this change is considered breaking.
+
+At a high level, CSS Custom Properties in components typically come from:
+
+- Primer Primitives as design tokens for the design system
+- Component-level tokens which can be used to style, customize the component or
+  is used internally by the component
+
+As a rule of thumb, changes to CSS Custom Properties that use values from Primer
+Primitives are **not** a breaking change unless the token only exists in a new
+major version of Primer. In which case, a fallback should be used.
+
+```diff
+// This is not a breaking change if base-size-6 is defined in the current major
+// version of Primer Primitives
+.ExampleComponent {
+-  margin-block: var(--space-small, 0.375rem);
++  margin-block: var(--base-size-6, 0.375rem);
+}
+```
+
+```diff
+// This is a breaking change if base-size-6 is defined in the next major
+// version of Primer Primitives. A fallback should be used to ship this safely
+.ExampleComponent {
+-  margin-block: var(--space-small, 0.375rem);
++  margin-block: var(--base-size-6, var(--space-small, 0.375rem));
+}
+```
+
+For component-level tokens, changes to CSS Custom Properties are not considered
+breaking unless they are explicitly part of the component's public API. By default,
+CSS Custom Properties defined by components are not a part of the public API of a
+component.
 
 ### A component includes a landmark role
 
