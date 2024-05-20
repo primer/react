@@ -17,25 +17,27 @@ const external = Array.from(dependencies).map(name => {
   return new RegExp(`^${name}(/.*)?`)
 })
 
-export default {
-  input: ['./src/index.ts'],
-  external,
-  plugins: [
-    nodeResolve({
-      include: /node_modules/,
-    }),
-    commonjs({
-      include: /node_modules/,
-    }),
-    typescript({
-      tsconfig: 'tsconfig.build.json',
-    }),
-    esbuild(),
-  ],
-  output: {
-    dir: 'dist',
-    format: 'esm',
-    preserveModules: true,
-    preserveModulesRoot: 'src',
+export default [
+  {
+    input: ['./src/index.ts'],
+    external,
+    plugins: [
+      nodeResolve({
+        include: /node_modules/,
+      }),
+      commonjs({
+        include: /node_modules/,
+      }),
+      typescript({
+        tsconfig: 'tsconfig.build.json',
+      }),
+      esbuild(),
+    ],
+    output: {
+      dir: 'dist',
+      format: 'esm',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
+    },
   },
-}
+]

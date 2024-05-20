@@ -5,9 +5,10 @@ import replace from '@rollup/plugin-replace'
 import terser from '@rollup/plugin-terser'
 import glob from 'fast-glob'
 import {visualizer} from 'rollup-plugin-visualizer'
-import postcss from 'rollup-plugin-postcss'
+import {includeCSS} from 'rollup-plugin-include-css'
+import postcssPresetEnv from 'postcss-preset-env'
 import MagicString from 'magic-string'
-import packageJson from './package.json'
+import packageJson from './package.json' assert {type: 'json'}
 
 const input = new Set([
   // "exports"
@@ -44,7 +45,7 @@ const input = new Set([
       'src/ActionMenu/index.ts',
     ],
     {
-      cwd: __dirname,
+      cwd: import.meta.dirname,
       ignore: [
         '**/__tests__/**',
         '*.stories.tsx',
@@ -121,11 +122,21 @@ const baseConfig = {
     commonjs({
       extensions,
     }),
-    postcss({
-      extract: 'components.css',
-      autoModules: false,
-      modules: {generateScopedName: 'prc_[local]_[hash:base64:5]'},
-      // plugins are defined in postcss.config.js
+    includeCSS({
+      modulesRoot: 'src',
+      postcssPlugins: [
+        postcssPresetEnv({
+          stage: 2, // https://preset-env.cssdb.org/features/#stage-2
+          features: {
+            'nesting-rules': {noIsPseudoSelector: true},
+            'focus-visible-pseudo-class': false,
+            'logical-properties-and-values': false,
+          },
+        }),
+      ],
+      postcssModulesOptions: {
+        generateScopedName: 'prc_[local]_[hash:base64:5]',
+      },
     }),
     /**
      * This custom rollup plugin allows us to preserve directives in source

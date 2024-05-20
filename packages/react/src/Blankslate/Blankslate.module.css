@@ -1,0 +1,96 @@
+.container {
+  container-type: inline-size;
+}
+
+.blankslate {
+  --blankslate-outer-padding-block: var(--base-size-32);
+  --blankslate-outer-padding-inline: var(--base-size-32);
+  display: grid;
+  justify-items: center;
+  padding: var(--blankslate-outer-padding-block) var(--blankslate-outer-padding-inline);
+}
+
+.blankslate[data-spacious='true'] {
+  --blankslate-outer-padding-block: var(--base-size-80);
+  --blankslate-outer-padding-inline: var(--base-size-40);
+}
+
+.blankslate[data-border='true'] {
+  /* border: var(--borderWidth-thin) solid var(--borderColor-default, ${get('colors.border.default')}); */
+  border-radius: var(--borderRadius-medium);
+}
+
+.blankslate[data-narrow='true'] {
+  margin: 0 auto;
+  max-width: 485px;
+}
+
+.heading,
+.description {
+  margin: 0;
+  margin-bottom: var(--stack-gap-condensed);
+}
+
+.heading {
+  font-size: var(--text-title-size-medium);
+  font-weight: var(--text-title-weight-medium);
+}
+
+.description {
+  /* color: var(--fgColor-muted, ${get('colors.fg.muted')}); */
+  font-size: var(--text-body-size-large);
+}
+
+.action {
+  margin-top: var(--stack-gap-normal);
+}
+
+.action:first-of-type {
+  margin-top: var(--stack-gap-spacious);
+}
+
+.action:last-of-type {
+  margin-bottom: var(--stack-gap-condensed);
+}
+
+/* At the time these styles were written, 34rem was our "small" breakpoint width */
+@container (max-width: 34rem) {
+  .container .blankslate {
+    --blankslate-outer-padding-block: var(--base-size-20);
+    --blankslate-outer-padding-inline: var(--base-size-20);
+  }
+
+  .container .blankslate[data-spacious='true'] {
+    --blankslate-outer-padding-block: var(--base-size-44);
+    --blankslate-outer-padding-inline: var(--base-size-28);
+  }
+
+  .container .visual {
+    margin-bottom: var(--stack-gap-condensed);
+    max-width: var(--base-size-24);
+  }
+
+  .container .visual svg {
+    width: 100%;
+  }
+
+  .container .heading {
+    font-size: var(--text-title-size-small);
+  }
+
+  .container .description {
+    font-size: var(--text-body-size-medium);
+  }
+
+  .container .action {
+    margin-top: var(--stack-gap-condensed);
+  }
+
+  .container .action:first-of-type {
+    margin-top: var(--stack-gap-normal);
+  }
+
+  .container .action:last-of-type {
+    margin-bottom: calc(var(--stack-gap-condensed) / 2);
+  }
+}

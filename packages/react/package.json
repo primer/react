@@ -38,7 +38,10 @@
     "./lib-esm/internal/*": null
   },
   "typings": "lib/index.d.ts",
-  "sideEffects": false,
+  "sideEffects": [
+    "**/*.module.css.js",
+    "**/*.module.css"
+  ],
   "scripts": {
     "build": "./script/build",
     "clean": "rimraf dist lib lib-esm css",
@@ -205,6 +208,7 @@
     "recast": "0.23.6",
     "rimraf": "5.0.5",
     "rollup": "4.9.6",
+    "rollup-plugin-include-css": "^0.0.0",
     "rollup-plugin-postcss": "4.0.2",
     "rollup-plugin-visualizer": "5.9.2",
     "semver": "7.6.2",
