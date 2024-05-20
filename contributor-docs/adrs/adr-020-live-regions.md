@@ -67,6 +67,9 @@ updated to use the new approach, using one of the following approaches:
 - Use `announce()` or `announceFromElement()`
 - Use `Status` or `Alert`
 
+In addition, we should make sure that `<live-region>` is successfully included
+in GitHub.
+
 #### Instances of `aria-live`
 
 - InlineAutocomplete
