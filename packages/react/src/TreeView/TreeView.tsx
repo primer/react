@@ -193,7 +193,6 @@ const UlBox = styled.ul<SxProp>`
   .PRIVATE_TreeView-item-content {
     grid-area: content;
     display: flex;
-    align-items: flex-start;
     height: 100%;
     padding: 0 ${get('space.2')};
     gap: ${get('space.2')};
@@ -210,7 +209,6 @@ const UlBox = styled.ul<SxProp>`
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    align-self: center;
   }
 
   .PRIVATE_TreeView-item-visual {
