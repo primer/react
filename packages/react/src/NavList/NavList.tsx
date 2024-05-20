@@ -33,7 +33,7 @@ export type NavListProps = {
 const NavBox = styled.nav<SxProp>(sx)
 
 const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
-  const listSemantics = useFeatureFlag('action-list-item-as-button')
+  const listSemantics = useFeatureFlag('action_list_item_as_button')
 
   return (
     <NavBox {...props} ref={ref}>
