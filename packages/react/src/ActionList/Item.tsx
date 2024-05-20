@@ -333,7 +333,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         value={{variant, disabled, inactive: Boolean(inactiveText), inlineDescriptionId, blockDescriptionId}}
       >
         <LiBox
-          ref={buttonSemantics ? forwardedRef : null}
+          ref={buttonSemantics || validRole ? forwardedRef : null}
           sx={
             buttonSemantics
               ? merge<BetterSystemStyleObject>(
