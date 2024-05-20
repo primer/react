@@ -1,6 +1,6 @@
 import {render as HTMLRender, waitFor, act, within} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 import React from 'react'
 import theme from '../theme'
 import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider, Tooltip, Button, IconButton} from '..'
@@ -336,7 +336,7 @@ describe('ActionMenu', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Example />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 
