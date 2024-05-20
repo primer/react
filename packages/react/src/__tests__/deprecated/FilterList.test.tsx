@@ -2,7 +2,7 @@ import React from 'react'
 import {FilterList} from '../../deprecated'
 import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 
 describe('FilterList', () => {
   behavesAsComponent({Component: FilterList})
@@ -13,7 +13,7 @@ describe('FilterList', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<FilterList>Hello</FilterList>)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 

@@ -2,8 +2,9 @@ import React from 'react'
 import {promisify} from 'util'
 import renderer from 'react-test-renderer'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe, toHaveNoViolations} from 'jest-axe'
 import type {StoryFn} from '@storybook/react'
+import axe from 'axe-core'
+import customRules from '@github/axe-github'
 import {ThemeProvider} from '..'
 import {default as defaultTheme} from '../theme'
 
@@ -21,6 +22,7 @@ declare global {
     interface Matchers<R> {
       toImplementSxBehavior: () => boolean
       toSetExports: (exports: Record<string, string>) => boolean
+      toHaveNoViolations: () => boolean
     }
   }
 }
@@ -232,7 +234,8 @@ export function checkExports(path: string, exports: Record<any, any>): void {
   })
 }
 
-expect.extend(toHaveNoViolations)
+axe.configure(customRules)
+
 export function checkStoriesForAxeViolations(name: string, storyDir?: string) {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
   const stories = require(`${storyDir || '../stories/'}${name}.stories`)
@@ -262,7 +265,7 @@ export function checkStoriesForAxeViolations(name: string, storyDir?: string) {
         </ThemeProvider>,
       )
 
-      const results = await axe(container)
+      const results = await axe.run(container)
       expect(results).toHaveNoViolations()
     })
   })
