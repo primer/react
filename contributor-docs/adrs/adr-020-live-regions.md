@@ -39,7 +39,7 @@ readers.
 
 ## Decision
 
-In order to have a common interop point for live region announcents, Primer React will
+In order to have a common interop point for live region announcements, Primer React will
 make use of a `live-region` custom element from `@primer/live-region-element`.
 This package will be included and published from the `primer/react` repo.
 
