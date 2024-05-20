@@ -403,6 +403,7 @@ describe('ActionList', () => {
 
   it('should render ActionList.Item as li when feature flag is disabled', async () => {
     const {container} = HTMLRender(
+      // eslint-disable-next-line camelcase
       <FeatureFlags flags={{action_list_item_as_button: false}}>
         <ActionList>
           <ActionList.Item>Item 1</ActionList.Item>
