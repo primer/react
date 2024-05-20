@@ -2,7 +2,7 @@ import React from 'react'
 import {FilteredSearch} from '../../deprecated'
 import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 
 describe('FilteredSearch', () => {
   behavesAsComponent({Component: FilteredSearch})
@@ -13,7 +13,7 @@ describe('FilteredSearch', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<FilteredSearch>Hello</FilteredSearch>)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 

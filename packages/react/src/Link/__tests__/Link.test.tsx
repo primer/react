@@ -2,7 +2,7 @@ import React from 'react'
 import Link from '..'
 import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 
 describe('Link', () => {
   behavesAsComponent({Component: Link})
@@ -13,7 +13,7 @@ describe('Link', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Link href="www.github.com">GitHub</Link>)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 
