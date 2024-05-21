@@ -2,7 +2,7 @@ import React, {useState, useRef} from 'react'
 import {Dialog, Box, Text} from '..'
 import {Button} from '../deprecated'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 
 /* Dialog Version 2 */
@@ -91,7 +91,7 @@ describe('Dialog', () => {
     const spy = jest.spyOn(console, 'warn').mockImplementation()
     const {container} = HTMLRender(comp)
     spy.mockRestore()
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 

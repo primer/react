@@ -2,7 +2,7 @@
   "id": "drafts_page_header",
   "name": "PageHeader",
   "status": "draft",
-  "a11yReviewed": false,
+  "a11yReviewed": true,
   "stories": [],
   "importPath": "@primer/react/experimental",
   "props": [
