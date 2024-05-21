@@ -382,8 +382,7 @@ describe('ActionList', () => {
 
   it('should render ActionList.Item as button when feature flag is enabled', async () => {
     const {container} = HTMLRender(
-      // eslint-disable-next-line camelcase
-      <FeatureFlags flags={{action_list_item_as_button: true}}>
+      <FeatureFlags flags={{primer_action_list_item_as_button: true}}>
         <ActionList>
           <ActionList.Item disabled={true}>Item 1</ActionList.Item>
           <ActionList.Item>Item 2</ActionList.Item>
@@ -403,8 +402,7 @@ describe('ActionList', () => {
 
   it('should render ActionList.Item as li when feature flag is disabled', async () => {
     const {container} = HTMLRender(
-      // eslint-disable-next-line camelcase
-      <FeatureFlags flags={{action_list_item_as_button: false}}>
+      <FeatureFlags flags={{primer_action_list_item_as_button: false}}>
         <ActionList>
           <ActionList.Item>Item 1</ActionList.Item>
           <ActionList.Item>Item 2</ActionList.Item>
