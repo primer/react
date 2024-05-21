@@ -57,8 +57,8 @@ jobs:
         id: generate_token
         uses: actions/create-github-app-token@v1
         with:
-          app-id: 382932
-          private-key: ${{ secrets.TEST_PRIMER_ACTIONS_PRIVATE_KEY }}
+          app-id: 902635
+          private-key: ${{ secrets.PRIMER_INTEGRATION_APP_PRIVATE_KEY }}
       - name: Get the PR number from the given PR URL
         id: get-pr-number
         uses: actions/github-script@v6
