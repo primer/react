@@ -47,35 +47,35 @@ export const LabelledByExternalElement = () => (
 
 export const WithIcons = () => (
   <UnderlinePanels aria-label="Tabs with icons">
-    <UnderlinePanels.Tab icon={CodeIcon}>Code</UnderlinePanels.Tab>
-    <UnderlinePanels.Tab icon={EyeIcon}>Issues</UnderlinePanels.Tab>
-    <UnderlinePanels.Tab icon={GitPullRequestIcon}>Pull requests</UnderlinePanels.Tab>
-    <UnderlinePanels.Panel>Code panel</UnderlinePanels.Panel>
-    <UnderlinePanels.Panel>Issues panel</UnderlinePanels.Panel>
-    <UnderlinePanels.Panel>Pull requests panel</UnderlinePanels.Panel>
+    <UnderlinePanels.Tab icon={CodeIcon}>Tab 1</UnderlinePanels.Tab>
+    <UnderlinePanels.Tab icon={EyeIcon}>Tab 2</UnderlinePanels.Tab>
+    <UnderlinePanels.Tab icon={GitPullRequestIcon}>Tab 3</UnderlinePanels.Tab>
+    <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
+    <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
+    <UnderlinePanels.Panel>Panel 3</UnderlinePanels.Panel>
   </UnderlinePanels>
 )
 
 export const WithIconsHiddenOnNarrowScreen = () => (
   <UnderlinePanels aria-label="Tabs with icons">
-    <UnderlinePanels.Tab icon={CodeIcon}>Code</UnderlinePanels.Tab>
-    <UnderlinePanels.Tab icon={EyeIcon}>Issues</UnderlinePanels.Tab>
-    <UnderlinePanels.Tab icon={GitPullRequestIcon}>Pull requests</UnderlinePanels.Tab>
-    <UnderlinePanels.Tab icon={CommentDiscussionIcon}>Discussions</UnderlinePanels.Tab>
-    <UnderlinePanels.Tab icon={PlayIcon}>Actions</UnderlinePanels.Tab>
-    <UnderlinePanels.Tab icon={ProjectIcon}>Projects</UnderlinePanels.Tab>
-    <UnderlinePanels.Tab icon={GraphIcon}>Insights</UnderlinePanels.Tab>
-    <UnderlinePanels.Tab icon={GearIcon}>Settings</UnderlinePanels.Tab>
-    <UnderlinePanels.Tab icon={ShieldLockIcon}>Security</UnderlinePanels.Tab>
-    <UnderlinePanels.Panel>Code panel</UnderlinePanels.Panel>
-    <UnderlinePanels.Panel>Issues panel</UnderlinePanels.Panel>
-    <UnderlinePanels.Panel>Pull requests panel</UnderlinePanels.Panel>
-    <UnderlinePanels.Panel>Discussions panel</UnderlinePanels.Panel>
-    <UnderlinePanels.Panel>Actions panel</UnderlinePanels.Panel>
-    <UnderlinePanels.Panel>Projects panel</UnderlinePanels.Panel>
-    <UnderlinePanels.Panel>Insights panel</UnderlinePanels.Panel>
-    <UnderlinePanels.Panel>Settings panel</UnderlinePanels.Panel>
-    <UnderlinePanels.Panel>Security panel</UnderlinePanels.Panel>
+    <UnderlinePanels.Tab icon={CodeIcon}>Tab 1</UnderlinePanels.Tab>
+    <UnderlinePanels.Tab icon={EyeIcon}>Tab 2</UnderlinePanels.Tab>
+    <UnderlinePanels.Tab icon={GitPullRequestIcon}>Tab 3</UnderlinePanels.Tab>
+    <UnderlinePanels.Tab icon={CommentDiscussionIcon}>Tab 4</UnderlinePanels.Tab>
+    <UnderlinePanels.Tab icon={PlayIcon}>Tab 5</UnderlinePanels.Tab>
+    <UnderlinePanels.Tab icon={ProjectIcon}>Tab 6</UnderlinePanels.Tab>
+    <UnderlinePanels.Tab icon={GraphIcon}>Tab 7</UnderlinePanels.Tab>
+    <UnderlinePanels.Tab icon={GearIcon}>Tab 8</UnderlinePanels.Tab>
+    <UnderlinePanels.Tab icon={ShieldLockIcon}>Tab 9</UnderlinePanels.Tab>
+    <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
+    <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
+    <UnderlinePanels.Panel>Panel 3</UnderlinePanels.Panel>
+    <UnderlinePanels.Panel>Panel 4</UnderlinePanels.Panel>
+    <UnderlinePanels.Panel>Panel 5</UnderlinePanels.Panel>
+    <UnderlinePanels.Panel>Panel 6</UnderlinePanels.Panel>
+    <UnderlinePanels.Panel>Panel 7</UnderlinePanels.Panel>
+    <UnderlinePanels.Panel>Panel 8</UnderlinePanels.Panel>
+    <UnderlinePanels.Panel>Panel 9</UnderlinePanels.Panel>
   </UnderlinePanels>
 )
 
@@ -98,10 +98,10 @@ WithIconsHiddenOnNarrowScreen.parameters = {
 export const WithCounters = () => {
   return (
     <UnderlinePanels aria-label="Tabs with counters">
-      <UnderlinePanels.Tab counter="11K">Code</UnderlinePanels.Tab>
-      <UnderlinePanels.Tab counter={12}>Issues</UnderlinePanels.Tab>
-      <UnderlinePanels.Panel>Code panel</UnderlinePanels.Panel>
-      <UnderlinePanels.Panel>Issues panel</UnderlinePanels.Panel>
+      <UnderlinePanels.Tab counter="11K">Tab 1</UnderlinePanels.Tab>
+      <UnderlinePanels.Tab counter={12}>Tab 2</UnderlinePanels.Tab>
+      <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
+      <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
     </UnderlinePanels>
   )
 }
@@ -109,10 +109,10 @@ export const WithCounters = () => {
 export const WithCountersInLoadingState = () => {
   return (
     <UnderlinePanels aria-label="Tabs with counters" loadingCounters>
-      <UnderlinePanels.Tab counter="11K">Code</UnderlinePanels.Tab>
-      <UnderlinePanels.Tab counter={12}>Issues</UnderlinePanels.Tab>
-      <UnderlinePanels.Panel>Code panel</UnderlinePanels.Panel>
-      <UnderlinePanels.Panel>Issues panel</UnderlinePanels.Panel>
+      <UnderlinePanels.Tab counter="11K">Tab 1</UnderlinePanels.Tab>
+      <UnderlinePanels.Tab counter={12}>Tab 2</UnderlinePanels.Tab>
+      <UnderlinePanels.Panel>Panel 1</UnderlinePanels.Panel>
+      <UnderlinePanels.Panel>Panel 2</UnderlinePanels.Panel>
     </UnderlinePanels>
   )
 }

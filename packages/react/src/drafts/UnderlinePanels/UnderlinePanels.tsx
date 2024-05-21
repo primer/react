@@ -72,8 +72,7 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   const listRef = useRef<HTMLUListElement>(null)
   // We need to always call useId() because React Hooks must be
   // called in the exact same order in every component render
-  const defaultId = useId()
-  const parentId = props.id ?? defaultId
+  const parentId = useId(props.id)
 
   // Loop through the chidren, if it's a tab, then add id="{id}-tab-{index}"
   // If it's a panel, then add aria-labelledby="{id}-tab-{index}"
