@@ -1,7 +1,7 @@
 import React from 'react'
 import type {Meta} from '@storybook/react'
 import ActionBar from '.'
-import Text from '../../Text'
+import Text from '../Text'
 import {
   PencilIcon,
   BoldIcon,
@@ -18,12 +18,12 @@ import {
   ReplyIcon,
   ThreeBarsIcon,
 } from '@primer/octicons-react'
-import {MarkdownInput} from '../MarkdownEditor/_MarkdownInput'
-import {ViewSwitch} from '../MarkdownEditor/_ViewSwitch'
-import type {MarkdownViewMode} from '../MarkdownEditor/_ViewSwitch'
-import {Box, Dialog, Button, Avatar, ActionMenu, IconButton, ActionList} from '../..'
-import {Divider} from '../../deprecated/ActionList/Divider'
-import mockData from '../SelectPanel2/mock-story-data'
+import {MarkdownInput} from '../drafts/MarkdownEditor/_MarkdownInput'
+import {ViewSwitch} from '../drafts/MarkdownEditor/_ViewSwitch'
+import type {MarkdownViewMode} from '../drafts/MarkdownEditor/_ViewSwitch'
+import {Box, Dialog, Button, Avatar, ActionMenu, IconButton, ActionList} from '../'
+import {Divider} from '../deprecated/ActionList/Divider'
+import mockData from '../drafts/SelectPanel2/mock-story-data'
 
 export default {
   title: 'Drafts/Components/ActionBar',
