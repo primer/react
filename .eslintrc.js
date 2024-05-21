@@ -68,7 +68,11 @@ module.exports = {
     camelcase: [
       'error',
       {
-        allow: ['dark_dimmed'],
+        allow: [
+          'dark_dimmed',
+          // Allow feature flag names that start with `primer_react_`
+          '^primer_react_',
+        ],
       },
     ],
     'primer-react/no-deprecated-colors': ['warn', {checkAllStrings: true}],
