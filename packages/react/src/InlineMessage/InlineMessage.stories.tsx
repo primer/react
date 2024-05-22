@@ -18,6 +18,12 @@ export const Playground: StoryObj<typeof InlineMessage> = {
     return <InlineMessage {...args}>An example inline message</InlineMessage>
   },
   argTypes: {
+    size: {
+      controls: {
+        type: 'radio',
+      },
+      options: ['small', 'medium'],
+    },
     variant: {
       controls: {
         type: 'radio',
