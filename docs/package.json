@@ -34,11 +34,11 @@
     "styled-system": "^5.1.0"
   },
   "devDependencies": {
-    "cross-env": "7.0.2",
+    "cross-env": "7.0.3",
     "eslint": "8.56.0",
     "eslint-config-react-app": "7.0.1",
     "globby": "^11.0.4",
-    "minipass": "^2.9.0",
+    "minipass": "^7.1.1",
     "path-browserify": "^1.0.1",
     "webpack": "5.40.0"
   }

@@ -11,6 +11,9 @@
 export {Blankslate} from '../Blankslate'
 export type {BlankslateProps} from '../Blankslate'
 
+export {Banner} from '../Banner'
+export type {BannerProps} from '../Banner'
+
 export {DataTable, Table, createColumnHelper} from '../DataTable'
 export type {
   DataTableProps,
@@ -67,4 +70,7 @@ export * from './SelectPanel2'
 export {default as TabPanels} from './TabPanels'
 export type {TabPanelsProps, TabPanelsTabProps, TabPanelsPanelProps} from './TabPanels'
 export * from '../TooltipV2'
-export * from './ActionBar'
+export * from '../ActionBar'
+
+export {Stack} from '../Stack'
+export type {StackProps, StackItemProps} from '../Stack'

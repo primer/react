@@ -327,11 +327,6 @@ exports[`snapshots renders a loading state 1`] = `
   justify-content: center;
 }
 
-.c2 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-}
-
 .c0 {
   position: absolute;
   width: 1px;
@@ -343,6 +338,11 @@ exports[`snapshots renders a loading state 1`] = `
   clip: rect(0,0,0,0);
   white-space: nowrap;
   border-width: 0;
+}
+
+.c2 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
 }
 
 @media (min-width:768px) {
@@ -622,6 +622,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   -ms-flex-positive: 1;
   flex-grow: 1;
   font-weight: 400;
+  word-break: break-word;
 }
 
 .c9 {
@@ -1426,6 +1427,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   -ms-flex-positive: 1;
   flex-grow: 1;
   font-weight: 400;
+  word-break: break-word;
 }
 
 .c0 {
@@ -2132,6 +2134,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   -ms-flex-positive: 1;
   flex-grow: 1;
   font-weight: 400;
+  word-break: break-word;
 }
 
 .c9 {
@@ -2937,6 +2940,7 @@ exports[`snapshots renders a single select input 1`] = `
   -ms-flex-positive: 1;
   flex-grow: 1;
   font-weight: 400;
+  word-break: break-word;
 }
 
 .c0 {
@@ -3403,6 +3407,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
   -ms-flex-positive: 1;
   flex-grow: 1;
   font-weight: 400;
+  word-break: break-word;
 }
 
 .c0 {

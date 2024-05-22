@@ -132,6 +132,9 @@ available, check out the table below.
 > However, screenshots will not match and new ones will need to be generated on
 > your first test run.
 
+> [!TIP]
+> To re-generate snapshots within your pull request, add the `update snapshots` label.
+
 ### Prerequisites
 
 To run Playwright locally, first install the dependencies of the project by

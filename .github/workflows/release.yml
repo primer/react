@@ -24,6 +24,7 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+      - run: npm i -g npm@^10.5.1
 
       - name: Install dependencies
         run: npm ci
@@ -51,7 +52,7 @@ jobs:
   release-next-major:
     if: github.ref_name == 'next-major'
     name: Next major
-    uses: primer/.github/.github/workflows/release_with_app.yml@main
+    uses: primer/.github/.github/workflows/release_with_app.yml@v2.0.0
     with:
       title: Release tracking (next major)
     secrets:

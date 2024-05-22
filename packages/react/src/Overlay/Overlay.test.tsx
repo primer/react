@@ -3,7 +3,7 @@ import {Overlay, Box, Text} from '..'
 import {ButtonDanger, Button} from '../deprecated'
 import {render, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 import theme from '../theme'
 import BaseStyles from '../BaseStyles'
 import {ThemeProvider} from '../ThemeProvider'
@@ -59,7 +59,7 @@ const TestComponent = ({initialFocus, callback}: TestComponentSettings) => {
 describe('Overlay', () => {
   it('should have no axe violations', async () => {
     const {container} = render(<TestComponent />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 
