@@ -30,7 +30,10 @@ In components, we see the following scenarios in Primer React:
 Currently, contributors may reach for roles such as `alert` or `status` to
 achieve these scenarios. They may also add `aria-live="assertive"` or `aria-live="polite"` with an an `aria-atomic="true"` to an element explicitly.
 However, both of these approaches do not announce consistently across screen
-readers.
+readers. This could be due to live regions being injected dynamically into the document, dynamically changing the visibility of a live region, or some other technique causing an announcement to not be announced.
+
+For more information about the ways in which live regions may not work as
+expected, visit: [Why are my live regions not working?](https://tetralogical.com/blog/2024/05/01/why-are-my-live-regions-not-working/)
 
 ### Links & Resources for ARIA Live regions
 
@@ -45,18 +48,26 @@ This package will be included and published from the `primer/react` repo.
 
 The custom element exposes a way to make announcements that can be used
 across frameworks. This makes it useful not only for Primer but GitHub as a
-whole.
+whole. The `@primer/live-region-element` exports two helpers to use for making
+announcements: `announce()` and `announceFromElement`. Both helpers can be used
+when working in Primer and by teams at GitHub.
 
 In addition, `@primer/react` will leverage and export the following helpers for
 use within Primer React and GitHub:
 
-- `announce()` and `announceFromElement()`, programmatic helpers for making
-  announcements
 - The `Status` component to correspond with `role="status"`
 - The `Alert` component to correspond with `role="alert"`
 
 Within `@primer/react`, we should lint against usage of `aria-live` and the
 corresponding roles (if possible) and suggest using these alternatives instead.
+
+> [!NOTE]
+> Both `Status` and `Alert` will trigger an announcement when the component is
+> rendered. As a result, they should only be used for dynamically rendered
+> content. Otherwise, they will trigger announcements on page load. In cases
+> where they should always be present, then the first message passed to the
+> component should be an empty string. Changes to the content of the component
+> will trigger subsequent announcements.
 
 ### Impact
 
@@ -70,12 +81,15 @@ updated to use the new approach, using one of the following approaches:
 In addition, we should make sure that `<live-region>` is successfully included
 in GitHub.
 
-#### Instances of `aria-live`
+#### Instances of `aria-live="polite"`
 
-- InlineAutocomplete
 - InputValidation
 - SelectPanel
 - TreeView
+
+#### Instances of `aria-live="assertive"`
+
+- InlineAutocomplete
 
 ### Instances of `role="status"`
 
@@ -93,13 +107,18 @@ None
 
 ## Examples
 
-### Announce on page load
+### Announce when content is shown
 
 ```tsx
+import React from 'react'
 import {Status} from '@primer/react'
 
 function ExampleComponent() {
-  return <Status>Example page load message</Status>
+  const [loading, setLoading] = React.useState(true)
+  if (loading) {
+    return <Status>Example loading message</Status>
+  }
+  return <Page />
 }
 ```
 
@@ -127,7 +146,7 @@ function ExampleComponent() {
 ### Announce programmatically
 
 ```tsx
-import {announce} from '@primer/react'
+import {announce} from '@primer/live-region-element'
 import {useState} from 'react'
 
 function ExampleComponent() {
@@ -147,6 +166,55 @@ function ExampleComponent() {
       />
       {/* ... */}
     </>
+  )
+}
+```
+
+### Use existing live region
+
+The `announce()` and `announceFromElement()` helpers both accept a `from`
+argument that allow you to provide a reference from which these helpers should
+find an existing live region. This can be useful in contexts like a `dialog`
+where a live region must live in the dialog in order for announcements to occur.
+
+```tsx
+import {announce} from '@primer/live-region-element'
+import React from 'react'
+
+function ExampleComponent() {
+  const ref = React.useRef<React.ElementRef<'dialog'>>(null)
+  return (
+    <dialog ref={ref}>
+      <h1>Example content</h1>
+      <button
+        type="button"
+        onClick={() => {
+          announce('Announcement', {
+            from: ref.current,
+          })
+        }}
+      >
+        Example button
+      </button>
+    </dialog>
+  )
+}
+```
+
+The `Status` and `Alert` components automatically lookup the closest `dialog` so
+there is no need to provide a `from` argument.
+
+```tsx
+import React from 'react'
+import {Status} from '@primer/react'
+
+function ExampleComponent() {
+  const [loading, setLoading] = React.useState(true)
+  return (
+    <dialog ref={ref}>
+      <h1>Example content</h1>
+      {loading ? <Status>Loading example dialog</Status> : <DialogContent />}
+    </dialog>
   )
 }
 ```
