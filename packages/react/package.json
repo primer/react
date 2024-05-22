@@ -50,7 +50,6 @@
     "build:storybook:visual-testing": "storybook build",
     "build:components.json": "tsx script/components-json/build.ts",
     "build:precompile-color-schemes": "tsx script/precompile-color-schemes.ts",
-    "figma:sync": "export $(cat .env | xargs) && npx figma connect publish",
     "storybook": "storybook",
     "type-check": "tsc --noEmit"
   },
