@@ -1,5 +1,5 @@
 import React from 'react'
-import {ThemeProvider, ActionList} from '../../'
+import {ThemeProvider, ActionList, FormControl} from '../../'
 import type {RenderResult} from '@testing-library/react'
 import {render} from '@testing-library/react'
 import type {UserEvent} from '@testing-library/user-event'
@@ -7,6 +7,22 @@ import userEvent from '@testing-library/user-event'
 import data from './mock-story-data'
 import type {SelectPanelProps} from './SelectPanel'
 import {SelectPanel} from './SelectPanel'
+
+// window.matchMedia() is not implemented by JSDOM so we have to create a mock:
+// https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: jest.fn().mockImplementation(query => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: jest.fn(), // deprecated
+    removeListener: jest.fn(), // deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
+})
 
 const Fixture = ({onSubmit, onCancel}: Pick<SelectPanelProps, 'onSubmit' | 'onCancel'>) => {
   const initialSelectedLabels = data.issue.labelIds // mock initial state: has selected labels
@@ -40,6 +56,36 @@ const Fixture = ({onSubmit, onCancel}: Pick<SelectPanelProps, 'onSubmit' | 'onCa
         <SelectPanel.Footer />
       </SelectPanel>
     </ThemeProvider>
+  )
+}
+
+function SelectPanelWithinForm(): JSX.Element {
+  return (
+    <FormControl>
+      <FormControl.Label>Select Panel Label</FormControl.Label>
+      <Fixture />
+    </FormControl>
+  )
+}
+
+function SelectPanelWithComplexButtonWithinForm(): JSX.Element {
+  return (
+    <FormControl>
+      <FormControl.Label>Select Panel Label</FormControl.Label>
+      <SelectPanel title="Select labels" onSubmit={() => {}} onCancel={() => {}}>
+        <SelectPanel.Button>
+          <div>Assign label</div>
+        </SelectPanel.Button>
+
+        <ActionList>
+          <ActionList.Item key={'Item'} onSelect={() => {}} selected={true}>
+            Item
+            <ActionList.Description variant="block">Item description</ActionList.Description>
+          </ActionList.Item>
+        </ActionList>
+        <SelectPanel.Footer />
+      </SelectPanel>
+    </FormControl>
   )
 }
 
@@ -131,5 +177,26 @@ describe('SelectPanel', () => {
     expect(container.queryByRole('dialog')).toBeNull()
     expect(mockOnCancel).toHaveBeenCalledTimes(1)
     expect(mockOnSubmit).toHaveBeenCalledTimes(0)
+  })
+
+  it('SelectPanel within FormControl should be labelled by FormControl.Label', async () => {
+    const component = render(<SelectPanelWithinForm />)
+    const buttonByRole = component.getByRole('button')
+    expect(buttonByRole).toBeVisible()
+    expect(buttonByRole).toHaveAttribute('aria-label', 'Assign label, Select Panel Label')
+  })
+
+  it('SelectPanel with complex button within FormControl should be labelled by FormControl.Label', async () => {
+    const component = render(<SelectPanelWithComplexButtonWithinForm />)
+    const buttonByRole = component.getByRole('button')
+    expect(buttonByRole).toBeVisible()
+    expect(buttonByRole).toHaveAttribute('aria-label', 'Assign label, Select Panel Label')
+  })
+
+  it('SelectPanel outside of FormControl should not be automatically assigned aria-label and aria-labelledby', async () => {
+    const component = render(<Fixture />)
+    const buttonByRole = component.getByRole('button')
+    expect(buttonByRole).toBeVisible()
+    expect(buttonByRole).not.toHaveAttribute('aria-label', 'Assign label, Select Panel Label')
   })
 })

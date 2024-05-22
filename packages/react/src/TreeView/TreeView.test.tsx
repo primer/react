@@ -285,6 +285,40 @@ describe('Markup', () => {
     const subItem1 = getByRole('treeitem', {name: /SubItem 1/})
     expect(subItem1).toBeInTheDocument()
   })
+
+  it("should move focus to first treeitem when focusing back in after clicking on a treeitem's secondary action", async () => {
+    const user = userEvent.setup({delay: null})
+    const {getByRole, getByText} = renderWithTheme(
+      <div>
+        <TreeView aria-label="Test tree">
+          <TreeView.Item id="item-1">Item 1</TreeView.Item>
+          <TreeView.Item id="item-2">
+            Item 2
+            <button id="item-2-button" tabIndex={-1} aria-hidden>
+              Link in Item 2
+            </button>
+          </TreeView.Item>
+          <TreeView.Item id="item-3">Item 3</TreeView.Item>
+        </TreeView>
+        <button>Focusable element</button>
+      </div>,
+    )
+
+    // Click on treeitem's secondary action
+    const item2Button = getByText(/Link in Item 2/i)
+    await user.click(item2Button)
+    expect(item2Button).toHaveFocus()
+
+    // Move focus to button outside of TreeView
+    await user.tab()
+    const outerButton = getByRole('button', {name: /Focusable element/})
+    expect(outerButton).toHaveFocus()
+
+    // Move focus into TreeView. Focus should be on first treeitem
+    await user.tab({shift: true})
+    const item1 = getByRole('treeitem', {name: /Item 1/})
+    expect(item1).toHaveFocus()
+  })
 })
 
 describe('Keyboard interactions', () => {
@@ -891,6 +925,102 @@ describe('Keyboard interactions', () => {
 
       // Press Enter
       fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+
+      // onSelect should have been called
+      expect(onSelect).toHaveBeenCalledTimes(1)
+
+      onSelect.mockClear()
+
+      // Press middle click
+      fireEvent.click(document.activeElement?.firstChild || document.body, {button: 1})
+
+      // onSelect should have been called
+      expect(onSelect).toHaveBeenCalledTimes(1)
+    })
+
+    it('toggles expanded state if no onSelect function is provided', () => {
+      const {getByRole, queryByRole} = renderWithTheme(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item id="parent">
+            Parent
+            <TreeView.SubTree>
+              <TreeView.Item id="child-1">Child 1</TreeView.Item>
+              <TreeView.Item id="child-2">Child 2</TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>,
+      )
+
+      const parent = getByRole('treeitem', {name: 'Parent'})
+
+      act(() => {
+        // Focus first item
+        parent.focus()
+      })
+
+      // aria-expanded should be false
+      expect(parent).toHaveAttribute('aria-expanded', 'false')
+
+      // Press Enter
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+
+      // aria-expanded should now be true
+      expect(parent).toHaveAttribute('aria-expanded', 'true')
+
+      // Subtree should be visible
+      expect(queryByRole('group')).toBeVisible()
+
+      // Press Enter
+      fireEvent.keyDown(document.activeElement || document.body, {key: 'Enter'})
+
+      // aria-expanded should now be false
+      expect(parent).toHaveAttribute('aria-expanded', 'false')
+
+      // Subtree should no longer be visible
+      expect(queryByRole('group')).not.toBeInTheDocument()
+    })
+  })
+
+  describe('Space', () => {
+    it('calls onSelect function if provided and checks if the item has been selected', () => {
+      const onSelect = jest.fn()
+      const {getByRole} = renderWithTheme(
+        <TreeView aria-label="Test tree">
+          <TreeView.Item id="parent-1" onSelect={onSelect}>
+            Parent 1
+            <TreeView.SubTree>
+              <TreeView.Item id="child-1" onSelect={onSelect}>
+                Child 1
+              </TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+          <TreeView.Item id="parent-2" onSelect={onSelect} expanded>
+            Parent 2
+            <TreeView.SubTree>
+              <TreeView.Item id="child-2" onSelect={onSelect}>
+                Child2
+              </TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+          <TreeView.Item id="parent-3" onSelect={onSelect}>
+            Parent 3
+            <TreeView.SubTree>
+              <TreeView.Item id="child-3" onSelect={onSelect}>
+                Child 3
+              </TreeView.Item>
+            </TreeView.SubTree>
+          </TreeView.Item>
+        </TreeView>,
+      )
+      const itemChild = getByRole('treeitem', {name: 'Child2'})
+
+      act(() => {
+        // Focus first item
+        itemChild.focus()
+      })
+
+      // Press Enter
+      fireEvent.keyDown(document.activeElement || document.body, {key: ' '})
 
       // onSelect should have been called
       expect(onSelect).toHaveBeenCalledTimes(1)

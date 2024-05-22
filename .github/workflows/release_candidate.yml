@@ -23,6 +23,7 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+      - run: npm i -g npm@^10.5.1
 
       - name: Install dependencies
         run: npm ci
@@ -66,7 +67,7 @@ jobs:
   release-candidate-next-major:
     if: github.ref_name == 'changeset-release/next-major'
     name: Candidate (@next-major)
-    uses: primer/.github/.github/workflows/release_candidate.yml@main
+    uses: primer/.github/.github/workflows/release_candidate.yml@v2.0.0
     with:
       tag: next-major
     secrets:

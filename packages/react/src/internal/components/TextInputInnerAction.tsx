@@ -1,9 +1,9 @@
 import React, {forwardRef} from 'react'
 import type {IconProps} from '@primer/octicons-react'
 import Box from '../../Box'
-import type {ButtonProps} from '../../Button'
 import {Button, IconButton} from '../../Button'
-import Tooltip from '../../Tooltip/Tooltip'
+import {Tooltip} from '../../TooltipV2'
+import type {ButtonProps} from '../../Button'
 import type {BetterSystemStyleObject, SxProp} from '../../sx'
 import {merge} from '../../sx'
 
@@ -61,7 +61,7 @@ const ConditionalTooltip: React.FC<
   <>
     {ariaLabel ? (
       <Tooltip
-        aria-label={ariaLabel}
+        text={ariaLabel}
         direction={tooltipDirection}
         sx={{
           /* inline-block is used to ensure the tooltip dimensions don't
@@ -95,18 +95,9 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
     return (
       <Box as="span" className="TextInput-action" marginLeft={1} marginRight={1} lineHeight="0">
         {icon && !children ? (
-          <Tooltip direction={tooltipDirection} aria-label={ariaLabel}>
-            <IconButton
-              variant={variant}
-              type="button"
-              icon={icon}
-              size="small"
-              sx={sx}
-              {...rest}
-              aria-label={ariaLabel as unknown as string}
-              aria-labelledby={undefined}
-              ref={forwardedRef}
-            />
+          <Tooltip direction={tooltipDirection ?? 's'} text={ariaLabel ?? ''} type="label">
+            {/* @ts-ignore we intentionally do add aria-label to IconButton because Tooltip v2 adds an aria-labelledby instead. */}
+            <IconButton variant={variant} type="button" icon={icon} size="small" sx={sx} {...rest} ref={forwardedRef} />
           </Tooltip>
         ) : (
           <ConditionalTooltip aria-label={ariaLabel}>

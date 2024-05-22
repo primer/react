@@ -1,5 +1,5 @@
 import {render as HTMLRender} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 import {render, rendersClass, behavesAsComponent, checkExports} from '../../utils/testing'
 
 import React from 'react'
@@ -14,7 +14,7 @@ describe('Timeline', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Timeline />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 
@@ -28,7 +28,7 @@ describe('Timeline.Item', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Timeline.Item />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 
@@ -46,7 +46,7 @@ describe('Timeline.Badge', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Timeline.Badge />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 })
