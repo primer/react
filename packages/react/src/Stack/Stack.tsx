@@ -82,28 +82,28 @@ const StyledStack = styled.div`
     align-items: baseline;
   }
 
-  &[data-spread='start'],
-  &[data-spread-narrow='start'] {
+  &[data-justify='start'],
+  &[data-justify-narrow='start'] {
     justify-content: flex-start;
   }
 
-  &[data-spread='center'],
-  &[data-spread-narrow='center'] {
+  &[data-justify='center'],
+  &[data-justify-narrow='center'] {
     justify-content: center;
   }
 
-  &[data-spread='end'],
-  &[data-spread-narrow='end'] {
+  &[data-justify='end'],
+  &[data-justify-narrow='end'] {
     justify-content: flex-end;
   }
 
-  &[data-spread='space-between'],
-  &[data-spread-narrow='space-between'] {
+  &[data-justify='space-between'],
+  &[data-justify-narrow='space-between'] {
     justify-content: space-between;
   }
 
-  &[data-spread='space-evenly'],
-  &[data-spread-narrow='space-evenly'] {
+  &[data-justify='space-evenly'],
+  &[data-justify-narrow='space-evenly'] {
     justify-content: space-evenly;
   }
 
@@ -175,23 +175,23 @@ const StyledStack = styled.div`
       align-items: baseline;
     }
 
-    &[data-spread-regular='start'] {
+    &[data-justify-regular='start'] {
       justify-content: flex-start;
     }
 
-    &[data-spread-regular='center'] {
+    &[data-justify-regular='center'] {
       justify-content: center;
     }
 
-    &[data-spread-regular='end'] {
+    &[data-justify-regular='end'] {
       justify-content: flex-end;
     }
 
-    &[data-spread-regular='space-between'] {
+    &[data-justify-regular='space-between'] {
       justify-content: space-between;
     }
 
-    &[data-spread-regular='space-evenly'] {
+    &[data-justify-regular='space-evenly'] {
       justify-content: space-evenly;
     }
 
@@ -262,23 +262,23 @@ const StyledStack = styled.div`
       align-items: baseline;
     }
 
-    &[data-spread-wide='start'] {
+    &[data-justify-wide='start'] {
       justify-content: flex-start;
     }
 
-    &[data-spread-wide='center'] {
+    &[data-justify-wide='center'] {
       justify-content: center;
     }
 
-    &[data-spread-wide='end'] {
+    &[data-justify-wide='end'] {
       justify-content: flex-end;
     }
 
-    &[data-spread-wide='space-between'] {
+    &[data-justify-wide='space-between'] {
       justify-content: space-between;
     }
 
-    &[data-spread-wide='space-evenly'] {
+    &[data-justify-wide='space-evenly'] {
       justify-content: space-evenly;
     }
   }
