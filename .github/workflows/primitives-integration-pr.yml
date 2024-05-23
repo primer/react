@@ -89,7 +89,7 @@ jobs:
             const package = pkg.dependencies['@primer/primitives']
 
             const specifiedVersion = '0.0.0-20240515005243'
-
+            console.log('Current version of @primer/primitives - ', package)
             if(package != specifiedVersion) {
               pkg.dependencies[@primer/primitives'] = specifiedVersion
               fs.writeFileSync('./packages/react/package.json', JSON.stringify(pkg, null, 2))
