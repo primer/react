@@ -1,10 +1,10 @@
 {
   "id": "actionbar",
   "name": "ActionBar",
-  "status": "draft",
-  "a11yReviewed": false,
+  "status": "alpha",
+  "a11yReviewed": true,
   "stories": [],
-  "importPath": "@primer/react/experimental",
+  "importPath": "@primer/react",
   "props": [
     {
       "name": "size",
