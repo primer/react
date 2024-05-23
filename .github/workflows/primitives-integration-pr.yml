@@ -88,7 +88,7 @@ jobs:
             const pkg = require('./packages/react/package.json')
             const package = pkg.dependencies['@primer/primitives']
 
-            const specifiedVersion = '${{ github.event.inputs.version }}'
+            const specifiedVersion = '0.0.0-20240515005243'
 
             if(package != specifiedVersion) {
               pkg.dependencies[@primer/primitives'] = specifiedVersion
@@ -97,7 +97,7 @@ jobs:
             return pkg.dependencies['@primer/primitives']
 
       - name: Install dependencies
-        run: npm install --ignore-scripts
+        run: npm ci
 
       # Create a new PR with the specified canary version
       - name: Create PR
