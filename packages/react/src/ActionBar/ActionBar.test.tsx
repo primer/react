@@ -1,5 +1,5 @@
 import React from 'react'
-import {behavesAsComponent} from '../../utils/testing'
+import {behavesAsComponent} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
 
