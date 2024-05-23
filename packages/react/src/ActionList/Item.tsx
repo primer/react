@@ -78,7 +78,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const {container, afterSelect, selectionAttribute, defaultTrailingVisual} =
       React.useContext(ActionListContainerContext)
 
-    const buttonSemantics = useFeatureFlag('primer_action_list_item_as_button')
+    const buttonSemantics = useFeatureFlag('primer_react_action_list_item_as_button')
 
     // Be sure to avoid rendering the container unless there is a default
     const wrappedDefaultTrailingVisual = defaultTrailingVisual ? (
