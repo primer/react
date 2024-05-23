@@ -2,16 +2,19 @@ name: Integration tests for Primitives in Primer React
 run-name: Integration tests for ${{github.event.inputs.primitives-pr}} and version ${{github.event.inputs.version}}
 
 on:
-  workflow_dispatch:
-    inputs:
-      primitives-pr:
-        required: true
-        description: 'Paste the link of the PR you would like to test (This could be release Pr as well)'
-        type: string
-      version:
-        required: true
-        description: 'Specify the canary version of the above PR you would like to test'
-        type: string
+  push:
+    branches:
+      - primitives-integration-pr
+#   workflow_dispatch:
+#     inputs:
+#       primitives-pr:
+#         required: true
+#         description: 'Paste the link of the PR you would like to test (This could be release Pr as well)'
+#         type: string
+#       version:
+#         required: true
+#         description: 'Specify the canary version of the above PR you would like to test'
+#         type: string
 
 permissions:
   contents: write
