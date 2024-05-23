@@ -62,9 +62,8 @@ jobs:
         with:
           app-id: 902635
           private-key: ${{ secrets.PRIMER_INTEGRATION_APP_PRIVATE_KEY }}
-        env:
-          OWNER: 'primer'
-          REPO: 'react'
+          owner: 'primer'
+          repositories: 'react'
       - name: Get the PR number from the given PR URL
         id: get-pr-number
         uses: actions/github-script@v6
