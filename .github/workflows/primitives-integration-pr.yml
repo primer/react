@@ -79,22 +79,23 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-      - name: Update @primer/primitives version on package.json with the specified version number
-        id: primitives-version
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const fs = require('fs')
-            const pkg = require('./packages/react/package.json')
-            const package = pkg.dependencies['@primer/primitives']
+      - run: npm i @primer/primitives@0.0.0-20240515005243
+      #   - name: Update @primer/primitives version on package.json with the specified version number
+      #     id: primitives-version
+      #     uses: actions/github-script@v6
+      #     with:
+      #       script: |
+      #         const fs = require('fs')
+      #         const pkg = require('./packages/react/package.json')
+      #         const package = pkg.dependencies['@primer/primitives']
 
-            const specifiedVersion = '0.0.0-20240515005243'
-            console.log('Current version of @primer/primitives - ', package)
-            if(package != specifiedVersion) {
-              pkg.dependencies[@primer/primitives'] = specifiedVersion
-              fs.writeFileSync('./packages/react/package.json', JSON.stringify(pkg, null, 2))
-            }
-            return pkg.dependencies['@primer/primitives']
+      #         const specifiedVersion = '0.0.0-20240515005243'
+      #         console.log('Current version of @primer/primitives - ', package)
+      #         if(package != specifiedVersion) {
+      #           pkg.dependencies[@primer/primitives'] = specifiedVersion
+      #           fs.writeFileSync('./packages/react/package.json', JSON.stringify(pkg, null, 2))
+      #         }
+      #         return pkg.dependencies['@primer/primitives']
 
       - name: Install dependencies
         run: npm ci
