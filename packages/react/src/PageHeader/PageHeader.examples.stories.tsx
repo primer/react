@@ -385,3 +385,49 @@ export const WithPageLayout = () => {
 FilesPageOnNarrowViewport.parameters = setViewportParamToNarrow
 
 export default meta
+
+export const CSDotcom = () => (
+  <PageHeader sx={{mb: 3}}>
+    <PageHeader.ContextArea hidden={false}>
+      <PageHeader.ContextBar hidden={false}>
+        <Breadcrumbs>
+          <Breadcrumbs.Item href="#" onClick={() => {}}>
+            Xxxxxx xxxxxxx
+          </Breadcrumbs.Item>
+          <Breadcrumbs.Item selected>Page Title</Breadcrumbs.Item>
+        </Breadcrumbs>
+      </PageHeader.ContextBar>
+    </PageHeader.ContextArea>
+
+    <PageHeader.TitleArea sx={{pb: 2, borderBottom: 'solid 1px', borderColor: 'border.muted'}}>
+      <PageHeader.Title>Page Title</PageHeader.Title>
+    </PageHeader.TitleArea>
+  </PageHeader>
+)
+
+export const CSDotcom1 = () => (
+  <Box sx={{display: 'flex', flexDirection: 'column', rowGap: 2}}>
+    <PageHeader>
+      <PageHeader.Title>
+        <Box sx={{display: 'flex', gap: 2}}>
+          <Link href="#">Xxxxxx xxxxxx</Link> <Text>/</Text>
+          <Text>Name</Text>
+        </Box>
+      </PageHeader.Title>
+    </PageHeader>
+
+    <p>Xxxxxxx</p>
+    <p>Xxxxxxx</p>
+    <p>Xxxxxxx</p>
+    <p>Xxxxxxx</p>
+
+    <Box>
+      <p>Xxxxxxx</p>
+      <Box sx={{display: 'flex', flexDirection: 'column', ml: 2}}>
+        <p>Xxxxxxx</p>
+        <p>Xxxxxxx</p>
+        <p>Xxxxxxx</p>
+      </Box>
+    </Box>
+  </Box>
+)
