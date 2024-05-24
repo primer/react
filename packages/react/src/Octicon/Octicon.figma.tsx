@@ -1,6 +1,3 @@
-// TODO: remove once this PR is merged: https://github.com/primer/octicons/pull/1023
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import React from 'react'
 import figma from '@figma/code-connect'
 import {
@@ -12,7 +9,6 @@ import {
   PackageDependentsIcon,
   DiffRenamedIcon,
   HourglassIcon,
-  ColumnsIcon,
   MoveToStartIcon,
   TabIcon,
   GitPullRequestIcon,
@@ -22,25 +18,21 @@ import {
   LogoGithubIcon,
   FileMediaIcon,
   ChevronRightIcon,
-  ChevronDownIcon,
   FiscalHostIcon,
   DiffRemovedIcon,
-  ThreeBarsIcon,
   FileMovedIcon,
   MoveToBottomIcon,
   XIcon,
-  PencilIcon,
-  PaperclipIcon,
   PaperAirplaneIcon,
   HashIcon,
   UndoIcon,
   UnlinkIcon,
   EllipsisIcon,
   VideoIcon,
+  KebabHorizontalIcon,
   ArrowBothIcon,
   ServerIcon,
   StopIcon,
-  ClockFillIcon,
   SquareFillIcon,
   SmileyIcon,
   CreditCardIcon,
@@ -48,27 +40,26 @@ import {
   HeartIcon,
   ListOrderedIcon,
   ItalicIcon,
-  CheckCircleFillIcon,
   CircleIcon,
   CodeOfConductIcon,
   BellFillIcon,
   TelescopeIcon,
-  RepoLockedIcon,
   ArrowUpIcon,
   CircleXIcon,
   QuestionIcon,
-  LinkExternalIcon,
+  ScreenFullIcon,
   ShieldCheckIcon,
   ArrowLeftIcon,
+  SyncIcon,
   VersionsIcon,
   IdBadgeIcon,
   IterationsIcon,
   AlertFillIcon,
+  RowsIcon,
   GitMergeIcon,
   DownloadIcon,
   FileIcon,
   SlidersIcon,
-  CopilotIcon,
   RocketIcon,
   ChevronLeftIcon,
   HomeFillIcon,
@@ -77,10 +68,11 @@ import {
   StarFillIcon,
   RedoIcon,
   FileRemovedIcon,
+  ChevronDownIcon,
   SidebarCollapseIcon,
   SkipFillIcon,
   ZapIcon,
-  BellIcon,
+  SearchIcon,
   MarkGithubIcon,
   PeopleIcon,
   HeadingIcon,
@@ -96,16 +88,16 @@ import {
   DuplicateIcon,
   FoldUpIcon,
   GitCommitIcon,
+  BellIcon,
   FileCodeIcon,
-  GlobeIcon,
   BookmarkSlashIcon,
   BellSlashIcon,
   MegaphoneIcon,
-  CircleCheckIcon,
   CommandPaletteIcon,
   TriangleRightIcon,
   ProjectRoadmapIcon,
   NumberIcon,
+  PaperclipIcon,
   TriangleUpIcon,
   ChevronUpIcon,
   FileSubmoduleIcon,
@@ -114,7 +106,6 @@ import {
   CodescanIcon,
   WorkflowIcon,
   CommentIcon,
-  BookmarkIcon,
   ArrowRightIcon,
   SunIcon,
   DiffModifiedIcon,
@@ -122,13 +113,11 @@ import {
   ContainerIcon,
   EyeIcon,
   CloudOfflineIcon,
-  ClockIcon,
   UnlockIcon,
   ShieldXIcon,
   CrossReferenceIcon,
   BookmarkFillIcon,
   ThumbsdownIcon,
-  PinIcon,
   DeviceMobileIcon,
   BookmarkSlashFillIcon,
   DesktopDownloadIcon,
@@ -140,13 +129,13 @@ import {
   SortAscIcon,
   BrowserIcon,
   SidebarExpandIcon,
+  ColumnsIcon,
   SquirrelIcon,
   MoveToTopIcon,
   UnverifiedIcon,
   PersonIcon,
   LogIcon,
   TypographyIcon,
-  ScreenFullIcon,
   FeedMergedIcon,
   DeviceCameraVideoIcon,
   BoldIcon,
@@ -156,7 +145,6 @@ import {
   NorthStarIcon,
   HistoryIcon,
   FoldIcon,
-  SearchIcon,
   MentionIcon,
   DotIcon,
   LockIcon,
@@ -179,12 +167,11 @@ import {
   SkipIcon,
   FileZipIcon,
   GitPullRequestClosedIcon,
-  GraphIcon,
+  RepoLockedIcon,
   CircleSlashIcon,
   FileAddedIcon,
   ReplyIcon,
   InboxIcon,
-  CalendarIcon,
   PlugIcon,
   StrikethroughIcon,
   UnfoldIcon,
@@ -194,7 +181,6 @@ import {
   RepoDeleteIcon,
   GiftIcon,
   DatabaseIcon,
-  RowsIcon,
   SingleSelectIcon,
   FeedRocketIcon,
   WebhookIcon,
@@ -216,104 +202,115 @@ import {
   BeakerIcon,
   FeedDiscussionIcon,
   NoEntryIcon,
-  CopyIcon,
   ShareIcon,
-  SyncIcon,
+  CopyIcon,
   LogoGistIcon,
   UnreadIcon,
   TasklistIcon,
-  AppsIcon,
   FeedHeartIcon,
-  BookIcon,
   IssueReopenedIcon,
   GitMergeQueueIcon,
   FeedPersonIcon,
   FeedRepoIcon,
   IssueDraftIcon,
   MoonIcon,
-  DashIcon,
   AccessibilityIcon,
-  CodeSquareIcon,
+  AppsIcon,
   LinkIcon,
   PlayIcon,
   RepoForkedIcon,
-  ShieldIcon,
   TerminalIcon,
-  BlockedIcon,
   DiffIgnoredIcon,
+  BlockedIcon,
   CodescanCheckmarkIcon,
   InfoIcon,
   GitPullRequestDraftIcon,
-  HomeIcon,
   RepoTemplateIcon,
   SignInIcon,
   FeedStarIcon,
   DeviceDesktopIcon,
   BugIcon,
-  DiffIcon,
+  LinkExternalIcon,
   GitCompareIcon,
   FeedTagIcon,
   FeedForkedIcon,
   BriefcaseIcon,
-  KebabHorizontalIcon,
-  MilestoneIcon,
   KeyIcon,
   MailIcon,
   FeedTrophyIcon,
   PersonAddIcon,
-  PackageIcon,
   RepoDeletedIcon,
   MeterIcon,
   StopwatchIcon,
   ProjectSymlinkIcon,
-  GearIcon,
   TelescopeFillIcon,
   UploadIcon,
   CircleXFillIcon,
   TableIcon,
   StarIcon,
   AlertIcon,
-  PlusIcon,
-  CheckIcon,
   TagIcon,
+  GearIcon,
   ImageIcon,
-  LightBulbIcon,
+  ClockIcon,
+  BookIcon,
   ProjectIcon,
+  GraphIcon,
+  CalendarIcon,
+  GlobeIcon,
+  ClockFillIcon,
   CheckboxIcon,
   RepoIcon,
-  EyeClosedIcon,
+  ThreeBarsIcon,
   VerifiedIcon,
   ReadIcon,
   FileDirectoryIcon,
   CodeIcon,
+  HomeIcon,
   CodespacesIcon,
+  BookmarkIcon,
+  MilestoneIcon,
   DeviceCameraIcon,
-  IssueOpenedIcon,
   ChecklistIcon,
+  PencilIcon,
   CheckCircleIcon,
+  PinIcon,
   CommentDiscussionIcon,
   TrophyIcon,
   LawIcon,
   ThumbsupIcon,
   HeartFillIcon,
   FileBadgeIcon,
-  DotFillIcon,
-  TriangleDownIcon,
+  PackageIcon,
   IssueClosedIcon,
   OrganizationIcon,
   FileDirectoryFillIcon,
+  CheckIcon,
   CircleCheckFillIcon,
   StackIcon,
+  DashIcon,
+  LightBulbIcon,
   CopilotErrorIcon,
   IssueTracksIcon,
   IssueTrackedByIcon,
   CopilotWarningIcon,
+  EyeClosedIcon,
   ListUnorderedIcon,
+  DiffIcon,
   FlameIcon,
-  PasteIcon,
   FileSymlinkFileIcon,
+  PasteIcon,
+  IssueOpenedIcon,
+  CodeSquareIcon,
+  ShieldIcon,
   PlusCircleIcon,
+  CircleCheckIcon,
+  DotFillIcon,
+  PlusIcon,
+  TriangleDownIcon,
   CirclePlusIcon,
+  CheckCircleFillIcon,
+  CopilotIcon,
 } from '@primer/octicons-react'
 figma.connect(InfinityIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-890', {
   example: () => <InfinityIcon size={24} />,
@@ -338,9 +335,6 @@ figma.connect(DiffRenamedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?n
 })
 figma.connect(HourglassIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-922', {
   example: () => <HourglassIcon size={24} />,
-})
-figma.connect(ColumnsIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2062-9', {
-  example: () => <ColumnsIcon size={16} />,
 })
 figma.connect(MoveToStartIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4549-156', {
   example: () => <MoveToStartIcon size={24} />,
@@ -369,9 +363,6 @@ figma.connect(FileMediaIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?nod
 figma.connect(ChevronRightIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-290', {
   example: () => <ChevronRightIcon size={16} />,
 })
-figma.connect(ChevronDownIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-294', {
-  example: () => <ChevronDownIcon size={16} />,
-})
 figma.connect(FiscalHostIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5456-399', {
   example: () => <FiscalHostIcon size={24} />,
 })
@@ -380,9 +371,6 @@ figma.connect(DiffRemovedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?n
 })
 figma.connect(DiffRenamedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5478-545', {
   example: () => <DiffRenamedIcon size={24} />,
-})
-figma.connect(ThreeBarsIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5451-237', {
-  example: () => <ThreeBarsIcon size={24} />,
 })
 figma.connect(FileMovedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5458-470', {
   example: () => <FileMovedIcon size={24} />,
@@ -393,14 +381,8 @@ figma.connect(MoveToBottomIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?
 figma.connect(XIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-915', {
   example: () => <XIcon size={24} />,
 })
-figma.connect(PencilIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-118', {
-  example: () => <PencilIcon size={16} />,
-})
 figma.connect(DiffRemovedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-250', {
   example: () => <DiffRemovedIcon size={16} />,
-})
-figma.connect(PaperclipIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3751-104', {
-  example: () => <PaperclipIcon size={16} />,
 })
 figma.connect(PaperAirplaneIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-120', {
   example: () => <PaperAirplaneIcon size={16} />,
@@ -420,6 +402,9 @@ figma.connect(EllipsisIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node
 figma.connect(VideoIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1737-12', {
   example: () => <VideoIcon size={24} />,
 })
+figma.connect(KebabHorizontalIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-162', {
+  example: () => <KebabHorizontalIcon size={16} />,
+})
 figma.connect(ArrowBothIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-329', {
   example: () => <ArrowBothIcon size={16} />,
 })
@@ -428,9 +413,6 @@ figma.connect(ServerIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-i
 })
 figma.connect(StopIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-921', {
   example: () => <StopIcon size={24} />,
-})
-figma.connect(ClockFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4119-124', {
-  example: () => <ClockFillIcon size={24} />,
 })
 figma.connect(SquareFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=949-43', {
   example: () => <SquareFillIcon size={16} />,
@@ -453,9 +435,6 @@ figma.connect(ListOrderedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?n
 figma.connect(ItalicIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-166', {
   example: () => <ItalicIcon size={16} />,
 })
-figma.connect(CheckCircleFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-298', {
-  example: () => <CheckCircleFillIcon size={16} />,
-})
 figma.connect(CircleIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=964-32', {
   example: () => <CircleIcon size={16} />,
 })
@@ -468,9 +447,6 @@ figma.connect(BellFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node
 figma.connect(TelescopeIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1003', {
   example: () => <TelescopeIcon size={24} />,
 })
-figma.connect(RepoLockedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3161-219', {
-  example: () => <RepoLockedIcon size={16} />,
-})
 figma.connect(ArrowUpIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-321', {
   example: () => <ArrowUpIcon size={16} />,
 })
@@ -480,14 +456,17 @@ figma.connect(CircleXIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-
 figma.connect(QuestionIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-970', {
   example: () => <QuestionIcon size={24} />,
 })
-figma.connect(LinkExternalIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-152', {
-  example: () => <LinkExternalIcon size={16} />,
+figma.connect(ScreenFullIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-78', {
+  example: () => <ScreenFullIcon size={16} />,
 })
 figma.connect(ShieldCheckIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-64', {
   example: () => <ShieldCheckIcon size={16} />,
 })
 figma.connect(ArrowLeftIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-914', {
   example: () => <ArrowLeftIcon size={24} />,
+})
+figma.connect(SyncIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-46', {
+  example: () => <SyncIcon size={16} />,
 })
 figma.connect(VersionsIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-4', {
   example: () => <VersionsIcon size={16} />,
@@ -500,6 +479,9 @@ figma.connect(IterationsIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?no
 })
 figma.connect(AlertFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3971-108', {
   example: () => <AlertFillIcon size={24} />,
+})
+figma.connect(RowsIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2062-8', {
+  example: () => <RowsIcon size={16} />,
 })
 figma.connect(GitMergeIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-877', {
   example: () => <GitMergeIcon size={24} />,
@@ -515,9 +497,6 @@ figma.connect(FileIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=
 })
 figma.connect(SlidersIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3456-103', {
   example: () => <SlidersIcon size={16} />,
-})
-figma.connect(CopilotIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3567-115', {
-  example: () => <CopilotIcon size={24} />,
 })
 figma.connect(RocketIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-900', {
   example: () => <RocketIcon size={24} />,
@@ -543,6 +522,9 @@ figma.connect(RedoIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=
 figma.connect(FileRemovedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3480-123', {
   example: () => <FileRemovedIcon size={16} />,
 })
+figma.connect(ChevronDownIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-294', {
+  example: () => <ChevronDownIcon size={16} />,
+})
 figma.connect(SidebarCollapseIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3757-124', {
   example: () => <SidebarCollapseIcon size={24} />,
 })
@@ -552,8 +534,8 @@ figma.connect(SkipFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node
 figma.connect(ZapIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=966-35', {
   example: () => <ZapIcon size={16} />,
 })
-figma.connect(BellIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-316', {
-  example: () => <BellIcon size={16} />,
+figma.connect(SearchIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-74', {
+  example: () => <SearchIcon size={16} />,
 })
 figma.connect(MarkGithubIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-947', {
   example: () => <MarkGithubIcon size={24} />,
@@ -615,9 +597,6 @@ figma.connect(BellIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=
 figma.connect(FileCodeIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-873', {
   example: () => <FileCodeIcon size={24} />,
 })
-figma.connect(GlobeIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1021', {
-  example: () => <GlobeIcon size={24} />,
-})
 figma.connect(BookmarkSlashIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1027', {
   example: () => <BookmarkSlashIcon size={24} />,
 })
@@ -626,9 +605,6 @@ figma.connect(BellSlashIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?nod
 })
 figma.connect(MegaphoneIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-979', {
   example: () => <MegaphoneIcon size={24} />,
-})
-figma.connect(CircleCheckIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1005', {
-  example: () => <CircleCheckIcon size={24} />,
 })
 figma.connect(PaperAirplaneIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-937', {
   example: () => <PaperAirplaneIcon size={24} />,
@@ -687,9 +663,6 @@ figma.connect(WorkflowIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node
 figma.connect(CommentIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-948', {
   example: () => <CommentIcon size={24} />,
 })
-figma.connect(BookmarkIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-973', {
-  example: () => <BookmarkIcon size={24} />,
-})
 figma.connect(ArrowRightIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-918', {
   example: () => <ArrowRightIcon size={24} />,
 })
@@ -720,9 +693,6 @@ figma.connect(EyeIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1
 figma.connect(CloudOfflineIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3148-217', {
   example: () => <CloudOfflineIcon size={24} />,
 })
-figma.connect(ClockIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1022', {
-  example: () => <ClockIcon size={24} />,
-})
 figma.connect(UnlockIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-980', {
   example: () => <UnlockIcon size={24} />,
 })
@@ -737,9 +707,6 @@ figma.connect(BookmarkFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?
 })
 figma.connect(ThumbsdownIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-998', {
   example: () => <ThumbsdownIcon size={24} />,
-})
-figma.connect(PinIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4986-124', {
-  example: () => <PinIcon size={24} />,
 })
 figma.connect(HashIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1767-15', {
   example: () => <HashIcon size={24} />,
@@ -834,9 +801,6 @@ figma.connect(FoldIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=
 figma.connect(PivotColumnIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5153-110', {
   example: () => <PivotColumnIcon size={24} />,
 })
-figma.connect(SearchIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-955', {
-  example: () => <SearchIcon size={24} />,
-})
 figma.connect(MentionIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-930', {
   example: () => <MentionIcon size={24} />,
 })
@@ -915,9 +879,6 @@ figma.connect(GitPullRequestClosedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5
 figma.connect(RepoLockedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3217-224', {
   example: () => <RepoLockedIcon size={24} />,
 })
-figma.connect(GraphIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-875', {
-  example: () => <GraphIcon size={24} />,
-})
 figma.connect(CircleSlashIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1031', {
   example: () => <CircleSlashIcon size={24} />,
 })
@@ -929,9 +890,6 @@ figma.connect(ReplyIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id
 })
 figma.connect(InboxIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1032', {
   example: () => <InboxIcon size={24} />,
-})
-figma.connect(CalendarIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-869', {
-  example: () => <CalendarIcon size={24} />,
 })
 figma.connect(PlugIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-972', {
   example: () => <PlugIcon size={24} />,
@@ -960,9 +918,6 @@ figma.connect(GiftIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=
 figma.connect(DatabaseIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-264', {
   example: () => <DatabaseIcon size={16} />,
 })
-figma.connect(RowsIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2062-8', {
-  example: () => <RowsIcon size={16} />,
-})
 figma.connect(SquareFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=949-83', {
   example: () => <SquareFillIcon size={24} />,
 })
@@ -978,20 +933,11 @@ figma.connect(FeedRocketIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?no
 figma.connect(WebhookIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2975-235', {
   example: () => <WebhookIcon size={16} />,
 })
-figma.connect(LogoGithubIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=181-78', {
-  example: () => <LogoGithubIcon size={16} />,
-})
-figma.connect(GrabberIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-196', {
-  example: () => <GrabberIcon size={16} />,
-})
 figma.connect(SortDescIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2117-83', {
   example: () => <SortDescIcon size={24} />,
 })
 figma.connect(HeadingIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-192', {
   example: () => <HeadingIcon size={16} />,
-})
-figma.connect(StarFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-52', {
-  example: () => <StarFillIcon size={16} />,
 })
 figma.connect(ArrowDownRightIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=246-90', {
   example: () => <ArrowDownRightIcon size={16} />,
@@ -1007,9 +953,6 @@ figma.connect(ChevronUpIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?nod
 })
 figma.connect(SponsorTiersIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4297-130', {
   example: () => <SponsorTiersIcon size={24} />,
-})
-figma.connect(ScreenFullIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-78', {
-  example: () => <ScreenFullIcon size={16} />,
 })
 figma.connect(KeyAsteriskIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5452-370', {
   example: () => <KeyAsteriskIcon size={24} />,
@@ -1092,23 +1035,17 @@ figma.connect(NoEntryIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-
 figma.connect(UnverifiedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-10', {
   example: () => <UnverifiedIcon size={16} />,
 })
-figma.connect(GitPullRequestIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-200', {
-  example: () => <GitPullRequestIcon size={16} />,
+figma.connect(ShareIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1117-74', {
+  example: () => <ShareIcon size={24} />,
 })
 figma.connect(CopyIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1923-82', {
   example: () => <CopyIcon size={16} />,
-})
-figma.connect(ShareIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1117-74', {
-  example: () => <ShareIcon size={24} />,
 })
 figma.connect(CopyIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1923-94', {
   example: () => <CopyIcon size={24} />,
 })
 figma.connect(DiamondIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2061-0', {
   example: () => <DiamondIcon size={16} />,
-})
-figma.connect(SyncIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-46', {
-  example: () => <SyncIcon size={16} />,
 })
 figma.connect(LogoGistIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5452-340', {
   example: () => <LogoGistIcon size={24} />,
@@ -1134,17 +1071,11 @@ figma.connect(CodeOfConductIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/
 figma.connect(UnlinkIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4297-118', {
   example: () => <UnlinkIcon size={24} />,
 })
-figma.connect(CrossReferenceIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-266', {
-  example: () => <CrossReferenceIcon size={16} />,
-})
 figma.connect(UnreadIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4297-112', {
   example: () => <UnreadIcon size={24} />,
 })
 figma.connect(ShieldSlashIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4715-108', {
   example: () => <ShieldSlashIcon size={24} />,
-})
-figma.connect(AppsIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2976-223', {
-  example: () => <AppsIcon size={16} />,
 })
 figma.connect(PackageDependenciesIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-931', {
   example: () => <PackageDependenciesIcon size={24} />,
@@ -1155,14 +1086,8 @@ figma.connect(InfinityIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node
 figma.connect(CodescanIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1944-23', {
   example: () => <CodescanIcon size={16} />,
 })
-figma.connect(SparkleFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4525-109', {
-  example: () => <SparkleFillIcon size={16} />,
-})
 figma.connect(FeedHeartIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2772-553', {
   example: () => <FeedHeartIcon size={16} />,
-})
-figma.connect(BookIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-983', {
-  example: () => <BookIcon size={24} />,
 })
 figma.connect(SortAscIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2117-80', {
   example: () => <SortAscIcon size={16} />,
@@ -1176,9 +1101,6 @@ figma.connect(IssueReopenedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/
 figma.connect(GitMergeQueueIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3751-103', {
   example: () => <GitMergeQueueIcon size={16} />,
 })
-figma.connect(MarkGithubIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-140', {
-  example: () => <MarkGithubIcon size={16} />,
-})
 figma.connect(FeedPersonIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2772-551', {
   example: () => <FeedPersonIcon size={16} />,
 })
@@ -1191,9 +1113,6 @@ figma.connect(PersonFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?no
 figma.connect(FeedRepoIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2772-554', {
   example: () => <FeedRepoIcon size={16} />,
 })
-figma.connect(HubotIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-182', {
-  example: () => <HubotIcon size={16} />,
-})
 figma.connect(IssueDraftIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2246-22', {
   example: () => <IssueDraftIcon size={24} />,
 })
@@ -1202,9 +1121,6 @@ figma.connect(ArrowDownLeftIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/
 })
 figma.connect(MoonIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=858-2', {
   example: () => <MoonIcon size={16} />,
-})
-figma.connect(DashIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-992', {
-  example: () => <DashIcon size={24} />,
 })
 figma.connect(MoonIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=857-27', {
   example: () => <MoonIcon size={24} />,
@@ -1226,9 +1142,6 @@ figma.connect(AppsIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=
 })
 figma.connect(CloudOfflineIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3148-214', {
   example: () => <CloudOfflineIcon size={16} />,
-})
-figma.connect(CodeSquareIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-276', {
-  example: () => <CodeSquareIcon size={16} />,
 })
 figma.connect(LinkIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-902', {
   example: () => <LinkIcon size={24} />,
@@ -1254,20 +1167,17 @@ figma.connect(FileBinaryIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?no
 figma.connect(SkipIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-58', {
   example: () => <SkipIcon size={16} />,
 })
-figma.connect(ShieldIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-66', {
-  example: () => <ShieldIcon size={16} />,
-})
 figma.connect(TerminalIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-906', {
   example: () => <TerminalIcon size={24} />,
-})
-figma.connect(BlockedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1923-78', {
-  example: () => <BlockedIcon size={16} />,
 })
 figma.connect(DiffIgnoredIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5478-547', {
   example: () => <DiffIgnoredIcon size={24} />,
 })
 figma.connect(TriangleUpIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-20', {
   example: () => <TriangleUpIcon size={16} />,
+})
+figma.connect(BlockedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1923-78', {
+  example: () => <BlockedIcon size={16} />,
 })
 figma.connect(BoldIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-312', {
   example: () => <BoldIcon size={16} />,
@@ -1281,29 +1191,20 @@ figma.connect(InfoIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=
 figma.connect(GitPullRequestDraftIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2059-89', {
   example: () => <GitPullRequestDraftIcon size={16} />,
 })
-figma.connect(HomeIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-964', {
-  example: () => <HomeIcon size={24} />,
-})
 figma.connect(PackageDependentsIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-122', {
   example: () => <PackageDependentsIcon size={16} />,
 })
 figma.connect(RepoTemplateIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-86', {
   example: () => <RepoTemplateIcon size={16} />,
 })
-figma.connect(MentionIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-138', {
-  example: () => <MentionIcon size={16} />,
-})
 figma.connect(SignInIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=72-2045', {
   example: () => <SignInIcon size={16} />,
 })
-figma.connect(ZapIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=966-29', {
-  example: () => <ZapIcon size={24} />,
+figma.connect(ScreenNormalIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-76', {
+  example: () => <ScreenNormalIcon size={16} />,
 })
 figma.connect(CodeReviewIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-278', {
   example: () => <CodeReviewIcon size={16} />,
-})
-figma.connect(ScreenNormalIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-76', {
-  example: () => <ScreenNormalIcon size={16} />,
 })
 figma.connect(FeedStarIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2772-552', {
   example: () => <FeedStarIcon size={16} />,
@@ -1317,17 +1218,14 @@ figma.connect(SkipFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node
 figma.connect(EyeIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-238', {
   example: () => <EyeIcon size={16} />,
 })
+figma.connect(IssueDraftIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2246-19', {
+  example: () => <IssueDraftIcon size={16} />,
+})
 figma.connect(RowsIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2062-6', {
   example: () => <RowsIcon size={24} />,
 })
 figma.connect(BugIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2314-132', {
   example: () => <BugIcon size={16} />,
-})
-figma.connect(IssueDraftIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2246-19', {
-  example: () => <IssueDraftIcon size={16} />,
-})
-figma.connect(DiffIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-84', {
-  example: () => <DiffIcon size={16} />,
 })
 figma.connect(LinkExternalIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1016', {
   example: () => <LinkExternalIcon size={24} />,
@@ -1343,9 +1241,6 @@ figma.connect(LogoGistIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node
 })
 figma.connect(GitCompareIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-204', {
   example: () => <GitCompareIcon size={16} />,
-})
-figma.connect(FoldUpIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-214', {
-  example: () => <FoldUpIcon size={16} />,
 })
 figma.connect(ReportIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=949-76', {
   example: () => <ReportIcon size={24} />,
@@ -1380,9 +1275,6 @@ figma.connect(BriefcaseIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?nod
 figma.connect(KebabHorizontalIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1046', {
   example: () => <KebabHorizontalIcon size={24} />,
 })
-figma.connect(MilestoneIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-904', {
-  example: () => <MilestoneIcon size={24} />,
-})
 figma.connect(KeyIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1044', {
   example: () => <KeyIcon size={24} />,
 })
@@ -1410,9 +1302,6 @@ figma.connect(DiffIgnoredIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?n
 figma.connect(FileMovedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3480-122', {
   example: () => <FileMovedIcon size={16} />,
 })
-figma.connect(PackageIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-126', {
-  example: () => <PackageIcon size={16} />,
-})
 figma.connect(RepoDeletedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2975-243', {
   example: () => <RepoDeletedIcon size={16} />,
 })
@@ -1427,9 +1316,6 @@ figma.connect(CodescanCheckmarkIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw0
 })
 figma.connect(ProjectSymlinkIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4119-122', {
   example: () => <ProjectSymlinkIcon size={24} />,
-})
-figma.connect(GearIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1036', {
-  example: () => <GearIcon size={24} />,
 })
 figma.connect(TelescopeFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2558-74', {
   example: () => <TelescopeFillIcon size={24} />,
@@ -1449,8 +1335,8 @@ figma.connect(PinSlashIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node
 figma.connect(SidebarCollapseIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3757-108', {
   example: () => <SidebarCollapseIcon size={16} />,
 })
-figma.connect(ArrowUpRightIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=246-91', {
-  example: () => <ArrowUpRightIcon size={16} />,
+figma.connect(MentionIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-138', {
+  example: () => <MentionIcon size={16} />,
 })
 figma.connect(CacheIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5480-568', {
   example: () => <CacheIcon size={24} />,
@@ -1461,14 +1347,14 @@ figma.connect(CircleXFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?n
 figma.connect(TriangleRightIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-22', {
   example: () => <TriangleRightIcon size={16} />,
 })
+figma.connect(HubotIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-182', {
+  example: () => <HubotIcon size={16} />,
+})
 figma.connect(TableIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1914-7', {
   example: () => <TableIcon size={16} />,
 })
 figma.connect(HomeFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5448-177', {
   example: () => <HomeFillIcon size={16} />,
-})
-figma.connect(PlayIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-110', {
-  example: () => <PlayIcon size={16} />,
 })
 figma.connect(StarIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-54', {
   example: () => <StarIcon size={16} />,
@@ -1479,12 +1365,6 @@ figma.connect(AlertFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?nod
 figma.connect(AlertIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-333', {
   example: () => <AlertIcon size={16} />,
 })
-figma.connect(PlusIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-106', {
-  example: () => <PlusIcon size={16} />,
-})
-figma.connect(CheckIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-300', {
-  example: () => <CheckIcon size={16} />,
-})
 figma.connect(HeartIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-981', {
   example: () => <HeartIcon size={24} />,
 })
@@ -1493,9 +1373,6 @@ figma.connect(PersonAddIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?nod
 })
 figma.connect(HistoryIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-186', {
   example: () => <HistoryIcon size={16} />,
-})
-figma.connect(KebabHorizontalIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-162', {
-  example: () => <KebabHorizontalIcon size={16} />,
 })
 figma.connect(MailIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-142', {
   example: () => <MailIcon size={16} />,
@@ -1509,23 +1386,14 @@ figma.connect(TelescopeIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?nod
 figma.connect(LocationIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-146', {
   example: () => <LocationIcon size={16} />,
 })
-figma.connect(GoalIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4238-106', {
-  example: () => <GoalIcon size={16} />,
-})
 figma.connect(BrowserIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1917-85', {
   example: () => <BrowserIcon size={16} />,
-})
-figma.connect(StopwatchIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-48', {
-  example: () => <StopwatchIcon size={16} />,
 })
 figma.connect(SponsorTiersIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4297-126', {
   example: () => <SponsorTiersIcon size={16} />,
 })
 figma.connect(DeviceCameraVideoIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-262', {
   example: () => <DeviceCameraVideoIcon size={16} />,
-})
-figma.connect(InboxIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-178', {
-  example: () => <InboxIcon size={16} />,
 })
 figma.connect(PaintbrushIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=949-41', {
   example: () => <PaintbrushIcon size={16} />,
@@ -1563,9 +1431,6 @@ figma.connect(TagIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1
 figma.connect(IdBadgeIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2975-233', {
   example: () => <IdBadgeIcon size={16} />,
 })
-figma.connect(ProjectRoadmapIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4119-127', {
-  example: () => <ProjectRoadmapIcon size={16} />,
-})
 figma.connect(GearIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-212', {
   example: () => <GearIcon size={16} />,
 })
@@ -1589,9 +1454,6 @@ figma.connect(ImageIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id
 })
 figma.connect(ClockIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-282', {
   example: () => <ClockIcon size={16} />,
-})
-figma.connect(LightBulbIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-156', {
-  example: () => <LightBulbIcon size={16} />,
 })
 figma.connect(BookIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-310', {
   example: () => <BookIcon size={16} />,
@@ -1662,14 +1524,8 @@ figma.connect(CheckboxIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node
 figma.connect(CheckboxIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3752-130', {
   example: () => <CheckboxIcon size={24} />,
 })
-figma.connect(XIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4834-124', {
-  example: () => <XIcon size={16} />,
-})
 figma.connect(ShareIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-70', {
   example: () => <ShareIcon size={16} />,
-})
-figma.connect(ArrowLeftIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-325', {
-  example: () => <ArrowLeftIcon size={16} />,
 })
 figma.connect(RepoIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-867', {
   example: () => <RepoIcon size={24} />,
@@ -1695,14 +1551,8 @@ figma.connect(AlertFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?nod
 figma.connect(GitPullRequestDraftIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2059-95', {
   example: () => <GitPullRequestDraftIcon size={24} />,
 })
-figma.connect(GitPullRequestClosedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2059-88', {
-  example: () => <GitPullRequestClosedIcon size={16} />,
-})
 figma.connect(ThreeBarsIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-36', {
   example: () => <ThreeBarsIcon size={16} />,
-})
-figma.connect(EyeClosedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-236', {
-  example: () => <EyeClosedIcon size={16} />,
 })
 figma.connect(FileAddedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3480-124', {
   example: () => <FileAddedIcon size={16} />,
@@ -1740,14 +1590,8 @@ figma.connect(PeopleIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-i
 figma.connect(GitBranchIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-208', {
   example: () => <GitBranchIcon size={16} />,
 })
-figma.connect(RepoPushIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-88', {
-  example: () => <RepoPushIcon size={16} />,
-})
 figma.connect(HomeIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-184', {
   example: () => <HomeIcon size={16} />,
-})
-figma.connect(CodeIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-280', {
-  example: () => <CodeIcon size={16} />,
 })
 figma.connect(NoteIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-130', {
   example: () => <NoteIcon size={16} />,
@@ -1757,9 +1601,6 @@ figma.connect(ShieldLockIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?no
 })
 figma.connect(CodespacesIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1946-77', {
   example: () => <CodespacesIcon size={16} />,
-})
-figma.connect(TerminalIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-38', {
-  example: () => <TerminalIcon size={16} />,
 })
 figma.connect(VerifiedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-6', {
   example: () => <VerifiedIcon size={16} />,
@@ -1779,9 +1620,6 @@ figma.connect(MilestoneIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?nod
 figma.connect(DeviceCameraIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5479-552', {
   example: () => <DeviceCameraIcon size={16} />,
 })
-figma.connect(IssueOpenedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-170', {
-  example: () => <IssueOpenedIcon size={16} />,
-})
 figma.connect(ChecklistIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-296', {
   example: () => <ChecklistIcon size={16} />,
 })
@@ -1797,9 +1635,6 @@ figma.connect(QuestionIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node
 figma.connect(CheckCircleIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=29-0', {
   example: () => <CheckCircleIcon size={16} />,
 })
-figma.connect(ArrowRightIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-323', {
-  example: () => <ArrowRightIcon size={16} />,
-})
 figma.connect(StarIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-982', {
   example: () => <StarIcon size={24} />,
 })
@@ -1808,9 +1643,6 @@ figma.connect(PinIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4
 })
 figma.connect(CommentDiscussionIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-272', {
   example: () => <CommentDiscussionIcon size={16} />,
-})
-figma.connect(XIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-0', {
-  example: () => <XIcon size={16} />,
 })
 figma.connect(LockIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-144', {
   example: () => <LockIcon size={16} />,
@@ -1845,9 +1677,6 @@ figma.connect(FileZipIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-
 figma.connect(LogIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2975-234', {
   example: () => <LogIcon size={16} />,
 })
-figma.connect(SearchIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-74', {
-  example: () => <SearchIcon size={16} />,
-})
 figma.connect(LawIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-929', {
   example: () => <LawIcon size={24} />,
 })
@@ -1862,9 +1691,6 @@ figma.connect(StrikethroughIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/
 })
 figma.connect(ThumbsupIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-969', {
   example: () => <ThumbsupIcon size={24} />,
-})
-figma.connect(ThumbsdownIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-34', {
-  example: () => <ThumbsdownIcon size={16} />,
 })
 figma.connect(BellFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2562-75', {
   example: () => <BellFillIcon size={16} />,
@@ -1884,14 +1710,20 @@ figma.connect(CommentDiscussionIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw0
 figma.connect(FileBadgeIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5460-483', {
   example: () => <FileBadgeIcon size={24} />,
 })
+figma.connect(PencilIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-118', {
+  example: () => <PencilIcon size={16} />,
+})
 figma.connect(MarkdownIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=23-72', {
   example: () => <MarkdownIcon size={16} />,
 })
-figma.connect(DotFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-244', {
-  example: () => <DotFillIcon size={16} />,
+figma.connect(FoldIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-218', {
+  example: () => <FoldIcon size={16} />,
 })
-figma.connect(ChevronUpIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-288', {
-  example: () => <ChevronUpIcon size={16} />,
+figma.connect(PackageIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-126', {
+  example: () => <PackageIcon size={16} />,
+})
+figma.connect(MarkGithubIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-140', {
+  example: () => <MarkGithubIcon size={16} />,
 })
 figma.connect(DeviceCameraIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5479-559', {
   example: () => <DeviceCameraIcon size={24} />,
@@ -1902,9 +1734,6 @@ figma.connect(FileDirectoryOpenFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq
 figma.connect(RelFilePathIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4223-105', {
   example: () => <RelFilePathIcon size={16} />,
 })
-figma.connect(TriangleDownIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-26', {
-  example: () => <TriangleDownIcon size={16} />,
-})
 figma.connect(IssueClosedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-172', {
   example: () => <IssueClosedIcon size={16} />,
 })
@@ -1913,9 +1742,6 @@ figma.connect(DuplicateIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?nod
 })
 figma.connect(FileCodeIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=32-99', {
   example: () => <FileCodeIcon size={16} />,
-})
-figma.connect(FilterIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-222', {
-  example: () => <FilterIcon size={16} />,
 })
 figma.connect(ChevronRightIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-924', {
   example: () => <ChevronRightIcon size={24} />,
@@ -1953,23 +1779,26 @@ figma.connect(NoEntryIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-
 figma.connect(CircleSlashIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-286', {
   example: () => <CircleSlashIcon size={16} />,
 })
+figma.connect(ProjectRoadmapIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4119-127', {
+  example: () => <ProjectRoadmapIcon size={16} />,
+})
+figma.connect(GoalIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4238-106', {
+  example: () => <GoalIcon size={16} />,
+})
 figma.connect(OrganizationIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-865', {
   example: () => <OrganizationIcon size={24} />,
 })
+figma.connect(CircleXFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=964-34', {
+  example: () => <CircleXFillIcon size={16} />,
+})
 figma.connect(CircleCheckFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-975', {
   example: () => <CircleCheckFillIcon size={24} />,
-})
-figma.connect(SyncIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-949', {
-  example: () => <SyncIcon size={24} />,
 })
 figma.connect(StackIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2500-98', {
   example: () => <StackIcon size={24} />,
 })
 figma.connect(DashIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=186-7', {
   example: () => <DashIcon size={16} />,
-})
-figma.connect(CopilotIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4977-111', {
-  example: () => <CopilotIcon size={16} />,
 })
 figma.connect(IssueClosedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-956', {
   example: () => <IssueClosedIcon size={24} />,
@@ -2022,9 +1851,6 @@ figma.connect(DiffIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=
 figma.connect(FlameIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1050', {
   example: () => <FlameIcon size={24} />,
 })
-figma.connect(PasteIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-284', {
-  example: () => <PasteIcon size={16} />,
-})
 figma.connect(FileSymlinkFileIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-872', {
   example: () => <FileSymlinkFileIcon size={24} />,
 })
@@ -2039,12 +1865,6 @@ figma.connect(FlameIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id
 })
 figma.connect(TableIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1914-4', {
   example: () => <TableIcon size={24} />,
-})
-figma.connect(CircleXFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=964-34', {
-  example: () => <CircleXFillIcon size={16} />,
-})
-figma.connect(DotFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-935', {
-  example: () => <DotFillIcon size={24} />,
 })
 figma.connect(FileSymlinkFileIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-226', {
   example: () => <FileSymlinkFileIcon size={16} />,
@@ -2067,9 +1887,6 @@ figma.connect(IssueOpenedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?n
 figma.connect(DatabaseIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1029', {
   example: () => <DatabaseIcon size={24} />,
 })
-figma.connect(DiffModifiedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-252', {
-  example: () => <DiffModifiedIcon size={16} />,
-})
 figma.connect(HeartFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-188', {
   example: () => <HeartFillIcon size={16} />,
 })
@@ -2079,20 +1896,50 @@ figma.connect(CodeSquareIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?no
 figma.connect(PackageIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-934', {
   example: () => <PackageIcon size={24} />,
 })
+figma.connect(ShieldIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-66', {
+  example: () => <ShieldIcon size={16} />,
+})
 figma.connect(UnfoldIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-16', {
   example: () => <UnfoldIcon size={16} />,
 })
 figma.connect(PlusCircleIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-104', {
   example: () => <PlusCircleIcon size={16} />,
 })
-figma.connect(FoldIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-218', {
-  example: () => <FoldIcon size={16} />,
-})
 figma.connect(StackIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2500-91', {
   example: () => <StackIcon size={16} />,
 })
+figma.connect(DashIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-992', {
+  example: () => <DashIcon size={24} />,
+})
+figma.connect(ThreeBarsIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5451-237', {
+  example: () => <ThreeBarsIcon size={24} />,
+})
+figma.connect(BookmarkIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-973', {
+  example: () => <BookmarkIcon size={24} />,
+})
+figma.connect(CircleCheckIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1005', {
+  example: () => <CircleCheckIcon size={24} />,
+})
+figma.connect(BookIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-983', {
+  example: () => <BookIcon size={24} />,
+})
+figma.connect(GearIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1036', {
+  example: () => <GearIcon size={24} />,
+})
+figma.connect(DotFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-935', {
+  example: () => <DotFillIcon size={24} />,
+})
+figma.connect(DotFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-244', {
+  example: () => <DotFillIcon size={16} />,
+})
 figma.connect(FoldDownIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-216', {
   example: () => <FoldDownIcon size={16} />,
+})
+figma.connect(RepoPushIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-88', {
+  example: () => <RepoPushIcon size={16} />,
+})
+figma.connect(PlayIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-110', {
+  example: () => <PlayIcon size={16} />,
 })
 figma.connect(CodespacesIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1946-76', {
   example: () => <CodespacesIcon size={24} />,
@@ -2103,15 +1950,165 @@ figma.connect(PlusIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=
 figma.connect(TriangleDownIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-886', {
   example: () => <TriangleDownIcon size={24} />,
 })
-figma.connect(UploadIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4549-152', {
-  example: () => <UploadIcon size={16} />,
-})
 figma.connect(ShieldIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1026', {
   example: () => <ShieldIcon size={24} />,
+})
+figma.connect(GlobeIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1021', {
+  example: () => <GlobeIcon size={24} />,
 })
 figma.connect(CirclePlusIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1004', {
   example: () => <CirclePlusIcon size={24} />,
 })
 figma.connect(FileSubmoduleIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-228', {
   example: () => <FileSubmoduleIcon size={16} />,
+})
+figma.connect(MilestoneIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-904', {
+  example: () => <MilestoneIcon size={24} />,
+})
+figma.connect(PinIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4986-124', {
+  example: () => <PinIcon size={24} />,
+})
+figma.connect(HomeIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-964', {
+  example: () => <HomeIcon size={24} />,
+})
+figma.connect(ZapIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=966-29', {
+  example: () => <ZapIcon size={24} />,
+})
+figma.connect(SearchIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-955', {
+  example: () => <SearchIcon size={24} />,
+})
+figma.connect(GraphIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-875', {
+  example: () => <GraphIcon size={24} />,
+})
+figma.connect(StarFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-52', {
+  example: () => <StarFillIcon size={16} />,
+})
+figma.connect(GrabberIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-196', {
+  example: () => <GrabberIcon size={16} />,
+})
+figma.connect(FoldUpIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-214', {
+  example: () => <FoldUpIcon size={16} />,
+})
+figma.connect(RepoLockedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3161-219', {
+  example: () => <RepoLockedIcon size={16} />,
+})
+figma.connect(CrossReferenceIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-266', {
+  example: () => <CrossReferenceIcon size={16} />,
+})
+figma.connect(LinkExternalIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-152', {
+  example: () => <LinkExternalIcon size={16} />,
+})
+figma.connect(ArrowRightIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-323', {
+  example: () => <ArrowRightIcon size={16} />,
+})
+figma.connect(LogoGithubIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=181-78', {
+  example: () => <LogoGithubIcon size={16} />,
+})
+figma.connect(TerminalIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-38', {
+  example: () => <TerminalIcon size={16} />,
+})
+figma.connect(SparkleFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4525-109', {
+  example: () => <SparkleFillIcon size={16} />,
+})
+figma.connect(CheckCircleFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-298', {
+  example: () => <CheckCircleFillIcon size={16} />,
+})
+figma.connect(EyeClosedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-236', {
+  example: () => <EyeClosedIcon size={16} />,
+})
+figma.connect(CalendarIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-869', {
+  example: () => <CalendarIcon size={24} />,
+})
+figma.connect(CodeSquareIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-276', {
+  example: () => <CodeSquareIcon size={16} />,
+})
+figma.connect(DiffIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-84', {
+  example: () => <DiffIcon size={16} />,
+})
+figma.connect(DiffModifiedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-252', {
+  example: () => <DiffModifiedIcon size={16} />,
+})
+figma.connect(ChevronUpIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-288', {
+  example: () => <ChevronUpIcon size={16} />,
+})
+figma.connect(CopilotIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3567-115', {
+  example: () => <CopilotIcon size={24} />,
+})
+figma.connect(CopilotIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4977-111', {
+  example: () => <CopilotIcon size={16} />,
+})
+figma.connect(TriangleDownIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-26', {
+  example: () => <TriangleDownIcon size={16} />,
+})
+figma.connect(ColumnsIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2062-9', {
+  example: () => <ColumnsIcon size={16} />,
+})
+figma.connect(ArrowUpRightIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=246-91', {
+  example: () => <ArrowUpRightIcon size={16} />,
+})
+figma.connect(LightBulbIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-156', {
+  example: () => <LightBulbIcon size={16} />,
+})
+figma.connect(ClockFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4119-124', {
+  example: () => <ClockFillIcon size={24} />,
+})
+figma.connect(ClockIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1022', {
+  example: () => <ClockIcon size={24} />,
+})
+figma.connect(CheckIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-300', {
+  example: () => <CheckIcon size={16} />,
+})
+figma.connect(SyncIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-949', {
+  example: () => <SyncIcon size={24} />,
+})
+figma.connect(UploadIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4549-152', {
+  example: () => <UploadIcon size={16} />,
+})
+figma.connect(PasteIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-284', {
+  example: () => <PasteIcon size={16} />,
+})
+figma.connect(FilterIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-222', {
+  example: () => <FilterIcon size={16} />,
+})
+figma.connect(PlusIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-106', {
+  example: () => <PlusIcon size={16} />,
+})
+figma.connect(AppsIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2976-223', {
+  example: () => <AppsIcon size={16} />,
+})
+figma.connect(BellIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-316', {
+  example: () => <BellIcon size={16} />,
+})
+figma.connect(InboxIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-178', {
+  example: () => <InboxIcon size={16} />,
+})
+figma.connect(PaperclipIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=3751-104', {
+  example: () => <PaperclipIcon size={16} />,
+})
+figma.connect(ArrowLeftIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-325', {
+  example: () => <ArrowLeftIcon size={16} />,
+})
+figma.connect(XIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=4834-124', {
+  example: () => <XIcon size={12} />,
+})
+figma.connect(XIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-0', {
+  example: () => <XIcon size={16} />,
+})
+figma.connect(StopwatchIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-48', {
+  example: () => <StopwatchIcon size={16} />,
+})
+figma.connect(GitPullRequestIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-200', {
+  example: () => <GitPullRequestIcon size={16} />,
+})
+figma.connect(GitPullRequestClosedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2059-88', {
+  example: () => <GitPullRequestClosedIcon size={16} />,
+})
+figma.connect(ThumbsdownIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-34', {
+  example: () => <ThumbsdownIcon size={16} />,
+})
+figma.connect(CodeIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-280', {
+  example: () => <CodeIcon size={16} />,
+})
+figma.connect(IssueOpenedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-170', {
+  example: () => <IssueOpenedIcon size={16} />,
 })

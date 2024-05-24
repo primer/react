@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import {figma} from '@figma/code-connect'
 import {ButtonComponent as Button} from './Button'
 import React from 'react'
@@ -42,11 +44,7 @@ figma.connect(
         inactive={inactive}
         alignContent={alignContent}
         variant={variant}
-        // @ts-expect-error the Figma Connect API does not support ElementType
-        // so we have a Element here
         leadingVisual={leadingVisual}
-        // @ts-expect-error the Figma Connect API does not support ElementType
-        // so we have a Element here
         trailingVisual={trailingVisual}
       ></Button>
     ),
