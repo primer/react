@@ -33,10 +33,10 @@ const DialogBase = styled.div<StyledDialogBaseProps>`
   outline: none;
 
   @media screen and (max-width: 750px) {
-    width: 100vw;
+    width: 100dvw;
     margin: 0;
     border-radius: 0;
-    height: 100vh;
+    height: 100dvh;
   }
 
   ${sx};

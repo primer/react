@@ -1,5 +1,49 @@
 # @primer/react
 
+## 36.19.0
+
+### Minor Changes
+
+- [#4546](https://github.com/primer/react/pull/4546) [`c81898c93664d224d7a18722cd1abcdcf2d1a510`](https://github.com/primer/react/commit/c81898c93664d224d7a18722cd1abcdcf2d1a510) Thanks [@ayy-bc](https://github.com/ayy-bc)! - TreeView: Add support for `TreeView.LeadingAction`
+
+- [#4574](https://github.com/primer/react/pull/4574) [`9c01a930b97218ea550cd7de3436941990b3b068`](https://github.com/primer/react/commit/9c01a930b97218ea550cd7de3436941990b3b068) Thanks [@pksjce](https://github.com/pksjce)! - ActionBar: Move to main directory. ActionBar can now be imported from `'@primer/react'`
+
+### Patch Changes
+
+- [#4593](https://github.com/primer/react/pull/4593) [`d4e234f52bf63e632d41fe947801d2c16da0b61f`](https://github.com/primer/react/commit/d4e234f52bf63e632d41fe947801d2c16da0b61f) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Update NavList to use the new ActionList.GroupHeading API and Add an "as" prop to specify the heading level as default h3. (No changes expected in the rendered HTML)
+
+- [#4591](https://github.com/primer/react/pull/4591) [`6cce7b749d8502fc851ad8a432a04acff21dec14`](https://github.com/primer/react/commit/6cce7b749d8502fc851ad8a432a04acff21dec14) Thanks [@joshblack](https://github.com/joshblack)! - Update the Stack component so that the `justify` prop correctly updates the layout of items
+
+- [#4572](https://github.com/primer/react/pull/4572) [`ac2502975057dc0330e19fdd2d446f43d77eed92`](https://github.com/primer/react/commit/ac2502975057dc0330e19fdd2d446f43d77eed92) Thanks [@iansan5653](https://github.com/iansan5653)! - TreeView: Always align expand/collapse chevron icon, leading visual, and trailing visual to top of item
+
+- [#4596](https://github.com/primer/react/pull/4596) [`4fa4fae099c425bab58c6f5c3c98b10bbca16012`](https://github.com/primer/react/commit/4fa4fae099c425bab58c6f5c3c98b10bbca16012) Thanks [@keithamus](https://github.com/keithamus)! - Update @github/tab-container-element to latest
+
+## 36.18.0
+
+### Minor Changes
+
+- [#4539](https://github.com/primer/react/pull/4539) [`f0de234b42f10a68d660823f54d94371db282fb6`](https://github.com/primer/react/commit/f0de234b42f10a68d660823f54d94371db282fb6) Thanks [@joshblack](https://github.com/joshblack)! - Update Banner to use an explicit aria-label instead of being labelled by Banner title
+
+- [#4554](https://github.com/primer/react/pull/4554) [`ed31476f040dda41f00c2c7f4324120afb20cc18`](https://github.com/primer/react/commit/ed31476f040dda41f00c2c7f4324120afb20cc18) Thanks [@joshblack](https://github.com/joshblack)! - Broaden feature flag type for experimental FeatureFlags to accept undefined
+
+- [#4513](https://github.com/primer/react/pull/4513) [`02a2a2bf0b02e0c2f9a09351eefbe91f9370e210`](https://github.com/primer/react/commit/02a2a2bf0b02e0c2f9a09351eefbe91f9370e210) Thanks [@owenniblock](https://github.com/owenniblock)! - Exports createComponent
+
+- [#4486](https://github.com/primer/react/pull/4486) [`447a1fd1d37e4f61f38345babab954540b58e53b`](https://github.com/primer/react/commit/447a1fd1d37e4f61f38345babab954540b58e53b) Thanks [@iansan5653](https://github.com/iansan5653)! - Adds support for nested submenus to `ActionMenu`
+
+### Patch Changes
+
+- [#4575](https://github.com/primer/react/pull/4575) [`4ecbe1a8997b2cd509b7a97803c33916f3cb4aed`](https://github.com/primer/react/commit/4ecbe1a8997b2cd509b7a97803c33916f3cb4aed) Thanks [@joshblack](https://github.com/joshblack)! - Update minimum version for @primer/live-region-element
+
+- [#4536](https://github.com/primer/react/pull/4536) [`024124a11fc17813de05cae861a5e32596060f8b`](https://github.com/primer/react/commit/024124a11fc17813de05cae861a5e32596060f8b) Thanks [@pksjce](https://github.com/pksjce)! - ActionBar: Add a few fixes and relevant tests
+
+- [#4548](https://github.com/primer/react/pull/4548) [`95cd867ab43e8c2179569ea6e61ad71a6c386256`](https://github.com/primer/react/commit/95cd867ab43e8c2179569ea6e61ad71a6c386256) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - TreeView: Fix toggling subtree via Space key (in addition to Enter key)
+
+- [#4566](https://github.com/primer/react/pull/4566) [`4dd6bef7513e6ae32aa236410f2fbf1eb72a5eb9`](https://github.com/primer/react/commit/4dd6bef7513e6ae32aa236410f2fbf1eb72a5eb9) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionList: Fix leaky description styles for disabled item
+
+- [#4567](https://github.com/primer/react/pull/4567) [`e39fcf8dc9e7447c5f04124f408f550f73659dc1`](https://github.com/primer/react/commit/e39fcf8dc9e7447c5f04124f408f550f73659dc1) Thanks [@dgreif](https://github.com/dgreif)! - Dialog: Use dynamic view height/width. This allows available visible space to be properly computed on iOS devices.
+
+- [#4556](https://github.com/primer/react/pull/4556) [`9a567275be423ab8d5fe15edcf06996c2e21217d`](https://github.com/primer/react/commit/9a567275be423ab8d5fe15edcf06996c2e21217d) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - BranchName: Fixing text color when rendered as span
+
 ## 36.17.0
 
 ### Minor Changes
