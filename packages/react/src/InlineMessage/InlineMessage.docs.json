@@ -3,6 +3,7 @@
   "name": "InlineMessage",
   "status": "alpha",
   "a11yReviewed": false,
+  "importPath": "@primer/react/experimental",
   "stories": [
     {
       "id": "drafts-components-inlinemessage-features--critical"
