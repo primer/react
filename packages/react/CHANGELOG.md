@@ -1,5 +1,19 @@
 # @primer/react
 
+## 36.19.1
+
+### Patch Changes
+
+- [#4555](https://github.com/primer/react/pull/4555) [`9b63299689500808167bacff624ff910269417b1`](https://github.com/primer/react/commit/9b63299689500808167bacff624ff910269417b1) Thanks [@JoyceZhu](https://github.com/JoyceZhu)! - Add `openInFocus` prop (default: true) to `AutocompleteInput`
+
+- [#4601](https://github.com/primer/react/pull/4601) [`f57dd3d687042069c5e5712aa906e59df9f8729e`](https://github.com/primer/react/commit/f57dd3d687042069c5e5712aa906e59df9f8729e) Thanks [@bwittenberg](https://github.com/bwittenberg)! - SelectPanel2: Minor optimization for escape key event listener binding
+
+- [#4589](https://github.com/primer/react/pull/4589) [`ed701bee8b6c1a9fb9b91462034f8fe04b0244ad`](https://github.com/primer/react/commit/ed701bee8b6c1a9fb9b91462034f8fe04b0244ad) Thanks [@joshblack](https://github.com/joshblack)! - Update how gap is set in Stack to work in wide breakpoints
+
+- [#4598](https://github.com/primer/react/pull/4598) [`32c687041a600e8b54ffaf9b3ab77f9215a37e3e`](https://github.com/primer/react/commit/32c687041a600e8b54ffaf9b3ab77f9215a37e3e) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Replaced space-small with base-size-6
+
+- [#4543](https://github.com/primer/react/pull/4543) [`e47445df6c389fef2aacc72449c02ff471e4cb68`](https://github.com/primer/react/commit/e47445df6c389fef2aacc72449c02ff471e4cb68) Thanks [@TylerJDev](https://github.com/TylerJDev)! - FormControl: Adds new props to `FormControl.Label`, `requiredText` and `requiredIndicator`
+
 ## 36.19.0
 
 ### Minor Changes
