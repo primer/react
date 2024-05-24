@@ -28,7 +28,7 @@ export const Playground: StoryObj<typeof InlineMessage> = {
       controls: {
         type: 'radio',
       },
-      options: ['info', 'warning', 'critical', 'success', 'unavailable'],
+      options: ['critical', 'success', 'unavailable', 'warning'],
     },
   },
 }

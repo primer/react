@@ -9,10 +9,6 @@ const meta = {
 
 export default meta
 
-export const Warning = () => {
-  return <InlineMessage variant="warning">An example inline message</InlineMessage>
-}
-
 export const Critical = () => {
   return <InlineMessage variant="critical">An example inline message</InlineMessage>
 }
@@ -23,4 +19,8 @@ export const Success = () => {
 
 export const Unavailable = () => {
   return <InlineMessage variant="unavailable">An example inline message</InlineMessage>
+}
+
+export const Warning = () => {
+  return <InlineMessage variant="warning">An example inline message</InlineMessage>
 }

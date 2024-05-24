@@ -20,7 +20,7 @@ export async function visit(page: Page, options: Options) {
   if (args) {
     const serialized = Object.entries(args)
       .map(([key, value]) => `${key}:${value}`)
-      .join(',')
+      .join(';')
     url.searchParams.set('args', serialized)
   }
 

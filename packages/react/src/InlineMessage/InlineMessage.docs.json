@@ -8,9 +8,6 @@
       "id": "drafts-components-inlinemessage-features--critical"
     },
     {
-      "id": "drafts-components-inlinemessage-features--info"
-    },
-    {
       "id": "drafts-components-inlinemessage-features--success"
     },
     {
@@ -31,9 +28,8 @@
     {
       "name": "variant",
       "description": "Specify the type of the inline message",
-      "type": "'info' | 'warning' | 'critical' | 'success' | 'unvailable'",
-      "defaultValue": "'info'",
-      "required": false
+      "type": "'critical' | 'success' | 'unvailable' | 'warning'",
+      "required": true
     }
   ]
 }
