@@ -1,5 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-nocheck
 import {figma} from '@figma/code-connect'
 import {ButtonComponent as Button} from './Button'
 import React from 'react'
@@ -18,11 +16,10 @@ const componentProps = {
   }),
   variant: figma.enum('variant', {
     primary: 'primary',
-    secondary: 'secondary',
+    secondary: 'default',
     danger: 'danger',
     invisible: 'invisible',
   }),
-  // leadingVisual: figma.instance('leadingVisual'),
   leadingVisual: figma.boolean('leadingVisual?', {
     true: figma.instance('leadingVisual'),
     false: undefined,
@@ -33,39 +30,25 @@ const componentProps = {
   }),
 }
 
-// figma.connect(
-//   Button,
-//   'https://www.figma.com/file/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?type=design&node-id=30258%3A5582&mode=design&t=TVF2yeiff0ZtzQll-1',
-//   {
-//     props: componentProps,
-//     example: ({size, disabled, inactive, alignContent, variant}) => (
-//       <Button
-//         size={size}
-//         disabled={disabled}
-//         inactive={inactive}
-//         alignContent={alignContent}
-//         variant={variant}
-//       ></Button>
-//     ),
-//   },
-// )
-
 figma.connect(
   Button,
   'https://www.figma.com/file/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?type=design&node-id=30258%3A5582&mode=design&t=TVF2yeiff0ZtzQll-1',
   {
     props: componentProps,
-    example: ({size, disabled, inactive, leadingVisual, trailingVisual, alignContent, variant}) => (
+    example: ({size, disabled, inactive, alignContent, leadingVisual, variant}) => (
       <Button
         size={size}
         disabled={disabled}
         inactive={inactive}
-        leadingVisual={leadingVisual}
-        trailingVisual={trailingVisual}
         alignContent={alignContent}
         variant={variant}
+        // @ts-expect-error the Figma Connect API does not a support ElementType
+        // so we have a Element here
+        leadingVisual={leadingVisual}
+        // @ts-expect-error the Figma Connect API does not a support ElementType
+        // so we have a Element here
+        trailingVisual={trailingVisual}
       ></Button>
     ),
-    // variant: {'leadingVisual?': true},
   },
 )
