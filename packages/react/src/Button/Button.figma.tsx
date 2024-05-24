@@ -42,10 +42,10 @@ figma.connect(
         inactive={inactive}
         alignContent={alignContent}
         variant={variant}
-        // @ts-expect-error the Figma Connect API does not a support ElementType
+        // @ts-expect-error the Figma Connect API does not support ElementType
         // so we have a Element here
         leadingVisual={leadingVisual}
-        // @ts-expect-error the Figma Connect API does not a support ElementType
+        // @ts-expect-error the Figma Connect API does not support ElementType
         // so we have a Element here
         trailingVisual={trailingVisual}
       ></Button>
