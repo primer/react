@@ -153,7 +153,7 @@ export const Multiline = () => {
 
 export const DismissBanner = () => {
   const ref = React.useRef<React.ElementRef<'h2'>>(null)
-  const [banner, setBanner] = React.useState({
+  const [banner, setBanner] = React.useState<React.ComponentPropsWithoutRef<typeof Banner> | null>({
     title: 'Info',
     description: (
       <>
