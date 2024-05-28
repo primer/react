@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-Add custom aria label to TreeView.Item
+Add an ability to provide custom `aria-label` and `aria-labelledby` to `TreeView.Item`
