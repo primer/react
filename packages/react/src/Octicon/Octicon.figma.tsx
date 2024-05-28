@@ -28,6 +28,7 @@ import {
   PaperAirplaneIcon,
   HashIcon,
   UndoIcon,
+  CheckCircleFillIcon,
   UnlinkIcon,
   EllipsisIcon,
   VideoIcon,
@@ -47,7 +48,6 @@ import {
   BellFillIcon,
   TelescopeIcon,
   ArrowUpIcon,
-  CircleXIcon,
   QuestionIcon,
   ScreenFullIcon,
   ShieldCheckIcon,
@@ -180,7 +180,6 @@ import {
   TriangleLeftIcon,
   MultiSelectIcon,
   RssIcon,
-  RepoDeleteIcon,
   GiftIcon,
   DatabaseIcon,
   SingleSelectIcon,
@@ -247,7 +246,7 @@ import {
   ProjectSymlinkIcon,
   TelescopeFillIcon,
   UploadIcon,
-  CircleXFillIcon,
+  XCircleFillIcon,
   TableIcon,
   StarIcon,
   AlertIcon,
@@ -288,7 +287,6 @@ import {
   OrganizationIcon,
   FileDirectoryFillIcon,
   CheckIcon,
-  CircleCheckFillIcon,
   StackIcon,
   DashIcon,
   LightBulbIcon,
@@ -306,13 +304,11 @@ import {
   CodeSquareIcon,
   ShieldIcon,
   PlusCircleIcon,
-  CircleCheckIcon,
   DotFillIcon,
   PlusIcon,
   TriangleDownIcon,
-  CirclePlusIcon,
-  CheckCircleFillIcon,
   CopilotIcon,
+  XCircleIcon,
 } from '@primer/octicons-react'
 figma.connect(InfinityIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-890', {
   example: () => <InfinityIcon size={24} />,
@@ -498,8 +494,8 @@ figma.connect(ArrowUpIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-
   example: () => <ArrowUpIcon size={16} />,
 })
 
-figma.connect(CircleXIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=964-28', {
-  example: () => <CircleXIcon size={16} />,
+figma.connect(XCircleIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=964-28', {
+  example: () => <XCircleIcon size={16} />,
 })
 
 figma.connect(QuestionIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-970', {
@@ -1110,8 +1106,8 @@ figma.connect(RssIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=1
   example: () => <RssIcon size={24} />,
 })
 
-figma.connect(RepoDeleteIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5452-315', {
-  example: () => <RepoDeleteIcon size={24} />,
+figma.connect(RepoDeletedIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=5452-315', {
+  example: () => <RepoDeletedIcon size={24} />,
 })
 
 figma.connect(GiftIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1025', {
@@ -1686,8 +1682,8 @@ figma.connect(CacheIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id
   example: () => <CacheIcon size={24} />,
 })
 
-figma.connect(CircleXFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-966', {
-  example: () => <CircleXFillIcon size={24} />,
+figma.connect(XCircleFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-966', {
+  example: () => <XCircleFillIcon size={24} />,
 })
 
 figma.connect(TriangleRightIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-22', {
@@ -2282,12 +2278,12 @@ figma.connect(OrganizationIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?
   example: () => <OrganizationIcon size={24} />,
 })
 
-figma.connect(CircleXFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=964-34', {
-  example: () => <CircleXFillIcon size={16} />,
+figma.connect(XCircleFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=964-34', {
+  example: () => <XCircleFillIcon size={16} />,
 })
 
-figma.connect(CircleCheckFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-975', {
-  example: () => <CircleCheckFillIcon size={24} />,
+figma.connect(CheckCircleFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-975', {
+  example: () => <CheckCircleFillIcon size={24} />,
 })
 
 figma.connect(StackIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2500-98', {
@@ -2350,8 +2346,8 @@ figma.connect(SingleSelectIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?
   example: () => <SingleSelectIcon size={24} />,
 })
 
-figma.connect(CircleXIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=210-7', {
-  example: () => <CircleXIcon size={24} />,
+figma.connect(XCircleIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=210-7', {
+  example: () => <XCircleIcon size={24} />,
 })
 
 figma.connect(DeviceDesktopIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=32-77', {
@@ -2390,12 +2386,12 @@ figma.connect(FileSymlinkFileIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07J
   example: () => <FileSymlinkFileIcon size={16} />,
 })
 
-figma.connect(CircleXFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2621-76', {
-  example: () => <CircleXFillIcon size={12} />,
+figma.connect(XCircleFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2621-76', {
+  example: () => <XCircleFillIcon size={12} />,
 })
 
-figma.connect(CircleCheckFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2617-90', {
-  example: () => <CircleCheckFillIcon size={12} />,
+figma.connect(CheckCircleFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2617-90', {
+  example: () => <CheckCircleFillIcon size={12} />,
 })
 
 figma.connect(CpuIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-270', {
@@ -2454,8 +2450,8 @@ figma.connect(BookmarkIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node
   example: () => <BookmarkIcon size={24} />,
 })
 
-figma.connect(CircleCheckIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1005', {
-  example: () => <CircleCheckIcon size={24} />,
+figma.connect(CheckCircleIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1005', {
+  example: () => <CheckCircleIcon size={24} />,
 })
 
 figma.connect(BookIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-983', {
@@ -2506,8 +2502,8 @@ figma.connect(GlobeIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id
   example: () => <GlobeIcon size={24} />,
 })
 
-figma.connect(CirclePlusIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1004', {
-  example: () => <CirclePlusIcon size={24} />,
+figma.connect(PlusCircleIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-1004', {
+  example: () => <PlusCircleIcon size={24} />,
 })
 
 figma.connect(FileSubmoduleIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-228', {
