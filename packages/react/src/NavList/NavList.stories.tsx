@@ -224,4 +224,25 @@ export const WithInactiveItems: Story = () => (
   </PageLayout>
 )
 
+export const WithShowMoreItems = () => (
+  <PageLayout>
+    <PageLayout.Pane position="start">
+      <NavList>
+        <NavList.Item defaultItemsVisible={3}>
+          Show more
+          <NavList.ShowMoreItemsNav>
+            <NavList.Item href="#">Item 1</NavList.Item>
+            <NavList.Item href="#">Item 2</NavList.Item>
+            <NavList.Item href="#">Item 3</NavList.Item>
+            <NavList.Item href="#">Item 4</NavList.Item>
+            <NavList.Item href="#">Item 5</NavList.Item>
+            <NavList.Item href="#">Item 6</NavList.Item>
+          </NavList.ShowMoreItemsNav>
+        </NavList.Item>
+      </NavList>
+    </PageLayout.Pane>
+    <PageLayout.Content></PageLayout.Content>
+  </PageLayout>
+)
+
 export default meta

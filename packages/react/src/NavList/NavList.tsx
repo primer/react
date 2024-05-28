@@ -1,4 +1,4 @@
-import {ChevronDownIcon} from '@primer/octicons-react'
+import {ChevronDownIcon, PlusIcon} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import React, {isValidElement} from 'react'
 import styled from 'styled-components'
@@ -45,6 +45,7 @@ Root.displayName = 'NavList'
 
 export type NavListItemProps = {
   children: React.ReactNode
+  defaultItemsVisible?: number
   defaultOpen?: boolean
   href?: string
   'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
@@ -52,16 +53,28 @@ export type NavListItemProps = {
 } & SxProp
 
 const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
-  ({'aria-current': ariaCurrent, children, defaultOpen, sx: sxProp = defaultSxProp, ...props}, ref) => {
+  (
+    {'aria-current': ariaCurrent, children, defaultOpen, defaultItemsVisible, sx: sxProp = defaultSxProp, ...props},
+    ref,
+  ) => {
     const {depth} = React.useContext(SubNavContext)
 
     // Get SubNav from children
     const subNav = React.Children.toArray(children).find(child => isValidElement(child) && child.type === SubNav)
 
-    // Get children without SubNav
-    const childrenWithoutSubNav = React.Children.toArray(children).filter(child =>
-      isValidElement(child) ? child.type !== SubNav : true,
+    // Get ShowMoreItemsNav from children
+    const showMoreItemsNav = React.Children.toArray(children).find(
+      child => isValidElement(child) && child.type === ShowMoreItemsNav,
     )
+
+    // Get children without SubNav and without ShowMoreItemsNav
+    const childrenWithoutSubNavOrShowMoreItemsNav = React.Children.toArray(children).filter(child =>
+      isValidElement(child) ? child.type !== SubNav && child.type !== ShowMoreItemsNav : true,
+    )
+
+    if (!isValidElement(showMoreItemsNav) && defaultItemsVisible)
+      // eslint-disable-next-line no-console
+      console.error('NavList.Item must have a NavList.ShowMoreItemsNav to use defaultItemsVisible.')
 
     if (!isValidElement(subNav) && defaultOpen)
       // eslint-disable-next-line no-console
@@ -71,8 +84,20 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
     if (subNav && isValidElement(subNav)) {
       return (
         <ItemWithSubNav subNav={subNav} depth={depth} defaultOpen={defaultOpen} sx={sxProp}>
-          {childrenWithoutSubNav}
+          {childrenWithoutSubNavOrShowMoreItemsNav}
         </ItemWithSubNav>
+      )
+    }
+
+    if (showMoreItemsNav && isValidElement(showMoreItemsNav)) {
+      return (
+        <ItemWithShowMoreItemsNav
+          showMoreItemsNav={showMoreItemsNav}
+          defaultItemsVisible={defaultItemsVisible}
+          sx={sxProp}
+        >
+          {childrenWithoutSubNavOrShowMoreItemsNav}
+        </ItemWithShowMoreItemsNav>
       )
     }
 
@@ -168,6 +193,71 @@ function ItemWithSubNav({children, subNav, depth, defaultOpen, sx: sxProp = defa
 }
 
 // ----------------------------------------------------------------------------
+// ItemWithShowMoreItemsNav (internal)
+
+type ItemWithShowMoreItemsNavProps = {
+  children: React.ReactNode
+  showMoreItemsNav: React.ReactNode
+  defaultItemsVisible?: number
+} & SxProp
+
+const ItemWithShowMoreItemsNavContext = React.createContext<{
+  buttonId: string
+  showMoreItemsNavId: string
+  itemsCurrentlyVisible: number
+}>({
+  buttonId: '',
+  showMoreItemsNavId: '',
+  itemsCurrentlyVisible: 5,
+})
+
+function ItemWithShowMoreItemsNav({
+  children,
+  showMoreItemsNav,
+  defaultItemsVisible,
+  sx: sxProp = defaultSxProp,
+}: ItemWithShowMoreItemsNavProps) {
+  const showMoreItemsNavRef = React.useRef<HTMLDivElement>(null)
+  const buttonId = useId()
+  const showMoreItemsNavId = useId()
+
+  const [itemsCurrentlyVisible, setItemsCurrentlyVisible] = React.useState((defaultItemsVisible || null) ?? 5)
+
+  // if show more items count is smaller than default items visible
+  // if show more items
+  useIsomorphicLayoutEffect(() => {
+    if (showMoreItemsNavRef.current) {
+      // Check if ShowMoreItemsNav contains current item
+      // valid values: page, step, location, date, time, true and false
+      const currentItem = showMoreItemsNavRef.current.querySelector('[aria-current]:not([aria-current=false])')
+      // Check index of currentItem and if it's more than itemsCurrentlyVisible
+      if (currentItem) {
+        // setItemsCurrentlyVisible()
+      }
+    }
+  }, [showMoreItemsNav, buttonId])
+
+  // const [containsCurrentItem, setContainsCurrentItem] = React.useState(false)
+
+  return (
+    <ItemWithShowMoreItemsNavContext.Provider value={{buttonId, showMoreItemsNavId, itemsCurrentlyVisible}}>
+      <div ref={showMoreItemsNavRef}>{showMoreItemsNav}</div>
+      <ActionList.Item
+        as="button"
+        id={buttonId}
+        onClick={() => setItemsCurrentlyVisible(itemsCurrentlyVisible + 5)}
+        sx={sxProp}
+      >
+        {children}
+        <ActionList.TrailingVisual>
+          <Octicon icon={PlusIcon} />
+        </ActionList.TrailingVisual>
+      </ActionList.Item>
+    </ItemWithShowMoreItemsNavContext.Provider>
+  )
+}
+
+// ----------------------------------------------------------------------------
 // NavList.SubNav
 
 export type NavListSubNavProps = {
@@ -216,6 +306,33 @@ const SubNav = ({children, sx: sxProp = defaultSxProp}: NavListSubNavProps) => {
 }
 
 SubNav.displayName = 'NavList.SubNav'
+
+// ----------------------------------------------------------------------------
+// NavList.ShowMoreItemsNav
+
+export type NavListShowMoreItemsNavProps = {
+  children: React.ReactNode
+} & SxProp
+
+// TODO: ref prop
+// NOTE: SubNav must be a direct child of an Item
+const ShowMoreItemsNav = ({children, sx: sxProp = defaultSxProp}: NavListShowMoreItemsNavProps) => {
+  const {buttonId, showMoreItemsNavId, itemsCurrentlyVisible} = React.useContext(ItemWithShowMoreItemsNavContext)
+
+  const itemsToShow = children?.slice(0, itemsCurrentlyVisible)
+  if (!buttonId || !showMoreItemsNavId) {
+    // eslint-disable-next-line no-console
+    console.error('NavList.ShowMoreItemsNav must be a child of a NavList.Item')
+  }
+
+  return (
+    <Box as="ul" id={showMoreItemsNavId} sx={sxProp}>
+      {itemsToShow}
+    </Box>
+  )
+}
+
+ShowMoreItemsNav.displayName = 'NavList.ShowMoreItemsNav'
 
 // ----------------------------------------------------------------------------
 // NavList.LeadingVisual
@@ -276,6 +393,7 @@ Group.displayName = 'NavList.Group'
 export const NavList = Object.assign(Root, {
   Item,
   SubNav,
+  ShowMoreItemsNav,
   LeadingVisual,
   TrailingVisual,
   Divider,
