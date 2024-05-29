@@ -2,6 +2,8 @@
 
 exports[`@primer/react should not update exports without a semver change 1`] = `
 [
+  "ActionBar",
+  "type ActionBarProps",
   "ActionList",
   "type ActionListDescriptionProps",
   "type ActionListDividerProps",

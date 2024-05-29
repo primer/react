@@ -1,5 +1,37 @@
 # @primer/react
 
+## 36.19.1
+
+### Patch Changes
+
+- [#4555](https://github.com/primer/react/pull/4555) [`9b63299689500808167bacff624ff910269417b1`](https://github.com/primer/react/commit/9b63299689500808167bacff624ff910269417b1) Thanks [@JoyceZhu](https://github.com/JoyceZhu)! - Add `openInFocus` prop (default: true) to `AutocompleteInput`
+
+- [#4601](https://github.com/primer/react/pull/4601) [`f57dd3d687042069c5e5712aa906e59df9f8729e`](https://github.com/primer/react/commit/f57dd3d687042069c5e5712aa906e59df9f8729e) Thanks [@bwittenberg](https://github.com/bwittenberg)! - SelectPanel2: Minor optimization for escape key event listener binding
+
+- [#4589](https://github.com/primer/react/pull/4589) [`ed701bee8b6c1a9fb9b91462034f8fe04b0244ad`](https://github.com/primer/react/commit/ed701bee8b6c1a9fb9b91462034f8fe04b0244ad) Thanks [@joshblack](https://github.com/joshblack)! - Update how gap is set in Stack to work in wide breakpoints
+
+- [#4598](https://github.com/primer/react/pull/4598) [`32c687041a600e8b54ffaf9b3ab77f9215a37e3e`](https://github.com/primer/react/commit/32c687041a600e8b54ffaf9b3ab77f9215a37e3e) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Replaced space-small with base-size-6
+
+- [#4543](https://github.com/primer/react/pull/4543) [`e47445df6c389fef2aacc72449c02ff471e4cb68`](https://github.com/primer/react/commit/e47445df6c389fef2aacc72449c02ff471e4cb68) Thanks [@TylerJDev](https://github.com/TylerJDev)! - FormControl: Adds new props to `FormControl.Label`, `requiredText` and `requiredIndicator`
+
+## 36.19.0
+
+### Minor Changes
+
+- [#4546](https://github.com/primer/react/pull/4546) [`c81898c93664d224d7a18722cd1abcdcf2d1a510`](https://github.com/primer/react/commit/c81898c93664d224d7a18722cd1abcdcf2d1a510) Thanks [@ayy-bc](https://github.com/ayy-bc)! - TreeView: Add support for `TreeView.LeadingAction`
+
+- [#4574](https://github.com/primer/react/pull/4574) [`9c01a930b97218ea550cd7de3436941990b3b068`](https://github.com/primer/react/commit/9c01a930b97218ea550cd7de3436941990b3b068) Thanks [@pksjce](https://github.com/pksjce)! - ActionBar: Move to main directory. ActionBar can now be imported from `'@primer/react'`
+
+### Patch Changes
+
+- [#4593](https://github.com/primer/react/pull/4593) [`d4e234f52bf63e632d41fe947801d2c16da0b61f`](https://github.com/primer/react/commit/d4e234f52bf63e632d41fe947801d2c16da0b61f) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Update NavList to use the new ActionList.GroupHeading API and Add an "as" prop to specify the heading level as default h3. (No changes expected in the rendered HTML)
+
+- [#4591](https://github.com/primer/react/pull/4591) [`6cce7b749d8502fc851ad8a432a04acff21dec14`](https://github.com/primer/react/commit/6cce7b749d8502fc851ad8a432a04acff21dec14) Thanks [@joshblack](https://github.com/joshblack)! - Update the Stack component so that the `justify` prop correctly updates the layout of items
+
+- [#4572](https://github.com/primer/react/pull/4572) [`ac2502975057dc0330e19fdd2d446f43d77eed92`](https://github.com/primer/react/commit/ac2502975057dc0330e19fdd2d446f43d77eed92) Thanks [@iansan5653](https://github.com/iansan5653)! - TreeView: Always align expand/collapse chevron icon, leading visual, and trailing visual to top of item
+
+- [#4596](https://github.com/primer/react/pull/4596) [`4fa4fae099c425bab58c6f5c3c98b10bbca16012`](https://github.com/primer/react/commit/4fa4fae099c425bab58c6f5c3c98b10bbca16012) Thanks [@keithamus](https://github.com/keithamus)! - Update @github/tab-container-element to latest
+
 ## 36.18.0
 
 ### Minor Changes
