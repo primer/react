@@ -163,7 +163,7 @@ export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> 
       marginBottom: 2,
       borderTop: '1px solid',
       borderBottom: '1px solid',
-      borderColor: 'neutral.muted',
+      borderColor: 'border.muted',
     }),
   }
 

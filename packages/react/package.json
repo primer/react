@@ -95,7 +95,7 @@
     "@primer/behaviors": "^1.5.1",
     "@primer/live-region-element": "^0.6.1",
     "@primer/octicons-react": "^19.9.0",
-    "@primer/primitives": "0.0.0-20240515005243",
+    "@primer/primitives": "0.0.0-20240529230735",
     "@styled-system/css": "^5.1.5",
     "@styled-system/props": "^5.1.5",
     "@styled-system/theme-get": "^5.1.2",

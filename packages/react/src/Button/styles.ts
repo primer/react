@@ -10,10 +10,18 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '&:hover:not([disabled]):not([data-inactive])': {
         backgroundColor: 'btn.hoverBg',
         borderColor: `var(--button-default-borderColor-hover, ${theme?.colors.btn.hoverBorder})`,
+
+        '[data-component=ButtonCounter]': {
+          backgroundColor: `var(--buttonCounter-default-bgColor-hover, ${theme?.colors.btn.counterBg})`,
+        },
       },
       '&:active:not([disabled]):not([data-inactive])': {
         backgroundColor: 'btn.activeBg',
         borderColor: `var(--button-default-borderColor-active, ${theme?.colors.btn.activeBorder})`,
+
+        '[data-component=ButtonCounter]': {
+          backgroundColor: `var(--buttonCounter-default-bgColor-active, ${theme?.colors.btn.counterBg})`,
+        },
       },
       '&:disabled': {
         color: 'primer.fg.disabled',

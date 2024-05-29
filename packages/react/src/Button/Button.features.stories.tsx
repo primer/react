@@ -117,8 +117,10 @@ export const Disabled = () => (
 
 export const Inactive = () => (
   <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
-    <Button inactive>Default</Button>
-    <Button variant="primary" inactive>
+    <Button inactive className="gey">
+      Default
+    </Button>
+    <Button variant="primary" inactive sx={{color: 'fg.default'}}>
       Primary
     </Button>
     <Button variant="danger" inactive>
@@ -126,6 +128,9 @@ export const Inactive = () => (
     </Button>
     <Button variant="invisible" inactive>
       Invisible
+    </Button>
+    <Button inactive leadingVisual={HeartIcon} trailingVisual={EyeIcon} trailingAction={TriangleDownIcon}>
+      Visuals
     </Button>
   </div>
 )
@@ -135,3 +140,41 @@ export const Small = () => <Button size="small">Default</Button>
 export const Medium = () => <Button size="medium">Default</Button>
 
 export const Large = () => <Button size="large">Default</Button>
+
+export const TrailingCounterAllVariantsVRT = () => {
+  const [count, setCount] = useState(0)
+  const onClick = () => {
+    setCount(count + 1)
+    announce(`Watch ${count + 1}`)
+  }
+  return (
+    <>
+      <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
+        <Button onClick={onClick} count={count}>
+          Watch
+        </Button>
+        <Button onClick={onClick} disabled count={count}>
+          Watch
+        </Button>
+        <Button onClick={onClick} variant="primary" count={count}>
+          Watch
+        </Button>
+        <Button onClick={onClick} variant="primary" disabled count={count}>
+          Watch
+        </Button>
+        <Button onClick={onClick} variant="danger" count={count}>
+          Watch
+        </Button>
+        <Button onClick={onClick} variant="danger" disabled count={count}>
+          Watch
+        </Button>
+        <Button onClick={onClick} variant="invisible" count={count}>
+          Watch
+        </Button>
+        <Button onClick={onClick} variant="invisible" disabled count={count}>
+          Watch
+        </Button>
+      </div>
+    </>
+  )
+}
