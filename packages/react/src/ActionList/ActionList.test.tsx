@@ -381,8 +381,12 @@ describe('ActionList', () => {
   })
 
   it('should render ActionList.Item as button when feature flag is enabled', async () => {
+    const featureFlag = {
+      primer_react_action_list_item_as_button: true,
+    }
+
     const {container} = HTMLRender(
-      <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+      <FeatureFlags flags={featureFlag}>
         <ActionList>
           <ActionList.Item disabled={true}>Item 1</ActionList.Item>
           <ActionList.Item>Item 2</ActionList.Item>

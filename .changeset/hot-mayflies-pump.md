@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-Utilizes `<button>` inside of `ActionList.Item` instead of relying on `<li>` as an interactive item.
+(Behind feature flag) ActionList: Utilizes `<button>` inside of `<li>` for interactive items.

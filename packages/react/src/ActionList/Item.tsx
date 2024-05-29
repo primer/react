@@ -268,24 +268,28 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const inlineDescriptionId = `${itemId}--inline-description`
     const blockDescriptionId = `${itemId}--block-description`
     const inactiveWarningId = inactive && !showInactiveIndicator ? `${itemId}--warning-message` : undefined
-    const validRole = listRole === 'listbox' || listRole === 'menu' || inactive
+    // Ensures ActionList.Item retains list item semantics if a valid ARIA role is applied, or if item is inactive
+    const listSemantics = listRole === 'listbox' || listRole === 'menu' || inactive || container === 'NavList'
 
-    const ButtonItemWrapper = buttonSemantics
-      ? (React.forwardRef(({as: Component = 'button', children, ...props}, forwardedRef) => {
-          return (
-            <Box
-              as={Component as React.ElementType}
-              sx={merge<BetterSystemStyleObject>(styles, sxProp)}
-              ref={forwardedRef}
-              {...props}
-            >
-              {children}
-            </Box>
-          )
-        }) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>)
-      : React.Fragment
+    const ButtonItemWrapper = React.forwardRef(({as: Component = 'button', children, ...props}, forwardedRef) => {
+      return (
+        <Box
+          as={Component as React.ElementType}
+          sx={merge<BetterSystemStyleObject>(styles, sxProp)}
+          ref={forwardedRef}
+          {...props}
+        >
+          {children}
+        </Box>
+      )
+    }) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>
 
-    const ItemWrapper = _PrivateItemWrapper || (validRole || !buttonSemantics ? React.Fragment : ButtonItemWrapper)
+    let DefaultItemWrapper = React.Fragment
+    if (buttonSemantics) {
+      DefaultItemWrapper = listSemantics ? React.Fragment : ButtonItemWrapper
+    }
+
+    const ItemWrapper = _PrivateItemWrapper || DefaultItemWrapper
 
     // only apply aria-selected and aria-checked to selectable items
     const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option']
@@ -313,11 +317,11 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       containerProps = _PrivateItemWrapper
         ? {role: itemRole ? 'none' : undefined, ...props}
         : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          (validRole && {...menuItemProps, ...props, ref: forwardedRef}) || {}
+          (listSemantics && {...menuItemProps, ...props, ref: forwardedRef}) || {}
 
       wrapperProps = _PrivateItemWrapper
         ? menuItemProps
-        : !validRole && {
+        : !listSemantics && {
             ...menuItemProps,
             ...props,
             styles: merge<BetterSystemStyleObject>(styles, sxProp),
@@ -333,12 +337,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         value={{variant, disabled, inactive: Boolean(inactiveText), inlineDescriptionId, blockDescriptionId}}
       >
         <LiBox
-          ref={buttonSemantics || validRole ? forwardedRef : null}
+          ref={buttonSemantics || listSemantics ? forwardedRef : null}
           sx={
             buttonSemantics
               ? merge<BetterSystemStyleObject>(
-                  validRole || _PrivateItemWrapper ? styles : listItemStyles,
-                  validRole || _PrivateItemWrapper ? sxProp : {},
+                  listSemantics || _PrivateItemWrapper ? styles : listItemStyles,
+                  listSemantics || _PrivateItemWrapper ? sxProp : {},
                 )
               : merge<BetterSystemStyleObject>(styles, sxProp)
           }
