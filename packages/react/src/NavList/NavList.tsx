@@ -204,11 +204,13 @@ type ItemWithShowMoreItemsNavProps = {
 const ItemWithShowMoreItemsNavContext = React.createContext<{
   buttonId: string
   showMoreItemsNavId: string
-  itemsCurrentlyVisible: number
+  initialItemsVisible: number
+  expanded: boolean
 }>({
   buttonId: '',
   showMoreItemsNavId: '',
-  itemsCurrentlyVisible: 5,
+  initialItemsVisible: 5,
+  expanded: false,
 })
 
 function ItemWithShowMoreItemsNav({
@@ -221,18 +223,21 @@ function ItemWithShowMoreItemsNav({
   const buttonId = useId()
   const showMoreItemsNavId = useId()
 
-  const [itemsCurrentlyVisible, setItemsCurrentlyVisible] = React.useState((defaultItemsVisible || null) ?? 5)
+  const [initialItemsVisible] = React.useState((defaultItemsVisible || null) ?? 5)
+  const [expanded, setExpanded] = React.useState(false)
 
-  // if show more items count is smaller than default items visible
-  // if show more items
   useIsomorphicLayoutEffect(() => {
     if (showMoreItemsNavRef.current) {
+      const listItems = showMoreItemsNavRef.current.querySelectorAll('li')
+      if (listItems.length < initialItemsVisible - 1) {
+        setExpanded(true)
+      }
       // Check if ShowMoreItemsNav contains current item
       // valid values: page, step, location, date, time, true and false
       const currentItem = showMoreItemsNavRef.current.querySelector('[aria-current]:not([aria-current=false])')
       // Check index of currentItem and if it's more than itemsCurrentlyVisible
       if (currentItem) {
-        // setItemsCurrentlyVisible()
+        setExpanded(true)
       }
     }
   }, [showMoreItemsNav, buttonId])
@@ -240,19 +245,16 @@ function ItemWithShowMoreItemsNav({
   // const [containsCurrentItem, setContainsCurrentItem] = React.useState(false)
 
   return (
-    <ItemWithShowMoreItemsNavContext.Provider value={{buttonId, showMoreItemsNavId, itemsCurrentlyVisible}}>
+    <ItemWithShowMoreItemsNavContext.Provider value={{buttonId, showMoreItemsNavId, initialItemsVisible, expanded}}>
       <div ref={showMoreItemsNavRef}>{showMoreItemsNav}</div>
-      <ActionList.Item
-        as="button"
-        id={buttonId}
-        onClick={() => setItemsCurrentlyVisible(itemsCurrentlyVisible + 5)}
-        sx={sxProp}
-      >
-        {children}
-        <ActionList.TrailingVisual>
-          <Octicon icon={PlusIcon} />
-        </ActionList.TrailingVisual>
-      </ActionList.Item>
+      {!expanded && (
+        <ActionList.Item as="button" id={buttonId} onClick={() => setExpanded(true)} sx={sxProp}>
+          {children}
+          <ActionList.TrailingVisual>
+            <Octicon icon={PlusIcon} />
+          </ActionList.TrailingVisual>
+        </ActionList.Item>
+      )}
     </ItemWithShowMoreItemsNavContext.Provider>
   )
 }
@@ -317,9 +319,15 @@ export type NavListShowMoreItemsNavProps = {
 // TODO: ref prop
 // NOTE: SubNav must be a direct child of an Item
 const ShowMoreItemsNav = ({children, sx: sxProp = defaultSxProp}: NavListShowMoreItemsNavProps) => {
-  const {buttonId, showMoreItemsNavId, itemsCurrentlyVisible} = React.useContext(ItemWithShowMoreItemsNavContext)
+  const {buttonId, showMoreItemsNavId, expanded, initialItemsVisible} = React.useContext(
+    ItemWithShowMoreItemsNavContext,
+  )
 
-  const itemsToShow = children?.slice(0, itemsCurrentlyVisible)
+  let itemsToShow = children
+  if (!expanded) {
+    itemsToShow = children?.slice(0, initialItemsVisible)
+  }
+
   if (!buttonId || !showMoreItemsNavId) {
     // eslint-disable-next-line no-console
     console.error('NavList.ShowMoreItemsNav must be a child of a NavList.Item')
