@@ -15,7 +15,7 @@ const meta: Meta = {
   },
 }
 
-export const Default: Story = () => <RelativeTime date={new Date('2020-01-01T00:00:00Z')} />
+export const Default: Story = () => <RelativeTime date={new Date('2020-01-01T00:00:00Z')} noTitle={true} />
 
 export const Playground: Story = args => {
   const {date, ...rest} = args
