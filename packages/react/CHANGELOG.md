@@ -4,12 +4,8 @@
 
 ### Minor Changes
 
-- [#4358](https://github.com/primer/react/pull/4358) [`e34e4b265f7584c344a4b6b7145da1a5eec1ffb5`](https://github.com/primer/react/commit/e34e4b265f7584c344a4b6b7145da1a5eec1ffb5) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - PageHeader: Update the layout styles so that all interactive content comes after the title (while keeping the component visually the same)
+- [#4358](https://github.com/primer/react/pull/4358) [`e34e4b265f7584c344a4b6b7145da1a5eec1ffb5`](https://github.com/primer/react/commit/e34e4b265f7584c344a4b6b7145da1a5eec1ffb5) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - PageHeader: Update the layout styles so that all interactive content comes after the title (while keeping the component visually the same).
   This is a breaking change however PageHeader is still a draft component so we are releasing the changes as minor but please upgrade with caution.
-
-  ```
-
-  ```
 
 - [#4617](https://github.com/primer/react/pull/4617) [`42ba5dc5e722c2341761bf4c6e1e993aac9f2ca8`](https://github.com/primer/react/commit/42ba5dc5e722c2341761bf4c6e1e993aac9f2ca8) Thanks [@JelloBagel](https://github.com/JelloBagel)! - Add an ability to provide custom `aria-label` and `aria-labelledby` to `TreeView.Item`
 
