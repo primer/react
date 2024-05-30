@@ -424,4 +424,25 @@ describe('ActionList', () => {
     const listItems = container.querySelectorAll('li')
     expect(listItems.length).toBe(2)
   })
+
+  it('should render ActionList.Item as li when feature flag is enabled and has proper aria role', async () => {
+    const {container} = HTMLRender(
+      <FeatureFlags flags={{primer_react_action_list_item_as_button: false}}>
+        <ActionList role="listbox">
+          <ActionList.Item role="option">Item 1</ActionList.Item>
+          <ActionList.Item role="option">Item 2</ActionList.Item>
+        </ActionList>
+      </FeatureFlags>,
+    )
+
+    const listitem = container.querySelector('li')
+    const button = container.querySelector('button')
+
+    expect(listitem).toHaveTextContent('Item 1')
+    expect(listitem).toHaveAttribute('tabindex', '0')
+    expect(button).toBeNull()
+
+    const listItems = container.querySelectorAll('li')
+    expect(listItems.length).toBe(2)
+  })
 })
