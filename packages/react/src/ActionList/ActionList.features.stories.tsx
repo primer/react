@@ -734,3 +734,47 @@ export const ActionListWithButtonSemantics = () => {
 }
 
 ActionListWithButtonSemantics.storyName = 'With Button Semantics (Behind feature flag)'
+
+// export const WithTrailingAction = () => {
+//   return (
+//     <ActionList>
+//       <ActionList.Item trailingAction={<ActionList.TrailingAction aria-label="Expand sidebar" icon={ArrowLeftIcon} />}>
+//         Item 1
+//       </ActionList.Item>
+//       <ActionList.Item trailingAction={<ActionList.TrailingAction aria-label="Expand right" icon={ArrowLeftIcon} />}>
+//         Item 2
+//       </ActionList.Item>
+//       <ActionList.Item trailingAction={<ActionList.TrailingAction aria-label="Open book" icon={BookIcon} />}>
+//         Item 3
+//       </ActionList.Item>
+//     </ActionList>
+//   )
+// }
+
+export const WithTrailingAction = () => {
+  return (
+    <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+      <ActionList>
+        <ActionList.Item>
+          <ActionList.LeadingVisual>
+            <FileDirectoryIcon />
+          </ActionList.LeadingVisual>
+          Item 1
+          <ActionList.TrailingAction aria-label="Expand sidebar" icon={ArrowLeftIcon} />
+        </ActionList.Item>
+        <ActionList.Item>
+          Item 2
+          <ActionList.TrailingAction aria-label="Expand right" icon={ArrowRightIcon} />
+        </ActionList.Item>
+        <ActionList.Item>
+          Item 3<ActionList.Description>Hello this is a description.</ActionList.Description>
+          <ActionList.TrailingAction aria-label="Open book" icon={BookIcon} />
+        </ActionList.Item>
+        <ActionList.LinkItem href="#">
+          This is a link <ActionList.Description>Hello this is a description.</ActionList.Description>
+          <ActionList.TrailingAction aria-label="Open book" icon={BookIcon} />
+        </ActionList.LinkItem>
+      </ActionList>
+    </FeatureFlags>
+  )
+}

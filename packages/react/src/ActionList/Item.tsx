@@ -273,13 +273,16 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const ButtonItemWrapper = React.forwardRef(({as: Component = 'button', children, ...props}, forwardedRef) => {
       return (
-        <Box
-          as={Component as React.ElementType}
-          sx={merge<BetterSystemStyleObject>(styles, sxProp)}
-          ref={forwardedRef}
-          {...props}
-        >
-          {children}
+        <Box sx={{display: 'flex', width: '100%'}}>
+          <Box
+            as={Component as React.ElementType}
+            sx={merge<BetterSystemStyleObject>(styles, sxProp)}
+            ref={forwardedRef}
+            {...props}
+          >
+            {children}
+          </Box>
+          {Boolean(slots.trailingAction) && slots.trailingAction}
         </Box>
       )
     }) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>
