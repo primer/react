@@ -887,6 +887,10 @@ const components = new Map([
           id: 'drafts-components-pageheader-features--with-parent-link-and-actions-of-context-area',
           name: 'With Parent Link and Actions of Context Area',
         },
+        {
+          id: 'drafts-components-pageheader-devonly--large-variant-with-multiline-title',
+          name: 'Large Variant with Multiline Title',
+        },
       ],
     },
   ],

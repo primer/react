@@ -1,6 +1,6 @@
 {
   "name": "@primer/react",
-  "version": "36.19.0",
+  "version": "36.20.0",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -126,6 +126,7 @@
     "@babel/plugin-transform-modules-commonjs": "7.24.1",
     "@babel/preset-react": "7.23.3",
     "@babel/preset-typescript": "7.24.1",
+    "@figma/code-connect": "^0.1.1",
     "@primer/css": "^21.0.1",
     "@rollup/plugin-babel": "6.0.4",
     "@rollup/plugin-commonjs": "25.0.4",
