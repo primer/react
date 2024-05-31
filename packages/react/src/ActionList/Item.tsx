@@ -20,6 +20,7 @@ import {Selection} from './Selection'
 import {getVariantStyles, ItemContext, TEXT_ROW_HEIGHT, ListContext} from './shared'
 import type {VisualProps} from './Visuals'
 import {LeadingVisual, TrailingVisual} from './Visuals'
+import {TrailingAction} from './TrailingAction'
 import {ConditionalWrapper} from '../internal/components/ConditionalWrapper'
 import {useFeatureFlag} from '../FeatureFlags'
 
@@ -71,6 +72,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const [slots, childrenWithoutSlots] = useSlots(props.children, {
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
+      trailingAction: TrailingAction,
       blockDescription: [Description, props => props.variant === 'block'],
       inlineDescription: [Description, props => props.variant !== 'block'],
     })
