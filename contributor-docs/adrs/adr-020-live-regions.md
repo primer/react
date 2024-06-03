@@ -30,7 +30,7 @@ In components, we see the following scenarios in Primer React:
 Currently, contributors may reach for roles such as `alert` or `status` to
 achieve these scenarios. They may also add `aria-live="assertive"` or `aria-live="polite"` with an an `aria-atomic="true"` to an element explicitly.
 However, both of these approaches do not announce consistently across screen
-readers. This could be due to live regions being injected dynamically into the document, dynamically changing the visibility of a live region, or some other technique causing an announcement to not be announced.
+readers. This could be due to live regions being injected dynamically into the document (this includes loading content into the document via React), dynamically changing the visibility of a live region, or some other technique causing an announcement to not be announced.
 
 For more information about the ways in which live regions may not work as
 expected, visit: [Why are my live regions not working?](https://tetralogical.com/blog/2024/05/01/why-are-my-live-regions-not-working/)
