@@ -6969,39 +6969,48 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         className="c9"
         display="flex"
       >
-        <svg
-          className="c10"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
+        <div
+          className=""
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            className="c10"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c7"
+          >
+            Loading
+          </span>
+        </div>
       </div>
     </span>
   </span>,
-  .c4 {
+  .c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -7021,7 +7030,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   flex-grow: 1;
 }
 
-.c4 > * {
+.c5 > * {
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -7029,7 +7038,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   margin-bottom: 0.25rem;
 }
 
-.c5 {
+.c6 {
   -webkit-order: 1;
   -ms-flex-order: 1;
   order: 1;
@@ -7047,7 +7056,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c9 {
+.c4 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -7172,7 +7181,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 12px;
 }
 
-.c6 {
+.c7 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -7183,11 +7192,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   height: 100%;
 }
 
-.c6:focus {
+.c7:focus {
   outline: 0;
 }
 
-.c7 {
+.c8 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -7220,7 +7229,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c7:hover {
+.c8:hover {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
@@ -7275,7 +7284,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c8 {
+.c9 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -7300,11 +7309,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   text-decoration: none;
 }
 
-.c8:is(a,button,[tabIndex='0']) {
+.c9:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c8:is(a,button,[tabIndex='0']):after {
+.c9:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -7335,47 +7344,56 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <svg
-          className="c3"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
+        <div
+          className=""
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            className="c3"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c4"
+          >
+            Loading
+          </span>
+        </div>
       </div>
     </span>
     <div
-      className="c4"
+      className="c5"
       display="flex"
     >
       <div
-        className="c5"
+        className="c6"
       >
         <input
           aria-invalid="false"
-          className="c6"
+          className="c7"
           onBlur={[Function]}
           onFocus={[Function]}
           onKeyDown={[Function]}
@@ -7383,7 +7401,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         />
       </div>
       <span
-        className="c7"
+        className="c8"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -7392,13 +7410,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c8"
+          className="c9"
           onClick={[Function]}
         >
           zero
         </span>
         <span
-          className="c9"
+          className="c4"
         >
            (press backspace or delete to remove)
         </span>
@@ -7433,7 +7451,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c8"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -7442,13 +7460,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c8"
+          className="c9"
           onClick={[Function]}
         >
           one
         </span>
         <span
-          className="c9"
+          className="c4"
         >
            (press backspace or delete to remove)
         </span>
@@ -7483,7 +7501,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c8"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -7492,13 +7510,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c8"
+          className="c9"
           onClick={[Function]}
         >
           two
         </span>
         <span
-          className="c9"
+          className="c4"
         >
            (press backspace or delete to remove)
         </span>
@@ -7533,7 +7551,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c8"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -7542,13 +7560,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c8"
+          className="c9"
           onClick={[Function]}
         >
           three
         </span>
         <span
-          className="c9"
+          className="c4"
         >
            (press backspace or delete to remove)
         </span>
@@ -7583,7 +7601,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c8"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -7592,13 +7610,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c8"
+          className="c9"
           onClick={[Function]}
         >
           four
         </span>
         <span
-          className="c9"
+          className="c4"
         >
            (press backspace or delete to remove)
         </span>
@@ -7633,7 +7651,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c8"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -7642,13 +7660,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c8"
+          className="c9"
           onClick={[Function]}
         >
           five
         </span>
         <span
-          className="c9"
+          className="c4"
         >
            (press backspace or delete to remove)
         </span>
@@ -7683,7 +7701,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c8"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -7692,13 +7710,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c8"
+          className="c9"
           onClick={[Function]}
         >
           six
         </span>
         <span
-          className="c9"
+          className="c4"
         >
            (press backspace or delete to remove)
         </span>
@@ -7733,7 +7751,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c8"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -7742,13 +7760,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c8"
+          className="c9"
           onClick={[Function]}
         >
           seven
         </span>
         <span
-          className="c9"
+          className="c4"
         >
            (press backspace or delete to remove)
         </span>
@@ -7790,35 +7808,44 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <svg
-          className="c11"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "hidden",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
+        <div
+          className=""
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            className="c11"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "hidden",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c4"
+          >
+            Loading
+          </span>
+        </div>
       </div>
     </span>
   </span>,
@@ -8567,39 +8594,48 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         className="c9"
         display="flex"
       >
-        <svg
-          className="c10"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
+        <div
+          className=""
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            className="c10"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c7"
+          >
+            Loading
+          </span>
+        </div>
       </div>
     </span>
   </span>,
-  .c5 {
+  .c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -8619,7 +8655,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   flex-grow: 1;
 }
 
-.c5 > * {
+.c6 > * {
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -8627,7 +8663,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   margin-bottom: 0.25rem;
 }
 
-.c6 {
+.c7 {
   -webkit-order: 1;
   -ms-flex-order: 1;
   order: 1;
@@ -8649,7 +8685,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: hidden;
 }
 
-.c10 {
+.c5 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -8779,7 +8815,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 12px;
 }
 
-.c7 {
+.c8 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -8790,11 +8826,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   height: 100%;
 }
 
-.c7:focus {
+.c8:focus {
   outline: 0;
 }
 
-.c8 {
+.c9 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -8827,7 +8863,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c8:hover {
+.c9:hover {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
@@ -8882,7 +8918,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c9 {
+.c10 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -8907,11 +8943,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   text-decoration: none;
 }
 
-.c9:is(a,button,[tabIndex='0']) {
+.c10:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c9:is(a,button,[tabIndex='0']):after {
+.c10:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -8967,52 +9003,61 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c4"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "left": 0,
-              "maxWidth": "100%",
-              "position": "absolute",
-              "top": 0,
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
+        <div
+          className=""
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            className="c4"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "left": 0,
+                "maxWidth": "100%",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c5"
+          >
+            Loading
+          </span>
+        </div>
       </div>
     </span>
     <div
-      className="c5"
+      className="c6"
       display="flex"
     >
       <div
-        className="c6"
+        className="c7"
       >
         <input
           aria-invalid="false"
-          className="c7"
+          className="c8"
           onBlur={[Function]}
           onFocus={[Function]}
           onKeyDown={[Function]}
@@ -9020,7 +9065,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         />
       </div>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -9029,13 +9074,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           zero
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -9070,7 +9115,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -9079,13 +9124,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           one
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -9120,7 +9165,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -9129,13 +9174,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           two
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -9170,7 +9215,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -9179,13 +9224,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           three
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -9220,7 +9265,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -9229,13 +9274,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           four
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -9270,7 +9315,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -9279,13 +9324,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           five
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -9320,7 +9365,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -9329,13 +9374,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           six
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -9370,7 +9415,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -9379,13 +9424,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           seven
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -9427,39 +9472,48 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <svg
-          className="c12"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "hidden",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
+        <div
+          className=""
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            className="c12"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "hidden",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c5"
+          >
+            Loading
+          </span>
+        </div>
       </div>
     </span>
   </span>,
-  .c5 {
+  .c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -9479,7 +9533,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   flex-grow: 1;
 }
 
-.c5 > * {
+.c6 > * {
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -9487,7 +9541,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   margin-bottom: 0.25rem;
 }
 
-.c6 {
+.c7 {
   -webkit-order: 1;
   -ms-flex-order: 1;
   order: 1;
@@ -9509,7 +9563,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: hidden;
 }
 
-.c10 {
+.c5 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -9639,7 +9693,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 12px;
 }
 
-.c7 {
+.c8 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -9650,11 +9704,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   height: 100%;
 }
 
-.c7:focus {
+.c8:focus {
   outline: 0;
 }
 
-.c8 {
+.c9 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -9687,7 +9741,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c8:hover {
+.c9:hover {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
@@ -9742,7 +9796,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c9 {
+.c10 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -9767,11 +9821,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   text-decoration: none;
 }
 
-.c9:is(a,button,[tabIndex='0']) {
+.c10:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c9:is(a,button,[tabIndex='0']):after {
+.c10:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -9827,52 +9881,61 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c4"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "left": 0,
-              "maxWidth": "100%",
-              "position": "absolute",
-              "top": 0,
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
+        <div
+          className=""
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            className="c4"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "left": 0,
+                "maxWidth": "100%",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c5"
+          >
+            Loading
+          </span>
+        </div>
       </div>
     </span>
     <div
-      className="c5"
+      className="c6"
       display="flex"
     >
       <div
-        className="c6"
+        className="c7"
       >
         <input
           aria-invalid="false"
-          className="c7"
+          className="c8"
           onBlur={[Function]}
           onFocus={[Function]}
           onKeyDown={[Function]}
@@ -9880,7 +9943,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         />
       </div>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -9889,13 +9952,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           zero
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -9930,7 +9993,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -9939,13 +10002,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           one
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -9980,7 +10043,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -9989,13 +10052,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           two
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -10030,7 +10093,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -10039,13 +10102,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           three
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -10080,7 +10143,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -10089,13 +10152,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           four
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -10130,7 +10193,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -10139,13 +10202,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           five
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -10180,7 +10243,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -10189,13 +10252,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           six
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -10230,7 +10293,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -10239,13 +10302,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           seven
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -10287,39 +10350,48 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <svg
-          className="c12"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "hidden",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
+        <div
+          className=""
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            className="c12"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "hidden",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c5"
+          >
+            Loading
+          </span>
+        </div>
       </div>
     </span>
   </span>,
-  .c5 {
+  .c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -10339,7 +10411,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   flex-grow: 1;
 }
 
-.c5 > * {
+.c6 > * {
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -10347,7 +10419,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   margin-bottom: 0.25rem;
 }
 
-.c6 {
+.c7 {
   -webkit-order: 1;
   -ms-flex-order: 1;
   order: 1;
@@ -10369,7 +10441,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
-.c10 {
+.c5 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -10499,7 +10571,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c7 {
+.c8 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -10510,11 +10582,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   height: 100%;
 }
 
-.c7:focus {
+.c8:focus {
   outline: 0;
 }
 
-.c8 {
+.c9 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -10547,7 +10619,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c8:hover {
+.c9:hover {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
@@ -10602,7 +10674,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c9 {
+.c10 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -10627,11 +10699,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   text-decoration: none;
 }
 
-.c9:is(a,button,[tabIndex='0']) {
+.c10:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c9:is(a,button,[tabIndex='0']):after {
+.c10:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -10687,52 +10759,61 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c4"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "left": 0,
-              "maxWidth": "100%",
-              "position": "absolute",
-              "top": 0,
-              "visibility": "hidden",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
+        <div
+          className=""
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            className="c4"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "left": 0,
+                "maxWidth": "100%",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "hidden",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c5"
+          >
+            Loading
+          </span>
+        </div>
       </div>
     </span>
     <div
-      className="c5"
+      className="c6"
       display="flex"
     >
       <div
-        className="c6"
+        className="c7"
       >
         <input
           aria-invalid="false"
-          className="c7"
+          className="c8"
           onBlur={[Function]}
           onFocus={[Function]}
           onKeyDown={[Function]}
@@ -10740,7 +10821,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         />
       </div>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -10749,13 +10830,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           zero
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -10790,7 +10871,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -10799,13 +10880,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           one
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -10840,7 +10921,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -10849,13 +10930,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           two
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -10890,7 +10971,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -10899,13 +10980,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           three
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -10940,7 +11021,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -10949,13 +11030,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           four
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -10990,7 +11071,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -10999,13 +11080,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           five
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -11040,7 +11121,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -11049,13 +11130,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           six
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -11090,7 +11171,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -11099,13 +11180,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           seven
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -11147,35 +11228,44 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <svg
-          className="c12"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
+        <div
+          className=""
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            className="c12"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c5"
+          >
+            Loading
+          </span>
+        </div>
       </div>
     </span>
   </span>,
@@ -11958,44 +12048,53 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c11"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "maxWidth": "100%",
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
+        <div
+          className=""
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            className="c11"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "maxWidth": "100%",
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c7"
+          >
+            Loading
+          </span>
+        </div>
       </div>
     </span>
   </span>,
-  .c4 {
+  .c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -12015,7 +12114,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   flex-grow: 1;
 }
 
-.c4 > * {
+.c5 > * {
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -12023,7 +12122,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   margin-bottom: 0.25rem;
 }
 
-.c5 {
+.c6 {
   -webkit-order: 1;
   -ms-flex-order: 1;
   order: 1;
@@ -12045,7 +12144,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
-.c9 {
+.c4 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -12175,7 +12274,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c6 {
+.c7 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -12186,11 +12285,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   height: 100%;
 }
 
-.c6:focus {
+.c7:focus {
   outline: 0;
 }
 
-.c7 {
+.c8 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -12223,7 +12322,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c7:hover {
+.c8:hover {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
@@ -12278,7 +12377,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c8 {
+.c9 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -12303,11 +12402,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   text-decoration: none;
 }
 
-.c8:is(a,button,[tabIndex='0']) {
+.c9:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c8:is(a,button,[tabIndex='0']):after {
+.c9:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -12338,47 +12437,56 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <svg
-          className="c3"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
+        <div
+          className=""
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            className="c3"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c4"
+          >
+            Loading
+          </span>
+        </div>
       </div>
     </span>
     <div
-      className="c4"
+      className="c5"
       display="flex"
     >
       <div
-        className="c5"
+        className="c6"
       >
         <input
           aria-invalid="false"
-          className="c6"
+          className="c7"
           onBlur={[Function]}
           onFocus={[Function]}
           onKeyDown={[Function]}
@@ -12386,7 +12494,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         />
       </div>
       <span
-        className="c7"
+        className="c8"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -12395,13 +12503,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c8"
+          className="c9"
           onClick={[Function]}
         >
           zero
         </span>
         <span
-          className="c9"
+          className="c4"
         >
            (press backspace or delete to remove)
         </span>
@@ -12436,7 +12544,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c8"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -12445,13 +12553,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c8"
+          className="c9"
           onClick={[Function]}
         >
           one
         </span>
         <span
-          className="c9"
+          className="c4"
         >
            (press backspace or delete to remove)
         </span>
@@ -12486,7 +12594,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c8"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -12495,13 +12603,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c8"
+          className="c9"
           onClick={[Function]}
         >
           two
         </span>
         <span
-          className="c9"
+          className="c4"
         >
            (press backspace or delete to remove)
         </span>
@@ -12536,7 +12644,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c8"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -12545,13 +12653,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c8"
+          className="c9"
           onClick={[Function]}
         >
           three
         </span>
         <span
-          className="c9"
+          className="c4"
         >
            (press backspace or delete to remove)
         </span>
@@ -12586,7 +12694,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c8"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -12595,13 +12703,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c8"
+          className="c9"
           onClick={[Function]}
         >
           four
         </span>
         <span
-          className="c9"
+          className="c4"
         >
            (press backspace or delete to remove)
         </span>
@@ -12636,7 +12744,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c8"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -12645,13 +12753,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c8"
+          className="c9"
           onClick={[Function]}
         >
           five
         </span>
         <span
-          className="c9"
+          className="c4"
         >
            (press backspace or delete to remove)
         </span>
@@ -12686,7 +12794,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c8"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -12695,13 +12803,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c8"
+          className="c9"
           onClick={[Function]}
         >
           six
         </span>
         <span
-          className="c9"
+          className="c4"
         >
            (press backspace or delete to remove)
         </span>
@@ -12736,7 +12844,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c8"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -12745,13 +12853,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c8"
+          className="c9"
           onClick={[Function]}
         >
           seven
         </span>
         <span
-          className="c9"
+          className="c4"
         >
            (press backspace or delete to remove)
         </span>
@@ -12818,40 +12926,49 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c12"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "maxWidth": "100%",
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "visibility": "hidden",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
+        <div
+          className=""
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            className="c12"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "maxWidth": "100%",
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "visibility": "hidden",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c4"
+          >
+            Loading
+          </span>
+        </div>
       </div>
     </span>
   </span>,
@@ -13634,44 +13751,53 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c11"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "maxWidth": "100%",
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
+        <div
+          className=""
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            className="c11"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "maxWidth": "100%",
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c7"
+          >
+            Loading
+          </span>
+        </div>
       </div>
     </span>
   </span>,
-  .c5 {
+  .c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -13691,7 +13817,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   flex-grow: 1;
 }
 
-.c5 > * {
+.c6 > * {
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -13699,7 +13825,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   margin-bottom: 0.25rem;
 }
 
-.c6 {
+.c7 {
   -webkit-order: 1;
   -ms-flex-order: 1;
   order: 1;
@@ -13725,7 +13851,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
-.c10 {
+.c5 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -13867,7 +13993,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c7 {
+.c8 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -13878,11 +14004,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   height: 100%;
 }
 
-.c7:focus {
+.c8:focus {
   outline: 0;
 }
 
-.c8 {
+.c9 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -13913,7 +14039,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c8:hover {
+.c9:hover {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
@@ -13968,7 +14094,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c9 {
+.c10 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -13993,11 +14119,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   text-decoration: none;
 }
 
-.c9:is(a,button,[tabIndex='0']) {
+.c10:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c9:is(a,button,[tabIndex='0']):after {
+.c10:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -14053,52 +14179,61 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c4"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "left": 0,
-              "maxWidth": "100%",
-              "position": "absolute",
-              "top": 0,
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
+        <div
+          className=""
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            className="c4"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "left": 0,
+                "maxWidth": "100%",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c5"
+          >
+            Loading
+          </span>
+        </div>
       </div>
     </span>
     <div
-      className="c5"
+      className="c6"
       display="flex"
     >
       <div
-        className="c6"
+        className="c7"
       >
         <input
           aria-invalid="false"
-          className="c7"
+          className="c8"
           onBlur={[Function]}
           onFocus={[Function]}
           onKeyDown={[Function]}
@@ -14106,7 +14241,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         />
       </div>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -14115,13 +14250,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           zero
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -14156,7 +14291,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -14165,13 +14300,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           one
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -14206,7 +14341,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -14215,13 +14350,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           two
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -14256,7 +14391,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -14265,13 +14400,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           three
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -14306,7 +14441,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -14315,13 +14450,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           four
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -14356,7 +14491,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -14365,13 +14500,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           five
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -14406,7 +14541,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -14415,13 +14550,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           six
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -14456,7 +14591,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -14465,13 +14600,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           seven
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -14538,44 +14673,53 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c13"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "maxWidth": "100%",
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "visibility": "hidden",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
+        <div
+          className=""
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            className="c13"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "maxWidth": "100%",
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "visibility": "hidden",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c5"
+          >
+            Loading
+          </span>
+        </div>
       </div>
     </span>
   </span>,
-  .c5 {
+  .c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -14595,7 +14739,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   flex-grow: 1;
 }
 
-.c5 > * {
+.c6 > * {
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -14603,7 +14747,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   margin-bottom: 0.25rem;
 }
 
-.c6 {
+.c7 {
   -webkit-order: 1;
   -ms-flex-order: 1;
   order: 1;
@@ -14629,7 +14773,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
-.c10 {
+.c5 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -14764,7 +14908,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c7 {
+.c8 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -14775,11 +14919,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   height: 100%;
 }
 
-.c7:focus {
+.c8:focus {
   outline: 0;
 }
 
-.c8 {
+.c9 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -14812,7 +14956,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c8:hover {
+.c9:hover {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
@@ -14867,7 +15011,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c9 {
+.c10 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -14892,11 +15036,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   text-decoration: none;
 }
 
-.c9:is(a,button,[tabIndex='0']) {
+.c10:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c9:is(a,button,[tabIndex='0']):after {
+.c10:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -14952,52 +15096,61 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c4"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "left": 0,
-              "maxWidth": "100%",
-              "position": "absolute",
-              "top": 0,
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
+        <div
+          className=""
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            className="c4"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "left": 0,
+                "maxWidth": "100%",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c5"
+          >
+            Loading
+          </span>
+        </div>
       </div>
     </span>
     <div
-      className="c5"
+      className="c6"
       display="flex"
     >
       <div
-        className="c6"
+        className="c7"
       >
         <input
           aria-invalid="false"
-          className="c7"
+          className="c8"
           onBlur={[Function]}
           onFocus={[Function]}
           onKeyDown={[Function]}
@@ -15005,7 +15158,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         />
       </div>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -15014,13 +15167,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           zero
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -15055,7 +15208,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -15064,13 +15217,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           one
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -15105,7 +15258,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -15114,13 +15267,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           two
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -15155,7 +15308,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -15164,13 +15317,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           three
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -15205,7 +15358,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -15214,13 +15367,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           four
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -15255,7 +15408,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -15264,13 +15417,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           five
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -15305,7 +15458,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -15314,13 +15467,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           six
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -15355,7 +15508,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -15364,13 +15517,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           seven
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -15437,44 +15590,53 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c13"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "maxWidth": "100%",
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "visibility": "hidden",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
+        <div
+          className=""
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            className="c13"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "maxWidth": "100%",
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "visibility": "hidden",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c5"
+          >
+            Loading
+          </span>
+        </div>
       </div>
     </span>
   </span>,
-  .c5 {
+  .c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -15494,7 +15656,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   flex-grow: 1;
 }
 
-.c5 > * {
+.c6 > * {
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
@@ -15502,7 +15664,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   margin-bottom: 0.25rem;
 }
 
-.c6 {
+.c7 {
   -webkit-order: 1;
   -ms-flex-order: 1;
   order: 1;
@@ -15528,7 +15690,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
-.c10 {
+.c5 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -15663,7 +15825,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c7 {
+.c8 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -15674,11 +15836,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   height: 100%;
 }
 
-.c7:focus {
+.c8:focus {
   outline: 0;
 }
 
-.c8 {
+.c9 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -15709,7 +15871,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c8:hover {
+.c9:hover {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
   box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
@@ -15764,7 +15926,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c9 {
+.c10 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -15789,11 +15951,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   text-decoration: none;
 }
 
-.c9:is(a,button,[tabIndex='0']) {
+.c10:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c9:is(a,button,[tabIndex='0']):after {
+.c10:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -15849,52 +16011,61 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c4"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "left": 0,
-              "maxWidth": "100%",
-              "position": "absolute",
-              "top": 0,
-              "visibility": "hidden",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
+        <div
+          className=""
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            className="c4"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "left": 0,
+                "maxWidth": "100%",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "hidden",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c5"
+          >
+            Loading
+          </span>
+        </div>
       </div>
     </span>
     <div
-      className="c5"
+      className="c6"
       display="flex"
     >
       <div
-        className="c6"
+        className="c7"
       >
         <input
           aria-invalid="false"
-          className="c7"
+          className="c8"
           onBlur={[Function]}
           onFocus={[Function]}
           onKeyDown={[Function]}
@@ -15902,7 +16073,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         />
       </div>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -15911,13 +16082,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           zero
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -15952,7 +16123,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -15961,13 +16132,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           one
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -16002,7 +16173,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -16011,13 +16182,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           two
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -16052,7 +16223,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -16061,13 +16232,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           three
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -16102,7 +16273,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -16111,13 +16282,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           four
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -16152,7 +16323,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -16161,13 +16332,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           five
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -16202,7 +16373,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -16211,13 +16382,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           six
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -16252,7 +16423,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c9"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -16261,13 +16432,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         tabIndex={0}
       >
         <span
-          className="c9"
+          className="c10"
           onClick={[Function]}
         >
           seven
         </span>
         <span
-          className="c10"
+          className="c5"
         >
            (press backspace or delete to remove)
         </span>
@@ -16334,40 +16505,49 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c13"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "maxWidth": "100%",
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
+        <div
+          className=""
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            className="c13"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "maxWidth": "100%",
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c5"
+          >
+            Loading
+          </span>
+        </div>
       </div>
     </span>
   </span>,

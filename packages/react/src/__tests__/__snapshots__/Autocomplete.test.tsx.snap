@@ -356,30 +356,39 @@ exports[`snapshots renders a loading state 1`] = `
       className="c1"
       display="flex"
     >
-      <svg
-        className="c2"
-        fill="none"
-        height="32px"
-        viewBox="0 0 16 16"
-        width="32px"
+      <div
+        className=""
       >
-        <circle
-          cx="8"
-          cy="8"
-          r="7"
-          stroke="currentColor"
-          strokeOpacity="0.25"
-          strokeWidth="2"
-          vectorEffect="non-scaling-stroke"
-        />
-        <path
-          d="M15 8a7.002 7.002 0 00-7-7"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeWidth="2"
-          vectorEffect="non-scaling-stroke"
-        />
-      </svg>
+        <svg
+          className="c2"
+          fill="none"
+          height="32px"
+          viewBox="0 0 16 16"
+          width="32px"
+        >
+          <circle
+            cx="8"
+            cy="8"
+            r="7"
+            stroke="currentColor"
+            strokeOpacity="0.25"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+          <path
+            d="M15 8a7.002 7.002 0 00-7-7"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+        <span
+          className="c0"
+        >
+          Loading
+        </span>
+      </div>
     </div>
   </span>,
 ]
