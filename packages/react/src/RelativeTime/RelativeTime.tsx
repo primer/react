@@ -15,5 +15,5 @@ function RelativeTime({date, datetime, children, noTitle, ...props}: RelativeTim
   )
 }
 
-export type RelativeTimeProps = ComponentProps<typeof RelativeTimeComponent> & {noTitle?: boolean}
+export type RelativeTimeProps = ComponentProps<typeof RelativeTimeComponent>
 export default RelativeTime
