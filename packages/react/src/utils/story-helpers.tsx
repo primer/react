@@ -263,7 +263,7 @@ export const OcticonArgType = (iconList: Icon[]) => {
   return {
     options: Object.keys(icons),
     control: {
-      type: 'select',
+      type: 'select' as const,
     },
     mapping: icons,
   }

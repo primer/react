@@ -20,7 +20,6 @@ Object.entries(PrimerBreakpoints).forEach(([viewport, value]) => {
 
 const preview = {
   parameters: {
-    actions: {argTypesRegex: '^on[A-Z].*'},
     html: {
       root: '#html-addon-root',
       removeEmptyComments: true,

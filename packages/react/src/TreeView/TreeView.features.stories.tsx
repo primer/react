@@ -9,7 +9,7 @@ import {
   IssueClosedIcon,
   IssueOpenedIcon,
 } from '@primer/octicons-react'
-import type {Meta, Story} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import React from 'react'
 import Box from '../Box'
 import {Button, IconButton} from '../Button'
@@ -32,7 +32,7 @@ const meta: Meta = {
   ],
 }
 
-export const Files: Story = () => (
+export const Files: StoryFn = () => (
   <nav aria-label="Files">
     <TreeView aria-label="Files">
       <TreeView.Item id="src" defaultExpanded>
@@ -109,7 +109,7 @@ export const Files: Story = () => (
   </nav>
 )
 
-export const FilesChanged: Story = () => {
+export const FilesChanged: StoryFn = () => {
   return (
     <nav aria-label="Files">
       <TreeView aria-label="Files">
@@ -273,7 +273,7 @@ const intialTree: TreeItem[] = Array.from({length: 5}).map((_, i) => ({
   })),
 }))
 
-export const Controlled: Story = () => {
+export const Controlled: StoryFn = () => {
   const [currentPath, setCurrentPath] = React.useState<string[]>(['src', 'Avatar.tsx'])
   const [tree, setTree] = React.useState<TreeItem[]>(intialTree)
 
@@ -345,7 +345,7 @@ async function loadItems(responseTime: number) {
   return ['Avatar.tsx', 'Button.tsx', 'Checkbox.tsx']
 }
 
-export const AsyncSuccess: Story = args => {
+export const AsyncSuccess: StoryFn = args => {
   const [isLoading, setIsLoading] = React.useState(false)
   const [asyncItems, setAsyncItems] = React.useState<string[]>([])
 
@@ -410,7 +410,7 @@ AsyncSuccess.args = {
   responseTime: 2000,
 }
 
-export const AsyncWithCount: Story = args => {
+export const AsyncWithCount: StoryFn = args => {
   const [isLoading, setIsLoading] = React.useState(false)
   const [asyncItems, setAsyncItems] = React.useState<string[]>([])
 
@@ -488,7 +488,7 @@ async function alwaysFails(responseTime: number) {
   return []
 }
 
-export const AsyncError: Story = args => {
+export const AsyncError: StoryFn = args => {
   const [isLoading, setIsLoading] = React.useState(false)
   const [asyncItems, setAsyncItems] = React.useState<string[]>([])
   const [error, setError] = React.useState<Error | null>(null)
@@ -577,7 +577,7 @@ AsyncError.args = {
   responseTime: 2000,
 }
 
-export const EmptyDirectories: Story = () => {
+export const EmptyDirectories: StoryFn = () => {
   const [state, setState] = React.useState<SubTreeState>('loading')
   const timeoutId = React.useRef<ReturnType<typeof setTimeout> | null>(null)
 
@@ -620,7 +620,7 @@ export const EmptyDirectories: Story = () => {
   )
 }
 
-export const NestedTrees: Story = () => {
+export const NestedTrees: StoryFn = () => {
   const [isLoading, setIsLoading] = React.useState(false)
   const [asyncItems, setAsyncItems] = React.useState<string[]>([])
 
@@ -698,7 +698,7 @@ export const NestedTrees: Story = () => {
   )
 }
 
-export const NestedScrollContainer: Story = () => {
+export const NestedScrollContainer: StoryFn = () => {
   return (
     <Box sx={{maxHeight: '50vh', overflow: 'auto'}}>
       <TreeView aria-label="Files">
@@ -730,7 +730,7 @@ export const NestedScrollContainer: Story = () => {
   )
 }
 
-export const StressTest: Story = () => {
+export const StressTest: StoryFn = () => {
   return (
     <TreeView aria-label="Files">
       {Array.from({length: 1000}).map((_, i) => (
@@ -755,7 +755,7 @@ export const StressTest: Story = () => {
   )
 }
 
-export const ContainIntrinsicSize: Story = () => {
+export const ContainIntrinsicSize: StoryFn = () => {
   return (
     <TreeView aria-label="Files">
       {Array.from({length: 10}).map((_, i) => (
@@ -780,7 +780,7 @@ export const ContainIntrinsicSize: Story = () => {
   )
 }
 
-export const InitialFocus: Story = () => (
+export const InitialFocus: StoryFn = () => (
   <div>
     <Button>Focusable element before TreeView</Button>
     <TreeView aria-label="Test tree">
@@ -901,7 +901,7 @@ export const InitialFocus: Story = () => (
   </div>
 )
 
-export const FocusManagement: Story = () => (
+export const FocusManagement: StoryFn = () => (
   <div>
     <Button>Focusable element before TreeView</Button>
     <TreeView aria-label="Test tree">
@@ -952,7 +952,7 @@ export const FocusManagement: Story = () => (
   </div>
 )
 
-export const WithoutIndentation: Story = () => (
+export const WithoutIndentation: StoryFn = () => (
   <nav aria-label="Files changed">
     <TreeView aria-label="Files changed" flat>
       <TreeView.Item id="src" defaultExpanded>
@@ -992,7 +992,7 @@ export const WithoutIndentation: Story = () => (
   </nav>
 )
 
-export const LeadingAction: Story = () => {
+export const LeadingAction: StoryFn = () => {
   return (
     <TreeView aria-label="Issues">
       <TreeView.Item id="item-0">
@@ -1040,7 +1040,7 @@ export const LeadingAction: Story = () => {
   )
 }
 
-export const MultilineItems: Story = () => (
+export const MultilineItems: StoryFn = () => (
   <nav aria-label="Files changed">
     <TreeView aria-label="Files changed">
       <TreeView.Item id="src" defaultExpanded>
