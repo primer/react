@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-Adds noTitle prop to RelativeTime component
+RelativeTime: Adds `noTitle` prop if you want to not render the `title` attribute with full date time.
