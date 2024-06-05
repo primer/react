@@ -135,7 +135,7 @@ Playground.argTypes = {
     control: 'date',
   },
   format: {
-    control: 'string',
+    control: 'text',
   },
 }
 
