@@ -5,8 +5,5 @@
  *
  * @example ComponentProps<typeof MyComponent>
  */
-export type ComponentProps<T> = T extends React.ComponentType<React.PropsWithChildren<infer Props>>
-  ? Props extends object
-    ? Props
-    : never
-  : never
+export type ComponentProps<T> =
+  T extends React.ComponentType<React.PropsWithChildren<infer Props>> ? (Props extends object ? Props : never) : never

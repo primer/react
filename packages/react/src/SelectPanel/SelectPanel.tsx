@@ -197,8 +197,8 @@ export function SelectPanel({
             filterValue === ''
               ? 'Showing all items'
               : items.length <= 0
-              ? 'No matching items'
-              : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
+                ? 'No matching items'
+                : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
           }
         />
         <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}>
