@@ -1,7 +1,6 @@
 import React from 'react'
 import type {Meta} from '@storybook/react'
-import {within, userEvent} from '@storybook/test'
-import {expect} from '@storybook/test'
+import {within, userEvent, expect} from '@storybook/test'
 import {OverflowTemplate} from './UnderlineNav.features.stories'
 
 export default {

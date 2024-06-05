@@ -14,8 +14,7 @@ import {
   getFormControlArgsByChildComponent,
   getTextInputArgTypes,
 } from '../utils/story-helpers'
-import {within, userEvent} from '@storybook/test'
-import {expect} from '@storybook/test'
+import {within, userEvent, expect} from '@storybook/test'
 
 type AutocompleteOverlayArgs = ComponentProps<typeof Autocomplete.Overlay>
 type AutocompleteMenuArgs = ComponentProps<typeof Autocomplete.Menu>
