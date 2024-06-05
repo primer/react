@@ -1,5 +1,5 @@
 import {PrimerBreakpoints} from '../src/utils/layout'
-import {useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {ThemeProvider, BaseStyles, theme} from '../src'
 import clsx from 'clsx'
 
