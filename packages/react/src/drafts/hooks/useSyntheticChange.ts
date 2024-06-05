@@ -14,8 +14,8 @@ const calculateNewCaretPosition = (
   return originalCaretPosition < replaceRange[0]
     ? originalCaretPosition
     : originalCaretPosition < replaceRange[1]
-      ? replaceRange[0] + insertLength
-      : originalCaretPosition + lengthDifference
+    ? replaceRange[0] + insertLength
+    : originalCaretPosition + lengthDifference
 }
 
 /**
@@ -107,8 +107,8 @@ export const useSyntheticChange = ({inputRef, fallbackEventHandler}: UseSyntheti
         newSelection_ === undefined
           ? calculateNewCaretPosition(input.selectionStart ?? input.value.length, replaceRange, insertValue.length)
           : Array.isArray(newSelection_)
-            ? newSelection_[0]
-            : newSelection_
+          ? newSelection_[0]
+          : newSelection_
       const newSelectionEnd = Array.isArray(newSelection_) ? newSelection_[1] : newSelectionStart
 
       // execCommmand simulates the user actually typing the value into the input. This preserves the undo history,

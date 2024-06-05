@@ -788,8 +788,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             width: resizable
               ? ['100%', null, 'clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width))']
               : isPaneWidth(width)
-                ? paneWidths[width]
-                : width.default,
+              ? paneWidths[width]
+              : width.default,
             padding: SPACING_MAP[padding],
             overflow: [null, null, 'auto'],
 
