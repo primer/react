@@ -76,6 +76,22 @@ const components = new Map([
           id: 'components-actionlist-features--disabled-selected-multiselect',
           name: 'Disabled Selected Multiselect',
         },
+        {
+          id: 'components-actionlist-dev--group-with-filled-title-old-api',
+          name: 'Group With Filled Title Old Api',
+        },
+        {
+          id: 'components-actionlist-dev--group-with-subtle-title-old-api',
+          name: 'Group With Subtle Title Old Api',
+        },
+        {
+          id: 'components-actionlist-features--group-with-filled-title',
+          name: 'Group With Filled Title',
+        },
+        {
+          id: 'components-actionlist-features--group-with-subtle-title',
+          name: 'Group With Subtle Title',
+        },
       ],
     },
   ],
@@ -464,7 +480,7 @@ const components = new Map([
     },
   ],
   [
-    'Dialog v1',
+    'DialogV1',
     {
       stories: [
         {
@@ -870,6 +886,10 @@ const components = new Map([
         {
           id: 'drafts-components-pageheader-features--with-parent-link-and-actions-of-context-area',
           name: 'With Parent Link and Actions of Context Area',
+        },
+        {
+          id: 'drafts-components-pageheader-devonly--large-variant-with-multiline-title',
+          name: 'Large Variant with Multiline Title',
         },
       ],
     },
@@ -1334,6 +1354,17 @@ const components = new Map([
     },
   ],
   [
+    'TabPages',
+    {
+      stories: [
+        {
+          id: 'components-tabpages--default',
+          name: 'Default',
+        },
+      ],
+    },
+  ],
+  [
     'Timeline',
     {
       stories: [
@@ -1415,39 +1446,39 @@ const components = new Map([
     },
   ],
   [
-    'Tooltip--experimental',
+    'TooltipV2',
     {
       stories: [
         {
-          id: 'drafts-components-tooltip--default',
+          id: 'components-tooltipv2--default',
           name: 'Default',
         },
         {
-          id: 'drafts-components-tooltip-features--anchor-has-margin',
+          id: 'components-tooltipv2-features--anchor-has-margin',
           name: 'Anchor Has Margin',
         },
         {
-          id: 'drafts-components-tooltip-features--calculated-direction',
+          id: 'components-tooltipv2-features--calculated-direction',
           name: 'Calculated Direction',
         },
         {
-          id: 'drafts-components-tooltip-features--icon-button-with-description',
+          id: 'components-tooltipv2-features--icon-button-with-description',
           name: 'Icon Button With Description',
         },
         {
-          id: 'drafts-components-tooltip-features--label-type',
+          id: 'components-tooltipv2-features--label-type',
           name: 'Label Type',
         },
         {
-          id: 'drafts-components-tooltip-features--multiline-text',
+          id: 'components-tooltipv2-features--multiline-text',
           name: 'Multiline Text',
         },
         {
-          id: 'drafts-components-tooltip-features--on-action-menu-anchor',
+          id: 'components-tooltipv2-features--on-action-menu-anchor',
           name: 'On Action Menu Anchor',
         },
         {
-          id: 'drafts-components-tooltip-examples--files-page',
+          id: 'components-tooltipv2-examples--files-page',
           name: 'Files Page Example',
         },
       ],

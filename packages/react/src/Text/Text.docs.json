@@ -1,0 +1,20 @@
+{
+  "id": "text",
+  "name": "Text",
+  "status": "alpha",
+  "a11yReviewed": true,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "as",
+      "defaultValue": "'span'",
+      "type": "React.ElementType"
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

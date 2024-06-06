@@ -1,0 +1,121 @@
+{
+  "id": "relative_time",
+  "name": "RelativeTime",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "datetime",
+      "type": "string",
+      "defaultValue": "",
+      "required": true,
+      "description": "An ISO8601 time representing the time"
+    },
+    {
+      "name": "date",
+      "type": "string",
+      "defaultValue": "",
+      "description": "Instead of passing the `datetime`, it is possible to pass a full `Date` object into the `date` prop"
+    },
+    {
+      "name": "format",
+      "type": "'auto' | 'micro' | 'elapsed'",
+      "defaultValue": "'auto'",
+      "description": "The format with which to display the time"
+    },
+    {
+      "name": "tense",
+      "type": "'auto' | 'past' | 'future'",
+      "defaultValue": "'auto'",
+      "description": "The tense to use when displaying a relative time"
+    },
+    {
+      "name": "precision",
+      "type": "'year' | 'month' | 'day' | 'hour' | 'minute' | 'second'",
+      "defaultValue": "'second'",
+      "description": "The precision to use when displaying an elapsed time"
+    },
+    {
+      "name": "threshold",
+      "type": "string",
+      "defaultValue": "'P30D'",
+      "description": "The threshold (ISO8601 duration) to display relative dates within"
+    },
+    {
+      "name": "prefix",
+      "type": "string",
+      "defaultValue": "'on'",
+      "description": "The prefix to use when displaying a localised (non relative) date"
+    },
+    {
+      "name": "second",
+      "type": "'numeric' | '2-digit'",
+      "defaultValue": "",
+      "description": "The format with which to render seconds"
+    },
+    {
+      "name": "minute",
+      "type": "'numeric' | '2-digit'",
+      "defaultValue": "",
+      "description": "The format with which to render minutes"
+    },
+    {
+      "name": "hour",
+      "type": "'numeric' | '2-digit'",
+      "defaultValue": "",
+      "description": "The format with which to render hours"
+    },
+    {
+      "name": "weekday",
+      "type": "'short' | 'long' | 'narrow'",
+      "defaultValue": "",
+      "description": "The format with which to render weekdays"
+    },
+    {
+      "name": "day",
+      "type": "'numeric' | '2-digit'",
+      "defaultValue": "",
+      "description": "The format with which to render days"
+    },
+    {
+      "name": "month",
+      "type": "'numeric' | '2-digit' | 'short' | 'long' | 'narrow'",
+      "defaultValue": "'numeric'",
+      "description": "The format with which to render months"
+    },
+    {
+      "name": "year",
+      "type": "'numeric' | '2-digit'",
+      "defaultValue": "",
+      "description": "The format with which to render years"
+    },
+    {
+      "name": "timeZoneName",
+      "type": "'long' | 'short' | 'shortOffset' | 'longOffset' | 'shortGeneric' | 'longGeneric'",
+      "defaultValue": "",
+      "description": "The format with which to render the time zone"
+    },
+    {
+      "name": "ref",
+      "type": "React.RefObject<RelativeTimeElement>"
+    },
+    {
+      "name": "noTitle",
+      "type": "boolean",
+      "defaultValue": "",
+      "description": "Removes the `title` attribute provided on the element by default"
+    },
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "\"relative-time\""
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

@@ -1,0 +1,120 @@
+{
+  "id": "drafts_markdown_editor",
+  "name": "MarkdownEditor",
+  "status": "deprecated",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react/experimental",
+  "props": [
+    {
+      "name": "value",
+      "required": true,
+      "type": "string",
+      "description": "Current value of the editor as a multiline markdown string."
+    },
+    {
+      "name": "onChange",
+      "required": true,
+      "type": "(newMarkdown: string) => void",
+      "description": "Called when the value changes. "
+    },
+    {
+      "name": "onRenderPreview",
+      "required": true,
+      "type": "(markdown: string) => Promise<string>",
+      "description": "Accepts Markdown and returns rendered HTML. To prevent XSS attacks, the HTML should be sanitized and/or come from a trusted source."
+    },
+    {
+      "name": "children",
+      "required": true,
+      "type": "React.ReactNode"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "Disable the editor and all related buttons. Users can still switch between preview & edit modes."
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "description": "Placeholder text to show when the editor is empty. By default, no placeholder will be shown."
+    },
+    {
+      "name": "maxLength",
+      "type": "number",
+      "description": "Maximum number of characters the markdown can hold (includes formatting characters like `*`). "
+    },
+    {
+      "name": "fullHeight",
+      "type": "boolean",
+      "description": "Force the editor to take up the full height of the container and disallow resizing. Only use when the container height is tall enough that the user will never want to expand the input further, ie when it takes the full height of the viewport."
+    },
+    {
+      "name": "aria-describedby",
+      "type": "string"
+    },
+    {
+      "name": "viewMode",
+      "type": "'preview' | 'edit'"
+    },
+    {
+      "name": "onChangeViewMode",
+      "type": "(newViewMode: 'preview' | 'edit') => void"
+    },
+    {
+      "name": "onPrimaryAction",
+      "type": "() => void"
+    },
+    {
+      "name": "minHeightLines",
+      "type": "number",
+      "defaultValue": "5"
+    },
+    {
+      "name": "maxHeightLines",
+      "type": "number",
+      "defaultValue": "35"
+    },
+    {
+      "name": "emojiSuggestions",
+      "type": "SuggestionOptions<Emoji>"
+    },
+    {
+      "name": "mentionSuggestions",
+      "type": "SuggestionOptions<Mentionable>"
+    },
+    {
+      "name": "referenceSuggestions",
+      "type": "SuggestionOptions<Reference>"
+    },
+    {
+      "name": "onUploadFile",
+      "type": "(file: File) => Promise<FileUploadResult>"
+    },
+    {
+      "name": "acceptedFileTypes",
+      "type": "FileType[]"
+    },
+    {
+      "name": "monospace",
+      "type": "boolean"
+    },
+    {
+      "name": "required",
+      "type": "boolean"
+    },
+    {
+      "name": "name",
+      "type": "string"
+    },
+    {
+      "name": "savedReplies",
+      "type": "SavedReply[]"
+    },
+    {
+      "name": "pasteUrlsAsPlainText",
+      "type": "boolean"
+    }
+  ],
+  "subcomponents": []
+}

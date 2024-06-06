@@ -1,0 +1,33 @@
+{
+  "id": "avatar_stack",
+  "name": "AvatarStack",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "alignRight",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Align the avatars to the right"
+    },
+    {
+      "name": "disableExpand",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Do not spread the avatars on hover"
+    },
+    {
+      "name": "size",
+      "type": "number | { narrow?: number; regular?: number; wide?: number; }",
+      "defaultValue": "20",
+      "description": "The size of the avatar children in pixels."
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

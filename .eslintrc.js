@@ -43,8 +43,9 @@ module.exports = {
     'consumer-test/**/*',
     'contributor-docs/adrs/*',
     'examples/nextjs/**',
+    'examples/codesandbox/**',
     // Note: this file is inlined from an external dependency
-    'src/utils/polymorphic.ts',
+    'packages/react/src/utils/polymorphic.ts',
     'storybook-static',
     'CHANGELOG.md',
   ],
@@ -67,7 +68,11 @@ module.exports = {
     camelcase: [
       'error',
       {
-        allow: ['dark_dimmed'],
+        allow: [
+          'dark_dimmed',
+          // Allow feature flag names that start with `primer_react_`
+          '^primer_react_',
+        ],
       },
     ],
     'primer-react/no-deprecated-colors': ['warn', {checkAllStrings: true}],
@@ -107,13 +112,14 @@ module.exports = {
     // rules which apply only to TS
     {
       parserOptions: {
-        project: 'tsconfig.json',
+        project: ['./tsconfig.json', './packages/**/tsconfig.json', './examples/**/tsconfig.json'],
       },
       files: ['**/*.{ts,tsx}'],
       extends: ['plugin:@typescript-eslint/recommended'],
       rules: {
-        '@typescript-eslint/no-explicit-any': 2,
-        '@typescript-eslint/no-unnecessary-condition': 2,
+        '@typescript-eslint/consistent-type-imports': 'error',
+        '@typescript-eslint/no-explicit-any': 'error',
+        '@typescript-eslint/no-unnecessary-condition': 'error',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
         '@typescript-eslint/no-unused-vars': [
           'error',
@@ -121,7 +127,7 @@ module.exports = {
             argsIgnorePattern: '^_',
           },
         ],
-        '@typscript-eslint/no-shadow': 'off',
+        '@typescript-eslint/no-shadow': 'off',
         '@typescript-eslint/no-empty-function': 'off',
         '@typescript-eslint/ban-ts-comment': [
           'error',
@@ -159,7 +165,7 @@ module.exports = {
 
     // Tests
     {
-      files: ['src/**/*.test.{ts,tsx}'],
+      files: ['**/*.test.{ts,tsx}'],
       extends: ['plugin:jest/recommended', 'plugin:testing-library/react'],
       rules: {
         '@typescript-eslint/no-non-null-assertion': 'off',
@@ -204,6 +210,7 @@ module.exports = {
         'no-unused-vars': 'off',
         'prettier/prettier': 'off',
         'react/jsx-no-undef': 'off',
+        'react/no-unescaped-entities': 'off',
         'primer-react/direct-slot-children': 'off',
       },
     },

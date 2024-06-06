@@ -1,0 +1,46 @@
+{
+  "id": "filter_list",
+  "name": "FilterList",
+  "status": "deprecated",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react/deprecated",
+  "props": [
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "FilterList.Item",
+      "props": [
+        {
+          "name": "count",
+          "type": "number",
+          "description": "Number to be displayed in the list item"
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "description": "Whether the list item is selected or not"
+        },
+        {
+          "name": "small",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether the list item is small or not"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'a'"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    }
+  ]
+}

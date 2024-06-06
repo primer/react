@@ -1,0 +1,61 @@
+{
+  "id": "radio",
+  "name": "Radio",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "value",
+      "type": "string",
+      "defaultValue": "",
+      "required": true,
+      "description": "A unique value that is never shown to the user"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "defaultValue": "",
+      "description": "Required for grouping multiple radios"
+    },
+    {
+      "name": "checked",
+      "type": "boolean",
+      "defaultValue": "",
+      "description": "Modifies true/false value of the native radio"
+    },
+    {
+      "name": "defaultChecked",
+      "type": "boolean",
+      "defaultValue": "",
+      "description": "Selects the radio by default in uncontrolled mode"
+    },
+    {
+      "name": "onChange",
+      "type": "(event: React.ChangeEvent) => void",
+      "defaultValue": "",
+      "description": "A callback function that is triggered when the input state has been changed"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "defaultValue": "",
+      "description": "Modifies the native disabled state of the native checkbox"
+    },
+    {
+      "name": "ref",
+      "type": "React.RefObject<HTMLInputElement>"
+    },
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "\"input\""
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

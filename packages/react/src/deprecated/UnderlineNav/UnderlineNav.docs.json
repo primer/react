@@ -1,0 +1,58 @@
+{
+  "id": "legacy_underline_nav",
+  "name": "UnderlineNav",
+  "status": "deprecated",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react/deprecated",
+  "props": [
+    {
+      "name": "actions",
+      "type": "React.ReactNode",
+      "description": "Place another element, such as a button, to the opposite side of the navigation items."
+    },
+    {
+      "name": "align",
+      "type": "'right'",
+      "description": "Use `right` to have navigation items aligned right."
+    },
+    {
+      "name": "full",
+      "type": "boolean",
+      "description": "Used to make navigation fill the width of the container."
+    },
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Used to set the `aria-label` on the top level `<nav>` element."
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "UnderlineNav.Link",
+      "props": [
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "'a'"
+        },
+        {
+          "name": "href",
+          "type": "string"
+        },
+        {
+          "name": "selected",
+          "type": "boolean"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    }
+  ]
+}

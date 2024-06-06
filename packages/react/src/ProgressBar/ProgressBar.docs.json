@@ -1,0 +1,44 @@
+{
+  "id": "progress_bar",
+  "name": "ProgressBar",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "animated",
+      "type": "boolean",
+      "description": "Whether the filled in area(s) of the progress bar will be animated or not"
+    },
+    {
+      "name": "progress",
+      "type": "number",
+      "defaultValue": "0",
+      "description": "Used to set the size of the green bar"
+    },
+    {
+      "name": "barSize",
+      "type": "| 'small' | 'large' | 'default'",
+      "defaultValue": "'default'",
+      "description": "Controls the height of the progress bar. If omitted, height is set to the default height."
+    },
+    {
+      "name": "inline",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Styles the progress bar inline"
+    },
+    {
+      "name": "bg",
+      "type": "string",
+      "defaultValue": "'bg.successInverse'",
+      "description": "Set the progress bar color"
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

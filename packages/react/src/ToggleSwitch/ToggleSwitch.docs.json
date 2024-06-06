@@ -1,0 +1,72 @@
+{
+  "id": "toggle_switch",
+  "name": "ToggleSwitch",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "aria-describedby",
+      "type": "string",
+      "defaultValue": "",
+      "description": "The id of the DOM node that describes the switch"
+    },
+    {
+      "name": "aria-labelledby",
+      "type": "string",
+      "defaultValue": "",
+      "required": true,
+      "description": "The id of the DOM node that labels the switch"
+    },
+    {
+      "name": "defaultChecked",
+      "type": "boolean",
+      "defaultValue": "",
+      "description": "Uncontrolled - whether the switch is turned on"
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "defaultValue": "",
+      "description": "Whether the switch is ready for user input"
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "defaultValue": "",
+      "description": "Whether the switch's value is being calculated"
+    },
+    {
+      "name": "checked",
+      "type": "boolean",
+      "defaultValue": "",
+      "description": "Whether the switch is turned on"
+    },
+    {
+      "name": "onChange",
+      "type": "(on: boolean) => void",
+      "defaultValue": "",
+      "description": "The callback that is called when the switch is toggled on or off"
+    },
+    {
+      "name": "onClick",
+      "type": "(e: MouseEvent) => void",
+      "defaultValue": "",
+      "description": "The callback that is called when the switch is clicked"
+    },
+    {
+      "name": "size",
+      "type": "'small' | 'medium'",
+      "defaultValue": "'medium'",
+      "description": "Size of the switch"
+    },
+    {
+      "name": "statusLabelPosition",
+      "type": "'start' | 'end'",
+      "defaultValue": "'start'",
+      "description": "<div>Whether the \"on\" and \"off\" labels should appear before or after the switch.</div> <div> <Text fontWeight=\"bold\">This should only be changed when the switch's alignment needs to be adjusted.</Text> For example: It needs to be left-aligned because the label appears above it and the caption appears below it. </div>"
+    }
+  ],
+  "subcomponents": []
+}

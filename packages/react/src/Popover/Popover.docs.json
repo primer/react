@@ -1,0 +1,55 @@
+{
+  "id": "popover",
+  "name": "Popover",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "as",
+      "type": "string",
+      "defaultValue": "div",
+      "description": "Sets the underlying HTML tag for the component"
+    },
+    {
+      "name": "caret",
+      "type": "| 'top' | 'bottom' | 'left' | 'right' | 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right' | 'left-bottom' | 'left-top' | 'right-bottom' | 'right-top' ",
+      "defaultValue": "'top'",
+      "description": "Controls the position of the caret"
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Controls the visibility of the popover."
+    },
+    {
+      "name": "relative",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Set to true to render the popover using relative positioning. "
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Popover.Content",
+      "props": [
+        {
+          "name": "as",
+          "type": "string",
+          "defaultValue": "div",
+          "description": "Sets the underlying HTML tag for the component"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    }
+  ]
+}

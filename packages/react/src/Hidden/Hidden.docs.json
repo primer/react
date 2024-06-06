@@ -1,0 +1,17 @@
+{
+  "id": "drafts_hidden",
+  "name": "Hidden",
+  "status": "draft",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react/experimental",
+  "props": [
+    {
+      "name": "when",
+      "type": "'narrow' | 'wide' | 'regular' | Array<'narrow' | 'regular' | 'wide'>",
+      "defaultValue": "",
+      "description": "In which viewport(s) the children are going to be hidden"
+    }
+  ],
+  "subcomponents": []
+}

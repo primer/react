@@ -1,0 +1,45 @@
+{
+  "id": "drafts_markdown_viewer",
+  "name": "MarkdownViewer",
+  "status": "deprecated",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react/deprecated",
+  "props": [
+    {
+      "name": "markdownValue",
+      "type": "string",
+      "description": "The markdown the HTML was rendered from. This is not used for viewing, only as a source for change events."
+    },
+    {
+      "name": "dangerousRenderHTML",
+      "type": "{ __html: string }",
+      "description": "Set the rendered HTML of the viewer. To prevent XSS, ensure that the source of this HTML is trusted!"
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "description": "Show a loading spinner instead of content."
+    },
+    {
+      "name": "onLinkClick",
+      "type": "(event: MouseEvent) => void",
+      "description": "Called when the user clicks a link element. This can be used to intercept the click and provide custom routing. Note that this is a native HTML `MouseEvent` and not a `React.ClickEvent`."
+    },
+    {
+      "name": "openLinksInNewTab",
+      "type": "boolean"
+    },
+    {
+      "name": "onChange",
+      "type": "(markdown: string) => void | Promise<void>",
+      "description": "Called when the user interacts and updates the Markdown. The rendered Markdown is updated eagerly - if the request fails, a rejected Promise should be returned by this handler. In that case, the viewer will revert the visual change. If the change is handled by an async API request (as it typically will be in production code), the viewer should be `disabled` while the request is pending to avoid conflicts. To allow users to check multiple boxes rapidly, the API request should be debounced (an ideal debounce duration is about 1 second)."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "description": "Control whether interaction is disabled."
+    }
+  ],
+  "subcomponents": []
+}

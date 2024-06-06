@@ -1,0 +1,23 @@
+{
+  "id": "label_group",
+  "name": "LabelGroup",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "overflowStyle",
+      "description": "How hidden tokens should be shown. `'inline'` shows the hidden tokens after the visible tokens. `'overlay'` shows all tokens in an overlay that appears on top of the visible tokens.",
+      "defaultValue": "",
+      "type": "'inline' | 'overlay'"
+    },
+    {
+      "name": "visibleChildCount",
+      "description": "How many tokens to show. `'auto'` truncates the tokens to fit in the parent container. Passing a number will truncate after that number tokens. If this is undefined, tokens will never be truncated.",
+      "defaultValue": "",
+      "type": "'auto' | number"
+    }
+  ],
+  "subcomponents": []
+}

@@ -1,0 +1,118 @@
+{
+  "id": "overlay",
+  "name": "Overlay",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "returnFocusRef",
+      "type": "React.RefObject<HTMLElement>",
+      "defaultValue": "",
+      "required": true,
+      "description": "Ref for the element to focus when the `Overlay` is closed."
+    },
+    {
+      "name": "onClickOutside",
+      "type": "function",
+      "defaultValue": "",
+      "required": true,
+      "description": "Function to call when clicking outside of the `Overlay`. Typically this function sets the `Overlay` visibility state to `false`."
+    },
+    {
+      "name": "onEscape",
+      "type": "function",
+      "defaultValue": "",
+      "required": true,
+      "description": "Function to call when user presses `Escape`. Typically this function sets the `Overlay` visibility state to `false`."
+    },
+    {
+      "name": "ignoreClickRefs",
+      "type": "React.RefObject<HTMLElement> []",
+      "defaultValue": "",
+      "description": "An array of ref objects to ignore clicks on in the onOutsideClick behavior. This is often used to ignore clicking on the element that toggles the open/closed state for the Overlay to prevent the Overlay from being toggled twice."
+    },
+    {
+      "name": "initialFocusRef",
+      "type": "React.RefObject<HTMLElement>",
+      "defaultValue": "",
+      "description": "Ref for the element to focus when the `Overlay` is opened. If nothing is provided, the first focusable element in the `Overlay` body is focused."
+    },
+    {
+      "name": "width",
+      "type": "| 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'auto'",
+      "defaultValue": "'auto'",
+      "description": "Sets the width of the `Overlay`, pick from our set list of widths, or pass `auto` to automatically set the width based on the content of the `Overlay`. `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `480px`, `xlarge` corresponds to `640px`, `xxlarge` corresponds to `960px`."
+    },
+    {
+      "name": "height",
+      "type": "| 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'auto'",
+      "defaultValue": "'auto'",
+      "description": "Sets the height of the `Overlay`, pick from our set list of heights, or pass `auto` to automatically set the height based on the content of the `Overlay`. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`."
+    },
+    {
+      "name": "maxHeight",
+      "type": "| 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'",
+      "defaultValue": "",
+      "description": "Sets the maximum height of the `Overlay`, pick from our set list of heights. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`."
+    },
+    {
+      "name": "maxWidth",
+      "type": "| 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge'",
+      "defaultValue": "",
+      "description": "Sets the maximum width of the `Overlay`, pick from our set list of widths. `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `480px`, `xlarge` corresponds to `640px`, `xxlarge` corresponds to `960px`."
+    },
+    {
+      "name": "visibility",
+      "type": "| 'visible' | 'hidden'",
+      "defaultValue": "'visible'",
+      "description": "Sets the visibility of the `Overlay`."
+    },
+    {
+      "name": "anchorSide",
+      "type": "| 'inside-top' | 'inside-bottom' | 'inside-left' | 'inside-right' | 'inside-center' | 'outside-top' | 'outside-bottom' | 'outside-left' | 'outside-right'",
+      "defaultValue": "",
+      "description": "If provided, the Overlay will slide into position from the side of the anchor with a brief animation"
+    },
+    {
+      "name": "top",
+      "type": "number",
+      "defaultValue": "0",
+      "description": "The top CSS property of the Overlay — affects the vertical position."
+    },
+    {
+      "name": "left",
+      "type": "number",
+      "defaultValue": "0",
+      "description": "The left CSS property of the Overlay — affects the horizontal position."
+    },
+    {
+      "name": "right",
+      "type": "number",
+      "description": "The right CSS property of the Overlay — affects the horizontal position."
+    },
+    {
+      "name": "bottom",
+      "type": "number",
+      "description": "The bottom CSS property of the Overlay — affects the vertical position."
+    },
+    {
+      "name": "position",
+      "type": "| 'static' | 'relative' | 'absolute' | 'fixed' | 'sticky'",
+      "defaultValue": "absolute",
+      "description": "The position CSS property of the Overlay — sets how the Overlay is positioned relative to its Portal"
+    },
+    {
+      "name": "portalContainerName",
+      "type": "string",
+      "defaultValue": "",
+      "description": "If defined, Overlays will be rendered in the named portal. See also `Portal`."
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

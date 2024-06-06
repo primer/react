@@ -27,9 +27,9 @@
 
 ## Strategy
 
-We aim to follow the behavioral testing paradigm as our testing strategy where we focus on testing the interface of the component with the given input and expected output rather than implementation details. This approach helps us think the possible ways of how an end-user would interact with, or use, the component therefore help us cover both happy and unhappy paths.
+We aim to follow the behavioral testing paradigm as our testing strategy where we focus on testing the interface of the component with the given input and expected output rather than implementation details. This approach helps us think of the possible ways of how an end-user would interact with, or use, the component therefore help us cover both happy and unhappy paths.
 
-As we heavily rely on the behavioral testing paradigm to test our components, the traditional percentage-base testing coverage is not always helpful for us to use as a metric. To measure the level of our testing coverage or in other words, the definition of "Tested" for us is more like a checklist than a number. Below are some examples can be used as a starting point to help measure the test coverage:
+As we heavily rely on the behavioral testing paradigm to test our components, the traditional percentage-base testing coverage is not always helpful for us to use as a metric. To measure the level of our testing coverage or in other words, the definition of "Tested" for us is more like a checklist than a number. Below are some examples that can be used as a starting point to help measure the test coverage:
 
 - Variants of the component (I.e. default, primary, success, error)
 - The states of the component (I.e. open/closed, selected, disabled)
@@ -78,22 +78,6 @@ To make assertions about the elements we use [Jest](https://jestjs.io/) and [jes
 
 We are slowly moving away from using `Jest` snapshots as a way to test visual changes of our components. You can read more about the decision in this [ADR](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-011-snapshot-tests.md). We are in the process of migrating our existing snapshot tests to use [Playwright](https://playwright.dev/) for visual regression testing. If you are writing a new test and you need to test the visual changes of the component, please refer to the [Visual Regression Tests](#visual-regression-tests) section.
 
-#### Updating `theme-preval` snapshots
-
-If you need to update the `theme-preval` snapshots, make sure to first update the cache-busting timestamp in [src/theme-preval.js](https://github.com/primer/react/blob/main/src/theme-preval.js)
-
-```diff
-- // Cache bust: 2022-02-23 12:00:00 GMT (This file is cached by our deployment tooling, update this timestamp to rebuild this file)
-+ // Cache bust: 2023-02-24 12:00:00 GMT (This file is cached by our deployment tooling, update this timestamp to rebuild this file)
-```
-
-After you will need to run the following commands and commit changes to the `themePreval.test.ts.snap` file:
-
-```sh
-npm run build
-npm run test -- -u
-```
-
 ### Running Tests
 
 | Task                | Command                  |
@@ -108,13 +92,13 @@ npm run test -- -u
 
 ### As A Part Of Unit Tests
 
-We write our unit tests from a user perspective rather than focusing on implementation details. Simulating events to test user interations is a core part of our testing practise.
+We write our unit tests from a user perspective rather than focusing on implementation details. Simulating events to test user interactions is a core part of our testing practise.
 
 We write user interaction tests leveraging [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/)’s [userEvent](<[userEvent](https://testing-library.com/docs/user-event/intro/)>) testing helper.
 
 ### Storybook Interaction Tests
 
-We use [Storybook interactions tests](https://storybook.js.org/docs/react/writing-tests/interaction-testing) to simulate and test some complex user interactions. They are particularly useful for cases where writing unit tests are not practical due the limitation of the mock browser functionalities of JSDOM. For example testing out a component's overflow behaviour whose responsiveness is managed by its own dynamic width.
+We use [Storybook interactions tests](https://storybook.js.org/docs/react/writing-tests/interaction-testing) to simulate and test some complex user interactions. They are particularly useful for cases where writing unit tests are not practical due to the limitation of the mock browser functionalities of JSDOM. For example testing out a component's overflow behaviour whose responsiveness is managed by its own dynamic width.
 
 Storybook tests are authored within the components's source directory with the file name of `interactions.stories.tsx`
 
@@ -147,6 +131,9 @@ available, check out the table below.
 > using `npx playwright test` if you would like to interact or debug tests.
 > However, screenshots will not match and new ones will need to be generated on
 > your first test run.
+
+> [!TIP]
+> To re-generate snapshots within your pull request, add the `update snapshots` label.
 
 ### Prerequisites
 
@@ -236,9 +223,3 @@ and downloading the relevant report.
 The browser executables need to be installed so that playwright can run tests
 inside chromium, firefox, etc. They can be installed by running
 `npx playwright install --with-deps`
-
-<!-- theme preval snapshots are poping up but I didn't change anything theme related -->
-
-### Why do I see the `theme-preval` snapshots being updated when I run `npm test -- -u` even though I didn't change anything theme related?
-
-It is likely that you are using the previous version of the theme values. To fix this, you can run `npm run build` to re-build the components with the latest theme values.
