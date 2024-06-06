@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import sx, {type SxProp} from '../sx'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import type {HTMLDataAttributes} from '../internal/internal-types'
-import {Box} from '../'
+import Box from '../Box'
 import {Status} from '../internal/components/Status'
 
 const sizeMap = {
