@@ -133,6 +133,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     else if (itemRole === 'option') inferredSelectionAttribute = 'aria-selected'
 
     const itemSelectionAttribute = selectionAttribute || inferredSelectionAttribute
+    // Ensures ActionList.Item retains list item semantics if a valid ARIA role is applied, or if item is inactive
+    const listSemantics = listRole === 'listbox' || listRole === 'menu' || inactive || container === 'NavList'
 
     const {theme} = useTheme()
 
@@ -151,10 +153,30 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       },
     }
 
+    const hoverStyles = {
+      '@media (hover: hover) and (pointer: fine)': {
+        ':hover:not([aria-disabled]):not([data-inactive])': {
+          backgroundColor: `actionListItem.${variant}.hoverBg`,
+          color: getVariantStyles(variant, disabled, inactive).hoverColor,
+          boxShadow: `inset 0 0 0 max(1px, 0.0625rem) ${theme?.colors.actionListItem.default.activeBorder}`,
+        },
+        '&:focus-visible, > a.focus-visible, &:focus.focus-visible': {
+          outline: 'none',
+          border: `2 solid`,
+          boxShadow: `0 0 0 2px ${theme?.colors.accent.emphasis}`,
+        },
+        ':active:not([aria-disabled]):not([data-inactive])': {
+          backgroundColor: `actionListItem.${variant}.activeBg`,
+          color: getVariantStyles(variant, disabled, inactive).hoverColor,
+        },
+      },
+    }
+
     const listItemStyles = {
       display: 'flex',
       // show between 2 items
       ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
+      ...(!listSemantics && !_PrivateItemWrapper ? hoverStyles : {}),
     }
 
     const styles = {
@@ -187,23 +209,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       fontFamily: 'unset',
       textAlign: 'unset',
       marginY: 'unset',
-
-      '@media (hover: hover) and (pointer: fine)': {
-        ':hover:not([aria-disabled]):not([data-inactive])': {
-          backgroundColor: `actionListItem.${variant}.hoverBg`,
-          color: getVariantStyles(variant, disabled, inactive).hoverColor,
-          boxShadow: `inset 0 0 0 max(1px, 0.0625rem) ${theme?.colors.actionListItem.default.activeBorder}`,
-        },
-        '&:focus-visible, > a.focus-visible, &:focus.focus-visible': {
-          outline: 'none',
-          border: `2 solid`,
-          boxShadow: `0 0 0 2px ${theme?.colors.accent.emphasis}`,
-        },
-        ':active:not([aria-disabled]):not([data-inactive])': {
-          backgroundColor: `actionListItem.${variant}.activeBg`,
-          color: getVariantStyles(variant, disabled, inactive).hoverColor,
-        },
-      },
 
       '@media (forced-colors: active)': {
         ':focus, &:focus-visible, > a.focus-visible': {
@@ -239,6 +244,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         '--divider-color': 'transparent',
       },
       ...(active ? activeStyles : {}),
+      ...(listSemantics || _PrivateItemWrapper ? hoverStyles : {}),
     }
 
     const clickHandler = React.useCallback(
@@ -270,21 +276,16 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const inlineDescriptionId = `${itemId}--inline-description`
     const blockDescriptionId = `${itemId}--block-description`
     const inactiveWarningId = inactive && !showInactiveIndicator ? `${itemId}--warning-message` : undefined
-    // Ensures ActionList.Item retains list item semantics if a valid ARIA role is applied, or if item is inactive
-    const listSemantics = listRole === 'listbox' || listRole === 'menu' || inactive || container === 'NavList'
 
     const ButtonItemWrapper = React.forwardRef(({as: Component = 'button', children, ...props}, forwardedRef) => {
       return (
-        <Box sx={{display: 'flex', width: '100%'}}>
-          <Box
-            as={Component as React.ElementType}
-            sx={merge<BetterSystemStyleObject>(styles, sxProp)}
-            ref={forwardedRef}
-            {...props}
-          >
-            {children}
-          </Box>
-          {Boolean(slots.trailingAction) && slots.trailingAction}
+        <Box
+          as={Component as React.ElementType}
+          sx={merge<BetterSystemStyleObject>(styles, sxProp)}
+          ref={forwardedRef}
+          {...props}
+        >
+          {children}
         </Box>
       )
     }) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>
@@ -395,19 +396,18 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                   </Box>
                   {slots.inlineDescription}
                 </ConditionalWrapper>
-                {
+                {slots.trailingVisual &&
                   // If we're showing an inactive indicator and a leading visual has NOT been passed,
                   // replace the trailing visual with the inactive indicator.
                   //
                   // This preserves the left alignment of item text.
-                  showInactiveIndicator && !slots.leadingVisual ? (
+                  (showInactiveIndicator && !slots.leadingVisual ? (
                     <InactiveIndicator labelId={labelId} text={inactiveText!} visualComponent={TrailingVisual} />
                   ) : (
                     // If it's not inactive, or it has a leading visual that can be replaced,
                     // just render the trailing visual slot.
                     trailingVisual
-                  )
-                }
+                  ))}
               </ConditionalWrapper>
               {
                 // If the item is inactive, but it's not in an overlay (e.g. ActionMenu, SelectPanel),
@@ -429,6 +429,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               {slots.blockDescription}
             </Box>
           </ItemWrapper>
+          {Boolean(slots.trailingAction) && slots.trailingAction}
         </LiBox>
       </ItemContext.Provider>
     )

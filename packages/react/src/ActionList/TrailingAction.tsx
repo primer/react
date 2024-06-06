@@ -16,7 +16,6 @@ export const TrailingAction = forwardRef(({...props}, forwardedRef) => {
     <Box
       as="span"
       sx={{
-        marginLeft: 2,
         flexShrink: 0,
       }}
     >
