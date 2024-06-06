@@ -1,5 +1,5 @@
 import React from 'react'
-import {ComponentMeta} from '@storybook/react'
+import type {ComponentMeta} from '@storybook/react'
 import Spinner from './Spinner'
 import {Box, Button} from '..'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
