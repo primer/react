@@ -55,14 +55,14 @@ when working in Primer and by teams at GitHub.
 In addition, `@primer/react` will leverage and export the following helpers for
 use within Primer React and GitHub:
 
-- The `Status` component to correspond with `role="status"`
-- The `Alert` component to correspond with `role="alert"`
+- The `AriaStatus` component to correspond with `role="status"`
+- The `AriaAlert` component to correspond with `role="alert"`
 
 Within `@primer/react`, we should lint against usage of `aria-live` and the
 corresponding roles (if possible) and suggest using these alternatives instead.
 
 > [!NOTE]
-> Both `Status` and `Alert` will trigger an announcement when the component is
+> Both `AriaStatus` and `AriaAlert` will trigger an announcement when the component is
 > rendered. As a result, they should only be used for dynamically rendered
 > content. Otherwise, they will trigger announcements on page load. In cases
 > where they should always be present, then the first message passed to the
@@ -76,7 +76,7 @@ This decision will impact existing usage of `aria-live`, `role="status"`, and
 updated to use the new approach, using one of the following approaches:
 
 - Use `announce()` or `announceFromElement()`
-- Use `Status` or `Alert`
+- Use `AriaStatus` or `AriaAlert`
 
 In addition, we should make sure that `<live-region>` is successfully included
 in GitHub.
@@ -111,12 +111,12 @@ None
 
 ```tsx
 import React from 'react'
-import {Status} from '@primer/react'
+import {AriaStatus} from '@primer/react'
 
 function ExampleComponent() {
   const [loading, setLoading] = React.useState(true)
   if (loading) {
-    return <Status>Example loading message</Status>
+    return <AriaStatus>Example loading message</AriaStatus>
   }
   return <Page />
 }
@@ -125,7 +125,7 @@ function ExampleComponent() {
 ### Announce on content change
 
 ```tsx
-import {Status} from '@primer/react'
+import {AriaStatus} from '@primer/react'
 import {useState} from 'react'
 
 function ExampleComponent() {
@@ -137,7 +137,7 @@ function ExampleComponent() {
         setCount(count + 1)
       }}
     >
-      <Status>Count {count}</Status>
+      <AriaStatus>Count {count}</AriaStatus>
     </button>
   )
 }
@@ -201,19 +201,19 @@ function ExampleComponent() {
 }
 ```
 
-The `Status` and `Alert` components automatically lookup the closest `dialog` so
+The `AriaStatus` and `AriaAlert` components automatically lookup the closest `dialog` so
 there is no need to provide a `from` argument.
 
 ```tsx
 import React from 'react'
-import {Status} from '@primer/react'
+import {AriaStatus} from '@primer/react'
 
 function ExampleComponent() {
   const [loading, setLoading] = React.useState(true)
   return (
     <dialog ref={ref}>
       <h1>Example content</h1>
-      {loading ? <Status>Loading example dialog</Status> : <DialogContent />}
+      {loading ? <AriaStatus>Loading example dialog</AriaStatus> : <DialogContent />}
     </dialog>
   )
 }
