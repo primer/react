@@ -169,6 +169,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           backgroundColor: `actionListItem.${variant}.activeBg`,
           color: getVariantStyles(variant, disabled, inactive).hoverColor,
         },
+        ':hover, :focus, :focus-within': {
+          // Used when `showOnHover` is passed to `TrailingAction`
+          '[data-component="IconButton"]': {
+            display: 'block',
+          },
+        },
       },
     }
 
@@ -231,6 +237,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         borderTopWidth: showDividers ? `1px` : '0',
         borderColor: 'var(--divider-color, transparent)',
       },
+
       // show between 2 items
       ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
       // hide divider after dividers & group header, with higher importance!

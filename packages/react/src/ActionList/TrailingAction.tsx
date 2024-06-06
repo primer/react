@@ -27,6 +27,9 @@ export const TrailingAction = forwardRef(
           variant="invisible"
           unsafeDisableTooltip={false}
           tooltipDirection="w"
+          sx={{
+            display: showOnHover ? 'none' : 'block',
+          }}
           {...props}
           ref={forwardedRef}
         />

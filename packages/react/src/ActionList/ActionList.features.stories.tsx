@@ -756,7 +756,7 @@ export const WithTrailingAction = () => {
         </ActionList.Item>
         <ActionList.LinkItem href="#">
           Link with TrailingAction <ActionList.Description>Hello this is a description.</ActionList.Description>
-          <ActionList.TrailingAction aria-label="Open book" icon={BookIcon} />
+          <ActionList.TrailingAction aria-label="Open book" icon={BookIcon} showOnHover />
         </ActionList.LinkItem>
         <ActionList.LinkItem href="#">
           Link with TrailingVisual <ActionList.Description>Hello this is a description.</ActionList.Description>
