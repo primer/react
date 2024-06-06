@@ -4,6 +4,7 @@ import sx, {type SxProp} from '../sx'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import type {HTMLDataAttributes} from '../internal/internal-types'
 import {Box} from '../'
+import {Status} from '../internal/components/Status'
 
 const sizeMap = {
   small: '16px',
@@ -46,7 +47,11 @@ function Spinner({size: sizeKey = 'medium', srText = 'Loading', 'aria-label': ar
           vectorEffect="non-scaling-stroke"
         />
       </svg>
-      {hasSrAnnouncement ? <VisuallyHidden>{srText || ariaLabel}</VisuallyHidden> : null}
+      {hasSrAnnouncement ? (
+        <VisuallyHidden>
+          <Status>{srText || ariaLabel}</Status>
+        </VisuallyHidden>
+      ) : null}
     </Box>
   )
 }

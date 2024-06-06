@@ -405,7 +405,11 @@ exports[`snapshots renders a loading state 1`] = `
         <div
           className="c4"
         >
-          Loading
+          <div
+            className=""
+          >
+            Loading
+          </div>
         </div>
       </div>
     </div>

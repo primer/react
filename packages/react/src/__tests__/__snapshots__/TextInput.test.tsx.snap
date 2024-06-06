@@ -4005,7 +4005,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <div
             className="c6"
           >
-            Loading
+            <div
+              className=""
+            >
+              Loading
+            </div>
           </div>
         </div>
       </div>
@@ -4218,7 +4222,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <div
             className="c5"
           >
-            Loading
+            <div
+              className=""
+            >
+              Loading
+            </div>
           </div>
         </div>
       </div>
@@ -4274,7 +4282,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <div
             className="c5"
           >
-            Loading
+            <div
+              className=""
+            >
+              Loading
+            </div>
           </div>
         </div>
       </div>
@@ -4488,7 +4500,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <div
             className="c6"
           >
-            Loading
+            <div
+              className=""
+            >
+              Loading
+            </div>
           </div>
         </div>
       </div>
@@ -4740,7 +4756,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <div
             className="c6"
           >
-            Loading
+            <div
+              className=""
+            >
+              Loading
+            </div>
           </div>
         </div>
       </div>
@@ -4796,7 +4816,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <div
             className="c6"
           >
-            Loading
+            <div
+              className=""
+            >
+              Loading
+            </div>
           </div>
         </div>
       </div>
@@ -5048,7 +5072,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <div
             className="c6"
           >
-            Loading
+            <div
+              className=""
+            >
+              Loading
+            </div>
           </div>
         </div>
       </div>
@@ -5104,7 +5132,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <div
             className="c6"
           >
-            Loading
+            <div
+              className=""
+            >
+              Loading
+            </div>
           </div>
         </div>
       </div>
@@ -5356,7 +5388,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <div
             className="c6"
           >
-            Loading
+            <div
+              className=""
+            >
+              Loading
+            </div>
           </div>
         </div>
       </div>
@@ -5412,7 +5448,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <div
             className="c6"
           >
-            Loading
+            <div
+              className=""
+            >
+              Loading
+            </div>
           </div>
         </div>
       </div>
@@ -5665,7 +5705,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <div
             className="c7"
           >
-            Loading
+            <div
+              className=""
+            >
+              Loading
+            </div>
           </div>
         </div>
       </div>
@@ -5887,7 +5931,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <div
             className="c5"
           >
-            Loading
+            <div
+              className=""
+            >
+              Loading
+            </div>
           </div>
         </div>
       </div>
@@ -5973,7 +6021,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <div
             className="c5"
           >
-            Loading
+            <div
+              className=""
+            >
+              Loading
+            </div>
           </div>
         </div>
       </div>
@@ -6226,7 +6278,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <div
             className="c7"
           >
-            Loading
+            <div
+              className=""
+            >
+              Loading
+            </div>
           </div>
         </div>
       </div>
@@ -6496,7 +6552,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <div
             className="c6"
           >
-            Loading
+            <div
+              className=""
+            >
+              Loading
+            </div>
           </div>
         </div>
       </div>
@@ -6582,7 +6642,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <div
             className="c6"
           >
-            Loading
+            <div
+              className=""
+            >
+              Loading
+            </div>
           </div>
         </div>
       </div>
@@ -6843,7 +6907,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <div
             className="c6"
           >
-            Loading
+            <div
+              className=""
+            >
+              Loading
+            </div>
           </div>
         </div>
       </div>
@@ -6929,7 +6997,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <div
             className="c6"
           >
-            Loading
+            <div
+              className=""
+            >
+              Loading
+            </div>
           </div>
         </div>
       </div>
@@ -7197,7 +7269,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <div
             className="c6"
           >
-            Loading
+            <div
+              className=""
+            >
+              Loading
+            </div>
           </div>
         </div>
       </div>
@@ -7283,7 +7359,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           <div
             className="c6"
           >
-            Loading
+            <div
+              className=""
+            >
+              Loading
+            </div>
           </div>
         </div>
       </div>
