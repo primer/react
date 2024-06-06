@@ -632,4 +632,87 @@ describe('ActionMenu', () => {
       expect(baseAnchor).not.toHaveAttribute('aria-expanded', 'true')
     })
   })
+
+  describe('event handlers', () => {
+    it('should call onClick and onKeyDown passed to ActionMenu.Button', async () => {
+      const mockOnClick = jest.fn()
+      const mockOnKeyDown = jest.fn()
+
+      const component = HTMLRender(
+        <ThemeProvider theme={theme}>
+          <ActionMenu>
+            <ActionMenu.Button onClick={mockOnClick} onKeyDown={mockOnKeyDown}>
+              Open menu
+            </ActionMenu.Button>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Item>New file</ActionList.Item>
+                <ActionList.Item>Copy link</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </ThemeProvider>,
+      )
+
+      const user = userEvent.setup()
+      const button = component.getByRole('button')
+      await user.click(button)
+
+      expect(component.getByRole('menu')).toBeInTheDocument()
+      expect(mockOnClick).toHaveBeenCalledTimes(1)
+
+      // select and close menu
+      const menuItems = component.getAllByRole('menuitem')
+      await user.click(menuItems[0])
+      expect(component.queryByRole('menu')).toBeNull()
+
+      expect(button).toEqual(document.activeElement)
+      await user.keyboard('{Enter}')
+      expect(component.queryByRole('menu')).toBeInTheDocument()
+      expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
+    })
+
+    it.only('should call onClick and onKeyDown passed to IconButton inside ActionMenu.Anchor', async () => {
+      const mockOnClick = jest.fn()
+      const mockOnKeyDown = jest.fn()
+
+      const component = HTMLRender(
+        <ThemeProvider theme={theme}>
+          <ActionMenu>
+            <ActionMenu.Anchor>
+              <IconButton
+                icon={KebabHorizontalIcon}
+                aria-label="Open menu"
+                onClick={mockOnClick}
+                onKeyDown={mockOnKeyDown}
+              />
+            </ActionMenu.Anchor>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Item>New file</ActionList.Item>
+                <ActionList.Item>Copy link</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </ThemeProvider>,
+      )
+
+      const user = userEvent.setup()
+      const button = component.getByRole('button')
+      await user.click(button)
+
+      expect(component.getByRole('menu')).toBeInTheDocument()
+      expect(mockOnClick).toHaveBeenCalledTimes(1)
+
+      // select and close menu
+      const menuItems = component.getAllByRole('menuitem')
+      await user.click(menuItems[0])
+      expect(component.queryByRole('menu')).toBeNull()
+
+      expect(button).toEqual(document.activeElement)
+      await user.keyboard('{Enter}')
+      expect(component.queryByRole('menu')).toBeInTheDocument()
+      expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
+    })
+  })
 })

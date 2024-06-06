@@ -43,6 +43,31 @@ export type ActionMenuProps = {
   onOpenChange?: (s: boolean) => void
 } & Pick<AnchoredOverlayProps, 'anchorRef'>
 
+// anchorProps adds onClick and onKeyDown, so we need to merge them with buttonProps
+const mergeAnchorHandlers = (anchorProps: React.HTMLAttributes<HTMLElement>, buttonProps: ButtonProps) => {
+  const mergedAnchorProps = {...anchorProps}
+
+  if (typeof buttonProps.onClick === 'function') {
+    const anchorOnClick = anchorProps.onClick
+    const mergedOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      buttonProps.onClick?.(event)
+      anchorOnClick?.(event)
+    }
+    mergedAnchorProps.onClick = mergedOnClick
+  }
+
+  if (typeof buttonProps.onKeyDown === 'function') {
+    const anchorOnKeyDown = anchorProps.onKeyDown
+    const mergedOnAnchorKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+      buttonProps.onKeyDown?.(event)
+      anchorOnKeyDown?.(event)
+    }
+    mergedAnchorProps.onKeyDown = mergedOnAnchorKeyDown
+  }
+
+  return mergedAnchorProps
+}
+
 const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   anchorRef: externalAnchorRef,
   open,
@@ -111,7 +136,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
       }
       return null
     } else if (child.type === MenuButton) {
-      renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
+      renderAnchor = anchorProps => React.cloneElement(child, mergeAnchorHandlers(anchorProps, child.props))
       return null
     } else {
       return child
