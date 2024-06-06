@@ -1,4 +1,4 @@
-import {AlertIcon, AlertFillIcon, IssueClosedIcon, FeedIssueClosedIcon} from '@primer/octicons-react'
+import {AlertFillIcon, CheckCircleFillIcon, FeedIssueClosedIcon} from '@primer/octicons-react'
 import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
@@ -58,22 +58,21 @@ const StyledMessage = styled.div`
 `
 
 const variantToIcon: Record<MessageVariant, React.ReactNode> = {
-  warning: <AlertIcon className="InlineMessageIcon" />,
-  critical: <AlertIcon className="InlineMessageIcon" />,
-  success: <IssueClosedIcon className="InlineMessageIcon" />,
-  unavailable: <AlertIcon className="InlineMessageIcon" />,
-}
-
-const variantToFilledIcon: Record<MessageVariant, React.ReactNode> = {
   warning: <AlertFillIcon className="InlineMessageIcon" />,
   critical: <AlertFillIcon className="InlineMessageIcon" />,
   success: <FeedIssueClosedIcon className="InlineMessageIcon" />,
   unavailable: <AlertFillIcon className="InlineMessageIcon" />,
 }
 
+const variantToSmallIcon: Record<MessageVariant, React.ReactNode> = {
+  warning: <AlertFillIcon className="InlineMessageIcon" size={12} />,
+  critical: <AlertFillIcon className="InlineMessageIcon" size={12} />,
+  success: <CheckCircleFillIcon className="InlineMessageIcon" size={12} />,
+  unavailable: <AlertFillIcon className="InlineMessageIcon" size={12} />,
+}
+
 export function InlineMessage({children, size = 'medium', variant, ...rest}: InlineMessageProps) {
-  // When the `InlineMessage` is small, use the fill variant of icons
-  const icon = size === 'small' ? variantToFilledIcon[variant] : variantToIcon[variant]
+  const icon = size === 'small' ? variantToSmallIcon[variant] : variantToIcon[variant]
   return (
     <StyledMessage {...rest} data-size={size} data-variant={variant}>
       {icon}

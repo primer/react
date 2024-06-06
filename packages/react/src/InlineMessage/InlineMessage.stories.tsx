@@ -31,4 +31,8 @@ export const Playground: StoryObj<typeof InlineMessage> = {
       options: ['critical', 'success', 'unavailable', 'warning'],
     },
   },
+  args: {
+    size: 'medium',
+    variant: 'success',
+  },
 }
