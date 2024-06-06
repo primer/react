@@ -29,7 +29,7 @@ export function importCSS(options: ImportCSSOptions): Plugin {
   const rootDirectory = path.isAbsolute(modulesRoot) ? modulesRoot : path.resolve(process.cwd(), modulesRoot)
 
   return {
-    name: 'include-css',
+    name: 'import-css',
     resolveId(source, importer) {
       if (!importer) {
         return
