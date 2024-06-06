@@ -5,13 +5,14 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 
 export type ActionListTrailingActionProps = {
   as?: 'button' | 'a'
+  href?: string
   icon: React.ElementType
   'aria-label': string
   showOnHover?: boolean
 }
 
 export const TrailingAction = forwardRef(
-  ({as = 'button', icon, 'aria-label': ariaLabel, showOnHover = false}, forwardedRef) => {
+  ({as = 'button', icon, 'aria-label': ariaLabel, showOnHover = false, ...props}, forwardedRef) => {
     return (
       <Box
         as="span"
@@ -21,16 +22,17 @@ export const TrailingAction = forwardRef(
       >
         <IconButton
           as={as}
+          aria-label={ariaLabel}
           icon={icon}
           variant="invisible"
           unsafeDisableTooltip={false}
           tooltipDirection="w"
-          aria-label={ariaLabel}
+          {...props}
           ref={forwardedRef}
         />
       </Box>
     )
   },
-) as PolymorphicForwardRefComponent<'button', ActionListTrailingActionProps>
+) as PolymorphicForwardRefComponent<'button' | 'a', ActionListTrailingActionProps>
 
 TrailingAction.displayName = 'ActionList.TrailingAction'
