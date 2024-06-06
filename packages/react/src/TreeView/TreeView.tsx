@@ -352,6 +352,8 @@ Root.displayName = 'TreeView'
 // TreeView.Item
 
 export type TreeViewItemProps = {
+  'aria-label'?: React.AriaAttributes['aria-label']
+  'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
   id: string
   children: React.ReactNode
   containIntrinsicSize?: string
@@ -375,6 +377,8 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       onSelect,
       children,
       className,
+      'aria-label': ariaLabel,
+      'aria-labelledby': ariaLabelledby,
     },
     ref,
   ) => {
@@ -472,7 +476,8 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           tabIndex={0}
           id={itemId}
           role="treeitem"
-          aria-labelledby={labelId}
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabel ? undefined : ariaLabelledby || labelId}
           aria-describedby={`${leadingVisualId} ${trailingVisualId}`}
           aria-level={level}
           aria-expanded={isSubTreeEmpty ? undefined : isExpanded}
