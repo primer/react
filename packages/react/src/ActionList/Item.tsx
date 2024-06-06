@@ -403,18 +403,19 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                   </Box>
                   {slots.inlineDescription}
                 </ConditionalWrapper>
-                {slots.trailingVisual &&
+                {
                   // If we're showing an inactive indicator and a leading visual has NOT been passed,
                   // replace the trailing visual with the inactive indicator.
                   //
                   // This preserves the left alignment of item text.
-                  (showInactiveIndicator && !slots.leadingVisual ? (
+                  showInactiveIndicator && !slots.leadingVisual ? (
                     <InactiveIndicator labelId={labelId} text={inactiveText!} visualComponent={TrailingVisual} />
                   ) : (
                     // If it's not inactive, or it has a leading visual that can be replaced,
                     // just render the trailing visual slot.
                     trailingVisual
-                  ))}
+                  )
+                }
               </ConditionalWrapper>
               {
                 // If the item is inactive, but it's not in an overlay (e.g. ActionMenu, SelectPanel),
@@ -436,7 +437,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               {slots.blockDescription}
             </Box>
           </ItemWrapper>
-          {Boolean(slots.trailingAction) && slots.trailingAction}
+          {!inactive && Boolean(slots.trailingAction) && slots.trailingAction}
         </LiBox>
       </ItemContext.Provider>
     )

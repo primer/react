@@ -766,6 +766,7 @@ export const WithTrailingAction = () => {
         </ActionList.LinkItem>
         <ActionList.Item inactiveText="Unavailable due to an outage">
           Inactive Item example<ActionList.Description>Inline description</ActionList.Description>
+          <ActionList.TrailingAction as="a" href="#" aria-label="Trailing link" icon={ArrowRightIcon} />
         </ActionList.Item>
       </ActionList>
     </FeatureFlags>
