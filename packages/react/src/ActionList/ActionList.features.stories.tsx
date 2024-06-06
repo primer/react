@@ -735,22 +735,6 @@ export const ActionListWithButtonSemantics = () => {
 
 ActionListWithButtonSemantics.storyName = 'With Button Semantics (Behind feature flag)'
 
-// export const WithTrailingAction = () => {
-//   return (
-//     <ActionList>
-//       <ActionList.Item trailingAction={<ActionList.TrailingAction aria-label="Expand sidebar" icon={ArrowLeftIcon} />}>
-//         Item 1
-//       </ActionList.Item>
-//       <ActionList.Item trailingAction={<ActionList.TrailingAction aria-label="Expand right" icon={ArrowLeftIcon} />}>
-//         Item 2
-//       </ActionList.Item>
-//       <ActionList.Item trailingAction={<ActionList.TrailingAction aria-label="Open book" icon={BookIcon} />}>
-//         Item 3
-//       </ActionList.Item>
-//     </ActionList>
-//   )
-// }
-
 export const WithTrailingAction = () => {
   return (
     <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
