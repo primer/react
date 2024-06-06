@@ -3,6 +3,7 @@ import {ComponentMeta} from '@storybook/react'
 import Spinner from './Spinner'
 import {Box, Button} from '..'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
+import {Status} from '../internal/components/Status'
 
 export default {
   title: 'Components/Spinner/Examples',
@@ -45,7 +46,9 @@ export const FullLifecycle = () => {
       </Button>
       {state === 'loading' && <Spinner />}
       <p>{loadedContent}</p>
-      <VisuallyHidden role="status">{state === 'done' && 'Content finished loading'}</VisuallyHidden>
+      <VisuallyHidden>
+        <Status>{state === 'done' && 'Content finished loading'}</Status>
+      </VisuallyHidden>
     </>
   )
 }
@@ -81,11 +84,13 @@ export const FullLifecycleVisibleLoadingText = () => {
       {state !== 'done' && (
         <Box sx={{alignItems: 'center', display: 'flex', gap: '0.25rem'}}>
           {state === 'loading' && <Spinner size="small" srText={null} />}
-          <span role="status">{state === 'loading' ? 'Content is loading...' : ''}</span>
+          <Status>{state === 'loading' ? 'Content is loading...' : ''}</Status>
         </Box>
       )}
       <p>{loadedContent}</p>
-      <VisuallyHidden role="status">{state === 'done' && 'Content finished loading'}</VisuallyHidden>
+      <VisuallyHidden>
+        <Status>{state === 'done' && 'Content finished loading'}</Status>
+      </VisuallyHidden>
     </Box>
   )
 }
