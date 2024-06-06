@@ -96,6 +96,7 @@ in GitHub.
 - LiveRegion
 - TreeView
 - ActionList examples
+- Spinner
 
 ### Instances of `role="alert"`
 
