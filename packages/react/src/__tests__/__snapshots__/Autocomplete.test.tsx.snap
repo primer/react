@@ -652,7 +652,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   font-size: 12px;
 }
 
-[data-variant="danger"]:hover .c4,
+[data-variant="danger"]:not([aria-disabled]):not([data-inactive]):hover .c4,
 [data-variant="danger"]:active .c9 {
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
