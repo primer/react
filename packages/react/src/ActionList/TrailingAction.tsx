@@ -28,7 +28,7 @@ export const TrailingAction = forwardRef(
           unsafeDisableTooltip={false}
           tooltipDirection="w"
           sx={{
-            display: showOnHover ? 'none' : 'block',
+            display: showOnHover ? 'none' : 'flex',
           }}
           href={href}
           // @ts-expect-error StyledButton wants both Anchor and Button refs
