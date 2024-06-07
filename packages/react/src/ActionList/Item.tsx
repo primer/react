@@ -80,7 +80,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const {container, afterSelect, selectionAttribute, defaultTrailingVisual} =
       React.useContext(ActionListContainerContext)
 
-    const buttonSemantics = useFeatureFlag('primer_react_action_list_item_as_button')
+    const buttonSemanticsFeatureFlag = true // useFeatureFlag('primer_react_action_list_item_as_button')
 
     // Be sure to avoid rendering the container unless there is a default
     const wrappedDefaultTrailingVisual = defaultTrailingVisual ? (
@@ -135,6 +135,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const itemSelectionAttribute = selectionAttribute || inferredSelectionAttribute
     // Ensures ActionList.Item retains list item semantics if a valid ARIA role is applied, or if item is inactive
     const listSemantics = listRole === 'listbox' || listRole === 'menu' || inactive || container === 'NavList'
+    const buttonSemantics = !listSemantics && !_PrivateItemWrapper && buttonSemanticsFeatureFlag
 
     const {theme} = useTheme()
 
@@ -182,7 +183,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       display: 'flex',
       // show between 2 items
       ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
-      ...(!listSemantics && !_PrivateItemWrapper ? hoverStyles : {}),
+      width: 'calc(100% - 16px)',
+      marginX: buttonSemantics ? '2' : '0',
+      ...(buttonSemantics ? hoverStyles : {}),
     }
 
     const styles = {
@@ -193,7 +196,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       paddingY: '6px', // custom value off the scale
       lineHeight: TEXT_ROW_HEIGHT,
       minHeight: 5,
-      marginX: listVariant === 'inset' ? 2 : 0,
+      marginX: listVariant === 'inset' && !buttonSemantics ? 2 : 0,
       borderRadius: 2,
       transition: 'background 33.333ms linear',
       color: getVariantStyles(variant, disabled, inactive).color,
@@ -211,7 +214,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       appearance: 'none',
       background: 'unset',
       border: 'unset',
-      width: listVariant === 'inset' ? 'calc(100% - 16px)' : '100%',
+      width: listVariant === 'inset' && !buttonSemantics ? 'calc(100% - 16px)' : '100%',
       fontFamily: 'unset',
       textAlign: 'unset',
       marginY: 'unset',
@@ -298,7 +301,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     }) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>
 
     let DefaultItemWrapper = React.Fragment
-    if (buttonSemantics) {
+    if (buttonSemanticsFeatureFlag) {
       DefaultItemWrapper = listSemantics ? React.Fragment : ButtonItemWrapper
     }
 
@@ -326,7 +329,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     let containerProps
     let wrapperProps
 
-    if (buttonSemantics) {
+    if (buttonSemanticsFeatureFlag) {
       containerProps = _PrivateItemWrapper
         ? {role: itemRole ? 'none' : undefined, ...props}
         : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -350,9 +353,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         value={{variant, disabled, inactive: Boolean(inactiveText), inlineDescriptionId, blockDescriptionId}}
       >
         <LiBox
-          ref={buttonSemantics || listSemantics ? forwardedRef : null}
+          ref={buttonSemanticsFeatureFlag || listSemantics ? forwardedRef : null}
           sx={
-            buttonSemantics
+            buttonSemanticsFeatureFlag
               ? merge<BetterSystemStyleObject>(
                   listSemantics || _PrivateItemWrapper ? styles : listItemStyles,
                   listSemantics || _PrivateItemWrapper ? sxProp : {},
