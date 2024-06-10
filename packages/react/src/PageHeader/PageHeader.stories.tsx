@@ -190,7 +190,7 @@ export default meta
 export const Playground: Story = args => (
   <Box sx={{padding: 3}}>
     <PageHeader
-      variant={{
+      titleVariant={{
         narrow: args['Title.variant'],
         regular: args['Title.variant'],
         wide: args['Title.variant'],
