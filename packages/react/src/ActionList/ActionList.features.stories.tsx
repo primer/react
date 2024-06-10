@@ -751,7 +751,11 @@ export const WithTrailingAction = () => {
           <ActionList.TrailingAction as="a" href="#" aria-label="Some action 1" icon={ArrowRightIcon} />
         </ActionList.Item>
         <ActionList.Item>
-          Item 3<ActionList.Description>Hello this is a description.</ActionList.Description>
+          Item 3<ActionList.Description>This is an inline description.</ActionList.Description>
+          <ActionList.TrailingAction aria-label="Some action 2" icon={BookIcon} />
+        </ActionList.Item>
+        <ActionList.Item>
+          Item 4<ActionList.Description variant="block">This is a block description.</ActionList.Description>
           <ActionList.TrailingAction aria-label="Some action 2" icon={BookIcon} />
         </ActionList.Item>
         <ActionList.LinkItem href="#">
