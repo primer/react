@@ -4,6 +4,7 @@ import axe from 'axe-core'
 import React from 'react'
 import theme from '../theme'
 import {ActionList} from '.'
+import {BookIcon} from '@primer/octicons-react'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, ThemeProvider, SSRProvider, ActionMenu} from '..'
 import {FeatureFlags} from '../FeatureFlags'
@@ -444,5 +445,70 @@ describe('ActionList', () => {
 
     const listItems = container.querySelectorAll('li')
     expect(listItems.length).toBe(2)
+  })
+
+  it('should render the trailing action as a button (default)', async () => {
+    const {container} = HTMLRender(
+      <FeatureFlags flags={{primer_react_action_list_item_as_button: false}}>
+        <ActionList>
+          <ActionList.Item>
+            Item 1
+            <ActionList.TrailingAction icon={BookIcon} aria-label="Action" />
+          </ActionList.Item>
+        </ActionList>
+      </FeatureFlags>,
+    )
+
+    const action = container.querySelector('button[aria-labelledby]')
+    expect(action).toHaveAccessibleName('Action')
+  })
+
+  it('should render the trailing action as a link', async () => {
+    const {container} = HTMLRender(
+      <FeatureFlags flags={{primer_react_action_list_item_as_button: false}}>
+        <ActionList>
+          <ActionList.Item>
+            Item 1
+            <ActionList.TrailingAction as="a" href="#" icon={BookIcon} aria-label="Action" />
+          </ActionList.Item>
+        </ActionList>
+      </FeatureFlags>,
+    )
+
+    const action = container.querySelector('a[href="#"][aria-labelledby]')
+    expect(action).toHaveAccessibleName('Action')
+  })
+
+  it('should do action when trailing action is clicked', async () => {
+    const onClick = jest.fn()
+    const component = HTMLRender(
+      <ActionList>
+        <ActionList.Item>
+          Item 1
+          <ActionList.TrailingAction icon={BookIcon} aria-label="Action" onClick={onClick} />
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const trailingAction = await waitFor(() => component.getByRole('button', {name: 'Action'}))
+    fireEvent.click(trailingAction)
+    expect(onClick).toHaveBeenCalled()
+  })
+
+  it('should focus the trailing action', async () => {
+    HTMLRender(
+      <ActionList>
+        <ActionList.Item>
+          Item 1
+          <ActionList.TrailingAction icon={BookIcon} aria-label="Action" />
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    await userEvent.tab()
+    expect(document.activeElement).toHaveTextContent('Item 1')
+
+    await userEvent.tab()
+    expect(document.activeElement).toHaveAccessibleName('Action')
   })
 })

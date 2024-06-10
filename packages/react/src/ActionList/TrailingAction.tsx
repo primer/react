@@ -12,7 +12,7 @@ export type ActionListTrailingActionProps = {
 }
 
 export const TrailingAction = forwardRef(
-  ({as = 'button', icon, 'aria-label': ariaLabel, showOnHover = false, href = null}, forwardedRef) => {
+  ({as, icon, 'aria-label': ariaLabel, showOnHover = false, href = null, ...props}, forwardedRef) => {
     return (
       <Box
         as="span"
@@ -33,6 +33,7 @@ export const TrailingAction = forwardRef(
           href={href}
           // @ts-expect-error StyledButton wants both Anchor and Button refs
           ref={forwardedRef}
+          {...props}
         />
       </Box>
     )
