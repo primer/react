@@ -189,14 +189,14 @@ export default meta
 
 export const Playground: Story = args => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
-      <PageHeader.TitleArea
-        variant={{
-          narrow: args['Title.variant'],
-          regular: args['Title.variant'],
-          wide: args['Title.variant'],
-        }}
-      >
+    <PageHeader
+      variant={{
+        narrow: args['Title.variant'],
+        regular: args['Title.variant'],
+        wide: args['Title.variant'],
+      }}
+    >
+      <PageHeader.TitleArea>
         <PageHeader.LeadingVisual hidden={!args.hasLeadingVisual}>{<args.LeadingVisual />}</PageHeader.LeadingVisual>
         <PageHeader.Title as={args['Title.as']} hidden={!args.hasTitle}>
           {args.Title}

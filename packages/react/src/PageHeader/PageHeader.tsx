@@ -321,40 +321,33 @@ const ContextAreaActions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> =
     </Box>
   )
 }
-
-type TitleAreaProps = {
-  // variant?: 'subtitle' | 'medium' | 'large' | ResponsiveValue<'subtitle' | 'medium' | 'large'>
-} & ChildrenPropTypes
 // PageHeader.TitleArea: The main title area of the page. Visible on all viewports.
 // PageHeader.TitleArea Sub Components: PageHeader.LeadingVisual, PageHeader.Title, PageTitle.TrailingVisual
 // ---------------------------------------------------------------------
 
-const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<TitleAreaProps>>(
-  ({children, sx = {}, hidden = false}, forwardedRef) => {
-    return (
-      <Box
-        ref={forwardedRef}
-        data-component="TitleArea"
-        sx={merge<BetterSystemStyleObject>(
-          {
-            gridRow: GRID_ROW_ORDER.TitleArea,
-            gridArea: 'title-area',
-            display: 'flex',
-            gap: '0.5rem',
-            ...getBreakpointDeclarations(hidden, 'display', value => {
-              return value ? 'none' : 'flex'
-            }),
-            flexDirection: 'row',
-            alignItems: 'flex-start',
-          },
-          sx,
-        )}
-      >
-        {children}
-      </Box>
-    )
-  },
-) as PolymorphicForwardRefComponent<'div', TitleAreaProps>
+const TitleArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
+  return (
+    <Box
+      data-component="TitleArea"
+      sx={merge<BetterSystemStyleObject>(
+        {
+          gridRow: GRID_ROW_ORDER.TitleArea,
+          gridArea: 'title-area',
+          display: 'flex',
+          gap: '0.5rem',
+          ...getBreakpointDeclarations(hidden, 'display', value => {
+            return value ? 'none' : 'flex'
+          }),
+          flexDirection: 'row',
+          alignItems: 'flex-start',
+        },
+        sx,
+      )}
+    >
+      {children}
+    </Box>
+  )
+}
 
 // PageHeader.LeadingAction and PageHeader.TrailingAction should only be visible on regular viewports.
 // So they come as hidden on narrow viewports by default and their visibility can be managed by their `hidden` prop.
