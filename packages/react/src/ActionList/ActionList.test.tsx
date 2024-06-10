@@ -449,14 +449,12 @@ describe('ActionList', () => {
 
   it('should render the trailing action as a button (default)', async () => {
     const {container} = HTMLRender(
-      <FeatureFlags flags={{primer_react_action_list_item_as_button: false}}>
-        <ActionList>
-          <ActionList.Item>
-            Item 1
-            <ActionList.TrailingAction icon={BookIcon} aria-label="Action" />
-          </ActionList.Item>
-        </ActionList>
-      </FeatureFlags>,
+      <ActionList>
+        <ActionList.Item>
+          Item 1
+          <ActionList.TrailingAction icon={BookIcon} aria-label="Action" />
+        </ActionList.Item>
+      </ActionList>,
     )
 
     const action = container.querySelector('button[aria-labelledby]')
@@ -465,14 +463,12 @@ describe('ActionList', () => {
 
   it('should render the trailing action as a link', async () => {
     const {container} = HTMLRender(
-      <FeatureFlags flags={{primer_react_action_list_item_as_button: false}}>
-        <ActionList>
-          <ActionList.Item>
-            Item 1
-            <ActionList.TrailingAction as="a" href="#" icon={BookIcon} aria-label="Action" />
-          </ActionList.Item>
-        </ActionList>
-      </FeatureFlags>,
+      <ActionList>
+        <ActionList.Item>
+          Item 1
+          <ActionList.TrailingAction as="a" href="#" icon={BookIcon} aria-label="Action" />
+        </ActionList.Item>
+      </ActionList>,
     )
 
     const action = container.querySelector('a[href="#"][aria-labelledby]')
@@ -507,7 +503,6 @@ describe('ActionList', () => {
 
     await userEvent.tab()
     expect(document.activeElement).toHaveTextContent('Item 1')
-
     await userEvent.tab()
     expect(document.activeElement).toHaveAccessibleName('Action')
   })
