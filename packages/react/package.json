@@ -192,7 +192,7 @@
     "jscodeshift": "0.15.0",
     "lodash.groupby": "4.6.0",
     "lodash.keyby": "4.6.0",
-    "mdast-util-from-markdown": "2.0.0",
+    "mdast-util-from-markdown": "2.0.1",
     "mdast-util-frontmatter": "2.0.1",
     "mdast-util-mdx": "3.0.0",
     "mdast-util-to-string": "4.0.0",
