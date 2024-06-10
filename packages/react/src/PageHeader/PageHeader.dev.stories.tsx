@@ -26,19 +26,11 @@ export const LargeVariantWithMultilineTitle = () => (
         <PageHeader.LeadingVisual>
           <GitBranchIcon />
         </PageHeader.LeadingVisual>
-        <PageHeader.Title
-          sx={{
-            // lineHeight: '1.25',
-            fontWeight: 'normal',
-            // fontSize: '32px',
-            fontSize: ['26px', '26px', '32px', '32px'],
-            // fontSize: ['26px', '26px', 'var(--text-title-size-large, 32px)', 'var(--text-title-size-large, 32px)'], // it doesn't support this format right now.
-          }}
-        >
+        <PageHeader.Title>
           Title long title some extra loooong looong words here some extra loooong looong words here some extra loooong
           looong words here some extra loooong looong words here some extra loooong looong words here
         </PageHeader.Title>
-        <PageHeader.TrailingVisual sx={{height: '120px'}}>
+        <PageHeader.TrailingVisual>
           <Label>Beta</Label>
         </PageHeader.TrailingVisual>
       </PageHeader.TitleArea>

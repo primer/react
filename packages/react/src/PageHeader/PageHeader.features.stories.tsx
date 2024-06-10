@@ -41,8 +41,8 @@ export const HasTitleOnly = () => (
 
 export const HasLargeTitle = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
-      <PageHeader.TitleArea variant="large">
+    <PageHeader titleVariant="large">
+      <PageHeader.TitleArea>
         <PageHeader.Title>Title</PageHeader.Title>
       </PageHeader.TitleArea>
     </PageHeader>

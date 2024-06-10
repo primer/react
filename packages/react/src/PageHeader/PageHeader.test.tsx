@@ -138,8 +138,8 @@ describe('PageHeader', () => {
   })
   it('respects the title variant prop', () => {
     const {getByText} = render(
-      <PageHeader>
-        <PageHeader.TitleArea variant="large">
+      <PageHeader titleVariant="large">
+        <PageHeader.TitleArea>
           <PageHeader.Title>Title</PageHeader.Title>
         </PageHeader.TitleArea>
         <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
