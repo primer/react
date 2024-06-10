@@ -767,12 +767,12 @@ export const WithTrailingAction = () => {
           <ActionList.TrailingAction href="#" as="a" label="Some action 5" />
         </ActionList.Item>
         <ActionList.Item>
-          Item 7
-          <ActionList.TrailingAction showOnHover href="#" as="a" label="Some action 5" />
+          Item 7<ActionList.Description>with TrailingAction shown on hover</ActionList.Description>
+          <ActionList.TrailingAction showOnHover href="#" as="a" label="Some action 6" />
         </ActionList.Item>
         <ActionList.LinkItem href="#">
           LinkItem 1<ActionList.Description>with TrailingAction shown on hover</ActionList.Description>
-          <ActionList.TrailingAction label="Some action 6" icon={BookIcon} showOnHover />
+          <ActionList.TrailingAction label="Some action 7" icon={BookIcon} showOnHover />
         </ActionList.LinkItem>
         <ActionList.LinkItem href="#">
           LinkItem 2<ActionList.Description>with TrailingVisual</ActionList.Description>
@@ -782,7 +782,7 @@ export const WithTrailingAction = () => {
         </ActionList.LinkItem>
         <ActionList.Item inactiveText="Unavailable due to an outage">
           Inactive Item<ActionList.Description>With TrailingAction</ActionList.Description>
-          <ActionList.TrailingAction as="a" href="#" label="Some action 4" icon={ArrowRightIcon} />
+          <ActionList.TrailingAction as="a" href="#" label="Some action 8" icon={ArrowRightIcon} />
         </ActionList.Item>
       </ActionList>
     </FeatureFlags>

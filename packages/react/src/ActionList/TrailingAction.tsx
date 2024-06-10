@@ -36,6 +36,7 @@ export const TrailingAction = forwardRef(
           data-component="ActionList.TrailingAction"
           sx={{
             flexShrink: 0,
+            display: showOnHover ? 'none' : 'flex',
           }}
         >
           <IconButton
