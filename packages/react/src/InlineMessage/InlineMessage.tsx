@@ -1,4 +1,10 @@
-import {AlertFillIcon, CheckCircleFillIcon, FeedIssueClosedIcon} from '@primer/octicons-react'
+import {
+  AlertFillIcon,
+  AlertIcon,
+  CheckCircleFillIcon,
+  CheckCircleIcon,
+  FeedIssueClosedIcon,
+} from '@primer/octicons-react'
 import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
@@ -58,10 +64,10 @@ const StyledMessage = styled.div`
 `
 
 const variantToIcon: Record<MessageVariant, React.ReactNode> = {
-  warning: <AlertFillIcon className="InlineMessageIcon" />,
-  critical: <AlertFillIcon className="InlineMessageIcon" />,
-  success: <FeedIssueClosedIcon className="InlineMessageIcon" />,
-  unavailable: <AlertFillIcon className="InlineMessageIcon" />,
+  warning: <AlertIcon className="InlineMessageIcon" />,
+  critical: <AlertIcon className="InlineMessageIcon" />,
+  success: <CheckCircleIcon className="InlineMessageIcon" />,
+  unavailable: <AlertIcon className="InlineMessageIcon" />,
 }
 
 const variantToSmallIcon: Record<MessageVariant, React.ReactNode> = {
