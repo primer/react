@@ -743,30 +743,30 @@ export const WithTrailingAction = () => {
           <ActionList.LeadingVisual>
             <FileDirectoryIcon />
           </ActionList.LeadingVisual>
-          Item 1
+          Item 1 (with default TrailingAction)
           <ActionList.TrailingAction aria-label="Expand sidebar" icon={ArrowLeftIcon} />
         </ActionList.Item>
         <ActionList.Item>
-          Item 2
-          <ActionList.TrailingAction as="a" href="#" aria-label="Trailing link" icon={ArrowRightIcon} />
+          Item 2 (with link TrailingAction)
+          <ActionList.TrailingAction as="a" href="#" aria-label="Some action 1" icon={ArrowRightIcon} />
         </ActionList.Item>
         <ActionList.Item>
           Item 3<ActionList.Description>Hello this is a description.</ActionList.Description>
-          <ActionList.TrailingAction aria-label="Open book" icon={BookIcon} />
+          <ActionList.TrailingAction aria-label="Some action 2" icon={BookIcon} />
         </ActionList.Item>
         <ActionList.LinkItem href="#">
-          Link with TrailingAction <ActionList.Description>Hello this is a description.</ActionList.Description>
-          <ActionList.TrailingAction aria-label="Open book" icon={BookIcon} showOnHover />
+          LinkItem 1<ActionList.Description>with TrailingAction shown on hover</ActionList.Description>
+          <ActionList.TrailingAction aria-label="Some action 3" icon={BookIcon} showOnHover />
         </ActionList.LinkItem>
         <ActionList.LinkItem href="#">
-          Link with TrailingVisual <ActionList.Description>Hello this is a description.</ActionList.Description>
+          LinkItem 2<ActionList.Description>with TrailingVisual</ActionList.Description>
           <ActionList.TrailingVisual>
             <TableIcon />
           </ActionList.TrailingVisual>
         </ActionList.LinkItem>
         <ActionList.Item inactiveText="Unavailable due to an outage">
-          Inactive Item example<ActionList.Description>Inline description</ActionList.Description>
-          <ActionList.TrailingAction as="a" href="#" aria-label="Trailing link" icon={ArrowRightIcon} />
+          Inactive Item<ActionList.Description>With TrailingAction</ActionList.Description>
+          <ActionList.TrailingAction as="a" href="#" aria-label="Some action 4" icon={ArrowRightIcon} />
         </ActionList.Item>
       </ActionList>
     </FeatureFlags>
