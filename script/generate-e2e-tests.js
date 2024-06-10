@@ -92,6 +92,10 @@ const components = new Map([
           id: 'components-actionlist-features--group-with-subtle-title',
           name: 'Group With Subtle Title',
         },
+        {
+          id: 'components-actionlist-features--with-trailing-action',
+          name: 'With Trailing Action',
+        },
       ],
     },
   ],
