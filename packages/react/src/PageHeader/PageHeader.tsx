@@ -61,13 +61,17 @@ const hiddenOnNarrow = {
 
 // Root
 // -----------------------------------------------------------------------------
-export type PageHeaderProps = {
-  'aria-label'?: React.AriaAttributes['aria-label']
-  as?: React.ElementType | 'header' | 'div'
-} & SxProp
+export type PageHeaderProps = React.PropsWithChildren<
+  {
+    'aria-label'?: React.AriaAttributes['aria-label']
+    as?: React.ElementType | 'header' | 'div'
+    titleVariant?: 'subtitle' | 'medium' | 'large' | ResponsiveValue<'subtitle' | 'medium' | 'large'>
+  } & SxProp
+>
 
-const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
-  ({children, sx = {}, as = 'div'}, forwardedRef) => {
+const Root = React.forwardRef(
+  ({children, sx = {}, as = 'div', titleVariant = 'medium', ...rest}: PageHeaderProps, forwardedRef) => {
+    const currentVariant = useResponsiveValue(titleVariant, 'medium')
     const rootStyles = {
       display: 'grid',
       // We have max 5 columns.
@@ -85,18 +89,44 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
           {
             height: `var(--custom-height, ${LARGE_TITLE_HEIGHT})`,
           },
+        '[data-component="PH_Title"]': {
+          fontSize: [
+            'var(--custom-font-size-0, var(--text-title-size-large, 2rem))',
+            'var(--custom-font-size-1, var(--text-title-size-large, 2rem))',
+            'var(--custom-font-size-2, var(--text-title-size-large, 2rem))',
+            'var(--custom-font-size-3, var(--text-title-size-large, 2rem))',
+          ],
+          fontSize: 'var(--custom-font-size, var(--text-title-size-medium, 1.25rem))',
+          // fontSize: [
+          //   'var(--custom-font-size-0, var(--text-title-size-large, 2rem)),var(--custom-font-size-1, var(--text-title-size-large, 2rem)),var(--custom-font-size-2, var(--text-title-size-large, 2rem)),var(--custom-font-size-3, var(--text-title-size-large, 2rem))',
+          // ],
+          lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-large, 1.5))', // calc(48/32)
+          fontWeight: 'var(--custom-font-weight, var(--base-text-weight-normal, 400))',
+        },
       },
       '&[data-size-variant="medium"]': {
         '[data-component="PH_LeadingAction"], [data-component="PH_TrailingAction"],[data-component="PH_Actions"], [data-component="PH_LeadingVisual"], [data-component="PH_TrailingVisual"]':
           {
             height: `var(--custom-height, ${MEDIUM_TITLE_HEIGHT})`,
           },
+        '[data-component="PH_Title"]': {
+          // fontSize: 'var(--text-title-size-medium, 1.25rem)',
+          fontSize: 'var(--custom-font-size, var(--text-title-size-medium, 1.25rem))',
+          lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6))', // calc(32/20)
+          fontWeight: 'var(--custom-font-weight, var(--base-text-weight-semibold, 600))',
+        },
       },
       '&[data-size-variant="subtitle"]': {
         '[data-component="PH_LeadingAction"], [data-component="PH_TrailingAction"],[data-component="PH_Actions"], [data-component="PH_LeadingVisual"], [data-component="PH_TrailingVisual"]':
           {
             height: `var(--custom-height, ${MEDIUM_TITLE_HEIGHT})`,
           },
+        '[data-component="PH_Title"]': {
+          // fontSize: 'var(--text-title-size-medium, 1.25rem)',
+          fontSize: 'var(--custom-font-size, var(--text-title-size-medium, 1.25rem))',
+          lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6))', // calc(32/20)
+          fontWeight: 'var(--custom-font-weight, var(--base-text-weight-normal, 400))',
+        },
       },
     }
 
@@ -113,8 +143,8 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
 
     const [hasContextArea, setHasContextArea] = useState(false)
     const [hasLeadingAction, setHasLeadingAction] = useState(false)
-    const [titleVariant, setTitleVariant] = useState<string | undefined>('')
 
+    // This useeffect doesn't have any impact on the layout, it is purely for dev env logs.
     useEffect(() => {
       if (!rootRef.current || rootRef.current.children.length <= 0) return
       const titleArea = Array.from(rootRef.current.children as HTMLCollection).find(child => {
@@ -123,10 +153,6 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
 
       // It is very unlikely to have a PageHeader without a TitleArea, but we still want to make sure we don't break the page if that happens.
       if (!titleArea) return
-
-      // // grab the data-size-variant attribute from the titleArea
-      const sizeVariant = titleArea.getAttribute('data-size-variant')
-      setTitleVariant(sizeVariant as string)
 
       for (const child of React.Children.toArray(children)) {
         if (React.isValidElement(child) && child.type === ContextArea) {
@@ -156,7 +182,13 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
       }
     }, [children, rootRef, hasContextArea, hasLeadingAction])
     return (
-      <Box ref={rootRef} as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)} data-size-variant={titleVariant}>
+      <Box
+        ref={rootRef}
+        as={as}
+        sx={merge<BetterSystemStyleObject>(rootStyles, sx)}
+        data-size-variant={currentVariant}
+        {...rest}
+      >
         {children}
       </Box>
     )
@@ -286,40 +318,20 @@ const ContextAreaActions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> =
 }
 
 type TitleAreaProps = {
-  variant?: 'subtitle' | 'medium' | 'large' | ResponsiveValue<'subtitle' | 'medium' | 'large'>
+  // variant?: 'subtitle' | 'medium' | 'large' | ResponsiveValue<'subtitle' | 'medium' | 'large'>
 } & ChildrenPropTypes
 // PageHeader.TitleArea: The main title area of the page. Visible on all viewports.
 // PageHeader.TitleArea Sub Components: PageHeader.LeadingVisual, PageHeader.Title, PageTitle.TrailingVisual
 // ---------------------------------------------------------------------
 
 const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<TitleAreaProps>>(
-  ({children, sx = {}, hidden = false, variant = 'medium'}, forwardedRef) => {
+  ({children, sx = {}, hidden = false}, forwardedRef) => {
     const titleAreaRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
-    const currentVariant = useResponsiveValue(variant, 'medium')
-    const [fontSize, setFontSize] = useState<string | null | number | string[]>(null)
 
-    useEffect(() => {
-      if (!titleAreaRef.current || titleAreaRef.current.children.length <= 0) return
-      const title = Array.from(titleAreaRef.current.children as HTMLCollection).find(child => {
-        return child instanceof HTMLElement && child.getAttribute('data-component') === 'PH_Title'
-      })
-
-      const styles = getComputedStyle(title as HTMLHeadingElement)
-      const customfontSize = styles.getPropertyValue('--custom-font-size')
-      // This is cumbersome but needed to handle the array format of font-size
-      if (customfontSize.includes(',')) {
-        const values = customfontSize.split(',')
-        setFontSize(values)
-      } else {
-        setFontSize(customfontSize)
-      }
-      // We only need this on the pageload
-    }, [titleAreaRef])
     return (
       <Box
         ref={titleAreaRef}
         data-component="TitleArea"
-        data-size-variant={currentVariant}
         sx={merge<BetterSystemStyleObject>(
           {
             gridRow: GRID_ROW_ORDER.TitleArea,
@@ -331,24 +343,6 @@ const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Title
             }),
             flexDirection: 'row',
             alignItems: 'flex-start',
-            // line-height is calculated with calc(height/font-size) and the below numbers are from @primer/primitives
-            //  --custom-font-size, --custom-line-height, --custom-font-weight are custom properties (passed by sx) that can be used to override the below values
-            // We don't want these values to be overriden but still want to allow consumers to override them if needed.
-            '&[data-size-variant="large"] [data-component="PH_Title"]': {
-              fontSize: fontSize ? fontSize : 'var(--text-title-size-large, 2rem)',
-              lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-large, 1.5))', // calc(48/32)
-              fontWeight: 'var(--custom-font-weight, var(--base-text-weight-normal, 400))',
-            },
-            '&[data-size-variant="medium"] [data-component="PH_Title"]': {
-              fontSize: fontSize ? fontSize : 'var(--text-title-size-medium, 1.25rem)',
-              lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6))', // calc(32/20)
-              fontWeight: 'var(--custom-font-weight, var(--base-text-weight-semibold, 600))',
-            },
-            '&[data-size-variant="subtitle"] [data-component="PH_Title"]': {
-              fontSize: fontSize ? fontSize : 'var(--text-title-size-medium, 1.25rem)',
-              lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6))', // calc(32/20)
-              fontWeight: 'var(--custom-font-weight, var(--base-text-weight-normal, 400))',
-            },
           },
           sx,
         )}
@@ -453,7 +447,17 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}
   const style: CSSCustomProperties = {}
   // @ts-ignore sxProp can have color attribute
   const {fontSize, lineHeight, fontWeight} = sx
-  if (fontSize) style['--custom-font-size'] = fontSize
+  console.log('fontsize:', fontSize)
+  if (fontSize) {
+    if (Array.isArray(fontSize)) {
+      style['--custom-font-size-0'] = fontSize[0]
+      style['--custom-font-size-1'] = fontSize[1]
+      style['--custom-font-size-2'] = fontSize[2]
+      style['--custom-font-size-3'] = fontSize[3]
+    } else {
+      style['--custom-font-size'] = fontSize
+    }
+  }
   if (lineHeight) style['--custom-line-height'] = lineHeight
   if (fontWeight) style['--custom-font-weight'] = fontWeight
 
