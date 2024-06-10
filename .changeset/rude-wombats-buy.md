@@ -1,6 +1,5 @@
 ---
 "@primer/react": patch
-"docs": patch
 ---
 
 This is technically a breaking API change.
