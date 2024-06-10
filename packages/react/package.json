@@ -198,7 +198,7 @@
     "mdast-util-to-string": "4.0.0",
     "micromark-extension-frontmatter": "2.0.0",
     "micromark-extension-mdxjs": "3.0.0",
-    "postcss-preset-env": "9.3.0",
+    "postcss-preset-env": "9.5.14",
     "react": "18.3.1",
     "react-dnd": "14.0.4",
     "react-dnd-html5-backend": "14.0.2",
