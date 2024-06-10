@@ -16,6 +16,7 @@ export default {
 /////////////////////////////////////////////////////////////////
 
 export const ParentDetail: Story = () => {
+  // eslint-disable-next-line ssr-friendly/no-dom-globals-in-react-fc
   const [currentHash, setCurrentHash] = React.useState(window.location.hash)
 
   // Fake routing to mimic the behavior of a single page application
@@ -98,6 +99,7 @@ ParentDetail.storyName = 'Parent-detail (w/ back arrow)'
 
 // TODO: update this story so it works when going 2 levels deep: parent -> detail -> child
 export const ParentDetailBreadcrumb: Story = () => {
+  // eslint-disable-next-line ssr-friendly/no-dom-globals-in-react-fc
   const [currentHash, setCurrentHash] = React.useState(window.location.hash)
 
   //
@@ -215,6 +217,7 @@ ParentDetailBreadcrumb.storyName = 'Parent-detail (w/ breadcrumbs)'
 /////////////////////////////////////////////////////////////////
 
 export const FilterBottomSheet: Story = () => {
+  // eslint-disable-next-line ssr-friendly/no-dom-globals-in-react-fc
   const [currentHash, setCurrentHash] = React.useState(window.location.hash)
   const [isOpen, setIsOpen] = React.useState(false)
   const buttonRef = React.useRef<HTMLButtonElement>(null)
@@ -303,6 +306,7 @@ export const FilterBottomSheet: Story = () => {
 FilterBottomSheet.storyName = 'Filters (btm sheet on narrow)'
 
 export const FilterActionMenu: Story = () => {
+  // eslint-disable-next-line ssr-friendly/no-dom-globals-in-react-fc
   const [currentHash, setCurrentHash] = React.useState(window.location.hash)
   const [isOpen, setIsOpen] = React.useState(false)
   const buttonRef = React.useRef<HTMLButtonElement>(null)
@@ -391,6 +395,7 @@ export const FilterActionMenu: Story = () => {
 FilterActionMenu.storyName = 'Filters (action menu on narrow)'
 
 export const FiltersBottomSheetTwoLevels: Story = () => {
+  // eslint-disable-next-line ssr-friendly/no-dom-globals-in-react-fc
   const [currentHash, setCurrentHash] = React.useState(window.location.hash)
   const [isOpen, setIsOpen] = React.useState(false)
   const buttonRef = React.useRef<HTMLButtonElement>(null)
@@ -571,6 +576,7 @@ export const FiltersBottomSheetTwoLevels: Story = () => {
                   <ActionList.GroupHeading>Categories</ActionList.GroupHeading>
                   {categories.map(category => (
                     <ActionList.LinkItem
+                      key={category.hash}
                       href={category.hash}
                       active={
                         (category.hash === '#fruits' && !currentHash) ||
@@ -691,13 +697,13 @@ export const FiltersBottomSheetTwoLevels: Story = () => {
           }}
         >
           {!currentHash || currentHash.includes('#index') || currentHash.includes('#fruits')
-            ? getFilteredItems('fruits').map(item => <Placeholder height={48} label={item.name} />)
+            ? getFilteredItems('fruits').map(item => <Placeholder key={item.name} height={48} label={item.name} />)
             : null}
           {currentHash.includes('#vegetables')
-            ? getFilteredItems('vegetables').map(item => <Placeholder height={48} label={item.name} />)
+            ? getFilteredItems('vegetables').map(item => <Placeholder key={item.name} height={48} label={item.name} />)
             : null}
           {currentHash.includes('#animals')
-            ? getFilteredItems('animals').map(item => <Placeholder height={48} label={item.name} />)
+            ? getFilteredItems('animals').map(item => <Placeholder key={item.name} height={48} label={item.name} />)
             : null}
         </PageLayout.Content>
       </PageLayout>
@@ -909,6 +915,7 @@ FiltersBottomSheetTwoLevels.storyName = 'Filters w/ 2 levels (btm sheet on narro
 /////////////////////////////////////////////////////////////////
 
 export const ParentDetailPlusFilters: Story = () => {
+  // eslint-disable-next-line ssr-friendly/no-dom-globals-in-react-fc
   const [currentHash, setCurrentHash] = React.useState(window.location.hash)
   const [isOpen, setIsOpen] = React.useState(false)
   const buttonRef = React.useRef<HTMLButtonElement>(null)
@@ -1181,13 +1188,13 @@ export const ParentDetailPlusFilters: Story = () => {
           }}
         >
           {!currentHash || currentHash.includes('#index') || currentHash.includes('#fruits')
-            ? getFilteredItems('fruits').map(item => <Placeholder height={48} label={item.name} />)
+            ? getFilteredItems('fruits').map(item => <Placeholder key={item.name} height={48} label={item.name} />)
             : null}
           {currentHash.includes('#vegetables')
-            ? getFilteredItems('vegetables').map(item => <Placeholder height={48} label={item.name} />)
+            ? getFilteredItems('vegetables').map(item => <Placeholder key={item.name} height={48} label={item.name} />)
             : null}
           {currentHash.includes('#animals')
-            ? getFilteredItems('animals').map(item => <Placeholder height={48} label={item.name} />)
+            ? getFilteredItems('animals').map(item => <Placeholder key={item.name} height={48} label={item.name} />)
             : null}
         </PageLayout.Content>
       </PageLayout>
