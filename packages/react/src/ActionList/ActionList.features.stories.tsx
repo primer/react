@@ -744,23 +744,35 @@ export const WithTrailingAction = () => {
             <FileDirectoryIcon />
           </ActionList.LeadingVisual>
           Item 1 (with default TrailingAction)
-          <ActionList.TrailingAction aria-label="Expand sidebar" icon={ArrowLeftIcon} />
+          <ActionList.TrailingAction label="Expand sidebar" icon={ArrowLeftIcon} />
         </ActionList.Item>
         <ActionList.Item>
           Item 2 (with link TrailingAction)
-          <ActionList.TrailingAction as="a" href="#" aria-label="Some action 1" icon={ArrowRightIcon} />
+          <ActionList.TrailingAction as="a" href="#" label="Some action 1" icon={ArrowRightIcon} />
         </ActionList.Item>
         <ActionList.Item>
           Item 3<ActionList.Description>This is an inline description.</ActionList.Description>
-          <ActionList.TrailingAction aria-label="Some action 2" icon={BookIcon} />
+          <ActionList.TrailingAction label="Some action 2" icon={BookIcon} />
         </ActionList.Item>
         <ActionList.Item>
           Item 4<ActionList.Description variant="block">This is a block description.</ActionList.Description>
-          <ActionList.TrailingAction aria-label="Some action 2" icon={BookIcon} />
+          <ActionList.TrailingAction label="Some action 3" icon={BookIcon} />
+        </ActionList.Item>
+        <ActionList.Item>
+          Item 5<ActionList.Description variant="block">This is a block description.</ActionList.Description>
+          <ActionList.TrailingAction label="Some action 4" />
+        </ActionList.Item>
+        <ActionList.Item>
+          Item 6
+          <ActionList.TrailingAction href="#" as="a" label="Some action 5" />
+        </ActionList.Item>
+        <ActionList.Item>
+          Item 7
+          <ActionList.TrailingAction showOnHover href="#" as="a" label="Some action 5" />
         </ActionList.Item>
         <ActionList.LinkItem href="#">
           LinkItem 1<ActionList.Description>with TrailingAction shown on hover</ActionList.Description>
-          <ActionList.TrailingAction aria-label="Some action 3" icon={BookIcon} showOnHover />
+          <ActionList.TrailingAction label="Some action 6" icon={BookIcon} showOnHover />
         </ActionList.LinkItem>
         <ActionList.LinkItem href="#">
           LinkItem 2<ActionList.Description>with TrailingVisual</ActionList.Description>
@@ -770,7 +782,7 @@ export const WithTrailingAction = () => {
         </ActionList.LinkItem>
         <ActionList.Item inactiveText="Unavailable due to an outage">
           Inactive Item<ActionList.Description>With TrailingAction</ActionList.Description>
-          <ActionList.TrailingAction as="a" href="#" aria-label="Some action 4" icon={ArrowRightIcon} />
+          <ActionList.TrailingAction as="a" href="#" label="Some action 4" icon={ArrowRightIcon} />
         </ActionList.Item>
       </ActionList>
     </FeatureFlags>
