@@ -172,7 +172,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         },
         ':hover, :focus, :focus-within': {
           // Used when `showOnHover` is passed to `TrailingAction`
-          '[data-component="IconButton"]': {
+          '[data-component="ActionList.TrailingAction"]': {
             display: 'flex',
           },
         },
