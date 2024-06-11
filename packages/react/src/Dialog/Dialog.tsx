@@ -102,7 +102,7 @@ export interface DialogProps extends SxProp {
    * gesture argument indicates the gesture that was used to close the dialog
    * ('close-button' or 'escape').
    */
-  onClose: (gesture:  'close-button' | 'escape') => void
+  onClose: (gesture: 'close-button' | 'escape') => void
 
   /**
    * Default: "dialog". The ARIA role to assign to this dialog.
