@@ -82,7 +82,7 @@ describe('Dialog', () => {
     const backdrop = dialog.parentElement!
     await user.click(backdrop)
 
-    expect(onClose).toHaveBeenCalledWith('backdrop')
+    expect(onClose).toHaveBeenCalledWith('escape')
   })
 
   it('calls `onClose` when keying "Escape"', async () => {
