@@ -26,7 +26,7 @@ export const Default = () => (
   </Header>
 )
 
-export const Playground: StoryFn<typeof Avatar> = args => (
+export const Playground: StoryFn<typeof Header> = args => (
   <Header {...args}>
     <Header.Item>
       <Header.Link href="#" sx={{fontSize: 2}}>
