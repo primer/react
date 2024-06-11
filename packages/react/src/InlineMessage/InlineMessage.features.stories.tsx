@@ -24,3 +24,15 @@ export const Unavailable = () => {
 export const Warning = () => {
   return <InlineMessage variant="warning">An example inline message</InlineMessage>
 }
+
+export const Multiline = () => {
+  return (
+    <div
+      style={{
+        maxWidth: '30ch',
+      }}
+    >
+      <InlineMessage variant="success">An example inline message that spans multiple lines</InlineMessage>
+    </div>
+  )
+}

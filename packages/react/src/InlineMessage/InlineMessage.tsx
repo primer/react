@@ -1,10 +1,4 @@
-import {
-  AlertFillIcon,
-  AlertIcon,
-  CheckCircleFillIcon,
-  CheckCircleIcon,
-  FeedIssueClosedIcon,
-} from '@primer/octicons-react'
+import {AlertFillIcon, AlertIcon, CheckCircleFillIcon, CheckCircleIcon} from '@primer/octicons-react'
 import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
@@ -27,17 +21,18 @@ const StyledMessage = styled.div`
   display: grid;
   column-gap: 0.5rem;
   grid-template-columns: auto 1fr;
-  align-items: center;
+  align-items: start;
   color: var(--inline-message-fgColor, ${get('colors.neutral.emphasis')});
   line-height: var(--inline-message-lineHeight);
+  font-size: var(--inline-message-fontSize, ${get('fontSizes.1')});
 
   &[data-size='small'] {
-    font-size: var(--text-body-size-small, ${get('fontSizes.0')});
+    --inline-message-fontSize: var(--text-body-size-small, ${get('fontSizes.0')});
     --inline-message-lineHeight: var(--text-body-lineHeight-small, 1.6666);
   }
 
   &[data-size='medium'] {
-    font-size: var(--text-body-size-medium, ${get('fontSizes.1')});
+    --inline-message-fontSize: var(--text-body-size-medium, ${get('fontSizes.1')});
     --inline-message-lineHeight: var(--text-body-lineHeight-medium, 1.4285);
   }
 
@@ -58,8 +53,7 @@ const StyledMessage = styled.div`
   }
 
   & .InlineMessageIcon {
-    /* This height value needs to match the line-height of the text */
-    min-height: var(--inline-message-lineHeight);
+    min-height: calc(var(--inline-message-lineHeight) * var(--inline-message-fontSize));
   }
 `
 

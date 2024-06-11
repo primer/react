@@ -8,6 +8,10 @@ const stories = [
     title: 'Default',
     id: 'drafts-components-inlinemessage--default',
   },
+  {
+    title: 'Multiline',
+    id: 'drafts-components-inlinemessage-features--multiline',
+  },
 ]
 
 const scenarios = matrix({
