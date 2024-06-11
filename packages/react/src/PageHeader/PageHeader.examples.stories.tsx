@@ -398,89 +398,117 @@ export const WithPageLayout = () => {
 }
 
 export const IssuesPage = () => {
+  const [editMode, setEditMode] = React.useState(false)
+
   return (
     <PageLayout>
       <PageLayout.Header>
-        <PageHeader>
-          <PageHeader.TitleArea>
-            <PageHeader.Title as="h1">
-              {/* PageHeader component: A11y sign-off review - React to alpha &nbsp;
-              <Link href="https://github.com/github/primer/issues/1115" sx={{color: 'fg.muted', fontWeight: 'light'}}>
-                #1115
-              </Link> */}
-              <Stack direction="horizontal" gap="condensed" as="form">
-                <Stack.Item grow>
-                  <FormControl>
-                    <FormControl.Label visuallyHidden>Test</FormControl.Label>
-                    <TextInput block />
-                  </FormControl>
+        {editMode ? (
+          <Stack direction={{narrow: 'vertical', regular: 'horizontal'}} gap="condensed" as="form">
+            <Stack.Item grow>
+              <FormControl>
+                <FormControl.Label visuallyHidden>Test</FormControl.Label>
+                <TextInput block value="This is the title" />
+              </FormControl>
+            </Stack.Item>
+            <Stack.Item>
+              <Stack direction="horizontal" gap="condensed">
+                <Stack.Item>
+                  <Button
+                    onClick={() => {
+                      setEditMode(false)
+                    }}
+                  >
+                    Save
+                  </Button>
                 </Stack.Item>
                 <Stack.Item>
-                  <Button>Save</Button>
+                  <Button
+                    variant="invisible"
+                    onClick={() => {
+                      setEditMode(false)
+                    }}
+                  >
+                    Cancel
+                  </Button>
                 </Stack.Item>
               </Stack>
-            </PageHeader.Title>
-          </PageHeader.TitleArea>
-          <PageHeader.ContextArea>
-            <PageHeader.ContextBar sx={{gap: '8px'}}>
-              <Button
-                onClick={() => {
-                  alert('The title will go into edit mode')
-                }}
-              >
-                Edit
-              </Button>
-              <Button
-                variant="primary"
-                onClick={() => {
-                  alert('New issue modal will open')
-                }}
-              >
-                New Issue
-              </Button>
-            </PageHeader.ContextBar>
-            <PageHeader.ContextAreaActions>
-              <IconButton
-                aria-label="Copy permalink"
-                icon={CopyIcon}
-                variant="invisible"
-                unsafeDisableTooltip={false}
-                onClick={() => {
-                  alert('This button copies the permalink to the clipboard')
-                }}
-              />
-            </PageHeader.ContextAreaActions>
-          </PageHeader.ContextArea>
-          <PageHeader.Actions>
-            <Hidden when={['narrow']}>
-              <Box sx={{display: 'flex', gap: '0.5rem'}}>
-                <Button
-                  onClick={() => {
-                    alert('The title will go into edit mode')
-                  }}
-                >
-                  Edit
-                </Button>
-                <Button
-                  variant="primary"
-                  onClick={() => {
-                    alert('New issue modal will open')
-                  }}
-                >
-                  New Issue
-                </Button>
-                <IconButton
-                  aria-label="Copy permalink"
-                  icon={CopyIcon}
-                  variant="invisible"
-                  unsafeDisableTooltip={false}
-                  onClick={() => {
-                    alert('This button copies the permalink to the clipboard')
-                  }}
-                />
-              </Box>
-            </Hidden>
-          </PageHeader.Actions>
+            </Stack.Item>
+          </Stack>
+        ) : null}
+
+        <PageHeader>
+          {!editMode ? (
+            <>
+              <PageHeader.TitleArea>
+                <PageHeader.Title as="h1">This is the title</PageHeader.Title>
+                {/* PageHeader component: A11y sign-off review - React to alpha &nbsp;
+                  <Link href="https://github.com/github/primer/issues/1115" sx={{color: 'fg.muted', fontWeight: 'light'}}>
+                    #1115
+                  </Link> */}
+              </PageHeader.TitleArea>
+              <PageHeader.ContextArea>
+                <PageHeader.ContextBar sx={{gap: '8px'}}>
+                  <Button
+                    onClick={() => {
+                      setEditMode(true)
+                    }}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    variant="primary"
+                    onClick={() => {
+                      alert('New issue modal will open')
+                    }}
+                  >
+                    New Issue
+                  </Button>
+                </PageHeader.ContextBar>
+                <PageHeader.ContextAreaActions>
+                  <IconButton
+                    aria-label="Copy permalink"
+                    icon={CopyIcon}
+                    variant="invisible"
+                    unsafeDisableTooltip={false}
+                    onClick={() => {
+                      alert('This button copies the permalink to the clipboard')
+                    }}
+                  />
+                </PageHeader.ContextAreaActions>
+              </PageHeader.ContextArea>
+              <PageHeader.Actions>
+                <Hidden when={['narrow']}>
+                  <Box sx={{display: 'flex', gap: '0.5rem'}}>
+                    <Button
+                      onClick={() => {
+                        setEditMode(true)
+                      }}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="primary"
+                      onClick={() => {
+                        alert('New issue modal will open')
+                      }}
+                    >
+                      New Issue
+                    </Button>
+                    <IconButton
+                      aria-label="Copy permalink"
+                      icon={CopyIcon}
+                      variant="invisible"
+                      unsafeDisableTooltip={false}
+                      onClick={() => {
+                        alert('This button copies the permalink to the clipboard')
+                      }}
+                    />
+                  </Box>
+                </Hidden>
+              </PageHeader.Actions>
+            </>
+          ) : null}
           <PageHeader.Description>
             <StateLabel status="issueOpened">Open</StateLabel>
           </PageHeader.Description>
