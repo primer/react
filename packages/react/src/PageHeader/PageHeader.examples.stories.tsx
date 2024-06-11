@@ -14,6 +14,8 @@ import {
   Octicon,
   Heading,
   Token,
+  FormControl,
+  TextInput,
 } from '..'
 import {
   KebabHorizontalIcon,
@@ -35,6 +37,7 @@ import {Hidden} from '../Hidden'
 import {UnderlineNav} from '../UnderlineNav'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
+import {Stack} from '../Stack'
 
 const meta: Meta = {
   title: 'Drafts/Components/PageHeader/Examples',
@@ -401,10 +404,21 @@ export const IssuesPage = () => {
         <PageHeader>
           <PageHeader.TitleArea>
             <PageHeader.Title as="h1">
-              PageHeader component: A11y sign-off review - React to alpha &nbsp;
+              {/* PageHeader component: A11y sign-off review - React to alpha &nbsp;
               <Link href="https://github.com/github/primer/issues/1115" sx={{color: 'fg.muted', fontWeight: 'light'}}>
                 #1115
-              </Link>
+              </Link> */}
+              <Stack direction="horizontal" gap="condensed" as="form">
+                <Stack.Item grow>
+                  <FormControl>
+                    <FormControl.Label visuallyHidden>Test</FormControl.Label>
+                    <TextInput block />
+                  </FormControl>
+                </Stack.Item>
+                <Stack.Item>
+                  <Button>Save</Button>
+                </Stack.Item>
+              </Stack>
             </PageHeader.Title>
           </PageHeader.TitleArea>
           <PageHeader.ContextArea>
