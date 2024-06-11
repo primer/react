@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta, Story} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import type {ComponentProps} from '../utils/types'
 import Label from './Label'
 
@@ -8,7 +8,7 @@ export default {
   component: Label,
 } as Meta<ComponentProps<typeof Label>>
 
-export const Playground: Story<ComponentProps<typeof Label>> = args => <Label {...args}>Label</Label>
+export const Playground: StoryFn<ComponentProps<typeof Label>> = args => <Label {...args}>Label</Label>
 
 Playground.args = {
   variant: 'default',

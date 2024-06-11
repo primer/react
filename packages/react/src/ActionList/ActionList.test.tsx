@@ -1,6 +1,6 @@
 import {render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 import React from 'react'
 import theme from '../theme'
 import {ActionList} from '.'
@@ -78,7 +78,7 @@ describe('ActionList', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<SimpleActionList />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 

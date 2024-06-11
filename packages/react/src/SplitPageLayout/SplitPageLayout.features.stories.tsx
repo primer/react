@@ -1,5 +1,5 @@
 import React from 'react'
-import type {ComponentStory, Meta} from '@storybook/react'
+import type {StoryFn, Meta} from '@storybook/react'
 
 import {Box, Button, Heading, Text} from '..'
 import {NavList} from '../NavList'
@@ -10,7 +10,7 @@ export default {
   component: SplitPageLayout,
 } as Meta<typeof SplitPageLayout>
 
-export const SettingsPage: ComponentStory<typeof SplitPageLayout> = () => (
+export const SettingsPage: StoryFn<typeof SplitPageLayout> = () => (
   <SplitPageLayout>
     <SplitPageLayout.Pane position="start">
       <NavList aria-label="Main navigation">

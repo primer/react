@@ -106,6 +106,16 @@
       ]
     },
     {
+      "name": "TreeView.LeadingAction",
+      "props": [
+        {
+          "name": "children",
+          "required": true,
+          "type": "React.ReactNode"
+        }
+      ]
+    },
+    {
       "name": "TreeView.DirectoryIcon",
       "props": []
     },
