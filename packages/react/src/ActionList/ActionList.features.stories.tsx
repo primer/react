@@ -710,3 +710,25 @@ export const GroupWithFilledTitle = () => {
     </ActionList>
   )
 }
+
+export const WithLongInlineDescription = () => {
+  return (
+    <ActionList>
+      <ActionList.LinkItem href="#">
+        LinkItem 1
+        <ActionList.Description>
+          with TrailingAction this is a long description and should not cause horizontal scroll on smaller screen sizes
+        </ActionList.Description>
+      </ActionList.LinkItem>
+      <ActionList.LinkItem href="#">
+        LinkItem 2
+        <ActionList.Description>
+          with TrailingVisual this is a long description and should not cause horizontal scroll on smaller screen sizes
+        </ActionList.Description>
+        <ActionList.TrailingVisual>
+          <TableIcon />
+        </ActionList.TrailingVisual>
+      </ActionList.LinkItem>
+    </ActionList>
+  )
+}
