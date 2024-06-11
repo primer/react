@@ -20,7 +20,7 @@ export const TrailingAction = forwardRef(
           as="span"
           sx={{
             flexShrink: 0,
-            display: showOnHover ? 'none' : 'flex',
+            visibility: showOnHover ? 'hidden' : 'visible',
           }}
         >
           {/* @ts-expect-error TODO: Fix this */}
@@ -36,7 +36,7 @@ export const TrailingAction = forwardRef(
           data-component="ActionList.TrailingAction"
           sx={{
             flexShrink: 0,
-            display: showOnHover ? 'none' : 'flex',
+            visibility: showOnHover ? 'hidden' : 'visible',
           }}
         >
           <IconButton
