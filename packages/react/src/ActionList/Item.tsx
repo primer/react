@@ -22,6 +22,7 @@ import type {VisualProps} from './Visuals'
 import {LeadingVisual, TrailingVisual} from './Visuals'
 import {TrailingAction} from './TrailingAction'
 import {ConditionalWrapper} from '../internal/components/ConditionalWrapper'
+import {invariant} from '../utils/invariant'
 import {useFeatureFlag} from '../FeatureFlags'
 
 const LiBox = styled.li<SxProp>(sx)
@@ -126,6 +127,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     }
 
     const itemRole = role || inferredItemRole
+
+    if (slots.trailingAction) {
+      invariant(!container, `ActionList.TrailingAction can not be used within a ${container}.`)
+    }
 
     /** Infer the proper selection attribute based on the item's role */
     let inferredSelectionAttribute: 'aria-selected' | 'aria-checked' | undefined
@@ -440,7 +445,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               {slots.blockDescription}
             </Box>
           </ItemWrapper>
-          {!inactive && Boolean(slots.trailingAction) && slots.trailingAction}
+          {!inactive && Boolean(slots.trailingAction) && !container && slots.trailingAction}
         </LiBox>
       </ItemContext.Provider>
     )
