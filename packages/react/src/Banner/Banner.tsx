@@ -1,14 +1,21 @@
 import cx from 'clsx'
-import React, {createContext, useContext, useEffect, useId, useMemo} from 'react'
+import React, {useEffect} from 'react'
 import styled from 'styled-components'
 import {AlertIcon, InfoIcon, StopIcon, CheckCircleIcon, XIcon} from '@primer/octicons-react'
 import {Button, IconButton} from '../Button'
 import {get} from '../constants'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
+import {useMergedRefs} from '../internal/hooks/useMergedRefs'
 
 type BannerVariant = 'critical' | 'info' | 'success' | 'upsell' | 'warning'
 
 export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
+  /**
+   * Provide an optional label to override the default name for the Banner
+   * landmark region
+   */
+  'aria-label'?: string
+
   /**
    * Provide an optional description for the Banner. This should provide
    * supplemental information about the Banner
@@ -64,74 +71,96 @@ const iconForVariant: Record<BannerVariant, React.ReactNode> = {
   warning: <AlertIcon />,
 }
 
+const labels: Record<BannerVariant, string> = {
+  critical: 'Critical',
+  info: 'Information',
+  success: 'Success',
+  upsell: 'Recommendation',
+  warning: 'Warning',
+}
+
 export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner(
-  {children, description, hideTitle, icon, onDismiss, primaryAction, secondaryAction, title, variant = 'info', ...rest},
-  ref,
+  {
+    'aria-label': label,
+    children,
+    description,
+    hideTitle,
+    icon,
+    onDismiss,
+    primaryAction,
+    secondaryAction,
+    title,
+    variant = 'info',
+    ...rest
+  },
+  forwardRef,
 ) {
-  const titleId = useId()
-  const value = useMemo(() => {
-    return {
-      titleId,
-    }
-  }, [titleId])
   const dismissible = variant !== 'critical' && onDismiss
   const hasActions = primaryAction || secondaryAction
+  const bannerRef = React.useRef<HTMLElement>(null)
+  const ref = useMergedRefs(forwardRef, bannerRef)
 
   if (__DEV__) {
-    // Note: __DEV__ will make it so that this hook is consistently called, or
-    // not called, depending on environment
+    // This hook is called consistently depending on the environment
     // eslint-disable-next-line react-hooks/rules-of-hooks
     useEffect(() => {
-      const title = document.getElementById(titleId)
-      if (!title) {
+      if (title) {
+        return
+      }
+
+      const {current: banner} = bannerRef
+      if (!banner) {
+        return
+      }
+
+      const hasTitle = banner.querySelector('[data-banner-title]')
+      if (!hasTitle) {
         throw new Error(
-          'The Banner component requires a title to be provided as the `title` prop or through `Banner.Title`',
+          'Expected a title to be provided to the <Banner> component with the `title` prop or through `<Banner.Title>` but no title was found',
         )
       }
-    }, [titleId])
+    }, [title])
   }
 
   return (
-    <BannerContext.Provider value={value}>
-      <StyledBanner
-        {...rest}
-        aria-labelledby={titleId}
-        as="section"
-        data-dismissible={onDismiss ? '' : undefined}
-        data-title-hidden={hideTitle ? '' : undefined}
-        data-variant={variant}
-        tabIndex={-1}
-        ref={ref}
-      >
-        <style>{BannerContainerQuery}</style>
-        <div className="BannerIcon">{icon && variant === 'info' ? icon : iconForVariant[variant]}</div>
-        <div className="BannerContainer">
-          <div className="BannerContent">
-            {title ? (
-              hideTitle ? (
-                <VisuallyHidden>
-                  <BannerTitle>{title}</BannerTitle>
-                </VisuallyHidden>
-              ) : (
+    <StyledBanner
+      {...rest}
+      aria-label={label ?? labels[variant]}
+      as="section"
+      data-dismissible={onDismiss ? '' : undefined}
+      data-title-hidden={hideTitle ? '' : undefined}
+      data-variant={variant}
+      tabIndex={-1}
+      ref={ref}
+    >
+      <style>{BannerContainerQuery}</style>
+      <div className="BannerIcon">{icon && variant === 'info' ? icon : iconForVariant[variant]}</div>
+      <div className="BannerContainer">
+        <div className="BannerContent">
+          {title ? (
+            hideTitle ? (
+              <VisuallyHidden>
                 <BannerTitle>{title}</BannerTitle>
-              )
-            ) : null}
-            {description ? <BannerDescription>{description}</BannerDescription> : null}
-            {children}
-          </div>
-          {hasActions ? <BannerActions primaryAction={primaryAction} secondaryAction={secondaryAction} /> : null}
+              </VisuallyHidden>
+            ) : (
+              <BannerTitle>{title}</BannerTitle>
+            )
+          ) : null}
+          {description ? <BannerDescription>{description}</BannerDescription> : null}
+          {children}
         </div>
-        {dismissible ? (
-          <IconButton
-            aria-label="Dismiss banner"
-            onClick={onDismiss}
-            className="BannerDismiss"
-            icon={XIcon}
-            variant="invisible"
-          />
-        ) : null}
-      </StyledBanner>
-    </BannerContext.Provider>
+        {hasActions ? <BannerActions primaryAction={primaryAction} secondaryAction={secondaryAction} /> : null}
+      </div>
+      {dismissible ? (
+        <IconButton
+          aria-label="Dismiss banner"
+          onClick={onDismiss}
+          className="BannerDismiss"
+          icon={XIcon}
+          variant="invisible"
+        />
+      ) : null}
+    </StyledBanner>
   )
 })
 
@@ -235,7 +264,7 @@ const StyledBanner = styled.div`
   }
 
   &[data-title-hidden=''] .BannerContent {
-    margin-block: var(--space-small, 0.375rem);
+    margin-block: var(--base-size-6, 0.375rem);
   }
 
   @media screen and (min-width: 544px) {
@@ -342,9 +371,8 @@ export type BannerTitleProps<As extends HeadingElement> = {
 
 export function BannerTitle<As extends HeadingElement>(props: BannerTitleProps<As>) {
   const {as: Heading = 'h2', className, children, ...rest} = props
-  const banner = useBanner()
   return (
-    <Heading {...rest} id={banner.titleId} className={cx('BannerTitle', className)}>
+    <Heading {...rest} className={cx('BannerTitle', className)} data-banner-title="">
       {children}
     </Heading>
   )
@@ -398,15 +426,4 @@ export function BannerSecondaryAction({children, className, ...rest}: BannerSeco
       {children}
     </Button>
   )
-}
-
-type BannerContextValue = {titleId: string}
-const BannerContext = createContext<BannerContextValue | null>(null)
-
-function useBanner(): BannerContextValue {
-  const value = useContext(BannerContext)
-  if (value) {
-    return value
-  }
-  throw new Error('Component must be used within a <Banner> component')
 }

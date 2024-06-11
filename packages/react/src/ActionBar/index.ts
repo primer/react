@@ -7,3 +7,4 @@ const ActionBar = Object.assign(Bar, {
 })
 
 export default ActionBar
+export {ActionBar}
