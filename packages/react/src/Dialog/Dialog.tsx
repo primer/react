@@ -100,7 +100,7 @@ export interface DialogProps extends SxProp {
    * This method is invoked when a gesture to close the dialog is used (either
    * an Escape key press, clicking the backdrop, or clicking the "X" in the top-right corner). The
    * gesture argument indicates the gesture that was used to close the dialog
-   * ('close-button', 'backdrop', or 'escape').
+   * ('close-button' or 'escape').
    */
   onClose: (gesture:  'close-button' | 'escape') => void
 
