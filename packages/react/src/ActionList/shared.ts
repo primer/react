@@ -63,6 +63,7 @@ type MenuItemProps = {
 export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled'> & {
   inlineDescriptionId?: string
   blockDescriptionId?: string
+  trailingVisualId?: string
   inactive?: boolean
 }
 

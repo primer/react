@@ -53,9 +53,10 @@ export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({s
 
 export type ActionListTrailingVisualProps = VisualProps
 export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
-  const {variant, disabled, inactive} = React.useContext(ItemContext)
+  const {variant, disabled, inactive, trailingVisualId} = React.useContext(ItemContext)
   return (
     <Box
+      id={trailingVisualId}
       as="span"
       sx={merge(
         {

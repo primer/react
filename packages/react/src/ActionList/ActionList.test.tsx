@@ -378,4 +378,23 @@ describe('ActionList', () => {
     const heading = getByText('Group Heading')
     expect(list).toHaveAttribute('aria-label', heading.textContent)
   })
+  it('descriptions should be referenced via aria-describedby', async () => {
+    const {getByRole} = HTMLRender(
+      <ActionList>
+        <ActionList.Item>
+          Item <ActionList.Description>Inline description</ActionList.Description>
+        </ActionList.Item>
+        <ActionList.Item>
+          Item
+          <ActionList.Description variant="block">Block description</ActionList.Description>
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const inlineItem = getByRole('listitem', {description: 'Inline description'})
+    const blockItem = getByRole('listitem', {description: 'Block description'})
+
+    expect(inlineItem).toBeInTheDocument()
+    expect(blockItem).toBeInTheDocument()
+  })
 })

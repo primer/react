@@ -11,6 +11,7 @@ import Box from '../Box'
 import Label from '../Label'
 import Heading from '../Heading'
 import {AnchoredOverlay} from '../AnchoredOverlay'
+import CounterLabel from '../CounterLabel'
 import {
   EyeIcon,
   BookIcon,
@@ -25,6 +26,9 @@ import {
   PeopleIcon,
   FileDirectoryIcon,
   PlusCircleIcon,
+  GitPullRequestIcon,
+  IssueOpenedIcon,
+  ProjectIcon,
 } from '@primer/octicons-react'
 
 export default {
@@ -710,3 +714,35 @@ export const GroupWithFilledTitle = () => {
     </ActionList>
   )
 }
+
+export const WithCustomTrailingVisuals = () => (
+  <ActionList>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <IssueOpenedIcon />
+      </ActionList.LeadingVisual>
+      Issues
+      <ActionList.TrailingVisual>
+        <CounterLabel>20</CounterLabel>
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <GitPullRequestIcon />
+      </ActionList.LeadingVisual>
+      PRs
+      <ActionList.TrailingVisual>
+        <CounterLabel>12</CounterLabel>
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <ProjectIcon />
+      </ActionList.LeadingVisual>
+      Projects
+      <ActionList.TrailingVisual>
+        <CounterLabel>2</CounterLabel>
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+  </ActionList>
+)
