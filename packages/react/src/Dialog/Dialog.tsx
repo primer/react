@@ -102,7 +102,7 @@ export interface DialogProps extends SxProp {
    * gesture argument indicates the gesture that was used to close the dialog
    * ('close-button', 'backdrop', or 'escape').
    */
-  onClose: (gesture: 'close-button' | 'backdrop' | 'escape') => void
+  onClose: (gesture:  'close-button' | 'escape') => void
 
   /**
    * Default: "dialog". The ARIA role to assign to this dialog.
@@ -417,7 +417,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   const onBackdropClick = useCallback(
     (e: SyntheticEvent) => {
       if (e.target === e.currentTarget) {
-        onClose('backdrop')
+        onClose('escape')
       }
     },
     [onClose],
