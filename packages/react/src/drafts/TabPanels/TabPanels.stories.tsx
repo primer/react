@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta, Story} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import TabPanels from './TabPanels'
 import type {ComponentProps} from '../../utils/types'
 
@@ -8,7 +8,7 @@ export default {
   component: TabPanels,
 } as Meta<ComponentProps<typeof TabPanels>>
 
-export const Playground: Story<ComponentProps<typeof TabPanels>> = args => (
+export const Playground: StoryFn<ComponentProps<typeof TabPanels>> = args => (
   <TabPanels {...args}>
     <TabPanels.Tab>Tab 1</TabPanels.Tab>
     <TabPanels.Tab>Tab 2</TabPanels.Tab>
