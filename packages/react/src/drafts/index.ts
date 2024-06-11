@@ -41,6 +41,9 @@ export type {
   Trigger,
 } from './InlineAutocomplete'
 
+export {InlineMessage} from '../InlineMessage'
+export type {InlineMessageProps} from '../InlineMessage'
+
 export {default as MarkdownViewer} from './MarkdownViewer'
 export type {MarkdownViewerProps, InteractiveMarkdownViewerProps} from './MarkdownViewer'
 
@@ -67,8 +70,7 @@ export * from './SelectPanel2'
 export {default as TabPanels} from './TabPanels'
 export type {TabPanelsProps, TabPanelsTabProps, TabPanelsPanelProps} from './TabPanels'
 export * from '../TooltipV2'
-export {default as ActionBar} from './ActionBar'
-export * from './ActionBar'
+export * from '../ActionBar'
 
 export {Stack} from '../Stack'
 export type {StackProps, StackItemProps} from '../Stack'

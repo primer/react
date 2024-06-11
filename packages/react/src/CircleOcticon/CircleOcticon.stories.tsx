@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta, ComponentStory} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import CircleOcticon from './CircleOcticon'
 import {CheckIcon} from '@primer/octicons-react'
 
@@ -12,7 +12,7 @@ export const Default = () => (
   <CircleOcticon icon={CheckIcon} size={32} sx={{backgroundColor: 'success.fg', color: 'fg.onEmphasis'}} />
 )
 
-export const Playground: ComponentStory<typeof CircleOcticon> = args => <CircleOcticon {...args} />
+export const Playground: StoryFn<typeof CircleOcticon> = args => <CircleOcticon {...args} />
 
 Playground.args = {
   icon: CheckIcon,
