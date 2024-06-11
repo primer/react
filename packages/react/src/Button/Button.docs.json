@@ -84,10 +84,10 @@
       "description": "Change the visual style of the button."
     },
     {
-      "name": "truncation",
-      "type": "'ellipses'\n| 'wrap'\n| 'none'\n|",
-      "defaultValue": "'none'",
-      "description": "Determines how the button label text will overflow."
+      "name": "labelWrap",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Whether the button label should wrap to multiple lines of it is longer than the button width."
     }
   ],
   "passthrough": {

@@ -1824,25 +1824,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   width: 100%;
 }
 
-.c4[data-truncation="ellipses"] {
-  min-width: -webkit-min-content;
-  min-width: -moz-min-content;
-  min-width: min-content;
-}
-
-.c4[data-truncation="ellipses"] [data-component="buttonContent"] {
-  -webkit-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-}
-
-.c4[data-truncation="ellipses"] [data-component="text"] {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: break-word;
-}
-
-.c4[data-truncation="wrap"] {
+.c4[data-label-wrap="true"] {
   min-width: -webkit-fit-content;
   min-width: -moz-fit-content;
   min-width: fit-content;
@@ -1850,7 +1832,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   min-height: var(--control-medium-size,2rem);
 }
 
-.c4[data-truncation="wrap"] [data-component="buttonContent"] {
+.c4[data-label-wrap="true"] [data-component="buttonContent"] {
   -webkit-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
@@ -1860,27 +1842,27 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
 }
 
-.c4[data-truncation="wrap"] [data-component="text"] {
+.c4[data-label-wrap="true"] [data-component="text"] {
   white-space: unset;
   word-break: break-word;
 }
 
-.c4[data-truncation="wrap"][data-size="small"] {
+.c4[data-label-wrap="true"][data-size="small"] {
   height: unset;
   min-height: var(--control-small-size,1.75rem);
 }
 
-.c4[data-truncation="wrap"][data-size="small"] [data-component="buttonContent"] {
+.c4[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
   padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
 }
 
-.c4[data-truncation="wrap"][data-size="large"] {
+.c4[data-label-wrap="true"][data-size="large"] {
   height: unset;
   min-height: var(--control-large-size,2.5rem);
   padding-inline: var(--control-large-paddingInline-spacious,1rem);
 }
 
-.c4[data-truncation="wrap"][data-size="large"] [data-component="buttonContent"] {
+.c4[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
   padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
 }
 
@@ -2242,7 +2224,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
       data-component="IconButton"
       data-no-visuals={true}
       data-size="small"
-      data-truncation="none"
       onBlur={[Function]}
       onClick={[MockFunction]}
       onFocus={[Function]}
@@ -2454,25 +2435,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   width: 100%;
 }
 
-.c4[data-truncation="ellipses"] {
-  min-width: -webkit-min-content;
-  min-width: -moz-min-content;
-  min-width: min-content;
-}
-
-.c4[data-truncation="ellipses"] [data-component="buttonContent"] {
-  -webkit-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-}
-
-.c4[data-truncation="ellipses"] [data-component="text"] {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: break-word;
-}
-
-.c4[data-truncation="wrap"] {
+.c4[data-label-wrap="true"] {
   min-width: -webkit-fit-content;
   min-width: -moz-fit-content;
   min-width: fit-content;
@@ -2480,7 +2443,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   min-height: var(--control-medium-size,2rem);
 }
 
-.c4[data-truncation="wrap"] [data-component="buttonContent"] {
+.c4[data-label-wrap="true"] [data-component="buttonContent"] {
   -webkit-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
@@ -2490,27 +2453,27 @@ exports[`TextInput renders trailingAction text button 1`] = `
   padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
 }
 
-.c4[data-truncation="wrap"] [data-component="text"] {
+.c4[data-label-wrap="true"] [data-component="text"] {
   white-space: unset;
   word-break: break-word;
 }
 
-.c4[data-truncation="wrap"][data-size="small"] {
+.c4[data-label-wrap="true"][data-size="small"] {
   height: unset;
   min-height: var(--control-small-size,1.75rem);
 }
 
-.c4[data-truncation="wrap"][data-size="small"] [data-component="buttonContent"] {
+.c4[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
   padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
 }
 
-.c4[data-truncation="wrap"][data-size="large"] {
+.c4[data-label-wrap="true"][data-size="large"] {
   height: unset;
   min-height: var(--control-large-size,2.5rem);
   padding-inline: var(--control-large-paddingInline-spacious,1rem);
 }
 
-.c4[data-truncation="wrap"][data-size="large"] [data-component="buttonContent"] {
+.c4[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
   padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
 }
 
@@ -2754,7 +2717,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
       className="c4"
       data-block={null}
       data-no-visuals={true}
-      data-truncation="none"
       onClick={[MockFunction]}
       style={{}}
       type="button"
@@ -2942,25 +2904,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   width: 100%;
 }
 
-.c4[data-truncation="ellipses"] {
-  min-width: -webkit-min-content;
-  min-width: -moz-min-content;
-  min-width: min-content;
-}
-
-.c4[data-truncation="ellipses"] [data-component="buttonContent"] {
-  -webkit-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-}
-
-.c4[data-truncation="ellipses"] [data-component="text"] {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  word-break: break-word;
-}
-
-.c4[data-truncation="wrap"] {
+.c4[data-label-wrap="true"] {
   min-width: -webkit-fit-content;
   min-width: -moz-fit-content;
   min-width: fit-content;
@@ -2968,7 +2912,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   min-height: var(--control-medium-size,2rem);
 }
 
-.c4[data-truncation="wrap"] [data-component="buttonContent"] {
+.c4[data-label-wrap="true"] [data-component="buttonContent"] {
   -webkit-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
@@ -2978,27 +2922,27 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
 }
 
-.c4[data-truncation="wrap"] [data-component="text"] {
+.c4[data-label-wrap="true"] [data-component="text"] {
   white-space: unset;
   word-break: break-word;
 }
 
-.c4[data-truncation="wrap"][data-size="small"] {
+.c4[data-label-wrap="true"][data-size="small"] {
   height: unset;
   min-height: var(--control-small-size,1.75rem);
 }
 
-.c4[data-truncation="wrap"][data-size="small"] [data-component="buttonContent"] {
+.c4[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
   padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
 }
 
-.c4[data-truncation="wrap"][data-size="large"] {
+.c4[data-label-wrap="true"][data-size="large"] {
   height: unset;
   min-height: var(--control-large-size,2.5rem);
   padding-inline: var(--control-large-paddingInline-spacious,1rem);
 }
 
-.c4[data-truncation="wrap"][data-size="large"] [data-component="buttonContent"] {
+.c4[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
   padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
 }
 
@@ -3356,7 +3300,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
       className="c4"
       data-block={null}
       data-no-visuals={true}
-      data-truncation="none"
       onBlur={[Function]}
       onClick={[MockFunction]}
       onFocus={[Function]}

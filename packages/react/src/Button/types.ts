@@ -16,8 +16,6 @@ export type Size = 'small' | 'medium' | 'large'
 
 export type AlignContent = 'start' | 'center'
 
-export type TruncationType = 'ellipses' | 'wrap' | 'none'
-
 type ButtonA11yProps =
   | {'aria-label': string; 'aria-labelledby'?: undefined}
   | {'aria-label'?: undefined; 'aria-labelledby': string}
@@ -44,7 +42,10 @@ export type ButtonBaseProps = {
    * interactions as an enabled button.
    */
   inactive?: boolean
-  truncation?: TruncationType
+  /**
+   * Whether the button label should wrap to multiple lines of it is longer than the button width.
+   */
+  labelWrap?: boolean
 } & SxProp &
   React.ButtonHTMLAttributes<HTMLButtonElement>
 

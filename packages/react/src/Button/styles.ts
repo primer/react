@@ -304,18 +304,7 @@ export const getButtonStyles = (theme?: Theme) => {
     '&[data-block="block"]': {
       width: '100%',
     },
-    '&[data-truncation="ellipses"]': {
-      minWidth: 'min-content',
-      '[data-component="buttonContent"]': {
-        flex: '1 1 auto',
-      },
-      '[data-component="text"]': {
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        wordBreak: 'break-word',
-      },
-    },
-    '&[data-truncation="wrap"]': {
+    '&[data-label-wrap="true"]': {
       minWidth: 'fit-content',
       height: 'unset',
       minHeight: 'var(--control-medium-size, 2rem)',
