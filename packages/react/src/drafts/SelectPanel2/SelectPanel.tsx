@@ -1,32 +1,31 @@
-import React from 'react'
-import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon, AlertIcon} from '@primer/octicons-react'
-import {FocusKeys} from '@primer/behaviors'
+import React, {useEffect, useState, type MutableRefObject} from 'react'
+import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon, AlertIcon, ArrowLeftIcon} from '@primer/octicons-react'
 
+import type {ButtonProps, TextInputProps, ActionListProps, LinkProps, CheckboxProps} from '../../index'
 import {
   Button,
-  ButtonProps,
   IconButton,
   Heading,
   Box,
   Tooltip,
   TextInput,
-  TextInputProps,
   Spinner,
   Text,
-  ActionListProps,
   Octicon,
   Link,
-  LinkProps,
   Checkbox,
-  CheckboxProps,
+  useFormControlForwardedProps,
 } from '../../index'
 import {ActionListContainerContext} from '../../ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
-import {useFocusZone} from '../../hooks/useFocusZone'
-import {StyledOverlay, OverlayProps} from '../../Overlay/Overlay'
+import type {OverlayProps} from '../../Overlay/Overlay'
+import {StyledOverlay, heightMap} from '../../Overlay/Overlay'
 import InputLabel from '../../internal/components/InputLabel'
 import {invariant} from '../../utils/invariant'
+import {Status} from '../../internal/components/Status'
+import {useResponsiveValue} from '../../hooks/useResponsiveValue'
+import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -37,6 +36,7 @@ const SelectPanelContext = React.createContext<{
   searchQuery: string
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>
   selectionVariant: ActionListProps['selectionVariant'] | 'instant'
+  moveFocusToList: () => void
 }>({
   title: '',
   description: undefined,
@@ -46,12 +46,15 @@ const SelectPanelContext = React.createContext<{
   searchQuery: '',
   setSearchQuery: () => {},
   selectionVariant: 'multiple',
+  moveFocusToList: () => {},
 })
+
+const responsiveButtonSizes: ResponsiveValue<'small' | 'medium'> = {narrow: 'medium', regular: 'small'}
 
 export type SelectPanelProps = {
   title: string
   description?: string
-  variant?: 'anchored' | 'modal'
+  variant?: 'anchored' | 'modal' | ResponsiveValue<'anchored' | 'modal', 'full-screen' | 'bottom-sheet'>
   selectionVariant?: ActionListProps['selectionVariant'] | 'instant'
   id?: string
 
@@ -65,7 +68,8 @@ export type SelectPanelProps = {
 
   // TODO: move these to SelectPanel.Overlay or overlayProps
   width?: OverlayProps['width']
-  height?: OverlayProps['height'] | 'fit-content'
+  height?: 'fit-content' // not used, keeping it around temporary for backward compatibility
+  maxHeight?: Exclude<OverlayProps['maxHeight'], 'xsmall'>
 
   children: React.ReactNode
 }
@@ -73,7 +77,7 @@ export type SelectPanelProps = {
 const Panel: React.FC<SelectPanelProps> = ({
   title,
   description,
-  variant = 'anchored',
+  variant: propsVariant,
   selectionVariant = 'multiple',
   id,
 
@@ -86,10 +90,16 @@ const Panel: React.FC<SelectPanelProps> = ({
   onSubmit: propsOnSubmit,
 
   width = 'medium',
-  height = 'large',
+  maxHeight = 'large',
   ...props
 }) => {
   const [internalOpen, setInternalOpen] = React.useState(defaultOpen)
+
+  const responsiveVariants = Object.assign(
+    {regular: 'anchored', narrow: 'full-screen'}, // defaults
+    typeof propsVariant === 'string' ? {regular: propsVariant} : propsVariant,
+  )
+  const currentVariant = useResponsiveValue(responsiveVariants, 'anchored')
 
   // sync open state with props
   if (propsOpen !== undefined && internalOpen !== propsOpen) setInternalOpen(propsOpen)
@@ -112,7 +122,7 @@ const Panel: React.FC<SelectPanelProps> = ({
       Anchor = React.cloneElement(child, {
         // @ts-ignore TODO
         ref: anchorRef,
-        onClick: onAnchorClick,
+        onClick: child.props.onClick || onAnchorClick,
         'aria-haspopup': true,
         'aria-expanded': internalOpen,
       })
@@ -126,10 +136,10 @@ const Panel: React.FC<SelectPanelProps> = ({
     if (propsOpen === undefined) setInternalOpen(false)
   }, [internalOpen, propsOpen])
 
-  const onInternalCancel = () => {
+  const onInternalCancel = React.useCallback(() => {
     onInternalClose()
     if (typeof propsOnCancel === 'function') propsOnCancel()
-  }
+  }, [onInternalClose, propsOnCancel])
 
   const onInternalSubmit = (event?: React.FormEvent<HTMLFormElement>) => {
     event?.preventDefault() // there is no event with selectionVariant=instant
@@ -141,8 +151,12 @@ const Panel: React.FC<SelectPanelProps> = ({
     if (typeof propsOnClearSelection === 'function') propsOnClearSelection()
   }
 
-  const internalAfterSelect = () => {
+  const internalAfterSelect = (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
     if (selectionVariant === 'instant') onInternalSubmit()
+
+    if (event.type === 'keypress') {
+      if ((event as React.KeyboardEvent<HTMLLIElement>).key === 'Enter') onInternalSubmit()
+    }
   }
 
   /* Search/Filter */
@@ -152,14 +166,13 @@ const Panel: React.FC<SelectPanelProps> = ({
   const panelId = useId(id)
   const [slots, childrenInBody] = useSlots(contents, {header: SelectPanelHeader, footer: SelectPanelFooter})
 
-  /* Arrow keys navigation for list items */
-  const {containerRef: listContainerRef} = useFocusZone(
-    {
-      bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
-      focusableElementFilter: element => element.tagName === 'LI',
-    },
-    [internalOpen],
-  )
+  // used in SelectPanel.SearchInput
+  const moveFocusToList = () => {
+    const selector = 'ul[role=listbox] li:not([role=none])'
+    // being specific about roles because there can be another ul (tabs in header) and an ActionList.Group (li[role=none])
+    const firstListElement = dialogRef.current?.querySelector(selector) as HTMLLIElement | undefined
+    firstListElement?.focus()
+  }
 
   /* Dialog */
   const dialogRef = React.useRef<HTMLDialogElement>(null)
@@ -186,14 +199,21 @@ const Panel: React.FC<SelectPanelProps> = ({
     }
     dialogEl?.addEventListener('keydown', handler)
     return () => dialogEl?.removeEventListener('keydown', handler)
-  })
+  }, [onInternalCancel])
 
   // Autofocus hack: React doesn't support autoFocus for dialog: https://github.com/facebook/react/issues/23301
   // tl;dr: react takes over autofocus instead of letting the browser handle it,
   // but not for dialogs, so we have to do it
-  React.useEffect(() => {
-    if (internalOpen) document.querySelector('input')?.focus()
-  }, [internalOpen])
+  React.useEffect(
+    function intialFocus() {
+      if (internalOpen) {
+        const searchInput = document.querySelector('dialog[open] input') as HTMLInputElement | undefined
+        if (searchInput) searchInput.focus()
+        else moveFocusToList()
+      }
+    },
+    [internalOpen],
+  )
 
   /* Anchored */
   const {position} = useAnchoredPosition(
@@ -203,21 +223,14 @@ const Panel: React.FC<SelectPanelProps> = ({
       side: 'outside-bottom',
       align: 'start',
     },
-    [anchorRef.current, dialogRef.current],
+    [internalOpen, anchorRef.current, dialogRef.current],
   )
 
   /* 
-    We don't close the panel when clicking outside.
-    For many years, we used to save changes and closed the dialog (for label picker)
-    which isn't accessible, clicking outside should discard changes and close the dialog
-    Fixing this a11y bug would confuse users, so as a middle ground,
-    we don't close the menu and nudge the user towards the footer actions
+    We want to cancel and close the panel when user clicks outside.
+    See decision log: https://github.com/github/primer/discussions/2614#discussioncomment-8544561
   */
-  const [footerAnimationEnabled, setFooterAnimationEnabled] = React.useState(false)
-  const onClickOutside = () => {
-    setFooterAnimationEnabled(true)
-    window.setTimeout(() => setFooterAnimationEnabled(false), 350)
-  }
+  const onClickOutside = onInternalCancel
 
   return (
     <>
@@ -229,25 +242,47 @@ const Panel: React.FC<SelectPanelProps> = ({
         aria-labelledby={`${panelId}--title`}
         aria-describedby={description ? `${panelId}--description` : undefined}
         width={width}
-        height={height}
+        height="fit-content"
+        maxHeight={maxHeight}
+        data-variant={currentVariant}
         sx={{
+          '--max-height': heightMap[maxHeight],
           // reset dialog default styles
           border: 'none',
           padding: 0,
           '&[open]': {display: 'flex'}, // to fit children
 
-          ...(variant === 'anchored' ? {margin: 0, top: position?.top, left: position?.left} : {}),
-          '::backdrop': {backgroundColor: variant === 'anchored' ? 'transparent' : 'primer.canvas.backdrop'},
-
-          '& [data-selectpanel-primary-actions]': {
-            animation: footerAnimationEnabled ? 'selectpanel-gelatine 350ms linear' : 'none',
+          '&[data-variant="anchored"], &[data-variant="full-screen"]': {
+            margin: 0,
+            top: position?.top,
+            left: position?.left,
+            '::backdrop': {backgroundColor: 'transparent'},
           },
-          '@keyframes selectpanel-gelatine': {
-            '0%': {transform: 'scale(1, 1)'},
-            '25%': {transform: 'scale(0.9, 1.1)'},
-            '50%': {transform: 'scale(1.1, 0.9)'},
-            '75%': {transform: 'scale(0.95, 1.05)'},
-            '100%': {transform: 'scale(1, 1)'},
+          '&[data-variant="modal"]': {
+            '::backdrop': {backgroundColor: 'primer.canvas.backdrop'},
+          },
+          '&[data-variant="full-screen"]': {
+            margin: 0,
+            top: 0,
+            left: 0,
+            width: '100%',
+            maxWidth: '100vw',
+            height: '100%',
+            maxHeight: '100vh',
+            '--max-height': '100vh',
+            borderRadius: 'unset',
+          },
+          '&[data-variant="bottom-sheet"]': {
+            margin: 0,
+            top: 'auto',
+            bottom: 0,
+            left: 0,
+            width: '100%',
+            maxWidth: '100vw',
+            maxHeight: 'calc(100vh - 64px)',
+            '--max-height': 'calc(100vh - 64px)',
+            borderBottomRightRadius: 0,
+            borderBottomLeftRadius: 0,
           },
         }}
         {...props}
@@ -255,65 +290,89 @@ const Panel: React.FC<SelectPanelProps> = ({
           if (event.target === event.currentTarget) onClickOutside()
         }}
       >
-        <SelectPanelContext.Provider
-          value={{
-            panelId,
-            title,
-            description,
-            onCancel: onInternalCancel,
-            onClearSelection: propsOnClearSelection ? onInternalClearSelection : undefined,
-            searchQuery,
-            setSearchQuery,
-            selectionVariant,
-          }}
-        >
-          <Box
-            as="form"
-            method="dialog"
-            onSubmit={onInternalSubmit}
-            sx={{display: 'flex', flexDirection: 'column', width: '100%'}}
-          >
-            {slots.header ?? /* render default header as fallback */ <SelectPanelHeader />}
-
-            <Box
-              as="div"
-              ref={listContainerRef as React.RefObject<HTMLDivElement>}
-              sx={{
-                flexShrink: 1,
-                flexGrow: 1,
-                overflow: 'hidden',
-
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                ul: {overflowY: 'auto', flexGrow: 1},
+        {internalOpen && (
+          <>
+            <SelectPanelContext.Provider
+              value={{
+                panelId,
+                title,
+                description,
+                onCancel: onInternalCancel,
+                onClearSelection: propsOnClearSelection ? onInternalClearSelection : undefined,
+                searchQuery,
+                setSearchQuery,
+                selectionVariant,
+                moveFocusToList,
               }}
             >
-              <ActionListContainerContext.Provider
-                value={{
-                  container: 'SelectPanel',
-                  listRole: 'listbox',
-                  selectionAttribute: 'aria-selected',
-                  selectionVariant: selectionVariant === 'instant' ? 'single' : selectionVariant,
-                  afterSelect: internalAfterSelect,
-                }}
+              <Box
+                as="form"
+                method="dialog"
+                onSubmit={onInternalSubmit}
+                sx={{display: 'flex', flexDirection: 'column', width: '100%'}}
               >
-                {childrenInBody}
-              </ActionListContainerContext.Provider>
-            </Box>
-            {slots.footer}
-          </Box>
-        </SelectPanelContext.Provider>
+                {slots.header ?? /* render default header as fallback */ <SelectPanelHeader />}
+
+                <Box
+                  as="div"
+                  sx={{
+                    flexShrink: 1,
+                    flexGrow: 1,
+                    overflow: 'hidden',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    ul: {overflowY: 'auto', flexGrow: 1},
+                  }}
+                >
+                  <ActionListContainerContext.Provider
+                    value={{
+                      container: 'SelectPanel',
+                      listRole: 'listbox',
+                      selectionAttribute: 'aria-selected',
+                      selectionVariant: selectionVariant === 'instant' ? 'single' : selectionVariant,
+                      afterSelect: internalAfterSelect,
+                      listLabelledBy: `${panelId}--title`,
+                      enableFocusZone: true, // Arrow keys navigation for list items
+                    }}
+                  >
+                    {childrenInBody}
+                  </ActionListContainerContext.Provider>
+                </Box>
+                {slots.footer}
+              </Box>
+            </SelectPanelContext.Provider>
+          </>
+        )}
       </StyledOverlay>
     </>
   )
 }
 
 const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((props, anchorRef) => {
-  return <Button ref={anchorRef} {...props} />
+  const inputProps = useFormControlForwardedProps(props)
+  const [labelText, setLabelText] = useState('')
+  useEffect(() => {
+    const label = document.querySelector(`[for='${inputProps.id}']`)
+    if (label?.textContent) {
+      setLabelText(label.textContent)
+    }
+  }, [inputProps.id])
+
+  if (labelText) {
+    return (
+      <Button
+        ref={anchorRef}
+        aria-label={`${(anchorRef as MutableRefObject<HTMLButtonElement>).current.textContent}, ${labelText}`}
+        {...inputProps}
+      />
+    )
+  } else {
+    return <Button ref={anchorRef} {...props} />
+  }
 })
 
-const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...props}) => {
+const SelectPanelHeader: React.FC<React.PropsWithChildren & {onBack?: () => void}> = ({children, onBack, ...props}) => {
   const [slots, childrenWithoutSlots] = useSlots(children, {
     searchInput: SelectPanelSearchInput,
   })
@@ -340,18 +399,32 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
           marginBottom: slots.searchInput ? 2 : 0,
         }}
       >
-        <Box sx={{marginLeft: 2, marginTop: description ? '2px' : 0}}>
-          {/* heading element is intentionally hardcoded to h1, it is not customisable 
+        <Box sx={{display: 'flex'}}>
+          {onBack ? (
+            <Tooltip text="Back" direction="s">
+              <IconButton
+                type="button"
+                variant="invisible"
+                icon={ArrowLeftIcon}
+                aria-label="Back"
+                onClick={() => onBack()}
+              />
+            </Tooltip>
+          ) : null}
+
+          <Box sx={{marginLeft: onBack ? 1 : 2, marginTop: description ? '2px' : 0}}>
+            {/* heading element is intentionally hardcoded to h1, it is not customisable 
             see https://github.com/github/primer/issues/2578 for context
           */}
-          <Heading as="h1" id={`${panelId}--title`} sx={{fontSize: 14, fontWeight: 600}}>
-            {title}
-          </Heading>
-          {description ? (
-            <Text id={`${panelId}--description`} sx={{fontSize: 0, color: 'fg.muted', display: 'block'}}>
-              {description}
-            </Text>
-          ) : null}
+            <Heading as="h1" id={`${panelId}--title`} sx={{fontSize: 14, fontWeight: 600}}>
+              {title}
+            </Heading>
+            {description ? (
+              <Text id={`${panelId}--description`} sx={{fontSize: 0, color: 'fg.muted', display: 'block'}}>
+                {description}
+              </Text>
+            ) : null}
+          </Box>
         </Box>
 
         <Box>
@@ -373,17 +446,30 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren> = ({children, ...prop
   )
 }
 
-const SelectPanelSearchInput: React.FC<TextInputProps> = ({onChange: propsOnChange, ...props}) => {
+const SelectPanelSearchInput: React.FC<TextInputProps> = ({
+  onChange: propsOnChange,
+  onKeyDown: propsOnKeyDown,
+  ...props
+}) => {
   // TODO: use forwardedRef
   const inputRef = React.createRef<HTMLInputElement>()
 
-  const {setSearchQuery} = React.useContext(SelectPanelContext)
+  const {setSearchQuery, moveFocusToList} = React.useContext(SelectPanelContext)
 
   const internalOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     // If props.onChange is given, the application controls search,
     // otherwise the component does
     if (typeof propsOnChange === 'function') propsOnChange(event)
     else setSearchQuery(event.target.value)
+  }
+
+  const internalKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'ArrowDown') {
+      event.preventDefault() // prevent scroll
+      moveFocusToList()
+    }
+
+    if (typeof propsOnKeyDown === 'function') propsOnKeyDown(event)
   }
 
   return (
@@ -407,8 +493,12 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({onChange: propsOnChan
           }}
         />
       }
-      sx={{'&:has(input:placeholder-shown) .TextInput-action': {display: 'none'}}}
+      sx={{
+        paddingLeft: 2, // align with list checkboxes
+        '&:has(input:placeholder-shown) .TextInput-action': {display: 'none'},
+      }}
       onChange={internalOnChange}
+      onKeyDown={internalKeyDown}
       {...props}
     />
   )
@@ -419,6 +509,7 @@ const SelectPanelFooter = ({...props}) => {
   const {onCancel, selectionVariant} = React.useContext(SelectPanelContext)
 
   const hidePrimaryActions = selectionVariant === 'instant'
+  const buttonSize = useResponsiveValue(responsiveButtonSizes, 'small')
 
   if (hidePrimaryActions && !props.children) {
     // nothing to render
@@ -433,6 +524,7 @@ const SelectPanelFooter = ({...props}) => {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
+          flexShrink: 0,
           padding: hidePrimaryActions ? 2 : 3,
           minHeight: '44px',
           borderTop: '1px solid',
@@ -442,11 +534,11 @@ const SelectPanelFooter = ({...props}) => {
         <Box sx={{flexGrow: hidePrimaryActions ? 1 : 0}}>{props.children}</Box>
 
         {hidePrimaryActions ? null : (
-          <Box data-selectpanel-primary-actions sx={{display: 'flex', gap: 2}}>
-            <Button size="small" type="button" onClick={() => onCancel()}>
+          <Box sx={{display: 'flex', gap: 2}}>
+            <Button type="button" size={buttonSize} onClick={() => onCancel()}>
               Cancel
             </Button>
-            <Button size="small" type="submit" variant="primary">
+            <Button type="submit" size={buttonSize} variant="primary">
               Save
             </Button>
           </Box>
@@ -457,13 +549,15 @@ const SelectPanelFooter = ({...props}) => {
 }
 
 const SecondaryButton: React.FC<ButtonProps> = props => {
-  return <Button type="button" size="small" block {...props} />
+  const size = useResponsiveValue(responsiveButtonSizes, 'small')
+  return <Button type="button" size={size} block {...props} />
 }
 
 const SecondaryLink: React.FC<LinkProps> = props => {
+  const size = useResponsiveValue(responsiveButtonSizes, 'small')
   return (
     // @ts-ignore TODO: is as prop is not recognised by button?
-    <Button as={Link} size="small" variant="invisible" block {...props} sx={{fontSize: 0}}>
+    <Button as={Link} size={size} variant="invisible" block {...props} sx={{fontSize: 0}}>
       {props.children}
     </Button>
   )
@@ -508,9 +602,9 @@ const SelectPanelSecondaryAction: React.FC<SelectPanelSecondaryActionProps> = ({
   else if (variant === 'checkbox') return <SecondaryCheckbox {...props} />
 }
 
-const SelectPanelLoading: React.FC<{children: string}> = ({children = 'Fetching items...'}) => {
+const SelectPanelLoading = ({children = 'Fetching items...'}: React.PropsWithChildren) => {
   return (
-    <Box
+    <Status
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -518,11 +612,13 @@ const SelectPanelLoading: React.FC<{children: string}> = ({children = 'Fetching 
         alignItems: 'center',
         height: '100%',
         gap: 3,
+        minHeight: 'min(calc(var(--max-height) - 150px), 324px)',
+        //                 maxHeight of dialog - (header & footer)
       }}
     >
       <Spinner size="medium" />
       <Text sx={{fontSize: 1, color: 'fg.muted'}}>{children}</Text>
-    </Box>
+    </Status>
   )
 }
 
@@ -560,13 +656,19 @@ const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
           paddingX: 4,
           textAlign: 'center',
           a: {color: 'inherit', textDecoration: 'underline'},
+          minHeight: 'min(calc(var(--max-height) - 150px), 324px)',
+          //                 maxHeight of dialog - (header & footer)
         }}
       >
         {variant !== 'empty' ? (
           <Octicon icon={AlertIcon} sx={{color: variant === 'error' ? 'danger.fg' : 'attention.fg', marginBottom: 2}} />
         ) : null}
         <Text sx={{fontSize: 1, fontWeight: 'semibold'}}>{title}</Text>
-        <Text sx={{fontSize: 1, color: 'fg.muted'}}>{children}</Text>
+        <Text
+          sx={{fontSize: 1, color: 'fg.muted', display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center'}}
+        >
+          {children}
+        </Text>
       </Box>
     )
   } else {

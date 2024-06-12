@@ -1,5 +1,5 @@
 import React from 'react'
-import {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import {ActionList} from '.'
 import {Item} from './Item'
 import {LinkItem} from './LinkItem'
@@ -46,7 +46,8 @@ export const SimpleList = () => (
 export const WithVisualListHeading = () => (
   <ActionList>
     <ActionList.Heading as="h2">Filter by</ActionList.Heading>
-    <ActionList.Group title="Path">
+    <ActionList.Group>
+      <ActionList.GroupHeading as="h4">Repositories</ActionList.GroupHeading>
       <ActionList.Item onClick={() => {}}>
         <ActionList.LeadingVisual>
           <FileDirectoryIcon />
@@ -73,7 +74,8 @@ export const WithVisualListHeading = () => (
       </ActionList.Item>
     </ActionList.Group>
 
-    <ActionList.Group title="Advanced">
+    <ActionList.Group>
+      <ActionList.GroupHeading as="h4">Advanced</ActionList.GroupHeading>
       <ActionList.Item onClick={() => {}}>
         <ActionList.LeadingVisual>
           <PlusCircleIcon />
@@ -440,10 +442,10 @@ export const InactiveItem = () => {
 
 export const Links = () => (
   <>
-    <Heading as="h1" id="list-heading" sx={{fontSize: 1}}>
+    <ActionList.Heading as="h1" sx={{fontSize: 1}}>
       Details
-    </Heading>
-    <ActionList aria-labelledby="list-heading">
+    </ActionList.Heading>
+    <ActionList>
       <ActionList.LinkItem href="https://github.com/primer/react#readme">
         <ActionList.LeadingVisual>
           <BookIcon />
@@ -522,6 +524,15 @@ export const TextWrapAndTruncation = () => (
           <ArrowRightIcon />
         </ActionList.LeadingVisual>
         Really long text without a description should wrap so it wraps
+        <ActionList.TrailingVisual>
+          <ArrowLeftIcon />
+        </ActionList.TrailingVisual>
+      </ActionList.Item>
+      <ActionList.Item>
+        <ActionList.LeadingVisual>
+          <ArrowRightIcon />
+        </ActionList.LeadingVisual>
+        SomethingSomething/SomethingElse.Some.Thing.Lalala.la
         <ActionList.TrailingVisual>
           <ArrowLeftIcon />
         </ActionList.TrailingVisual>
@@ -644,7 +655,8 @@ export const GroupWithSubtleTitle = () => {
 
   return (
     <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
-      <ActionList.Group title="Everyone">
+      <ActionList.Group>
+        <ActionList.GroupHeading>Everyone</ActionList.GroupHeading>
         {users.slice(2).map(user => (
           <ActionList.Item
             role="menuitemcheckbox"
@@ -677,7 +689,8 @@ export const GroupWithFilledTitle = () => {
 
   return (
     <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
-      <ActionList.Group title="Everyone" variant="filled">
+      <ActionList.Group>
+        <ActionList.GroupHeading variant="filled">Everyone</ActionList.GroupHeading>
         {users.slice(2).map(user => (
           <ActionList.Item
             role="menuitemcheckbox"

@@ -3,9 +3,9 @@ import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {Details, useDetails, Box} from '../..'
 import {Button, ButtonPrimary} from '../../deprecated'
-import {ButtonProps} from '../../deprecated/Button/Button'
+import type {ButtonProps} from '../../deprecated/Button/Button'
 import {behavesAsComponent, checkExports} from '../../utils/testing'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 
 describe('Details', () => {
   behavesAsComponent({Component: Details})
@@ -16,7 +16,7 @@ describe('Details', () => {
 
   it('should have no axe violations', async () => {
     const {container} = render(<Details />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 

@@ -1,6 +1,6 @@
 import React from 'react'
-import {Meta, Story} from '@storybook/react'
-import {ComponentProps} from '../utils/types'
+import type {Meta, StoryFn} from '@storybook/react'
+import type {ComponentProps} from '../utils/types'
 import Timeline from './Timeline'
 import Octicon from '../Octicon'
 import {GitCommitIcon} from '@primer/octicons-react'
@@ -39,7 +39,7 @@ export const Default = () => (
   </Timeline>
 )
 
-export const Playground: Story<ComponentProps<typeof Timeline>> = args => (
+export const Playground: StoryFn<ComponentProps<typeof Timeline>> = args => (
   <Timeline {...args}>
     <Timeline.Item>
       <Timeline.Badge>

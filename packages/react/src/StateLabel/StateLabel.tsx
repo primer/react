@@ -16,8 +16,9 @@ import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
 import Octicon from '../Octicon'
-import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import type {SxProp} from '../sx'
+import sx from '../sx'
+import type {ComponentProps} from '../utils/types'
 
 const octiconMap = {
   issueOpened: IssueOpenedIcon,

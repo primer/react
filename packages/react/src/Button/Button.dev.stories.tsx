@@ -40,6 +40,7 @@ export const TestSxProp = () => {
         size="medium"
         sx={{
           color: 'firebrick',
+          backgroundColor: '#F6F8FA',
         }}
       >
         Medium Red
@@ -52,20 +53,17 @@ export const TestSxProp = () => {
           },
           [`@media screen and (max-width: 768px)`]: {
             color: 'maroon',
-          },
-          '@media screen and (min-width: 768px)': {
-            ':focus': {
-              color: 'green',
-            },
+            backgroundColor: '#F6F8FA',
           },
           '@media (min-width: 1440)': {
             color: 'firebrick',
+            backgroundColor: '#F6F8FA',
           },
         }}
       >
         Red
       </Button>
-      <Button variant="invisible" sx={{color: 'firebrick'}}>
+      <Button variant="invisible" sx={{color: 'firebrick', backgroundColor: '#F6F8FA'}}>
         Invariant color overridden
       </Button>
       <Button leadingVisual={IssueClosedIcon} sx={{color: 'done.fg'}}>

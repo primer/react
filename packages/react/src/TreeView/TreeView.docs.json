@@ -11,6 +11,7 @@
     {"id": "components-treeview-features--async-with-count"},
     {"id": "components-treeview-features--controlled"}
   ],
+  "importPath": "@primer/react",
   "props": [
     {
       "name": "children",
@@ -101,6 +102,16 @@
           "name": "label",
           "type": "string",
           "description": "Provide an accessible label for the visual. This is not necessary for decorative visuals."
+        }
+      ]
+    },
+    {
+      "name": "TreeView.LeadingAction",
+      "props": [
+        {
+          "name": "children",
+          "required": true,
+          "type": "React.ReactNode"
         }
       ]
     },

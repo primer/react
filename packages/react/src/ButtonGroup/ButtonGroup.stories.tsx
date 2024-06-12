@@ -1,7 +1,8 @@
 import React from 'react'
-import {Story, Meta} from '@storybook/react'
+import type {StoryFn, Meta} from '@storybook/react'
 import ButtonGroup from './ButtonGroup'
-import {Button, ButtonProps} from '../Button'
+import type {ButtonProps} from '../Button'
+import {Button} from '../Button'
 
 export default {
   title: 'Components/ButtonGroup',
@@ -23,7 +24,7 @@ export const Default = () => (
   </ButtonGroup>
 )
 
-export const Playground: Story<ButtonProps> = args => (
+export const Playground: StoryFn<ButtonProps> = args => (
   <ButtonGroup>
     <Button {...args}>Button 1</Button>
     <Button {...args}>Button 2</Button>

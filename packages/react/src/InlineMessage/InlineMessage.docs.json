@@ -1,0 +1,36 @@
+{
+  "id": "inline_message",
+  "name": "InlineMessage",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "importPath": "@primer/react/experimental",
+  "stories": [
+    {
+      "id": "drafts-components-inlinemessage-features--critical"
+    },
+    {
+      "id": "drafts-components-inlinemessage-features--success"
+    },
+    {
+      "id": "drafts-components-inlinemessage-features--unavailable"
+    },
+    {
+      "id": "drafts-components-inlinemessage-features--warning"
+    }
+  ],
+  "props": [
+    {
+      "name": "size",
+      "description": "Specify the size of the inline message",
+      "type": "'small' | 'medium'",
+      "defaultValue": "'medium'",
+      "required": false
+    },
+    {
+      "name": "variant",
+      "description": "Specify the type of the inline message",
+      "type": "'critical' | 'success' | 'unvailable' | 'warning'",
+      "required": true
+    }
+  ]
+}

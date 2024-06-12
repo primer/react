@@ -1,11 +1,11 @@
 import {render as HTMLRender} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 import React from 'react'
 import theme from '../theme'
 import {SelectPanel} from '../SelectPanel'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, SSRProvider, ThemeProvider} from '..'
-import {ItemInput} from '../deprecated/ActionList/List'
+import type {ItemInput} from '../deprecated/ActionList/List'
 
 const items = [{text: 'Foo'}, {text: 'Bar'}, {text: 'Baz'}, {text: 'Bon'}] as ItemInput[]
 
@@ -53,7 +53,7 @@ describe('SelectPanel', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<SimpleSelectPanel />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 })

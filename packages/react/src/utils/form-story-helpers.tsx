@@ -1,8 +1,8 @@
-import React from 'react'
-import {CheckboxGroup, FormControl} from '../index'
-import {ComponentProps} from './types'
-import {ArgTypes} from '@storybook/react'
-import {InputType} from '@storybook/csf'
+import type React from 'react'
+import type {CheckboxGroup, FormControl} from '../index'
+import type {ComponentProps} from './types'
+import type {ArgTypes} from '@storybook/react'
+import type {InputType} from '@storybook/csf'
 
 type CheckboxOrRadioGroupWrapperArgs = ComponentProps<typeof CheckboxGroup>
 type CheckboxOrRadioGroupLabelArgs = ComponentProps<typeof CheckboxGroup.Label> & {
@@ -231,7 +231,7 @@ const formControlArgTypeKeys = Object.keys(formControlArgTypes) as Array<keyof t
 export const formControlArgTypesWithoutValidation = formControlArgTypeKeys.reduce<
   Partial<Record<keyof typeof formControlArgTypes, InputType>>
 >((acc, key) => {
-  if (formControlArgTypes[key].table.category !== 'FormControl.Validation') {
+  if (formControlArgTypes[key].table?.category !== 'FormControl.Validation') {
     acc[key] = formControlArgTypes[key]
   }
   return acc

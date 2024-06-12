@@ -1,10 +1,12 @@
 import React from 'react'
 import {render} from '../utils/testing'
 import {render as HTMLRender, fireEvent, act} from '@testing-library/react'
-import {axe} from 'jest-axe'
-import {TokenSizeKeys, tokenSizes} from '../Token/TokenBase'
+import axe from 'axe-core'
+import type {TokenSizeKeys} from '../Token/TokenBase'
+import {tokenSizes} from '../Token/TokenBase'
 import {IssueLabelToken} from '../Token'
-import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTokens'
+import type {TextInputWithTokensProps} from '../TextInputWithTokens'
+import TextInputWithTokens from '../TextInputWithTokens'
 import {MarkGithubIcon} from '@primer/octicons-react'
 
 const mockTokens = [
@@ -549,7 +551,7 @@ describe('TextInputWithTokens', () => {
   it('should have no axe violations', async () => {
     const onRemoveMock = jest.fn()
     const {container} = HTMLRender(<LabelledTextInputWithTokens tokens={mockTokens} onTokenRemove={onRemoveMock} />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 })

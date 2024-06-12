@@ -1,11 +1,14 @@
-import React, {forwardRef, MouseEventHandler} from 'react'
+import type {MouseEventHandler} from 'react'
+import React, {forwardRef} from 'react'
 import Box from '../Box'
-import {BetterSystemStyleObject, merge, SxProp} from '../sx'
+import type {BetterSystemStyleObject, SxProp} from '../sx'
+import {merge} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
-import TokenBase, {defaultTokenSize, isTokenInteractive, TokenBaseProps} from './TokenBase'
+import type {TokenBaseProps} from './TokenBase'
+import TokenBase, {defaultTokenSize, isTokenInteractive} from './TokenBase'
 import RemoveTokenButton from './_RemoveTokenButton'
 import TokenTextContainer from './_TokenTextContainer'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import VisuallyHidden from '../_VisuallyHidden'
 
 // Omitting onResize and onResizeCapture because seems like React 18 types includes these menthod in the expansion but React 17 doesn't.

@@ -1,4 +1,5 @@
-import React, {MouseEventHandler, useCallback, useEffect} from 'react'
+import type {MouseEventHandler} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import styled, {css} from 'styled-components'
 import {variant} from 'styled-system'
 import Box from '../Box'
@@ -6,8 +7,10 @@ import Spinner from '../Spinner'
 import Text from '../Text'
 import {get} from '../constants'
 import {useProvidedStateOrCreate} from '../hooks'
-import sx, {BetterSystemStyleObject, SxProp} from '../sx'
-import {CellAlignment} from '../DataTable/column'
+import type {BetterSystemStyleObject, SxProp} from '../sx'
+import sx from '../sx'
+import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
+import type {CellAlignment} from '../DataTable/column'
 
 const TRANSITION_DURATION = '80ms'
 const EASE_OUT_QUAD_CURVE = 'cubic-bezier(0.5, 1, 0.89, 1)'
@@ -92,9 +95,10 @@ const SwitchButton = styled.button<SwitchButtonProps>`
   display: block;
   height: 32px;
   width: 64px;
-  outline-offset: 3px;
   position: relative;
   overflow: hidden;
+
+  ${getGlobalFocusStyles('3px')};
 
   @media (pointer: coarse) {
     &:before {

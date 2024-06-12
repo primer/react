@@ -1,11 +1,11 @@
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 import React from 'react'
 import theme from '../../theme'
 import {ActionMenu} from '../../deprecated'
 import {behavesAsComponent, checkExports} from '../../utils/testing'
 import {BaseStyles, SSRProvider, ThemeProvider} from '../..'
-import {ItemProps} from '../../deprecated/ActionList/Item'
+import type {ItemProps} from '../../deprecated/ActionList/Item'
 
 const items = [
   {text: 'New file'},
@@ -52,7 +52,7 @@ describe('ActionMenu', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<SimpleActionMenu />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 

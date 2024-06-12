@@ -15,6 +15,7 @@
     "resolveJsonModule": true,
     "typeRoots": ["./node_modules/@types", "./@types"],
     "isolatedModules": true,
-    "moduleDetection": "force"
+    "moduleDetection": "force",
+    "verbatimModuleSyntax": true
   }
 }

@@ -1,16 +1,13 @@
 import {ChevronDownIcon} from '@primer/octicons-react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import React, {isValidElement} from 'react'
 import styled from 'styled-components'
-import {
-  ActionList,
-  ActionListDividerProps,
-  ActionListLeadingVisualProps,
-  ActionListTrailingVisualProps,
-} from '../ActionList'
+import type {ActionListDividerProps, ActionListLeadingVisualProps, ActionListTrailingVisualProps} from '../ActionList'
+import {ActionList} from '../ActionList'
 import Box from '../Box'
 import Octicon from '../Octicon'
-import sx, {merge, SxProp} from '../sx'
+import type {SxProp} from '../sx'
+import sx, {merge} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {useId} from '../hooks/useId'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
@@ -262,7 +259,9 @@ const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defau
     <>
       {/* Hide divider if the group is the first item in the list */}
       <ActionList.Divider sx={{'&:first-child': {display: 'none'}}} />
-      <ActionList.Group {...props} title={title} sx={sxProp}>
+      <ActionList.Group {...props} sx={sxProp}>
+        {/* Setting up the default value for the heading level. TODO: API update to give flexibility to NavList.Group title's heading level */}
+        {title ? <ActionList.GroupHeading as="h3">{title}</ActionList.GroupHeading> : null}
         {children}
       </ActionList.Group>
     </>

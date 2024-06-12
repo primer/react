@@ -110,7 +110,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
 
 .c6:hover,
 .c6:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c6:active {
@@ -207,7 +207,6 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
       fill="currentColor"
       focusable="false"
       height={12}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -337,7 +336,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
 
 .c6:hover,
 .c6:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c6:active {
@@ -434,7 +433,6 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
       fill="currentColor"
       focusable="false"
       height={15}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -564,7 +562,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
 
 .c6:hover,
 .c6:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c6:active {
@@ -661,7 +659,6 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
       fill="currentColor"
       focusable="false"
       height={18}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -793,7 +790,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
 
 .c6:hover,
 .c6:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c6:active {
@@ -890,7 +887,6 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
       fill="currentColor"
       focusable="false"
       height={24}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -1149,7 +1145,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
 
 .c6:hover,
 .c6:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c6:active {
@@ -1246,7 +1242,6 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
       fill="currentColor"
       focusable="false"
       height={15}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -1351,7 +1346,7 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c2:active {
@@ -1419,7 +1414,6 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
       fill="currentColor"
       focusable="false"
       height={12}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -1524,7 +1518,7 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c2:active {
@@ -1592,7 +1586,6 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
       fill="currentColor"
       focusable="false"
       height={15}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -1697,7 +1690,7 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c2:active {
@@ -1765,7 +1758,6 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
       fill="currentColor"
       focusable="false"
       height={18}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -1872,7 +1864,7 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c2:active {
@@ -1940,7 +1932,6 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
       fill="currentColor"
       focusable="false"
       height={24}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -2045,7 +2036,7 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c2:active {
@@ -2113,7 +2104,6 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
       fill="currentColor"
       focusable="false"
       height={15}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -2218,7 +2208,7 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c2:active {
@@ -2286,7 +2276,6 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
       fill="currentColor"
       focusable="false"
       height={15}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -2502,7 +2491,7 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
 
 .c2:hover,
 .c2:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c2:active {
@@ -2570,7 +2559,6 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
       fill="currentColor"
       focusable="false"
       height={15}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -2677,7 +2665,7 @@ exports[`Token components Token renders all sizes 1`] = `
 
 .c3:hover,
 .c3:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c3:active {
@@ -2750,7 +2738,6 @@ exports[`Token components Token renders all sizes 1`] = `
       fill="currentColor"
       focusable="false"
       height={12}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -2857,7 +2844,7 @@ exports[`Token components Token renders all sizes 2`] = `
 
 .c3:hover,
 .c3:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c3:active {
@@ -2930,7 +2917,6 @@ exports[`Token components Token renders all sizes 2`] = `
       fill="currentColor"
       focusable="false"
       height={15}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -3037,7 +3023,7 @@ exports[`Token components Token renders all sizes 3`] = `
 
 .c3:hover,
 .c3:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c3:active {
@@ -3110,7 +3096,6 @@ exports[`Token components Token renders all sizes 3`] = `
       fill="currentColor"
       focusable="false"
       height={18}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -3219,7 +3204,7 @@ exports[`Token components Token renders all sizes 4`] = `
 
 .c3:hover,
 .c3:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c3:active {
@@ -3292,7 +3277,6 @@ exports[`Token components Token renders all sizes 4`] = `
       fill="currentColor"
       focusable="false"
       height={24}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -3582,7 +3566,7 @@ exports[`Token components Token renders with a remove button 1`] = `
 
 .c3:hover,
 .c3:focus {
-  background-color: var(--borderColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
 .c3:active {
@@ -3655,7 +3639,6 @@ exports[`Token components Token renders with a remove button 1`] = `
       fill="currentColor"
       focusable="false"
       height={15}
-      role="img"
       style={
         {
           "display": "inline-block",

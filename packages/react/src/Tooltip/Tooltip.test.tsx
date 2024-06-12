@@ -1,8 +1,10 @@
 import React from 'react'
-import Tooltip, {TooltipProps} from './Tooltip'
+import type {TooltipProps} from './Tooltip'
+import Tooltip from './Tooltip'
 import {render, renderClasses, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import {render as HTMLRender, screen} from '@testing-library/react'
+import axe from 'axe-core'
+import {CodeIcon} from '@primer/octicons-react'
 
 /* Tooltip v1 */
 
@@ -15,7 +17,7 @@ describe('Tooltip', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Tooltip text="hi" />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 
@@ -47,5 +49,15 @@ describe('Tooltip', () => {
 
   it('respects the "wrap" prop', () => {
     expect(rendersClass(<Tooltip wrap />, 'tooltipped-multiline')).toBe(true)
+  })
+  it('should label the link', () => {
+    HTMLRender(
+      <Tooltip aria-label="Tooltip text" id="tooltip-unique-id">
+        <a aria-labelledby="tooltip-unique-id" href="#href">
+          <CodeIcon />
+        </a>
+      </Tooltip>,
+    )
+    expect(screen.getByRole('link')).toHaveAccessibleName('Tooltip text')
   })
 })

@@ -4,9 +4,10 @@ import {IconButton} from './Button'
 import {get} from './constants'
 import Box from './Box'
 import useDialog from './hooks/useDialog'
-import sx, {SxProp} from './sx'
+import type {SxProp} from './sx'
+import sx from './sx'
 import Text from './Text'
-import {ComponentProps} from './utils/types'
+import type {ComponentProps} from './utils/types'
 import {useRefObjectAsForwardedRef} from './hooks/useRefObjectAsForwardedRef'
 import {XIcon} from '@primer/octicons-react'
 
@@ -32,10 +33,10 @@ const DialogBase = styled.div<StyledDialogBaseProps>`
   outline: none;
 
   @media screen and (max-width: 750px) {
-    width: 100vw;
+    width: 100dvw;
     margin: 0;
     border-radius: 0;
-    height: 100vh;
+    height: 100dvh;
   }
 
   ${sx};
@@ -57,7 +58,7 @@ export type DialogHeaderProps = ComponentProps<typeof DialogHeaderBase>
 function DialogHeader({theme, children, backgroundColor = 'canvas.subtle', ...rest}: DialogHeaderProps) {
   if (React.Children.toArray(children).every(ch => typeof ch === 'string')) {
     children = (
-      <Text theme={theme} color="fg.default" fontSize={1} fontWeight="bold" fontFamily="sans-serif">
+      <Text fontSize={1} fontWeight="bold">
         {children}
       </Text>
     )

@@ -23,6 +23,9 @@ const input = new Set([
   // "./deprecated"
   'src/deprecated/index.ts',
 
+  // "./next"
+  'src/next/index.ts',
+
   // Make sure all members are exported
   'src/constants.ts',
 
@@ -63,6 +66,7 @@ const ESM_ONLY = new Set([
   '@github/markdown-toolbar-element',
   '@github/paste-markdown',
   '@github/relative-time-element',
+  '@github/tab-container-element',
   '@lit-labs/react',
   '@oddbird/popover-polyfill',
 ])
@@ -217,6 +221,10 @@ const baseConfig = {
     // Server Components that this module should only be loaded on the client.
     if (warning.code === 'MODULE_LEVEL_DIRECTIVE' && warning.message.includes('use client')) {
       return
+    }
+
+    if (warning.code === 'CIRCULAR_DEPENDENCY') {
+      throw warning
     }
 
     defaultHandler(warning)

@@ -1,8 +1,9 @@
 import React from 'react'
-import Popover, {PopoverProps} from '../Popover'
+import type {PopoverProps} from '../Popover'
+import Popover from '../Popover'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 
 const comp = (
   <Popover caret="top" open>
@@ -27,7 +28,7 @@ describe('Popover', () => {
         <Popover.Content>Hello!</Popover.Content>
       </Popover>,
     )
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 

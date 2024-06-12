@@ -1,8 +1,10 @@
-import React, {ButtonHTMLAttributes} from 'react'
-import {IconProps} from '@primer/octicons-react'
+import type {ButtonHTMLAttributes} from 'react'
+import React from 'react'
+import type {IconProps} from '@primer/octicons-react'
 import styled from 'styled-components'
 import Box from '../Box'
-import sx, {merge, SxProp} from '../sx'
+import type {SxProp} from '../sx'
+import sx, {merge} from '../sx'
 import {getSegmentedControlButtonStyles, getSegmentedControlListItemStyles} from './getSegmentedControlStyles'
 import {defaultSxProp} from '../utils/defaultSxProp'
 
@@ -36,6 +38,7 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
       <SegmentedControlButtonStyled
         aria-current={selected}
         sx={getSegmentedControlButtonStyles({selected, children})}
+        type="button"
         {...rest}
       >
         <span className="segmentedControl-content">

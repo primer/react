@@ -4,7 +4,23 @@
   "status": "alpha",
   "a11yReviewed": false,
   "stories": [],
+  "importPath": "@primer/react",
   "props": [
+    {
+      "name": "alignContent",
+      "type": "'start' | 'center'",
+      "description": "Content alignment for when visuals are present."
+    },
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'button'"
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "description": "Allow button width to fill its container."
+    },
     {
       "name": "children",
       "required": true,
@@ -13,20 +29,18 @@
     },
     {
       "name": "count",
-      "required": true,
       "type": "number | string",
       "description": "For counter buttons, the number to display."
     },
     {
-      "name": "variant",
-      "type": "'default'\n| 'primary'\n| 'danger'\n| 'invisible'",
-      "defaultValue": "'default'",
-      "description": "Change the visual style of the button."
+      "name": "disabled",
+      "type": "boolean",
+      "description": "Items that are disabled can not be clicked, selected, or navigated through."
     },
     {
-      "name": "size",
-      "type": "'small'\n| 'medium'\n| 'large'",
-      "defaultValue": "'medium'"
+      "name": "inactive",
+      "type": "boolean",
+      "description": "Whether the button looks visually disabled, but can still accept all the same interactions as an enabled button.\n This is intended to be used when a system error such as an outage prevents the button from performing its usual action.\n Inactive styles are slightly different from disabled styles because inactive buttons need to have an accessible color contrast ratio. This is because inactive buttons can have tooltips or perform an action such as opening a dialog explaining why it's inactive.\n If both `disabled` and `inactive` are true, `disabled` takes precedence."
     },
     {
       "name": "leadingIcon",
@@ -40,6 +54,19 @@
       "description": "A visual to display before the button text."
     },
     {
+      "name": "ref",
+      "type": "React.RefObject<HTMLButtonElement>"
+    },
+    {
+      "name": "size",
+      "type": "'small'\n| 'medium'\n| 'large'",
+      "defaultValue": "'medium'"
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    },
+    {
       "name": "trailingIcon",
       "type": "React.ComponentType<OcticonProps>",
       "description": "An icon to display after the button text.",
@@ -51,22 +78,10 @@
       "description": "A visual to display after the button text."
     },
     {
-      "name": "inactive",
-      "type": "boolean",
-      "description": "Whether the button looks visually disabled, but can still accept all the same interactions as an enabled button.\n This is intended to be used when a system error such as an outage prevents the button from performing its usual action.\n Inactive styles are slightly different from disabled styles because inactive buttons need to have an accessible color contrast ratio. This is because inactive buttons can have tooltips or perform an action such as opening a dialog explaining why it's inactive.\n If both `disabled` and `inactive` are true, `disabled` takes precedence."
-    },
-    {
-      "name": "as",
-      "type": "React.ElementType",
-      "defaultValue": "'button'"
-    },
-    {
-      "name": "sx",
-      "type": "SystemStyleObject"
-    },
-    {
-      "name": "ref",
-      "type": "React.RefObject<HTMLButtonElement>"
+      "name": "variant",
+      "type": "'default'\n| 'primary'\n| 'danger'\n| 'invisible'",
+      "defaultValue": "'default'",
+      "description": "Change the visual style of the button."
     }
   ],
   "passthrough": {

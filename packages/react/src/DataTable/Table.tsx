@@ -5,10 +5,11 @@ import styled from 'styled-components'
 import Box from '../Box'
 import Text from '../Text'
 import {get} from '../constants'
-import sx, {SxProp} from '../sx'
+import type {SxProp} from '../sx'
+import sx from '../sx'
 import VisuallyHidden from '../_VisuallyHidden'
-import {Column, CellAlignment} from './column'
-import {UniqueRow} from './row'
+import type {Column, CellAlignment} from './column'
+import type {UniqueRow} from './row'
 import {SortDirection} from './sorting'
 import {useTableLayout} from './useTable'
 import {SkeletonText} from '../drafts/Skeleton/SkeletonText'
@@ -273,7 +274,6 @@ function TableHead({children}: TableHeadProps) {
   return (
     // We need to explicitly pass this role because some ATs and browsers drop table semantics
     // when we use `display: contents` or `display: grid` in the table
-    // eslint-disable-next-line jsx-a11y/no-redundant-roles
     <thead className="TableHead" role="rowgroup">
       {children}
     </thead>
@@ -290,7 +290,6 @@ function TableBody({children}: TableBodyProps) {
   return (
     // We need to explicitly pass this role because some ATs and browsers drop table semantics
     // when we use `display: contents` or `display: grid` in the table
-    // eslint-disable-next-line jsx-a11y/no-redundant-roles
     <tbody className="TableBody" role="rowgroup">
       {children}
     </tbody>

@@ -45,7 +45,7 @@ As this is a public repo, please be careful not to include details or screenshot
 
 We primarily use [Storybook](https://storybook.js.org/) as a workspace to develop new components or make changes to existing components.
 
-Before running storybook locally, make sure to install [Node.js](https://nodejs.org/en/) v16 (we recommend using [nvm](https://github.com/nvm-sh/nvm)). Next, run the following command to setup your environment:
+Before running storybook locally, make sure to install [Node.js](https://nodejs.org/en/) v20 (we recommend using [nvm](https://github.com/nvm-sh/nvm)). Next, run the following command to setup your environment:
 
 ```sh
 npm run setup
@@ -104,7 +104,8 @@ Here's an example of a basic component written in the style of Primer react comp
 ```tsx
 import React from 'react'
 import Box from '../Box'
-import {BetterSystemStyleObject, SxProp, merge} from '../sx'
+import type {BetterSystemStyleObject, SxProp} from '../sx'
+import {merge} from '../sx'
 
 export type ComponentProps = {
   prop?: 'value1' | 'value2'
@@ -147,7 +148,7 @@ We consider a component SSR-compatible if it...
 
 We use [`eslint-plugin-ssr-friendly`](https://github.com/kopiro/eslint-plugin-ssr-friendly) to prevent misuse of DOM globals. If you see an error from this plugin, please fix it before merging your PR.
 
-If your component doesn't use DOM globals, it likely won't cause layout shift during hydration. However, if you suspect that your component might cause layout shift, you can use the example Next.js app (`examples/nextjs`) to debug. Import and render your component in `examples/nextjs/pages/index.js` then run the example app with `cd examples/nextjs && npm run develop`.
+If your component doesn't use DOM globals, it likely won't cause layout shift during hydration. However, if you suspect that your component might cause layout shift, you can use the example Next.js app (`examples/nextjs`) to debug. Import and render your component in `examples/nextjs/src/pages/index.js` then run the example app with `cd examples/nextjs && npm run develop`.
 
 ### Adding the `sx` prop
 
@@ -156,7 +157,8 @@ Each component should accept a prop called `sx` that allows for setting theme-aw
 To add the `sx` prop to your component: import the default export from the `sx` module, add it to your style definition, and add the appropriate prop types. **The `sx` prop should go at the _very end_ of your style definition.**
 
 ```tsx
-import sx, {SxProp} from './sx'
+import type {SxProp} from './sx'
+import sx from './sx'
 
 const Component = styled.div<SxProp>`
   // additional styles here

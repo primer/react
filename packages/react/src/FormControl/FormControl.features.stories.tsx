@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import {
   Autocomplete,
   BaseStyles,
@@ -10,6 +10,7 @@ import {
   Radio,
   RadioGroup,
   Select,
+  Text,
   TextInput,
   TextInputWithTokens,
   Textarea,
@@ -281,6 +282,55 @@ export const WithLeadingVisual = () => (
       </FormControl.LeadingVisual>
       <Checkbox />
       <FormControl.Caption>This one has a caption</FormControl.Caption>
+    </FormControl>
+  </Box>
+)
+
+export const DisabledInputs = () => (
+  <Box sx={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
+    <FormControl disabled>
+      <FormControl.Label>Disabled checkbox</FormControl.Label>
+      <Checkbox />
+    </FormControl>
+    <FormControl disabled>
+      <FormControl.Label>Disabled input</FormControl.Label>
+      <TextInput />
+    </FormControl>
+    <FormControl disabled>
+      <FormControl.Label>Disabled select</FormControl.Label>
+      <Select>
+        <Select.Option value="figma">Figma</Select.Option>
+        <Select.Option value="css">Primer CSS</Select.Option>
+        <Select.Option value="prc">Primer React components</Select.Option>
+        <Select.Option value="pvc">Primer ViewComponents</Select.Option>
+      </Select>
+    </FormControl>
+  </Box>
+)
+
+export const CustomRequired = () => (
+  <Box sx={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
+    <FormControl required={true}>
+      <FormControl.Label requiredText="(required)">Form Input Label</FormControl.Label>
+      <FormControl.Caption>This is a form field with a custom required indicator</FormControl.Caption>
+      <TextInput />
+    </FormControl>
+
+    <Text sx={{fontSize: 1}}>Required fields are marked with an asterisk (*)</Text>
+    <FormControl required={true}>
+      <FormControl.Label requiredIndicator={false}>Form Input Label</FormControl.Label>
+      <FormControl.Caption>
+        This is a form field with a required indicator that is hidden in the accessibility tree
+      </FormControl.Caption>
+      <TextInput />
+    </FormControl>
+
+    <FormControl required={false}>
+      <FormControl.Label requiredText="(optional)" requiredIndicator={false}>
+        Form Input Label
+      </FormControl.Label>
+      <FormControl.Caption>This is a form field that is marked as optional, it is not required</FormControl.Caption>
+      <TextInput />
     </FormControl>
   </Box>
 )

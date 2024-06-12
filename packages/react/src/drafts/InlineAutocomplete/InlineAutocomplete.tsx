@@ -1,11 +1,11 @@
 import React, {cloneElement, useRef} from 'react'
 import Box from '../../Box'
 import Portal from '../../Portal'
-import {BetterSystemStyleObject} from '../../sx'
+import type {BetterSystemStyleObject} from '../../sx'
 import {useSyntheticChange} from '../hooks/useSyntheticChange'
 import {getAbsoluteCharacterCoordinates} from '../utils/character-coordinates'
 
-import {
+import type {
   SelectSuggestionsEvent,
   ShowSuggestionsEvent,
   Suggestions,
@@ -118,7 +118,7 @@ const InlineAutocomplete = ({
   const inputProps = useFormControlForwardedProps(externalInputProps)
 
   const inputRef = useRef<HTMLInputElement & HTMLTextAreaElement>(null)
-  useRefObjectAsForwardedRef(children.ref ?? noop, inputRef)
+  useRefObjectAsForwardedRef(children.ref && typeof children.ref !== 'string' ? children.ref : noop, inputRef)
 
   const externalInput = requireChildrenToBeInput(children, inputRef)
 

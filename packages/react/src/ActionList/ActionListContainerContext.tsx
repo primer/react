@@ -1,7 +1,7 @@
 /** This context can be used by components that compose ActionList inside a Menu */
 
 import React from 'react'
-import {AriaRole} from '../utils/types'
+import type {AriaRole} from '../utils/types'
 
 type ContextProps = {
   container?: string
@@ -13,6 +13,8 @@ type ContextProps = {
   // to be more specific here, this is as good as (...args: any[]) => unknown
   // eslint-disable-next-line @typescript-eslint/ban-types
   afterSelect?: Function
+  enableFocusZone?: boolean
+  defaultTrailingVisual?: React.ReactElement
 }
 
 export const ActionListContainerContext = React.createContext<ContextProps>({})

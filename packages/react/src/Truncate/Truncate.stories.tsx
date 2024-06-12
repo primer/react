@@ -1,11 +1,12 @@
 import React from 'react'
-import {ComponentMeta} from '@storybook/react'
-import Truncate, {TruncateProps} from './Truncate'
+import type {Meta} from '@storybook/react'
+import type {TruncateProps} from './Truncate'
+import Truncate from './Truncate'
 
 export default {
   title: 'Components/Truncate',
   component: Truncate,
-} as ComponentMeta<typeof Truncate>
+} as Meta<typeof Truncate>
 
 export const Default = () => <Truncate title="Some example text">Some example text</Truncate>
 

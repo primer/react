@@ -1,7 +1,10 @@
 import React, {useCallback, useEffect} from 'react'
-import Overlay, {OverlayProps} from '../Overlay'
-import {FocusTrapHookSettings, useFocusTrap} from '../hooks/useFocusTrap'
-import {FocusZoneHookSettings, useFocusZone} from '../hooks/useFocusZone'
+import type {OverlayProps} from '../Overlay'
+import Overlay from '../Overlay'
+import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
+import {useFocusTrap} from '../hooks/useFocusTrap'
+import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
+import {useFocusZone} from '../hooks/useFocusZone'
 import {useAnchoredPosition, useProvidedRefOrCreate, useRenderForcingRef} from '../hooks'
 import {useId} from '../hooks/useId'
 import type {PositionSettings} from '@primer/behaviors'
@@ -169,7 +172,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           ref: anchorRef,
           id: anchorId,
           'aria-haspopup': 'true',
-          'aria-expanded': open ? 'true' : undefined,
+          'aria-expanded': open,
           tabIndex: 0,
           onClick: onAnchorClick,
           onKeyDown: onAnchorKeyDown,

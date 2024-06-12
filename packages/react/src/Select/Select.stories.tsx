@@ -1,9 +1,9 @@
 import React from 'react'
-import {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import {Select, FormControl, Box} from '..'
-import {SelectProps} from '../Select'
+import type {SelectProps} from '../Select'
+import type {FormControlArgs} from '../utils/form-story-helpers'
 import {
-  FormControlArgs,
   formControlArgs,
   formControlArgTypes,
   getFormControlArgsByChildComponent,
