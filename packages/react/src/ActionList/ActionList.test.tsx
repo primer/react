@@ -452,7 +452,7 @@ describe('ActionList', () => {
       <ActionList>
         <ActionList.Item>
           Item 1
-          <ActionList.TrailingAction icon={BookIcon} aria-label="Action" />
+          <ActionList.TrailingAction icon={BookIcon} label="Action" />
         </ActionList.Item>
       </ActionList>,
     )
@@ -466,7 +466,7 @@ describe('ActionList', () => {
       <ActionList>
         <ActionList.Item>
           Item 1
-          <ActionList.TrailingAction as="a" href="#" icon={BookIcon} aria-label="Action" />
+          <ActionList.TrailingAction as="a" href="#" icon={BookIcon} label="Action" />
         </ActionList.Item>
       </ActionList>,
     )
@@ -481,7 +481,7 @@ describe('ActionList', () => {
       <ActionList>
         <ActionList.Item>
           Item 1
-          <ActionList.TrailingAction icon={BookIcon} aria-label="Action" onClick={onClick} />
+          <ActionList.TrailingAction icon={BookIcon} label="Action" onClick={onClick} />
         </ActionList.Item>
       </ActionList>,
     )
@@ -496,7 +496,7 @@ describe('ActionList', () => {
       <ActionList>
         <ActionList.Item>
           Item 1
-          <ActionList.TrailingAction icon={BookIcon} aria-label="Action" />
+          <ActionList.TrailingAction icon={BookIcon} label="Action" />
         </ActionList.Item>
       </ActionList>,
     )
