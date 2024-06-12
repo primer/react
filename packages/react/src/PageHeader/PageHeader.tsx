@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import {Box} from '..'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
@@ -36,9 +36,6 @@ const CONTEXT_AREA_REGION_ORDER = {
   ContextBar: 1,
   ContextAreaActions: 2,
 }
-
-const MEDIUM_TITLE_HEIGHT = '2rem'
-const LARGE_TITLE_HEIGHT = '3rem'
 
 // Types that are shared between PageHeader children components
 export type ChildrenPropTypes = {
@@ -78,26 +75,31 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
       'description description description description description'
       'navigation navigation navigation navigation navigation'
     `,
-      //  --custom-height is a custom property (passed by sx) that can be used to override the set height.
+      // line-height is calculated with calc(height/font-size) and the below numbers are from @primer/primitives
+      //  --custom-font-size, --custom-line-height, --custom-font-weight are custom properties (passed by sx) that can be used to override the below values
       // We don't want these values to be overriden but still want to allow consumers to override them if needed.
-      '&[data-size-variant="large"]': {
-        '[data-component="PH_LeadingAction"], [data-component="PH_TrailingAction"],[data-component="PH_Actions"], [data-component="PH_LeadingVisual"], [data-component="PH_TrailingVisual"]':
-          {
-            height: `var(--custom-height, ${LARGE_TITLE_HEIGHT})`,
-          },
+      '&:has([data-component="TitleArea"][data-size-variant="large"])': {
+        fontSize: 'var(--custom-font-size, var(--text-title-size-large, 2rem))',
+        lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-large, 1.5))', // calc(48/32)
+        fontWeight: 'var(--custom-font-weight, var(--base-text-weight-normal, 400))',
+        '--title-line-height': 'var(--custom-line-height, var(--text-title-lineHeight-large, 1.5))',
       },
-      '&[data-size-variant="medium"]': {
-        '[data-component="PH_LeadingAction"], [data-component="PH_TrailingAction"],[data-component="PH_Actions"], [data-component="PH_LeadingVisual"], [data-component="PH_TrailingVisual"]':
-          {
-            height: `var(--custom-height, ${MEDIUM_TITLE_HEIGHT})`,
-          },
+      '&:has([data-component="TitleArea"][data-size-variant="medium"])': {
+        fontSize: 'var(--custom-font-size, var(--text-title-size-medium, 1.25rem))',
+        lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6))', // calc(32/20)
+        fontWeight: 'var(--custom-font-weight, var(--base-text-weight-semibold, 600))',
+        '--title-line-height': 'var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6))',
       },
-      '&[data-size-variant="subtitle"]': {
-        '[data-component="PH_LeadingAction"], [data-component="PH_TrailingAction"],[data-component="PH_Actions"], [data-component="PH_LeadingVisual"], [data-component="PH_TrailingVisual"]':
-          {
-            height: `var(--custom-height, ${MEDIUM_TITLE_HEIGHT})`,
-          },
+      '&:has([data-component="TitleArea"][data-size-variant="subtitle"])': {
+        fontSize: 'var(--custom-font-size, var(--text-title-size-medium, 1.25rem))',
+        lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6))', // calc(32/20)
+        fontWeight: 'var(--custom-font-weight, var(--base-text-weight-normal, 400))',
+        '--title-line-height': 'var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6))',
       },
+      '[data-component="PH_LeadingAction"], [data-component="PH_TrailingAction"],[data-component="PH_Actions"], [data-component="PH_LeadingVisual"], [data-component="PH_TrailingVisual"]':
+        {
+          height: 'calc(var(--title-line-height) * 1em)',
+        },
     }
 
     const rootRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
@@ -111,52 +113,50 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
       )
     }
 
-    const [hasContextArea, setHasContextArea] = useState(false)
-    const [hasLeadingAction, setHasLeadingAction] = useState(false)
-    const [titleVariant, setTitleVariant] = useState<string | undefined>('')
+    useEffect(
+      function validateInteractiveElementsInTitle() {
+        if (!__DEV__) return
 
-    useEffect(() => {
-      if (!rootRef.current || rootRef.current.children.length <= 0) return
-      const titleArea = Array.from(rootRef.current.children as HTMLCollection).find(child => {
-        return child instanceof HTMLElement && child.getAttribute('data-component') === 'TitleArea'
-      })
+        let hasContextArea = false
+        let hasLeadingAction = false
 
-      // It is very unlikely to have a PageHeader without a TitleArea, but we still want to make sure we don't break the page if that happens.
-      if (!titleArea) return
+        if (!rootRef.current || rootRef.current.children.length <= 0) return
+        const titleArea = Array.from(rootRef.current.children as HTMLCollection).find(child => {
+          return child instanceof HTMLElement && child.getAttribute('data-component') === 'TitleArea'
+        })
 
-      // // grab the data-size-variant attribute from the titleArea
-      const sizeVariant = titleArea.getAttribute('data-size-variant')
-      setTitleVariant(sizeVariant as string)
+        // It is very unlikely to have a PageHeader without a TitleArea, but we still want to make sure we don't break the page if that happens.
+        if (!titleArea) return
 
-      for (const child of React.Children.toArray(children)) {
-        if (React.isValidElement(child) && child.type === ContextArea) {
-          setHasContextArea(true)
+        for (const child of React.Children.toArray(children)) {
+          if (React.isValidElement(child) && child.type === ContextArea) {
+            hasContextArea = true
+          }
+          if (React.isValidElement(child) && child.type === LeadingAction) {
+            hasLeadingAction = true
+          }
         }
-        if (React.isValidElement(child) && child.type === LeadingAction) {
-          setHasLeadingAction(true)
-        }
-      }
-      // Check if TitleArea has any interactive children or grandchildren.
-      const hasInteractiveContent = Array.from(titleArea.childNodes).some(child => {
-        return (
-          (child instanceof HTMLElement && isInteractive(child)) ||
-          Array.from(child.childNodes).some(child => {
-            return child instanceof HTMLElement && isInteractive(child)
-          })
-        )
-      })
-      // PageHeader.TitleArea should be the first element in the DOM.
-      // Motivation behind this rule to make sure context area and leading action (if they exist) are always rendered after the title (a heading tag)
-      // so that screen reader users who are navigating via heading menu won't miss these actions.
-      if (hasContextArea || hasLeadingAction) {
+        // Check if TitleArea has any interactive children or grandchildren.
+        const hasInteractiveContent = Array.from(titleArea.childNodes).some(child => {
+          return (
+            (child instanceof HTMLElement && isInteractive(child)) ||
+            Array.from(child.childNodes).some(child => {
+              return child instanceof HTMLElement && isInteractive(child)
+            })
+          )
+        })
+        // PageHeader.TitleArea is be the first element in the DOM even when it is not visually the first.
+        // Motivation behind this rule to make sure context area and leading action (if they exist) are always rendered after the title (a heading tag)
+        // so that screen reader users who are navigating via heading menu won't miss these actions.
         warning(
-          hasInteractiveContent,
+          hasInteractiveContent && (hasContextArea || hasLeadingAction),
           'When PageHeader.ContextArea or PageHeader.LeadingAction is present, we recommended not to include any interactive items in the PageHeader.TitleArea to make sure the focus order is logical.',
         )
-      }
-    }, [children, rootRef, hasContextArea, hasLeadingAction])
+      },
+      [children, rootRef],
+    )
     return (
-      <Box ref={rootRef} as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)} data-size-variant={titleVariant}>
+      <Box ref={rootRef} as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>
         {children}
       </Box>
     )
@@ -296,25 +296,6 @@ const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Title
   ({children, sx = {}, hidden = false, variant = 'medium'}, forwardedRef) => {
     const titleAreaRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
     const currentVariant = useResponsiveValue(variant, 'medium')
-    const [fontSize, setFontSize] = useState<string | null | number | string[]>(null)
-
-    useEffect(() => {
-      if (!titleAreaRef.current || titleAreaRef.current.children.length <= 0) return
-      const title = Array.from(titleAreaRef.current.children as HTMLCollection).find(child => {
-        return child instanceof HTMLElement && child.getAttribute('data-component') === 'PH_Title'
-      })
-
-      const styles = getComputedStyle(title as HTMLHeadingElement)
-      const customfontSize = styles.getPropertyValue('--custom-font-size')
-      // This is cumbersome but needed to handle the array format of font-size
-      if (customfontSize.includes(',')) {
-        const values = customfontSize.split(',')
-        setFontSize(values)
-      } else {
-        setFontSize(customfontSize)
-      }
-      // We only need this on the pageload
-    }, [titleAreaRef])
     return (
       <Box
         ref={titleAreaRef}
@@ -331,24 +312,6 @@ const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Title
             }),
             flexDirection: 'row',
             alignItems: 'flex-start',
-            // line-height is calculated with calc(height/font-size) and the below numbers are from @primer/primitives
-            //  --custom-font-size, --custom-line-height, --custom-font-weight are custom properties (passed by sx) that can be used to override the below values
-            // We don't want these values to be overriden but still want to allow consumers to override them if needed.
-            '&[data-size-variant="large"] [data-component="PH_Title"]': {
-              fontSize: fontSize ? fontSize : 'var(--text-title-size-large, 2rem)',
-              lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-large, 1.5))', // calc(48/32)
-              fontWeight: 'var(--custom-font-weight, var(--base-text-weight-normal, 400))',
-            },
-            '&[data-size-variant="medium"] [data-component="PH_Title"]': {
-              fontSize: fontSize ? fontSize : 'var(--text-title-size-medium, 1.25rem)',
-              lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6))', // calc(32/20)
-              fontWeight: 'var(--custom-font-weight, var(--base-text-weight-semibold, 600))',
-            },
-            '&[data-size-variant="subtitle"] [data-component="PH_Title"]': {
-              fontSize: fontSize ? fontSize : 'var(--text-title-size-medium, 1.25rem)',
-              lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-medium, 1.6))', // calc(32/20)
-              fontWeight: 'var(--custom-font-weight, var(--base-text-weight-normal, 400))',
-            },
           },
           sx,
         )}
@@ -470,6 +433,8 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'block'
           }),
+          fontSize: 'inherit',
+          fontWeight: 'inherit',
         },
         sx,
       )}
