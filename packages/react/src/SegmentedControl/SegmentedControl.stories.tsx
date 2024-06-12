@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Story, Meta} from '@storybook/react'
+import type {StoryFn, Meta} from '@storybook/react'
 import {SegmentedControl} from '.'
 import SegmentedControlIconButton from './SegmentedControlIconButton'
 import SegmentedControlButton from './SegmentedControlButton'
@@ -105,7 +105,7 @@ export default {
   parameters: {controls: {exclude: excludedControlKeys}},
 } as Meta<typeof SegmentedControl>
 
-export const Playground: Story<Args> = args => (
+export const Playground: StoryFn<Args> = args => (
   <SegmentedControl
     aria-label="File view"
     fullWidth={parseFullWidthFromArgs(args)}

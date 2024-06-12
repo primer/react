@@ -1,5 +1,5 @@
 import {GrabberIcon} from '@primer/octicons-react'
-import type {Meta, Story} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import React from 'react'
 import Box from '../Box'
 import {TreeView} from './TreeView'
@@ -20,7 +20,7 @@ const meta: Meta = {
   ],
 }
 
-export const DraggableListItem: Story = () => {
+export const DraggableListItem: StoryFn = () => {
   return (
     <Box
       sx={{

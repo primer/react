@@ -1,5 +1,42 @@
 # @primer/react
 
+## 36.21.0
+
+### Minor Changes
+
+- [#4635](https://github.com/primer/react/pull/4635) [`bd861cc779358fcb62fbcb48d2e76cdad90a9301`](https://github.com/primer/react/commit/bd861cc779358fcb62fbcb48d2e76cdad90a9301) Thanks [@lindseywild](https://github.com/lindseywild)! - RelativeTime: Adds `noTitle` prop if you want to not render the `title` attribute with full date time.
+
+### Patch Changes
+
+- [#4456](https://github.com/primer/react/pull/4456) [`65f2cd190069af4502e70c4a4d29099f81614122`](https://github.com/primer/react/commit/65f2cd190069af4502e70c4a4d29099f81614122) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Adds full `aria-expanded` (true/false) state to `AnchoredOverlay`, and components that consume it
+
+- [#4640](https://github.com/primer/react/pull/4640) [`6cbbc497680a1ce4ffe4fa3cda45e6beca586f94`](https://github.com/primer/react/commit/6cbbc497680a1ce4ffe4fa3cda45e6beca586f94) Thanks [@joshblack](https://github.com/joshblack)! - Explicitly set the `type` attribute for `SegmentedControl.Button`
+
+- [#4638](https://github.com/primer/react/pull/4638) [`240fa50d359f9a338be010c5f7f6af26bb881e2d`](https://github.com/primer/react/commit/240fa50d359f9a338be010c5f7f6af26bb881e2d) Thanks [@lindseywild](https://github.com/lindseywild)! - Bumps @github/relative-time-element to v4.4.1
+
+## 36.20.0
+
+### Minor Changes
+
+- [#4358](https://github.com/primer/react/pull/4358) [`e34e4b265f7584c344a4b6b7145da1a5eec1ffb5`](https://github.com/primer/react/commit/e34e4b265f7584c344a4b6b7145da1a5eec1ffb5) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - PageHeader: Update the layout styles so that all interactive content comes after the title (while keeping the component visually the same).
+  This is a breaking change however PageHeader is still a draft component so we are releasing the changes as minor but please upgrade with caution.
+
+- [#4617](https://github.com/primer/react/pull/4617) [`42ba5dc5e722c2341761bf4c6e1e993aac9f2ca8`](https://github.com/primer/react/commit/42ba5dc5e722c2341761bf4c6e1e993aac9f2ca8) Thanks [@JelloBagel](https://github.com/JelloBagel)! - Add an ability to provide custom `aria-label` and `aria-labelledby` to `TreeView.Item`
+
+## 36.19.1
+
+### Patch Changes
+
+- [#4555](https://github.com/primer/react/pull/4555) [`9b63299689500808167bacff624ff910269417b1`](https://github.com/primer/react/commit/9b63299689500808167bacff624ff910269417b1) Thanks [@JoyceZhu](https://github.com/JoyceZhu)! - Add `openInFocus` prop (default: true) to `AutocompleteInput`
+
+- [#4601](https://github.com/primer/react/pull/4601) [`f57dd3d687042069c5e5712aa906e59df9f8729e`](https://github.com/primer/react/commit/f57dd3d687042069c5e5712aa906e59df9f8729e) Thanks [@bwittenberg](https://github.com/bwittenberg)! - SelectPanel2: Minor optimization for escape key event listener binding
+
+- [#4589](https://github.com/primer/react/pull/4589) [`ed701bee8b6c1a9fb9b91462034f8fe04b0244ad`](https://github.com/primer/react/commit/ed701bee8b6c1a9fb9b91462034f8fe04b0244ad) Thanks [@joshblack](https://github.com/joshblack)! - Update how gap is set in Stack to work in wide breakpoints
+
+- [#4598](https://github.com/primer/react/pull/4598) [`32c687041a600e8b54ffaf9b3ab77f9215a37e3e`](https://github.com/primer/react/commit/32c687041a600e8b54ffaf9b3ab77f9215a37e3e) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Replaced space-small with base-size-6
+
+- [#4543](https://github.com/primer/react/pull/4543) [`e47445df6c389fef2aacc72449c02ff471e4cb68`](https://github.com/primer/react/commit/e47445df6c389fef2aacc72449c02ff471e4cb68) Thanks [@TylerJDev](https://github.com/TylerJDev)! - FormControl: Adds new props to `FormControl.Label`, `requiredText` and `requiredIndicator`
+
 ## 36.19.0
 
 ### Minor Changes

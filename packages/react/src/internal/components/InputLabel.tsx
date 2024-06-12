@@ -6,6 +6,8 @@ import VisuallyHidden from '../../_VisuallyHidden'
 type BaseProps = SxProp & {
   disabled?: boolean
   required?: boolean
+  requiredText?: string
+  requiredIndicator?: boolean
   visuallyHidden?: boolean
   id?: string
 }
@@ -28,6 +30,8 @@ const InputLabel: React.FC<React.PropsWithChildren<Props>> = ({
   htmlFor,
   id,
   required,
+  requiredText,
+  requiredIndicator,
   visuallyHidden,
   sx,
   as = 'label',
@@ -52,10 +56,10 @@ const InputLabel: React.FC<React.PropsWithChildren<Props>> = ({
       }}
       {...props}
     >
-      {required ? (
+      {required || requiredText ? (
         <Box display="flex" as="span">
           <Box mr={1}>{children}</Box>
-          <span>*</span>
+          <span aria-hidden={requiredIndicator ? undefined : true}>{requiredText ?? '*'}</span>
         </Box>
       ) : (
         children

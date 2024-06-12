@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta, Story} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import {Button, IconButton, Breadcrumbs, Link, Text, StateLabel, BranchName, Box} from '..'
 import {UnderlineNav} from '../UnderlineNav'
 import Label from '../Label'
@@ -22,13 +22,14 @@ import {OcticonArgType} from '../utils/story-helpers'
 import {PageHeader} from './PageHeader'
 import Hidden from '../Hidden'
 
-export default {
+const meta: Meta<typeof PageHeader> = {
   title: 'Drafts/Components/PageHeader',
   parameters: {
     layout: 'fullscreen',
     controls: {expanded: true},
   },
   args: {
+    // @ts-ignore custom type for story
     hasContextArea: false,
     hasParentLink: true,
     ParentLink: 'Previous page',
@@ -48,6 +49,7 @@ export default {
     hasNavigation: false,
   },
   argTypes: {
+    // @ts-ignore custom type for story
     hasContextArea: {
       type: 'boolean',
       table: {
@@ -181,11 +183,28 @@ export default {
       description: 'Description region/slot',
     },
   },
-} as Meta
+}
 
-export const Playground: Story = args => (
+export default meta
+
+export const Playground: StoryFn = args => (
   <Box sx={{padding: 3}}>
     <PageHeader>
+      <PageHeader.TitleArea
+        variant={{
+          narrow: args['Title.variant'],
+          regular: args['Title.variant'],
+          wide: args['Title.variant'],
+        }}
+      >
+        <PageHeader.LeadingVisual hidden={!args.hasLeadingVisual}>{<args.LeadingVisual />}</PageHeader.LeadingVisual>
+        <PageHeader.Title as={args['Title.as']} hidden={!args.hasTitle}>
+          {args.Title}
+        </PageHeader.Title>
+        <PageHeader.TrailingVisual hidden={!args.hasTrailingVisual}>
+          <Label>Beta</Label>
+        </PageHeader.TrailingVisual>
+      </PageHeader.TitleArea>
       <PageHeader.ContextArea hidden={!args.hasContextArea}>
         <PageHeader.ParentLink href="http://github.com" hidden={!args.hasParentLink}>
           {args.ParentLink}
@@ -194,11 +213,11 @@ export const Playground: Story = args => (
         <PageHeader.ContextBar hidden={!args.hasContextBar}>
           <Breadcrumbs>
             <Breadcrumbs.Item href="https://github.com/primer/react/tree/main">react</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/packages/react/src">src</Breadcrumbs.Item>
-            <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/packages/react/src/PageHeader">
+            <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src">src</Breadcrumbs.Item>
+            <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/src/PageHeader">
               PageHeader
             </Breadcrumbs.Item>
-            <Breadcrumbs.Item href="https://github.com/primer/react/tree/main/packages/react/src/PageHeader/PageHeader.tsx">
+            <Breadcrumbs.Item href="https://github.com/primer/react/blob/main/src/PageHeader/PageHeader.tsx">
               PageHeader.tsx
             </Breadcrumbs.Item>
           </Breadcrumbs>
@@ -211,37 +230,22 @@ export const Playground: Story = args => (
           <IconButton size="small" aria-label="More" icon={KebabHorizontalIcon} />
         </PageHeader.ContextAreaActions>
       </PageHeader.ContextArea>
-      <PageHeader.TitleArea
-        variant={{
-          narrow: args['Title.variant'],
-          regular: args['Title.variant'],
-          wide: args['Title.variant'],
-        }}
-      >
-        <PageHeader.LeadingAction hidden={!args.hasLeadingAction}>
-          <IconButton aria-label="Expand" icon={SidebarExpandIcon} variant="invisible" />{' '}
-        </PageHeader.LeadingAction>
-        <PageHeader.LeadingVisual hidden={!args.hasLeadingVisual}>{<args.LeadingVisual />}</PageHeader.LeadingVisual>
-        <PageHeader.Title as={args['Title.as']} hidden={!args.hasTitle}>
-          {args.Title}
-        </PageHeader.Title>
-        <PageHeader.TrailingVisual hidden={!args.hasTrailingVisual}>
-          <Label>Beta</Label>
-        </PageHeader.TrailingVisual>
-        <PageHeader.TrailingAction hidden={!args.hasTrailingAction}>
-          <IconButton aria-label="Edit" icon={PencilIcon} variant="invisible" />
-        </PageHeader.TrailingAction>
-        <PageHeader.Actions hidden={!args.hasActions}>
-          <Hidden when={['narrow']}>
-            <Button variant="primary">New Branch</Button>
-          </Hidden>
+      <PageHeader.LeadingAction hidden={!args.hasLeadingAction}>
+        <IconButton aria-label="Expand" icon={SidebarExpandIcon} variant="invisible" />{' '}
+      </PageHeader.LeadingAction>
+      <PageHeader.TrailingAction hidden={!args.hasTrailingAction}>
+        <IconButton aria-label="Edit" icon={PencilIcon} variant="invisible" />
+      </PageHeader.TrailingAction>
+      <PageHeader.Actions hidden={!args.hasActions}>
+        <Hidden when={['narrow']}>
+          <Button variant="primary">New Branch</Button>
+        </Hidden>
 
-          <Hidden when={['regular', 'wide', 'narrow']}>
-            <Button variant="primary">New</Button>
-          </Hidden>
-          <IconButton aria-label="More" icon={KebabHorizontalIcon} />
-        </PageHeader.Actions>
-      </PageHeader.TitleArea>
+        <Hidden when={['regular', 'wide', 'narrow']}>
+          <Button variant="primary">New</Button>
+        </Hidden>
+        <IconButton aria-label="More" icon={KebabHorizontalIcon} />
+      </PageHeader.Actions>
       <PageHeader.Description hidden={!args.hasDescription}>
         <StateLabel status="pullOpened">Open</StateLabel>
         <Hidden when={['narrow']}>

@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta, ComponentStory} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import Heading from '../Heading'
 import Popover from './Popover'
 import Text from '../Text'
@@ -20,7 +20,7 @@ export const Default = () => (
   </Popover>
 )
 
-export const Playground: ComponentStory<typeof Popover> = args => (
+export const Playground: StoryFn<typeof Popover> = args => (
   <Popover {...args}>
     <Popover.Content sx={{marginTop: 2}}>
       <Heading sx={{fontSize: 2}}>Popover heading</Heading>

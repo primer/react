@@ -118,7 +118,7 @@ const InlineAutocomplete = ({
   const inputProps = useFormControlForwardedProps(externalInputProps)
 
   const inputRef = useRef<HTMLInputElement & HTMLTextAreaElement>(null)
-  useRefObjectAsForwardedRef(children.ref ?? noop, inputRef)
+  useRefObjectAsForwardedRef(children.ref && typeof children.ref !== 'string' ? children.ref : noop, inputRef)
 
   const externalInput = requireChildrenToBeInput(children, inputRef)
 
