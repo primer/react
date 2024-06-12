@@ -274,9 +274,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       'data-inactive': inactive ? true : undefined,
       tabIndex: disabled || showInactiveIndicator ? undefined : 0,
       'aria-labelledby': `${labelId} ${slots.trailingVisual ? trailingVisualId : ''}`,
-      'aria-describedby': `${slots.blockDescription ? blockDescriptionId : ''} ${inactiveWarningId ?? ''} ${
-        slots.inlineDescription ? inlineDescriptionId : ''
-      }`.trim(),
+      'aria-describedby':
+        `${slots.blockDescription ? blockDescriptionId : ''} ${inactiveWarningId ?? ''} ${
+          slots.inlineDescription ? inlineDescriptionId : ''
+        }`.trim() || undefined,
       ...(includeSelectionAttribute && {[itemSelectionAttribute]: selected}),
       role: itemRole,
       id: itemId,
