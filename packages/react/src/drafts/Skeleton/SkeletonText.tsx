@@ -1,5 +1,5 @@
 import React from 'react'
-import {SxProp, merge} from '../../sx'
+import {type SxProp, merge} from '../../sx'
 import {BaseSkeletonBox} from './_BaseSkeletonBox'
 import Box from '../../Box'
 

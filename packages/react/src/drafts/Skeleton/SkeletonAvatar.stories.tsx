@@ -1,7 +1,7 @@
 import React from 'react'
-import {Meta, Story} from '@storybook/react'
-import {ComponentProps} from '../../utils/types'
-import {SkeletonAvatar, SkeletonAvatarProps} from './SkeletonAvatar'
+import type {Meta, StoryFn} from '@storybook/react'
+import type {ComponentProps} from '../../utils/types'
+import {SkeletonAvatar, type SkeletonAvatarProps} from './SkeletonAvatar'
 import {parseSizeFromArgs} from '../../Avatar/storyHelpers'
 import {DEFAULT_AVATAR_SIZE} from '../../Avatar/Avatar'
 
@@ -19,7 +19,7 @@ type Args = {
 
 export const Default = () => <SkeletonAvatar />
 
-export const Playground: Story<Args> = args => {
+export const Playground: StoryFn<Args> = args => {
   return <SkeletonAvatar size={parseSizeFromArgs(args)} square={args.square} />
 }
 

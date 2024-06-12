@@ -74,3 +74,5 @@ export * from '../ActionBar'
 
 export {Stack} from '../Stack'
 export type {StackProps, StackItemProps} from '../Stack'
+
+export {SkeletonBox, SkeletonText, SkeletonAvatar} from './Skeleton'

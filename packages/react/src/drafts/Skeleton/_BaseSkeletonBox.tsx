@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, {keyframes} from 'styled-components'
-import sx, {SxProp} from '../../sx'
+import sx, {type SxProp} from '../../sx'
 import {get} from '../../constants'
 
 type BaseSkeletonBoxProps = {

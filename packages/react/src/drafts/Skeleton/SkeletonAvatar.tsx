@@ -1,9 +1,9 @@
 import React from 'react'
-import {AvatarProps} from '../../Avatar'
+import type {AvatarProps} from '../../Avatar'
 import {DEFAULT_AVATAR_SIZE} from '../../Avatar/Avatar'
 import {BaseSkeletonBox} from './_BaseSkeletonBox'
 import {isResponsiveValue} from '../../hooks/useResponsiveValue'
-import {BetterCssProperties, BetterSystemStyleObject, SxProp, merge} from '../../sx'
+import {type BetterCssProperties, type BetterSystemStyleObject, type SxProp, merge} from '../../sx'
 import {getBreakpointDeclarations} from '../../utils/getBreakpointDeclarations'
 
 export type SkeletonAvatarProps = Pick<AvatarProps, 'size' | 'square'> & SxProp

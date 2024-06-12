@@ -1,6 +1,6 @@
 import React from 'react'
-import {Meta, Story} from '@storybook/react'
-import {ComponentProps} from '../../utils/types'
+import type {Meta, StoryFn} from '@storybook/react'
+import type {ComponentProps} from '../../utils/types'
 import {SkeletonText} from './SkeletonText'
 
 export default {
@@ -10,7 +10,7 @@ export default {
 
 export const Default = () => <SkeletonText />
 
-export const Playground: Story<ComponentProps<typeof SkeletonText>> = args => <SkeletonText {...args} />
+export const Playground: StoryFn<ComponentProps<typeof SkeletonText>> = args => <SkeletonText {...args} />
 
 Playground.args = {
   size: 'bodyMedium',

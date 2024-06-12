@@ -3,8 +3,7 @@ import styled from 'styled-components'
 import type {AvatarProps} from '../Avatar'
 import Avatar from '../Avatar'
 import {get} from '../constants'
-import type {BoxProps} from '../Box'
-import Box from '../Box'
+import Box, {type BoxProps} from '../Box'
 import {SkeletonAvatar} from '../drafts/Skeleton/SkeletonAvatar'
 
 const StyledAvatarPair = styled(Box)`

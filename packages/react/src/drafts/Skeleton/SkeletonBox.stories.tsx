@@ -1,6 +1,6 @@
 import React from 'react'
-import {Meta, Story} from '@storybook/react'
-import {ComponentProps} from '../../utils/types'
+import type {Meta, StoryFn} from '@storybook/react'
+import type {ComponentProps} from '../../utils/types'
 import {SkeletonBox} from './SkeletonBox'
 
 export default {
@@ -10,7 +10,7 @@ export default {
 
 export const Default = () => <SkeletonBox />
 
-export const Playground: Story<ComponentProps<typeof SkeletonBox>> = args => <SkeletonBox {...args} />
+export const Playground: StoryFn<ComponentProps<typeof SkeletonBox>> = args => <SkeletonBox {...args} />
 
 Playground.argTypes = {
   sx: {
