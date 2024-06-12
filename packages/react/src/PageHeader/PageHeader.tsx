@@ -80,19 +80,19 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
     `,
       //  --custom-height is a custom property (passed by sx) that can be used to override the set height.
       // We don't want these values to be overriden but still want to allow consumers to override them if needed.
-      '&[data-size-variant="large"]': {
+      '&:has([data-component="TitleArea"][data-size-variant="large"])': {
         '[data-component="PH_LeadingAction"], [data-component="PH_TrailingAction"],[data-component="PH_Actions"], [data-component="PH_LeadingVisual"], [data-component="PH_TrailingVisual"]':
           {
             height: `var(--custom-height, ${LARGE_TITLE_HEIGHT})`,
           },
       },
-      '&[data-size-variant="medium"]': {
+      '&:has([data-component="TitleArea"][data-size-variant="medium"])': {
         '[data-component="PH_LeadingAction"], [data-component="PH_TrailingAction"],[data-component="PH_Actions"], [data-component="PH_LeadingVisual"], [data-component="PH_TrailingVisual"]':
           {
             height: `var(--custom-height, ${MEDIUM_TITLE_HEIGHT})`,
           },
       },
-      '&[data-size-variant="subtitle"]': {
+      '&:has([data-component="TitleArea"][data-size-variant="subtitle"])': {
         '[data-component="PH_LeadingAction"], [data-component="PH_TrailingAction"],[data-component="PH_Actions"], [data-component="PH_LeadingVisual"], [data-component="PH_TrailingVisual"]':
           {
             height: `var(--custom-height, ${MEDIUM_TITLE_HEIGHT})`,
@@ -111,52 +111,50 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
       )
     }
 
-    const [hasContextArea, setHasContextArea] = useState(false)
-    const [hasLeadingAction, setHasLeadingAction] = useState(false)
-    const [titleVariant, setTitleVariant] = useState<string | undefined>('')
+    useEffect(
+      function validateInteractiveElementsInTitle() {
+        if (!__DEV__) return
 
-    useEffect(() => {
-      if (!rootRef.current || rootRef.current.children.length <= 0) return
-      const titleArea = Array.from(rootRef.current.children as HTMLCollection).find(child => {
-        return child instanceof HTMLElement && child.getAttribute('data-component') === 'TitleArea'
-      })
+        let hasContextArea = false
+        let hasLeadingAction = false
 
-      // It is very unlikely to have a PageHeader without a TitleArea, but we still want to make sure we don't break the page if that happens.
-      if (!titleArea) return
+        if (!rootRef.current || rootRef.current.children.length <= 0) return
+        const titleArea = Array.from(rootRef.current.children as HTMLCollection).find(child => {
+          return child instanceof HTMLElement && child.getAttribute('data-component') === 'TitleArea'
+        })
 
-      // // grab the data-size-variant attribute from the titleArea
-      const sizeVariant = titleArea.getAttribute('data-size-variant')
-      setTitleVariant(sizeVariant as string)
+        // It is very unlikely to have a PageHeader without a TitleArea, but we still want to make sure we don't break the page if that happens.
+        if (!titleArea) return
 
-      for (const child of React.Children.toArray(children)) {
-        if (React.isValidElement(child) && child.type === ContextArea) {
-          setHasContextArea(true)
+        for (const child of React.Children.toArray(children)) {
+          if (React.isValidElement(child) && child.type === ContextArea) {
+            hasContextArea = true
+          }
+          if (React.isValidElement(child) && child.type === LeadingAction) {
+            hasLeadingAction = true
+          }
         }
-        if (React.isValidElement(child) && child.type === LeadingAction) {
-          setHasLeadingAction(true)
-        }
-      }
-      // Check if TitleArea has any interactive children or grandchildren.
-      const hasInteractiveContent = Array.from(titleArea.childNodes).some(child => {
-        return (
-          (child instanceof HTMLElement && isInteractive(child)) ||
-          Array.from(child.childNodes).some(child => {
-            return child instanceof HTMLElement && isInteractive(child)
-          })
-        )
-      })
-      // PageHeader.TitleArea should be the first element in the DOM.
-      // Motivation behind this rule to make sure context area and leading action (if they exist) are always rendered after the title (a heading tag)
-      // so that screen reader users who are navigating via heading menu won't miss these actions.
-      if (hasContextArea || hasLeadingAction) {
+        // Check if TitleArea has any interactive children or grandchildren.
+        const hasInteractiveContent = Array.from(titleArea.childNodes).some(child => {
+          return (
+            (child instanceof HTMLElement && isInteractive(child)) ||
+            Array.from(child.childNodes).some(child => {
+              return child instanceof HTMLElement && isInteractive(child)
+            })
+          )
+        })
+        // PageHeader.TitleArea is be the first element in the DOM even when it is not visually the first.
+        // Motivation behind this rule to make sure context area and leading action (if they exist) are always rendered after the title (a heading tag)
+        // so that screen reader users who are navigating via heading menu won't miss these actions.
         warning(
-          hasInteractiveContent,
+          hasInteractiveContent && (hasContextArea || hasLeadingAction),
           'When PageHeader.ContextArea or PageHeader.LeadingAction is present, we recommended not to include any interactive items in the PageHeader.TitleArea to make sure the focus order is logical.',
         )
-      }
-    }, [children, rootRef, hasContextArea, hasLeadingAction])
+      },
+      [children, rootRef],
+    )
     return (
-      <Box ref={rootRef} as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)} data-size-variant={titleVariant}>
+      <Box ref={rootRef} as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>
         {children}
       </Box>
     )
