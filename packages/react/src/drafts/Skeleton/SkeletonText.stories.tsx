@@ -18,12 +18,6 @@ Playground.args = {
 }
 
 Playground.argTypes = {
-  sx: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
   lines: {
     type: 'number',
   },
