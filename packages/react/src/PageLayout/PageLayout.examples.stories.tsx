@@ -1,5 +1,5 @@
 import React from 'react'
-import type {ComponentMeta, Story} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
 import {ActionList, Box, Breadcrumbs, Button, Flash, LinkButton, NavList} from '..'
@@ -9,13 +9,13 @@ import {Dialog} from '../drafts'
 export default {
   title: 'Components/PageLayout/Examples',
   component: PageLayout,
-} as ComponentMeta<typeof PageLayout>
+} as Meta<typeof PageLayout>
 
 /////////////////////////////////////////////////////////////////
 // Sidebar as index of links to detail pages
 /////////////////////////////////////////////////////////////////
 
-export const ParentDetail: Story = () => {
+export const ParentDetail: StoryFn = () => {
   // eslint-disable-next-line ssr-friendly/no-dom-globals-in-react-fc
   const [currentHash, setCurrentHash] = React.useState(window.location.hash)
 
@@ -98,7 +98,7 @@ export const ParentDetail: Story = () => {
 ParentDetail.storyName = 'Parent-detail (w/ back arrow)'
 
 // TODO: update this story so it works when going 2 levels deep: parent -> detail -> child
-export const ParentDetailBreadcrumb: Story = () => {
+export const ParentDetailBreadcrumb: StoryFn = () => {
   // eslint-disable-next-line ssr-friendly/no-dom-globals-in-react-fc
   const [currentHash, setCurrentHash] = React.useState(window.location.hash)
 
@@ -216,7 +216,7 @@ ParentDetailBreadcrumb.storyName = 'Parent-detail (w/ breadcrumbs)'
 // Sidebar as set of filter options
 /////////////////////////////////////////////////////////////////
 
-export const FilterBottomSheet: Story = () => {
+export const FilterBottomSheet: StoryFn = () => {
   // eslint-disable-next-line ssr-friendly/no-dom-globals-in-react-fc
   const [currentHash, setCurrentHash] = React.useState(window.location.hash)
   const [isOpen, setIsOpen] = React.useState(false)
@@ -305,7 +305,7 @@ export const FilterBottomSheet: Story = () => {
 
 FilterBottomSheet.storyName = 'Filters (btm sheet on narrow)'
 
-export const FilterActionMenu: Story = () => {
+export const FilterActionMenu: StoryFn = () => {
   // eslint-disable-next-line ssr-friendly/no-dom-globals-in-react-fc
   const [currentHash, setCurrentHash] = React.useState(window.location.hash)
   const [isOpen, setIsOpen] = React.useState(false)
@@ -394,7 +394,7 @@ export const FilterActionMenu: Story = () => {
 
 FilterActionMenu.storyName = 'Filters (action menu on narrow)'
 
-export const FiltersBottomSheetTwoLevels: Story = () => {
+export const FiltersBottomSheetTwoLevels: StoryFn = () => {
   // eslint-disable-next-line ssr-friendly/no-dom-globals-in-react-fc
   const [currentHash, setCurrentHash] = React.useState(window.location.hash)
   const [isOpen, setIsOpen] = React.useState(false)
@@ -914,7 +914,7 @@ FiltersBottomSheetTwoLevels.storyName = 'Filters w/ 2 levels (btm sheet on narro
 // Sidebar with a mix of detail page links and filter options
 /////////////////////////////////////////////////////////////////
 
-export const ParentDetailPlusFilters: Story = () => {
+export const ParentDetailPlusFilters: StoryFn = () => {
   // eslint-disable-next-line ssr-friendly/no-dom-globals-in-react-fc
   const [currentHash, setCurrentHash] = React.useState(window.location.hash)
   const [isOpen, setIsOpen] = React.useState(false)
