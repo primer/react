@@ -1,5 +1,4 @@
 import React from 'react'
-import {type SxProp, merge} from '../../sx'
 import Box from '../../Box'
 import {SkeletonBox} from './SkeletonBox'
 
@@ -10,6 +9,8 @@ type SkeletonTextProps = {
   lines?: number
   /** Maximum width that the line(s) of skeleton text can take up.  Accepts any valid CSS `max-width` value. */
   maxWidth?: React.CSSProperties['maxWidth']
+  /** Class name for custom styling */
+  className?: string
 }
 
 const skeletonTextStyles = {
@@ -67,40 +68,28 @@ const skeletonTextStyles = {
   },
 }
 
-export const SkeletonText: React.FC<SkeletonTextProps & SxProp> = ({
-  lines = 1,
-  maxWidth,
-  size = 'bodyMedium',
-  sx: sxProp = {},
-  ...rest
-}) => {
+export const SkeletonText: React.FC<SkeletonTextProps> = ({lines = 1, maxWidth, size = 'bodyMedium', ...rest}) => {
   return lines < 2 ? (
     <SkeletonBox
       data-component="SkeletonText"
       data-text-skeleton-size={size}
       width="100%"
-      sx={merge(
-        {
-          maxWidth,
-          ...skeletonTextStyles,
-        } as React.CSSProperties,
-        sxProp as SxProp,
-      )}
+      sx={{
+        maxWidth,
+        ...skeletonTextStyles,
+      }}
       {...rest}
     />
   ) : (
     <Box
       data-component="multilineContainer"
-      sx={merge(
-        {
-          maxWidth,
-          /* The tiny `paddingBlock` prevents margin collapse between the first skeleton line
-           * and a bottom margin above it.
-           */
-          paddingBlock: '0.1px',
-        } as React.CSSProperties,
-        sxProp as SxProp,
-      )}
+      sx={{
+        maxWidth,
+        /* The tiny `paddingBlock` prevents margin collapse between the first skeleton line
+         * and a bottom margin above it.
+         */
+        paddingBlock: '0.1px',
+      }}
     >
       {Array.from({length: lines}, (_, index) => (
         <SkeletonBox

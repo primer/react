@@ -24,8 +24,9 @@
         "description": "Maximum width that the line(s) of skeleton text can take up.  Accepts any valid CSS `max-width` value."
       },
       {
-        "name": "sx",
-        "type": "SystemStyleObject"
+        "name": "className",
+        "type": "string",
+        "description": "Class name for custom styling."
       }
     ],
     "subcomponents": []

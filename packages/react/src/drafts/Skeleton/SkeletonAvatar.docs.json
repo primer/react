@@ -19,8 +19,9 @@
         "description": "If true, the avatar will be square instead of circular."
       },
       {
-        "name": "sx",
-        "type": "SystemStyleObject"
+        "name": "className",
+        "type": "string",
+        "description": "Class name for custom styling."
       }
     ],
     "subcomponents": []
