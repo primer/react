@@ -6,29 +6,59 @@
   "module": "lib-esm/index.js",
   "exports": {
     ".": {
-      "import": "./lib-esm/index.js",
+      "types": {
+        "import": "./lib-esm/index.d.ts",
+        "require": "./lib/index.d.ts"
+      },
+      "import": "./lib-esm/index.mjs",
       "require": "./lib/index.js"
     },
     "./experimental": {
-      "import": "./lib-esm/experimental/index.js",
+      "types": {
+        "import": "./lib-esm/experimental/index.d.ts",
+        "require": "./lib/experimental/index.d.ts"
+      },
+      "import": "./lib-esm/experimental/index.mjs",
       "require": "./lib/experimental/index.js"
     },
     "./drafts": {
-      "import": "./lib-esm/drafts/index.js",
+      "types": {
+        "import": "./lib-esm/drafts/index.d.ts",
+        "require": "./lib/drafts/index.d.ts"
+      },
+      "import": "./lib-esm/drafts/index.mjs",
       "require": "./lib/drafts/index.js"
     },
     "./deprecated": {
-      "import": "./lib-esm/deprecated/index.js",
+      "types": {
+        "import": "./lib-esm/deprecated/index.d.ts",
+        "require": "./lib/deprecated/index.d.ts"
+      },
+      "import": "./lib-esm/deprecated/index.mjs",
       "require": "./lib/deprecated/index.js"
     },
     "./next": {
-      "import": "./lib-esm/next/index.js",
+      "types": {
+        "import": "./lib-esm/next/index.d.ts",
+        "require": "./lib/next/index.d.ts"
+      },
+      "import": "./lib-esm/next/index.mjs",
       "require": "./lib/next/index.js"
     },
     "./lib-esm/*": {
+      "types": {
+        "import": [
+          "./lib-esm/*.d.ts",
+          "./lib-esm/*/index.d.ts"
+        ],
+        "require": [
+          "./lib/*.d.ts",
+          "./lib/*/index.d.ts"
+        ]
+      },
       "import": [
-        "./lib-esm/*.js",
-        "./lib-esm/*/index.js"
+        "./lib-esm/*.mjs",
+        "./lib-esm/*/index.mjs"
       ],
       "require": [
         "./lib/*.js",
