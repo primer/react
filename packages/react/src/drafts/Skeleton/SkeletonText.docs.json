@@ -4,6 +4,7 @@
     "status": "draft",
     "a11yReviewed": false,
     "stories": [],
+    "importPath": "@primer/react/drafts",
     "props": [
       {
         "name": "size",

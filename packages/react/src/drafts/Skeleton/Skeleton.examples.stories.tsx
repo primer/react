@@ -113,10 +113,17 @@ export const CommentsLoadingWithSuspense = () => {
   const [loadingStatus, setLoadingStatus] = React.useState<string>('pending')
 
   React.useEffect(() => {
-    dataPromise.then(() => {
-      setLoadingStatus('fulfilled')
-    })
-  }, [dataPromise])
+    const fetchData = async () => {
+      try {
+        await dataPromise;
+        setLoadingStatus('fulfilled');
+      } catch (error) {
+        // Handle error if needed
+      }
+    };
+
+    fetchData();
+  }, [dataPromise]);
 
   return (
     <>
