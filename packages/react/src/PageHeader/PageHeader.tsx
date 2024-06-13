@@ -39,6 +39,7 @@ const CONTEXT_AREA_REGION_ORDER = {
 
 // Types that are shared between PageHeader children components
 export type ChildrenPropTypes = {
+  className?: string
   hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
@@ -61,10 +62,11 @@ const hiddenOnNarrow = {
 export type PageHeaderProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType | 'header' | 'div'
+  className?: string
 } & SxProp
 
 const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
-  ({children, sx = {}, as = 'div'}, forwardedRef) => {
+  ({children, className, sx = {}, as = 'div'}, forwardedRef) => {
     const rootStyles = {
       display: 'grid',
       // We have max 5 columns.
@@ -156,7 +158,7 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
       [children, rootRef],
     )
     return (
-      <Box ref={rootRef} as={as} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>
+      <Box ref={rootRef} as={as} className={className} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>
         {children}
       </Box>
     )
@@ -169,6 +171,7 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
 // ---------------------------------------------------------------------
 const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
+  className,
   hidden = hiddenOnRegularAndWide,
   sx = {},
 }) => {
@@ -186,7 +189,11 @@ const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
     }),
   }
 
-  return <Box sx={merge<BetterSystemStyleObject>(contentNavStyles, sx)}>{children}</Box>
+  return (
+    <Box className={className} sx={merge<BetterSystemStyleObject>(contentNavStyles, sx)}>
+      {children}
+    </Box>
+  )
 }
 type LinkProps = Pick<
   React.AnchorHTMLAttributes<HTMLAnchorElement> & BaseLinkProps,
@@ -198,7 +205,7 @@ export type ParentLinkProps = React.PropsWithChildren<ChildrenPropTypes & LinkPr
 
 // PageHeader.ParentLink : Only visible on narrow viewports by default to let users navigate up in the hierarchy.
 const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
-  ({children, sx = {}, href, 'aria-label': ariaLabel, as = 'a', hidden = hiddenOnRegularAndWide}, ref) => {
+  ({children, className, sx = {}, href, 'aria-label': ariaLabel, as = 'a', hidden = hiddenOnRegularAndWide}, ref) => {
     return (
       <>
         <Link
@@ -206,6 +213,7 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
           as={as}
           aria-label={ariaLabel}
           muted
+          className={className}
           sx={merge<BetterSystemStyleObject>(
             {
               display: 'flex',
@@ -234,11 +242,13 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
 
 const ContextBar: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
+  className,
   sx = {},
   hidden = hiddenOnRegularAndWide,
 }) => {
   return (
     <Box
+      className={className}
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
@@ -259,11 +269,13 @@ const ContextBar: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 // ---------------------------------------------------------------------
 const ContextAreaActions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
+  className,
   sx = {},
   hidden = hiddenOnRegularAndWide,
 }) => {
   return (
     <Box
+      className={className}
       sx={merge<BetterSystemStyleObject>(
         {
           display: 'flex',
@@ -293,11 +305,12 @@ type TitleAreaProps = {
 // ---------------------------------------------------------------------
 
 const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<TitleAreaProps>>(
-  ({children, sx = {}, hidden = false, variant = 'medium'}, forwardedRef) => {
+  ({children, className, sx = {}, hidden = false, variant = 'medium'}, forwardedRef) => {
     const titleAreaRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
     const currentVariant = useResponsiveValue(variant, 'medium')
     return (
       <Box
+        className={className}
         ref={titleAreaRef}
         data-component="TitleArea"
         data-size-variant={currentVariant}
@@ -326,6 +339,7 @@ const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Title
 // So they come as hidden on narrow viewports by default and their visibility can be managed by their `hidden` prop.
 const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
+  className,
   sx = {},
   hidden = hiddenOnNarrow,
 }) => {
@@ -335,6 +349,7 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   if (height) style['--custom-height'] = height
   return (
     <Box
+      className={className}
       data-component="PH_LeadingAction"
       sx={merge<BetterSystemStyleObject>(
         {
@@ -357,9 +372,15 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 }
 
 // This is reserved for only breadcrumbs.
-const Breadcrumbs: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
+const Breadcrumbs: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
+  children,
+  className,
+  sx = {},
+  hidden = false,
+}) => {
   return (
     <Box
+      className={className}
       data-component="PH_Breadcrumbs"
       sx={merge<BetterSystemStyleObject>(
         {
@@ -382,13 +403,19 @@ const Breadcrumbs: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({chil
 }
 
 // PageHeader.LeadingVisual and PageHeader.TrailingVisual should remain visible on narrow viewports.
-const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
+const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
+  children,
+  className,
+  sx = {},
+  hidden = false,
+}) => {
   const style: CSSCustomProperties = {}
   // @ts-ignore sx has height attribute
   const {height} = sx
   if (height) style['--custom-height'] = height
   return (
     <Box
+      className={className}
       data-component="PH_LeadingVisual"
       sx={merge<BetterSystemStyleObject>(
         {
@@ -413,7 +440,13 @@ export type TitleProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 } & ChildrenPropTypes
 
-const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}, hidden = false, as = 'h2'}) => {
+const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
+  children,
+  className,
+  sx = {},
+  hidden = false,
+  as = 'h2',
+}) => {
   const style: CSSCustomProperties = {}
   // @ts-ignore sxProp can have color attribute
   const {fontSize, lineHeight, fontWeight} = sx
@@ -423,6 +456,7 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}
 
   return (
     <Heading
+      className={className}
       data-component="PH_Title"
       as={as}
       style={style}
@@ -446,13 +480,19 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}
 }
 
 // PageHeader.LeadingVisual and PageHeader.TrailingVisual should remain visible on narrow viewports.
-const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
+const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
+  children,
+  className,
+  sx = {},
+  hidden = false,
+}) => {
   const style: CSSCustomProperties = {}
   // @ts-ignore sx has height attribute
   const {height} = sx
   if (height) style['--custom-height'] = height
   return (
     <Box
+      className={className}
       data-component="PH_TrailingVisual"
       sx={merge<BetterSystemStyleObject>(
         {
@@ -475,6 +515,7 @@ const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({c
 
 const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
+  className,
   sx = {},
   hidden = hiddenOnNarrow,
 }) => {
@@ -484,6 +525,7 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   if (height) style['--custom-height'] = height
   return (
     <Box
+      className={className}
       data-component="PH_TrailingAction"
       sx={merge<BetterSystemStyleObject>(
         {
@@ -505,13 +547,19 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   )
 }
 
-const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
+const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
+  children,
+  className,
+  sx = {},
+  hidden = false,
+}) => {
   const style: CSSCustomProperties = {}
   // @ts-ignore sx has height attribute
   const {height} = sx
   if (height) style['--custom-height'] = height
   return (
     <Box
+      className={className}
       data-component="PH_Actions"
       sx={merge<BetterSystemStyleObject>(
         {
@@ -538,9 +586,15 @@ const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children
 }
 
 // PageHeader.Description: The description area of the header. Visible on all viewports
-const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({children, sx = {}, hidden = false}) => {
+const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
+  children,
+  className,
+  sx = {},
+  hidden = false,
+}) => {
   return (
     <Box
+      className={className}
       sx={merge<BetterSystemStyleObject>(
         {
           gridRow: GRID_ROW_ORDER.Description,
@@ -572,6 +626,7 @@ export type NavigationProps = {
 // PageHeader.Navigation: The local navigation area of the header. Visible on all viewports
 const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
   children,
+  className,
   sx = {},
   hidden = false,
   as,
@@ -589,6 +644,7 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
       // Render `aria-label` and `aria-labelledby` only on `nav` elements
       aria-label={as === 'nav' ? ariaLabel : undefined}
       aria-labelledby={as === 'nav' ? ariaLabelledBy : undefined}
+      className={className}
       sx={merge<BetterSystemStyleObject>(
         {
           gridRow: GRID_ROW_ORDER.Navigation,
