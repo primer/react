@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Story, Meta} from '@storybook/react'
+import type {StoryFn, Meta} from '@storybook/react'
 import PointerBox from './PointerBox'
 import type {ComponentProps} from '../utils/types'
 
@@ -9,7 +9,7 @@ export default {
 
 export const Default = () => <PointerBox>Pointer box content</PointerBox>
 
-export const Playground: Story<ComponentProps<typeof PointerBox>> = args => (
+export const Playground: StoryFn<ComponentProps<typeof PointerBox>> = args => (
   <PointerBox {...args}>Pointer box content</PointerBox>
 )
 Playground.args = {

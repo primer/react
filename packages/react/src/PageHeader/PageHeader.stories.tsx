@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta, Story} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import {Button, IconButton, Breadcrumbs, Link, Text, StateLabel, BranchName, Box} from '..'
 import {UnderlineNav} from '../UnderlineNav'
 import Label from '../Label'
@@ -187,7 +187,7 @@ const meta: Meta<typeof PageHeader> = {
 
 export default meta
 
-export const Playground: Story = args => (
+export const Playground: StoryFn = args => (
   <Box sx={{padding: 3}}>
     <PageHeader>
       <PageHeader.TitleArea
