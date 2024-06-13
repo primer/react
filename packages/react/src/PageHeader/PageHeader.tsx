@@ -371,6 +371,7 @@ const Breadcrumbs: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({chil
             return value ? 'none' : 'flex'
           }),
           alignItems: 'center',
+          fontWeight: 'initial',
         },
         sx,
       )}
@@ -435,7 +436,6 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({children, sx = {}
           }),
           fontSize: 'inherit',
           fontWeight: 'inherit',
-          lineHeight: 'inherit',
         },
         sx,
       )}
@@ -553,9 +553,7 @@ const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({chil
           alignItems: 'center',
           paddingTop: '0.5rem',
           gap: '0.5rem',
-          fontSize: 'initial',
           fontWeight: 'initial',
-          lineHeight: 'initial',
         },
         sx,
       )}
@@ -600,9 +598,7 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
           ...getBreakpointDeclarations(hidden, 'display', value => {
             return value ? 'none' : 'block'
           }),
-          fontSize: 'initial',
           fontWeight: 'initial',
-          lineHeight: 'initial',
         },
         sx,
       )}
