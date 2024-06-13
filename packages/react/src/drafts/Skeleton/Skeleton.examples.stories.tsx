@@ -39,11 +39,15 @@ const CommentCard = ({children}: {children: React.ReactNode}) => (
 
 const CommentCardHeading = ({children}: {children: React.ReactNode}) => (
   <Box
+    className="CommentCardHeading"
     sx={{
       alignItems: 'center',
       display: 'flex',
       gap: 2,
       mb: 3,
+      '.CommentCardHeading__text': {
+        flexGrow: 1,
+      },
     }}
   >
     {children}
@@ -74,7 +78,7 @@ export const CommentsLoading = () => {
               {loading ? (
                 <>
                   <SkeletonAvatar size={32} />
-                  <SkeletonText maxWidth="80px" sx={{flexGrow: 1}} />
+                  <SkeletonText maxWidth="80px" className="CommentCardHeading__text" />
                 </>
               ) : (
                 <>
@@ -115,15 +119,15 @@ export const CommentsLoadingWithSuspense = () => {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
-        await dataPromise;
-        setLoadingStatus('fulfilled');
+        await dataPromise
+        setLoadingStatus('fulfilled')
       } catch (error) {
         // Handle error if needed
       }
-    };
+    }
 
-    fetchData();
-  }, [dataPromise]);
+    fetchData()
+  }, [dataPromise])
 
   return (
     <>
@@ -141,7 +145,7 @@ export const CommentsLoadingWithSuspense = () => {
                 <>
                   <CommentCardHeading>
                     <SkeletonAvatar size={32} />
-                    <SkeletonText maxWidth="80px" sx={{flexGrow: 1}} />
+                    <SkeletonText maxWidth="80px" className="CommentCardHeading__text" />
                   </CommentCardHeading>
                   <SkeletonText lines={2} />
                 </>
