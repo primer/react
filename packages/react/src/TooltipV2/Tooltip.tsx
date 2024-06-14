@@ -6,6 +6,7 @@ import {invariant} from '../utils/invariant'
 import {warning} from '../utils/warning'
 import styled from 'styled-components'
 import {get} from '../constants'
+import type {ComponentProps} from '../utils/types'
 import {getAnchoredPosition} from '@primer/behaviors'
 import type {AnchorSide, AnchorAlignment} from '@primer/behaviors'
 import {isSupported, apply} from '@oddbird/popover-polyfill/fn'
@@ -131,7 +132,8 @@ export type TooltipProps = PropsWithChildren<
     text: string
     /** Whether the tooltip content is used to label the trigger (like IconButton), or describe the trigger (most other uses) */
     type?: 'label' | 'description'
-  } & SxProp
+  } & SxProp &
+    ComponentProps<typeof StyledTooltip>
 >
 
 export type TriggerPropsType = {
@@ -187,7 +189,7 @@ const isInteractive = (element: HTMLElement) => {
 }
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 
-export const Tooltip = forwardRef<HTMLDivElement, TooltipProps>(
+export const Tooltip = forwardRef(
   ({direction = 's', text, type = 'description', children, id, ...rest}: TooltipProps, forwardedRef) => {
     const tooltipId = useId(id)
     const child = Children.only(children)

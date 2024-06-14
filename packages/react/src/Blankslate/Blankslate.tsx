@@ -1,11 +1,11 @@
-import React from 'react'
+import React, {type PropsWithChildren} from 'react'
+import styled from 'styled-components'
 import Box from '../Box'
 import {Button} from '../Button'
 import Link from '../Link'
 import {get} from '../constants'
-import styled from 'styled-components'
 
-interface BlankslateProps extends React.PropsWithChildren {
+export type BlankslateProps = PropsWithChildren<{
   /**
    * Add a border around this component
    */
@@ -20,7 +20,7 @@ interface BlankslateProps extends React.PropsWithChildren {
    * Increase the padding of this component
    */
   spacious?: boolean
-}
+}>
 
 const StyledBlankslate = styled.div`
   container-type: inline-size;

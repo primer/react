@@ -409,10 +409,10 @@ const _Dialog = forwardRef<HTMLDivElement, PropsWithChildren<DialogProps>>((prop
     width = 'xlarge',
     height = 'auto',
     footerButtons = [],
-    position = defaultPosition as DialogProps['position'],
+    position = defaultPosition,
     returnFocusRef,
     sx,
-  }: DialogProps = props
+  } = props
   const dialogLabelId = useId()
   const dialogDescriptionId = useId()
   const autoFocusedFooterButtonRef = useRef<HTMLButtonElement>(null)
