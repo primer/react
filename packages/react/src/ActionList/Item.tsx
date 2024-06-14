@@ -175,12 +175,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           backgroundColor: `actionListItem.${variant}.activeBg`,
           color: getVariantStyles(variant, disabled, inactive).hoverColor,
         },
-        ':hover, :focus, :focus-within': {
-          // Used when `showOnHover` is passed to `TrailingAction`
-          '[data-component="ActionList.TrailingAction"]': {
-            visibility: 'visible',
-          },
-        },
       },
     }
 
