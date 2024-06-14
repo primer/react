@@ -1,11 +1,11 @@
 import type {StoryObj} from '@storybook/react'
 import React, {useEffect, useState} from 'react'
-import {Status} from './Status'
-import {VisuallyHidden} from './VisuallyHidden'
+import {AriaStatus} from './AriaStatus'
+import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 
 export default {
-  title: 'Private/Components/Status',
-  component: Status,
+  title: 'Drafts/Components/AriaStatus',
+  component: AriaStatus,
 }
 
 export const Default = () => {
@@ -20,7 +20,7 @@ export const Default = () => {
     }
   }, [])
 
-  return <Status>{message}</Status>
+  return <AriaStatus>{message}</AriaStatus>
 }
 
 export const VisuallyHiddenStory: StoryObj = {
@@ -30,7 +30,7 @@ export const VisuallyHiddenStory: StoryObj = {
       <>
         <p>This is an example</p>
         <VisuallyHidden>
-          <Status>A visually hidden message</Status>
+          <AriaStatus>A visually hidden message</AriaStatus>
         </VisuallyHidden>
       </>
     )

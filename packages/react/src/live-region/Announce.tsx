@@ -58,9 +58,15 @@ export function Announce({
       return
     }
 
+    const textContent = getTextContent(element)
+    if (textContent === previousAnnouncement) {
+      return
+    }
+
     announceFromElement(element, {
       politeness,
     })
+    setPreviousAnnouncement(textContent)
   })
 
   // Announce the initial message, this is wrapped in `useEffectOnce` so that it
@@ -79,11 +85,7 @@ export function Announce({
 
     // When the text of the container changes, announce the new text
     const observer = new MutationObserver(() => {
-      const textContent = getTextContent(container)
-      if (textContent !== previousAnnouncement) {
-        setPreviousAnnouncement(textContent)
-        announce()
-      }
+      announce()
     })
 
     observer.observe(container, {
@@ -107,8 +109,6 @@ function getTextContent(element: HTMLElement): string {
   let value = ''
   if (element.hasAttribute('aria-label')) {
     value = element.getAttribute('aria-label')!
-  } else if (element.innerText) {
-    value = element.innerText
   } else if (element.textContent) {
     value = element.textContent
   }

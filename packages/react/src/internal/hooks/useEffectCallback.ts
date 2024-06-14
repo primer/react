@@ -6,6 +6,7 @@ import {useCallback, useEffect, useRef} from 'react'
  * hook will always see the latest snapshot of values that it uses and does not
  * need to use a dependency array.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function useEffectCallback<T extends (...args: any) => any>(callback: T) {
   const savedCallback = useRef<T>(callback)
 
