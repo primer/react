@@ -1,6 +1,4 @@
-import type {MouseEventHandler} from 'react'
-import React, {forwardRef, useCallback, useState} from 'react'
-import type {ComponentPropsWithoutRef} from 'react'
+import React, {forwardRef, useCallback, useState, type ComponentPropsWithoutRef, type MouseEventHandler} from 'react'
 import {isValidElementType} from 'react-is'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import clsx from 'clsx'

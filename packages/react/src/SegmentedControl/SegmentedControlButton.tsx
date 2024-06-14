@@ -1,6 +1,4 @@
-import type {ButtonHTMLAttributes} from 'react'
-import type {FC, PropsWithChildren} from 'react'
-import React from 'react'
+import React, {type ButtonHTMLAttributes, type FC, type PropsWithChildren} from 'react'
 import type {IconProps} from '@primer/octicons-react'
 import styled from 'styled-components'
 import Box from '../Box'
