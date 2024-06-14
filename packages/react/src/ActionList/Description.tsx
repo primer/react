@@ -29,23 +29,15 @@ export const Description: FC<PropsWithChildren<ActionListDescriptionProps>> = ({
     minWidth: 0,
     marginLeft: variant === 'block' ? 0 : 2,
     color: 'fg.muted',
-    'li[aria-disabled="true"] &': {
-      color: 'inherit',
-    },
-    'li[data-variant="danger"]:hover &, li[data-variant="danger"]:active &': {
-      color: 'inherit',
-    },
+    'li[aria-disabled="true"] &[data-component="ActionList.Description"]': {color: 'inherit'},
+    'li[data-variant="danger"]:hover &[data-component="ActionList.Description"], li[data-variant="danger"]:active &[data-component="ActionList.Description"]':
+      {color: 'inherit'},
   }
 
   const {blockDescriptionId, inlineDescriptionId} = React.useContext(ItemContext)
 
   return variant === 'block' ? (
-    <Box
-      as="span"
-      // huh why?
-      sx={merge(styles, sx as SxProp)}
-      id={blockDescriptionId}
-    >
+    <Box as="span" sx={merge(styles, sx as SxProp)} id={blockDescriptionId} data-component="ActionList.Description">
       {props.children}
     </Box>
   ) : (
@@ -55,6 +47,7 @@ export const Description: FC<PropsWithChildren<ActionListDescriptionProps>> = ({
       title={props.children as string}
       inline={true}
       maxWidth="100%"
+      data-component="ActionList.Description"
     >
       {props.children}
     </Truncate>

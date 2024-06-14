@@ -4,6 +4,7 @@
   "status": "alpha",
   "a11yReviewed": false,
   "stories": [],
+  "importPath": "@primer/react",
   "props": [
     {
       "name": "children",
@@ -18,6 +19,12 @@
           "name": "as",
           "type": "React.ElementType",
           "defaultValue": "TextInput"
+        },
+        {
+          "name": "openOnFocus",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "Whether the associated autocomplete menu should open on an input focus event"
         }
       ],
       "passthrough": {

@@ -39,6 +39,7 @@ const SegmentedControlButton: FC<PropsWithChildren<SegmentedControlButtonProps>>
       <SegmentedControlButtonStyled
         aria-current={selected}
         sx={getSegmentedControlButtonStyles({selected, children})}
+        type="button"
         {...rest}
       >
         <span className="segmentedControl-content">

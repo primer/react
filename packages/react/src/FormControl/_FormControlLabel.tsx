@@ -9,6 +9,8 @@ export type Props = {
    * Whether the label should be visually hidden
    */
   visuallyHidden?: boolean
+  requiredText?: string
+  requiredIndicator?: boolean
   id?: string
 } & SxProp
 
@@ -18,6 +20,8 @@ const FormControlLabel: FC<PropsWithChildren<{htmlFor?: string} & ComponentProps
   htmlFor,
   id,
   visuallyHidden,
+  requiredIndicator = true,
+  requiredText,
   sx,
   ...props
 }) => {
@@ -33,6 +37,8 @@ const FormControlLabel: FC<PropsWithChildren<{htmlFor?: string} & ComponentProps
           id,
           visuallyHidden,
           required,
+          requiredText,
+          requiredIndicator,
           disabled,
           sx,
           ...props,
@@ -43,6 +49,8 @@ const FormControlLabel: FC<PropsWithChildren<{htmlFor?: string} & ComponentProps
           visuallyHidden,
           htmlFor: htmlFor || formControlId,
           required,
+          requiredText,
+          requiredIndicator,
           disabled,
           sx,
           ...props,

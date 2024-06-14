@@ -1,8 +1,10 @@
 {
-  "id": "tooltip",
+  "id": "tooltip_v2",
   "name": "Tooltip",
+  "docsId": "tooltip",
   "status": "beta",
   "a11yReviewed": true,
+  "importPath": "@primer/react/next",
   "stories": [],
   "props": [
     {

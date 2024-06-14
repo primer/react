@@ -1,5 +1,5 @@
 import React from 'react'
-import type {ComponentMeta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import Flash from './Flash'
 import Octicon from '../Octicon'
 import {InfoIcon, XIcon} from '@primer/octicons-react'
@@ -10,7 +10,7 @@ import Box from '../Box'
 export default {
   title: 'Components/Flash/Features',
   component: Flash,
-} as ComponentMeta<typeof Flash>
+} as Meta<typeof Flash>
 
 export const Success = () => <Flash variant="success">Success</Flash>
 

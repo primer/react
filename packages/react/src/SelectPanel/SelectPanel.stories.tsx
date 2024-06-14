@@ -1,5 +1,5 @@
 import {TriangleDownIcon} from '@primer/octicons-react'
-import type {ComponentMeta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import React, {useState} from 'react'
 
 import Box from '../Box'
@@ -10,7 +10,7 @@ import type {ItemInput} from '../deprecated/ActionList/List'
 export default {
   title: 'Components/SelectPanel',
   component: SelectPanel,
-} as ComponentMeta<typeof SelectPanel>
+} as Meta<typeof SelectPanel>
 
 function getColorCircle(color: string) {
   return function () {

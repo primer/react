@@ -1,5 +1,5 @@
 import {BookIcon} from '@primer/octicons-react'
-import type {Meta, Story} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import React from 'react'
 import {Blankslate} from '../Blankslate'
 import type {ComponentProps} from '../utils/types'
@@ -31,7 +31,7 @@ export const Default = () => (
   </Blankslate>
 )
 
-export const Playground: Story<ComponentProps<typeof Blankslate>> = args => (
+export const Playground: StoryFn<ComponentProps<typeof Blankslate>> = args => (
   <Blankslate {...args}>
     <Blankslate.Visual>
       <BookIcon size="medium" />

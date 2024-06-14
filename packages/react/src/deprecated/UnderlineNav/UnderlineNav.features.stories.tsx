@@ -1,5 +1,5 @@
 import React from 'react'
-import type {ComponentStory, Meta} from '@storybook/react'
+import type {StoryFn, Meta} from '@storybook/react'
 import UnderlineNav from './UnderlineNav'
 import {Button} from '../../Button'
 
@@ -8,7 +8,7 @@ export default {
   component: UnderlineNav,
 } as Meta<typeof UnderlineNav>
 
-export const Actions: ComponentStory<typeof UnderlineNav> = () => (
+export const Actions: StoryFn<typeof UnderlineNav> = () => (
   <UnderlineNav aria-label="Main" actions={<Button>Click me</Button>}>
     <UnderlineNav.Link href="#home" selected>
       Home

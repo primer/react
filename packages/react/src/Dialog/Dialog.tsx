@@ -1,4 +1,4 @@
-import React, {forwardRef, useCallback, useEffect, useRef, useState} from 'react'
+import React, {forwardRef, useCallback, useEffect, useRef, useState, type SyntheticEvent} from 'react'
 import type {PropsWithChildren} from 'react'
 import styled from 'styled-components'
 import type {ButtonProps} from '../Button'
@@ -99,9 +99,9 @@ export interface DialogProps extends SxProp {
 
   /**
    * This method is invoked when a gesture to close the dialog is used (either
-   * an Escape key press or clicking the "X" in the top-right corner). The
+   * an Escape key press, clicking the backdrop, or clicking the "X" in the top-right corner). The
    * gesture argument indicates the gesture that was used to close the dialog
-   * (either 'close-button' or 'escape').
+   * ('close-button' or 'escape').
    */
   onClose: (gesture: 'close-button' | 'escape') => void
 
@@ -133,6 +133,12 @@ export interface DialogProps extends SxProp {
    * The position of the dialog
    */
   position?: 'center' | 'left' | 'right' | ResponsiveValue<'left' | 'right' | 'bottom' | 'fullscreen' | 'center'>
+
+  /**
+   * Return focus to this element when the Dialog closes,
+   * instead of the element that had focus immediately before the Dialog opened
+   */
+  returnFocusRef?: React.RefObject<HTMLElement>
 }
 
 /**
@@ -234,8 +240,8 @@ const StyledDialog = styled.div<StyledDialogProps>`
   width: ${props => widthMap[props.width ?? ('xlarge' as const)]};
   height: ${props => heightMap[props.height ?? ('auto' as const)]};
   min-width: 296px;
-  max-width: calc(100vw - 64px);
-  max-height: calc(100vh - 64px);
+  max-width: calc(100dvw - 64px);
+  max-height: calc(100dvh - 64px);
   border-radius: 12px;
   opacity: 1;
 
@@ -252,7 +258,7 @@ const StyledDialog = styled.div<StyledDialogProps>`
   }
 
   &[data-position-regular='left'] {
-    height: 100vh;
+    height: 100dvh;
     max-height: unset;
     border-radius: var(--borderRadius-large, 0.75rem);
     border-top-left-radius: 0;
@@ -264,7 +270,7 @@ const StyledDialog = styled.div<StyledDialogProps>`
   }
 
   &[data-position-regular='right'] {
-    height: 100vh;
+    height: 100dvh;
     max-height: unset;
     border-radius: var(--borderRadius-large, 0.75rem);
     border-top-right-radius: 0;
@@ -283,10 +289,10 @@ const StyledDialog = styled.div<StyledDialogProps>`
     }
 
     &[data-position-narrow='bottom'] {
-      width: 100vw;
+      width: 100dvw;
       height: auto;
-      max-width: 100vw;
-      max-height: calc(100vh - 64px);
+      max-width: 100dvw;
+      max-height: calc(100dvh - 64px);
       border-radius: var(--borderRadius-large, 0.75rem);
       border-bottom-right-radius: 0;
       border-bottom-left-radius: 0;
@@ -298,9 +304,9 @@ const StyledDialog = styled.div<StyledDialogProps>`
 
     &[data-position-narrow='fullscreen'] {
       width: 100%;
-      max-width: 100vw;
+      max-width: 100dvw;
       height: 100%;
-      max-height: 100vh;
+      max-height: 100dvh;
       border-radius: unset !important;
       flex-grow: 1;
 
@@ -397,6 +403,7 @@ const _Dialog = forwardRef<HTMLDivElement, PropsWithChildren<DialogProps>>((prop
     height = 'auto',
     footerButtons = [],
     position = defaultPosition as DialogProps['position'],
+    returnFocusRef,
     sx,
   }: DialogProps = props
   const dialogLabelId = useId()
@@ -408,11 +415,25 @@ const _Dialog = forwardRef<HTMLDivElement, PropsWithChildren<DialogProps>>((prop
     }
   }
   const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
+  const onBackdropClick = useCallback(
+    (e: SyntheticEvent) => {
+      if (e.target === e.currentTarget) {
+        onClose('escape')
+      }
+    },
+    [onClose],
+  )
 
   const dialogRef = useRef<HTMLDivElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, dialogRef)
   const backdropRef = useRef<HTMLDivElement>(null)
-  useFocusTrap({containerRef: dialogRef, restoreFocusOnCleanUp: true, initialFocusRef: autoFocusedFooterButtonRef})
+
+  useFocusTrap({
+    containerRef: dialogRef,
+    initialFocusRef: autoFocusedFooterButtonRef,
+    restoreFocusOnCleanUp: returnFocusRef?.current ? false : true,
+    returnFocusRef,
+  })
 
   useOnEscapePress(
     (event: KeyboardEvent) => {
@@ -453,7 +474,7 @@ const _Dialog = forwardRef<HTMLDivElement, PropsWithChildren<DialogProps>>((prop
   return (
     <>
       <Portal>
-        <Backdrop ref={backdropRef} {...positionDataAttributes}>
+        <Backdrop ref={backdropRef} {...positionDataAttributes} onClick={onBackdropClick}>
           <StyledDialog
             width={width}
             height={height}

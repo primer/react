@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useMemo, forwardRef} from 'react'
+import React, {useCallback, useContext, useMemo, useEffect, useState, forwardRef} from 'react'
 import type {FC, PropsWithChildren} from 'react'
 import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
@@ -216,6 +216,17 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
   const containerRef = React.useRef<HTMLDivElement>(null)
   useMenuKeyboardNavigation(open, onClose, containerRef, anchorRef, isSubmenu)
 
+  // If the menu anchor is an icon button, we need to label the menu by tooltip that also labelled the anchor.
+  const [anchorAriaLabelledby, setAnchorAriaLabelledby] = useState<null | string>(null)
+  useEffect(() => {
+    if (anchorRef.current) {
+      const ariaLabelledby = anchorRef.current.getAttribute('aria-labelledby')
+      if (ariaLabelledby) {
+        setAnchorAriaLabelledby(ariaLabelledby)
+      }
+    }
+  }, [anchorRef])
+
   return (
     <AnchoredOverlay
       anchorRef={anchorRef}
@@ -234,7 +245,8 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
           value={{
             container: 'ActionMenu',
             listRole: 'menu',
-            listLabelledBy: ariaLabelledby || anchorId,
+            // If there is a custom aria-labelledby, use that. Otherwise, if exists, use the id that labels the anchor such as tooltip. If none of them exist, use anchor id.
+            listLabelledBy: ariaLabelledby || anchorAriaLabelledby || anchorId,
             selectionAttribute: 'aria-checked', // Should this be here?
             afterSelect: () => onClose?.('item-select'),
           }}

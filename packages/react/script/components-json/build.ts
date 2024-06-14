@@ -15,6 +15,12 @@ import outputSchema from './output.schema.json'
 type Component = {
   name: string
   status: 'draft' | 'experimental' | 'alpha' | 'beta' | 'stable' | 'deprecated'
+  importPath:
+    | '@primer/react'
+    | '@primer/react/next'
+    | '@primer/react/deprecated'
+    | '@primer/react/experimental'
+    | '@primer/react/drafts'
   stories: Array<{id: string; code?: string}>
 }
 
@@ -48,8 +54,12 @@ const components = docsFiles.map(docsFilepath => {
   // Example: src/components/Box/Box.docs.json -> src/components/Box/Box.stories.tsx
   const defaultStoryFilepath = docsFilepath.replace(/\.docs\.json$/, '.stories.tsx')
 
+  const isComponentV2 = docs.importPath === '@primer/react/next'
+  const docsName = String(docs.name).toLowerCase()
+  const componentName = isComponentV2 ? `${docsName}v2` : docsName
+
   // Get the default story id
-  const defaultStoryId = `${storyPrefix[docs.status]}components-${String(docs.name).toLowerCase()}--default`
+  const defaultStoryId = `${storyPrefix[docs.status]}components-${componentName}--default`
 
   // Get source code for default story
   const {Default: defaultStoryCode} = getStorySourceCode(defaultStoryFilepath)

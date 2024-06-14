@@ -1,9 +1,21 @@
-import React, {forwardRef} from 'react'
-import type {FC} from 'react'
+import React, {forwardRef, useEffect, useState, type MutableRefObject, type FC} from 'react'
 import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon, AlertIcon, ArrowLeftIcon} from '@primer/octicons-react'
 
 import type {ButtonProps, TextInputProps, ActionListProps, LinkProps, CheckboxProps} from '../../index'
-import {Button, IconButton, Heading, Box, Tooltip, TextInput, Spinner, Text, Octicon, Link, Checkbox} from '../../index'
+import {
+  Button,
+  IconButton,
+  Heading,
+  Box,
+  Tooltip,
+  TextInput,
+  Spinner,
+  Text,
+  Octicon,
+  Link,
+  Checkbox,
+  useFormControlForwardedProps,
+} from '../../index'
 import {ActionListContainerContext} from '../../ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
@@ -124,10 +136,10 @@ const Panel: FC<SelectPanelProps> = ({
     if (propsOpen === undefined) setInternalOpen(false)
   }, [internalOpen, propsOpen])
 
-  const onInternalCancel = () => {
+  const onInternalCancel = React.useCallback(() => {
     onInternalClose()
     if (typeof propsOnCancel === 'function') propsOnCancel()
-  }
+  }, [onInternalClose, propsOnCancel])
 
   const onInternalSubmit = (event?: React.FormEvent<HTMLFormElement>) => {
     event?.preventDefault() // there is no event with selectionVariant=instant
@@ -187,7 +199,7 @@ const Panel: FC<SelectPanelProps> = ({
     }
     dialogEl?.addEventListener('keydown', handler)
     return () => dialogEl?.removeEventListener('keydown', handler)
-  })
+  }, [onInternalCancel])
 
   // Autofocus hack: React doesn't support autoFocus for dialog: https://github.com/facebook/react/issues/23301
   // tl;dr: react takes over autofocus instead of letting the browser handle it,
@@ -338,7 +350,26 @@ const Panel: FC<SelectPanelProps> = ({
 }
 
 const SelectPanelButton = forwardRef<HTMLButtonElement, ButtonProps>((props, anchorRef) => {
-  return <Button ref={anchorRef} {...props} />
+  const inputProps = useFormControlForwardedProps(props)
+  const [labelText, setLabelText] = useState('')
+  useEffect(() => {
+    const label = document.querySelector(`[for='${inputProps.id}']`)
+    if (label?.textContent) {
+      setLabelText(label.textContent)
+    }
+  }, [inputProps.id])
+
+  if (labelText) {
+    return (
+      <Button
+        ref={anchorRef}
+        aria-label={`${(anchorRef as MutableRefObject<HTMLButtonElement>).current.textContent}, ${labelText}`}
+        {...inputProps}
+      />
+    )
+  } else {
+    return <Button ref={anchorRef} {...props} />
+  }
 })
 
 const SelectPanelHeader: FC<React.PropsWithChildren & {onBack?: () => void}> = ({children, onBack, ...props}) => {

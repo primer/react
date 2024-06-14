@@ -4,6 +4,7 @@
   "status": "alpha",
   "a11yReviewed": false,
   "stories": [],
+  "importPath": "@primer/react",
   "props": [
     {
       "name": "datetime",
@@ -99,6 +100,12 @@
     {
       "name": "ref",
       "type": "React.RefObject<RelativeTimeElement>"
+    },
+    {
+      "name": "noTitle",
+      "type": "boolean",
+      "defaultValue": "",
+      "description": "Removes the `title` attribute provided on the element by default"
     },
     {
       "name": "as",
