@@ -189,7 +189,7 @@ const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
     }),
     fontWeight: 'initial',
     lineHeight: 'var(--text-body-lineHeight-large, 1.5)',
-    fontSize: 'var(--text-body-fontSize-large, 1rem)',
+    fontSize: 'var(--text-body-size-medium, 0.875rem)',
   }
 
   return (
@@ -397,7 +397,7 @@ const Breadcrumbs: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
           alignItems: 'center',
           fontWeight: 'initial',
           lineHeight: 'var(--text-body-lineHeight-large, 1.5)',
-          fontSize: 'var(--text-body-fontSize-large, 1rem)',
+          fontSize: 'var(--text-body-size-medium, 0.875rem)',
         },
         sx,
       )}
@@ -613,7 +613,7 @@ const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
           paddingTop: '0.5rem',
           gap: '0.5rem',
           fontWeight: 'initial',
-          lineHeight: 'var(--text-body-lineHeight-medium, 1.4285)',
+          lineHeight: 'var(--text-body-lineHeight-large, 1.5)',
           fontSize: 'var(--text-body-size-medium, 0.875rem)',
         },
         sx,
@@ -662,7 +662,7 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
             return value ? 'none' : 'block'
           }),
           fontWeight: 'initial',
-          lineHeight: 'var(--text-body-lineHeight-medium, 1.4285)',
+          lineHeight: 'var(--text-body-lineHeight-large, 1.5)',
           fontSize: 'var(--text-body-size-medium, 0.875rem)',
         },
         sx,

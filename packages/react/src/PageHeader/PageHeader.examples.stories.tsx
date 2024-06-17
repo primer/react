@@ -148,7 +148,7 @@ export const FilesPage = () => (
   <Box sx={{padding: 3}}>
     <PageHeader>
       <PageHeader.TitleArea sx={{alignItems: 'center'}}>
-        <Text sx={{color: 'rgb(101, 109, 118)', fontSize: '14px'}}>/</Text>
+        <Text sx={{color: 'rgb(101, 109, 118)', fontSize: '14px', fontWeight: 'normal'}}>/</Text>
         <PageHeader.Title as="h1" sx={{fontSize: '14px', height: '21px'}}>
           PageHeader.tsx
         </PageHeader.Title>
