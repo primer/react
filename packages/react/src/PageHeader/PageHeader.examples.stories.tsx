@@ -110,7 +110,7 @@ export const PullRequestPage = () => (
       </PageHeader.Actions>
       <PageHeader.Description>
         <StateLabel status="pullOpened">Open</StateLabel>
-        <Text sx={{fontSize: 1, color: 'fg.muted'}}>
+        <Text sx={{color: 'fg.muted'}}>
           <Link href="https://github.com/broccolinisoup" sx={{fontWeight: 'bold'}}>
             broccolinisoup
           </Link>{' '}
