@@ -6988,10 +6988,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       >
         <div
           className="c10"
-          role="status"
         >
           <svg
             aria-hidden={true}
+            aria-labelledby=":re:"
             className="c11"
             fill="none"
             height="16px"
@@ -7022,12 +7022,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           </svg>
           <div
             className="c12"
+            id=":re:"
           >
-            <div
-              className=""
-            >
-              Loading
-            </div>
+            Loading
           </div>
         </div>
       </div>
@@ -7386,10 +7383,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       >
         <div
           className="c3"
-          role="status"
         >
           <svg
             aria-hidden={true}
+            aria-labelledby=":rf:"
             className="c4"
             fill="none"
             height="16px"
@@ -7420,12 +7417,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           </svg>
           <div
             className="c5"
+            id=":rf:"
           >
-            <div
-              className=""
-            >
-              Loading
-            </div>
+            Loading
           </div>
         </div>
       </div>
@@ -7856,10 +7850,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       >
         <div
           className="c3"
-          role="status"
         >
           <svg
             aria-hidden={true}
+            aria-labelledby=":rg:"
             className="c13"
             fill="none"
             height="16px"
@@ -7890,12 +7884,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           </svg>
           <div
             className="c5"
+            id=":rg:"
           >
-            <div
-              className=""
-            >
-              Loading
-            </div>
+            Loading
           </div>
         </div>
       </div>
@@ -8665,10 +8656,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       >
         <div
           className="c10"
-          role="status"
         >
           <svg
             aria-hidden={true}
+            aria-labelledby=":rh:"
             className="c11"
             fill="none"
             height="16px"
@@ -8699,12 +8690,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           </svg>
           <div
             className="c12"
+            id=":rh:"
           >
-            <div
-              className=""
-            >
-              Loading
-            </div>
+            Loading
           </div>
         </div>
       </div>
@@ -9097,10 +9085,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </div>
         <div
           className="c4"
-          role="status"
         >
           <svg
             aria-hidden={true}
+            aria-labelledby=":ri:"
             className="c5"
             fill="none"
             height="32px"
@@ -9136,12 +9124,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           </svg>
           <div
             className="c6"
+            id=":ri:"
           >
-            <div
-              className=""
-            >
-              Loading
-            </div>
+            Loading
           </div>
         </div>
       </div>
@@ -9572,10 +9557,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       >
         <div
           className="c4"
-          role="status"
         >
           <svg
             aria-hidden={true}
+            aria-labelledby=":rj:"
             className="c14"
             fill="none"
             height="16px"
@@ -9606,12 +9591,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           </svg>
           <div
             className="c6"
+            id=":rj:"
           >
-            <div
-              className=""
-            >
-              Loading
-            </div>
+            Loading
           </div>
         </div>
       </div>
@@ -10004,10 +9986,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </div>
         <div
           className="c4"
-          role="status"
         >
           <svg
             aria-hidden={true}
+            aria-labelledby=":rk:"
             className="c5"
             fill="none"
             height="32px"
@@ -10043,12 +10025,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           </svg>
           <div
             className="c6"
+            id=":rk:"
           >
-            <div
-              className=""
-            >
-              Loading
-            </div>
+            Loading
           </div>
         </div>
       </div>
@@ -10479,10 +10458,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       >
         <div
           className="c4"
-          role="status"
         >
           <svg
             aria-hidden={true}
+            aria-labelledby=":rl:"
             className="c14"
             fill="none"
             height="16px"
@@ -10513,12 +10492,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           </svg>
           <div
             className="c6"
+            id=":rl:"
           >
-            <div
-              className=""
-            >
-              Loading
-            </div>
+            Loading
           </div>
         </div>
       </div>
@@ -10911,10 +10887,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </div>
         <div
           className="c4"
-          role="status"
         >
           <svg
             aria-hidden={true}
+            aria-labelledby=":rm:"
             className="c5"
             fill="none"
             height="32px"
@@ -10950,12 +10926,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           </svg>
           <div
             className="c6"
+            id=":rm:"
           >
-            <div
-              className=""
-            >
-              Loading
-            </div>
+            Loading
           </div>
         </div>
       </div>
@@ -11386,10 +11359,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       >
         <div
           className="c4"
-          role="status"
         >
           <svg
             aria-hidden={true}
+            aria-labelledby=":rn:"
             className="c14"
             fill="none"
             height="16px"
@@ -11420,12 +11393,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           </svg>
           <div
             className="c6"
+            id=":rn:"
           >
-            <div
-              className=""
-            >
-              Loading
-            </div>
+            Loading
           </div>
         </div>
       </div>
@@ -12229,10 +12199,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </div>
         <div
           className="c11"
-          role="status"
         >
           <svg
             aria-hidden={true}
+            aria-labelledby=":ro:"
             className="c12"
             fill="none"
             height="32px"
@@ -12268,12 +12238,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           </svg>
           <div
             className="c13"
+            id=":ro:"
           >
-            <div
-              className=""
-            >
-              Loading
-            </div>
+            Loading
           </div>
         </div>
       </div>
@@ -12641,10 +12608,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       >
         <div
           className="c3"
-          role="status"
         >
           <svg
             aria-hidden={true}
+            aria-labelledby=":rp:"
             className="c4"
             fill="none"
             height="16px"
@@ -12675,12 +12642,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           </svg>
           <div
             className="c5"
+            id=":rp:"
           >
-            <div
-              className=""
-            >
-              Loading
-            </div>
+            Loading
           </div>
         </div>
       </div>
@@ -13136,10 +13100,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </div>
         <div
           className="c3"
-          role="status"
         >
           <svg
             aria-hidden={true}
+            aria-labelledby=":rq:"
             className="c14"
             fill="none"
             height="32px"
@@ -13175,12 +13139,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           </svg>
           <div
             className="c5"
+            id=":rq:"
           >
-            <div
-              className=""
-            >
-              Loading
-            </div>
+            Loading
           </div>
         </div>
       </div>
@@ -13984,10 +13945,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </div>
         <div
           className="c11"
-          role="status"
         >
           <svg
             aria-hidden={true}
+            aria-labelledby=":rr:"
             className="c12"
             fill="none"
             height="32px"
@@ -14023,12 +13984,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           </svg>
           <div
             className="c13"
+            id=":rr:"
           >
-            <div
-              className=""
-            >
-              Loading
-            </div>
+            Loading
           </div>
         </div>
       </div>
@@ -14435,10 +14393,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </div>
         <div
           className="c4"
-          role="status"
         >
           <svg
             aria-hidden={true}
+            aria-labelledby=":rs:"
             className="c5"
             fill="none"
             height="32px"
@@ -14474,12 +14432,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           </svg>
           <div
             className="c6"
+            id=":rs:"
           >
-            <div
-              className=""
-            >
-              Loading
-            </div>
+            Loading
           </div>
         </div>
       </div>
@@ -14935,10 +14890,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </div>
         <div
           className="c4"
-          role="status"
         >
           <svg
             aria-hidden={true}
+            aria-labelledby=":rt:"
             className="c15"
             fill="none"
             height="32px"
@@ -14974,12 +14929,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           </svg>
           <div
             className="c6"
+            id=":rt:"
           >
-            <div
-              className=""
-            >
-              Loading
-            </div>
+            Loading
           </div>
         </div>
       </div>
@@ -15381,10 +15333,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </div>
         <div
           className="c4"
-          role="status"
         >
           <svg
             aria-hidden={true}
+            aria-labelledby=":ru:"
             className="c5"
             fill="none"
             height="32px"
@@ -15420,12 +15372,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           </svg>
           <div
             className="c6"
+            id=":ru:"
           >
-            <div
-              className=""
-            >
-              Loading
-            </div>
+            Loading
           </div>
         </div>
       </div>
@@ -15881,10 +15830,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </div>
         <div
           className="c4"
-          role="status"
         >
           <svg
             aria-hidden={true}
+            aria-labelledby=":rv:"
             className="c15"
             fill="none"
             height="32px"
@@ -15920,12 +15869,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           </svg>
           <div
             className="c6"
+            id=":rv:"
           >
-            <div
-              className=""
-            >
-              Loading
-            </div>
+            Loading
           </div>
         </div>
       </div>
@@ -16325,10 +16271,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </div>
         <div
           className="c4"
-          role="status"
         >
           <svg
             aria-hidden={true}
+            aria-labelledby=":r10:"
             className="c5"
             fill="none"
             height="32px"
@@ -16364,12 +16310,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           </svg>
           <div
             className="c6"
+            id=":r10:"
           >
-            <div
-              className=""
-            >
-              Loading
-            </div>
+            Loading
           </div>
         </div>
       </div>
@@ -16825,10 +16768,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </div>
         <div
           className="c4"
-          role="status"
         >
           <svg
             aria-hidden={true}
+            aria-labelledby=":r11:"
             className="c15"
             fill="none"
             height="32px"
@@ -16864,12 +16807,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           </svg>
           <div
             className="c6"
+            id=":r11:"
           >
-            <div
-              className=""
-            >
-              Loading
-            </div>
+            Loading
           </div>
         </div>
       </div>

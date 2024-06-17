@@ -1,9 +1,9 @@
 import React from 'react'
+import axe from 'axe-core'
 import type {SpinnerProps} from '..'
 import {Spinner} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import axe from 'axe-core'
 
 describe('Spinner', () => {
   behavesAsComponent({
@@ -14,22 +14,22 @@ describe('Spinner', () => {
     default: Spinner,
   })
 
-  it('should render an ARIA live region with default loading text', async () => {
-    const {getByRole} = HTMLRender(<Spinner />)
+  it('should label the spinner with default loading text', async () => {
+    const {getByLabelText} = HTMLRender(<Spinner />)
 
-    expect(getByRole('status').textContent).toBe('Loading')
+    expect(getByLabelText('Loading')).toBeInTheDocument()
   })
 
-  it('should render an ARIA live region with custom loading text', async () => {
-    const {getByRole} = HTMLRender(<Spinner srText="Custom loading text" />)
+  it('should label the spinner with with custom loading text', async () => {
+    const {getByLabelText} = HTMLRender(<Spinner srText="Custom loading text" />)
 
-    expect(getByRole('status').textContent).toBe('Custom loading text')
+    expect(getByLabelText('Custom loading text')).toBeInTheDocument()
   })
 
-  it('should not render an ARIA live region with loading text when `srText` is set to `null`', async () => {
-    const {queryByRole} = HTMLRender(<Spinner srText={null} />)
+  it('should not label the spinner with with loading text when `srText` is set to `null`', async () => {
+    const {getByLabelText} = HTMLRender(<Spinner srText={null} />)
 
-    expect(queryByRole('status')).not.toBeInTheDocument()
+    expect(() => getByLabelText('Loading')).toThrow()
   })
 
   it('should have no axe violations', async () => {

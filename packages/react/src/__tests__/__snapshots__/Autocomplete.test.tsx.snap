@@ -375,10 +375,10 @@ exports[`snapshots renders a loading state 1`] = `
     >
       <div
         className="c2"
-        role="status"
       >
         <svg
           aria-hidden={true}
+          aria-labelledby=":r1v:"
           className="c3"
           fill="none"
           height="32px"
@@ -404,12 +404,9 @@ exports[`snapshots renders a loading state 1`] = `
         </svg>
         <div
           className="c4"
+          id=":r1v:"
         >
-          <div
-            className=""
-          >
-            Loading
-          </div>
+          Loading
         </div>
       </div>
     </div>

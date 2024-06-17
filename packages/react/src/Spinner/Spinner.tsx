@@ -4,7 +4,7 @@ import sx, {type SxProp} from '../sx'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import type {HTMLDataAttributes} from '../internal/internal-types'
 import Box from '../Box'
-import {Status} from '../internal/components/Status'
+import {useId} from '../hooks'
 
 const sizeMap = {
   small: '16px',
@@ -25,11 +25,20 @@ export type SpinnerProps = {
 function Spinner({size: sizeKey = 'medium', srText = 'Loading', 'aria-label': ariaLabel, ...props}: SpinnerProps) {
   const size = sizeMap[sizeKey]
   const hasSrAnnouncement = Boolean(srText || ariaLabel)
+  const ariaLabelId = useId()
 
   return (
     /* inline-flex removes the extra line height */
-    <Box sx={{display: 'inline-flex'}} role={hasSrAnnouncement ? 'status' : undefined}>
-      <svg height={size} width={size} viewBox="0 0 16 16" fill="none" aria-hidden {...props}>
+    <Box sx={{display: 'inline-flex'}}>
+      <svg
+        height={size}
+        width={size}
+        viewBox="0 0 16 16"
+        fill="none"
+        aria-hidden
+        aria-labelledby={ariaLabelId}
+        {...props}
+      >
         <circle
           cx="8"
           cy="8"
@@ -47,11 +56,7 @@ function Spinner({size: sizeKey = 'medium', srText = 'Loading', 'aria-label': ar
           vectorEffect="non-scaling-stroke"
         />
       </svg>
-      {hasSrAnnouncement ? (
-        <VisuallyHidden>
-          <Status>{srText || ariaLabel}</Status>
-        </VisuallyHidden>
-      ) : null}
+      {hasSrAnnouncement ? <VisuallyHidden id={ariaLabelId}>{srText || ariaLabel}</VisuallyHidden> : null}
     </Box>
   )
 }
