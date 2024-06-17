@@ -2,6 +2,8 @@
 
 exports[`@primer/react should not update exports without a semver change 1`] = `
 [
+  "ActionBar",
+  "type ActionBarProps",
   "ActionList",
   "type ActionListDescriptionProps",
   "type ActionListDividerProps",
@@ -58,6 +60,7 @@ exports[`@primer/react should not update exports without a semver change 1`] = `
   "type ConfirmationDialogProps",
   "CounterLabel",
   "type CounterLabelProps",
+  "createComponent",
   "Details",
   "type DetailsProps",
   "Dialog",
@@ -267,6 +270,8 @@ exports[`@primer/react/drafts should not update exports without a semver change 
   "type HiddenProps",
   "InlineAutocomplete",
   "type InlineAutocompleteProps",
+  "InlineMessage",
+  "type InlineMessageProps",
   "type InteractiveMarkdownViewerProps",
   "MarkdownEditor",
   "type MarkdownEditorHandle",
@@ -365,6 +370,8 @@ exports[`@primer/react/experimental should not update exports without a semver c
   "type HiddenProps",
   "InlineAutocomplete",
   "type InlineAutocompleteProps",
+  "InlineMessage",
+  "type InlineMessageProps",
   "type InteractiveMarkdownViewerProps",
   "MarkdownEditor",
   "type MarkdownEditorHandle",

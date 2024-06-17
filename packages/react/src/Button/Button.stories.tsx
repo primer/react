@@ -53,6 +53,11 @@ Playground.argTypes = {
       type: 'boolean',
     },
   },
+  labelWrap: {
+    control: {
+      type: 'boolean',
+    },
+  },
   count: {
     control: {
       type: 'number',
@@ -73,6 +78,7 @@ Playground.args = {
   trailingVisual: null,
   leadingVisual: null,
   trailingAction: null,
+  labelWrap: false,
 }
 
 export const Default = () => <Button>Default</Button>

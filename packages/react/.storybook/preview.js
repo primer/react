@@ -1,5 +1,5 @@
 import {PrimerBreakpoints} from '../src/utils/layout'
-import {useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {ThemeProvider, BaseStyles, theme} from '../src'
 import clsx from 'clsx'
 
@@ -20,7 +20,6 @@ Object.entries(PrimerBreakpoints).forEach(([viewport, value]) => {
 
 const preview = {
   parameters: {
-    actions: {argTypesRegex: '^on[A-Z].*'},
     html: {
       root: '#html-addon-root',
       removeEmptyComments: true,

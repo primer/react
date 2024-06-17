@@ -1,6 +1,6 @@
 import {SearchIcon, HeartIcon} from '@primer/octicons-react'
 import {render, screen, fireEvent} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 import React from 'react'
 import {IconButton, Button} from '../../Button'
 import type {ButtonProps} from '../../Button'
@@ -38,7 +38,7 @@ describe('Button', () => {
 
   it('should have no axe violations', async () => {
     const {container} = render(<Button>Click here</Button>)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 

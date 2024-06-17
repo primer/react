@@ -1,4 +1,4 @@
-import type {Meta, Story} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import React from 'react'
 import {PageLayout} from '../PageLayout'
 import {NavList} from './NavList'
@@ -11,7 +11,7 @@ const meta: Meta = {
   },
 }
 
-export const Simple: Story = () => (
+export const Simple: StoryFn = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
       <NavList>
@@ -26,7 +26,7 @@ export const Simple: Story = () => (
   </PageLayout>
 )
 
-export const WithSubItems: Story = () => (
+export const WithSubItems: StoryFn = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
       <NavList>
@@ -47,7 +47,7 @@ export const WithSubItems: Story = () => (
   </PageLayout>
 )
 
-export const WithNestedSubItems: Story = () => (
+export const WithNestedSubItems: StoryFn = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
       <NavList>
@@ -153,7 +153,7 @@ export const WithNextJSLink = () => (
   </PageLayout>
 )
 
-export const WithReloads: Story = () => {
+export const WithReloads: StoryFn = () => {
   // eslint-disable-next-line ssr-friendly/no-dom-globals-in-react-fc
   const location = window.location
 
@@ -199,7 +199,7 @@ export const WithReloads: Story = () => {
   )
 }
 
-export const WithInactiveItems: Story = () => (
+export const WithInactiveItems: StoryFn = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
       <NavList>
@@ -218,6 +218,28 @@ export const WithInactiveItems: Story = () => (
           </NavList.SubNav>
         </NavList.Item>
         <NavList.Item href="#">Item 3</NavList.Item>
+      </NavList>
+    </PageLayout.Pane>
+    <PageLayout.Content></PageLayout.Content>
+  </PageLayout>
+)
+
+export const WithGroup = () => (
+  <PageLayout>
+    <PageLayout.Pane position="start">
+      <NavList>
+        <NavList.Group title="Group 1">
+          <NavList.Item aria-current="true" href="#">
+            Item 1A
+          </NavList.Item>
+          <NavList.Item href="#">Item 1B</NavList.Item>
+          <NavList.Item href="#">Item 1C</NavList.Item>
+        </NavList.Group>
+        <NavList.Group title="Group 2">
+          <NavList.Item href="#">Item 2A</NavList.Item>
+          <NavList.Item href="#">Item 2B</NavList.Item>
+          <NavList.Item href="#">Item 2C</NavList.Item>
+        </NavList.Group>
       </NavList>
     </PageLayout.Pane>
     <PageLayout.Content></PageLayout.Content>

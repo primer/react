@@ -1,11 +1,13 @@
 import React, {useState} from 'react'
+import type {Meta} from '@storybook/react'
 import ButtonGroup from './ButtonGroup'
 import {IconButton, Button} from '../Button'
 import {PlusIcon, DashIcon} from '@primer/octicons-react'
 
 export default {
   title: 'Components/ButtonGroup/Features',
-}
+  component: ButtonGroup,
+} as Meta<typeof ButtonGroup>
 
 export const IconButtons = () => (
   <ButtonGroup>

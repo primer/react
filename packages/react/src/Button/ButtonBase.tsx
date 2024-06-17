@@ -47,6 +47,7 @@ const ButtonBase = forwardRef(
       loadingAnnouncement = 'Loading',
       inactive,
       onClick,
+      labelWrap,
       ...rest
     } = props
 
@@ -96,6 +97,7 @@ const ButtonBase = forwardRef(
           data-loading={Boolean(loading)}
           data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
           data-size={size === 'small' || size === 'large' ? size : undefined}
+          data-label-wrap={labelWrap}
           aria-describedby={[loadingAnnouncementID, ariaDescribedBy]
             .filter(descriptionID => Boolean(descriptionID))
             .join(' ')}

@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react'
-import type {ComponentMeta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 
 import Box from '../Box'
 import {Button} from '../Button'
@@ -11,7 +11,7 @@ import type {OverlayProps} from '../Overlay'
 export default {
   title: 'Components/SelectPanel/Features',
   component: SelectPanel,
-} as ComponentMeta<typeof SelectPanel>
+} as Meta<typeof SelectPanel>
 
 function getColorCircle(color: string) {
   return function () {
