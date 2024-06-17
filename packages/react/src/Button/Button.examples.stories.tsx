@@ -36,7 +36,7 @@ export const LoadingStatusAnnouncementSuccessful = () => {
   return (
     <>
       <VisuallyHidden aria-live="polite">{!loading && success ? 'Export completed' : null}</VisuallyHidden>
-      <Button loading={loading} leadingVisual={DownloadIcon} onClick={onClick('error')}>
+      <Button loading={loading} leadingVisual={DownloadIcon} onClick={onClick('success')}>
         Export (success)
       </Button>
     </>
@@ -68,7 +68,7 @@ export const LoadingStatusAnnouncementError = () => {
 
   return (
     <>
-      <VisuallyHidden aria-live="polite">{!loading && error ? 'Export failed' : null}</VisuallyHidden>
+      <VisuallyHidden><Status>{!loading && error ? 'Export failed' : null}</Status></VisuallyHidden>
 
       <Button loading={loading} leadingVisual={DownloadIcon} onClick={onClick('error')}>
         Export (error)
