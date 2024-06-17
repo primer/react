@@ -1,6 +1,7 @@
 import {PrimerBreakpoints} from '../src/utils/layout'
 import {useEffect} from 'react'
 import {ThemeProvider, BaseStyles, theme} from '../src'
+import {FeatureFlags} from '../src/FeatureFlags'
 import clsx from 'clsx'
 
 import './storybook.css'
@@ -223,7 +224,9 @@ export const decorators = [
         <div className={clsx('story-wrap')}>
           <BaseStyles>
             {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
-            <Story {...context} />
+            <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+              <Story {...context} />
+            </FeatureFlags>
             {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
           </BaseStyles>
         </div>
