@@ -85,7 +85,11 @@ const ButtonBase = forwardRef(
     }
 
     return (
-      <ConditionalWrapper if={Boolean(loading)} sx={{display: block ? 'block' : 'inline-block'}} data-loading-wrapper>
+      <ConditionalWrapper
+        if={loading !== undefined}
+        sx={{display: block ? 'block' : 'inline-block'}}
+        data-loading-wrapper
+      >
         <StyledButton
           as={Component}
           sx={sxStyles}

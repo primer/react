@@ -2,7 +2,8 @@ import React from 'react'
 import type {Meta} from '@storybook/react'
 import {Button} from '.'
 import {DownloadIcon} from '@primer/octicons-react'
-import {VisuallyHidden} from '../internal/components/VisuallyHidden'
+import {Banner} from '../drafts'
+import {Status} from '../internal/components/Status'
 
 const meta: Meta<typeof Button> = {
   title: 'Components/Button/Examples',
@@ -35,7 +36,7 @@ export const LoadingStatusAnnouncementSuccessful = () => {
 
   return (
     <>
-      <VisuallyHidden aria-live="polite">{!loading && success ? 'Export completed' : null}</VisuallyHidden>
+      <Status>{!loading && success ? 'Export completed' : null}</Status>
       <Button loading={loading} leadingVisual={DownloadIcon} onClick={onClick('success')}>
         Export (success)
       </Button>
@@ -68,7 +69,7 @@ export const LoadingStatusAnnouncementError = () => {
 
   return (
     <>
-      <VisuallyHidden><Status>{!loading && error ? 'Export failed' : null}</Status></VisuallyHidden>
+      {!loading && error ? <Banner title="Export failed" variant="critical" /> : null}
 
       <Button loading={loading} leadingVisual={DownloadIcon} onClick={onClick('error')}>
         Export (error)
