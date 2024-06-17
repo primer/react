@@ -1,5 +1,31 @@
 # @primer/react
 
+## 36.22.0
+
+### Minor Changes
+
+- [#4443](https://github.com/primer/react/pull/4443) [`f2523373e09e0027f29b36a995574a296ffde3da`](https://github.com/primer/react/commit/f2523373e09e0027f29b36a995574a296ffde3da) Thanks [@joshblack](https://github.com/joshblack)! - Add experimental InlineMessage component
+
+- [#4613](https://github.com/primer/react/pull/4613) [`eb2ab132cd451b8c67a85d028483aa00a7a1c81b`](https://github.com/primer/react/commit/eb2ab132cd451b8c67a85d028483aa00a7a1c81b) Thanks [@joshblack](https://github.com/joshblack)! - `Dialog` and `ConfirmationDialog` can now be closed by clicking on the backdrop surrounding the dialog. This will cause `onClose` to be called with the `escape` gesture.
+
+- [#4443](https://github.com/primer/react/pull/4443) [`f2523373e09e0027f29b36a995574a296ffde3da`](https://github.com/primer/react/commit/f2523373e09e0027f29b36a995574a296ffde3da) Thanks [@joshblack](https://github.com/joshblack)! - Add support for InlineMessage to experimental
+
+- [#4667](https://github.com/primer/react/pull/4667) [`e2a974f4a376ca92b305e03f36f905ad02c61341`](https://github.com/primer/react/commit/e2a974f4a376ca92b305e03f36f905ad02c61341) Thanks [@ktravers](https://github.com/ktravers)! - Adds support for `className` prop to PageHeader component and its children.
+
+## 36.21.0
+
+### Minor Changes
+
+- [#4635](https://github.com/primer/react/pull/4635) [`bd861cc779358fcb62fbcb48d2e76cdad90a9301`](https://github.com/primer/react/commit/bd861cc779358fcb62fbcb48d2e76cdad90a9301) Thanks [@lindseywild](https://github.com/lindseywild)! - RelativeTime: Adds `noTitle` prop if you want to not render the `title` attribute with full date time.
+
+### Patch Changes
+
+- [#4456](https://github.com/primer/react/pull/4456) [`65f2cd190069af4502e70c4a4d29099f81614122`](https://github.com/primer/react/commit/65f2cd190069af4502e70c4a4d29099f81614122) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Adds full `aria-expanded` (true/false) state to `AnchoredOverlay`, and components that consume it
+
+- [#4640](https://github.com/primer/react/pull/4640) [`6cbbc497680a1ce4ffe4fa3cda45e6beca586f94`](https://github.com/primer/react/commit/6cbbc497680a1ce4ffe4fa3cda45e6beca586f94) Thanks [@joshblack](https://github.com/joshblack)! - Explicitly set the `type` attribute for `SegmentedControl.Button`
+
+- [#4638](https://github.com/primer/react/pull/4638) [`240fa50d359f9a338be010c5f7f6af26bb881e2d`](https://github.com/primer/react/commit/240fa50d359f9a338be010c5f7f6af26bb881e2d) Thanks [@lindseywild](https://github.com/lindseywild)! - Bumps @github/relative-time-element to v4.4.1
+
 ## 36.20.0
 
 ### Minor Changes

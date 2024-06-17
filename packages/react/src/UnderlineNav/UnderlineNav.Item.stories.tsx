@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta, Story} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import {UnderlineNav} from './index'
 import {UnderlineNavItem} from './UnderlineNavItem'
 import {CodeIcon, GitPullRequestIcon, PeopleIcon} from '@primer/octicons-react'
@@ -39,7 +39,7 @@ export default {
   },
 } as Meta<typeof UnderlineNavItem>
 
-export const Playground: Story = args => {
+export const Playground: StoryFn = args => {
   return (
     <UnderlineNavItem aria-current="page" {...args}>
       {args.children}

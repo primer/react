@@ -1,12 +1,12 @@
 import React from 'react'
-import type {ComponentMeta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import Box from '../Box'
 import Text from '.'
 
 export default {
   title: 'Components/Text/Features',
   component: Text,
-} as ComponentMeta<typeof Text>
+} as Meta<typeof Text>
 
 export const Polymorphism = () => (
   <Box sx={{display: 'flex', flexDirection: 'column'}}>

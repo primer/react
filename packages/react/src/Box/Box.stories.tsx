@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta, ComponentStory} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import Box from './Box'
 
 export default {
@@ -9,7 +9,7 @@ export default {
 
 export const Default = () => <Box>Default Box</Box>
 
-export const Playground: ComponentStory<typeof Box> = args => <Box {...args}>Playground</Box>
+export const Playground: StoryFn<typeof Box> = args => <Box {...args}>Playground</Box>
 
 Playground.args = {
   as: 'div',
