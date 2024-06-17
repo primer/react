@@ -182,7 +182,7 @@
     "copyfiles": "2.4.1",
     "cross-env": "7.0.3",
     "fast-glob": "3.3.2",
-    "filesize": "10.1.0",
+    "filesize": "10.1.2",
     "front-matter": "4.0.2",
     "gzip-size": "6.0.0",
     "jest-css-modules": "2.1.0",
