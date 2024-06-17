@@ -188,7 +188,7 @@ const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
       return value ? 'none' : 'flex'
     }),
     fontWeight: 'initial',
-    lineHeight: 'var(--text-body-lineHeight-large, 1.5)',
+    lineHeight: 'var(--text-body-lineHeight-medium, 1.4285)',
     fontSize: 'var(--text-body-size-medium, 0.875rem)',
   }
 
@@ -613,7 +613,7 @@ const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
           paddingTop: '0.5rem',
           gap: '0.5rem',
           fontWeight: 'initial',
-          lineHeight: 'var(--text-body-lineHeight-large, 1.5)',
+          lineHeight: 'var(--text-body-lineHeight-medium, 1.4285)',
           fontSize: 'var(--text-body-size-medium, 0.875rem)',
         },
         sx,
@@ -662,7 +662,7 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
             return value ? 'none' : 'block'
           }),
           fontWeight: 'initial',
-          lineHeight: 'var(--text-body-lineHeight-large, 1.5)',
+          lineHeight: 'var(--text-body-lineHeight-medium, 1.4285)',
           fontSize: 'var(--text-body-size-medium, 0.875rem)',
         },
         sx,
