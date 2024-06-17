@@ -1,0 +1,12 @@
+{
+  "codeConnect": {
+    "include": ["src/**/*.figma.tsx", "src/**/*.tsx"],
+    "exclude": ["test/**", "docs/**", "build/**"],
+    "react": {
+      "importPaths": {
+        "./src/*": "@primer/react"
+      },
+      "paths": {}
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import React from 'react'
-import type {ComponentMeta, ComponentStory} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import {MarkGithubIcon} from '@primer/octicons-react'
 
 import Header from './Header'
@@ -9,7 +9,7 @@ import Octicon from '../Octicon'
 export default {
   title: 'Components/Header',
   component: Header,
-} as ComponentMeta<typeof Header>
+} as Meta<typeof Header>
 
 export const Default = () => (
   <Header>
@@ -26,7 +26,7 @@ export const Default = () => (
   </Header>
 )
 
-export const Playground: ComponentStory<typeof Avatar> = args => (
+export const Playground: StoryFn<typeof Header> = args => (
   <Header {...args}>
     <Header.Item>
       <Header.Link href="#" sx={{fontSize: 2}}>
