@@ -1,12 +1,12 @@
 import React from 'react'
-import type {ComponentMeta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 
 import Header from './Header'
 
 export default {
   title: 'Components/Header/Features',
   component: Header,
-} as ComponentMeta<typeof Header>
+} as Meta<typeof Header>
 
 export const WithFullSizeItem = () => (
   <Header>

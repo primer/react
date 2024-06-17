@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta, Story} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import {Placeholder} from '../Placeholder'
 import {SplitPageLayout} from '../SplitPageLayout'
 
@@ -308,7 +308,7 @@ export default {
   },
 } as Meta<typeof SplitPageLayout>
 
-const Template: Story = args => (
+const Template: StoryFn = args => (
   <SplitPageLayout sx={args.sx}>
     {args['Render header?'] ? (
       <SplitPageLayout.Header
