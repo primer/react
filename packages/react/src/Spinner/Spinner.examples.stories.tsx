@@ -1,5 +1,5 @@
 import React from 'react'
-import type {ComponentMeta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import Spinner from './Spinner'
 import {Box, Button} from '..'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
@@ -8,7 +8,7 @@ import {Status} from '../internal/components/Status'
 export default {
   title: 'Components/Spinner/Examples',
   component: Spinner,
-} as ComponentMeta<typeof Spinner>
+} as Meta<typeof Spinner>
 
 type LoadingState = 'initial' | 'loading' | 'done'
 
