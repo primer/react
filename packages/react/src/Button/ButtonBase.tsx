@@ -43,7 +43,7 @@ const ButtonBase = forwardRef(
       size = 'medium',
       alignContent = 'center',
       block = false,
-      loading = false,
+      loading,
       loadingAnnouncement = 'Loading',
       inactive,
       onClick,
@@ -128,7 +128,7 @@ const ButtonBase = forwardRef(
             <>
               <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
                 {loading && !LeadingVisual && !TrailingVisual && renderVisual(Spinner, loading, 'loadingSpinner')}
-                {LeadingVisual && renderVisual(LeadingVisual, loading, 'leadingVisual')}
+                {LeadingVisual && renderVisual(LeadingVisual, Boolean(loading), 'leadingVisual')}
                 {children && (
                   <span data-component="text" id={loading ? `${uuid}-label` : undefined}>
                     {children}
@@ -139,7 +139,7 @@ const ButtonBase = forwardRef(
                     )}
                   </span>
                 )}
-                {TrailingVisual && renderVisual(TrailingVisual, loading && !LeadingVisual, 'trailingVisual')}
+                {TrailingVisual && renderVisual(TrailingVisual, Boolean(loading) && !LeadingVisual, 'trailingVisual')}
               </Box>
               {TrailingAction && (
                 <Box as="span" data-component="trailingAction" sx={{...iconWrapStyles}}>

@@ -1671,10 +1671,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c4 {
-  display: inline-block;
-}
-
-.c5 {
   border-radius: 6px;
   border: 1px solid;
   border-color: transparent;
@@ -1719,69 +1715,69 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   box-shadow: none;
 }
 
-.c5:focus:not(:disabled) {
+.c4:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -2px;
 }
 
-.c5:focus:not(:disabled):not(:focus-visible) {
+.c4:focus:not(:disabled):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
-.c5:focus-visible:not(:disabled) {
+.c4:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -2px;
 }
 
-.c5[href] {
+.c4[href] {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
 }
 
-.c5[href]:hover {
+.c4[href]:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c5:hover {
+.c4:hover {
   -webkit-transition-duration: 80ms;
   transition-duration: 80ms;
 }
 
-.c5:active {
+.c4:active {
   -webkit-transition: none;
   transition: none;
 }
 
-.c5[data-inactive] {
+.c4[data-inactive] {
   cursor: auto;
 }
 
-.c5:disabled,
-.c5[aria-disabled][data-loading="false"] {
+.c4:disabled,
+.c4[aria-disabled][data-loading="false"] {
   cursor: not-allowed;
   box-shadow: none;
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c5:disabled [data-component=ButtonCounter],
-.c5[aria-disabled][data-loading="false"] [data-component=ButtonCounter],
-.c5:disabled [data-component="leadingVisual"],
-.c5[aria-disabled][data-loading="false"] [data-component="leadingVisual"],
-.c5:disabled [data-component="trailingAction"],
-.c5[aria-disabled][data-loading="false"] [data-component="trailingAction"] {
+.c4:disabled [data-component=ButtonCounter],
+.c4[aria-disabled][data-loading="false"] [data-component=ButtonCounter],
+.c4:disabled [data-component="leadingVisual"],
+.c4[aria-disabled][data-loading="false"] [data-component="leadingVisual"],
+.c4:disabled [data-component="trailingAction"],
+.c4[aria-disabled][data-loading="false"] [data-component="trailingAction"] {
   color: inherit;
 }
 
-.c5 [data-component=ButtonCounter] {
+.c4 [data-component=ButtonCounter] {
   font-size: 12px;
 }
 
-.c5[data-component=IconButton] {
+.c4[data-component=IconButton] {
   display: inline-grid;
   padding: unset;
   place-content: center;
@@ -1789,50 +1785,50 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   min-width: unset;
 }
 
-.c5[data-size="small"] {
+.c4[data-size="small"] {
   padding: 0 8px;
   height: 28px;
   gap: 4px;
   font-size: 12px;
 }
 
-.c5[data-size="small"] [data-component="text"] {
+.c4[data-size="small"] [data-component="text"] {
   line-height: calc(20 / 12);
 }
 
-.c5[data-size="small"] [data-component=ButtonCounter] {
+.c4[data-size="small"] [data-component=ButtonCounter] {
   font-size: 12px;
 }
 
-.c5[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+.c4[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 4px;
 }
 
-.c5[data-size="small"][data-component=IconButton] {
+.c4[data-size="small"][data-component=IconButton] {
   width: 28px;
   padding: unset;
 }
 
-.c5[data-size="large"] {
+.c4[data-size="large"] {
   padding: 0 16px;
   height: 40px;
   gap: 8px;
 }
 
-.c5[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
+.c4[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c5[data-size="large"][data-component=IconButton] {
+.c4[data-size="large"][data-component=IconButton] {
   width: 40px;
   padding: unset;
 }
 
-.c5[data-block="block"] {
+.c4[data-block="block"] {
   width: 100%;
 }
 
-.c5[data-label-wrap="true"] {
+.c4[data-label-wrap="true"] {
   min-width: -webkit-fit-content;
   min-width: -moz-fit-content;
   min-width: fit-content;
@@ -1840,7 +1836,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   min-height: var(--control-medium-size,2rem);
 }
 
-.c5[data-label-wrap="true"] [data-component="buttonContent"] {
+.c4[data-label-wrap="true"] [data-component="buttonContent"] {
   -webkit-flex: 1 1 auto;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
@@ -1850,46 +1846,46 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
 }
 
-.c5[data-label-wrap="true"] [data-component="text"] {
+.c4[data-label-wrap="true"] [data-component="text"] {
   white-space: unset;
   word-break: break-word;
 }
 
-.c5[data-label-wrap="true"][data-size="small"] {
+.c4[data-label-wrap="true"][data-size="small"] {
   height: unset;
   min-height: var(--control-small-size,1.75rem);
 }
 
-.c5[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
+.c4[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
   padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
 }
 
-.c5[data-label-wrap="true"][data-size="large"] {
+.c4[data-label-wrap="true"][data-size="large"] {
   height: unset;
   min-height: var(--control-large-size,2.5rem);
   padding-inline: var(--control-large-paddingInline-spacious,1rem);
 }
 
-.c5[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
+.c4[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
   padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
 }
 
-.c5[data-inactive]:not([disabled]) {
+.c4[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
   border-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
   color: var(--button-inactive-fgColor,var(--button-inactive-fgColor-rest,var(--color-btn-inactive-text,#57606a)));
 }
 
-.c5[data-inactive]:not([disabled]):focus-visible {
+.c4[data-inactive]:not([disabled]):focus-visible {
   box-shadow: none;
 }
 
-.c5 [data-component="leadingVisual"] {
+.c4 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
-.c5 [data-component="text"] {
+.c4 [data-component="text"] {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -1903,16 +1899,16 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   white-space: nowrap;
 }
 
-.c5 [data-component="trailingVisual"] {
+.c4 [data-component="trailingVisual"] {
   grid-area: trailingVisual;
 }
 
-.c5 [data-component="trailingAction"] {
+.c4 [data-component="trailingAction"] {
   margin-right: -4px;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
-.c5 [data-component="buttonContent"] {
+.c4 [data-component="buttonContent"] {
   -webkit-flex: 1 0 auto;
   -ms-flex: 1 0 auto;
   flex: 1 0 auto;
@@ -1928,55 +1924,55 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   align-content: center;
 }
 
-.c5 [data-component="buttonContent"] > :not(:last-child) {
+.c4 [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c5 [data-component="loadingSpinner"] {
+.c4 [data-component="loadingSpinner"] {
   grid-area: text;
   margin-right: 0px !important;
   place-self: center;
 }
 
-.c5 [data-component="loadingSpinner"] + [data-component="text"] {
+.c4 [data-component="loadingSpinner"] + [data-component="text"] {
   visibility: hidden;
 }
 
-.c5:hover:not([disabled]):not([aria-disabled][data-loading="false"]) {
+.c4:hover:not([disabled]):not([aria-disabled][data-loading="false"]) {
   background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
 }
 
-.c5:active:not([disabled]):not([aria-disabled][data-loading="false"]) {
+.c4:active:not([disabled]):not([aria-disabled][data-loading="false"]) {
   background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
 }
 
-.c5[aria-expanded=true] {
+.c4[aria-expanded=true] {
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c5[data-component="IconButton"][data-no-visuals] {
+.c4[data-component="IconButton"][data-no-visuals] {
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
-.c5[data-no-visuals] {
+.c4[data-no-visuals] {
   color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
 }
 
-.c5:has([data-component="ButtonCounter"]) {
+.c4:has([data-component="ButtonCounter"]) {
   color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
 }
 
-.c5:disabled[data-no-visuals],
-.c5[aria-disabled][data-loading="false"][data-no-visuals] {
+.c4:disabled[data-no-visuals],
+.c4[aria-disabled][data-loading="false"][data-no-visuals] {
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c5:disabled[data-no-visuals] [data-component=ButtonCounter],
-.c5[aria-disabled][data-loading="false"][data-no-visuals] [data-component=ButtonCounter] {
+.c4:disabled[data-no-visuals] [data-component=ButtonCounter],
+.c4[aria-disabled][data-loading="false"][data-no-visuals] [data-component=ButtonCounter] {
   color: inherit;
 }
 
-.c5[data-size="small"][data-no-visuals] {
+.c4[data-size="small"][data-no-visuals] {
   padding-top: 2px;
   padding-right: 4px;
   padding-bottom: 2px;
@@ -1984,13 +1980,1143 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   position: relative;
 }
 
-.c5[data-size="small"][data-no-visuals][data-component="IconButton"] {
+.c4[data-size="small"][data-no-visuals][data-component="IconButton"] {
   width: var(--inner-action-size);
   height: var(--inner-action-size);
 }
 
+.c5 {
+  display: none;
+}
+
+.c5[popover] {
+  position: absolute;
+  padding: 0.5em 0.75em;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  margin: auto;
+  -webkit-clip: auto;
+  clip: auto;
+  white-space: normal;
+  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
+  text-align: center;
+  word-wrap: break-word;
+  background: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
+  border-radius: 6px;
+  border: 0;
+  opacity: 0;
+  max-width: 250px;
+  inset: auto;
+  overflow: visible;
+}
+
+.c5[popover]:popover-open {
+  display: block;
+}
+
+.c5[popover].\\:popover-open {
+  display: block;
+}
+
+.c5::after {
+  position: absolute;
+  display: block;
+  right: 0;
+  left: 0;
+  height: var(--overlay-offset,0.25rem);
+  content: '';
+}
+
+.c5[data-direction='n']::after,
+.c5[data-direction='ne']::after,
+.c5[data-direction='nw']::after {
+  top: 100%;
+}
+
+.c5[data-direction='s']::after,
+.c5[data-direction='se']::after,
+.c5[data-direction='sw']::after {
+  bottom: 100%;
+}
+
+.c5[data-direction='w']::after {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 8px;
+  content: '';
+  bottom: 0;
+  left: 100%;
+}
+
+.c5[data-direction='e']::after {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 8px;
+  content: '';
+  bottom: 0;
+  right: 100%;
+  margin-left: -8px;
+}
+
+.c5:popover-open,
+.c5:popover-open::before {
+  -webkit-animation-name: tooltip-appear;
+  animation-name: tooltip-appear;
+  -webkit-animation-duration: 0.1s;
+  animation-duration: 0.1s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+.c5.\\:popover-open,
+.c5.\\:popover-open::before {
+  -webkit-animation-name: tooltip-appear;
+  animation-name: tooltip-appear;
+  -webkit-animation-duration: 0.1s;
+  animation-duration: 0.1s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+  vertical-align: middle;
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+  border-radius: 6px;
+  outline: none;
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  overflow: hidden;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+@media (forced-colors:active) {
+  .c4:focus {
+    outline: solid 1px transparent;
+  }
+}
+
+@media (pointer:coarse) {
+  .c4[data-size="small"][data-no-visuals]:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    top: 50%;
+    min-height: 44px;
+  }
+}
+
+@media (forced-colors:active) {
+  .c5 {
+    outline: 1px solid transparent;
+  }
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  aria-busy={false}
+  className="c0 c1 TextInput-wrapper"
+  onClick={[Function]}
+>
+  <input
+    className="c2"
+    data-component="input"
+    name="search"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    placeholder="Search"
+    type="text"
+  />
+  <span
+    className="c3 TextInput-action"
+  >
+    <button
+      aria-describedby=":ro:-loading-announcement"
+      aria-labelledby=":rn:"
+      className="c4"
+      data-block={null}
+      data-component="IconButton"
+      data-loading={false}
+      data-no-visuals={true}
+      data-size="small"
+      onBlur={[Function]}
+      onClick={[MockFunction]}
+      onFocus={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      type="button"
+    >
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-search"
+        fill="currentColor"
+        focusable="false"
+        height={16}
+        style={
+          {
+            "display": "inline-block",
+            "overflow": "visible",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
+          }
+        }
+        viewBox="0 0 16 16"
+        width={16}
+      >
+        <path
+          d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+        />
+      </svg>
+    </button>
+    <span
+      aria-hidden={true}
+      className="c5"
+      data-direction="s"
+      id=":rn:"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      Icon label
+    </span>
+  </span>
+</span>
+`;
+
+exports[`TextInput renders trailingAction text button 1`] = `
+.c3 {
+  margin-left: 4px;
+  margin-right: 4px;
+  line-height: 0;
+}
+
+.c5 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c4 {
+  border-radius: 6px;
+  border: 1px solid;
+  border-color: transparent;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 32px;
+  padding: 0 12px;
+  gap: 8px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  -webkit-transition-property: color,fill,background-color,border-color;
+  transition-property: color,fill,background-color,border-color;
+  color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.c4:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -2px;
+}
+
+.c4:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c4:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -2px;
+}
+
+.c4[href] {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c4[href]:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4:hover {
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
+}
+
+.c4:active {
+  -webkit-transition: none;
+  transition: none;
+}
+
+.c4[data-inactive] {
+  cursor: auto;
+}
+
+.c4:disabled,
+.c4[aria-disabled][data-loading="false"] {
+  cursor: not-allowed;
+  box-shadow: none;
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+}
+
+.c4:disabled [data-component=ButtonCounter],
+.c4[aria-disabled][data-loading="false"] [data-component=ButtonCounter],
+.c4:disabled [data-component="leadingVisual"],
+.c4[aria-disabled][data-loading="false"] [data-component="leadingVisual"],
+.c4:disabled [data-component="trailingAction"],
+.c4[aria-disabled][data-loading="false"] [data-component="trailingAction"] {
+  color: inherit;
+}
+
+.c4 [data-component=ButtonCounter] {
+  font-size: 12px;
+}
+
+.c4[data-component=IconButton] {
+  display: inline-grid;
+  padding: unset;
+  place-content: center;
+  width: 32px;
+  min-width: unset;
+}
+
+.c4[data-size="small"] {
+  padding: 0 8px;
+  height: 28px;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.c4[data-size="small"] [data-component="text"] {
+  line-height: calc(20 / 12);
+}
+
+.c4[data-size="small"] [data-component=ButtonCounter] {
+  font-size: 12px;
+}
+
+.c4[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 4px;
+}
+
+.c4[data-size="small"][data-component=IconButton] {
+  width: 28px;
+  padding: unset;
+}
+
+.c4[data-size="large"] {
+  padding: 0 16px;
+  height: 40px;
+  gap: 8px;
+}
+
+.c4[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c4[data-size="large"][data-component=IconButton] {
+  width: 40px;
+  padding: unset;
+}
+
+.c4[data-block="block"] {
+  width: 100%;
+}
+
+.c4[data-label-wrap="true"] {
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  height: unset;
+  min-height: var(--control-medium-size,2rem);
+}
+
+.c4[data-label-wrap="true"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
+}
+
+.c4[data-label-wrap="true"] [data-component="text"] {
+  white-space: unset;
+  word-break: break-word;
+}
+
+.c4[data-label-wrap="true"][data-size="small"] {
+  height: unset;
+  min-height: var(--control-small-size,1.75rem);
+}
+
+.c4[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
+}
+
+.c4[data-label-wrap="true"][data-size="large"] {
+  height: unset;
+  min-height: var(--control-large-size,2.5rem);
+  padding-inline: var(--control-large-paddingInline-spacious,1rem);
+}
+
+.c4[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
+}
+
+.c4[data-inactive]:not([disabled]) {
+  background-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
+  border-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
+  color: var(--button-inactive-fgColor,var(--button-inactive-fgColor-rest,var(--color-btn-inactive-text,#57606a)));
+}
+
+.c4[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
+}
+
+.c4 [data-component="leadingVisual"] {
+  grid-area: leadingVisual;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+}
+
+.c4 [data-component="text"] {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  grid-area: text;
+  line-height: calc(20/14);
+  white-space: nowrap;
+}
+
+.c4 [data-component="trailingVisual"] {
+  grid-area: trailingVisual;
+}
+
+.c4 [data-component="trailingAction"] {
+  margin-right: -4px;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+}
+
+.c4 [data-component="buttonContent"] {
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-areas: "leadingVisual text trailingVisual";
+  grid-template-columns: min-content minmax(0,auto) min-content;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
+.c4 [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c4 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+}
+
+.c4 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
+.c4:hover:not([disabled]):not([aria-disabled][data-loading="false"]) {
+  background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
+}
+
+.c4:active:not([disabled]):not([aria-disabled][data-loading="false"]) {
+  background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
+}
+
+.c4[aria-expanded=true] {
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c4[data-component="IconButton"][data-no-visuals] {
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+}
+
+.c4[data-no-visuals] {
+  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  padding-top: 2px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  position: relative;
+}
+
+.c4[data-no-visuals][data-component="IconButton"] {
+  width: var(--inner-action-size);
+  height: var(--inner-action-size);
+}
+
+.c4:has([data-component="ButtonCounter"]) {
+  color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
+}
+
+.c4:disabled[data-no-visuals],
+.c4[aria-disabled][data-loading="false"][data-no-visuals] {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+}
+
+.c4:disabled[data-no-visuals] [data-component=ButtonCounter],
+.c4[aria-disabled][data-loading="false"][data-no-visuals] [data-component=ButtonCounter] {
+  color: inherit;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+  vertical-align: middle;
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+  border-radius: 6px;
+  outline: none;
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  overflow: hidden;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+@media (forced-colors:active) {
+  .c4:focus {
+    outline: solid 1px transparent;
+  }
+}
+
+@media (pointer:coarse) {
+  .c4[data-no-visuals]:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    top: 50%;
+    min-height: 44px;
+  }
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+<span
+  aria-busy={false}
+  className="c0 c1 TextInput-wrapper"
+  onClick={[Function]}
+>
+  <input
+    className="c2"
+    data-component="input"
+    name="search"
+    onBlur={[Function]}
+    onFocus={[Function]}
+    placeholder="Search"
+    type="text"
+  />
+  <span
+    className="c3 TextInput-action"
+  >
+    <button
+      aria-describedby=":ri:-loading-announcement"
+      className="c4"
+      data-block={null}
+      data-loading={false}
+      data-no-visuals={true}
+      onClick={[MockFunction]}
+      style={{}}
+      type="button"
+    >
+      <span
+        className="c5"
+        data-component="buttonContent"
+      >
+        <span
+          data-component="text"
+        >
+          Clear
+        </span>
+      </span>
+    </button>
+  </span>
+</span>
+`;
+
+exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
+.c3 {
+  margin-left: 4px;
+  margin-right: 4px;
+  line-height: 0;
+}
+
+.c5 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.c4 {
+  border-radius: 6px;
+  border: 1px solid;
+  border-color: transparent;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-align: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  height: 32px;
+  padding: 0 12px;
+  gap: 8px;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  transition: 80ms cubic-bezier(0.65,0,0.35,1);
+  -webkit-transition-property: color,fill,background-color,border-color;
+  transition-property: color,fill,background-color,border-color;
+  color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.c4:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -2px;
+}
+
+.c4:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c4:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -2px;
+}
+
+.c4[href] {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c4[href]:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4:hover {
+  -webkit-transition-duration: 80ms;
+  transition-duration: 80ms;
+}
+
+.c4:active {
+  -webkit-transition: none;
+  transition: none;
+}
+
+.c4[data-inactive] {
+  cursor: auto;
+}
+
+.c4:disabled,
+.c4[aria-disabled][data-loading="false"] {
+  cursor: not-allowed;
+  box-shadow: none;
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+}
+
+.c4:disabled [data-component=ButtonCounter],
+.c4[aria-disabled][data-loading="false"] [data-component=ButtonCounter],
+.c4:disabled [data-component="leadingVisual"],
+.c4[aria-disabled][data-loading="false"] [data-component="leadingVisual"],
+.c4:disabled [data-component="trailingAction"],
+.c4[aria-disabled][data-loading="false"] [data-component="trailingAction"] {
+  color: inherit;
+}
+
+.c4 [data-component=ButtonCounter] {
+  font-size: 12px;
+}
+
+.c4[data-component=IconButton] {
+  display: inline-grid;
+  padding: unset;
+  place-content: center;
+  width: 32px;
+  min-width: unset;
+}
+
+.c4[data-size="small"] {
+  padding: 0 8px;
+  height: 28px;
+  gap: 4px;
+  font-size: 12px;
+}
+
+.c4[data-size="small"] [data-component="text"] {
+  line-height: calc(20 / 12);
+}
+
+.c4[data-size="small"] [data-component=ButtonCounter] {
+  font-size: 12px;
+}
+
+.c4[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 4px;
+}
+
+.c4[data-size="small"][data-component=IconButton] {
+  width: 28px;
+  padding: unset;
+}
+
+.c4[data-size="large"] {
+  padding: 0 16px;
+  height: 40px;
+  gap: 8px;
+}
+
+.c4[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c4[data-size="large"][data-component=IconButton] {
+  width: 40px;
+  padding: unset;
+}
+
+.c4[data-block="block"] {
+  width: 100%;
+}
+
+.c4[data-label-wrap="true"] {
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  height: unset;
+  min-height: var(--control-medium-size,2rem);
+}
+
+.c4[data-label-wrap="true"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
+}
+
+.c4[data-label-wrap="true"] [data-component="text"] {
+  white-space: unset;
+  word-break: break-word;
+}
+
+.c4[data-label-wrap="true"][data-size="small"] {
+  height: unset;
+  min-height: var(--control-small-size,1.75rem);
+}
+
+.c4[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
+}
+
+.c4[data-label-wrap="true"][data-size="large"] {
+  height: unset;
+  min-height: var(--control-large-size,2.5rem);
+  padding-inline: var(--control-large-paddingInline-spacious,1rem);
+}
+
+.c4[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
+}
+
+.c4[data-inactive]:not([disabled]) {
+  background-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
+  border-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
+  color: var(--button-inactive-fgColor,var(--button-inactive-fgColor-rest,var(--color-btn-inactive-text,#57606a)));
+}
+
+.c4[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
+}
+
+.c4 [data-component="leadingVisual"] {
+  grid-area: leadingVisual;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+}
+
+.c4 [data-component="text"] {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  grid-area: text;
+  line-height: calc(20/14);
+  white-space: nowrap;
+}
+
+.c4 [data-component="trailingVisual"] {
+  grid-area: trailingVisual;
+}
+
+.c4 [data-component="trailingAction"] {
+  margin-right: -4px;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+}
+
+.c4 [data-component="buttonContent"] {
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-areas: "leadingVisual text trailingVisual";
+  grid-template-columns: min-content minmax(0,auto) min-content;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+}
+
+.c4 [data-component="buttonContent"] > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c4 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+}
+
+.c4 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
+.c4:hover:not([disabled]):not([aria-disabled][data-loading="false"]) {
+  background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
+}
+
+.c4:active:not([disabled]):not([aria-disabled][data-loading="false"]) {
+  background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
+}
+
+.c4[aria-expanded=true] {
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c4[data-component="IconButton"][data-no-visuals] {
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+}
+
+.c4[data-no-visuals] {
+  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  padding-top: 2px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  position: relative;
+}
+
+.c4[data-no-visuals][data-component="IconButton"] {
+  width: var(--inner-action-size);
+  height: var(--inner-action-size);
+}
+
+.c4:has([data-component="ButtonCounter"]) {
+  color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
+}
+
+.c4:disabled[data-no-visuals],
+.c4[aria-disabled][data-loading="false"][data-no-visuals] {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+}
+
+.c4:disabled[data-no-visuals] [data-component=ButtonCounter],
+.c4[aria-disabled][data-loading="false"][data-no-visuals] [data-component=ButtonCounter] {
+  color: inherit;
+}
+
 .c6 {
   display: none;
+  display: inline-block;
 }
 
 .c6[popover] {
@@ -2197,13 +3323,13 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c5:focus {
+  .c4:focus {
     outline: solid 1px transparent;
   }
 }
 
 @media (pointer:coarse) {
-  .c5[data-size="small"][data-no-visuals]:after {
+  .c4[data-no-visuals]:after {
     content: "";
     position: absolute;
     left: 0;
@@ -2245,1186 +3371,33 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   <span
     className="c3 TextInput-action"
   >
-    <div
+    <button
+      aria-describedby=":rl:-loading-announcement :rk:"
       className="c4"
-      data-loading-wrapper={true}
-    >
-      <button
-        aria-describedby=":ro:-loading-announcement"
-        aria-labelledby=":rn:"
-        className="c5"
-        data-block={null}
-        data-component="IconButton"
-        data-loading={false}
-        data-no-visuals={true}
-        data-size="small"
-        onBlur={[Function]}
-        onClick={[MockFunction]}
-        onFocus={[Function]}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        type="button"
-      >
-        <svg
-          aria-hidden="true"
-          className="octicon octicon-search"
-          fill="currentColor"
-          focusable="false"
-          height={16}
-          style={
-            {
-              "display": "inline-block",
-              "overflow": "visible",
-              "userSelect": "none",
-              "verticalAlign": "text-bottom",
-            }
-          }
-          viewBox="0 0 16 16"
-          width={16}
-        >
-          <path
-            d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
-          />
-        </svg>
-      </button>
-    </div>
-    <span
-      aria-hidden={true}
-      className="c6"
-      data-direction="s"
-      id=":rn:"
+      data-block={null}
+      data-loading={false}
+      data-no-visuals={true}
+      onBlur={[Function]}
+      onClick={[MockFunction]}
+      onFocus={[Function]}
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
+      style={{}}
+      type="button"
     >
-      Icon label
-    </span>
-  </span>
-</span>
-`;
-
-exports[`TextInput renders trailingAction text button 1`] = `
-.c3 {
-  margin-left: 4px;
-  margin-right: 4px;
-  line-height: 0;
-}
-
-.c4 {
-  display: inline-block;
-}
-
-.c6 {
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.c5 {
-  border-radius: 6px;
-  border: 1px solid;
-  border-color: transparent;
-  font-family: inherit;
-  font-weight: 500;
-  font-size: 14px;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-align: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  height: 32px;
-  padding: 0 12px;
-  gap: 8px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  -webkit-transition-property: color,fill,background-color,border-color;
-  transition-property: color,fill,background-color,border-color;
-  color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
-  background-color: transparent;
-  box-shadow: none;
-}
-
-.c5:focus:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -2px;
-}
-
-.c5:focus:not(:disabled):not(:focus-visible) {
-  outline: solid 1px transparent;
-}
-
-.c5:focus-visible:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -2px;
-}
-
-.c5[href] {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c5[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c5:hover {
-  -webkit-transition-duration: 80ms;
-  transition-duration: 80ms;
-}
-
-.c5:active {
-  -webkit-transition: none;
-  transition: none;
-}
-
-.c5[data-inactive] {
-  cursor: auto;
-}
-
-.c5:disabled,
-.c5[aria-disabled][data-loading="false"] {
-  cursor: not-allowed;
-  box-shadow: none;
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c5:disabled [data-component=ButtonCounter],
-.c5[aria-disabled][data-loading="false"] [data-component=ButtonCounter],
-.c5:disabled [data-component="leadingVisual"],
-.c5[aria-disabled][data-loading="false"] [data-component="leadingVisual"],
-.c5:disabled [data-component="trailingAction"],
-.c5[aria-disabled][data-loading="false"] [data-component="trailingAction"] {
-  color: inherit;
-}
-
-.c5 [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c5[data-component=IconButton] {
-  display: inline-grid;
-  padding: unset;
-  place-content: center;
-  width: 32px;
-  min-width: unset;
-}
-
-.c5[data-size="small"] {
-  padding: 0 8px;
-  height: 28px;
-  gap: 4px;
-  font-size: 12px;
-}
-
-.c5[data-size="small"] [data-component="text"] {
-  line-height: calc(20 / 12);
-}
-
-.c5[data-size="small"] [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c5[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 4px;
-}
-
-.c5[data-size="small"][data-component=IconButton] {
-  width: 28px;
-  padding: unset;
-}
-
-.c5[data-size="large"] {
-  padding: 0 16px;
-  height: 40px;
-  gap: 8px;
-}
-
-.c5[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c5[data-size="large"][data-component=IconButton] {
-  width: 40px;
-  padding: unset;
-}
-
-.c5[data-block="block"] {
-  width: 100%;
-}
-
-.c5[data-label-wrap="true"] {
-  min-width: -webkit-fit-content;
-  min-width: -moz-fit-content;
-  min-width: fit-content;
-  height: unset;
-  min-height: var(--control-medium-size,2rem);
-}
-
-.c5[data-label-wrap="true"] [data-component="buttonContent"] {
-  -webkit-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  -webkit-align-self: stretch;
-  -ms-flex-item-align: stretch;
-  align-self: stretch;
-  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
-}
-
-.c5[data-label-wrap="true"] [data-component="text"] {
-  white-space: unset;
-  word-break: break-word;
-}
-
-.c5[data-label-wrap="true"][data-size="small"] {
-  height: unset;
-  min-height: var(--control-small-size,1.75rem);
-}
-
-.c5[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
-  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
-}
-
-.c5[data-label-wrap="true"][data-size="large"] {
-  height: unset;
-  min-height: var(--control-large-size,2.5rem);
-  padding-inline: var(--control-large-paddingInline-spacious,1rem);
-}
-
-.c5[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
-  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
-}
-
-.c5[data-inactive]:not([disabled]) {
-  background-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
-  border-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
-  color: var(--button-inactive-fgColor,var(--button-inactive-fgColor-rest,var(--color-btn-inactive-text,#57606a)));
-}
-
-.c5[data-inactive]:not([disabled]):focus-visible {
-  box-shadow: none;
-}
-
-.c5 [data-component="leadingVisual"] {
-  grid-area: leadingVisual;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-}
-
-.c5 [data-component="text"] {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  grid-area: text;
-  line-height: calc(20/14);
-  white-space: nowrap;
-}
-
-.c5 [data-component="trailingVisual"] {
-  grid-area: trailingVisual;
-}
-
-.c5 [data-component="trailingAction"] {
-  margin-right: -4px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-}
-
-.c5 [data-component="buttonContent"] {
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  display: grid;
-  grid-template-areas: "leadingVisual text trailingVisual";
-  grid-template-columns: min-content minmax(0,auto) min-content;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-}
-
-.c5 [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c5 [data-component="loadingSpinner"] {
-  grid-area: text;
-  margin-right: 0px !important;
-  place-self: center;
-}
-
-.c5 [data-component="loadingSpinner"] + [data-component="text"] {
-  visibility: hidden;
-}
-
-.c5:hover:not([disabled]):not([aria-disabled][data-loading="false"]) {
-  background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
-}
-
-.c5:active:not([disabled]):not([aria-disabled][data-loading="false"]) {
-  background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
-}
-
-.c5[aria-expanded=true] {
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
-}
-
-.c5[data-component="IconButton"][data-no-visuals] {
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-}
-
-.c5[data-no-visuals] {
-  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  padding-top: 2px;
-  padding-right: 4px;
-  padding-bottom: 2px;
-  padding-left: 4px;
-  position: relative;
-}
-
-.c5[data-no-visuals][data-component="IconButton"] {
-  width: var(--inner-action-size);
-  height: var(--inner-action-size);
-}
-
-.c5:has([data-component="ButtonCounter"]) {
-  color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
-}
-
-.c5:disabled[data-no-visuals],
-.c5[aria-disabled][data-loading="false"][data-no-visuals] {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c5:disabled[data-no-visuals] [data-component=ButtonCounter],
-.c5[aria-disabled][data-loading="false"][data-no-visuals] [data-component=ButtonCounter] {
-  color: inherit;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  overflow: hidden;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0 input::-webkit-input-placeholder,
-.c0 textarea::-webkit-input-placeholder,
-.c0 select::-webkit-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::-moz-placeholder,
-.c0 textarea::-moz-placeholder,
-.c0 select::-moz-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input:-ms-input-placeholder,
-.c0 textarea:-ms-input-placeholder,
-.c0 select:-ms-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::placeholder,
-.c0 textarea::placeholder,
-.c0 select::placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
-@media (forced-colors:active) {
-  .c5:focus {
-    outline: solid 1px transparent;
-  }
-}
-
-@media (pointer:coarse) {
-  .c5[data-no-visuals]:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    top: 50%;
-    min-height: 44px;
-  }
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-<span
-  aria-busy={false}
-  className="c0 c1 TextInput-wrapper"
-  onClick={[Function]}
->
-  <input
-    className="c2"
-    data-component="input"
-    name="search"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    placeholder="Search"
-    type="text"
-  />
-  <span
-    className="c3 TextInput-action"
-  >
-    <div
-      className="c4"
-      data-loading-wrapper={true}
-    >
-      <button
-        aria-describedby=":ri:-loading-announcement"
+      <span
         className="c5"
-        data-block={null}
-        data-loading={false}
-        data-no-visuals={true}
-        onClick={[MockFunction]}
-        style={{}}
-        type="button"
+        data-component="buttonContent"
       >
         <span
-          className="c6"
-          data-component="buttonContent"
+          data-component="text"
         >
-          <span
-            data-component="text"
-          >
-            Clear
-          </span>
+          Clear
         </span>
-      </button>
-    </div>
-  </span>
-</span>
-`;
-
-exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
-.c3 {
-  margin-left: 4px;
-  margin-right: 4px;
-  line-height: 0;
-}
-
-.c4 {
-  display: inline-block;
-}
-
-.c6 {
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.c5 {
-  border-radius: 6px;
-  border: 1px solid;
-  border-color: transparent;
-  font-family: inherit;
-  font-weight: 500;
-  font-size: 14px;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-align: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  height: 32px;
-  padding: 0 12px;
-  gap: 8px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  -webkit-transition-property: color,fill,background-color,border-color;
-  transition-property: color,fill,background-color,border-color;
-  color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
-  background-color: transparent;
-  box-shadow: none;
-}
-
-.c5:focus:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -2px;
-}
-
-.c5:focus:not(:disabled):not(:focus-visible) {
-  outline: solid 1px transparent;
-}
-
-.c5:focus-visible:not(:disabled) {
-  box-shadow: none;
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -2px;
-}
-
-.c5[href] {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c5[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c5:hover {
-  -webkit-transition-duration: 80ms;
-  transition-duration: 80ms;
-}
-
-.c5:active {
-  -webkit-transition: none;
-  transition: none;
-}
-
-.c5[data-inactive] {
-  cursor: auto;
-}
-
-.c5:disabled,
-.c5[aria-disabled][data-loading="false"] {
-  cursor: not-allowed;
-  box-shadow: none;
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c5:disabled [data-component=ButtonCounter],
-.c5[aria-disabled][data-loading="false"] [data-component=ButtonCounter],
-.c5:disabled [data-component="leadingVisual"],
-.c5[aria-disabled][data-loading="false"] [data-component="leadingVisual"],
-.c5:disabled [data-component="trailingAction"],
-.c5[aria-disabled][data-loading="false"] [data-component="trailingAction"] {
-  color: inherit;
-}
-
-.c5 [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c5[data-component=IconButton] {
-  display: inline-grid;
-  padding: unset;
-  place-content: center;
-  width: 32px;
-  min-width: unset;
-}
-
-.c5[data-size="small"] {
-  padding: 0 8px;
-  height: 28px;
-  gap: 4px;
-  font-size: 12px;
-}
-
-.c5[data-size="small"] [data-component="text"] {
-  line-height: calc(20 / 12);
-}
-
-.c5[data-size="small"] [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c5[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 4px;
-}
-
-.c5[data-size="small"][data-component=IconButton] {
-  width: 28px;
-  padding: unset;
-}
-
-.c5[data-size="large"] {
-  padding: 0 16px;
-  height: 40px;
-  gap: 8px;
-}
-
-.c5[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c5[data-size="large"][data-component=IconButton] {
-  width: 40px;
-  padding: unset;
-}
-
-.c5[data-block="block"] {
-  width: 100%;
-}
-
-.c5[data-label-wrap="true"] {
-  min-width: -webkit-fit-content;
-  min-width: -moz-fit-content;
-  min-width: fit-content;
-  height: unset;
-  min-height: var(--control-medium-size,2rem);
-}
-
-.c5[data-label-wrap="true"] [data-component="buttonContent"] {
-  -webkit-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  -webkit-align-self: stretch;
-  -ms-flex-item-align: stretch;
-  align-self: stretch;
-  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
-}
-
-.c5[data-label-wrap="true"] [data-component="text"] {
-  white-space: unset;
-  word-break: break-word;
-}
-
-.c5[data-label-wrap="true"][data-size="small"] {
-  height: unset;
-  min-height: var(--control-small-size,1.75rem);
-}
-
-.c5[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
-  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
-}
-
-.c5[data-label-wrap="true"][data-size="large"] {
-  height: unset;
-  min-height: var(--control-large-size,2.5rem);
-  padding-inline: var(--control-large-paddingInline-spacious,1rem);
-}
-
-.c5[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
-  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
-}
-
-.c5[data-inactive]:not([disabled]) {
-  background-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
-  border-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
-  color: var(--button-inactive-fgColor,var(--button-inactive-fgColor-rest,var(--color-btn-inactive-text,#57606a)));
-}
-
-.c5[data-inactive]:not([disabled]):focus-visible {
-  box-shadow: none;
-}
-
-.c5 [data-component="leadingVisual"] {
-  grid-area: leadingVisual;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-}
-
-.c5 [data-component="text"] {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  grid-area: text;
-  line-height: calc(20/14);
-  white-space: nowrap;
-}
-
-.c5 [data-component="trailingVisual"] {
-  grid-area: trailingVisual;
-}
-
-.c5 [data-component="trailingAction"] {
-  margin-right: -4px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-}
-
-.c5 [data-component="buttonContent"] {
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  display: grid;
-  grid-template-areas: "leadingVisual text trailingVisual";
-  grid-template-columns: min-content minmax(0,auto) min-content;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-}
-
-.c5 [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c5 [data-component="loadingSpinner"] {
-  grid-area: text;
-  margin-right: 0px !important;
-  place-self: center;
-}
-
-.c5 [data-component="loadingSpinner"] + [data-component="text"] {
-  visibility: hidden;
-}
-
-.c5:hover:not([disabled]):not([aria-disabled][data-loading="false"]) {
-  background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
-}
-
-.c5:active:not([disabled]):not([aria-disabled][data-loading="false"]) {
-  background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
-}
-
-.c5[aria-expanded=true] {
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
-}
-
-.c5[data-component="IconButton"][data-no-visuals] {
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-}
-
-.c5[data-no-visuals] {
-  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  padding-top: 2px;
-  padding-right: 4px;
-  padding-bottom: 2px;
-  padding-left: 4px;
-  position: relative;
-}
-
-.c5[data-no-visuals][data-component="IconButton"] {
-  width: var(--inner-action-size);
-  height: var(--inner-action-size);
-}
-
-.c5:has([data-component="ButtonCounter"]) {
-  color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
-}
-
-.c5:disabled[data-no-visuals],
-.c5[aria-disabled][data-loading="false"][data-no-visuals] {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c5:disabled[data-no-visuals] [data-component=ButtonCounter],
-.c5[aria-disabled][data-loading="false"][data-no-visuals] [data-component=ButtonCounter] {
-  color: inherit;
-}
-
-.c7 {
-  display: none;
-  display: inline-block;
-}
-
-.c7[popover] {
-  position: absolute;
-  padding: 0.5em 0.75em;
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-  margin: auto;
-  -webkit-clip: auto;
-  clip: auto;
-  white-space: normal;
-  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
-  -webkit-font-smoothing: subpixel-antialiased;
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  text-align: center;
-  word-wrap: break-word;
-  background: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
-  border-radius: 6px;
-  border: 0;
-  opacity: 0;
-  max-width: 250px;
-  inset: auto;
-  overflow: visible;
-}
-
-.c7[popover]:popover-open {
-  display: block;
-}
-
-.c7[popover].\\:popover-open {
-  display: block;
-}
-
-.c7::after {
-  position: absolute;
-  display: block;
-  right: 0;
-  left: 0;
-  height: var(--overlay-offset,0.25rem);
-  content: '';
-}
-
-.c7[data-direction='n']::after,
-.c7[data-direction='ne']::after,
-.c7[data-direction='nw']::after {
-  top: 100%;
-}
-
-.c7[data-direction='s']::after,
-.c7[data-direction='se']::after,
-.c7[data-direction='sw']::after {
-  bottom: 100%;
-}
-
-.c7[data-direction='w']::after {
-  position: absolute;
-  display: block;
-  height: 100%;
-  width: 8px;
-  content: '';
-  bottom: 0;
-  left: 100%;
-}
-
-.c7[data-direction='e']::after {
-  position: absolute;
-  display: block;
-  height: 100%;
-  width: 8px;
-  content: '';
-  bottom: 0;
-  right: 100%;
-  margin-left: -8px;
-}
-
-.c7:popover-open,
-.c7:popover-open::before {
-  -webkit-animation-name: tooltip-appear;
-  animation-name: tooltip-appear;
-  -webkit-animation-duration: 0.1s;
-  animation-duration: 0.1s;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-  -webkit-animation-timing-function: ease-in;
-  animation-timing-function: ease-in;
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-}
-
-.c7.\\:popover-open,
-.c7.\\:popover-open::before {
-  -webkit-animation-name: tooltip-appear;
-  animation-name: tooltip-appear;
-  -webkit-animation-duration: 0.1s;
-  animation-duration: 0.1s;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-  -webkit-animation-timing-function: ease-in;
-  animation-timing-function: ease-in;
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  overflow: hidden;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0 input::-webkit-input-placeholder,
-.c0 textarea::-webkit-input-placeholder,
-.c0 select::-webkit-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::-moz-placeholder,
-.c0 textarea::-moz-placeholder,
-.c0 select::-moz-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input:-ms-input-placeholder,
-.c0 textarea:-ms-input-placeholder,
-.c0 select:-ms-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::placeholder,
-.c0 textarea::placeholder,
-.c0 select::placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
-@media (forced-colors:active) {
-  .c5:focus {
-    outline: solid 1px transparent;
-  }
-}
-
-@media (pointer:coarse) {
-  .c5[data-no-visuals]:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    top: 50%;
-    min-height: 44px;
-  }
-}
-
-@media (forced-colors:active) {
-  .c7 {
-    outline: 1px solid transparent;
-  }
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-<span
-  aria-busy={false}
-  className="c0 c1 TextInput-wrapper"
-  onClick={[Function]}
->
-  <input
-    className="c2"
-    data-component="input"
-    name="search"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    placeholder="Search"
-    type="text"
-  />
-  <span
-    className="c3 TextInput-action"
-  >
-    <div
-      className="c4"
-      data-loading-wrapper={true}
-    >
-      <button
-        aria-describedby=":rl:-loading-announcement :rk:"
-        className="c5"
-        data-block={null}
-        data-loading={false}
-        data-no-visuals={true}
-        onBlur={[Function]}
-        onClick={[MockFunction]}
-        onFocus={[Function]}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        style={{}}
-        type="button"
-      >
-        <span
-          className="c6"
-          data-component="buttonContent"
-        >
-          <span
-            data-component="text"
-          >
-            Clear
-          </span>
-        </span>
-      </button>
-    </div>
+      </span>
+    </button>
     <span
-      className="c7"
+      className="c6"
       data-direction="s"
       id=":rk:"
       onMouseEnter={[Function]}
