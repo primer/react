@@ -82,6 +82,12 @@
       "type": "'default'\n| 'primary'\n| 'danger'\n| 'invisible'",
       "defaultValue": "'default'",
       "description": "Change the visual style of the button."
+    },
+    {
+      "name": "labelWrap",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Whether the button label should wrap to multiple lines of it is longer than the button width."
     }
   ],
   "passthrough": {

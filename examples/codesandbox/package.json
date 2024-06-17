@@ -20,10 +20,10 @@
     "@typescript-eslint/eslint-plugin": "^7.11.0",
     "@typescript-eslint/parser": "^7.3.1",
     "@vitejs/plugin-react": "^4.2.1",
-    "@primer/react": "36.21.0",
+    "@primer/react": "36.22.0",
     "eslint": "^8.56.0",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.5",
+    "eslint-plugin-react-refresh": "^0.4.7",
     "styled-components": "5.x",
     "typescript": "^5.4.5",
     "vite": "^5.2.6"
