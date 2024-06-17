@@ -86,7 +86,11 @@ const ButtonBase = forwardRef(
 
     return (
       <ConditionalWrapper
-        if={loading !== undefined}
+        // If anything is passsed to `loading`, we need the wrapper:
+        // If we just checked for `loading` as a boolean, the wrapper wouldn't be rendered
+        // when `loading` is `false`.
+        // Then, the component re-renders in a way that the button will lose focus when switching between loading states.
+        if={typeof loading !== 'undefined'}
         sx={{display: block ? 'block' : 'inline-block'}}
         data-loading-wrapper
       >
