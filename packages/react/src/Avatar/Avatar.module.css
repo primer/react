@@ -1,0 +1,50 @@
+/* packages/react/src/Avatar/Avatar.module.css */
+
+.Avatar__button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.Avatar__link,
+.Avatar__button,
+.Avatar__div {
+  display: inline-flex;
+  overflow: hidden;
+  position: relative;
+}
+
+.Avatar__link--round,
+.Avatar__button--round,
+.Avatar__div--round, 
+.Avatar__link--round,
+.Avatar__link--round .Avatar__img ,
+.Avatar__button--round .Avatar__img,
+.Avatar__div--round .Avatar__img {
+  border-radius: var(--borderRadius-full);
+}
+
+.Avatar__link--square,
+.Avatar__button--square,
+.Avatar__div--square,
+.Avatar__link--square .Avatar__img ,
+.Avatar__button--square .Avatar__img,
+.Avatar__div--square .Avatar__img  {
+  border-radius: var(--borderRadius-small);
+}
+
+.Avatar__link:focus,
+.Avatar__button:focus,
+.Avatar__div:focus {
+  outline: var(--outline-focus-width) solid var(--focus-outlineColor);
+}
+
+.Avatar__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}

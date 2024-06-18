@@ -1,64 +1,76 @@
-import React from 'react'
-import styled from 'styled-components'
-import {get} from '../constants'
-import type {BetterCssProperties, BetterSystemStyleObject, SxProp} from '../sx'
-import sx, {merge} from '../sx'
-import type {ComponentProps} from '../utils/types'
-import type {ResponsiveValue} from '../hooks/useResponsiveValue'
-import {isResponsiveValue} from '../hooks/useResponsiveValue'
-import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
-import {defaultSxProp} from '../utils/defaultSxProp'
+// packages/react/src/Avatar/Avatar.tsx
+
+import React, {forwardRef} from 'react'
+import styles from './Avatar.module.css'
 
 export const DEFAULT_AVATAR_SIZE = 20
 
-type StyledAvatarProps = {
-  /** Sets the width and height of the avatar. */
-  size?: number | ResponsiveValue<number>
-  /** Sets the shape of the avatar to a square if true. If false, the avatar will be circular. */
-  square?: boolean
-  /** URL of the avatar image. */
+export type AvatarProps = {
   src: string
-  /** Provide alt text when the Avatar is used without the user's name next to it. */
   alt?: string
-} & SxProp
-
-const StyledAvatar = styled.img.attrs<StyledAvatarProps>(props => ({
-  height: props.size,
-  width: props.size,
-}))<StyledAvatarProps>`
-  display: inline-block;
-  overflow: hidden; // Ensure page layout in Firefox should images fail to load
-  line-height: ${get('lineHeights.condensedUltra')};
-  vertical-align: middle;
-  // If the avatar is square and size is greater than 24px (at any breakpoint), border-radius will be 6px. Otherwise, it will be 4px.
-  border-radius: ${props => (props.square ? 'clamp(4px, var(--avatar-size) - 24px, 6px)' : '50%')};
-  box-shadow: 0 0 0 1px ${get('colors.avatar.border')};
-  height: var(--avatar-size);
-  width: var(--avatar-size);
-  ${sx}
-`
-
-export type AvatarProps = ComponentProps<typeof StyledAvatar>
-
-const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
-  {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, sx: sxProp = defaultSxProp, ...rest},
-  ref,
-) {
-  const avatarSx = isResponsiveValue(size)
-    ? merge<BetterCssProperties | BetterSystemStyleObject>(
-        getBreakpointDeclarations(
-          size,
-          '--avatar-size' as keyof React.CSSProperties,
-          value => `${value || DEFAULT_AVATAR_SIZE}px`,
-        ),
-        sxProp as SxProp,
-      )
-    : merge({'--avatar-size': `${size}px`} as React.CSSProperties, sxProp as SxProp)
-  return <StyledAvatar ref={ref} alt={alt} size={size} square={square} sx={avatarSx} {...rest} />
-})
-
-if (__DEV__) {
-  Avatar.displayName = 'Avatar'
+  size?: number | {narrow?: number; regular?: number; wide?: number}
+  square?: boolean
+  href?: string
+  onClick?: React.MouseEventHandler<HTMLButtonElement>
+  asButton?: boolean
 }
+
+const Avatar = forwardRef<HTMLElement, AvatarProps>(
+  ({src, alt, href, onClick, size = DEFAULT_AVATAR_SIZE, square, asButton, ...restProps}, ref) => {
+    const getSize = (): number => {
+      if (typeof size === 'number') {
+        return size
+      }
+      if (typeof size === 'object') {
+        // Return the highest specified size or a default
+        return size.wide || size.regular || size.narrow || DEFAULT_AVATAR_SIZE
+      }
+      return DEFAULT_AVATAR_SIZE
+    }
+
+    const finalSize = getSize()
+    const wrapperClass = square ? 'Avatar__link--square' : 'Avatar__link--round'
+    const style = {width: finalSize, height: finalSize}
+
+    const imgElement = <img src={src} alt={alt} className={styles.Avatar__img} />
+
+    if (href) {
+      return (
+        <a
+          ref={ref as React.Ref<HTMLAnchorElement>}
+          href={href}
+          className={`${styles.Avatar__link} ${styles[wrapperClass]}`}
+          style={style}
+          {...restProps}
+        >
+          {imgElement}
+        </a>
+      )
+    } else if (onClick || asButton) {
+      return (
+        <button
+          ref={ref as React.Ref<HTMLButtonElement>}
+          onClick={onClick}
+          className={`${styles.Avatar__button} ${styles[wrapperClass]}`}
+          style={style}
+          {...restProps}
+        >
+          {imgElement}
+        </button>
+      )
+    } else {
+      return (
+        <div
+          ref={ref as React.Ref<HTMLDivElement>}
+          className={`${styles.Avatar__div} ${styles[wrapperClass]}`}
+          style={style}
+          {...restProps}
+        >
+          {imgElement}
+        </div>
+      )
+    }
+  },
+)
 
 export default Avatar

@@ -1,11 +1,15 @@
 import React from 'react'
 import type {Meta} from '@storybook/react'
 import Avatar from './Avatar'
+import {ActionMenu} from '../ActionMenu'
+import {ActionList} from '../ActionList'
 
-export default {
+const meta: Meta<typeof Avatar> = {
   title: 'Components/Avatar/Features',
   component: Avatar,
-} as Meta<typeof Avatar>
+}
+
+export default meta
 
 export const Square = () => <Avatar square src="https://avatars.githubusercontent.com/primer" />
 
@@ -39,4 +43,34 @@ export const SizeResponsive = () => (
     <Avatar size={{narrow: 40, regular: 48, wide: 56}} src="https://avatars.githubusercontent.com/u/92997159?v=4" />
     <Avatar size={{narrow: 48, regular: 56, wide: 64}} src="https://avatars.githubusercontent.com/u/92997159?v=4" />
   </div>
+)
+
+export const WithLink = () => (
+  <Avatar size={40} src="https://avatars.githubusercontent.com/u/92997159?v=4" href="https://github.com/primer" />
+)
+
+export const AsButton = () => (
+  <Avatar
+    size={40}
+    src="https://avatars.githubusercontent.com/u/92997159?v=4"
+    onClick={() => alert("Hihihi, that's tickling")}
+  />
+)
+
+export const MenuTrigger = () => (
+  <ActionMenu>
+    <ActionMenu.Anchor>
+      <Avatar size={40} src="https://avatars.githubusercontent.com/u/92997159?v=4" asButton />
+    </ActionMenu.Anchor>
+    <ActionMenu.Overlay>
+      <ActionList>
+        <ActionList.Item
+          onSelect={() => alert("I'm afraid the person who implemented this was lazy and we cannot actually chat.")}
+        >
+          Chat with Mona
+          <ActionList.TrailingVisual>⌘M</ActionList.TrailingVisual>
+        </ActionList.Item>
+      </ActionList>
+    </ActionMenu.Overlay>
+  </ActionMenu>
 )
