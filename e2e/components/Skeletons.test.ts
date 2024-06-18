@@ -224,7 +224,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-SkeletonBox--default',
+            id: 'drafts-components-skeleton-skeletonbox--default',
             globals: {
               colorScheme: theme,
             },
@@ -236,7 +236,7 @@ test.describe('Skeleton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-SkeletonBox--default',
+            id: 'drafts-components-skeleton-skeletonbox--default',
             globals: {
               colorScheme: theme,
             },
@@ -258,7 +258,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-SkeletonBox-features--custom-height',
+            id: 'drafts-components-skeleton-skeletonbox-features--custom-height',
             globals: {
               colorScheme: theme,
             },
@@ -270,7 +270,7 @@ test.describe('Skeleton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-SkeletonBox-features--custom-height',
+            id: 'drafts-components-skeleton-skeletonbox-features--custom-height',
             globals: {
               colorScheme: theme,
             },
@@ -292,7 +292,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-SkeletonBox-features--custom-width',
+            id: 'drafts-components-skeleton-skeletonbox-features--custom-width',
             globals: {
               colorScheme: theme,
             },
@@ -304,7 +304,7 @@ test.describe('Skeleton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-SkeletonBox-features--custom-width',
+            id: 'drafts-components-skeleton-skeletonbox-features--custom-width',
             globals: {
               colorScheme: theme,
             },
