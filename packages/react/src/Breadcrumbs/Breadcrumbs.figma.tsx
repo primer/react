@@ -1,5 +1,5 @@
 import React from 'react'
-import {Breadcrumbs, BreadcrumbsItem} from './Breadcrumbs'
+import Breadcrumbs from './Breadcrumbs'
 import figma from '@figma/code-connect'
 
 /**
@@ -35,9 +35,14 @@ figma.connect(
 /**
  * BreadcrumbsItem
  */
-figma.connect(BreadcrumbsItem, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=34258-144883', {
+figma.connect(Breadcrumbs.Item, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=34258-144883', {
   props: {
     selected: figma.boolean('selected'),
+    label: figma.textContent('label'),
   },
-  example: ({selected}) => <BreadcrumbsItem href="#" selected={selected}></BreadcrumbsItem>,
+  example: ({selected, label}) => (
+    <Breadcrumbs.Item href="#" selected={selected}>
+      {label}
+    </Breadcrumbs.Item>
+  ),
 })

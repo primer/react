@@ -1,6 +1,6 @@
 import React from 'react'
-import {TextInput} from './TextInput'
 import figma from '@figma/code-connect'
+import TextInput from './TextInput'
 import FormControl from '../FormControl'
 
 /**
@@ -16,51 +16,63 @@ figma.connect(
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15341-46504&t=39jWyeflbJqVh77d-4',
   {
     props: {
-      inputTextDisabled: figma.instance('inputTextDisabled'),
-      trailingActionDisabled: figma.instance('trailingActionDisabled'),
-      inputTextType: figma.instance('inputTextType'),
-      hasLabel: figma.boolean('label?'),
-      trailingAction: figma.instance('trailingAction'),
-      trailingAction: figma.boolean('➡️ trailingAction?'),
-      icon: figma.instance('icon'),
-      leadingVisual: figma.boolean('⬅️ leadingVisual?'),
-      caption: figma.boolean('caption?'),
+      textInput: figma.nestedProps('Text Input', {
+        label: figma.textContent('Label'),
+      }),
+      TextType: figma.instance('inputTextType'),
+      trailingAction: figma.boolean('trailingAction?', {
+        true: figma.instance('trailingAction'),
+        false: undefined,
+      }),
       size: figma.enum('size', {
         small: 'small',
         medium: 'medium',
         large: 'large',
       }),
-      state: figma.enum('state', {
-        rest: 'rest',
-        focus: 'focus',
-        disabled: 'disabled',
-        'read-only': 'read-only',
+      leadingVisual: figma.boolean('leadingVisual?', {
+        false: undefined,
+        true: figma.instance('icon'),
       }),
-      validation: figma.enum('validation', {
-        none: 'none',
-        invalid: <InlineMessage type="error" />,
-        success: 'success',
+      caption: figma.boolean('caption?', {
+        false: undefined,
+        true: figma.children('FormControl.Caption'),
       }),
+      label: figma.boolean('label?', {
+        false: undefined,
+        true: figma.children('Label'),
+      }),
+      labelProps: figma.nestedProps('FormControl.Label', {
+        required: figma.boolean('required'),
+      }),
+      disabled: figma.enum('state', {disabled: true}),
+      readonly: figma.enum('state', {'read-only': true}),
       inset: figma.boolean('inset?'),
-      label: figma.children(['Label']),
-      validationMessage: figma.children(['_InlineValidationMessage']),
+      validation: figma.children('Form.Validation'),
     },
-    example: ({label, size, validation}) => (
-      // TextInput and FormControl.Label must be direct children of FormControl
-      <>
+    example: ({
+      textInput,
+      label,
+      size,
+      validation,
+      caption,
+      leadingVisual,
+      trailingAction,
+      disabled,
+      readonly,
+      labelProps,
+    }) => (
+      <FormControl disabled={disabled} required={labelProps.required}>
         {label}
-        <TextInput size={size} />
+        <TextInput
+          size={size}
+          value={textInput.label}
+          trailingAction={trailingAction}
+          leadingVisual={leadingVisual}
+          readonly={readonly}
+        />
         {validation}
-      </>
+        {caption}
+      </FormControl>
     ),
-  },
-)
-
-figma.connect(
-  FormControl.Label,
-  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=15341-46399&t=8s7g8y2Te97Vxmv7-4',
-  {
-    props: {},
-    example: () => <FormControl.Label>Label Text</FormControl.Label>,
   },
 )
