@@ -1,0 +1,109 @@
+{
+  "id": "underline_panels",
+  "name": "UnderlinePanels",
+  "status": "draft",
+  "a11yReviewed": false,
+  "stories": [
+    {
+      "id": "drafts-components-underlinepanels--default"
+    },
+    {
+      "id": "'drafts-components-underlinepanels-features--labelled-by-external-element"
+    },
+    {
+      "id": "drafts-components-underlinepanels-features--selected-tab"
+    },
+    {
+      "id": "drafts-components-underlinepanels-features--with-counters"
+    },
+    {
+      "id": "drafts-components-underlinepanels-features--with-counters-in-loading-state"
+    },
+    {
+      "id": "drafts-components-underlinepanels-features--with-icons"
+    },
+    {
+      "id": "drafts-components-underlinepanels-features--with-icons-hidden-on-narrow-screen"
+    }
+  ],
+  "importPath": "@primer/react/experimental",
+  "props": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "defaultValue": "",
+      "description": "Accessible name for the tab list"
+    },
+    {
+      "name": "aria-labelledby",
+      "type": "string",
+      "defaultValue": "",
+      "description": "ID of the element containing the name for the tab list"
+    },
+    {
+      "name": "children",
+      "type": "Array<UnderlinePanels.Tab | UnderlinePanels.Panel>",
+      "defaultValue": "",
+      "required": true,
+      "description": "Tabs (UnderlinePanels.Tab) and panels (UnderlinePanels.Panel) to render"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "defaultValue": "",
+      "description": "Custom string to use when generating the IDs of tabs and `aria-labelledby` for the panels"
+    },
+    {
+      "name": "loadingCounters",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Loading state for all counters. It displays loading animation for individual counters until all are resolved. It is needed to prevent multiple layout shift."
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "UnderlinePanels.Tab",
+      "props": [
+        {
+          "name": "aria-selected",
+          "type": "| boolean | 'true' | 'false'",
+          "defaultValue": "false",
+          "description": "Whether this is the selected tab. For more information about `aria-current`, see [MDN](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected)."
+        },
+        {
+          "name": "counter",
+          "type": "number | string",
+          "defaultValue": "",
+          "description": "Content of CounterLabel rendered after tab text label"
+        },
+        {
+          "name": "icon",
+          "type": "Component",
+          "defaultValue": "",
+          "description": "Icon rendered before the tab text label"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "UnderlinePanels.Tab",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "passthrough": {
+        "element": "div",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/div#Attributes"
+      }
+    }
+  ]
+}
