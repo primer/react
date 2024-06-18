@@ -47,17 +47,17 @@ export const StyledUnderlineItem = styled.div`
   /* underline tab specific styles */
   position: relative;
   display: inline-flex;
-  color: var(--fgColor-default), ${get('colors.fg.default')});
+  color: ${get('colors.fg.default')};
   text-align: center;
   text-decoration: none;
   line-height: var(--text-body-lineHeight-medium, 1.4285);
-  border-radius: var(--borderRadius-medium, ${get('radii.3')});
+  border-radius: var(--borderRadius-medium, ${get('radii.2')});
   font-size: var(--text-body-size-medium, ${get('fontSizes.1')});
   padding-inline: var(--control-medium-paddingInline-condensed, ${get('space.2')});
   padding-block: var(--control-medium-paddingBlock, 6px);
   align-items: center;
 
-  @media (hover: hover) : {
+  @media (hover: hover) {
     &:hover {
       background-color: var(--bgColor-neutral-muted, ${get('colors.neutral.subtle')});
       transition: background 0.12s ease-out;
@@ -91,7 +91,7 @@ export const StyledUnderlineItem = styled.div`
   }
 
   [data-component='icon'] {
-    color: var(--fgColor-muted. ${get('colors.fg.muted')});
+    color: var(--fgColor-muted, ${get('colors.fg.muted')});
     align-items: center;
     display: inline-flex;
     margin-inline-end: var(--control-medium-gap, ${get('space.2')});
