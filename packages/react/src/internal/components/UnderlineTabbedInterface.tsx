@@ -7,19 +7,20 @@ import CounterLabel from '../../CounterLabel'
 import sx, {type SxProp} from '../../sx'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
 import {defaultSxProp} from '../../utils/defaultSxProp'
+import {get} from '../../constants'
 
 // The gap between the list items. It is a constant because the gap is used to calculate the possible number of items that can fit in the container.
 export const GAP = 8
 
 export const StyledUnderlineWrapper = styled.div`
   display: flex;
-  padding-inline: var(--stack-padding-normal);
+  padding-inline: var(--stack-padding-normal, ${get('space.3')});
   justify-content: flex-start;
   align-items: center;
   /* make space for the underline */
-  min-height: var(--control-xlarge-size);
+  min-height: var(--control-xlarge-size, 48px);
   /* using a box-shadow instead of a border to accomodate 'overflow-y: hidden' on UnderlinePanels */
-  box-shadow: inset 0px -1px var(--borderColor-muted);
+  box-shadow: inset 0px -1px var(--borderColor-muted, ${get('colors.border.muted')});
 
   ${sx};
 `
@@ -46,19 +47,19 @@ export const StyledUnderlineItem = styled.div`
   /* underline tab specific styles */
   position: relative;
   display: inline-flex;
-  color: var(--fgColor-default);
+  color: var(--fgColor-default), ${get('colors.fg.default')};
   text-align: center;
   text-decoration: none;
-  line-height: var(--text-body-lineHeight-medium);
-  border-radius: var(--borderRadius-medium);
-  font-size: var(--text-body-size-medium);
-  padding-inline: var(--control-medium-paddingInline-condensed);
-  padding-block: var(--control-medium-paddingBlock);
+  line-height: var(--text-body-lineHeight-medium, 1.4285);
+  border-radius: var(--borderRadius-medium, ${get('radii.3')});
+  font-size: var(--text-body-size-medium, ${get('fontSizes.1')});
+  padding-inline: var(--control-medium-paddingInline-condensed, ${get('space.2')});
+  padding-block: var(--control-medium-paddingBlock, 6px);
   align-items: center;
 
   @media (hover: hover) : {
     &:hover {
-      background-color: var(--bgColor-neutral-muted);
+      background-color: var(--bgColor-neutral-muted, ${get('colors.neutral.subtle')});
       transition: background 0.12s ease-out;
       text-decoration: none;
     }
@@ -66,7 +67,7 @@ export const StyledUnderlineItem = styled.div`
 
   &:focus: {
     outline: 2px solid transparent;
-    box-shadow: inset 0 0 0 2px var(--fgColor-accent);
+    box-shadow: inset 0 0 0 2px var(--fgColor-accent, ${get('colors.accent.fg')});
 
     /* where focus-visible is supported, remove the focus box-shadow */
     &:not(:focus-visible) {
@@ -76,7 +77,7 @@ export const StyledUnderlineItem = styled.div`
 
   &:focus-visible {
     outline: 2px solid transparent;
-    box-shadow: inset 0 0 0 2px var(--fgColor-accent);
+    box-shadow: inset 0 0 0 2px var(--fgColor-accent, ${get('colors.accent.fg')});
   }
 
   /* renders a visibly hidden "copy" of the label in bold, reserving box space for when label becomes bold on selected */
@@ -84,20 +85,20 @@ export const StyledUnderlineItem = styled.div`
     content: attr(data-content);
     display: block;
     height: 0;
-    font-weight: var(--base-text-weight-semibold);
+    font-weight: var(--base-text-weight-semibold, ${get('fontWeights.semibold')});
     visibility: hidden;
     white-space: nowrap;
   }
 
   [data-component='icon'] {
-    color: var(--fgColor-muted);
+    color: var(--fgColor-muted. ${get('colors.fg.muted')});
     align-items: center;
     display: inline-flex;
-    margin-inline-end: var(--control-medium-gap);
+    margin-inline-end: var(--control-medium-gap, ${get('space.2')});
   }
 
   [data-component='counter'] {
-    margin-inline-start: var(--control-medium-gap);
+    margin-inline-start: var(--control-medium-gap, ${get('space.2')});
     display: flex;
     align-items: center;
   }
@@ -108,7 +109,7 @@ export const StyledUnderlineItem = styled.div`
     right: 50%;
     /* TODO: see if we can simplify this positioning */
     /* 48px total height / 2 (24px) + 1px */
-    bottom: calc(50% - calc(var(--control-xlarge-size) / 2 + 1px));
+    bottom: calc(50% - calc(var(--control-xlarge-size, 48px) / 2 + 1px));
     width: 100%;
     height: 2px;
     content: '';
@@ -120,7 +121,7 @@ export const StyledUnderlineItem = styled.div`
   &[aria-current]:not([aria-current='false']),
   &[aria-selected='true'] {
     [data-component='text'] {
-      font-weight: var(--base-text-weight-semibold);
+      font-weight: var(--base-text-weight-semibold, ${get('fontWeights.semibold')});
     }
 
     &::after {
@@ -147,8 +148,8 @@ const loadingKeyframes = keyframes`
 
 export const LoadingCounter = styled.span`
   animation: ${loadingKeyframes} 1.2s ease-in-out infinite alternate;
-  background-color: var(--bgColor-neutral-muted);
-  border-color: var(--borderColor-default);
+  background-color: var(--bgColor-neutral-muted, ${get('colors.neutral.subtle')});
+  border-color: var(--borderColor-default, ${get('colors.border.default')});
   width: 1.5rem;
   height: 1rem; /*16px*/
   display: inline-block;
