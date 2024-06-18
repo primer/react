@@ -41,6 +41,9 @@ export type {
   Trigger,
 } from './InlineAutocomplete'
 
+export {InlineMessage} from '../InlineMessage'
+export type {InlineMessageProps} from '../InlineMessage'
+
 export {default as MarkdownViewer} from './MarkdownViewer'
 export type {MarkdownViewerProps, InteractiveMarkdownViewerProps} from './MarkdownViewer'
 

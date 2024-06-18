@@ -1,5 +1,5 @@
 import React from 'react'
-import type {ComponentStory, Meta} from '@storybook/react'
+import type {StoryFn, Meta} from '@storybook/react'
 import Text from './Text'
 
 export default {
@@ -9,7 +9,7 @@ export default {
 
 export const Default = () => <Text>Default Text</Text>
 
-export const Playground: ComponentStory<typeof Text> = args => <Text {...args}>{args.text}</Text>
+export const Playground: StoryFn<typeof Text> = args => <Text {...args}>{args.text}</Text>
 
 Playground.args = {
   text: 'Playground',

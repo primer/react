@@ -1,4 +1,4 @@
-'use strict'
+import {dirname, join} from 'path'
 
 const {DEPLOY_ENV = 'development'} = process.env
 
@@ -6,7 +6,7 @@ const {DEPLOY_ENV = 'development'} = process.env
  * @type {import('@storybook/core-common').StorybookConfig}
  */
 module.exports = {
-  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     {
       name: '@storybook/addon-essentials',
@@ -14,10 +14,10 @@ module.exports = {
         backgrounds: false,
       },
     },
-    '@storybook/addon-storysource',
-    '@storybook/addon-interactions',
-    '@storybook/addon-a11y',
-    '@storybook/addon-links',
+    getAbsolutePath('@storybook/addon-storysource'),
+    getAbsolutePath('@storybook/addon-interactions'),
+    getAbsolutePath('@storybook/addon-a11y'),
+    getAbsolutePath('@storybook/addon-links'),
     {
       name: 'storybook-addon-turbo-build',
       options: {
@@ -35,14 +35,15 @@ module.exports = {
         },
       },
     },
+    '@storybook/addon-webpack5-compiler-babel',
   ],
   features: {
     interactionsDebugger: true,
-    storyStoreV7: true,
+    // storyStoreV7: true,
     buildStoriesJson: true,
   },
   framework: {
-    name: '@storybook/react-webpack5',
+    name: getAbsolutePath('@storybook/react-webpack5'),
     options: {
       fastRefresh: true,
       strictMode: true,
@@ -51,9 +52,7 @@ module.exports = {
       },
     },
   },
-  docs: {
-    autodocs: false,
-  },
+  docs: {},
   typescript: {
     reactDocgen: 'react-docgen',
   },
@@ -69,4 +68,8 @@ module.exports = {
     }
     return `${body}\n<script src="https://analytics.githubassets.com/hydro-marketing.min.js"></script>`
   },
+}
+
+function getAbsolutePath(value) {
+  return dirname(require.resolve(join(value, 'package.json')))
 }
