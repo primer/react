@@ -396,7 +396,7 @@ const Breadcrumbs: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
           }),
           alignItems: 'center',
           fontWeight: 'initial',
-          lineHeight: 'var(--text-body-lineHeight-large, 1.5)',
+          lineHeight: 'var(--text-body-lineHeight-medium, 1.4285)',
           fontSize: 'var(--text-body-size-medium, 0.875rem)',
         },
         sx,
