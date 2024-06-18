@@ -672,7 +672,7 @@ describe('ActionMenu', () => {
       expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
     })
 
-    it.only('should call onClick and onKeyDown passed to IconButton inside ActionMenu.Anchor', async () => {
+    it('should call onClick and onKeyDown passed to IconButton inside ActionMenu.Anchor', async () => {
       const mockOnClick = jest.fn()
       const mockOnKeyDown = jest.fn()
 

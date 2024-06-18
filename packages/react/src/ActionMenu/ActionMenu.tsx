@@ -161,7 +161,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   )
 }
 
-export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string}
+export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string} & React.HTMLAttributes<HTMLElement>
 const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children: child, ...anchorProps}, anchorRef) => {
   const {onOpen, isSubmenu} = React.useContext(MenuContext)
 
@@ -174,13 +174,13 @@ const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children: 
 
   const onButtonClick = (event: React.MouseEvent<HTMLElement>) => {
     child.props.onClick?.(event)
-    anchorProps?.onClick(event)
+    anchorProps.onClick?.(event) // onClick is passed from AnchoredOverlay
   }
 
   const onButtonKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
     child.props.onKeyDown?.(event)
     openSubmenuOnRightArrow(event)
-    anchorProps?.onKeyDown(event)
+    anchorProps.onKeyDown?.(event) // onKeyDown is passed from AnchoredOverlay
   }
 
   // Add right chevron icon to submenu anchors rendered using `ActionList.Item`
