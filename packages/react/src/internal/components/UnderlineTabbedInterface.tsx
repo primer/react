@@ -47,7 +47,7 @@ export const StyledUnderlineItem = styled.div`
   /* underline tab specific styles */
   position: relative;
   display: inline-flex;
-  color: var(--fgColor-default), ${get('colors.fg.default')};
+  color: var(--fgColor-default), ${get('colors.fg.default')});
   text-align: center;
   text-decoration: none;
   line-height: var(--text-body-lineHeight-medium, 1.4285);
