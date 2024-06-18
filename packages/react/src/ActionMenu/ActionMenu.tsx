@@ -112,7 +112,10 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
       if (anchorChildren.type === MenuButton) {
         renderAnchor = anchorProps => {
           // We need to attach the anchor props to the tooltip trigger (ActionMenu.Button's grandchild) not the tooltip itself.
-          const triggerButton = React.cloneElement(anchorChildren, {...anchorProps})
+          const triggerButton = React.cloneElement(
+            anchorChildren,
+            mergeAnchorHandlers({...anchorProps}, anchorChildren.props),
+          )
           return React.cloneElement(child, {children: triggerButton, ref: anchorRef})
         }
       }
@@ -126,7 +129,10 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
             // ActionMenu.Anchor's children can be wrapped with Tooltip. If this is the case, our anchor is the tooltip's trigger
             const tooltipTrigger = anchorChildren.props.children
             // We need to attach the anchor props to the tooltip trigger not the tooltip itself.
-            const tooltipTriggerEl = React.cloneElement(tooltipTrigger, {...anchorProps})
+            const tooltipTriggerEl = React.cloneElement(
+              tooltipTrigger,
+              mergeAnchorHandlers({...anchorProps}, tooltipTrigger.props),
+            )
             const tooltip = React.cloneElement(anchorChildren, {children: tooltipTriggerEl})
             return React.cloneElement(child, {children: tooltip, ref: anchorRef})
           }
