@@ -1,5 +1,3 @@
-// packages/react/src/Avatar/Avatar.tsx
-
 import React, {forwardRef} from 'react'
 import styles from './Avatar.module.css'
 
@@ -29,7 +27,7 @@ const Avatar = forwardRef<HTMLElement, AvatarProps>(
     }
 
     const finalSize = getSize()
-    const wrapperClass = square ? 'Avatar__link--square' : 'Avatar__link--round'
+    const wrapperClass = square ? 'Avatar--square' : 'Avatar--round'
     const style = {width: finalSize, height: finalSize}
 
     const imgElement = <img src={src} alt={alt} className={styles.Avatar__img} />
@@ -39,7 +37,7 @@ const Avatar = forwardRef<HTMLElement, AvatarProps>(
         <a
           ref={ref as React.Ref<HTMLAnchorElement>}
           href={href}
-          className={`${styles.Avatar__link} ${styles[wrapperClass]}`}
+          className={`${styles.Avatar} ${styles[wrapperClass]}`}
           style={style}
           {...restProps}
         >
@@ -51,7 +49,7 @@ const Avatar = forwardRef<HTMLElement, AvatarProps>(
         <button
           ref={ref as React.Ref<HTMLButtonElement>}
           onClick={onClick}
-          className={`${styles.Avatar__button} ${styles[wrapperClass]}`}
+          className={`${styles.Avatar} ${styles[wrapperClass]}`}
           style={style}
           {...restProps}
         >
@@ -62,7 +60,7 @@ const Avatar = forwardRef<HTMLElement, AvatarProps>(
       return (
         <div
           ref={ref as React.Ref<HTMLDivElement>}
-          className={`${styles.Avatar__div} ${styles[wrapperClass]}`}
+          className={`${styles.Avatar} ${styles[wrapperClass]}`}
           style={style}
           {...restProps}
         >
