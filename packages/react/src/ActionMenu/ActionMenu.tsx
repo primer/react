@@ -162,16 +162,26 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
 }
 
 export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string}
-const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, ...anchorProps}, anchorRef) => {
+const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children: child, ...anchorProps}, anchorRef) => {
   const {onOpen, isSubmenu} = React.useContext(MenuContext)
 
   const openSubmenuOnRightArrow: React.KeyboardEventHandler<HTMLElement> = useCallback(
     event => {
-      children.props.onKeyDown?.(event)
       if (isSubmenu && event.key === 'ArrowRight' && !event.defaultPrevented) onOpen?.('anchor-key-press')
     },
-    [children, isSubmenu, onOpen],
+    [isSubmenu, onOpen],
   )
+
+  const onButtonClick = (event: React.MouseEvent<HTMLElement>) => {
+    child.props.onClick?.(event)
+    anchorProps?.onClick(event)
+  }
+
+  const onButtonKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+    child.props.onKeyDown?.(event)
+    openSubmenuOnRightArrow(event)
+    anchorProps?.onKeyDown(event)
+  }
 
   // Add right chevron icon to submenu anchors rendered using `ActionList.Item`
   const parentActionListContext = useContext(ActionListContainerContext)
@@ -190,10 +200,11 @@ const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, 
 
   return (
     <ActionListContainerContext.Provider value={thisActionListContext}>
-      {React.cloneElement(children, {
+      {React.cloneElement(child, {
         ...anchorProps,
         ref: anchorRef,
-        onKeyDown: openSubmenuOnRightArrow,
+        onClick: onButtonClick,
+        onKeyDown: onButtonKeyDown,
       })}
     </ActionListContainerContext.Provider>
   )
