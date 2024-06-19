@@ -1,4 +1,4 @@
-import {ChevronDownIcon} from '@primer/octicons-react'
+import {ChevronDownIcon, PlusIcon} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import React, {isValidElement} from 'react'
 import styled from 'styled-components'
@@ -275,6 +275,37 @@ const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defau
   )
 }
 
+export type NavListExpandProps = {
+  children: React.ReactNode
+  label: string
+} & SxProp
+
+const Expand: React.FC<NavListExpandProps> = ({label, children, ...props}) => {
+  const [expanded, setExpanded] = React.useState(false)
+
+  const expandList = () => setExpanded(true)
+
+  return !expanded ? (
+    <ActionList.Item
+      sx={{
+        color: 'accent.fg',
+        '&:hover': {
+          color: 'accent.fg',
+        },
+      }}
+      onClick={expandList}
+      {...props}
+    >
+      {label}
+      <ActionList.TrailingVisual>
+        <PlusIcon />
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+  ) : (
+    children
+  )
+}
+
 Group.displayName = 'NavList.Group'
 
 // ----------------------------------------------------------------------------
@@ -287,4 +318,5 @@ export const NavList = Object.assign(Root, {
   TrailingVisual,
   Divider,
   Group,
+  Expand,
 })

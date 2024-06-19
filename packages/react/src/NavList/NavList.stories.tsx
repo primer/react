@@ -246,4 +246,36 @@ export const WithGroup = () => (
   </PageLayout>
 )
 
+export const WithExpand = () => (
+  <PageLayout>
+    <PageLayout.Pane position="start">
+      <NavList>
+        <NavList.Group title="Group 1">
+          <NavList.Item aria-current="true" href="#">
+            Item 1A
+          </NavList.Item>
+          <NavList.Item href="#">Item 1B</NavList.Item>
+          <NavList.Item href="#">Item 1C</NavList.Item>
+          <NavList.Expand label="More">
+            <NavList.Item>Item 1D</NavList.Item>
+            <NavList.Item>Item 1E</NavList.Item>
+            <NavList.Item>Item 1F</NavList.Item>
+          </NavList.Expand>
+        </NavList.Group>
+        <NavList.Group title="Group 2">
+          <NavList.Item href="#">Item 2A</NavList.Item>
+          <NavList.Item href="#">Item 2B</NavList.Item>
+          <NavList.Item href="#">Item 2C</NavList.Item>
+          <NavList.Expand label="Show">
+            <NavList.Item>Item 2D</NavList.Item>
+            <NavList.Item>Item 2E</NavList.Item>
+            <NavList.Item>Item 2F</NavList.Item>
+          </NavList.Expand>
+        </NavList.Group>
+      </NavList>
+    </PageLayout.Pane>
+    <PageLayout.Content></PageLayout.Content>
+  </PageLayout>
+)
+
 export default meta
