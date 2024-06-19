@@ -24,8 +24,8 @@ export type SpinnerProps = {
 
 function Spinner({size: sizeKey = 'medium', srText = 'Loading', 'aria-label': ariaLabel, ...props}: SpinnerProps) {
   const size = sizeMap[sizeKey]
-  const hasSrAnnouncement = Boolean(srText || ariaLabel)
-  const ariaLabelId = useId()
+  const hasAriaLabel = typeof ariaLabel === 'string'
+  const labelId = useId()
 
   return (
     /* inline-flex removes the extra line height */
@@ -36,7 +36,7 @@ function Spinner({size: sizeKey = 'medium', srText = 'Loading', 'aria-label': ar
         viewBox="0 0 16 16"
         fill="none"
         aria-hidden
-        aria-labelledby={ariaLabelId}
+        aria-labelledby={hasAriaLabel ? undefined : labelId}
         {...props}
       >
         <circle
@@ -56,7 +56,7 @@ function Spinner({size: sizeKey = 'medium', srText = 'Loading', 'aria-label': ar
           vectorEffect="non-scaling-stroke"
         />
       </svg>
-      {hasSrAnnouncement ? <VisuallyHidden id={ariaLabelId}>{srText || ariaLabel}</VisuallyHidden> : null}
+      {!hasAriaLabel ? <VisuallyHidden id={labelId}>{srText}</VisuallyHidden> : null}
     </Box>
   )
 }
