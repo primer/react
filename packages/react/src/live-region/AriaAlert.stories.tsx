@@ -1,10 +1,10 @@
 import type {StoryObj} from '@storybook/react'
 import React, {useEffect, useState} from 'react'
-import {AriaStatus} from './AriaStatus'
+import {AriaAlert} from './AriaAlert'
 
 export default {
-  title: 'Drafts/Components/AriaStatus',
-  component: AriaStatus,
+  title: 'Drafts/Components/AriaAlert',
+  component: AriaAlert,
 }
 
 export const Default = () => {
@@ -19,7 +19,7 @@ export const Default = () => {
     }
   }, [])
 
-  return <AriaStatus>{message}</AriaStatus>
+  return <AriaAlert>{message}</AriaAlert>
 }
 
 export const Playground: StoryObj = {
@@ -27,14 +27,8 @@ export const Playground: StoryObj = {
     announceOnShow: {
       control: 'boolean',
     },
-    hidden: {
-      control: 'boolean',
-    },
-    delayMs: {
-      control: 'number',
-    },
   },
   render: args => {
-    return <AriaStatus {...args}>Example message</AriaStatus>
+    return <AriaAlert {...args}>Example message</AriaAlert>
   },
 }

@@ -1,10 +1,10 @@
-import type {StoryObj} from '@storybook/react'
 import React, {useEffect, useState} from 'react'
-import {AriaStatus} from './AriaStatus'
+import {Announce} from './Announce'
+import type {StoryObj} from '@storybook/react'
 
 export default {
-  title: 'Drafts/Components/AriaStatus',
-  component: AriaStatus,
+  title: 'Drafts/Components/Announce',
+  component: Announce,
 }
 
 export const Default = () => {
@@ -19,22 +19,11 @@ export const Default = () => {
     }
   }, [])
 
-  return <AriaStatus>{message}</AriaStatus>
+  return <Announce>{message}</Announce>
 }
 
 export const Playground: StoryObj = {
-  argTypes: {
-    announceOnShow: {
-      control: 'boolean',
-    },
-    hidden: {
-      control: 'boolean',
-    },
-    delayMs: {
-      control: 'number',
-    },
-  },
   render: args => {
-    return <AriaStatus {...args}>Example message</AriaStatus>
+    return <Announce {...args}>Example message</Announce>
   },
 }
