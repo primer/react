@@ -45,7 +45,8 @@ export function Announce({
   ...rest
 }: AnnounceProps) {
   const ref = useRef<ElementRef<'div'>>(null)
-  const [previousAnnouncement, setPreviousAnnouncement] = useState<string | null>(null)
+  const [previousAnnouncementText, setPreviousAnnouncementText] = useState<string | null>(null)
+  const savedAnnouncement = useRef<ReturnType<typeof announceFromElement> | null>(null)
   const announce = useEffectCallback(() => {
     const {current: element} = ref
     if (!element) {
@@ -66,11 +67,12 @@ export function Announce({
     }
 
     const textContent = getTextContent(element)
-    if (textContent === previousAnnouncement) {
+    if (textContent === previousAnnouncementText) {
       return
     }
 
-    announceFromElement(
+    savedAnnouncement.current?.cancel()
+    savedAnnouncement.current = announceFromElement(
       element,
       politeness === 'assertive'
         ? {
@@ -81,7 +83,7 @@ export function Announce({
             delayMs,
           },
     )
-    setPreviousAnnouncement(textContent)
+    setPreviousAnnouncementText(textContent)
   })
 
   // Announce the initial message, this is wrapped in `useEffectOnce` so that it
@@ -112,6 +114,15 @@ export function Announce({
       observer.disconnect()
     }
   }, [announce])
+
+  useEffect(() => {
+    return () => {
+      if (savedAnnouncement.current !== null) {
+        savedAnnouncement.current?.cancel()
+        savedAnnouncement.current = null
+      }
+    }
+  }, [])
 
   return (
     <Box {...rest} ref={ref}>

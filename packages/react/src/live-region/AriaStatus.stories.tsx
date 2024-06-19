@@ -36,3 +36,18 @@ export const VisuallyHiddenStory: StoryObj = {
     )
   },
 }
+
+export const WithDelay = () => {
+  const [message, setMessage] = useState('Default message')
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMessage(`Last updated at ${new Date().toLocaleTimeString()}`)
+    }, 5000)
+    return () => {
+      clearInterval(interval)
+    }
+  }, [])
+
+  return <AriaStatus delayMs={1000}>{message}</AriaStatus>
+}
