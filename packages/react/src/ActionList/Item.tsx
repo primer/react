@@ -138,11 +138,11 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     else if (itemRole === 'option') inferredSelectionAttribute = 'aria-selected'
 
     const itemSelectionAttribute = selectionAttribute || inferredSelectionAttribute
-    // Ensures ActionList.Item retains list item semantics if a valid ARIA role is applied, or if item is inactive
-    const listSemantics = listRole === 'listbox' || listRole === 'menu' || inactive || container === 'NavList'
-    const buttonSemantics = !listSemantics && !_PrivateItemWrapper && buttonSemanticsFeatureFlag
 
     const {theme} = useTheme()
+
+    // Ensures ActionList.Item retains list item semantics if a valid ARIA role is applied, or if item is inactive
+    const listSemantics = listRole === 'listbox' || listRole === 'menu' || inactive || container === 'NavList'
 
     const activeStyles = {
       fontWeight: 'bold',
@@ -158,7 +158,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         borderRadius: 2,
       },
     }
-
 
     const hoverStyles = {
       '@media (hover: hover) and (pointer: fine)': {
@@ -286,26 +285,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const inlineDescriptionId = `${itemId}--inline-description`
     const blockDescriptionId = `${itemId}--block-description`
     const inactiveWarningId = inactive && !showInactiveIndicator ? `${itemId}--warning-message` : undefined
-    // Ensures ActionList.Item retains list item semantics if a valid ARIA role is applied, or if item is inactive
-    const listSemantics = listRole === 'listbox' || listRole === 'menu' || inactive || container === 'NavList'
-
-    const ButtonItemWrapper = React.forwardRef(({as: Component = 'button', children, ...props}, forwardedRef) => {
-      return (
-        <Box
-          as={Component as React.ElementType}
-          sx={merge<BetterSystemStyleObject>(styles, sxProp)}
-          ref={forwardedRef}
-          {...props}
-        >
-          {children}
-        </Box>
-      )
-    }) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>
-
-    let DefaultItemWrapper = React.Fragment
-    if (buttonSemantics) {
-      DefaultItemWrapper = listSemantics ? React.Fragment : ButtonItemWrapper
-    }
 
     const ButtonItemWrapper = React.forwardRef(({as: Component = 'button', children, ...props}, forwardedRef) => {
       return (
