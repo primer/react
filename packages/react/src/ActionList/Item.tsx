@@ -321,7 +321,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     }) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>
 
     let DefaultItemWrapper = React.Fragment
-    if (buttonSemanticsFeatureFlag) {
+    if (buttonSemantics) {
       DefaultItemWrapper = listSemantics ? React.Fragment : ButtonItemWrapper
     }
 
