@@ -6,6 +6,7 @@ import theme from '../theme'
 import {ActionList} from '.'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, ThemeProvider, SSRProvider, ActionMenu} from '..'
+import {FeatureFlags} from '../FeatureFlags'
 
 function SimpleActionList(): JSX.Element {
   return (
@@ -377,5 +378,71 @@ describe('ActionList', () => {
     const list = container.querySelector(`li[data-test-id='ActionList.Group'] > ul`)
     const heading = getByText('Group Heading')
     expect(list).toHaveAttribute('aria-label', heading.textContent)
+  })
+
+  it('should render ActionList.Item as button when feature flag is enabled', async () => {
+    const featureFlag = {
+      primer_react_action_list_item_as_button: true,
+    }
+
+    const {container} = HTMLRender(
+      <FeatureFlags flags={featureFlag}>
+        <ActionList>
+          <ActionList.Item disabled={true}>Item 1</ActionList.Item>
+          <ActionList.Item>Item 2</ActionList.Item>
+        </ActionList>
+      </FeatureFlags>,
+    )
+
+    const button = container.querySelector('button')
+    expect(button).toHaveTextContent('Item 1')
+
+    // Ensure passed prop "disabled" is applied to the button
+    expect(button).toHaveAttribute('aria-disabled', 'true')
+
+    const listItems = container.querySelectorAll('li')
+    expect(listItems.length).toBe(2)
+  })
+
+  it('should render ActionList.Item as li when feature flag is disabled', async () => {
+    const {container} = HTMLRender(
+      <FeatureFlags flags={{primer_react_action_list_item_as_button: false}}>
+        <ActionList>
+          <ActionList.Item>Item 1</ActionList.Item>
+          <ActionList.Item>Item 2</ActionList.Item>
+        </ActionList>
+      </FeatureFlags>,
+    )
+
+    const listitem = container.querySelector('li')
+    const button = container.querySelector('button')
+
+    expect(listitem).toHaveTextContent('Item 1')
+    expect(listitem).toHaveAttribute('tabindex', '0')
+    expect(button).toBeNull()
+
+    const listItems = container.querySelectorAll('li')
+    expect(listItems.length).toBe(2)
+  })
+
+  it('should render ActionList.Item as li when feature flag is enabled and has proper aria role', async () => {
+    const {container} = HTMLRender(
+      <FeatureFlags flags={{primer_react_action_list_item_as_button: false}}>
+        <ActionList role="listbox">
+          <ActionList.Item role="option">Item 1</ActionList.Item>
+          <ActionList.Item role="option">Item 2</ActionList.Item>
+        </ActionList>
+      </FeatureFlags>,
+    )
+
+    const listitem = container.querySelector('li')
+    const button = container.querySelector('button')
+
+    expect(listitem).toHaveTextContent('Item 1')
+    expect(listitem).toHaveAttribute('tabindex', '0')
+    expect(button).toBeNull()
+
+    const listItems = container.querySelectorAll('li')
+    expect(listItems.length).toBe(2)
   })
 })
