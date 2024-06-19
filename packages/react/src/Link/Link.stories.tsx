@@ -1,5 +1,5 @@
 import Link from '../Link'
-import type {Meta, Story} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import React from 'react'
 import type {ComponentProps} from '../utils/types'
 
@@ -8,7 +8,7 @@ export default {
   component: Link,
 } as Meta<ComponentProps<typeof Link>>
 
-export const Playground: Story<ComponentProps<typeof Link>> = args => <Link {...args}>Link</Link>
+export const Playground: StoryFn<ComponentProps<typeof Link>> = args => <Link {...args}>Link</Link>
 
 Playground.args = {
   href: '#',

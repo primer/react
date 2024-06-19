@@ -4,6 +4,7 @@ import React, {isValidElement} from 'react'
 import styled from 'styled-components'
 import type {ActionListDividerProps, ActionListLeadingVisualProps, ActionListTrailingVisualProps} from '../ActionList'
 import {ActionList} from '../ActionList'
+import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
 import Box from '../Box'
 import Octicon from '../Octicon'
 import type {SxProp} from '../sx'
@@ -33,7 +34,13 @@ const NavBox = styled.nav<SxProp>(sx)
 const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
   return (
     <NavBox {...props} ref={ref}>
-      <ActionList>{children}</ActionList>
+      <ActionListContainerContext.Provider
+        value={{
+          container: 'NavList',
+        }}
+      >
+        <ActionList>{children}</ActionList>
+      </ActionListContainerContext.Provider>
     </NavBox>
   )
 })

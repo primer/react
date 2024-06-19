@@ -1,25 +1,21 @@
 import type {MutableRefObject, RefObject} from 'react'
 import React, {useRef, forwardRef, useCallback, useState, useEffect} from 'react'
 import Box from '../Box'
-import type {BetterSystemStyleObject, SxProp} from '../sx'
-import sx, {merge} from '../sx'
+import type {SxProp} from '../sx'
+import sx from '../sx'
 import {UnderlineNavContext} from './UnderlineNavContext'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
 import {useTheme} from '../ThemeProvider'
 import type {ChildWidthArray, ResponsiveProps, ChildSize} from './types'
 import VisuallyHidden from '../_VisuallyHidden'
+import {moreBtnStyles, getDividerStyle, menuStyles, menuItemStyles, baseMenuStyles, baseMenuMinWidth} from './styles'
 import {
-  moreBtnStyles,
-  getDividerStyle,
-  getNavStyles,
-  ulStyles,
-  menuStyles,
-  menuItemStyles,
+  StyledUnderlineItemList,
+  StyledUnderlineWrapper,
+  LoadingCounter,
   GAP,
-  baseMenuStyles,
-  baseMenuMinWidth,
-} from './styles'
+} from '../internal/components/UnderlineTabbedInterface'
 import styled from 'styled-components'
 import {Button} from '../Button'
 import {TriangleDownIcon} from '@primer/octicons-react'
@@ -29,7 +25,6 @@ import {useId} from '../hooks/useId'
 import {ActionList} from '../ActionList'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import CounterLabel from '../CounterLabel'
-import {LoadingCounter} from './LoadingCounter'
 import {invariant} from '../utils/invariant'
 
 export type UnderlineNavProps = {
@@ -316,13 +311,8 @@ export const UnderlineNav = forwardRef(
         }}
       >
         {ariaLabel && <VisuallyHidden as="h2">{`${ariaLabel} navigation`}</VisuallyHidden>}
-        <Box
-          as={as}
-          sx={merge<BetterSystemStyleObject>(getNavStyles(theme), sxProp)}
-          aria-label={ariaLabel}
-          ref={navRef}
-        >
-          <NavigationList sx={ulStyles} ref={listRef} role="list">
+        <StyledUnderlineWrapper as={as} aria-label={ariaLabel} ref={navRef} sx={sxProp}>
+          <StyledUnderlineItemList ref={listRef} role="list">
             {listItems}
             {menuItems.length > 0 && (
               <MoreMenuListItem ref={moreMenuRef}>
@@ -414,8 +404,8 @@ export const UnderlineNav = forwardRef(
                 </ActionList>
               </MoreMenuListItem>
             )}
-          </NavigationList>
-        </Box>
+          </StyledUnderlineItemList>
+        </StyledUnderlineWrapper>
       </UnderlineNavContext.Provider>
     )
   },

@@ -60,7 +60,9 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarBaseProps<AvatarImageSou
     : merge({'--avatar-size': `${size}px`} as React.CSSProperties, sxProp as SxProp)
 
   const imageSourceURL = getUrlFromAvatarImageSource(src)
-  return <StyledAvatar ref={ref} alt={alt} size={size} square={square} sx={avatarSx} src={imageSourceURL} {...rest} />
+  return (
+    <StyledAvatar data-component="Avatar" ref={ref} alt={alt} size={size} square={square} sx={avatarSx} src={imageSourceURL} {...rest} />
+  )
 })
 
 if (__DEV__) {

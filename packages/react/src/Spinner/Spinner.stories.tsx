@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta, ComponentStory} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import Spinner from './Spinner'
 
 export default {
@@ -9,7 +9,7 @@ export default {
 
 export const Default = () => <Spinner />
 
-export const Playground: ComponentStory<typeof Spinner> = args => <Spinner {...args} />
+export const Playground: StoryFn<typeof Spinner> = args => <Spinner {...args} />
 
 Playground.args = {
   size: 'medium',
