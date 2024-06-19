@@ -8,18 +8,20 @@ export default {
 export const VisuallyHiddenLabel = () => (
   <CheckboxGroup>
     <CheckboxGroup.Label visuallyHidden>Choices</CheckboxGroup.Label>
-    <FormControl>
-      <Checkbox value="one" defaultChecked />
-      <FormControl.Label>Choice one</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Checkbox value="two" defaultChecked />
-      <FormControl.Label>Choice two</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Checkbox value="three" />
-      <FormControl.Label>Choice three</FormControl.Label>
-    </FormControl>
+    <CheckboxGroup.Choices>
+      <FormControl>
+        <Checkbox value="one" defaultChecked />
+        <FormControl.Label>Choice one</FormControl.Label>
+      </FormControl>
+      <FormControl>
+        <Checkbox value="two" defaultChecked />
+        <FormControl.Label>Choice two</FormControl.Label>
+      </FormControl>
+      <FormControl>
+        <Checkbox value="three" />
+        <FormControl.Label>Choice three</FormControl.Label>
+      </FormControl>
+    </CheckboxGroup.Choices>
   </CheckboxGroup>
 )
 
@@ -37,18 +39,20 @@ export const WithExternalLabel = () => (
       External label
     </Box>
     <CheckboxGroup aria-labelledby="choiceHeading">
-      <FormControl>
-        <Checkbox />
-        <FormControl.Label>Choice one</FormControl.Label>
-      </FormControl>
-      <FormControl>
-        <Checkbox />
-        <FormControl.Label>Choice two</FormControl.Label>
-      </FormControl>
-      <FormControl>
-        <Checkbox />
-        <FormControl.Label>Choice three</FormControl.Label>
-      </FormControl>
+      <CheckboxGroup.Choices>
+        <FormControl>
+          <Checkbox />
+          <FormControl.Label>Choice one</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Checkbox />
+          <FormControl.Label>Choice two</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Checkbox />
+          <FormControl.Label>Choice three</FormControl.Label>
+        </FormControl>
+      </CheckboxGroup.Choices>
     </CheckboxGroup>
   </>
 )
@@ -56,18 +60,20 @@ export const WithExternalLabel = () => (
 export const Error = () => (
   <CheckboxGroup>
     <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
-    <FormControl>
-      <Checkbox value="one" defaultChecked />
-      <FormControl.Label>Choice one</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Checkbox value="two" defaultChecked />
-      <FormControl.Label>Choice two</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Checkbox value="three" />
-      <FormControl.Label>Choice three</FormControl.Label>
-    </FormControl>
+    <CheckboxGroup.Choices>
+      <FormControl>
+        <Checkbox value="one" defaultChecked />
+        <FormControl.Label>Choice one</FormControl.Label>
+      </FormControl>
+      <FormControl>
+        <Checkbox value="two" defaultChecked />
+        <FormControl.Label>Choice two</FormControl.Label>
+      </FormControl>
+      <FormControl>
+        <Checkbox value="three" />
+        <FormControl.Label>Choice three</FormControl.Label>
+      </FormControl>
+    </CheckboxGroup.Choices>
     <CheckboxGroup.Validation variant="error">Something went wrong</CheckboxGroup.Validation>
   </CheckboxGroup>
 )
@@ -75,18 +81,20 @@ export const Error = () => (
 export const Success = () => (
   <CheckboxGroup>
     <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
-    <FormControl>
-      <Checkbox value="one" defaultChecked />
-      <FormControl.Label>Choice one</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Checkbox value="two" defaultChecked />
-      <FormControl.Label>Choice two</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Checkbox value="three" />
-      <FormControl.Label>Choice three</FormControl.Label>
-    </FormControl>
+    <CheckboxGroup.Choices>
+      <FormControl>
+        <Checkbox value="one" defaultChecked />
+        <FormControl.Label>Choice one</FormControl.Label>
+      </FormControl>
+      <FormControl>
+        <Checkbox value="two" defaultChecked />
+        <FormControl.Label>Choice two</FormControl.Label>
+      </FormControl>
+      <FormControl>
+        <Checkbox value="three" />
+        <FormControl.Label>Choice three</FormControl.Label>
+      </FormControl>
+    </CheckboxGroup.Choices>
     <CheckboxGroup.Validation variant="success">Great job!</CheckboxGroup.Validation>
   </CheckboxGroup>
 )
@@ -95,17 +103,19 @@ export const Caption = () => (
   <CheckboxGroup>
     <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
     <CheckboxGroup.Caption>Caption</CheckboxGroup.Caption>
-    <FormControl>
-      <Checkbox value="one" defaultChecked />
-      <FormControl.Label>Choice one</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Checkbox value="two" defaultChecked />
-      <FormControl.Label>Choice two</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Checkbox value="three" />
-      <FormControl.Label>Choice three</FormControl.Label>
-    </FormControl>
+    <CheckboxGroup.Choices>
+      <FormControl>
+        <Checkbox value="one" defaultChecked />
+        <FormControl.Label>Choice one</FormControl.Label>
+      </FormControl>
+      <FormControl>
+        <Checkbox value="two" defaultChecked />
+        <FormControl.Label>Choice two</FormControl.Label>
+      </FormControl>
+      <FormControl>
+        <Checkbox value="three" />
+        <FormControl.Label>Choice three</FormControl.Label>
+      </FormControl>
+    </CheckboxGroup.Choices>
   </CheckboxGroup>
 )

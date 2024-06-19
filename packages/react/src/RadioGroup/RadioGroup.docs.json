@@ -87,6 +87,20 @@
       ]
     },
     {
+      "name": "RadioGroup.Choices",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "The choices content"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
       "name": "RadioGroup.Validation",
       "props": [
         {

@@ -10,6 +10,7 @@ import type {SxProp} from '../sx'
 import FormControl from '../FormControl'
 import Checkbox from '../Checkbox/Checkbox'
 import {CheckboxGroupContext} from './CheckboxGroupContext'
+import CheckboxOrRadioGroupChoices from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroupChoices'
 
 type CheckboxGroupProps = {
   /**
@@ -74,4 +75,5 @@ export default Object.assign(CheckboxGroup, {
   Caption: CheckboxOrRadioGroupCaption,
   Label: CheckboxOrRadioGroupLabel,
   Validation: CheckboxOrRadioGroupValidation,
+  Choices: CheckboxOrRadioGroupChoices,
 })

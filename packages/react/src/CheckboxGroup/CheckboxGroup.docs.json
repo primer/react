@@ -80,6 +80,20 @@
       ]
     },
     {
+      "name": "CheckboxGroup.Choices",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "The choices content"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
       "name": "CheckboxGroup.Validation",
       "props": [
         {

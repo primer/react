@@ -26,18 +26,20 @@ export const Playground = ({
     <CheckboxGroup {...parentArgs}>
       {labelArgs.children && <CheckboxGroup.Label {...labelArgs} />}
       {captionChildren && <CheckboxGroup.Caption>{captionChildren}</CheckboxGroup.Caption>}
-      <FormControl>
-        <Checkbox value="one" defaultChecked />
-        <FormControl.Label>Choice one</FormControl.Label>
-      </FormControl>
-      <FormControl>
-        <Checkbox value="two" defaultChecked />
-        <FormControl.Label>Choice two</FormControl.Label>
-      </FormControl>
-      <FormControl>
-        <Checkbox value="three" />
-        <FormControl.Label>Choice three</FormControl.Label>
-      </FormControl>
+      <CheckboxGroup.Choices>
+        <FormControl>
+          <Checkbox value="one" defaultChecked />
+          <FormControl.Label>Choice one</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Checkbox value="two" defaultChecked />
+          <FormControl.Label>Choice two</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Checkbox value="three" />
+          <FormControl.Label>Choice three</FormControl.Label>
+        </FormControl>
+      </CheckboxGroup.Choices>
       {validationArgs.children && <CheckboxGroup.Validation {...validationArgs} />}
     </CheckboxGroup>
   )
@@ -100,17 +102,19 @@ Playground.argTypes = {
 export const Default = () => (
   <CheckboxGroup>
     <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
-    <FormControl>
-      <Checkbox value="one" defaultChecked />
-      <FormControl.Label>Choice one</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Checkbox value="two" defaultChecked />
-      <FormControl.Label>Choice two</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Checkbox value="three" />
-      <FormControl.Label>Choice three</FormControl.Label>
-    </FormControl>
+    <CheckboxGroup.Choices>
+      <FormControl>
+        <Checkbox value="one" defaultChecked />
+        <FormControl.Label>Choice one</FormControl.Label>
+      </FormControl>
+      <FormControl>
+        <Checkbox value="two" defaultChecked />
+        <FormControl.Label>Choice two</FormControl.Label>
+      </FormControl>
+      <FormControl>
+        <Checkbox value="three" />
+        <FormControl.Label>Choice three</FormControl.Label>
+      </FormControl>
+    </CheckboxGroup.Choices>
   </CheckboxGroup>
 )

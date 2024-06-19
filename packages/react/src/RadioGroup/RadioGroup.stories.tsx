@@ -26,18 +26,20 @@ export const Playground = ({
     <RadioGroup {...parentArgs} name="defaultRadioGroup">
       {labelArgs.children && <RadioGroup.Label {...labelArgs} />}
       {captionChildren && <RadioGroup.Caption>{captionChildren}</RadioGroup.Caption>}
-      <FormControl>
-        <Radio value="one" />
-        <FormControl.Label>Choice one</FormControl.Label>
-      </FormControl>
-      <FormControl>
-        <Radio value="two" defaultChecked />
-        <FormControl.Label>Choice two</FormControl.Label>
-      </FormControl>
-      <FormControl>
-        <Radio value="three" />
-        <FormControl.Label>Choice three</FormControl.Label>
-      </FormControl>
+      <RadioGroup.Choices>
+        <FormControl>
+          <Radio value="one" />
+          <FormControl.Label>Choice one</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Radio value="two" defaultChecked />
+          <FormControl.Label>Choice two</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Radio value="three" />
+          <FormControl.Label>Choice three</FormControl.Label>
+        </FormControl>
+      </RadioGroup.Choices>
       {validationArgs.children && <RadioGroup.Validation {...validationArgs} />}
     </RadioGroup>
   )
@@ -100,17 +102,19 @@ Playground.argTypes = {
 export const Default = () => (
   <RadioGroup name="defaultRadioGroup">
     <RadioGroup.Label>Choices</RadioGroup.Label>
-    <FormControl>
-      <Radio value="one" />
-      <FormControl.Label>Choice one</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Radio value="two" defaultChecked />
-      <FormControl.Label>Choice two</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Radio value="three" />
-      <FormControl.Label>Choice three</FormControl.Label>
-    </FormControl>
+    <RadioGroup.Choices>
+      <FormControl>
+        <Radio value="one" />
+        <FormControl.Label>Choice one</FormControl.Label>
+      </FormControl>
+      <FormControl>
+        <Radio value="two" defaultChecked />
+        <FormControl.Label>Choice two</FormControl.Label>
+      </FormControl>
+      <FormControl>
+        <Radio value="three" />
+        <FormControl.Label>Choice three</FormControl.Label>
+      </FormControl>
+    </RadioGroup.Choices>
   </RadioGroup>
 )

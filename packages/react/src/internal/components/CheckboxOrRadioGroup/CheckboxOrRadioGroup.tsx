@@ -11,6 +11,7 @@ import CheckboxOrRadioGroupContext from './CheckboxOrRadioGroupContext'
 import VisuallyHidden from '../../../_VisuallyHidden'
 import {useSlots} from '../../../hooks/useSlots'
 import type {SxProp} from '../../../sx'
+import CheckboxOrRadioGroupChoices from './CheckboxOrRadioGroupChoices'
 
 export type CheckboxOrRadioGroupProps = {
   /**
@@ -32,7 +33,7 @@ export type CheckboxOrRadioGroupProps = {
   required?: boolean
 } & SxProp
 
-const Body = styled.div`
+export const Body = styled.div`
   display: flex;
   flex-direction: column;
   list-style: none;
@@ -56,6 +57,7 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
     caption: CheckboxOrRadioGroupCaption,
     label: CheckboxOrRadioGroupLabel,
     validation: CheckboxOrRadioGroupValidation,
+    choices: CheckboxOrRadioGroupChoices,
   })
   const labelChild = React.Children.toArray(children).find(
     child => React.isValidElement(child) && child.type === CheckboxOrRadioGroupLabel,
@@ -65,6 +67,9 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
   )
   const captionChild = React.Children.toArray(children).find(child =>
     React.isValidElement(child) && child.type === CheckboxOrRadioGroupCaption ? child : null,
+  )
+  const choicesChild = React.Children.toArray(children).find(child =>
+    React.isValidElement(child) && child.type === CheckboxOrRadioGroupChoices ? child : null,
   )
   const id = useId(idProp)
   const validationMessageId = validationChild ? `${id}-validationMessage` : undefined
@@ -131,6 +136,7 @@ const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGrou
             })}
           >
             {React.Children.toArray(rest).filter(child => React.isValidElement(child))}
+            {choicesChild}
           </Body>
         </Box>
         {validationChild && (

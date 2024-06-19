@@ -8,18 +8,20 @@ export default {
 export const VisuallyHiddenLabel = () => (
   <RadioGroup name="defaultRadioGroup">
     <RadioGroup.Label visuallyHidden>Choices</RadioGroup.Label>
-    <FormControl>
-      <Radio value="one" defaultChecked />
-      <FormControl.Label>Choice one</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Radio value="two" />
-      <FormControl.Label>Choice two</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Radio value="three" />
-      <FormControl.Label>Choice three</FormControl.Label>
-    </FormControl>
+    <RadioGroup.Choices>
+      <FormControl>
+        <Radio value="one" defaultChecked />
+        <FormControl.Label>Choice one</FormControl.Label>
+      </FormControl>
+      <FormControl>
+        <Radio value="two" />
+        <FormControl.Label>Choice two</FormControl.Label>
+      </FormControl>
+      <FormControl>
+        <Radio value="three" />
+        <FormControl.Label>Choice three</FormControl.Label>
+      </FormControl>
+    </RadioGroup.Choices>
   </RadioGroup>
 )
 
@@ -37,8 +39,30 @@ export const WithExternalLabel = () => (
       External label
     </Box>
     <RadioGroup aria-labelledby="choiceHeading" name="defaultRadioGroup">
+      <RadioGroup.Choices>
+        <FormControl>
+          <Radio value="one" />
+          <FormControl.Label>Choice one</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Radio value="two" />
+          <FormControl.Label>Choice two</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Radio value="three" />
+          <FormControl.Label>Choice three</FormControl.Label>
+        </FormControl>
+      </RadioGroup.Choices>
+    </RadioGroup>
+  </>
+)
+
+export const Error = () => (
+  <RadioGroup name="defaultRadioGroup">
+    <RadioGroup.Label>Choices</RadioGroup.Label>
+    <RadioGroup.Choices>
       <FormControl>
-        <Radio value="one" />
+        <Radio value="one" defaultChecked />
         <FormControl.Label>Choice one</FormControl.Label>
       </FormControl>
       <FormControl>
@@ -49,25 +73,7 @@ export const WithExternalLabel = () => (
         <Radio value="three" />
         <FormControl.Label>Choice three</FormControl.Label>
       </FormControl>
-    </RadioGroup>
-  </>
-)
-
-export const Error = () => (
-  <RadioGroup name="defaultRadioGroup">
-    <RadioGroup.Label>Choices</RadioGroup.Label>
-    <FormControl>
-      <Radio value="one" defaultChecked />
-      <FormControl.Label>Choice one</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Radio value="two" />
-      <FormControl.Label>Choice two</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Radio value="three" />
-      <FormControl.Label>Choice three</FormControl.Label>
-    </FormControl>
+    </RadioGroup.Choices>
     <RadioGroup.Validation variant="error">Something went wrong</RadioGroup.Validation>
   </RadioGroup>
 )
@@ -75,18 +81,20 @@ export const Error = () => (
 export const Success = () => (
   <RadioGroup name="defaultRadioGroup">
     <RadioGroup.Label>Choices</RadioGroup.Label>
-    <FormControl>
-      <Radio value="one" />
-      <FormControl.Label>Choice one</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Radio value="two" defaultChecked />
-      <FormControl.Label>Choice two</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Radio value="three" />
-      <FormControl.Label>Choice three</FormControl.Label>
-    </FormControl>
+    <RadioGroup.Choices>
+      <FormControl>
+        <Radio value="one" />
+        <FormControl.Label>Choice one</FormControl.Label>
+      </FormControl>
+      <FormControl>
+        <Radio value="two" defaultChecked />
+        <FormControl.Label>Choice two</FormControl.Label>
+      </FormControl>
+      <FormControl>
+        <Radio value="three" />
+        <FormControl.Label>Choice three</FormControl.Label>
+      </FormControl>
+    </RadioGroup.Choices>
     <RadioGroup.Validation variant="success">Great job!</RadioGroup.Validation>
   </RadioGroup>
 )
@@ -95,17 +103,19 @@ export const Caption = () => (
   <RadioGroup name="defaultRadioGroup">
     <RadioGroup.Label>Choices</RadioGroup.Label>
     <RadioGroup.Caption>Caption</RadioGroup.Caption>
-    <FormControl>
-      <Radio value="one" />
-      <FormControl.Label>Choice one</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Radio value="two" defaultChecked />
-      <FormControl.Label>Choice two</FormControl.Label>
-    </FormControl>
-    <FormControl>
-      <Radio value="three" />
-      <FormControl.Label>Choice three</FormControl.Label>
-    </FormControl>
+    <RadioGroup.Choices>
+      <FormControl>
+        <Radio value="one" />
+        <FormControl.Label>Choice one</FormControl.Label>
+      </FormControl>
+      <FormControl>
+        <Radio value="two" defaultChecked />
+        <FormControl.Label>Choice two</FormControl.Label>
+      </FormControl>
+      <FormControl>
+        <Radio value="three" />
+        <FormControl.Label>Choice three</FormControl.Label>
+      </FormControl>
+    </RadioGroup.Choices>
   </RadioGroup>
 )

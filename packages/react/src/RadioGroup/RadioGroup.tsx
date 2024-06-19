@@ -7,6 +7,7 @@ import CheckboxOrRadioGroupLabel from '../internal/components/CheckboxOrRadioGro
 import CheckboxOrRadioGroupValidation from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroupValidation'
 import {useRenderForcingRef} from '../hooks'
 import type {SxProp} from '../sx'
+import CheckboxOrRadioGroupChoices from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroupChoices'
 
 type RadioGroupProps = {
   /**
@@ -62,4 +63,5 @@ export default Object.assign(RadioGroup, {
   Caption: CheckboxOrRadioGroupCaption,
   Label: CheckboxOrRadioGroupLabel,
   Validation: CheckboxOrRadioGroupValidation,
+  Choices: CheckboxOrRadioGroupChoices,
 })
