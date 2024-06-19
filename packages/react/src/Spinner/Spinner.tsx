@@ -18,13 +18,13 @@ export type SpinnerProps = {
   /** Sets the text conveyed by assistive technologies such as screen readers. Set to `null` if the loading state is displayed in a text node somewhere else on the page. */
   srText?: string | null
   /** @deprecated Use `srText` instead. */
-  'aria-label'?: string | null
+  'aria-label'?: string
 } & HTMLDataAttributes &
   SxProp
 
 function Spinner({size: sizeKey = 'medium', srText = 'Loading', 'aria-label': ariaLabel, ...props}: SpinnerProps) {
   const size = sizeMap[sizeKey]
-  const hasAriaLabel = typeof ariaLabel === 'string'
+  const hasHiddenLabel = srText !== null && ariaLabel === undefined
   const labelId = useId()
 
   return (
@@ -36,7 +36,8 @@ function Spinner({size: sizeKey = 'medium', srText = 'Loading', 'aria-label': ar
         viewBox="0 0 16 16"
         fill="none"
         aria-hidden
-        aria-labelledby={hasAriaLabel ? undefined : labelId}
+        aria-label={ariaLabel ?? undefined}
+        aria-labelledby={hasHiddenLabel ? labelId : undefined}
         {...props}
       >
         <circle
@@ -56,7 +57,7 @@ function Spinner({size: sizeKey = 'medium', srText = 'Loading', 'aria-label': ar
           vectorEffect="non-scaling-stroke"
         />
       </svg>
-      {!hasAriaLabel ? <VisuallyHidden id={labelId}>{srText}</VisuallyHidden> : null}
+      {hasHiddenLabel ? <VisuallyHidden id={labelId}>{srText}</VisuallyHidden> : null}
     </Box>
   )
 }
