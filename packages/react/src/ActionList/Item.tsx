@@ -81,7 +81,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const {container, afterSelect, selectionAttribute, defaultTrailingVisual} =
       React.useContext(ActionListContainerContext)
 
-    const buttonSemantics = useFeatureFlag('primer_react_action_list_item_as_button')
+    const buttonSemanticsFeatureFlag = useFeatureFlag('primer_react_action_list_item_as_button')
 
     // Be sure to avoid rendering the container unless there is a default
     const wrappedDefaultTrailingVisual = defaultTrailingVisual ? (
@@ -138,11 +138,11 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     else if (itemRole === 'option') inferredSelectionAttribute = 'aria-selected'
 
     const itemSelectionAttribute = selectionAttribute || inferredSelectionAttribute
-
-    const {theme} = useTheme()
-
     // Ensures ActionList.Item retains list item semantics if a valid ARIA role is applied, or if item is inactive
     const listSemantics = listRole === 'listbox' || listRole === 'menu' || inactive || container === 'NavList'
+    const buttonSemantics = !listSemantics && !_PrivateItemWrapper && buttonSemanticsFeatureFlag
+
+    const {theme} = useTheme()
 
     const activeStyles = {
       fontWeight: 'bold',
@@ -300,7 +300,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     }) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>
 
     let DefaultItemWrapper = React.Fragment
-    if (buttonSemantics) {
+    if (buttonSemanticsFeatureFlag) {
       DefaultItemWrapper = listSemantics ? React.Fragment : ButtonItemWrapper
     }
 
@@ -328,7 +328,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     let containerProps
     let wrapperProps
 
-    if (buttonSemantics) {
+    if (buttonSemanticsFeatureFlag) {
       containerProps = _PrivateItemWrapper
         ? {role: itemRole ? 'none' : undefined, ...props}
         : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -352,9 +352,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         value={{variant, disabled, inactive: Boolean(inactiveText), inlineDescriptionId, blockDescriptionId}}
       >
         <LiBox
-          ref={buttonSemantics || listSemantics ? forwardedRef : null}
+          ref={buttonSemanticsFeatureFlag || listSemantics ? forwardedRef : null}
           sx={
-            buttonSemantics
+            buttonSemanticsFeatureFlag
               ? merge<BetterSystemStyleObject>(
                   listSemantics || _PrivateItemWrapper ? styles : listItemStyles,
                   listSemantics || _PrivateItemWrapper ? sxProp : {},
