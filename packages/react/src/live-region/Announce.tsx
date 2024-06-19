@@ -19,10 +19,16 @@ export type AnnounceProps = React.ComponentPropsWithoutRef<typeof Box> & {
   hidden?: boolean
 
   /**
-   * The politeness level to use for the announcement
-   * @default polite
+   * Provide a delay in milliseconds before the announcement is made. This will
+   * only work with `polite` announcements
    */
-  politeness?: 'polite' | 'assertive'
+  delayMs?: number
+
+  /**
+   * The politeness level to use for the announcement
+   * @default 'polite'
+   */
+  politeness?: 'assertive' | 'polite'
 }
 
 /**
@@ -33,6 +39,7 @@ export type AnnounceProps = React.ComponentPropsWithoutRef<typeof Box> & {
 export function Announce({
   announceOnShow = true,
   children,
+  delayMs,
   hidden = false,
   politeness = 'polite',
   ...rest
@@ -63,9 +70,17 @@ export function Announce({
       return
     }
 
-    announceFromElement(element, {
-      politeness,
-    })
+    announceFromElement(
+      element,
+      politeness === 'assertive'
+        ? {
+            politeness,
+          }
+        : {
+            politeness,
+            delayMs,
+          },
+    )
     setPreviousAnnouncement(textContent)
   })
 
