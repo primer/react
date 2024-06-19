@@ -766,14 +766,6 @@ export const WithTrailingAction = () => {
           Item 6
           <ActionList.TrailingAction href="#" as="a" label="Some action 5" />
         </ActionList.Item>
-        <ActionList.Item>
-          Item 7<ActionList.Description>with TrailingAction shown on hover</ActionList.Description>
-          <ActionList.TrailingAction showOnHover href="#" as="a" label="Some action 6" />
-        </ActionList.Item>
-        <ActionList.LinkItem href="#">
-          LinkItem 1<ActionList.Description>with TrailingAction shown on hover</ActionList.Description>
-          <ActionList.TrailingAction label="Some action 7" icon={BookIcon} showOnHover />
-        </ActionList.LinkItem>
         <ActionList.LinkItem href="#">
           LinkItem 1
           <ActionList.Description>
