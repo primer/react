@@ -1,4 +1,4 @@
-import React, {cloneElement, useRef} from 'react'
+import React, {cloneElement, useRef, type ComponentProps} from 'react'
 import Box from '../../Box'
 import Portal from '../../Portal'
 import type {BetterSystemStyleObject} from '../../sx'
@@ -114,7 +114,7 @@ const InlineAutocomplete = ({
   tabInsertsSuggestions = false,
   suggestionsPlacement = 'below',
   ...externalInputProps
-}: InlineAutocompleteProps & React.ComponentProps<'textarea' | 'input'>) => {
+}: InlineAutocompleteProps & ComponentProps<'textarea' | 'input'>) => {
   const inputProps = useFormControlForwardedProps(externalInputProps)
 
   const inputRef = useRef<HTMLInputElement & HTMLTextAreaElement>(null)

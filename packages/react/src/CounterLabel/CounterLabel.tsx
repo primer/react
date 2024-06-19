@@ -8,6 +8,7 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 
 export type CounterLabelProps = React.PropsWithChildren<
   HTMLAttributes<HTMLSpanElement> & {
+    /** Pass in 'primary' for a darker background and inverse text, or 'secondary' for a lighter background and primary text. Omitting the scheme prop renders the default counter scheme */
     scheme?: 'primary' | 'secondary'
   } & SxProp
 >

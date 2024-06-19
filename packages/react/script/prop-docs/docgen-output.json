@@ -165,7 +165,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -322,26 +322,19 @@
     "displayName": "Select",
     "methods": [],
     "props": {
-      "monospace": {
+      "disabled": {
         "defaultValue": null,
         "description": "",
-        "name": "monospace",
+        "name": "disabled",
+        "parent": {
+          "fileName": "react/node_modules/@types/react/index.d.ts",
+          "name": "SelectHTMLAttributes"
+        },
         "declarations": [
           {
-            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
-        }
-      },
-      "block": {
-        "defaultValue": null,
-        "description": "",
-        "name": "block",
-        "declarations": [
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "SelectHTMLAttributes"
+          },
           {
             "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
             "name": "TypeLiteral"
@@ -367,11 +360,41 @@
           "name": "TextInputSizes"
         }
       },
+      "block": {
+        "defaultValue": null,
+        "description": "",
+        "name": "block",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "monospace": {
+        "defaultValue": null,
+        "description": "",
+        "name": "monospace",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
       "sx": {
         "defaultValue": {
           "value": "{}"
         },
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -386,29 +409,6 @@
         "required": false,
         "type": {
           "name": "BetterSystemStyleObject"
-        }
-      },
-      "disabled": {
-        "defaultValue": null,
-        "description": "",
-        "name": "disabled",
-        "parent": {
-          "fileName": "react/node_modules/@types/react/index.d.ts",
-          "name": "SelectHTMLAttributes"
-        },
-        "declarations": [
-          {
-            "fileName": "react/node_modules/@types/react/index.d.ts",
-            "name": "SelectHTMLAttributes"
-          },
-          {
-            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
         }
       },
       "contrast": {
@@ -529,7 +529,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -671,7 +671,7 @@
     "props": {
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -711,6 +711,317 @@
   },
   {
     "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionBar/ActionBar.tsx",
+    "description": "",
+    "displayName": "ActionBar",
+    "methods": [],
+    "props": {
+      "size": {
+        "defaultValue": null,
+        "description": "Size of the action bar",
+        "name": "size",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/ActionBar/ActionBar.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "Size"
+        }
+      },
+      "children": {
+        "defaultValue": null,
+        "description": "Buttons in the action bar",
+        "name": "children",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/ActionBar/ActionBar.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/ActionBar/ActionBar.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "aria-label": {
+        "defaultValue": null,
+        "description": "When provided, a label is added to the action bar",
+        "name": "aria-label",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/ActionBar/ActionBar.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/ActionBar/ActionBar.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "aria-labelledby": {
+        "defaultValue": null,
+        "description": "",
+        "name": "aria-labelledby",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/ActionBar/ActionBar.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/ActionBar/ActionBar.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionBar/ActionBar.tsx",
+    "description": "",
+    "displayName": "ActionBarIconButton",
+    "methods": [],
+    "props": {
+      "aria-label": {
+        "defaultValue": null,
+        "description": "",
+        "name": "aria-label",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-labelledby": {
+        "defaultValue": null,
+        "description": "",
+        "name": "aria-labelledby",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "disabled": {
+        "defaultValue": null,
+        "description": "Items that are disabled can not be clicked, selected, or navigated through.",
+        "name": "disabled",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "ButtonHTMLAttributes"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "size": {
+        "defaultValue": null,
+        "description": "Size of button and fontSize of text in button",
+        "name": "size",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "Size"
+        }
+      },
+      "block": {
+        "defaultValue": null,
+        "description": "Allow button width to fill its container.",
+        "name": "block",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "icon": {
+        "defaultValue": null,
+        "description": "Provide an octicon. It will be placed in the center of the button",
+        "name": "icon",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "React.ElementType"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      },
+      "inactive": {
+        "defaultValue": null,
+        "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+        "name": "inactive",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "labelWrap": {
+        "defaultValue": null,
+        "description": "Whether the button label should wrap to multiple lines of it is longer than the button width.",
+        "name": "labelWrap",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "description": {
+        "defaultValue": null,
+        "description": "If `description` is provided, we will use a Tooltip to describe the button. Then `aria-label` is used to label the button.",
+        "name": "description",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "tooltipDirection": {
+        "defaultValue": null,
+        "description": "Sets where the tooltip renders in relation to the target.",
+        "name": "tooltipDirection",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "TooltipDirection"
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Description.tsx",
     "description": "",
     "displayName": "Description",
@@ -730,14 +1041,14 @@
         ],
         "required": false,
         "type": {
-          "name": "\"inline\" | \"block\""
+          "name": "\"block\" | \"inline\""
         }
       },
       "sx": {
         "defaultValue": {
           "value": "{}"
         },
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -767,7 +1078,7 @@
         "defaultValue": {
           "value": "{}"
         },
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -859,7 +1170,7 @@
         "defaultValue": {
           "value": "__DEV__\n  ? Object.freeze<BetterSystemStyleObject>({})\n  : {}"
         },
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -936,7 +1247,7 @@
         "defaultValue": {
           "value": "__DEV__\n  ? Object.freeze<BetterSystemStyleObject>({})\n  : {}"
         },
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -1039,7 +1350,7 @@
         ],
         "required": true,
         "type": {
-          "name": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 165 more ... | (\"h6\" & (ComponentClass<...> | FunctionComponent<...>))"
+          "name": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 166 more ... | (\"h6\" & (ComponentClass<...> | FunctionComponent<...>))"
         }
       }
     }
@@ -1071,7 +1382,7 @@
         ],
         "required": true,
         "type": {
-          "name": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 161 more ... | FunctionComponent<...>"
+          "name": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>"
         }
       }
     }
@@ -1103,7 +1414,7 @@
         ],
         "required": true,
         "type": {
-          "name": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 161 more ... | FunctionComponent<...>"
+          "name": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>"
         }
       }
     }
@@ -1167,7 +1478,7 @@
         "defaultValue": {
           "value": "{}"
         },
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -1197,7 +1508,7 @@
         "defaultValue": {
           "value": "{}"
         },
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -1227,7 +1538,7 @@
         "defaultValue": {
           "value": "{}"
         },
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -1814,6 +2125,36 @@
           "name": "\"small\" | \"initial\" | \"large\" | \"medium\" | \"auto\" | \"fit-content\" | \"xsmall\" | \"xlarge\""
         }
       },
+      "width": {
+        "defaultValue": null,
+        "description": "",
+        "name": "width",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"small\" | \"large\" | \"medium\" | \"auto\" | \"xlarge\" | \"xxlarge\""
+        }
+      },
+      "overflow": {
+        "defaultValue": null,
+        "description": "",
+        "name": "overflow",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"hidden\" | \"scroll\" | \"auto\" | \"visible\""
+        }
+      },
       "maxHeight": {
         "defaultValue": null,
         "description": "",
@@ -1844,39 +2185,9 @@
           "name": "\"small\" | \"large\" | \"medium\" | \"xlarge\" | \"xxlarge\""
         }
       },
-      "width": {
-        "defaultValue": null,
-        "description": "",
-        "name": "width",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "\"small\" | \"large\" | \"medium\" | \"auto\" | \"xlarge\" | \"xxlarge\""
-        }
-      },
-      "overflow": {
-        "defaultValue": null,
-        "description": "",
-        "name": "overflow",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "\"hidden\" | \"auto\" | \"visible\" | \"scroll\""
-        }
-      },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -2157,59 +2468,6 @@
     "displayName": "Avatar",
     "methods": [],
     "props": {
-      "size": {
-        "defaultValue": {
-          "value": 20
-        },
-        "description": "Sets the width and height of the avatar.",
-        "name": "size",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/Avatar/Avatar.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "number | ResponsiveValue<number>"
-        }
-      },
-      "square": {
-        "defaultValue": {
-          "value": false
-        },
-        "description": "Sets the shape of the avatar to a square if true. If false, the avatar will be circular.",
-        "name": "square",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/Avatar/Avatar.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
-        }
-      },
-      "sx": {
-        "defaultValue": null,
-        "description": "",
-        "name": "sx",
-        "parent": {
-          "fileName": "react/packages/react/src/sx.ts",
-          "name": "SxProp"
-        },
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/sx.ts",
-            "name": "SxProp"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "BetterSystemStyleObject"
-        }
-      },
       "alt": {
         "defaultValue": {
           "value": ""
@@ -2257,6 +2515,59 @@
         "type": {
           "name": "string"
         }
+      },
+      "size": {
+        "defaultValue": {
+          "value": 20
+        },
+        "description": "Sets the width and height of the avatar.",
+        "name": "size",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Avatar/Avatar.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "number | ResponsiveValue<number>"
+        }
+      },
+      "square": {
+        "defaultValue": {
+          "value": false
+        },
+        "description": "Sets the shape of the avatar to a square if true. If false, the avatar will be circular.",
+        "name": "square",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Avatar/Avatar.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
       }
     }
   },
@@ -2269,7 +2580,7 @@
     "props": {
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -2342,7 +2653,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -2363,6 +2674,698 @@
   },
   {
     "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Banner/Banner.tsx",
+    "description": "",
+    "displayName": "BannerTitle",
+    "methods": [],
+    "props": {
+      "as": {
+        "defaultValue": null,
+        "description": "",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Banner/Banner.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "HeadingElement"
+        }
+      },
+      "className": {
+        "defaultValue": null,
+        "description": "",
+        "name": "className",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Banner/Banner.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "HTMLAttributes"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Banner/Banner.tsx",
+    "description": "",
+    "displayName": "BannerDescription",
+    "methods": [],
+    "props": {
+      "className": {
+        "defaultValue": null,
+        "description": "Class name(s) used for custom styling",
+        "name": "className",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Banner/Banner.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Banner/Banner.tsx",
+    "description": "",
+    "displayName": "BannerActions",
+    "methods": [],
+    "props": {
+      "primaryAction": {
+        "defaultValue": null,
+        "description": "",
+        "name": "primaryAction",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Banner/Banner.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "secondaryAction": {
+        "defaultValue": null,
+        "description": "",
+        "name": "secondaryAction",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Banner/Banner.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Banner/Banner.tsx",
+    "description": "",
+    "displayName": "BannerPrimaryAction",
+    "methods": [],
+    "props": {
+      "disabled": {
+        "defaultValue": null,
+        "description": "Items that are disabled can not be clicked, selected, or navigated through.",
+        "name": "disabled",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "ButtonHTMLAttributes"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "size": {
+        "defaultValue": null,
+        "description": "Size of button and fontSize of text in button",
+        "name": "size",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "Size"
+        }
+      },
+      "as": {
+        "defaultValue": null,
+        "description": "",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"button\""
+        }
+      },
+      "block": {
+        "defaultValue": null,
+        "description": "Allow button width to fill its container.",
+        "name": "block",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "alignContent": {
+        "defaultValue": null,
+        "description": "Content alignment for when visuals are present",
+        "name": "alignContent",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "AlignContent"
+        }
+      },
+      "icon": {
+        "defaultValue": null,
+        "description": "The icon for the IconButton",
+        "name": "icon",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      },
+      "inactive": {
+        "defaultValue": null,
+        "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+        "name": "inactive",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "labelWrap": {
+        "defaultValue": null,
+        "description": "Whether the button label should wrap to multiple lines of it is longer than the button width.",
+        "name": "labelWrap",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "leadingVisual": {
+        "defaultValue": null,
+        "description": "The leading visual which comes before the button content",
+        "name": "leadingVisual",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "trailingVisual": {
+        "defaultValue": null,
+        "description": "The trailing visual which comes after the button content",
+        "name": "trailingVisual",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "trailingAction": {
+        "defaultValue": null,
+        "description": "Trailing action appears to the right of the trailing visual and is always locked to the end",
+        "name": "trailingAction",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "count": {
+        "defaultValue": null,
+        "description": "",
+        "name": "count",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Banner/Banner.tsx",
+    "description": "",
+    "displayName": "BannerSecondaryAction",
+    "methods": [],
+    "props": {
+      "disabled": {
+        "defaultValue": null,
+        "description": "Items that are disabled can not be clicked, selected, or navigated through.",
+        "name": "disabled",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "ButtonHTMLAttributes"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "size": {
+        "defaultValue": null,
+        "description": "Size of button and fontSize of text in button",
+        "name": "size",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "Size"
+        }
+      },
+      "as": {
+        "defaultValue": null,
+        "description": "",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"button\""
+        }
+      },
+      "block": {
+        "defaultValue": null,
+        "description": "Allow button width to fill its container.",
+        "name": "block",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "alignContent": {
+        "defaultValue": null,
+        "description": "Content alignment for when visuals are present",
+        "name": "alignContent",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "AlignContent"
+        }
+      },
+      "icon": {
+        "defaultValue": null,
+        "description": "The icon for the IconButton",
+        "name": "icon",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      },
+      "inactive": {
+        "defaultValue": null,
+        "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+        "name": "inactive",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "labelWrap": {
+        "defaultValue": null,
+        "description": "Whether the button label should wrap to multiple lines of it is longer than the button width.",
+        "name": "labelWrap",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "leadingVisual": {
+        "defaultValue": null,
+        "description": "The leading visual which comes before the button content",
+        "name": "leadingVisual",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "trailingVisual": {
+        "defaultValue": null,
+        "description": "The trailing visual which comes after the button content",
+        "name": "trailingVisual",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "trailingAction": {
+        "defaultValue": null,
+        "description": "Trailing action appears to the right of the trailing visual and is always locked to the end",
+        "name": "trailingAction",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "count": {
+        "defaultValue": null,
+        "description": "",
+        "name": "count",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Banner/Banner.tsx",
+    "description": "",
+    "displayName": "Banner",
+    "methods": [],
+    "props": {
+      "title": {
+        "defaultValue": null,
+        "description": "The title for the Banner. This will be used as the accessible name and is\nrequired unless `Banner.Title` is used as a child.",
+        "name": "title",
+        "parent": {
+          "fileName": "react/node_modules/@types/react/index.d.ts",
+          "name": "HTMLAttributes"
+        },
+        "declarations": [
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "HTMLAttributes"
+          },
+          {
+            "fileName": "react/packages/react/src/Banner/Banner.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string & ReactNode"
+        }
+      },
+      "aria-label": {
+        "defaultValue": null,
+        "description": "Defines a string value that labels the current element.\nProvide an optional label to override the default name for the Banner\nlandmark region\n@see aria-labelledby.",
+        "name": "aria-label",
+        "parent": {
+          "fileName": "react/node_modules/@types/react/index.d.ts",
+          "name": "AriaAttributes"
+        },
+        "declarations": [
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "AriaAttributes"
+          },
+          {
+            "fileName": "react/packages/react/src/Banner/Banner.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "description": {
+        "defaultValue": null,
+        "description": "Provide an optional description for the Banner. This should provide\nsupplemental information about the Banner",
+        "name": "description",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Banner/Banner.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "hideTitle": {
+        "defaultValue": null,
+        "description": "Specify whether the title of the Banner should be visible or not.",
+        "name": "hideTitle",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Banner/Banner.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "icon": {
+        "defaultValue": null,
+        "description": "Provide an icon for the banner.\nNote: Only `variant=\"info\"` banners should use custom icons",
+        "name": "icon",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Banner/Banner.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "onDismiss": {
+        "defaultValue": null,
+        "description": "Optionally provide a handler to be called when the banner is dismissed.\nProviding this prop will show a dismiss button.\n\nNote: This is not available for critical banners.",
+        "name": "onDismiss",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Banner/Banner.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "primaryAction": {
+        "defaultValue": null,
+        "description": "Provide an optional primary action for the Banner.",
+        "name": "primaryAction",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Banner/Banner.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "secondaryAction": {
+        "defaultValue": null,
+        "description": "Provide an optional secondary action for the Banner",
+        "name": "secondaryAction",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Banner/Banner.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "ReactNode"
+        }
+      },
+      "variant": {
+        "defaultValue": {
+          "value": "info"
+        },
+        "description": "Specify the type of the Banner",
+        "name": "variant",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Banner/Banner.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BannerVariant"
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
     "description": "",
     "displayName": "Blankslate",
@@ -2372,14 +3375,10 @@
         "defaultValue": null,
         "description": "Add a border around this component",
         "name": "border",
-        "parent": {
-          "fileName": "react/packages/react/src/Blankslate/Blankslate.tsx",
-          "name": "BlankslateProps"
-        },
         "declarations": [
           {
             "fileName": "react/packages/react/src/Blankslate/Blankslate.tsx",
-            "name": "BlankslateProps"
+            "name": "TypeLiteral"
           }
         ],
         "required": false,
@@ -2391,14 +3390,10 @@
         "defaultValue": null,
         "description": "Constrain the maximum width of this component",
         "name": "narrow",
-        "parent": {
-          "fileName": "react/packages/react/src/Blankslate/Blankslate.tsx",
-          "name": "BlankslateProps"
-        },
         "declarations": [
           {
             "fileName": "react/packages/react/src/Blankslate/Blankslate.tsx",
-            "name": "BlankslateProps"
+            "name": "TypeLiteral"
           }
         ],
         "required": false,
@@ -2410,14 +3405,10 @@
         "defaultValue": null,
         "description": "Increase the padding of this component",
         "name": "spacious",
-        "parent": {
-          "fileName": "react/packages/react/src/Blankslate/Blankslate.tsx",
-          "name": "BlankslateProps"
-        },
         "declarations": [
           {
             "fileName": "react/packages/react/src/Blankslate/Blankslate.tsx",
-            "name": "BlankslateProps"
+            "name": "TypeLiteral"
           }
         ],
         "required": false,
@@ -2438,14 +3429,10 @@
         "defaultValue": null,
         "description": "Add a border around this component",
         "name": "border",
-        "parent": {
-          "fileName": "react/packages/react/src/Blankslate/Blankslate.tsx",
-          "name": "BlankslateProps"
-        },
         "declarations": [
           {
             "fileName": "react/packages/react/src/Blankslate/Blankslate.tsx",
-            "name": "BlankslateProps"
+            "name": "TypeLiteral"
           }
         ],
         "required": false,
@@ -2457,14 +3444,10 @@
         "defaultValue": null,
         "description": "Constrain the maximum width of this component",
         "name": "narrow",
-        "parent": {
-          "fileName": "react/packages/react/src/Blankslate/Blankslate.tsx",
-          "name": "BlankslateProps"
-        },
         "declarations": [
           {
             "fileName": "react/packages/react/src/Blankslate/Blankslate.tsx",
-            "name": "BlankslateProps"
+            "name": "TypeLiteral"
           }
         ],
         "required": false,
@@ -2476,14 +3459,10 @@
         "defaultValue": null,
         "description": "Increase the padding of this component",
         "name": "spacious",
-        "parent": {
-          "fileName": "react/packages/react/src/Blankslate/Blankslate.tsx",
-          "name": "BlankslateProps"
-        },
         "declarations": [
           {
             "fileName": "react/packages/react/src/Blankslate/Blankslate.tsx",
-            "name": "BlankslateProps"
+            "name": "TypeLiteral"
           }
         ],
         "required": false,
@@ -2502,7 +3481,7 @@
     "props": {
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -2530,7 +3509,7 @@
     "props": {
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -2577,7 +3556,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -2603,28 +3582,46 @@
     "displayName": "Button",
     "methods": [],
     "props": {
-      "block": {
-        "defaultValue": null,
-        "description": "",
-        "name": "block",
-        "required": false,
-        "type": {
-          "name": "any"
-        }
-      },
       "size": {
         "defaultValue": null,
-        "description": "",
+        "description": "Size of button and fontSize of text in button",
         "name": "size",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
         "required": false,
         "type": {
-          "name": "any"
+          "name": "Size"
+        }
+      },
+      "block": {
+        "defaultValue": null,
+        "description": "Allow button width to fill its container.",
+        "name": "block",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
         }
       },
       "leadingVisual": {
         "defaultValue": null,
-        "description": "",
+        "description": "The leading visual which comes before the button content",
         "name": "leadingVisual",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
         "required": false,
         "type": {
           "name": "any"
@@ -2632,8 +3629,14 @@
       },
       "trailingVisual": {
         "defaultValue": null,
-        "description": "",
+        "description": "The trailing visual which comes after the button content",
         "name": "trailingVisual",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
         "required": false,
         "type": {
           "name": "any"
@@ -2641,8 +3644,14 @@
       },
       "trailingAction": {
         "defaultValue": null,
-        "description": "",
+        "description": "Trailing action appears to the right of the trailing visual and is always locked to the end",
         "name": "trailingAction",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
         "required": false,
         "type": {
           "name": "any"
@@ -2665,48 +3674,10 @@
     "displayName": "Checkbox",
     "methods": [],
     "props": {
-      "sx": {
-        "defaultValue": null,
-        "description": "",
-        "name": "sx",
-        "parent": {
-          "fileName": "react/packages/react/src/sx.ts",
-          "name": "SxProp"
-        },
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/sx.ts",
-            "name": "SxProp"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "BetterSystemStyleObject"
-        }
-      },
       "disabled": {
         "defaultValue": null,
         "description": "Apply inactive visual appearance to the checkbox",
         "name": "disabled",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/Checkbox/Checkbox.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/node_modules/@types/react/index.d.ts",
-            "name": "InputHTMLAttributes"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
-        }
-      },
-      "required": {
-        "defaultValue": null,
-        "description": "Indicates whether the checkbox must be checked",
-        "name": "required",
         "declarations": [
           {
             "fileName": "react/packages/react/src/Checkbox/Checkbox.tsx",
@@ -2741,6 +3712,44 @@
           "name": "string | (string & readonly string[])"
         }
       },
+      "required": {
+        "defaultValue": null,
+        "description": "Indicates whether the checkbox must be checked",
+        "name": "required",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Checkbox/Checkbox.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "InputHTMLAttributes"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      },
       "validationStatus": {
         "defaultValue": null,
         "description": "Only used to inform ARIA attributes. Individual checkboxes do not have validation styles.",
@@ -2772,6 +3781,17 @@
         }
       }
     }
+  },
+  {
+    "tags": {
+      "see": "{@link https://react.dev/learn/passing-data-deeply-with-context React Docs}\n{@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/context/ React TypeScript Cheatsheet}",
+      "example": "```tsx\nimport { createContext } from 'react';\n\nconst ThemeContext = createContext('light');\n```"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/CheckboxGroup/CheckboxGroup.tsx",
+    "description": "Context lets components pass information deep down without explicitly\npassing props.\n\nCreated from {@link createContext}",
+    "displayName": "Context",
+    "methods": [],
+    "props": {}
   },
   {
     "tags": {},
@@ -2873,7 +3893,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -2899,21 +3919,6 @@
     "displayName": "CircleBadge.Icon",
     "methods": [],
     "props": {
-      "inline": {
-        "defaultValue": null,
-        "description": "",
-        "name": "inline",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/CircleBadge/CircleBadge.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
-        }
-      },
       "size": {
         "defaultValue": null,
         "description": "",
@@ -2929,9 +3934,24 @@
           "name": "number"
         }
       },
-      "sx": {
+      "inline": {
         "defaultValue": null,
         "description": "",
+        "name": "inline",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/CircleBadge/CircleBadge.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -3025,7 +4045,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -3475,7 +4495,7 @@
     "props": {
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -3958,7 +4978,7 @@
     "props": {
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -4100,7 +5120,7 @@
       },
       "onClose": {
         "defaultValue": null,
-        "description": "This method is invoked when a gesture to close the dialog is used (either\nan Escape key press or clicking the \"X\" in the top-right corner). The\ngesture argument indicates the gesture that was used to close the dialog\n(either 'close-button' or 'escape').",
+        "description": "This method is invoked when a gesture to close the dialog is used (either\nan Escape key press, clicking the backdrop, or clicking the \"X\" in the top-right corner). The\ngesture argument indicates the gesture that was used to close the dialog\n('close-button' or 'escape').",
         "name": "onClose",
         "parent": {
           "fileName": "react/packages/react/src/Dialog/Dialog.tsx",
@@ -4193,9 +5213,28 @@
           "name": "\"center\" | \"left\" | \"right\" | ResponsiveValue<\"center\" | \"left\" | \"right\" | \"bottom\" | \"fullscreen\">"
         }
       },
+      "returnFocusRef": {
+        "defaultValue": null,
+        "description": "Return focus to this element when the Dialog closes,\ninstead of the element that had focus immediately before the Dialog opened",
+        "name": "returnFocusRef",
+        "parent": {
+          "fileName": "react/packages/react/src/Dialog/Dialog.tsx",
+          "name": "DialogProps"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Dialog/Dialog.tsx",
+            "name": "DialogProps"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.RefObject<HTMLElement>"
+        }
+      },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -4210,6 +5249,30 @@
         "required": false,
         "type": {
           "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/FeatureFlags/FeatureFlags.tsx",
+    "description": "",
+    "displayName": "FeatureFlags",
+    "methods": [],
+    "props": {
+      "flags": {
+        "defaultValue": null,
+        "description": "Object where keys are feature flag names and values are boolean",
+        "name": "flags",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/FeatureFlags/FeatureFlags.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "FeatureFlags"
         }
       }
     }
@@ -4510,7 +5573,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -4595,12 +5658,12 @@
         ],
         "required": false,
         "type": {
-          "name": "\"horizontal\" | \"vertical\""
+          "name": "\"vertical\" | \"horizontal\""
         }
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -4643,7 +5706,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -4724,7 +5787,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -4763,6 +5826,62 @@
         "declarations": [
           {
             "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "requiredText": {
+        "defaultValue": null,
+        "description": "",
+        "name": "requiredText",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "requiredIndicator": {
+        "defaultValue": {
+          "value": true
+        },
+        "description": "",
+        "name": "requiredIndicator",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
             "name": "TypeLiteral"
           }
         ],
@@ -4855,7 +5974,7 @@
     "props": {
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -4913,7 +6032,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -4941,7 +6060,7 @@
     "props": {
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -5010,6 +6129,47 @@
   },
   {
     "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/InlineMessage/InlineMessage.tsx",
+    "description": "",
+    "displayName": "InlineMessage",
+    "methods": [],
+    "props": {
+      "size": {
+        "defaultValue": {
+          "value": "medium"
+        },
+        "description": "Specify the size of the InlineMessage",
+        "name": "size",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/InlineMessage/InlineMessage.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"small\" | \"medium\""
+        }
+      },
+      "variant": {
+        "defaultValue": null,
+        "description": "Specify the type of the InlineMessage",
+        "name": "variant",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/InlineMessage/InlineMessage.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "MessageVariant"
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/LabelGroup/LabelGroup.tsx",
     "description": "",
     "displayName": "LabelGroup",
@@ -5049,7 +6209,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -5115,7 +6275,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -5156,6 +6316,51 @@
           "name": "\"small\" | \"initial\" | \"large\" | \"medium\" | \"auto\" | \"fit-content\" | \"xsmall\" | \"xlarge\""
         }
       },
+      "width": {
+        "defaultValue": null,
+        "description": "",
+        "name": "width",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"small\" | \"large\" | \"medium\" | \"auto\" | \"xlarge\" | \"xxlarge\""
+        }
+      },
+      "overflow": {
+        "defaultValue": null,
+        "description": "",
+        "name": "overflow",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"hidden\" | \"scroll\" | \"auto\" | \"visible\""
+        }
+      },
+      "visibility": {
+        "defaultValue": null,
+        "description": "",
+        "name": "visibility",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"hidden\" | \"visible\""
+        }
+      },
       "maxHeight": {
         "defaultValue": null,
         "description": "",
@@ -5186,54 +6391,9 @@
           "name": "\"small\" | \"large\" | \"medium\" | \"xlarge\" | \"xxlarge\""
         }
       },
-      "visibility": {
-        "defaultValue": null,
-        "description": "",
-        "name": "visibility",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "\"hidden\" | \"visible\""
-        }
-      },
-      "width": {
-        "defaultValue": null,
-        "description": "",
-        "name": "width",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "\"small\" | \"large\" | \"medium\" | \"auto\" | \"xlarge\" | \"xxlarge\""
-        }
-      },
-      "overflow": {
-        "defaultValue": null,
-        "description": "",
-        "name": "overflow",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "\"hidden\" | \"auto\" | \"visible\" | \"scroll\""
-        }
-      },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -5274,21 +6434,6 @@
     "displayName": "PageHeader",
     "methods": [],
     "props": {
-      "aria-label": {
-        "defaultValue": null,
-        "description": "",
-        "name": "aria-label",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "React.AriaAttributes"
-        }
-      },
       "as": {
         "defaultValue": {
           "value": "h2"
@@ -5297,34 +6442,29 @@
         "name": "as",
         "declarations": [
           {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          },
+          {
             "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
             "name": "TypeLiteral"
           }
         ],
         "required": false,
         "type": {
           "name": "any"
-        }
-      },
-      "sx": {
-        "defaultValue": {
-          "value": "{}"
-        },
-        "description": "",
-        "name": "sx",
-        "parent": {
-          "fileName": "react/packages/react/src/sx.ts",
-          "name": "SxProp"
-        },
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/sx.ts",
-            "name": "SxProp"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "BetterSystemStyleObject"
         }
       }
     }
@@ -5423,7 +6563,7 @@
         "defaultValue": {
           "value": "{}"
         },
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -5451,7 +6591,7 @@
     "props": {
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -5686,7 +6826,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -5720,21 +6860,6 @@
     "displayName": "Popover.Content",
     "methods": [],
     "props": {
-      "caret": {
-        "defaultValue": null,
-        "description": "",
-        "name": "caret",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/Popover/Popover.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "CaretPosition"
-        }
-      },
       "open": {
         "defaultValue": null,
         "description": "",
@@ -5748,6 +6873,21 @@
         "required": false,
         "type": {
           "name": "boolean"
+        }
+      },
+      "caret": {
+        "defaultValue": null,
+        "description": "",
+        "name": "caret",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Popover/Popover.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "CaretPosition"
         }
       },
       "relative": {
@@ -5767,7 +6907,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -5869,7 +7009,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -5914,48 +7054,10 @@
           "name": "string"
         }
       },
-      "sx": {
-        "defaultValue": null,
-        "description": "",
-        "name": "sx",
-        "parent": {
-          "fileName": "react/packages/react/src/sx.ts",
-          "name": "SxProp"
-        },
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/sx.ts",
-            "name": "SxProp"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "BetterSystemStyleObject"
-        }
-      },
       "disabled": {
         "defaultValue": null,
         "description": "Apply inactive visual appearance to the radio button",
         "name": "disabled",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/Radio/Radio.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/node_modules/@types/react/index.d.ts",
-            "name": "InputHTMLAttributes"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
-        }
-      },
-      "required": {
-        "defaultValue": null,
-        "description": "Indicates whether the radio button must be checked before the form can be submitted",
-        "name": "required",
         "declarations": [
           {
             "fileName": "react/packages/react/src/Radio/Radio.tsx",
@@ -5990,21 +7092,6 @@
           "name": "string | (string & readonly string[])"
         }
       },
-      "validationStatus": {
-        "defaultValue": null,
-        "description": "Only used to inform ARIA attributes. Individual radio inputs do not have validation styles.",
-        "name": "validationStatus",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/Radio/Radio.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "FormValidationStatus"
-        }
-      },
       "checked": {
         "defaultValue": null,
         "description": "Indicates whether the radio button is selected",
@@ -6022,6 +7109,59 @@
         "required": false,
         "type": {
           "name": "boolean"
+        }
+      },
+      "required": {
+        "defaultValue": null,
+        "description": "Indicates whether the radio button must be checked before the form can be submitted",
+        "name": "required",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Radio/Radio.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "InputHTMLAttributes"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      },
+      "validationStatus": {
+        "defaultValue": null,
+        "description": "Only used to inform ARIA attributes. Individual radio inputs do not have validation styles.",
+        "name": "validationStatus",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Radio/Radio.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "FormValidationStatus"
         }
       }
     }
@@ -6141,7 +7281,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -6167,33 +7307,14 @@
     "displayName": "RelativeTime",
     "methods": [],
     "props": {
-      "date": {
+      "format": {
         "defaultValue": null,
         "description": "",
-        "name": "date",
+        "name": "format",
         "declarations": [],
         "required": false,
         "type": {
-          "name": "Date"
-        }
-      },
-      "sx": {
-        "defaultValue": null,
-        "description": "",
-        "name": "sx",
-        "parent": {
-          "fileName": "react/packages/react/src/sx.ts",
-          "name": "SxProp"
-        },
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/sx.ts",
-            "name": "SxProp"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "BetterSystemStyleObject"
+          "name": "Format"
         }
       },
       "onRelativeTimeUpdated": {
@@ -6316,16 +7437,6 @@
           "name": "\"second\" | \"minute\" | \"hour\" | \"day\" | \"month\" | \"year\" | \"week\" | \"millisecond\""
         }
       },
-      "format": {
-        "defaultValue": null,
-        "description": "",
-        "name": "format",
-        "declarations": [],
-        "required": false,
-        "type": {
-          "name": "Format"
-        }
-      },
       "formatStyle": {
         "defaultValue": null,
         "description": "",
@@ -6336,6 +7447,16 @@
           "name": "FormatStyle"
         }
       },
+      "noTitle": {
+        "defaultValue": null,
+        "description": "",
+        "name": "noTitle",
+        "declarations": [],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
       "datetime": {
         "defaultValue": null,
         "description": "",
@@ -6344,6 +7465,16 @@
         "required": false,
         "type": {
           "name": "string"
+        }
+      },
+      "date": {
+        "defaultValue": null,
+        "description": "",
+        "name": "date",
+        "declarations": [],
+        "required": false,
+        "type": {
+          "name": "Date"
         }
       },
       "connectedCallback": {
@@ -6384,6 +7515,25 @@
         "required": false,
         "type": {
           "name": "() => void"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
         }
       }
     }
@@ -6504,7 +7654,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -6600,7 +7750,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -6692,7 +7842,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -6718,26 +7868,19 @@
     "displayName": "Select",
     "methods": [],
     "props": {
-      "monospace": {
+      "disabled": {
         "defaultValue": null,
         "description": "",
-        "name": "monospace",
+        "name": "disabled",
+        "parent": {
+          "fileName": "react/node_modules/@types/react/index.d.ts",
+          "name": "SelectHTMLAttributes"
+        },
         "declarations": [
           {
-            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
-        }
-      },
-      "block": {
-        "defaultValue": null,
-        "description": "",
-        "name": "block",
-        "declarations": [
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "SelectHTMLAttributes"
+          },
           {
             "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
             "name": "TypeLiteral"
@@ -6763,9 +7906,39 @@
           "name": "TextInputSizes"
         }
       },
-      "sx": {
+      "block": {
         "defaultValue": null,
         "description": "",
+        "name": "block",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "monospace": {
+        "defaultValue": null,
+        "description": "",
+        "name": "monospace",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -6780,29 +7953,6 @@
         "required": false,
         "type": {
           "name": "BetterSystemStyleObject"
-        }
-      },
-      "disabled": {
-        "defaultValue": null,
-        "description": "",
-        "name": "disabled",
-        "parent": {
-          "fileName": "react/node_modules/@types/react/index.d.ts",
-          "name": "SelectHTMLAttributes"
-        },
-        "declarations": [
-          {
-            "fileName": "react/node_modules/@types/react/index.d.ts",
-            "name": "SelectHTMLAttributes"
-          },
-          {
-            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
         }
       },
       "contrast": {
@@ -7064,9 +8214,28 @@
           "name": "AriaRole"
         }
       },
-      "sx": {
+      "loading": {
         "defaultValue": null,
         "description": "",
+        "name": "loading",
+        "parent": {
+          "fileName": "react/packages/react/src/FilteredActionList/FilteredActionList.tsx",
+          "name": "FilteredActionListProps"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/FilteredActionList/FilteredActionList.tsx",
+            "name": "FilteredActionListProps"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -7100,25 +8269,6 @@
         "required": false,
         "type": {
           "name": "\"inset\" | \"full\""
-        }
-      },
-      "loading": {
-        "defaultValue": null,
-        "description": "",
-        "name": "loading",
-        "parent": {
-          "fileName": "react/packages/react/src/FilteredActionList/FilteredActionList.tsx",
-          "name": "FilteredActionListProps"
-        },
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/FilteredActionList/FilteredActionList.tsx",
-            "name": "FilteredActionListProps"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
         }
       },
       "items": {
@@ -7458,18 +8608,29 @@
     "displayName": "Spinner",
     "methods": [],
     "props": {
+      "aria-label": {
+        "defaultValue": null,
+        "description": "@deprecated Use `srText` instead.",
+        "name": "aria-label",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Spinner/Spinner.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
       "size": {
         "defaultValue": null,
         "description": "Sets the width and height of the spinner.",
         "name": "size",
-        "parent": {
-          "fileName": "react/packages/react/src/Spinner/Spinner.tsx",
-          "name": "SpinnerInternalProps"
-        },
         "declarations": [
           {
             "fileName": "react/packages/react/src/Spinner/Spinner.tsx",
-            "name": "SpinnerInternalProps"
+            "name": "TypeLiteral"
           }
         ],
         "required": false,
@@ -7479,7 +8640,50 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      },
+      "srText": {
+        "defaultValue": null,
+        "description": "Sets the text conveyed by assistive technologies such as screen readers. Set to `null` if the loading state is displayed in a text node somewhere else on the page.",
+        "name": "srText",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Spinner/Spinner.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/SplitPageLayout/SplitPageLayout.tsx",
+    "description": "",
+    "displayName": "SplitPageLayout",
+    "methods": [],
+    "props": {
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -7500,28 +8704,165 @@
   },
   {
     "tags": {},
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/SplitPageLayout/SplitPageLayout.tsx",
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Stack/Stack.tsx",
     "description": "",
-    "displayName": "SplitPageLayout",
+    "displayName": "Stack",
     "methods": [],
     "props": {
-      "sx": {
+      "as": {
         "defaultValue": null,
-        "description": "",
-        "name": "sx",
-        "parent": {
-          "fileName": "react/packages/react/src/sx.ts",
-          "name": "SxProp"
-        },
+        "description": "Customize the element type of the rendered container",
+        "name": "as",
         "declarations": [
           {
-            "fileName": "react/packages/react/src/sx.ts",
-            "name": "SxProp"
+            "fileName": "react/packages/react/src/Stack/Stack.tsx",
+            "name": "TypeLiteral"
           }
         ],
         "required": false,
         "type": {
-          "name": "BetterSystemStyleObject"
+          "name": "ElementType"
+        }
+      },
+      "gap": {
+        "defaultValue": null,
+        "description": "Specify the gap between children elements in the stack",
+        "name": "gap",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Stack/Stack.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "Gap"
+        }
+      },
+      "direction": {
+        "defaultValue": {
+          "value": "vertical"
+        },
+        "description": "Specify the direction for the stack container",
+        "name": "direction",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Stack/Stack.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "Direction"
+        }
+      },
+      "align": {
+        "defaultValue": {
+          "value": "stretch"
+        },
+        "description": "Specify the alignment between items in the cross-axis of the direction",
+        "name": "align",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Stack/Stack.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "Align"
+        }
+      },
+      "wrap": {
+        "defaultValue": {
+          "value": "nowrap"
+        },
+        "description": "Specify whether items are forced onto one line or can wrap onto multiple lines",
+        "name": "wrap",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Stack/Stack.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "Wrap"
+        }
+      },
+      "justify": {
+        "defaultValue": {
+          "value": "start"
+        },
+        "description": "Specify how items will be distributed in the stacking direction",
+        "name": "justify",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Stack/Stack.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "Justify"
+        }
+      },
+      "padding": {
+        "defaultValue": {
+          "value": "none"
+        },
+        "description": "Specify the padding of the stack container",
+        "name": "padding",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Stack/Stack.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "Padding"
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Stack/Stack.tsx",
+    "description": "",
+    "displayName": "StackItem",
+    "methods": [],
+    "props": {
+      "as": {
+        "defaultValue": null,
+        "description": "Customize the element type of the rendered container",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Stack/Stack.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "ElementType"
+        }
+      },
+      "grow": {
+        "defaultValue": {
+          "value": false
+        },
+        "description": "Allow item to keep size or expand to fill the available space",
+        "name": "grow",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Stack/Stack.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean | ResponsiveValue<boolean>"
         }
       }
     }
@@ -7545,12 +8886,12 @@
         ],
         "required": true,
         "type": {
-          "name": "\"issueClosed\" | \"issueClosedNotPlanned\" | \"pullClosed\" | \"pullMerged\" | \"pullQueued\" | \"issueOpened\" | \"pullOpened\" | \"draft\" | \"issueDraft\" | \"unavailable\""
+          "name": "\"unavailable\" | \"issueClosed\" | \"issueClosedNotPlanned\" | \"pullClosed\" | \"pullMerged\" | \"pullQueued\" | \"issueOpened\" | \"pullOpened\" | \"draft\" | \"issueDraft\""
         }
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -7653,7 +8994,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -7681,7 +9022,7 @@
     "props": {
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -7908,7 +9249,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -7954,7 +9295,7 @@
         ],
         "required": true,
         "type": {
-          "name": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 161 more ... | FunctionComponent<...>"
+          "name": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>"
         }
       }
     }
@@ -8023,7 +9364,7 @@
         ],
         "required": false,
         "type": {
-          "name": "MaxHeight<number | (string & {})>"
+          "name": "MaxHeight<string | number>"
         }
       },
       "preventTokenWrapping": {
@@ -8086,13 +9427,28 @@
           "name": "number"
         }
       },
-      "monospace": {
+      "disabled": {
         "defaultValue": null,
         "description": "",
-        "name": "monospace",
+        "name": "disabled",
         "declarations": [
           {
             "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "loading": {
+        "defaultValue": null,
+        "description": "Whether the to show a loading indicator in the input",
+        "name": "loading",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInput/TextInput.tsx",
             "name": "TypeLiteral"
           }
         ],
@@ -8105,6 +9461,21 @@
         "defaultValue": null,
         "description": "",
         "name": "block",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "monospace": {
+        "defaultValue": null,
+        "description": "",
+        "name": "monospace",
         "declarations": [
           {
             "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
@@ -8133,7 +9504,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -8148,21 +9519,6 @@
         "required": false,
         "type": {
           "name": "BetterSystemStyleObject"
-        }
-      },
-      "disabled": {
-        "defaultValue": null,
-        "description": "",
-        "name": "disabled",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
         }
       },
       "variant": {
@@ -8210,36 +9566,6 @@
           "name": "FormValidationStatus"
         }
       },
-      "loading": {
-        "defaultValue": null,
-        "description": "Whether the to show a loading indicator in the input",
-        "name": "loading",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/TextInput/TextInput.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
-        }
-      },
-      "loaderPosition": {
-        "defaultValue": null,
-        "description": "Which position to render the loading indicator\n'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the beginning\n'leading': at the beginning of the input\n'trailing': at the end of the input",
-        "name": "loaderPosition",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/TextInput/TextInput.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "\"auto\" | \"leading\" | \"trailing\""
-        }
-      },
       "leadingVisual": {
         "defaultValue": null,
         "description": "A visual that renders inside the input before the typing area",
@@ -8283,6 +9609,21 @@
         "required": false,
         "type": {
           "name": "React.ReactElement<React.HTMLProps<HTMLButtonElement>>"
+        }
+      },
+      "loaderPosition": {
+        "defaultValue": null,
+        "description": "Which position to render the loading indicator\n'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the beginning\n'leading': at the beginning of the input\n'trailing': at the end of the input",
+        "name": "loaderPosition",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInput/TextInput.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"auto\" | \"leading\" | \"trailing\""
         }
       }
     }
@@ -8357,7 +9698,7 @@
         ],
         "required": false,
         "type": {
-          "name": "\"none\" | \"both\" | \"horizontal\" | \"vertical\""
+          "name": "\"vertical\" | \"none\" | \"both\" | \"horizontal\""
         }
       },
       "contrast": {
@@ -8377,7 +9718,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -8405,7 +9746,7 @@
     "props": {
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -8600,7 +9941,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -8702,7 +10043,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -8808,25 +10149,6 @@
           "name": "string"
         }
       },
-      "size": {
-        "defaultValue": null,
-        "description": "Which size the token will be rendered at",
-        "name": "size",
-        "parent": {
-          "fileName": "react/packages/react/src/Token/TokenBase.tsx",
-          "name": "TokenBaseProps"
-        },
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/Token/TokenBase.tsx",
-            "name": "TokenBaseProps"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "TokenSizeKeys"
-        }
-      },
       "disabled": {
         "defaultValue": null,
         "description": "Whether or not the token is disabled (non-interactive).",
@@ -8844,6 +10166,25 @@
         "required": false,
         "type": {
           "name": "boolean"
+        }
+      },
+      "size": {
+        "defaultValue": null,
+        "description": "Which size the token will be rendered at",
+        "name": "size",
+        "parent": {
+          "fileName": "react/packages/react/src/Token/TokenBase.tsx",
+          "name": "TokenBaseProps"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Token/TokenBase.tsx",
+            "name": "TokenBaseProps"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "TokenSizeKeys"
         }
       },
       "as": {
@@ -8949,7 +10290,7 @@
         ],
         "required": false,
         "type": {
-          "name": "\"s\" | \"n\" | \"ne\" | \"e\" | \"se\" | \"sw\" | \"w\" | \"nw\""
+          "name": "\"s\" | \"nw\" | \"n\" | \"ne\" | \"e\" | \"se\" | \"sw\" | \"w\""
         }
       },
       "text": {
@@ -9014,7 +10355,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -9039,76 +10380,7 @@
     "description": "",
     "displayName": "Tooltip",
     "methods": [],
-    "props": {
-      "direction": {
-        "defaultValue": {
-          "value": "s"
-        },
-        "description": "The direction of the tooltip in relation to the trigger",
-        "name": "direction",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/TooltipV2/Tooltip.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "TooltipDirection"
-        }
-      },
-      "text": {
-        "defaultValue": null,
-        "description": "Text in the tooltip",
-        "name": "text",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/TooltipV2/Tooltip.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": true,
-        "type": {
-          "name": "string"
-        }
-      },
-      "type": {
-        "defaultValue": {
-          "value": "description"
-        },
-        "description": "Whether the tooltip content is used to label the trigger (like IconButton), or describe the trigger (most other uses)",
-        "name": "type",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/TooltipV2/Tooltip.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "\"label\" | \"description\""
-        }
-      },
-      "sx": {
-        "defaultValue": null,
-        "description": "",
-        "name": "sx",
-        "parent": {
-          "fileName": "react/packages/react/src/sx.ts",
-          "name": "SxProp"
-        },
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/sx.ts",
-            "name": "SxProp"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "BetterSystemStyleObject"
-        }
-      }
-    }
+    "props": {}
   },
   {
     "tags": {},
@@ -9161,16 +10433,23 @@
         "type": {
           "name": "boolean"
         }
+      },
+      "className": {
+        "defaultValue": null,
+        "description": "",
+        "name": "className",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TreeView/TreeView.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
       }
     }
-  },
-  {
-    "tags": {},
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/UnderlineNav/LoadingCounter.tsx",
-    "description": "",
-    "displayName": "LoadingCounter",
-    "methods": [],
-    "props": {}
   },
   {
     "tags": {},
@@ -9181,7 +10460,7 @@
     "props": {
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -9659,6 +10938,7 @@
   },
   {
     "tags": {
+      "param": "mediaQueryString - CSS media query string used to scope styles. For example: '(pointer: coarse)'\ndefaultState - When server side rendering, defaultState should be defined to prevent a hydration mismatches.",
       "example": "function Example() {\n  const coarsePointer = useMedia('(pointer: coarse)');\n  // ...\n}"
     },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/hooks/useMedia.tsx",
@@ -9951,9 +11231,36 @@
           "name": "string"
         }
       },
-      "sx": {
+      "htmlFor": {
         "defaultValue": null,
         "description": "",
+        "name": "htmlFor",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -10005,16 +11312,12 @@
           "name": "boolean"
         }
       },
-      "htmlFor": {
+      "requiredText": {
         "defaultValue": null,
         "description": "",
-        "name": "htmlFor",
+        "name": "requiredText",
         "declarations": [
           {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
             "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
             "name": "TypeLiteral"
           },
@@ -10024,12 +11327,43 @@
           },
           {
             "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
             "name": "TypeLiteral"
           }
         ],
         "required": false,
         "type": {
           "name": "string"
+        }
+      },
+      "requiredIndicator": {
+        "defaultValue": null,
+        "description": "",
+        "name": "requiredIndicator",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
         }
       },
       "labelChildren": {
@@ -10206,9 +11540,36 @@
           "name": "string"
         }
       },
-      "sx": {
+      "htmlFor": {
         "defaultValue": null,
         "description": "",
+        "name": "htmlFor",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -10260,16 +11621,12 @@
           "name": "boolean"
         }
       },
-      "htmlFor": {
+      "requiredText": {
         "defaultValue": null,
         "description": "",
-        "name": "htmlFor",
+        "name": "requiredText",
         "declarations": [
           {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
             "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
             "name": "TypeLiteral"
           },
@@ -10279,12 +11636,43 @@
           },
           {
             "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
             "name": "TypeLiteral"
           }
         ],
         "required": false,
         "type": {
           "name": "string"
+        }
+      },
+      "requiredIndicator": {
+        "defaultValue": null,
+        "description": "",
+        "name": "requiredIndicator",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
         }
       },
       "labelChildren": {
@@ -10636,7 +12024,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -10723,7 +12111,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -10751,7 +12139,7 @@
     "props": {
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -11002,9 +12390,32 @@
     "displayName": "Button",
     "methods": [],
     "props": {
-      "sx": {
+      "as": {
         "defaultValue": null,
         "description": "",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/deprecated/Button/ButtonBase.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/deprecated/Button/ButtonBase.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/styled-components/index.d.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "undefined"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -11039,16 +12450,21 @@
         "type": {
           "name": "\"small\" | \"large\" | \"medium\""
         }
-      },
+      }
+    }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/deprecated/Button/ButtonBase.tsx",
+    "description": "",
+    "displayName": "ButtonBase",
+    "methods": [],
+    "props": {
       "as": {
         "defaultValue": null,
         "description": "",
         "name": "as",
         "declarations": [
-          {
-            "fileName": "react/packages/react/src/deprecated/Button/ButtonBase.tsx",
-            "name": "TypeLiteral"
-          },
           {
             "fileName": "react/packages/react/src/deprecated/Button/ButtonBase.tsx",
             "name": "TypeLiteral"
@@ -11062,16 +12478,7 @@
         "type": {
           "name": "undefined"
         }
-      }
-    }
-  },
-  {
-    "tags": {},
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/deprecated/Button/ButtonBase.tsx",
-    "description": "",
-    "displayName": "ButtonBase",
-    "methods": [],
-    "props": {
+      },
       "variant": {
         "defaultValue": {
           "value": "medium"
@@ -11087,25 +12494,6 @@
         "required": false,
         "type": {
           "name": "\"small\" | \"large\" | \"medium\""
-        }
-      },
-      "as": {
-        "defaultValue": null,
-        "description": "",
-        "name": "as",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/deprecated/Button/ButtonBase.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/node_modules/@types/styled-components/index.d.ts",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "undefined"
         }
       }
     }
@@ -11125,9 +12513,32 @@
     "displayName": "ButtonDanger",
     "methods": [],
     "props": {
-      "sx": {
+      "as": {
         "defaultValue": null,
         "description": "",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/deprecated/Button/ButtonBase.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/deprecated/Button/ButtonBase.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/styled-components/index.d.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "undefined"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -11161,29 +12572,6 @@
         "required": false,
         "type": {
           "name": "\"small\" | \"large\" | \"medium\""
-        }
-      },
-      "as": {
-        "defaultValue": null,
-        "description": "",
-        "name": "as",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/deprecated/Button/ButtonBase.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/deprecated/Button/ButtonBase.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/node_modules/@types/styled-components/index.d.ts",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "undefined"
         }
       }
     }
@@ -11195,9 +12583,32 @@
     "displayName": "ButtonInvisible",
     "methods": [],
     "props": {
-      "sx": {
+      "as": {
         "defaultValue": null,
         "description": "",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/deprecated/Button/ButtonBase.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/deprecated/Button/ButtonBase.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/styled-components/index.d.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "undefined"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -11231,29 +12642,6 @@
         "required": false,
         "type": {
           "name": "\"small\" | \"large\" | \"medium\""
-        }
-      },
-      "as": {
-        "defaultValue": null,
-        "description": "",
-        "name": "as",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/deprecated/Button/ButtonBase.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/deprecated/Button/ButtonBase.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/node_modules/@types/styled-components/index.d.ts",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "undefined"
         }
       }
     }
@@ -11265,9 +12653,32 @@
     "displayName": "ButtonOutline",
     "methods": [],
     "props": {
-      "sx": {
+      "as": {
         "defaultValue": null,
         "description": "",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/deprecated/Button/ButtonBase.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/deprecated/Button/ButtonBase.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/styled-components/index.d.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "undefined"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -11301,29 +12712,6 @@
         "required": false,
         "type": {
           "name": "\"small\" | \"large\" | \"medium\""
-        }
-      },
-      "as": {
-        "defaultValue": null,
-        "description": "",
-        "name": "as",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/deprecated/Button/ButtonBase.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/deprecated/Button/ButtonBase.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/node_modules/@types/styled-components/index.d.ts",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "undefined"
         }
       }
     }
@@ -11335,9 +12723,32 @@
     "displayName": "ButtonPrimary",
     "methods": [],
     "props": {
-      "sx": {
+      "as": {
         "defaultValue": null,
         "description": "",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/deprecated/Button/ButtonBase.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/deprecated/Button/ButtonBase.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/styled-components/index.d.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "undefined"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -11371,29 +12782,6 @@
         "required": false,
         "type": {
           "name": "\"small\" | \"large\" | \"medium\""
-        }
-      },
-      "as": {
-        "defaultValue": null,
-        "description": "",
-        "name": "as",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/deprecated/Button/ButtonBase.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/deprecated/Button/ButtonBase.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/node_modules/@types/styled-components/index.d.ts",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "undefined"
         }
       }
     }
@@ -11407,7 +12795,7 @@
     "props": {
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -11445,7 +12833,7 @@
     "props": {
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -11535,7 +12923,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -11565,53 +12953,6 @@
     "props": {}
   },
   {
-    "tags": {},
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/ActionBar/ActionBar.tsx",
-    "description": "",
-    "displayName": "ActionBar",
-    "methods": [],
-    "props": {
-      "size": {
-        "defaultValue": null,
-        "description": "",
-        "name": "size",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/drafts/ActionBar/ActionBar.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "Size"
-        }
-      },
-      "aria-label": {
-        "defaultValue": null,
-        "description": "",
-        "name": "aria-label",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/drafts/ActionBar/ActionBar.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "React.AriaAttributes"
-        }
-      }
-    }
-  },
-  {
-    "tags": {},
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/ActionBar/ActionBar.tsx",
-    "description": "",
-    "displayName": "ActionBarIconButton",
-    "methods": [],
-    "props": {}
-  },
-  {
     "tags": {
       "deprecated": "Will be removed in v37 (https://github.com/primer/react/issues/3604)"
     },
@@ -11619,7 +12960,159 @@
     "description": "Shows suggestions to complete the current word/phrase the user is actively typing.",
     "displayName": "InlineAutocomplete",
     "methods": [],
-    "props": {}
+    "props": {
+      "triggers": {
+        "defaultValue": null,
+        "description": "Register the triggers that can cause suggestions to appear.",
+        "name": "triggers",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/InlineAutocomplete/InlineAutocomplete.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "Trigger[]"
+        }
+      },
+      "onShowSuggestions": {
+        "defaultValue": null,
+        "description": "Called when a valid suggestion query is updated. This should be handled by setting the\n`suggestions` prop accordingly.",
+        "name": "onShowSuggestions",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/InlineAutocomplete/InlineAutocomplete.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "(event: ShowSuggestionsEvent) => void"
+        }
+      },
+      "onSelectSuggestion": {
+        "defaultValue": null,
+        "description": "Called when a suggestion is selected.\n@note This should be used only for performing side effects, not for modifying\nthe inserted text. Do not call `setState` in this handler or the user's cursor\nposition / undo history could be lost.",
+        "name": "onSelectSuggestion",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/InlineAutocomplete/InlineAutocomplete.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "(event: SelectSuggestionsEvent) => void"
+        }
+      },
+      "onHideSuggestions": {
+        "defaultValue": null,
+        "description": "Called when suggestions should be hidden. Set `suggestions` to `null` in this case.",
+        "name": "onHideSuggestions",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/InlineAutocomplete/InlineAutocomplete.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "suggestions": {
+        "defaultValue": null,
+        "description": "The currently visible list of suggestions. If `loading`, a loading indicator will be\nshown. If `null` or empty, the list will be hidden. Suggestion sort will be preserved.\n\nTypically, this should not contain more than five or so suggestions.",
+        "name": "suggestions",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/InlineAutocomplete/InlineAutocomplete.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "Suggestions"
+        }
+      },
+      "tabInsertsSuggestions": {
+        "defaultValue": {
+          "value": false
+        },
+        "description": "If `true`, suggestions will be applied with both `Tab` and `Enter`, instead of just\n`Enter`. This may be expected behavior for users used to IDEs, but use caution when\nhijacking browser tabbing capability.",
+        "name": "tabInsertsSuggestions",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/InlineAutocomplete/InlineAutocomplete.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "The `AutocompleteTextarea` has a container for positioning the suggestions overlay.\nThis can break some layouts (ie, if the editor must expand with `flex: 1` to fill space)\nso you can override container styles here. Usually this should not be necessary.\n`position` may not be overriden.",
+        "name": "sx",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/InlineAutocomplete/InlineAutocomplete.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "Omit<BetterSystemStyleObject, \"position\">"
+        }
+      },
+      "children": {
+        "defaultValue": null,
+        "description": "An `input` or `textarea` compatible component to extend. A compatible component is any\ncomponent that forwards a ref and props to an underlying `input` or `textarea` element,\nincluding but not limited to `Input`, `TextArea`, `input`, `textarea`, `styled.input`,\nand `styled.textarea`. If the child is not compatible, a runtime `TypeError` will be\nthrown.",
+        "name": "children",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/InlineAutocomplete/InlineAutocomplete.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "DOMAttributes"
+          },
+          {
+            "fileName": "react/packages/react/src/drafts/InlineAutocomplete/InlineAutocomplete.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "DOMAttributes"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "ReactElement<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> | DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>, string | JSXElementConstructor<...>> & RefAttributes<...> & ReactNode"
+        }
+      },
+      "suggestionsPlacement": {
+        "defaultValue": {
+          "value": "below"
+        },
+        "description": "Control which side of the insertion point the suggestions list appears on by default. This\nshould almost always be `\"below\"` because it typically provides a better user experience\n(the most-relevant suggestions will appear closest to the text). However, if the input\nis always near the bottom of the screen (ie, a chat composition form), it may be better to\ndisplay the suggestions above the input.\n\nIn either case, if there is not enough room to display the suggestions in the default direction,\nthe suggestions will appear in the other direction.",
+        "name": "suggestionsPlacement",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/InlineAutocomplete/InlineAutocomplete.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "SuggestionsPlacement"
+        }
+      }
+    }
   },
   {
     "tags": {},
@@ -11771,7 +13264,23 @@
     "description": "",
     "displayName": "MarkdownEditor.Actions",
     "methods": [],
-    "props": {}
+    "props": {
+      "children": {
+        "defaultValue": null,
+        "description": "Markdown editor actions",
+        "name": "children",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/MarkdownEditor/Actions.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.ReactNode"
+        }
+      }
+    }
   },
   {
     "tags": {},
@@ -11779,7 +13288,23 @@
     "description": "",
     "displayName": "MarkdownEditor.Footer",
     "methods": [],
-    "props": {}
+    "props": {
+      "children": {
+        "defaultValue": null,
+        "description": "Children to render in the footer",
+        "name": "children",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/MarkdownEditor/Footer.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "React.ReactNode"
+        }
+      }
+    }
   },
   {
     "tags": {},
@@ -11790,7 +13315,7 @@
     "props": {
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -11835,7 +13360,7 @@
     "props": {
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -12624,12 +14149,12 @@
         ],
         "required": false,
         "type": {
-          "name": "\"none\" | \"both\" | \"horizontal\" | \"vertical\""
+          "name": "\"vertical\" | \"none\" | \"both\" | \"horizontal\""
         }
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -12684,7 +14209,219 @@
     "description": "",
     "displayName": "MarkdownEditor.ToolbarButton",
     "methods": [],
-    "props": {}
+    "props": {
+      "aria-label": {
+        "defaultValue": null,
+        "description": "",
+        "name": "aria-label",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-labelledby": {
+        "defaultValue": null,
+        "description": "",
+        "name": "aria-labelledby",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "icon": {
+        "defaultValue": null,
+        "description": "Provide an octicon. It will be placed in the center of the button",
+        "name": "icon",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "React.ElementType"
+        }
+      },
+      "unsafeDisableTooltip": {
+        "defaultValue": null,
+        "description": "Do not use. This is planned to be a temporary prop until the default tooltip on icon buttons are fully rolled out.",
+        "name": "unsafeDisableTooltip",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "description": {
+        "defaultValue": null,
+        "description": "If `description` is provided, we will use a Tooltip to describe the button. Then `aria-label` is used to label the button.",
+        "name": "description",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "tooltipDirection": {
+        "defaultValue": null,
+        "description": "Sets where the tooltip renders in relation to the target.",
+        "name": "tooltipDirection",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "TooltipDirection"
+        }
+      },
+      "disabled": {
+        "defaultValue": null,
+        "description": "Items that are disabled can not be clicked, selected, or navigated through.",
+        "name": "disabled",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "ButtonHTMLAttributes"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "size": {
+        "defaultValue": null,
+        "description": "Size of button and fontSize of text in button",
+        "name": "size",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "Size"
+        }
+      },
+      "block": {
+        "defaultValue": null,
+        "description": "Allow button width to fill its container.",
+        "name": "block",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      },
+      "variant": {
+        "defaultValue": null,
+        "description": "Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
+        "name": "variant",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "VariantType"
+        }
+      },
+      "inactive": {
+        "defaultValue": null,
+        "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+        "name": "inactive",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "labelWrap": {
+        "defaultValue": null,
+        "description": "Whether the button label should wrap to multiple lines of it is longer than the button width.",
+        "name": "labelWrap",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      }
+    }
   },
   {
     "tags": {},
@@ -13351,6 +15088,193 @@
   },
   {
     "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/Skeleton/SkeletonAvatar.tsx",
+    "description": "",
+    "displayName": "SkeletonAvatar",
+    "methods": [],
+    "props": {
+      "size": {
+        "defaultValue": {
+          "value": 20
+        },
+        "description": "Sets the width and height of the avatar.",
+        "name": "size",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Avatar/Avatar.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "number | ResponsiveValue<number>"
+        }
+      },
+      "square": {
+        "defaultValue": null,
+        "description": "Sets the shape of the avatar to a square if true. If false, the avatar will be circular.",
+        "name": "square",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Avatar/Avatar.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "className": {
+        "defaultValue": null,
+        "description": "Class name for custom styling",
+        "name": "className",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/Skeleton/SkeletonAvatar.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/Skeleton/SkeletonBox.tsx",
+    "description": "",
+    "displayName": "SkeletonBox",
+    "methods": [],
+    "props": {
+      "height": {
+        "defaultValue": null,
+        "description": "Height of the skeleton \"box\". Accepts any valid CSS `height` value.",
+        "name": "height",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/Skeleton/SkeletonBox.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.CSSProperties"
+        }
+      },
+      "width": {
+        "defaultValue": null,
+        "description": "Width of the skeleton \"box\". Accepts any valid CSS `width` value.",
+        "name": "width",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/Skeleton/SkeletonBox.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.CSSProperties"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/Skeleton/SkeletonText.tsx",
+    "description": "",
+    "displayName": "SkeletonText",
+    "methods": [],
+    "props": {
+      "size": {
+        "defaultValue": {
+          "value": "bodyMedium"
+        },
+        "description": "Size of the text that the skeleton is replacing.",
+        "name": "size",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/Skeleton/SkeletonText.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"display\" | \"subtitle\" | \"titleLarge\" | \"titleMedium\" | \"titleSmall\" | \"bodyLarge\" | \"bodyMedium\" | \"bodySmall\""
+        }
+      },
+      "lines": {
+        "defaultValue": {
+          "value": 1
+        },
+        "description": "Number of lines of skeleton text to render.",
+        "name": "lines",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/Skeleton/SkeletonText.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "maxWidth": {
+        "defaultValue": null,
+        "description": "Maximum width that the line(s) of skeleton text can take up.  Accepts any valid CSS `max-width` value.",
+        "name": "maxWidth",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/Skeleton/SkeletonText.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.CSSProperties"
+        }
+      },
+      "className": {
+        "defaultValue": null,
+        "description": "Class name for custom styling",
+        "name": "className",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/Skeleton/SkeletonText.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/TabPanels/TabPanels.tsx",
     "description": "",
     "displayName": "TabPanels.Tab",
@@ -13407,6 +15331,109 @@
         "required": false,
         "type": {
           "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/UnderlinePanels/UnderlinePanels.tsx",
+    "description": "",
+    "displayName": "UnderlinePanels.Tab",
+    "methods": [],
+    "props": {
+      "children": {
+        "defaultValue": null,
+        "description": "Tabs (UnderlinePanels.Tab) and panels (UnderlinePanels.Panel) to render",
+        "name": "children",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/UnderlinePanels/UnderlinePanels.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "React.ReactNode"
+        }
+      },
+      "aria-label": {
+        "defaultValue": null,
+        "description": "Accessible name for the tab list",
+        "name": "aria-label",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/UnderlinePanels/UnderlinePanels.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.AriaAttributes"
+        }
+      },
+      "aria-labelledby": {
+        "defaultValue": null,
+        "description": "ID of the element containing the name for the tab list",
+        "name": "aria-labelledby",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/UnderlinePanels/UnderlinePanels.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.AriaAttributes"
+        }
+      },
+      "id": {
+        "defaultValue": null,
+        "description": "Custom string to use when generating the IDs of tabs and `aria-labelledby` for the panels",
+        "name": "id",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/UnderlinePanels/UnderlinePanels.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "loadingCounters": {
+        "defaultValue": null,
+        "description": "Loading state for all counters. It displays loading animation for individual counters until all are resolved. It is needed to prevent multiple layout shift.",
+        "name": "loadingCounters",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/UnderlinePanels/UnderlinePanels.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
         }
       }
     }
@@ -13472,7 +15499,7 @@
     "props": {
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -13515,7 +15542,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -13573,7 +15600,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -13601,7 +15628,7 @@
     "props": {
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -13637,6 +15664,36 @@
         "defaultValue": null,
         "description": "",
         "name": "required",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "requiredText": {
+        "defaultValue": null,
+        "description": "",
+        "name": "requiredText",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "requiredIndicator": {
+        "defaultValue": null,
+        "description": "",
+        "name": "requiredIndicator",
         "declarations": [
           {
             "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
@@ -13759,7 +15816,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -13816,7 +15873,38 @@
     "description": "",
     "displayName": "ScrollableRegion",
     "methods": [],
-    "props": {}
+    "props": {
+      "aria-labelledby": {
+        "defaultValue": null,
+        "description": "The ID of the element that labels the region",
+        "name": "aria-labelledby",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/ScrollableRegion.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "className": {
+        "defaultValue": null,
+        "description": "Accepts class names for custom styling",
+        "name": "className",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/ScrollableRegion.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
   },
   {
     "tags": {},
@@ -13850,7 +15938,112 @@
     "description": "",
     "displayName": "TextInputInnerAction",
     "methods": [],
-    "props": {}
+    "props": {
+      "children": {
+        "defaultValue": null,
+        "description": "@deprecated Text input action buttons should only use icon buttons",
+        "name": "children",
+        "parent": {
+          "fileName": "react/node_modules/@types/react/index.d.ts",
+          "name": "DOMAttributes"
+        },
+        "declarations": [
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "DOMAttributes"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputInnerAction.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "aria-label": {
+        "defaultValue": null,
+        "description": "Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies.",
+        "name": "aria-label",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputInnerAction.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "tooltipDirection": {
+        "defaultValue": null,
+        "description": "Position of tooltip. If no position is passed or defaults to \"n\"",
+        "name": "tooltipDirection",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputInnerAction.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"s\" | \"nw\" | \"n\" | \"ne\" | \"e\" | \"se\" | \"sw\" | \"w\""
+        }
+      },
+      "icon": {
+        "defaultValue": null,
+        "description": "The icon to render inside the button",
+        "name": "icon",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputInnerAction.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "FunctionComponent<PropsWithChildren<IconProps>>"
+        }
+      },
+      "variant": {
+        "defaultValue": {
+          "value": "invisible"
+        },
+        "description": "@deprecated Text input action buttons should only use the 'invisible' button variant\nDetermine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
+        "name": "variant",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputInnerAction.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "VariantType"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
   },
   {
     "tags": {},
@@ -13913,10 +16106,10 @@
     "displayName": "TextInputBaseWrapper",
     "methods": [],
     "props": {
-      "monospace": {
+      "disabled": {
         "defaultValue": null,
         "description": "",
-        "name": "monospace",
+        "name": "disabled",
         "declarations": [
           {
             "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
@@ -13943,9 +16136,24 @@
           "name": "boolean"
         }
       },
-      "sx": {
+      "monospace": {
         "defaultValue": null,
         "description": "",
+        "name": "monospace",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -13960,21 +16168,6 @@
         "required": false,
         "type": {
           "name": "BetterSystemStyleObject"
-        }
-      },
-      "disabled": {
-        "defaultValue": null,
-        "description": "",
-        "name": "disabled",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
         }
       },
       "contrast": {
@@ -14046,6 +16239,36 @@
     "displayName": "TextInputWrapper",
     "methods": [],
     "props": {
+      "disabled": {
+        "defaultValue": null,
+        "description": "",
+        "name": "disabled",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "size": {
+        "defaultValue": null,
+        "description": "",
+        "name": "size",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "TextInputSizes"
+        }
+      },
       "block": {
         "defaultValue": null,
         "description": "",
@@ -14061,10 +16284,10 @@
           "name": "boolean"
         }
       },
-      "contrast": {
+      "monospace": {
         "defaultValue": null,
         "description": "",
-        "name": "contrast",
+        "name": "monospace",
         "declarations": [
           {
             "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
@@ -14076,10 +16299,74 @@
           "name": "boolean"
         }
       },
-      "disabled": {
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      },
+      "variant": {
+        "defaultValue": null,
+        "description": "@deprecated Use `size` prop instead",
+        "name": "variant",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "TextInputSizes"
+        }
+      },
+      "hasLeadingVisual": {
         "defaultValue": null,
         "description": "",
-        "name": "disabled",
+        "name": "hasLeadingVisual",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "hasTrailingVisual": {
+        "defaultValue": null,
+        "description": "",
+        "name": "hasTrailingVisual",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "contrast": {
+        "defaultValue": null,
+        "description": "",
+        "name": "contrast",
         "declarations": [
           {
             "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
@@ -14121,21 +16408,6 @@
           "name": "boolean"
         }
       },
-      "monospace": {
-        "defaultValue": null,
-        "description": "",
-        "name": "monospace",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
-        }
-      },
       "validationStatus": {
         "defaultValue": null,
         "description": "",
@@ -14150,24 +16422,77 @@
         "type": {
           "name": "FormValidationStatus"
         }
-      },
-      "sx": {
+      }
+    }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/internal/components/UnderlineTabbedInterface.tsx",
+    "description": "",
+    "displayName": "StyledUnderlineWrapper",
+    "methods": [],
+    "props": {}
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/internal/components/UnderlineTabbedInterface.tsx",
+    "description": "",
+    "displayName": "StyledUnderlineItemList",
+    "methods": [],
+    "props": {}
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/internal/components/UnderlineTabbedInterface.tsx",
+    "description": "",
+    "displayName": "StyledUnderlineItem",
+    "methods": [],
+    "props": {}
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/internal/components/UnderlineTabbedInterface.tsx",
+    "description": "",
+    "displayName": "LoadingCounter",
+    "methods": [],
+    "props": {}
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/internal/components/UnderlineTabbedInterface.tsx",
+    "description": "",
+    "displayName": "UnderlineItem",
+    "methods": [],
+    "props": {
+      "as": {
         "defaultValue": null,
         "description": "",
-        "name": "sx",
-        "parent": {
-          "fileName": "react/packages/react/src/sx.ts",
-          "name": "SxProp"
-        },
+        "name": "as",
         "declarations": [
           {
-            "fileName": "react/packages/react/src/sx.ts",
-            "name": "SxProp"
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/UnderlineTabbedInterface.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/UnderlineTabbedInterface.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
           }
         ],
         "required": false,
         "type": {
-          "name": "BetterSystemStyleObject"
+          "name": "any"
         }
       }
     }
@@ -14181,7 +16506,7 @@
     "props": {
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -14239,7 +16564,7 @@
     "props": {
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -14371,7 +16696,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -14399,7 +16724,7 @@
     "props": {
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -14444,7 +16769,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",
@@ -14487,7 +16812,7 @@
       },
       "sx": {
         "defaultValue": null,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "name": "sx",
         "parent": {
           "fileName": "react/packages/react/src/sx.ts",

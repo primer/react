@@ -1,5 +1,5 @@
 import {ChevronDownIcon} from '@primer/octicons-react'
-import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent, type ComponentProps} from '../utils/polymorphic'
 import React, {forwardRef, isValidElement} from 'react'
 import styled from 'styled-components'
 import type {ActionListDividerProps, ActionListLeadingVisualProps, ActionListTrailingVisualProps} from '../ActionList'
@@ -24,10 +24,13 @@ const getSubnavStyles = (depth: number) => {
 // ----------------------------------------------------------------------------
 // NavList
 
+// TODO: figure out how to get stuff from
+// `ComponentProps<'nav'>` documented
 export type NavListProps = {
+  /** NavList items */
   children: React.ReactNode
 } & SxProp &
-  React.ComponentProps<'nav'>
+  ComponentProps<'nav'>
 
 const NavBox = styled.nav<SxProp>(sx)
 
@@ -52,9 +55,13 @@ Root.displayName = 'NavList'
 
 export type NavListItemProps = {
   children: React.ReactNode
+  /** Expanded to show children bty default if this is a NavList.Item with nested items. */
   defaultOpen?: boolean
+  /** URL that this NavList.Item links to */
   href?: string
+  /** Indicates that this item is the current item in the NavList. See https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current for more info. */
   'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
+  /** Text to explain why this item is currently inactive and cannot be activated. */
   inactiveText?: string
 } & SxProp
 

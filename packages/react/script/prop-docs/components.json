@@ -96,7 +96,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
@@ -178,14 +178,7 @@
     ],
     "props": [
       {
-        "name": "monospace",
-        "type": "boolean",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "block",
+        "name": "disabled",
         "type": "boolean",
         "required": false,
         "description": "",
@@ -199,18 +192,25 @@
         "defaultValue": null
       },
       {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
-        "required": false,
-        "description": "",
-        "defaultValue": "{}"
-      },
-      {
-        "name": "disabled",
+        "name": "block",
         "type": "boolean",
         "required": false,
         "description": "",
         "defaultValue": null
+      },
+      {
+        "name": "monospace",
+        "type": "boolean",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "sx",
+        "type": "BetterSystemStyleObject",
+        "required": false,
+        "description": "A style object used to override styles using styled-components",
+        "defaultValue": "{}"
       },
       {
         "name": "contrast",
@@ -276,7 +276,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
@@ -354,7 +354,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
@@ -362,6 +362,133 @@
         "type": "boolean",
         "required": false,
         "description": "",
+        "defaultValue": null
+      }
+    ],
+    "subcomponents": []
+  },
+  {
+    "description": "",
+    "name": "ActionBar",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [
+      {
+        "name": "size",
+        "type": "Size",
+        "required": false,
+        "description": "Size of the action bar",
+        "defaultValue": null
+      },
+      {
+        "name": "children",
+        "type": "any",
+        "required": false,
+        "description": "Buttons in the action bar",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-label",
+        "type": "any",
+        "required": false,
+        "description": "When provided, a label is added to the action bar",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-labelledby",
+        "type": "any",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      }
+    ],
+    "subcomponents": []
+  },
+  {
+    "description": "",
+    "name": "ActionBarIconButton",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [
+      {
+        "name": "aria-label",
+        "type": "string",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-labelledby",
+        "type": "string",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "description": "Items that are disabled can not be clicked, selected, or navigated through.",
+        "defaultValue": null
+      },
+      {
+        "name": "size",
+        "type": "Size",
+        "required": false,
+        "description": "Size of button and fontSize of text in button",
+        "defaultValue": null
+      },
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "description": "Allow button width to fill its container.",
+        "defaultValue": null
+      },
+      {
+        "name": "icon",
+        "type": "React.ElementType",
+        "required": true,
+        "description": "Provide an octicon. It will be placed in the center of the button",
+        "defaultValue": null
+      },
+      {
+        "name": "sx",
+        "type": "BetterSystemStyleObject",
+        "required": false,
+        "description": "A style object used to override styles using styled-components",
+        "defaultValue": null
+      },
+      {
+        "name": "inactive",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+        "defaultValue": null
+      },
+      {
+        "name": "labelWrap",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether the button label should wrap to multiple lines of it is longer than the button width.",
+        "defaultValue": null
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "description": "If `description` is provided, we will use a Tooltip to describe the button. Then `aria-label` is used to label the button.",
+        "defaultValue": null
+      },
+      {
+        "name": "tooltipDirection",
+        "type": "TooltipDirection",
+        "required": false,
+        "description": "Sets where the tooltip renders in relation to the target.",
         "defaultValue": null
       }
     ],
@@ -377,7 +504,7 @@
     "props": [
       {
         "name": "variant",
-        "type": "\"inline\" | \"block\"",
+        "type": "\"block\" | \"inline\"",
         "required": false,
         "description": "Secondary text style variations.\n\n- `\"inline\"` - Secondary text is positioned beside primary text.\n- `\"block\"` - Secondary text is positioned below primary text.",
         "defaultValue": "inline"
@@ -386,7 +513,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": "{}"
       }
     ],
@@ -404,7 +531,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": "{}"
       }
     ],
@@ -450,7 +577,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": "__DEV__\n  ? Object.freeze<BetterSystemStyleObject>({})\n  : {}"
       },
       {
@@ -489,7 +616,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": "__DEV__\n  ? Object.freeze<BetterSystemStyleObject>({})\n  : {}"
       },
       {
@@ -526,7 +653,7 @@
     "props": [
       {
         "name": "as",
-        "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 165 more ... | (\"h6\" & (ComponentClass<...> | FunctionComponent<...>))",
+        "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 166 more ... | (\"h6\" & (ComponentClass<...> | FunctionComponent<...>))",
         "required": true,
         "description": "",
         "defaultValue": null
@@ -544,7 +671,7 @@
     "props": [
       {
         "name": "as",
-        "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 161 more ... | FunctionComponent<...>",
+        "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>",
         "required": true,
         "description": "",
         "defaultValue": null
@@ -562,7 +689,7 @@
     "props": [
       {
         "name": "as",
-        "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 161 more ... | FunctionComponent<...>",
+        "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>",
         "required": true,
         "description": "",
         "defaultValue": null
@@ -618,7 +745,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": "{}"
       }
     ],
@@ -636,7 +763,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": "{}"
       }
     ],
@@ -654,7 +781,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": "{}"
       }
     ],
@@ -930,6 +1057,20 @@
         "defaultValue": null
       },
       {
+        "name": "width",
+        "type": "\"small\" | \"large\" | \"medium\" | \"auto\" | \"xlarge\" | \"xxlarge\"",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "overflow",
+        "type": "\"hidden\" | \"scroll\" | \"auto\" | \"visible\"",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
         "name": "maxHeight",
         "type": "\"small\" | \"large\" | \"medium\" | \"fit-content\" | \"xsmall\" | \"xlarge\"",
         "required": false,
@@ -944,24 +1085,10 @@
         "defaultValue": null
       },
       {
-        "name": "width",
-        "type": "\"small\" | \"large\" | \"medium\" | \"auto\" | \"xlarge\" | \"xxlarge\"",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "overflow",
-        "type": "\"hidden\" | \"auto\" | \"visible\" | \"scroll\"",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
@@ -1095,6 +1222,20 @@
     ],
     "props": [
       {
+        "name": "alt",
+        "type": "string",
+        "required": false,
+        "description": "Provide alt text when the Avatar is used without the user's name next to it.",
+        "defaultValue": ""
+      },
+      {
+        "name": "src",
+        "type": "string",
+        "required": false,
+        "description": "URL of the avatar image.",
+        "defaultValue": null
+      },
+      {
         "name": "size",
         "type": "number | ResponsiveValue<number>",
         "required": false,
@@ -1112,21 +1253,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "alt",
-        "type": "string",
-        "required": false,
-        "description": "Provide alt text when the Avatar is used without the user's name next to it.",
-        "defaultValue": ""
-      },
-      {
-        "name": "src",
-        "type": "string",
-        "required": false,
-        "description": "URL of the avatar image.",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -1144,7 +1271,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -1183,8 +1310,354 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
+        "description": "A style object used to override styles using styled-components",
+        "defaultValue": null
+      }
+    ],
+    "subcomponents": []
+  },
+  {
+    "description": "",
+    "name": "BannerTitle",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [
+      {
+        "name": "as",
+        "type": "HeadingElement",
+        "required": false,
         "description": "",
         "defaultValue": null
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      }
+    ],
+    "subcomponents": []
+  },
+  {
+    "description": "",
+    "name": "BannerDescription",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "description": "Class name(s) used for custom styling",
+        "defaultValue": null
+      }
+    ],
+    "subcomponents": []
+  },
+  {
+    "description": "",
+    "name": "BannerActions",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [
+      {
+        "name": "primaryAction",
+        "type": "ReactNode",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "secondaryAction",
+        "type": "ReactNode",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      }
+    ],
+    "subcomponents": []
+  },
+  {
+    "description": "",
+    "name": "BannerPrimaryAction",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "description": "Items that are disabled can not be clicked, selected, or navigated through.",
+        "defaultValue": null
+      },
+      {
+        "name": "size",
+        "type": "Size",
+        "required": false,
+        "description": "Size of button and fontSize of text in button",
+        "defaultValue": null
+      },
+      {
+        "name": "as",
+        "type": "\"button\"",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "description": "Allow button width to fill its container.",
+        "defaultValue": null
+      },
+      {
+        "name": "alignContent",
+        "type": "AlignContent",
+        "required": false,
+        "description": "Content alignment for when visuals are present",
+        "defaultValue": null
+      },
+      {
+        "name": "icon",
+        "type": "any",
+        "required": false,
+        "description": "The icon for the IconButton",
+        "defaultValue": null
+      },
+      {
+        "name": "sx",
+        "type": "BetterSystemStyleObject",
+        "required": false,
+        "description": "A style object used to override styles using styled-components",
+        "defaultValue": null
+      },
+      {
+        "name": "inactive",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+        "defaultValue": null
+      },
+      {
+        "name": "labelWrap",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether the button label should wrap to multiple lines of it is longer than the button width.",
+        "defaultValue": null
+      },
+      {
+        "name": "leadingVisual",
+        "type": "any",
+        "required": false,
+        "description": "The leading visual which comes before the button content",
+        "defaultValue": null
+      },
+      {
+        "name": "trailingVisual",
+        "type": "any",
+        "required": false,
+        "description": "The trailing visual which comes after the button content",
+        "defaultValue": null
+      },
+      {
+        "name": "trailingAction",
+        "type": "any",
+        "required": false,
+        "description": "Trailing action appears to the right of the trailing visual and is always locked to the end",
+        "defaultValue": null
+      },
+      {
+        "name": "count",
+        "type": "number",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      }
+    ],
+    "subcomponents": []
+  },
+  {
+    "description": "",
+    "name": "BannerSecondaryAction",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "description": "Items that are disabled can not be clicked, selected, or navigated through.",
+        "defaultValue": null
+      },
+      {
+        "name": "size",
+        "type": "Size",
+        "required": false,
+        "description": "Size of button and fontSize of text in button",
+        "defaultValue": null
+      },
+      {
+        "name": "as",
+        "type": "\"button\"",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "description": "Allow button width to fill its container.",
+        "defaultValue": null
+      },
+      {
+        "name": "alignContent",
+        "type": "AlignContent",
+        "required": false,
+        "description": "Content alignment for when visuals are present",
+        "defaultValue": null
+      },
+      {
+        "name": "icon",
+        "type": "any",
+        "required": false,
+        "description": "The icon for the IconButton",
+        "defaultValue": null
+      },
+      {
+        "name": "sx",
+        "type": "BetterSystemStyleObject",
+        "required": false,
+        "description": "A style object used to override styles using styled-components",
+        "defaultValue": null
+      },
+      {
+        "name": "inactive",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+        "defaultValue": null
+      },
+      {
+        "name": "labelWrap",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether the button label should wrap to multiple lines of it is longer than the button width.",
+        "defaultValue": null
+      },
+      {
+        "name": "leadingVisual",
+        "type": "any",
+        "required": false,
+        "description": "The leading visual which comes before the button content",
+        "defaultValue": null
+      },
+      {
+        "name": "trailingVisual",
+        "type": "any",
+        "required": false,
+        "description": "The trailing visual which comes after the button content",
+        "defaultValue": null
+      },
+      {
+        "name": "trailingAction",
+        "type": "any",
+        "required": false,
+        "description": "Trailing action appears to the right of the trailing visual and is always locked to the end",
+        "defaultValue": null
+      },
+      {
+        "name": "count",
+        "type": "number",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      }
+    ],
+    "subcomponents": []
+  },
+  {
+    "description": "",
+    "name": "Banner",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [
+      {
+        "name": "title",
+        "type": "string & ReactNode",
+        "required": false,
+        "description": "The title for the Banner. This will be used as the accessible name and is\nrequired unless `Banner.Title` is used as a child.",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-label",
+        "type": "string",
+        "required": false,
+        "description": "Defines a string value that labels the current element.\nProvide an optional label to override the default name for the Banner\nlandmark region\n@see aria-labelledby.",
+        "defaultValue": null
+      },
+      {
+        "name": "description",
+        "type": "ReactNode",
+        "required": false,
+        "description": "Provide an optional description for the Banner. This should provide\nsupplemental information about the Banner",
+        "defaultValue": null
+      },
+      {
+        "name": "hideTitle",
+        "type": "boolean",
+        "required": false,
+        "description": "Specify whether the title of the Banner should be visible or not.",
+        "defaultValue": null
+      },
+      {
+        "name": "icon",
+        "type": "ReactNode",
+        "required": false,
+        "description": "Provide an icon for the banner.\nNote: Only `variant=\"info\"` banners should use custom icons",
+        "defaultValue": null
+      },
+      {
+        "name": "onDismiss",
+        "type": "() => void",
+        "required": false,
+        "description": "Optionally provide a handler to be called when the banner is dismissed.\nProviding this prop will show a dismiss button.\n\nNote: This is not available for critical banners.",
+        "defaultValue": null
+      },
+      {
+        "name": "primaryAction",
+        "type": "ReactNode",
+        "required": false,
+        "description": "Provide an optional primary action for the Banner.",
+        "defaultValue": null
+      },
+      {
+        "name": "secondaryAction",
+        "type": "ReactNode",
+        "required": false,
+        "description": "Provide an optional secondary action for the Banner",
+        "defaultValue": null
+      },
+      {
+        "name": "variant",
+        "type": "BannerVariant",
+        "required": false,
+        "description": "Specify the type of the Banner",
+        "defaultValue": "info"
       }
     ],
     "subcomponents": []
@@ -1265,7 +1738,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -1283,7 +1756,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -1308,7 +1781,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -1323,38 +1796,38 @@
     ],
     "props": [
       {
-        "name": "block",
-        "type": "any",
+        "name": "size",
+        "type": "Size",
         "required": false,
-        "description": "",
+        "description": "Size of button and fontSize of text in button",
         "defaultValue": null
       },
       {
-        "name": "size",
-        "type": "any",
+        "name": "block",
+        "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Allow button width to fill its container.",
         "defaultValue": null
       },
       {
         "name": "leadingVisual",
         "type": "any",
         "required": false,
-        "description": "",
+        "description": "The leading visual which comes before the button content",
         "defaultValue": null
       },
       {
         "name": "trailingVisual",
         "type": "any",
         "required": false,
-        "description": "",
+        "description": "The trailing visual which comes after the button content",
         "defaultValue": null
       },
       {
         "name": "trailingAction",
         "type": "any",
         "required": false,
-        "description": "",
+        "description": "Trailing action appears to the right of the trailing visual and is always locked to the end",
         "defaultValue": null
       }
     ],
@@ -1379,17 +1852,17 @@
     ],
     "props": [
       {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
         "name": "disabled",
         "type": "boolean",
         "required": false,
         "description": "Apply inactive visual appearance to the checkbox",
+        "defaultValue": null
+      },
+      {
+        "name": "value",
+        "type": "string | (string & readonly string[])",
+        "required": false,
+        "description": "A unique value that is never shown to the user.\nUsed during form submission and to identify which checkbox inputs are selected",
         "defaultValue": null
       },
       {
@@ -1400,10 +1873,10 @@
         "defaultValue": null
       },
       {
-        "name": "value",
-        "type": "string | (string & readonly string[])",
+        "name": "sx",
+        "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "A unique value that is never shown to the user.\nUsed during form submission and to identify which checkbox inputs are selected",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
@@ -1421,6 +1894,16 @@
         "defaultValue": null
       }
     ],
+    "subcomponents": []
+  },
+  {
+    "description": "Context lets components pass information deep down without explicitly\npassing props.\n\nCreated from {@link createContext}",
+    "name": "Context",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [],
     "subcomponents": []
   },
   {
@@ -1470,7 +1953,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -1485,15 +1968,15 @@
     ],
     "props": [
       {
-        "name": "inline",
-        "type": "boolean",
+        "name": "size",
+        "type": "number",
         "required": false,
         "description": "",
         "defaultValue": null
       },
       {
-        "name": "size",
-        "type": "number",
+        "name": "inline",
+        "type": "boolean",
         "required": false,
         "description": "",
         "defaultValue": null
@@ -1502,7 +1985,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
@@ -1548,7 +2031,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -1705,7 +2188,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -1765,7 +2248,7 @@
         "name": "onClose",
         "type": "(gesture: \"escape\" | \"close-button\") => void",
         "required": true,
-        "description": "This method is invoked when a gesture to close the dialog is used (either\nan Escape key press or clicking the \"X\" in the top-right corner). The\ngesture argument indicates the gesture that was used to close the dialog\n(either 'close-button' or 'escape').",
+        "description": "This method is invoked when a gesture to close the dialog is used (either\nan Escape key press, clicking the backdrop, or clicking the \"X\" in the top-right corner). The\ngesture argument indicates the gesture that was used to close the dialog\n('close-button' or 'escape').",
         "defaultValue": null
       },
       {
@@ -1797,10 +2280,35 @@
         "defaultValue": null
       },
       {
+        "name": "returnFocusRef",
+        "type": "React.RefObject<HTMLElement>",
+        "required": false,
+        "description": "Return focus to this element when the Dialog closes,\ninstead of the element that had focus immediately before the Dialog opened",
+        "defaultValue": null
+      },
+      {
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
+        "defaultValue": null
+      }
+    ],
+    "subcomponents": []
+  },
+  {
+    "description": "",
+    "name": "FeatureFlags",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [
+      {
+        "name": "flags",
+        "type": "FeatureFlags",
+        "required": true,
+        "description": "Object where keys are feature flag names and values are boolean",
         "defaultValue": null
       }
     ],
@@ -1923,7 +2431,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -1960,7 +2468,7 @@
       },
       {
         "name": "layout",
-        "type": "\"horizontal\" | \"vertical\"",
+        "type": "\"vertical\" | \"horizontal\"",
         "required": false,
         "description": "The direction the content flows.\nVertical layout is used by default, and horizontal layout is used for checkbox and radio inputs.",
         "defaultValue": "vertical"
@@ -1969,7 +2477,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -1994,7 +2502,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -2049,7 +2557,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
@@ -2065,6 +2573,20 @@
         "required": false,
         "description": "",
         "defaultValue": null
+      },
+      {
+        "name": "requiredText",
+        "type": "string",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "requiredIndicator",
+        "type": "boolean",
+        "required": false,
+        "description": "",
+        "defaultValue": true
       },
       {
         "name": "visuallyHidden",
@@ -2102,7 +2624,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -2134,7 +2656,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -2152,7 +2674,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -2189,6 +2711,31 @@
         "type": "Viewport | Viewport[]",
         "required": true,
         "description": "",
+        "defaultValue": null
+      }
+    ],
+    "subcomponents": []
+  },
+  {
+    "description": "",
+    "name": "InlineMessage",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [
+      {
+        "name": "size",
+        "type": "\"small\" | \"medium\"",
+        "required": false,
+        "description": "Specify the size of the InlineMessage",
+        "defaultValue": "medium"
+      },
+      {
+        "name": "variant",
+        "type": "MessageVariant",
+        "required": true,
+        "description": "Specify the type of the InlineMessage",
         "defaultValue": null
       }
     ],
@@ -2220,7 +2767,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -2262,7 +2809,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -2284,6 +2831,27 @@
         "defaultValue": null
       },
       {
+        "name": "width",
+        "type": "\"small\" | \"large\" | \"medium\" | \"auto\" | \"xlarge\" | \"xxlarge\"",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "overflow",
+        "type": "\"hidden\" | \"scroll\" | \"auto\" | \"visible\"",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "visibility",
+        "type": "\"hidden\" | \"visible\"",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
         "name": "maxHeight",
         "type": "\"small\" | \"large\" | \"medium\" | \"fit-content\" | \"xsmall\" | \"xlarge\"",
         "required": false,
@@ -2298,31 +2866,10 @@
         "defaultValue": null
       },
       {
-        "name": "visibility",
-        "type": "\"hidden\" | \"visible\"",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "width",
-        "type": "\"small\" | \"large\" | \"medium\" | \"auto\" | \"xlarge\" | \"xxlarge\"",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "overflow",
-        "type": "\"hidden\" | \"auto\" | \"visible\" | \"scroll\"",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
@@ -2344,25 +2891,11 @@
     ],
     "props": [
       {
-        "name": "aria-label",
-        "type": "React.AriaAttributes",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
         "name": "as",
         "type": "any",
         "required": false,
         "description": "",
         "defaultValue": "h2"
-      },
-      {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
-        "required": false,
-        "description": "",
-        "defaultValue": "{}"
       }
     ],
     "subcomponents": []
@@ -2414,7 +2947,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": "{}"
       }
     ],
@@ -2432,7 +2965,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -2545,7 +3078,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject & { bg?: string; backgroundColor?: string; borderColor?: string; }",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -2560,15 +3093,15 @@
     ],
     "props": [
       {
-        "name": "caret",
-        "type": "CaretPosition",
+        "name": "open",
+        "type": "boolean",
         "required": false,
         "description": "",
         "defaultValue": null
       },
       {
-        "name": "open",
-        "type": "boolean",
+        "name": "caret",
+        "type": "CaretPosition",
         "required": false,
         "description": "",
         "defaultValue": null
@@ -2584,7 +3117,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -2644,7 +3177,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -2666,24 +3199,10 @@
         "defaultValue": null
       },
       {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
         "name": "disabled",
         "type": "boolean",
         "required": false,
         "description": "Apply inactive visual appearance to the radio button",
-        "defaultValue": null
-      },
-      {
-        "name": "required",
-        "type": "boolean",
-        "required": false,
-        "description": "Indicates whether the radio button must be checked before the form can be submitted",
         "defaultValue": null
       },
       {
@@ -2694,17 +3213,31 @@
         "defaultValue": null
       },
       {
-        "name": "validationStatus",
-        "type": "FormValidationStatus",
-        "required": false,
-        "description": "Only used to inform ARIA attributes. Individual radio inputs do not have validation styles.",
-        "defaultValue": null
-      },
-      {
         "name": "checked",
         "type": "boolean",
         "required": false,
         "description": "Indicates whether the radio button is selected",
+        "defaultValue": null
+      },
+      {
+        "name": "required",
+        "type": "boolean",
+        "required": false,
+        "description": "Indicates whether the radio button must be checked before the form can be submitted",
+        "defaultValue": null
+      },
+      {
+        "name": "sx",
+        "type": "BetterSystemStyleObject",
+        "required": false,
+        "description": "A style object used to override styles using styled-components",
+        "defaultValue": null
+      },
+      {
+        "name": "validationStatus",
+        "type": "FormValidationStatus",
+        "required": false,
+        "description": "Only used to inform ARIA attributes. Individual radio inputs do not have validation styles.",
         "defaultValue": null
       }
     ],
@@ -2764,7 +3297,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -2779,15 +3312,8 @@
     ],
     "props": [
       {
-        "name": "date",
-        "type": "Date",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
+        "name": "format",
+        "type": "Format",
         "required": false,
         "description": "",
         "defaultValue": null
@@ -2877,13 +3403,6 @@
         "defaultValue": null
       },
       {
-        "name": "format",
-        "type": "Format",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
         "name": "formatStyle",
         "type": "FormatStyle",
         "required": false,
@@ -2891,8 +3410,22 @@
         "defaultValue": null
       },
       {
+        "name": "noTitle",
+        "type": "boolean",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
         "name": "datetime",
         "type": "string",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "date",
+        "type": "Date",
         "required": false,
         "description": "",
         "defaultValue": null
@@ -2923,6 +3456,13 @@
         "type": "() => void",
         "required": false,
         "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "sx",
+        "type": "BetterSystemStyleObject",
+        "required": false,
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -2989,7 +3529,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -3035,7 +3575,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -3081,7 +3621,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -3096,14 +3636,7 @@
     ],
     "props": [
       {
-        "name": "monospace",
-        "type": "boolean",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "block",
+        "name": "disabled",
         "type": "boolean",
         "required": false,
         "description": "",
@@ -3117,17 +3650,24 @@
         "defaultValue": null
       },
       {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
+        "name": "block",
+        "type": "boolean",
         "required": false,
         "description": "",
         "defaultValue": null
       },
       {
-        "name": "disabled",
+        "name": "monospace",
         "type": "boolean",
         "required": false,
         "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "sx",
+        "type": "BetterSystemStyleObject",
+        "required": false,
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
@@ -3240,10 +3780,17 @@
         "defaultValue": null
       },
       {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
@@ -3251,13 +3798,6 @@
         "type": "\"inset\" | \"full\"",
         "required": false,
         "description": "Style variations. Usage is discretionary.\n\n- `\"inset\"` - `List` children are offset (vertically and horizontally) from `List`’s edges\n- `\"full\"` - `List` children are flush (vertically and horizontally) with `List` edges",
-        "defaultValue": null
-      },
-      {
-        "name": "loading",
-        "type": "boolean",
-        "required": false,
-        "description": "",
         "defaultValue": null
       },
       {
@@ -3384,6 +3924,13 @@
     ],
     "props": [
       {
+        "name": "aria-label",
+        "type": "string",
+        "required": false,
+        "description": "@deprecated Use `srText` instead.",
+        "defaultValue": null
+      },
+      {
         "name": "size",
         "type": "\"small\" | \"large\" | \"medium\"",
         "required": false,
@@ -3394,7 +3941,14 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
+        "defaultValue": null
+      },
+      {
+        "name": "srText",
+        "type": "string",
+        "required": false,
+        "description": "Sets the text conveyed by assistive technologies such as screen readers. Set to `null` if the loading state is displayed in a text node somewhere else on the page.",
         "defaultValue": null
       }
     ],
@@ -3412,8 +3966,93 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
+      }
+    ],
+    "subcomponents": []
+  },
+  {
+    "description": "",
+    "name": "Stack",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [
+      {
+        "name": "as",
+        "type": "ElementType",
+        "required": false,
+        "description": "Customize the element type of the rendered container",
+        "defaultValue": null
+      },
+      {
+        "name": "gap",
+        "type": "Gap",
+        "required": false,
+        "description": "Specify the gap between children elements in the stack",
+        "defaultValue": null
+      },
+      {
+        "name": "direction",
+        "type": "Direction",
+        "required": false,
+        "description": "Specify the direction for the stack container",
+        "defaultValue": "vertical"
+      },
+      {
+        "name": "align",
+        "type": "Align",
+        "required": false,
+        "description": "Specify the alignment between items in the cross-axis of the direction",
+        "defaultValue": "stretch"
+      },
+      {
+        "name": "wrap",
+        "type": "Wrap",
+        "required": false,
+        "description": "Specify whether items are forced onto one line or can wrap onto multiple lines",
+        "defaultValue": "nowrap"
+      },
+      {
+        "name": "justify",
+        "type": "Justify",
+        "required": false,
+        "description": "Specify how items will be distributed in the stacking direction",
+        "defaultValue": "start"
+      },
+      {
+        "name": "padding",
+        "type": "Padding",
+        "required": false,
+        "description": "Specify the padding of the stack container",
+        "defaultValue": "none"
+      }
+    ],
+    "subcomponents": []
+  },
+  {
+    "description": "",
+    "name": "StackItem",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [
+      {
+        "name": "as",
+        "type": "ElementType",
+        "required": false,
+        "description": "Customize the element type of the rendered container",
+        "defaultValue": null
+      },
+      {
+        "name": "grow",
+        "type": "boolean | ResponsiveValue<boolean>",
+        "required": false,
+        "description": "Allow item to keep size or expand to fill the available space",
+        "defaultValue": false
       }
     ],
     "subcomponents": []
@@ -3428,7 +4067,7 @@
     "props": [
       {
         "name": "status",
-        "type": "\"issueClosed\" | \"issueClosedNotPlanned\" | \"pullClosed\" | \"pullMerged\" | \"pullQueued\" | \"issueOpened\" | \"pullOpened\" | \"draft\" | \"issueDraft\" | \"unavailable\"",
+        "type": "\"unavailable\" | \"issueClosed\" | \"issueClosedNotPlanned\" | \"pullClosed\" | \"pullMerged\" | \"pullQueued\" | \"issueOpened\" | \"pullOpened\" | \"draft\" | \"issueDraft\"",
         "required": true,
         "description": "",
         "defaultValue": null
@@ -3437,7 +4076,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
@@ -3490,7 +4129,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -3508,7 +4147,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -3625,7 +4264,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -3641,7 +4280,7 @@
     "props": [
       {
         "name": "as",
-        "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 161 more ... | FunctionComponent<...>",
+        "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>",
         "required": true,
         "description": "",
         "defaultValue": null
@@ -3680,7 +4319,7 @@
       },
       {
         "name": "maxHeight",
-        "type": "MaxHeight<number | (string & {})>",
+        "type": "MaxHeight<string | number>",
         "required": false,
         "description": "The maximum height of the component. If the content in the input exceeds this height,\nit will scroll vertically",
         "defaultValue": null
@@ -3714,14 +4353,28 @@
         "defaultValue": null
       },
       {
-        "name": "monospace",
+        "name": "disabled",
         "type": "boolean",
         "required": false,
         "description": "",
         "defaultValue": null
       },
       {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether the to show a loading indicator in the input",
+        "defaultValue": null
+      },
+      {
         "name": "block",
+        "type": "boolean",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "monospace",
         "type": "boolean",
         "required": false,
         "description": "",
@@ -3738,14 +4391,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "disabled",
-        "type": "boolean",
-        "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
@@ -3770,20 +4416,6 @@
         "defaultValue": null
       },
       {
-        "name": "loading",
-        "type": "boolean",
-        "required": false,
-        "description": "Whether the to show a loading indicator in the input",
-        "defaultValue": null
-      },
-      {
-        "name": "loaderPosition",
-        "type": "\"auto\" | \"leading\" | \"trailing\"",
-        "required": false,
-        "description": "Which position to render the loading indicator\n'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the beginning\n'leading': at the beginning of the input\n'trailing': at the end of the input",
-        "defaultValue": null
-      },
-      {
         "name": "leadingVisual",
         "type": "any",
         "required": false,
@@ -3802,6 +4434,13 @@
         "type": "React.ReactElement<React.HTMLProps<HTMLButtonElement>>",
         "required": false,
         "description": "A visual that renders inside the input after the typing area",
+        "defaultValue": null
+      },
+      {
+        "name": "loaderPosition",
+        "type": "\"auto\" | \"leading\" | \"trailing\"",
+        "required": false,
+        "description": "Which position to render the loading indicator\n'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the beginning\n'leading': at the beginning of the input\n'trailing': at the end of the input",
         "defaultValue": null
       }
     ],
@@ -3838,7 +4477,7 @@
       },
       {
         "name": "resize",
-        "type": "\"none\" | \"both\" | \"horizontal\" | \"vertical\"",
+        "type": "\"vertical\" | \"none\" | \"both\" | \"horizontal\"",
         "required": false,
         "description": "Allows resizing of the textarea",
         "defaultValue": "both"
@@ -3854,7 +4493,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -3872,7 +4511,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
@@ -3953,7 +4592,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -4003,7 +4642,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
@@ -4046,17 +4685,17 @@
         "defaultValue": null
       },
       {
-        "name": "size",
-        "type": "TokenSizeKeys",
-        "required": false,
-        "description": "Which size the token will be rendered at",
-        "defaultValue": null
-      },
-      {
         "name": "disabled",
         "type": "boolean",
         "required": false,
         "description": "Whether or not the token is disabled (non-interactive).",
+        "defaultValue": null
+      },
+      {
+        "name": "size",
+        "type": "TokenSizeKeys",
+        "required": false,
+        "description": "Which size the token will be rendered at",
         "defaultValue": null
       },
       {
@@ -4100,7 +4739,7 @@
     "props": [
       {
         "name": "direction",
-        "type": "\"s\" | \"n\" | \"ne\" | \"e\" | \"se\" | \"sw\" | \"w\" | \"nw\"",
+        "type": "\"s\" | \"nw\" | \"n\" | \"ne\" | \"e\" | \"se\" | \"sw\" | \"w\"",
         "required": false,
         "description": "",
         "defaultValue": "n"
@@ -4137,7 +4776,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -4150,36 +4789,7 @@
     "stories": [
       ""
     ],
-    "props": [
-      {
-        "name": "direction",
-        "type": "TooltipDirection",
-        "required": false,
-        "description": "The direction of the tooltip in relation to the trigger",
-        "defaultValue": "s"
-      },
-      {
-        "name": "text",
-        "type": "string",
-        "required": true,
-        "description": "Text in the tooltip",
-        "defaultValue": null
-      },
-      {
-        "name": "type",
-        "type": "\"label\" | \"description\"",
-        "required": false,
-        "description": "Whether the tooltip content is used to label the trigger (like IconButton), or describe the trigger (most other uses)",
-        "defaultValue": "description"
-      },
-      {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      }
-    ],
+    "props": [],
     "subcomponents": []
   },
   {
@@ -4210,18 +4820,15 @@
         "required": false,
         "description": "",
         "defaultValue": null
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "description": "",
+        "defaultValue": null
       }
     ],
-    "subcomponents": []
-  },
-  {
-    "description": "",
-    "name": "LoadingCounter",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [],
     "subcomponents": []
   },
   {
@@ -4236,7 +4843,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -4589,10 +5196,17 @@
         "defaultValue": null
       },
       {
+        "name": "htmlFor",
+        "type": "string",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
@@ -4603,8 +5217,15 @@
         "defaultValue": null
       },
       {
-        "name": "htmlFor",
+        "name": "requiredText",
         "type": "string",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "requiredIndicator",
+        "type": "boolean",
         "required": false,
         "description": "",
         "defaultValue": null
@@ -4710,10 +5331,17 @@
         "defaultValue": null
       },
       {
+        "name": "htmlFor",
+        "type": "string",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
@@ -4724,8 +5352,15 @@
         "defaultValue": null
       },
       {
-        "name": "htmlFor",
+        "name": "requiredText",
         "type": "string",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "requiredIndicator",
+        "type": "boolean",
         "required": false,
         "description": "",
         "defaultValue": null
@@ -5003,7 +5638,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -5042,7 +5677,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -5060,7 +5695,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
@@ -5174,22 +5809,22 @@
     ],
     "props": [
       {
+        "name": "as",
+        "type": "undefined",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
         "name": "variant",
         "type": "\"small\" | \"large\" | \"medium\"",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "as",
-        "type": "undefined",
         "required": false,
         "description": "",
         "defaultValue": null
@@ -5206,18 +5841,18 @@
     ],
     "props": [
       {
-        "name": "variant",
-        "type": "\"small\" | \"large\" | \"medium\"",
-        "required": false,
-        "description": "",
-        "defaultValue": "medium"
-      },
-      {
         "name": "as",
         "type": "undefined",
         "required": false,
         "description": "",
         "defaultValue": null
+      },
+      {
+        "name": "variant",
+        "type": "\"small\" | \"large\" | \"medium\"",
+        "required": false,
+        "description": "",
+        "defaultValue": "medium"
       }
     ],
     "subcomponents": []
@@ -5241,22 +5876,22 @@
     ],
     "props": [
       {
+        "name": "as",
+        "type": "undefined",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
         "name": "variant",
         "type": "\"small\" | \"large\" | \"medium\"",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "as",
-        "type": "undefined",
         "required": false,
         "description": "",
         "defaultValue": null
@@ -5273,22 +5908,22 @@
     ],
     "props": [
       {
+        "name": "as",
+        "type": "undefined",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
         "name": "variant",
         "type": "\"small\" | \"large\" | \"medium\"",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "as",
-        "type": "undefined",
         "required": false,
         "description": "",
         "defaultValue": null
@@ -5305,22 +5940,22 @@
     ],
     "props": [
       {
+        "name": "as",
+        "type": "undefined",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
         "name": "variant",
         "type": "\"small\" | \"large\" | \"medium\"",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "as",
-        "type": "undefined",
         "required": false,
         "description": "",
         "defaultValue": null
@@ -5337,22 +5972,22 @@
     ],
     "props": [
       {
+        "name": "as",
+        "type": "undefined",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
         "name": "variant",
         "type": "\"small\" | \"large\" | \"medium\"",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "as",
-        "type": "undefined",
         "required": false,
         "description": "",
         "defaultValue": null
@@ -5372,7 +6007,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -5400,7 +6035,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -5446,7 +6081,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -5463,48 +6098,77 @@
     "subcomponents": []
   },
   {
-    "description": "",
-    "name": "ActionBar",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "size",
-        "type": "Size",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "aria-label",
-        "type": "React.AriaAttributes",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
-    "description": "",
-    "name": "ActionBarIconButton",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [],
-    "subcomponents": []
-  },
-  {
     "description": "Shows suggestions to complete the current word/phrase the user is actively typing.",
     "name": "InlineAutocomplete",
     "a11yReviewed": false,
     "stories": [
       ""
     ],
-    "props": [],
+    "props": [
+      {
+        "name": "triggers",
+        "type": "Trigger[]",
+        "required": true,
+        "description": "Register the triggers that can cause suggestions to appear.",
+        "defaultValue": null
+      },
+      {
+        "name": "onShowSuggestions",
+        "type": "(event: ShowSuggestionsEvent) => void",
+        "required": true,
+        "description": "Called when a valid suggestion query is updated. This should be handled by setting the\n`suggestions` prop accordingly.",
+        "defaultValue": null
+      },
+      {
+        "name": "onSelectSuggestion",
+        "type": "(event: SelectSuggestionsEvent) => void",
+        "required": false,
+        "description": "Called when a suggestion is selected.\n@note This should be used only for performing side effects, not for modifying\nthe inserted text. Do not call `setState` in this handler or the user's cursor\nposition / undo history could be lost.",
+        "defaultValue": null
+      },
+      {
+        "name": "onHideSuggestions",
+        "type": "() => void",
+        "required": true,
+        "description": "Called when suggestions should be hidden. Set `suggestions` to `null` in this case.",
+        "defaultValue": null
+      },
+      {
+        "name": "suggestions",
+        "type": "Suggestions",
+        "required": true,
+        "description": "The currently visible list of suggestions. If `loading`, a loading indicator will be\nshown. If `null` or empty, the list will be hidden. Suggestion sort will be preserved.\n\nTypically, this should not contain more than five or so suggestions.",
+        "defaultValue": null
+      },
+      {
+        "name": "tabInsertsSuggestions",
+        "type": "boolean",
+        "required": false,
+        "description": "If `true`, suggestions will be applied with both `Tab` and `Enter`, instead of just\n`Enter`. This may be expected behavior for users used to IDEs, but use caution when\nhijacking browser tabbing capability.",
+        "defaultValue": false
+      },
+      {
+        "name": "sx",
+        "type": "Omit<BetterSystemStyleObject, \"position\">",
+        "required": false,
+        "description": "The `AutocompleteTextarea` has a container for positioning the suggestions overlay.\nThis can break some layouts (ie, if the editor must expand with `flex: 1` to fill space)\nso you can override container styles here. Usually this should not be necessary.\n`position` may not be overriden.",
+        "defaultValue": null
+      },
+      {
+        "name": "children",
+        "type": "ReactElement<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> | DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>, string | JSXElementConstructor<...>> & RefAttributes<...> & ReactNode",
+        "required": false,
+        "description": "An `input` or `textarea` compatible component to extend. A compatible component is any\ncomponent that forwards a ref and props to an underlying `input` or `textarea` element,\nincluding but not limited to `Input`, `TextArea`, `input`, `textarea`, `styled.input`,\nand `styled.textarea`. If the child is not compatible, a runtime `TypeError` will be\nthrown.",
+        "defaultValue": null
+      },
+      {
+        "name": "suggestionsPlacement",
+        "type": "SuggestionsPlacement",
+        "required": false,
+        "description": "Control which side of the insertion point the suggestions list appears on by default. This\nshould almost always be `\"below\"` because it typically provides a better user experience\n(the most-relevant suggestions will appear closest to the text). However, if the input\nis always near the bottom of the screen (ie, a chat composition form), it may be better to\ndisplay the suggestions above the input.\n\nIn either case, if there is not enough room to display the suggestions in the default direction,\nthe suggestions will appear in the other direction.",
+        "defaultValue": "below"
+      }
+    ],
     "subcomponents": []
   },
   {
@@ -5588,7 +6252,15 @@
     "stories": [
       ""
     ],
-    "props": [],
+    "props": [
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": false,
+        "description": "Markdown editor actions",
+        "defaultValue": null
+      }
+    ],
     "subcomponents": []
   },
   {
@@ -5598,7 +6270,15 @@
     "stories": [
       ""
     ],
-    "props": [],
+    "props": [
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": true,
+        "description": "Children to render in the footer",
+        "defaultValue": null
+      }
+    ],
     "subcomponents": []
   },
   {
@@ -5613,7 +6293,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
@@ -5638,7 +6318,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
@@ -5987,7 +6667,7 @@
       },
       {
         "name": "resize",
-        "type": "\"none\" | \"both\" | \"horizontal\" | \"vertical\"",
+        "type": "\"vertical\" | \"none\" | \"both\" | \"horizontal\"",
         "required": false,
         "description": "Allows resizing of the textarea",
         "defaultValue": null
@@ -5996,7 +6676,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
@@ -6023,7 +6703,99 @@
     "stories": [
       ""
     ],
-    "props": [],
+    "props": [
+      {
+        "name": "aria-label",
+        "type": "string",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-labelledby",
+        "type": "string",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "icon",
+        "type": "React.ElementType",
+        "required": true,
+        "description": "Provide an octicon. It will be placed in the center of the button",
+        "defaultValue": null
+      },
+      {
+        "name": "unsafeDisableTooltip",
+        "type": "boolean",
+        "required": false,
+        "description": "Do not use. This is planned to be a temporary prop until the default tooltip on icon buttons are fully rolled out.",
+        "defaultValue": null
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "required": false,
+        "description": "If `description` is provided, we will use a Tooltip to describe the button. Then `aria-label` is used to label the button.",
+        "defaultValue": null
+      },
+      {
+        "name": "tooltipDirection",
+        "type": "TooltipDirection",
+        "required": false,
+        "description": "Sets where the tooltip renders in relation to the target.",
+        "defaultValue": null
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "description": "Items that are disabled can not be clicked, selected, or navigated through.",
+        "defaultValue": null
+      },
+      {
+        "name": "size",
+        "type": "Size",
+        "required": false,
+        "description": "Size of button and fontSize of text in button",
+        "defaultValue": null
+      },
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "description": "Allow button width to fill its container.",
+        "defaultValue": null
+      },
+      {
+        "name": "sx",
+        "type": "BetterSystemStyleObject",
+        "required": false,
+        "description": "A style object used to override styles using styled-components",
+        "defaultValue": null
+      },
+      {
+        "name": "variant",
+        "type": "VariantType",
+        "required": false,
+        "description": "Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
+        "defaultValue": null
+      },
+      {
+        "name": "inactive",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+        "defaultValue": null
+      },
+      {
+        "name": "labelWrap",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether the button label should wrap to multiple lines of it is longer than the button width.",
+        "defaultValue": null
+      }
+    ],
     "subcomponents": []
   },
   {
@@ -6345,6 +7117,109 @@
   },
   {
     "description": "",
+    "name": "SkeletonAvatar",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [
+      {
+        "name": "size",
+        "type": "number | ResponsiveValue<number>",
+        "required": false,
+        "description": "Sets the width and height of the avatar.",
+        "defaultValue": 20
+      },
+      {
+        "name": "square",
+        "type": "boolean",
+        "required": false,
+        "description": "Sets the shape of the avatar to a square if true. If false, the avatar will be circular.",
+        "defaultValue": null
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "description": "Class name for custom styling",
+        "defaultValue": null
+      }
+    ],
+    "subcomponents": []
+  },
+  {
+    "description": "",
+    "name": "SkeletonBox",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [
+      {
+        "name": "height",
+        "type": "React.CSSProperties",
+        "required": false,
+        "description": "Height of the skeleton \"box\". Accepts any valid CSS `height` value.",
+        "defaultValue": null
+      },
+      {
+        "name": "width",
+        "type": "React.CSSProperties",
+        "required": false,
+        "description": "Width of the skeleton \"box\". Accepts any valid CSS `width` value.",
+        "defaultValue": null
+      },
+      {
+        "name": "sx",
+        "type": "BetterSystemStyleObject",
+        "required": false,
+        "description": "A style object used to override styles using styled-components",
+        "defaultValue": null
+      }
+    ],
+    "subcomponents": []
+  },
+  {
+    "description": "",
+    "name": "SkeletonText",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [
+      {
+        "name": "size",
+        "type": "\"display\" | \"subtitle\" | \"titleLarge\" | \"titleMedium\" | \"titleSmall\" | \"bodyLarge\" | \"bodyMedium\" | \"bodySmall\"",
+        "required": false,
+        "description": "Size of the text that the skeleton is replacing.",
+        "defaultValue": "bodyMedium"
+      },
+      {
+        "name": "lines",
+        "type": "number",
+        "required": false,
+        "description": "Number of lines of skeleton text to render.",
+        "defaultValue": 1
+      },
+      {
+        "name": "maxWidth",
+        "type": "React.CSSProperties",
+        "required": false,
+        "description": "Maximum width that the line(s) of skeleton text can take up.  Accepts any valid CSS `max-width` value.",
+        "defaultValue": null
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "description": "Class name for custom styling",
+        "defaultValue": null
+      }
+    ],
+    "subcomponents": []
+  },
+  {
+    "description": "",
     "name": "TabPanels.Tab",
     "a11yReviewed": false,
     "stories": [
@@ -6370,6 +7245,59 @@
         "type": "string",
         "required": false,
         "description": "",
+        "defaultValue": null
+      }
+    ],
+    "subcomponents": []
+  },
+  {
+    "description": "",
+    "name": "UnderlinePanels.Tab",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": true,
+        "description": "Tabs (UnderlinePanels.Tab) and panels (UnderlinePanels.Panel) to render",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-label",
+        "type": "React.AriaAttributes",
+        "required": false,
+        "description": "Accessible name for the tab list",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-labelledby",
+        "type": "React.AriaAttributes",
+        "required": false,
+        "description": "ID of the element containing the name for the tab list",
+        "defaultValue": null
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "Custom string to use when generating the IDs of tabs and `aria-labelledby` for the panels",
+        "defaultValue": null
+      },
+      {
+        "name": "loadingCounters",
+        "type": "boolean",
+        "required": false,
+        "description": "Loading state for all counters. It displays loading animation for individual counters until all are resolved. It is needed to prevent multiple layout shift.",
+        "defaultValue": null
+      },
+      {
+        "name": "sx",
+        "type": "BetterSystemStyleObject",
+        "required": false,
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -6423,7 +7351,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -6448,7 +7376,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -6480,7 +7408,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -6498,7 +7426,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
@@ -6510,6 +7438,20 @@
       },
       {
         "name": "required",
+        "type": "boolean",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "requiredText",
+        "type": "string",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "requiredIndicator",
         "type": "boolean",
         "required": false,
         "description": "",
@@ -6572,7 +7514,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -6613,7 +7555,22 @@
     "stories": [
       ""
     ],
-    "props": [],
+    "props": [
+      {
+        "name": "aria-labelledby",
+        "type": "string",
+        "required": false,
+        "description": "The ID of the element that labels the region",
+        "defaultValue": null
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "description": "Accepts class names for custom styling",
+        "defaultValue": null
+      }
+    ],
     "subcomponents": []
   },
   {
@@ -6641,7 +7598,50 @@
     "stories": [
       ""
     ],
-    "props": [],
+    "props": [
+      {
+        "name": "children",
+        "type": "any",
+        "required": false,
+        "description": "@deprecated Text input action buttons should only use icon buttons",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-label",
+        "type": "string",
+        "required": false,
+        "description": "Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies.",
+        "defaultValue": null
+      },
+      {
+        "name": "tooltipDirection",
+        "type": "\"s\" | \"nw\" | \"n\" | \"ne\" | \"e\" | \"se\" | \"sw\" | \"w\"",
+        "required": false,
+        "description": "Position of tooltip. If no position is passed or defaults to \"n\"",
+        "defaultValue": null
+      },
+      {
+        "name": "icon",
+        "type": "FunctionComponent<PropsWithChildren<IconProps>>",
+        "required": false,
+        "description": "The icon to render inside the button",
+        "defaultValue": null
+      },
+      {
+        "name": "variant",
+        "type": "VariantType",
+        "required": false,
+        "description": "@deprecated Text input action buttons should only use the 'invisible' button variant\nDetermine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
+        "defaultValue": "invisible"
+      },
+      {
+        "name": "sx",
+        "type": "BetterSystemStyleObject",
+        "required": false,
+        "description": "A style object used to override styles using styled-components",
+        "defaultValue": null
+      }
+    ],
     "subcomponents": []
   },
   {
@@ -6685,7 +7685,7 @@
     ],
     "props": [
       {
-        "name": "monospace",
+        "name": "disabled",
         "type": "boolean",
         "required": false,
         "description": "",
@@ -6699,17 +7699,17 @@
         "defaultValue": null
       },
       {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
+        "name": "monospace",
+        "type": "boolean",
         "required": false,
         "description": "",
         "defaultValue": null
       },
       {
-        "name": "disabled",
-        "type": "boolean",
+        "name": "sx",
+        "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       },
       {
@@ -6752,6 +7752,20 @@
     ],
     "props": [
       {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "size",
+        "type": "TextInputSizes",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
         "name": "block",
         "type": "boolean",
         "required": false,
@@ -6759,14 +7773,42 @@
         "defaultValue": null
       },
       {
-        "name": "contrast",
+        "name": "monospace",
         "type": "boolean",
         "required": false,
         "description": "",
         "defaultValue": null
       },
       {
-        "name": "disabled",
+        "name": "sx",
+        "type": "BetterSystemStyleObject",
+        "required": false,
+        "description": "A style object used to override styles using styled-components",
+        "defaultValue": null
+      },
+      {
+        "name": "variant",
+        "type": "TextInputSizes",
+        "required": false,
+        "description": "@deprecated Use `size` prop instead",
+        "defaultValue": null
+      },
+      {
+        "name": "hasLeadingVisual",
+        "type": "boolean",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "hasTrailingVisual",
+        "type": "boolean",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "contrast",
         "type": "boolean",
         "required": false,
         "description": "",
@@ -6787,22 +7829,66 @@
         "defaultValue": null
       },
       {
-        "name": "monospace",
-        "type": "boolean",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
         "name": "validationStatus",
         "type": "FormValidationStatus",
         "required": false,
         "description": "",
         "defaultValue": null
-      },
+      }
+    ],
+    "subcomponents": []
+  },
+  {
+    "description": "",
+    "name": "StyledUnderlineWrapper",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [],
+    "subcomponents": []
+  },
+  {
+    "description": "",
+    "name": "StyledUnderlineItemList",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [],
+    "subcomponents": []
+  },
+  {
+    "description": "",
+    "name": "StyledUnderlineItem",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [],
+    "subcomponents": []
+  },
+  {
+    "description": "",
+    "name": "LoadingCounter",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [],
+    "subcomponents": []
+  },
+  {
+    "description": "",
+    "name": "UnderlineItem",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [
       {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
+        "name": "as",
+        "type": "any",
         "required": false,
         "description": "",
         "defaultValue": null
@@ -6822,7 +7908,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -6858,7 +7944,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -6934,7 +8020,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -6952,7 +8038,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -6977,7 +8063,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -7002,7 +8088,7 @@
         "name": "sx",
         "type": "BetterSystemStyleObject",
         "required": false,
-        "description": "",
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],

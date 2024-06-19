@@ -1,10 +1,10 @@
-import type {FC, PropsWithChildren, RefObject, MutableRefObject} from 'react'
+import {type FC, type PropsWithChildren, type RefObject, type MutableRefObject} from 'react'
 import React, {useState, useCallback, useRef, forwardRef} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {ActionList} from '../ActionList'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import styled from 'styled-components'
-import sx from '../sx'
+import sx, {type SxProp} from '../sx'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
@@ -15,6 +15,7 @@ import {IconButton} from '../Button'
 import Box from '../Box'
 import {ActionMenu} from '../ActionMenu'
 import {useFocusZone, FocusKeys} from '../hooks/useFocusZone'
+import type {ButtonA11yProps} from '../Button/types'
 
 type ChildSize = {
   text: string
@@ -37,15 +38,25 @@ small (28px), medium (32px), large (40px)
 type Size = 'small' | 'medium' | 'large'
 
 type A11yProps =
-  | {'aria-label': React.AriaAttributes['aria-label']; 'aria-labelledby'?: undefined}
-  | {'aria-label'?: undefined; 'aria-labelledby': React.AriaAttributes['aria-labelledby']}
+  | {
+      /** When provided, a label is added to the action bar */
+      'aria-label': React.AriaAttributes['aria-label']
+      'aria-labelledby'?: undefined
+    }
+  | {
+      /** When provided, a label is added to the action bar */
+      'aria-label'?: undefined
+      'aria-labelledby': React.AriaAttributes['aria-labelledby']
+    }
 
 export type ActionBarProps = {
+  /** Size of the action bar */
   size?: Size
+  /** Buttons in the action bar */
   children: React.ReactNode
 } & A11yProps
 
-export type ActionBarIconButtonProps = IconButtonProps
+export type ActionBarIconButtonProps = Omit<IconButtonProps, 'variant' | 'unsafeDisableTooltip'> & ButtonA11yProps
 
 const NavigationList = styled.div`
   ${sx};
@@ -290,7 +301,7 @@ export const ActionBar: FC<PropsWithChildren<ActionBarProps>> = props => {
   )
 }
 
-export const ActionBarIconButton = forwardRef((props: ActionBarIconButtonProps, forwardedRef) => {
+export const ActionBarIconButton = forwardRef<HTMLButtonElement, ActionBarIconButtonProps>((props, forwardedRef) => {
   const backupRef = useRef<HTMLElement>(null)
   const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
   const {size, setChildrenWidth} = React.useContext(ActionBarContext)

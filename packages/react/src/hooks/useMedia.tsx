@@ -9,13 +9,20 @@ import {warning} from '../utils/warning'
  * If `MatchMedia` is used as an ancestor, `useMedia` will instead use the
  * value of the media query string, if available
  *
+ * @param {string} mediaQueryString - CSS media query string used to scope styles. For example: '(pointer: coarse)'
+ * @param {boolean} defaultState - When server side rendering, defaultState should be defined to prevent a hydration mismatches.
  * @example
  * function Example() {
  *   const coarsePointer = useMedia('(pointer: coarse)');
  *   // ...
  * }
  */
-export function useMedia(mediaQueryString: string, defaultState?: boolean) {
+export function useMedia(
+  /** CSS media query string used to scope styles. For example: '(pointer: coarse)' */
+  mediaQueryString: string,
+  /** When server side rendering, defaultState should be defined to prevent a hydration mismatches. */
+  defaultState?: boolean,
+) {
   const features = useContext(MatchMediaContext)
   const [matches, setMatches] = React.useState(() => {
     if (features[mediaQueryString] !== undefined) {

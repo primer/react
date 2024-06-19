@@ -33,5 +33,7 @@ const ButtonGroup = styled.div`
   ${sx};
 `
 
+// TODO: figure out how we can show available `div` props in the docs without
+// having to manually add them and then omit them from `ComponentProps`
 export type ButtonGroupProps = ComponentProps<typeof ButtonGroup>
 export default ButtonGroup

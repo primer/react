@@ -1,11 +1,11 @@
 import {AlertFillIcon, AlertIcon, CheckCircleFillIcon, CheckCircleIcon} from '@primer/octicons-react'
-import React from 'react'
+import React, {type ComponentPropsWithoutRef} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 
 type MessageVariant = 'critical' | 'success' | 'unavailable' | 'warning'
 
-export type InlineMessageProps = React.ComponentPropsWithoutRef<'div'> & {
+export type InlineMessageProps = ComponentPropsWithoutRef<'div'> & {
   /**
    * Specify the size of the InlineMessage
    */

@@ -133,7 +133,7 @@ export type TooltipProps = PropsWithChildren<
     /** Whether the tooltip content is used to label the trigger (like IconButton), or describe the trigger (most other uses) */
     type?: 'label' | 'description'
   } & SxProp &
-    ComponentProps<typeof StyledTooltip>
+    ComponentProps<typeof StyledTooltip> // TODO: figure out why Docgen can't handle this
 >
 
 export type TriggerPropsType = {
@@ -189,8 +189,8 @@ const isInteractive = (element: HTMLElement) => {
 }
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 
-export const Tooltip = forwardRef(
-  ({direction = 's', text, type = 'description', children, id, ...rest}: TooltipProps, forwardedRef) => {
+export const Tooltip = forwardRef<HTMLElement, TooltipProps>(
+  ({direction = 's', text, type = 'description', children, id, ...rest}, forwardedRef) => {
     const tooltipId = useId(id)
     const child = Children.only(children)
     const triggerRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)

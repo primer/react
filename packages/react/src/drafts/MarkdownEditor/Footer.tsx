@@ -10,7 +10,12 @@ import {useSlots} from '../../hooks/useSlots'
 const uploadingNote = ([current, total]: [number, number]) =>
   total === 1 ? `Uploading your file…` : `Uploading your files… (${current}/${total})`
 
-export const CoreFooter = ({children}: {children: React.ReactNode}) => {
+export const CoreFooter = ({
+  children,
+}: {
+  /** Children to render in the footer */
+  children: React.ReactNode
+}) => {
   const [slots, childrenWithoutSlots] = useSlots(children, {
     footerButtons: FooterButton,
   })
@@ -38,7 +43,12 @@ export const CoreFooter = ({children}: {children: React.ReactNode}) => {
   )
 }
 
-export const Footer = ({children}: {children?: React.ReactNode}) => <CoreFooter>{children}</CoreFooter>
+export const Footer = ({
+  children,
+}: {
+  /** Children to render in the footer */
+  children?: React.ReactNode
+}) => <CoreFooter>{children}</CoreFooter>
 Footer.displayName = 'MarkdownEditor.Footer'
 
 export const FooterButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {

@@ -1,4 +1,5 @@
 import type React from 'react'
+import {type ButtonHTMLAttributes} from 'react'
 import styled from 'styled-components'
 import type {SxProp} from '../sx'
 import sx from '../sx'
@@ -16,7 +17,7 @@ export type Size = 'small' | 'medium' | 'large'
 
 export type AlignContent = 'start' | 'center'
 
-type ButtonA11yProps =
+export type ButtonA11yProps =
   | {'aria-label': string; 'aria-labelledby'?: undefined}
   | {'aria-label'?: undefined; 'aria-labelledby': string}
 
@@ -47,7 +48,7 @@ export type ButtonBaseProps = {
    */
   labelWrap?: boolean
 } & SxProp &
-  React.ButtonHTMLAttributes<HTMLButtonElement>
+  ButtonHTMLAttributes<HTMLButtonElement>
 
 export type ButtonProps = {
   /**
@@ -81,9 +82,13 @@ export type ButtonProps = {
 } & ButtonBaseProps
 
 export type IconButtonProps = ButtonA11yProps & {
+  /** Provide an octicon. It will be placed in the center of the button */
   icon: React.ElementType
+  /** Do not use. This is planned to be a temporary prop until the default tooltip on icon buttons are fully rolled out. */
   unsafeDisableTooltip?: boolean
+  /** If `description` is provided, we will use a Tooltip to describe the button. Then `aria-label` is used to label the button. */
   description?: string
+  /** Sets where the tooltip renders in relation to the target. */
   tooltipDirection?: TooltipDirection
 } & Omit<ButtonBaseProps, 'aria-label' | 'aria-labelledby'>
 

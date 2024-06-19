@@ -3,7 +3,12 @@ import type {ButtonProps} from '../../Button'
 import {Button} from '../../Button'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
 
-export const Actions = ({children}: {children?: React.ReactNode}) => <>{children}</>
+export const Actions = ({
+  children,
+}: {
+  /** Markdown editor actions */
+  children?: React.ReactNode
+}) => <>{children}</>
 Actions.displayName = 'MarkdownEditor.Actions'
 
 export const ActionButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {

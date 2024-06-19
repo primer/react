@@ -1,9 +1,11 @@
-import React from 'react'
+import React, {type PropsWithChildren} from 'react'
 import Box from '../../Box'
 import {useOverflow} from '../hooks/useOverflow'
 
-type ScrollableRegionProps = React.PropsWithChildren<{
+type ScrollableRegionProps = PropsWithChildren<{
+  /** The ID of the element that labels the region */
   'aria-labelledby'?: string
+  /** Accepts class names for custom styling */
   className?: string
 }>
 
