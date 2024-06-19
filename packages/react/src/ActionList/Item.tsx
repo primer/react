@@ -349,7 +349,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     let containerProps
     let wrapperProps
 
-
     if (buttonSemantics) {
       containerProps = _PrivateItemWrapper
         ? {role: itemRole ? 'none' : undefined, ...props}
@@ -377,7 +376,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           ref={buttonSemantics || listSemantics ? forwardedRef : null}
           sx={
             buttonSemantics
-
               ? merge<BetterSystemStyleObject>(
                   listSemantics || _PrivateItemWrapper ? styles : listItemStyles,
                   listSemantics || _PrivateItemWrapper ? sxProp : {},
