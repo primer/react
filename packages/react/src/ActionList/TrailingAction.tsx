@@ -3,12 +3,20 @@ import Box from '../Box'
 import {Button, IconButton} from '../Button'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
-export type ActionListTrailingActionProps = {
-  as?: 'button' | 'a'
-  href?: string
+type ButtonTrailingActionProps = {
+  as?: 'button'
   icon?: React.ElementType
   label: string
 }
+
+type LinkTrailingActionProps = {
+  as: 'a'
+  href: string
+  icon?: React.ElementType
+  label: string
+}
+
+export type ActionListTrailingActionProps = ButtonTrailingActionProps | LinkTrailingActionProps
 
 export const TrailingAction = forwardRef(({as = 'button', icon, label, href = null}, forwardedRef) => {
   if (!icon) {
