@@ -6,7 +6,7 @@ import {
 } from '@primer/octicons-react'
 import clsx from 'clsx'
 import React, {useCallback, useEffect} from 'react'
-import styled, {keyframes} from 'styled-components'
+import styled from 'styled-components'
 import {ConfirmationDialog} from '../ConfirmationDialog/ConfirmationDialog'
 import Spinner from '../Spinner'
 import Text from '../Text'
@@ -21,6 +21,8 @@ import sx from '../sx'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
+import {SkeletonAvatar} from '../drafts/Skeleton/SkeletonAvatar'
+import {SkeletonText} from '../drafts/Skeleton/SkeletonText'
 
 // ----------------------------------------------------------------------------
 // Context
@@ -709,12 +711,7 @@ function usePreviousValue<T>(value: T): T {
   return ref.current
 }
 
-const shimmer = keyframes`
-  from { mask-position: 200%; }
-  to { mask-position: 0%; }
-`
-
-const SkeletonItem = styled.span.attrs({className: 'PRIVATE_TreeView-item-skeleton'})`
+const StyledSkeletonItemContainer = styled.span.attrs({className: 'PRIVATE_TreeView-item-skeleton'})`
   display: flex;
   align-items: center;
   column-gap: 0.5rem;
@@ -722,40 +719,6 @@ const SkeletonItem = styled.span.attrs({className: 'PRIVATE_TreeView-item-skelet
 
   @media (pointer: coarse) {
     height: 2.75rem;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    mask-image: linear-gradient(75deg, #000 30%, rgba(0, 0, 0, 0.65) 80%);
-    mask-size: 200%;
-    animation: ${shimmer};
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-  }
-
-  &::before {
-    content: '';
-    display: block;
-    width: 1rem;
-    height: 1rem;
-    background-color: ${get('colors.neutral.subtle')};
-    border-radius: 3px;
-    @media (forced-colors: active) {
-      outline: 1px solid transparent;
-      outline-offset: -1px;
-    }
-  }
-
-  &::after {
-    content: '';
-    display: block;
-    width: var(--tree-item-loading-width, 67%);
-    height: 1rem;
-    background-color: ${get('colors.neutral.subtle')};
-    border-radius: 3px;
-    @media (forced-colors: active) {
-      outline: 1px solid transparent;
-      outline-offset: -1px;
-    }
   }
 
   &:nth-of-type(5n + 1) {
@@ -778,6 +741,19 @@ const SkeletonItem = styled.span.attrs({className: 'PRIVATE_TreeView-item-skelet
     --tree-item-loading-width: 50%;
   }
 `
+
+const StyledSkeletonText = styled(SkeletonText)`
+  width: var(--tree-item-loading-width, 67%);
+`
+
+const SkeletonItem = () => {
+  return (
+    <StyledSkeletonItemContainer>
+      <SkeletonAvatar size={16} square />
+      <StyledSkeletonText />
+    </StyledSkeletonItemContainer>
+  )
+}
 
 type LoadingItemProps = {
   count?: number
