@@ -25,7 +25,9 @@ import {
   PeopleIcon,
   FileDirectoryIcon,
   PlusCircleIcon,
+  LinkExternalIcon,
 } from '@primer/octicons-react'
+import {FeatureFlags} from '../FeatureFlags'
 
 export default {
   title: 'Components/ActionList/Features',
@@ -710,3 +712,25 @@ export const GroupWithFilledTitle = () => {
     </ActionList>
   )
 }
+
+export const ActionListWithButtonSemantics = () => {
+  return (
+    <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+      <ActionList>
+        <ActionList.Item>Copy link</ActionList.Item>
+        <ActionList.Item inactiveText="Nothing to quote">Quote reply</ActionList.Item>
+        <ActionList.Item disabled>Edit comment</ActionList.Item>
+        <ActionList.Divider />
+        <ActionList.Item variant="danger">Delete file</ActionList.Item>
+        <ActionList.LinkItem href="https://github.com/primer/react#readme">
+          Support
+          <ActionList.TrailingVisual>
+            <LinkExternalIcon />
+          </ActionList.TrailingVisual>
+        </ActionList.LinkItem>
+      </ActionList>
+    </FeatureFlags>
+  )
+}
+
+ActionListWithButtonSemantics.storyName = 'With Button Semantics (Behind feature flag)'
