@@ -61,7 +61,16 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarBaseProps<AvatarImageSou
 
   const imageSourceURL = getUrlFromAvatarImageSource(src)
   return (
-    <StyledAvatar data-component="Avatar" ref={ref} alt={alt} size={size} square={square} sx={avatarSx} src={imageSourceURL} {...rest} />
+    <StyledAvatar
+      data-component="Avatar"
+      ref={ref}
+      alt={alt}
+      size={size}
+      square={square}
+      sx={avatarSx}
+      src={imageSourceURL}
+      {...rest}
+    />
   )
 })
 
