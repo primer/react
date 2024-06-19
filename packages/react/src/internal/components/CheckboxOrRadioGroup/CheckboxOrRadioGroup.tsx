@@ -1,8 +1,6 @@
 import React from 'react'
-import styled from 'styled-components'
 import Box from '../../../Box'
 import ValidationAnimationContainer from '../ValidationAnimationContainer'
-import {get} from '../../../constants'
 import {useId} from '../../../hooks/useId'
 import CheckboxOrRadioGroupCaption from './CheckboxOrRadioGroupCaption'
 import CheckboxOrRadioGroupLabel from './CheckboxOrRadioGroupLabel'
@@ -11,7 +9,7 @@ import CheckboxOrRadioGroupContext from './CheckboxOrRadioGroupContext'
 import VisuallyHidden from '../../../_VisuallyHidden'
 import {useSlots} from '../../../hooks/useSlots'
 import type {SxProp} from '../../../sx'
-import CheckboxOrRadioGroupChoices from './CheckboxOrRadioGroupChoices'
+import CheckboxOrRadioGroupChoices, {Body} from './CheckboxOrRadioGroupChoices'
 
 export type CheckboxOrRadioGroupProps = {
   /**
@@ -32,18 +30,6 @@ export type CheckboxOrRadioGroupProps = {
    */
   required?: boolean
 } & SxProp
-
-export const Body = styled.div`
-  display: flex;
-  flex-direction: column;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-
-  > * + * {
-    margin-top: ${get('space.2')};
-  }
-`
 
 const CheckboxOrRadioGroup: React.FC<React.PropsWithChildren<CheckboxOrRadioGroupProps>> = ({
   'aria-labelledby': ariaLabelledby,
