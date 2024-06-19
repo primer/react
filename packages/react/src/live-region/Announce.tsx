@@ -118,7 +118,7 @@ export function Announce({
   useEffect(() => {
     return () => {
       if (savedAnnouncement.current !== null) {
-        savedAnnouncement.current?.cancel()
+        savedAnnouncement.current.cancel()
         savedAnnouncement.current = null
       }
     }
