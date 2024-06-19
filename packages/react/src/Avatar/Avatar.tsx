@@ -54,7 +54,9 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
         sxProp as SxProp,
       )
     : merge({'--avatar-size': `${size}px`} as React.CSSProperties, sxProp as SxProp)
-  return <StyledAvatar ref={ref} alt={alt} size={size} square={square} sx={avatarSx} {...rest} />
+  return (
+    <StyledAvatar data-component="Avatar" ref={ref} alt={alt} size={size} square={square} sx={avatarSx} {...rest} />
+  )
 })
 
 if (__DEV__) {

@@ -128,7 +128,7 @@ exports[`Avatar respects alignRight props 1`] = `
   transition: margin 0.2s ease-in-out,opacity 0.2s ease-in-out,visibility 0.2s ease-in-out,box-shadow 0.1s ease-in-out;
 }
 
-.c0 .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover .pc-AvatarItem box-shadow:0 0 0 4px function (props) {
+.c0 .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover .pc-AvatarItem box-shadow:inset 0 0 0 4px function (props) {
   return: (0,_core.get)(props.theme,path,fallback);
 }
 
