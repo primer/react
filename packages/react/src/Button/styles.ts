@@ -304,6 +304,41 @@ export const getButtonStyles = (theme?: Theme) => {
     '&[data-block="block"]': {
       width: '100%',
     },
+    '&[data-label-wrap="true"]': {
+      minWidth: 'fit-content',
+      height: 'unset',
+      minHeight: 'var(--control-medium-size, 2rem)',
+
+      '[data-component="buttonContent"]': {
+        flex: '1 1 auto',
+        alignSelf: 'stretch',
+        paddingBlock: 'calc(var(--control-medium-paddingBlock, 0.375rem) - 2px)',
+      },
+
+      '[data-component="text"]': {
+        whiteSpace: 'unset',
+        wordBreak: 'break-word',
+      },
+
+      '&[data-size="small"]': {
+        height: 'unset',
+        minHeight: 'var(--control-small-size, 1.75rem)',
+
+        '[data-component="buttonContent"]': {
+          paddingBlock: 'calc(var(--control-small-paddingBlock, 0.25rem) - 2px)',
+        },
+      },
+
+      '&[data-size="large"]': {
+        height: 'unset',
+        minHeight: 'var(--control-large-size, 2.5rem)',
+        paddingInline: 'var(--control-large-paddingInline-spacious, 1rem)',
+
+        '[data-component="buttonContent"]': {
+          paddingBlock: 'calc(var(--control-large-paddingBlock, 0.625rem) - 2px)',
+        },
+      },
+    },
     '&[data-inactive]:not([disabled])': {
       backgroundColor: `var(--button-inactive-bgColor, ${theme?.colors.btn.inactive.bg})`,
       borderColor: `var(--button-inactive-bgColor, ${theme?.colors.btn.inactive.bg})`,

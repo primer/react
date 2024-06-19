@@ -39,9 +39,10 @@ export const LeadingVisual: FC<PropsWithChildren<VisualProps>> = ({sx = {}, ...p
         {
           color: getVariantStyles(variant, disabled, inactive).iconColor,
           svg: {fontSize: 0},
-          '[data-variant="danger"]:hover &, [data-variant="danger"]:active &': {
-            color: getVariantStyles(variant, disabled, inactive).hoverColor,
-          },
+          '[data-variant="danger"]:not([aria-disabled]):not([data-inactive]):hover &, [data-variant="danger"]:active &':
+            {
+              color: getVariantStyles(variant, disabled, inactive).hoverColor,
+            },
         },
         sx as SxProp,
       )}
