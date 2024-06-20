@@ -4,8 +4,8 @@
 
 | Stage    | Status      |
 | -------- | ----------- |
-| Approved | <!-- ✅ --> |
-| Adopted  | <!-- 🚧 --> |
+| Approved | ✅ |
+| Adopted  | 🚧 |
 
 ## Context
 
@@ -220,8 +220,6 @@ function ExampleComponent() {
 }
 ```
 
-## Alternatives
-
 ## Unresolved questions
 
 - What should happen if a component makes excessive announcements due to a
@@ -230,5 +228,3 @@ function ExampleComponent() {
   this space for `ariaNotify`?
 - When should something use an ARIA Live region role component versus just using
   the helper functions?
-
-## FAQ
