@@ -1,3 +1,5 @@
+import {fileURLToPath} from 'node:url'
+import path from 'node:path'
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import babel from '@rollup/plugin-babel'
@@ -5,9 +7,11 @@ import replace from '@rollup/plugin-replace'
 import terser from '@rollup/plugin-terser'
 import glob from 'fast-glob'
 import {visualizer} from 'rollup-plugin-visualizer'
-import postcss from 'rollup-plugin-postcss'
+import {importCSS} from 'rollup-plugin-import-css'
 import MagicString from 'magic-string'
-import packageJson from './package.json'
+import packageJson from './package.json' assert {type: 'json'}
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const input = new Set([
   // "exports"
@@ -121,11 +125,12 @@ const baseConfig = {
     commonjs({
       extensions,
     }),
-    postcss({
-      extract: 'components.css',
-      autoModules: false,
-      modules: {generateScopedName: 'prc_[local]_[hash:base64:5]'},
-      // plugins are defined in postcss.config.js
+    importCSS({
+      modulesRoot: 'src',
+      postcssPlugins: [],
+      postcssModulesOptions: {
+        generateScopedName: '[folder]-[name]-[local]-[hash:base64:5]',
+      },
     }),
     /**
      * This custom rollup plugin allows us to preserve directives in source
