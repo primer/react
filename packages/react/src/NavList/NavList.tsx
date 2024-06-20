@@ -287,17 +287,7 @@ const Expand: React.FC<NavListExpandProps> = ({label, children, ...props}) => {
 
   return !expanded ? (
     <Box as="li" sx={{listStyle: 'none'}}>
-      <ActionList.Item
-        as="button"
-        sx={{
-          color: 'accent.fg',
-          '&:hover': {
-            color: 'accent.fg',
-          },
-        }}
-        onClick={expandList}
-        {...props}
-      >
+      <ActionList.Item as="button" onClick={expandList} {...props}>
         {label}
         <ActionList.TrailingVisual>
           <PlusIcon />
