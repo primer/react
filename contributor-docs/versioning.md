@@ -16,6 +16,7 @@
   - [A component includes a landmark role](#a-component-includes-a-landmark-role)
   - [A component no longer includes a landmark role](#a-component-no-longer-includes-a-landmark-role)
   - [The element onto which props are spread is changed](#the-element-onto-which-props-are-spread-is-changed)
+  - [The element type in an event handler becomes broader](#the-element-type-in-an-event-handler-becomes-broader)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 <!-- prettier-ignore-end -->
@@ -56,6 +57,7 @@ For a full list of releases, visit our [releases](https://github.com/primer/reac
 |               | A prop is deprecated                                                                                                                          | `minor`             |
 |               | A prop is removed                                                                                                                             | `major`             |
 |               | [The element onto which props are spread is changed](#the-element-onto-which-props-are-spread-is-changed)                                     | potentially `major` |
+|               | [The element type in an event handler becomes broader](#the-element-type-in-an-event-handler-becomes-broader)                                 | `major`             |
 | Package       | A dependency is added                                                                                                                         | `minor`             |
 |               | A dependency is removed and it does not affect the public API of the package                                                                  | `minor`             |
 |               | A dependency is removed and it does affect the public API of the package                                                                      | `major`             |
@@ -246,3 +248,65 @@ function Component(props: Props) {
 ```
 
 </details>
+
+### The element type in an event handler becomes broader
+
+semver bump: **major**
+
+This is a breaking change due to how extracted event handlers need to be typed.
+Consider the following example:
+
+```tsx
+function ExampleComponent() {
+  return (
+    <Item
+      onSelect={event => {
+        //
+      }}
+    />
+  )
+}
+```
+
+When the `onSelect` handler is provided inline, the type is inferred and does
+not need to be explicitly defined. However, when this handler is pulled out then
+the type is defined:
+
+```tsx
+function ExampleComponent() {
+  function onSelect(event: React.MouseEvent<HTMLDivElement>) {
+    //
+  }
+
+  return <Item onSelect={onSelect} />
+}
+```
+
+This situation is what will cause a breaking change if we change the base
+element type of this event handler. For example, if we update the props of
+`Item` to be the following:
+
+```diff
+interface ItemProps {
+-  onSelect(event: React.MouseEvent<HTMLDivElement>): void;
++  onSelect(event: React.MouseEvent<HTMLElement>): void;
+}
+```
+
+Then the downstream consumers that have typed `onSelect` will now have a
+TypeScript error since `HTMLDivElement` does not fully overlap with `HTMLElement`.
+
+When choosing to expose event handler types, consider what the minimum type is
+that will satisfy the requirements by callers. Additionally, when typing
+handlers of components it is recommended to use the type from the component
+props directly. For example:
+
+```tsx
+function ExampleComponent() {
+  const onSelect: ItemProps['onSelect'] = event => {
+    //
+  }
+
+  return <Item onSelect={onSelect} />
+}
+```
