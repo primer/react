@@ -33,8 +33,8 @@ describe('Spinner', () => {
   })
 
   it('should use `aria-label` over `srText` if `aria-label` is provided', () => {
-    HTMLRender(<Spinner aria-label="test" />)
-    expect(screen.getByLabelText('test')).toBeInTheDocument()
+    HTMLRender(<Spinner aria-label="Test label" />)
+    expect(screen.getByLabelText('Test label')).toBeInTheDocument()
   })
 
   it('should have no axe violations', async () => {
