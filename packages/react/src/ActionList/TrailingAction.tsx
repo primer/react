@@ -3,9 +3,17 @@ import Box from '../Box'
 import {Button, IconButton} from '../Button'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
-export type ActionListTrailingActionProps = {
-  as?: 'button' | 'a'
-  href?: string
+type ElementProps =
+  | {
+      as?: 'button'
+      href?: never
+    }
+  | {
+      as: 'a'
+      href: string
+    }
+
+export type ActionListTrailingActionProps = ElementProps & {
   icon?: React.ElementType
   label: string
 }
