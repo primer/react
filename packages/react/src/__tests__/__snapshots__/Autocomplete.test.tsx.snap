@@ -402,12 +402,12 @@ exports[`snapshots renders a loading state 1`] = `
             vectorEffect="non-scaling-stroke"
           />
         </svg>
-        <div
+        <span
           className="c4"
           id=":r1v:"
         >
           Loading
-        </div>
+        </span>
       </div>
     </div>
   </span>,
