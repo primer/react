@@ -129,7 +129,7 @@ const baseConfig = {
       modulesRoot: 'src',
       postcssPlugins: [],
       postcssModulesOptions: {
-        generateScopedName: '[folder]-[name]-[local]-[hash:base64:5]',
+        generateScopedName: 'prc-[folder]-[local]-[hash:base64:5]',
       },
     }),
     /**
