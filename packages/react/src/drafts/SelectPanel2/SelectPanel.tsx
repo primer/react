@@ -616,7 +616,7 @@ const SelectPanelLoading = ({children = 'Fetching items...'}: React.PropsWithChi
         //                 maxHeight of dialog - (header & footer)
       }}
     >
-      <Spinner size="medium" />
+      <Spinner size="medium" srText={null} />
       <Text sx={{fontSize: 1, color: 'fg.muted'}}>{children}</Text>
     </Status>
   )

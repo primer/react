@@ -1,17 +1,13 @@
 import type {MutableRefObject, RefObject} from 'react'
 import React, {forwardRef, useRef, useContext} from 'react'
 import Box from '../Box'
-import type {SxProp, BetterSystemStyleObject} from '../sx'
-import {merge} from '../sx'
+import type {SxProp} from '../sx'
 import type {IconProps} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {UnderlineNavContext} from './UnderlineNavContext'
-import CounterLabel from '../CounterLabel'
-import {getLinkStyles, iconWrapStyles, counterStyles} from './styles'
-import {LoadingCounter} from './LoadingCounter'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {defaultSxProp} from '../utils/defaultSxProp'
-import Link from '../Link'
+import {UnderlineItem} from '../internal/components/UnderlineTabbedInterface'
 
 // adopted from React.AnchorHTMLAttributes
 export type LinkProps = {
@@ -71,8 +67,7 @@ export const UnderlineNavItem = forwardRef(
   ) => {
     const backupRef = useRef<HTMLElement>(null)
     const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
-    const {theme, setChildrenWidth, setNoIconChildrenWidth, loadingCounters, iconsVisible} =
-      useContext(UnderlineNavContext)
+    const {setChildrenWidth, setNoIconChildrenWidth, loadingCounters, iconsVisible} = useContext(UnderlineNavContext)
 
     useLayoutEffect(() => {
       if (ref.current) {
@@ -117,43 +112,22 @@ export const UnderlineNavItem = forwardRef(
 
     return (
       <Box as="li" sx={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-        <Link
+        <UnderlineItem
           ref={ref}
           as={Component}
           href={href}
           aria-current={ariaCurrent}
           onKeyDown={keyDownHandler}
           onClick={clickHandler}
-          sx={merge<BetterSystemStyleObject>(getLinkStyles(theme, ariaCurrent), sxProp as SxProp)}
+          counter={counter}
+          icon={Icon}
+          loadingCounters={loadingCounters}
+          iconsVisible={iconsVisible}
+          sx={sxProp}
           {...props}
         >
-          {iconsVisible && Icon && (
-            <Box as="span" data-component="icon" sx={iconWrapStyles}>
-              <Icon />
-            </Box>
-          )}
-          {children && (
-            <Box
-              as="span"
-              data-component="text"
-              data-content={children}
-              sx={Boolean(ariaCurrent) && ariaCurrent !== 'false' ? {fontWeight: 600} : {}}
-            >
-              {children}
-            </Box>
-          )}
-          {loadingCounters ? (
-            <Box as="span" data-component="counter" sx={counterStyles}>
-              <LoadingCounter />
-            </Box>
-          ) : (
-            counter !== undefined && (
-              <Box as="span" data-component="counter" sx={counterStyles}>
-                <CounterLabel>{counter}</CounterLabel>
-              </Box>
-            )
-          )}
-        </Link>
+          {children}
+        </UnderlineItem>
       </Box>
     )
   },

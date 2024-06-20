@@ -45,7 +45,7 @@ export const LinkItem = React.forwardRef(({sx = {}, active, inactiveText, as: Co
       inactiveText={inactiveText}
       data-inactive={inactiveText ? true : undefined}
       _PrivateItemWrapper={({children, onClick, ...rest}) => {
-        const clickHandler = (event: React.MouseEvent) => {
+        const clickHandler = (event: React.MouseEvent<HTMLElement>) => {
           onClick && onClick(event)
           props.onClick && props.onClick(event as React.MouseEvent<HTMLAnchorElement>)
         }
