@@ -1,7 +1,12 @@
-import React from 'react'
+import React, {type ElementType} from 'react'
 import {Announce} from './Announce'
 
-export type AriaStatusProps = React.PropsWithChildren<{
+export type AriaStatusProps<As extends ElementType> = React.PropsWithChildren<{
+  /**
+   * Customize the element type of the rendered container
+   */
+  as?: As
+
   /**
    * Specify if the content of the element should be announced when this
    * component is rendered and is not hidden
@@ -21,7 +26,11 @@ export type AriaStatusProps = React.PropsWithChildren<{
   delayMs?: number
 }>
 
-export function AriaStatus({announceOnShow = false, children, ...rest}: AriaStatusProps) {
+export function AriaStatus<As extends ElementType>({
+  announceOnShow = false,
+  children,
+  ...rest
+}: AriaStatusProps<As> & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>) {
   return (
     <Announce {...rest} announceOnShow={announceOnShow} politeness="polite">
       {children}
