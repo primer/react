@@ -17,6 +17,7 @@
 
 .Blankslate[data-border='true'] {
   /* border: var(--borderWidth-thin) solid var(--borderColor-default, ${get('colors.border.default')}); */
+  border: var(--borderWidth-thin) solid var(--borderColor-default);
   border-radius: var(--borderRadius-medium);
 }
 
@@ -38,6 +39,7 @@
 
 .BlankslateDescription {
   /* color: var(--fgColor-muted, ${get('colors.fg.muted')}); */
+  color: var(--fgColor-muted);
   font-size: var(--text-body-size-large);
 }
 
