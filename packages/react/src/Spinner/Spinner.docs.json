@@ -19,7 +19,7 @@
     },
     {
       "name": "aria-label",
-      "type": "string | null",
+      "type": "string",
       "description": "Sets the text conveyed by assistive technologies such as screen readers.",
       "deprecated": true
     },
