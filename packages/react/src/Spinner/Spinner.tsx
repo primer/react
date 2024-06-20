@@ -57,7 +57,11 @@ function Spinner({size: sizeKey = 'medium', srText = 'Loading', 'aria-label': ar
           vectorEffect="non-scaling-stroke"
         />
       </svg>
-      {hasHiddenLabel ? <VisuallyHidden id={labelId}>{srText}</VisuallyHidden> : null}
+      {hasHiddenLabel ? (
+        <VisuallyHidden as="span" id={labelId}>
+          {srText}
+        </VisuallyHidden>
+      ) : null}
     </Box>
   )
 }
