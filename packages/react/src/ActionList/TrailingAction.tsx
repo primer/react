@@ -10,7 +10,7 @@ export type ActionListTrailingActionProps = {
   label: string
 }
 
-export const TrailingAction = forwardRef(({as = 'button', icon, label, href = null}, forwardedRef) => {
+export const TrailingAction = forwardRef(({as = 'button', icon, label, href = null, ...props}, forwardedRef) => {
   if (!icon) {
     return (
       <Box
@@ -21,7 +21,7 @@ export const TrailingAction = forwardRef(({as = 'button', icon, label, href = nu
         }}
       >
         {/* @ts-expect-error TODO: Fix this */}
-        <Button variant="invisible" as={as} href={href} ref={forwardedRef}>
+        <Button variant="invisible" as={as} href={href} ref={forwardedRef} {...props}>
           {label}
         </Button>
       </Box>
@@ -45,6 +45,7 @@ export const TrailingAction = forwardRef(({as = 'button', icon, label, href = nu
           href={href}
           // @ts-expect-error StyledButton wants both Anchor and Button refs
           ref={forwardedRef}
+          {...props}
         />
       </Box>
     )
