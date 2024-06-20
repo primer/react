@@ -1,0 +1,96 @@
+.container {
+  container: blankslate / inline-size;
+}
+
+.Blankslate {
+  --blankslate-outer-padding-block: var(--base-size-32);
+  --blankslate-outer-padding-inline: var(--base-size-32);
+  display: grid;
+  justify-items: center;
+  padding: var(--blankslate-outer-padding-block) var(--blankslate-outer-padding-inline);
+}
+
+.Blankslate[data-spacious='true'] {
+  --blankslate-outer-padding-block: var(--base-size-80);
+  --blankslate-outer-padding-inline: var(--base-size-40);
+}
+
+.Blankslate[data-border='true'] {
+  /* border: var(--borderWidth-thin) solid var(--borderColor-default, ${get('colors.border.default')}); */
+  border-radius: var(--borderRadius-medium);
+}
+
+.Blankslate[data-narrow='true'] {
+  margin: 0 auto;
+  max-width: 485px;
+}
+
+.BlankslateHeading,
+.BlankslateDescription {
+  margin: 0;
+  margin-bottom: var(--stack-gap-condensed);
+}
+
+.BlankslateHeading {
+  font-size: var(--text-title-size-medium);
+  font-weight: var(--text-title-weight-medium);
+}
+
+.BlankslateDescription {
+  /* color: var(--fgColor-muted, ${get('colors.fg.muted')}); */
+  font-size: var(--text-body-size-large);
+}
+
+.BlankslateAction {
+  margin-top: var(--stack-gap-normal);
+}
+
+.BlankslateAction:first-of-type {
+  margin-top: var(--stack-gap-spacious);
+}
+
+.BlankslateAction:last-of-type {
+  margin-bottom: var(--stack-gap-condensed);
+}
+
+/* At the time these styles were written, 34rem was our "small" breakpoint width */
+@container blankslate (max-width: 34rem) {
+  .Blankslate {
+    --blankslate-outer-padding-block: var(--base-size-20);
+    --blankslate-outer-padding-inline: var(--base-size-20);
+  }
+
+  .Blankslate[data-spacious='true'] {
+    --blankslate-outer-padding-block: var(--base-size-44);
+    --blankslate-outer-padding-inline: var(--base-size-28);
+  }
+
+  .BlankslateVisual {
+    margin-bottom: var(--stack-gap-condensed);
+    max-width: var(--base-size-24);
+  }
+
+  .BlankslateVisual svg {
+    width: 100%;
+  }
+
+  .BlankslateHeading {
+    font-size: var(--text-title-size-small);
+  }
+
+  .BlankslateDescription {
+    font-size: var(--text-body-size-medium);
+  }
+
+  .BlankslateAction {
+    margin-top: var(--stack-gap-condensed);
+  }
+
+  .BlankslateAction:first-of-type {
+    margin-top: var(--stack-gap-normal);
+  }
+
+  .BlankslateAction:last-of-type {
+    margin-bottom: calc(var(--stack-gap-condensed) / 2);
+  }
+}
