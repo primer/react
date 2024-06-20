@@ -4094,7 +4094,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         className="c3"
         display="flex"
       >
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -4134,7 +4134,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           >
             Loading
           </span>
-        </div>
+        </span>
       </div>
     </span>
   </span>,
@@ -4308,7 +4308,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <div
+        <span
           className="c3"
         >
           <svg
@@ -4348,7 +4348,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           >
             Loading
           </span>
-        </div>
+        </span>
       </div>
     </span>
     <input
@@ -4365,7 +4365,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <div
+        <span
           className="c3"
         >
           <svg
@@ -4405,7 +4405,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           >
             Loading
           </span>
-        </div>
+        </span>
       </div>
     </span>
   </span>,
@@ -4580,7 +4580,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         className="c3"
         display="flex"
       >
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -4620,7 +4620,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           >
             Loading
           </span>
-        </div>
+        </span>
       </div>
     </span>
   </span>,
@@ -4828,7 +4828,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -4873,7 +4873,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           >
             Loading
           </span>
-        </div>
+        </span>
       </div>
     </span>
     <input
@@ -4890,7 +4890,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -4930,7 +4930,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           >
             Loading
           </span>
-        </div>
+        </span>
       </div>
     </span>
   </span>,
@@ -5138,7 +5138,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -5183,7 +5183,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           >
             Loading
           </span>
-        </div>
+        </span>
       </div>
     </span>
     <input
@@ -5200,7 +5200,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -5240,7 +5240,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           >
             Loading
           </span>
-        </div>
+        </span>
       </div>
     </span>
   </span>,
@@ -5448,7 +5448,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -5493,7 +5493,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           >
             Loading
           </span>
-        </div>
+        </span>
       </div>
     </span>
     <input
@@ -5510,7 +5510,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -5550,7 +5550,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           >
             Loading
           </span>
-        </div>
+        </span>
       </div>
     </span>
   </span>,
@@ -5759,7 +5759,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c5"
         >
           <svg
@@ -5804,7 +5804,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           >
             Loading
           </span>
-        </div>
+        </span>
       </div>
     </span>
   </span>,
@@ -5987,7 +5987,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <div
+        <span
           className="c3"
         >
           <svg
@@ -6027,7 +6027,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           >
             Loading
           </span>
-        </div>
+        </span>
       </div>
     </span>
     <input
@@ -6069,7 +6069,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c3"
         >
           <svg
@@ -6114,7 +6114,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           >
             Loading
           </span>
-        </div>
+        </span>
       </div>
     </span>
   </span>,
@@ -6323,7 +6323,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c5"
         >
           <svg
@@ -6368,7 +6368,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           >
             Loading
           </span>
-        </div>
+        </span>
       </div>
     </span>
   </span>,
@@ -6594,7 +6594,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -6639,7 +6639,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           >
             Loading
           </span>
-        </div>
+        </span>
       </div>
     </span>
     <input
@@ -6681,7 +6681,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -6726,7 +6726,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           >
             Loading
           </span>
-        </div>
+        </span>
       </div>
     </span>
   </span>,
@@ -6943,7 +6943,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -6988,7 +6988,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           >
             Loading
           </span>
-        </div>
+        </span>
       </div>
     </span>
     <input
@@ -7030,7 +7030,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -7075,7 +7075,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           >
             Loading
           </span>
-        </div>
+        </span>
       </div>
     </span>
   </span>,
@@ -7299,7 +7299,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -7344,7 +7344,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           >
             Loading
           </span>
-        </div>
+        </span>
       </div>
     </span>
     <input
@@ -7386,7 +7386,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -7431,7 +7431,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           >
             Loading
           </span>
-        </div>
+        </span>
       </div>
     </span>
   </span>,
