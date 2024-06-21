@@ -10,6 +10,10 @@ const docgenOptions = {
   // allowSyntheticDefaultImports: true,
   propFilter: (prop, _component) => {
     if (prop.declarations !== undefined && prop.declarations.length > 0) {
+      // TODO: figure out how to choose which props we want to document.
+      // This will filter out ALL props that are defined by a package from `node_modules`,
+      // but we might want to document props like `className` or `children`.
+      // I think this might also be what's breaking components that use `ComponentProps<P>`.
       const hasPropAdditionalDescription = prop.declarations.find(declaration => {
         return !declaration.fileName.includes('node_modules')
       })
@@ -73,11 +77,12 @@ const printSkippedProps = () => {
 }
 
 const formatComponentJson = ({description, displayName, props, tags}) => {
-  const {alias, primerid, primerstatus, primera11yreviewed, primerstories = '', primerparentid} = tags
+  const {alias, primerdocsid, primerid, primerstatus, primera11yreviewed, primerstories = '', primerparentid} = tags
 
   return {
     id: primerid, // TODO: consider auto-generating an ID if one is not present by parsing `displayName`
     description,
+    docsId: primerdocsid,
     name: primerparentid && alias ? alias : displayName,
     status: primerstatus,
     a11yReviewed: primera11yreviewed === 'true',

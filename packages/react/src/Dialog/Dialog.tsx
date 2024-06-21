@@ -397,6 +397,11 @@ const defaultPosition = {
   regular: 'center',
 }
 
+/**
+ * Dialog is a floating surface used to display transient content such as confirmation actions, selection options, and more.
+ * @primerid dialog_v2
+ * @primerdocsid dialog
+ */
 const _Dialog = forwardRef<HTMLDivElement, PropsWithChildren<DialogProps>>((props, forwardedRef) => {
   const {
     title = 'Dialog',
@@ -506,6 +511,13 @@ const _Dialog = forwardRef<HTMLDivElement, PropsWithChildren<DialogProps>>((prop
 })
 _Dialog.displayName = 'Dialog'
 
+/**
+ * The header area of a Dialog.
+ * @alias Dialog.Header
+ * @primerparentid dialog_v2
+ * @primerstatus draft
+ * @primera11yreviewed false
+ */
 const Header = styled.div<SxProp>`
   box-shadow: 0 1px 0 ${get('colors.border.default')};
   padding: ${get('space.2')};
@@ -514,6 +526,11 @@ const Header = styled.div<SxProp>`
   ${sx};
 `
 
+/**
+ * The title rendered in the header of the Dialog.
+ * @alias Dialog.Title
+ * @primerparentid dialog_v2
+ */
 const Title = styled.h1<SxProp>`
   font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
@@ -521,6 +538,11 @@ const Title = styled.h1<SxProp>`
   ${sx};
 `
 
+/**
+ * The subtitle rendered in the header of the Dialog.
+ * @alias Dialog.Subtitle
+ * @primerparentid dialog_v2
+ */
 const Subtitle = styled.h2<SxProp>`
   font-size: ${get('fontSizes.0')};
   color: ${get('colors.fg.muted')};
@@ -531,6 +553,11 @@ const Subtitle = styled.h2<SxProp>`
   ${sx};
 `
 
+/**
+ * The main content of a Dialog.
+ * @alias Dialog.Body
+ * @primerparentid dialog_v2
+ */
 const Body = styled.div<SxProp>`
   flex-grow: 1;
   overflow: auto;
@@ -539,6 +566,11 @@ const Body = styled.div<SxProp>`
   ${sx};
 `
 
+/**
+ * The footer area of a Dialog.
+ * @alias Dialog.Footer
+ * @primerparentid dialog_v2
+ */
 const Footer = styled.div<SxProp>`
   box-shadow: 0 -1px 0 ${get('colors.border.default')};
   padding: ${get('space.3')};
@@ -552,6 +584,11 @@ const Footer = styled.div<SxProp>`
   ${sx};
 `
 
+/**
+ * The buttons rendered in the footer area of a Dialog.
+ * @alias Dialog.Buttons
+ * @primerparentid dialog_v2
+ */
 const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
   const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
   let autoFocusCount = 0
@@ -584,6 +621,12 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
     </>
   )
 }
+
+/**
+ * The close button rendered in the header area of a Dialog.
+ * @alias Dialog.CloseButton
+ * @primerparentid dialog_v2
+ */
 const DialogCloseButton = styled(Button)`
   border-radius: 4px;
   background: transparent;

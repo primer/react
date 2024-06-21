@@ -60,6 +60,13 @@ const focusZoneSettings: Partial<FocusZoneHookSettings> = {
   disabled: true,
 }
 
+/**
+ * Select panel is a semantic dialog that allows for complex selection options within an overlay.
+ * @primerid select_panel
+ * @primerdocsid select_panel
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 export function SelectPanel({
   open,
   onOpenChange,

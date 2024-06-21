@@ -8033,9 +8033,14 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "primerid": "select_panel",
+      "primerdocsid": "select_panel",
+      "primerstatus": "alpha",
+      "primera11yreviewed": "false"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/SelectPanel/SelectPanel.tsx",
-    "description": "",
+    "description": "Select panel is a semantic dialog that allows for complex selection options within an overlay.",
     "displayName": "SelectPanel",
     "methods": [],
     "props": {
@@ -10270,9 +10275,14 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "primerid": "tooltip",
+      "primerdocsid": "tooltip",
+      "primerstatus": "alpha",
+      "primera11yreviewed": "false"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Tooltip/Tooltip.tsx",
-    "description": "",
+    "description": "Tooltips add additional context to interactive UI elements and appear on mouse hover or keyboard focus.",
     "displayName": "Tooltip",
     "methods": [],
     "props": {
@@ -10375,9 +10385,14 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "primerid": "tooltip_v2",
+      "primerdocsid": "tooltip",
+      "primerstatus": "beta",
+      "primera11yreviewed": "true"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/TooltipV2/Tooltip.tsx",
-    "description": "",
+    "description": "Tooltips add additional context to interactive UI elements and appear on mouse hover or keyboard focus.",
     "displayName": "Tooltip",
     "methods": [],
     "props": {}

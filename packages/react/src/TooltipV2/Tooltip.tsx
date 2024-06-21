@@ -189,6 +189,13 @@ const isInteractive = (element: HTMLElement) => {
 }
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 
+/**
+ * Tooltips add additional context to interactive UI elements and appear on mouse hover or keyboard focus.
+ * @primerid tooltip_v2
+ * @primerdocsid tooltip
+ * @primerstatus beta
+ * @primera11yreviewed true
+ */
 export const Tooltip = forwardRef<HTMLElement, TooltipProps>(
   ({direction = 's', text, type = 'description', children, id, ...rest}, forwardedRef) => {
     const tooltipId = useId(id)

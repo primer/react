@@ -195,6 +195,14 @@ export type TooltipProps = {
 } & ComponentProps<typeof TooltipBase>
 
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
+
+/**
+ * Tooltips add additional context to interactive UI elements and appear on mouse hover or keyboard focus.
+ * @primerid tooltip
+ * @primerdocsid tooltip
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 function Tooltip({direction = 'n', children, className, text, noDelay, align, wrap, id, ...rest}: TooltipProps) {
   const tooltipId = useId(id)
   const classes = clsx(

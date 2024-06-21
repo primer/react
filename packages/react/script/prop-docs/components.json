@@ -3709,8 +3709,11 @@
     "subcomponents": []
   },
   {
-    "description": "",
+    "id": "select_panel",
+    "description": "Select panel is a semantic dialog that allows for complex selection options within an overlay.",
+    "docsId": "select_panel",
     "name": "SelectPanel",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -4730,8 +4733,11 @@
     "subcomponents": []
   },
   {
-    "description": "",
+    "id": "tooltip",
+    "description": "Tooltips add additional context to interactive UI elements and appear on mouse hover or keyboard focus.",
+    "docsId": "tooltip",
     "name": "Tooltip",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -4783,9 +4789,12 @@
     "subcomponents": []
   },
   {
-    "description": "",
+    "id": "tooltip_v2",
+    "description": "Tooltips add additional context to interactive UI elements and appear on mouse hover or keyboard focus.",
+    "docsId": "tooltip",
     "name": "Tooltip",
-    "a11yReviewed": false,
+    "status": "beta",
+    "a11yReviewed": true,
     "stories": [
       ""
     ],
