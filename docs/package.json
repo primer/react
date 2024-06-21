@@ -17,7 +17,7 @@
     "@mdx-js/mdx": "1.6.22",
     "@mdx-js/react": "1.6.22",
     "@primer/gatsby-theme-doctocat": "0.0.0-2023930155223",
-    "@primer/octicons-react": "^17.7.0",
+    "@primer/octicons-react": "^19.9.0",
     "@primer/primitives": "4.1.0",
     "@styled-system/prop-types": "^5.1.0",
     "@styled-system/theme-get": "^5.1.0",
@@ -28,9 +28,9 @@
     "gatsby-plugin-typescript": "3.15.0",
     "graphql": "^15.8.0",
     "prop-types": "^15.7.2",
-    "react": "^18.2.0",
+    "react": "^18.3.1",
     "react-docgen-typescript": "^2.0.0",
-    "react-dom": "^18.2.0",
+    "react-dom": "^18.3.1",
     "styled-system": "^5.1.0"
   },
   "devDependencies": {
@@ -38,7 +38,7 @@
     "eslint": "8.56.0",
     "eslint-config-react-app": "7.0.1",
     "globby": "^11.0.4",
-    "minipass": "^2.9.0",
+    "minipass": "^7.1.1",
     "path-browserify": "^1.0.1",
     "webpack": "5.40.0"
   }

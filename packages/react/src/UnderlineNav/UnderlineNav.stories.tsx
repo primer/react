@@ -1,5 +1,5 @@
 import React from 'react'
-import type {ComponentMeta, ComponentStory} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import {UnderlineNav} from './index'
 import {UnderlineNavItem} from './UnderlineNavItem'
 
@@ -33,9 +33,9 @@ export default {
     'aria-label': 'Repository',
     loadingCounters: false,
   },
-} as ComponentMeta<typeof UnderlineNav>
+} as Meta<typeof UnderlineNav>
 
-export const Default: ComponentStory<typeof UnderlineNav> = () => {
+export const Default: StoryFn<typeof UnderlineNav> = () => {
   const children = ['Code', 'Pull requests', 'Actions', 'Projects', 'Wiki']
   return (
     <UnderlineNav aria-label="Repository">
@@ -48,7 +48,7 @@ export const Default: ComponentStory<typeof UnderlineNav> = () => {
   )
 }
 
-export const Playground: ComponentStory<typeof UnderlineNav> = args => {
+export const Playground: StoryFn<typeof UnderlineNav> = args => {
   const children = ['Code', 'Pull requests', 'Actions', 'Projects', 'Wiki']
   return (
     <UnderlineNav {...args}>

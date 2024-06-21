@@ -1,5 +1,5 @@
 import React from 'react'
-import type {ComponentMeta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import {Button, Link, Text, StateLabel, BranchName, Box} from '..'
 import {ArrowRightIcon} from '@primer/octicons-react'
 
@@ -13,7 +13,7 @@ export default {
     controls: {expanded: true},
   },
   args: {},
-} as ComponentMeta<typeof Hidden>
+} as Meta<typeof Hidden>
 
 const setViewportParamToNarrow = {
   viewport: {

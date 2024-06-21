@@ -98,7 +98,7 @@ describe('Stack', () => {
   describe('gap', () => {
     it('should set the default gap to `normal`', () => {
       render(<Stack data-testid="stack" />)
-      expect(screen.getByTestId('stack')).toHaveStyle('gap: var(--Stack-gap-whenNarrow);')
+      expect(screen.getByTestId('stack')).toHaveStyle('gap: var(--stack-gap,var(--stack-gap-normal,1rem));')
     })
 
     it('should support specifying the stack gap with the `gap` prop', () => {

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import type {LabelGroupProps} from './LabelGroup'
 import LabelGroup from './LabelGroup'
-import type {Meta, Story} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import Label from '../Label/Label'
 
 const meta: Meta = {
@@ -18,7 +18,7 @@ const ResizableContainer = styled.div`
   width: 600px;
 `
 
-export const Default: Story = () => (
+export const Default: StoryFn = () => (
   <LabelGroup>
     <Label>One</Label>
     <Label>Two</Label>
@@ -39,7 +39,7 @@ export const Default: Story = () => (
   </LabelGroup>
 )
 
-export const Playground: Story = ({
+export const Playground: StoryFn = ({
   autoTruncateTokens,
   visibleChildCount,
   ...restArgs

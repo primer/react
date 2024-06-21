@@ -3,7 +3,7 @@ import type {TooltipProps} from './Tooltip'
 import Tooltip from './Tooltip'
 import {render, renderClasses, rendersClass, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, screen} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 import {CodeIcon} from '@primer/octicons-react'
 
 /* Tooltip v1 */
@@ -17,7 +17,7 @@ describe('Tooltip', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Tooltip text="hi" />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 

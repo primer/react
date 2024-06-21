@@ -1,7 +1,7 @@
 import React from 'react'
 import {render} from '@testing-library/react'
 import {renderHook} from '@testing-library/react-hooks'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 import {
   Autocomplete,
   Checkbox,
@@ -381,7 +381,7 @@ describe('FormControl', () => {
           </FormControl>
         </SSRProvider>,
       )
-      const results = await axe(container)
+      const results = await axe.run(container)
       expect(results).toHaveNoViolations()
     })
   })
@@ -451,7 +451,7 @@ describe('FormControl', () => {
           </FormControl>
         </SSRProvider>,
       )
-      const results = await axe(container)
+      const results = await axe.run(container)
       expect(results).toHaveNoViolations()
     })
   })

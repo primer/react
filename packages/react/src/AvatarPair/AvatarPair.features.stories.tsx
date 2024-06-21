@@ -1,12 +1,12 @@
 import React from 'react'
-import type {ComponentMeta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import AvatarPair from './AvatarPair'
 import Avatar from '../Avatar'
 
 export default {
   title: 'Components/AvatarPair/Features',
   component: AvatarPair,
-} as ComponentMeta<typeof AvatarPair>
+} as Meta<typeof AvatarPair>
 
 export const ParentCircle = () => (
   <AvatarPair>

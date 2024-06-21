@@ -66,15 +66,6 @@ jobs:
               return user.login === PREV_RELEASE_CONDUCTOR;
             });
 
-            if (hasPreviousReviewer) {
-              await github.rest.pulls.removeRequestedReviewers({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: PR_NUMBER,
-                reviewers: [PREV_RELEASE_CONDUCTOR],
-              });
-            }
-
             // Add the current release conductor as an assignee if they are not currently assigned
             const hasAssignee = pull.assignees.find((assignee) => {
               return assignee.login === RELEASE_CONDUCTOR;
@@ -100,4 +91,13 @@ jobs:
                 pull_number: PR_NUMBER,
                 reviewers: [RELEASE_CONDUCTOR]
               })
+            }
+
+            if (hasPreviousReviewer) {
+              await github.rest.pulls.removeRequestedReviewers({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: PR_NUMBER,
+                reviewers: [PREV_RELEASE_CONDUCTOR],
+              });
             }

@@ -2,7 +2,7 @@ import React from 'react'
 import {Header} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 
 describe('Header', () => {
   behavesAsComponent({Component: Header})
@@ -31,7 +31,7 @@ describe('Header', () => {
         <Header.Item>Three</Header.Item>
       </Header>,
     )
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 

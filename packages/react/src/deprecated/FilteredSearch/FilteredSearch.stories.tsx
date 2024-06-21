@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta, ComponentStory} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import FilteredSearch from './FilteredSearch'
 import {ActionList} from '../../ActionList'
 import {ActionMenu} from '../../ActionMenu'
@@ -27,7 +27,7 @@ export const Default = () => (
   </FilteredSearch>
 )
 
-export const Playground: ComponentStory<typeof FilteredSearch> = args => (
+export const Playground: StoryFn<typeof FilteredSearch> = args => (
   <FilteredSearch {...args}>
     <ActionMenu>
       <ActionMenu.Button as="summary">Filter</ActionMenu.Button>

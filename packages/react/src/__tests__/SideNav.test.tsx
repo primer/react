@@ -2,7 +2,7 @@ import React from 'react'
 import {SideNav} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 
 describe('SideNav', () => {
   behavesAsComponent({Component: SideNav})
@@ -24,7 +24,7 @@ describe('SideNav', () => {
         </SideNav.Link>
       </SideNav>,
     )
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 
