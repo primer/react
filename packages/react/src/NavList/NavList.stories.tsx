@@ -246,7 +246,7 @@ export const WithGroup = () => (
   </PageLayout>
 )
 
-export const WithExpand = () => (
+export const WithGroupExpand = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
       <NavList>
@@ -272,6 +272,26 @@ export const WithExpand = () => (
             <NavList.Item>Item 2F</NavList.Item>
           </NavList.Expand>
         </NavList.Group>
+      </NavList>
+    </PageLayout.Pane>
+    <PageLayout.Content></PageLayout.Content>
+  </PageLayout>
+)
+
+export const WithExpand: StoryFn = () => (
+  <PageLayout>
+    <PageLayout.Pane position="start">
+      <NavList>
+        <NavList.Item href="#" aria-current="page">
+          Item 1
+        </NavList.Item>
+        <NavList.Item href="#">Item 2</NavList.Item>
+        <NavList.Item href="#">Item 3</NavList.Item>
+        <NavList.Expand label="Show more">
+          <NavList.Item>Item 4</NavList.Item>
+          <NavList.Item>Item 5</NavList.Item>
+          <NavList.Item>Item 6</NavList.Item>
+        </NavList.Expand>
       </NavList>
     </PageLayout.Pane>
     <PageLayout.Content></PageLayout.Content>
