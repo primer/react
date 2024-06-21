@@ -7020,12 +7020,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c12"
             id=":re:"
           >
             Loading
-          </div>
+          </span>
         </div>
       </div>
     </span>
@@ -7415,12 +7415,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c5"
             id=":rf:"
           >
             Loading
-          </div>
+          </span>
         </div>
       </div>
     </span>
@@ -7882,12 +7882,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c5"
             id=":rg:"
           >
             Loading
-          </div>
+          </span>
         </div>
       </div>
     </span>
@@ -8688,12 +8688,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c12"
             id=":rh:"
           >
             Loading
-          </div>
+          </span>
         </div>
       </div>
     </span>
@@ -9122,12 +9122,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":ri:"
           >
             Loading
-          </div>
+          </span>
         </div>
       </div>
     </span>
@@ -9589,12 +9589,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":rj:"
           >
             Loading
-          </div>
+          </span>
         </div>
       </div>
     </span>
@@ -10023,12 +10023,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":rk:"
           >
             Loading
-          </div>
+          </span>
         </div>
       </div>
     </span>
@@ -10490,12 +10490,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":rl:"
           >
             Loading
-          </div>
+          </span>
         </div>
       </div>
     </span>
@@ -10924,12 +10924,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":rm:"
           >
             Loading
-          </div>
+          </span>
         </div>
       </div>
     </span>
@@ -11391,12 +11391,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":rn:"
           >
             Loading
-          </div>
+          </span>
         </div>
       </div>
     </span>
@@ -12236,12 +12236,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c13"
             id=":ro:"
           >
             Loading
-          </div>
+          </span>
         </div>
       </div>
     </span>
@@ -12640,12 +12640,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c5"
             id=":rp:"
           >
             Loading
-          </div>
+          </span>
         </div>
       </div>
     </span>
@@ -13137,12 +13137,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c5"
             id=":rq:"
           >
             Loading
-          </div>
+          </span>
         </div>
       </div>
     </span>
@@ -13982,12 +13982,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c13"
             id=":rr:"
           >
             Loading
-          </div>
+          </span>
         </div>
       </div>
     </span>
@@ -14430,12 +14430,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":rs:"
           >
             Loading
-          </div>
+          </span>
         </div>
       </div>
     </span>
@@ -14927,12 +14927,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":rt:"
           >
             Loading
-          </div>
+          </span>
         </div>
       </div>
     </span>
@@ -15370,12 +15370,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":ru:"
           >
             Loading
-          </div>
+          </span>
         </div>
       </div>
     </span>
@@ -15867,12 +15867,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":rv:"
           >
             Loading
-          </div>
+          </span>
         </div>
       </div>
     </span>
@@ -16308,12 +16308,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":r10:"
           >
             Loading
-          </div>
+          </span>
         </div>
       </div>
     </span>
@@ -16805,12 +16805,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":r11:"
           >
             Loading
-          </div>
+          </span>
         </div>
       </div>
     </span>
