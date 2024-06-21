@@ -76,10 +76,12 @@ const printSkippedProps = () => {
   console.log('\n')
 }
 
-const formatComponentJson = ({description, displayName, props, tags}) => {
+const formatComponentJson = ({description, displayName, filePath, props, tags}) => {
   const {alias, primerdocsid, primerid, primerstatus, primera11yreviewed, primerstories = '', primerparentid} = tags
 
   return {
+    // `filePath` is just used for debugging. It may not actually be necessary.
+    filePath,
     id: primerid, // TODO: consider auto-generating an ID if one is not present by parsing `displayName`
     description,
     docsId: primerdocsid,
@@ -104,9 +106,9 @@ const formatComponentJson = ({description, displayName, props, tags}) => {
 const transformArray = (docgenOutputData: any[]): any[] => {
   return docgenOutputData
     .map(outputDatum => {
-      const {id, primerparentid} = outputDatum.tags
+      const {primerid, primerparentid} = outputDatum.tags
 
-      const subComponents = docgenOutputData.filter(({tags}) => tags.primerparentid && tags.primerparentid === id)
+      const subComponents = docgenOutputData.filter(({tags}) => tags.primerparentid && tags.primerparentid === primerid)
 
       if (!primerparentid) {
         return {

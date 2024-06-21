@@ -130,7 +130,7 @@
     "tags": {},
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Dialog.tsx",
     "description": "",
-    "displayName": "Dialog.Header",
+    "displayName": "Dialog",
     "methods": [],
     "props": {
       "narrow": {
@@ -2462,9 +2462,13 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "primerid": "avatar",
+      "primerstatus": "alpha",
+      "primera11yreviewed": "false"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Avatar/Avatar.tsx",
-    "description": "",
+    "description": "Avatar is an image that represents a user or organization.",
     "displayName": "Avatar",
     "methods": [],
     "props": {
@@ -4902,8 +4906,8 @@
   },
   {
     "tags": {
-      "primerparentid": "data_table",
-      "alias": "Table.Skeleton"
+      "alias": "Table.Skeleton",
+      "primerparentid": "data_table"
     },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/DataTable/Table.tsx",
     "description": "A placeholder \"skeleton\" to use when table content is loading. Not intended to be used directly unless you are building your own table component.",
@@ -4998,7 +5002,12 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "primerid": "dialog_v2",
+      "primerdocsid": "dialog",
+      "primerstatus": "draft",
+      "primera11yreviewed": "false"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Dialog/Dialog.tsx",
     "description": "A dialog is a type of overlay that can be used for confirming actions, asking\nfor disambiguation, and presenting small forms. They generally allow the user\nto focus on a quick task without having to navigate to a different page.\n\nDialogs appear in the page after a direct user interaction. Don't show dialogs\non page load or as system alerts.\n\nDialogs appear centered in the page, with a visible backdrop that dims the rest\nof the window for focus.\n\nAll dialogs have a title and a close button.\n\nDialogs are modal. Dialogs can be dismissed by clicking on the close button,\npressing the escape key, or by interacting with another button in the dialog.\nTo avoid losing information and missing important messages, clicking outside\nof the dialog will not close it.\n\nThe sub components provided (e.g. Header, Title, etc.) are available for custom\nrenderers only. They are not intended to be used otherwise.",
     "displayName": "Dialog",
@@ -5058,7 +5067,7 @@
         ],
         "required": false,
         "type": {
-          "name": "React.FunctionComponent<React.PropsWithChildren<DialogHeaderProps>>"
+          "name": "FunctionComponent<PropsWithChildren<DialogHeaderProps>>"
         }
       },
       "renderBody": {
@@ -5077,7 +5086,7 @@
         ],
         "required": false,
         "type": {
-          "name": "React.FunctionComponent<React.PropsWithChildren<DialogProps>>"
+          "name": "FunctionComponent<PropsWithChildren<DialogProps>>"
         }
       },
       "renderFooter": {
@@ -5096,7 +5105,7 @@
         ],
         "required": false,
         "type": {
-          "name": "React.FunctionComponent<React.PropsWithChildren<DialogProps>>"
+          "name": "FunctionComponent<PropsWithChildren<DialogProps>>"
         }
       },
       "footerButtons": {

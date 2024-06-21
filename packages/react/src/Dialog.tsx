@@ -56,9 +56,8 @@ const DialogHeaderBase = styled(Box)<SxProp>`
 export type DialogHeaderProps = ComponentProps<typeof DialogHeaderBase>
 
 /**
- * Dialog is a floating surface used to display transient content such as confirmation actions, selection options, and more.
+ * The Header area of the dialog
  * @alias Dialog.Header
- * @primerid dialog
  * @primerparentid dialog
  */
 function DialogHeader({theme, children, backgroundColor = 'canvas.subtle', ...rest}: DialogHeaderProps) {
@@ -153,8 +152,8 @@ DialogHeader.propTypes = {
   ...Box.propTypes,
 }
 
-DialogHeader.displayName = 'Dialog.Header'
 Dialog.displayName = 'Dialog'
+DialogHeader.displayName = 'Dialog.Header'
 
 export type DialogProps = ComponentProps<typeof Dialog>
 export default Object.assign(Dialog, {Header: DialogHeader})

@@ -40,6 +40,12 @@ const StyledAvatar = styled.img.attrs<StyledAvatarProps>(props => ({
 
 export type AvatarProps = ComponentProps<typeof StyledAvatar>
 
+/**
+ * Avatar is an image that represents a user or organization.
+ * @primerid avatar
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 const Avatar = forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
   {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, sx: sxProp = defaultSxProp, ...rest},
   ref,

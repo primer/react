@@ -644,8 +644,8 @@ export type TableSkeletonProps<Data extends UniqueRow> = ComponentPropsWithoutRe
 
 /**
  * A placeholder "skeleton" to use when table content is loading. Not intended to be used directly unless you are building your own table component.
- * @primerparentid data_table
  * @alias Table.Skeleton
+ * @primerparentid data_table
  */
 function TableSkeleton<Data extends UniqueRow>({cellPadding, columns, rows = 10, ...rest}: TableSkeletonProps<Data>) {
   const {gridTemplateColumns} = useTableLayout(columns)

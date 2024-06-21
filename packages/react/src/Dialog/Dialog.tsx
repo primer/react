@@ -6,6 +6,7 @@ import React, {
   useState,
   type SyntheticEvent,
   type PropsWithChildren,
+  type FunctionComponent,
 } from 'react'
 import styled from 'styled-components'
 import type {ButtonProps} from '../Button'
@@ -79,7 +80,7 @@ export interface DialogProps extends SxProp {
    *
    * Warning: using a custom renderer may violate Primer UX principles.
    */
-  renderHeader?: React.FunctionComponent<React.PropsWithChildren<DialogHeaderProps>>
+  renderHeader?: FunctionComponent<PropsWithChildren<DialogHeaderProps>>
 
   /**
    * Provide a custom render function for the dialog body. This content is
@@ -88,7 +89,7 @@ export interface DialogProps extends SxProp {
    *
    * Warning: using a custom renderer may violate Primer UX principles.
    */
-  renderBody?: React.FunctionComponent<React.PropsWithChildren<DialogProps>>
+  renderBody?: FunctionComponent<PropsWithChildren<DialogProps>>
 
   /**
    * Provide a custom render function for the dialog footer. This content is
@@ -97,7 +98,7 @@ export interface DialogProps extends SxProp {
    *
    * Warning: using a custom renderer may violate Primer UX principles.
    */
-  renderFooter?: React.FunctionComponent<React.PropsWithChildren<DialogProps>>
+  renderFooter?: FunctionComponent<PropsWithChildren<DialogProps>>
 
   /**
    * Specifies the buttons to be rendered in the Dialog footer.
@@ -355,7 +356,7 @@ const StyledDialog = styled.div<StyledDialogProps>`
   ${sx};
 `
 
-const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
+const DefaultHeader: FunctionComponent<PropsWithChildren<DialogHeaderProps>> = ({
   dialogLabelId,
   title,
   subtitle,
@@ -377,10 +378,10 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
     </Dialog.Header>
   )
 }
-const DefaultBody: React.FC<React.PropsWithChildren<DialogProps>> = ({children}) => {
+const DefaultBody: FunctionComponent<PropsWithChildren<DialogProps>> = ({children}) => {
   return <Dialog.Body>{children}</Dialog.Body>
 }
-const DefaultFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({footerButtons}) => {
+const DefaultFooter: FunctionComponent<PropsWithChildren<DialogProps>> = ({footerButtons}) => {
   const {containerRef: footerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
     focusInStrategy: 'closest',
@@ -397,11 +398,6 @@ const defaultPosition = {
   regular: 'center',
 }
 
-/**
- * Dialog is a floating surface used to display transient content such as confirmation actions, selection options, and more.
- * @primerid dialog_v2
- * @primerdocsid dialog
- */
 const _Dialog = forwardRef<HTMLDivElement, PropsWithChildren<DialogProps>>((props, forwardedRef) => {
   const {
     title = 'Dialog',
@@ -515,8 +511,6 @@ _Dialog.displayName = 'Dialog'
  * The header area of a Dialog.
  * @alias Dialog.Header
  * @primerparentid dialog_v2
- * @primerstatus draft
- * @primera11yreviewed false
  */
 const Header = styled.div<SxProp>`
   box-shadow: 0 1px 0 ${get('colors.border.default')};
@@ -589,7 +583,7 @@ const Footer = styled.div<SxProp>`
  * @alias Dialog.Buttons
  * @primerparentid dialog_v2
  */
-const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
+const Buttons: FunctionComponent<PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
   const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
   let autoFocusCount = 0
   const [hasRendered, setHasRendered] = useState(0)
@@ -622,11 +616,6 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
   )
 }
 
-/**
- * The close button rendered in the header area of a Dialog.
- * @alias Dialog.CloseButton
- * @primerparentid dialog_v2
- */
 const DialogCloseButton = styled(Button)`
   border-radius: 4px;
   background: transparent;
@@ -638,7 +627,13 @@ const DialogCloseButton = styled(Button)`
   line-height: normal;
   box-shadow: none;
 `
-const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({onClose}) => {
+
+/**
+ * The close button rendered in the header area of a Dialog.
+ * @alias Dialog.CloseButton
+ * @primerparentid dialog_v2
+ */
+const CloseButton: FunctionComponent<PropsWithChildren<{onClose: () => void}>> = ({onClose}) => {
   return (
     <DialogCloseButton aria-label="Close" onClick={onClose}>
       <Octicon icon={XIcon} />
@@ -666,6 +661,10 @@ const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({
  *
  * The sub components provided (e.g. Header, Title, etc.) are available for custom
  * renderers only. They are not intended to be used otherwise.
+ * @primerid dialog_v2
+ * @primerdocsid dialog
+ * @primerstatus draft
+ * @primera11yreviewed false
  */
 export const Dialog = Object.assign(_Dialog, {
   Header,
