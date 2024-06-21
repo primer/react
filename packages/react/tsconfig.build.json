@@ -1,0 +1,26 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "emitDeclarationOnly": true
+  },
+  // NOTE: We exclude Storybook stories and test utilities which import
+  // Storybook and its dependencies, because:
+  //   a) we don't want Storybook types in our build output, and
+  //   b) we don't want transitive dependencies, like @emotion/core, to have
+  //      their React interface augmentations in our build output.
+  // See also:
+  //   - https://github.com/primer/react/issues/1163
+  //   - https://github.com/primer/react/issues/1849
+  "exclude": [
+    "src/utils/story-helpers.tsx",
+    "**/*.stories.tsx",
+    "**/*.test.tsx",
+    "**/*.figma.tsx",
+    "script/**/*.ts",
+    "src/__tests__/",
+    "src/utils/test-*.tsx",
+    "src/utils/testing.tsx",
+    "e2e/**/*.ts",
+    "playwright.config.ts"
+  ]
+}

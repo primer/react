@@ -1,0 +1,172 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Avatar respects alignRight props 1`] = `
+.c0 {
+  --avatar-border-width: 1px;
+  --avatar-two-margin: calc(var(--avatar-stack-size) * -0.55);
+  --avatar-three-margin: calc(var(--avatar-stack-size) * -0.85);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  height: var(--avatar-stack-size);
+  min-width: var(--avatar-stack-size);
+  --avatar-stack-size: 20px;
+}
+
+.c0 .pc-AvatarStackBody {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+}
+
+.c0 .pc-AvatarItem {
+  --avatar-size: var(--avatar-stack-size);
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  height: var(--avatar-stack-size);
+  width: var(--avatar-stack-size);
+  box-shadow: 0 0 0 var(--avatar-border-width) var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  position: relative;
+  overflow: hidden;
+}
+
+.c0 .pc-AvatarItem:first-child {
+  margin-left: 0;
+  z-index: 10;
+}
+
+.c0 .pc-AvatarItem:nth-child(n + 2) {
+  margin-left: var(--avatar-two-margin);
+  z-index: 9;
+}
+
+.c0 .pc-AvatarItem:nth-child(n + 3) {
+  margin-left: var(--avatar-three-margin);
+  opacity: 55%;
+  z-index: 8;
+}
+
+.c0 .pc-AvatarItem:nth-child(n + 4) {
+  opacity: 40%;
+  z-index: 7;
+}
+
+.c0 .pc-AvatarItem:nth-child(n + 5) {
+  opacity: 25%;
+  z-index: 6;
+}
+
+.c0 .pc-AvatarItem:nth-child(n + 6) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.c0.pc-AvatarStack--two {
+  min-width: calc( var(--avatar-stack-size) + calc(var(--avatar-stack-size) + var(--avatar-two-margin)) + var(--avatar-border-width) );
+}
+
+.c0.pc-AvatarStack--three {
+  min-width: calc( var(--avatar-stack-size) + calc( calc(var(--avatar-stack-size) + var(--avatar-two-margin)) + calc(var(--avatar-stack-size) + var(--avatar-three-margin)) ) );
+}
+
+.c0.pc-AvatarStack--three-plus {
+  min-width: calc( var(--avatar-stack-size) + calc( calc(var(--avatar-stack-size) + var(--avatar-two-margin)) + calc(var(--avatar-stack-size) + var(--avatar-three-margin)) * 2 ) );
+}
+
+.c0.pc-AvatarStack--right {
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.c0.pc-AvatarStack--right .pc-AvatarItem {
+  margin-left: 0 !important;
+}
+
+.c0.pc-AvatarStack--right .pc-AvatarItem:first-child {
+  margin-right: 0;
+}
+
+.c0.pc-AvatarStack--right .pc-AvatarItem:nth-child(n + 2) {
+  margin-right: var(--avatar-two-margin);
+}
+
+.c0.pc-AvatarStack--right .pc-AvatarItem:nth-child(n + 3) {
+  margin-right: var(--avatar-three-margin);
+}
+
+.c0.pc-AvatarStack--right .pc-AvatarStackBody {
+  -webkit-flex-direction: row-reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+}
+
+.c0.pc-AvatarStack--right .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover .pc-AvatarItem {
+  margin-right: 4px!important;
+  margin-left: 0 !important;
+}
+
+.c0.pc-AvatarStack--right .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover .pc-AvatarItem:first-child {
+  margin-right: 0 !important;
+}
+
+.c0 .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover {
+  width: auto;
+}
+
+.c0 .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover .pc-AvatarItem {
+  margin-left: 4px;
+  opacity: 100%;
+  visibility: visible;
+  -webkit-transition: margin 0.2s ease-in-out,opacity 0.2s ease-in-out,visibility 0.2s ease-in-out,box-shadow 0.1s ease-in-out;
+  transition: margin 0.2s ease-in-out,opacity 0.2s ease-in-out,visibility 0.2s ease-in-out,box-shadow 0.1s ease-in-out;
+}
+
+.c0 .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover .pc-AvatarItem box-shadow:inset 0 0 0 4px function (props) {
+  return: (0,_core.get)(props.theme,path,fallback);
+}
+
+.c0 .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover .pc-AvatarItem:first-child {
+  margin-left: 0;
+}
+
+.c0 .pc-AvatarStack--disableExpand {
+  position: relative;
+}
+
+<span
+  className="c0 pc-AvatarStack--three-plus pc-AvatarStack--right"
+>
+  <div
+    className="pc-AvatarStackBody"
+  >
+     
+    <img
+      alt=""
+      className="pc-AvatarItem"
+      src="https://avatars.githubusercontent.com/primer"
+    />
+    <img
+      alt=""
+      className="pc-AvatarItem"
+      src="https://avatars.githubusercontent.com/github"
+    />
+    <img
+      alt=""
+      className="pc-AvatarItem"
+      src="https://avatars.githubusercontent.com/primer"
+    />
+    <img
+      alt=""
+      className="pc-AvatarItem"
+      src="https://avatars.githubusercontent.com/github"
+    />
+  </div>
+</span>
+`;

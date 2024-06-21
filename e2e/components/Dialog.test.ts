@@ -89,4 +89,89 @@ test.describe('Dialog', () => {
       })
     }
   })
+
+  test.describe('Position bottom', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-dialog-features--bottom-sheet-narrow',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Dialog.Position bottom.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-dialog-features--bottom-sheet-narrow',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
+
+  test.describe('Position fullscreen', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-dialog-features--full-screen-narrow',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `Dialog.Position fullscreen.${theme}.png`,
+          )
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-dialog-features--full-screen-narrow',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
+
+  test.describe('Position sidesheet', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-dialog-features--side-sheet',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `Dialog.Position sidesheet.${theme}.png`,
+          )
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-dialog-features--side-sheet',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
 })

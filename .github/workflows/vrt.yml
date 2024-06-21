@@ -39,19 +39,21 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
       - name: Build storybook
         run: npx storybook build
+        working-directory: packages/react
       - name: Run storybook
         id: storybook
         run: |
-          npx serve -l 6006 storybook-static &
+          npx serve -l 6006 packages/react/storybook-static &
           pid=$!
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run VRT
-        uses: docker://mcr.microsoft.com/playwright:v1.37.0-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.43.0-jammy
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:

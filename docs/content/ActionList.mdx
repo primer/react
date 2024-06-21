@@ -2,19 +2,19 @@
 componentId: action_list
 title: ActionList
 status: Beta
-source: https://github.com/primer/react/tree/main/src/ActionList
+source: https://github.com/primer/react/tree/main/packages/react/src/ActionList
 storybook: '/react/storybook?path=/story/components-actionlist'
 description: An ActionList is a list of items that can be activated or selected. ActionList is the base component for many menu-type components, including ActionMenu and SelectPanel.
 ---
 
-import data from '../../src/ActionList/ActionList.docs.json'
+import data from '../../packages/react/src/ActionList/ActionList.docs.json'
 
 import {ActionList, Avatar} from '@primer/react'
 import {LinkIcon, AlertIcon, ArrowRightIcon} from '@primer/octicons-react'
 import InlineCode from '@primer/gatsby-theme-doctocat/src/components/inline-code'
 import DeprecationBanner from '../components/DeprecationBanner'
 
-<DeprecationBanner replacementUrl={'/design/components/action-list/react'} />
+<DeprecationBanner replacementUrl={'/components/action-list/react/latest'} />
 
 <Box sx={{border: '1px solid', borderColor: 'border.default', borderRadius: 2, padding: 6, marginBottom: 3}}>
   <ActionList sx={{width: 320}}>
@@ -200,7 +200,8 @@ const SelectFields = () => {
 
   return (
     <ActionList selectionVariant="multiple">
-      <ActionList.Group title="Visible fields">
+      <ActionList.Group>
+        <ActionList.GroupHeading>Visible fields</ActionList.GroupHeading>
         {visibleOptions.map(option => (
           <ActionList.Item key={option.text} selected={true} onSelect={() => toggle(option.text)}>
             {option.text}
@@ -208,12 +209,12 @@ const SelectFields = () => {
         ))}
       </ActionList.Group>
       <ActionList.Group
-        title="Hidden fields"
         selectionVariant={
           /** selectionVariant override on Group: disable selection if there are no options */
           hiddenOptions.length ? 'multiple' : false
         }
       >
+        <ActionList.GroupHeading>Hidden fields</ActionList.GroupHeading>
         {hiddenOptions.map((option, index) => (
           <ActionList.Item key={option.text} selected={false} onSelect={() => toggle(option.text)}>
             {option.text}

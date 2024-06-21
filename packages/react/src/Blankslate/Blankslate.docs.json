@@ -1,0 +1,62 @@
+{
+  "id": "blankslate",
+  "name": "Blankslate",
+  "status": "draft",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react/experimental",
+  "props": [
+    {
+      "name": "border",
+      "type": "boolean",
+      "description": ""
+    },
+    {
+      "name": "narrow",
+      "type": "boolean",
+      "description": ""
+    },
+    {
+      "name": "spacious",
+      "type": "boolean",
+      "description": ""
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Blankslate.Visual",
+      "props": []
+    },
+    {
+      "name": "Blankslate.Heading",
+      "props": [
+        {
+          "name": "as",
+          "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'"
+        }
+      ]
+    },
+    {
+      "name": "Blankslate.Description",
+      "props": []
+    },
+    {
+      "name": "Blankslate.PrimaryAction",
+      "props": [
+        {
+          "name": "href",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "Blankslate.SecondaryAction",
+      "props": [
+        {
+          "name": "href",
+          "type": "string"
+        }
+      ]
+    }
+  ]
+}

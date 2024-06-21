@@ -1,0 +1,23 @@
+{
+  "id": "portal",
+  "name": "Portal",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "onMount",
+      "type": "function",
+      "defaultValue": "",
+      "description": "Called when this portal is added to the DOM"
+    },
+    {
+      "name": "containerName",
+      "type": "string",
+      "defaultValue": "",
+      "description": "Renders the portal children into the container registered with the given name. If omitted, children are rendered into the default portal root."
+    }
+  ],
+  "subcomponents": []
+}

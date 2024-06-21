@@ -1,0 +1,168 @@
+{
+  "id": "text_input",
+  "name": "TextInput",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "defaultValue": "",
+      "description": "Allows input to be accessible."
+    },
+    {
+      "name": "block",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Creates a full-width input element"
+    },
+    {
+      "name": "contrast",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Changes background color to a higher contrast color"
+    },
+    {
+      "name": "size",
+      "type": "'small' | 'medium' | 'large'",
+      "defaultValue": "",
+      "description": "Creates a smaller or larger input than the default."
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "defaultValue": "",
+      "description": "Whether to show a loading indicator in the input"
+    },
+    {
+      "name": "loaderPosition",
+      "type": "'auto' | 'leading' | 'trailing'",
+      "defaultValue": "",
+      "description": "<div>Which position to render the loading indicator</div> <ul> <li> 'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the beginning </li> <li>'leading': at the beginning of the input</li> <li>'trailing': at the end of the input</li> </ul>"
+    },
+    {
+      "name": "leadingVisual",
+      "type": "string | React.ComponentType",
+      "defaultValue": "",
+      "description": "Visual positioned on the left edge inside the input"
+    },
+    {
+      "name": "monospace",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Shows input in monospace font"
+    },
+    {
+      "name": "trailingVisual",
+      "type": "string | React.ComponentType",
+      "defaultValue": "",
+      "description": "Visual positioned on the right edge inside the input"
+    },
+    {
+      "name": "trailingAction",
+      "type": "React.ReactElement<HTMLProps<HTMLButtonElement>>",
+      "defaultValue": "",
+      "description": "A visual that renders inside the input after the typing area"
+    },
+    {
+      "name": "validationStatus",
+      "type": "'error' | 'success'",
+      "defaultValue": "",
+      "description": "Style the input to match the status"
+    },
+    {
+      "name": "variant",
+      "type": "'small' | 'medium' | 'large'",
+      "defaultValue": "",
+      "deprecated": true,
+      "description": "(Use size) Creates a smaller or larger input than the default."
+    },
+    {
+      "name": "width",
+      "type": "string | number | Array<string | number>",
+      "defaultValue": "",
+      "deprecated": true,
+      "description": "(Use sx prop) Set the width of the input"
+    },
+    {
+      "name": "maxWidth",
+      "type": "string | number | Array<string | number>",
+      "defaultValue": "",
+      "deprecated": true,
+      "description": "(Use sx prop) Set the maximum width of the input"
+    },
+    {
+      "name": "minWidth",
+      "type": "string | number | Array<string | number>",
+      "defaultValue": "",
+      "deprecated": true,
+      "description": "(Use sx prop) Set the minimum width of the input"
+    },
+    {
+      "name": "icon",
+      "type": "React.ComponentType",
+      "defaultValue": "",
+      "deprecated": true,
+      "description": "(Use leadingVisual or trailingVisual) An Octicon React component. To be used inside of input. Positioned on the left edge."
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    },
+    {
+      "name": "ref",
+      "type": "React.RefObject<HTMLInputElement>"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "TextInput.Action",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies."
+        },
+        {
+          "name": "tooltipDirection",
+          "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
+          "defaultValue": "s",
+          "description": "Sets where the tooltip renders in relation to the target."
+        },
+        {
+          "name": "icon",
+          "type": "React.FunctionComponent",
+          "defaultValue": "",
+          "description": "The icon to render inside the button"
+        },
+        {
+          "name": "variant",
+          "type": "'default' | 'primary' | 'invisible' | 'danger'",
+          "defaultValue": "",
+          "deprecated": true,
+          "description": "(Deprecated so that only the 'invisible' variant is used) Determine's the styles on a button"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLButtonElement>"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"button\""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "passthrough": {
+        "element": "button",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attributes"
+      }
+    }
+  ]
+}

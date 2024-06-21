@@ -1,0 +1,130 @@
+{
+  "id": "form_control",
+  "name": "FormControl",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "children",
+      "type": "FormControl.Label | FormControl.Caption | FormControl.Validation | Autocomplete | TextInput | TextInputWithTokens | Select",
+      "defaultValue": "",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Whether the control allows user input"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "defaultValue": "a generated string",
+      "description": "The unique identifier for this control. Used to associate the label, validation text, and caption text"
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "If true, the user must specify a value for the input before the owning form can be submitted"
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    },
+    {
+      "name": "ref",
+      "type": "React.RefObject<HTMLDivElement>"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "FormControl.Label",
+      "props": [
+        {
+          "name": "visuallyHidden",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether the label should be visually hidden"
+        },
+        {
+          "name": "as",
+          "type": "'label' | 'legend' | 'span'",
+          "defaultValue": "'label'",
+          "description": "The label element can be changed to a 'legend' when it's being used to label a fieldset, or a 'span' when it's being used to label an element that is not a form input. For example: when using a FormControl to render a labeled SegementedControl, the label should be a 'span'"
+        },
+        {
+          "name": "requiredText",
+          "type": "string",
+          "defaultValue": "'*'",
+          "description": "The text to display when the field is required"
+        },
+        {
+          "name": "requiredIndicator",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "Whether to show or hide the required text in the accessibility tree, the required text is still shown visually."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "FormControl.Caption",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "defaultValue": "",
+          "description": "The content (usually just text) that is rendered to give contextual info about the field"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "FormControl.Validation",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "defaultValue": "",
+          "description": "The content (usually just text) that is rendered to give contextual info about the validation result for the field"
+        },
+        {
+          "name": "variant",
+          "type": "'error' | 'success'",
+          "defaultValue": "",
+          "required": true,
+          "description": "Changes the visual style to match the validation status"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "FormControl.LeadingVisual",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "defaultValue": "",
+          "description": "The visual to render before the choice input's label"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    }
+  ]
+}

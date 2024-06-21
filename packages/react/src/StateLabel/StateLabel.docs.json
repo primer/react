@@ -1,0 +1,25 @@
+{
+  "id": "state_label",
+  "name": "StateLabel",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "variant",
+      "type": "'small' | 'normal'",
+      "defaultValue": "'normal'"
+    },
+    {
+      "name": "status",
+      "type": "'issueOpened' | 'issueClosed' | 'issueClosedNotPlanned' | 'pullOpened' | 'pullClosed' | 'pullMerged' | 'draft' | 'issueDraft' | 'unavailable'",
+      "required": true
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

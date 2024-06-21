@@ -1,0 +1,45 @@
+{
+  "id": "octicon",
+  "name": "Octicon",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "defaultValue": "",
+      "description": "Specifies the aria-label attribute, which is read verbatim by screen readers "
+    },
+    {
+      "name": "icon",
+      "type": "Component",
+      "defaultValue": "",
+      "description": "Checks the input by default in uncontrolled modeName of the [Octicon component](https://primer.style/octicons/) used in the"
+    },
+    {
+      "name": "color",
+      "type": "string",
+      "defaultValue": "",
+      "description": "Sets an override color for the Octicon. Compatible with colors from the [Primer color system](https://primer.style/primitives/colors).\""
+    },
+    {
+      "name": "size",
+      "type": "number",
+      "defaultValue": "16",
+      "description": "Sets the uniform `width` and `height` of the SVG element"
+    },
+    {
+      "name": "verticalAlign",
+      "type": "string",
+      "defaultValue": "text-bottom",
+      "description": "Sets the `vertical-align` CSS property"
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

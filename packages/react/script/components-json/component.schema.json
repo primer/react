@@ -1,0 +1,139 @@
+{
+  "$id": "component.schema.json",
+  "type": "object",
+  "required": ["id", "name", "status", "a11yReviewed", "stories", "importPath", "props"],
+  "additionalProperties": false,
+  "definitions": {
+    "prop": {
+      "type": "object",
+      "required": ["name", "type"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the prop."
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the prop in valid TypeScript syntax."
+        },
+        "defaultValue": {
+          "type": "string",
+          "description": "The default value of the prop if defined."
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Indicate whether the prop is required."
+        },
+        "deprecated": {
+          "type": "boolean",
+          "description": "Indicate whether the prop is deprecated."
+        },
+        "description": {
+          "type": "string",
+          "description": "A concise description of the prop."
+        }
+      }
+    },
+    "passthrough": {
+      "type": "object",
+      "description": "Indicate that the component passes through any additional props to an underlying element.",
+      "required": ["element", "url"],
+      "additionalProperties": false,
+      "properties": {
+        "element": {
+          "type": "string",
+          "description": "The name of the underlying element additional props are passed to."
+        },
+        "url": {
+          "type": "string",
+          "description": "Link to a page that documents the props accepted by the underlying element."
+        }
+      }
+    }
+  },
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "A unique identifier for the component. Use kebab-case (e.g. \"tree-view\")."
+    },
+    "name": {
+      "type": "string",
+      "description": "The display name of the component. Use PascalCase (e.g. \"TreeView\")."
+    },
+    "status": {
+      "type": "string",
+      "description": "The status of the component.",
+      "enum": ["draft", "alpha", "beta", "stable", "deprecated"]
+    },
+    "docsId": {
+      "type": "string",
+      "description": "A unique identifier to group components that have multiple versions i.e. Tooltip and Tooltip v2."
+    },
+    "a11yReviewed": {
+      "type": "boolean",
+      "description": "Indicate whether the component has been reviewed by the Accessibility team."
+    },
+    "importPath": {
+      "type": "string",
+      "description": "The path to import the component from. i.e. '@primer/react/experimental'"
+    },
+
+    "stories": {
+      "type": "array",
+      "description": "An array of Storybook story IDs to embed in the docs.",
+      "items": {
+        "type": "object",
+        "required": ["id"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The Storybook story ID (e.g. \"components-treeview--default\")."
+          },
+          "code": {
+            "type": "string",
+            "description": "The source code of the story. This will be automatically populated during build time."
+          }
+        }
+      }
+    },
+    "props": {
+      "type": "array",
+      "description": "An array of the component's props.",
+      "items": {
+        "$ref": "#/definitions/prop"
+      }
+    },
+    "passthrough": {
+      "$ref": "#/definitions/passthrough"
+    },
+    "subcomponents": {
+      "type": "array",
+      "description": "Information about the subcomponents.",
+      "items": {
+        "type": "object",
+        "required": ["name", "props"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The display name of the subcomponent, including the name of the root component (e.g. \"TreeView.Item\")."
+          },
+          "deprecated": {
+            "type": "boolean",
+            "description": "Indicate whether the subcomponent is deprecated."
+          },
+          "props": {
+            "type": "array",
+            "description": "An array of the subcomponent's props.",
+            "items": {
+              "$ref": "#/definitions/prop"
+            }
+          },
+          "passthrough": {
+            "$ref": "#/definitions/passthrough"
+          }
+        }
+      }
+    }
+  }
+}

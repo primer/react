@@ -1,0 +1,132 @@
+{
+  "id": "segmented_control",
+  "name": "SegmentedControl",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "defaultValue": "",
+      "description": ""
+    },
+    {
+      "name": "aria-labelledby",
+      "type": "string",
+      "defaultValue": "",
+      "description": ""
+    },
+    {
+      "name": "aria-describedby",
+      "type": "string",
+      "defaultValue": "",
+      "description": ""
+    },
+    {
+      "name": "fullWidth",
+      "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
+      "defaultValue": "",
+      "description": "Whether the control fills the width of its parent"
+    },
+    {
+      "name": "onChange",
+      "type": "(selectedIndex?: number) => void",
+      "defaultValue": "",
+      "description": "The handler that gets called when a segment is selected"
+    },
+    {
+      "name": "variant",
+      "type": "| 'default' | { narrow?: 'hideLabels' | 'dropdown' | 'default' regular?: 'hideLabels' | 'dropdown' | 'default' wide?: 'hideLabels' | 'dropdown' | 'default' }",
+      "defaultValue": "'default'",
+      "description": "Configure alternative ways to render the control when it gets rendered in tight spaces"
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    },
+    {
+      "name": "ref",
+      "type": "React.RefObject<HTMLDivElement>"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "SegmentedControl.Button",
+      "props": [
+        {
+          "name": "leadingIcon",
+          "type": "Component",
+          "defaultValue": "",
+          "description": "The leading icon comes before item label"
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "defaultValue": "",
+          "description": "Whether the segment is selected. This is used for controlled SegmentedControls, and needs to be updated using the onChange handler on SegmentedControl."
+        },
+        {
+          "name": "defaultSelected",
+          "type": "boolean",
+          "defaultValue": "",
+          "description": "Whether the segment is selected. This is used for uncontrolled SegmentedControls to pick one SegmentedControlButton that is selected on the initial render."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLButtonElement>"
+        }
+      ]
+    },
+    {
+      "name": "SegmentedControl.IconButton",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "defaultValue": "",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "icon",
+          "type": "Component",
+          "defaultValue": "",
+          "required": true,
+          "description": "The icon that represents the segmented control item"
+        },
+        {
+          "name": "selected",
+          "type": "boolean",
+          "defaultValue": "",
+          "description": "Whether the segment is selected. This is used for controlled SegmentedControls, and needs to be updated using the onChange handler on SegmentedControl."
+        },
+        {
+          "name": "selected",
+          "type": "'small' | 'medium'",
+          "defaultValue": "",
+          "description": "The size of the buttons"
+        },
+        {
+          "name": "defaultSelected",
+          "type": "boolean",
+          "defaultValue": "",
+          "description": "Whether the segment is selected. This is used for uncontrolled SegmentedControls to pick one SegmentedControlButton that is selected on the initial render."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLButtonElement>"
+        }
+      ]
+    }
+  ]
+}

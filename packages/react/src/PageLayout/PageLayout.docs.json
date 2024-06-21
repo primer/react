@@ -1,0 +1,243 @@
+{
+  "id": "page_layout",
+  "name": "PageLayout",
+  "status": "alpha",
+  "a11yReviewed": true,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "containerWidth",
+      "type": "| 'full' | 'medium' | 'large' | 'xlarge'",
+      "defaultValue": "'xlarge'",
+      "description": "The maximum width of the page container."
+    },
+    {
+      "name": "padding",
+      "type": "| 'none' | 'condensed' | 'normal'",
+      "defaultValue": "'normal'",
+      "description": "The spacing between the outer edges of the page container and the viewport"
+    },
+    {
+      "name": "columnGap",
+      "type": "| 'none' | 'condensed' | 'normal'",
+      "defaultValue": "'normal'",
+      "description": ""
+    },
+    {
+      "name": "rowGap",
+      "type": "| 'none' | 'condensed' | 'normal'",
+      "defaultValue": "'normal'",
+      "description": ""
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "PageLayout.Header",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "defaultValue": "",
+          "description": "A unique label for the rendered banner landmark"
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string | undefined",
+          "defaultValue": "",
+          "description": "An id to an element which uniquely labels the rendered banner landmark"
+        },
+        {
+          "name": "padding",
+          "type": "| 'none' | 'condensed' | 'normal'",
+          "defaultValue": "'none'",
+          "description": "The amount of padding inside the header."
+        },
+        {
+          "name": "divider",
+          "type": "| 'none' | 'line' | { narrow?: | 'none' | 'line' | 'filled' regular?: | 'none' | 'line' wide?: | 'none' | 'line' }",
+          "defaultValue": "'none'",
+          "description": ""
+        },
+        {
+          "name": "dividerWhenNarrow",
+          "type": "| 'inherit' | 'none' | 'line' | 'filled'",
+          "defaultValue": "'inherit'",
+          "deprecated": true,
+          "description": "Use the divider prop with a responsive value instead."
+        },
+        {
+          "name": "hidden",
+          "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
+          "defaultValue": "false",
+          "description": "Whether the header is hidden."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "PageLayout.Content",
+      "props": [
+        {
+          "name": "width",
+          "type": "| 'full' | 'medium' | 'large' | 'xlarge'",
+          "defaultValue": "'full'",
+          "description": "The maximum width of the content region."
+        },
+        {
+          "name": "padding",
+          "type": "| 'none' | 'condensed' | 'normal'",
+          "defaultValue": "'none'",
+          "description": "The amount of padding inside the content."
+        },
+        {
+          "name": "hidden",
+          "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
+          "defaultValue": "false",
+          "description": "Whether the content is hidden."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "PageLayout.Pane",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "description": "Label for the pane. Required if the pane overflows and doesn't have aria-labelledby."
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string | undefined",
+          "description": "Id of an element that acts as a label for the pane. Required if the pane overflows and doesn't have aria-label."
+        },
+        {
+          "name": "width",
+          "type": "| 'small' | 'medium' | 'large' | { min: string max: string default: string }",
+          "defaultValue": "'medium'",
+          "description": "The width of the pane. If using custom widths, provide an object with keys 'min', 'max' and 'default'."
+        },
+        {
+          "name": "minWidth",
+          "type": "number",
+          "defaultValue": "256",
+          "description": "The minimum width of the pane."
+        },
+        {
+          "name": "resizable",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "When true, the pane may be resized by the user."
+        },
+        {
+          "name": "widthStorageKey",
+          "type": "string",
+          "defaultValue": "'paneWidth'",
+          "description": "Provide a key used by localStorage to persist the size of the pane on the client."
+        },
+        {
+          "name": "sticky",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Whether the pane should stick to the top of the screen while the content scrolls."
+        },
+        {
+          "name": "offsetHeader",
+          "type": "number | string",
+          "defaultValue": "0",
+          "description": "Use offsetHeader along with the sticky prop to push the sticky pane down to make room for a sticky header if necessary. Use the type `string` to specify the height with a unit i.e. 5rem; otherwise the type `number` will be taken as px."
+        },
+        {
+          "name": "padding",
+          "type": "| 'none' | 'condensed' | 'normal'",
+          "defaultValue": "'none'",
+          "description": "The amount of padding inside the pane."
+        },
+        {
+          "name": "divider",
+          "type": "| 'none' | 'line' | { narrow?: | 'none' | 'line' | 'filled' regular?: | 'none' | 'line' wide?: | 'none' | 'line' }",
+          "defaultValue": "'none'",
+          "description": ""
+        },
+        {
+          "name": "dividerWhenNarrow",
+          "type": "| 'inherit' | 'none' | 'line' | 'filled'",
+          "defaultValue": "'inherit'",
+          "deprecated": true,
+          "description": "Use the divider prop with a responsive value instead."
+        },
+        {
+          "name": "hidden",
+          "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
+          "defaultValue": "false",
+          "description": "Whether the pane is hidden."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLDivElement>"
+        }
+      ]
+    },
+    {
+      "name": "PageLayout.Footer",
+      "props": [
+        {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "defaultValue": "",
+          "description": "A unique label for the rendered contentinfo landmark"
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string | undefined",
+          "defaultValue": "",
+          "description": "An id to an element which uniquely labels the rendered contentinfo landmark"
+        },
+        {
+          "name": "padding",
+          "type": "| 'none' | 'condensed' | 'normal'",
+          "defaultValue": "'none'",
+          "description": "The amount of padding inside the footer."
+        },
+        {
+          "name": "divider",
+          "type": "| 'none' | 'line' | { narrow?: | 'none' | 'line' | 'filled' regular?: | 'none' | 'line' wide?: | 'none' | 'line' }",
+          "defaultValue": "'none'",
+          "description": ""
+        },
+        {
+          "name": "dividerWhenNarrow",
+          "type": "| 'inherit' | 'none' | 'line' | 'filled'",
+          "defaultValue": "'inherit'",
+          "deprecated": true,
+          "description": "Use the divider prop with a responsive value instead."
+        },
+        {
+          "name": "hidden",
+          "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
+          "defaultValue": "false",
+          "description": "Whether the footer is hidden."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    }
+  ]
+}

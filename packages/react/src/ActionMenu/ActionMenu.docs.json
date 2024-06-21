@@ -1,0 +1,93 @@
+{
+  "id": "action_menu",
+  "name": "ActionMenu",
+  "status": "beta",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "children",
+      "type": "React.ReactElement[]",
+      "defaultValue": "",
+      "required": true,
+      "description": "Recommended: `ActionMenu.Button` or `ActionMenu.Anchor` with `ActionMenu.Overlay`"
+    },
+    {
+      "name": "open",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "If defined, will control the open/closed state of the overlay. Must be used in conjuction with `onOpenChange`."
+    },
+    {
+      "name": "onOpenChange",
+      "type": "(open: boolean) => void",
+      "defaultValue": "",
+      "description": "If defined, will control the open/closed state of the overlay. Must be used in conjuction with `open`."
+    },
+    {
+      "name": "anchorRef",
+      "type": "React.RefObject<HTMLElement>",
+      "defaultValue": "",
+      "description": "Useful for defining an external anchor"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "ActionMenu.Button",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactElement",
+          "defaultValue": "",
+          "required": true,
+          "description": ""
+        }
+      ],
+      "passthrough": {
+        "element": "Button",
+        "url": "/react/Button"
+      }
+    },
+    {
+      "name": "ActionMenu.Anchor",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactElement",
+          "defaultValue": "",
+          "required": true,
+          "description": "Accepts a single child element"
+        }
+      ]
+    },
+    {
+      "name": "ActionMenu.Overlay",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "defaultValue": "",
+          "required": true,
+          "description": ""
+        },
+        {
+          "name": "align",
+          "type": "start | center | end",
+          "defaultValue": "start",
+          "description": ""
+        },
+        {
+          "name": "side",
+          "type": "| 'inside-top' | 'inside-bottom' | 'inside-left' | 'inside-right' | 'inside-center' | 'outside-top' | 'outside-bottom' | 'outside-left' | 'outside-right'",
+          "defaultValue": "'outside-bottom'",
+          "description": "Controls which side of the anchor the menu will appear"
+        }
+      ],
+      "passthrough": {
+        "element": "Overlay",
+        "url": "/react/Overlay"
+      }
+    }
+  ]
+}

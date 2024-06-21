@@ -2,17 +2,17 @@
 title: Pagination
 componentId: pagination
 description: Use Pagination to display a sequence of links that allow navigation to discrete, related pages.
-source: https://github.com/primer/react/blob/main/src/Pagination/Pagination.tsx
+source: https://github.com/primer/react/tree/main/packages/react/src/Pagination/Pagination.tsx
 storybook: '/react/storybook?path=/story/components-pagination-features--hide-page-numbers'
 status: Alpha
 ---
 
-import data from '../../src/Pagination/Pagination.docs.json'
+import data from '../../packages/react/src/Pagination/Pagination.docs.json'
 
 import State from '../components/State'
 import DeprecationBanner from '../components/DeprecationBanner'
 
-<DeprecationBanner replacementUrl={'/design/components/pagination/react'} />
+<DeprecationBanner replacementUrl={'/components/pagination/react/latest'} />
 
 ```js
 import {Pagination} from '@primer/react'

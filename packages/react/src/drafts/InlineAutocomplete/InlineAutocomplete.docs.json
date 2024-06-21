@@ -1,0 +1,62 @@
+{
+  "id": "drafts_inline_autocomplete",
+  "name": "InlineAutocomplete",
+  "status": "deprecated",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react/deprecated",
+  "props": [
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "defaultValue": "",
+      "required": true,
+      "description": "An `input` or `textarea` compatible component to extend. A compatible component is any component that forwards a ref and props to an underlying `input` or `textarea` element, including but not limited to `Input`, `TextArea`, `input`, `textarea`, `styled.input`, and `styled.textarea`. If the child is not compatible, a runtime `TypeError` will be thrown."
+    },
+    {
+      "name": "triggers",
+      "type": "Array<Trigger>",
+      "defaultValue": "",
+      "required": true,
+      "description": "Register the triggers that can cause suggestions to appear."
+    },
+    {
+      "name": "onSelectSuggestion",
+      "type": "(event: SelectSuggestionsEvent) => void",
+      "defaultValue": "",
+      "description": "Called when a suggestion is selected. This should be used only for performing side effects, not for modifying\nthe inserted text. Do not call `setState` in this handler or the user's cursor\nposition / undo history could be lost."
+    },
+    {
+      "name": "onShowSuggestions",
+      "type": "(event: ShowSuggestionsEvent) => void",
+      "defaultValue": "",
+      "required": true,
+      "description": "Called when a valid suggestion query is updated. This should be handled by setting the `suggestions` prop accordingly."
+    },
+    {
+      "name": "onShowSuggestions",
+      "type": "() => void",
+      "defaultValue": "",
+      "required": true,
+      "description": "Called when suggestions should be hidden. Set `suggestions` to `null` or an empty array in this case."
+    },
+    {
+      "name": "suggestions",
+      "type": "Suggestion[] | null | 'loading'",
+      "defaultValue": "",
+      "required": true,
+      "description": "The currently visible list of suggestions. If `loading`, a loading indicator will be shown. If `null` or empty, the list will be hidden. Suggestion sort will be preserved. Typically, this should not contain more than five or so suggestions."
+    },
+    {
+      "name": "tabInsertsSuggestions",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "If `true`, suggestions will be applied with both `Tab` and `Enter`, instead of just `Enter`. This may be expected behavior for users used to IDEs, but use caution when hijacking browser tabbing capability."
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

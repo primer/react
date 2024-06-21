@@ -1,0 +1,55 @@
+{
+  "id": "link",
+  "name": "Link",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "href",
+      "type": "string",
+      "defaultValue": "",
+      "description": "URL to be used for the Link. (The `href` is passed to the underlying `<a>` element. If `as` is specified, the link behavior may need different props)."
+    },
+    {
+      "name": "muted",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Uses a less prominent shade for Link color, and the default link shade on hover."
+    },
+    {
+      "name": "inline",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Set to true for links adjacent to text, underlining them for clear visibility and improved accessibility."
+    },
+    {
+      "name": "underline",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Use `inline` instead.",
+      "deprecated": true
+    },
+    {
+      "name": "hoverColor",
+      "type": "string",
+      "defaultValue": "",
+      "description": "Color used when hovering over the link."
+    },
+    {
+      "name": "ref",
+      "type": "React.RefObject<HTMLAnchorElement>"
+    },
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "\"a\""
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

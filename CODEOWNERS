@@ -1,2 +1,4 @@
 # All changes should be reviewed by a member of the @react-reviewers team
-* @primer/react-reviewers
+* @primer/engineer-reviewers
+./src/legacy-theme/ @langermank
+.playwright/snapshots/components @primer/design-reviewers

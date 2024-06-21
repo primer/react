@@ -1,0 +1,112 @@
+{
+  "id": "radio_group",
+  "name": "RadioGroup",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "aria-labelledby",
+      "type": "string",
+      "defaultValue": "",
+      "description": "Used when associating the input group with a label other than RadioGroup.Label"
+    },
+    {
+      "name": "children",
+      "type": "RadioGroup.Label | RadioGroup.Caption | RadioGroup.Validation | FormControl",
+      "defaultValue": "",
+      "required": true,
+      "description": ""
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Whether the input group allows user input"
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "defaultValue": "A generated string",
+      "description": "<span> The unique identifier for this input group. Used to associate the label, validation text, and caption text. <br /> You may want a custom ID to make it easier to select elements in integration tests. </span>"
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "defaultValue": "",
+      "required": true,
+      "description": "The name used to identify this group of radios"
+    },
+    {
+      "name": "onChange",
+      "type": "(selected: string | null, e?: ChangeEvent<HTMLInputElement>) => void",
+      "defaultValue": "",
+      "description": "An onChange handler that gets called when the selection changes"
+    },
+    {
+      "name": "required",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "If true, the user must make a selection before the owning form can be submitted"
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "RadioGroup.Label",
+      "props": [
+        {
+          "name": "visuallyHidden",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "If true, the fieldset legend will be visually hidden"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "RadioGroup.Description",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "defaultValue": "",
+          "description": "The caption content"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "RadioGroup.Validation",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "defaultValue": "",
+          "description": "The validation message"
+        },
+        {
+          "name": "variant",
+          "type": "'error' | 'success'",
+          "defaultValue": "",
+          "required": true,
+          "description": "Changes the visual style to match the validation status"
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    }
+  ]
+}

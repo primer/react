@@ -18,7 +18,7 @@ import InlineCode from '@primer/gatsby-theme-doctocat/src/components/inline-code
 //
 // To render prop documentation in an .mdx file, import the component data:
 //
-//   import data from '../../src/Button/Button.docs.json'
+//   import data from '../../packages/react/src/Button/Button.docs.json'
 //
 // Then pass the data to `ComponentProps`:
 //

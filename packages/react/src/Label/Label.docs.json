@@ -1,0 +1,23 @@
+{
+  "id": "label",
+  "name": "Label",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "variant",
+      "type": "| 'default' | 'primary' | 'secondary' | 'accent' | 'success' | 'attention' | 'severe' | 'danger' | 'done' | 'sponsors'",
+      "defaultValue": "'default'",
+      "description": "The color of the label"
+    },
+    {
+      "name": "size",
+      "type": "'small' | 'large'",
+      "defaultValue": "'small'",
+      "description": "How large the label is rendered"
+    }
+  ],
+  "subcomponents": []
+}

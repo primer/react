@@ -1,0 +1,36 @@
+{
+  "id": "flash",
+  "name": "Flash",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "full",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Creates a full width Flash component"
+    },
+    {
+      "name": "variant",
+      "type": "'default' | 'success' | 'warning' | 'danger'",
+      "defaultValue": "'default'",
+      "description": "Sets the background color and border"
+    },
+    {
+      "name": "ref",
+      "type": "React.RefObject<HTMLDivElement>"
+    },
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "\"div\""
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

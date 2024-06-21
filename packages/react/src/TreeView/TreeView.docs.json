@@ -1,0 +1,169 @@
+{
+  "id": "tree_view",
+  "name": "TreeView",
+  "status": "beta",
+  "a11yReviewed": true,
+  "stories": [
+    {"id": "components-treeview-features--files"},
+    {"id": "components-treeview-features--files-changed"},
+    {"id": "components-treeview-features--async-success"},
+    {"id": "components-treeview-features--async-error"},
+    {"id": "components-treeview-features--async-with-count"},
+    {"id": "components-treeview-features--controlled"}
+  ],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "required": true
+    },
+    {
+      "name": "flat",
+      "type": "boolean",
+      "description": "Prevents the tree from indenting items. This should only be used when the tree is used to display a flat list of items."
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "TreeView.Item",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true
+        },
+        {
+          "name": "id",
+          "type": "string",
+          "required": true,
+          "description": "A unique identifier for the item."
+        },
+        {
+          "name": "current",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "Indicates whether the item is the current item. No more than one item should be current at once. The path to the current item will be expanded by default."
+        },
+        {
+          "name": "defaultExpanded",
+          "type": "boolean",
+          "description": "The expanded state of the item when it is initially rendered. Use when you do not need to control the state."
+        },
+        {
+          "name": "expanded",
+          "type": "boolean",
+          "description": "The controlled expanded state of item. Must be used in conjunction with onExpandedChange."
+        },
+        {
+          "name": "containIntrinsicSize",
+          "type": "string",
+          "description": "The size of this item's contents. Passing this will set 'content-visiblity: auto' on the content container, delaying rendering until the item is in the viewport."
+        },
+        {
+          "name": "onExpandedChange",
+          "type": "(expanded: boolean) => void",
+          "description": "Event handler called when the expanded state of the item changes."
+        },
+        {
+          "name": "onSelect",
+          "type": "(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void"
+        },
+        {
+          "name": "ref",
+          "type": "React.Ref<HTMLElement>"
+        }
+      ]
+    },
+    {
+      "name": "TreeView.LeadingVisual",
+      "props": [
+        {
+          "name": "children",
+          "required": true,
+          "type": "| React.ReactNode\n| (props: {isExpanded: boolean}) => React.ReactNode)"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "description": "Provide an accessible label for the visual. This is not necessary for decorative visuals."
+        }
+      ]
+    },
+    {
+      "name": "TreeView.TrailingVisual",
+      "props": [
+        {
+          "name": "children",
+          "required": true,
+          "type": "| React.ReactNode\n| (props: {isExpanded: boolean}) => React.ReactNode)"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "description": "Provide an accessible label for the visual. This is not necessary for decorative visuals."
+        }
+      ]
+    },
+    {
+      "name": "TreeView.LeadingAction",
+      "props": [
+        {
+          "name": "children",
+          "required": true,
+          "type": "React.ReactNode"
+        }
+      ]
+    },
+    {
+      "name": "TreeView.DirectoryIcon",
+      "props": []
+    },
+    {
+      "name": "TreeView.SubTree",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode"
+        },
+        {
+          "name": "state",
+          "type": "| 'initial'\n| 'loading'\n| 'done'\n| 'error'",
+          "description": "Specify a state if items in the subtree are loaded asynchronously. An asynchronous subtree can be in one of the following states: 'initial', 'loading', 'done', or 'error'. In the 'initial' state, items are neither loaded nor loading. In the 'loading' state, items are loading and the subtree will render a loading indicator. In the 'done' state, items are loaded. Screen readers will announce when a subtree enters the 'done' state. An 'error' state means that an error occured while loading items."
+        },
+        {
+          "name": "count",
+          "type": "number",
+          "description": "The number of items expected to be in the subtree. When in the loading state, the subtree will render a skeleton loading placeholder with the specified count of items"
+        }
+      ]
+    },
+    {
+      "name": "TreeView.ErrorDialog",
+      "props": [
+        {
+          "name": "children",
+          "required": true,
+          "type": "React.ReactNode",
+          "description": "The content of the dialog. This is usually a message explaining the error."
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "defaultValue": "'Error'",
+          "description": "The title of the dialog. This is usually a short description of the error."
+        },
+        {
+          "name": "onRetry",
+          "type": "() => void",
+          "description": "Event handler called when the user clicks the retry button."
+        },
+        {
+          "name": "onDismiss",
+          "type": "() => void",
+          "description": "Event handler called when the dialog is dismissed."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "id": "actionbar",
+  "name": "ActionBar",
+  "status": "alpha",
+  "a11yReviewed": true,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "size",
+      "type": "'small' | 'medium' | 'large'",
+      "required": false,
+      "description": "Size of the action bar"
+    },
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "When provided, a label is added to the action bar"
+    },
+    {
+      "name": "children",
+      "type": "React.ReactElement",
+      "required": true
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "ActionBar.Icon",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "defaultValue": "",
+          "required": true,
+          "description": "This will be the Button description."
+        },
+        {
+          "name": "icon",
+          "type": "Component",
+          "defaultValue": "",
+          "description": "provide an octicon. It will be placed in the center of the button"
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "defaultValue": "",
+          "description": "Use an aria label to describe the functionality of the button. Please refer to [our guidance on alt text](https://primer.style/guides/accessibility/alternative-text-for-images) for tips on writing good alternative text."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "ActionBar.Divider",
+      "props": []
+    }
+  ]
+}

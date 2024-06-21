@@ -1,0 +1,50 @@
+{
+  "id": "breadcrumbs",
+  "name": "Breadcrumbs",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "children",
+      "type": "Breadcrumbs.Item[]",
+      "defaultValue": "",
+      "description": ""
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "Breadcrumbs.Item",
+      "props": [
+        {
+          "name": "selected",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": ""
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLAnchorElement>"
+        },
+        {
+          "name": "as",
+          "type": "React.ElementType",
+          "defaultValue": "\"a\""
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ],
+      "passthrough": {
+        "element": "a",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#Attributes"
+      }
+    }
+  ]
+}

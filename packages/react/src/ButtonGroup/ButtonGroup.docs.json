@@ -1,0 +1,19 @@
+{
+  "id": "button_group",
+  "name": "ButtonGroup",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    },
+    {
+      "name": "ref",
+      "type": "React.RefObject<HTMLDivElement>"
+    }
+  ],
+  "subcomponents": []
+}

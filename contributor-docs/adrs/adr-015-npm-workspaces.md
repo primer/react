@@ -80,6 +80,6 @@ The current `@primer/react` package will move to the `packages/react` package. W
 - Performance from installing node modules for entire workspace
 - Find workarounds in cases where legacy-peer-deps is required as an option
 
-### Looking forward
+### Explorations
 
 - Exploration into https://nx.dev/ for build tooling as npm workspaces does not support topological script ordering

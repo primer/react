@@ -1,0 +1,36 @@
+{
+  "id": "spinner",
+  "name": "Spinner",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "size",
+      "type": "'small' | 'medium' | 'large'",
+      "description": "Sets the width and height of the spinner."
+    },
+    {
+      "name": "srText",
+      "type": "string | null",
+      "defaultValue": "Loading",
+      "description": "Sets the text conveyed by assistive technologies such as screen readers. Set to `null` if the loading state is displayed in a text node somewhere else on the page."
+    },
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Sets the text conveyed by assistive technologies such as screen readers.",
+      "deprecated": true
+    },
+    {
+      "name": "data-*",
+      "type": "string"
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": []
+}

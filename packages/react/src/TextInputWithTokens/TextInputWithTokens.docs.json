@@ -1,0 +1,67 @@
+{
+  "id": "text_input_with_tokens",
+  "name": "TextInputWithTokens",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "tokens",
+      "type": "TokenProps[]",
+      "defaultValue": "",
+      "required": true,
+      "description": "The array of tokens to render"
+    },
+    {
+      "name": "onTokenRemove",
+      "type": "(tokenId: string|number) => void",
+      "defaultValue": "",
+      "required": true,
+      "description": "The function that gets called when a token is removed"
+    },
+    {
+      "name": "tokenComponent",
+      "type": "React.ComponentType<any>",
+      "defaultValue": "Token",
+      "description": "The component used to render each token"
+    },
+    {
+      "name": "maxHeight",
+      "type": "React.CSSProperties['maxHeight']",
+      "defaultValue": "",
+      "description": "The maximum height of the component. If the content in the input exceeds this height, it will scroll vertically"
+    },
+    {
+      "name": "preventTokenWrapping",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Whether tokens should render inline horizontally. By default, tokens wrap to new lines"
+    },
+    {
+      "name": "size",
+      "type": "'small' | 'medium' | 'large' | 'xlarge'",
+      "defaultValue": "xlarge",
+      "description": "The size of the tokens and text input"
+    },
+    {
+      "name": "hideTokenRemoveButtons",
+      "type": "boolean",
+      "defaultValue": "false",
+      "description": "Whether the remove buttons should be rendered in the tokens"
+    },
+    {
+      "name": "validationStatus",
+      "type": "'error' | 'success'",
+      "defaultValue": "",
+      "description": "Style the input to match the status"
+    },
+    {
+      "name": "visibleTokenCount",
+      "type": "number",
+      "defaultValue": "",
+      "description": "The number of tokens to display before truncating"
+    }
+  ],
+  "subcomponents": []
+}

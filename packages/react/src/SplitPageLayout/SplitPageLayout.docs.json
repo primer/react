@@ -1,0 +1,160 @@
+{
+  "id": "split_page_layout",
+  "name": "SplitPageLayout",
+  "status": "alpha",
+  "a11yReviewed": true,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "SplitPageLayout.Header",
+      "props": [
+        {
+          "name": "padding",
+          "type": "| 'none' | 'condensed' | 'normal'",
+          "defaultValue": "'normal'",
+          "description": "The amount of padding inside the header."
+        },
+        {
+          "name": "divider",
+          "type": "| 'none' | 'line' | { narrow?: | 'none' | 'line' | 'filled' regular?: | 'none' | 'line' wide?: | 'none' | 'line' }",
+          "defaultValue": "'line'",
+          "description": ""
+        },
+        {
+          "name": "hidden",
+          "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
+          "defaultValue": "false",
+          "description": "Whether the header is hidden."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "SplitPageLayout.Content",
+      "props": [
+        {
+          "name": "width",
+          "type": "| 'full' | 'medium' | 'large' | 'xlarge'",
+          "defaultValue": "'large'",
+          "description": "The maximum width of the content region."
+        },
+        {
+          "name": "padding",
+          "type": "| 'none' | 'condensed' | 'normal'",
+          "defaultValue": "'normal'",
+          "description": "The amount of padding inside the content."
+        },
+        {
+          "name": "hidden",
+          "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
+          "defaultValue": "false",
+          "description": "Whether the content is hidden."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "SplitPageLayout.Pane",
+      "props": [
+        {
+          "name": "width",
+          "type": "| 'small' | 'medium' | 'large'",
+          "defaultValue": "'medium'",
+          "description": "The width of the pane."
+        },
+        {
+          "name": "minWidth",
+          "type": "number",
+          "defaultValue": "256",
+          "description": "The minimum width of the pane."
+        },
+        {
+          "name": "resizable",
+          "type": "boolean",
+          "defaultValue": "false",
+          "description": "When true, the pane may be resized by the user."
+        },
+        {
+          "name": "widthStorageKey",
+          "type": "string",
+          "defaultValue": "'paneWidth'",
+          "description": "Provide a key used by localStorage to persist the size of the pane on the client."
+        },
+        {
+          "name": "sticky",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "Whether the pane should stick to the top of the screen while the content scrolls."
+        },
+        {
+          "name": "offsetHeader",
+          "type": "number | string",
+          "defaultValue": "0",
+          "description": "Use offsetHeader along with the sticky prop to push the sticky pane down to make room for a sticky header if necessary. Use the type `string` to specify the height with a unit i.e. 5rem; otherwise the type `number` will be taken as px."
+        },
+        {
+          "name": "padding",
+          "type": "| 'none' | 'condensed' | 'normal'",
+          "defaultValue": "'normal'",
+          "description": "The amount of padding inside the pane."
+        },
+        {
+          "name": "divider",
+          "type": "| 'none' | 'line' | { narrow?: | 'none' | 'line' | 'filled' regular?: | 'none' | 'line' wide?: | 'none' | 'line' }",
+          "defaultValue": "'line'",
+          "description": ""
+        },
+        {
+          "name": "hidden",
+          "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
+          "defaultValue": "false",
+          "description": "Whether the pane is hidden."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "SplitPageLayout.Footer",
+      "props": [
+        {
+          "name": "padding",
+          "type": "| 'none' | 'condensed' | 'normal'",
+          "defaultValue": "'normal'",
+          "description": "The amount of padding inside the footer."
+        },
+        {
+          "name": "divider",
+          "type": "| 'none' | 'line' | { narrow?: | 'none' | 'line' | 'filled' regular?: | 'none' | 'line' wide?: | 'none' | 'line' }",
+          "defaultValue": "'line'",
+          "description": ""
+        },
+        {
+          "name": "hidden",
+          "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
+          "defaultValue": "false",
+          "description": "Whether the footer is hidden."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    }
+  ]
+}

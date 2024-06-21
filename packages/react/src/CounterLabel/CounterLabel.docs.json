@@ -1,0 +1,17 @@
+{
+  "id": "counter_label",
+  "name": "CounterLabel",
+  "status": "alpha",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react",
+  "props": [
+    {
+      "name": "scheme",
+      "type": "'primary' | 'secondary'",
+      "defaultValue": "",
+      "description": "Pass in 'primary' for a darker background and inverse text, or 'secondary' for a lighter background and primary text. Omitting the scheme prop renders the default counter scheme"
+    }
+  ],
+  "subcomponents": []
+}
