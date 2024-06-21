@@ -1,5 +1,17 @@
 # @primer/react
 
+## 36.22.0
+
+### Minor Changes
+
+- [#4443](https://github.com/primer/react/pull/4443) [`f2523373e09e0027f29b36a995574a296ffde3da`](https://github.com/primer/react/commit/f2523373e09e0027f29b36a995574a296ffde3da) Thanks [@joshblack](https://github.com/joshblack)! - Add experimental InlineMessage component
+
+- [#4613](https://github.com/primer/react/pull/4613) [`eb2ab132cd451b8c67a85d028483aa00a7a1c81b`](https://github.com/primer/react/commit/eb2ab132cd451b8c67a85d028483aa00a7a1c81b) Thanks [@joshblack](https://github.com/joshblack)! - `Dialog` and `ConfirmationDialog` can now be closed by clicking on the backdrop surrounding the dialog. This will cause `onClose` to be called with the `escape` gesture.
+
+- [#4443](https://github.com/primer/react/pull/4443) [`f2523373e09e0027f29b36a995574a296ffde3da`](https://github.com/primer/react/commit/f2523373e09e0027f29b36a995574a296ffde3da) Thanks [@joshblack](https://github.com/joshblack)! - Add support for InlineMessage to experimental
+
+- [#4667](https://github.com/primer/react/pull/4667) [`e2a974f4a376ca92b305e03f36f905ad02c61341`](https://github.com/primer/react/commit/e2a974f4a376ca92b305e03f36f905ad02c61341) Thanks [@ktravers](https://github.com/ktravers)! - Adds support for `className` prop to PageHeader component and its children.
+
 ## 36.21.0
 
 ### Minor Changes
