@@ -408,3 +408,55 @@ describe('NavList.Expand', () => {
     expect(queryByRole('link', {name: 'Item 3'})).toHaveFocus()
   })
 })
+
+describe('NavList.Expand with Group', () => {
+  function NavListWithExpand() {
+    return (
+      <NavList>
+        <NavList.Group title="Group 1">
+          <NavList.Item aria-current="true" href="#">
+            Item 1A
+          </NavList.Item>
+          <NavList.Item href="#">Item 1B</NavList.Item>
+          <NavList.Item href="#">Item 1C</NavList.Item>
+          <NavList.Expand label="More">
+            <NavList.Item>Item 1D</NavList.Item>
+            <NavList.Item>Item 1E</NavList.Item>
+            <NavList.Item>Item 1F</NavList.Item>
+          </NavList.Expand>
+        </NavList.Group>
+        <NavList.Group title="Group 2">
+          <NavList.Item href="#">Item 2A</NavList.Item>
+          <NavList.Item href="#">Item 2B</NavList.Item>
+          <NavList.Item href="#">Item 2C</NavList.Item>
+          <NavList.Expand label="Show">
+            <NavList.Item>Item 2D</NavList.Item>
+            <NavList.Item>Item 2E</NavList.Item>
+            <NavList.Item>Item 2F</NavList.Item>
+          </NavList.Expand>
+        </NavList.Group>
+      </NavList>
+    )
+  }
+
+  it('renders expand buttons for each group', () => {
+    const {queryByRole} = render(<NavListWithExpand />)
+
+    expect(queryByRole('button', {name: 'More'})).toBeInTheDocument()
+    expect(queryByRole('button', {name: 'Show'})).toBeInTheDocument()
+  })
+
+  it('renders expand buttons as direct sibling of <ul>', () => {
+    const {queryByRole} = render(<NavListWithExpand />)
+
+    const group1Button = queryByRole('button', {name: 'More'})
+
+    expect(group1Button!.previousElementSibling).toBeInTheDocument()
+    expect(group1Button!.previousElementSibling!.tagName).toEqual('ul')
+
+    const group2Button = queryByRole('button', {name: 'Show'})
+
+    expect(group2Button!.previousElementSibling).toBeInTheDocument()
+    expect(group2Button!.previousElementSibling!.tagName).toEqual('ul')
+  })
+})
