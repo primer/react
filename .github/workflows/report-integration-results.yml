@@ -1,0 +1,106 @@
+name: Report results of integration tests
+
+# using label for now, will think about this a little more
+on:
+  # temporary so I can test this
+  push:
+  pull_request:
+    types: [labeled]
+
+jobs:
+  report-results:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - id: get-github-access-token
+        uses: camertron/github-app-installation-auth-action@v1
+        with:
+          app-id: ${{ vars.PRIMER_ISSUE_TRIAGE_APP_ID_FOR_GITHUB }}
+          private-key: ${{ secrets.PRIMER_ISSUE_TRIAGE_APP_PRIVATE_KEY_FOR_GITHUB }}
+          client-id: ${{ vars.PRIMER_ISSUE_TRIAGE_APP_CLIENT_ID_FOR_GITHUB }}
+          client-secret: ${{ secrets.PRIMER_ISSUE_TRIAGE_APP_CLIENT_SECRET_FOR_GITHUB }}
+          installation-id: ${{ vars.PRIMER_ISSUE_TRIAGE_APP_INSTALLATION_ID_FOR_GITHUB }}
+      - id: check-if-branch-exists-in-gh
+        name: Check if branch exists in gh/gh
+        uses: actions/github-script@v7
+        env:
+          # BRANCH: "prc-integration-test-for-${{github.event.pull_request.number}}"
+          BRANCH: "prc-integration-test-for-4358-failing-case"
+        with:
+          # github-token: ${{ steps.get-github-access-token.outputs.access-token }}
+          github-token: ${{ secrets.TEMP_SID_PAT }}
+          script: |
+            const { BRANCH } = process.env;
+            try {
+              const { data } = await github.rest.repos.getBranch({
+                owner: 'github',
+                repo: 'github',
+                branch: BRANCH
+              });
+              core.setOutput('branch', BRANCH);
+            } catch (error) {
+              // TODO: instead of checking branch, we could also check if the pr-test-workflow has finished running without errors
+              core.setFailed(`
+                branch "${BRANCH}" does not exist. 
+                Please make sure you have run the integration tests workflow and it has finished running.
+                See guide here: https://github.com/github/primer-engineering/blob/main/how-we-work/testing-primer-react-pr-at-dotcom.md
+              `);
+            }
+      - id : get-workflow-run
+        name: Get workflow run
+        uses: actions/github-script@v7
+        env:
+          BRANCH: ${{steps.check-if-branch-exists-in-gh.outputs.branch}}
+          WORKFLOW_ID: "primer-react-pr-test.yml"
+          RUN_NAME: 'GitHub CI - Actions'
+        with:
+          # github-token: ${{ steps.get-github-access-token.outputs.access-token }}
+          github-token: ${{ secrets.TEMP_SID_PAT }}
+          script: |
+            const { BRANCH, WORKFLOW_ID, RUN_NAME } = process.env;
+
+            const { data: {workflow_runs} } = await github.rest.actions.listWorkflowRunsForRepo({
+              owner: 'github',
+              repo: 'github',
+              branch: BRANCH
+            });
+
+            const run = workflow_runs.find(run => run.name === RUN_NAME)
+
+            if (run) {
+              core.setOutput('id', run.id);
+              core.setOutput('html_url', run.html_url);
+              // TODO: the workflow run might exist, but it might still be pending / running
+              // = no results job, should count as a pending/fail state
+            } else {
+              // TODO: if the branch exists, is it still possible that workflow run doesn't exist?
+            }
+      - id: get-golden-jobs-results
+        name: Get golden-jobs-results
+        uses: actions/github-script@v7
+        env:
+          RUN_ID: ${{steps.get-workflow-run.outputs.id}}
+          JOB_NAME: 'golden-jobs-results'
+        with:
+          # github-token: ${{ steps.get-github-access-token.outputs.access-token }}
+          github-token: ${{ secrets.TEMP_SID_PAT }}
+          script: |
+            const { RUN_ID, JOB_NAME } = process.env;
+
+            const { data: { jobs } } = await github.rest.actions.listJobsForWorkflowRun({
+              owner: 'github',
+              repo: 'github',
+              run_id: RUN_ID,
+              per_page: 100,
+              page: 2, // this is silly but we know golden-jobs-results is generated right at the end
+            });
+
+            const job = jobs.find(job => job.name === JOB_NAME)
+            if (job) {
+              const {status, conclusion, html_url} = job
+              console.log({status, conclusion, html_url})
+              return {status, conclusion, html_url}
+            } else {
+              // TODO: is it possible that the workflow completed, but the job results still don't exist?
+            }
