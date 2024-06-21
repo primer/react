@@ -1,4 +1,4 @@
-import {render, fireEvent} from '@testing-library/react'
+import {render, fireEvent, act} from '@testing-library/react'
 import React from 'react'
 import {ThemeProvider, SSRProvider} from '..'
 import {NavList} from './NavList'
@@ -333,5 +333,78 @@ describe('NavList.Item with NavList.SubNav', () => {
 
     const currentLink = queryByRole('link', {name: 'Current'})
     expect(currentLink).toBeVisible()
+  })
+})
+
+describe('NavList.Expand', () => {
+  function NavListWithExpand() {
+    return (
+      <NavList>
+        <NavList.Item href="#">Item 1</NavList.Item>
+        <NavList.Item href="#">Item 2</NavList.Item>
+        <NavList.Expand label="More">
+          <NavList.Item href="#">Item 3</NavList.Item>
+          <NavList.Item href="#">Item 4</NavList.Item>
+        </NavList.Expand>
+      </NavList>
+    )
+  }
+
+  it('renders with button', () => {
+    const {queryByRole} = render(<NavListWithExpand />)
+    const button = queryByRole('button', {name: 'More'})
+    expect(button).toBeInTheDocument()
+  })
+
+  it('renders button as direct sibling of <ul>', () => {
+    const {queryByRole} = render(<NavListWithExpand />)
+    const button = queryByRole('button', {name: 'More'})
+
+    expect(button!.previousElementSibling).toBeInTheDocument()
+    expect(button!.previousElementSibling!.tagName).toEqual('ul')
+  })
+
+  it('hides items inside of NavList.Expand by default', () => {
+    const {queryByRole} = render(<NavListWithExpand />)
+
+    expect(queryByRole('link', {name: 'Item 1'})).toBeInTheDocument()
+    expect(queryByRole('link', {name: 'Item 2'})).toBeInTheDocument()
+    expect(queryByRole('link', {name: 'Item 3'})).not.toBeInTheDocument()
+    expect(queryByRole('link', {name: 'Item 4'})).not.toBeInTheDocument()
+  })
+
+  it('shows items inside of NavList.Expand when expand button is activated', () => {
+    const {queryByRole} = render(<NavListWithExpand />)
+
+    act(() => {
+      queryByRole('button', {name: 'More'})?.click()
+    })
+
+    expect(queryByRole('link', {name: 'Item 1'})).toBeInTheDocument()
+    expect(queryByRole('link', {name: 'Item 2'})).toBeInTheDocument()
+    expect(queryByRole('link', {name: 'Item 3'})).toBeInTheDocument()
+    expect(queryByRole('link', {name: 'Item 4'})).toBeInTheDocument()
+
+    expect(queryByRole('button', {name: 'More'})).not.toBeInTheDocument()
+  })
+
+  it('removes expand button after it is activated', () => {
+    const {queryByRole} = render(<NavListWithExpand />)
+
+    act(() => {
+      queryByRole('button', {name: 'More'})?.click()
+    })
+
+    expect(queryByRole('button', {name: 'More'})).not.toBeInTheDocument()
+  })
+
+  it('places focus on the first of the newly shown list item', () => {
+    const {queryByRole} = render(<NavListWithExpand />)
+
+    act(() => {
+      queryByRole('button', {name: 'More'})?.click()
+    })
+
+    expect(queryByRole('link', {name: 'Item 3'})).toHaveFocus()
   })
 })
