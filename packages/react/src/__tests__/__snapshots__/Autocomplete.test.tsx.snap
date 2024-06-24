@@ -373,7 +373,7 @@ exports[`snapshots renders a loading state 1`] = `
       className="c1"
       display="flex"
     >
-      <div
+      <span
         className="c2"
       >
         <svg
@@ -402,13 +402,13 @@ exports[`snapshots renders a loading state 1`] = `
             vectorEffect="non-scaling-stroke"
           />
         </svg>
-        <div
+        <span
           className="c4"
           id=":r1v:"
         >
           Loading
-        </div>
-      </div>
+        </span>
+      </span>
     </div>
   </span>,
 ]

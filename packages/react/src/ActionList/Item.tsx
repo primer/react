@@ -20,7 +20,9 @@ import {Selection} from './Selection'
 import {getVariantStyles, ItemContext, TEXT_ROW_HEIGHT, ListContext} from './shared'
 import type {VisualProps} from './Visuals'
 import {LeadingVisual, TrailingVisual} from './Visuals'
+import {TrailingAction} from './TrailingAction'
 import {ConditionalWrapper} from '../internal/components/ConditionalWrapper'
+import {invariant} from '../utils/invariant'
 import {useFeatureFlag} from '../FeatureFlags'
 
 const LiBox = styled.li<SxProp>(sx)
@@ -71,6 +73,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const [slots, childrenWithoutSlots] = useSlots(props.children, {
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
+      trailingAction: TrailingAction,
       blockDescription: [Description, props => props.variant === 'block'],
       inlineDescription: [Description, props => props.variant !== 'block'],
     })
@@ -78,7 +81,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const {container, afterSelect, selectionAttribute, defaultTrailingVisual} =
       React.useContext(ActionListContainerContext)
 
-    const buttonSemantics = useFeatureFlag('primer_react_action_list_item_as_button')
+    const buttonSemanticsFeatureFlag = useFeatureFlag('primer_react_action_list_item_as_button')
 
     // Be sure to avoid rendering the container unless there is a default
     const wrappedDefaultTrailingVisual = defaultTrailingVisual ? (
@@ -125,12 +128,19 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const itemRole = role || inferredItemRole
 
+    if (slots.trailingAction) {
+      invariant(!container, `ActionList.TrailingAction can not be used within a ${container}.`)
+    }
+
     /** Infer the proper selection attribute based on the item's role */
     let inferredSelectionAttribute: 'aria-selected' | 'aria-checked' | undefined
     if (itemRole === 'menuitemradio' || itemRole === 'menuitemcheckbox') inferredSelectionAttribute = 'aria-checked'
     else if (itemRole === 'option') inferredSelectionAttribute = 'aria-selected'
 
     const itemSelectionAttribute = selectionAttribute || inferredSelectionAttribute
+    // Ensures ActionList.Item retains list item semantics if a valid ARIA role is applied, or if item is inactive
+    const listSemantics = listRole === 'listbox' || listRole === 'menu' || inactive || container === 'NavList'
+    const buttonSemantics = !listSemantics && !_PrivateItemWrapper && buttonSemanticsFeatureFlag
 
     const {theme} = useTheme()
 
@@ -149,10 +159,32 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       },
     }
 
+    const hoverStyles = {
+      '@media (hover: hover) and (pointer: fine)': {
+        ':hover:not([aria-disabled]):not([data-inactive])': {
+          backgroundColor: `actionListItem.${variant}.hoverBg`,
+          color: getVariantStyles(variant, disabled, inactive).hoverColor,
+          boxShadow: `inset 0 0 0 max(1px, 0.0625rem) ${theme?.colors.actionListItem.default.activeBorder}`,
+        },
+        '&:focus-visible, > a.focus-visible, &:focus.focus-visible': {
+          outline: 'none',
+          border: `2 solid`,
+          boxShadow: `0 0 0 2px ${theme?.colors.accent.emphasis}`,
+        },
+        ':active:not([aria-disabled]):not([data-inactive])': {
+          backgroundColor: `actionListItem.${variant}.activeBg`,
+          color: getVariantStyles(variant, disabled, inactive).hoverColor,
+        },
+      },
+    }
+
     const listItemStyles = {
       display: 'flex',
       // show between 2 items
       ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
+      width: 'calc(100% - 16px)',
+      marginX: buttonSemantics ? '2' : '0',
+      ...(buttonSemantics ? hoverStyles : {}),
     }
 
     const styles = {
@@ -163,7 +195,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       paddingY: '6px', // custom value off the scale
       lineHeight: TEXT_ROW_HEIGHT,
       minHeight: 5,
-      marginX: listVariant === 'inset' ? 2 : 0,
+      marginX: listVariant === 'inset' && !buttonSemantics ? 2 : 0,
       borderRadius: 2,
       transition: 'background 33.333ms linear',
       color: getVariantStyles(variant, disabled, inactive).color,
@@ -181,7 +213,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       appearance: 'none',
       background: 'unset',
       border: 'unset',
-      width: listVariant === 'inset' ? 'calc(100% - 16px)' : '100%',
+      width: listVariant === 'inset' && !buttonSemantics ? 'calc(100% - 16px)' : '100%',
       fontFamily: 'unset',
       textAlign: 'unset',
       marginY: 'unset',
@@ -224,6 +256,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         borderTopWidth: showDividers ? `1px` : '0',
         borderColor: 'var(--divider-color, transparent)',
       },
+
       // show between 2 items
       ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
       // hide divider after dividers & group header, with higher importance!
@@ -268,8 +301,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const inlineDescriptionId = `${itemId}--inline-description`
     const blockDescriptionId = `${itemId}--block-description`
     const inactiveWarningId = inactive && !showInactiveIndicator ? `${itemId}--warning-message` : undefined
-    // Ensures ActionList.Item retains list item semantics if a valid ARIA role is applied, or if item is inactive
-    const listSemantics = listRole === 'listbox' || listRole === 'menu' || inactive || container === 'NavList'
 
     const ButtonItemWrapper = React.forwardRef(({as: Component = 'button', children, ...props}, forwardedRef) => {
       return (
@@ -285,7 +316,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     }) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>
 
     let DefaultItemWrapper = React.Fragment
-    if (buttonSemantics) {
+    if (buttonSemanticsFeatureFlag) {
       DefaultItemWrapper = listSemantics ? React.Fragment : ButtonItemWrapper
     }
 
@@ -313,7 +344,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     let containerProps
     let wrapperProps
 
-    if (buttonSemantics) {
+    if (buttonSemanticsFeatureFlag) {
       containerProps = _PrivateItemWrapper
         ? {role: itemRole ? 'none' : undefined, ...props}
         : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
@@ -337,9 +368,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         value={{variant, disabled, inactive: Boolean(inactiveText), inlineDescriptionId, blockDescriptionId}}
       >
         <LiBox
-          ref={buttonSemantics || listSemantics ? forwardedRef : null}
+          ref={buttonSemanticsFeatureFlag || listSemantics ? forwardedRef : null}
           sx={
-            buttonSemantics
+            buttonSemanticsFeatureFlag
               ? merge<BetterSystemStyleObject>(
                   listSemantics || _PrivateItemWrapper ? styles : listItemStyles,
                   listSemantics || _PrivateItemWrapper ? sxProp : {},
@@ -424,6 +455,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               {slots.blockDescription}
             </Box>
           </ItemWrapper>
+          {!inactive && Boolean(slots.trailingAction) && !container && slots.trailingAction}
         </LiBox>
       </ItemContext.Provider>
     )
