@@ -1,0 +1,27 @@
+{
+    "id": "skeleton_box",
+    "name": "SkeletonBox",
+    "status": "draft",
+    "a11yReviewed": false,
+    "stories": [],
+    "importPath": "@primer/react/drafts",
+    "props": [
+      {
+        "name": "width",
+        "type": "string",
+        "description": "Width of the skeleton box. Accepts any valid CSS `width` value."
+      },
+      {
+        "name": "height",
+        "defaultValue": "1rem",
+        "type": "string",
+        "description": "Height of the skeleton box. Accepts any valid CSS `height` value."
+      },
+      {
+        "name": "sx",
+        "type": "SystemStyleObject"
+      }
+    ],
+    "subcomponents": []
+  }
+  
