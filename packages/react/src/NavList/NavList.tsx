@@ -2,7 +2,12 @@ import {ChevronDownIcon} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import React, {isValidElement} from 'react'
 import styled from 'styled-components'
-import type {ActionListDividerProps, ActionListLeadingVisualProps, ActionListTrailingVisualProps} from '../ActionList'
+import type {
+  ActionListTrailingActionProps,
+  ActionListDividerProps,
+  ActionListLeadingVisualProps,
+  ActionListTrailingVisualProps,
+} from '../ActionList'
 import {ActionList} from '../ActionList'
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
 import Box from '../Box'
@@ -251,6 +256,14 @@ const Divider = ActionList.Divider
 
 Divider.displayName = 'NavList.Divider'
 
+// NavList.TrailingAction
+
+export type NavListTrailingActionProps = ActionListTrailingActionProps
+
+const TrailingAction = ActionList.TrailingAction
+
+TrailingAction.displayName = 'NavList.TrailingAction'
+
 // ----------------------------------------------------------------------------
 // NavList.Group
 
@@ -285,6 +298,7 @@ export const NavList = Object.assign(Root, {
   SubNav,
   LeadingVisual,
   TrailingVisual,
+  TrailingAction,
   Divider,
   Group,
 })
