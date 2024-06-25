@@ -65,6 +65,20 @@ describe('NavList', () => {
     )
     expect(container).toMatchSnapshot()
   })
+
+  it('supports TrailingAction', async () => {
+    const {getByRole} = render(
+      <NavList>
+        <NavList.Item>
+          Item 1
+          <NavList.TrailingAction label="Some trailing action" />
+        </NavList.Item>
+      </NavList>,
+    )
+
+    const trailingAction = getByRole('button', {name: 'Some trailing action'})
+    expect(trailingAction).toBeInTheDocument()
+  })
 })
 
 describe('NavList.Item', () => {
