@@ -4,6 +4,7 @@ import {Item} from './Item'
 import {LinkItem} from './LinkItem'
 import {Divider} from './Divider'
 import {Description} from './Description'
+import {TrailingAction} from './TrailingAction'
 import {LeadingVisual, TrailingVisual} from './Visuals'
 import {Heading} from './Heading'
 
@@ -49,4 +50,7 @@ export const ActionList = Object.assign(List, {
 
   /** Container for `ActionList.Group` */
   GroupContent,
+
+  /** Secondary action */
+  TrailingAction,
 })

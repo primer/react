@@ -192,6 +192,37 @@
       ]
     },
     {
+      "name": "ActionList.TrailingAction",
+      "props": [
+        {
+          "name": "as",
+          "type": "a | button",
+          "defaultValue": "button",
+          "required": false,
+          "description": "HTML element to render as."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "defaultValue": "",
+          "required": true,
+          "description": "Acccessible name for the control."
+        },
+        {
+          "name": "icon",
+          "type": "string",
+          "defaultValue": "",
+          "required": true,
+          "description": "Octicon to pass into IconButton. When this is not set, TrailingAction renders as a `Button` instead of an `IconButton`."
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLAnchorElement>",
+          "description": "href when the TrailingAction is rendered as a link."
+        }
+      ]
+    },
+    {
       "name": "ActionList.Description",
       "props": [
         {
