@@ -265,7 +265,12 @@ export const WithTrailingAction = () => {
           </NavList.Item>
           <NavList.Item>
             Item 3
-            <NavList.TrailingAction label="Another action" icon={BookIcon} />
+            <NavList.SubNav>
+              <NavList.Item href="#">
+                Sub item 1
+                <NavList.TrailingAction label="Another action" icon={BookIcon} />
+              </NavList.Item>
+            </NavList.SubNav>
           </NavList.Item>
         </NavList>
       </PageLayout.Pane>
