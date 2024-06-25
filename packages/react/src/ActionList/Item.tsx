@@ -127,9 +127,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     }
 
     const itemRole = role || inferredItemRole
+    const menuContext = container === 'ActionMenu' || container === 'SelectPanel'
 
     if (slots.trailingAction) {
-      const menuContext = container === 'ActionMenu' || container === 'SelectPanel'`
       invariant(!menuContext, `ActionList.TrailingAction can not be used within a ${container}.`)
     }
 
