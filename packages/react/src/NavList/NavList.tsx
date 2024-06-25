@@ -12,6 +12,7 @@ import sx, {merge} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {useId} from '../hooks/useId'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
+import {useSlots} from '../drafts'
 
 const getSubnavStyles = (depth: number) => {
   return {
@@ -254,6 +255,11 @@ Divider.displayName = 'NavList.Divider'
 // ----------------------------------------------------------------------------
 // NavList.Group
 
+const NavListGroupContext = React.createContext<{onExpand: (() => void) | null; isExpanded: boolean}>({
+  onExpand: null,
+  isExpanded: false,
+})
+
 export type NavListGroupProps = {
   children: React.ReactNode
   title?: string
@@ -262,38 +268,56 @@ export type NavListGroupProps = {
 const defaultSx = {}
 // TODO: ref prop
 const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defaultSx, ...props}) => {
+  const [slots, childrenWithoutSlots] = useSlots(children, {
+    expand: Expand,
+  })
+
+  const [groupExpanded, setGroupExpanded] = React.useState(slots.expand?.props.expand ?? false)
+
+  const expandContent = React.useCallback(() => {
+    setGroupExpanded(!groupExpanded)
+  }, [groupExpanded])
+
   return (
-    <>
+    <NavListGroupContext.Provider value={{onExpand: expandContent, isExpanded: groupExpanded}}>
       {/* Hide divider if the group is the first item in the list */}
       <ActionList.Divider sx={{'&:first-child': {display: 'none'}}} />
       <ActionList.Group {...props} sx={sxProp}>
         {/* Setting up the default value for the heading level. TODO: API update to give flexibility to NavList.Group title's heading level */}
         {title ? <ActionList.GroupHeading as="h3">{title}</ActionList.GroupHeading> : null}
-        {children}
+        {childrenWithoutSlots}
+        {!groupExpanded ? <ActionList.GroupContent>{slots.expand}</ActionList.GroupContent> : slots.expand}
       </ActionList.Group>
-    </>
+    </NavListGroupContext.Provider>
   )
 }
 
 export type NavListExpandProps = {
   children: React.ReactNode
   label: string
+  expand?: boolean
 } & SxProp
 
-const Expand: React.FC<NavListExpandProps> = ({label, children, ...props}) => {
-  const [expanded, setExpanded] = React.useState(false)
+const Expand: React.FC<NavListExpandProps> = ({label, children, expand = false, ...props}) => {
+  const {onExpand, isExpanded: expanded} = React.useContext(NavListGroupContext)
+  const [isExpanded, setIsExpanded] = React.useState(expand || expanded)
 
-  const expandList = () => setExpanded(true)
+  const expandContent = React.useCallback(() => {
+    // We can rely on context to handle the state if context is provided
+    if (onExpand) {
+      onExpand()
+    } else {
+      setIsExpanded(!isExpanded)
+    }
+  }, [isExpanded, onExpand])
 
-  return !expanded ? (
-    <Box as="li" sx={{listStyle: 'none'}}>
-      <ActionList.Item as="button" onClick={expandList} {...props}>
-        {label}
-        <ActionList.TrailingVisual>
-          <PlusIcon />
-        </ActionList.TrailingVisual>
-      </ActionList.Item>
-    </Box>
+  return !isExpanded || !expanded ? (
+    <ActionList.Item as="button" onClick={expandContent} {...props}>
+      {label}
+      <ActionList.TrailingVisual>
+        <PlusIcon />
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
   ) : (
     children
   )
