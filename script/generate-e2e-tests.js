@@ -797,6 +797,25 @@ const components = new Map([
     },
   ],
   [
+    'NavList',
+    {
+      stories: [
+        {
+          id: 'components-navlist--simple',
+          name: 'Simple',
+        },
+        {
+          id: 'components-navlist--with-group',
+          name: 'With group',
+        },
+        {
+          id: 'components-navlist--with-group-expand',
+          name: 'With group expand',
+        },
+      ],
+    },
+  ],
+  [
     'Pagehead',
     {
       stories: [
