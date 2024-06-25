@@ -249,23 +249,27 @@ export const WithGroup = () => (
 
 export const WithTrailingAction = () => {
   return (
-    <NavList>
-      <NavList.Item>
-        <NavList.LeadingVisual>
-          <FileDirectoryIcon />
-        </NavList.LeadingVisual>
-        Item 1
-        <NavList.TrailingAction label="Expand sidebar" icon={ArrowLeftIcon} />
-      </NavList.Item>
-      <NavList.Item>
-        Item 2
-        <NavList.TrailingAction as="a" href="#" label="Some action" icon={ArrowRightIcon} />
-      </NavList.Item>
-      <NavList.Item>
-        Item 3
-        <NavList.TrailingAction label="Another action" icon={BookIcon} />
-      </NavList.Item>
-    </NavList>
+    <PageLayout>
+      <PageLayout.Pane position="start">
+        <NavList>
+          <NavList.Item>
+            <NavList.LeadingVisual>
+              <FileDirectoryIcon />
+            </NavList.LeadingVisual>
+            Item 1
+            <NavList.TrailingAction label="Expand sidebar" icon={ArrowLeftIcon} />
+          </NavList.Item>
+          <NavList.Item>
+            Item 2
+            <NavList.TrailingAction as="a" href="#" label="Some action" icon={ArrowRightIcon} />
+          </NavList.Item>
+          <NavList.Item>
+            Item 3
+            <NavList.TrailingAction label="Another action" icon={BookIcon} />
+          </NavList.Item>
+        </NavList>
+      </PageLayout.Pane>
+    </PageLayout>
   )
 }
 
