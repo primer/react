@@ -12,7 +12,7 @@ import sx, {merge} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {useId} from '../hooks/useId'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
-import {useSlots} from '../drafts'
+import {useSlots} from '../hooks/useSlots'
 
 const getSubnavStyles = (depth: number) => {
   return {
