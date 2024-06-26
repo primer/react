@@ -1,15 +1,15 @@
 import React from 'react'
 import {RelativeTimeElement} from '@github/relative-time-element'
 import type {ComponentProps} from '../utils/types'
-import {createComponent} from '../utils/custom-element'
+import {createComponent} from '../utils/create-component'
 
 const RelativeTimeComponent = createComponent(RelativeTimeElement, 'relative-time')
 
 const localeOptions: Intl.DateTimeFormatOptions = {month: 'short', day: 'numeric', year: 'numeric'}
-function RelativeTime({date, datetime, children, ...props}: RelativeTimeProps) {
+function RelativeTime({date, datetime, children, noTitle, ...props}: RelativeTimeProps) {
   if (datetime) date = new Date(datetime)
   return (
-    <RelativeTimeComponent {...props} date={date}>
+    <RelativeTimeComponent {...props} date={date} no-title={noTitle ? '' : undefined}>
       {children || date?.toLocaleDateString('en', localeOptions) || ''}
     </RelativeTimeComponent>
   )

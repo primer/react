@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta, ComponentStory} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import Octicon from './Octicon'
 import {HeartFillIcon} from '@primer/octicons-react'
 
@@ -10,7 +10,7 @@ export default {
 
 export const Default = () => <Octicon icon={HeartFillIcon} size={32} />
 
-export const Playground: ComponentStory<typeof Octicon> = args => <Octicon icon={HeartFillIcon} {...args} />
+export const Playground: StoryFn<typeof Octicon> = args => <Octicon icon={HeartFillIcon} {...args} />
 
 Playground.args = {
   ariaLabel: 'Heart',

@@ -6,7 +6,7 @@ import {
 } from '@primer/octicons-react'
 import clsx from 'clsx'
 import React, {useCallback, useEffect} from 'react'
-import styled, {keyframes} from 'styled-components'
+import styled from 'styled-components'
 import {ConfirmationDialog} from '../ConfirmationDialog/ConfirmationDialog'
 import Spinner from '../Spinner'
 import Text from '../Text'
@@ -21,6 +21,8 @@ import sx from '../sx'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
+import {SkeletonAvatar} from '../drafts/Skeleton/SkeletonAvatar'
+import {SkeletonText} from '../drafts/Skeleton/SkeletonText'
 
 // ----------------------------------------------------------------------------
 // Context
@@ -67,6 +69,9 @@ export type TreeViewProps = {
   className?: string
 }
 
+/* Size of toggle icon in pixels. */
+const TOGGLE_ICON_SIZE = 12
+
 const UlBox = styled.ul<SxProp>`
   list-style: none;
   padding: 0;
@@ -97,17 +102,22 @@ const UlBox = styled.ul<SxProp>`
         outline-offset: -2;
       }
     }
+    &[data-has-leading-action] {
+      --has-leading-action: 1;
+    }
   }
 
   .PRIVATE_TreeView-item-container {
     --level: 1; /* default level */
     --toggle-width: 1rem; /* 16px */
+    --min-item-height: 2rem; /* 32px */
     position: relative;
     display: grid;
-    grid-template-columns: calc(calc(var(--level) - 1) * (var(--toggle-width) / 2)) var(--toggle-width) 1fr;
-    grid-template-areas: 'spacer toggle content';
+    --leading-action-width: calc(var(--has-leading-action, 0) * 1.5rem);
+    --spacer-width: calc(calc(var(--level) - 1) * (var(--toggle-width) / 2));
+    grid-template-columns: var(--spacer-width) var(--leading-action-width) var(--toggle-width) 1fr;
+    grid-template-areas: 'spacer leadingAction toggle content';
     width: 100%;
-    min-height: 2rem; /* 32px */
     font-size: ${get('fontSizes.1')};
     color: ${get('colors.fg.default')};
     border-radius: ${get('radii.2')};
@@ -124,7 +134,7 @@ const UlBox = styled.ul<SxProp>`
 
     @media (pointer: coarse) {
       --toggle-width: 1.5rem; /* 24px */
-      min-height: 2.75rem; /* 44px */
+      --min-item-height: 2.75rem; /* 44px */
     }
 
     &:has(.PRIVATE_TreeView-item-skeleton):hover {
@@ -138,7 +148,7 @@ const UlBox = styled.ul<SxProp>`
   }
 
   &[data-omit-spacer='true'] .PRIVATE_TreeView-item-container {
-    grid-template-columns: 0 0 1fr;
+    grid-template-columns: 0 0 0 1fr;
   }
 
   .PRIVATE_TreeView-item[aria-current='true'] > .PRIVATE_TreeView-item-container {
@@ -164,8 +174,11 @@ const UlBox = styled.ul<SxProp>`
   .PRIVATE_TreeView-item-toggle {
     grid-area: toggle;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: flex-start;
+    /* The toggle should appear vertically centered for single-line items, but remain at the top for items that wrap
+    across more lines. */
+    padding-top: calc(var(--min-item-height) / 2 - ${TOGGLE_ICON_SIZE}px / 2);
     height: 100%;
     color: ${get('colors.fg.muted')};
   }
@@ -182,10 +195,13 @@ const UlBox = styled.ul<SxProp>`
   .PRIVATE_TreeView-item-content {
     grid-area: content;
     display: flex;
-    align-items: center;
     height: 100%;
     padding: 0 ${get('space.2')};
     gap: ${get('space.2')};
+    line-height: var(--custom-line-height, var(--text-body-lineHeight-medium, 1.4285));
+    /* The dynamic top and bottom padding to maintain the minimum item height for single line items */
+    padding-top: calc((var(--min-item-height) - var(--custom-line-height, 1.3rem)) / 2);
+    padding-bottom: calc((var(--min-item-height) - var(--custom-line-height, 1.3rem)) / 2);
   }
 
   .PRIVATE_TreeView-item-content-text {
@@ -199,7 +215,17 @@ const UlBox = styled.ul<SxProp>`
 
   .PRIVATE_TreeView-item-visual {
     display: flex;
+    align-items: center;
     color: ${get('colors.fg.muted')};
+    /* The visual icons should appear vertically centered for single-line items, but remain at the top for items that wrap
+    across more lines. */
+    height: var(--custom-line-height, 1.3rem);
+  }
+
+  .PRIVATE_TreeView-item-leading-action {
+    display: flex;
+    color: ${get('colors.fg.muted')};
+    grid-area: leadingAction;
   }
 
   .PRIVATE_TreeView-item-level-line {
@@ -328,6 +354,8 @@ Root.displayName = 'TreeView'
 // TreeView.Item
 
 export type TreeViewItemProps = {
+  'aria-label'?: React.AriaAttributes['aria-label']
+  'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
   id: string
   children: React.ReactNode
   containIntrinsicSize?: string
@@ -351,14 +379,21 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       onSelect,
       children,
       className,
+      'aria-label': ariaLabel,
+      'aria-labelledby': ariaLabelledby,
     },
     ref,
   ) => {
-    const [slots, rest] = useSlots(children, {leadingVisual: LeadingVisual, trailingVisual: TrailingVisual})
+    const [slots, rest] = useSlots(children, {
+      leadingAction: LeadingAction,
+      leadingVisual: LeadingVisual,
+      trailingVisual: TrailingVisual,
+    })
     const {expandedStateCache} = React.useContext(RootContext)
     const labelId = useId()
     const leadingVisualId = useId()
     const trailingVisualId = useId()
+
     const [isExpanded, setIsExpanded] = useControllableState({
       name: itemId,
       // If the item was previously mounted, it's expanded state might be cached.
@@ -396,7 +431,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       (event: React.KeyboardEvent<HTMLElement>) => {
         switch (event.key) {
           case 'Enter':
-          case 'Space':
+          case ' ':
             if (onSelect) {
               onSelect(event)
             } else {
@@ -443,12 +478,14 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           tabIndex={0}
           id={itemId}
           role="treeitem"
-          aria-labelledby={labelId}
+          aria-label={ariaLabel}
+          aria-labelledby={ariaLabel ? undefined : ariaLabelledby || labelId}
           aria-describedby={`${leadingVisualId} ${trailingVisualId}`}
           aria-level={level}
           aria-expanded={isSubTreeEmpty ? undefined : isExpanded}
           aria-current={isCurrentItem ? 'true' : undefined}
           aria-selected={isFocused ? 'true' : 'false'}
+          data-has-leading-action={slots.leadingAction ? true : undefined}
           onKeyDown={handleKeyDown}
           onFocus={event => {
             // Scroll the first child into view when the item receives focus
@@ -488,6 +525,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             <div style={{gridArea: 'spacer', display: 'flex'}}>
               <LevelIndicatorLines level={level} />
             </div>
+            {slots.leadingAction}
             {hasSubTree ? (
               // This lint rule is disabled due to the guidelines in the `TreeView` api docs.
               // https://github.com/github/primer/blob/main/apis/tree-view-api.md#the-expandcollapse-chevron-toggle
@@ -506,7 +544,11 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                   }
                 }}
               >
-                {isExpanded ? <ChevronDownIcon size={12} /> : <ChevronRightIcon size={12} />}
+                {isExpanded ? (
+                  <ChevronDownIcon size={TOGGLE_ICON_SIZE} />
+                ) : (
+                  <ChevronRightIcon size={TOGGLE_ICON_SIZE} />
+                )}
               </div>
             ) : null}
             <div id={labelId} className="PRIVATE_TreeView-item-content">
@@ -669,12 +711,7 @@ function usePreviousValue<T>(value: T): T {
   return ref.current
 }
 
-const shimmer = keyframes`
-  from { mask-position: 200%; }
-  to { mask-position: 0%; }
-`
-
-const SkeletonItem = styled.span.attrs({className: 'PRIVATE_TreeView-item-skeleton'})`
+const StyledSkeletonItemContainer = styled.span.attrs({className: 'PRIVATE_TreeView-item-skeleton'})`
   display: flex;
   align-items: center;
   column-gap: 0.5rem;
@@ -682,40 +719,6 @@ const SkeletonItem = styled.span.attrs({className: 'PRIVATE_TreeView-item-skelet
 
   @media (pointer: coarse) {
     height: 2.75rem;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    mask-image: linear-gradient(75deg, #000 30%, rgba(0, 0, 0, 0.65) 80%);
-    mask-size: 200%;
-    animation: ${shimmer};
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-  }
-
-  &::before {
-    content: '';
-    display: block;
-    width: 1rem;
-    height: 1rem;
-    background-color: ${get('colors.neutral.subtle')};
-    border-radius: 3px;
-    @media (forced-colors: active) {
-      outline: 1px solid transparent;
-      outline-offset: -1px;
-    }
-  }
-
-  &::after {
-    content: '';
-    display: block;
-    width: var(--tree-item-loading-width, 67%);
-    height: 1rem;
-    background-color: ${get('colors.neutral.subtle')};
-    border-radius: 3px;
-    @media (forced-colors: active) {
-      outline: 1px solid transparent;
-      outline-offset: -1px;
-    }
   }
 
   &:nth-of-type(5n + 1) {
@@ -738,6 +741,19 @@ const SkeletonItem = styled.span.attrs({className: 'PRIVATE_TreeView-item-skelet
     --tree-item-loading-width: 50%;
   }
 `
+
+const StyledSkeletonText = styled(SkeletonText)`
+  width: var(--tree-item-loading-width, 67%);
+`
+
+const SkeletonItem = () => {
+  return (
+    <StyledSkeletonItemContainer>
+      <SkeletonAvatar size={16} square />
+      <StyledSkeletonText />
+    </StyledSkeletonItemContainer>
+  )
+}
 
 type LoadingItemProps = {
   count?: number
@@ -830,6 +846,25 @@ const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
 TrailingVisual.displayName = 'TreeView.TrailingVisual'
 
 // ----------------------------------------------------------------------------
+// TreeView.LeadingAction
+
+const LeadingAction: React.FC<TreeViewVisualProps> = props => {
+  const {isExpanded} = React.useContext(ItemContext)
+  const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
+  return (
+    <>
+      <div className="PRIVATE_VisuallyHidden" aria-hidden={true}>
+        {props.label}
+      </div>
+      <div className="PRIVATE_TreeView-item-leading-action" aria-hidden={true}>
+        {children}
+      </div>
+    </>
+  )
+}
+
+LeadingAction.displayName = 'TreeView.LeadingAction'
+// ----------------------------------------------------------------------------
 // TreeView.DirectoryIcon
 
 const DirectoryIcon = () => {
@@ -898,6 +933,7 @@ ErrorDialog.displayName = 'TreeView.ErrorDialog'
 export const TreeView = Object.assign(Root, {
   Item,
   SubTree,
+  LeadingAction,
   LeadingVisual,
   TrailingVisual,
   DirectoryIcon,

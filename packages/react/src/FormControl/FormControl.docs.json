@@ -57,6 +57,18 @@
           "description": "The label element can be changed to a 'legend' when it's being used to label a fieldset, or a 'span' when it's being used to label an element that is not a form input. For example: when using a FormControl to render a labeled SegementedControl, the label should be a 'span'"
         },
         {
+          "name": "requiredText",
+          "type": "string",
+          "defaultValue": "'*'",
+          "description": "The text to display when the field is required"
+        },
+        {
+          "name": "requiredIndicator",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "Whether to show or hide the required text in the accessibility tree, the required text is still shown visually."
+        },
+        {
           "name": "sx",
           "type": "SystemStyleObject"
         }

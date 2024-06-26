@@ -150,3 +150,40 @@ export const Multiline = () => {
     />
   )
 }
+
+export const DismissBanner = () => {
+  const ref = React.useRef<React.ElementRef<'h2'>>(null)
+  const [banner, setBanner] = React.useState<React.ComponentPropsWithoutRef<typeof Banner> | null>({
+    title: 'Info',
+    description: (
+      <>
+        GitHub users are{' '}
+        <Link inline underline href="#">
+          now required
+        </Link>{' '}
+        to enable two-factor authentication as an additional security measure.
+      </>
+    ),
+  })
+
+  return (
+    <>
+      <main>
+        {banner ? (
+          <Banner
+            title={banner.title}
+            description={banner.description}
+            onDismiss={() => {
+              setBanner(null)
+              ref.current?.focus()
+            }}
+          />
+        ) : null}
+        <h2 ref={ref} tabIndex={-1}>
+          Example page title
+        </h2>
+        <p>Example page content</p>
+      </main>
+    </>
+  )
+}

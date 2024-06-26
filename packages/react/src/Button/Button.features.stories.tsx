@@ -1,8 +1,9 @@
 import {EyeIcon, TriangleDownIcon, HeartIcon} from '@primer/octicons-react'
 import React, {useState} from 'react'
 import {Button} from '.'
-import {announce} from '@primer/live-region-element'
+import {Stack} from '../Stack/Stack'
 import Link from '../Link'
+import {announce} from '@primer/live-region-element'
 
 export default {
   title: 'Components/Button/Features',
@@ -135,3 +136,23 @@ export const Small = () => <Button size="small">Default</Button>
 export const Medium = () => <Button size="medium">Default</Button>
 
 export const Large = () => <Button size="large">Default</Button>
+
+export const LabelWrap = () => {
+  return (
+    <Stack style={{width: '200px'}}>
+      <Button labelWrap>This button label will wrap if the label is too long</Button>
+      <Button size="small" labelWrap>
+        This small button label will wrap if the label is too long
+      </Button>
+      <Button size="large" labelWrap>
+        This large button label will wrap if the label is too long
+      </Button>
+      <Button labelWrap leadingVisual={HeartIcon} trailingVisual={EyeIcon}>
+        This button label will wrap if the label is too long
+      </Button>
+      <Button labelWrap trailingAction={TriangleDownIcon}>
+        This button label will wrap if the label is too long
+      </Button>
+    </Stack>
+  )
+}

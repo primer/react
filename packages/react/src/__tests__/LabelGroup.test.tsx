@@ -1,6 +1,6 @@
 import React from 'react'
 import {render as HTMLRender, waitFor} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 import {LabelGroup, Label, ThemeProvider, BaseStyles} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import theme from '../theme'
@@ -58,7 +58,7 @@ describe('LabelGroup', () => {
         </LabelGroup>
       </ThemeAndStyleContainer>,
     )
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 

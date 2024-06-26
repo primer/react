@@ -2,7 +2,7 @@
   "id": "drafts_page_header",
   "name": "PageHeader",
   "status": "draft",
-  "a11yReviewed": false,
+  "a11yReviewed": true,
   "stories": [],
   "importPath": "@primer/react/experimental",
   "props": [
@@ -11,6 +11,12 @@
       "type": "string | undefined",
       "defaultValue": "",
       "description": "A unique label for the rendered main landmark"
+    },
+    {
+      "name": "className",
+      "type": "string | undefined",
+      "defaultValue": "",
+      "description": "CSS string"
     },
     {
       "name": "hidden",
@@ -33,6 +39,12 @@
       "name": "PageHeader.ContextArea",
       "props": [
         {
+          "name": "className",
+          "type": "string | undefined",
+          "defaultValue": "",
+          "description": "CSS string"
+        },
+        {
           "name": "hidden",
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
@@ -47,6 +59,12 @@
     {
       "name": "PageHeader.ParentLink",
       "props": [
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "defaultValue": "",
+          "description": "CSS string"
+        },
         {
           "name": "href",
           "type": "string",
@@ -69,6 +87,12 @@
       "name": "PageHeader.ContextBar",
       "props": [
         {
+          "name": "className",
+          "type": "string | undefined",
+          "defaultValue": "",
+          "description": "CSS string"
+        },
+        {
           "name": "hidden",
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
@@ -84,6 +108,12 @@
       "name": "PageHeader.ContextAreaActions",
       "props": [
         {
+          "name": "className",
+          "type": "string | undefined",
+          "defaultValue": "",
+          "description": "CSS string"
+        },
+        {
           "name": "hidden",
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
@@ -98,6 +128,12 @@
     {
       "name": "PageHeader.TitleArea",
       "props": [
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "defaultValue": "",
+          "description": "CSS string"
+        },
         {
           "name": "hidden",
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
@@ -120,6 +156,12 @@
       "name": "PageHeader.LeadingAction",
       "props": [
         {
+          "name": "className",
+          "type": "string | undefined",
+          "defaultValue": "",
+          "description": "CSS string"
+        },
+        {
           "name": "hidden",
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
@@ -135,6 +177,12 @@
       "name": "PageHeader.LeadingVisual",
       "props": [
         {
+          "name": "className",
+          "type": "string | undefined",
+          "defaultValue": "",
+          "description": "CSS string"
+        },
+        {
           "name": "hidden",
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
@@ -149,6 +197,12 @@
     {
       "name": "PageHeader.Title",
       "props": [
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "defaultValue": "",
+          "description": "CSS string"
+        },
         {
           "name": "hidden",
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
@@ -170,6 +224,12 @@
       "name": "PageHeader.TrailingVisual",
       "props": [
         {
+          "name": "className",
+          "type": "string | undefined",
+          "defaultValue": "",
+          "description": "CSS string"
+        },
+        {
           "name": "hidden",
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
@@ -184,6 +244,12 @@
     {
       "name": "PageHeader.TrailingAction",
       "props": [
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "defaultValue": "",
+          "description": "CSS string"
+        },
         {
           "name": "hidden",
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
@@ -200,6 +266,12 @@
       "name": "PageHeader.Actions",
       "props": [
         {
+          "name": "className",
+          "type": "string | undefined",
+          "defaultValue": "",
+          "description": "CSS string"
+        },
+        {
           "name": "hidden",
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
@@ -214,6 +286,12 @@
     {
       "name": "PageHeader.Description",
       "props": [
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "defaultValue": "",
+          "description": "CSS string"
+        },
         {
           "name": "hidden",
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
@@ -244,6 +322,12 @@
           "type": "div | nav",
           "defaultValue": "\"div\"",
           "description": "The HTML element used to render the navigation."
+        },
+        {
+          "name": "className",
+          "type": "string | undefined",
+          "defaultValue": "",
+          "description": "CSS string"
         },
         {
           "name": "hidden",

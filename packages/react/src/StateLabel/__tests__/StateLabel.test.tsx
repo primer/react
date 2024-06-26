@@ -2,7 +2,7 @@ import React from 'react'
 import StateLabel from '../StateLabel'
 import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 
 describe('StateLabel', () => {
   behavesAsComponent({
@@ -23,7 +23,7 @@ describe('StateLabel', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<StateLabel status="issueOpened" />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 

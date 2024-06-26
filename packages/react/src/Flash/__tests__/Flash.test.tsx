@@ -2,7 +2,7 @@ import React from 'react'
 import Flash from '..'
 import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 
 describe('Flash', () => {
   behavesAsComponent({Component: Flash})
@@ -13,7 +13,7 @@ describe('Flash', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Flash variant="warning" />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 

@@ -48,6 +48,11 @@ Playground.argTypes = {
       type: 'boolean',
     },
   },
+  labelWrap: {
+    control: {
+      type: 'boolean',
+    },
+  },
   leadingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
   trailingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
   trailingAction: OcticonArgType([TriangleDownIcon]),
@@ -62,6 +67,7 @@ Playground.args = {
   trailingVisual: null,
   leadingVisual: null,
   trailingAction: null,
+  labelWrap: false,
 }
 
 export const Default = () => <Button>Default</Button>

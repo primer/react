@@ -5,6 +5,7 @@ import failOnConsole from 'jest-fail-on-console'
 import React from 'react'
 import type {ReactTestRendererJSON, ReactTestRendererNode} from 'react-test-renderer'
 import {getClasses, getComputedStyles, render} from './testing'
+import type axe from 'axe-core'
 
 expect.addSnapshotSerializer(styleSheetSerializer)
 
@@ -97,6 +98,27 @@ expect.extend({
     return {
       pass: true,
       message: () => '',
+    }
+  },
+
+  toHaveNoViolations(results: axe.AxeResults) {
+    return {
+      pass: results.violations.length === 0,
+      message: () => {
+        return results.violations
+          .map(err => {
+            return `Expected the HTML found in the document to have no violations, but received:
+            \n${err.help}
+            \n${err.nodes
+              .map(
+                (node, index) => `${index + 1}. ${node.html}
+              \n${node.failureSummary}\n`,
+              )
+              .join('\n')}\nMore information can be found at: ${err.helpUrl}\n${'─'.repeat(20)}
+          `
+          })
+          .join('\n')
+      },
     }
   },
 })

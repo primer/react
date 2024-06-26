@@ -1,5 +1,5 @@
 import React from 'react'
-import type {ComponentStory, Meta} from '@storybook/react'
+import type {StoryFn, Meta} from '@storybook/react'
 import type {UnderlineNavProps} from './UnderlineNav'
 import UnderlineNav from './UnderlineNav'
 
@@ -18,7 +18,7 @@ export const Default = () => (
   </UnderlineNav>
 )
 
-export const Playground: ComponentStory<typeof UnderlineNav> = (args: UnderlineNavProps) => (
+export const Playground: StoryFn<typeof UnderlineNav> = (args: UnderlineNavProps) => (
   <UnderlineNav {...args}>
     <UnderlineNav.Link href="#home" selected>
       Home

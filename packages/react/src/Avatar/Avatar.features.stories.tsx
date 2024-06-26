@@ -1,11 +1,11 @@
 import React from 'react'
-import type {ComponentMeta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import Avatar from './Avatar'
 
 export default {
   title: 'Components/Avatar/Features',
   component: Avatar,
-} as ComponentMeta<typeof Avatar>
+} as Meta<typeof Avatar>
 
 export const Square = () => <Avatar square src="https://avatars.githubusercontent.com/primer" />
 

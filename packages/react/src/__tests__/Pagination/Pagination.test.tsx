@@ -2,7 +2,7 @@ import React from 'react'
 import Pagination from '../../Pagination'
 import {behavesAsComponent} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 
 const reqProps = {pageCount: 10, currentPage: 1}
 const comp = <Pagination {...reqProps} />
@@ -12,7 +12,7 @@ describe('Pagination', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(comp)
-    const results = await axe(container, {
+    const results = await axe.run(container, {
       rules: {
         // The skip-link rule has to do with entire documents
         // and is not relevant to this component.

@@ -1,5 +1,5 @@
 import {render as HTMLRender} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 import React from 'react'
 import theme from '../theme'
 import {SelectPanel} from '../SelectPanel'
@@ -53,7 +53,7 @@ describe('SelectPanel', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<SimpleSelectPanel />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 })

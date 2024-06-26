@@ -176,6 +176,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
       <img
         alt=""
         className="c3"
+        data-component="Avatar"
         height={16}
         size={16}
         src="https://avatars.githubusercontent.com/mperrotti"
@@ -401,6 +402,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
       <img
         alt=""
         className="c3"
+        data-component="Avatar"
         height={20}
         size={20}
         src="https://avatars.githubusercontent.com/mperrotti"
@@ -626,6 +628,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
       <img
         alt=""
         className="c3"
+        data-component="Avatar"
         height={24}
         size={24}
         src="https://avatars.githubusercontent.com/mperrotti"
@@ -853,6 +856,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
       <img
         alt=""
         className="c3"
+        data-component="Avatar"
         height={32}
         size={32}
         src="https://avatars.githubusercontent.com/mperrotti"
@@ -1015,6 +1019,7 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
       <img
         alt=""
         className="c3"
+        data-component="Avatar"
         height={20}
         size={20}
         src="https://avatars.githubusercontent.com/mperrotti"
@@ -1206,6 +1211,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
       <img
         alt=""
         className="c3"
+        data-component="Avatar"
         height={20}
         size={20}
         src="https://avatars.githubusercontent.com/mperrotti"

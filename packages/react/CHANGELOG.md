@@ -1,5 +1,126 @@
 # @primer/react
 
+## 36.23.0
+
+### Minor Changes
+
+- [#4634](https://github.com/primer/react/pull/4634) [`db72a714211b1f2aa8ee0cebaca056c702963542`](https://github.com/primer/react/commit/db72a714211b1f2aa8ee0cebaca056c702963542) Thanks [@khiga8](https://github.com/khiga8)! - Introduce ActionList.TrailingAction to support secondary action on ActionList.Item
+
+- [#4052](https://github.com/primer/react/pull/4052) [`e2f35e2eda04e2128aaaf98c188cc94a34de7aeb`](https://github.com/primer/react/commit/e2f35e2eda04e2128aaaf98c188cc94a34de7aeb) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds components to support skeleton loading states, and uses those components to replace ad-hoc skeleton loading states in Primer React components.
+
+  <!-- Changed components: SkeletonAvatar, SkeletonBox, SkeletonText -->
+
+- [#4140](https://github.com/primer/react/pull/4140) [`c093411ec6caa4d4ce1720a68a22e492d5f39458`](https://github.com/primer/react/commit/c093411ec6caa4d4ce1720a68a22e492d5f39458) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds a prop, `srText`, to the Spinner component to convey a loading message to assistive technologies such as screen readers.
+
+  <!-- Changed components: Spinner -->
+
+- [#4272](https://github.com/primer/react/pull/4272) [`3c467efc794d47326613796149f422c24a9b3cb9`](https://github.com/primer/react/commit/3c467efc794d47326613796149f422c24a9b3cb9) Thanks [@TylerJDev](https://github.com/TylerJDev)! - (Behind feature flag) ActionList: Utilizes `<button>` inside of `<li>` for interactive items.
+
+- [#4527](https://github.com/primer/react/pull/4527) [`623b16e9832173d418092e47a85fd0a0a0d895f8`](https://github.com/primer/react/commit/623b16e9832173d418092e47a85fd0a0a0d895f8) Thanks [@langermank](https://github.com/langermank)! - Add `truncation` prop to `Button` to allow for ellipses overflow or text wrapping for long button labels
+
+- [#4550](https://github.com/primer/react/pull/4550) [`3e493ba0723c9f0eadfacae6389959023561a700`](https://github.com/primer/react/commit/3e493ba0723c9f0eadfacae6389959023561a700) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds UnderlinePanels component. It's like UnderlineNav, but for rendering semantic tabs instead of links.
+
+  <!-- Changed components: UnderilnePanels -->
+
+### Patch Changes
+
+- [#4651](https://github.com/primer/react/pull/4651) [`b13bbb33d547352926af5206741db123457a09a1`](https://github.com/primer/react/commit/b13bbb33d547352926af5206741db123457a09a1) Thanks [@mperrotti](https://github.com/mperrotti)! - Prevents text color from changing on hover for "inactive" ActionMenu.Items of the "danger" variant. Before this change, the text color would change on hover. After this change, the text color remains the same on hover.
+
+- [#4695](https://github.com/primer/react/pull/4695) [`9ee8ec9a16d9a72e4723163115dd59ce7e8dce28`](https://github.com/primer/react/commit/9ee8ec9a16d9a72e4723163115dd59ce7e8dce28) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Fixes conditional in `ActionList.Item` that was dependent on FF being active before applying forwarded ref.
+
+## 36.22.0
+
+### Minor Changes
+
+- [#4443](https://github.com/primer/react/pull/4443) [`f2523373e09e0027f29b36a995574a296ffde3da`](https://github.com/primer/react/commit/f2523373e09e0027f29b36a995574a296ffde3da) Thanks [@joshblack](https://github.com/joshblack)! - Add experimental InlineMessage component
+
+- [#4613](https://github.com/primer/react/pull/4613) [`eb2ab132cd451b8c67a85d028483aa00a7a1c81b`](https://github.com/primer/react/commit/eb2ab132cd451b8c67a85d028483aa00a7a1c81b) Thanks [@joshblack](https://github.com/joshblack)! - `Dialog` and `ConfirmationDialog` can now be closed by clicking on the backdrop surrounding the dialog. This will cause `onClose` to be called with the `escape` gesture.
+
+- [#4443](https://github.com/primer/react/pull/4443) [`f2523373e09e0027f29b36a995574a296ffde3da`](https://github.com/primer/react/commit/f2523373e09e0027f29b36a995574a296ffde3da) Thanks [@joshblack](https://github.com/joshblack)! - Add support for InlineMessage to experimental
+
+- [#4667](https://github.com/primer/react/pull/4667) [`e2a974f4a376ca92b305e03f36f905ad02c61341`](https://github.com/primer/react/commit/e2a974f4a376ca92b305e03f36f905ad02c61341) Thanks [@ktravers](https://github.com/ktravers)! - Adds support for `className` prop to PageHeader component and its children.
+
+## 36.21.0
+
+### Minor Changes
+
+- [#4635](https://github.com/primer/react/pull/4635) [`bd861cc779358fcb62fbcb48d2e76cdad90a9301`](https://github.com/primer/react/commit/bd861cc779358fcb62fbcb48d2e76cdad90a9301) Thanks [@lindseywild](https://github.com/lindseywild)! - RelativeTime: Adds `noTitle` prop if you want to not render the `title` attribute with full date time.
+
+### Patch Changes
+
+- [#4456](https://github.com/primer/react/pull/4456) [`65f2cd190069af4502e70c4a4d29099f81614122`](https://github.com/primer/react/commit/65f2cd190069af4502e70c4a4d29099f81614122) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Adds full `aria-expanded` (true/false) state to `AnchoredOverlay`, and components that consume it
+
+- [#4640](https://github.com/primer/react/pull/4640) [`6cbbc497680a1ce4ffe4fa3cda45e6beca586f94`](https://github.com/primer/react/commit/6cbbc497680a1ce4ffe4fa3cda45e6beca586f94) Thanks [@joshblack](https://github.com/joshblack)! - Explicitly set the `type` attribute for `SegmentedControl.Button`
+
+- [#4638](https://github.com/primer/react/pull/4638) [`240fa50d359f9a338be010c5f7f6af26bb881e2d`](https://github.com/primer/react/commit/240fa50d359f9a338be010c5f7f6af26bb881e2d) Thanks [@lindseywild](https://github.com/lindseywild)! - Bumps @github/relative-time-element to v4.4.1
+
+## 36.20.0
+
+### Minor Changes
+
+- [#4358](https://github.com/primer/react/pull/4358) [`e34e4b265f7584c344a4b6b7145da1a5eec1ffb5`](https://github.com/primer/react/commit/e34e4b265f7584c344a4b6b7145da1a5eec1ffb5) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - PageHeader: Update the layout styles so that all interactive content comes after the title (while keeping the component visually the same).
+  This is a breaking change however PageHeader is still a draft component so we are releasing the changes as minor but please upgrade with caution.
+
+- [#4617](https://github.com/primer/react/pull/4617) [`42ba5dc5e722c2341761bf4c6e1e993aac9f2ca8`](https://github.com/primer/react/commit/42ba5dc5e722c2341761bf4c6e1e993aac9f2ca8) Thanks [@JelloBagel](https://github.com/JelloBagel)! - Add an ability to provide custom `aria-label` and `aria-labelledby` to `TreeView.Item`
+
+## 36.19.1
+
+### Patch Changes
+
+- [#4555](https://github.com/primer/react/pull/4555) [`9b63299689500808167bacff624ff910269417b1`](https://github.com/primer/react/commit/9b63299689500808167bacff624ff910269417b1) Thanks [@JoyceZhu](https://github.com/JoyceZhu)! - Add `openInFocus` prop (default: true) to `AutocompleteInput`
+
+- [#4601](https://github.com/primer/react/pull/4601) [`f57dd3d687042069c5e5712aa906e59df9f8729e`](https://github.com/primer/react/commit/f57dd3d687042069c5e5712aa906e59df9f8729e) Thanks [@bwittenberg](https://github.com/bwittenberg)! - SelectPanel2: Minor optimization for escape key event listener binding
+
+- [#4589](https://github.com/primer/react/pull/4589) [`ed701bee8b6c1a9fb9b91462034f8fe04b0244ad`](https://github.com/primer/react/commit/ed701bee8b6c1a9fb9b91462034f8fe04b0244ad) Thanks [@joshblack](https://github.com/joshblack)! - Update how gap is set in Stack to work in wide breakpoints
+
+- [#4598](https://github.com/primer/react/pull/4598) [`32c687041a600e8b54ffaf9b3ab77f9215a37e3e`](https://github.com/primer/react/commit/32c687041a600e8b54ffaf9b3ab77f9215a37e3e) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Replaced space-small with base-size-6
+
+- [#4543](https://github.com/primer/react/pull/4543) [`e47445df6c389fef2aacc72449c02ff471e4cb68`](https://github.com/primer/react/commit/e47445df6c389fef2aacc72449c02ff471e4cb68) Thanks [@TylerJDev](https://github.com/TylerJDev)! - FormControl: Adds new props to `FormControl.Label`, `requiredText` and `requiredIndicator`
+
+## 36.19.0
+
+### Minor Changes
+
+- [#4546](https://github.com/primer/react/pull/4546) [`c81898c93664d224d7a18722cd1abcdcf2d1a510`](https://github.com/primer/react/commit/c81898c93664d224d7a18722cd1abcdcf2d1a510) Thanks [@ayy-bc](https://github.com/ayy-bc)! - TreeView: Add support for `TreeView.LeadingAction`
+
+- [#4574](https://github.com/primer/react/pull/4574) [`9c01a930b97218ea550cd7de3436941990b3b068`](https://github.com/primer/react/commit/9c01a930b97218ea550cd7de3436941990b3b068) Thanks [@pksjce](https://github.com/pksjce)! - ActionBar: Move to main directory. ActionBar can now be imported from `'@primer/react'`
+
+### Patch Changes
+
+- [#4593](https://github.com/primer/react/pull/4593) [`d4e234f52bf63e632d41fe947801d2c16da0b61f`](https://github.com/primer/react/commit/d4e234f52bf63e632d41fe947801d2c16da0b61f) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Update NavList to use the new ActionList.GroupHeading API and Add an "as" prop to specify the heading level as default h3. (No changes expected in the rendered HTML)
+
+- [#4591](https://github.com/primer/react/pull/4591) [`6cce7b749d8502fc851ad8a432a04acff21dec14`](https://github.com/primer/react/commit/6cce7b749d8502fc851ad8a432a04acff21dec14) Thanks [@joshblack](https://github.com/joshblack)! - Update the Stack component so that the `justify` prop correctly updates the layout of items
+
+- [#4572](https://github.com/primer/react/pull/4572) [`ac2502975057dc0330e19fdd2d446f43d77eed92`](https://github.com/primer/react/commit/ac2502975057dc0330e19fdd2d446f43d77eed92) Thanks [@iansan5653](https://github.com/iansan5653)! - TreeView: Always align expand/collapse chevron icon, leading visual, and trailing visual to top of item
+
+- [#4596](https://github.com/primer/react/pull/4596) [`4fa4fae099c425bab58c6f5c3c98b10bbca16012`](https://github.com/primer/react/commit/4fa4fae099c425bab58c6f5c3c98b10bbca16012) Thanks [@keithamus](https://github.com/keithamus)! - Update @github/tab-container-element to latest
+
+## 36.18.0
+
+### Minor Changes
+
+- [#4539](https://github.com/primer/react/pull/4539) [`f0de234b42f10a68d660823f54d94371db282fb6`](https://github.com/primer/react/commit/f0de234b42f10a68d660823f54d94371db282fb6) Thanks [@joshblack](https://github.com/joshblack)! - Update Banner to use an explicit aria-label instead of being labelled by Banner title
+
+- [#4554](https://github.com/primer/react/pull/4554) [`ed31476f040dda41f00c2c7f4324120afb20cc18`](https://github.com/primer/react/commit/ed31476f040dda41f00c2c7f4324120afb20cc18) Thanks [@joshblack](https://github.com/joshblack)! - Broaden feature flag type for experimental FeatureFlags to accept undefined
+
+- [#4513](https://github.com/primer/react/pull/4513) [`02a2a2bf0b02e0c2f9a09351eefbe91f9370e210`](https://github.com/primer/react/commit/02a2a2bf0b02e0c2f9a09351eefbe91f9370e210) Thanks [@owenniblock](https://github.com/owenniblock)! - Exports createComponent
+
+- [#4486](https://github.com/primer/react/pull/4486) [`447a1fd1d37e4f61f38345babab954540b58e53b`](https://github.com/primer/react/commit/447a1fd1d37e4f61f38345babab954540b58e53b) Thanks [@iansan5653](https://github.com/iansan5653)! - Adds support for nested submenus to `ActionMenu`
+
+### Patch Changes
+
+- [#4575](https://github.com/primer/react/pull/4575) [`4ecbe1a8997b2cd509b7a97803c33916f3cb4aed`](https://github.com/primer/react/commit/4ecbe1a8997b2cd509b7a97803c33916f3cb4aed) Thanks [@joshblack](https://github.com/joshblack)! - Update minimum version for @primer/live-region-element
+
+- [#4536](https://github.com/primer/react/pull/4536) [`024124a11fc17813de05cae861a5e32596060f8b`](https://github.com/primer/react/commit/024124a11fc17813de05cae861a5e32596060f8b) Thanks [@pksjce](https://github.com/pksjce)! - ActionBar: Add a few fixes and relevant tests
+
+- [#4548](https://github.com/primer/react/pull/4548) [`95cd867ab43e8c2179569ea6e61ad71a6c386256`](https://github.com/primer/react/commit/95cd867ab43e8c2179569ea6e61ad71a6c386256) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - TreeView: Fix toggling subtree via Space key (in addition to Enter key)
+
+- [#4566](https://github.com/primer/react/pull/4566) [`4dd6bef7513e6ae32aa236410f2fbf1eb72a5eb9`](https://github.com/primer/react/commit/4dd6bef7513e6ae32aa236410f2fbf1eb72a5eb9) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionList: Fix leaky description styles for disabled item
+
+- [#4567](https://github.com/primer/react/pull/4567) [`e39fcf8dc9e7447c5f04124f408f550f73659dc1`](https://github.com/primer/react/commit/e39fcf8dc9e7447c5f04124f408f550f73659dc1) Thanks [@dgreif](https://github.com/dgreif)! - Dialog: Use dynamic view height/width. This allows available visible space to be properly computed on iOS devices.
+
+- [#4556](https://github.com/primer/react/pull/4556) [`9a567275be423ab8d5fe15edcf06996c2e21217d`](https://github.com/primer/react/commit/9a567275be423ab8d5fe15edcf06996c2e21217d) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - BranchName: Fixing text color when rendered as span
+
 ## 36.17.0
 
 ### Minor Changes

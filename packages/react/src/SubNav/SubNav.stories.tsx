@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta, Story} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import SubNav from './SubNav'
 import type {ComponentProps} from '../utils/types'
 
@@ -11,7 +11,7 @@ export default {
   },
 } as Meta<ComponentProps<typeof SubNav>>
 
-export const Playground: Story<ComponentProps<typeof SubNav>> = args => (
+export const Playground: StoryFn<ComponentProps<typeof SubNav>> = args => (
   <SubNav {...args}>
     <SubNav.Links>
       <SubNav.Link href="#home" selected>

@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 import {Dialog} from './Dialog'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import {behavesAsComponent, checkExports} from '../utils/testing'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 import {Button} from '../Button'
 
 let matchMedia: MatchMediaMock
@@ -67,7 +67,22 @@ describe('Dialog', () => {
 
     await user.click(getByLabelText('Close'))
 
-    expect(onClose).toHaveBeenCalled()
+    expect(onClose).toHaveBeenCalledWith('close-button')
+    expect(onClose).toHaveBeenCalledTimes(1) // Ensure it's not called with a backdrop gesture as well
+  })
+
+  it('calls `onClose` when clicking the backdrop', async () => {
+    const user = userEvent.setup()
+    const onClose = jest.fn()
+    const {getByRole} = render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
+
+    expect(onClose).not.toHaveBeenCalled()
+
+    const dialog = getByRole('dialog')
+    const backdrop = dialog.parentElement!
+    await user.click(backdrop)
+
+    expect(onClose).toHaveBeenCalledWith('escape')
   })
 
   it('calls `onClose` when keying "Escape"', async () => {
@@ -80,7 +95,7 @@ describe('Dialog', () => {
 
     await user.keyboard('{Escape}')
 
-    expect(onClose).toHaveBeenCalled()
+    expect(onClose).toHaveBeenCalledWith('escape')
   })
 
   it('changes the <body> style for `overflow` if it is not set to "hidden"', () => {
@@ -101,7 +116,7 @@ describe('Dialog', () => {
 
   it('should have no axe violations', async () => {
     const {container} = render(<Dialog onClose={() => {}}>Pay attention to me</Dialog>)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 

@@ -1,5 +1,5 @@
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 import React, {useCallback, useRef, useState} from 'react'
 
 import {ActionMenu} from '../deprecated/ActionMenu'
@@ -88,7 +88,7 @@ describe('ConfirmationDialog', () => {
     const spy = jest.spyOn(console, 'warn').mockImplementation()
     const {container} = HTMLRender(<Basic />)
     spy.mockRestore()
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 

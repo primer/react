@@ -137,10 +137,10 @@ const Panel: React.FC<SelectPanelProps> = ({
     if (propsOpen === undefined) setInternalOpen(false)
   }, [internalOpen, propsOpen])
 
-  const onInternalCancel = () => {
+  const onInternalCancel = React.useCallback(() => {
     onInternalClose()
     if (typeof propsOnCancel === 'function') propsOnCancel()
-  }
+  }, [onInternalClose, propsOnCancel])
 
   const onInternalSubmit = (event?: React.FormEvent<HTMLFormElement>) => {
     event?.preventDefault() // there is no event with selectionVariant=instant
@@ -200,7 +200,7 @@ const Panel: React.FC<SelectPanelProps> = ({
     }
     dialogEl?.addEventListener('keydown', handler)
     return () => dialogEl?.removeEventListener('keydown', handler)
-  })
+  }, [onInternalCancel])
 
   // Autofocus hack: React doesn't support autoFocus for dialog: https://github.com/facebook/react/issues/23301
   // tl;dr: react takes over autofocus instead of letting the browser handle it,
@@ -622,7 +622,7 @@ const SelectPanelLoading = ({children = 'Fetching items...'}: React.PropsWithChi
         //                 maxHeight of dialog - (header & footer)
       }}
     >
-      <Spinner size="medium" />
+      <Spinner size="medium" srText={null} />
       <Text sx={{fontSize: 1, color: 'fg.muted'}}>{children}</Text>
     </Status>
   )

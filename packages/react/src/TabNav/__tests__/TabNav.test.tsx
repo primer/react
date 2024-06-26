@@ -3,7 +3,7 @@ import TabNav from '..'
 import {behavesAsComponent, checkExports} from '../../utils/testing'
 import {fireEvent, render as HTMLRender} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 import {Button} from '../../Button'
 import Box from '../../Box'
 
@@ -38,7 +38,7 @@ describe('TabNav', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<TabNav aria-label="Test Label" />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 
