@@ -145,7 +145,7 @@ describe('PageHeader', () => {
         <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
       </PageHeader>,
     )
-    expect(getByText('Title')).toHaveStyle('font-size: 32px')
+    expect(getByText('Title')).toHaveStyle('font-size: 1.5em')
   })
   it('renders "aria-label" prop when Navigation is rendered as "nav" landmark', () => {
     const {getByLabelText, getByText} = render(

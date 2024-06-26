@@ -426,6 +426,34 @@ describe('ActionList', () => {
     expect(listItems.length).toBe(2)
   })
 
+  it('should apply ref to ActionList.Item when feature flag is disabled', async () => {
+    const MockComponent = () => {
+      const ref = React.useRef<HTMLLIElement>(null)
+
+      const focusRef = () => {
+        if (ref.current) ref.current.focus()
+      }
+
+      return (
+        <FeatureFlags flags={{primer_react_action_list_item_as_button: false}}>
+          <button onClick={focusRef}>Prompt</button>
+          <ActionList>
+            <ActionList.Item ref={ref}>Item 1</ActionList.Item>
+            <ActionList.Item>Item 2</ActionList.Item>
+          </ActionList>
+        </FeatureFlags>
+      )
+    }
+
+    const {getByRole} = HTMLRender(<MockComponent />)
+    const triggerBtn = getByRole('button', {name: 'Prompt'})
+    const focusTarget = getByRole('listitem', {name: 'Item 1'})
+
+    fireEvent.click(triggerBtn)
+
+    expect(document.activeElement).toBe(focusTarget)
+  })
+
   it('should render ActionList.Item as li when feature flag is enabled and has proper aria role', async () => {
     const {container} = HTMLRender(
       <FeatureFlags flags={{primer_react_action_list_item_as_button: false}}>
