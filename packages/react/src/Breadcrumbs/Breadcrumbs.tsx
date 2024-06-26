@@ -44,6 +44,12 @@ export interface BreadcrumbsProps extends React.PropsWithChildren, SxProp {
   className?: string
 }
 
+/**
+ * Breadcrumbs display the current page or context within the site, allowing them to navigate different levels of the hierarchy.
+ * @primerid breadcrumbs
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 function Breadcrumbs({className, children, sx: sxProp}: BreadcrumbsProps) {
   const wrappedChildren = React.Children.map(children, child => <Wrapper>{child}</Wrapper>)
   return (
@@ -56,10 +62,17 @@ function Breadcrumbs({className, children, sx: sxProp}: BreadcrumbsProps) {
 }
 
 type StyledBreadcrumbsItemProps = {
+  /** Used when the item is rendered using a component like React Router's `Link`. The path to navigate to. */
   to?: To
+  /** Whether this item represents the current page */
   selected?: boolean
 } & SxProp
 
+/**
+ * Breadcrumbs.Item is used to represent each link in the Breadcrumbs component. The last item is not a link, it shows the current page.
+ * @alias Breadcrumbs.Item
+ * @primerparentid breadcrumbs
+ */
 const BreadcrumbsItem = styled.a.attrs<StyledBreadcrumbsItemProps>(props => ({
   className: clsx(props.selected && SELECTED_CLASS, props.className),
   'aria-current': props.selected ? 'page' : null,

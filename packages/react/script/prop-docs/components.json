@@ -186,28 +186,28 @@
         "name": "disabled",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the input is styled to look disabled.",
         "defaultValue": null
       },
       {
         "name": "size",
         "type": "TextInputSizes",
         "required": false,
-        "description": "",
+        "description": "The size of the input.",
         "defaultValue": null
       },
       {
         "name": "block",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the input takes up the full width of its parent",
         "defaultValue": null
       },
       {
         "name": "monospace",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the text rendered in the input is in a monospace font.",
         "defaultValue": null
       },
       {
@@ -221,28 +221,28 @@
         "name": "contrast",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the background color of the input has contrast against the default background color.",
         "defaultValue": null
       },
       {
         "name": "hasTrailingAction",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the input has a trailing action.",
         "defaultValue": null
       },
       {
         "name": "isInputFocused",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the input is focused.",
         "defaultValue": null
       },
       {
         "name": "validationStatus",
         "type": "FormValidationStatus",
         "required": false,
-        "description": "",
+        "description": "The result of validation on the input.",
         "defaultValue": null
       },
       {
@@ -377,9 +377,11 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionBar/ActionBar.tsx",
-    "description": "",
+    "id": "actionbar",
+    "description": "Action bar contains a collection of horizontally aligned buttons.",
     "name": "ActionBar",
-    "a11yReviewed": false,
+    "status": "alpha",
+    "a11yReviewed": true,
     "stories": [
       ""
     ],
@@ -505,219 +507,11 @@
     "subcomponents": []
   },
   {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Description.tsx",
-    "description": "",
-    "name": "Description",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "variant",
-        "type": "\"block\" | \"inline\"",
-        "required": false,
-        "description": "Secondary text style variations.\n\n- `\"inline\"` - Secondary text is positioned beside primary text.\n- `\"block\"` - Secondary text is positioned below primary text.",
-        "defaultValue": "inline"
-      },
-      {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
-        "required": false,
-        "description": "A style object used to override styles using styled-components",
-        "defaultValue": "{}"
-      }
-    ],
-    "subcomponents": []
-  },
-  {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Divider.tsx",
-    "description": "Visually separates `Item`s or `Group`s in an `ActionList`.",
-    "name": "Divider",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
-        "required": false,
-        "description": "A style object used to override styles using styled-components",
-        "defaultValue": "{}"
-      }
-    ],
-    "subcomponents": []
-  },
-  {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Group.tsx",
-    "description": "",
-    "name": "Group",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "variant",
-        "type": "\"subtle\" | \"filled\"",
-        "required": false,
-        "description": "Style variations. Usage is discretionary.\n\n- `\"filled\"` - Superimposed on a background, offset from nearby content\n- `\"subtle\"` - Relatively less offset from nearby content",
-        "defaultValue": "subtle"
-      },
-      {
-        "name": "title",
-        "type": "string",
-        "required": false,
-        "description": "@deprecated (Use `ActionList.GroupHeading` instead. i.e. <ActionList.Group title=\"Group title\"> → <ActionList.GroupHeading>Group title</ActionList.GroupHeading>)",
-        "defaultValue": null
-      },
-      {
-        "name": "auxiliaryText",
-        "type": "string",
-        "required": false,
-        "description": "Secondary text which provides additional information about a `Group`.",
-        "defaultValue": null
-      },
-      {
-        "name": "role",
-        "type": "AriaRole",
-        "required": false,
-        "description": "The ARIA role describing the function of the list inside `Group` component. `listbox` or `menu` are a common values.",
-        "defaultValue": null
-      },
-      {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
-        "required": false,
-        "description": "A style object used to override styles using styled-components",
-        "defaultValue": "__DEV__\n  ? Object.freeze<BetterSystemStyleObject>({})\n  : {}"
-      },
-      {
-        "name": "selectionVariant",
-        "type": "any",
-        "required": false,
-        "description": "Whether multiple Items or a single Item can be selected in the Group. Overrides value on ActionList root.",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Group.tsx",
-    "description": "Heading of  a `Group`.\n\nAs default, the role of ActionList is \"list\" and therefore group heading is rendered as a proper heading tag.\nIf the role is \"listbox\" or \"menu\" (ActionMenu), the group heading is rendered as a div with presentation role and it is\nhidden from the accessibility tree due to the limitation of listbox children. https://w3c.github.io/aria/#listbox\ngroups under menu or listbox are labelled by `aria-label`",
-    "name": "GroupHeading",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "variant",
-        "type": "\"subtle\" | \"filled\"",
-        "required": false,
-        "description": "Style variations. Usage is discretionary.\n\n- `\"filled\"` - Superimposed on a background, offset from nearby content\n- `\"subtle\"` - Relatively less offset from nearby content",
-        "defaultValue": "subtle"
-      },
-      {
-        "name": "auxiliaryText",
-        "type": "string",
-        "required": false,
-        "description": "Secondary text which provides additional information about a `Group`.",
-        "defaultValue": null
-      },
-      {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
-        "required": false,
-        "description": "A style object used to override styles using styled-components",
-        "defaultValue": "__DEV__\n  ? Object.freeze<BetterSystemStyleObject>({})\n  : {}"
-      },
-      {
-        "name": "visuallyHidden",
-        "type": "boolean",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "as",
-        "type": "\"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\"",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "_internalBackwardCompatibleTitle",
-        "type": "string",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Heading.tsx",
-    "description": "",
-    "name": "ActionList.Heading",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "as",
-        "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 166 more ... | (\"h6\" & (ComponentClass<...> | FunctionComponent<...>))",
-        "required": true,
-        "description": "",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Item.tsx",
-    "description": "",
-    "name": "ActionList.Item",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "as",
-        "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>",
-        "required": true,
-        "description": "",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/LinkItem.tsx",
-    "description": "",
-    "name": "LinkItem",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "as",
-        "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>",
-        "required": true,
-        "description": "",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/List.tsx",
-    "description": "",
+    "id": "action_list",
+    "description": "Action list is a vertical list of interactive actions or options. It's composed of items presented in a consistent, single-column format, with room for icons, descriptions, side information, and other rich visuals.",
     "name": "ActionList",
+    "status": "beta",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -731,7 +525,247 @@
         "defaultValue": null
       }
     ],
-    "subcomponents": []
+    "subcomponents": [
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Description.tsx",
+        "description": "Secondary text which provides additional information about an `Item`",
+        "name": "ActionList.Description",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "variant",
+            "type": "\"block\" | \"inline\"",
+            "required": false,
+            "description": "Secondary text style variations.\n\n- `\"inline\"` - Secondary text is positioned beside primary text.\n- `\"block\"` - Secondary text is positioned below primary text.",
+            "defaultValue": "inline"
+          },
+          {
+            "name": "sx",
+            "type": "BetterSystemStyleObject",
+            "required": false,
+            "description": "A style object used to override styles using styled-components",
+            "defaultValue": "{}"
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Divider.tsx",
+        "description": "Visually separates `Item`s or `Group`s in an `ActionList`.",
+        "name": "ActionList.Divider",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "sx",
+            "type": "BetterSystemStyleObject",
+            "required": false,
+            "description": "A style object used to override styles using styled-components",
+            "defaultValue": "{}"
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Group.tsx",
+        "description": "Collects related `Items` in an `ActionList`.",
+        "name": "ActionList.Group",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "variant",
+            "type": "\"subtle\" | \"filled\"",
+            "required": false,
+            "description": "Style variations. Usage is discretionary.\n\n- `\"filled\"` - Superimposed on a background, offset from nearby content\n- `\"subtle\"` - Relatively less offset from nearby content",
+            "defaultValue": "subtle"
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "required": false,
+            "description": "@deprecated (Use `ActionList.GroupHeading` instead. i.e. <ActionList.Group title=\"Group title\"> → <ActionList.GroupHeading>Group title</ActionList.GroupHeading>)",
+            "defaultValue": null
+          },
+          {
+            "name": "auxiliaryText",
+            "type": "string",
+            "required": false,
+            "description": "Secondary text which provides additional information about a `Group`.",
+            "defaultValue": null
+          },
+          {
+            "name": "role",
+            "type": "AriaRole",
+            "required": false,
+            "description": "The ARIA role describing the function of the list inside `Group` component. `listbox` or `menu` are a common values.",
+            "defaultValue": null
+          },
+          {
+            "name": "sx",
+            "type": "BetterSystemStyleObject",
+            "required": false,
+            "description": "A style object used to override styles using styled-components",
+            "defaultValue": "__DEV__\n  ? Object.freeze<BetterSystemStyleObject>({})\n  : {}"
+          },
+          {
+            "name": "selectionVariant",
+            "type": "any",
+            "required": false,
+            "description": "Whether multiple Items or a single Item can be selected in the Group. Overrides value on ActionList root.",
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Group.tsx",
+        "description": "Heading of  a `Group`.\n\nAs default, the role of ActionList is \"list\" and therefore group heading is rendered as a proper heading tag.\nIf the role is \"listbox\" or \"menu\" (ActionMenu), the group heading is rendered as a div with presentation role and it is\nhidden from the accessibility tree due to the limitation of listbox children. https://w3c.github.io/aria/#listbox\ngroups under menu or listbox are labelled by `aria-label`",
+        "name": "ActionList.GroupHeading",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "variant",
+            "type": "\"subtle\" | \"filled\"",
+            "required": false,
+            "description": "Style variations. Usage is discretionary.\n\n- `\"filled\"` - Superimposed on a background, offset from nearby content\n- `\"subtle\"` - Relatively less offset from nearby content",
+            "defaultValue": "subtle"
+          },
+          {
+            "name": "auxiliaryText",
+            "type": "string",
+            "required": false,
+            "description": "Secondary text which provides additional information about a `Group`.",
+            "defaultValue": null
+          },
+          {
+            "name": "sx",
+            "type": "BetterSystemStyleObject",
+            "required": false,
+            "description": "A style object used to override styles using styled-components",
+            "defaultValue": "__DEV__\n  ? Object.freeze<BetterSystemStyleObject>({})\n  : {}"
+          },
+          {
+            "name": "visuallyHidden",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "as",
+            "type": "\"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\"",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "_internalBackwardCompatibleTitle",
+            "type": "string",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Heading.tsx",
+        "description": "Heading for an `ActionList`",
+        "name": "ActionList.Heading",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "as",
+            "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 166 more ... | (\"h6\" & (ComponentClass<...> | FunctionComponent<...>))",
+            "required": true,
+            "description": "",
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Item.tsx",
+        "description": "An actionable or selectable `Item`",
+        "name": "ActionList.Item",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "as",
+            "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>",
+            "required": true,
+            "description": "",
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/LinkItem.tsx",
+        "description": "A `Item` that renders a full-size anchor inside ListItem",
+        "name": "ActionList.LinkItem",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "as",
+            "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>",
+            "required": true,
+            "description": "",
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Visuals.tsx",
+        "description": "Icon (or similar) positioned before `Item` text",
+        "name": "ActionList.LeadingVisual",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "sx",
+            "type": "BetterSystemStyleObject",
+            "required": false,
+            "description": "A style object used to override styles using styled-components",
+            "defaultValue": "{}"
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Visuals.tsx",
+        "description": "Icon (or similar) positioned after `Item` text",
+        "name": "ActionList.TrailingVisual",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "sx",
+            "type": "BetterSystemStyleObject",
+            "required": false,
+            "description": "A style object used to override styles using styled-components",
+            "defaultValue": "{}"
+          }
+        ]
+      }
+    ]
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Selection.tsx",
@@ -756,44 +790,6 @@
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Visuals.tsx",
     "description": "",
     "name": "LeadingVisualContainer",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
-        "required": false,
-        "description": "A style object used to override styles using styled-components",
-        "defaultValue": "{}"
-      }
-    ],
-    "subcomponents": []
-  },
-  {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Visuals.tsx",
-    "description": "",
-    "name": "LeadingVisual",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
-        "required": false,
-        "description": "A style object used to override styles using styled-components",
-        "defaultValue": "{}"
-      }
-    ],
-    "subcomponents": []
-  },
-  {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Visuals.tsx",
-    "description": "",
-    "name": "TrailingVisual",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -851,8 +847,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/AnchoredOverlay/AnchoredOverlay.tsx",
+    "id": "anchored_overlay",
     "description": "An `AnchoredOverlay` provides an anchor that will open a floating overlay positioned relative to the anchor.\nThe overlay can be opened and navigated using keyboard or mouse.",
     "name": "AnchoredOverlay",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -951,290 +949,7 @@
         "name": "id",
         "type": "string",
         "required": false,
-        "description": "",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Autocomplete/AutocompleteMenu.tsx",
-    "description": "",
-    "name": "AutocompleteMenu",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "addNewItem",
-        "type": "Omit<ActionListItemProps, \"id\"> & { id: string; } & { leadingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>>; text?: string; trailingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>>; } & { ...; } & { ...; }",
-        "required": false,
-        "description": "A menu item that is used to allow users make a selection that is not available in the array passed to the `items` prop.\nThis menu item gets appended to the end of the list of options.",
-        "defaultValue": null
-      },
-      {
-        "name": "emptyStateText",
-        "type": "any",
-        "required": false,
-        "description": "The text that appears in the menu when there are no options in the array passed to the `items` prop.",
-        "defaultValue": null
-      },
-      {
-        "name": "filterFn",
-        "type": "(item: T, i: number) => boolean",
-        "required": false,
-        "description": "A custom function used to filter the options in the array passed to the `items` prop.\nBy default, we filter out items that don't match the value of the autocomplete text input. The default filter is not case-sensitive.",
-        "defaultValue": null
-      },
-      {
-        "name": "items",
-        "type": "T[]",
-        "required": true,
-        "description": "The options for field values that are displayed in the dropdown menu.\nOne or more may be selected depending on the value of the `selectionVariant` prop.",
-        "defaultValue": null
-      },
-      {
-        "name": "loading",
-        "type": "boolean",
-        "required": false,
-        "description": "Whether the data is loaded for the menu items",
-        "defaultValue": null
-      },
-      {
-        "name": "selectedItemIds",
-        "type": "string[]",
-        "required": true,
-        "description": "The IDs of the selected items",
-        "defaultValue": null
-      },
-      {
-        "name": "sortOnCloseFn",
-        "type": "(itemIdA: string, itemIdB: string) => number",
-        "required": false,
-        "description": "The sort function that is applied to the options in the array passed to the `items` prop after the user closes the menu.\nBy default, selected items are sorted to the top after the user closes the menu.",
-        "defaultValue": null
-      },
-      {
-        "name": "selectionVariant",
-        "type": "\"multiple\" | \"single\"",
-        "required": false,
-        "description": "Whether there can be one item selected from the menu or multiple items selected from the menu",
-        "defaultValue": null
-      },
-      {
-        "name": "onOpenChange",
-        "type": "(open: boolean) => void",
-        "required": false,
-        "description": "Function that gets called when the menu is opened or closed",
-        "defaultValue": null
-      },
-      {
-        "name": "onSelectedChange",
-        "type": "OnSelectedChange<T>",
-        "required": false,
-        "description": "The function that is called when an item in the list is selected or deselected",
-        "defaultValue": null
-      },
-      {
-        "name": "customScrollContainerRef",
-        "type": "React.MutableRefObject<HTMLElement>",
-        "required": false,
-        "description": "If the menu is rendered in a scrolling element other than the `Autocomplete.Overlay` component,\npass the ref of that element to `customScrollContainerRef` to ensure the container automatically\nscrolls when the user highlights an item in the menu that is outside the scroll container",
-        "defaultValue": null
-      },
-      {
-        "name": "aria-labelledby",
-        "type": "string",
-        "required": true,
-        "description": "",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Autocomplete/AutocompleteOverlay.tsx",
-    "description": "",
-    "name": "AutocompleteOverlay",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "menuAnchorRef",
-        "type": "React.RefObject<HTMLElement>",
-        "required": false,
-        "description": "The ref of the element that the position of the menu is based on. By default, the menu is positioned based on the text input",
-        "defaultValue": null
-      },
-      {
-        "name": "overlayProps",
-        "type": "Partial<Omit<Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"ref\"> & { ...; }, \"height\" | ... 7 more ... | keyof BaseOverlayProps> & Omit<...> & BaseOverlayProps & { ...; }>",
-        "required": false,
-        "description": "Props to be spread on the internal `Overlay` component.",
-        "defaultValue": null
-      },
-      {
-        "name": "height",
-        "type": "\"small\" | \"initial\" | \"large\" | \"medium\" | \"auto\" | \"fit-content\" | \"xsmall\" | \"xlarge\"",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "width",
-        "type": "\"small\" | \"large\" | \"medium\" | \"auto\" | \"xlarge\" | \"xxlarge\"",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "overflow",
-        "type": "\"hidden\" | \"scroll\" | \"auto\" | \"visible\"",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "maxHeight",
-        "type": "\"small\" | \"large\" | \"medium\" | \"fit-content\" | \"xsmall\" | \"xlarge\"",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "maxWidth",
-        "type": "\"small\" | \"large\" | \"medium\" | \"xlarge\" | \"xxlarge\"",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
-        "required": false,
-        "description": "A style object used to override styles using styled-components",
-        "defaultValue": null
-      },
-      {
-        "name": "anchorSide",
-        "type": "AnchorSide",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "ignoreClickRefs",
-        "type": "React.RefObject<HTMLElement>[]",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "initialFocusRef",
-        "type": "React.RefObject<HTMLElement>",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "returnFocusRef",
-        "type": "React.RefObject<HTMLElement>",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onClickOutside",
-        "type": "(e: TouchOrMouseEvent) => void",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "onEscape",
-        "type": "(e: KeyboardEvent) => void",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "visibility",
-        "type": "\"hidden\" | \"visible\"",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "data-test-id",
-        "type": "unknown",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "position",
-        "type": "React.CSSProperties",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "top",
-        "type": "React.CSSProperties",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "left",
-        "type": "React.CSSProperties",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "right",
-        "type": "React.CSSProperties",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "bottom",
-        "type": "React.CSSProperties",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "portalContainerName",
-        "type": "string",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "preventFocusOnOpen",
-        "type": "boolean",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "role",
-        "type": "AriaRole",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "as",
-        "type": "\"div\"",
-        "required": false,
-        "description": "",
+        "description": "May be used to customize how the ID is set on the text input to be used by ARIA attributes on related elements.",
         "defaultValue": null
       }
     ],
@@ -1291,8 +1006,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/AvatarPair/AvatarPair.tsx",
-    "description": "",
+    "id": "avatar_pair",
+    "description": "AvatarPair is composed of two avatars, one larger one and a smaller one, overlaid slightly.",
     "name": "AvatarPair",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -1310,8 +1027,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/AvatarStack/AvatarStack.tsx",
-    "description": "",
+    "id": "avatar_stack",
+    "description": "Avatar stack displays two or more avatars in an inline stack.",
     "name": "AvatarStack",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -1321,21 +1040,28 @@
         "name": "alignRight",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Align the avatars to the right",
         "defaultValue": null
       },
       {
         "name": "disableExpand",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Do not spread the avatars on hover",
         "defaultValue": null
       },
       {
         "name": "size",
         "type": "number | ResponsiveValue<number>",
         "required": false,
-        "description": "",
+        "description": "The size of the avatar children in pixels",
+        "defaultValue": null
+      },
+      {
+        "name": "children",
+        "type": "React.ReactNode",
+        "required": true,
+        "description": "A set of Avatar components to stack",
         "defaultValue": null
       },
       {
@@ -1343,51 +1069,6 @@
         "type": "BetterSystemStyleObject",
         "required": false,
         "description": "A style object used to override styles using styled-components",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Banner/Banner.tsx",
-    "description": "",
-    "name": "BannerTitle",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "as",
-        "type": "HeadingElement",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "className",
-        "type": "string",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Banner/Banner.tsx",
-    "description": "",
-    "name": "BannerDescription",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "className",
-        "type": "string",
-        "required": false,
-        "description": "Class name(s) used for custom styling",
         "defaultValue": null
       }
     ],
@@ -1421,214 +1102,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Banner/Banner.tsx",
-    "description": "",
-    "name": "BannerPrimaryAction",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "disabled",
-        "type": "boolean",
-        "required": false,
-        "description": "Items that are disabled can not be clicked, selected, or navigated through.",
-        "defaultValue": null
-      },
-      {
-        "name": "size",
-        "type": "Size",
-        "required": false,
-        "description": "Size of button and fontSize of text in button",
-        "defaultValue": null
-      },
-      {
-        "name": "as",
-        "type": "\"button\"",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "block",
-        "type": "boolean",
-        "required": false,
-        "description": "Allow button width to fill its container.",
-        "defaultValue": null
-      },
-      {
-        "name": "alignContent",
-        "type": "AlignContent",
-        "required": false,
-        "description": "Content alignment for when visuals are present",
-        "defaultValue": null
-      },
-      {
-        "name": "icon",
-        "type": "any",
-        "required": false,
-        "description": "The icon for the IconButton",
-        "defaultValue": null
-      },
-      {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
-        "required": false,
-        "description": "A style object used to override styles using styled-components",
-        "defaultValue": null
-      },
-      {
-        "name": "inactive",
-        "type": "boolean",
-        "required": false,
-        "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
-        "defaultValue": null
-      },
-      {
-        "name": "labelWrap",
-        "type": "boolean",
-        "required": false,
-        "description": "Whether the button label should wrap to multiple lines of it is longer than the button width.",
-        "defaultValue": null
-      },
-      {
-        "name": "leadingVisual",
-        "type": "any",
-        "required": false,
-        "description": "The leading visual which comes before the button content",
-        "defaultValue": null
-      },
-      {
-        "name": "trailingVisual",
-        "type": "any",
-        "required": false,
-        "description": "The trailing visual which comes after the button content",
-        "defaultValue": null
-      },
-      {
-        "name": "trailingAction",
-        "type": "any",
-        "required": false,
-        "description": "Trailing action appears to the right of the trailing visual and is always locked to the end",
-        "defaultValue": null
-      },
-      {
-        "name": "count",
-        "type": "number",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Banner/Banner.tsx",
-    "description": "",
-    "name": "BannerSecondaryAction",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "disabled",
-        "type": "boolean",
-        "required": false,
-        "description": "Items that are disabled can not be clicked, selected, or navigated through.",
-        "defaultValue": null
-      },
-      {
-        "name": "size",
-        "type": "Size",
-        "required": false,
-        "description": "Size of button and fontSize of text in button",
-        "defaultValue": null
-      },
-      {
-        "name": "as",
-        "type": "\"button\"",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "block",
-        "type": "boolean",
-        "required": false,
-        "description": "Allow button width to fill its container.",
-        "defaultValue": null
-      },
-      {
-        "name": "alignContent",
-        "type": "AlignContent",
-        "required": false,
-        "description": "Content alignment for when visuals are present",
-        "defaultValue": null
-      },
-      {
-        "name": "icon",
-        "type": "any",
-        "required": false,
-        "description": "The icon for the IconButton",
-        "defaultValue": null
-      },
-      {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
-        "required": false,
-        "description": "A style object used to override styles using styled-components",
-        "defaultValue": null
-      },
-      {
-        "name": "inactive",
-        "type": "boolean",
-        "required": false,
-        "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
-        "defaultValue": null
-      },
-      {
-        "name": "labelWrap",
-        "type": "boolean",
-        "required": false,
-        "description": "Whether the button label should wrap to multiple lines of it is longer than the button width.",
-        "defaultValue": null
-      },
-      {
-        "name": "leadingVisual",
-        "type": "any",
-        "required": false,
-        "description": "The leading visual which comes before the button content",
-        "defaultValue": null
-      },
-      {
-        "name": "trailingVisual",
-        "type": "any",
-        "required": false,
-        "description": "The trailing visual which comes after the button content",
-        "defaultValue": null
-      },
-      {
-        "name": "trailingAction",
-        "type": "any",
-        "required": false,
-        "description": "Trailing action appears to the right of the trailing visual and is always locked to the end",
-        "defaultValue": null
-      },
-      {
-        "name": "count",
-        "type": "number",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Banner/Banner.tsx",
-    "description": "",
+    "id": "banner",
+    "description": "Banner is used to highlight important information.",
     "name": "Banner",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -1698,7 +1175,255 @@
         "defaultValue": "info"
       }
     ],
-    "subcomponents": []
+    "subcomponents": [
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Banner/Banner.tsx",
+        "description": "The title (heading) of the Banner. May be used instead of the `title` prop on Banner.",
+        "name": "Banner.Title",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "as",
+            "type": "HeadingElement",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Banner/Banner.tsx",
+        "description": "An optional description for the Banner when the title needs supplemental information. May be used instead of the `description` prop on Banner.",
+        "name": "Banner.Description",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Class name(s) used for custom styling",
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Banner/Banner.tsx",
+        "description": "The primary action to take in response to the messaging in Banner. May be used instead of the `primaryAction` prop on Banner.",
+        "name": "Banner.PrimaryAction",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "required": false,
+            "description": "Items that are disabled can not be clicked, selected, or navigated through.",
+            "defaultValue": null
+          },
+          {
+            "name": "size",
+            "type": "Size",
+            "required": false,
+            "description": "Size of button and fontSize of text in button",
+            "defaultValue": null
+          },
+          {
+            "name": "as",
+            "type": "\"button\"",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "block",
+            "type": "boolean",
+            "required": false,
+            "description": "Allow button width to fill its container.",
+            "defaultValue": null
+          },
+          {
+            "name": "alignContent",
+            "type": "AlignContent",
+            "required": false,
+            "description": "Content alignment for when visuals are present",
+            "defaultValue": null
+          },
+          {
+            "name": "icon",
+            "type": "any",
+            "required": false,
+            "description": "The icon for the IconButton",
+            "defaultValue": null
+          },
+          {
+            "name": "sx",
+            "type": "BetterSystemStyleObject",
+            "required": false,
+            "description": "A style object used to override styles using styled-components",
+            "defaultValue": null
+          },
+          {
+            "name": "inactive",
+            "type": "boolean",
+            "required": false,
+            "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+            "defaultValue": null
+          },
+          {
+            "name": "labelWrap",
+            "type": "boolean",
+            "required": false,
+            "description": "Whether the button label should wrap to multiple lines of it is longer than the button width.",
+            "defaultValue": null
+          },
+          {
+            "name": "leadingVisual",
+            "type": "any",
+            "required": false,
+            "description": "The leading visual which comes before the button content",
+            "defaultValue": null
+          },
+          {
+            "name": "trailingVisual",
+            "type": "any",
+            "required": false,
+            "description": "The trailing visual which comes after the button content",
+            "defaultValue": null
+          },
+          {
+            "name": "trailingAction",
+            "type": "any",
+            "required": false,
+            "description": "Trailing action appears to the right of the trailing visual and is always locked to the end",
+            "defaultValue": null
+          },
+          {
+            "name": "count",
+            "type": "number",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Banner/Banner.tsx",
+        "description": "The secondary action to take in response to the messaging in Banner. May be used instead of the `secondaryAction` prop on Banner.",
+        "name": "Banner.SecondaryAction",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "required": false,
+            "description": "Items that are disabled can not be clicked, selected, or navigated through.",
+            "defaultValue": null
+          },
+          {
+            "name": "size",
+            "type": "Size",
+            "required": false,
+            "description": "Size of button and fontSize of text in button",
+            "defaultValue": null
+          },
+          {
+            "name": "as",
+            "type": "\"button\"",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "block",
+            "type": "boolean",
+            "required": false,
+            "description": "Allow button width to fill its container.",
+            "defaultValue": null
+          },
+          {
+            "name": "alignContent",
+            "type": "AlignContent",
+            "required": false,
+            "description": "Content alignment for when visuals are present",
+            "defaultValue": null
+          },
+          {
+            "name": "icon",
+            "type": "any",
+            "required": false,
+            "description": "The icon for the IconButton",
+            "defaultValue": null
+          },
+          {
+            "name": "sx",
+            "type": "BetterSystemStyleObject",
+            "required": false,
+            "description": "A style object used to override styles using styled-components",
+            "defaultValue": null
+          },
+          {
+            "name": "inactive",
+            "type": "boolean",
+            "required": false,
+            "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+            "defaultValue": null
+          },
+          {
+            "name": "labelWrap",
+            "type": "boolean",
+            "required": false,
+            "description": "Whether the button label should wrap to multiple lines of it is longer than the button width.",
+            "defaultValue": null
+          },
+          {
+            "name": "leadingVisual",
+            "type": "any",
+            "required": false,
+            "description": "The leading visual which comes before the button content",
+            "defaultValue": null
+          },
+          {
+            "name": "trailingVisual",
+            "type": "any",
+            "required": false,
+            "description": "The trailing visual which comes after the button content",
+            "defaultValue": null
+          },
+          {
+            "name": "trailingAction",
+            "type": "any",
+            "required": false,
+            "description": "Trailing action appears to the right of the trailing visual and is always locked to the end",
+            "defaultValue": null
+          },
+          {
+            "name": "count",
+            "type": "number",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          }
+        ]
+      }
+    ]
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
@@ -1768,8 +1493,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Box/Box.tsx",
-    "description": "",
+    "id": "box",
+    "description": "Box is a basic wrapper component for most layout related needs.",
     "name": "Box",
+    "status": "beta",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -1787,8 +1514,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/BranchName/BranchName.tsx",
-    "description": "",
+    "id": "branch_name",
+    "description": "Branch name is a label-type component rendered as an <a> tag by default that displays the name of a branch.",
     "name": "BranchName",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -1879,8 +1608,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ButtonGroup/ButtonGroup.tsx",
-    "description": "",
+    "id": "button_group",
+    "description": "Button group renders a series of buttons.",
     "name": "ButtonGroup",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -1890,8 +1621,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Checkbox/Checkbox.tsx",
+    "id": "checkbox",
     "description": "An accessible, native checkbox component",
     "name": "Checkbox",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -2020,14 +1753,14 @@
         "name": "size",
         "type": "number",
         "required": false,
-        "description": "",
+        "description": "Sets the size of the badge in pixels. Overrides the `variant` prop when set",
         "defaultValue": null
       },
       {
         "name": "inline",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Styles the badge to `display: inline`",
         "defaultValue": null
       },
       {
@@ -2041,7 +1774,7 @@
         "name": "variant",
         "type": "\"small\" | \"large\" | \"medium\"",
         "required": false,
-        "description": "",
+        "description": "Creates a smaller or larger badge. Has no effect if the `size` prop is set",
         "defaultValue": "medium"
       }
     ],
@@ -2049,8 +1782,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/CircleOcticon/CircleOcticon.tsx",
-    "description": "",
+    "id": "circle_octicon",
+    "description": "Use circle octicon to render any Octicon with a circle background. CircleOcticons are most commonly used to represent the status of a pull request in the comment timeline.",
     "name": "CircleOcticon",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -2067,14 +1802,14 @@
         "name": "size",
         "type": "number & ResponsiveValue<Height<TLengthStyledSystem>, Required<Theme<TLengthStyledSystem>>>",
         "required": false,
-        "description": "",
+        "description": "Set the width and height of the icon in pixels",
         "defaultValue": null
       },
       {
         "name": "icon",
         "type": "React.ComponentType<React.PropsWithChildren<{ size?: number | Size; }>>",
         "required": true,
-        "description": "",
+        "description": "The Octicon to render in the circle",
         "defaultValue": null
       },
       {
@@ -2147,13 +1882,30 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/CounterLabel/CounterLabel.tsx",
-    "description": "",
+    "id": "counter_label",
+    "description": "Counter label is a numbered label accompanied by text. It's typically used in a button to indicate some count associated with the action.",
     "name": "CounterLabel",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
     ],
-    "props": [],
+    "props": [
+      {
+        "name": "scheme",
+        "type": "\"primary\" | \"secondary\"",
+        "required": false,
+        "description": "Pass in 'primary' for a darker background and inverse text, or 'secondary' for a lighter background and primary text. Omitting the scheme prop renders the default counter scheme",
+        "defaultValue": "secondary"
+      },
+      {
+        "name": "sx",
+        "type": "BetterSystemStyleObject",
+        "required": false,
+        "description": "A style object used to override styles using styled-components",
+        "defaultValue": "__DEV__\n  ? Object.freeze<BetterSystemStyleObject>({})\n  : {}"
+      }
+    ],
     "subcomponents": []
   },
   {
@@ -2599,8 +2351,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Details/Details.tsx",
-    "description": "",
+    "id": "details",
+    "description": "Details is a styled component to enhance the native behaviors of the <details> element.",
     "name": "Details",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -2754,42 +2508,42 @@
         "name": "loading",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the items are loading",
         "defaultValue": false
       },
       {
         "name": "placeholderText",
         "type": "string",
         "required": false,
-        "description": "",
+        "description": "Text used as placeholder for search input",
         "defaultValue": null
       },
       {
         "name": "filterValue",
         "type": "string",
         "required": false,
-        "description": "",
+        "description": "The current value of the search input",
         "defaultValue": null
       },
       {
         "name": "onFilterChange",
         "type": "(value: string, e: React.ChangeEvent<HTMLInputElement>) => void",
         "required": true,
-        "description": "",
+        "description": "Callback when the search input changes",
         "defaultValue": null
       },
       {
         "name": "textInputProps",
         "type": "Partial<Omit<TextInputProps, \"onChange\">>",
         "required": false,
-        "description": "",
+        "description": "Props to pass through to the search input",
         "defaultValue": null
       },
       {
         "name": "inputRef",
         "type": "React.RefObject<HTMLInputElement>",
         "required": false,
-        "description": "",
+        "description": "Ref to pass through to the search input",
         "defaultValue": null
       },
       {
@@ -2913,32 +2667,6 @@
     "subcomponents": []
   },
   {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/FormControl/_FormControlCaption.tsx",
-    "description": "",
-    "name": "FormControlCaption",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "id",
-        "type": "string",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
-        "required": false,
-        "description": "A style object used to override styles using styled-components",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/FormControl/_FormControlContext.tsx",
     "description": "This is the private/internal interface for subcomponents of `FormControl`.",
     "name": "useFormControlContext",
@@ -2972,133 +2700,6 @@
     "subcomponents": []
   },
   {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/FormControl/_FormControlLabel.tsx",
-    "description": "",
-    "name": "FormControlLabel",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "htmlFor",
-        "type": "string",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
-        "required": false,
-        "description": "A style object used to override styles using styled-components",
-        "defaultValue": null
-      },
-      {
-        "name": "disabled",
-        "type": "boolean",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "required",
-        "type": "boolean",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "requiredText",
-        "type": "string",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "requiredIndicator",
-        "type": "boolean",
-        "required": false,
-        "description": "",
-        "defaultValue": true
-      },
-      {
-        "name": "visuallyHidden",
-        "type": "boolean",
-        "required": false,
-        "description": "Whether the label should be visually hidden",
-        "defaultValue": null
-      },
-      {
-        "name": "id",
-        "type": "string",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "as",
-        "type": "\"label\" | \"legend\" | \"span\"",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/FormControl/_FormControlLeadingVisual.tsx",
-    "description": "",
-    "name": "FormControlLeadingVisual",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
-        "required": false,
-        "description": "A style object used to override styles using styled-components",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/FormControl/_FormControlValidation.tsx",
-    "description": "",
-    "name": "FormControlValidation",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "variant",
-        "type": "FormValidationStatus",
-        "required": true,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "id",
-        "type": "string",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
-        "required": false,
-        "description": "A style object used to override styles using styled-components",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Header/Header.tsx",
     "description": "",
     "name": "Header.Item",
@@ -3119,8 +2720,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Hidden/Hidden.tsx",
-    "description": "",
+    "id": "drafts_hidden",
+    "description": "Prevents children from rendered on specified viewport widths.",
     "name": "Hidden",
+    "status": "draft",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -3138,8 +2741,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Hidden/index.tsx",
-    "description": "",
+    "id": "drafts_hidden",
+    "description": "Prevents children from rendered on specified viewport widths.",
     "name": "Hidden",
+    "status": "draft",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -3157,8 +2762,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/InlineMessage/InlineMessage.tsx",
-    "description": "",
+    "id": "inline_message",
+    "description": "Inline message is used to inform the user about the result of an action within the content.",
     "name": "InlineMessage",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -3183,8 +2790,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/LabelGroup/LabelGroup.tsx",
-    "description": "",
+    "id": "label_group",
+    "description": "Use label group to add commonly used margins and other layout constraints to groups of Labels",
     "name": "LabelGroup",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -3227,8 +2836,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Octicon/Octicon.tsx",
-    "description": "",
+    "id": "octicon",
+    "description": "Renders an icon from the [Primer Octicons](https://primer.style/octicons/) library.",
     "name": "Octicon",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -3238,14 +2849,14 @@
         "name": "color",
         "type": "string",
         "required": false,
-        "description": "",
+        "description": "Sets an override color for the Octicon. Compatible with colors from the [Primer color system](https://primer.style/primitives/colors).",
         "defaultValue": null
       },
       {
         "name": "icon",
         "type": "React.ElementType",
         "required": true,
-        "description": "",
+        "description": "Checks the input by default in uncontrolled modeName of the [Octicon component](https://primer.style/octicons/) used in the",
         "defaultValue": null
       },
       {
@@ -3372,14 +2983,14 @@
         "name": "rowGap",
         "type": "\"normal\" | \"none\" | \"condensed\"",
         "required": false,
-        "description": "",
+        "description": "The spacing between the content, header, and footer areas",
         "defaultValue": "normal"
       },
       {
         "name": "columnGap",
         "type": "\"normal\" | \"none\" | \"condensed\"",
         "required": false,
-        "description": "",
+        "description": "The spacing between the content area and pane(s)",
         "defaultValue": "normal"
       },
       {
@@ -3401,8 +3012,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Pagehead/Pagehead.tsx",
-    "description": "",
+    "id": "pagehead",
+    "description": "Pagehead denotes the title and start of a given section.",
     "name": "Pagehead",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -3420,8 +3033,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Pagination/Pagination.tsx",
-    "description": "",
+    "id": "pagination",
+    "description": "Pagination is a horizontal set of links to navigate paginated content.",
     "name": "Pagination",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -3488,8 +3103,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PointerBox/PointerBox.tsx",
-    "description": "",
+    "id": "pointer_box",
+    "description": "A customisable bordered box with a caret pointer",
     "name": "PointerBox",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -3499,28 +3116,28 @@
         "name": "caret",
         "type": "Location",
         "required": false,
-        "description": "",
+        "description": "Sets the location of the caret. The format is [edge]-[position on edge]. For example, right-top will position the caret on the top of the right edge of the box.",
         "defaultValue": null
       },
       {
         "name": "bg",
         "type": "string & ResponsiveValue<string | number | symbol, Required<Theme<TLengthStyledSystem>>>",
         "required": false,
-        "description": "The color utility parses a component's `color` and `bg` props and converts them into CSS declarations.\nBy default the raw value of the prop is returned.\n\nColor palettes can be configured with the ThemeProvider to use keys as prop values, with support for dot notation.\nArray values are converted into responsive values.\n\n[MDN Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/background-color)",
+        "description": "Background color of the box\nThe color utility parses a component's `color` and `bg` props and converts them into CSS declarations.\nBy default the raw value of the prop is returned.\n\nColor palettes can be configured with the ThemeProvider to use keys as prop values, with support for dot notation.\nArray values are converted into responsive values.\n\n[MDN Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/background-color)",
         "defaultValue": null
       },
       {
         "name": "borderColor",
         "type": "string & ResponsiveValue<string | number | symbol, Required<Theme<TLengthStyledSystem>>>",
         "required": false,
-        "description": "The border-color shorthand CSS property sets the color of all sides of an element's border.\n\n[MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-color)",
+        "description": "Color of the border around the box\nThe border-color shorthand CSS property sets the color of all sides of an element's border.\n\n[MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-color)",
         "defaultValue": null
       },
       {
         "name": "border",
         "type": "(string | number) & ResponsiveValue<Border<TLengthStyledSystem>, Required<Theme<TLengthStyledSystem>>>",
         "required": false,
-        "description": "The border CSS property sets an element's border. It's a shorthand for border-width, border-style,\nand border-color.\n\n[MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border)",
+        "description": "Width of the border around the box\nThe border CSS property sets an element's border. It's a shorthand for border-width, border-style,\nand border-color.\n\n[MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border)",
         "defaultValue": null
       },
       {
@@ -3546,21 +3163,21 @@
         "name": "open",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Controls the visibility of the popover.",
         "defaultValue": null
       },
       {
         "name": "caret",
         "type": "CaretPosition",
         "required": false,
-        "description": "",
-        "defaultValue": null
+        "description": "Controls the position of the caret",
+        "defaultValue": "top"
       },
       {
         "name": "relative",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Set to true to render the popover using relative positioning.",
         "defaultValue": null
       },
       {
@@ -3586,8 +3203,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Portal/Portal.tsx",
+    "id": "portal",
     "description": "Creates a React Portal, placing all children in a separate physical DOM root node.",
     "name": "Portal",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -3612,18 +3231,41 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ProgressBar/ProgressBar.tsx",
-    "description": "",
-    "name": "ProgressBar.Item",
+    "id": "progress_bar",
+    "description": "Progress bar visualizes one or more parts of a whole.",
+    "name": "ProgressBar",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
     ],
     "props": [
       {
-        "name": "progress",
-        "type": "string | number",
+        "name": "bg",
+        "type": "string",
         "required": false,
-        "description": "",
+        "description": "Set the progress bar color",
+        "defaultValue": "success.emphasis"
+      },
+      {
+        "name": "inline",
+        "type": "boolean",
+        "required": false,
+        "description": "Styles the progress bar inline",
+        "defaultValue": null
+      },
+      {
+        "name": "barSize",
+        "type": "\"small\" | \"default\" | \"large\"",
+        "required": false,
+        "description": "Controls the height of the progress bar. If omitted, height is set to the default height.",
+        "defaultValue": "default"
+      },
+      {
+        "name": "animated",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether the filled in area(s) of the progress bar will be animated or not",
         "defaultValue": null
       },
       {
@@ -3632,14 +3274,23 @@
         "required": false,
         "description": "A style object used to override styles using styled-components",
         "defaultValue": null
+      },
+      {
+        "name": "progress",
+        "type": "string | number",
+        "required": false,
+        "description": "Used to set the size of the green bar",
+        "defaultValue": "0"
       }
     ],
     "subcomponents": []
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Radio/Radio.tsx",
+    "id": "radio",
     "description": "An accessible, native radio component for selecting one option from a list.",
     "name": "Radio",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -3760,8 +3411,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/RelativeTime/RelativeTime.tsx",
-    "description": "",
+    "id": "relative_time",
+    "description": "Relative time displays time in a way that is clear, concise, and accessible.",
     "name": "RelativeTime",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -3993,100 +3646,6 @@
     "subcomponents": []
   },
   {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/SegmentedControl/SegmentedControlButton.tsx",
-    "description": "",
-    "name": "SegmentedControlButton",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "children",
-        "type": "string & ReactNode",
-        "required": false,
-        "description": "The visible label rendered in the button",
-        "defaultValue": null
-      },
-      {
-        "name": "selected",
-        "type": "boolean",
-        "required": false,
-        "description": "Whether the segment is selected. This is used for controlled `SegmentedControls`, and needs to be updated using the `onChange` handler on `SegmentedControl`.",
-        "defaultValue": null
-      },
-      {
-        "name": "defaultSelected",
-        "type": "boolean",
-        "required": false,
-        "description": "Whether the segment is selected. This is used for uncontrolled `SegmentedControls` to pick one `SegmentedControlButton` that is selected on the initial render.",
-        "defaultValue": null
-      },
-      {
-        "name": "leadingIcon",
-        "type": "React.FunctionComponent<React.PropsWithChildren<IconProps>>",
-        "required": false,
-        "description": "The leading icon comes before item label",
-        "defaultValue": null
-      },
-      {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
-        "required": false,
-        "description": "A style object used to override styles using styled-components",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/SegmentedControl/SegmentedControlIconButton.tsx",
-    "description": "",
-    "name": "SegmentedControlIconButton",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "aria-label",
-        "type": "string",
-        "required": false,
-        "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
-        "defaultValue": null
-      },
-      {
-        "name": "icon",
-        "type": "React.FunctionComponent<React.PropsWithChildren<IconProps>>",
-        "required": true,
-        "description": "The icon that represents the segmented control item",
-        "defaultValue": null
-      },
-      {
-        "name": "selected",
-        "type": "boolean",
-        "required": false,
-        "description": "Whether the segment is selected. This is used for controlled SegmentedControls, and needs to be updated using the onChange handler on SegmentedControl.",
-        "defaultValue": null
-      },
-      {
-        "name": "defaultSelected",
-        "type": "boolean",
-        "required": false,
-        "description": "Whether the segment is selected. This is used for uncontrolled SegmentedControls to pick one SegmentedControlButton that is selected on the initial render.",
-        "defaultValue": null
-      },
-      {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
-        "required": false,
-        "description": "A style object used to override styles using styled-components",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Select/Select.tsx",
     "description": "",
     "name": "Select",
@@ -4099,28 +3658,28 @@
         "name": "disabled",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the input is styled to look disabled.",
         "defaultValue": null
       },
       {
         "name": "size",
         "type": "TextInputSizes",
         "required": false,
-        "description": "",
+        "description": "The size of the input.",
         "defaultValue": null
       },
       {
         "name": "block",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the input takes up the full width of its parent",
         "defaultValue": null
       },
       {
         "name": "monospace",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the text rendered in the input is in a monospace font.",
         "defaultValue": null
       },
       {
@@ -4134,35 +3693,35 @@
         "name": "contrast",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the background color of the input has contrast against the default background color.",
         "defaultValue": null
       },
       {
         "name": "hasTrailingAction",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the input has a trailing action.",
         "defaultValue": null
       },
       {
         "name": "isInputFocused",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the input is focused.",
         "defaultValue": null
       },
       {
         "name": "validationStatus",
         "type": "FormValidationStatus",
         "required": false,
-        "description": "",
+        "description": "The result of validation on the input.",
         "defaultValue": null
       },
       {
         "name": "placeholder",
         "type": "string",
         "required": false,
-        "description": "",
+        "description": "Text to show in a Select when no option is selected.",
         "defaultValue": null
       }
     ],
@@ -4184,14 +3743,14 @@
         "name": "title",
         "type": "any",
         "required": false,
-        "description": "",
+        "description": "A descriptive title for the panel",
         "defaultValue": "isMultiSelectVariant(selected) ? 'Select items' : 'Select an item'"
       },
       {
         "name": "subtitle",
         "type": "any",
         "required": false,
-        "description": "",
+        "description": "When provided, a subtitle is displayed below the title",
         "defaultValue": null
       },
       {
@@ -4205,28 +3764,28 @@
         "name": "placeholder",
         "type": "string",
         "required": false,
-        "description": "",
+        "description": "Text used in anchor when there are no selected items",
         "defaultValue": null
       },
       {
         "name": "inputLabel",
         "type": "string",
         "required": false,
-        "description": "",
+        "description": "The aria-label for the filter input",
         "defaultValue": "Filter items"
       },
       {
         "name": "overlayProps",
         "type": "Partial<Omit<Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"ref\"> & { ...; }, \"height\" | ... 7 more ... | keyof BaseOverlayProps> & Omit<...> & BaseOverlayProps & { ...; }>",
         "required": false,
-        "description": "",
+        "description": "See [Overlay props](/react/Overlay#props)",
         "defaultValue": null
       },
       {
         "name": "footer",
         "type": "any",
         "required": false,
-        "description": "",
+        "description": "Footer rendered at the end of the panel",
         "defaultValue": null
       },
       {
@@ -4247,7 +3806,7 @@
         "name": "loading",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the items are loading",
         "defaultValue": null
       },
       {
@@ -4303,35 +3862,35 @@
         "name": "placeholderText",
         "type": "string",
         "required": false,
-        "description": "",
+        "description": "Text used as placeholder for search input",
         "defaultValue": "Filter items"
       },
       {
         "name": "filterValue",
         "type": "string",
         "required": false,
-        "description": "",
+        "description": "The current value of the search input",
         "defaultValue": null
       },
       {
         "name": "onFilterChange",
         "type": "(value: string, e: React.ChangeEvent<HTMLInputElement>) => void",
         "required": true,
-        "description": "",
+        "description": "Callback when the search input changes",
         "defaultValue": null
       },
       {
         "name": "textInputProps",
         "type": "Partial<Omit<TextInputProps, \"onChange\">>",
         "required": false,
-        "description": "",
+        "description": "Props to pass through to the search input",
         "defaultValue": null
       },
       {
         "name": "inputRef",
         "type": "React.RefObject<HTMLInputElement>",
         "required": false,
-        "description": "",
+        "description": "Ref to pass through to the search input",
         "defaultValue": null
       },
       {
@@ -4366,14 +3925,14 @@
         "name": "selected",
         "type": "ItemInput | ItemInput[]",
         "required": true,
-        "description": "",
+        "description": "Specify the selected items\nSpecify the selected item",
         "defaultValue": null
       },
       {
         "name": "onSelectedChange",
         "type": "((selected: ItemInput) => void) | ((selected: ItemInput[]) => void)",
         "required": true,
-        "description": "",
+        "description": "Provide a callback called when the selected item changes\nProvide a callback called when the selected items change",
         "defaultValue": null
       }
     ],
@@ -4421,9 +3980,11 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/SplitPageLayout/SplitPageLayout.tsx",
-    "description": "",
+    "id": "split_page_layout",
+    "description": "Split page layout is an abstraction for using the PageLayout component to provide structure for a split layout.",
     "name": "SplitPageLayout",
-    "a11yReviewed": false,
+    "status": "alpha",
+    "a11yReviewed": true,
     "stories": [
       ""
     ],
@@ -4440,8 +4001,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Stack/Stack.tsx",
-    "description": "",
+    "id": "stack",
+    "description": "Stack is a layout component that creates responsive horizontal and vertical flows.",
     "name": "Stack",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -4497,38 +4060,40 @@
         "defaultValue": "none"
       }
     ],
-    "subcomponents": []
-  },
-  {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Stack/Stack.tsx",
-    "description": "",
-    "name": "StackItem",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
+    "subcomponents": [
       {
-        "name": "as",
-        "type": "ElementType",
-        "required": false,
-        "description": "Customize the element type of the rendered container",
-        "defaultValue": null
-      },
-      {
-        "name": "grow",
-        "type": "boolean | ResponsiveValue<boolean>",
-        "required": false,
-        "description": "Allow item to keep size or expand to fill the available space",
-        "defaultValue": false
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Stack/Stack.tsx",
+        "description": "A child to lay out in the Stack",
+        "name": "Stack.Item",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "as",
+            "type": "ElementType",
+            "required": false,
+            "description": "Customize the element type of the rendered container",
+            "defaultValue": null
+          },
+          {
+            "name": "grow",
+            "type": "boolean | ResponsiveValue<boolean>",
+            "required": false,
+            "description": "Allow item to keep size or expand to fill the available space",
+            "defaultValue": false
+          }
+        ]
       }
-    ],
-    "subcomponents": []
+    ]
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/StateLabel/StateLabel.tsx",
-    "description": "",
+    "id": "state_label",
+    "description": "State label is used for rendering the status of an item.",
     "name": "StateLabel",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -4538,7 +4103,7 @@
         "name": "status",
         "type": "\"unavailable\" | \"issueClosed\" | \"issueClosedNotPlanned\" | \"pullClosed\" | \"pullMerged\" | \"pullQueued\" | \"issueOpened\" | \"pullOpened\" | \"draft\" | \"issueDraft\"",
         "required": true,
-        "description": "",
+        "description": "Kind of status the label represents",
         "defaultValue": null
       },
       {
@@ -4552,7 +4117,7 @@
         "name": "variant",
         "type": "\"small\" | \"normal\"",
         "required": false,
-        "description": "",
+        "description": "Size variant",
         "defaultValue": null
       }
     ],
@@ -4571,28 +4136,28 @@
         "name": "actions",
         "type": "React.ReactNode",
         "required": false,
-        "description": "",
+        "description": "Place another element, such as a button, to the opposite side of the navigation items.",
         "defaultValue": null
       },
       {
         "name": "align",
         "type": "\"right\"",
         "required": false,
-        "description": "",
+        "description": "Use `right` to have navigation items aligned right.",
         "defaultValue": null
       },
       {
         "name": "full",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Used to make navigation fill the width of the container.",
         "defaultValue": null
       },
       {
         "name": "label",
         "type": "string",
         "required": false,
-        "description": "",
+        "description": "Used to set the `aria-label` on the top level `<nav>` element.",
         "defaultValue": null
       },
       {
@@ -4720,9 +4285,11 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Text/Text.tsx",
-    "description": "",
+    "id": "text",
+    "description": "Text styles a string.",
     "name": "Text",
-    "a11yReviewed": false,
+    "status": "alpha",
+    "a11yReviewed": true,
     "stories": [
       ""
     ],
@@ -4765,8 +4332,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/TextInputWithTokens/TextInputWithTokens.tsx",
-    "description": "",
+    "id": "text_input_with_tokens",
+    "description": "Text input with tokens is an input for a value that is a list.",
     "name": "TextInputWithTokens",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -4791,7 +4360,7 @@
         "type": "AnyReactComponent | ForwardRefComponent<\"a\" | \"button\" | \"span\", TokenProps>",
         "required": false,
         "description": "The component used to render each token",
-        "defaultValue": null
+        "defaultValue": "Token"
       },
       {
         "name": "maxHeight",
@@ -4812,7 +4381,7 @@
         "type": "TokenSizeKeys",
         "required": false,
         "description": "The size of the tokens and text input",
-        "defaultValue": null
+        "defaultValue": "xlarge"
       },
       {
         "name": "hideTokenRemoveButtons",
@@ -4832,7 +4401,7 @@
         "name": "disabled",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the input is styled to look disabled.",
         "defaultValue": null
       },
       {
@@ -4846,14 +4415,14 @@
         "name": "block",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the input takes up the full width of its parent",
         "defaultValue": null
       },
       {
         "name": "monospace",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the text rendered in the input is in a monospace font.",
         "defaultValue": null
       },
       {
@@ -4881,14 +4450,14 @@
         "name": "contrast",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the background color of the input has contrast against the default background color.",
         "defaultValue": null
       },
       {
         "name": "validationStatus",
         "type": "FormValidationStatus",
         "required": false,
-        "description": "",
+        "description": "The result of validation on the input.",
         "defaultValue": null
       },
       {
@@ -4924,8 +4493,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Textarea/Textarea.tsx",
+    "id": "textarea",
     "description": "An accessible, native textarea component that supports validation states.\nThis component accepts all native HTML <textarea> attributes as props.",
     "name": "Textarea",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -4949,7 +4520,7 @@
         "name": "block",
         "type": "boolean",
         "required": false,
-        "description": "Block",
+        "description": "Expands with width of the component to fill the parent elements",
         "defaultValue": null
       },
       {
@@ -5004,13 +4575,29 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ToggleSwitch/ToggleSwitch.tsx",
-    "description": "",
+    "id": "toggle_switch",
+    "description": "Toggle switch is used to immediately toggle a setting on or off.",
     "name": "ToggleSwitch",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
     ],
     "props": [
+      {
+        "name": "aria-describedby",
+        "type": "React.AriaAttributes",
+        "required": false,
+        "description": "The ID(s) of the DOM node(s) that describes the switch",
+        "defaultValue": null
+      },
+      {
+        "name": "aria-labelledby",
+        "type": "React.AriaAttributes",
+        "required": false,
+        "description": "The ID of the DOM node that labels the switch",
+        "defaultValue": null
+      },
       {
         "name": "defaultChecked",
         "type": "boolean",
@@ -5227,21 +4814,21 @@
         "name": "direction",
         "type": "\"s\" | \"nw\" | \"n\" | \"ne\" | \"e\" | \"se\" | \"sw\" | \"w\"",
         "required": false,
-        "description": "",
+        "description": "Sets where the tooltip renders in relation to the target.",
         "defaultValue": "n"
       },
       {
         "name": "text",
         "type": "string",
         "required": false,
-        "description": "",
+        "description": "Text content of the tooltip. Also used as an aria-label.",
         "defaultValue": null
       },
       {
         "name": "noDelay",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "When set to `true`, tooltip appears without any delay.",
         "defaultValue": null
       },
       {
@@ -5255,7 +4842,7 @@
         "name": "wrap",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Use `true` to allow text within tooltip to wrap.",
         "defaultValue": null
       },
       {
@@ -5309,14 +4896,14 @@
         "name": "flat",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Prevents the tree from indenting items. This should only be used when the tree is used to display a flat list of items.",
         "defaultValue": null
       },
       {
         "name": "className",
         "type": "string",
         "required": false,
-        "description": "",
+        "description": "Class name(s) used to customize styles",
         "defaultValue": null
       }
     ],
@@ -5336,25 +4923,6 @@
         "type": "BetterSystemStyleObject",
         "required": false,
         "description": "A style object used to override styles using styled-components",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/UnderlineNav/UnderlineNavItem.tsx",
-    "description": "",
-    "name": "UnderlineNavItem",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "as",
-        "type": "any",
-        "required": false,
-        "description": "Renders `UnderlineNav.Item` as given component i.e. react-router's Link",
         "defaultValue": null
       }
     ],
@@ -5693,14 +5261,14 @@
         "name": "id",
         "type": "string",
         "required": false,
-        "description": "",
+        "description": "When `as` prop is 'label', it may be used to override the `htmlFor` given to the <label> element by FormControl's React Context.\nWhen 'as' prop is 'legend' or 'span', it is used as the `id` for the element.\nMay be used to override the ID assigned by FormControl's React Context",
         "defaultValue": null
       },
       {
         "name": "htmlFor",
         "type": "string",
         "required": false,
-        "description": "",
+        "description": "The unique identifier for the associated input",
         "defaultValue": null
       },
       {
@@ -5715,21 +5283,21 @@
         "type": "boolean",
         "required": false,
         "description": "Whether the label should be visually hidden",
-        "defaultValue": null
+        "defaultValue": "false"
       },
       {
         "name": "requiredText",
         "type": "string",
         "required": false,
-        "description": "",
-        "defaultValue": null
+        "description": "The text to display when the field is required",
+        "defaultValue": "*"
       },
       {
         "name": "requiredIndicator",
         "type": "boolean",
         "required": false,
-        "description": "",
-        "defaultValue": null
+        "description": "Whether to show or hide the required text in the accessibility tree, the required text is still shown visually.",
+        "defaultValue": "true"
       },
       {
         "name": "labelChildren",
@@ -5749,7 +5317,7 @@
         "name": "variant",
         "type": "FormValidationStatus",
         "required": false,
-        "description": "",
+        "description": "Changes the visual style to match the validation status",
         "defaultValue": null
       },
       {
@@ -5833,14 +5401,14 @@
         "name": "id",
         "type": "string",
         "required": false,
-        "description": "",
+        "description": "When `as` prop is 'label', it may be used to override the `htmlFor` given to the <label> element by FormControl's React Context.\nWhen 'as' prop is 'legend' or 'span', it is used as the `id` for the element.\nMay be used to override the ID assigned by FormControl's React Context",
         "defaultValue": null
       },
       {
         "name": "htmlFor",
         "type": "string",
         "required": false,
-        "description": "",
+        "description": "The unique identifier for the associated input",
         "defaultValue": null
       },
       {
@@ -5855,21 +5423,21 @@
         "type": "boolean",
         "required": false,
         "description": "Whether the label should be visually hidden",
-        "defaultValue": null
+        "defaultValue": "false"
       },
       {
         "name": "requiredText",
         "type": "string",
         "required": false,
-        "description": "",
-        "defaultValue": null
+        "description": "The text to display when the field is required",
+        "defaultValue": "*"
       },
       {
         "name": "requiredIndicator",
         "type": "boolean",
         "required": false,
-        "description": "",
-        "defaultValue": null
+        "description": "Whether to show or hide the required text in the accessibility tree, the required text is still shown visually.",
+        "defaultValue": "true"
       },
       {
         "name": "labelChildren",
@@ -5889,7 +5457,7 @@
         "name": "variant",
         "type": "FormValidationStatus",
         "required": false,
-        "description": "",
+        "description": "Changes the visual style to match the validation status",
         "defaultValue": null
       },
       {
@@ -6563,8 +6131,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/deprecated/FilteredSearch/FilteredSearch.tsx",
+    "id": "filtered_search",
     "description": "",
     "name": "FilteredSearch",
+    "status": "deprecated",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -6593,28 +6163,28 @@
         "name": "actions",
         "type": "React.ReactNode",
         "required": false,
-        "description": "",
+        "description": "Place another element, such as a button, to the opposite side of the navigation items.",
         "defaultValue": null
       },
       {
         "name": "align",
         "type": "\"right\"",
         "required": false,
-        "description": "",
+        "description": "Use `right` to have navigation items aligned right.",
         "defaultValue": null
       },
       {
         "name": "full",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Used to make navigation fill the width of the container.",
         "defaultValue": null
       },
       {
         "name": "label",
         "type": "string",
         "required": false,
-        "description": "",
+        "description": "Used to set the `aria-label` on the top level `<nav>` element.",
         "defaultValue": null
       },
       {
@@ -6640,8 +6210,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/InlineAutocomplete/InlineAutocomplete.tsx",
+    "id": "drafts_inline_autocomplete",
     "description": "Shows suggestions to complete the current word/phrase the user is actively typing.",
     "name": "InlineAutocomplete",
+    "status": "deprecated",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -6789,25 +6361,6 @@
     "subcomponents": []
   },
   {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/MarkdownEditor/Actions.tsx",
-    "description": "",
-    "name": "MarkdownEditor.Actions",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "children",
-        "type": "React.ReactNode",
-        "required": false,
-        "description": "Markdown editor actions",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/MarkdownEditor/Footer.tsx",
     "description": "",
     "name": "MarkdownEditor.Footer",
@@ -6827,35 +6380,11 @@
     "subcomponents": []
   },
   {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/MarkdownEditor/Label.tsx",
-    "description": "",
-    "name": "MarkdownEditor.Label",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
-        "required": false,
-        "description": "A style object used to override styles using styled-components",
-        "defaultValue": null
-      },
-      {
-        "name": "visuallyHidden",
-        "type": "boolean",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/MarkdownEditor/MarkdownEditor.tsx",
+    "id": "drafts_markdown_editor",
     "description": "Markdown textarea with controls & keyboard shortcuts.",
     "name": "MarkdownEditor",
+    "status": "deprecated",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -7030,18 +6559,170 @@
         "defaultValue": false
       }
     ],
-    "subcomponents": []
-  },
-  {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/MarkdownEditor/Toolbar.tsx",
-    "description": "",
-    "name": "MarkdownEditor.DefaultToolbarButtons",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [],
-    "subcomponents": []
+    "subcomponents": [
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/MarkdownEditor/Actions.tsx",
+        "description": "",
+        "name": "MarkdownEditor.Actions",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "children",
+            "type": "React.ReactNode",
+            "required": false,
+            "description": "Markdown editor actions",
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/MarkdownEditor/Label.tsx",
+        "description": "",
+        "name": "MarkdownEditor.Label",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "sx",
+            "type": "BetterSystemStyleObject",
+            "required": false,
+            "description": "A style object used to override styles using styled-components",
+            "defaultValue": null
+          },
+          {
+            "name": "visuallyHidden",
+            "type": "boolean",
+            "required": false,
+            "description": "Whether the label is visually hidden",
+            "defaultValue": null
+          },
+          {
+            "name": "children",
+            "type": "React.ReactNode",
+            "required": false,
+            "description": "Label content",
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/MarkdownEditor/Toolbar.tsx",
+        "description": "",
+        "name": "MarkdownEditor.DefaultToolbarButtons",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": []
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/MarkdownEditor/_ToolbarButton.tsx",
+        "description": "",
+        "name": "MarkdownEditor.ToolbarButton",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "aria-label",
+            "type": "string",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "aria-labelledby",
+            "type": "string",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "icon",
+            "type": "React.ElementType",
+            "required": true,
+            "description": "Provide an octicon. It will be placed in the center of the button",
+            "defaultValue": null
+          },
+          {
+            "name": "unsafeDisableTooltip",
+            "type": "boolean",
+            "required": false,
+            "description": "Do not use. This is planned to be a temporary prop until the default tooltip on icon buttons are fully rolled out.",
+            "defaultValue": null
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "required": false,
+            "description": "If `description` is provided, we will use a Tooltip to describe the button. Then `aria-label` is used to label the button.",
+            "defaultValue": null
+          },
+          {
+            "name": "tooltipDirection",
+            "type": "TooltipDirection",
+            "required": false,
+            "description": "Sets where the tooltip renders in relation to the target.",
+            "defaultValue": null
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "required": false,
+            "description": "Items that are disabled can not be clicked, selected, or navigated through.",
+            "defaultValue": null
+          },
+          {
+            "name": "size",
+            "type": "Size",
+            "required": false,
+            "description": "Size of button and fontSize of text in button",
+            "defaultValue": null
+          },
+          {
+            "name": "block",
+            "type": "boolean",
+            "required": false,
+            "description": "Allow button width to fill its container.",
+            "defaultValue": null
+          },
+          {
+            "name": "sx",
+            "type": "BetterSystemStyleObject",
+            "required": false,
+            "description": "A style object used to override styles using styled-components",
+            "defaultValue": null
+          },
+          {
+            "name": "variant",
+            "type": "VariantType",
+            "required": false,
+            "description": "Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
+            "defaultValue": null
+          },
+          {
+            "name": "inactive",
+            "type": "boolean",
+            "required": false,
+            "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+            "defaultValue": null
+          },
+          {
+            "name": "labelWrap",
+            "type": "boolean",
+            "required": false,
+            "description": "Whether the button label should wrap to multiple lines of it is longer than the button width.",
+            "defaultValue": null
+          }
+        ]
+      }
+    ]
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/MarkdownEditor/_ErrorMessage.tsx",
@@ -7213,7 +6894,7 @@
         "name": "block",
         "type": "boolean",
         "required": false,
-        "description": "Block",
+        "description": "Expands with width of the component to fill the parent elements",
         "defaultValue": null
       },
       {
@@ -7242,109 +6923,6 @@
         "type": "FormValidationStatus",
         "required": false,
         "description": "Indicates whether the Textarea validation state",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/MarkdownEditor/_ToolbarButton.tsx",
-    "description": "",
-    "name": "MarkdownEditor.ToolbarButton",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "aria-label",
-        "type": "string",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "aria-labelledby",
-        "type": "string",
-        "required": false,
-        "description": "",
-        "defaultValue": null
-      },
-      {
-        "name": "icon",
-        "type": "React.ElementType",
-        "required": true,
-        "description": "Provide an octicon. It will be placed in the center of the button",
-        "defaultValue": null
-      },
-      {
-        "name": "unsafeDisableTooltip",
-        "type": "boolean",
-        "required": false,
-        "description": "Do not use. This is planned to be a temporary prop until the default tooltip on icon buttons are fully rolled out.",
-        "defaultValue": null
-      },
-      {
-        "name": "description",
-        "type": "string",
-        "required": false,
-        "description": "If `description` is provided, we will use a Tooltip to describe the button. Then `aria-label` is used to label the button.",
-        "defaultValue": null
-      },
-      {
-        "name": "tooltipDirection",
-        "type": "TooltipDirection",
-        "required": false,
-        "description": "Sets where the tooltip renders in relation to the target.",
-        "defaultValue": null
-      },
-      {
-        "name": "disabled",
-        "type": "boolean",
-        "required": false,
-        "description": "Items that are disabled can not be clicked, selected, or navigated through.",
-        "defaultValue": null
-      },
-      {
-        "name": "size",
-        "type": "Size",
-        "required": false,
-        "description": "Size of button and fontSize of text in button",
-        "defaultValue": null
-      },
-      {
-        "name": "block",
-        "type": "boolean",
-        "required": false,
-        "description": "Allow button width to fill its container.",
-        "defaultValue": null
-      },
-      {
-        "name": "sx",
-        "type": "BetterSystemStyleObject",
-        "required": false,
-        "description": "A style object used to override styles using styled-components",
-        "defaultValue": null
-      },
-      {
-        "name": "variant",
-        "type": "VariantType",
-        "required": false,
-        "description": "Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
-        "defaultValue": null
-      },
-      {
-        "name": "inactive",
-        "type": "boolean",
-        "required": false,
-        "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
-        "defaultValue": null
-      },
-      {
-        "name": "labelWrap",
-        "type": "boolean",
-        "required": false,
-        "description": "Whether the button label should wrap to multiple lines of it is longer than the button width.",
         "defaultValue": null
       }
     ],
@@ -7392,8 +6970,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/MarkdownViewer/MarkdownViewer.tsx",
+    "id": "drafts_markdown_viewer",
     "description": "",
     "name": "MarkdownViewer",
+    "status": "deprecated",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -7673,8 +7253,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/Skeleton/SkeletonAvatar.tsx",
-    "description": "",
+    "id": "skeleton_avatar",
+    "description": "Skeleton avatars may be used to improve perceived performance by rendering a rough representation of an avatar in a block of content that is still loading.",
     "name": "SkeletonAvatar",
+    "status": "draft",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -7706,8 +7288,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/Skeleton/SkeletonBox.tsx",
-    "description": "",
+    "id": "skeleton_box",
+    "description": "SkeletonBox is a low-level component used to create a skeleton loading animation.",
     "name": "SkeletonBox",
+    "status": "draft",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -7739,8 +7323,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/Skeleton/SkeletonText.tsx",
-    "description": "",
+    "id": "skeleton_text",
+    "description": "SkeletonText is a component that renders a loading state for text content.",
     "name": "SkeletonText",
+    "status": "draft",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -7790,21 +7376,21 @@
         "name": "id",
         "type": "string",
         "required": false,
-        "description": "",
+        "description": "The id of the tab container, used to generate child ids.",
         "defaultValue": null
       },
       {
         "name": "aria-label",
         "type": "string",
         "required": false,
-        "description": "",
+        "description": "Used to set the `aria-label` on the `role=\\\"tablist\\\"` element. Either aria-label or aria-labelledby must be provided.",
         "defaultValue": null
       },
       {
         "name": "aria-labelledby",
         "type": "string",
         "required": false,
-        "description": "",
+        "description": "Used to set the `aria-labelledby` on the `role=\\\"tablist\\\"` element. Either aria-label or aria-labelledby must be provided.",
         "defaultValue": null
       }
     ],
@@ -8042,14 +7628,14 @@
         "name": "htmlFor",
         "type": "string",
         "required": false,
-        "description": "",
+        "description": "The unique identifier for the associated input",
         "defaultValue": null
       },
       {
         "name": "as",
         "type": "\"label\" | \"legend\" | \"span\"",
         "required": false,
-        "description": "",
+        "description": "The label element can be changed to a 'legend' when it's being used to label a fieldset, or a 'span' when it's being used to label an element that is not a form input. For example: when using a FormControl to render a labeled SegementedControl, the label should be a 'span'",
         "defaultValue": "label"
       }
     ],
@@ -8263,21 +7849,21 @@
         "name": "disabled",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the input is styled to look disabled.",
         "defaultValue": null
       },
       {
         "name": "block",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the input takes up the full width of its parent",
         "defaultValue": null
       },
       {
         "name": "monospace",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the text rendered in the input is in a monospace font.",
         "defaultValue": null
       },
       {
@@ -8291,28 +7877,28 @@
         "name": "contrast",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the background color of the input has contrast against the default background color.",
         "defaultValue": null
       },
       {
         "name": "hasTrailingAction",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the input has a trailing action.",
         "defaultValue": null
       },
       {
         "name": "isInputFocused",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the input is focused.",
         "defaultValue": null
       },
       {
         "name": "validationStatus",
         "type": "FormValidationStatus",
         "required": false,
-        "description": "",
+        "description": "The result of validation on the input.",
         "defaultValue": null
       }
     ],
@@ -8331,28 +7917,28 @@
         "name": "disabled",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the input is styled to look disabled.",
         "defaultValue": null
       },
       {
         "name": "size",
         "type": "TextInputSizes",
         "required": false,
-        "description": "",
+        "description": "The size of the input.",
         "defaultValue": null
       },
       {
         "name": "block",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the input takes up the full width of its parent",
         "defaultValue": null
       },
       {
         "name": "monospace",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the text rendered in the input is in a monospace font.",
         "defaultValue": null
       },
       {
@@ -8373,42 +7959,42 @@
         "name": "hasLeadingVisual",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the input has a leading visual.",
         "defaultValue": null
       },
       {
         "name": "hasTrailingVisual",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the input has a trailing visual.",
         "defaultValue": null
       },
       {
         "name": "contrast",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the background color of the input has contrast against the default background color.",
         "defaultValue": null
       },
       {
         "name": "hasTrailingAction",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the input has a trailing action.",
         "defaultValue": null
       },
       {
         "name": "isInputFocused",
         "type": "boolean",
         "required": false,
-        "description": "",
+        "description": "Whether the input is focused.",
         "defaultValue": null
       },
       {
         "name": "validationStatus",
         "type": "FormValidationStatus",
         "required": false,
-        "description": "",
+        "description": "The result of validation on the input.",
         "defaultValue": null
       }
     ],

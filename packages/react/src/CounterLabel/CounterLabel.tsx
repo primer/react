@@ -1,4 +1,4 @@
-import type {HTMLAttributes} from 'react'
+import type {HTMLAttributes, PropsWithChildren} from 'react'
 import React, {forwardRef} from 'react'
 import Box from '../Box'
 import type {BetterSystemStyleObject, SxProp} from '../sx'
@@ -6,13 +6,19 @@ import {merge} from '../sx'
 import VisuallyHidden from '../_VisuallyHidden'
 import {defaultSxProp} from '../utils/defaultSxProp'
 
-export type CounterLabelProps = React.PropsWithChildren<
+export type CounterLabelProps = PropsWithChildren<
   HTMLAttributes<HTMLSpanElement> & {
     /** Pass in 'primary' for a darker background and inverse text, or 'secondary' for a lighter background and primary text. Omitting the scheme prop renders the default counter scheme */
     scheme?: 'primary' | 'secondary'
   } & SxProp
 >
 
+/**
+ * Counter label is a numbered label accompanied by text. It's typically used in a button to indicate some count associated with the action.
+ * @primerid counter_label
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 const CounterLabel = forwardRef<HTMLSpanElement, CounterLabelProps>(
   ({scheme = 'secondary', sx = defaultSxProp, children, ...props}: CounterLabelProps, forwardedRef) => {
     return (

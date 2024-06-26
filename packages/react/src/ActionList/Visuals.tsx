@@ -31,6 +31,11 @@ export const LeadingVisualContainer: FC<PropsWithChildren<VisualProps>> = ({sx =
 }
 
 export type ActionListLeadingVisualProps = VisualProps
+/**
+ * Icon (or similar) positioned before `Item` text
+ * @alias ActionList.LeadingVisual
+ * @primerparentid action_list
+ */
 export const LeadingVisual: FC<PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
   const {variant, disabled, inactive} = React.useContext(ItemContext)
   return (
@@ -54,6 +59,11 @@ export const LeadingVisual: FC<PropsWithChildren<VisualProps>> = ({sx = {}, ...p
 }
 
 export type ActionListTrailingVisualProps = VisualProps
+/**
+ * Icon (or similar) positioned after `Item` text
+ * @alias ActionList.TrailingVisual
+ * @primerparentid action_list
+ */
 export const TrailingVisual: FC<PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
   const {variant, disabled, inactive} = React.useContext(ItemContext)
   return (

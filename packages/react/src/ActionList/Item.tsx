@@ -51,6 +51,11 @@ const InactiveIndicator: React.FC<{
   </Tooltip>
 )
 
+/**
+ * An actionable or selectable `Item`
+ * @alias ActionList.Item
+ * @primerparentid action_list
+ */
 export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
   (
     {

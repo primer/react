@@ -17,13 +17,23 @@ type MutatedSxProps = {
 } & SxProp
 
 export type PointerBoxProps = {
+  /** Sets the location of the caret. The format is [edge]-[position on edge]. For example, right-top will position the caret on the top of the right edge of the box. */
   caret?: CaretProps['location']
+  /** Background color of the box */
   bg?: CaretProps['bg']
+  /** Color of the border around the box */
   borderColor?: CaretProps['borderColor']
+  /** Width of the border around the box */
   border?: CaretProps['borderWidth']
 } & BoxProps &
   MutatedSxProps
 
+/**
+ * A customisable bordered box with a caret pointer
+ * @primerid pointer_box
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 function PointerBox(props: PointerBoxProps) {
   // don't destructure these, just grab them
   const themeContext = React.useContext(ThemeContext)

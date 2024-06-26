@@ -44,6 +44,13 @@ export type ActionMenuProps = {
   onOpenChange?: (s: boolean) => void
 } & Pick<AnchoredOverlayProps, 'anchorRef'>
 
+/**
+ * Action menu is composed of action list and overlay patterns used for quick actions and selections.
+ * Defaults to a the "default" Button variant with a trailing down triangle icon.
+ * @primerid action_menu
+ * @primerstatus beta
+ * @primera11yreviewed false
+ */
 const Menu: FC<PropsWithChildren<ActionMenuProps>> = ({
   anchorRef: externalAnchorRef,
   open,
@@ -138,6 +145,12 @@ const Menu: FC<PropsWithChildren<ActionMenuProps>> = ({
 }
 
 export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string}
+
+/**
+ * Container for a custom anchor element that triggers the ActionMenu. Commonly used to wrap an IconButton.
+ * @alias ActionMenu.Anchor
+ * @primerparentid action_menu
+ */
 const Anchor = forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, ...anchorProps}, anchorRef) => {
   const {onOpen, isSubmenu} = React.useContext(MenuContext)
 
@@ -179,6 +192,12 @@ const Anchor = forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, ...anc
 export type ActionMenuButtonProps = Omit<ButtonProps, 'children'> & {
   children: React.ReactNode
 }
+
+/**
+ * The button that toggles the ActionMenu
+ * @alias ActionMenu.Button
+ * @primerparentid action_menu
+ */
 const MenuButton = forwardRef(({...props}, anchorRef) => {
   return (
     <Anchor ref={anchorRef}>
@@ -194,7 +213,13 @@ type MenuOverlayProps = Partial<OverlayProps> &
      */
     children: React.ReactNode
   }
-const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
+
+/**
+ * The non-modal dialog that overlays the UI
+ * @alias ActionMenu.Overlay
+ * @primerparentid action_menu
+ */
+const Overlay: FC<PropsWithChildren<MenuOverlayProps>> = ({
   children,
   align = 'start',
   side,
@@ -211,7 +236,7 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
     onOpen,
     onClose,
     isSubmenu = false,
-  } = React.useContext(MenuContext) as MandateProps<MenuContextProps, 'anchorRef'>
+  } = useContext(MenuContext) as MandateProps<MenuContextProps, 'anchorRef'>
 
   const containerRef = React.useRef<HTMLDivElement>(null)
   useMenuKeyboardNavigation(open, onClose, containerRef, anchorRef, isSubmenu)

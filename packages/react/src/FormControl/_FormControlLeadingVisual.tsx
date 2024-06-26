@@ -5,6 +5,11 @@ import {get} from '../constants'
 import type {SxProp} from '../sx'
 import {useFormControlContext} from './_FormControlContext'
 
+/**
+ * The visual element that appears before the input in a form control.
+ * @alias FormControl.LeadingVisual
+ * @primerparentid form_control
+ */
 const FormControlLeadingVisual: FC<PropsWithChildren<SxProp>> = ({children, sx}) => {
   const {disabled, captionId} = useFormControlContext()
   return (

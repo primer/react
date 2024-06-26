@@ -4,6 +4,12 @@ import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
 
+/**
+ * Branch name is a label-type component rendered as an <a> tag by default that displays the name of a branch.
+ * @primerid branch_name
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 const BranchName = styled.a<SxProp>`
   display: inline-block;
   padding: 2px 6px;

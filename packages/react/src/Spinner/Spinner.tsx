@@ -22,6 +22,12 @@ export type SpinnerProps = {
 } & HTMLDataAttributes &
   SxProp
 
+/**
+ * Use Spinner to show users that an action is in progress.
+ * @primerid spinner
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 function Spinner({size: sizeKey = 'medium', srText = 'Loading', 'aria-label': ariaLabel, ...props}: SpinnerProps) {
   const size = sizeMap[sizeKey]
   const hasHiddenLabel = srText !== null && ariaLabel === undefined

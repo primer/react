@@ -19,6 +19,12 @@ type CheckboxGroupProps = {
 } & CheckboxOrRadioGroupProps &
   SxProp
 
+/**
+ * Checkbox group renders a set of checkboxes.
+ * @primerid checkbox_group
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 const CheckboxGroup: FC<PropsWithChildren<CheckboxGroupProps>> = ({children, disabled, onChange, ...rest}) => {
   const formControlComponentChildren = React.Children.toArray(children)
     .filter(child => React.isValidElement(child) && child.type === FormControl)

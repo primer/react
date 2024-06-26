@@ -16,6 +16,10 @@ export type FilterListProps = ComponentProps<typeof FilterListBase>
 
 /**
  * @deprecated Use the ActionList component instead.
+ * The FilterList component is a menu with filter options that filter the main content of the page.
+ * @primerid filter_list
+ * @primerstatus deprecated
+ * @primera11yreviewed false
  */
 const FilterList = ({children, ...rest}: React.PropsWithChildren<FilterListProps>) => {
   const items = React.Children.map(children, child => {

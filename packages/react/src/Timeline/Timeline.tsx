@@ -7,6 +7,12 @@ import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
 
+/**
+ * The timeline component is used to display items on a vertical timeline, connected by timeline elements.
+ * @primerid timeline
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 const Timeline = styled.div<{clipSidebar?: boolean} & SxProp>`
   display: flex;
   flex-direction: column;
@@ -27,6 +33,11 @@ const Timeline = styled.div<{clipSidebar?: boolean} & SxProp>`
 
 type StyledTimelineItemProps = {condensed?: boolean} & SxProp
 
+/**
+ * An individual item on a timeline.
+ * @alias Timeline.Item
+ * @primerparentid timeline
+ */
 const TimelineItem = styled.div.attrs<StyledTimelineItemProps>(props => ({
   className: clsx('Timeline-Item', props.className),
 }))<StyledTimelineItemProps>`
@@ -70,6 +81,11 @@ const TimelineItem = styled.div.attrs<StyledTimelineItemProps>(props => ({
 
 export type TimelineBadgeProps = {children?: React.ReactNode} & SxProp
 
+/**
+ * The "badge" that prepends a timeline item's body content.
+ * @alias Timeline.Badge
+ * @primerparentid timeline
+ */
 const TimelineBadge = (props: TimelineBadgeProps) => {
   return (
     <Box position="relative" zIndex={1}>
@@ -98,6 +114,11 @@ const TimelineBadge = (props: TimelineBadgeProps) => {
   )
 }
 
+/**
+ * A timeline item's body content.
+ * @alias Timeline.Body
+ * @primerparentid timeline
+ */
 const TimelineBody = styled.div<SxProp>`
   min-width: 0;
   max-width: 100%;
@@ -108,6 +129,11 @@ const TimelineBody = styled.div<SxProp>`
   ${sx};
 `
 
+/**
+ * A visual break in the timeline.
+ * @alias Timeline.Break
+ * @primerparentid timeline
+ */
 const TimelineBreak = styled.div<SxProp>`
   position: relative;
   z-index: 1;

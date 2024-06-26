@@ -17,6 +17,11 @@ type InternalAutocompleteInputProps = {
 
 const ARROW_KEYS_NAV = new Set(['ArrowUp', 'ArrowDown'])
 
+/**
+ * The text input field for an Autocomplete component. Defaults to using a `TextInput` component, but is polymorphic to allow for custom components.
+ * @alias Autocomplete.Input
+ * @primerparentid autocomplete
+ */
 const AutocompleteInput = forwardRef(
   (
     {

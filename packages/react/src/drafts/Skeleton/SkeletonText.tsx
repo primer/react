@@ -68,6 +68,12 @@ const skeletonTextStyles = {
   },
 }
 
+/**
+ * SkeletonText is a component that renders a loading state for text content.
+ * @primerid skeleton_text
+ * @primerstatus draft
+ * @primera11yreviewed false
+ */
 export const SkeletonText: FC<SkeletonTextProps> = ({lines = 1, maxWidth, size = 'bodyMedium', ...rest}) => {
   return lines < 2 ? (
     <SkeletonBox

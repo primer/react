@@ -174,6 +174,12 @@ const overflowEffect = (
   }
 }
 
+/**
+ * Action bar contains a collection of horizontally aligned buttons.
+ * @primerid actionbar
+ * @primerstatus alpha
+ * @primera11yreviewed true
+ */
 export const ActionBar: FC<PropsWithChildren<ActionBarProps>> = props => {
   const {size = 'medium', children, 'aria-label': ariaLabel} = props
   const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])

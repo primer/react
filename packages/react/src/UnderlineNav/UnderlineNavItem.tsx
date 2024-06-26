@@ -50,6 +50,11 @@ export type UnderlineNavItemProps = {
 } & SxProp &
   LinkProps
 
+/**
+ * A link in the UnderlineNav
+ * @alias UnderlineNav.Item
+ * @primerparentid underline_nav
+ */
 export const UnderlineNavItem = forwardRef(
   (
     {

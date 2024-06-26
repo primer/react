@@ -19,27 +19,50 @@ import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 
 interface SelectPanelSingleSelection {
+  /** Specify the selected items */
   selected: ItemInput | undefined
+  /** Provide a callback called when the selected item changes */
   onSelectedChange: (selected: ItemInput | undefined) => void
 }
 
 interface SelectPanelMultiSelection {
+  /** Specify the selected item */
   selected: ItemInput[]
+  /** Provide a callback called when the selected items change */
   onSelectedChange: (selected: ItemInput[]) => void
 }
 
 interface SelectPanelBaseProps {
   // TODO: Make `title` required in the next major version
+  /**
+   * A descriptive title for the panel
+   * @default Select an item
+   */
   title?: string | React.ReactElement
+  /**
+   * When provided, a subtitle is displayed below the title
+   */
   subtitle?: string | React.ReactElement
   onOpenChange: (
     open: boolean,
     gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection',
   ) => void
+  /**
+   * Text used in anchor when there are no selected items
+   */
   placeholder?: string
   // TODO: Make `inputLabel` required in next major version
+  /**
+   * The aria-label for the filter input
+   */
   inputLabel?: string
+  /**
+   * See [Overlay props](/react/Overlay#props)
+   */
   overlayProps?: Partial<OverlayProps>
+  /**
+   * Footer rendered at the end of the panel
+   */
   footer?: string | React.ReactElement
 }
 

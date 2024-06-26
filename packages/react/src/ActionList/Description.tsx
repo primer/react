@@ -16,6 +16,11 @@ export type ActionListDescriptionProps = {
   variant?: 'inline' | 'block'
 } & SxProp
 
+/**
+ * Secondary text which provides additional information about an `Item`
+ * @alias ActionList.Description
+ * @primerparentid action_list
+ */
 export const Description: FC<PropsWithChildren<ActionListDescriptionProps>> = ({
   variant = 'inline',
   sx = {},

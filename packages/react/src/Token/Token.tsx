@@ -34,6 +34,12 @@ const LeadingVisualContainer: React.FC<React.PropsWithChildren<Pick<TokenBasePro
   </Box>
 )
 
+/**
+ * Token is a compact representation of an object, and is typically used to show a collection of related metadata.
+ * @primer_id token
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 const Token = forwardRef((props, forwardedRef) => {
   const {
     as,

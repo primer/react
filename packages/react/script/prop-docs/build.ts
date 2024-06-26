@@ -79,6 +79,10 @@ const printSkippedProps = () => {
 const formatComponentJson = ({description, displayName, filePath, props, tags}) => {
   const {alias, primerdocsid, primerid, primerstatus, primera11yreviewed, primerstories = '', primerparentid} = tags
 
+  // TODO: add importPath
+  // - default to `primer/react`
+  // - drafts/ get `primer/react/drafts`
+  // - deprecated/ get `primer/react/deprecated`
   return {
     // `filePath` is just used for debugging. It may not actually be necessary.
     filePath,

@@ -43,7 +43,15 @@ const LARGE_TITLE_HEIGHT = '3rem'
 
 // Types that are shared between PageHeader children components
 export type ChildrenPropTypes = {
+  /** Class name(s) to override styles */
   className?: string
+  /**
+   * Whether to hide the component.
+   * The component can be hidden for all viewport widths, or specified viewport widths.
+   * Some children have a default value for this prop:
+   * - `PageHeader.ContextArea`, `PageHeader.ContextAreaActions`, `PageHeader.ContextBar`, and `PageHeader.ParentLink` are hidden on regular and wide viewports by default.
+   * - `PageHeader.LeadingAction`, and `PageHeader.TrailingAction` are hidden on narrow viewports by default.
+   */
   hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
@@ -66,9 +74,16 @@ const hiddenOnNarrow = {
 export type PageHeaderProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType | 'header' | 'div'
+  /** Class name(s) to override styles */
   className?: string
 } & SxProp
 
+/**
+ * Page header determines the top-level headings of a UI.
+ * @primerid drafts_page_header
+ * @primerstatus draft
+ * @primera11yreviewed true
+ */
 const Root = forwardRef<HTMLDivElement, PropsWithChildren<PageHeaderProps>>(
   ({children, className, sx = {}, as = 'div'}, forwardedRef) => {
     const rootStyles = {
@@ -172,10 +187,15 @@ const Root = forwardRef<HTMLDivElement, PropsWithChildren<PageHeaderProps>>(
   },
 ) as PolymorphicForwardRefComponent<'div', PageHeaderProps>
 
-// PageHeader.ContextArea : Only visible on narrow viewports by default to provide user context of where they are at their journey. `hidden` prop available
-// to manage their custom visibility but consumers should be careful if they choose to hide this on narrow viewports.
-// PageHeader.ContextArea Sub Components: PageHeader.ParentLink, PageHeader.ContextBar, PageHeader.ContextAreaActions
+// PageHeader.ContextArea
 // ---------------------------------------------------------------------
+/**
+ * Only visible on narrow viewports by default to provide user context of where they are at their journey. `hidden` prop available
+ * to manage their custom visibility but consumers should be careful if they choose to hide this on narrow viewports.
+ * PageHeader.ContextArea Sub Components: PageHeader.ParentLink, PageHeader.ContextBar, PageHeader.ContextAreaActions
+ * @alias PageHeader.ContextArea
+ * @primerparentid drafts_page_header
+ */
 const ContextArea: FC<PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
@@ -210,7 +230,13 @@ type LinkProps = Pick<
 }
 export type ParentLinkProps = React.PropsWithChildren<ChildrenPropTypes & LinkProps>
 
-// PageHeader.ParentLink : Only visible on narrow viewports by default to let users navigate up in the hierarchy.
+// PageHeader.ParentLink
+// ---------------------------------------------------------------------
+/**
+ * Only visible on narrow viewports by default to let users navigate up in the hierarchy.
+ * @alias PageHeader.ParentLink
+ * @primerparentid drafts_page_header
+ */
 const ParentLink = forwardRef<HTMLAnchorElement, ParentLinkProps>(
   ({children, className, sx = {}, href, 'aria-label': ariaLabel, as = 'a', hidden = hiddenOnRegularAndWide}, ref) => {
     return (
@@ -244,10 +270,13 @@ const ParentLink = forwardRef<HTMLAnchorElement, ParentLinkProps>(
 ) as PolymorphicForwardRefComponent<'a', ParentLinkProps>
 
 // ContextBar
-// Generic slot for any component above the title region. Use it for custom breadcrumbs and other navigation elements instead of ParentLink.
 // ---------------------------------------------------------------------
-
-const ContextBar: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
+/**
+ * Generic slot for any component above the title region. Use it for custom breadcrumbs and other navigation elements instead of ParentLink.
+ * @alias PageHeader.ContextBar
+ * @primerparentid drafts_page_header
+ */
+const ContextBar: FC<PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
   sx = {},
@@ -274,7 +303,11 @@ const ContextBar: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 
 // ContextAreaActions
 // ---------------------------------------------------------------------
-const ContextAreaActions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
+/**
+ * @alias PageHeader.ContextAreaActions
+ * @primerparentid drafts_page_header
+ */
+const ContextAreaActions: FC<PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
   sx = {},
@@ -307,10 +340,14 @@ const ContextAreaActions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> =
 type TitleAreaProps = {
   variant?: 'subtitle' | 'medium' | 'large' | ResponsiveValue<'subtitle' | 'medium' | 'large'>
 } & ChildrenPropTypes
-// PageHeader.TitleArea: The main title area of the page. Visible on all viewports.
-// PageHeader.TitleArea Sub Components: PageHeader.LeadingVisual, PageHeader.Title, PageTitle.TrailingVisual
+// PageHeader.TitleArea
 // ---------------------------------------------------------------------
-
+/**
+ * The main title area of the page. Visible on all viewports.
+ * Sub Components: PageHeader.LeadingVisual, PageHeader.Title, PageTitle.TrailingVisual
+ * @alias PageHeader.TitleArea
+ * @primerparentid drafts_page_header
+ */
 const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<TitleAreaProps>>(
   ({children, className, sx = {}, hidden = false, variant = 'medium'}, forwardedRef) => {
     const titleAreaRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
@@ -381,7 +418,11 @@ const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Title
 
 // PageHeader.LeadingAction and PageHeader.TrailingAction should only be visible on regular viewports.
 // So they come as hidden on narrow viewports by default and their visibility can be managed by their `hidden` prop.
-const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
+/**
+ * @alias PageHeader.LeadingAction
+ * @primerparentid drafts_page_header
+ */
+const LeadingAction: FC<PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
   sx = {},
@@ -416,12 +457,11 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 }
 
 // This is reserved for only breadcrumbs.
-const Breadcrumbs: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
-  children,
-  className,
-  sx = {},
-  hidden = false,
-}) => {
+/**
+ * @alias PageHeader.Breadcrumbs
+ * @primerparentid drafts_page_header
+ */
+const Breadcrumbs: FC<PropsWithChildren<ChildrenPropTypes>> = ({children, className, sx = {}, hidden = false}) => {
   return (
     <Box
       className={className}
@@ -446,12 +486,11 @@ const Breadcrumbs: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
 }
 
 // PageHeader.LeadingVisual and PageHeader.TrailingVisual should remain visible on narrow viewports.
-const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
-  children,
-  className,
-  sx = {},
-  hidden = false,
-}) => {
+/**
+ * @alias PageHeader.LeadingVisual
+ * @primerparentid drafts_page_header
+ */
+const LeadingVisual: FC<PropsWithChildren<ChildrenPropTypes>> = ({children, className, sx = {}, hidden = false}) => {
   const style: CSSCustomProperties = {}
   // @ts-ignore sx has height attribute
   const {height} = sx
@@ -483,13 +522,11 @@ export type TitleProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 } & ChildrenPropTypes
 
-const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
-  children,
-  className,
-  sx = {},
-  hidden = false,
-  as = 'h2',
-}) => {
+/**
+ * @alias PageHeader.Title
+ * @primerparentid drafts_page_header
+ */
+const Title: FC<PropsWithChildren<TitleProps>> = ({children, className, sx = {}, hidden = false, as = 'h2'}) => {
   const style: CSSCustomProperties = {}
   // @ts-ignore sxProp can have color attribute
   const {fontSize, lineHeight, fontWeight} = sx
@@ -521,12 +558,11 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
 }
 
 // PageHeader.LeadingVisual and PageHeader.TrailingVisual should remain visible on narrow viewports.
-const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
-  children,
-  className,
-  sx = {},
-  hidden = false,
-}) => {
+/**
+ * @alias PageHeader.TrailingVisual
+ * @primerparentid drafts_page_header
+ */
+const TrailingVisual: FC<PropsWithChildren<ChildrenPropTypes>> = ({children, className, sx = {}, hidden = false}) => {
   const style: CSSCustomProperties = {}
   // @ts-ignore sx has height attribute
   const {height} = sx
@@ -554,7 +590,11 @@ const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   )
 }
 
-const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
+/**
+ * @alias PageHeader.TrailingAction
+ * @primerparentid drafts_page_header
+ */
+const TrailingAction: FC<PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
   sx = {},
@@ -588,12 +628,11 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   )
 }
 
-const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
-  children,
-  className,
-  sx = {},
-  hidden = false,
-}) => {
+/**
+ * @alias PageHeader.Actions
+ * @primerparentid drafts_page_header
+ */
+const Actions: FC<PropsWithChildren<ChildrenPropTypes>> = ({children, className, sx = {}, hidden = false}) => {
   const style: CSSCustomProperties = {}
   // @ts-ignore sx has height attribute
   const {height} = sx
@@ -626,7 +665,11 @@ const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   )
 }
 
-// PageHeader.Description: The description area of the header. Visible on all viewports
+/**
+ * The description area of the header. Visible on all viewports
+ * @alias PageHeader.Description
+ * @primerparentid drafts_page_header
+ */
 const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,

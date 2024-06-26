@@ -20,7 +20,7 @@ export type TextareaProps = {
    */
   validationStatus?: FormValidationStatus
   /**
-   * Block
+   * Expands with width of the component to fill the parent elements
    */
   block?: boolean
   /**
@@ -65,6 +65,9 @@ const StyledTextarea = styled.textarea<TextareaProps>`
 /**
  * An accessible, native textarea component that supports validation states.
  * This component accepts all native HTML <textarea> attributes as props.
+ * @primerid textarea
+ * @primerstatus alpha
+ * @primera11yreviewed false
  */
 const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   (

@@ -45,6 +45,11 @@ export const GroupContext = React.createContext<ContextProps>({
   selectionVariant: undefined,
 })
 
+/**
+ * Collects related `Items` in an `ActionList`.
+ * @alias ActionList.Group
+ * @primerparentid action_list
+ */
 export const Group: FC<PropsWithChildren<ActionListGroupProps>> = ({
   title,
   variant = 'subtle',
@@ -123,6 +128,8 @@ export type GroupHeadingProps = Pick<ActionListGroupProps, 'variant' | 'auxiliar
  * If the role is "listbox" or "menu" (ActionMenu), the group heading is rendered as a div with presentation role and it is
  * hidden from the accessibility tree due to the limitation of listbox children. https://w3c.github.io/aria/#listbox
  * groups under menu or listbox are labelled by `aria-label`
+ * @alias ActionList.GroupHeading
+ * @primerparentid action_list
  */
 export const GroupHeading: FC<PropsWithChildren<GroupHeadingProps>> = ({
   as,

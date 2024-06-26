@@ -65,6 +65,9 @@ export interface PortalProps {
 /**
  * Creates a React Portal, placing all children in a separate physical DOM root node.
  * @see https://reactjs.org/docs/portals.html
+ * @primerid portal
+ * @primerstatus alpha
+ * @primera11yreviewed false
  */
 export const Portal: FC<PropsWithChildren<PortalProps>> = ({children, onMount, containerName: _containerName}) => {
   const elementRef = React.useRef<HTMLDivElement | null>(null)

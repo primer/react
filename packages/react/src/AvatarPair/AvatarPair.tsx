@@ -25,6 +25,12 @@ const StyledAvatarPair = styled(Box)`
 
 export type AvatarPairProps = BoxProps
 
+/**
+ * AvatarPair is composed of two avatars, one larger one and a smaller one, overlaid slightly.
+ * @primerid avatar_pair
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 const AvatarPair = ({children, ...rest}: AvatarPairProps) => {
   const avatars = React.Children.map(children, (child, i) => {
     if (!React.isValidElement(child)) {

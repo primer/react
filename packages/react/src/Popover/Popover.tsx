@@ -20,11 +20,27 @@ type CaretPosition =
   | 'right-top'
 
 type StyledPopoverProps = {
+  /**
+   * Controls the position of the caret
+   * @default top
+   */
   caret?: CaretPosition
+  /**
+   * Set to true to render the popover using relative positioning.
+   */
   relative?: boolean
+  /**
+   * Controls the visibility of the popover.
+   */
   open?: boolean
 } & SxProp
 
+/**
+ * Popover is used to bring attention to specific user interface elements.
+ * @primerid popover
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 const Popover = styled.div.attrs<StyledPopoverProps>(({className, caret = 'top'}) => {
   return {
     className: clsx(className, `caret-pos--${caret}`),
@@ -36,6 +52,10 @@ const Popover = styled.div.attrs<StyledPopoverProps>(({className, caret = 'top'}
   ${sx};
 `
 
+/**
+ * @alias Popover.Content
+ * @primerparentid popover
+ */
 const PopoverContent = styled.div<SxProp>`
   border: 1px solid ${get('colors.border.default')};
   border-radius: ${get('radii.2')};

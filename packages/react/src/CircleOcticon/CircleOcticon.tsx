@@ -5,10 +5,18 @@ import Box from '../Box'
 
 export type CircleOcticonProps = {
   as?: React.ElementType
+  /** Set the width and height of the icon in pixels */
   size?: number
+  /** The Octicon to render in the circle */
   icon: React.ComponentType<React.PropsWithChildren<{size?: IconProps['size']}>>
 } & BoxProps
 
+/**
+ * Use circle octicon to render any Octicon with a circle background. CircleOcticons are most commonly used to represent the status of a pull request in the comment timeline.
+ * @primerid circle_octicon
+ * @primerstatus alpha
+ * @prmera11yreviewed false
+ */
 function CircleOcticon(props: CircleOcticonProps) {
   const {size = 32, as, icon: IconComponent, bg, ...rest} = props
   return (

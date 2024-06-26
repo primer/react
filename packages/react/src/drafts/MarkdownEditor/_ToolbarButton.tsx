@@ -3,6 +3,10 @@ import type {IconButtonProps} from '../../Button'
 import {IconButton} from '../../Button'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
 
+/**
+ * @alias MarkdownEditor.ToolbarButton
+ * @primerparentid drafts_markdown_editor
+ */
 export const ToolbarButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, ref) => {
   const {disabled, condensed} = useContext(MarkdownEditorContext)
 

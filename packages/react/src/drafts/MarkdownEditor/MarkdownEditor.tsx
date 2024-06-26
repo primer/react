@@ -153,6 +153,9 @@ let editorsInPreviewMode: string[] = []
 /**
  * Markdown textarea with controls & keyboard shortcuts.
  * @deprecated Will be removed in v37 (https://github.com/primer/react/issues/3604)
+ * @primerid drafts_markdown_editor
+ * @primerstatus deprecated
+ * @primera11yreviewed false
  */
 const MarkdownEditor = forwardRef<MarkdownEditorHandle, MarkdownEditorProps>(
   (

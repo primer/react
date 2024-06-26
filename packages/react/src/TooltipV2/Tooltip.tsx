@@ -126,11 +126,17 @@ const StyledTooltip = styled.span`
 export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = PropsWithChildren<
   {
-    /** The direction of the tooltip in relation to the trigger */
+    /**
+     * TSets where the tooltip renders in relation to the target.
+     * @default s
+     */
     direction?: TooltipDirection
-    /** Text in the tooltip */
+    /** The text to be displayed in the tooltip */
     text: string
-    /** Whether the tooltip content is used to label the trigger (like IconButton), or describe the trigger (most other uses) */
+    /**
+     * The type of tooltip. `label` is used for labelling the element that triggers tooltip. `description` is used for describing or adding a suplementary information to the element that triggers the tooltip.
+     * @default description
+     */
     type?: 'label' | 'description'
   } & SxProp &
     ComponentProps<typeof StyledTooltip> // TODO: figure out why Docgen can't handle this

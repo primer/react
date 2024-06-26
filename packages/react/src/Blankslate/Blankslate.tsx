@@ -121,6 +121,12 @@ const BlankslateContainerQuery = `
   }
 `
 
+/**
+ * Blankslate is used as placeholder to tell users why content is missing.
+ * @primerid blankslate
+ * @primerstatus draft
+ * @primera11yreviewed false
+ */
 function Blankslate({border, children, narrow, spacious}: BlankslateProps) {
   return (
     <>
@@ -140,6 +146,11 @@ function Blankslate({border, children, narrow, spacious}: BlankslateProps) {
 
 export type VisualProps = React.PropsWithChildren
 
+/**
+ * Used to display an icon or image at the top of a Blankslate.
+ * @alias Blankslate.Visual
+ * @primerparentid blankslate
+ */
 function Visual({children}: VisualProps) {
   return <span className="Blankslate-Visual">{children}</span>
 }
@@ -148,6 +159,11 @@ export type HeadingProps = React.PropsWithChildren<{
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }>
 
+/**
+ * The title (heading) of the Blankslate.
+ * @alias Blankslate.Heading
+ * @primerparentid blankslate
+ */
 function Heading({as = 'h2', children}: HeadingProps) {
   return (
     <Box as={as} className="Blankslate-Heading">
@@ -158,6 +174,11 @@ function Heading({as = 'h2', children}: HeadingProps) {
 
 export type DescriptionProps = React.PropsWithChildren
 
+/**
+ * An optional description for the Blankslate when the title needs supplemental information.
+ * @alias Blankslate.Description
+ * @primerparentid blankslate
+ */
 function Description({children}: DescriptionProps) {
   return <p className="Blankslate-Description">{children}</p>
 }
@@ -166,6 +187,11 @@ export type PrimaryActionProps = React.PropsWithChildren<{
   href: string
 }>
 
+/**
+ * The primary action to take in response to the messaging in Blankslate.
+ * @alias Blankslate.PrimaryAction
+ * @primerparentid blankslate
+ */
 function PrimaryAction({children, href}: PrimaryActionProps) {
   return (
     <div className="Blankslate-Action">
@@ -180,6 +206,11 @@ export type SecondaryActionProps = React.PropsWithChildren<{
   href: string
 }>
 
+/**
+ * The secondary action to take in response to the messaging in Blankslate.
+ * @alias Blankslate.SecondaryAction
+ * @primerparentid blankslate
+ */
 function SecondaryAction({children, href}: SecondaryActionProps) {
   return (
     <div className="Blankslate-Action">

@@ -344,6 +344,12 @@ type StackProps<As> = PropsWithChildren<{
   padding?: Padding
 }>
 
+/**
+ * Stack is a layout component that creates responsive horizontal and vertical flows.
+ * @primerid stack
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 function Stack<As extends ElementType>({
   as,
   children,
@@ -410,6 +416,11 @@ type StackItemProps<As> = PropsWithChildren<{
   grow?: boolean | ResponsiveValue<boolean>
 }>
 
+/**
+ * A child to lay out in the Stack
+ * @alias Stack.Item
+ * @primerparentid stack
+ */
 function StackItem<As extends ElementType>({
   as,
   children,

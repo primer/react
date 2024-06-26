@@ -180,12 +180,22 @@ const transformChildren = (children: React.ReactNode) => {
 }
 
 export type AvatarStackProps = {
+  /** Align the avatars to the right */
   alignRight?: boolean
+  /** Do not spread the avatars on hover */
   disableExpand?: boolean
+  /** The size of the avatar children in pixels */
   size?: number | ResponsiveValue<number>
+  /** A set of Avatar components to stack */
   children: React.ReactNode
 } & SxProp
 
+/**
+ * Avatar stack displays two or more avatars in an inline stack.
+ * @primerid avatar_stack
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 const AvatarStack = ({children, alignRight, disableExpand, size, sx: sxProp = defaultSxProp}: AvatarStackProps) => {
   const count = React.Children.count(children)
   const wrapperClassNames = clsx({

@@ -43,6 +43,10 @@ export const CoreFooter = ({
   )
 }
 
+/**
+ * @alias MarkdownEditor.Footer
+ * @primerparentid drafts_markdown_editor
+ */
 export const Footer = ({
   children,
 }: {
@@ -51,6 +55,10 @@ export const Footer = ({
 }) => <CoreFooter>{children}</CoreFooter>
 Footer.displayName = 'MarkdownEditor.Footer'
 
+/**
+ * @alias MarkdownEditor.FooterButton
+ * @primerparentid drafts_markdown_editor
+ */
 export const FooterButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   const {disabled} = useContext(MarkdownEditorContext)
   return <Button ref={ref} size="small" disabled={disabled} {...props} />

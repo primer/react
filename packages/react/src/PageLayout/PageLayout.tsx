@@ -49,11 +49,25 @@ const PageLayoutContext = React.createContext<{
 // PageLayout
 
 export type PageLayoutProps = {
-  /** The maximum width of the page container */
+  /**
+   * The maximum width of the page container
+   * @default xlarge
+   */
   containerWidth?: keyof typeof containerWidths
-  /** The spacing between the outer edges of the page container and the viewport */
+  /**
+   * The spacing between the outer edges of the page container and the viewport
+   * @default normal
+   */
   padding?: keyof typeof SPACING_MAP
+  /**
+   * The spacing between the content, header, and footer areas
+   * @default normal
+   */
   rowGap?: keyof typeof SPACING_MAP
+  /**
+   * The spacing between the content area and pane(s)
+   * @default normal
+   */
   columnGap?: keyof typeof SPACING_MAP
 
   /** Private prop to allow SplitPageLayout to customize slot components */
@@ -68,6 +82,12 @@ const containerWidths = {
 }
 
 // TODO: refs
+/**
+ * Page layout defines the header, main, pane, and footer areas of a page.
+ * @primerid page_layout
+ * @primerstatus alpha
+ * @primera11yreviewed true
+ */
 const Root: FC<PropsWithChildren<PageLayoutProps>> = ({
   containerWidth = 'xlarge',
   padding = 'normal',
@@ -159,7 +179,7 @@ function negateSpacingValue(value: number | null | Array<number | null>) {
   return value === null ? null : -value
 }
 
-const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({variant = 'none', sx = {}}) => {
+const HorizontalDivider: FC<PropsWithChildren<DividerProps>> = ({variant = 'none', sx = {}}) => {
   const {padding} = React.useContext(PageLayoutContext)
   const responsiveVariant = useResponsiveValue(variant, 'none')
   return (
@@ -221,7 +241,7 @@ const DraggingGlobalStyles = createGlobalStyle`
   }
 `
 
-const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & DraggableDividerProps>> = ({
+const VerticalDivider: FC<PropsWithChildren<DividerProps & DraggableDividerProps>> = ({
   variant = 'none',
   draggable = false,
   onDragStart,
@@ -415,7 +435,12 @@ export type PageLayoutHeaderProps = {
   hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
-const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
+/**
+ * The header area of the overall page layout.
+ * @alias PageLayout.Header
+ * @primerparentid page_layout
+ */
+const Header: FC<PropsWithChildren<PageLayoutHeaderProps>> = ({
   'aria-label': label,
   'aria-labelledby': labelledBy,
   padding = 'none',
@@ -475,7 +500,15 @@ export type PageLayoutContentProps = {
    * An id to an element which uniquely labels the rendered main landmark
    */
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
+  /**
+   * The maximum width of the content region.
+   * @default full
+   */
   width?: keyof typeof contentWidths
+  /**
+   * The amount of padding inside the content.
+   * @default none
+   */
   padding?: keyof typeof SPACING_MAP
   hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
@@ -488,7 +521,12 @@ const contentWidths = {
   xlarge: '1280px',
 }
 
-const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
+/**
+ * The main content area.
+ * @alias PageLayout.Content
+ * @primerparentid page_layout
+ */
+const Content: FC<PropsWithChildren<PageLayoutContentProps>> = ({
   as = 'main',
   'aria-label': label,
   'aria-labelledby': labelledBy,
@@ -568,6 +606,9 @@ const isPaneWidth = (width: PaneWidth | CustomWidthOptions): width is PaneWidth 
 }
 
 export type PageLayoutPaneProps = {
+  /**
+   * Which side of the page the pane should be on. Can be changed for different viewport widths.
+   */
   position?: keyof typeof panePositions | ResponsiveValue<keyof typeof panePositions>
   /**
    * @deprecated Use the `position` prop with a responsive value instead.
@@ -584,13 +625,42 @@ export type PageLayoutPaneProps = {
    * ```
    */
   positionWhenNarrow?: 'inherit' | keyof typeof panePositions
+  /**
+   * Id of an element that acts as a label for the pane. Required if the pane overflows and doesn't have aria-label.
+   */
   'aria-labelledby'?: string
+  /**
+   * Label for the pane. Required if the pane overflows and doesn't have aria-labelledby.
+   */
   'aria-label'?: string
+  /**
+   * The width of the pane. If using custom widths, provide an object with keys 'min', 'max' and 'default'.
+   * @default medium
+   */
   width?: PaneWidth | CustomWidthOptions
+  /**
+   * The minimum width of the pane.
+   * @default 256
+   */
   minWidth?: number
+  /**
+   * When true, the pane may be resized by the user.
+   */
   resizable?: boolean
+  /**
+   * Provide a key used by localStorage to persist the size of the pane on the client.
+   * @default paneWidth
+   */
   widthStorageKey?: string
+  /**
+   * The amount of padding inside the pane.
+   * @default none
+   */
   padding?: keyof typeof SPACING_MAP
+  /**
+   * The divider style between the pane and the content region.
+   * @default none
+   */
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
   /**
    * @deprecated Use the `divider` prop with a responsive value instead.
@@ -607,9 +677,22 @@ export type PageLayoutPaneProps = {
    * ```
    */
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
+  /**
+   * Whether the pane should stick to the top of the screen while the content scrolls.
+   */
   sticky?: boolean
+  /**
+   * Use offsetHeader along with the sticky prop to push the sticky pane down to make room for a sticky header if necessary. Use the type `string` to specify the height with a unit i.e. 5rem; otherwise the type `number` will be taken as px.
+   * @default 0
+   */
   offsetHeader?: string | number
+  /**
+   * Whether the pane is hidden. Can be changed for different viewport widths.
+   */
   hidden?: boolean | ResponsiveValue<boolean>
+  /**
+   * May be used to override the default ID passed to the pane element.
+   */
   id?: string
 } & SxProp
 
@@ -626,7 +709,12 @@ const paneWidths = {
 
 const defaultPaneWidth = {small: 256, medium: 296, large: 320}
 
-const Pane = forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
+/**
+ * Area for supplemental page content. Used like sidebars on wide viewports.
+ * @alias PageHeader.Pane
+ * @primerparentid page_layout
+ */
+const Pane = forwardRef<HTMLDivElement, PropsWithChildren<PageLayoutPaneProps>>(
   (
     {
       'aria-label': label,
@@ -853,7 +941,15 @@ export type PageLayoutFooterProps = {
    * An id to an element which uniquely labels the rendered contentinfo landmark
    */
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
+  /**
+   * The amount of padding inside the footer.
+   * @default none
+   */
   padding?: keyof typeof SPACING_MAP
+  /**
+   * The divider style between the footer and the content region. Can be changed for different viewport widths.
+   * @default none
+   */
   divider?: 'none' | 'line' | ResponsiveValue<'none' | 'line', 'none' | 'line' | 'filled'>
   /**
    * @deprecated Use the `divider` prop with a responsive value instead.
@@ -870,10 +966,18 @@ export type PageLayoutFooterProps = {
    * ```
    */
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
+  /**
+   * Whether the footer is hidden.  Can be changed for different viewport widths.
+   */
   hidden?: boolean | ResponsiveValue<boolean>
 } & SxProp
 
-const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
+/**
+ * The footer area of the overall page layout.
+ * @alias PageHeader.Footer
+ * @primerparentid page_layout
+ */
+const Footer: FC<PropsWithChildren<PageLayoutFooterProps>> = ({
   'aria-label': label,
   'aria-labelledby': labelledBy,
   padding = 'none',

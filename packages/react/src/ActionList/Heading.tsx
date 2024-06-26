@@ -16,6 +16,11 @@ export type ActionListHeadingProps = {
   visuallyHidden?: boolean
 } & SxProp
 
+/**
+ * Heading for an `ActionList`
+ * @alias ActionList.Heading
+ * @primerparentid action_list
+ */
 export const Heading = forwardRef(
   ({as, children, sx = defaultSxProp, visuallyHidden = false, ...props}, forwardedRef) => {
     const innerRef = React.useRef<HTMLHeadingElement>(null)

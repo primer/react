@@ -116,6 +116,11 @@ export type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
   ['aria-labelledby']: string
 }
 
+/**
+ * The dropdown menu with suggestions for an Autocomplete component.
+ * @alias Autocomplete.Menu
+ * @primerparentid autocomplete
+ */
 function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMenuInternalProps<T>) {
   const autocompleteContext = useContext(AutocompleteContext)
   if (autocompleteContext === null) {

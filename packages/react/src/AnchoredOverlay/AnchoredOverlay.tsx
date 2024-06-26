@@ -89,6 +89,9 @@ export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
 /**
  * An `AnchoredOverlay` provides an anchor that will open a floating overlay positioned relative to the anchor.
  * The overlay can be opened and navigated using keyboard or mouse.
+ * @primerid anchored_overlay
+ * @primerstatus alpha
+ * @primera11yreviewed false
  */
 export const AnchoredOverlay: FC<PropsWithChildren<AnchoredOverlayProps>> = ({
   renderAnchor,

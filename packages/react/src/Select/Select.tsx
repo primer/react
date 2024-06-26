@@ -8,6 +8,9 @@ export type SelectProps = Omit<
   Omit<ComponentPropsWithoutRef<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant'>,
   'multiple' | 'hasLeadingVisual' | 'hasTrailingVisual' | 'as'
 > & {
+  /**
+   * Text to show in a Select when no option is selected.
+   */
   placeholder?: string
 }
 
@@ -74,6 +77,12 @@ const ArrowIndicator = styled(ArrowIndicatorSVG)`
   transform: translateY(-50%);
 `
 
+/**
+ * Select is an input for selecting a single option from a menu.
+ * @primerid select
+ * @primerstatus alpha
+ * @primera11yreviewed true
+ */
 const Select = forwardRef<HTMLSelectElement, SelectProps>(
   ({block, children, contrast, disabled, placeholder, size, required, validationStatus, ...rest}: SelectProps, ref) => (
     <TextInputWrapper
@@ -113,8 +122,18 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
   ),
 )
 
+/**
+ * A selectable option in the Select component.
+ * @alias Select.Option
+ * @primerparentid select
+ */
 const Option: FC<PropsWithChildren<HTMLProps<HTMLOptionElement> & {value: string}>> = props => <option {...props} />
 
+/**
+ * Creates a group of related selectable options in the Select component.
+ * @alias Select.OptGroup
+ * @primerparentid select
+ */
 const OptGroup: FC<PropsWithChildren<HTMLProps<HTMLOptGroupElement>>> = props => <optgroup {...props} />
 
 export default Object.assign(Select, {

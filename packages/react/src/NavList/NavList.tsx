@@ -1,5 +1,6 @@
 import {ChevronDownIcon} from '@primer/octicons-react'
-import type {ForwardRefComponent as PolymorphicForwardRefComponent, type ComponentProps} from '../utils/polymorphic'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import type {ComponentProps} from '../utils/types'
 import React, {forwardRef, isValidElement} from 'react'
 import styled from 'styled-components'
 import type {ActionListDividerProps, ActionListLeadingVisualProps, ActionListTrailingVisualProps} from '../ActionList'
@@ -24,8 +25,8 @@ const getSubnavStyles = (depth: number) => {
 // ----------------------------------------------------------------------------
 // NavList
 
-// TODO: figure out how to get stuff from
-// `ComponentProps<'nav'>` documented
+// TODO: figure out how to get stuff from `ComponentProps<'nav'>` documented
+// OR specify and document passthrough props.
 export type NavListProps = {
   /** NavList items */
   children: React.ReactNode
@@ -34,6 +35,12 @@ export type NavListProps = {
 
 const NavBox = styled.nav<SxProp>(sx)
 
+/**
+ * Nav list renders a vertical list of navigation links.
+ * @primerid nav_list
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 const Root = forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
   return (
     <NavBox {...props} ref={ref}>
@@ -65,6 +72,11 @@ export type NavListItemProps = {
   inactiveText?: string
 } & SxProp
 
+/**
+ * A navigation item in the NavList.
+ * @alias NavList.Item
+ * @primerparentid nav_list
+ */
 const Item = forwardRef<HTMLAnchorElement, NavListItemProps>(
   ({'aria-current': ariaCurrent, children, defaultOpen, sx: sxProp = defaultSxProp, ...props}, ref) => {
     const {depth} = React.useContext(SubNavContext)
@@ -191,7 +203,12 @@ export type NavListSubNavProps = {
 const SubNavContext = React.createContext<{depth: number}>({depth: 0})
 
 // TODO: ref prop
-// NOTE: SubNav must be a direct child of an Item
+/**
+ * A nested list of navigation items that appears when a NavList.Item is expanded.
+ * NavList.SubNav must be a direct child of an Item
+ * @alias NavList.SubNav
+ * @primerparentid nav_list
+ */
 const SubNav = ({children, sx: sxProp = defaultSxProp}: NavListSubNavProps) => {
   const {buttonId, subNavId, isOpen} = React.useContext(ItemWithSubNavContext)
   const {depth} = React.useContext(SubNavContext)
@@ -234,6 +251,11 @@ SubNav.displayName = 'NavList.SubNav'
 // ----------------------------------------------------------------------------
 // NavList.LeadingVisual
 
+/**
+ * An icon or some other visual that appears before the text in a NavList.Item
+ * @alias NavList.LeadingVisual
+ * @primerparentid nav_list
+ */
 export type NavListLeadingVisualProps = ActionListLeadingVisualProps
 
 const LeadingVisual = ActionList.LeadingVisual
@@ -243,6 +265,11 @@ LeadingVisual.displayName = 'NavList.LeadingVisual'
 // ----------------------------------------------------------------------------
 // NavList.TrailingVisual
 
+/**
+ * An icon or some other visual that appears after the text in a NavList.Item
+ * @alias NavList.TrailingVisual
+ * @primerparentid nav_list
+ */
 export type NavListTrailingVisualProps = ActionListTrailingVisualProps
 
 const TrailingVisual = ActionList.TrailingVisual
@@ -254,6 +281,11 @@ TrailingVisual.displayName = 'NavList.TrailingVisual'
 
 export type NavListDividerProps = ActionListDividerProps
 
+/**
+ * Used to visually separate group of related NavList.Items
+ * @alias NavList.Divider
+ * @primerparentid nav_list
+ */
 const Divider = ActionList.Divider
 
 Divider.displayName = 'NavList.Divider'
@@ -262,12 +294,19 @@ Divider.displayName = 'NavList.Divider'
 // NavList.Group
 
 export type NavListGroupProps = {
+  /** A related set of NavList.Items */
   children: React.ReactNode
+  /** Title of the group */
   title?: string
 } & SxProp
 
 const defaultSx = {}
 // TODO: ref prop
+/**
+ * Used to group of related NavList.Items
+ * @alias NavList.Group
+ * @primerparentid nav_list
+ */
 const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defaultSx, ...props}) => {
   return (
     <>

@@ -46,7 +46,18 @@ const reducer = (state: State, action: Action) => {
   }
 }
 
-const Autocomplete: FC<PropsWithChildren<{id?: string}>> = ({children, id: idProp}) => {
+/**
+ * Autocomplete allows users to quickly filter through a list of options and pick one or more values for a field.
+ * @primerid autocomplete
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
+const Autocomplete: FC<
+  PropsWithChildren<{
+    /** May be used to customize how the ID is set on the text input to be used by ARIA attributes on related elements. */
+    id?: string
+  }>
+> = ({children, id: idProp}) => {
   const activeDescendantRef = useRef<HTMLElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)

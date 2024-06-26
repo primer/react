@@ -146,6 +146,12 @@ const OverlayToggle: React.FC<
   ) : null
 
 // TODO: reduce re-renders
+/**
+ * Use label group to add commonly used margins and other layout constraints to groups of Labels
+ * @primerid label_group
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 const LabelGroup: FC<PropsWithChildren<LabelGroupProps>> = ({
   children,
   visibleChildCount,

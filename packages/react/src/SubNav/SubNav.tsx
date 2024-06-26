@@ -35,12 +35,22 @@ const SubNavBase = styled.nav<SxProp>`
 `
 
 export type SubNavProps = {
+  /** Place another element, such as a button, to the opposite side of the navigation items. */
   actions?: React.ReactNode
+  /** Use `right` to have navigation items aligned right. */
   align?: 'right'
+  /** Used to make navigation fill the width of the container. */
   full?: boolean
+  /** Used to set the `aria-label` on the top level `<nav>` element. */
   label?: string
 } & ComponentProps<typeof SubNavBase>
 
+/**
+ * Use the sub nav component for navigation on a dashboard-type interface with another set of navigation components above it.
+ * @primerid sub_nav
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 function SubNav({actions, className, children, label, ...rest}: SubNavProps) {
   const classes = clsx(className, 'SubNav')
   return (
@@ -53,16 +63,28 @@ function SubNav({actions, className, children, label, ...rest}: SubNavProps) {
 
 export type SubNavLinksProps = SxProp
 
+/**
+ * Container for the set of links in the SubNav.
+ * @alias SubNav.Links
+ * @primerparentid sub_nav
+ */
 const SubNavLinks = styled.div<SubNavLinksProps>`
   display: flex;
   ${sx};
 `
 
 type StyledSubNavLinkProps = {
+  /** Used when the item is rendered using a component like React Router's `Link`. The path to navigate to. */
   to?: To
+  /** Whether this item represents the current page */
   selected?: boolean
 } & SxProp
 
+/**
+ * An individual link in the SubNav.
+ * @alias SubNav.Link
+ * @primerparentid sub_nav
+ */
 const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
   className: clsx(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
 }))<StyledSubNavLinkProps>`

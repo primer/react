@@ -26,6 +26,12 @@ export const RadioGroupContext = createContext<{
   name: string
 } | null>(null)
 
+/**
+ * Radio group is used to render a short list of mutually exclusive options.
+ * @primerid radio_group
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 const RadioGroup: FC<PropsWithChildren<RadioGroupProps>> = ({children, disabled, onChange, name, ...rest}) => {
   const [selectedRadioValue, setSelectedRadioValue] = useRenderForcingRef<string | null>(null)
 

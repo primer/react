@@ -30,6 +30,12 @@ function normalize(hiddenViewports: Array<Viewport> | Viewport): ResponsiveValue
   }
 }
 
+/**
+ * Prevents children from rendered on specified viewport widths.
+ * @primerid drafts_hidden
+ * @primerstatus draft
+ * @primera11yreviewed false
+ */
 export const Hidden = ({when, children}: HiddenProps) => {
   // Get breakpoint declarations for the normalized ResponsiveValue object
   const styles = getBreakpointDeclarations(normalize(when), 'display', () => 'none')

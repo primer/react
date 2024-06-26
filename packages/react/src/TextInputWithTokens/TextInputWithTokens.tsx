@@ -42,6 +42,7 @@ export type TextInputWithTokensProps<TokenComponentType extends AnyReactComponen
   onTokenRemove: (tokenId: string | number) => void
   /**
    * The component used to render each token
+   * @default Token
    */
   tokenComponent?: TokenComponentType
   /**
@@ -55,6 +56,7 @@ export type TextInputWithTokensProps<TokenComponentType extends AnyReactComponen
   preventTokenWrapping?: boolean
   /**
    * The size of the tokens and text input
+   * @default xlarge
    */
   size?: TokenSizeKeys
   /**
@@ -376,6 +378,12 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   )
 }
 
+/**
+ * Text input with tokens is an input for a value that is a list.
+ * @primerid text_input_with_tokens
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 const TextInputWithTokens = forwardRef(TextInputWithTokensInnerComponent)
 
 TextInputWithTokens.displayName = 'TextInputWithTokens'

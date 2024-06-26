@@ -71,6 +71,13 @@ const variantToSmallIcon: Record<MessageVariant, React.ReactNode> = {
   unavailable: <AlertFillIcon className="InlineMessageIcon" size={12} />,
 }
 
+// TODO: confirm primerstatus is actually "alpha" since it's imported from "draft"
+/**
+ * Inline message is used to inform the user about the result of an action within the content.
+ * @primerid inline_message
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 export function InlineMessage({children, size = 'medium', variant, ...rest}: InlineMessageProps) {
   const icon = size === 'small' ? variantToSmallIcon[variant] : variantToIcon[variant]
   return (

@@ -34,6 +34,10 @@ const Divider = () => {
   )
 }
 
+/**
+ * @alias MarkdownEditor.DefaultToolbarButtons
+ * @primerparentid drafts_markdown_editor
+ */
 export const DefaultToolbarButtons = memo(() => {
   const {condensed, formattingToolsRef} = useContext(MarkdownEditorContext)
 
@@ -149,6 +153,10 @@ export const CoreToolbar = ({children}: {children?: React.ReactNode}) => {
   )
 }
 
+/**
+ * @alias MarkdownEditor.Toolbar
+ * @primerparentid drafts_markdown_editor
+ */
 export const Toolbar = ({children}: {children?: React.ReactNode}) => <CoreToolbar>{children}</CoreToolbar>
 Toolbar.displayName = 'MarkdownEditor.Toolbar'
 

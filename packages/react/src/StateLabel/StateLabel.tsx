@@ -96,7 +96,9 @@ const sizeVariants = variant({
 })
 
 type StyledStateLabelBaseProps = {
+  /** Size variant */
   variant?: 'small' | 'normal'
+  /** Kind of status the label represents */
   status: keyof typeof octiconMap
 } & SxProp
 
@@ -115,6 +117,12 @@ const StateLabelBase = styled.span<StyledStateLabelBaseProps>`
 
 export type StateLabelProps = ComponentProps<typeof StateLabelBase>
 
+/**
+ * State label is used for rendering the status of an item.
+ * @primerid state_label
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 function StateLabel({children, status, variant: variantProp = 'normal', ...rest}: StateLabelProps) {
   const octiconProps = variantProp === 'small' ? {width: '1em'} : {}
   return (

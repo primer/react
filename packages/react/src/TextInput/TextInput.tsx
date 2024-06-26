@@ -53,6 +53,12 @@ export type TextInputNonPassthroughProps = {
 export type TextInputProps = Merge<ComponentPropsWithoutRef<'input'>, TextInputNonPassthroughProps>
 
 // using forwardRef is important so that other components can autofocus the input
+/**
+ * Text input is used to set a value that is a single line of text.
+ * @primerid text_input
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
   (
     {

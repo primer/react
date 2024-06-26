@@ -59,6 +59,12 @@ export type PanelProps = Omit<BoxProps, 'as'>
 
 const TabContainerComponent = createComponent(TabContainerElement, 'tab-container')
 
+/**
+ * The underline panels are used to break related content into tabbed panels.
+ * @primerid underline_panels
+ * @primerstatus draft
+ * @primera11yreviewed false
+ */
 const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledBy,
@@ -170,6 +176,11 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   )
 }
 
+/**
+ * A tab in the tablist of UnderlinePanels
+ * @alias UnderlinePanels.Tab
+ * @primerparentid underline_panels
+ */
 const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, sx: sxProp = defaultSxProp, ...props}) => (
   <UnderlineItem
     as="button"
@@ -183,6 +194,11 @@ const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, sx: sxProp = defaultS
 
 Tab.displayName = 'UnderlinePanels.Tab'
 
+/**
+ * A tabpanel associated with a UnderlinePanels.Tab in UnderlinePanels
+ * @alias UnderlinePanels.Panel
+ * @primerparentid underline_panels
+ */
 const Panel: FC<PanelProps> = props => {
   return <Box as="div" role="tabpanel" {...props} />
 }

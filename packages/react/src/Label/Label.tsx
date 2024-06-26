@@ -95,6 +95,12 @@ const StyledLabel = styled.span<LabelProps>`
   ${sx};
 `
 
+/**
+ * Use the label component to add contextual metadata to a design.
+ * @primerid label
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 const Label = forwardRef(function Label({as, size = 'small', variant = 'default', ...rest}, ref) {
   return <StyledLabel as={as} size={size} variant={variant} ref={ref} {...rest} />
 }) as PolymorphicForwardRefComponent<'span', LabelProps>

@@ -23,6 +23,11 @@ const SegmentedControlButtonStyled = styled.button`
   ${sx};
 `
 
+/**
+ * A button segment in the SegmentedControl
+ * @alias SegmentedControl.Button
+ * @primerparentid segmented_control
+ */
 const SegmentedControlButton: FC<PropsWithChildren<SegmentedControlButtonProps>> = ({
   children,
   leadingIcon: LeadingIcon,

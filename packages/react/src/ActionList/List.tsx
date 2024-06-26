@@ -14,6 +14,12 @@ import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 
 const ListBox = styled.ul<SxProp>(sx)
 
+/**
+ * Action list is a vertical list of interactive actions or options. It's composed of items presented in a consistent, single-column format, with room for icons, descriptions, side information, and other rich visuals.
+ * @primerid action_list
+ * @primerstatus beta
+ * @primera11yreviewed false
+ */
 export const List = forwardRef<HTMLUListElement, ActionListProps>(
   (
     {variant = 'inset', selectionVariant, showDividers = false, role, sx: sxProp = defaultSxProp, ...props},
