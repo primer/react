@@ -35,7 +35,7 @@ function Spinner({size: sizeKey = 'medium', srText = 'Loading', 'aria-label': ar
 
   return (
     /* inline-flex removes the extra line height */
-    <Box sx={{display: 'inline-flex'}}>
+    <Box as="span" sx={{display: 'inline-flex'}}>
       <svg
         height={size}
         width={size}
