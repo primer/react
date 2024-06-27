@@ -5,7 +5,7 @@ import {get} from '../constants'
 import type {SxProp} from '../sx'
 import {merge} from '../sx'
 import {ItemContext, TEXT_ROW_HEIGHT, getVariantStyles} from './shared'
-import {Tooltip, TooltipProps} from '../drafts/Tooltip/Tooltip'
+import {Tooltip, type TooltipProps} from '../TooltipV2'
 
 export type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
 
