@@ -265,7 +265,6 @@ export const WithTrailingAction = () => {
           </NavList.Item>
           <NavList.Item>
             Item 3
-            <NavList.TrailingAction label="This should not be rendered" icon={BookIcon} />
             <NavList.SubNav>
               <NavList.Item href="#">
                 Sub item 1
