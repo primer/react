@@ -121,7 +121,7 @@ export type AutocompleteMenuInternalProps<T extends AutocompleteItemProps> = {
  * @alias Autocomplete.Menu
  * @primerparentid autocomplete
  */
-function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMenuInternalProps<T>) {
+export function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMenuInternalProps<T>) {
   const autocompleteContext = useContext(AutocompleteContext)
   if (autocompleteContext === null) {
     throw new Error('AutocompleteContext returned null values')
@@ -379,7 +379,4 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
   )
 }
 
-AutocompleteMenu.displayName = 'AutocompleteMenu'
-
 export type AutocompleteMenuProps = ComponentProps<typeof AutocompleteMenu>
-export default AutocompleteMenu

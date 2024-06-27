@@ -127,7 +127,7 @@ const BlankslateContainerQuery = `
  * @primerstatus draft
  * @primera11yreviewed false
  */
-function Blankslate({border, children, narrow, spacious}: BlankslateProps) {
+export function Blankslate({border, children, narrow, spacious}: BlankslateProps) {
   return (
     <>
       {/*
@@ -151,7 +151,7 @@ export type VisualProps = React.PropsWithChildren
  * @alias Blankslate.Visual
  * @primerparentid blankslate
  */
-function Visual({children}: VisualProps) {
+export function Visual({children}: VisualProps) {
   return <span className="Blankslate-Visual">{children}</span>
 }
 
@@ -164,7 +164,7 @@ export type HeadingProps = React.PropsWithChildren<{
  * @alias Blankslate.Heading
  * @primerparentid blankslate
  */
-function Heading({as = 'h2', children}: HeadingProps) {
+export function Heading({as = 'h2', children}: HeadingProps) {
   return (
     <Box as={as} className="Blankslate-Heading">
       {children}
@@ -179,11 +179,12 @@ export type DescriptionProps = React.PropsWithChildren
  * @alias Blankslate.Description
  * @primerparentid blankslate
  */
-function Description({children}: DescriptionProps) {
+export function Description({children}: DescriptionProps) {
   return <p className="Blankslate-Description">{children}</p>
 }
 
 export type PrimaryActionProps = React.PropsWithChildren<{
+  /** Link to complete primary action */
   href: string
 }>
 
@@ -192,7 +193,7 @@ export type PrimaryActionProps = React.PropsWithChildren<{
  * @alias Blankslate.PrimaryAction
  * @primerparentid blankslate
  */
-function PrimaryAction({children, href}: PrimaryActionProps) {
+export function PrimaryAction({children, href}: PrimaryActionProps) {
   return (
     <div className="Blankslate-Action">
       <Button as="a" href={href} variant="primary">
@@ -203,6 +204,7 @@ function PrimaryAction({children, href}: PrimaryActionProps) {
 }
 
 export type SecondaryActionProps = React.PropsWithChildren<{
+  /** Link to complete secondary action */
   href: string
 }>
 
@@ -211,18 +213,10 @@ export type SecondaryActionProps = React.PropsWithChildren<{
  * @alias Blankslate.SecondaryAction
  * @primerparentid blankslate
  */
-function SecondaryAction({children, href}: SecondaryActionProps) {
+export function SecondaryAction({children, href}: SecondaryActionProps) {
   return (
     <div className="Blankslate-Action">
       <Link href={href}>{children}</Link>
     </div>
   )
 }
-
-export default Object.assign(Blankslate, {
-  Visual,
-  Heading,
-  Description,
-  PrimaryAction,
-  SecondaryAction,
-})

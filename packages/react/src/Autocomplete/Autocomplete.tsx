@@ -1,10 +1,6 @@
 import React, {useCallback, useReducer, useRef} from 'react'
 import type {FC, PropsWithChildren} from 'react'
-import type {ComponentProps} from '../utils/types'
 import {AutocompleteContext} from './AutocompleteContext'
-import AutocompleteInput from './AutocompleteInput'
-import AutocompleteMenu from './AutocompleteMenu'
-import AutocompleteOverlay from './AutocompleteOverlay'
 import {useId} from '../hooks/useId'
 
 type Action =
@@ -46,18 +42,18 @@ const reducer = (state: State, action: Action) => {
   }
 }
 
+export type AutocompleteProps = PropsWithChildren<{
+  /** May be used to customize how the ID is set on the text input to be used by ARIA attributes on related elements. */
+  id?: string
+}>
+
 /**
  * Autocomplete allows users to quickly filter through a list of options and pick one or more values for a field.
  * @primerid autocomplete
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-const Autocomplete: FC<
-  PropsWithChildren<{
-    /** May be used to customize how the ID is set on the text input to be used by ARIA attributes on related elements. */
-    id?: string
-  }>
-> = ({children, id: idProp}) => {
+export const Autocomplete: FC<AutocompleteProps> = ({children, id: idProp}) => {
   const activeDescendantRef = useRef<HTMLElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -103,14 +99,3 @@ const Autocomplete: FC<
     </AutocompleteContext.Provider>
   )
 }
-
-export type AutocompleteProps = ComponentProps<typeof Autocomplete>
-export type {AutocompleteInputProps} from './AutocompleteInput'
-export type {AutocompleteMenuProps} from './AutocompleteMenu'
-export type {AutocompleteOverlayProps} from './AutocompleteOverlay'
-export default Object.assign(Autocomplete, {
-  Context: AutocompleteContext,
-  Input: AutocompleteInput,
-  Menu: AutocompleteMenu,
-  Overlay: AutocompleteOverlay,
-})

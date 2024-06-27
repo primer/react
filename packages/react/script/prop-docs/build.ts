@@ -23,6 +23,14 @@ const docgenOptions = {
 
     return true
   },
+  //TODO: figure out how we might use the `componentNameResolver` option to fix react-docgen-typescript's
+  // issues with component files that have a displayName.
+  //
+  // When `.displayName` is set in the component file::
+  // - none of the subcomponents (e.g.: ActionMenu.Anchor) are parsed by docgen
+  // - the root component end up getting documented with the name of the last subcomponent's displayName (e.g.: `ActionMenu` and its props get documented with the display name 'ActionMenu.Anchor')
+  //
+  // This PR might have some hints: https://github.com/styleguidist/react-docgen-typescript/pull/449
 }
 
 // const noPropsWhitelist = [
@@ -41,6 +49,7 @@ const files = globby.sync(
   // Glob for testing
   // [
   //   './packages/react/src/Avatar/*.tsx',
+  //   './packages/react/src/ActionMenu/*.tsx',
   //   './packages/react/src/DataTable/*.tsx',
   //   '!./packages/react/src/**/*.stories.tsx',
   //   '!./packages/react/src/**/*.test.tsx',

@@ -787,6 +787,25 @@
     "subcomponents": []
   },
   {
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/TrailingAction.tsx",
+    "description": "",
+    "name": "ActionList.TrailingAction",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [
+      {
+        "name": "as",
+        "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | (\"a\" & (ComponentClass<...> | FunctionComponent<...>))",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      }
+    ],
+    "subcomponents": []
+  },
+  {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Visuals.tsx",
     "description": "",
     "name": "LeadingVisualContainer",
@@ -807,8 +826,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionMenu/ActionMenu.tsx",
-    "description": "",
+    "id": "action_menu",
+    "description": "Action menu is composed of action list and overlay patterns used for quick actions and selections.\nDefaults to a the \"default\" Button variant with a trailing down triangle icon.",
     "name": "ActionMenu",
+    "status": "beta",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -843,7 +864,223 @@
         "defaultValue": null
       }
     ],
-    "subcomponents": []
+    "subcomponents": [
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionMenu/ActionMenu.tsx",
+        "description": "Container for a custom anchor element that triggers the ActionMenu. Commonly used to wrap an IconButton.",
+        "name": "ActionMenu.Anchor",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "id",
+            "type": "string",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionMenu/ActionMenu.tsx",
+        "description": "The button that toggles the ActionMenu",
+        "name": "ActionMenu.Button",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "as",
+            "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>",
+            "required": true,
+            "description": "",
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionMenu/ActionMenu.tsx",
+        "description": "The non-modal dialog that overlays the UI",
+        "name": "ActionMenu.Overlay",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "height",
+            "type": "\"small\" | \"initial\" | \"large\" | \"medium\" | \"auto\" | \"fit-content\" | \"xsmall\" | \"xlarge\"",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "width",
+            "type": "\"small\" | \"large\" | \"medium\" | \"auto\" | \"xlarge\" | \"xxlarge\"",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "overflow",
+            "type": "\"hidden\" | \"scroll\" | \"auto\" | \"visible\"",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "maxHeight",
+            "type": "\"small\" | \"large\" | \"medium\" | \"fit-content\" | \"xsmall\" | \"xlarge\"",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "maxWidth",
+            "type": "\"small\" | \"large\" | \"medium\" | \"xlarge\" | \"xxlarge\"",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "sx",
+            "type": "BetterSystemStyleObject",
+            "required": false,
+            "description": "A style object used to override styles using styled-components",
+            "defaultValue": null
+          },
+          {
+            "name": "anchorSide",
+            "type": "AnchorSide",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "ignoreClickRefs",
+            "type": "React.RefObject<HTMLElement>[]",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "initialFocusRef",
+            "type": "React.RefObject<HTMLElement>",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "returnFocusRef",
+            "type": "React.RefObject<HTMLElement>",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "onClickOutside",
+            "type": "(e: TouchOrMouseEvent) => void",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "onEscape",
+            "type": "(e: KeyboardEvent) => void",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "visibility",
+            "type": "\"hidden\" | \"visible\"",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "data-test-id",
+            "type": "unknown",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "position",
+            "type": "React.CSSProperties",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "top",
+            "type": "React.CSSProperties",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "left",
+            "type": "React.CSSProperties",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "right",
+            "type": "React.CSSProperties",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "bottom",
+            "type": "React.CSSProperties",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "portalContainerName",
+            "type": "string",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "preventFocusOnOpen",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "role",
+            "type": "AriaRole",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "children",
+            "type": "any",
+            "required": false,
+            "description": "Recommended: `ActionList`",
+            "defaultValue": null
+          },
+          {
+            "name": "as",
+            "type": "\"div\"",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          }
+        ]
+      }
+    ]
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/AnchoredOverlay/AnchoredOverlay.tsx",
@@ -938,8 +1175,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Autocomplete/Autocomplete.tsx",
-    "description": "",
+    "id": "autocomplete",
+    "description": "Autocomplete allows users to quickly filter through a list of options and pick one or more values for a field.",
     "name": "Autocomplete",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -953,7 +1192,307 @@
         "defaultValue": null
       }
     ],
-    "subcomponents": []
+    "subcomponents": [
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Autocomplete/AutocompleteInput.tsx",
+        "description": "The text input field for an Autocomplete component. Defaults to using a `TextInput` component, but is polymorphic to allow for custom components.",
+        "name": "Autocomplete.Input",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "as",
+            "type": "any",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Autocomplete/AutocompleteMenu.tsx",
+        "description": "The dropdown menu with suggestions for an Autocomplete component.",
+        "name": "Autocomplete.Menu",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "addNewItem",
+            "type": "Omit<ActionListItemProps, \"id\"> & { id: string; } & { leadingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>>; text?: string; trailingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>>; } & { ...; } & { ...; }",
+            "required": false,
+            "description": "A menu item that is used to allow users make a selection that is not available in the array passed to the `items` prop.\nThis menu item gets appended to the end of the list of options.",
+            "defaultValue": null
+          },
+          {
+            "name": "emptyStateText",
+            "type": "any",
+            "required": false,
+            "description": "The text that appears in the menu when there are no options in the array passed to the `items` prop.",
+            "defaultValue": null
+          },
+          {
+            "name": "filterFn",
+            "type": "(item: T, i: number) => boolean",
+            "required": false,
+            "description": "A custom function used to filter the options in the array passed to the `items` prop.\nBy default, we filter out items that don't match the value of the autocomplete text input. The default filter is not case-sensitive.",
+            "defaultValue": null
+          },
+          {
+            "name": "items",
+            "type": "T[]",
+            "required": true,
+            "description": "The options for field values that are displayed in the dropdown menu.\nOne or more may be selected depending on the value of the `selectionVariant` prop.",
+            "defaultValue": null
+          },
+          {
+            "name": "loading",
+            "type": "boolean",
+            "required": false,
+            "description": "Whether the data is loaded for the menu items",
+            "defaultValue": null
+          },
+          {
+            "name": "selectedItemIds",
+            "type": "string[]",
+            "required": true,
+            "description": "The IDs of the selected items",
+            "defaultValue": null
+          },
+          {
+            "name": "sortOnCloseFn",
+            "type": "(itemIdA: string, itemIdB: string) => number",
+            "required": false,
+            "description": "The sort function that is applied to the options in the array passed to the `items` prop after the user closes the menu.\nBy default, selected items are sorted to the top after the user closes the menu.",
+            "defaultValue": null
+          },
+          {
+            "name": "selectionVariant",
+            "type": "\"multiple\" | \"single\"",
+            "required": false,
+            "description": "Whether there can be one item selected from the menu or multiple items selected from the menu",
+            "defaultValue": null
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "required": false,
+            "description": "Function that gets called when the menu is opened or closed",
+            "defaultValue": null
+          },
+          {
+            "name": "onSelectedChange",
+            "type": "OnSelectedChange<T>",
+            "required": false,
+            "description": "The function that is called when an item in the list is selected or deselected",
+            "defaultValue": null
+          },
+          {
+            "name": "customScrollContainerRef",
+            "type": "React.MutableRefObject<HTMLElement>",
+            "required": false,
+            "description": "If the menu is rendered in a scrolling element other than the `Autocomplete.Overlay` component,\npass the ref of that element to `customScrollContainerRef` to ensure the container automatically\nscrolls when the user highlights an item in the menu that is outside the scroll container",
+            "defaultValue": null
+          },
+          {
+            "name": "aria-labelledby",
+            "type": "string",
+            "required": true,
+            "description": "",
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Autocomplete/AutocompleteOverlay.tsx",
+        "description": "A non-modal dialog container for the the dropdown menu with suggestions for an Autocomplete component.\nCan be excluded if you want the the Autocomplete suggestions to appear in the DOM flow.",
+        "name": "Autocomplete.Overlay",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "menuAnchorRef",
+            "type": "React.RefObject<HTMLElement>",
+            "required": false,
+            "description": "The ref of the element that the position of the menu is based on. By default, the menu is positioned based on the text input",
+            "defaultValue": null
+          },
+          {
+            "name": "overlayProps",
+            "type": "Partial<Omit<Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"ref\"> & { ...; }, \"height\" | ... 7 more ... | keyof BaseOverlayProps> & Omit<...> & BaseOverlayProps & { ...; }>",
+            "required": false,
+            "description": "Props to be spread on the internal `Overlay` component.",
+            "defaultValue": null
+          },
+          {
+            "name": "height",
+            "type": "\"small\" | \"initial\" | \"large\" | \"medium\" | \"auto\" | \"fit-content\" | \"xsmall\" | \"xlarge\"",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "width",
+            "type": "\"small\" | \"large\" | \"medium\" | \"auto\" | \"xlarge\" | \"xxlarge\"",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "overflow",
+            "type": "\"hidden\" | \"scroll\" | \"auto\" | \"visible\"",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "maxHeight",
+            "type": "\"small\" | \"large\" | \"medium\" | \"fit-content\" | \"xsmall\" | \"xlarge\"",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "maxWidth",
+            "type": "\"small\" | \"large\" | \"medium\" | \"xlarge\" | \"xxlarge\"",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "sx",
+            "type": "BetterSystemStyleObject",
+            "required": false,
+            "description": "A style object used to override styles using styled-components",
+            "defaultValue": null
+          },
+          {
+            "name": "anchorSide",
+            "type": "AnchorSide",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "ignoreClickRefs",
+            "type": "React.RefObject<HTMLElement>[]",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "initialFocusRef",
+            "type": "React.RefObject<HTMLElement>",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "returnFocusRef",
+            "type": "React.RefObject<HTMLElement>",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "onClickOutside",
+            "type": "(e: TouchOrMouseEvent) => void",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "onEscape",
+            "type": "(e: KeyboardEvent) => void",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "visibility",
+            "type": "\"hidden\" | \"visible\"",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "data-test-id",
+            "type": "unknown",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "position",
+            "type": "React.CSSProperties",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "top",
+            "type": "React.CSSProperties",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "left",
+            "type": "React.CSSProperties",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "right",
+            "type": "React.CSSProperties",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "bottom",
+            "type": "React.CSSProperties",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "portalContainerName",
+            "type": "string",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "preventFocusOnOpen",
+            "type": "boolean",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "role",
+            "type": "AriaRole",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "as",
+            "type": "\"div\"",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          }
+        ]
+      }
+    ]
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Avatar/Avatar.tsx",
@@ -1427,8 +1966,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
-    "description": "",
+    "id": "blankslate",
+    "description": "Blankslate is used as placeholder to tell users why content is missing.",
     "name": "Blankslate",
+    "status": "draft",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -1456,7 +1997,58 @@
         "defaultValue": null
       }
     ],
-    "subcomponents": []
+    "subcomponents": [
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
+        "description": "Used to display an icon or image at the top of a Blankslate.",
+        "name": "Blankslate.Visual",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": []
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
+        "description": "The title (heading) of the Blankslate.",
+        "name": "Blankslate.Heading",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": []
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
+        "description": "An optional description for the Blankslate when the title needs supplemental information.",
+        "name": "Blankslate.Description",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": []
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
+        "description": "The primary action to take in response to the messaging in Blankslate.",
+        "name": "Blankslate.PrimaryAction",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": []
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
+        "description": "The secondary action to take in response to the messaging in Blankslate.",
+        "name": "Blankslate.SecondaryAction",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": []
+      }
+    ]
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/index.tsx",

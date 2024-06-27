@@ -1498,6 +1498,62 @@
   },
   {
     "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/TrailingAction.tsx",
+    "description": "",
+    "displayName": "ActionList.TrailingAction",
+    "methods": [],
+    "props": {
+      "as": {
+        "defaultValue": null,
+        "description": "",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/ActionList/TrailingAction.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/ActionList/TrailingAction.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/ActionList/TrailingAction.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/ActionList/TrailingAction.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | (\"a\" & (ComponentClass<...> | FunctionComponent<...>))"
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Visuals.tsx",
     "description": "",
     "displayName": "LeadingVisualContainer",
@@ -1593,9 +1649,13 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "primerid": "action_menu",
+      "primerstatus": "beta",
+      "primera11yreviewed": "false"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionMenu/ActionMenu.tsx",
-    "description": "",
+    "description": "Action menu is composed of action list and overlay patterns used for quick actions and selections.\nDefaults to a the \"default\" Button variant with a trailing down triangle icon.",
     "displayName": "ActionMenu",
     "methods": [],
     "props": {
@@ -1669,6 +1729,452 @@
         "required": false,
         "type": {
           "name": "any"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "ActionMenu.Anchor",
+      "primerparentid": "action_menu"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionMenu/ActionMenu.tsx",
+    "description": "Container for a custom anchor element that triggers the ActionMenu. Commonly used to wrap an IconButton.",
+    "displayName": "Anchor",
+    "methods": [],
+    "props": {
+      "id": {
+        "defaultValue": null,
+        "description": "",
+        "name": "id",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/ActionMenu/ActionMenu.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "ActionMenu.Button",
+      "primerparentid": "action_menu"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionMenu/ActionMenu.tsx",
+    "description": "The button that toggles the ActionMenu",
+    "displayName": "MenuButton",
+    "methods": [],
+    "props": {
+      "as": {
+        "defaultValue": null,
+        "description": "",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "ActionMenu.Overlay",
+      "primerparentid": "action_menu"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionMenu/ActionMenu.tsx",
+    "description": "The non-modal dialog that overlays the UI",
+    "displayName": "Overlay",
+    "methods": [],
+    "props": {
+      "height": {
+        "defaultValue": null,
+        "description": "",
+        "name": "height",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"small\" | \"initial\" | \"large\" | \"medium\" | \"auto\" | \"fit-content\" | \"xsmall\" | \"xlarge\""
+        }
+      },
+      "width": {
+        "defaultValue": null,
+        "description": "",
+        "name": "width",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"small\" | \"large\" | \"medium\" | \"auto\" | \"xlarge\" | \"xxlarge\""
+        }
+      },
+      "overflow": {
+        "defaultValue": null,
+        "description": "",
+        "name": "overflow",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"hidden\" | \"scroll\" | \"auto\" | \"visible\""
+        }
+      },
+      "maxHeight": {
+        "defaultValue": null,
+        "description": "",
+        "name": "maxHeight",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"small\" | \"large\" | \"medium\" | \"fit-content\" | \"xsmall\" | \"xlarge\""
+        }
+      },
+      "maxWidth": {
+        "defaultValue": null,
+        "description": "",
+        "name": "maxWidth",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"small\" | \"large\" | \"medium\" | \"xlarge\" | \"xxlarge\""
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      },
+      "anchorSide": {
+        "defaultValue": null,
+        "description": "",
+        "name": "anchorSide",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "AnchorSide"
+        }
+      },
+      "ignoreClickRefs": {
+        "defaultValue": null,
+        "description": "",
+        "name": "ignoreClickRefs",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.RefObject<HTMLElement>[]"
+        }
+      },
+      "initialFocusRef": {
+        "defaultValue": null,
+        "description": "",
+        "name": "initialFocusRef",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.RefObject<HTMLElement>"
+        }
+      },
+      "returnFocusRef": {
+        "defaultValue": null,
+        "description": "",
+        "name": "returnFocusRef",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.RefObject<HTMLElement>"
+        }
+      },
+      "onClickOutside": {
+        "defaultValue": null,
+        "description": "",
+        "name": "onClickOutside",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "(e: TouchOrMouseEvent) => void"
+        }
+      },
+      "onEscape": {
+        "defaultValue": null,
+        "description": "",
+        "name": "onEscape",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "(e: KeyboardEvent) => void"
+        }
+      },
+      "visibility": {
+        "defaultValue": null,
+        "description": "",
+        "name": "visibility",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"hidden\" | \"visible\""
+        }
+      },
+      "data-test-id": {
+        "defaultValue": null,
+        "description": "",
+        "name": "data-test-id",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "unknown"
+        }
+      },
+      "position": {
+        "defaultValue": null,
+        "description": "",
+        "name": "position",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.CSSProperties"
+        }
+      },
+      "top": {
+        "defaultValue": null,
+        "description": "",
+        "name": "top",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.CSSProperties"
+        }
+      },
+      "left": {
+        "defaultValue": null,
+        "description": "",
+        "name": "left",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.CSSProperties"
+        }
+      },
+      "right": {
+        "defaultValue": null,
+        "description": "",
+        "name": "right",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.CSSProperties"
+        }
+      },
+      "bottom": {
+        "defaultValue": null,
+        "description": "",
+        "name": "bottom",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.CSSProperties"
+        }
+      },
+      "portalContainerName": {
+        "defaultValue": null,
+        "description": "",
+        "name": "portalContainerName",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "preventFocusOnOpen": {
+        "defaultValue": null,
+        "description": "",
+        "name": "preventFocusOnOpen",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "role": {
+        "defaultValue": null,
+        "description": "",
+        "name": "role",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "AriaRole"
+        }
+      },
+      "children": {
+        "defaultValue": null,
+        "description": "Recommended: `ActionList`",
+        "name": "children",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/ActionMenu/ActionMenu.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "as": {
+        "defaultValue": null,
+        "description": "",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"div\""
         }
       }
     }
@@ -1900,9 +2406,13 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "primerid": "autocomplete",
+      "primerstatus": "alpha",
+      "primera11yreviewed": "false"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Autocomplete/Autocomplete.tsx",
-    "description": "",
+    "description": "Autocomplete allows users to quickly filter through a list of options and pick one or more values for a field.",
     "displayName": "Autocomplete",
     "methods": [],
     "props": {
@@ -1919,6 +2429,49 @@
         "required": false,
         "type": {
           "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "Autocomplete.Input",
+      "primerparentid": "autocomplete"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Autocomplete/AutocompleteInput.tsx",
+    "description": "The text input field for an Autocomplete component. Defaults to using a `TextInput` component, but is polymorphic to allow for custom components.",
+    "displayName": "AutocompleteInput",
+    "methods": [],
+    "props": {
+      "as": {
+        "defaultValue": null,
+        "description": "",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/Autocomplete/AutocompleteInput.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/Autocomplete/AutocompleteInput.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
         }
       }
     }
@@ -3453,9 +4006,68 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "alias": "Blankslate.Visual",
+      "primerparentid": "blankslate"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
-    "description": "",
+    "description": "Used to display an icon or image at the top of a Blankslate.",
+    "displayName": "Visual",
+    "methods": [],
+    "props": {}
+  },
+  {
+    "tags": {
+      "alias": "Blankslate.Heading",
+      "primerparentid": "blankslate"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
+    "description": "The title (heading) of the Blankslate.",
+    "displayName": "Heading",
+    "methods": [],
+    "props": {}
+  },
+  {
+    "tags": {
+      "alias": "Blankslate.Description",
+      "primerparentid": "blankslate"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
+    "description": "An optional description for the Blankslate when the title needs supplemental information.",
+    "displayName": "Description",
+    "methods": [],
+    "props": {}
+  },
+  {
+    "tags": {
+      "alias": "Blankslate.PrimaryAction",
+      "primerparentid": "blankslate"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
+    "description": "The primary action to take in response to the messaging in Blankslate.",
+    "displayName": "PrimaryAction",
+    "methods": [],
+    "props": {}
+  },
+  {
+    "tags": {
+      "alias": "Blankslate.SecondaryAction",
+      "primerparentid": "blankslate"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
+    "description": "The secondary action to take in response to the messaging in Blankslate.",
+    "displayName": "SecondaryAction",
+    "methods": [],
+    "props": {}
+  },
+  {
+    "tags": {
+      "primerid": "blankslate",
+      "primerstatus": "draft",
+      "primera11yreviewed": "false"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
+    "description": "Blankslate is used as placeholder to tell users why content is missing.",
     "displayName": "Blankslate",
     "methods": [],
     "props": {

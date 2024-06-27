@@ -26,7 +26,7 @@ type AutocompleteOverlayInternalProps = {
  * @alias Autocomplete.Overlay
  * @primerparentid autocomplete
  */
-function AutocompleteOverlay({
+export function AutocompleteOverlay({
   menuAnchorRef,
   overlayProps: oldOverlayProps,
   children,
@@ -80,7 +80,4 @@ function AutocompleteOverlay({
   )
 }
 
-AutocompleteOverlay.displayName = 'AutocompleteOverlay'
-
 export type AutocompleteOverlayProps = ComponentProps<typeof AutocompleteOverlay>
-export default AutocompleteOverlay

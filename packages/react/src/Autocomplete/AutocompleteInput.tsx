@@ -22,7 +22,7 @@ const ARROW_KEYS_NAV = new Set(['ArrowUp', 'ArrowDown'])
  * @alias Autocomplete.Input
  * @primerparentid autocomplete
  */
-const AutocompleteInput = forwardRef(
+export const AutocompleteInput = forwardRef(
   (
     {
       as: Component = TextInput,
@@ -192,7 +192,4 @@ const AutocompleteInput = forwardRef(
   },
 ) as PolymorphicForwardRefComponent<typeof TextInput, InternalAutocompleteInputProps>
 
-AutocompleteInput.displayName = 'AutocompleteInput'
-
 export type AutocompleteInputProps = ComponentProps<typeof AutocompleteInput>
-export default AutocompleteInput
