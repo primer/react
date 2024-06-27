@@ -401,15 +401,13 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren & {onBack?: () => void
       >
         <Box sx={{display: 'flex'}}>
           {onBack ? (
-            <Tooltip text="Back" direction="s">
-              <IconButton
-                type="button"
-                variant="invisible"
-                icon={ArrowLeftIcon}
-                aria-label="Back"
-                onClick={() => onBack()}
-              />
-            </Tooltip>
+            <IconButton
+              type="button"
+              variant="invisible"
+              icon={ArrowLeftIcon}
+              aria-label="Back"
+              onClick={() => onBack()}
+            />
           ) : null}
 
           <Box sx={{marginLeft: onBack ? 1 : 2, marginTop: description ? '2px' : 0}}>
@@ -428,15 +426,16 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren & {onBack?: () => void
         </Box>
 
         <Box>
-          {/* Will not need tooltip after https://github.com/primer/react/issues/2008 */}
           {onClearSelection ? (
-            <Tooltip text="Clear selection" direction="s" onClick={onClearSelection}>
-              <IconButton type="button" variant="invisible" icon={FilterRemoveIcon} aria-label="Clear selection" />
-            </Tooltip>
+            <IconButton
+              type="button"
+              variant="invisible"
+              icon={FilterRemoveIcon}
+              aria-label="Clear selection"
+              onClick={onClearSelection}
+            />
           ) : null}
-          <Tooltip text="Close" direction="s">
-            <IconButton type="button" variant="invisible" icon={XIcon} aria-label="Close" onClick={() => onCancel()} />
-          </Tooltip>
+          <IconButton type="button" variant="invisible" icon={XIcon} aria-label="Close" onClick={() => onCancel()} />
         </Box>
       </Box>
 
