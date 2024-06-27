@@ -7,7 +7,6 @@ import {
   IconButton,
   Heading,
   Box,
-  Tooltip,
   TextInput,
   Spinner,
   Text,
