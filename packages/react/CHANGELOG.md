@@ -1,5 +1,33 @@
 # @primer/react
 
+## 36.23.0
+
+### Minor Changes
+
+- [#4634](https://github.com/primer/react/pull/4634) [`db72a714211b1f2aa8ee0cebaca056c702963542`](https://github.com/primer/react/commit/db72a714211b1f2aa8ee0cebaca056c702963542) Thanks [@khiga8](https://github.com/khiga8)! - Introduce ActionList.TrailingAction to support secondary action on ActionList.Item
+
+- [#4052](https://github.com/primer/react/pull/4052) [`e2f35e2eda04e2128aaaf98c188cc94a34de7aeb`](https://github.com/primer/react/commit/e2f35e2eda04e2128aaaf98c188cc94a34de7aeb) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds components to support skeleton loading states, and uses those components to replace ad-hoc skeleton loading states in Primer React components.
+
+  <!-- Changed components: SkeletonAvatar, SkeletonBox, SkeletonText -->
+
+- [#4140](https://github.com/primer/react/pull/4140) [`c093411ec6caa4d4ce1720a68a22e492d5f39458`](https://github.com/primer/react/commit/c093411ec6caa4d4ce1720a68a22e492d5f39458) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds a prop, `srText`, to the Spinner component to convey a loading message to assistive technologies such as screen readers.
+
+  <!-- Changed components: Spinner -->
+
+- [#4272](https://github.com/primer/react/pull/4272) [`3c467efc794d47326613796149f422c24a9b3cb9`](https://github.com/primer/react/commit/3c467efc794d47326613796149f422c24a9b3cb9) Thanks [@TylerJDev](https://github.com/TylerJDev)! - (Behind feature flag) ActionList: Utilizes `<button>` inside of `<li>` for interactive items.
+
+- [#4527](https://github.com/primer/react/pull/4527) [`623b16e9832173d418092e47a85fd0a0a0d895f8`](https://github.com/primer/react/commit/623b16e9832173d418092e47a85fd0a0a0d895f8) Thanks [@langermank](https://github.com/langermank)! - Add `truncation` prop to `Button` to allow for ellipses overflow or text wrapping for long button labels
+
+- [#4550](https://github.com/primer/react/pull/4550) [`3e493ba0723c9f0eadfacae6389959023561a700`](https://github.com/primer/react/commit/3e493ba0723c9f0eadfacae6389959023561a700) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds UnderlinePanels component. It's like UnderlineNav, but for rendering semantic tabs instead of links.
+
+  <!-- Changed components: UnderilnePanels -->
+
+### Patch Changes
+
+- [#4651](https://github.com/primer/react/pull/4651) [`b13bbb33d547352926af5206741db123457a09a1`](https://github.com/primer/react/commit/b13bbb33d547352926af5206741db123457a09a1) Thanks [@mperrotti](https://github.com/mperrotti)! - Prevents text color from changing on hover for "inactive" ActionMenu.Items of the "danger" variant. Before this change, the text color would change on hover. After this change, the text color remains the same on hover.
+
+- [#4695](https://github.com/primer/react/pull/4695) [`9ee8ec9a16d9a72e4723163115dd59ce7e8dce28`](https://github.com/primer/react/commit/9ee8ec9a16d9a72e4723163115dd59ce7e8dce28) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Fixes conditional in `ActionList.Item` that was dependent on FF being active before applying forwarded ref.
+
 ## 36.22.0
 
 ### Minor Changes

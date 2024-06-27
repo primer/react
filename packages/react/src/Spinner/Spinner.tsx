@@ -18,25 +18,26 @@ export type SpinnerProps = {
   /** Sets the text conveyed by assistive technologies such as screen readers. Set to `null` if the loading state is displayed in a text node somewhere else on the page. */
   srText?: string | null
   /** @deprecated Use `srText` instead. */
-  'aria-label'?: string | null
+  'aria-label'?: string
 } & HTMLDataAttributes &
   SxProp
 
 function Spinner({size: sizeKey = 'medium', srText = 'Loading', 'aria-label': ariaLabel, ...props}: SpinnerProps) {
   const size = sizeMap[sizeKey]
-  const hasSrAnnouncement = Boolean(srText || ariaLabel)
-  const ariaLabelId = useId()
+  const hasHiddenLabel = srText !== null && ariaLabel === undefined
+  const labelId = useId()
 
   return (
     /* inline-flex removes the extra line height */
-    <Box sx={{display: 'inline-flex'}}>
+    <Box as="span" sx={{display: 'inline-flex'}}>
       <svg
         height={size}
         width={size}
         viewBox="0 0 16 16"
         fill="none"
         aria-hidden
-        aria-labelledby={ariaLabelId}
+        aria-label={ariaLabel ?? undefined}
+        aria-labelledby={hasHiddenLabel ? labelId : undefined}
         {...props}
       >
         <circle
@@ -56,7 +57,7 @@ function Spinner({size: sizeKey = 'medium', srText = 'Loading', 'aria-label': ar
           vectorEffect="non-scaling-stroke"
         />
       </svg>
-      {hasSrAnnouncement ? <VisuallyHidden id={ariaLabelId}>{srText || ariaLabel}</VisuallyHidden> : null}
+      {hasHiddenLabel ? <VisuallyHidden id={labelId}>{srText}</VisuallyHidden> : null}
     </Box>
   )
 }
