@@ -70,20 +70,19 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
     // Get SubNav from children
     const subNav = React.Children.toArray(children).find(child => isValidElement(child) && child.type === SubNav)
 
+    // Get children without SubNav or TrailingAction
+    const childrenWithoutSubNavOrTrailingAction = React.Children.toArray(children).filter(child =>
+      isValidElement(child) ? child.type !== SubNav && child.type !== TrailingAction : true,
+    )
+
     if (!isValidElement(subNav) && defaultOpen)
       // eslint-disable-next-line no-console
       console.error('NavList.Item must have a NavList.SubNav to use defaultOpen.')
 
     // Render ItemWithSubNav if SubNav is present
     if (subNav && isValidElement(subNav)) {
-      // Filter out TrailingAction
-      const childrenWithoutSubNavOrTrailingAction = React.Children.toArray(children).filter(child =>
-        isValidElement(child) ? child.type !== SubNav && child.type !== TrailingAction : true,
-      )
-
       return (
         <ItemWithSubNav subNav={subNav} depth={depth} defaultOpen={defaultOpen} sx={sxProp}>
-          {/* This is a trailing action */}
           {childrenWithoutSubNavOrTrailingAction}
         </ItemWithSubNav>
       )
