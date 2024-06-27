@@ -63,6 +63,7 @@ export function FilteredActionList({
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useId()
+  const inputId = useId(textInputProps?.id)
   const inputDescriptionTextId = useId()
   const onInputKeyPress: KeyboardEventHandler = useCallback(
     event => {
@@ -125,6 +126,7 @@ export function FilteredActionList({
           aria-controls={listId}
           aria-describedby={inputDescriptionTextId}
           {...textInputProps}
+          id={inputId}
         />
       </StyledHeader>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
@@ -134,7 +136,14 @@ export function FilteredActionList({
             <Spinner />
           </Box>
         ) : (
-          <ActionList ref={listContainerRef} items={items} {...listProps} role="listbox" id={listId} />
+          <ActionList
+            ref={listContainerRef}
+            aria-labelledby={inputId}
+            items={items}
+            {...listProps}
+            role="listbox"
+            id={listId}
+          />
         )}
       </Box>
     </Box>
