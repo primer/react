@@ -4,6 +4,13 @@ import {SelectPanel, type SelectPanelProps} from '../SelectPanel'
 import {userEvent} from '@testing-library/user-event'
 import ThemeProvider from '../ThemeProvider'
 
+// actions
+// open
+// type / filter
+// toggleSelection
+// move to next option
+// move to previous option
+
 const items: SelectPanelProps['items'] = [
   {
     text: 'item one',
@@ -28,6 +35,8 @@ function BasicSelectPanel() {
   return (
     <ThemeProvider>
       <SelectPanel
+        title="test title"
+        subtitle="test subtitle"
         items={items}
         placeholder="Select items"
         placeholderText="Filter items"
@@ -45,6 +54,8 @@ function BasicSelectPanel() {
     </ThemeProvider>
   )
 }
+
+global.Element.prototype.scrollTo = jest.fn()
 
 describe('SelectPanel', () => {
   it('should render an anchor to open the select panel using `placeholder`', () => {
@@ -107,9 +118,218 @@ describe('SelectPanel', () => {
     expect(screen.getByRole('button', {name: 'Select items'})).toHaveAttribute('aria-expanded', 'false')
   })
 
-  // labelledby for dialog
-  // describedby for dialog
-  // type to filter
-  // arrow key to navigate
-  // enter to select
+  it('should open a dialog that is labelled by `title` and described by `subtitle`', async () => {
+    const user = userEvent.setup()
+
+    render(<BasicSelectPanel />)
+
+    await user.click(screen.getByText('Select items'))
+
+    expect(
+      screen.getByRole('dialog', {
+        name: 'test title',
+        description: 'test subtitle',
+      }),
+    ).toBeInTheDocument()
+  })
+
+  describe('selection', () => {
+    it('should select an active option when activated', async () => {
+      const user = userEvent.setup()
+
+      render(<BasicSelectPanel />)
+
+      await user.click(screen.getByText('Select items'))
+
+      await user.type(document.activeElement!, '{Enter}')
+      expect(
+        screen.getByRole('option', {
+          name: 'item one',
+        }),
+      ).toHaveAttribute('aria-selected', 'true')
+
+      await user.type(document.activeElement!, '{Enter}')
+      expect(
+        screen.getByRole('option', {
+          name: 'item one',
+        }),
+      ).toHaveAttribute('aria-selected', 'false')
+
+      await user.click(screen.getByText('item one'))
+      expect(
+        screen.getByRole('option', {
+          name: 'item one',
+        }),
+      ).toHaveAttribute('aria-selected', 'true')
+
+      await user.click(screen.getByRole('option', {name: 'item one'}))
+      expect(
+        screen.getByRole('option', {
+          name: 'item one',
+        }),
+      ).toHaveAttribute('aria-selected', 'false')
+    })
+
+    it('should support navigating through items with ArrowUp and ArrowDown', async () => {
+      const user = userEvent.setup()
+
+      render(<BasicSelectPanel />)
+
+      await user.click(screen.getByText('Select items'))
+
+      // First item by default should be the active element
+      expect(document.activeElement!).toHaveAttribute(
+        'aria-activedescendant',
+        screen.getByRole('option', {name: 'item one'}).id,
+      )
+
+      await user.type(document.activeElement!, '{ArrowDown}')
+      expect(document.activeElement!).toHaveAttribute(
+        'aria-activedescendant',
+        screen.getByRole('option', {name: 'item two'}).id,
+      )
+
+      await user.type(document.activeElement!, '{ArrowDown}')
+      expect(document.activeElement!).toHaveAttribute(
+        'aria-activedescendant',
+        screen.getByRole('option', {name: 'item three'}).id,
+      )
+
+      // At end of list, should wrap to the beginning
+      await user.type(document.activeElement!, '{ArrowDown}')
+      expect(document.activeElement!).toHaveAttribute(
+        'aria-activedescendant',
+        screen.getByRole('option', {name: 'item one'}).id,
+      )
+
+      // At beginning of list, ArrowUp should wrap to the end
+      await user.type(document.activeElement!, '{ArrowUp}')
+      expect(document.activeElement!).toHaveAttribute(
+        'aria-activedescendant',
+        screen.getByRole('option', {name: 'item three'}).id,
+      )
+
+      await user.type(document.activeElement!, '{ArrowUp}')
+      expect(document.activeElement!).toHaveAttribute(
+        'aria-activedescendant',
+        screen.getByRole('option', {name: 'item two'}).id,
+      )
+
+      await user.type(document.activeElement!, '{ArrowUp}')
+      expect(document.activeElement!).toHaveAttribute(
+        'aria-activedescendant',
+        screen.getByRole('option', {name: 'item one'}).id,
+      )
+    })
+  })
+
+  describe('filtering', () => {
+    function FilterableSelectPanel() {
+      const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+      const [filter, setFilter] = React.useState('')
+      const [open, setOpen] = React.useState(false)
+
+      const onSelectedChange = (selected: SelectPanelProps['items']) => {
+        setSelected(selected)
+      }
+
+      return (
+        <ThemeProvider>
+          <SelectPanel
+            title="test title"
+            subtitle="test subtitle"
+            items={items.filter(item => item.text?.includes(filter))}
+            placeholder="Select items"
+            placeholderText="Filter items"
+            selected={selected}
+            onSelectedChange={onSelectedChange}
+            filterValue={filter}
+            onFilterChange={value => {
+              setFilter(value)
+            }}
+            open={open}
+            onOpenChange={isOpen => {
+              setOpen(isOpen)
+            }}
+          />
+        </ThemeProvider>
+      )
+    }
+
+    it('should filter the list of items when the user types into the input', async () => {
+      const user = userEvent.setup()
+
+      render(<FilterableSelectPanel />)
+
+      await user.click(screen.getByText('Select items'))
+
+      expect(screen.getAllByRole('option')).toHaveLength(3)
+
+      await user.type(document.activeElement!, 'two')
+      expect(screen.getAllByRole('option')).toHaveLength(1)
+    })
+
+    it.todo('should announce the number of results')
+
+    it.todo('should announce when no results are available')
+  })
+
+  describe('with footer', () => {
+    function SelectPanelWithFooter() {
+      const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+      const [filter, setFilter] = React.useState('')
+      const [open, setOpen] = React.useState(false)
+
+      const onSelectedChange = (selected: SelectPanelProps['items']) => {
+        setSelected(selected)
+      }
+
+      return (
+        <ThemeProvider>
+          <SelectPanel
+            title="test title"
+            subtitle="test subtitle"
+            footer={<div>test footer</div>}
+            items={items}
+            placeholder="Select items"
+            placeholderText="Filter items"
+            selected={selected}
+            onSelectedChange={onSelectedChange}
+            filterValue={filter}
+            onFilterChange={value => {
+              setFilter(value)
+            }}
+            open={open}
+            onOpenChange={isOpen => {
+              setOpen(isOpen)
+            }}
+          />
+        </ThemeProvider>
+      )
+    }
+
+    it('should render the provided `footer` at the bottom of the dialog', async () => {
+      const user = userEvent.setup()
+
+      render(<SelectPanelWithFooter />)
+
+      await user.click(screen.getByText('Select items'))
+      expect(screen.getByText('test footer')).toBeVisible()
+    })
+  })
+
+  // open, onOpenChange (default)
+  // selected, onSelectedChange (default)
+  // placeholder
+  // placeholderText
+  // filterValue, onFilterChange
+  // inputLabel
+  // overlayProps
+  // textInputProps
+  // footer
+  //
+  // renderAnchor
+  // anchorRef
+  // sx
+  // ...listProps
 })
