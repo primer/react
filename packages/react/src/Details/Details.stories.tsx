@@ -1,5 +1,5 @@
 import React from 'react'
-import type {ComponentStory, ComponentMeta} from '@storybook/react'
+import type {StoryFn, Meta} from '@storybook/react'
 import Details from './Details'
 import {Button} from '../Button'
 import useDetails from '../hooks/useDetails'
@@ -7,8 +7,8 @@ import useDetails from '../hooks/useDetails'
 export default {
   title: 'Components/Details',
   component: Details,
-} as ComponentMeta<typeof Details>
-export const Default: ComponentStory<typeof Details> = () => {
+} as Meta<typeof Details>
+export const Default: StoryFn<typeof Details> = () => {
   const {getDetailsProps} = useDetails({closeOnOutsideClick: true})
   return (
     <Details {...getDetailsProps()}>

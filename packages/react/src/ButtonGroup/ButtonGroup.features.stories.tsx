@@ -9,21 +9,7 @@ import {Box, ThemeProvider, BaseStyles} from '..'
 const meta: Meta<typeof ButtonGroup> = {
   title: 'Components/ButtonGroup/Features',
   component: ButtonGroup,
-  decorators: [
-    Story => {
-      // Add some padding to the wrapper box to make sure tooltip v1 is always in the viewport
-      return (
-        <ThemeProvider>
-          <BaseStyles>
-            <Box padding={5}>{Story()}</Box>
-          </BaseStyles>
-        </ThemeProvider>
-      )
-    },
-  ],
-}
-
-export default meta
+} as Meta<typeof ButtonGroup>
 
 export const IconButtons = () => (
   <ButtonGroup>

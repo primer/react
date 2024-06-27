@@ -1,12 +1,12 @@
 import React from 'react'
-import type {ComponentMeta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import AvatarStack from './AvatarStack'
 import Avatar from '../Avatar'
 
 export default {
   title: 'Components/AvatarStack/Features',
   component: AvatarStack,
-} as ComponentMeta<typeof AvatarStack>
+} as Meta<typeof AvatarStack>
 
 export const AlignLeft = () => (
   <AvatarStack>

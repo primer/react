@@ -1,10 +1,10 @@
 import React from 'react'
-import type {ComponentStory, ComponentMeta} from '@storybook/react'
+import type {StoryFn, Meta} from '@storybook/react'
 import CounterLabel from './CounterLabel'
 
 export default {
   title: 'Components/CounterLabel/Features',
   component: CounterLabel,
-} as ComponentMeta<typeof CounterLabel>
+} as Meta<typeof CounterLabel>
 
-export const PrimaryTheme: ComponentStory<typeof CounterLabel> = () => <CounterLabel scheme="primary">12</CounterLabel>
+export const PrimaryTheme: StoryFn<typeof CounterLabel> = () => <CounterLabel scheme="primary">12</CounterLabel>

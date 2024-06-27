@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta, ComponentStory} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import Pagehead from './Pagehead'
 
 export default {
@@ -9,7 +9,7 @@ export default {
 
 export const Default = () => <Pagehead>Pagehead</Pagehead>
 
-export const Playground: ComponentStory<typeof Pagehead> = args => <Pagehead {...args}>Pagehead</Pagehead>
+export const Playground: StoryFn<typeof Pagehead> = args => <Pagehead {...args}>Pagehead</Pagehead>
 
 Playground.args = {
   as: 'div',

@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta, ComponentStory} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import CircleBadge from './CircleBadge'
 import {ZapIcon} from '@primer/octicons-react'
 
@@ -14,7 +14,7 @@ export const Default = () => (
   </CircleBadge>
 )
 
-export const Playground: ComponentStory<typeof CircleBadge> = args => (
+export const Playground: StoryFn<typeof CircleBadge> = args => (
   <CircleBadge {...args}>
     <CircleBadge.Icon icon={ZapIcon} />
   </CircleBadge>

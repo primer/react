@@ -11,7 +11,7 @@ else
 fi
 
 # Build storybook inside docs
-npx storybook build -o ../../docs/public/storybook -s ../../docs/public/static
+npx storybook build -o ../../docs/public/storybook
 
 # Remove manager-head after build to not interfere with dev builds
 rm .storybook/manager-head.html

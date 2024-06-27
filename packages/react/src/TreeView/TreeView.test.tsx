@@ -47,6 +47,30 @@ describe('Markup', () => {
     expect(items).toHaveLength(3)
   })
 
+  it('uses treeitem aria label', () => {
+    const {queryAllByRole} = renderWithTheme(
+      <>
+        <TreeView>
+          <TreeView.Item id="item-1" aria-label="Test tree item 1">
+            Item 1
+          </TreeView.Item>
+          <TreeView.Item id="item-2" aria-labelledby="test-description">
+            Item 2
+          </TreeView.Item>
+          <TreeView.Item id="item-2">Item 3</TreeView.Item>
+        </TreeView>
+        <span id="test-description">Tree item 2 description</span>
+      </>,
+    )
+
+    const items = queryAllByRole('treeitem')
+    expect(items).toHaveLength(3)
+    expect(items[0]).toHaveAccessibleName('Test tree item 1')
+    expect(items[1]).toHaveAccessibleName('Tree item 2 description')
+    expect(items[2]).toHaveAttribute('aria-labelledby')
+    expect(items[2]).toHaveAccessibleName('Item 3')
+  })
+
   it('hides subtrees by default', () => {
     const {queryByRole} = renderWithTheme(
       <TreeView aria-label="Test tree">

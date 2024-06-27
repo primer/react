@@ -102,6 +102,12 @@
       "type": "React.RefObject<RelativeTimeElement>"
     },
     {
+      "name": "noTitle",
+      "type": "boolean",
+      "defaultValue": "",
+      "description": "Removes the `title` attribute provided on the element by default"
+    },
+    {
       "name": "as",
       "type": "React.ElementType",
       "defaultValue": "\"relative-time\""

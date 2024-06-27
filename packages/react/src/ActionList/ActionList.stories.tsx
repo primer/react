@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Story, Meta} from '@storybook/react'
+import type {StoryFn, Meta} from '@storybook/react'
 import type {ActionListProps, ActionListGroupProps} from '.'
 import {ActionList} from '.'
 import {Item} from './Item'
@@ -23,7 +23,7 @@ export const Default = () => (
   </ActionList>
 )
 
-export const Playground: Story<ActionListProps> = args => (
+export const Playground: StoryFn<ActionListProps> = args => (
   <ActionList {...args}>
     <ActionList.Item>Copy link</ActionList.Item>
     <ActionList.Item>Quote reply</ActionList.Item>
@@ -255,7 +255,7 @@ LinkItemPlayground.argTypes = {
   },
 }
 
-export const GroupPlayground: Story<ActionListGroupProps> = args => (
+export const GroupPlayground: StoryFn<ActionListGroupProps> = args => (
   <ActionList>
     <ActionList.Group {...args}>
       <ActionList.Item>Item 1</ActionList.Item>
