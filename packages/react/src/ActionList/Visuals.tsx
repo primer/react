@@ -1,11 +1,12 @@
 import React from 'react'
 import {AlertIcon} from '@primer/octicons-react'
-import {Spinner, Box} from '..'
+import Box from '../Box'
+import Spinner from '../Spinner'
 import {get} from '../constants'
 import type {SxProp} from '../sx'
 import {merge} from '../sx'
 import {ItemContext, TEXT_ROW_HEIGHT, getVariantStyles} from './shared'
-import {Tooltip, type TooltipProps} from '../TooltipV2/Tooltip'
+import {Tooltip, type TooltipProps} from '../TooltipV2'
 
 export type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
 
