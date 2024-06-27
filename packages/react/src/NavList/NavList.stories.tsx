@@ -278,7 +278,7 @@ export const WithTrailingAction = () => {
   )
 }
 
-export const WithSubNavAndTrailingAction = () => {
+export const WithBadExampleOfSubNavAndTrailingAction = () => {
   return (
     <PageLayout>
       <PageLayout.Pane position="start">
@@ -310,6 +310,6 @@ export const WithSubNavAndTrailingAction = () => {
   )
 }
 
-WithSubNavAndTrailingAction.storyName = 'With SubNav and Trailing Action (Bad example, do not copy)'
+WithBadExampleOfSubNavAndTrailingAction.storyName = 'With SubNav and Trailing Action (Bad example, do not copy)'
 
 export default meta
