@@ -50,7 +50,7 @@ export interface BreadcrumbsProps extends React.PropsWithChildren, SxProp {
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-function Breadcrumbs({className, children, sx: sxProp}: BreadcrumbsProps) {
+export function Breadcrumbs({className, children, sx: sxProp}: BreadcrumbsProps) {
   const wrappedChildren = React.Children.map(children, child => <Wrapper>{child}</Wrapper>)
   return (
     <BreadcrumbsBase className={className} aria-label="Breadcrumbs" sx={sxProp}>
@@ -73,7 +73,7 @@ type StyledBreadcrumbsItemProps = {
  * @alias Breadcrumbs.Item
  * @primerparentid breadcrumbs
  */
-const BreadcrumbsItem = styled.a.attrs<StyledBreadcrumbsItemProps>(props => ({
+export const BreadcrumbsItem = styled.a.attrs<StyledBreadcrumbsItemProps>(props => ({
   className: clsx(props.selected && SELECTED_CLASS, props.className),
   'aria-current': props.selected ? 'page' : null,
 }))<StyledBreadcrumbsItemProps>`
@@ -95,17 +95,7 @@ const BreadcrumbsItem = styled.a.attrs<StyledBreadcrumbsItemProps>(props => ({
   ${sx};
 `
 
-Breadcrumbs.displayName = 'Breadcrumbs'
-
-BreadcrumbsItem.displayName = 'Breadcrumbs.Item'
-
 export type BreadcrumbsItemProps = ComponentProps<typeof BreadcrumbsItem>
-export default Object.assign(Breadcrumbs, {Item: BreadcrumbsItem})
-
-/**
- * @deprecated Use the `Breadcrumbs` component instead (i.e. `<Breadcrumb>` → `<Breadcrumbs>`)
- */
-export const Breadcrumb = Object.assign(Breadcrumbs, {Item: BreadcrumbsItem})
 
 /**
  * @deprecated Use the `BreadcrumbsProps` type instead

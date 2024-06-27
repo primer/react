@@ -4007,61 +4007,6 @@
   },
   {
     "tags": {
-      "alias": "Blankslate.Visual",
-      "primerparentid": "blankslate"
-    },
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
-    "description": "Used to display an icon or image at the top of a Blankslate.",
-    "displayName": "Visual",
-    "methods": [],
-    "props": {}
-  },
-  {
-    "tags": {
-      "alias": "Blankslate.Heading",
-      "primerparentid": "blankslate"
-    },
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
-    "description": "The title (heading) of the Blankslate.",
-    "displayName": "Heading",
-    "methods": [],
-    "props": {}
-  },
-  {
-    "tags": {
-      "alias": "Blankslate.Description",
-      "primerparentid": "blankslate"
-    },
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
-    "description": "An optional description for the Blankslate when the title needs supplemental information.",
-    "displayName": "Description",
-    "methods": [],
-    "props": {}
-  },
-  {
-    "tags": {
-      "alias": "Blankslate.PrimaryAction",
-      "primerparentid": "blankslate"
-    },
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
-    "description": "The primary action to take in response to the messaging in Blankslate.",
-    "displayName": "PrimaryAction",
-    "methods": [],
-    "props": {}
-  },
-  {
-    "tags": {
-      "alias": "Blankslate.SecondaryAction",
-      "primerparentid": "blankslate"
-    },
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
-    "description": "The secondary action to take in response to the messaging in Blankslate.",
-    "displayName": "SecondaryAction",
-    "methods": [],
-    "props": {}
-  },
-  {
-    "tags": {
       "primerid": "blankslate",
       "primerstatus": "draft",
       "primera11yreviewed": "false"
@@ -4117,6 +4062,61 @@
         }
       }
     }
+  },
+  {
+    "tags": {
+      "alias": "Blankslate.Visual",
+      "primerparentid": "blankslate"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
+    "description": "Used to display an icon or image at the top of a Blankslate.",
+    "displayName": "Visual",
+    "methods": [],
+    "props": {}
+  },
+  {
+    "tags": {
+      "alias": "Blankslate.Heading",
+      "primerparentid": "blankslate"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
+    "description": "The title (heading) of the Blankslate.",
+    "displayName": "Heading",
+    "methods": [],
+    "props": {}
+  },
+  {
+    "tags": {
+      "alias": "Blankslate.Description",
+      "primerparentid": "blankslate"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
+    "description": "An optional description for the Blankslate when the title needs supplemental information.",
+    "displayName": "Description",
+    "methods": [],
+    "props": {}
+  },
+  {
+    "tags": {
+      "alias": "Blankslate.PrimaryAction",
+      "primerparentid": "blankslate"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
+    "description": "The primary action to take in response to the messaging in Blankslate.",
+    "displayName": "PrimaryAction",
+    "methods": [],
+    "props": {}
+  },
+  {
+    "tags": {
+      "alias": "Blankslate.SecondaryAction",
+      "primerparentid": "blankslate"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/Blankslate.tsx",
+    "description": "The secondary action to take in response to the messaging in Blankslate.",
+    "displayName": "SecondaryAction",
+    "methods": [],
+    "props": {}
   },
   {
     "tags": {},
@@ -4237,9 +4237,13 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "primerid": "breadcrumbs",
+      "primerstatus": "alpha",
+      "primera11yreviewed": "false"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Breadcrumbs/Breadcrumbs.tsx",
-    "description": "",
+    "description": "Breadcrumbs display the current page or context within the site, allowing them to navigate different levels of the hierarchy.",
     "displayName": "Breadcrumbs",
     "methods": [],
     "props": {
@@ -4260,6 +4264,67 @@
         "required": false,
         "type": {
           "name": "string"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "Breadcrumbs.Item",
+      "primerparentid": "breadcrumbs"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Breadcrumbs/Breadcrumbs.tsx",
+    "description": "Breadcrumbs.Item is used to represent each link in the Breadcrumbs component. The last item is not a link, it shows the current page.",
+    "displayName": "BreadcrumbsItem",
+    "methods": [],
+    "props": {
+      "to": {
+        "defaultValue": null,
+        "description": "Used when the item is rendered using a component like React Router's `Link`. The path to navigate to.",
+        "name": "to",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Breadcrumbs/Breadcrumbs.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "To"
+        }
+      },
+      "selected": {
+        "defaultValue": null,
+        "description": "Whether this item represents the current page",
+        "name": "selected",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Breadcrumbs/Breadcrumbs.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
         }
       },
       "sx": {
