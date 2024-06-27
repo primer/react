@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import sx, {SxProp} from '../../sx'
+import type {SxProp} from '../../sx'
+import sx from '../../sx'
 
 /**
  * Provides an unstyled button that can be styled as-needed for components

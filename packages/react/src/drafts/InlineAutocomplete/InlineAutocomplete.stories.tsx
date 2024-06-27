@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
-import {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 
 import {BaseStyles, Box, Textarea, ThemeProvider, FormControl} from '../..'
-import InlineAutocomplete, {ShowSuggestionsEvent, Suggestions} from '.'
+import type {ShowSuggestionsEvent, Suggestions} from '.'
+import InlineAutocomplete from '.'
 
 export default {
   title: 'Deprecated/Components/InlineAutocomplete',

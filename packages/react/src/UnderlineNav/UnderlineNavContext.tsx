@@ -1,5 +1,6 @@
-import React, {createContext} from 'react'
-import {Theme} from '../ThemeProvider'
+import type React from 'react'
+import {createContext} from 'react'
+import type {Theme} from '../ThemeProvider'
 
 export const UnderlineNavContext = createContext<{
   theme: Theme | undefined

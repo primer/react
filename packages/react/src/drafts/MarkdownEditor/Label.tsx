@@ -1,6 +1,7 @@
-import React, {FC, useContext} from 'react'
+import type {FC} from 'react'
+import React, {useContext} from 'react'
 import InputLabel from '../../internal/components/InputLabel'
-import {SxProp} from '../../sx'
+import type {SxProp} from '../../sx'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
 
 type LabelProps = SxProp & {

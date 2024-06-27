@@ -1,5 +1,5 @@
 import {get} from '../constants'
-import {SegmentedControlButtonProps} from './SegmentedControlButton'
+import type {SegmentedControlButtonProps} from './SegmentedControlButton'
 
 export const directChildLayoutAdjustments = {
   ':first-child': {

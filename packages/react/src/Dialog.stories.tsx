@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react'
-import {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import {Button} from './Button'
 import {Box, Text} from '.'
 import {default as Dialog} from './Dialog'
@@ -28,7 +28,7 @@ export const Default = () => {
         <div data-testid="inner">
           <Dialog.Header id="header">Title</Dialog.Header>
           <Box p={3}>
-            <Text fontFamily="sans-serif">Some content</Text>
+            <Text>Some content</Text>
           </Box>
         </div>
       </Dialog>

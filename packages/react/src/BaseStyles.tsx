@@ -1,8 +1,9 @@
 import React from 'react'
 import styled, {createGlobalStyle} from 'styled-components'
-import {COMMON, SystemCommonProps, SystemTypographyProps, TYPOGRAPHY} from './constants'
+import type {SystemCommonProps, SystemTypographyProps} from './constants'
+import {COMMON, TYPOGRAPHY} from './constants'
 import {useTheme} from './ThemeProvider'
-import {ComponentProps} from './utils/types'
+import type {ComponentProps} from './utils/types'
 
 // load polyfill for :focus-visible
 import 'focus-visible'

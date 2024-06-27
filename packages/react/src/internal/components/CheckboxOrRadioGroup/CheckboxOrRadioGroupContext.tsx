@@ -1,5 +1,5 @@
 import React from 'react'
-import {CheckboxOrRadioGroupProps} from './CheckboxOrRadioGroup'
+import type {CheckboxOrRadioGroupProps} from './CheckboxOrRadioGroup'
 
 export type CheckboxOrRadioGroupContext = {
   validationMessageId?: string

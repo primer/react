@@ -6,9 +6,15 @@ on:
       - 'next-major'
       - 'changeset-release/**'
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   release:
-    concurrency: npm-canary
+    concurrency:
+      group: npm-canary
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -19,7 +25,9 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node_version: ${{ inputs.node_version }}
+          node-version: 20
+          cache: 'npm'
+      - run: npm i -g npm@^10.5.1
       - name: Install dependencies
         run: npm ci
       - name: Build

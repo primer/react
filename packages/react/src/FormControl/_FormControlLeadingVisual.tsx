@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '../Box'
 import {get} from '../constants'
-import {SxProp} from '../sx'
+import type {SxProp} from '../sx'
 import {useFormControlContext} from './_FormControlContext'
 
 const FormControlLeadingVisual: React.FC<React.PropsWithChildren<SxProp>> = ({children, sx}) => {

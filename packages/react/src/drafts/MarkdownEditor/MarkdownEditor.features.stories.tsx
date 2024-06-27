@@ -1,8 +1,10 @@
 import {DiffIcon, PlusIcon} from '@primer/octicons-react'
-import React, {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
+import React from '@storybook/react'
 import {useRef, useState} from 'react'
 import Box from '../../Box'
-import MarkdownEditor, {Emoji, Mentionable, Reference, SavedReply} from '.'
+import type {Emoji, Mentionable, Reference, SavedReply} from '.'
+import MarkdownEditor from '.'
 
 const meta: Meta = {
   title: 'Deprecated/Components/MarkdownEditor/Features',

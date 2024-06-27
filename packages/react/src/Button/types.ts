@@ -1,7 +1,9 @@
-import React from 'react'
+import type React from 'react'
 import styled from 'styled-components'
-import sx, {SxProp} from '../sx'
+import type {SxProp} from '../sx'
+import sx from '../sx'
 import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
+import type {TooltipDirection} from '../TooltipV2'
 
 export const StyledButton = styled.button<SxProp>`
   ${getGlobalFocusStyles('-2px')};
@@ -40,6 +42,10 @@ export type ButtonBaseProps = {
    * interactions as an enabled button.
    */
   inactive?: boolean
+  /**
+   * Whether the button label should wrap to multiple lines of it is longer than the button width.
+   */
+  labelWrap?: boolean
 } & SxProp &
   React.ButtonHTMLAttributes<HTMLButtonElement>
 
@@ -76,6 +82,9 @@ export type ButtonProps = {
 
 export type IconButtonProps = ButtonA11yProps & {
   icon: React.ElementType
+  unsafeDisableTooltip?: boolean
+  description?: string
+  tooltipDirection?: TooltipDirection
 } & Omit<ButtonBaseProps, 'aria-label' | 'aria-labelledby'>
 
 // adopted from React.AnchorHTMLAttributes

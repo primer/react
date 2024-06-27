@@ -3,10 +3,11 @@ import userEvent from '@testing-library/user-event'
 import React from 'react'
 import Token from '../Token'
 import {render, behavesAsComponent} from '../../utils/testing'
-import {axe} from 'jest-axe'
-import {TokenSizeKeys, tokenSizes} from '../TokenBase'
+import axe from 'axe-core'
+import type {TokenSizeKeys} from '../TokenBase'
+import {tokenSizes} from '../TokenBase'
 import {IssueLabelToken, AvatarToken} from '..'
-import {AvatarTokenProps} from '../AvatarToken'
+import type {AvatarTokenProps} from '../AvatarToken'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const testTokenComponent = (Component: React.ComponentType<React.PropsWithChildren<any>>) => {
@@ -78,7 +79,7 @@ const testTokenComponent = (Component: React.ComponentType<React.PropsWithChildr
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Component text="token" />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 }

@@ -1,6 +1,6 @@
 import React from 'react'
-import {Meta} from '@storybook/react'
-import {ComponentProps} from '../utils/types'
+import type {Meta} from '@storybook/react'
+import type {ComponentProps} from '../utils/types'
 import StateLabel from './StateLabel'
 
 export default {

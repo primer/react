@@ -1,9 +1,12 @@
-import React, {ComponentPropsWithRef, forwardRef, useMemo} from 'react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import type {ComponentPropsWithRef} from 'react'
+import React, {forwardRef, useMemo} from 'react'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import Box from '../Box'
-import {BetterSystemStyleObject, merge} from '../sx'
+import type {BetterSystemStyleObject} from '../sx'
+import {merge} from '../sx'
 import {useTheme} from '../ThemeProvider'
-import {ButtonProps, StyledButton} from './types'
+import type {ButtonProps} from './types'
+import {StyledButton} from './types'
 import {getVariantStyles, getButtonStyles, getAlignContentSize} from './styles'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {defaultSxProp} from '../utils/defaultSxProp'
@@ -22,6 +25,7 @@ const ButtonBase = forwardRef(
       alignContent = 'center',
       block = false,
       inactive,
+      labelWrap,
       ...rest
     } = props
 
@@ -70,6 +74,7 @@ const ButtonBase = forwardRef(
         data-size={size === 'small' || size === 'large' ? size : undefined}
         data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
         data-inactive={inactive ? true : undefined}
+        data-label-wrap={labelWrap}
       >
         {Icon ? (
           <Icon />

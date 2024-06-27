@@ -11,7 +11,7 @@ import {
   ArrowRightIcon,
   ArrowLeftIcon,
 } from '@primer/octicons-react'
-import {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import React, {forwardRef} from 'react'
 import styled from 'styled-components'
 import {Label, ThemeProvider} from '../..'

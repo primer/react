@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import {variant} from 'styled-system'
-import {ComponentProps} from '../../utils/types'
+import type {ComponentProps} from '../../utils/types'
 import buttonBaseStyles from './ButtonStyles'
 
 const variants = variant({

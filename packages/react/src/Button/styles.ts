@@ -1,5 +1,5 @@
-import {VariantType, AlignContent} from './types'
-import {Theme} from '../ThemeProvider'
+import type {VariantType, AlignContent} from './types'
+import type {Theme} from '../ThemeProvider'
 
 export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme) => {
   const style = {
@@ -17,6 +17,8 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       '&:disabled': {
         color: 'primer.fg.disabled',
+        borderColor: `var(--button-default-borderColor-disabled, ${theme?.colors.btn.border})`,
+        backgroundColor: `var(--button-default-bgColor-disabled, ${theme?.colors.input.disabledBg})`,
         '[data-component=ButtonCounter]': {
           color: 'inherit',
         },
@@ -27,6 +29,12 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       '[data-component="leadingVisual"], [data-component="trailingVisual"], [data-component="trailingAction"]': {
         color: `var(--button-color, ${theme?.colors.fg.muted})`,
+      },
+      '[data-component=ButtonCounter]': {
+        backgroundColor: 'btn.counterBg',
+      },
+      '&[data-component="IconButton"][data-no-visuals]': {
+        color: 'fg.muted',
       },
     },
     primary: {
@@ -51,6 +59,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '&:disabled': {
         color: 'btn.primary.disabledText',
         backgroundColor: 'btn.primary.disabledBg',
+        borderColor: 'btn.primary.disabledBorder',
         '[data-component=ButtonCounter]': {
           color: 'inherit',
         },
@@ -87,7 +96,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '&:disabled': {
         color: 'btn.danger.disabledText',
         backgroundColor: 'btn.danger.disabledBg',
-        borderColor: 'btn.danger.disabledBorder',
+        borderColor: `var(--button-default-borderColor-disabled, ${theme?.colors.btn.border})`,
         '[data-component=ButtonCounter]': {
           color: 'btn.danger.disabledCounterFg',
           backgroundColor: 'btn.danger.disabledCounterBg',
@@ -294,6 +303,41 @@ export const getButtonStyles = (theme?: Theme) => {
     ...getBaseStyles(theme),
     '&[data-block="block"]': {
       width: '100%',
+    },
+    '&[data-label-wrap="true"]': {
+      minWidth: 'fit-content',
+      height: 'unset',
+      minHeight: 'var(--control-medium-size, 2rem)',
+
+      '[data-component="buttonContent"]': {
+        flex: '1 1 auto',
+        alignSelf: 'stretch',
+        paddingBlock: 'calc(var(--control-medium-paddingBlock, 0.375rem) - 2px)',
+      },
+
+      '[data-component="text"]': {
+        whiteSpace: 'unset',
+        wordBreak: 'break-word',
+      },
+
+      '&[data-size="small"]': {
+        height: 'unset',
+        minHeight: 'var(--control-small-size, 1.75rem)',
+
+        '[data-component="buttonContent"]': {
+          paddingBlock: 'calc(var(--control-small-paddingBlock, 0.25rem) - 2px)',
+        },
+      },
+
+      '&[data-size="large"]': {
+        height: 'unset',
+        minHeight: 'var(--control-large-size, 2.5rem)',
+        paddingInline: 'var(--control-large-paddingInline-spacious, 1rem)',
+
+        '[data-component="buttonContent"]': {
+          paddingBlock: 'calc(var(--control-large-paddingBlock, 0.625rem) - 2px)',
+        },
+      },
     },
     '&[data-inactive]:not([disabled])': {
       backgroundColor: `var(--button-inactive-bgColor, ${theme?.colors.btn.inactive.bg})`,

@@ -1,4 +1,5 @@
-import React, {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
+import React from '@storybook/react'
 import {debounce} from 'lodash'
 import {useCallback, useMemo, useState} from 'react'
 import BaseStyles from '../../BaseStyles'

@@ -1,8 +1,10 @@
 import React, {forwardRef} from 'react'
 import styled, {keyframes} from 'styled-components'
-import {width, WidthProps} from 'styled-system'
+import type {WidthProps} from 'styled-system'
+import {width} from 'styled-system'
 import {get} from '../constants'
-import sx, {SxProp} from '../sx'
+import type {SxProp} from '../sx'
+import sx from '../sx'
 import {warning} from '../utils/warning'
 
 type ProgressProp = {progress?: string | number}

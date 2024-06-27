@@ -4,6 +4,7 @@
   "status": "alpha",
   "a11yReviewed": true,
   "stories": [],
+  "importPath": "@primer/react",
   "props": [
     {
       "name": "as",

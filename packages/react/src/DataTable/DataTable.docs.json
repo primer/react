@@ -41,6 +41,7 @@
       "id": "drafts-components-datatable-features--with-pagination"
     }
   ],
+  "importPath": "@primer/react/experimental",
   "props": [
     {
       "name": "aria-describedby",

@@ -32,20 +32,28 @@ exports[`TextInput renders 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -162,20 +170,28 @@ exports[`TextInput renders block 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -285,20 +301,28 @@ exports[`TextInput renders contrast 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -408,20 +432,28 @@ exports[`TextInput renders error 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -494,6 +526,7 @@ exports[`TextInput renders error 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-invalid="true"
     className="c2"
     data-component="input"
     name="zipcode"
@@ -542,20 +575,28 @@ exports[`TextInput renders large 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -665,20 +706,28 @@ exports[`TextInput renders leadingVisual 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -753,7 +802,6 @@ exports[`TextInput renders leadingVisual 1`] = `
       fill="currentColor"
       focusable="false"
       height={16}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -814,20 +862,28 @@ exports[`TextInput renders leadingVisual 2`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -902,7 +958,6 @@ exports[`TextInput renders leadingVisual 2`] = `
       fill="currentColor"
       focusable="false"
       height={16}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -963,20 +1018,28 @@ exports[`TextInput renders leadingVisual 3`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -1093,20 +1156,28 @@ exports[`TextInput renders leadingVisual 4`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -1224,20 +1295,28 @@ exports[`TextInput renders monospace 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -1346,20 +1425,28 @@ exports[`TextInput renders placeholder 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -1477,20 +1564,28 @@ exports[`TextInput renders small 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -1575,7 +1670,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   line-height: 0;
 }
 
-.c5 {
+.c4 {
   border-radius: 6px;
   border: 1px solid;
   border-color: transparent;
@@ -1620,65 +1715,65 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   box-shadow: none;
 }
 
-.c5:focus:not(:disabled) {
+.c4:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -2px;
 }
 
-.c5:focus:not(:disabled):not(:focus-visible) {
+.c4:focus:not(:disabled):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
-.c5:focus-visible:not(:disabled) {
+.c4:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -2px;
 }
 
-.c5[href] {
+.c4[href] {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
 }
 
-.c5[href]:hover {
+.c4[href]:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c5:hover {
+.c4:hover {
   -webkit-transition-duration: 80ms;
   transition-duration: 80ms;
 }
 
-.c5:active {
+.c4:active {
   -webkit-transition: none;
   transition: none;
 }
 
-.c5[data-inactive] {
+.c4[data-inactive] {
   cursor: auto;
 }
 
-.c5:disabled {
+.c4:disabled {
   cursor: not-allowed;
   box-shadow: none;
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c5:disabled [data-component=ButtonCounter],
-.c5:disabled [data-component="leadingVisual"],
-.c5:disabled [data-component="trailingAction"] {
+.c4:disabled [data-component=ButtonCounter],
+.c4:disabled [data-component="leadingVisual"],
+.c4:disabled [data-component="trailingAction"] {
   color: inherit;
 }
 
-.c5 [data-component=ButtonCounter] {
+.c4 [data-component=ButtonCounter] {
   font-size: 12px;
 }
 
-.c5[data-component=IconButton] {
+.c4[data-component=IconButton] {
   display: inline-grid;
   padding: unset;
   place-content: center;
@@ -1686,80 +1781,122 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   min-width: unset;
 }
 
-.c5[data-size="small"] {
+.c4[data-size="small"] {
   padding: 0 8px;
   height: 28px;
   gap: 4px;
   font-size: 12px;
 }
 
-.c5[data-size="small"] [data-component="text"] {
+.c4[data-size="small"] [data-component="text"] {
   line-height: calc(20 / 12);
 }
 
-.c5[data-size="small"] [data-component=ButtonCounter] {
+.c4[data-size="small"] [data-component=ButtonCounter] {
   font-size: 12px;
 }
 
-.c5[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+.c4[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 4px;
 }
 
-.c5[data-size="small"][data-component=IconButton] {
+.c4[data-size="small"][data-component=IconButton] {
   width: 28px;
   padding: unset;
 }
 
-.c5[data-size="large"] {
+.c4[data-size="large"] {
   padding: 0 16px;
   height: 40px;
   gap: 8px;
 }
 
-.c5[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
+.c4[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c5[data-size="large"][data-component=IconButton] {
+.c4[data-size="large"][data-component=IconButton] {
   width: 40px;
   padding: unset;
 }
 
-.c5[data-block="block"] {
+.c4[data-block="block"] {
   width: 100%;
 }
 
-.c5[data-inactive]:not([disabled]) {
+.c4[data-label-wrap="true"] {
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  height: unset;
+  min-height: var(--control-medium-size,2rem);
+}
+
+.c4[data-label-wrap="true"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
+}
+
+.c4[data-label-wrap="true"] [data-component="text"] {
+  white-space: unset;
+  word-break: break-word;
+}
+
+.c4[data-label-wrap="true"][data-size="small"] {
+  height: unset;
+  min-height: var(--control-small-size,1.75rem);
+}
+
+.c4[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
+}
+
+.c4[data-label-wrap="true"][data-size="large"] {
+  height: unset;
+  min-height: var(--control-large-size,2.5rem);
+  padding-inline: var(--control-large-paddingInline-spacious,1rem);
+}
+
+.c4[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
+}
+
+.c4[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
   border-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
   color: var(--button-inactive-fgColor,var(--button-inactive-fgColor-rest,var(--color-btn-inactive-text,#57606a)));
 }
 
-.c5[data-inactive]:not([disabled]):focus-visible {
+.c4[data-inactive]:not([disabled]):focus-visible {
   box-shadow: none;
 }
 
-.c5 [data-component="leadingVisual"] {
+.c4 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
-.c5 [data-component="text"] {
+.c4 [data-component="text"] {
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
 }
 
-.c5 [data-component="trailingVisual"] {
+.c4 [data-component="trailingVisual"] {
   grid-area: trailingVisual;
 }
 
-.c5 [data-component="trailingAction"] {
+.c4 [data-component="trailingAction"] {
   margin-right: -4px;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
-.c5 [data-component="buttonContent"] {
+.c4 [data-component="buttonContent"] {
   -webkit-flex: 1 0 auto;
   -ms-flex: 1 0 auto;
   flex: 1 0 auto;
@@ -1775,43 +1912,43 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   align-content: center;
 }
 
-.c5 [data-component="buttonContent"] > :not(:last-child) {
+.c4 [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c5:hover:not([disabled]) {
+.c4:hover:not([disabled]) {
   background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
 }
 
-.c5:active:not([disabled]) {
+.c4:active:not([disabled]) {
   background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
 }
 
-.c5[aria-expanded=true] {
+.c4[aria-expanded=true] {
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c5[data-component="IconButton"][data-no-visuals] {
+.c4[data-component="IconButton"][data-no-visuals] {
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
-.c5[data-no-visuals] {
+.c4[data-no-visuals] {
   color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
 }
 
-.c5:has([data-component="ButtonCounter"]) {
+.c4:has([data-component="ButtonCounter"]) {
   color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
 }
 
-.c5:disabled[data-no-visuals] {
+.c4:disabled[data-no-visuals] {
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c5:disabled[data-no-visuals] [data-component=ButtonCounter] {
+.c4:disabled[data-no-visuals] [data-component=ButtonCounter] {
   color: inherit;
 }
 
-.c5[data-size="small"][data-no-visuals] {
+.c4[data-size="small"][data-no-visuals] {
   padding-top: 2px;
   padding-right: 4px;
   padding-bottom: 2px;
@@ -1819,9 +1956,115 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   position: relative;
 }
 
-.c5[data-size="small"][data-no-visuals][data-component="IconButton"] {
+.c4[data-size="small"][data-no-visuals][data-component="IconButton"] {
   width: var(--inner-action-size);
   height: var(--inner-action-size);
+}
+
+.c5 {
+  display: none;
+}
+
+.c5[popover] {
+  position: absolute;
+  padding: 0.5em 0.75em;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  margin: auto;
+  -webkit-clip: auto;
+  clip: auto;
+  white-space: normal;
+  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
+  text-align: center;
+  word-wrap: break-word;
+  background: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
+  border-radius: 6px;
+  border: 0;
+  opacity: 0;
+  max-width: 250px;
+  inset: auto;
+  overflow: visible;
+}
+
+.c5[popover]:popover-open {
+  display: block;
+}
+
+.c5[popover].\\:popover-open {
+  display: block;
+}
+
+.c5::after {
+  position: absolute;
+  display: block;
+  right: 0;
+  left: 0;
+  height: var(--overlay-offset,0.25rem);
+  content: '';
+}
+
+.c5[data-direction='n']::after,
+.c5[data-direction='ne']::after,
+.c5[data-direction='nw']::after {
+  top: 100%;
+}
+
+.c5[data-direction='s']::after,
+.c5[data-direction='se']::after,
+.c5[data-direction='sw']::after {
+  bottom: 100%;
+}
+
+.c5[data-direction='w']::after {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 8px;
+  content: '';
+  bottom: 0;
+  left: 100%;
+}
+
+.c5[data-direction='e']::after {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 8px;
+  content: '';
+  bottom: 0;
+  right: 100%;
+  margin-left: -8px;
+}
+
+.c5:popover-open,
+.c5:popover-open::before {
+  -webkit-animation-name: tooltip-appear;
+  animation-name: tooltip-appear;
+  -webkit-animation-duration: 0.1s;
+  animation-duration: 0.1s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+.c5.\\:popover-open,
+.c5.\\:popover-open::before {
+  -webkit-animation-name: tooltip-appear;
+  animation-name: tooltip-appear;
+  -webkit-animation-duration: 0.1s;
+  animation-duration: 0.1s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
 }
 
 .c0 {
@@ -1855,20 +2098,28 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0 > textarea {
@@ -1903,231 +2154,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   padding-right: 0;
 }
 
-.c4 {
-  position: relative;
-  display: inline-block;
-}
-
-.c4::before {
-  position: absolute;
-  z-index: 1000001;
-  display: none;
-  width: 0px;
-  height: 0px;
-  color: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
-  pointer-events: none;
-  content: '';
-  border: 6px solid transparent;
-  opacity: 0;
-}
-
-.c4::after {
-  position: absolute;
-  z-index: 1000000;
-  display: none;
-  padding: 0.5em 0.75em;
-  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
-  -webkit-font-smoothing: subpixel-antialiased;
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  text-align: center;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-shadow: none;
-  text-transform: none;
-  -webkit-letter-spacing: normal;
-  -moz-letter-spacing: normal;
-  -ms-letter-spacing: normal;
-  letter-spacing: normal;
-  word-wrap: break-word;
-  white-space: pre;
-  pointer-events: none;
-  content: attr(aria-label);
-  background: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
-  border-radius: 6px;
-  opacity: 0;
-}
-
-.c4:hover::before,
-.c4:active::before,
-.c4:focus::before,
-.c4:focus-within::before,
-.c4:hover::after,
-.c4:active::after,
-.c4:focus::after,
-.c4:focus-within::after {
-  display: inline-block;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  -webkit-animation-name: tooltip-appear;
-  animation-name: tooltip-appear;
-  -webkit-animation-duration: 0.1s;
-  animation-duration: 0.1s;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-  -webkit-animation-timing-function: ease-in;
-  animation-timing-function: ease-in;
-  -webkit-animation-delay: 0.4s;
-  animation-delay: 0.4s;
-}
-
-.c4.tooltipped-no-delay:hover::before,
-.c4.tooltipped-no-delay:active::before,
-.c4.tooltipped-no-delay:focus::before,
-.c4.tooltipped-no-delay:focus-within::before,
-.c4.tooltipped-no-delay:hover::after,
-.c4.tooltipped-no-delay:active::after,
-.c4.tooltipped-no-delay:focus::after,
-.c4.tooltipped-no-delay:focus-within::after {
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-}
-
-.c4.tooltipped-multiline:hover::after,
-.c4.tooltipped-multiline:active::after,
-.c4.tooltipped-multiline:focus::after,
-.c4.tooltipped-multiline:focus-within::after {
-  display: table-cell;
-}
-
-.c4.tooltipped-s::after,
-.c4.tooltipped-se::after,
-.c4.tooltipped-sw::after {
-  top: 100%;
-  right: 50%;
-  margin-top: 6px;
-}
-
-.c4.tooltipped-s::before,
-.c4.tooltipped-se::before,
-.c4.tooltipped-sw::before {
-  top: auto;
-  right: 50%;
-  bottom: -7px;
-  margin-right: -6px;
-  border-bottom-color: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
-}
-
-.c4.tooltipped-se::after {
-  right: auto;
-  left: 50%;
-  margin-left: -16px;
-}
-
-.c4.tooltipped-sw::after {
-  margin-right: -16px;
-}
-
-.c4.tooltipped-n::after,
-.c4.tooltipped-ne::after,
-.c4.tooltipped-nw::after {
-  right: 50%;
-  bottom: 100%;
-  margin-bottom: 6px;
-}
-
-.c4.tooltipped-n::before,
-.c4.tooltipped-ne::before,
-.c4.tooltipped-nw::before {
-  top: -7px;
-  right: 50%;
-  bottom: auto;
-  margin-right: -6px;
-  border-top-color: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
-}
-
-.c4.tooltipped-ne::after {
-  right: auto;
-  left: 50%;
-  margin-left: -16px;
-}
-
-.c4.tooltipped-nw::after {
-  margin-right: -16px;
-}
-
-.c4.tooltipped-s::after,
-.c4.tooltipped-n::after {
-  -webkit-transform: translateX(50%);
-  -ms-transform: translateX(50%);
-  transform: translateX(50%);
-}
-
-.c4.tooltipped-w::after {
-  right: 100%;
-  bottom: 50%;
-  margin-right: 6px;
-  -webkit-transform: translateY(50%);
-  -ms-transform: translateY(50%);
-  transform: translateY(50%);
-}
-
-.c4.tooltipped-w::before {
-  top: 50%;
-  bottom: 50%;
-  left: -7px;
-  margin-top: -6px;
-  border-left-color: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
-}
-
-.c4.tooltipped-e::after {
-  bottom: 50%;
-  left: 100%;
-  margin-left: 6px;
-  -webkit-transform: translateY(50%);
-  -ms-transform: translateY(50%);
-  transform: translateY(50%);
-}
-
-.c4.tooltipped-e::before {
-  top: 50%;
-  right: -7px;
-  bottom: 50%;
-  margin-top: -6px;
-  border-right-color: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
-}
-
-.c4.tooltipped-multiline::after {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-  max-width: 250px;
-  word-wrap: break-word;
-  white-space: pre-line;
-  border-collapse: separate;
-}
-
-.c4.tooltipped-multiline.tooltipped-s::after,
-.c4.tooltipped-multiline.tooltipped-n::after {
-  right: auto;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  transform: translateX(-50%);
-}
-
-.c4.tooltipped-multiline.tooltipped-w::after,
-.c4.tooltipped-multiline.tooltipped-e::after {
-  right: 100%;
-}
-
-.c4.tooltipped-align-right-2::after {
-  right: 0;
-  margin-right: 0;
-}
-
-.c4.tooltipped-align-right-2::before {
-  right: 15px;
-}
-
-.c4.tooltipped-align-left-2::after {
-  left: 0;
-  margin-left: 0;
-}
-
-.c4.tooltipped-align-left-2::before {
-  left: 10px;
-}
-
 .c2 {
   border: 0;
   font-size: inherit;
@@ -2143,13 +2169,13 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c5:focus {
+  .c4:focus {
     outline: solid 1px transparent;
   }
 }
 
 @media (pointer:coarse) {
-  .c5[data-size="small"][data-no-visuals]:after {
+  .c4[data-size="small"][data-no-visuals]:after {
     content: "";
     position: absolute;
     left: 0;
@@ -2159,6 +2185,12 @@ exports[`TextInput renders trailingAction icon button 1`] = `
     transform: translateY(-50%);
     top: 50%;
     min-height: 44px;
+  }
+}
+
+@media (forced-colors:active) {
+  .c5 {
+    outline: 1px solid transparent;
   }
 }
 
@@ -2185,44 +2217,51 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   <span
     className="c3 TextInput-action"
   >
-    <span
-      aria-label="Icon label"
-      className="c4 tooltipped-n"
-      role="tooltip"
+    <button
+      aria-labelledby=":rl:"
+      className="c4"
+      data-block={null}
+      data-component="IconButton"
+      data-no-visuals={true}
+      data-size="small"
+      onBlur={[Function]}
+      onClick={[MockFunction]}
+      onFocus={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      type="button"
     >
-      <button
-        aria-label="Icon label"
-        className="c5"
-        data-block={null}
-        data-component="IconButton"
-        data-no-visuals={true}
-        data-size="small"
-        onClick={[MockFunction]}
-        type="button"
-      >
-        <svg
-          aria-hidden="true"
-          className="octicon octicon-search"
-          fill="currentColor"
-          focusable="false"
-          height={16}
-          role="img"
-          style={
-            {
-              "display": "inline-block",
-              "overflow": "visible",
-              "userSelect": "none",
-              "verticalAlign": "text-bottom",
-            }
+      <svg
+        aria-hidden="true"
+        className="octicon octicon-search"
+        fill="currentColor"
+        focusable="false"
+        height={16}
+        style={
+          {
+            "display": "inline-block",
+            "overflow": "visible",
+            "userSelect": "none",
+            "verticalAlign": "text-bottom",
           }
-          viewBox="0 0 16 16"
-          width={16}
-        >
-          <path
-            d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
-          />
-        </svg>
-      </button>
+        }
+        viewBox="0 0 16 16"
+        width={16}
+      >
+        <path
+          d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+        />
+      </svg>
+    </button>
+    <span
+      aria-hidden={true}
+      className="c5"
+      data-direction="s"
+      id=":rl:"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      Icon label
     </span>
   </span>
 </span>
@@ -2396,6 +2435,48 @@ exports[`TextInput renders trailingAction text button 1`] = `
   width: 100%;
 }
 
+.c4[data-label-wrap="true"] {
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  height: unset;
+  min-height: var(--control-medium-size,2rem);
+}
+
+.c4[data-label-wrap="true"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
+}
+
+.c4[data-label-wrap="true"] [data-component="text"] {
+  white-space: unset;
+  word-break: break-word;
+}
+
+.c4[data-label-wrap="true"][data-size="small"] {
+  height: unset;
+  min-height: var(--control-small-size,1.75rem);
+}
+
+.c4[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
+}
+
+.c4[data-label-wrap="true"][data-size="large"] {
+  height: unset;
+  min-height: var(--control-large-size,2.5rem);
+  padding-inline: var(--control-large-paddingInline-spacious,1rem);
+}
+
+.c4[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
+}
+
 .c4[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
   border-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
@@ -2519,20 +2600,28 @@ exports[`TextInput renders trailingAction text button 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0 > textarea {
@@ -2654,14 +2743,14 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   line-height: 0;
 }
 
-.c6 {
+.c5 {
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
 }
 
-.c5 {
+.c4 {
   border-radius: 6px;
   border: 1px solid;
   border-color: transparent;
@@ -2706,65 +2795,65 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   box-shadow: none;
 }
 
-.c5:focus:not(:disabled) {
+.c4:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -2px;
 }
 
-.c5:focus:not(:disabled):not(:focus-visible) {
+.c4:focus:not(:disabled):not(:focus-visible) {
   outline: solid 1px transparent;
 }
 
-.c5:focus-visible:not(:disabled) {
+.c4:focus-visible:not(:disabled) {
   box-shadow: none;
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -2px;
 }
 
-.c5[href] {
+.c4[href] {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
 }
 
-.c5[href]:hover {
+.c4[href]:hover {
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
-.c5:hover {
+.c4:hover {
   -webkit-transition-duration: 80ms;
   transition-duration: 80ms;
 }
 
-.c5:active {
+.c4:active {
   -webkit-transition: none;
   transition: none;
 }
 
-.c5[data-inactive] {
+.c4[data-inactive] {
   cursor: auto;
 }
 
-.c5:disabled {
+.c4:disabled {
   cursor: not-allowed;
   box-shadow: none;
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c5:disabled [data-component=ButtonCounter],
-.c5:disabled [data-component="leadingVisual"],
-.c5:disabled [data-component="trailingAction"] {
+.c4:disabled [data-component=ButtonCounter],
+.c4:disabled [data-component="leadingVisual"],
+.c4:disabled [data-component="trailingAction"] {
   color: inherit;
 }
 
-.c5 [data-component=ButtonCounter] {
+.c4 [data-component=ButtonCounter] {
   font-size: 12px;
 }
 
-.c5[data-component=IconButton] {
+.c4[data-component=IconButton] {
   display: inline-grid;
   padding: unset;
   place-content: center;
@@ -2772,80 +2861,122 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   min-width: unset;
 }
 
-.c5[data-size="small"] {
+.c4[data-size="small"] {
   padding: 0 8px;
   height: 28px;
   gap: 4px;
   font-size: 12px;
 }
 
-.c5[data-size="small"] [data-component="text"] {
+.c4[data-size="small"] [data-component="text"] {
   line-height: calc(20 / 12);
 }
 
-.c5[data-size="small"] [data-component=ButtonCounter] {
+.c4[data-size="small"] [data-component=ButtonCounter] {
   font-size: 12px;
 }
 
-.c5[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
+.c4[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 4px;
 }
 
-.c5[data-size="small"][data-component=IconButton] {
+.c4[data-size="small"][data-component=IconButton] {
   width: 28px;
   padding: unset;
 }
 
-.c5[data-size="large"] {
+.c4[data-size="large"] {
   padding: 0 16px;
   height: 40px;
   gap: 8px;
 }
 
-.c5[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
+.c4[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c5[data-size="large"][data-component=IconButton] {
+.c4[data-size="large"][data-component=IconButton] {
   width: 40px;
   padding: unset;
 }
 
-.c5[data-block="block"] {
+.c4[data-block="block"] {
   width: 100%;
 }
 
-.c5[data-inactive]:not([disabled]) {
+.c4[data-label-wrap="true"] {
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  height: unset;
+  min-height: var(--control-medium-size,2rem);
+}
+
+.c4[data-label-wrap="true"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
+}
+
+.c4[data-label-wrap="true"] [data-component="text"] {
+  white-space: unset;
+  word-break: break-word;
+}
+
+.c4[data-label-wrap="true"][data-size="small"] {
+  height: unset;
+  min-height: var(--control-small-size,1.75rem);
+}
+
+.c4[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
+}
+
+.c4[data-label-wrap="true"][data-size="large"] {
+  height: unset;
+  min-height: var(--control-large-size,2.5rem);
+  padding-inline: var(--control-large-paddingInline-spacious,1rem);
+}
+
+.c4[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
+}
+
+.c4[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
   border-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
   color: var(--button-inactive-fgColor,var(--button-inactive-fgColor-rest,var(--color-btn-inactive-text,#57606a)));
 }
 
-.c5[data-inactive]:not([disabled]):focus-visible {
+.c4[data-inactive]:not([disabled]):focus-visible {
   box-shadow: none;
 }
 
-.c5 [data-component="leadingVisual"] {
+.c4 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
-.c5 [data-component="text"] {
+.c4 [data-component="text"] {
   grid-area: text;
   line-height: calc(20/14);
   white-space: nowrap;
 }
 
-.c5 [data-component="trailingVisual"] {
+.c4 [data-component="trailingVisual"] {
   grid-area: trailingVisual;
 }
 
-.c5 [data-component="trailingAction"] {
+.c4 [data-component="trailingAction"] {
   margin-right: -4px;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
-.c5 [data-component="buttonContent"] {
+.c4 [data-component="buttonContent"] {
   -webkit-flex: 1 0 auto;
   -ms-flex: 1 0 auto;
   flex: 1 0 auto;
@@ -2861,27 +2992,27 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   align-content: center;
 }
 
-.c5 [data-component="buttonContent"] > :not(:last-child) {
+.c4 [data-component="buttonContent"] > :not(:last-child) {
   margin-right: 8px;
 }
 
-.c5:hover:not([disabled]) {
+.c4:hover:not([disabled]) {
   background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
 }
 
-.c5:active:not([disabled]) {
+.c4:active:not([disabled]) {
   background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
 }
 
-.c5[aria-expanded=true] {
+.c4[aria-expanded=true] {
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c5[data-component="IconButton"][data-no-visuals] {
+.c4[data-component="IconButton"][data-no-visuals] {
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
-.c5[data-no-visuals] {
+.c4[data-no-visuals] {
   color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   padding-top: 2px;
   padding-right: 4px;
@@ -2890,21 +3021,128 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   position: relative;
 }
 
-.c5[data-no-visuals][data-component="IconButton"] {
+.c4[data-no-visuals][data-component="IconButton"] {
   width: var(--inner-action-size);
   height: var(--inner-action-size);
 }
 
-.c5:has([data-component="ButtonCounter"]) {
+.c4:has([data-component="ButtonCounter"]) {
   color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
 }
 
-.c5:disabled[data-no-visuals] {
+.c4:disabled[data-no-visuals] {
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
-.c5:disabled[data-no-visuals] [data-component=ButtonCounter] {
+.c4:disabled[data-no-visuals] [data-component=ButtonCounter] {
   color: inherit;
+}
+
+.c6 {
+  display: none;
+  display: inline-block;
+}
+
+.c6[popover] {
+  position: absolute;
+  padding: 0.5em 0.75em;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  margin: auto;
+  -webkit-clip: auto;
+  clip: auto;
+  white-space: normal;
+  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
+  text-align: center;
+  word-wrap: break-word;
+  background: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
+  border-radius: 6px;
+  border: 0;
+  opacity: 0;
+  max-width: 250px;
+  inset: auto;
+  overflow: visible;
+}
+
+.c6[popover]:popover-open {
+  display: block;
+}
+
+.c6[popover].\\:popover-open {
+  display: block;
+}
+
+.c6::after {
+  position: absolute;
+  display: block;
+  right: 0;
+  left: 0;
+  height: var(--overlay-offset,0.25rem);
+  content: '';
+}
+
+.c6[data-direction='n']::after,
+.c6[data-direction='ne']::after,
+.c6[data-direction='nw']::after {
+  top: 100%;
+}
+
+.c6[data-direction='s']::after,
+.c6[data-direction='se']::after,
+.c6[data-direction='sw']::after {
+  bottom: 100%;
+}
+
+.c6[data-direction='w']::after {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 8px;
+  content: '';
+  bottom: 0;
+  left: 100%;
+}
+
+.c6[data-direction='e']::after {
+  position: absolute;
+  display: block;
+  height: 100%;
+  width: 8px;
+  content: '';
+  bottom: 0;
+  right: 100%;
+  margin-left: -8px;
+}
+
+.c6:popover-open,
+.c6:popover-open::before {
+  -webkit-animation-name: tooltip-appear;
+  animation-name: tooltip-appear;
+  -webkit-animation-duration: 0.1s;
+  animation-duration: 0.1s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+
+.c6.\\:popover-open,
+.c6.\\:popover-open::before {
+  -webkit-animation-name: tooltip-appear;
+  animation-name: tooltip-appear;
+  -webkit-animation-duration: 0.1s;
+  animation-duration: 0.1s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+  -webkit-animation-timing-function: ease-in;
+  animation-timing-function: ease-in;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
 }
 
 .c0 {
@@ -2938,20 +3176,28 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0 > textarea {
@@ -2986,232 +3232,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   padding-right: 0;
 }
 
-.c4 {
-  position: relative;
-  display: inline-block;
-  display: inline-block;
-}
-
-.c4::before {
-  position: absolute;
-  z-index: 1000001;
-  display: none;
-  width: 0px;
-  height: 0px;
-  color: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
-  pointer-events: none;
-  content: '';
-  border: 6px solid transparent;
-  opacity: 0;
-}
-
-.c4::after {
-  position: absolute;
-  z-index: 1000000;
-  display: none;
-  padding: 0.5em 0.75em;
-  font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
-  -webkit-font-smoothing: subpixel-antialiased;
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  text-align: center;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-shadow: none;
-  text-transform: none;
-  -webkit-letter-spacing: normal;
-  -moz-letter-spacing: normal;
-  -ms-letter-spacing: normal;
-  letter-spacing: normal;
-  word-wrap: break-word;
-  white-space: pre;
-  pointer-events: none;
-  content: attr(aria-label);
-  background: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
-  border-radius: 6px;
-  opacity: 0;
-}
-
-.c4:hover::before,
-.c4:active::before,
-.c4:focus::before,
-.c4:focus-within::before,
-.c4:hover::after,
-.c4:active::after,
-.c4:focus::after,
-.c4:focus-within::after {
-  display: inline-block;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  -webkit-animation-name: tooltip-appear;
-  animation-name: tooltip-appear;
-  -webkit-animation-duration: 0.1s;
-  animation-duration: 0.1s;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-  -webkit-animation-timing-function: ease-in;
-  animation-timing-function: ease-in;
-  -webkit-animation-delay: 0.4s;
-  animation-delay: 0.4s;
-}
-
-.c4.tooltipped-no-delay:hover::before,
-.c4.tooltipped-no-delay:active::before,
-.c4.tooltipped-no-delay:focus::before,
-.c4.tooltipped-no-delay:focus-within::before,
-.c4.tooltipped-no-delay:hover::after,
-.c4.tooltipped-no-delay:active::after,
-.c4.tooltipped-no-delay:focus::after,
-.c4.tooltipped-no-delay:focus-within::after {
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-}
-
-.c4.tooltipped-multiline:hover::after,
-.c4.tooltipped-multiline:active::after,
-.c4.tooltipped-multiline:focus::after,
-.c4.tooltipped-multiline:focus-within::after {
-  display: table-cell;
-}
-
-.c4.tooltipped-s::after,
-.c4.tooltipped-se::after,
-.c4.tooltipped-sw::after {
-  top: 100%;
-  right: 50%;
-  margin-top: 6px;
-}
-
-.c4.tooltipped-s::before,
-.c4.tooltipped-se::before,
-.c4.tooltipped-sw::before {
-  top: auto;
-  right: 50%;
-  bottom: -7px;
-  margin-right: -6px;
-  border-bottom-color: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
-}
-
-.c4.tooltipped-se::after {
-  right: auto;
-  left: 50%;
-  margin-left: -16px;
-}
-
-.c4.tooltipped-sw::after {
-  margin-right: -16px;
-}
-
-.c4.tooltipped-n::after,
-.c4.tooltipped-ne::after,
-.c4.tooltipped-nw::after {
-  right: 50%;
-  bottom: 100%;
-  margin-bottom: 6px;
-}
-
-.c4.tooltipped-n::before,
-.c4.tooltipped-ne::before,
-.c4.tooltipped-nw::before {
-  top: -7px;
-  right: 50%;
-  bottom: auto;
-  margin-right: -6px;
-  border-top-color: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
-}
-
-.c4.tooltipped-ne::after {
-  right: auto;
-  left: 50%;
-  margin-left: -16px;
-}
-
-.c4.tooltipped-nw::after {
-  margin-right: -16px;
-}
-
-.c4.tooltipped-s::after,
-.c4.tooltipped-n::after {
-  -webkit-transform: translateX(50%);
-  -ms-transform: translateX(50%);
-  transform: translateX(50%);
-}
-
-.c4.tooltipped-w::after {
-  right: 100%;
-  bottom: 50%;
-  margin-right: 6px;
-  -webkit-transform: translateY(50%);
-  -ms-transform: translateY(50%);
-  transform: translateY(50%);
-}
-
-.c4.tooltipped-w::before {
-  top: 50%;
-  bottom: 50%;
-  left: -7px;
-  margin-top: -6px;
-  border-left-color: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
-}
-
-.c4.tooltipped-e::after {
-  bottom: 50%;
-  left: 100%;
-  margin-left: 6px;
-  -webkit-transform: translateY(50%);
-  -ms-transform: translateY(50%);
-  transform: translateY(50%);
-}
-
-.c4.tooltipped-e::before {
-  top: 50%;
-  right: -7px;
-  bottom: 50%;
-  margin-top: -6px;
-  border-right-color: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
-}
-
-.c4.tooltipped-multiline::after {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-  max-width: 250px;
-  word-wrap: break-word;
-  white-space: pre-line;
-  border-collapse: separate;
-}
-
-.c4.tooltipped-multiline.tooltipped-s::after,
-.c4.tooltipped-multiline.tooltipped-n::after {
-  right: auto;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  transform: translateX(-50%);
-}
-
-.c4.tooltipped-multiline.tooltipped-w::after,
-.c4.tooltipped-multiline.tooltipped-e::after {
-  right: 100%;
-}
-
-.c4.tooltipped-align-right-2::after {
-  right: 0;
-  margin-right: 0;
-}
-
-.c4.tooltipped-align-right-2::before {
-  right: 15px;
-}
-
-.c4.tooltipped-align-left-2::after {
-  left: 0;
-  margin-left: 0;
-}
-
-.c4.tooltipped-align-left-2::before {
-  left: 10px;
-}
-
 .c2 {
   border: 0;
   font-size: inherit;
@@ -3227,13 +3247,13 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c5:focus {
+  .c4:focus {
     outline: solid 1px transparent;
   }
 }
 
 @media (pointer:coarse) {
-  .c5[data-no-visuals]:after {
+  .c4[data-no-visuals]:after {
     content: "";
     position: absolute;
     left: 0;
@@ -3243,6 +3263,12 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
     transform: translateY(-50%);
     top: 50%;
     min-height: 44px;
+  }
+}
+
+@media (forced-colors:active) {
+  .c6 {
+    outline: 1px solid transparent;
   }
 }
 
@@ -3269,30 +3295,39 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   <span
     className="c3 TextInput-action"
   >
-    <span
-      aria-label="Clear input"
-      className="c4 tooltipped-n"
-      role="tooltip"
+    <button
+      aria-describedby=":rj:"
+      className="c4"
+      data-block={null}
+      data-no-visuals={true}
+      onBlur={[Function]}
+      onClick={[MockFunction]}
+      onFocus={[Function]}
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      style={{}}
+      type="button"
     >
-      <button
+      <span
         className="c5"
-        data-block={null}
-        data-no-visuals={true}
-        onClick={[MockFunction]}
-        style={{}}
-        type="button"
+        data-component="buttonContent"
       >
         <span
-          className="c6"
-          data-component="buttonContent"
+          data-component="text"
         >
-          <span
-            data-component="text"
-          >
-            Clear
-          </span>
+          Clear
         </span>
-      </button>
+      </span>
+    </button>
+    <span
+      className="c6"
+      data-direction="s"
+      id=":rj:"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+      role="tooltip"
+    >
+      Clear input
     </span>
   </span>
 </span>
@@ -3330,20 +3365,28 @@ exports[`TextInput renders trailingVisual 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -3427,7 +3470,6 @@ exports[`TextInput renders trailingVisual 1`] = `
       fill="currentColor"
       focusable="false"
       height={16}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -3479,20 +3521,28 @@ exports[`TextInput renders trailingVisual 2`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -3576,7 +3626,6 @@ exports[`TextInput renders trailingVisual 2`] = `
       fill="currentColor"
       focusable="false"
       height={16}
-      role="img"
       style={
         {
           "display": "inline-block",
@@ -3628,20 +3677,28 @@ exports[`TextInput renders trailingVisual 3`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -3758,20 +3815,28 @@ exports[`TextInput renders trailingVisual 4`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -3867,6 +3932,23 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c4 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c6:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.c5 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
@@ -3903,20 +3985,28 @@ exports[`TextInput renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -4004,35 +4094,47 @@ exports[`TextInput renders with a loading indicator 1`] = `
         className="c3"
         display="flex"
       >
-        <svg
+        <span
           className="c4"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            aria-hidden={true}
+            aria-labelledby=":rn:"
+            className="c5"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c6"
+            id=":rn:"
+          >
+            Loading
+          </span>
+        </span>
       </div>
     </span>
   </span>,
@@ -4045,1909 +4147,2276 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
-.c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: hidden;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
+}
+
+.c5:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
   overflow: hidden;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0:focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 0;
-  padding-right: 12px;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c4:focus {
-  outline: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
-}
-
-<span
-    aria-busy={true}
-    className="c0 c1 TextInput-wrapper"
-    onClick={[Function]}
-  >
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <svg
-          className="c3"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
-    <input
-      className="c4"
-      data-component="input"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      type="text"
-    />
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <svg
-          className="c5"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "hidden",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
-  </span>,
-  .c3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  overflow: hidden;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0:focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 12px;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
-}
-
-<span
-    aria-busy={true}
-    className="c0 c1 TextInput-wrapper"
-    onClick={[Function]}
-  >
-    <input
-      className="c2"
-      data-component="input"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      type="text"
-    />
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c3"
-        display="flex"
-      >
-        <svg
-          className="c4"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
-  </span>,
-  .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c3 {
-  visibility: hidden;
-}
-
-.c6 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: hidden;
-}
-
-.c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
   position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  left: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  overflow: hidden;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0:focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 0;
-  padding-right: 12px;
-}
-
-.c5 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c5:focus {
-  outline: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
-}
-
-<span
-    aria-busy={true}
-    className="c0 c1 TextInput-wrapper"
-    onClick={[Function]}
-  >
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <div
-          className="c3"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-search"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            role="img"
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
-            />
-          </svg>
-        </div>
-        <svg
-          className="c4"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "left": 0,
-              "maxWidth": "100%",
-              "position": "absolute",
-              "top": 0,
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
-    <input
-      className="c5"
-      data-component="input"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      type="text"
-    />
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <svg
-          className="c6"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "hidden",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
-  </span>,
-  .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c3 {
-  visibility: hidden;
-}
-
-.c6 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: hidden;
+  white-space: nowrap;
+  width: 1px;
 }
 
 .c4 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
   visibility: visible;
-  left: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  overflow: hidden;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0:focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 0;
-  padding-right: 12px;
-}
-
-.c5 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c5:focus {
-  outline: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
-}
-
-<span
-    aria-busy={true}
-    className="c0 c1 TextInput-wrapper"
-    onClick={[Function]}
-  >
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <div
-          className="c3"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-search"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            role="img"
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
-            />
-          </svg>
-        </div>
-        <svg
-          className="c4"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "left": 0,
-              "maxWidth": "100%",
-              "position": "absolute",
-              "top": 0,
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
-    <input
-      className="c5"
-      data-component="input"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      type="text"
-    />
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <svg
-          className="c6"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "hidden",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
-  </span>,
-  .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c3 {
-  visibility: visible;
-}
-
-.c6 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
-.c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: hidden;
-  left: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  overflow: hidden;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0:focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 12px;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.c5 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c5:focus {
-  outline: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
-}
-
-<span
-    aria-busy={true}
-    className="c0 c1 TextInput-wrapper"
-    onClick={[Function]}
-  >
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <div
-          className="c3"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-search"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            role="img"
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
-            />
-          </svg>
-        </div>
-        <svg
-          className="c4"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "left": 0,
-              "maxWidth": "100%",
-              "position": "absolute",
-              "top": 0,
-              "visibility": "hidden",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
-    <input
-      className="c5"
-      data-component="input"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      type="text"
-    />
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <svg
-          className="c6"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
-  </span>,
-  .c3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c4 {
-  visibility: hidden;
-}
-
-.c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  right: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  overflow: hidden;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0:focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 12px;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
-}
-
-<span
-    aria-busy={true}
-    className="c0 c1 TextInput-wrapper"
-    onClick={[Function]}
-  >
-    <input
-      className="c2"
-      data-component="input"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      type="text"
-    />
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c3"
-        display="flex"
-      >
-        <div
-          className="c4"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-search"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            role="img"
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
-            />
-          </svg>
-        </div>
-        <svg
-          className="c5"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "maxWidth": "100%",
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
-  </span>,
-  .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c5 {
-  visibility: visible;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
-.c6 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: hidden;
-  right: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  overflow: hidden;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0:focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 12px;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c4:focus {
-  outline: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
-}
-
-<span
-    aria-busy={true}
-    className="c0 c1 TextInput-wrapper"
-    onClick={[Function]}
-  >
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <svg
-          className="c3"
-          fill="none"
-          height="16px"
-          sx={
-            {
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="16px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
-    <input
-      className="c4"
-      data-component="input"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      type="text"
-    />
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <div
-          className="c5"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-search"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            role="img"
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
-            />
-          </svg>
-        </div>
-        <svg
-          className="c6"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "maxWidth": "100%",
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "visibility": "hidden",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
-  </span>,
-  .c3 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c4 {
-  visibility: hidden;
-}
-
-.c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  right: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  overflow: hidden;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-}
-
-.c0:focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 12px;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
-}
-
-<span
-    aria-busy={true}
-    className="c0 c1 TextInput-wrapper"
-    onClick={[Function]}
-  >
-    <input
-      className="c2"
-      data-component="input"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      type="text"
-    />
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c3"
-        display="flex"
-      >
-        <div
-          className="c4"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-search"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            role="img"
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
-            />
-          </svg>
-        </div>
-        <svg
-          className="c5"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "maxWidth": "100%",
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
-        >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-      </div>
-    </span>
-  </span>,
-  .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c3 {
-  visibility: hidden;
-}
-
-.c6 {
-  visibility: visible;
-}
-
-.c4 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  left: 0;
 }
 
 .c7 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: hidden;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+  vertical-align: middle;
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+  border-radius: 6px;
+  outline: none;
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  overflow: hidden;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0:focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c6 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c6:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+<span
+    aria-busy={true}
+    className="c0 c1 TextInput-wrapper"
+    onClick={[Function]}
+  >
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <span
+          className="c3"
+        >
+          <svg
+            aria-hidden={true}
+            aria-labelledby=":ro:"
+            className="c4"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c5"
+            id=":ro:"
+          >
+            Loading
+          </span>
+        </span>
+      </div>
+    </span>
+    <input
+      className="c6"
+      data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="text"
+    />
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <span
+          className="c3"
+        >
+          <svg
+            aria-hidden={true}
+            aria-labelledby=":rp:"
+            className="c7"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "hidden",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c5"
+            id=":rp:"
+          >
+            Loading
+          </span>
+        </span>
+      </div>
+    </span>
+  </span>,
+  .c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c4 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c6:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.c5 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: visible;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+  vertical-align: middle;
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+  border-radius: 6px;
+  outline: none;
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  overflow: hidden;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0:focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+<span
+    aria-busy={true}
+    className="c0 c1 TextInput-wrapper"
+    onClick={[Function]}
+  >
+    <input
+      className="c2"
+      data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="text"
+    />
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c3"
+        display="flex"
+      >
+        <span
+          className="c4"
+        >
+          <svg
+            aria-hidden={true}
+            aria-labelledby=":rq:"
+            className="c5"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c6"
+            id=":rq:"
+          >
+            Loading
+          </span>
+        </span>
+      </div>
+    </span>
+  </span>,
+  .c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c4 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c3 {
+  visibility: hidden;
+}
+
+.c6:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.c8 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: hidden;
+}
+
+.c5 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  left: 0;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+  vertical-align: middle;
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+  border-radius: 6px;
+  outline: none;
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  overflow: hidden;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0:focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c7 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c7:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+<span
+    aria-busy={true}
+    className="c0 c1 TextInput-wrapper"
+    onClick={[Function]}
+  >
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <div
+          className="c3"
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-search"
+            fill="currentColor"
+            focusable="false"
+            height={16}
+            style={
+              {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 16 16"
+            width={16}
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
+        </div>
+        <span
+          className="c4"
+        >
+          <svg
+            aria-hidden={true}
+            aria-labelledby=":rr:"
+            className="c5"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "left": 0,
+                "maxWidth": "100%",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c6"
+            id=":rr:"
+          >
+            Loading
+          </span>
+        </span>
+      </div>
+    </span>
+    <input
+      className="c7"
+      data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="text"
+    />
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <span
+          className="c4"
+        >
+          <svg
+            aria-hidden={true}
+            aria-labelledby=":rs:"
+            className="c8"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "hidden",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c6"
+            id=":rs:"
+          >
+            Loading
+          </span>
+        </span>
+      </div>
+    </span>
+  </span>,
+  .c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c4 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c3 {
+  visibility: hidden;
+}
+
+.c6:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.c8 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: hidden;
+}
+
+.c5 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  left: 0;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+  vertical-align: middle;
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+  border-radius: 6px;
+  outline: none;
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  overflow: hidden;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0:focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c7 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c7:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+<span
+    aria-busy={true}
+    className="c0 c1 TextInput-wrapper"
+    onClick={[Function]}
+  >
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <div
+          className="c3"
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-search"
+            fill="currentColor"
+            focusable="false"
+            height={16}
+            style={
+              {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 16 16"
+            width={16}
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
+        </div>
+        <span
+          className="c4"
+        >
+          <svg
+            aria-hidden={true}
+            aria-labelledby=":rt:"
+            className="c5"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "left": 0,
+                "maxWidth": "100%",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c6"
+            id=":rt:"
+          >
+            Loading
+          </span>
+        </span>
+      </div>
+    </span>
+    <input
+      className="c7"
+      data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="text"
+    />
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <span
+          className="c4"
+        >
+          <svg
+            aria-hidden={true}
+            aria-labelledby=":ru:"
+            className="c8"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "hidden",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c6"
+            id=":ru:"
+          >
+            Loading
+          </span>
+        </span>
+      </div>
+    </span>
+  </span>,
+  .c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c4 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c3 {
+  visibility: visible;
+}
+
+.c6:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.c8 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: visible;
+}
+
+.c5 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: hidden;
+  left: 0;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+  vertical-align: middle;
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+  border-radius: 6px;
+  outline: none;
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  overflow: hidden;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0:focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c7 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c7:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+<span
+    aria-busy={true}
+    className="c0 c1 TextInput-wrapper"
+    onClick={[Function]}
+  >
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <div
+          className="c3"
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-search"
+            fill="currentColor"
+            focusable="false"
+            height={16}
+            style={
+              {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 16 16"
+            width={16}
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
+        </div>
+        <span
+          className="c4"
+        >
+          <svg
+            aria-hidden={true}
+            aria-labelledby=":rv:"
+            className="c5"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "left": 0,
+                "maxWidth": "100%",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "hidden",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c6"
+            id=":rv:"
+          >
+            Loading
+          </span>
+        </span>
+      </div>
+    </span>
+    <input
+      className="c7"
+      data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="text"
+    />
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <span
+          className="c4"
+        >
+          <svg
+            aria-hidden={true}
+            aria-labelledby=":r10:"
+            className="c8"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c6"
+            id=":r10:"
+          >
+            Loading
+          </span>
+        </span>
+      </div>
+    </span>
+  </span>,
+  .c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c5 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c4 {
+  visibility: hidden;
+}
+
+.c7:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.c6 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  right: 0;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+  vertical-align: middle;
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+  border-radius: 6px;
+  outline: none;
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  overflow: hidden;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0:focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+<span
+    aria-busy={true}
+    className="c0 c1 TextInput-wrapper"
+    onClick={[Function]}
+  >
+    <input
+      className="c2"
+      data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="text"
+    />
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c3"
+        display="flex"
+      >
+        <div
+          className="c4"
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-search"
+            fill="currentColor"
+            focusable="false"
+            height={16}
+            style={
+              {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 16 16"
+            width={16}
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
+        </div>
+        <span
+          className="c5"
+        >
+          <svg
+            aria-hidden={true}
+            aria-labelledby=":r11:"
+            className="c6"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "maxWidth": "100%",
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c7"
+            id=":r11:"
+          >
+            Loading
+          </span>
+        </span>
+      </div>
+    </span>
+  </span>,
+  .c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c3 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c7 {
+  visibility: visible;
+}
+
+.c5:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.c4 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: visible;
+}
+
+.c8 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: hidden;
+  right: 0;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+  vertical-align: middle;
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+  border-radius: 6px;
+  outline: none;
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  overflow: hidden;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0:focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.c6 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c6:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+<span
+    aria-busy={true}
+    className="c0 c1 TextInput-wrapper"
+    onClick={[Function]}
+  >
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <span
+          className="c3"
+        >
+          <svg
+            aria-hidden={true}
+            aria-labelledby=":r12:"
+            className="c4"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c5"
+            id=":r12:"
+          >
+            Loading
+          </span>
+        </span>
+      </div>
+    </span>
+    <input
+      className="c6"
+      data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="text"
+    />
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+      >
+        <div
+          className="c7"
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-search"
+            fill="currentColor"
+            focusable="false"
+            height={16}
+            style={
+              {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 16 16"
+            width={16}
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
+        </div>
+        <span
+          className="c3"
+        >
+          <svg
+            aria-hidden={true}
+            aria-labelledby=":r13:"
+            className="c8"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "maxWidth": "100%",
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "visibility": "hidden",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c5"
+            id=":r13:"
+          >
+            Loading
+          </span>
+        </span>
+      </div>
+    </span>
+  </span>,
+  .c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c5 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c4 {
+  visibility: hidden;
+}
+
+.c7:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.c6 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  right: 0;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+  vertical-align: middle;
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+  border-radius: 6px;
+  outline: none;
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  overflow: hidden;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0:focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+<span
+    aria-busy={true}
+    className="c0 c1 TextInput-wrapper"
+    onClick={[Function]}
+  >
+    <input
+      className="c2"
+      data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="text"
+    />
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c3"
+        display="flex"
+      >
+        <div
+          className="c4"
+        >
+          <svg
+            aria-hidden="true"
+            className="octicon octicon-search"
+            fill="currentColor"
+            focusable="false"
+            height={16}
+            style={
+              {
+                "display": "inline-block",
+                "overflow": "visible",
+                "userSelect": "none",
+                "verticalAlign": "text-bottom",
+              }
+            }
+            viewBox="0 0 16 16"
+            width={16}
+          >
+            <path
+              d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"
+            />
+          </svg>
+        </div>
+        <span
+          className="c5"
+        >
+          <svg
+            aria-hidden={true}
+            aria-labelledby=":r14:"
+            className="c6"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "maxWidth": "100%",
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c7"
+            id=":r14:"
+          >
+            Loading
+          </span>
+        </span>
+      </div>
+    </span>
+  </span>,
+  .c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c4 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c3 {
+  visibility: hidden;
+}
+
+.c8 {
+  visibility: visible;
+}
+
+.c6:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.c5 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  left: 0;
+}
+
+.c9 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -5997,20 +6466,28 @@ exports[`TextInput renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -6051,7 +6528,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c5 {
+.c7 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -6061,7 +6538,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c5:focus {
+.c7:focus {
   outline: 0;
 }
 
@@ -6101,7 +6578,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6118,44 +6594,56 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
+        <span
           className="c4"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "left": 0,
-              "maxWidth": "100%",
-              "position": "absolute",
-              "top": 0,
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            aria-hidden={true}
+            aria-labelledby=":r15:"
+            className="c5"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "left": 0,
+                "maxWidth": "100%",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c6"
+            id=":r15:"
+          >
+            Loading
+          </span>
+        </span>
       </div>
     </span>
     <input
-      className="c5"
+      className="c7"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
@@ -6169,7 +6657,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         display="flex"
       >
         <div
-          className="c6"
+          className="c8"
         >
           <svg
             aria-hidden="true"
@@ -6177,7 +6665,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6194,40 +6681,52 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c7"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "maxWidth": "100%",
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "visibility": "hidden",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
+        <span
+          className="c4"
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            aria-hidden={true}
+            aria-labelledby=":r16:"
+            className="c9"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "maxWidth": "100%",
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "visibility": "hidden",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c6"
+            id=":r16:"
+          >
+            Loading
+          </span>
+        </span>
       </div>
     </span>
   </span>,
@@ -6239,15 +6738,32 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
+.c4 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
 .c3 {
   visibility: hidden;
 }
 
-.c6 {
+.c8 {
   visibility: visible;
 }
 
-.c4 {
+.c6:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.c5 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -6258,7 +6774,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   left: 0;
 }
 
-.c7 {
+.c9 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -6300,20 +6816,28 @@ exports[`TextInput renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -6354,7 +6878,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c5 {
+.c7 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -6364,7 +6888,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c5:focus {
+.c7:focus {
   outline: 0;
 }
 
@@ -6403,7 +6927,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6420,44 +6943,56 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
+        <span
           className="c4"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "left": 0,
-              "maxWidth": "100%",
-              "position": "absolute",
-              "top": 0,
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            aria-hidden={true}
+            aria-labelledby=":r17:"
+            className="c5"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "left": 0,
+                "maxWidth": "100%",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c6"
+            id=":r17:"
+          >
+            Loading
+          </span>
+        </span>
       </div>
     </span>
     <input
-      className="c5"
+      className="c7"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
@@ -6471,7 +7006,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         display="flex"
       >
         <div
-          className="c6"
+          className="c8"
         >
           <svg
             aria-hidden="true"
@@ -6479,7 +7014,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6496,40 +7030,52 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c7"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "maxWidth": "100%",
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "visibility": "hidden",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
+        <span
+          className="c4"
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            aria-hidden={true}
+            aria-labelledby=":r18:"
+            className="c9"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "maxWidth": "100%",
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "visibility": "hidden",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c6"
+            id=":r18:"
+          >
+            Loading
+          </span>
+        </span>
       </div>
     </span>
   </span>,
@@ -6541,7 +7087,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c6 {
+.c4 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.c8 {
   visibility: hidden;
 }
 
@@ -6549,7 +7102,17 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
-.c4 {
+.c6:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.c5 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -6560,7 +7123,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   left: 0;
 }
 
-.c7 {
+.c9 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -6608,20 +7171,28 @@ exports[`TextInput renders with a loading indicator 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {
@@ -6662,7 +7233,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c5 {
+.c7 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -6672,7 +7243,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c5:focus {
+.c7:focus {
   outline: 0;
 }
 
@@ -6712,7 +7283,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6729,44 +7299,56 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
+        <span
           className="c4"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "left": 0,
-              "maxWidth": "100%",
-              "position": "absolute",
-              "top": 0,
-              "visibility": "hidden",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            aria-hidden={true}
+            aria-labelledby=":r19:"
+            className="c5"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "left": 0,
+                "maxWidth": "100%",
+                "position": "absolute",
+                "top": 0,
+                "visibility": "hidden",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c6"
+            id=":r19:"
+          >
+            Loading
+          </span>
+        </span>
       </div>
     </span>
     <input
-      className="c5"
+      className="c7"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
@@ -6780,7 +7362,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         display="flex"
       >
         <div
-          className="c6"
+          className="c8"
         >
           <svg
             aria-hidden="true"
@@ -6788,7 +7370,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
             fill="currentColor"
             focusable="false"
             height={16}
-            role="img"
             style={
               {
                 "display": "inline-block",
@@ -6805,40 +7386,52 @@ exports[`TextInput renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <svg
-          className="c7"
-          fill="none"
-          height="32px"
-          sx={
-            {
-              "height": "100%",
-              "maxWidth": "100%",
-              "position": "absolute",
-              "right": 0,
-              "top": 0,
-              "visibility": "visible",
-            }
-          }
-          viewBox="0 0 16 16"
-          width="32px"
+        <span
+          className="c4"
         >
-          <circle
-            cx="8"
-            cy="8"
-            r="7"
-            stroke="currentColor"
-            strokeOpacity="0.25"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-          <path
-            d="M15 8a7.002 7.002 0 00-7-7"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeWidth="2"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          <svg
+            aria-hidden={true}
+            aria-labelledby=":r1a:"
+            className="c9"
+            fill="none"
+            height="32px"
+            sx={
+              {
+                "height": "100%",
+                "maxWidth": "100%",
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="32px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+          <span
+            className="c6"
+            id=":r1a:"
+          >
+            Loading
+          </span>
+        </span>
       </div>
     </span>
   </span>,
@@ -6877,20 +7470,28 @@ exports[`TextInput should render a password input 1`] = `
   cursor: pointer;
 }
 
-.c0::-webkit-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::-moz-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:-ms-input-placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0::placeholder {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c0:focus-within {

@@ -1,6 +1,6 @@
 import React from 'react'
 import InputCaption from '../internal/components/InputCaption'
-import {SxProp} from '../sx'
+import type {SxProp} from '../sx'
 import {useFormControlContext} from './_FormControlContext'
 
 const FormControlCaption: React.FC<React.PropsWithChildren<{id?: string} & SxProp>> = ({children, sx, id}) => {

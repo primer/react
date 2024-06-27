@@ -112,7 +112,7 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
       aria-expanded="true"
       aria-haspopup="true"
       class="c1 c2"
-      id=":r6:"
+      id=":rd:"
       tabindex="0"
     >
       Anchor Button

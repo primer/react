@@ -1,9 +1,9 @@
 import React, {forwardRef} from 'react'
-import {ButtonProps} from './types'
+import type {ButtonProps} from './types'
 import {ButtonBase} from './ButtonBase'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {defaultSxProp} from '../utils/defaultSxProp'
-import {BetterSystemStyleObject, CSSCustomProperties} from '../sx'
+import type {BetterSystemStyleObject, CSSCustomProperties} from '../sx'
 
 const ButtonComponent = forwardRef(({children, sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
   const {block, size, leadingVisual, trailingVisual, trailingAction} = props

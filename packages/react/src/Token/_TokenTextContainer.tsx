@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import {TokenBaseProps} from './TokenBase'
+import type {TokenBaseProps} from './TokenBase'
 
 const TokenTextContainer = styled('span')<Partial<TokenBaseProps>>`
   flex-grow: 1;

@@ -4,8 +4,12 @@ import {XIcon} from '@primer/octicons-react'
 import {getFocusableChild} from '@primer/behaviors/utils'
 import {get} from '../constants'
 import VisuallyHidden from '../_VisuallyHidden'
-import {AnchoredOverlay, Box, Button, IconButton, useTheme} from '..'
-import sx, {SxProp} from '../sx'
+import {AnchoredOverlay} from '../AnchoredOverlay'
+import Box from '../Box'
+import {Button, IconButton} from '../Button'
+import {useTheme} from '../ThemeProvider'
+import type {SxProp} from '../sx'
+import sx from '../sx'
 
 export type LabelGroupProps = {
   /** How hidden tokens should be shown. `'inline'` shows the hidden tokens after the visible tokens. `'overlay'` shows all tokens in an overlay that appears on top of the visible tokens. */
@@ -52,7 +56,7 @@ const getOverlayWidth = (
   buttonClientRect: DOMRect,
   containerRef: React.RefObject<HTMLDivElement>,
   overlayPaddingPx: number,
-) => overlayPaddingPx + buttonClientRect.right - (containerRef.current?.getBoundingClientRect()?.left || 0)
+) => overlayPaddingPx + buttonClientRect.right - (containerRef.current?.getBoundingClientRect().left || 0)
 
 const InlineToggle: React.FC<{
   collapseButtonRef: React.RefObject<HTMLButtonElement>

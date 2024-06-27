@@ -1,28 +1,20 @@
 import styled from 'styled-components'
-import {
-  background,
+import type {
   BackgroundProps,
-  border,
   BorderProps,
-  color,
   ColorProps,
-  flexbox,
   FlexboxProps,
-  grid,
   GridProps,
-  layout,
   LayoutProps,
-  position,
   PositionProps,
-  shadow,
   ShadowProps,
-  space,
   SpaceProps,
-  typography,
   TypographyProps,
 } from 'styled-system'
-import sx, {SxProp} from '../sx'
-import {ComponentProps} from '../utils/types'
+import {background, border, color, flexbox, grid, layout, position, shadow, space, typography} from 'styled-system'
+import type {SxProp} from '../sx'
+import sx from '../sx'
+import type {ComponentProps} from '../utils/types'
 
 type StyledBoxProps = SpaceProps &
   ColorProps &

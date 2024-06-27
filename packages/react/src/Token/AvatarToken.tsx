@@ -1,10 +1,11 @@
 import React, {forwardRef} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
-import {TokenBaseProps, defaultTokenSize, tokenSizes, TokenSizeKeys} from './TokenBase'
+import type {TokenBaseProps, TokenSizeKeys} from './TokenBase'
+import {defaultTokenSize, tokenSizes} from './TokenBase'
 import Token from './Token'
 import Avatar from '../Avatar'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 // TODO: update props to only accept 'large' and 'xlarge' on the next breaking change
 export interface AvatarTokenProps extends TokenBaseProps {

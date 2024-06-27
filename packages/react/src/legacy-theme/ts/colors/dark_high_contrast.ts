@@ -448,7 +448,7 @@ const colors = {
   neutral: {
     emphasisPlus: 'var(--bgColor-emphasis, var(--color-neutral-emphasis-plus, #ffffff))',
     emphasis: 'var(--bgColor-neutral-emphasis, var(--color-neutral-emphasis, #9ea7b3))',
-    muted: 'var(--borderColor-neutral-muted, var(--color-neutral-muted, rgba(158,167,179,0.4)))',
+    muted: 'var(--bgColor-neutral-muted, var(--color-neutral-muted, rgba(158,167,179,0.4)))',
     subtle: 'var(--bgColor-neutral-muted, var(--color-neutral-subtle, rgba(158,167,179,0.1)))',
   },
   accent: {

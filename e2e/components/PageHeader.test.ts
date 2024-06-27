@@ -673,4 +673,38 @@ test.describe('PageHeader', () => {
       })
     }
   })
+
+  test.describe('Large Variant with Multiline Title', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'drafts-components-pageheader-devonly--large-variant-with-multiline-title',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`PageHeader.Large Variant with Multiline Title.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'drafts-components-pageheader-devonly--large-variant-with-multiline-title',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
+      })
+    }
+  })
 })

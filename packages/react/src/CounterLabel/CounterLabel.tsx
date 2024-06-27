@@ -1,6 +1,8 @@
-import React, {HTMLAttributes, forwardRef} from 'react'
+import type {HTMLAttributes} from 'react'
+import React, {forwardRef} from 'react'
 import Box from '../Box'
-import {BetterSystemStyleObject, SxProp, merge} from '../sx'
+import type {BetterSystemStyleObject, SxProp} from '../sx'
+import {merge} from '../sx'
 import VisuallyHidden from '../_VisuallyHidden'
 import {defaultSxProp} from '../utils/defaultSxProp'
 
@@ -25,6 +27,8 @@ const CounterLabel = forwardRef<HTMLSpanElement, CounterLabelProps>(
               lineHeight: 'condensedUltra',
               borderRadius: '20px',
               backgroundColor: scheme === 'primary' ? 'neutral.emphasis' : 'neutral.muted',
+              border:
+                'var(--borderWidth-thin,max(1px, 0.0625rem)) solid var(--counter-borderColor,var(--color-counter-border))',
               color: scheme === 'primary' ? 'fg.onEmphasis' : 'fg.default',
               '&:empty': {
                 display: 'none',

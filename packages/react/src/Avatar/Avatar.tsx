@@ -1,9 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
-import sx, {BetterCssProperties, BetterSystemStyleObject, SxProp, merge} from '../sx'
-import {ComponentProps} from '../utils/types'
-import {ResponsiveValue, isResponsiveValue} from '../hooks/useResponsiveValue'
+import type {BetterCssProperties, BetterSystemStyleObject, SxProp} from '../sx'
+import sx, {merge} from '../sx'
+import type {ComponentProps} from '../utils/types'
+import type {ResponsiveValue} from '../hooks/useResponsiveValue'
+import {isResponsiveValue} from '../hooks/useResponsiveValue'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
 import {defaultSxProp} from '../utils/defaultSxProp'
 
@@ -52,7 +54,9 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
         sxProp as SxProp,
       )
     : merge({'--avatar-size': `${size}px`} as React.CSSProperties, sxProp as SxProp)
-  return <StyledAvatar ref={ref} alt={alt} size={size} square={square} sx={avatarSx} {...rest} />
+  return (
+    <StyledAvatar data-component="Avatar" ref={ref} alt={alt} size={size} square={square} sx={avatarSx} {...rest} />
+  )
 })
 
 if (__DEV__) {

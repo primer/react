@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Args, Meta} from '@storybook/react'
+import type {Args, Meta} from '@storybook/react'
 
 import {Box} from '..'
 import {AnchoredOverlay} from '../AnchoredOverlay'

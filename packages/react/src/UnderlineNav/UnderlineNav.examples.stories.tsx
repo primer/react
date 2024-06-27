@@ -1,6 +1,6 @@
 import React from 'react'
+import type {IconProps} from '@primer/octicons-react'
 import {
-  IconProps,
   CodeIcon,
   IssueOpenedIcon,
   GitPullRequestIcon,
@@ -20,7 +20,7 @@ import {
   ThreeBarsIcon,
   PeopleIcon,
 } from '@primer/octicons-react'
-import {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import {UnderlineNav} from './index'
 import {Avatar, Octicon, Button, Box, Heading, Link, Text, StateLabel, BranchName} from '..'
 

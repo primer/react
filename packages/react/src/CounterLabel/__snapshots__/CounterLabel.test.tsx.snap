@@ -9,6 +9,7 @@ exports[`CounterLabel renders with secondary scheme when no "scheme" prop is pro
   line-height: condensedUltra;
   border-radius: 20px;
   background-color: neutral.muted;
+  border: var(--borderWidth-thin,max(1px,0.0625rem)) solid var(--counter-borderColor,var(--color-counter-border));
   color: fg.default;
 }
 
@@ -55,6 +56,7 @@ exports[`CounterLabel respects the primary "scheme" prop 1`] = `
   line-height: condensedUltra;
   border-radius: 20px;
   background-color: neutral.emphasis;
+  border: var(--borderWidth-thin,max(1px,0.0625rem)) solid var(--counter-borderColor,var(--color-counter-border));
   color: fg.onEmphasis;
 }
 

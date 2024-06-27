@@ -1,6 +1,6 @@
 import React from 'react'
 import {EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon, ChevronRightIcon} from '@primer/octicons-react'
-import {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import {Button} from '.'
 import {OcticonArgType} from '../utils/story-helpers'
 

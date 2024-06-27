@@ -1,13 +1,16 @@
-import {GroupedListProps, List, ListPropsBase} from './ActionList/List'
-import {Item, ItemProps} from './ActionList/Item'
+import type {GroupedListProps, ListPropsBase} from './ActionList/List'
+import {List} from './ActionList/List'
+import type {ItemProps} from './ActionList/Item'
+import {Item} from './ActionList/Item'
 import {Divider} from './ActionList/Divider'
-import Button, {ButtonProps} from './Button'
+import type {ButtonProps} from './Button'
+import Button from './Button'
 import React, {useCallback, useMemo} from 'react'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
-import {OverlayProps} from '../Overlay'
+import type {OverlayProps} from '../Overlay'
 import {useProvidedRefOrCreate} from '../hooks'
-import {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
+import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 
 interface ActionMenuBaseProps extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>, ListPropsBase {
   /**

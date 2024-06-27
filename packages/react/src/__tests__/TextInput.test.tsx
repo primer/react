@@ -1,7 +1,7 @@
 import {SearchIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
-import {render as HTMLRender, fireEvent} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import {render as HTMLRender, fireEvent, screen} from '@testing-library/react'
+import axe from 'axe-core'
 import React from 'react'
 import {TextInput} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
@@ -15,7 +15,7 @@ describe('TextInput', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<TextInput aria-label="Zipcode" name="zipcode" variant="small" />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 
@@ -37,6 +37,11 @@ describe('TextInput', () => {
 
   it('renders error', () => {
     expect(render(<TextInput name="zipcode" validationStatus="error" />)).toMatchSnapshot()
+  })
+
+  it('renders sets aria-invalid="true" on error', () => {
+    HTMLRender(<TextInput name="zipcode" validationStatus="error" data-testid="zipcodeInput" />)
+    expect(screen.getByTestId('zipcodeInput')).toHaveAttribute('aria-invalid', 'true')
   })
 
   it('renders contrast', () => {
@@ -224,5 +229,11 @@ describe('TextInput', () => {
 
   it('should render a password input', () => {
     expect(render(<TextInput name="password" type="password" />)).toMatchSnapshot()
+  })
+
+  it('should not override prop aria-invalid', () => {
+    const onChange = jest.fn()
+    const {getByRole} = HTMLRender(<TextInput onChange={onChange} aria-invalid="true" value="" />)
+    expect(getByRole('textbox')).toHaveAttribute('aria-invalid', 'true')
   })
 })

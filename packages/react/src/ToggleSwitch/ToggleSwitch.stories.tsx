@@ -1,6 +1,6 @@
 import React from 'react'
-import {Meta, StoryFn} from '@storybook/react'
-import {ComponentProps} from '../utils/types'
+import type {Meta, StoryFn} from '@storybook/react'
+import type {ComponentProps} from '../utils/types'
 import ToggleSwitch from './ToggleSwitch'
 import {Text} from '..'
 import ToggleSwitchStoryWrapper from './ToggleSwitchStoryWrapper'

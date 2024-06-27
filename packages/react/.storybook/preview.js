@@ -1,11 +1,11 @@
 import {PrimerBreakpoints} from '../src/utils/layout'
-import {useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {ThemeProvider, BaseStyles, theme} from '../src'
+import {FeatureFlags} from '../src/FeatureFlags'
 import clsx from 'clsx'
 
 import './storybook.css'
 import './primitives-v8.css'
-import './primitives-v7.css'
 
 let storybookViewports = {}
 Object.entries(PrimerBreakpoints).forEach(([viewport, value]) => {
@@ -21,7 +21,6 @@ Object.entries(PrimerBreakpoints).forEach(([viewport, value]) => {
 
 const preview = {
   parameters: {
-    actions: {argTypesRegex: '^on[A-Z].*'},
     html: {
       root: '#html-addon-root',
       removeEmptyComments: true,
@@ -224,7 +223,9 @@ export const decorators = [
         <div className={clsx('story-wrap')}>
           <BaseStyles>
             {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
-            <Story {...context} />
+            <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+              <Story {...context} />
+            </FeatureFlags>
             {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
           </BaseStyles>
         </div>

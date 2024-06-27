@@ -1,9 +1,10 @@
 import React, {useCallback, useState} from 'react'
-import {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import {Box, FormControl} from '..'
-import TextInputWithTokens, {TextInputWithTokensProps} from '../TextInputWithTokens'
+import type {TextInputWithTokensProps} from '../TextInputWithTokens'
+import TextInputWithTokens from '../TextInputWithTokens'
+import type {FormControlArgs} from '../utils/story-helpers'
 import {
-  FormControlArgs,
   formControlArgs,
   formControlArgTypes,
   getFormControlArgsByChildComponent,

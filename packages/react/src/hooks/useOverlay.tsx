@@ -1,4 +1,5 @@
-import {useOnOutsideClick, TouchOrMouseEvent} from './useOnOutsideClick'
+import type {TouchOrMouseEvent} from './useOnOutsideClick'
+import {useOnOutsideClick} from './useOnOutsideClick'
 import {useOpenAndCloseFocus} from './useOpenAndCloseFocus'
 import {useOnEscapePress} from './useOnEscapePress'
 import {useProvidedRefOrCreate} from './useProvidedRefOrCreate'

@@ -1,11 +1,13 @@
 import {render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 import React from 'react'
 import theme from '../theme'
 import {ActionList} from '.'
+import {BookIcon} from '@primer/octicons-react'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, ThemeProvider, SSRProvider, ActionMenu} from '..'
+import {FeatureFlags} from '../FeatureFlags'
 
 function SimpleActionList(): JSX.Element {
   return (
@@ -86,7 +88,7 @@ describe('ActionList', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<SimpleActionList />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 
@@ -285,6 +287,35 @@ describe('ActionList', () => {
     expect(spy).toHaveBeenCalled()
     spy.mockRestore()
   })
+
+  it('should throw an error when ActionList.GroupHeading has an `as` prop when it is used within ActionMenu context', async () => {
+    const spy = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
+    expect(() =>
+      HTMLRender(
+        <ThemeProvider theme={theme}>
+          <SSRProvider>
+            <BaseStyles>
+              <ActionMenu open={true}>
+                <ActionMenu.Button>Trigger</ActionMenu.Button>
+                <ActionMenu.Overlay>
+                  <ActionList>
+                    <ActionList.Group>
+                      <ActionList.GroupHeading as="h2">Group Heading</ActionList.GroupHeading>
+                    </ActionList.Group>
+                  </ActionList>
+                </ActionMenu.Overlay>
+              </ActionMenu>
+            </BaseStyles>
+          </SSRProvider>
+        </ThemeProvider>,
+      ),
+    ).toThrow(
+      "Looks like you are trying to set a heading level to a menu role. Group headings for menu type action lists are for representational purposes, and rendered as divs. Therefore they don't need a heading level.",
+    )
+    expect(spy).toHaveBeenCalled()
+    spy.mockRestore()
+  })
+
   it('should render the ActionList.GroupHeading component as a heading with the given heading level', async () => {
     const container = HTMLRender(
       <ActionList>
@@ -298,18 +329,22 @@ describe('ActionList', () => {
     expect(heading).toBeInTheDocument()
     expect(heading).toHaveTextContent('Group Heading')
   })
-  it('should throw a warning if ActionList.Group is used without as prop when no role is specified (for list role)', async () => {
-    const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
-
-    HTMLRender(
-      <ActionList>
-        <ActionList.Heading as="h1">Heading</ActionList.Heading>
-        <ActionList.Group>
-          <ActionList.GroupHeading>Group Heading</ActionList.GroupHeading>
-        </ActionList.Group>
-      </ActionList>,
+  it('should throw an error if ActionList.GroupHeading is used without an `as` prop when no role is specified (for list role)', async () => {
+    const spy = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
+    expect(() =>
+      HTMLRender(
+        <ActionList>
+          <ActionList.Heading as="h1">Heading</ActionList.Heading>
+          <ActionList.Group>
+            <ActionList.GroupHeading>Group Heading</ActionList.GroupHeading>
+            <ActionList.Item>Item</ActionList.Item>
+          </ActionList.Group>
+        </ActionList>,
+      ),
+    ).toThrow(
+      "You are setting a heading for a list, that requires a heading level. Please use 'as' prop to set a proper heading level.",
     )
-    expect(spy).toHaveBeenCalledTimes(1)
+    expect(spy).toHaveBeenCalled()
     spy.mockRestore()
   })
   it('should render the ActionList.GroupHeading component as a span (not a heading tag) when role is specified as listbox', async () => {
@@ -380,5 +415,159 @@ describe('ActionList', () => {
     const list = container.querySelector(`li[data-test-id='ActionList.Group'] > ul`)
     const heading = getByText('Group Heading')
     expect(list).toHaveAttribute('aria-label', heading.textContent)
+  })
+
+  it('should render ActionList.Item as button when feature flag is enabled', async () => {
+    const featureFlag = {
+      primer_react_action_list_item_as_button: true,
+    }
+
+    const {container} = HTMLRender(
+      <FeatureFlags flags={featureFlag}>
+        <ActionList>
+          <ActionList.Item disabled={true}>Item 1</ActionList.Item>
+          <ActionList.Item>Item 2</ActionList.Item>
+        </ActionList>
+      </FeatureFlags>,
+    )
+
+    const button = container.querySelector('button')
+    expect(button).toHaveTextContent('Item 1')
+
+    // Ensure passed prop "disabled" is applied to the button
+    expect(button).toHaveAttribute('aria-disabled', 'true')
+
+    const listItems = container.querySelectorAll('li')
+    expect(listItems.length).toBe(2)
+  })
+
+  it('should render ActionList.Item as li when feature flag is disabled', async () => {
+    const {container} = HTMLRender(
+      <FeatureFlags flags={{primer_react_action_list_item_as_button: false}}>
+        <ActionList>
+          <ActionList.Item>Item 1</ActionList.Item>
+          <ActionList.Item>Item 2</ActionList.Item>
+        </ActionList>
+      </FeatureFlags>,
+    )
+
+    const listitem = container.querySelector('li')
+    const button = container.querySelector('button')
+
+    expect(listitem).toHaveTextContent('Item 1')
+    expect(listitem).toHaveAttribute('tabindex', '0')
+    expect(button).toBeNull()
+
+    const listItems = container.querySelectorAll('li')
+    expect(listItems.length).toBe(2)
+  })
+
+  it('should apply ref to ActionList.Item when feature flag is disabled', async () => {
+    const MockComponent = () => {
+      const ref = React.useRef<HTMLLIElement>(null)
+
+      const focusRef = () => {
+        if (ref.current) ref.current.focus()
+      }
+
+      return (
+        <FeatureFlags flags={{primer_react_action_list_item_as_button: false}}>
+          <button onClick={focusRef}>Prompt</button>
+          <ActionList>
+            <ActionList.Item ref={ref}>Item 1</ActionList.Item>
+            <ActionList.Item>Item 2</ActionList.Item>
+          </ActionList>
+        </FeatureFlags>
+      )
+    }
+
+    const {getByRole} = HTMLRender(<MockComponent />)
+    const triggerBtn = getByRole('button', {name: 'Prompt'})
+    const focusTarget = getByRole('listitem', {name: 'Item 1'})
+
+    fireEvent.click(triggerBtn)
+
+    expect(document.activeElement).toBe(focusTarget)
+  })
+
+  it('should render ActionList.Item as li when feature flag is enabled and has proper aria role', async () => {
+    const {container} = HTMLRender(
+      <FeatureFlags flags={{primer_react_action_list_item_as_button: false}}>
+        <ActionList role="listbox">
+          <ActionList.Item role="option">Item 1</ActionList.Item>
+          <ActionList.Item role="option">Item 2</ActionList.Item>
+        </ActionList>
+      </FeatureFlags>,
+    )
+
+    const listitem = container.querySelector('li')
+    const button = container.querySelector('button')
+
+    expect(listitem).toHaveTextContent('Item 1')
+    expect(listitem).toHaveAttribute('tabindex', '0')
+    expect(button).toBeNull()
+
+    const listItems = container.querySelectorAll('li')
+    expect(listItems.length).toBe(2)
+  })
+
+  it('should render the trailing action as a button (default)', async () => {
+    const {container} = HTMLRender(
+      <ActionList>
+        <ActionList.Item>
+          Item 1
+          <ActionList.TrailingAction icon={BookIcon} label="Action" />
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const action = container.querySelector('button[aria-labelledby]')
+    expect(action).toHaveAccessibleName('Action')
+  })
+
+  it('should render the trailing action as a link', async () => {
+    const {container} = HTMLRender(
+      <ActionList>
+        <ActionList.Item>
+          Item 1
+          <ActionList.TrailingAction as="a" href="#" icon={BookIcon} label="Action" />
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const action = container.querySelector('a[href="#"][aria-labelledby]')
+    expect(action).toHaveAccessibleName('Action')
+  })
+
+  it('should do action when trailing action is clicked', async () => {
+    const onClick = jest.fn()
+    const component = HTMLRender(
+      <ActionList>
+        <ActionList.Item>
+          Item 1
+          <ActionList.TrailingAction icon={BookIcon} label="Action" onClick={onClick} />
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const trailingAction = await waitFor(() => component.getByRole('button', {name: 'Action'}))
+    fireEvent.click(trailingAction)
+    expect(onClick).toHaveBeenCalled()
+  })
+
+  it('should focus the trailing action', async () => {
+    HTMLRender(
+      <ActionList>
+        <ActionList.Item>
+          Item 1
+          <ActionList.TrailingAction icon={BookIcon} label="Action" />
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    await userEvent.tab()
+    expect(document.activeElement).toHaveTextContent('Item 1')
+    await userEvent.tab()
+    expect(document.activeElement).toHaveAccessibleName('Action')
   })
 })

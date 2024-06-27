@@ -1,12 +1,13 @@
 import React from 'react'
-import {ComponentMeta, Story} from '@storybook/react'
-import Avatar, {AvatarProps, DEFAULT_AVATAR_SIZE} from './Avatar'
+import type {Meta, StoryFn} from '@storybook/react'
+import type {AvatarProps} from './Avatar'
+import Avatar, {DEFAULT_AVATAR_SIZE} from './Avatar'
 import {parseSizeFromArgs} from './storyHelpers'
 
 export default {
   title: 'Components/Avatar',
   component: Avatar,
-} as ComponentMeta<typeof Avatar>
+} as Meta<typeof Avatar>
 
 type Args = {
   size?: number
@@ -17,7 +18,7 @@ type Args = {
 
 export const Default = () => <Avatar src="https://avatars.githubusercontent.com/u/92997159?v=4" />
 
-export const Playground: Story<Args> = args => {
+export const Playground: StoryFn<Args> = args => {
   return (
     <Avatar
       size={parseSizeFromArgs(args)}

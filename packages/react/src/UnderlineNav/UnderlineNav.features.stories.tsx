@@ -1,6 +1,6 @@
 import React from 'react'
+import type {IconProps} from '@primer/octicons-react'
 import {
-  IconProps,
   EyeIcon,
   CodeIcon,
   IssueOpenedIcon,
@@ -12,7 +12,7 @@ import {
   ShieldLockIcon,
   GearIcon,
 } from '@primer/octicons-react'
-import {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import {UnderlineNav} from './index'
 import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport'
 

@@ -1,5 +1,6 @@
-import {isResponsiveValue, ResponsiveValue} from '../hooks/useResponsiveValue'
-import {BetterSystemStyleObject} from '../sx'
+import type {ResponsiveValue} from '../hooks/useResponsiveValue'
+import {isResponsiveValue} from '../hooks/useResponsiveValue'
+import type {BetterSystemStyleObject} from '../sx'
 import type {Properties as CSSProperties} from 'csstype'
 import {mediaQueries} from './layout'
 

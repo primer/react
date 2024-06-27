@@ -1,6 +1,7 @@
-import css, {SystemCssProperties, SystemStyleObject} from '@styled-system/css'
-import {ThemeColorPaths, ThemeShadowPaths} from './theme'
-import {ColorProps, BorderColorProps, ShadowProps} from 'styled-system'
+import type {SystemCssProperties, SystemStyleObject} from '@styled-system/css'
+import css from '@styled-system/css'
+import type {ThemeColorPaths, ThemeShadowPaths} from './theme'
+import type {ColorProps, BorderColorProps, ShadowProps} from 'styled-system'
 import merge from 'deepmerge'
 
 export type BetterCssProperties = {

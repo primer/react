@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import sx, {SxProp} from '../../sx'
+import type {SxProp} from '../../sx'
+import sx from '../../sx'
 
 /**
  * Provides a component that implements the "visually hidden" technique. This is
@@ -11,7 +12,7 @@ import sx, {SxProp} from '../../sx'
  *
  * @see https://www.scottohara.me/blog/2023/03/21/visually-hidden-hack.html
  */
-export const VisuallyHidden = styled.div<SxProp>`
+export const VisuallyHidden = styled.span<SxProp>`
   &:not(:focus):not(:active):not(:focus-within) {
     clip-path: inset(50%);
     height: 1px;

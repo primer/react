@@ -12,32 +12,14 @@ import {
   QuoteIcon,
   TasklistIcon,
 } from '@primer/octicons-react'
-import React, {forwardRef, memo, useContext, useRef} from 'react'
+import React, {memo, useContext, useRef} from 'react'
 
 import {isMacOS} from '@primer/behaviors/utils'
 import Box from '../../Box'
-import {IconButton, IconButtonProps} from '../../Button'
 import {useFocusZone} from '../../hooks/useFocusZone'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
 import {SavedRepliesButton} from './_SavedReplies'
-
-export const ToolbarButton = forwardRef<HTMLButtonElement, IconButtonProps>((props, ref) => {
-  const {disabled, condensed} = useContext(MarkdownEditorContext)
-
-  return (
-    <IconButton
-      ref={ref}
-      size={condensed ? 'small' : 'medium'}
-      variant="invisible"
-      disabled={disabled}
-      // Prevent focus leaving input:
-      onMouseDown={(e: React.MouseEvent) => e.preventDefault()}
-      {...props}
-      sx={{color: 'fg.muted', ...props.sx}}
-    />
-  )
-})
-ToolbarButton.displayName = 'MarkdownEditor.ToolbarButton'
+import {ToolbarButton} from './_ToolbarButton'
 
 const Divider = () => {
   return (
@@ -169,3 +151,5 @@ export const CoreToolbar = ({children}: {children?: React.ReactNode}) => {
 
 export const Toolbar = ({children}: {children?: React.ReactNode}) => <CoreToolbar>{children}</CoreToolbar>
 Toolbar.displayName = 'MarkdownEditor.Toolbar'
+
+export {ToolbarButton}

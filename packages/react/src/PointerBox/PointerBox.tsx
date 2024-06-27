@@ -1,9 +1,11 @@
 import React from 'react'
 import {ThemeContext} from 'styled-components'
-import Box, {BoxProps} from '../Box'
-import Caret, {CaretProps} from '../Caret'
+import type {BoxProps} from '../Box'
+import Box from '../Box'
+import type {CaretProps} from '../Caret'
+import Caret from '../Caret'
 import {get} from '../constants'
-import {SxProp} from '../sx'
+import type {SxProp} from '../sx'
 
 // FIXME: Make this work with BetterStyledSystem types
 type MutatedSxProps = {

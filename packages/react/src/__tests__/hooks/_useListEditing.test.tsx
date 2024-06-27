@@ -1,4 +1,5 @@
-import {parseListItem, listItemToString, ListItem} from '../../drafts/MarkdownEditor/_useListEditing'
+import type {ListItem} from '../../drafts/MarkdownEditor/_useListEditing'
+import {parseListItem, listItemToString} from '../../drafts/MarkdownEditor/_useListEditing'
 
 describe('parseListItem', () => {
   it('should return null for a line that is not a list item', () => {

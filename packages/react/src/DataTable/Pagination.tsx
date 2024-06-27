@@ -6,7 +6,8 @@ import {Button} from '../internal/components/ButtonReset'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import {warning} from '../utils/warning'
-import {ResponsiveValue, viewportRanges} from '../hooks/useResponsiveValue'
+import type {ResponsiveValue} from '../hooks/useResponsiveValue'
+import {viewportRanges} from '../hooks/useResponsiveValue'
 
 const StyledPagination = styled.nav`
   display: flex;

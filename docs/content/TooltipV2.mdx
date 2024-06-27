@@ -1,0 +1,85 @@
+---
+componentId: tooltip
+title: Tooltip v2
+status: Beta
+a11yReviewed: true
+source: https://github.com/primer/react/tree/main/packages/react/src/TooltipV2/Tooltip.tsx
+---
+
+import data from '../../packages/react/src/TooltipV2/Tooltip.docs.json'
+
+```js
+//👇 Notice the new bundle, `next`👇
+import {Tooltip} from '@primer/react/next'
+```
+
+## Usage
+
+The Tooltip component is used to add context to interactive elements on the page.
+
+**_⚠️ Usage warning! ⚠️_**
+
+Tooltips as a UI pattern should be our last resort for conveying information because it is hidden by default and often with zero or little visual indicator of its existence.
+
+Before adding a tooltip, please consider: Is this information essential and necessary? Can the UI be made clearer? Can the information be shown on the page by default? See [Tooltip alternatives](https://primer.style/design/accessibility/tooltip-alternatives) for more accessible alternatives.
+
+Tooltip should only be used on an element that is interactive such as a button or a link.
+
+## Examples
+
+### Default (For additional context)
+
+Default tooltip is suitable for interactive controls that require additional context.
+
+```jsx live next
+<Tooltip text="This change cannot be undone.">
+  <Button>Delete</Button>
+</Tooltip>
+```
+
+### As a label
+
+Tooltip can be used to label interactive controls that has no visible text label such as interactive icon links.
+
+```jsx live next
+<Tooltip text="Contribution Documentation for 'Primer React'" type="label">
+  <Link href="https://github.com/primer/react/contributor-docs/CONTRIBUTING.md" sx={{ml: 1, color: 'fg.muted'}}>
+    <Octicon icon={BookIcon} sx={{color: 'fg.muted'}} />
+  </Link>
+</Tooltip>
+```
+
+### With direction
+
+```jsx live next
+<Box sx={{padding: 5, display: 'flex', gap: '8px'}}>
+  <Tooltip direction="n" text="Supplementary text">
+    <Button>North</Button>
+  </Tooltip>
+  <Tooltip direction="s" text="Supplementary text">
+    <Button>South</Button>
+  </Tooltip>
+  <Tooltip direction="e" text="Supplementary text">
+    <Button>East</Button>
+  </Tooltip>
+  <Tooltip direction="w" text="Supplementary text">
+    <Button>West</Button>
+  </Tooltip>
+  <Tooltip direction="ne" text="Supplementary text">
+    <Button>North East</Button>
+  </Tooltip>
+  <Tooltip direction="nw" text="Supplementary text">
+    <Button>North West</Button>
+  </Tooltip>
+  <Tooltip direction="se" text="Supplementary text">
+    <Button>Southeast</Button>
+  </Tooltip>
+  <Tooltip direction="sw" text="Supplementary text">
+    <Button>Southwest</Button>
+  </Tooltip>
+</Box>
+```
+
+## Props
+
+<ComponentProps data={data} />

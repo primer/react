@@ -1,10 +1,11 @@
 import React from 'react'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import Link from '../Link'
-import {SxProp, merge} from '../sx'
+import type {SxProp} from '../sx'
+import {merge} from '../sx'
 import {Item} from './Item'
-import {ActionListItemProps} from './shared'
-import {Box} from '..'
+import type {ActionListItemProps} from './shared'
+import Box from '../Box'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -50,7 +51,7 @@ export const LinkItem = React.forwardRef(
         data-inactive={inactiveText ? true : undefined}
         data-loading={loading ? true : undefined}
         _PrivateItemWrapper={({children, onClick, ...rest}) => {
-          const clickHandler = (event: React.MouseEvent) => {
+          const clickHandler = (event: React.MouseEvent<HTMLElement>) => {
             onClick && onClick(event)
             props.onClick && props.onClick(event as React.MouseEvent<HTMLAnchorElement>)
           }

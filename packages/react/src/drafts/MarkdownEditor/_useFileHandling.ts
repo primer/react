@@ -1,7 +1,8 @@
 import {useCallback, useEffect, useRef, useState} from 'react'
-import {FileType, UnifiedFileSelectResult, useUnifiedFileSelect} from '../hooks/useUnifiedFileSelect'
+import type {FileType, UnifiedFileSelectResult} from '../hooks/useUnifiedFileSelect'
+import {useUnifiedFileSelect} from '../hooks/useUnifiedFileSelect'
 import {useSafeAsyncCallback} from '../hooks/useSafeAsyncCallback'
-import {SyntheticChangeEmitter} from '../hooks/useSyntheticChange'
+import type {SyntheticChangeEmitter} from '../hooks/useSyntheticChange'
 import {markdownComment, markdownImage, markdownLink} from './utils'
 export type {FileType} from '../hooks/useUnifiedFileSelect'
 

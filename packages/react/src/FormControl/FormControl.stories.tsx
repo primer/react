@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
-import {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import {BaseStyles, Box, Checkbox, FormControl, TextInput, TextInputWithTokens, ThemeProvider, theme} from '..'
-import {FormValidationStatus} from '../utils/types/FormValidationStatus'
+import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 
 export default {
   title: 'Components/FormControl',

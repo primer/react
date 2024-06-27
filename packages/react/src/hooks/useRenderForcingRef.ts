@@ -1,4 +1,5 @@
-import {MutableRefObject, RefObject, useCallback, useRef, useState} from 'react'
+import type {MutableRefObject, RefObject} from 'react'
+import {useCallback, useRef, useState} from 'react'
 
 /**
  * There are certain situations where a ref might be set after the current render cycle for a

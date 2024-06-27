@@ -3,12 +3,15 @@ import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import Box from '../Box'
-import sx, {BetterCssProperties, BetterSystemStyleObject, SxProp, merge} from '../sx'
-import {AvatarProps, DEFAULT_AVATAR_SIZE} from '../Avatar/Avatar'
-import {ResponsiveValue, isResponsiveValue} from '../hooks/useResponsiveValue'
+import type {BetterCssProperties, BetterSystemStyleObject, SxProp} from '../sx'
+import sx, {merge} from '../sx'
+import type {AvatarProps} from '../Avatar/Avatar'
+import {DEFAULT_AVATAR_SIZE} from '../Avatar/Avatar'
+import type {ResponsiveValue} from '../hooks/useResponsiveValue'
+import {isResponsiveValue} from '../hooks/useResponsiveValue'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
 import {defaultSxProp} from '../utils/defaultSxProp'
-import {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
+import type {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
 
 type StyledAvatarStackWrapperProps = {
   count?: number
@@ -147,7 +150,7 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
       margin-left: ${get('space.1')};
       opacity: 100%;
       visibility: visible;
-      ${props => (props.count === 1 ? '' : `box-shadow: 0 0 0 4px ${get('colors.canvas.default')};`)}
+      ${props => (props.count === 1 ? '' : `box-shadow: inset 0 0 0 4px ${get('colors.canvas.default')};`)}
       transition:
         margin 0.2s ease-in-out,
         opacity 0.2s ease-in-out,

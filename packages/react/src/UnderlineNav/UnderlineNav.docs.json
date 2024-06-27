@@ -1,12 +1,13 @@
 {
-  "id": "drafts_underline_nav2",
+  "id": "underline_nav",
   "name": "UnderlineNav",
-  "status": "draft",
+  "status": "beta",
   "a11yReviewed": true,
   "stories": [],
+  "importPath": "@primer/react",
   "props": [
     {
-      "name": "afterSelect",
+      "name": "onSelect",
       "type": "(event) => void",
       "defaultValue": "",
       "description": "The handler that gets called when a nav link child is selected"
@@ -47,7 +48,7 @@
         },
         {
           "name": "counter",
-          "type": "number",
+          "type": "number | string",
           "defaultValue": "",
           "description": "The number to display in the counter label."
         },

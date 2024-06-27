@@ -2,8 +2,9 @@ import React from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
-import sx, {BetterSystemStyleObject, SxProp} from '../sx'
-import {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import type {BetterSystemStyleObject, SxProp} from '../sx'
+import sx from '../sx'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 export type LabelProps = {
   /** The color of the label */

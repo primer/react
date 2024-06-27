@@ -1,5 +1,6 @@
-import React, {ChangeEventHandler, RefObject, useCallback, useEffect, useRef, useState} from 'react'
-import {Meta} from '@storybook/react'
+import type {ChangeEventHandler, RefObject} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
+import type {Meta} from '@storybook/react'
 
 import {BaseStyles, Box, Dialog, ThemeProvider, registerPortalRoot} from '..'
 import TextInputTokens from '../TextInputWithTokens'
@@ -7,9 +8,9 @@ import Autocomplete from './Autocomplete'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import FormControl from '../FormControl'
 import {Button} from '../Button'
-import {ComponentProps} from '../utils/types'
+import type {ComponentProps} from '../utils/types'
+import type {FormControlArgs} from '../utils/story-helpers'
 import {
-  FormControlArgs,
   formControlArgs,
   formControlArgTypes,
   getFormControlArgsByChildComponent,

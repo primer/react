@@ -31,6 +31,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+      - run: npm i -g npm@^10.5.1
       - name: Install packages for github-script
         run: npm i date-fns
       - name: Create Release Issue

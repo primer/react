@@ -2,7 +2,7 @@ import React, {useCallback, useState} from 'react'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 import {SSRProvider} from '../index'
 import {Button} from '../deprecated'
 import theme from '../theme'
@@ -67,13 +67,13 @@ describe('AnchoredOverlay', () => {
 
   it('should have no axe violations when open', async () => {
     const {container} = HTMLRender(<AnchoredOverlayTestComponent initiallyOpen={true}></AnchoredOverlayTestComponent>)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 
   it('should have no axe violations when closed', async () => {
     const {container} = HTMLRender(<AnchoredOverlayTestComponent></AnchoredOverlayTestComponent>)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 

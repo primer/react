@@ -1,8 +1,8 @@
 import {useState} from 'react'
-import {Column} from './column'
-import {UniqueRow} from './row'
+import type {Column} from './column'
+import type {UniqueRow} from './row'
 import {DEFAULT_SORT_DIRECTION, SortDirection, transition, strategies} from './sorting'
-import {ObjectPathValue} from './utils'
+import type {ObjectPathValue} from './utils'
 
 interface TableConfig<Data extends UniqueRow> {
   columns: Array<Column<Data>>

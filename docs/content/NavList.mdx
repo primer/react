@@ -3,7 +3,7 @@ title: NavList
 status: Alpha
 componentId: nav_list
 description: Use a nav list to render a vertical list of navigation links.
-source: https://github.com/primer/react/tree/main/src/NavList
+source: https://github.com/primer/react/tree/main/packages/react/src/NavList
 storybook: '/react/storybook/?path=/story/components-navlist--simple'
 ---
 
@@ -239,21 +239,22 @@ function App() {
 ### With Next.js
 
 ```jsx
+import {NavList} from '@primer/react'
 import {useRouter} from 'next/router'
 import Link from 'next/link'
-import {NavList} from '@primer/react'
+import React from 'react'
 
 function NavItem({href, children}) {
   const router = useRouter()
   const isCurrent = typeof href === 'string' ? router.asPath === href : router.pathname === href.pathname
   return (
-    <Link href={href} passHref>
-      <NavList.Item aria-current={isCurrent ? 'page' : false}>{children}</NavList.Item>
-    </Link>
+    <NavList.Item as={Link} href={href} aria-current={isCurrent ? 'page' : false}>
+      {children}
+    </NavList.Item>
   )
 }
 
-function App() {
+export default function IndexPage() {
   return (
     <NavList>
       <NavItem href="/">Dashboard</NavItem>
@@ -262,7 +263,7 @@ function App() {
       <NavItem
         href={{
           pathname: '/[owner]/[repo]',
-          query: {owner, repo},
+          query: {owner: 'test', repo: 'test'},
         }}
       >
         Summary

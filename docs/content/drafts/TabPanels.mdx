@@ -1,0 +1,33 @@
+---
+componentId: tab_panels
+title: TabPanels
+status: Draft
+source: https://github.com/primer/react/blob/main/src/TabPanels
+---
+
+import data from '../../../packages/react/src/drafts/TabPanels/TabPanels.docs.json'
+
+```js
+import {TabPanels} from '@primer/react/drafts'
+```
+
+**Attention:** Make sure to properly label your `TabPanels` with an `aria-label` to provide context about the subject of your `TabPanels`.
+
+`TabPanels.Tab` elements are wired up to their `TabPanels.Panel` elements based on the index order that they exist in the document.
+
+## Examples
+
+```jsx live drafts
+<TabPanels aria-label="Select a tab" id="tab-panels" selectedTabIndex={0}>
+  <TabPanels.Tab>Tab 1</TabPanels.Tab>
+  <TabPanels.Tab>Tab 2</TabPanels.Tab>
+  <TabPanels.Tab>Tab 3</TabPanels.Tab>
+  <TabPanels.Panel>Panel 1</TabPanels.Panel>
+  <TabPanels.Panel>Panel 2</TabPanels.Panel>
+  <TabPanels.Panel>Panel 3</TabPanels.Panel>
+</TabPanels>
+```
+
+## Props
+
+<ComponentProps data={data} />

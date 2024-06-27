@@ -1,6 +1,7 @@
-import {RefObject, useCallback, useEffect, useState} from 'react'
+import type {RefObject} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 
-import {SxProp} from '../../sx'
+import type {SxProp} from '../../sx'
 import {getCharacterCoordinates} from '../utils/character-coordinates'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
 

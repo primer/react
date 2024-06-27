@@ -1,13 +1,10 @@
 import React from 'react'
-import {Meta} from '@storybook/react'
-import {Box, FormControl, Textarea, TextareaProps} from '..'
+import type {Meta} from '@storybook/react'
+import type {TextareaProps} from '..'
+import {Box, FormControl, Textarea} from '..'
 import {DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE, DEFAULT_TEXTAREA_ROWS} from '../Textarea'
-import {
-  FormControlArgs,
-  formControlArgTypes,
-  formControlArgs,
-  getFormControlArgsByChildComponent,
-} from '../utils/story-helpers'
+import type {FormControlArgs} from '../utils/story-helpers'
+import {formControlArgTypes, formControlArgs, getFormControlArgsByChildComponent} from '../utils/story-helpers'
 
 export default {
   title: 'Components/Textarea',

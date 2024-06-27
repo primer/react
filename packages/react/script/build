@@ -5,6 +5,9 @@ set -e
 # Clean up
 npm run clean
 
+# Generate color schemes
+npm run build:precompile-color-schemes
+
 # Bundle
 npx rollup -c --bundleConfigAsCjs
 

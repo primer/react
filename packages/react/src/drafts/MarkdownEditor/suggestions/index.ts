@@ -1,4 +1,4 @@
-import {Suggestion, Trigger} from '../../InlineAutocomplete'
+import type {Suggestion, Trigger} from '../../InlineAutocomplete'
 
 const MAX_SUGGESTIONS = 5
 

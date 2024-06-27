@@ -2,7 +2,8 @@ import React from 'react'
 import {AlertIcon} from '@primer/octicons-react'
 import {Spinner, Box} from '..'
 import {get} from '../constants'
-import {SxProp, merge} from '../sx'
+import type {SxProp} from '../sx'
+import {merge} from '../sx'
 import {ItemContext, TEXT_ROW_HEIGHT, getVariantStyles} from './shared'
 import {Tooltip, TooltipProps} from '../drafts/Tooltip/Tooltip'
 
@@ -39,9 +40,10 @@ export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({s
         {
           color: getVariantStyles(variant, disabled, inactive).iconColor,
           svg: {fontSize: 0},
-          '[data-variant="danger"]:hover &, [data-variant="danger"]:active &': {
-            color: getVariantStyles(variant, disabled, inactive).hoverColor,
-          },
+          '[data-variant="danger"]:not([aria-disabled]):not([data-inactive]):hover &, [data-variant="danger"]:active &':
+            {
+              color: getVariantStyles(variant, disabled, inactive).hoverColor,
+            },
         },
         sx as SxProp,
       )}

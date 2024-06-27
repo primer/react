@@ -8,13 +8,14 @@
     "declaration": true,
     "declarationMap": true,
     "strict": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "typeRoots": ["./node_modules/@types", "./@types"],
     "isolatedModules": true,
-    "moduleDetection": "force"
+    "moduleDetection": "force",
+    "verbatimModuleSyntax": true
   }
 }

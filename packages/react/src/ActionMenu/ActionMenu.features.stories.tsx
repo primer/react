@@ -1,6 +1,15 @@
 import React from 'react'
 import {ActionMenu, ActionList, Box} from '../'
-import {WorkflowIcon, ArchiveIcon, GearIcon, CopyIcon, RocketIcon, CommentIcon, BookIcon} from '@primer/octicons-react'
+import {
+  WorkflowIcon,
+  ArchiveIcon,
+  GearIcon,
+  CopyIcon,
+  RocketIcon,
+  CommentIcon,
+  BookIcon,
+  SparkleFillIcon,
+} from '@primer/octicons-react'
 
 export default {
   title: 'Components/ActionMenu/Features',
@@ -36,7 +45,8 @@ export const LinksAndActions = () => (
           </ActionList.LeadingVisual>
         </ActionList.Item>
         <ActionList.Divider />
-        <ActionList.Group title="GitHub projects">
+        <ActionList.Group>
+          <ActionList.GroupHeading>GitHub projects</ActionList.GroupHeading>
           <ActionList.LinkItem href="/">
             What&apos;s new
             <ActionList.LeadingVisual>
@@ -148,14 +158,19 @@ export const InactiveItems = () => (
             <GearIcon />
           </ActionList.LeadingVisual>
         </ActionList.LinkItem>
-        <ActionList.Item onSelect={() => alert('Make a copy clicked')} inactiveText="Unavailable due to an outage">
+        <ActionList.Item
+          variant="danger"
+          onSelect={() => alert('Make a copy clicked')}
+          inactiveText="Unavailable due to an outage"
+        >
           Make a copy
           <ActionList.LeadingVisual>
             <CopyIcon />
           </ActionList.LeadingVisual>
         </ActionList.Item>
         <ActionList.Divider />
-        <ActionList.Group title="Github projects">
+        <ActionList.Group>
+          <ActionList.GroupHeading>Github projects</ActionList.GroupHeading>
           <ActionList.LinkItem href="/">
             What&apos;s new
             <ActionList.LeadingVisual>
@@ -230,6 +245,48 @@ export const LoadingItems = () => (
             </ActionList.LeadingVisual>
           </ActionList.LinkItem>
         </ActionList.Group>
+      </ActionList>
+    </ActionMenu.Overlay>
+  </ActionMenu>
+)
+
+export const Submenus = () => (
+  <ActionMenu>
+    <ActionMenu.Button>Edit</ActionMenu.Button>
+    <ActionMenu.Overlay>
+      <ActionList>
+        <ActionList.Item>Cut</ActionList.Item>
+        <ActionList.Item>Copy</ActionList.Item>
+        <ActionList.Item>Paste</ActionList.Item>
+        <ActionMenu>
+          <ActionMenu.Anchor>
+            <ActionList.Item>
+              <ActionList.LeadingVisual>
+                <SparkleFillIcon />
+              </ActionList.LeadingVisual>
+              Paste special
+            </ActionList.Item>
+          </ActionMenu.Anchor>
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item>Paste plain text</ActionList.Item>
+              <ActionList.Item>Paste formulas</ActionList.Item>
+              <ActionList.Item>Paste with formatting</ActionList.Item>
+              <ActionMenu>
+                <ActionMenu.Anchor>
+                  <ActionList.Item>Paste from</ActionList.Item>
+                </ActionMenu.Anchor>
+                <ActionMenu.Overlay>
+                  <ActionList>
+                    <ActionList.Item>Current clipboard</ActionList.Item>
+                    <ActionList.Item>History</ActionList.Item>
+                    <ActionList.Item>Another device</ActionList.Item>
+                  </ActionList>
+                </ActionMenu.Overlay>
+              </ActionMenu>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
       </ActionList>
     </ActionMenu.Overlay>
   </ActionMenu>

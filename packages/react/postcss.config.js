@@ -9,10 +9,5 @@ module.exports = {
         'logical-properties-and-values': false,
       },
     }),
-    require('postcss-custom-properties-fallback')({
-      importFrom: {
-        customProperties: require('@primer/primitives/tokens-next-private/fallbacks/color-fallbacks.json'),
-      },
-    }),
   ],
 }

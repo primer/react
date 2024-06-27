@@ -1,5 +1,5 @@
 import React from 'react'
-import {Meta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import {BaseStyles, Box, ThemeProvider} from '..'
 import {useAnchoredPosition} from '../hooks'
 import styled from 'styled-components'

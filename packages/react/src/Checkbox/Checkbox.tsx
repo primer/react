@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 import {useProvidedRefOrCreate} from '../hooks'
-import React, {ChangeEventHandler, InputHTMLAttributes, ReactElement, useContext} from 'react'
-import sx, {SxProp} from '../sx'
+import React, {useContext, useEffect, type ChangeEventHandler, type InputHTMLAttributes, type ReactElement} from 'react'
+import sx, {type SxProp} from '../sx'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
-import {FormValidationStatus} from '../utils/types/FormValidationStatus'
+import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import {CheckboxGroupContext} from '../CheckboxGroup/CheckboxGroupContext'
 import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import {get} from '../constants'
@@ -140,7 +140,18 @@ const StyledCheckbox = styled.input`
  */
 const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (
-    {checked, indeterminate, disabled, onChange, sx: sxProp, required, validationStatus, value, ...rest}: CheckboxProps,
+    {
+      checked,
+      defaultChecked,
+      indeterminate,
+      disabled,
+      onChange,
+      sx: sxProp,
+      required,
+      validationStatus,
+      value,
+      ...rest
+    },
     ref,
   ): ReactElement => {
     const checkboxRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
@@ -156,13 +167,26 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       }
     }, [indeterminate, checked, checkboxRef])
 
+    useEffect(() => {
+      const {current: checkbox} = checkboxRef
+      if (!checkbox) {
+        return
+      }
+
+      if (indeterminate) {
+        checkbox.setAttribute('aria-checked', 'mixed')
+      } else {
+        checkbox.setAttribute('aria-checked', checkbox.checked ? 'true' : 'false')
+      }
+    })
+
     return (
       <StyledCheckbox
         type="checkbox"
         disabled={disabled}
-        ref={ref || checkboxRef}
+        ref={checkboxRef}
         checked={indeterminate ? false : checked}
-        aria-checked={indeterminate ? 'mixed' : checked ? 'true' : 'false'}
+        defaultChecked={defaultChecked}
         sx={sxProp}
         required={required}
         aria-required={required ? 'true' : 'false'}

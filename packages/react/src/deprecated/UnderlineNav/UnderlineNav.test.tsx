@@ -2,7 +2,7 @@ import React from 'react'
 import {UnderlineNav} from '../../deprecated'
 import {render, rendersClass, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 
 describe('UnderlineNav', () => {
   checkExports('deprecated/UnderlineNav', {
@@ -11,7 +11,7 @@ describe('UnderlineNav', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<UnderlineNav />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 

@@ -1,5 +1,5 @@
 import {get} from './constants'
-import {Theme} from './ThemeProvider'
+import type {Theme} from './ThemeProvider'
 
 const getDirectionStyles = (theme: Theme, direction: 'ne' | 'e' | 'se' | 's' | 'sw' | 'w') => {
   const map = {

@@ -2,10 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import {get} from '../constants'
-import sx, {SxProp} from '../sx'
+import type {SxProp} from '../sx'
+import sx from '../sx'
 import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import {buildComponentData, buildPaginationModel} from './model'
-import {ResponsiveValue, viewportRanges} from '../hooks/useResponsiveValue'
+import type {ResponsiveValue} from '../hooks/useResponsiveValue'
+import {viewportRanges} from '../hooks/useResponsiveValue'
 
 const getViewportRangesToHidePages = (showPages: PaginationProps['showPages']) => {
   if (showPages && typeof showPages !== 'boolean') {

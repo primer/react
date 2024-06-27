@@ -1,0 +1,79 @@
+{
+  "id": "tab_panels",
+  "name": "TabPanels",
+  "status": "draft",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react/experimental",
+  "props": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Used to set the `aria-label` on the `role=\"tablist\"` element. Either aria-label or aria-labelledby must be provided."
+    },
+    {
+      "name": "aria-labelledby",
+      "type": "string",
+      "description": "Used to set the `aria-labelledby` on the `role=\"tablist\"` element. Either aria-label or aria-labelledby must be provided."
+    },
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "description": "The content of the component, can contain Tabs, Panels but also content before and after Tabs and after the Panels."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The id of the tab container, used to generate child ids."
+    },
+    {
+      "name": "defaultTabIndex",
+      "type": "number",
+      "description": "The 0-based index of the tab that is selected by default when the component is loaded."
+    },
+    {
+      "name": "selectedTabIndex",
+      "type": "number",
+      "description": "The 0-based index of the tab that is selected."
+    },
+    {
+      "name": "onChange",
+      "type": "function",
+      "description": "Callback fired when the tab container changes (bubbles, cancelable): fired on `<tab-container>` before a new tab is selected and visibility is updated. `event.tab` is the tab that will be focused and `tab.panel` is the panel that will be shown if the event isn't cancelled."
+    },
+    {
+      "name": "onChanged",
+      "type": "function",
+      "description": "Callback fired when the tab container changes (bubbles): fired on `<tab-container>` after a new tab is selected and visibility is updated. `event.tab` is the tab that is now active (and will be focused right after this event) and `event.panel` is the newly visible tab panel."
+    },
+    {
+      "name": "sx",
+      "type": "SystemStyleObject"
+    }
+  ],
+  "subcomponents": [
+    {
+      "name": "TabPanels.Tab",
+      "props": [
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    },
+    {
+      "name": "TabPanels.Panel",
+      "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "description": "The content of the panel."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        }
+      ]
+    }
+  ]
+}

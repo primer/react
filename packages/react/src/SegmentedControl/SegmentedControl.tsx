@@ -1,12 +1,16 @@
 import React, {useRef, useState} from 'react'
-import Button, {SegmentedControlButtonProps} from './SegmentedControlButton'
-import SegmentedControlIconButton, {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
+import type {SegmentedControlButtonProps} from './SegmentedControlButton'
+import Button from './SegmentedControlButton'
+import type {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
+import SegmentedControlIconButton from './SegmentedControlIconButton'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
 import {useTheme} from '../ThemeProvider'
-import sx, {merge, SxProp} from '../sx'
-import {ResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
-import {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
+import type {SxProp} from '../sx'
+import sx, {merge} from '../sx'
+import type {ResponsiveValue} from '../hooks/useResponsiveValue'
+import {useResponsiveValue} from '../hooks/useResponsiveValue'
+import type {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
 import styled from 'styled-components'
 import {defaultSxProp} from '../utils/defaultSxProp'
 
@@ -125,7 +129,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
                 <ActionList.Item
                   key={`segmented-control-action-btn-${index}`}
                   selected={index === selectedIndex}
-                  onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
+                  onSelect={(event: React.MouseEvent | React.KeyboardEvent) => {
                     isUncontrolled && setSelectedIndexInternalState(index)
                     onChange && onChange(index)
                     child.props.onClick && child.props.onClick(event as React.MouseEvent<HTMLLIElement>)

@@ -1,5 +1,6 @@
 import {isMacOS} from '@primer/behaviors/utils'
-import {CompositionEventHandler, KeyboardEventHandler, useCallback, useMemo, useRef} from 'react'
+import type {CompositionEventHandler, KeyboardEventHandler} from 'react'
+import {useCallback, useMemo, useRef} from 'react'
 
 /**
  * If the user is composing text, we don't want to respond to
