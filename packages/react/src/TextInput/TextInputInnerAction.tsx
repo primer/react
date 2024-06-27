@@ -1,11 +1,11 @@
 import React, {forwardRef, type ButtonHTMLAttributes, type FunctionComponent, type PropsWithChildren} from 'react'
 import type {IconProps} from '@primer/octicons-react'
-import Box from '../../Box'
-import {Button, IconButton} from '../../Button'
-import {Tooltip} from '../../TooltipV2'
-import type {ButtonProps} from '../../Button'
-import type {BetterSystemStyleObject, SxProp} from '../../sx'
-import {merge} from '../../sx'
+import Box from '../Box'
+import {Button, IconButton} from '../Button'
+import {Tooltip} from '../TooltipV2'
+import type {ButtonProps} from '../Button'
+import type {BetterSystemStyleObject, SxProp} from '../sx'
+import {merge} from '../sx'
 
 type TextInputActionProps = Omit<
   ButtonHTMLAttributes<HTMLButtonElement>,
@@ -77,7 +77,12 @@ const ConditionalTooltip: React.FC<
   </>
 )
 
-const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
+/**
+ * An action button that can be used inside a `TextInput` component.
+ * @alias TextInput.Action
+ * @primerparentid text_input
+ */
+export const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
   (
     {'aria-label': ariaLabel, tooltipDirection, children, icon, sx: sxProp, variant = 'invisible', ...rest},
     forwardedRef,
@@ -110,5 +115,3 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
     )
   },
 )
-
-export default TextInputAction

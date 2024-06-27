@@ -9,7 +9,14 @@ import {useFormControlContext} from './_FormControlContext'
  * @alias FormControl.Caption
  * @primerparentid form_control
  */
-const FormControlCaption: FC<PropsWithChildren<{id?: string} & SxProp>> = ({children, sx, id}) => {
+const FormControlCaption: FC<
+  PropsWithChildren<
+    {
+      /** Custom ID to override the ID set by FormControl's React Context */
+      id?: string
+    } & SxProp
+  >
+> = ({children, sx, id}) => {
   const {captionId, disabled} = useFormControlContext()
   return (
     <InputCaption id={id || captionId || ''} disabled={disabled} sx={sx}>

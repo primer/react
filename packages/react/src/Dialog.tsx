@@ -99,13 +99,6 @@ type InternalDialogProps = {
   returnFocusRef?: React.RefObject<HTMLElement>
 } & ComponentProps<typeof DialogBase>
 
-/**
- * Dialog is a floating surface used to display transient content such as confirmation actions, selection options, and more.
- * @primerid dialog
- * @primerdocsid dialog
- * @primerstatus alpha
- * @primera11yreviewed false
- */
 const Dialog = forwardRef<HTMLDivElement, InternalDialogProps>(
   ({children, onDismiss = noop, isOpen, initialFocusRef, returnFocusRef, ...props}, forwardedRef) => {
     const overlayRef = useRef(null)
@@ -152,8 +145,17 @@ DialogHeader.propTypes = {
   ...Box.propTypes,
 }
 
-Dialog.displayName = 'Dialog'
-DialogHeader.displayName = 'Dialog.Header'
+// TODO: make sure this isn't breaking anything
+// This was causing Docgen to document `Dialog` props on `Dialog.Header` and not documenting the parent `Dialog` at all
+// Dialog.displayName = 'Dialog'
+// DialogHeader.displayName = 'Dialog.Header'
 
 export type DialogProps = ComponentProps<typeof Dialog>
+/**
+ * Dialog is a floating surface used to display transient content such as confirmation actions, selection options, and more.
+ * @primerid dialog
+ * @primerdocsid dialog
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 export default Object.assign(Dialog, {Header: DialogHeader})

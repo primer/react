@@ -83,7 +83,7 @@ const ArrowIndicator = styled(ArrowIndicatorSVG)`
  * @primerstatus alpha
  * @primera11yreviewed true
  */
-const Select = forwardRef<HTMLSelectElement, SelectProps>(
+export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   ({block, children, contrast, disabled, placeholder, size, required, validationStatus, ...rest}: SelectProps, ref) => (
     <TextInputWrapper
       sx={{
@@ -127,16 +127,13 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
  * @alias Select.Option
  * @primerparentid select
  */
-const Option: FC<PropsWithChildren<HTMLProps<HTMLOptionElement> & {value: string}>> = props => <option {...props} />
+export const Option: FC<PropsWithChildren<HTMLProps<HTMLOptionElement> & {value: string}>> = props => (
+  <option {...props} />
+)
 
 /**
  * Creates a group of related selectable options in the Select component.
  * @alias Select.OptGroup
  * @primerparentid select
  */
-const OptGroup: FC<PropsWithChildren<HTMLProps<HTMLOptGroupElement>>> = props => <optgroup {...props} />
-
-export default Object.assign(Select, {
-  Option,
-  OptGroup,
-})
+export const OptGroup: FC<PropsWithChildren<HTMLProps<HTMLOptGroupElement>>> = props => <optgroup {...props} />

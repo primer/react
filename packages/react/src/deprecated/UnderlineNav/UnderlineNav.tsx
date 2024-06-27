@@ -56,11 +56,12 @@ export type UnderlineNavProps = {
 
 /**
  * The underline nav is used to display navigation in a horizontal tabbed format.
+ * @deprecated UnderlineNav is deprecated and will be replaced by the draft `UnderlineNav` in the next major release. See https://primer.style/react/drafts/UnderlineNav2 for more details.
  * @primerid legacy_underline_nav
  * @primerstatus deprecated
  * @primera11yreviewed false
  */
-function UnderlineNav({actions, className, align, children, full, label, theme, ...rest}: UnderlineNavProps) {
+export function UnderlineNav({actions, className, align, children, full, label, theme, ...rest}: UnderlineNavProps) {
   const classes = clsx(
     className,
     'PRC-UnderlineNav',
@@ -87,7 +88,7 @@ type StyledUnderlineNavLinkProps = {
  * @alias UnderlineNav.Link
  * @primerparentid legacy_underline_nav
  */
-const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
+export const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
   className: clsx(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
 }))<StyledUnderlineNavLinkProps>`
   padding: ${get('space.3')} ${get('space.2')};
@@ -125,10 +126,4 @@ const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
   ${sx};
 `
 
-UnderlineNavLink.displayName = 'UnderlineNav.Link'
-
 export type UnderlineNavLinkProps = ComponentProps<typeof UnderlineNavLink>
-/**
- * @deprecated UnderlineNav is deprecated and will be replaced by the draft `UnderlineNav` in the next major release. See https://primer.style/react/drafts/UnderlineNav2 for more details.
- */
-export default Object.assign(UnderlineNav, {Link: UnderlineNavLink})

@@ -127,9 +127,14 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "primerid": "dialog",
+      "primerdocsid": "dialog",
+      "primerstatus": "alpha",
+      "primera11yreviewed": "false"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Dialog.tsx",
-    "description": "",
+    "description": "Dialog is a floating surface used to display transient content such as confirmation actions, selection options, and more.",
     "displayName": "Dialog",
     "methods": [],
     "props": {
@@ -4565,19 +4570,12 @@
   },
   {
     "tags": {
-      "see": "{@link https://react.dev/learn/passing-data-deeply-with-context React Docs}\n{@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/context/ React TypeScript Cheatsheet}",
-      "example": "```tsx\nimport { createContext } from 'react';\n\nconst ThemeContext = createContext('light');\n```"
+      "primerid": "checkbox_group",
+      "primerstatus": "alpha",
+      "primera11yreviewed": "false"
     },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/CheckboxGroup/CheckboxGroup.tsx",
-    "description": "Context lets components pass information deep down without explicitly\npassing props.\n\nCreated from {@link createContext}",
-    "displayName": "Context",
-    "methods": [],
-    "props": {}
-  },
-  {
-    "tags": {},
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/CheckboxGroup/CheckboxGroup.tsx",
-    "description": "",
+    "description": "Checkbox group renders a set of checkboxes.",
     "displayName": "CheckboxGroup",
     "methods": [],
     "props": {
@@ -4694,10 +4692,137 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "alias": "CheckboxGroup.Caption",
+      "primerparentid": "checkbox_group"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/CheckboxGroup/CheckboxGroup.tsx",
+    "description": "The caption with contextual information about the set of related checkboxes.",
+    "displayName": "CheckboxGroupCaption",
+    "methods": [],
+    "props": {
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "CheckboxGroup.Label",
+      "primerparentid": "checkbox_group"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/CheckboxGroup/CheckboxGroup.tsx",
+    "description": "The name for the set of related checkboxes.",
+    "displayName": "CheckboxGroupLabel",
+    "methods": [],
+    "props": {
+      "visuallyHidden": {
+        "defaultValue": null,
+        "description": "Whether to visually hide the fieldset legend",
+        "name": "visuallyHidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroupLabel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "CheckboxGroup.Caption",
+      "primerparentid": "checkbox_group"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/CheckboxGroup/CheckboxGroup.tsx",
+    "description": "The message about the validation status of the set of related checkboxes.",
+    "displayName": "CheckboxGroupValidation",
+    "methods": [],
+    "props": {
+      "variant": {
+        "defaultValue": null,
+        "description": "Changes the visual style to match the validation status",
+        "name": "variant",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroupValidation.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "FormValidationStatus"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "primerid": "circle_badge",
+      "primerstatus": "alpha",
+      "prmera11yreviewed": "false"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/CircleBadge/CircleBadge.tsx",
-    "description": "",
-    "displayName": "CircleBadge.Icon",
+    "description": "Circle badge visually connects logos of third-party services, eg. in the marketplace.",
+    "displayName": "CircleBadge",
     "methods": [],
     "props": {
       "size": {
@@ -4764,6 +4889,67 @@
         "required": false,
         "type": {
           "name": "\"small\" | \"large\" | \"medium\""
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "CircleBadge.Icon",
+      "primerparentid": "circle_badge"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/CircleBadge/CircleBadge.tsx",
+    "description": "The icon that appears inside of CircleBadge",
+    "displayName": "CircleBadgeIcon",
+    "methods": [],
+    "props": {
+      "color": {
+        "defaultValue": null,
+        "description": "Sets an override color for the Octicon. Compatible with colors from the [Primer color system](https://primer.style/primitives/colors).",
+        "name": "color",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Octicon/Octicon.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "icon": {
+        "defaultValue": null,
+        "description": "Checks the input by default in uncontrolled modeName of the [Octicon component](https://primer.style/octicons/) used in the",
+        "name": "icon",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Octicon/Octicon.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "React.ElementType"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
         }
       }
     }
@@ -5838,7 +6024,7 @@
     },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Dialog/Dialog.tsx",
     "description": "A dialog is a type of overlay that can be used for confirming actions, asking\nfor disambiguation, and presenting small forms. They generally allow the user\nto focus on a quick task without having to navigate to a different page.\n\nDialogs appear in the page after a direct user interaction. Don't show dialogs\non page load or as system alerts.\n\nDialogs appear centered in the page, with a visible backdrop that dims the rest\nof the window for focus.\n\nAll dialogs have a title and a close button.\n\nDialogs are modal. Dialogs can be dismissed by clicking on the close button,\npressing the escape key, or by interacting with another button in the dialog.\nTo avoid losing information and missing important messages, clicking outside\nof the dialog will not close it.\n\nThe sub components provided (e.g. Header, Title, etc.) are available for custom\nrenderers only. They are not intended to be used otherwise.",
-    "displayName": "Dialog",
+    "displayName": "_Dialog",
     "methods": [],
     "props": {
       "title": {
@@ -6086,6 +6272,215 @@
         "required": false,
         "type": {
           "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "Dialog.Header",
+      "primerparentid": "dialog_v2"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Dialog/Dialog.tsx",
+    "description": "The header area of a Dialog.",
+    "displayName": "Header",
+    "methods": [],
+    "props": {
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "Dialog.Title",
+      "primerparentid": "dialog_v2"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Dialog/Dialog.tsx",
+    "description": "The title rendered in the header of the Dialog.",
+    "displayName": "Title",
+    "methods": [],
+    "props": {
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "Dialog.Subtitle",
+      "primerparentid": "dialog_v2"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Dialog/Dialog.tsx",
+    "description": "The subtitle rendered in the header of the Dialog.",
+    "displayName": "Subtitle",
+    "methods": [],
+    "props": {
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "Dialog.Body",
+      "primerparentid": "dialog_v2"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Dialog/Dialog.tsx",
+    "description": "The main content of a Dialog.",
+    "displayName": "Body",
+    "methods": [],
+    "props": {
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "Dialog.Footer",
+      "primerparentid": "dialog_v2"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Dialog/Dialog.tsx",
+    "description": "The footer area of a Dialog.",
+    "displayName": "Footer",
+    "methods": [],
+    "props": {
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "Dialog.Buttons",
+      "primerparentid": "dialog_v2"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Dialog/Dialog.tsx",
+    "description": "The buttons rendered in the footer area of a Dialog.",
+    "displayName": "Buttons",
+    "methods": [],
+    "props": {
+      "buttons": {
+        "defaultValue": null,
+        "description": "",
+        "name": "buttons",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Dialog/Dialog.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "DialogButtonProps[]"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "Dialog.CloseButton",
+      "primerparentid": "dialog_v2"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Dialog/Dialog.tsx",
+    "description": "The close button rendered in the header area of a Dialog.",
+    "displayName": "CloseButton",
+    "methods": [],
+    "props": {
+      "onClose": {
+        "defaultValue": null,
+        "description": "Callback for closing the Dialog",
+        "name": "onClose",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Dialog/Dialog.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "() => void"
         }
       }
     }
@@ -6430,9 +6825,13 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "primerid": "form_control",
+      "primerstatus": "alpha",
+      "primera11yreviewed": "false"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/FormControl/FormControl.tsx",
-    "description": "",
+    "description": "Form control displays a labelled input and, optionally, associated validation text and/or hint text.",
     "displayName": "FormControl",
     "methods": [],
     "props": {
@@ -6531,7 +6930,7 @@
     "props": {
       "id": {
         "defaultValue": null,
-        "description": "",
+        "description": "Custom ID to override the ID set by FormControl's React Context",
         "name": "id",
         "declarations": [
           {
@@ -6601,33 +7000,6 @@
     "displayName": "FormControlLabel",
     "methods": [],
     "props": {
-      "htmlFor": {
-        "defaultValue": null,
-        "description": "The unique identifier for the associated input",
-        "name": "htmlFor",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "string"
-        }
-      },
       "sx": {
         "defaultValue": null,
         "description": "A style object used to override styles using styled-components",
@@ -6768,6 +7140,33 @@
         "defaultValue": null,
         "description": "When `as` prop is 'label', it may be used to override the `htmlFor` given to the <label> element by FormControl's React Context.\nWhen 'as' prop is 'legend' or 'span', it is used as the `id` for the element.",
         "name": "id",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "htmlFor": {
+        "defaultValue": null,
+        "description": "The unique identifier for the associated input\nThis prop may be used to override the `htmlFor` set from FormControl's React Context.",
+        "name": "htmlFor",
         "declarations": [
           {
             "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
@@ -7303,10 +7702,15 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "alias": "PageHeader",
+      "primerid": "drafts_page_header",
+      "primerstatus": "draft",
+      "primera11yreviewed": "true"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PageHeader/PageHeader.tsx",
-    "description": "",
-    "displayName": "PageHeader",
+    "description": "Page header determines the top-level headings of a UI.",
+    "displayName": "Root",
     "methods": [],
     "props": {
       "as": {
@@ -7345,9 +7749,924 @@
     }
   },
   {
-    "tags": {},
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PageLayout/PageLayout.tsx",
+    "tags": {
+      "alias": "PageHeader.ContextArea",
+      "primerparentid": "drafts_page_header"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PageHeader/PageHeader.tsx",
+    "description": "Only visible on narrow viewports by default to provide user context of where they are at their journey. `hidden` prop available\nto manage their custom visibility but consumers should be careful if they choose to hide this on narrow viewports.\nPageHeader.ContextArea Sub Components: PageHeader.ParentLink, PageHeader.ContextBar, PageHeader.ContextAreaActions",
+    "displayName": "ContextArea",
+    "methods": [],
+    "props": {
+      "className": {
+        "defaultValue": null,
+        "description": "Class name(s) to override styles",
+        "name": "className",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "hidden": {
+        "defaultValue": {
+          "value": false
+        },
+        "description": "Whether to hide the component.\nThe component can be hidden for all viewport widths, or specified viewport widths.\nSome children have a default value for this prop:\n- `PageHeader.ContextArea`, `PageHeader.ContextAreaActions`, `PageHeader.ContextBar`, and `PageHeader.ParentLink` are hidden on regular and wide viewports by default.\n- `PageHeader.LeadingAction`, and `PageHeader.TrailingAction` are hidden on narrow viewports by default.",
+        "name": "hidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean | ResponsiveValue<boolean>"
+        }
+      },
+      "sx": {
+        "defaultValue": {
+          "value": "{}"
+        },
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "PageHeader.ParentLink",
+      "primerparentid": "drafts_page_header",
+      "default": "a"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PageHeader/PageHeader.tsx",
+    "description": "Only visible on narrow viewports by default to let users navigate up in the hierarchy.",
+    "displayName": "ParentLink",
+    "methods": [],
+    "props": {
+      "as": {
+        "defaultValue": {
+          "value": "h2"
+        },
+        "description": "",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "keyof IntrinsicElements"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "PageHeader.ContextBar",
+      "primerparentid": "drafts_page_header"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PageHeader/PageHeader.tsx",
+    "description": "Generic slot for any component above the title region. Use it for custom breadcrumbs and other navigation elements instead of ParentLink.",
+    "displayName": "ContextBar",
+    "methods": [],
+    "props": {
+      "className": {
+        "defaultValue": null,
+        "description": "Class name(s) to override styles",
+        "name": "className",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "hidden": {
+        "defaultValue": {
+          "value": false
+        },
+        "description": "Whether to hide the component.\nThe component can be hidden for all viewport widths, or specified viewport widths.\nSome children have a default value for this prop:\n- `PageHeader.ContextArea`, `PageHeader.ContextAreaActions`, `PageHeader.ContextBar`, and `PageHeader.ParentLink` are hidden on regular and wide viewports by default.\n- `PageHeader.LeadingAction`, and `PageHeader.TrailingAction` are hidden on narrow viewports by default.",
+        "name": "hidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean | ResponsiveValue<boolean>"
+        }
+      },
+      "sx": {
+        "defaultValue": {
+          "value": "{}"
+        },
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "PageHeader.ContextAreaActions",
+      "primerparentid": "drafts_page_header"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PageHeader/PageHeader.tsx",
     "description": "",
+    "displayName": "ContextAreaActions",
+    "methods": [],
+    "props": {
+      "className": {
+        "defaultValue": null,
+        "description": "Class name(s) to override styles",
+        "name": "className",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "hidden": {
+        "defaultValue": {
+          "value": false
+        },
+        "description": "Whether to hide the component.\nThe component can be hidden for all viewport widths, or specified viewport widths.\nSome children have a default value for this prop:\n- `PageHeader.ContextArea`, `PageHeader.ContextAreaActions`, `PageHeader.ContextBar`, and `PageHeader.ParentLink` are hidden on regular and wide viewports by default.\n- `PageHeader.LeadingAction`, and `PageHeader.TrailingAction` are hidden on narrow viewports by default.",
+        "name": "hidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean | ResponsiveValue<boolean>"
+        }
+      },
+      "sx": {
+        "defaultValue": {
+          "value": "{}"
+        },
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "PageHeader.TitleArea",
+      "primerparentid": "drafts_page_header"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PageHeader/PageHeader.tsx",
+    "description": "The main title area of the page. Visible on all viewports.\nSub Components: PageHeader.LeadingVisual, PageHeader.Title, PageTitle.TrailingVisual",
+    "displayName": "TitleArea",
+    "methods": [],
+    "props": {
+      "as": {
+        "defaultValue": {
+          "value": "h2"
+        },
+        "description": "",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "PageHeader.LeadingAction",
+      "primerparentid": "drafts_page_header"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PageHeader/PageHeader.tsx",
+    "description": "",
+    "displayName": "LeadingAction",
+    "methods": [],
+    "props": {
+      "className": {
+        "defaultValue": null,
+        "description": "Class name(s) to override styles",
+        "name": "className",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "hidden": {
+        "defaultValue": {
+          "value": false
+        },
+        "description": "Whether to hide the component.\nThe component can be hidden for all viewport widths, or specified viewport widths.\nSome children have a default value for this prop:\n- `PageHeader.ContextArea`, `PageHeader.ContextAreaActions`, `PageHeader.ContextBar`, and `PageHeader.ParentLink` are hidden on regular and wide viewports by default.\n- `PageHeader.LeadingAction`, and `PageHeader.TrailingAction` are hidden on narrow viewports by default.",
+        "name": "hidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean | ResponsiveValue<boolean>"
+        }
+      },
+      "sx": {
+        "defaultValue": {
+          "value": "{}"
+        },
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "PageHeader.Breadcrumbs",
+      "primerparentid": "drafts_page_header"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PageHeader/PageHeader.tsx",
+    "description": "",
+    "displayName": "Breadcrumbs",
+    "methods": [],
+    "props": {
+      "className": {
+        "defaultValue": null,
+        "description": "Class name(s) to override styles",
+        "name": "className",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "hidden": {
+        "defaultValue": {
+          "value": false
+        },
+        "description": "Whether to hide the component.\nThe component can be hidden for all viewport widths, or specified viewport widths.\nSome children have a default value for this prop:\n- `PageHeader.ContextArea`, `PageHeader.ContextAreaActions`, `PageHeader.ContextBar`, and `PageHeader.ParentLink` are hidden on regular and wide viewports by default.\n- `PageHeader.LeadingAction`, and `PageHeader.TrailingAction` are hidden on narrow viewports by default.",
+        "name": "hidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean | ResponsiveValue<boolean>"
+        }
+      },
+      "sx": {
+        "defaultValue": {
+          "value": "{}"
+        },
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "PageHeader.LeadingVisual",
+      "primerparentid": "drafts_page_header"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PageHeader/PageHeader.tsx",
+    "description": "",
+    "displayName": "LeadingVisual",
+    "methods": [],
+    "props": {
+      "className": {
+        "defaultValue": null,
+        "description": "Class name(s) to override styles",
+        "name": "className",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "hidden": {
+        "defaultValue": {
+          "value": false
+        },
+        "description": "Whether to hide the component.\nThe component can be hidden for all viewport widths, or specified viewport widths.\nSome children have a default value for this prop:\n- `PageHeader.ContextArea`, `PageHeader.ContextAreaActions`, `PageHeader.ContextBar`, and `PageHeader.ParentLink` are hidden on regular and wide viewports by default.\n- `PageHeader.LeadingAction`, and `PageHeader.TrailingAction` are hidden on narrow viewports by default.",
+        "name": "hidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean | ResponsiveValue<boolean>"
+        }
+      },
+      "sx": {
+        "defaultValue": {
+          "value": "{}"
+        },
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "PageHeader.Title",
+      "primerparentid": "drafts_page_header"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PageHeader/PageHeader.tsx",
+    "description": "",
+    "displayName": "Title",
+    "methods": [],
+    "props": {
+      "as": {
+        "defaultValue": {
+          "value": "h2"
+        },
+        "description": "",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\""
+        }
+      },
+      "className": {
+        "defaultValue": null,
+        "description": "Class name(s) to override styles",
+        "name": "className",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "hidden": {
+        "defaultValue": {
+          "value": false
+        },
+        "description": "Whether to hide the component.\nThe component can be hidden for all viewport widths, or specified viewport widths.\nSome children have a default value for this prop:\n- `PageHeader.ContextArea`, `PageHeader.ContextAreaActions`, `PageHeader.ContextBar`, and `PageHeader.ParentLink` are hidden on regular and wide viewports by default.\n- `PageHeader.LeadingAction`, and `PageHeader.TrailingAction` are hidden on narrow viewports by default.",
+        "name": "hidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean | ResponsiveValue<boolean>"
+        }
+      },
+      "sx": {
+        "defaultValue": {
+          "value": "{}"
+        },
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "PageHeader.TrailingVisual",
+      "primerparentid": "drafts_page_header"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PageHeader/PageHeader.tsx",
+    "description": "",
+    "displayName": "TrailingVisual",
+    "methods": [],
+    "props": {
+      "className": {
+        "defaultValue": null,
+        "description": "Class name(s) to override styles",
+        "name": "className",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "hidden": {
+        "defaultValue": {
+          "value": false
+        },
+        "description": "Whether to hide the component.\nThe component can be hidden for all viewport widths, or specified viewport widths.\nSome children have a default value for this prop:\n- `PageHeader.ContextArea`, `PageHeader.ContextAreaActions`, `PageHeader.ContextBar`, and `PageHeader.ParentLink` are hidden on regular and wide viewports by default.\n- `PageHeader.LeadingAction`, and `PageHeader.TrailingAction` are hidden on narrow viewports by default.",
+        "name": "hidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean | ResponsiveValue<boolean>"
+        }
+      },
+      "sx": {
+        "defaultValue": {
+          "value": "{}"
+        },
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "PageHeader.TrailingAction",
+      "primerparentid": "drafts_page_header"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PageHeader/PageHeader.tsx",
+    "description": "",
+    "displayName": "TrailingAction",
+    "methods": [],
+    "props": {
+      "className": {
+        "defaultValue": null,
+        "description": "Class name(s) to override styles",
+        "name": "className",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "hidden": {
+        "defaultValue": {
+          "value": false
+        },
+        "description": "Whether to hide the component.\nThe component can be hidden for all viewport widths, or specified viewport widths.\nSome children have a default value for this prop:\n- `PageHeader.ContextArea`, `PageHeader.ContextAreaActions`, `PageHeader.ContextBar`, and `PageHeader.ParentLink` are hidden on regular and wide viewports by default.\n- `PageHeader.LeadingAction`, and `PageHeader.TrailingAction` are hidden on narrow viewports by default.",
+        "name": "hidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean | ResponsiveValue<boolean>"
+        }
+      },
+      "sx": {
+        "defaultValue": {
+          "value": "{}"
+        },
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "PageHeader.Actions",
+      "primerparentid": "drafts_page_header"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PageHeader/PageHeader.tsx",
+    "description": "",
+    "displayName": "Actions",
+    "methods": [],
+    "props": {
+      "className": {
+        "defaultValue": null,
+        "description": "Class name(s) to override styles",
+        "name": "className",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "hidden": {
+        "defaultValue": {
+          "value": false
+        },
+        "description": "Whether to hide the component.\nThe component can be hidden for all viewport widths, or specified viewport widths.\nSome children have a default value for this prop:\n- `PageHeader.ContextArea`, `PageHeader.ContextAreaActions`, `PageHeader.ContextBar`, and `PageHeader.ParentLink` are hidden on regular and wide viewports by default.\n- `PageHeader.LeadingAction`, and `PageHeader.TrailingAction` are hidden on narrow viewports by default.",
+        "name": "hidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean | ResponsiveValue<boolean>"
+        }
+      },
+      "sx": {
+        "defaultValue": {
+          "value": "{}"
+        },
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "PageHeader.Description",
+      "primerparentid": "drafts_page_header"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PageHeader/PageHeader.tsx",
+    "description": "The description area of the header. Visible on all viewports",
+    "displayName": "Description",
+    "methods": [],
+    "props": {
+      "className": {
+        "defaultValue": null,
+        "description": "Class name(s) to override styles",
+        "name": "className",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "hidden": {
+        "defaultValue": {
+          "value": false
+        },
+        "description": "Whether to hide the component.\nThe component can be hidden for all viewport widths, or specified viewport widths.\nSome children have a default value for this prop:\n- `PageHeader.ContextArea`, `PageHeader.ContextAreaActions`, `PageHeader.ContextBar`, and `PageHeader.ParentLink` are hidden on regular and wide viewports by default.\n- `PageHeader.LeadingAction`, and `PageHeader.TrailingAction` are hidden on narrow viewports by default.",
+        "name": "hidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean | ResponsiveValue<boolean>"
+        }
+      },
+      "sx": {
+        "defaultValue": {
+          "value": "{}"
+        },
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "PageHeader.Navigation",
+      "primerparentid": "drafts_page_header"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PageHeader/PageHeader.tsx",
+    "description": "The local navigation area of the header. Visible on all viewports",
+    "displayName": "Navigation",
+    "methods": [],
+    "props": {
+      "as": {
+        "defaultValue": {
+          "value": "h2"
+        },
+        "description": "",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"div\" | \"nav\""
+        }
+      },
+      "aria-label": {
+        "defaultValue": null,
+        "description": "",
+        "name": "aria-label",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.AriaAttributes"
+        }
+      },
+      "aria-labelledby": {
+        "defaultValue": null,
+        "description": "",
+        "name": "aria-labelledby",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.AriaAttributes"
+        }
+      },
+      "className": {
+        "defaultValue": null,
+        "description": "Class name(s) to override styles",
+        "name": "className",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "hidden": {
+        "defaultValue": {
+          "value": false
+        },
+        "description": "Whether to hide the component.\nThe component can be hidden for all viewport widths, or specified viewport widths.\nSome children have a default value for this prop:\n- `PageHeader.ContextArea`, `PageHeader.ContextAreaActions`, `PageHeader.ContextBar`, and `PageHeader.ParentLink` are hidden on regular and wide viewports by default.\n- `PageHeader.LeadingAction`, and `PageHeader.TrailingAction` are hidden on narrow viewports by default.",
+        "name": "hidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageHeader/PageHeader.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean | ResponsiveValue<boolean>"
+        }
+      },
+      "sx": {
+        "defaultValue": {
+          "value": "{}"
+        },
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "primerid": "page_layout",
+      "primerstatus": "alpha",
+      "primera11yreviewed": "true"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PageLayout/PageLayout.tsx",
+    "description": "Page layout defines the header, main, pane, and footer areas of a page.",
     "displayName": "PageLayout",
     "methods": [],
     "props": {
@@ -7432,6 +8751,679 @@
         "required": false,
         "type": {
           "name": "Record<\"footer\" | \"header\", React.ElementType>"
+        }
+      },
+      "sx": {
+        "defaultValue": {
+          "value": "{}"
+        },
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "PageLayout.Header",
+      "primerparentid": "page_layout"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PageLayout/PageLayout.tsx",
+    "description": "The header area of the overall page layout.",
+    "displayName": "Header",
+    "methods": [],
+    "props": {
+      "aria-label": {
+        "defaultValue": null,
+        "description": "A unique label for the rendered banner landmark",
+        "name": "aria-label",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.AriaAttributes"
+        }
+      },
+      "aria-labelledby": {
+        "defaultValue": null,
+        "description": "An id to an element which uniquely labels the rendered banner landmark",
+        "name": "aria-labelledby",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.AriaAttributes"
+        }
+      },
+      "padding": {
+        "defaultValue": {
+          "value": "none"
+        },
+        "description": "",
+        "name": "padding",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"normal\" | \"none\" | \"condensed\""
+        }
+      },
+      "divider": {
+        "defaultValue": {
+          "value": "none"
+        },
+        "description": "",
+        "name": "divider",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"line\" | \"none\" | ResponsiveValue<\"line\" | \"none\", \"line\" | \"none\" | \"filled\">"
+        }
+      },
+      "dividerWhenNarrow": {
+        "defaultValue": {
+          "value": "inherit"
+        },
+        "description": "@deprecated Use the `divider` prop with a responsive value instead.\n\nBefore:\n```\ndivider=\"line\"\ndividerWhenNarrow=\"filled\"\n```\n\nAfter:\n```\ndivider={{regular: 'line', narrow: 'filled'}}\n```",
+        "name": "dividerWhenNarrow",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"line\" | \"inherit\" | \"none\" | \"filled\""
+        }
+      },
+      "hidden": {
+        "defaultValue": {
+          "value": false
+        },
+        "description": "",
+        "name": "hidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean | ResponsiveValue<boolean>"
+        }
+      },
+      "sx": {
+        "defaultValue": {
+          "value": "{}"
+        },
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "PageLayout.Content",
+      "primerparentid": "page_layout"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PageLayout/PageLayout.tsx",
+    "description": "The main content area.",
+    "displayName": "Content",
+    "methods": [],
+    "props": {
+      "as": {
+        "defaultValue": {
+          "value": "main"
+        },
+        "description": "Provide an optional element type for the outermost element rendered by the component.",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.ElementType"
+        }
+      },
+      "aria-label": {
+        "defaultValue": null,
+        "description": "A unique label for the rendered main landmark",
+        "name": "aria-label",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.AriaAttributes"
+        }
+      },
+      "aria-labelledby": {
+        "defaultValue": null,
+        "description": "An id to an element which uniquely labels the rendered main landmark",
+        "name": "aria-labelledby",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.AriaAttributes"
+        }
+      },
+      "width": {
+        "defaultValue": {
+          "value": "medium"
+        },
+        "description": "The maximum width of the content region.",
+        "name": "width",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"large\" | \"medium\" | \"full\" | \"xlarge\""
+        }
+      },
+      "padding": {
+        "defaultValue": {
+          "value": "none"
+        },
+        "description": "The amount of padding inside the content.",
+        "name": "padding",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"normal\" | \"none\" | \"condensed\""
+        }
+      },
+      "hidden": {
+        "defaultValue": {
+          "value": false
+        },
+        "description": "",
+        "name": "hidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean | ResponsiveValue<boolean>"
+        }
+      },
+      "sx": {
+        "defaultValue": {
+          "value": "{}"
+        },
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "PageHeader.Pane",
+      "primerparentid": "page_layout"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PageLayout/PageLayout.tsx",
+    "description": "Area for supplemental page content. Used like sidebars on wide viewports.",
+    "displayName": "Pane",
+    "methods": [],
+    "props": {
+      "position": {
+        "defaultValue": null,
+        "description": "Which side of the page the pane should be on. Can be changed for different viewport widths.",
+        "name": "position",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"end\" | \"start\" | ResponsiveValue<\"end\" | \"start\">"
+        }
+      },
+      "positionWhenNarrow": {
+        "defaultValue": {
+          "value": "inherit"
+        },
+        "description": "@deprecated Use the `position` prop with a responsive value instead.\n\nBefore:\n```\nposition=\"start\"\npositionWhenNarrow=\"end\"\n```\n\nAfter:\n```\nposition={{regular: 'start', narrow: 'end'}}\n```",
+        "name": "positionWhenNarrow",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"end\" | \"start\" | \"inherit\""
+        }
+      },
+      "aria-labelledby": {
+        "defaultValue": null,
+        "description": "Id of an element that acts as a label for the pane. Required if the pane overflows and doesn't have aria-label.",
+        "name": "aria-labelledby",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-label": {
+        "defaultValue": null,
+        "description": "Label for the pane. Required if the pane overflows and doesn't have aria-labelledby.",
+        "name": "aria-label",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "width": {
+        "defaultValue": {
+          "value": "medium"
+        },
+        "description": "The width of the pane. If using custom widths, provide an object with keys 'min', 'max' and 'default'.",
+        "name": "width",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"small\" | \"large\" | \"medium\" | CustomWidthOptions"
+        }
+      },
+      "minWidth": {
+        "defaultValue": {
+          "value": 256
+        },
+        "description": "The minimum width of the pane.",
+        "name": "minWidth",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "resizable": {
+        "defaultValue": {
+          "value": false
+        },
+        "description": "When true, the pane may be resized by the user.",
+        "name": "resizable",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "widthStorageKey": {
+        "defaultValue": {
+          "value": "paneWidth"
+        },
+        "description": "Provide a key used by localStorage to persist the size of the pane on the client.",
+        "name": "widthStorageKey",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "padding": {
+        "defaultValue": {
+          "value": "none"
+        },
+        "description": "The amount of padding inside the pane.",
+        "name": "padding",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"normal\" | \"none\" | \"condensed\""
+        }
+      },
+      "divider": {
+        "defaultValue": {
+          "value": "none"
+        },
+        "description": "The divider style between the pane and the content region.",
+        "name": "divider",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"line\" | \"none\" | ResponsiveValue<\"line\" | \"none\", \"line\" | \"none\" | \"filled\">"
+        }
+      },
+      "dividerWhenNarrow": {
+        "defaultValue": {
+          "value": "inherit"
+        },
+        "description": "@deprecated Use the `divider` prop with a responsive value instead.\n\nBefore:\n```\ndivider=\"line\"\ndividerWhenNarrow=\"filled\"\n```\n\nAfter:\n```\ndivider={{regular: 'line', narrow: 'filled'}}\n```",
+        "name": "dividerWhenNarrow",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"line\" | \"inherit\" | \"none\" | \"filled\""
+        }
+      },
+      "sticky": {
+        "defaultValue": {
+          "value": false
+        },
+        "description": "Whether the pane should stick to the top of the screen while the content scrolls.",
+        "name": "sticky",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "offsetHeader": {
+        "defaultValue": {
+          "value": 0
+        },
+        "description": "Use offsetHeader along with the sticky prop to push the sticky pane down to make room for a sticky header if necessary. Use the type `string` to specify the height with a unit i.e. 5rem; otherwise the type `number` will be taken as px.",
+        "name": "offsetHeader",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string | number"
+        }
+      },
+      "hidden": {
+        "defaultValue": {
+          "value": false
+        },
+        "description": "Whether the pane is hidden. Can be changed for different viewport widths.",
+        "name": "hidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean | ResponsiveValue<boolean>"
+        }
+      },
+      "id": {
+        "defaultValue": null,
+        "description": "May be used to override the default ID passed to the pane element.",
+        "name": "id",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "sx": {
+        "defaultValue": {
+          "value": "{}"
+        },
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "PageHeader.Footer",
+      "primerparentid": "page_layout"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PageLayout/PageLayout.tsx",
+    "description": "The footer area of the overall page layout.",
+    "displayName": "Footer",
+    "methods": [],
+    "props": {
+      "aria-label": {
+        "defaultValue": null,
+        "description": "A unique label for the rendered contentinfo landmark",
+        "name": "aria-label",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.AriaAttributes"
+        }
+      },
+      "aria-labelledby": {
+        "defaultValue": null,
+        "description": "An id to an element which uniquely labels the rendered contentinfo landmark",
+        "name": "aria-labelledby",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.AriaAttributes"
+        }
+      },
+      "padding": {
+        "defaultValue": {
+          "value": "none"
+        },
+        "description": "The amount of padding inside the footer.",
+        "name": "padding",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"normal\" | \"none\" | \"condensed\""
+        }
+      },
+      "divider": {
+        "defaultValue": {
+          "value": "none"
+        },
+        "description": "The divider style between the footer and the content region. Can be changed for different viewport widths.",
+        "name": "divider",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"line\" | \"none\" | ResponsiveValue<\"line\" | \"none\", \"line\" | \"none\" | \"filled\">"
+        }
+      },
+      "dividerWhenNarrow": {
+        "defaultValue": {
+          "value": "inherit"
+        },
+        "description": "@deprecated Use the `divider` prop with a responsive value instead.\n\nBefore:\n```\ndivider=\"line\"\ndividerWhenNarrow=\"filled\"\n```\n\nAfter:\n```\ndivider={{regular: 'line', narrow: 'filled'}}\n```",
+        "name": "dividerWhenNarrow",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"line\" | \"inherit\" | \"none\" | \"filled\""
+        }
+      },
+      "hidden": {
+        "defaultValue": {
+          "value": false
+        },
+        "description": "Whether the footer is hidden.  Can be changed for different viewport widths.",
+        "name": "hidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean | ResponsiveValue<boolean>"
         }
       },
       "sx": {
@@ -7992,6 +9984,54 @@
   },
   {
     "tags": {
+      "alias": "ProgressBar.Item",
+      "primerparentid": "progress_bar"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ProgressBar/ProgressBar.tsx",
+    "description": "A segment of a ProgressBar with multiple parts.",
+    "displayName": "Item",
+    "methods": [],
+    "props": {
+      "progress": {
+        "defaultValue": {
+          "value": "0"
+        },
+        "description": "Used to set the size of the green bar",
+        "name": "progress",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/ProgressBar/ProgressBar.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string | number"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
       "primerid": "radio",
       "primerstatus": "alpha",
       "primera11yreviewed": "false"
@@ -8133,9 +10173,13 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "primerid": "radio_group",
+      "primerstatus": "alpha",
+      "primera11yreviewed": "false"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/RadioGroup/RadioGroup.tsx",
-    "description": "",
+    "description": "Radio group is used to render a short list of mutually exclusive options.",
     "displayName": "RadioGroup",
     "methods": [],
     "props": {
@@ -8243,6 +10287,129 @@
         "required": false,
         "type": {
           "name": "boolean"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "RadioGroup.Caption",
+      "primerparentid": "radio_group"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/RadioGroup/RadioGroup.tsx",
+    "description": "The caption with contextual information about the set of related checkboxes.",
+    "displayName": "RadioGroupCaption",
+    "methods": [],
+    "props": {
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "RadioGroup.Label",
+      "primerparentid": "radio_group"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/RadioGroup/RadioGroup.tsx",
+    "description": "The name for the set of related checkboxes.",
+    "displayName": "RadioGroupLabel",
+    "methods": [],
+    "props": {
+      "visuallyHidden": {
+        "defaultValue": null,
+        "description": "Whether to visually hide the fieldset legend",
+        "name": "visuallyHidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroupLabel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "RadioGroup.Caption",
+      "primerparentid": "radio_group"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/RadioGroup/RadioGroup.tsx",
+    "description": "The message about the validation status of the set of related checkboxes.",
+    "displayName": "RadioGroupValidation",
+    "methods": [],
+    "props": {
+      "variant": {
+        "defaultValue": null,
+        "description": "Changes the visual style to match the validation status",
+        "name": "variant",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroupValidation.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "FormValidationStatus"
         }
       },
       "sx": {
@@ -8509,9 +10676,13 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "primerid": "segmented_control",
+      "primerstatus": "alpha",
+      "primera11yreviewed": "false"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/SegmentedControl/SegmentedControl.tsx",
-    "description": "",
+    "description": "Segmented control is used to pick one choice from a linear set of closely related choices, and immediately apply that selection.",
     "displayName": "SegmentedControl",
     "methods": [],
     "props": {
@@ -8838,9 +11009,13 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "primerid": "select",
+      "primerstatus": "alpha",
+      "primera11yreviewed": "true"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Select/Select.tsx",
-    "description": "",
+    "description": "Select is an input for selecting a single option from a menu.",
     "displayName": "Select",
     "methods": [],
     "props": {
@@ -9007,6 +11182,52 @@
         }
       }
     }
+  },
+  {
+    "tags": {
+      "alias": "Select.Option",
+      "primerparentid": "select"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Select/Select.tsx",
+    "description": "A selectable option in the Select component.",
+    "displayName": "Option",
+    "methods": [],
+    "props": {
+      "value": {
+        "defaultValue": null,
+        "description": "",
+        "name": "value",
+        "parent": {
+          "fileName": "react/node_modules/@types/react/index.d.ts",
+          "name": "AllHTMLAttributes"
+        },
+        "declarations": [
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "AllHTMLAttributes"
+          },
+          {
+            "fileName": "react/packages/react/src/Select/Select.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string | (readonly string[] & string)"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "Select.OptGroup",
+      "primerparentid": "select"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Select/Select.tsx",
+    "description": "Creates a group of related selectable options in the Select component.",
+    "displayName": "OptGroup",
+    "methods": [],
+    "props": {}
   },
   {
     "tags": {
@@ -9689,6 +11910,655 @@
   },
   {
     "tags": {
+      "alias": "SplitPageLayout.Header",
+      "primerparentid": "split_page_layout"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/SplitPageLayout/SplitPageLayout.tsx",
+    "description": "The header area of the overall page layout.",
+    "displayName": "Header",
+    "methods": [],
+    "props": {
+      "aria-label": {
+        "defaultValue": null,
+        "description": "A unique label for the rendered banner landmark",
+        "name": "aria-label",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.AriaAttributes"
+        }
+      },
+      "aria-labelledby": {
+        "defaultValue": null,
+        "description": "An id to an element which uniquely labels the rendered banner landmark",
+        "name": "aria-labelledby",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.AriaAttributes"
+        }
+      },
+      "padding": {
+        "defaultValue": {
+          "value": "normal"
+        },
+        "description": "",
+        "name": "padding",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"normal\" | \"none\" | \"condensed\""
+        }
+      },
+      "divider": {
+        "defaultValue": {
+          "value": "line"
+        },
+        "description": "",
+        "name": "divider",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"line\" | \"none\" | ResponsiveValue<\"line\" | \"none\", \"line\" | \"none\" | \"filled\">"
+        }
+      },
+      "dividerWhenNarrow": {
+        "defaultValue": null,
+        "description": "@deprecated Use the `divider` prop with a responsive value instead.\n\nBefore:\n```\ndivider=\"line\"\ndividerWhenNarrow=\"filled\"\n```\n\nAfter:\n```\ndivider={{regular: 'line', narrow: 'filled'}}\n```",
+        "name": "dividerWhenNarrow",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"line\" | \"inherit\" | \"none\" | \"filled\""
+        }
+      },
+      "hidden": {
+        "defaultValue": null,
+        "description": "",
+        "name": "hidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean | ResponsiveValue<boolean>"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "SplitPageLayout.Content",
+      "primerparentid": "split_page_layout"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/SplitPageLayout/SplitPageLayout.tsx",
+    "description": "The main content area.",
+    "displayName": "Content",
+    "methods": [],
+    "props": {
+      "as": {
+        "defaultValue": {
+          "value": "'main'"
+        },
+        "description": "Provide an optional element type for the outermost element rendered by the component.",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.ElementType"
+        }
+      },
+      "aria-label": {
+        "defaultValue": null,
+        "description": "A unique label for the rendered main landmark",
+        "name": "aria-label",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.AriaAttributes"
+        }
+      },
+      "aria-labelledby": {
+        "defaultValue": null,
+        "description": "An id to an element which uniquely labels the rendered main landmark",
+        "name": "aria-labelledby",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.AriaAttributes"
+        }
+      },
+      "width": {
+        "defaultValue": {
+          "value": "large"
+        },
+        "description": "The maximum width of the content region.",
+        "name": "width",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"large\" | \"medium\" | \"full\" | \"xlarge\""
+        }
+      },
+      "padding": {
+        "defaultValue": {
+          "value": "normal"
+        },
+        "description": "The amount of padding inside the content.",
+        "name": "padding",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"normal\" | \"none\" | \"condensed\""
+        }
+      },
+      "hidden": {
+        "defaultValue": null,
+        "description": "",
+        "name": "hidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean | ResponsiveValue<boolean>"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "SplitPageLayout.Pane",
+      "primerparentid": "split_page_layout"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/SplitPageLayout/SplitPageLayout.tsx",
+    "description": "By default, it is a sidebar that sticks on the left used for navigating to update the main content area.",
+    "displayName": "Pane",
+    "methods": [],
+    "props": {
+      "position": {
+        "defaultValue": {
+          "value": "start"
+        },
+        "description": "Which side of the page the pane should be on. Can be changed for different viewport widths.",
+        "name": "position",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"end\" | \"start\" | ResponsiveValue<\"end\" | \"start\">"
+        }
+      },
+      "positionWhenNarrow": {
+        "defaultValue": null,
+        "description": "@deprecated Use the `position` prop with a responsive value instead.\n\nBefore:\n```\nposition=\"start\"\npositionWhenNarrow=\"end\"\n```\n\nAfter:\n```\nposition={{regular: 'start', narrow: 'end'}}\n```",
+        "name": "positionWhenNarrow",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"end\" | \"start\" | \"inherit\""
+        }
+      },
+      "aria-labelledby": {
+        "defaultValue": null,
+        "description": "Id of an element that acts as a label for the pane. Required if the pane overflows and doesn't have aria-label.",
+        "name": "aria-labelledby",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "aria-label": {
+        "defaultValue": null,
+        "description": "Label for the pane. Required if the pane overflows and doesn't have aria-labelledby.",
+        "name": "aria-label",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "width": {
+        "defaultValue": {
+          "value": "large"
+        },
+        "description": "The width of the pane. If using custom widths, provide an object with keys 'min', 'max' and 'default'.",
+        "name": "width",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"small\" | \"large\" | \"medium\" | CustomWidthOptions"
+        }
+      },
+      "minWidth": {
+        "defaultValue": {
+          "value": "256"
+        },
+        "description": "The minimum width of the pane.",
+        "name": "minWidth",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "resizable": {
+        "defaultValue": null,
+        "description": "When true, the pane may be resized by the user.",
+        "name": "resizable",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "widthStorageKey": {
+        "defaultValue": {
+          "value": "paneWidth"
+        },
+        "description": "Provide a key used by localStorage to persist the size of the pane on the client.",
+        "name": "widthStorageKey",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "padding": {
+        "defaultValue": {
+          "value": "normal"
+        },
+        "description": "The amount of padding inside the pane.",
+        "name": "padding",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"normal\" | \"none\" | \"condensed\""
+        }
+      },
+      "divider": {
+        "defaultValue": {
+          "value": "line"
+        },
+        "description": "The divider style between the pane and the content region.",
+        "name": "divider",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"line\" | \"none\" | ResponsiveValue<\"line\" | \"none\", \"line\" | \"none\" | \"filled\">"
+        }
+      },
+      "dividerWhenNarrow": {
+        "defaultValue": null,
+        "description": "@deprecated Use the `divider` prop with a responsive value instead.\n\nBefore:\n```\ndivider=\"line\"\ndividerWhenNarrow=\"filled\"\n```\n\nAfter:\n```\ndivider={{regular: 'line', narrow: 'filled'}}\n```",
+        "name": "dividerWhenNarrow",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"line\" | \"inherit\" | \"none\" | \"filled\""
+        }
+      },
+      "sticky": {
+        "defaultValue": {
+          "value": true
+        },
+        "description": "Whether the pane should stick to the top of the screen while the content scrolls.",
+        "name": "sticky",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "offsetHeader": {
+        "defaultValue": {
+          "value": "0"
+        },
+        "description": "Use offsetHeader along with the sticky prop to push the sticky pane down to make room for a sticky header if necessary. Use the type `string` to specify the height with a unit i.e. 5rem; otherwise the type `number` will be taken as px.",
+        "name": "offsetHeader",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string | number"
+        }
+      },
+      "hidden": {
+        "defaultValue": null,
+        "description": "Whether the pane is hidden. Can be changed for different viewport widths.",
+        "name": "hidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean | ResponsiveValue<boolean>"
+        }
+      },
+      "id": {
+        "defaultValue": null,
+        "description": "May be used to override the default ID passed to the pane element.",
+        "name": "id",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "SplitPageLayout.Footer",
+      "primerparentid": "split_page_layout"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/SplitPageLayout/SplitPageLayout.tsx",
+    "description": "The footer area of the overall page layout.",
+    "displayName": "Footer",
+    "methods": [],
+    "props": {
+      "aria-label": {
+        "defaultValue": null,
+        "description": "A unique label for the rendered contentinfo landmark",
+        "name": "aria-label",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.AriaAttributes"
+        }
+      },
+      "aria-labelledby": {
+        "defaultValue": null,
+        "description": "An id to an element which uniquely labels the rendered contentinfo landmark",
+        "name": "aria-labelledby",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.AriaAttributes"
+        }
+      },
+      "padding": {
+        "defaultValue": {
+          "value": "normal"
+        },
+        "description": "The amount of padding inside the footer.",
+        "name": "padding",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"normal\" | \"none\" | \"condensed\""
+        }
+      },
+      "divider": {
+        "defaultValue": {
+          "value": "line"
+        },
+        "description": "The divider style between the footer and the content region. Can be changed for different viewport widths.",
+        "name": "divider",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"line\" | \"none\" | ResponsiveValue<\"line\" | \"none\", \"line\" | \"none\" | \"filled\">"
+        }
+      },
+      "dividerWhenNarrow": {
+        "defaultValue": null,
+        "description": "@deprecated Use the `divider` prop with a responsive value instead.\n\nBefore:\n```\ndivider=\"line\"\ndividerWhenNarrow=\"filled\"\n```\n\nAfter:\n```\ndivider={{regular: 'line', narrow: 'filled'}}\n```",
+        "name": "dividerWhenNarrow",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"line\" | \"inherit\" | \"none\" | \"filled\""
+        }
+      },
+      "hidden": {
+        "defaultValue": null,
+        "description": "Whether the footer is hidden.  Can be changed for different viewport widths.",
+        "name": "hidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/PageLayout/PageLayout.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean | ResponsiveValue<boolean>"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
       "primerid": "stack",
       "primerstatus": "alpha",
       "primera11yreviewed": "false"
@@ -9922,10 +12792,14 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "primerid": "sub_nav",
+      "primerstatus": "alpha",
+      "primera11yreviewed": "false"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/SubNav/SubNav.tsx",
-    "description": "",
-    "displayName": "SubNav.Link",
+    "description": "Use the sub nav component for navigation on a dashboard-type interface with another set of navigation components above it.",
+    "displayName": "SubNav",
     "methods": [],
     "props": {
       "actions": {
@@ -9986,6 +12860,98 @@
         "required": false,
         "type": {
           "name": "string"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "SubNav.Links",
+      "primerparentid": "sub_nav"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/SubNav/SubNav.tsx",
+    "description": "Container for the set of links in the SubNav.",
+    "displayName": "SubNavLinks",
+    "methods": [],
+    "props": {
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "SubNav.Link",
+      "primerparentid": "sub_nav"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/SubNav/SubNav.tsx",
+    "description": "An individual link in the SubNav.",
+    "displayName": "SubNavLink",
+    "methods": [],
+    "props": {
+      "to": {
+        "defaultValue": null,
+        "description": "Used when the item is rendered using a component like React Router's `Link`. The path to navigate to.",
+        "name": "to",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/SubNav/SubNav.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "To"
+        }
+      },
+      "selected": {
+        "defaultValue": null,
+        "description": "Whether this item represents the current page",
+        "name": "selected",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/SubNav/SubNav.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
         }
       },
       "sx": {
@@ -10269,9 +13235,13 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "primerid": "text_input",
+      "primerstatus": "alpha",
+      "primera11yreviewed": "false"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/TextInput/TextInput.tsx",
-    "description": "",
+    "description": "Text input is used to set a value that is a single line of text.",
     "displayName": "TextInput",
     "methods": [],
     "props": {
@@ -10296,6 +13266,122 @@
         "required": true,
         "type": {
           "name": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "TextInput.Action",
+      "primerparentid": "text_input"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/TextInput/TextInputInnerAction.tsx",
+    "description": "An action button that can be used inside a `TextInput` component.",
+    "displayName": "TextInputAction",
+    "methods": [],
+    "props": {
+      "children": {
+        "defaultValue": null,
+        "description": "@deprecated Text input action buttons should only use icon buttons",
+        "name": "children",
+        "parent": {
+          "fileName": "react/node_modules/@types/react/index.d.ts",
+          "name": "DOMAttributes"
+        },
+        "declarations": [
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "DOMAttributes"
+          },
+          {
+            "fileName": "react/packages/react/src/TextInput/TextInputInnerAction.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "aria-label": {
+        "defaultValue": null,
+        "description": "Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies.",
+        "name": "aria-label",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInput/TextInputInnerAction.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "tooltipDirection": {
+        "defaultValue": null,
+        "description": "Position of tooltip. If no position is passed or defaults to \"n\"",
+        "name": "tooltipDirection",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInput/TextInputInnerAction.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"s\" | \"nw\" | \"n\" | \"ne\" | \"e\" | \"se\" | \"sw\" | \"w\""
+        }
+      },
+      "icon": {
+        "defaultValue": null,
+        "description": "The icon to render inside the button",
+        "name": "icon",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInput/TextInputInnerAction.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "FunctionComponent<PropsWithChildren<IconProps>>"
+        }
+      },
+      "variant": {
+        "defaultValue": {
+          "value": "invisible"
+        },
+        "description": "@deprecated Text input action buttons should only use the 'invisible' button variant\nDetermine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
+        "name": "variant",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInput/TextInputInnerAction.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "VariantType"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
         }
       }
     }
@@ -10750,10 +13836,14 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "primerid": "timeline",
+      "primerstatus": "alpha",
+      "primera11yreviewed": "false"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Timeline/Timeline.tsx",
-    "description": "",
-    "displayName": "Timeline.Item",
+    "description": "The timeline component is used to display items on a vertical timeline, connected by timeline elements.",
+    "displayName": "Timeline",
     "methods": [],
     "props": {
       "sx": {
@@ -10777,7 +13867,7 @@
       },
       "clipSidebar": {
         "defaultValue": null,
-        "description": "",
+        "description": "Hides the sidebar above the first Timeline.Item and below the last Timeline.Item.",
         "name": "clipSidebar",
         "declarations": [
           {
@@ -10788,6 +13878,145 @@
         "required": false,
         "type": {
           "name": "boolean"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "Timeline.Item",
+      "primerparentid": "timeline"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Timeline/Timeline.tsx",
+    "description": "An individual item on a timeline.",
+    "displayName": "TimelineItem",
+    "methods": [],
+    "props": {
+      "condensed": {
+        "defaultValue": null,
+        "description": "Reduces vertical padding and removes background from an item's badge.",
+        "name": "condensed",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Timeline/Timeline.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "Timeline.Badge",
+      "primerparentid": "timeline"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Timeline/Timeline.tsx",
+    "description": "The \"badge\" that prepends a timeline item's body content.",
+    "displayName": "TimelineBadge",
+    "methods": [],
+    "props": {
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "Timeline.Body",
+      "primerparentid": "timeline"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Timeline/Timeline.tsx",
+    "description": "A timeline item's body content.",
+    "displayName": "TimelineBody",
+    "methods": [],
+    "props": {
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "Timeline.Break",
+      "primerparentid": "timeline"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Timeline/Timeline.tsx",
+    "description": "A visual break in the timeline.",
+    "displayName": "TimelineBreak",
+    "methods": [],
+    "props": {
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
         }
       }
     }
@@ -11519,7 +14748,7 @@
     "tags": {},
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/UnderlineNav/UnderlineNav.tsx",
     "description": "",
-    "displayName": "UnderlineNav",
+    "displayName": "NavigationList",
     "methods": [],
     "props": {
       "sx": {
@@ -11539,6 +14768,99 @@
         "required": false,
         "type": {
           "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/UnderlineNav/UnderlineNav.tsx",
+    "description": "",
+    "displayName": "MoreMenuListItem",
+    "methods": [],
+    "props": {}
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/UnderlineNav/UnderlineNav.tsx",
+    "description": "",
+    "displayName": "getValidChildren",
+    "methods": [],
+    "props": {}
+  },
+  {
+    "tags": {
+      "primerid": "underline_nav",
+      "primerstatus": "beta",
+      "primera11yreviewed": "true"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/UnderlineNav/UnderlineNav.tsx",
+    "description": "The underline nav is used to display navigation in a horizontal tabbed format.",
+    "displayName": "UnderlineNav",
+    "methods": [],
+    "props": {
+      "aria-label": {
+        "defaultValue": null,
+        "description": "A unique name for the rendered 'nav' landmark. It will also be used to label the arrow\\nbuttons that control the scroll behaviour on coarse pointer devices. (I.e.\\n'Scroll ${aria-label} left/right')\\n",
+        "name": "aria-label",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/UnderlineNav/UnderlineNav.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.AriaAttributes"
+        }
+      },
+      "as": {
+        "defaultValue": {
+          "value": "nav"
+        },
+        "description": "",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/UnderlineNav/UnderlineNav.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.ElementType"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "",
+        "name": "sx",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/UnderlineNav/UnderlineNav.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      },
+      "loadingCounters": {
+        "defaultValue": {
+          "value": false
+        },
+        "description": "Whether the navigation items are in loading state. Component waits for all the counters to finish loading to prevent multiple layout shifts.",
+        "name": "loadingCounters",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/UnderlineNav/UnderlineNav.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
         }
       }
     }
@@ -12224,282 +15546,7 @@
     "description": "",
     "displayName": "getFormControlArgsByChildComponent",
     "methods": [],
-    "props": {
-      "disabled": {
-        "defaultValue": null,
-        "description": "Whether the control allows user input",
-        "name": "disabled",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/FormControl/FormControl.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
-        }
-      },
-      "required": {
-        "defaultValue": null,
-        "description": "If true, the user must specify a value for the input before the owning form can be submitted",
-        "name": "required",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/FormControl/FormControl.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
-        }
-      },
-      "id": {
-        "defaultValue": null,
-        "description": "When `as` prop is 'label', it may be used to override the `htmlFor` given to the <label> element by FormControl's React Context.\nWhen 'as' prop is 'legend' or 'span', it is used as the `id` for the element.\nMay be used to override the ID assigned by FormControl's React Context",
-        "name": "id",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlCaption.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlValidation.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "string"
-        }
-      },
-      "htmlFor": {
-        "defaultValue": null,
-        "description": "The unique identifier for the associated input",
-        "name": "htmlFor",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "string"
-        }
-      },
-      "sx": {
-        "defaultValue": null,
-        "description": "A style object used to override styles using styled-components",
-        "name": "sx",
-        "parent": {
-          "fileName": "react/packages/react/src/sx.ts",
-          "name": "SxProp"
-        },
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/sx.ts",
-            "name": "SxProp"
-          },
-          {
-            "fileName": "react/packages/react/src/sx.ts",
-            "name": "SxProp"
-          },
-          {
-            "fileName": "react/packages/react/src/sx.ts",
-            "name": "SxProp"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "BetterSystemStyleObject"
-        }
-      },
-      "visuallyHidden": {
-        "defaultValue": {
-          "value": "false"
-        },
-        "description": "Whether the label should be visually hidden",
-        "name": "visuallyHidden",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
-        }
-      },
-      "requiredText": {
-        "defaultValue": {
-          "value": "*"
-        },
-        "description": "The text to display when the field is required",
-        "name": "requiredText",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "string"
-        }
-      },
-      "requiredIndicator": {
-        "defaultValue": {
-          "value": "true"
-        },
-        "description": "Whether to show or hide the required text in the accessibility tree, the required text is still shown visually.",
-        "name": "requiredIndicator",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
-        }
-      },
-      "labelChildren": {
-        "defaultValue": null,
-        "description": "",
-        "name": "labelChildren",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/utils/form-story-helpers.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "React.ReactNode"
-        }
-      },
-      "captionChildren": {
-        "defaultValue": null,
-        "description": "",
-        "name": "captionChildren",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/utils/form-story-helpers.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "React.ReactNode"
-        }
-      },
-      "variant": {
-        "defaultValue": null,
-        "description": "Changes the visual style to match the validation status",
-        "name": "variant",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlValidation.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "FormValidationStatus"
-        }
-      },
-      "validationChildren": {
-        "defaultValue": null,
-        "description": "",
-        "name": "validationChildren",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/utils/form-story-helpers.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "React.ReactNode"
-        }
-      }
-    }
+    "props": {}
   },
   {
     "tags": {},
@@ -12539,282 +15586,7 @@
     "description": "",
     "displayName": "getFormControlArgsByChildComponent",
     "methods": [],
-    "props": {
-      "disabled": {
-        "defaultValue": null,
-        "description": "Whether the control allows user input",
-        "name": "disabled",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/FormControl/FormControl.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
-        }
-      },
-      "required": {
-        "defaultValue": null,
-        "description": "If true, the user must specify a value for the input before the owning form can be submitted",
-        "name": "required",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/FormControl/FormControl.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
-        }
-      },
-      "id": {
-        "defaultValue": null,
-        "description": "When `as` prop is 'label', it may be used to override the `htmlFor` given to the <label> element by FormControl's React Context.\nWhen 'as' prop is 'legend' or 'span', it is used as the `id` for the element.\nMay be used to override the ID assigned by FormControl's React Context",
-        "name": "id",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlCaption.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlValidation.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "string"
-        }
-      },
-      "htmlFor": {
-        "defaultValue": null,
-        "description": "The unique identifier for the associated input",
-        "name": "htmlFor",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "string"
-        }
-      },
-      "sx": {
-        "defaultValue": null,
-        "description": "A style object used to override styles using styled-components",
-        "name": "sx",
-        "parent": {
-          "fileName": "react/packages/react/src/sx.ts",
-          "name": "SxProp"
-        },
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/sx.ts",
-            "name": "SxProp"
-          },
-          {
-            "fileName": "react/packages/react/src/sx.ts",
-            "name": "SxProp"
-          },
-          {
-            "fileName": "react/packages/react/src/sx.ts",
-            "name": "SxProp"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "BetterSystemStyleObject"
-        }
-      },
-      "visuallyHidden": {
-        "defaultValue": {
-          "value": "false"
-        },
-        "description": "Whether the label should be visually hidden",
-        "name": "visuallyHidden",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
-        }
-      },
-      "requiredText": {
-        "defaultValue": {
-          "value": "*"
-        },
-        "description": "The text to display when the field is required",
-        "name": "requiredText",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "string"
-        }
-      },
-      "requiredIndicator": {
-        "defaultValue": {
-          "value": "true"
-        },
-        "description": "Whether to show or hide the required text in the accessibility tree, the required text is still shown visually.",
-        "name": "requiredIndicator",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
-        }
-      },
-      "labelChildren": {
-        "defaultValue": null,
-        "description": "",
-        "name": "labelChildren",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/utils/story-helpers.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "React.ReactNode"
-        }
-      },
-      "captionChildren": {
-        "defaultValue": null,
-        "description": "",
-        "name": "captionChildren",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/utils/story-helpers.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "React.ReactNode"
-        }
-      },
-      "variant": {
-        "defaultValue": null,
-        "description": "Changes the visual style to match the validation status",
-        "name": "variant",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/FormControl/_FormControlValidation.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "FormValidationStatus"
-        }
-      },
-      "validationChildren": {
-        "defaultValue": null,
-        "description": "",
-        "name": "validationChildren",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/utils/story-helpers.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "React.ReactNode"
-        }
-      }
-    }
+    "props": {}
   },
   {
     "tags": {},
@@ -13894,12 +16666,93 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "deprecated": "Use the ActionList component instead.\nThe FilterList component is a menu with filter options that filter the main content of the page.",
+      "primerid": "filter_list",
+      "primerstatus": "deprecated",
+      "primera11yreviewed": "false"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/deprecated/FilterList/FilterList.tsx",
     "description": "",
-    "displayName": "FilterList.Item",
+    "displayName": "FilterList",
     "methods": [],
     "props": {}
+  },
+  {
+    "tags": {
+      "alias": "FilterList.Item",
+      "primerparentid": "filter_list"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/deprecated/FilterList/FilterList.tsx",
+    "description": "An item that activates a filter when activated.",
+    "displayName": "FilterListItem",
+    "methods": [],
+    "props": {
+      "count": {
+        "defaultValue": null,
+        "description": "",
+        "name": "count",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/deprecated/FilterList/FilterList.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "small": {
+        "defaultValue": null,
+        "description": "",
+        "name": "small",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/deprecated/FilterList/FilterList.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "selected": {
+        "defaultValue": null,
+        "description": "",
+        "name": "selected",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/deprecated/FilterList/FilterList.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
   },
   {
     "tags": {
@@ -13936,11 +16789,14 @@
   },
   {
     "tags": {
-      "deprecated": "UnderlineNav is deprecated and will be replaced by the draft `UnderlineNav` in the next major release. See https://primer.style/react/drafts/UnderlineNav2 for more details."
+      "deprecated": "UnderlineNav is deprecated and will be replaced by the draft `UnderlineNav` in the next major release. See https://primer.style/react/drafts/UnderlineNav2 for more details.",
+      "primerid": "legacy_underline_nav",
+      "primerstatus": "deprecated",
+      "primera11yreviewed": "false"
     },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/deprecated/UnderlineNav/UnderlineNav.tsx",
-    "description": "",
-    "displayName": "UnderlineNav.Link",
+    "description": "The underline nav is used to display navigation in a horizontal tabbed format.",
+    "displayName": "UnderlineNav",
     "methods": [],
     "props": {
       "actions": {
@@ -14001,6 +16857,67 @@
         "required": false,
         "type": {
           "name": "string"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "UnderlineNav.Link",
+      "primerparentid": "legacy_underline_nav"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/deprecated/UnderlineNav/UnderlineNav.tsx",
+    "description": "Links in the UnderlineNav",
+    "displayName": "UnderlineNavLink",
+    "methods": [],
+    "props": {
+      "to": {
+        "defaultValue": null,
+        "description": "Used when the link is rendered using a component like React Router's `Link`. The path to navigate to.",
+        "name": "to",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/deprecated/UnderlineNav/UnderlineNav.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "To"
+        }
+      },
+      "selected": {
+        "defaultValue": null,
+        "description": "Whether this child represents the current page",
+        "name": "selected",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/deprecated/UnderlineNav/UnderlineNav.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
         }
       },
       "sx": {
@@ -15747,10 +18664,15 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "primerid": "select_panel_v2",
+      "primerdocsid": "select_panel",
+      "primerstatus": "draft",
+      "primera11yreviewed": "false"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/SelectPanel2/SelectPanel.tsx",
-    "description": "",
-    "displayName": "SelectPanel",
+    "description": "Select panel is a semantic dialog that allows for complex selection options within an overlay.",
+    "displayName": "Panel",
     "methods": [],
     "props": {
       "title": {
@@ -15976,6 +18898,1009 @@
     }
   },
   {
+    "tags": {
+      "alias": "SelectPanel.Button",
+      "primerparentid": "select_panel_v2"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/SelectPanel2/SelectPanel.tsx",
+    "description": "The button that toggles the SelectPanel.",
+    "displayName": "SelectPanelButton",
+    "methods": [],
+    "props": {
+      "alignContent": {
+        "defaultValue": null,
+        "description": "Content alignment for when visuals are present",
+        "name": "alignContent",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "AlignContent"
+        }
+      },
+      "icon": {
+        "defaultValue": null,
+        "description": "The icon for the IconButton",
+        "name": "icon",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "leadingVisual": {
+        "defaultValue": null,
+        "description": "The leading visual which comes before the button content",
+        "name": "leadingVisual",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "trailingVisual": {
+        "defaultValue": null,
+        "description": "The trailing visual which comes after the button content",
+        "name": "trailingVisual",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "trailingAction": {
+        "defaultValue": null,
+        "description": "Trailing action appears to the right of the trailing visual and is always locked to the end",
+        "name": "trailingAction",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "count": {
+        "defaultValue": null,
+        "description": "",
+        "name": "count",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "variant": {
+        "defaultValue": {
+          "value": "warning"
+        },
+        "description": "Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
+        "name": "variant",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "VariantType"
+        }
+      },
+      "size": {
+        "defaultValue": {
+          "value": "variant === 'empty' ? 'full' : 'inline'"
+        },
+        "description": "Size of button and fontSize of text in button",
+        "name": "size",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "Size"
+        }
+      },
+      "disabled": {
+        "defaultValue": null,
+        "description": "Items that are disabled can not be clicked, selected, or navigated through.",
+        "name": "disabled",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "ButtonHTMLAttributes"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "block": {
+        "defaultValue": null,
+        "description": "Allow button width to fill its container.",
+        "name": "block",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "inactive": {
+        "defaultValue": null,
+        "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+        "name": "inactive",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "labelWrap": {
+        "defaultValue": null,
+        "description": "Whether the button label should wrap to multiple lines of it is longer than the button width.",
+        "name": "labelWrap",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "SelectPanel.Header",
+      "primerparentid": "select_panel_v2"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/SelectPanel2/SelectPanel.tsx",
+    "description": "The header area of the SelectPanel.",
+    "displayName": "SelectPanelHeader",
+    "methods": [],
+    "props": {}
+  },
+  {
+    "tags": {
+      "alias": "SelectPanel.SearchInput",
+      "primerparentid": "select_panel_v2"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/SelectPanel2/SelectPanel.tsx",
+    "description": "The search/filter input at the top of the SelectPanel.",
+    "displayName": "SelectPanelSearchInput",
+    "methods": [],
+    "props": {
+      "icon": {
+        "defaultValue": null,
+        "description": "@deprecated Use `leadingVisual` or `trailingVisual` prop instead",
+        "name": "icon",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInput/TextInput.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.ElementType"
+        }
+      },
+      "loading": {
+        "defaultValue": null,
+        "description": "Whether the to show a loading indicator in the input",
+        "name": "loading",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInput/TextInput.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "loaderPosition": {
+        "defaultValue": null,
+        "description": "Which position to render the loading indicator\n'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the beginning\n'leading': at the beginning of the input\n'trailing': at the end of the input",
+        "name": "loaderPosition",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInput/TextInput.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"auto\" | \"leading\" | \"trailing\""
+        }
+      },
+      "leadingVisual": {
+        "defaultValue": null,
+        "description": "A visual that renders inside the input before the typing area",
+        "name": "leadingVisual",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInput/TextInput.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "trailingVisual": {
+        "defaultValue": null,
+        "description": "A visual that renders inside the input after the typing area",
+        "name": "trailingVisual",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInput/TextInput.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "trailingAction": {
+        "defaultValue": null,
+        "description": "A visual that renders inside the input after the typing area",
+        "name": "trailingAction",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TextInput/TextInput.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.ReactElement<React.HTMLProps<HTMLButtonElement>>"
+        }
+      },
+      "disabled": {
+        "defaultValue": null,
+        "description": "Whether the input is styled to look disabled.",
+        "name": "disabled",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "size": {
+        "defaultValue": {
+          "value": "variant === 'empty' ? 'full' : 'inline'"
+        },
+        "description": "The size of the input.",
+        "name": "size",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "TextInputSizes"
+        }
+      },
+      "block": {
+        "defaultValue": null,
+        "description": "Whether the input takes up the full width of its parent",
+        "name": "block",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "monospace": {
+        "defaultValue": null,
+        "description": "Whether the text rendered in the input is in a monospace font.",
+        "name": "monospace",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      },
+      "variant": {
+        "defaultValue": {
+          "value": "warning"
+        },
+        "description": "@deprecated Use `size` prop instead",
+        "name": "variant",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "TextInputSizes"
+        }
+      },
+      "contrast": {
+        "defaultValue": null,
+        "description": "Whether the background color of the input has contrast against the default background color.",
+        "name": "contrast",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "validationStatus": {
+        "defaultValue": null,
+        "description": "The result of validation on the input.",
+        "name": "validationStatus",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputWrapper.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "FormValidationStatus"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "SelectPanel.Footer",
+      "primerparentid": "select_panel_v2"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/SelectPanel2/SelectPanel.tsx",
+    "description": "The footer area of the SelectPanel.",
+    "displayName": "SelectPanelFooter",
+    "methods": [],
+    "props": {}
+  },
+  {
+    "tags": {
+      "alias": "SelectPanel.SecondaryAction",
+      "primerparentid": "select_panel_v2"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/SelectPanel2/SelectPanel.tsx",
+    "description": "The secondary action in the footer area of the SelectPanel. Often a \"cancel\" action.",
+    "displayName": "SelectPanelSecondaryAction",
+    "methods": [],
+    "props": {
+      "variant": {
+        "defaultValue": {
+          "value": "warning"
+        },
+        "description": "",
+        "name": "variant",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/SelectPanel2/SelectPanel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/drafts/SelectPanel2/SelectPanel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/drafts/SelectPanel2/SelectPanel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"button\" | \"link\" | \"checkbox\""
+        }
+      },
+      "id": {
+        "defaultValue": null,
+        "description": "",
+        "name": "id",
+        "parent": {
+          "fileName": "react/node_modules/@types/react/index.d.ts",
+          "name": "HTMLAttributes"
+        },
+        "declarations": [
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "HTMLAttributes"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "HTMLAttributes"
+          },
+          {
+            "fileName": "react/packages/react/src/drafts/SelectPanel2/SelectPanel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "HTMLAttributes"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "disabled": {
+        "defaultValue": null,
+        "description": "Items that are disabled can not be clicked, selected, or navigated through.\nApply inactive visual appearance to the checkbox",
+        "name": "disabled",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "ButtonHTMLAttributes"
+          },
+          {
+            "fileName": "react/packages/react/src/Checkbox/Checkbox.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "InputHTMLAttributes"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "value": {
+        "defaultValue": null,
+        "description": "A unique value that is never shown to the user.\nUsed during form submission and to identify which checkbox inputs are selected",
+        "name": "value",
+        "parent": {
+          "fileName": "react/node_modules/@types/react/index.d.ts",
+          "name": "ButtonHTMLAttributes"
+        },
+        "declarations": [
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "ButtonHTMLAttributes"
+          },
+          {
+            "fileName": "react/packages/react/src/Checkbox/Checkbox.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "InputHTMLAttributes"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string | number | readonly string[] | (string & readonly string[])"
+        }
+      },
+      "size": {
+        "defaultValue": {
+          "value": "variant === 'empty' ? 'full' : 'inline'"
+        },
+        "description": "Size of button and fontSize of text in button",
+        "name": "size",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "InputHTMLAttributes"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "number | Size"
+        }
+      },
+      "block": {
+        "defaultValue": null,
+        "description": "Allow button width to fill its container.",
+        "name": "block",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "alignContent": {
+        "defaultValue": null,
+        "description": "Content alignment for when visuals are present",
+        "name": "alignContent",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "AlignContent"
+        }
+      },
+      "icon": {
+        "defaultValue": null,
+        "description": "The icon for the IconButton",
+        "name": "icon",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          },
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          },
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      },
+      "inactive": {
+        "defaultValue": null,
+        "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+        "name": "inactive",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "labelWrap": {
+        "defaultValue": null,
+        "description": "Whether the button label should wrap to multiple lines of it is longer than the button width.",
+        "name": "labelWrap",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "leadingVisual": {
+        "defaultValue": null,
+        "description": "The leading visual which comes before the button content",
+        "name": "leadingVisual",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "trailingVisual": {
+        "defaultValue": null,
+        "description": "The trailing visual which comes after the button content",
+        "name": "trailingVisual",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "trailingAction": {
+        "defaultValue": null,
+        "description": "Trailing action appears to the right of the trailing visual and is always locked to the end",
+        "name": "trailingAction",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "count": {
+        "defaultValue": null,
+        "description": "",
+        "name": "count",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "ref": {
+        "defaultValue": null,
+        "description": "Forward a ref to the underlying input element",
+        "name": "ref",
+        "declarations": [
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/Checkbox/Checkbox.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "hoverColor": {
+        "defaultValue": null,
+        "description": "Color used when hovering over the link.",
+        "name": "hoverColor",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Link/Link.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "muted": {
+        "defaultValue": null,
+        "description": "Uses a less prominent shade for Link color, and the default link shade on hover.",
+        "name": "muted",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Link/Link.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "underline": {
+        "defaultValue": null,
+        "description": "@deprecated use `inline` to specify the type of link instead",
+        "name": "underline",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Link/Link.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "inline": {
+        "defaultValue": null,
+        "description": "Set to true for links adjacent to text, underlining them for clear visibility and improved accessibility.",
+        "name": "inline",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Link/Link.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "as": {
+        "defaultValue": null,
+        "description": "",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"a\""
+        }
+      },
+      "indeterminate": {
+        "defaultValue": null,
+        "description": "Apply indeterminate visual appearance to the checkbox",
+        "name": "indeterminate",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Checkbox/Checkbox.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "required": {
+        "defaultValue": null,
+        "description": "Indicates whether the checkbox must be checked",
+        "name": "required",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Checkbox/Checkbox.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "InputHTMLAttributes"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "validationStatus": {
+        "defaultValue": null,
+        "description": "Only used to inform ARIA attributes. Individual checkboxes do not have validation styles.",
+        "name": "validationStatus",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Checkbox/Checkbox.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "FormValidationStatus"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "SelectPanel.Loading",
+      "primerparentid": "select_panel_v2"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/SelectPanel2/SelectPanel.tsx",
+    "description": "The loading indicator used when the data for the SelectPanel content is still loading",
+    "displayName": "SelectPanelLoading",
+    "methods": [],
+    "props": {}
+  },
+  {
+    "tags": {
+      "alias": "SelectPanel.Message",
+      "primerparentid": "select_panel_v2"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/SelectPanel2/SelectPanel.tsx",
+    "description": "A message to render in the SelectPanel to indicate some kind of status or error.",
+    "displayName": "SelectPanelMessage",
+    "methods": [],
+    "props": {
+      "size": {
+        "defaultValue": {
+          "value": "variant === 'empty' ? 'full' : 'inline'"
+        },
+        "description": "",
+        "name": "size",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/SelectPanel2/SelectPanel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/drafts/SelectPanel2/SelectPanel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"inline\" | \"full\""
+        }
+      },
+      "title": {
+        "defaultValue": null,
+        "description": "",
+        "name": "title",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/SelectPanel2/SelectPanel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/drafts/SelectPanel2/SelectPanel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "variant": {
+        "defaultValue": {
+          "value": "warning"
+        },
+        "description": "",
+        "name": "variant",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/SelectPanel2/SelectPanel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/drafts/SelectPanel2/SelectPanel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "\"error\" | \"warning\" | \"empty\""
+        }
+      }
+    }
+  },
+  {
     "tags": {},
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/SelectPanel2/index.tsx",
     "description": "",
@@ -16013,9 +19938,7 @@
         }
       },
       "variant": {
-        "defaultValue": {
-          "value": "warning"
-        },
+        "defaultValue": null,
         "description": "",
         "name": "variant",
         "declarations": [
@@ -16030,9 +19953,7 @@
         }
       },
       "selectionVariant": {
-        "defaultValue": {
-          "value": "multiple"
-        },
+        "defaultValue": null,
         "description": "",
         "name": "selectionVariant",
         "declarations": [
@@ -16062,9 +19983,7 @@
         }
       },
       "defaultOpen": {
-        "defaultValue": {
-          "value": false
-        },
+        "defaultValue": null,
         "description": "",
         "name": "defaultOpen",
         "declarations": [
@@ -16154,9 +20073,7 @@
         }
       },
       "width": {
-        "defaultValue": {
-          "value": "medium"
-        },
+        "defaultValue": null,
         "description": "",
         "name": "width",
         "declarations": [
@@ -16186,9 +20103,7 @@
         }
       },
       "maxHeight": {
-        "defaultValue": {
-          "value": "large"
-        },
+        "defaultValue": null,
         "description": "",
         "name": "maxHeight",
         "declarations": [
@@ -16404,10 +20319,14 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "primerid": "tab_panels",
+      "primerstatus": "draft",
+      "primera11yreviewed": "false"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/TabPanels/TabPanels.tsx",
-    "description": "",
-    "displayName": "TabPanels.Tab",
+    "description": "Tab panels let users switch between views in the same context.",
+    "displayName": "TabPanels",
     "methods": [],
     "props": {
       "id": {
@@ -16423,6 +20342,66 @@
         "required": false,
         "type": {
           "name": "string"
+        }
+      },
+      "defaultTabIndex": {
+        "defaultValue": null,
+        "description": "The 0-based index of the tab that is selected by default when the component is loaded.",
+        "name": "defaultTabIndex",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/TabPanels/TabPanels.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "selectedTabIndex": {
+        "defaultValue": null,
+        "description": "The 0-based index of the tab that is selected.",
+        "name": "selectedTabIndex",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/TabPanels/TabPanels.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      },
+      "onChange": {
+        "defaultValue": null,
+        "description": "Callback fired when the tab container changes (bubbles, cancelable): fired on `<tab-container>` before a new tab is selected and visibility is updated. `event.tab` is the tab that will be focused and `tab.panel` is the panel that will be shown if the event isn't cancelled.",
+        "name": "onChange",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/TabPanels/TabPanels.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "FormEventHandler<TabContainerElement>"
+        }
+      },
+      "onChanged": {
+        "defaultValue": null,
+        "description": "Callback fired when the tab container changes (bubbles): fired on `<tab-container>` after a new tab is selected and visibility is updated. `event.tab` is the tab that is now active (and will be focused right after this event) and `event.panel` is the newly visible tab panel.",
+        "name": "onChanged",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/TabPanels/TabPanels.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "(event: TabContainerChangeEvent) => void"
         }
       },
       "aria-label": {
@@ -16466,10 +20445,60 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "alias": "TabPanels.Tab",
+      "primerparentid": "tab_panels"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/TabPanels/TabPanels.tsx",
+    "description": "A tab in the tablist of TabPanel",
+    "displayName": "Tab",
+    "methods": [],
+    "props": {
+      "as": {
+        "defaultValue": null,
+        "description": "",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "TabPanels.Panel",
+      "primerparentid": "tab_panels"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/TabPanels/TabPanels.tsx",
+    "description": "A tabpanel associated with a TabPanels.Tab in TabPanels",
+    "displayName": "Panel",
+    "methods": [],
+    "props": {}
+  },
+  {
+    "tags": {
+      "primerid": "underline_panels",
+      "primerstatus": "draft",
+      "primera11yreviewed": "false"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/UnderlinePanels/UnderlinePanels.tsx",
-    "description": "",
-    "displayName": "UnderlinePanels.Tab",
+    "description": "The underline panels are used to break related content into tabbed panels.",
+    "displayName": "UnderlinePanels",
     "methods": [],
     "props": {
       "children": {
@@ -16547,6 +20576,113 @@
           "name": "boolean"
         }
       },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "UnderlinePanels.Tab",
+      "primerparentid": "underline_panels"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/UnderlinePanels/UnderlinePanels.tsx",
+    "description": "A tab in the tablist of UnderlinePanels",
+    "displayName": "Tab",
+    "methods": [],
+    "props": {
+      "aria-selected": {
+        "defaultValue": null,
+        "description": "Whether this is the selected tab",
+        "name": "aria-selected",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/UnderlinePanels/UnderlinePanels.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "counter": {
+        "defaultValue": null,
+        "description": "Content of CounterLabel rendered after tab text label",
+        "name": "counter",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/UnderlinePanels/UnderlinePanels.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string | number"
+        }
+      },
+      "icon": {
+        "defaultValue": null,
+        "description": "Icon rendered before the tab text label",
+        "name": "icon",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/UnderlinePanels/UnderlinePanels.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "FC<IconProps>"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "UnderlinePanels.Panel",
+      "primerparentid": "underline_panels"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/UnderlinePanels/UnderlinePanels.tsx",
+    "description": "A tabpanel associated with a UnderlinePanels.Tab in UnderlinePanels",
+    "displayName": "Panel",
+    "methods": [],
+    "props": {
       "sx": {
         "defaultValue": null,
         "description": "A style object used to override styles using styled-components",
@@ -17058,119 +21194,6 @@
         "required": false,
         "type": {
           "name": "\"assertive\" | \"polite\""
-        }
-      }
-    }
-  },
-  {
-    "tags": {},
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/internal/components/TextInputInnerAction.tsx",
-    "description": "",
-    "displayName": "TextInputInnerAction",
-    "methods": [],
-    "props": {
-      "children": {
-        "defaultValue": null,
-        "description": "@deprecated Text input action buttons should only use icon buttons",
-        "name": "children",
-        "parent": {
-          "fileName": "react/node_modules/@types/react/index.d.ts",
-          "name": "DOMAttributes"
-        },
-        "declarations": [
-          {
-            "fileName": "react/node_modules/@types/react/index.d.ts",
-            "name": "DOMAttributes"
-          },
-          {
-            "fileName": "react/packages/react/src/internal/components/TextInputInnerAction.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "any"
-        }
-      },
-      "aria-label": {
-        "defaultValue": null,
-        "description": "Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies.",
-        "name": "aria-label",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/internal/components/TextInputInnerAction.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "string"
-        }
-      },
-      "tooltipDirection": {
-        "defaultValue": null,
-        "description": "Position of tooltip. If no position is passed or defaults to \"n\"",
-        "name": "tooltipDirection",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/internal/components/TextInputInnerAction.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "\"s\" | \"nw\" | \"n\" | \"ne\" | \"e\" | \"se\" | \"sw\" | \"w\""
-        }
-      },
-      "icon": {
-        "defaultValue": null,
-        "description": "The icon to render inside the button",
-        "name": "icon",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/internal/components/TextInputInnerAction.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "FunctionComponent<PropsWithChildren<IconProps>>"
-        }
-      },
-      "variant": {
-        "defaultValue": {
-          "value": "invisible"
-        },
-        "description": "@deprecated Text input action buttons should only use the 'invisible' button variant\nDetermine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
-        "name": "variant",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/internal/components/TextInputInnerAction.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "VariantType"
-        }
-      },
-      "sx": {
-        "defaultValue": null,
-        "description": "A style object used to override styles using styled-components",
-        "name": "sx",
-        "parent": {
-          "fileName": "react/packages/react/src/sx.ts",
-          "name": "SxProp"
-        },
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/sx.ts",
-            "name": "SxProp"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "BetterSystemStyleObject"
         }
       }
     }

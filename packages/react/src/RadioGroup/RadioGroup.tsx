@@ -32,7 +32,7 @@ export const RadioGroupContext = createContext<{
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-const RadioGroup: FC<PropsWithChildren<RadioGroupProps>> = ({children, disabled, onChange, name, ...rest}) => {
+export const RadioGroup: FC<PropsWithChildren<RadioGroupProps>> = ({children, disabled, onChange, name, ...rest}) => {
   const [selectedRadioValue, setSelectedRadioValue] = useRenderForcingRef<string | null>(null)
 
   const updateSelectedCheckboxes: ChangeEventHandler<HTMLInputElement> = e => {
@@ -64,8 +64,23 @@ const RadioGroup: FC<PropsWithChildren<RadioGroupProps>> = ({children, disabled,
   )
 }
 
-export default Object.assign(RadioGroup, {
-  Caption: CheckboxOrRadioGroupCaption,
-  Label: CheckboxOrRadioGroupLabel,
-  Validation: CheckboxOrRadioGroupValidation,
-})
+/**
+ * The caption with contextual information about the set of related checkboxes.
+ * @alias RadioGroup.Caption
+ * @primerparentid radio_group
+ */
+export const RadioGroupCaption = CheckboxOrRadioGroupCaption
+
+/**
+ * The name for the set of related checkboxes.
+ * @alias RadioGroup.Label
+ * @primerparentid radio_group
+ */
+export const RadioGroupLabel = CheckboxOrRadioGroupLabel
+
+/**
+ * The message about the validation status of the set of related checkboxes.
+ * @alias RadioGroup.Caption
+ * @primerparentid radio_group
+ */
+export const RadioGroupValidation = CheckboxOrRadioGroupValidation

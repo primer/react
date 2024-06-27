@@ -35,7 +35,7 @@ const sizeStyles = ({size, variant = 'medium'}: StyledCircleBadgeProps) => {
  * @primerstatus alpha
  * @prmera11yreviewed false
  */
-const CircleBadge = styled.div<StyledCircleBadgeProps>`
+export const CircleBadge = styled.div<StyledCircleBadgeProps>`
   display: ${({inline = false}) => (inline ? 'inline-flex' : 'flex')};
   align-items: center;
   justify-content: center;
@@ -51,14 +51,11 @@ const CircleBadge = styled.div<StyledCircleBadgeProps>`
  * @alias CircleBadge.Icon
  * @primerparentid circle_badge
  */
-const CircleBadgeIcon = styled(Octicon)`
+export const CircleBadgeIcon = styled(Octicon)`
   height: auto;
   max-width: 60%;
   max-height: 55%;
 `
 
-CircleBadgeIcon.displayName = 'CircleBadge.Icon'
-
 export type CircleBadgeProps = ComponentProps<typeof CircleBadge>
 export type CircleBadgeIconProps = ComponentProps<typeof CircleBadgeIcon>
-export default Object.assign(CircleBadge, {Icon: CircleBadgeIcon})

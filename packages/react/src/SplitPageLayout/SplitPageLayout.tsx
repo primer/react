@@ -20,7 +20,7 @@ export type SplitPageLayoutProps = SxProp
  * @primerstatus alpha
  * @primera11yreviewed true
  */
-export const Root: FC<PropsWithChildren<SplitPageLayoutProps>> = props => {
+export const SplitPageLayout: FC<PropsWithChildren<SplitPageLayoutProps>> = props => {
   return (
     <PageLayout
       containerWidth="full"
@@ -35,8 +35,6 @@ export const Root: FC<PropsWithChildren<SplitPageLayoutProps>> = props => {
     />
   )
 }
-
-Root.displayName = 'SplitPageLayout'
 
 // ----------------------------------------------------------------------------
 // SplitPageLayout.Header
@@ -57,8 +55,6 @@ export const Header: FC<PropsWithChildren<SplitPageLayoutHeaderProps>> = ({
   return <PageLayout.Header padding={padding} divider={divider} {...props} />
 }
 
-Header.displayName = 'SplitPageLayout.Header'
-
 // ----------------------------------------------------------------------------
 // SplitPageLayout.Content
 
@@ -76,8 +72,6 @@ export const Content: FC<PropsWithChildren<SplitPageLayoutContentProps>> = ({
 }) => {
   return <PageLayout.Content width={width} padding={padding} {...props} />
 }
-
-Content.displayName = 'SplitPageLayout.Content'
 
 // ----------------------------------------------------------------------------
 // SplitPageLayout.Pane
@@ -105,7 +99,6 @@ export const Pane: FC<PropsWithChildren<SplitPageLayoutPaneProps>> = ({
     ></PageLayout.Pane>
   )
 }
-Pane.displayName = 'SplitPageLayout.Pane'
 
 // ----------------------------------------------------------------------------
 // SplitPageLayout.Footer
@@ -125,15 +118,3 @@ export const Footer: FC<PropsWithChildren<SplitPageLayoutFooterProps>> = ({
   // eslint-disable-next-line primer-react/direct-slot-children
   return <PageLayout.Footer padding={padding} divider={divider} {...props} />
 }
-
-Footer.displayName = 'SplitPageLayout.Footer'
-
-// ----------------------------------------------------------------------------
-// Export
-
-export const SplitPageLayout = Object.assign(Root, {
-  Header,
-  Content,
-  Pane,
-  Footer,
-})

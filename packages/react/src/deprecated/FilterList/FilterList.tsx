@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {type FC, type PropsWithChildren} from 'react'
 import styled from 'styled-components'
 import {get} from '../../constants'
 import type {SxProp} from '../../sx'
@@ -21,7 +21,7 @@ export type FilterListProps = ComponentProps<typeof FilterListBase>
  * @primerstatus deprecated
  * @primera11yreviewed false
  */
-const FilterList = ({children, ...rest}: React.PropsWithChildren<FilterListProps>) => {
+export const FilterList = ({children, ...rest}: React.PropsWithChildren<FilterListProps>) => {
   const items = React.Children.map(children, child => {
     return <li>{child}</li>
   })
@@ -65,7 +65,12 @@ const FilterListItemBase = styled.a<StyledFilterListItemBaseProps>`
 
 export type FilterListItemProps = {count?: number} & ComponentProps<typeof FilterListItemBase>
 
-const FilterListItem = ({children, count, ...rest}: React.PropsWithChildren<FilterListItemProps>) => {
+/**
+ * An item that activates a filter when activated.
+ * @alias FilterList.Item
+ * @primerparentid filter_list
+ */
+export const FilterListItem: FC<PropsWithChildren<FilterListItemProps>> = ({children, count, ...rest}) => {
   return (
     <FilterListItemBase {...rest}>
       {count && <span className="count">{count}</span>}
@@ -73,7 +78,3 @@ const FilterListItem = ({children, count, ...rest}: React.PropsWithChildren<Filt
     </FilterListItemBase>
   )
 }
-
-FilterListItem.displayName = 'FilterList.Item'
-
-export default Object.assign(FilterList, {Item: FilterListItem})

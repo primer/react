@@ -81,7 +81,7 @@ export type SelectPanelProps = {
  * @primerstatus draft
  * @primera11yreviewed false
  */
-const Panel: FC<SelectPanelProps> = ({
+export const Panel: FC<SelectPanelProps> = ({
   title,
   description,
   variant: propsVariant,
@@ -361,7 +361,7 @@ const Panel: FC<SelectPanelProps> = ({
  * @alias SelectPanel.Button
  * @primerparentid select_panel_v2
  */
-const SelectPanelButton = forwardRef<HTMLButtonElement, ButtonProps>((props, anchorRef) => {
+export const SelectPanelButton = forwardRef<HTMLButtonElement, ButtonProps>((props, anchorRef) => {
   const inputProps = useFormControlForwardedProps(props)
   const [labelText, setLabelText] = useState('')
   useEffect(() => {
@@ -389,7 +389,11 @@ const SelectPanelButton = forwardRef<HTMLButtonElement, ButtonProps>((props, anc
  * @alias SelectPanel.Header
  * @primerparentid select_panel_v2
  */
-const SelectPanelHeader: FC<React.PropsWithChildren & {onBack?: () => void}> = ({children, onBack, ...props}) => {
+export const SelectPanelHeader: FC<React.PropsWithChildren & {onBack?: () => void}> = ({
+  children,
+  onBack,
+  ...props
+}) => {
   const [slots, childrenWithoutSlots] = useSlots(children, {
     searchInput: SelectPanelSearchInput,
   })
@@ -468,7 +472,11 @@ const SelectPanelHeader: FC<React.PropsWithChildren & {onBack?: () => void}> = (
  * @alias SelectPanel.SearchInput
  * @primerparentid select_panel_v2
  */
-const SelectPanelSearchInput: FC<TextInputProps> = ({onChange: propsOnChange, onKeyDown: propsOnKeyDown, ...props}) => {
+export const SelectPanelSearchInput: FC<TextInputProps> = ({
+  onChange: propsOnChange,
+  onKeyDown: propsOnKeyDown,
+  ...props
+}) => {
   // TODO: use forwardedRef
   const inputRef = React.createRef<HTMLInputElement>()
 
@@ -529,7 +537,7 @@ const FooterContext = React.createContext<boolean>(false)
  * @alias SelectPanel.Footer
  * @primerparentid select_panel_v2
  */
-const SelectPanelFooter = ({...props}) => {
+export const SelectPanelFooter = ({...props}) => {
   const {onCancel, selectionVariant} = React.useContext(SelectPanelContext)
 
   const hidePrimaryActions = selectionVariant === 'instant'
@@ -618,7 +626,7 @@ export type SelectPanelSecondaryActionProps = {children: React.ReactNode} & (
  * @alias SelectPanel.SecondaryAction
  * @primerparentid select_panel_v2
  */
-const SelectPanelSecondaryAction: FC<SelectPanelSecondaryActionProps> = ({variant, ...props}) => {
+export const SelectPanelSecondaryAction: FC<SelectPanelSecondaryActionProps> = ({variant, ...props}) => {
   const insideFooter = React.useContext(FooterContext)
   invariant(insideFooter, 'SelectPanel.SecondaryAction is only allowed inside SelectPanel.Footer')
 
@@ -636,7 +644,7 @@ const SelectPanelSecondaryAction: FC<SelectPanelSecondaryActionProps> = ({varian
  * @alias SelectPanel.Loading
  * @primerparentid select_panel_v2
  */
-const SelectPanelLoading = ({children = 'Fetching items...'}: React.PropsWithChildren) => {
+export const SelectPanelLoading = ({children = 'Fetching items...'}: React.PropsWithChildren) => {
   return (
     <Status
       sx={{
@@ -674,7 +682,7 @@ export type SelectPanelMessageProps = {children: React.ReactNode} & (
  * @alias SelectPanel.Message
  * @primerparentid select_panel_v2
  */
-const SelectPanelMessage: FC<SelectPanelMessageProps> = ({
+export const SelectPanelMessage: FC<SelectPanelMessageProps> = ({
   variant = 'warning',
   size = variant === 'empty' ? 'full' : 'inline',
   title,
@@ -745,13 +753,3 @@ const SelectPanelMessage: FC<SelectPanelMessageProps> = ({
     )
   }
 }
-
-export const SelectPanel = Object.assign(Panel, {
-  Button: SelectPanelButton,
-  Header: SelectPanelHeader,
-  SearchInput: SelectPanelSearchInput,
-  Footer: SelectPanelFooter,
-  Loading: SelectPanelLoading,
-  Message: SelectPanelMessage,
-  SecondaryAction: SelectPanelSecondaryAction,
-})

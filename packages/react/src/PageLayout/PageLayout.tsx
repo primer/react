@@ -88,7 +88,7 @@ const containerWidths = {
  * @primerstatus alpha
  * @primera11yreviewed true
  */
-const Root: FC<PropsWithChildren<PageLayoutProps>> = ({
+export const PageLayout: FC<PropsWithChildren<PageLayoutProps>> = ({
   containerWidth = 'xlarge',
   padding = 'normal',
   rowGap = 'normal',
@@ -141,8 +141,6 @@ const Root: FC<PropsWithChildren<PageLayoutProps>> = ({
     </PageLayoutContext.Provider>
   )
 }
-
-Root.displayName = 'PageLayout'
 
 // ----------------------------------------------------------------------------
 // Divider (internal)
@@ -440,7 +438,7 @@ export type PageLayoutHeaderProps = {
  * @alias PageLayout.Header
  * @primerparentid page_layout
  */
-const Header: FC<PropsWithChildren<PageLayoutHeaderProps>> = ({
+export const Header: FC<PropsWithChildren<PageLayoutHeaderProps>> = ({
   'aria-label': label,
   'aria-labelledby': labelledBy,
   padding = 'none',
@@ -478,8 +476,6 @@ const Header: FC<PropsWithChildren<PageLayoutHeaderProps>> = ({
     </Box>
   )
 }
-
-Header.displayName = 'PageLayout.Header'
 
 // ----------------------------------------------------------------------------
 // PageLayout.Content
@@ -526,7 +522,7 @@ const contentWidths = {
  * @alias PageLayout.Content
  * @primerparentid page_layout
  */
-const Content: FC<PropsWithChildren<PageLayoutContentProps>> = ({
+export const Content: FC<PropsWithChildren<PageLayoutContentProps>> = ({
   as = 'main',
   'aria-label': label,
   'aria-labelledby': labelledBy,
@@ -580,8 +576,6 @@ const Content: FC<PropsWithChildren<PageLayoutContentProps>> = ({
     </Box>
   )
 }
-
-Content.displayName = 'PageLayout.Content'
 
 // ----------------------------------------------------------------------------
 // PageLayout.Pane
@@ -714,7 +708,7 @@ const defaultPaneWidth = {small: 256, medium: 296, large: 320}
  * @alias PageHeader.Pane
  * @primerparentid page_layout
  */
-const Pane = forwardRef<HTMLDivElement, PropsWithChildren<PageLayoutPaneProps>>(
+export const Pane = forwardRef<HTMLDivElement, PropsWithChildren<PageLayoutPaneProps>>(
   (
     {
       'aria-label': label,
@@ -926,8 +920,6 @@ const Pane = forwardRef<HTMLDivElement, PropsWithChildren<PageLayoutPaneProps>>(
   },
 )
 
-Pane.displayName = 'PageLayout.Pane'
-
 // ----------------------------------------------------------------------------
 // PageLayout.Footer
 
@@ -977,7 +969,7 @@ export type PageLayoutFooterProps = {
  * @alias PageHeader.Footer
  * @primerparentid page_layout
  */
-const Footer: FC<PropsWithChildren<PageLayoutFooterProps>> = ({
+export const Footer: FC<PropsWithChildren<PageLayoutFooterProps>> = ({
   'aria-label': label,
   'aria-labelledby': labelledBy,
   padding = 'none',
@@ -1016,15 +1008,3 @@ const Footer: FC<PropsWithChildren<PageLayoutFooterProps>> = ({
     </Box>
   )
 }
-
-Footer.displayName = 'PageLayout.Footer'
-
-// ----------------------------------------------------------------------------
-// Export
-
-export const PageLayout = Object.assign(Root, {
-  Header,
-  Content,
-  Pane,
-  Footer,
-})

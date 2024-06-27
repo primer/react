@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react'
 import type {FC, PropsWithChildren} from 'react'
 import type {SegmentedControlButtonProps} from './SegmentedControlButton'
-import Button from './SegmentedControlButton'
+import {SegmentedControlButton} from './SegmentedControlButton'
 import type {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
 import SegmentedControlIconButton from './SegmentedControlIconButton'
 import {ActionList} from '../ActionList'
@@ -51,7 +51,7 @@ const getSegmentedControlStyles = (props: {isFullWidth?: boolean; size?: Segment
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-const Root: FC<PropsWithChildren<SegmentedControlProps>> = ({
+export const SegmentedControl: FC<PropsWithChildren<SegmentedControlProps>> = ({
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledby,
   children,
@@ -97,7 +97,7 @@ const Root: FC<PropsWithChildren<SegmentedControlProps>> = ({
     return React.isValidElement<SegmentedControlIconButtonProps>(childArg) ? childArg.props.icon : null
   }
   const getChildText = (childArg: React.ReactNode) => {
-    if (React.isValidElement<SegmentedControlButtonProps>(childArg) && childArg.type === Button) {
+    if (React.isValidElement<SegmentedControlButtonProps>(childArg) && childArg.type === SegmentedControlButton) {
       return childArg.props.children
     }
 
@@ -187,7 +187,7 @@ const Root: FC<PropsWithChildren<SegmentedControlProps>> = ({
         if (
           responsiveVariant === 'hideLabels' &&
           React.isValidElement<SegmentedControlButtonProps>(child) &&
-          child.type === Button
+          child.type === SegmentedControlButton
         ) {
           const {
             'aria-label': childAriaLabel,
@@ -224,10 +224,3 @@ const Root: FC<PropsWithChildren<SegmentedControlProps>> = ({
     </SegmentedControlList>
   )
 }
-
-Root.displayName = 'SegmentedControl'
-
-export const SegmentedControl = Object.assign(Root, {
-  Button,
-  IconButton: SegmentedControlIconButton,
-})

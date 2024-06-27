@@ -11,8 +11,8 @@ import getGlobalFocusStyles from '../../internal/utils/getGlobalFocusStyles'
 
 const TAB_CLASS = 'TabPanel-tab'
 
-const tabContainerComponent = createComponent(TabContainerElement, 'tab-container')
-const TabContainer = styled(tabContainerComponent)`
+const TabContainerComponent = createComponent(TabContainerElement, 'tab-container')
+const TabContainer = styled(TabContainerComponent)`
   & > :not([role='tabpanel']) {
     display: inline-block;
   }
@@ -89,9 +89,19 @@ type Labelledby = {
 
 type Labelled = Label | Labelledby
 
-export type TabPanelsProps = ComponentProps<typeof TabContainer> & {
+export type TabPanelsProps = {
   /** The id of the tab container, used to generate child ids. */
   id?: string
+  // TODO: Figure out how to move these JSDoc comments into `@github/tab-container-element`
+  // so we can remove them from here.
+  /** The 0-based index of the tab that is selected by default when the component is loaded. */
+  defaultTabIndex?: ComponentProps<typeof TabContainerComponent>['defaultTabIndex']
+  /** The 0-based index of the tab that is selected. */
+  selectedTabIndex?: ComponentProps<typeof TabContainerComponent>['selectedTabIndex']
+  /** Callback fired when the tab container changes (bubbles, cancelable): fired on `<tab-container>` before a new tab is selected and visibility is updated. `event.tab` is the tab that will be focused and `tab.panel` is the panel that will be shown if the event isn't cancelled. */
+  onChange?: ComponentProps<typeof TabContainerComponent>['onChange']
+  /** Callback fired when the tab container changes (bubbles): fired on `<tab-container>` after a new tab is selected and visibility is updated. `event.tab` is the tab that is now active (and will be focused right after this event) and `event.panel` is the newly visible tab panel. */
+  onChanged?: ComponentProps<typeof TabContainerComponent>['onChanged']
 } & Labelled
 
 /**
@@ -100,7 +110,7 @@ export type TabPanelsProps = ComponentProps<typeof TabContainer> & {
  * @primerstatus draft
  * @primera11yreviewed false
  */
-function TabPanels({children, defaultTabIndex, ...props}: TabPanelsProps) {
+export function TabPanels({children, defaultTabIndex, ...props}: TabPanelsProps) {
   // We need to always call React.useId() because
   // React Hooks must be called in the exact same order in every component render
   const defaultId = React.useId()
@@ -138,6 +148,7 @@ function TabPanels({children, defaultTabIndex, ...props}: TabPanelsProps) {
 }
 
 export type TabPanelsTabProps = DetailedHTMLProps<HTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
+  /** Whether the tab is selected */
   selected?: boolean
 } & SxProp
 
@@ -146,7 +157,7 @@ export type TabPanelsTabProps = DetailedHTMLProps<HTMLAttributes<HTMLButtonEleme
  * @alias TabPanels.Tab
  * @primerparentid tab_panels
  */
-const Tab = styled.button.attrs<TabPanelsTabProps>(props => ({
+export const Tab = styled.button.attrs<TabPanelsTabProps>(props => ({
   className: clsx(TAB_CLASS, props.className),
   role: 'tab',
   'aria-selected': !!props.selected,
@@ -179,8 +190,6 @@ const Tab = styled.button.attrs<TabPanelsTabProps>(props => ({
   ${sx};
 ` as PolymorphicForwardRefComponent<'button', TabPanelsTabProps>
 
-Tab.displayName = 'TabPanels.Tab'
-
 export type TabPanelsPanelProps = React.HTMLAttributes<HTMLDivElement> & {
   children: React.ReactNode
 } & SxProp
@@ -190,13 +199,9 @@ export type TabPanelsPanelProps = React.HTMLAttributes<HTMLDivElement> & {
  * @alias TabPanels.Panel
  * @primerparentid tab_panels
  */
-const Panel = styled.div.attrs<TabPanelsPanelProps>(() => ({
+export const Panel = styled.div.attrs<TabPanelsPanelProps>(() => ({
   role: 'tabpanel',
   suppressHydrationWarning: true,
 }))<TabPanelsPanelProps>`
   ${sx};
 `
-
-Panel.displayName = 'TabPanels.Panel'
-
-export default Object.assign(TabPanels, {Panel, Tab})

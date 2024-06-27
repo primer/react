@@ -1,5 +1,5 @@
 import React, {forwardRef, useContext} from 'react'
-import Autocomplete from '../Autocomplete'
+import {Autocomplete} from '../Autocomplete'
 import Box from '../Box'
 import Checkbox from '../Checkbox'
 import Radio from '../Radio'
@@ -46,7 +46,7 @@ export type FormControlProps = {
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-const FormControl = forwardRef<HTMLDivElement, FormControlProps>(
+export const FormControl = forwardRef<HTMLDivElement, FormControlProps>(
   ({children, disabled: disabledProp, layout = 'vertical', id: idProp, required, sx}, ref) => {
     const [slots, childrenWithoutSlots] = useSlots(children, {
       caption: FormControlCaption,
@@ -216,10 +216,3 @@ const FormControl = forwardRef<HTMLDivElement, FormControlProps>(
     )
   },
 )
-
-export default Object.assign(FormControl, {
-  Caption: FormControlCaption,
-  Label: FormControlLabel,
-  LeadingVisual: FormControlLeadingVisual,
-  Validation: FormControlValidation,
-})

@@ -102,12 +102,10 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
   },
 )
 
-ProgressBar.displayName = 'ProgressBar'
-
 /**
  * A segment of a ProgressBar with multiple parts.
  * @alias ProgressBar.Item
- * @primerparentid progress_abr
+ * @primerparentid progress_bar
  */
 export const Item = styled.span<ProgressProp & SxProp>`
   width: ${props => (props.progress ? `${props.progress}%` : 0)};
@@ -125,5 +123,3 @@ export const Item = styled.span<ProgressProp & SxProp>`
 
   ${sx};
 `
-
-Item.displayName = 'ProgressBar.Item'

@@ -419,5 +419,3 @@ export const UnderlineNav = forwardRef(
     )
   },
 )
-
-UnderlineNav.displayName = 'UnderlineNav'

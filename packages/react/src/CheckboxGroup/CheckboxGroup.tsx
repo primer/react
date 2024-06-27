@@ -25,7 +25,7 @@ type CheckboxGroupProps = {
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-const CheckboxGroup: FC<PropsWithChildren<CheckboxGroupProps>> = ({children, disabled, onChange, ...rest}) => {
+export const CheckboxGroup: FC<PropsWithChildren<CheckboxGroupProps>> = ({children, disabled, onChange, ...rest}) => {
   const formControlComponentChildren = React.Children.toArray(children)
     .filter(child => React.isValidElement(child) && child.type === FormControl)
     .map(formControlComponent =>
@@ -74,10 +74,23 @@ const CheckboxGroup: FC<PropsWithChildren<CheckboxGroupProps>> = ({children, dis
   )
 }
 
-export {CheckboxGroupContext}
+/**
+ * The caption with contextual information about the set of related checkboxes.
+ * @alias CheckboxGroup.Caption
+ * @primerparentid checkbox_group
+ */
+export const CheckboxGroupCaption = CheckboxOrRadioGroupCaption
 
-export default Object.assign(CheckboxGroup, {
-  Caption: CheckboxOrRadioGroupCaption,
-  Label: CheckboxOrRadioGroupLabel,
-  Validation: CheckboxOrRadioGroupValidation,
-})
+/**
+ * The name for the set of related checkboxes.
+ * @alias CheckboxGroup.Label
+ * @primerparentid checkbox_group
+ */
+export const CheckboxGroupLabel = CheckboxOrRadioGroupLabel
+
+/**
+ * The message about the validation status of the set of related checkboxes.
+ * @alias CheckboxGroup.Caption
+ * @primerparentid checkbox_group
+ */
+export const CheckboxGroupValidation = CheckboxOrRadioGroupValidation

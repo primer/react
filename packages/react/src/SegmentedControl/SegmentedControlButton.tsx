@@ -28,7 +28,7 @@ const SegmentedControlButtonStyled = styled.button`
  * @alias SegmentedControl.Button
  * @primerparentid segmented_control
  */
-const SegmentedControlButton: FC<PropsWithChildren<SegmentedControlButtonProps>> = ({
+export const SegmentedControlButton: FC<PropsWithChildren<SegmentedControlButtonProps>> = ({
   children,
   leadingIcon: LeadingIcon,
   selected,
@@ -57,5 +57,3 @@ const SegmentedControlButton: FC<PropsWithChildren<SegmentedControlButtonProps>>
     </Box>
   )
 }
-
-export default SegmentedControlButton

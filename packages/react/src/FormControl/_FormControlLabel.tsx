@@ -38,17 +38,16 @@ since they are intended to be controlled by the FormControl context:
  * @alias FormControl.Label
  * @primerparentid form_control
  */
-const FormControlLabel: FC<PropsWithChildren<{htmlFor?: string} & ComponentProps<typeof InputLabel> & Props>> = ({
-  as,
-  children,
-  htmlFor,
-  id,
-  visuallyHidden,
-  requiredIndicator = true,
-  requiredText,
-  sx,
-  ...props
-}) => {
+const FormControlLabel: FC<
+  PropsWithChildren<
+    ComponentProps<typeof InputLabel> & {
+      /**
+       * This prop may be used to override the `htmlFor` set from FormControl's React Context.
+       */
+      htmlFor?: string
+    } & Props
+  >
+> = ({as, children, htmlFor, id, visuallyHidden, requiredIndicator = true, requiredText, sx, ...props}) => {
   const {disabled, id: formControlId, required} = useFormControlContext()
 
   /**

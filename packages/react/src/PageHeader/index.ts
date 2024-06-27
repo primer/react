@@ -1,1 +1,39 @@
-export * from './PageHeader'
+import {
+  Root,
+  ContextArea,
+  ParentLink,
+  ContextBar,
+  TitleArea,
+  ContextAreaActions,
+  LeadingAction,
+  Breadcrumbs,
+  LeadingVisual,
+  Title,
+  TrailingVisual,
+  TrailingAction,
+  Actions,
+  Description,
+  Navigation,
+} from './PageHeader'
+import type {PageHeaderProps, ParentLinkProps, TitleAreaProps, TitleProps, NavigationProps} from './PageHeader'
+
+Root.displayName = 'PageHeader'
+
+export const PageHeader = Object.assign(Root, {
+  ContextArea,
+  ParentLink,
+  ContextBar,
+  TitleArea,
+  ContextAreaActions,
+  LeadingAction,
+  Breadcrumbs,
+  LeadingVisual,
+  Title,
+  TrailingVisual,
+  TrailingAction,
+  Actions,
+  Description,
+  Navigation,
+})
+
+export type {PageHeaderProps, ParentLinkProps, TitleAreaProps, TitleProps, NavigationProps}

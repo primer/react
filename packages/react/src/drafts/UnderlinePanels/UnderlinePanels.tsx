@@ -65,7 +65,7 @@ const TabContainerComponent = createComponent(TabContainerElement, 'tab-containe
  * @primerstatus draft
  * @primera11yreviewed false
  */
-const UnderlinePanels: FC<UnderlinePanelsProps> = ({
+export const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledBy,
   children,
@@ -181,7 +181,7 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
  * @alias UnderlinePanels.Tab
  * @primerparentid underline_panels
  */
-const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, sx: sxProp = defaultSxProp, ...props}) => (
+export const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, sx: sxProp = defaultSxProp, ...props}) => (
   <UnderlineItem
     as="button"
     role="tab"
@@ -192,17 +192,11 @@ const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, sx: sxProp = defaultS
   />
 )
 
-Tab.displayName = 'UnderlinePanels.Tab'
-
 /**
  * A tabpanel associated with a UnderlinePanels.Tab in UnderlinePanels
  * @alias UnderlinePanels.Panel
  * @primerparentid underline_panels
  */
-const Panel: FC<PanelProps> = props => {
+export const Panel: FC<PanelProps> = props => {
   return <Box as="div" role="tabpanel" {...props} />
 }
-
-Panel.displayName = 'UnderlinePanels.Panel'
-
-export default Object.assign(UnderlinePanels, {Panel, Tab})

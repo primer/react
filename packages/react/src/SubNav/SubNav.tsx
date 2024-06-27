@@ -51,7 +51,7 @@ export type SubNavProps = {
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-function SubNav({actions, className, children, label, ...rest}: SubNavProps) {
+export function SubNav({actions, className, children, label, ...rest}: SubNavProps) {
   const classes = clsx(className, 'SubNav')
   return (
     <SubNavBase className={classes} aria-label={label} {...rest}>
@@ -68,7 +68,7 @@ export type SubNavLinksProps = SxProp
  * @alias SubNav.Links
  * @primerparentid sub_nav
  */
-const SubNavLinks = styled.div<SubNavLinksProps>`
+export const SubNavLinks = styled.div<SubNavLinksProps>`
   display: flex;
   ${sx};
 `
@@ -85,7 +85,7 @@ type StyledSubNavLinkProps = {
  * @alias SubNav.Link
  * @primerparentid sub_nav
  */
-const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
+export const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
   className: clsx(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
 }))<StyledSubNavLinkProps>`
   padding-left: ${get('space.3')};
@@ -137,9 +137,4 @@ const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
   ${sx};
 `
 
-SubNavLink.displayName = 'SubNav.Link'
-
-SubNavLinks.displayName = 'SubNav.Links'
-
 export type SubNavLinkProps = ComponentProps<typeof SubNavLink>
-export default Object.assign(SubNav, {Link: SubNavLink, Links: SubNavLinks})

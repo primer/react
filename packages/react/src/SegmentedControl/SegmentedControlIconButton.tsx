@@ -65,5 +65,3 @@ export const SegmentedControlIconButton: FC<PropsWithChildren<SegmentedControlIc
     </Box>
   )
 }
-
-export default SegmentedControlIconButton

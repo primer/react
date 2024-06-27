@@ -8,7 +8,6 @@ import {useProvidedRefOrCreate} from '../hooks'
 import type {Merge} from '../utils/types'
 import type {StyledWrapperProps} from '../internal/components/TextInputWrapper'
 import TextInputWrapper from '../internal/components/TextInputWrapper'
-import TextInputAction from '../internal/components/TextInputInnerAction'
 import UnstyledTextInput from '../internal/components/UnstyledTextInput'
 
 export type TextInputNonPassthroughProps = {
@@ -59,7 +58,7 @@ export type TextInputProps = Merge<ComponentPropsWithoutRef<'input'>, TextInputN
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
+export const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
   (
     {
       icon: IconComponent,
@@ -172,9 +171,3 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
     )
   },
 ) as PolymorphicForwardRefComponent<'input', TextInputProps>
-
-TextInput.displayName = 'TextInput'
-
-export default Object.assign(TextInput, {
-  Action: TextInputAction,
-})

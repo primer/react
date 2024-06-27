@@ -398,7 +398,32 @@ const defaultPosition = {
   regular: 'center',
 }
 
-const _Dialog = forwardRef<HTMLDivElement, PropsWithChildren<DialogProps>>((props, forwardedRef) => {
+/**
+ * A dialog is a type of overlay that can be used for confirming actions, asking
+ * for disambiguation, and presenting small forms. They generally allow the user
+ * to focus on a quick task without having to navigate to a different page.
+ *
+ * Dialogs appear in the page after a direct user interaction. Don't show dialogs
+ * on page load or as system alerts.
+ *
+ * Dialogs appear centered in the page, with a visible backdrop that dims the rest
+ * of the window for focus.
+ *
+ * All dialogs have a title and a close button.
+ *
+ * Dialogs are modal. Dialogs can be dismissed by clicking on the close button,
+ * pressing the escape key, or by interacting with another button in the dialog.
+ * To avoid losing information and missing important messages, clicking outside
+ * of the dialog will not close it.
+ *
+ * The sub components provided (e.g. Header, Title, etc.) are available for custom
+ * renderers only. They are not intended to be used otherwise.
+ * @primerid dialog_v2
+ * @primerdocsid dialog
+ * @primerstatus draft
+ * @primera11yreviewed false
+ */
+export const _Dialog = forwardRef<HTMLDivElement, PropsWithChildren<DialogProps>>((props, forwardedRef) => {
   const {
     title = 'Dialog',
     subtitle = '',
@@ -505,14 +530,13 @@ const _Dialog = forwardRef<HTMLDivElement, PropsWithChildren<DialogProps>>((prop
     </>
   )
 })
-_Dialog.displayName = 'Dialog'
 
 /**
  * The header area of a Dialog.
  * @alias Dialog.Header
  * @primerparentid dialog_v2
  */
-const Header = styled.div<SxProp>`
+export const Header = styled.div<SxProp>`
   box-shadow: 0 1px 0 ${get('colors.border.default')};
   padding: ${get('space.2')};
   z-index: 1;
@@ -525,7 +549,7 @@ const Header = styled.div<SxProp>`
  * @alias Dialog.Title
  * @primerparentid dialog_v2
  */
-const Title = styled.h1<SxProp>`
+export const Title = styled.h1<SxProp>`
   font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
   margin: 0; /* override default margin */
@@ -537,7 +561,7 @@ const Title = styled.h1<SxProp>`
  * @alias Dialog.Subtitle
  * @primerparentid dialog_v2
  */
-const Subtitle = styled.h2<SxProp>`
+export const Subtitle = styled.h2<SxProp>`
   font-size: ${get('fontSizes.0')};
   color: ${get('colors.fg.muted')};
   margin: 0; /* override default margin */
@@ -552,7 +576,7 @@ const Subtitle = styled.h2<SxProp>`
  * @alias Dialog.Body
  * @primerparentid dialog_v2
  */
-const Body = styled.div<SxProp>`
+export const Body = styled.div<SxProp>`
   flex-grow: 1;
   overflow: auto;
   padding: ${get('space.3')};
@@ -565,7 +589,7 @@ const Body = styled.div<SxProp>`
  * @alias Dialog.Footer
  * @primerparentid dialog_v2
  */
-const Footer = styled.div<SxProp>`
+export const Footer = styled.div<SxProp>`
   box-shadow: 0 -1px 0 ${get('colors.border.default')};
   padding: ${get('space.3')};
   display: flex;
@@ -583,7 +607,7 @@ const Footer = styled.div<SxProp>`
  * @alias Dialog.Buttons
  * @primerparentid dialog_v2
  */
-const Buttons: FunctionComponent<PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
+export const Buttons: FunctionComponent<PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
   const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
   let autoFocusCount = 0
   const [hasRendered, setHasRendered] = useState(0)
@@ -633,7 +657,12 @@ const DialogCloseButton = styled(Button)`
  * @alias Dialog.CloseButton
  * @primerparentid dialog_v2
  */
-const CloseButton: FunctionComponent<PropsWithChildren<{onClose: () => void}>> = ({onClose}) => {
+export const CloseButton: FunctionComponent<
+  PropsWithChildren<{
+    /** Callback for closing the Dialog */
+    onClose: () => void
+  }>
+> = ({onClose}) => {
   return (
     <DialogCloseButton aria-label="Close" onClick={onClose}>
       <Octicon icon={XIcon} />
@@ -641,32 +670,7 @@ const CloseButton: FunctionComponent<PropsWithChildren<{onClose: () => void}>> =
   )
 }
 
-/**
- * A dialog is a type of overlay that can be used for confirming actions, asking
- * for disambiguation, and presenting small forms. They generally allow the user
- * to focus on a quick task without having to navigate to a different page.
- *
- * Dialogs appear in the page after a direct user interaction. Don't show dialogs
- * on page load or as system alerts.
- *
- * Dialogs appear centered in the page, with a visible backdrop that dims the rest
- * of the window for focus.
- *
- * All dialogs have a title and a close button.
- *
- * Dialogs are modal. Dialogs can be dismissed by clicking on the close button,
- * pressing the escape key, or by interacting with another button in the dialog.
- * To avoid losing information and missing important messages, clicking outside
- * of the dialog will not close it.
- *
- * The sub components provided (e.g. Header, Title, etc.) are available for custom
- * renderers only. They are not intended to be used otherwise.
- * @primerid dialog_v2
- * @primerdocsid dialog
- * @primerstatus draft
- * @primera11yreviewed false
- */
-export const Dialog = Object.assign(_Dialog, {
+const Dialog = Object.assign(_Dialog, {
   Header,
   Title,
   Subtitle,
