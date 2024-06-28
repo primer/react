@@ -745,7 +745,6 @@ export const WithTrailingAction = () => {
           </ActionList.LeadingVisual>
           Item 1 (with default TrailingAction)
           <ActionList.TrailingAction label="Expand sidebar" icon={ArrowLeftIcon} />
-          <img src="foo.png" />
         </ActionList.Item>
         <ActionList.Item>
           Item 2 (with link TrailingAction)
