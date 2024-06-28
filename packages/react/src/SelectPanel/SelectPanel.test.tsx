@@ -4,13 +4,6 @@ import {SelectPanel, type SelectPanelProps} from '../SelectPanel'
 import {userEvent} from '@testing-library/user-event'
 import ThemeProvider from '../ThemeProvider'
 
-// actions
-// open
-// type / filter
-// toggleSelection
-// move to next option
-// move to previous option
-
 const items: SelectPanelProps['items'] = [
   {
     text: 'item one',
@@ -131,6 +124,69 @@ describe('SelectPanel', () => {
         description: 'test subtitle',
       }),
     ).toBeInTheDocument()
+  })
+
+  it('should call `onOpenChange` when opening and closing the dialog', async () => {
+    const onOpenChange = jest.fn()
+
+    function SelectPanelOpenChange() {
+      const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+      const [filter, setFilter] = React.useState('')
+      const [open, setOpen] = React.useState(false)
+
+      const onSelectedChange = (selected: SelectPanelProps['items']) => {
+        setSelected(selected)
+      }
+
+      return (
+        <ThemeProvider>
+          <button type="button">Outside of select panel</button>
+          <SelectPanel
+            title="test title"
+            subtitle="test subtitle"
+            items={items}
+            placeholder="Select items"
+            placeholderText="Filter items"
+            selected={selected}
+            onSelectedChange={onSelectedChange}
+            filterValue={filter}
+            onFilterChange={value => {
+              setFilter(value)
+            }}
+            open={open}
+            onOpenChange={(...args) => {
+              onOpenChange(...args)
+              setOpen(args[0])
+            }}
+          />
+        </ThemeProvider>
+      )
+    }
+
+    const user = userEvent.setup()
+
+    render(<SelectPanelOpenChange />)
+
+    // Open by click
+    await user.click(screen.getByText('Select items'))
+    expect(onOpenChange).toHaveBeenLastCalledWith(true, 'anchor-click')
+
+    // Close by click on anchor
+    await user.click(screen.getByText('Select items'))
+    expect(onOpenChange).toHaveBeenLastCalledWith(false, 'anchor-click')
+
+    // Open by button activation
+    await user.type(screen.getByText('Select items'), '{Space}')
+    expect(onOpenChange).toHaveBeenLastCalledWith(true, 'anchor-click')
+
+    // Close by Escape key
+    await user.keyboard('{Escape}')
+    expect(onOpenChange).toHaveBeenLastCalledWith(false, 'escape')
+
+    // Close by click outside
+    await user.click(screen.getByText('Select items'))
+    await user.click(screen.getByText('Outside of select panel'))
+    expect(onOpenChange).toHaveBeenLastCalledWith(false, 'click-outside')
   })
 
   describe('selection', () => {
@@ -317,19 +373,4 @@ describe('SelectPanel', () => {
       expect(screen.getByText('test footer')).toBeVisible()
     })
   })
-
-  // open, onOpenChange (default)
-  // selected, onSelectedChange (default)
-  // placeholder
-  // placeholderText
-  // filterValue, onFilterChange
-  // inputLabel
-  // overlayProps
-  // textInputProps
-  // footer
-  //
-  // renderAnchor
-  // anchorRef
-  // sx
-  // ...listProps
 })
