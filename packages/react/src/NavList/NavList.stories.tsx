@@ -224,7 +224,7 @@ export const WithInactiveItems: StoryFn = () => (
   </PageLayout>
 )
 
-export const WithLoadingItems: Story = () => (
+export const WithLoadingItems: StoryFn = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
       <NavList>
@@ -249,7 +249,7 @@ export const WithLoadingItems: Story = () => (
   </PageLayout>
 )
 
-export const WithGroup = () => (
+export const WithGroup: StoryFn = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
       <NavList>
