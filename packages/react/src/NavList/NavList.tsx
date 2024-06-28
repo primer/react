@@ -278,19 +278,27 @@ const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defau
 export type NavListExpandProps = {
   children: React.ReactNode
   label: string
-  collapsible?: boolean
 } & SxProp
 
-const Expand: React.FC<NavListExpandProps> = ({label, children, collapsible = false, ...props}) => {
+const Expand = React.forwardRef<HTMLButtonElement, NavListExpandProps>(({label, children, ...props}, forwardedRef) => {
   const [expanded, setExpanded] = React.useState(false)
+  const triggerContainer = React.useRef<HTMLLIElement>(null)
+  const initialItem = React.useRef<HTMLAnchorElement>(null)
 
-  const expandList = React.useCallback(() => {
-    setExpanded(!expanded)
-  }, [expanded])
+  const expandList = () => {
+    // Can only be "true", as trigger is removed after expansion
+    setExpanded(true)
+  }
+
+  React.useEffect(() => {
+    if (expanded) {
+      initialItem.current?.focus()
+    }
+  }, [expanded, initialItem])
 
   return !expanded ? (
-    <Box as="li" sx={{listStyle: 'none'}}>
-      <ActionList.Item as="button" onClick={expandList} {...props}>
+    <Box as="li" sx={{listStyle: 'none'}} ref={triggerContainer}>
+      <ActionList.Item as="button" aria-expanded="false" ref={forwardedRef} onClick={expandList} {...props}>
         {label}
         <ActionList.TrailingVisual>
           <PlusIcon />
@@ -299,14 +307,12 @@ const Expand: React.FC<NavListExpandProps> = ({label, children, collapsible = fa
     </Box>
   ) : (
     React.Children.map(children, (child, index) => {
-      if (React.isValidElement(child) && child.type !== Item) {
-        return null
-      }
+      const isFirstChild = index === 0 ? {ref: initialItem} : null
 
-      return React.cloneElement(child as React.ReactElement)
+      return React.cloneElement(child as React.ReactElement, {...isFirstChild})
     })
   )
-}
+})
 
 Group.displayName = 'NavList.Group'
 
