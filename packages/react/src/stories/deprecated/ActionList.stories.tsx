@@ -112,12 +112,15 @@ const selectListItems = new Array(6).fill(undefined).map((_, i) => {
 export function SingleSelectListStory(): JSX.Element {
   return (
     <>
-      <h1>Single Select List</h1>
+      <h1 id="story-title">Single Select List</h1>
       <ErsatzOverlay>
         <ActionList
+          role="listbox"
+          aria-labelledby="story-title"
           items={selectListItems.map((item, index) => ({
             ...item,
             selected: index === 1,
+            role: 'option',
           }))}
         />
       </ErsatzOverlay>
@@ -129,13 +132,16 @@ SingleSelectListStory.storyName = 'Single Select'
 export function MultiSelectListStory(): JSX.Element {
   return (
     <>
-      <h1>Multi Select List</h1>
+      <h1 id="story-title">Multi Select List</h1>
       <ErsatzOverlay>
         <ActionList
+          role="listbox"
+          aria-labelledby="story-title"
           selectionVariant="multiple"
           items={selectListItems.map((item, index) => ({
             ...item,
             selected: index === 1 || index === 3,
+            role: 'option',
           }))}
         />
       </ErsatzOverlay>
@@ -156,8 +162,8 @@ export function ComplexListInsetVariantStory(): JSX.Element {
         <ActionList
           groupMetadata={[
             {groupId: '0'},
-            {groupId: '1', header: {title: 'Live query', variant: 'filled'}},
-            {groupId: '2', header: {title: 'Layout', variant: 'subtle'}, showItemDividers: true},
+            {groupId: '1', header: {title: 'Live query', variant: 'filled', 'aria-level': 3}},
+            {groupId: '2', header: {title: 'Layout', variant: 'subtle', 'aria-level': 3}, showItemDividers: true},
             {groupId: '3', renderItem: props => <ActionList.Item style={{fontWeight: 'bold'}} {...props} />},
             {
               groupId: '4',
@@ -233,8 +239,8 @@ export function ComplexListFullVariantStory(): JSX.Element {
           variant="full"
           groupMetadata={[
             {groupId: '0'},
-            {groupId: '1', header: {title: 'Live query', variant: 'filled'}},
-            {groupId: '2', header: {title: 'Layout', variant: 'subtle'}},
+            {groupId: '1', header: {title: 'Live query', variant: 'filled', 'aria-level': 3}},
+            {groupId: '2', header: {title: 'Layout', variant: 'subtle', 'aria-level': 3}},
             {groupId: '3', renderItem: props => <ActionList.Item style={{fontWeight: 'bold'}} {...props} />},
             {
               groupId: '4',
@@ -296,9 +302,9 @@ export function HeaderStory(): JSX.Element {
     <>
       <h1>Header</h1>
       <h2>Filled Variant</h2>
-      <ActionList.Header title="Layout" variant="filled" />
+      <ActionList.Header title="Layout" variant="filled" aria-level={3} />
       <h2>Subtle Variant</h2>
-      <ActionList.Header title="Layout" variant="subtle" />
+      <ActionList.Header title="Layout" variant="subtle" aria-level={3} />
     </>
   )
 }

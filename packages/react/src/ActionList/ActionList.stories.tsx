@@ -34,7 +34,6 @@ Playground.args = {
   showDividers: false,
   selectionVariant: undefined,
   variant: 'inset',
-  role: 'listbox',
 }
 Playground.argTypes = {
   showDividers: {
@@ -168,7 +167,6 @@ ItemPlayground.args = {
   disabled: false,
   inactiveText: '',
   variant: 'default',
-  role: 'listitem',
   id: 'item-1',
   leadingVisual: null,
   loading: false,
@@ -221,7 +219,6 @@ export const LinkItemPlayground = args => {
 LinkItemPlayground.args = {
   active: false,
   disabled: false,
-  role: 'listitem',
   id: 'item-1',
   inactiveText: '',
   leadingVisual: null,
@@ -294,7 +291,6 @@ GroupPlayground.argTypes = {
 }
 GroupPlayground.args = {
   variant: 'subtle',
-  role: 'listbox',
   title: 'Group title',
   auxiliaryText: '',
 }
