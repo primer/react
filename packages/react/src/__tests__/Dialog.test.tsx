@@ -1,6 +1,6 @@
 import React, {useState, useRef} from 'react'
 import {Dialog, Box, Text, Button} from '..'
-import {render as HTMLRender, fireEvent, getByRole, waitFor} from '@testing-library/react'
+import {render as HTMLRender, fireEvent, waitFor} from '@testing-library/react'
 import axe from 'axe-core'
 import userEvent from '@testing-library/user-event'
 import {behavesAsComponent, checkExports} from '../utils/testing'
