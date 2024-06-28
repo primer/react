@@ -58,7 +58,6 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
 
   const [slots, childrenWithoutSlots] = useSlots(props.children, {
     groupHeading: GroupHeading,
-    groupContent: GroupContent,
   })
 
   let groupHeadingId = undefined
@@ -103,14 +102,9 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
         >
           {slots.groupHeading ? childrenWithoutSlots : props.children}
         </Box>
-        {slots.groupContent ? React.cloneElement(slots.groupContent) : null}
       </GroupContext.Provider>
     </Box>
   )
-}
-
-export const GroupContent: React.FC<React.PropsWithChildren> = ({children, ...props}) => {
-  return <Box {...props}>{children}</Box>
 }
 
 export type GroupHeadingProps = Pick<ActionListGroupProps, 'variant' | 'auxiliaryText'> &
