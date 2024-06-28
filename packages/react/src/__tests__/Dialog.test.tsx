@@ -1,11 +1,11 @@
 import React, {useState, useRef} from 'react'
-import {Dialog, Box, Text} from '..'
-import {Button} from '../deprecated'
-import {render as HTMLRender, fireEvent} from '@testing-library/react'
+import {Dialog, Box, Text, Button} from '..'
+import {render as HTMLRender, fireEvent, getByRole, waitFor} from '@testing-library/react'
 import axe from 'axe-core'
+import userEvent from '@testing-library/user-event'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 
-/* Dialog Version 2 */
+/* Dialog Version 1 tests */
 
 const comp = (
   <Dialog isOpen onDismiss={() => null} aria-labelledby="header">
@@ -140,12 +140,24 @@ describe('Dialog', () => {
   })
 
   it('Returns focus to returnFocusRef on escape', async () => {
-    const {getByTestId, queryByTestId} = HTMLRender(<Component />)
+    const {getByTestId, queryByTestId, getByText} = HTMLRender(<Component />)
 
     expect(getByTestId('inner')).toBeTruthy()
-    fireEvent.keyDown(document.body, {key: 'Escape'})
+    const tooltipEl = getByText('Close')
+    // first ESC closes the tooltip
+    const user = userEvent.setup()
+    await user.keyboard('{Escape}')
+    await waitFor(() => {
+      // Wait for the tooltip to close
+      expect(tooltipEl).not.toHaveAttribute(':popover-open')
+    })
 
-    expect(queryByTestId('inner')).toBeNull()
+    // second ESC closes the dialog and returns focus
+    await user.keyboard('{Escape}')
+    await waitFor(() => {
+      //   // Wait for the tooltip to close
+      expect(queryByTestId('inner')).toBeNull()
+    })
     const triggerButton = getByTestId('trigger-button')
     expect(document.activeElement).toEqual(triggerButton)
   })
