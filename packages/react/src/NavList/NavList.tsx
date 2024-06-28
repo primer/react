@@ -283,18 +283,25 @@ export type NavListExpandProps = {
 const Expand = React.forwardRef<HTMLButtonElement, NavListExpandProps>(({label, children, ...props}, forwardedRef) => {
   const [expanded, setExpanded] = React.useState(false)
   const triggerContainer = React.useRef<HTMLLIElement>(null)
-  const initialItem = React.useRef<HTMLAnchorElement>(null)
+  const [focusTargetParent, setFocusTargetParent] = React.useState<HTMLLIElement>()
 
   const expandList = () => {
     // Can only be "true", as trigger is removed after expansion
+    const parentItem = triggerContainer.current?.parentElement as HTMLLIElement
+    setFocusTargetParent(parentItem)
     setExpanded(true)
   }
 
   React.useEffect(() => {
-    if (expanded) {
-      initialItem.current?.focus()
+    if (expanded && focusTargetParent) {
+      // Focus the last 'data-target-focus' element that is a child of current list
+      const focusTargets = Array.from(
+        focusTargetParent.querySelectorAll('[data-target--expand-focus]'),
+      ) as HTMLAnchorElement[]
+
+      focusTargets[focusTargets.length - 1]?.focus()
     }
-  }, [expanded, initialItem])
+  }, [expanded, focusTargetParent])
 
   return !expanded ? (
     <Box as="li" sx={{listStyle: 'none'}} ref={triggerContainer}>
@@ -307,7 +314,7 @@ const Expand = React.forwardRef<HTMLButtonElement, NavListExpandProps>(({label, 
     </Box>
   ) : (
     React.Children.map(children, (child, index) => {
-      const isFirstChild = index === 0 ? {ref: initialItem} : null
+      const isFirstChild = index === 0 ? {'data-target--expand-focus': true} : null
 
       return React.cloneElement(child as React.ReactElement, {...isFirstChild})
     })

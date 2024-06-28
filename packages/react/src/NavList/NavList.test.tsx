@@ -356,12 +356,14 @@ describe('NavList.Expand', () => {
     expect(button).toBeInTheDocument()
   })
 
-  it('renders button as direct sibling of <ul>', () => {
+  it('renders button as child of <ul>', () => {
     const {queryByRole} = render(<NavListWithExpand />)
     const button = queryByRole('button', {name: 'More'})
+    const buttonParent = button!.parentElement as HTMLButtonElement
 
-    expect(button!.previousElementSibling).toBeInTheDocument()
-    expect(button!.previousElementSibling!.tagName).toEqual('ul')
+    expect(buttonParent).toBeInTheDocument()
+    expect(buttonParent.tagName).toEqual('LI')
+    expect(buttonParent.parentElement?.tagName).toEqual('UL')
   })
 
   it('hides items inside of NavList.Expand by default', () => {
@@ -446,17 +448,14 @@ describe('NavList.Expand with Group', () => {
     expect(queryByRole('button', {name: 'Show'})).toBeInTheDocument()
   })
 
-  it('renders expand buttons as direct sibling of <ul>', () => {
+  it('renders expand buttons as within <ul>', () => {
     const {queryByRole} = render(<NavListWithExpand />)
 
     const group1Button = queryByRole('button', {name: 'More'})
+    const buttonParent = group1Button?.parentElement as HTMLUListElement
 
-    expect(group1Button!.previousElementSibling).toBeInTheDocument()
-    expect(group1Button!.previousElementSibling!.tagName).toEqual('ul')
-
-    const group2Button = queryByRole('button', {name: 'Show'})
-
-    expect(group2Button!.previousElementSibling).toBeInTheDocument()
-    expect(group2Button!.previousElementSibling!.tagName).toEqual('ul')
+    expect(buttonParent).toBeInTheDocument()
+    expect(buttonParent.tagName).toEqual('LI')
+    expect(buttonParent.parentElement!.tagName).toEqual('UL')
   })
 })
