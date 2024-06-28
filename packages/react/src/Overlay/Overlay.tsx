@@ -22,6 +22,7 @@ type StyledOverlayProps = {
   visibility?: 'visible' | 'hidden'
   overflow?: 'auto' | 'hidden' | 'scroll' | 'visible'
   anchorSide?: AnchorSide
+  style?: React.CSSProperties
 } & SxProp
 
 export const heightMap = {
@@ -153,6 +154,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
       portalContainerName,
       preventFocusOnOpen,
       position,
+      style: styleFromProps = {},
       ...rest
     },
     forwardedRef,
@@ -214,6 +216,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
               bottom,
               position,
               '--styled-overlay-visibility': visibility,
+              ...styleFromProps,
             } as React.CSSProperties
           }
         />
