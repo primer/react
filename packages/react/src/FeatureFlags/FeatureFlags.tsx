@@ -1,9 +1,10 @@
-import React, {useMemo} from 'react'
+import React, {useMemo, type PropsWithChildren} from 'react'
 import {FeatureFlagContext} from './FeatureFlagContext'
 import {FeatureFlagScope, type FeatureFlags} from './FeatureFlagScope'
 import {DefaultFeatureFlags} from './DefaultFeatureFlags'
 
-export type FeatureFlagsProps = React.PropsWithChildren<{
+export type FeatureFlagsProps = PropsWithChildren<{
+  /** Object where keys are feature flag names and values are boolean */
   flags: FeatureFlags
 }>
 

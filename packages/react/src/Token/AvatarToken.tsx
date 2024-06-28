@@ -22,6 +22,10 @@ const AvatarContainer = styled.span<{avatarSize: TokenSizeKeys}>`
   width: ${props => `calc(${tokenSizes[props.avatarSize]} - var(--spacing))`};
 `
 
+/**
+ * An abstraction of Token that includes an avatar image as a leading visual.
+ * @primerparentid token
+ */
 const AvatarToken = forwardRef(({avatarSrc, id, size = defaultTokenSize, ...rest}, forwardedRef) => {
   return (
     <Token

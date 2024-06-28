@@ -56,7 +56,12 @@ type NoninteractiveMarkdownViewerProps = CoreMarkdownViewerProps & {
 
 export type MarkdownViewerProps = NoninteractiveMarkdownViewerProps | InteractiveMarkdownViewerProps
 
-/** @deprecated Will be removed in v37 (https://github.com/primer/react/issues/3604) */
+/**
+ * @deprecated Will be removed in v37 (https://github.com/primer/react/issues/3604)
+ * @primerid drafts_markdown_viewer
+ * @primerstatus deprecated
+ * @primera11yreviewed false
+ */
 const MarkdownViewer = ({
   dangerousRenderedHTML,
   loading = false,

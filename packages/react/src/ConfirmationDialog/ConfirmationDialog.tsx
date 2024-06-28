@@ -1,4 +1,5 @@
 import React, {useCallback} from 'react'
+import type {FC, PropsWithChildren} from 'react'
 import {createRoot} from 'react-dom/client'
 import styled from 'styled-components'
 import Box from '../Box'
@@ -55,7 +56,7 @@ const StyledTitle = styled(Box).attrs({as: 'h1'})`
   flex-grow: 1;
   margin: 0; /* override default margin */
 `
-const ConfirmationHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({title, onClose, dialogLabelId}) => {
+const ConfirmationHeader: FC<PropsWithChildren<DialogHeaderProps>> = ({title, onClose, dialogLabelId}) => {
   const onCloseClick = useCallback(() => {
     onClose('close-button')
   }, [onClose])
@@ -72,7 +73,7 @@ const StyledConfirmationBody = styled(Box)`
   color: ${get('colors.fg.muted')};
   flex-grow: 1;
 `
-const ConfirmationBody: React.FC<React.PropsWithChildren<DialogProps>> = ({children}) => {
+const ConfirmationBody: FC<PropsWithChildren<DialogProps>> = ({children}) => {
   return <StyledConfirmationBody>{children}</StyledConfirmationBody>
 }
 const StyledConfirmationFooter = styled(Box)`
@@ -84,7 +85,7 @@ const StyledConfirmationFooter = styled(Box)`
   justify-content: end;
   padding: ${get('space.1')} ${get('space.3')} ${get('space.3')};
 `
-const ConfirmationFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({footerButtons}) => {
+const ConfirmationFooter: FC<PropsWithChildren<DialogProps>> = ({footerButtons}) => {
   const {containerRef: footerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
     focusInStrategy: 'closest',
@@ -103,7 +104,7 @@ const ConfirmationFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({foo
  * two buttons: one to cancel the action and one to confirm it. No custom
  * rendering capabilities are provided for ConfirmationDialog.
  */
-export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDialogProps>> = props => {
+export const ConfirmationDialog: FC<PropsWithChildren<ConfirmationDialogProps>> = props => {
   const {
     onClose,
     title,

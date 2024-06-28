@@ -1,4 +1,4 @@
-import React, {cloneElement, useRef} from 'react'
+import React, {cloneElement, useRef, type ComponentProps} from 'react'
 import Box from '../../Box'
 import Portal from '../../Portal'
 import type {BetterSystemStyleObject} from '../../sx'
@@ -102,6 +102,9 @@ const noop = () => {
 /**
  * Shows suggestions to complete the current word/phrase the user is actively typing.
  * @deprecated Will be removed in v37 (https://github.com/primer/react/issues/3604)
+ * @primerid drafts_inline_autocomplete
+ * @primerstatus deprecated
+ * @primera11yreviewed false
  */
 const InlineAutocomplete = ({
   triggers,
@@ -114,7 +117,7 @@ const InlineAutocomplete = ({
   tabInsertsSuggestions = false,
   suggestionsPlacement = 'below',
   ...externalInputProps
-}: InlineAutocompleteProps & React.ComponentProps<'textarea' | 'input'>) => {
+}: InlineAutocompleteProps & ComponentProps<'textarea' | 'input'>) => {
   const inputProps = useFormControlForwardedProps(externalInputProps)
 
   const inputRef = useRef<HTMLInputElement & HTMLTextAreaElement>(null)

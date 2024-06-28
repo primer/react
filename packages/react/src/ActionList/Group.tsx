@@ -1,4 +1,5 @@
 import React from 'react'
+import type {FC, HTMLAttributes, PropsWithChildren} from 'react'
 import {useId} from '../hooks/useId'
 import Box from '../Box'
 import type {SxProp, BetterSystemStyleObject} from '../sx'
@@ -44,7 +45,12 @@ export const GroupContext = React.createContext<ContextProps>({
   selectionVariant: undefined,
 })
 
-export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
+/**
+ * Collects related `Items` in an `ActionList`.
+ * @alias ActionList.Group
+ * @primerparentid action_list
+ */
+export const Group: FC<PropsWithChildren<ActionListGroupProps>> = ({
   title,
   variant = 'subtle',
   auxiliaryText,
@@ -110,7 +116,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
 export type GroupHeadingProps = Pick<ActionListGroupProps, 'variant' | 'auxiliaryText'> &
   Omit<ActionListHeadingProps, 'as'> &
   SxProp &
-  React.HTMLAttributes<HTMLElement> & {
+  HTMLAttributes<HTMLElement> & {
     as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
     _internalBackwardCompatibleTitle?: string
   }
@@ -122,8 +128,10 @@ export type GroupHeadingProps = Pick<ActionListGroupProps, 'variant' | 'auxiliar
  * If the role is "listbox" or "menu" (ActionMenu), the group heading is rendered as a div with presentation role and it is
  * hidden from the accessibility tree due to the limitation of listbox children. https://w3c.github.io/aria/#listbox
  * groups under menu or listbox are labelled by `aria-label`
+ * @alias ActionList.GroupHeading
+ * @primerparentid action_list
  */
-export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> = ({
+export const GroupHeading: FC<PropsWithChildren<GroupHeadingProps>> = ({
   as,
   variant,
   // We are not recommending this prop to be used, it should only be used internally for incremental rollout.

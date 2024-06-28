@@ -1,6 +1,6 @@
 import styled, {css} from 'styled-components'
 import type {TextareaHTMLAttributes, ReactElement} from 'react'
-import React from 'react'
+import React, {forwardRef} from 'react'
 import {TextInputBaseWrapper} from '../internal/components/TextInputWrapper'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import type {SxProp} from '../sx'
@@ -20,7 +20,7 @@ export type TextareaProps = {
    */
   validationStatus?: FormValidationStatus
   /**
-   * Block
+   * Expands with width of the component to fill the parent elements
    */
   block?: boolean
   /**
@@ -65,8 +65,11 @@ const StyledTextarea = styled.textarea<TextareaProps>`
 /**
  * An accessible, native textarea component that supports validation states.
  * This component accepts all native HTML <textarea> attributes as props.
+ * @primerid textarea
+ * @primerstatus alpha
+ * @primera11yreviewed false
  */
-const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
+const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   (
     {
       value,

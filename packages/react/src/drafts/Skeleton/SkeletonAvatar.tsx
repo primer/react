@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {type FC} from 'react'
 import {getBreakpointDeclarations} from '../../utils/getBreakpointDeclarations'
 import {get} from '../../constants'
 import {isResponsiveValue} from '../../hooks/useResponsiveValue'
@@ -26,7 +26,13 @@ const avatarSkeletonStyles = {
   },
 }
 
-export const SkeletonAvatar: React.FC<SkeletonAvatarProps> = ({size = DEFAULT_AVATAR_SIZE, square, ...rest}) => {
+/**
+ * Skeleton avatars may be used to improve perceived performance by rendering a rough representation of an avatar in a block of content that is still loading.
+ * @primerid skeleton_avatar
+ * @primerstatus draft
+ * @primera11yreviewed false
+ */
+export const SkeletonAvatar: FC<SkeletonAvatarProps> = ({size = DEFAULT_AVATAR_SIZE, square, ...rest}) => {
   const avatarSx = isResponsiveValue(size)
     ? {
         ...getBreakpointDeclarations(

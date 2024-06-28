@@ -187,14 +187,29 @@ const TooltipBase = styled.span<SxProp>`
 `
 
 export type TooltipProps = {
+  /**
+   * Sets where the tooltip renders in relation to the target.
+   * @default n
+   */
   direction?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
+  /** Text content of the tooltip. Also used as an aria-label. */
   text?: string
+  /** When set to `true`, tooltip appears without any delay. */
   noDelay?: boolean
   align?: 'left' | 'right'
+  /** Use `true` to allow text within tooltip to wrap. */
   wrap?: boolean
 } & ComponentProps<typeof TooltipBase>
 
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
+
+/**
+ * Tooltips add additional context to interactive UI elements and appear on mouse hover or keyboard focus.
+ * @primerid tooltip
+ * @primerdocsid tooltip
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 function Tooltip({direction = 'n', children, className, text, noDelay, align, wrap, id, ...rest}: TooltipProps) {
   const tooltipId = useId(id)
   const classes = clsx(

@@ -1,10 +1,10 @@
-import React, {useCallback, useContext, useMemo, useEffect, useState} from 'react'
+import React, {useCallback, useContext, useMemo, useEffect, useState, forwardRef} from 'react'
+import type {FC, PropsWithChildren} from 'react'
 import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {OverlayProps} from '../Overlay'
 import {useProvidedRefOrCreate, useProvidedStateOrCreate, useMenuKeyboardNavigation} from '../hooks'
-import {Divider} from '../ActionList/Divider'
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
 import type {ButtonProps} from '../Button'
 import {Button} from '../Button'
@@ -43,7 +43,14 @@ export type ActionMenuProps = {
   onOpenChange?: (s: boolean) => void
 } & Pick<AnchoredOverlayProps, 'anchorRef'>
 
-const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
+/**
+ * Action menu is composed of action list and overlay patterns used for quick actions and selections.
+ * Defaults to a the "default" Button variant with a trailing down triangle icon.
+ * @primerid action_menu
+ * @primerstatus beta
+ * @primera11yreviewed false
+ */
+export const ActionMenu: FC<PropsWithChildren<ActionMenuProps>> = ({
   anchorRef: externalAnchorRef,
   open,
   onOpenChange,
@@ -137,7 +144,13 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
 }
 
 export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string}
-const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, ...anchorProps}, anchorRef) => {
+
+/**
+ * Container for a custom anchor element that triggers the ActionMenu. Commonly used to wrap an IconButton.
+ * @alias ActionMenu.Anchor
+ * @primerparentid action_menu
+ */
+export const Anchor = forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, ...anchorProps}, anchorRef) => {
   const {onOpen, isSubmenu} = React.useContext(MenuContext)
 
   const openSubmenuOnRightArrow: React.KeyboardEventHandler<HTMLElement> = useCallback(
@@ -176,9 +189,16 @@ const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, 
 
 /** this component is syntactical sugar 🍭 */
 export type ActionMenuButtonProps = Omit<ButtonProps, 'children'> & {
+  /** The button that triggers the action menu */
   children: React.ReactNode
 }
-const MenuButton = React.forwardRef(({...props}, anchorRef) => {
+
+/**
+ * The button that toggles the ActionMenu
+ * @alias ActionMenu.Button
+ * @primerparentid action_menu
+ */
+export const MenuButton = forwardRef(({...props}, anchorRef) => {
   return (
     <Anchor ref={anchorRef}>
       <Button type="button" trailingAction={TriangleDownIcon} {...props} />
@@ -186,14 +206,20 @@ const MenuButton = React.forwardRef(({...props}, anchorRef) => {
   )
 }) as PolymorphicForwardRefComponent<'button', ActionMenuButtonProps>
 
-type MenuOverlayProps = Partial<OverlayProps> &
+export type MenuOverlayProps = Partial<OverlayProps> &
   Pick<AnchoredOverlayProps, 'align' | 'side'> & {
     /**
      * Recommended: `ActionList`
      */
     children: React.ReactNode
   }
-const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
+
+/**
+ * The non-modal dialog that overlays the UI
+ * @alias ActionMenu.Overlay
+ * @primerparentid action_menu
+ */
+export const Overlay: FC<PropsWithChildren<MenuOverlayProps>> = ({
   children,
   align = 'start',
   side,
@@ -210,7 +236,7 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
     onOpen,
     onClose,
     isSubmenu = false,
-  } = React.useContext(MenuContext) as MandateProps<MenuContextProps, 'anchorRef'>
+  } = useContext(MenuContext) as MandateProps<MenuContextProps, 'anchorRef'>
 
   const containerRef = React.useRef<HTMLDivElement>(null)
   useMenuKeyboardNavigation(open, onClose, containerRef, anchorRef, isSubmenu)
@@ -256,6 +282,3 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
     </AnchoredOverlay>
   )
 }
-
-Menu.displayName = 'ActionMenu'
-export const ActionMenu = Object.assign(Menu, {Button: MenuButton, Anchor, Overlay, Divider})

@@ -1,9 +1,10 @@
 import {Box} from '.'
 import React from 'react'
+import type {FC, PropsWithChildren} from 'react'
 
 /** Private component used to render placeholders in storybook and documentation examples  */
-export const Placeholder: React.FC<
-  React.PropsWithChildren<{
+export const Placeholder: FC<
+  PropsWithChildren<{
     id?: string | undefined
     width?: number | string
     height: number | string

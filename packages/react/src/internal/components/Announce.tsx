@@ -1,9 +1,9 @@
 import {announceFromElement} from '@primer/live-region-element'
-import React, {useEffect, useRef, type ElementRef} from 'react'
+import React, {useEffect, useRef, type ElementRef, type ComponentPropsWithoutRef} from 'react'
 import Box from '../../Box'
 import {useEffectOnce} from '../hooks/useEffectOnce'
 
-export type AnnounceProps = React.ComponentPropsWithoutRef<typeof Box> & {
+export type AnnounceProps = ComponentPropsWithoutRef<typeof Box> & {
   /**
    * The politeness level to use for the announcement
    * @default polite

@@ -5,7 +5,8 @@ import {
   FileDirectoryOpenFillIcon,
 } from '@primer/octicons-react'
 import clsx from 'clsx'
-import React, {useCallback, useEffect} from 'react'
+import React, {forwardRef, useCallback, useEffect} from 'react'
+import type {FC} from 'react'
 import styled from 'styled-components'
 import {ConfirmationDialog} from '../ConfirmationDialog/ConfirmationDialog'
 import Spinner from '../Spinner'
@@ -65,7 +66,9 @@ export type TreeViewProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
   children: React.ReactNode
+  /** Prevents the tree from indenting items. This should only be used when the tree is used to display a flat list of items. */
   flat?: boolean
+  /** Class name(s) used to customize styles */
   className?: string
 }
 
@@ -277,7 +280,13 @@ const UlBox = styled.ul<SxProp>`
   ${sx}
 `
 
-const Root: React.FC<TreeViewProps> = ({
+/**
+ * Tree view is a hierarchical list of items that may have a parent-child relationship where children can be toggled into view by expanding or collapsing their parent item.
+ * @primerid tree_view
+ * @primerstatus beta
+ * @primera11yreviewed true
+ */
+const Root: FC<TreeViewProps> = ({
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledby,
   children,
@@ -356,18 +365,34 @@ Root.displayName = 'TreeView'
 export type TreeViewItemProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
+  /** A unique identifier for the item. */
   id: string
   children: React.ReactNode
+  /** The size of this item's contents. Passing this will set 'content-visiblity: auto' on the content container, delaying rendering until the item is in the viewport. */
   containIntrinsicSize?: string
+  /**
+   * Indicates whether the item is the current item. No more than one item should be current at once. The path to the current item will be expanded by default.
+   * @default false
+   */
   current?: boolean
+  /** The expanded state of the item when it is initially rendered. Use when you do not need to control the state. */
   defaultExpanded?: boolean
+  /** The controlled expanded state of item. Must be used in conjunction with onExpandedChange. */
   expanded?: boolean
+  /** Event handler called when the expanded state of the item changes. */
   onExpandedChange?: (expanded: boolean) => void
+  /** Callback when a tree view node is activated */
   onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
+  /** Class name(s) used to customize styles */
   className?: string
 }
 
-const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
+/**
+ * A node in the tree view. May contain a TreeView.SubTree of child nodes.
+ * @alias TreeView.Item
+ * @primerparentid tree_view
+ */
+const Item = forwardRef<HTMLElement, TreeViewItemProps>(
   (
     {
       id: itemId,
@@ -565,7 +590,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
 )
 
 /** Lines to indicate the depth of an item in a TreeView */
-const LevelIndicatorLines: React.FC<{level: number}> = ({level}) => {
+const LevelIndicatorLines: FC<{level: number}> = ({level}) => {
   return (
     <div style={{width: '100%', display: 'flex'}}>
       {Array.from({length: level - 1}).map((_, index) => (
@@ -584,14 +609,18 @@ export type SubTreeState = 'initial' | 'loading' | 'done' | 'error'
 
 export type TreeViewSubTreeProps = {
   children?: React.ReactNode
+  /** Specify a state if items in the subtree are loaded asynchronously. An asynchronous subtree can be in one of the following states: 'initial', 'loading', 'done', or 'error'. In the 'initial' state, items are neither loaded nor loading. In the 'loading' state, items are loading and the subtree will render a loading indicator. In the 'done' state, items are loaded. Screen readers will announce when a subtree enters the 'done' state. An 'error' state means that an error occured while loading items. */
   state?: SubTreeState
-  /**
-   * Display a skeleton loading state with the specified count of items
-   */
+  /** The number of items expected to be in the subtree. When in the loading state, the subtree will render a skeleton loading placeholder with the specified count of items */
   count?: number
 }
 
-const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
+/**
+ * A subtree of items that are nested under a parent node (TreeView.Item) in the tree view.
+ * @alias TreeView.SubTree
+ * @primerparentid tree_view
+ */
+const SubTree: FC<TreeViewSubTreeProps> = ({count, state, children}) => {
   const {announceUpdate} = React.useContext(RootContext)
   const {itemId, isExpanded, isSubTreeEmpty, setIsSubTreeEmpty} = React.useContext(ItemContext)
   const loadingItemRef = React.useRef<HTMLElement>(null)
@@ -759,7 +788,7 @@ type LoadingItemProps = {
   count?: number
 }
 
-const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, ref) => {
+const LoadingItem = forwardRef<HTMLElement, LoadingItemProps>(({count}, ref) => {
   const itemId = useId()
 
   if (count) {
@@ -806,12 +835,16 @@ function useSubTree(children: React.ReactNode) {
 
 export type TreeViewVisualProps = {
   children: React.ReactNode | ((props: {isExpanded: boolean}) => React.ReactNode)
-  // Provide an accessible name for the visual. This should provide information
-  // about what the visual indicates or represents
+  /** Provide an accessible label for the visual. This is not necessary for decorative visuals. */
   label?: string
 }
 
-const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
+/**
+ * A visual that appears at the beginning of a tree view node (after the TreeView.LeadingAction if one is passed).
+ * @alias TreeView.LeadingVisual
+ * @primerparentid tree_view
+ */
+const LeadingVisual: FC<TreeViewVisualProps> = props => {
   const {isExpanded, leadingVisualId} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
@@ -828,7 +861,12 @@ const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
 
 LeadingVisual.displayName = 'TreeView.LeadingVisual'
 
-const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
+/**
+ * A visual that appears at the end of a tree view node.
+ * @alias TreeView.TrailingVisual
+ * @primerparentid tree_view
+ */
+const TrailingVisual: FC<TreeViewVisualProps> = props => {
   const {isExpanded, trailingVisualId} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
@@ -847,7 +885,11 @@ TrailingVisual.displayName = 'TreeView.TrailingVisual'
 
 // ----------------------------------------------------------------------------
 // TreeView.LeadingAction
-
+/**
+ * An interactive element appears at the beginning of a tree view node (before the leading visual).
+ * @alias TreeView.LeadingAction
+ * @primerparentid tree_view
+ */
 const LeadingAction: React.FC<TreeViewVisualProps> = props => {
   const {isExpanded} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
@@ -881,13 +923,20 @@ const DirectoryIcon = () => {
 // TreeView.ErrorDialog
 
 export type TreeViewErrorDialogProps = {
+  /** The content of the dialog. This is usually a message explaining the error. */
   children: React.ReactNode
+  /**
+   * The title of the dialog. This is usually a short description of the error.
+   * @default Error
+   */
   title?: string
+  /** Event handler called when the user clicks the retry button. */
   onRetry?: () => void
+  /** Event handler called when the dialog is dismissed. */
   onDismiss?: () => void
 }
 
-const ErrorDialog: React.FC<TreeViewErrorDialogProps> = ({title = 'Error', children, onRetry, onDismiss}) => {
+const ErrorDialog: FC<TreeViewErrorDialogProps> = ({title = 'Error', children, onRetry, onDismiss}) => {
   const {itemId, setIsExpanded} = React.useContext(ItemContext)
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions

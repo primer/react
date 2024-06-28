@@ -1,12 +1,16 @@
-import React from 'react'
+import React, {forwardRef} from 'react'
+import type {FC, ComponentPropsWithoutRef, HTMLProps, PropsWithChildren} from 'react'
 import styled from 'styled-components'
 import type {StyledWrapperProps} from '../internal/components/TextInputWrapper'
 import TextInputWrapper from '../internal/components/TextInputWrapper'
 
 export type SelectProps = Omit<
-  Omit<React.ComponentPropsWithoutRef<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant'>,
+  Omit<ComponentPropsWithoutRef<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant'>,
   'multiple' | 'hasLeadingVisual' | 'hasTrailingVisual' | 'as'
 > & {
+  /**
+   * Text to show in a Select when no option is selected.
+   */
   placeholder?: string
 }
 
@@ -52,7 +56,7 @@ const StyledSelect = styled.select`
   }
 `
 
-const ArrowIndicatorSVG: React.FC<React.PropsWithChildren<{className?: string}>> = ({className}) => (
+const ArrowIndicatorSVG: FC<PropsWithChildren<{className?: string}>> = ({className}) => (
   <svg
     aria-hidden="true"
     width="16"
@@ -73,7 +77,13 @@ const ArrowIndicator = styled(ArrowIndicatorSVG)`
   transform: translateY(-50%);
 `
 
-const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
+/**
+ * Select is an input for selecting a single option from a menu.
+ * @primerid select
+ * @primerstatus alpha
+ * @primera11yreviewed true
+ */
+const Select = forwardRef<HTMLSelectElement, SelectProps>(
   ({block, children, contrast, disabled, placeholder, size, required, validationStatus, ...rest}: SelectProps, ref) => (
     <TextInputWrapper
       sx={{
@@ -112,13 +122,19 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   ),
 )
 
-const Option: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptionElement> & {value: string}>> = props => (
-  <option {...props} />
-)
+/**
+ * A selectable option in the Select component.
+ * @alias Select.Option
+ * @primerparentid select
+ */
+const Option: FC<PropsWithChildren<HTMLProps<HTMLOptionElement> & {value: string}>> = props => <option {...props} />
 
-const OptGroup: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptGroupElement>>> = props => (
-  <optgroup {...props} />
-)
+/**
+ * Creates a group of related selectable options in the Select component.
+ * @alias Select.OptGroup
+ * @primerparentid select
+ */
+const OptGroup: FC<PropsWithChildren<HTMLProps<HTMLOptGroupElement>>> = props => <optgroup {...props} />
 
 export default Object.assign(Select, {
   Option,

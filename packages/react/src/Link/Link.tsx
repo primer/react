@@ -9,11 +9,13 @@ import type {ComponentProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 type StyledLinkProps = {
+  /** Color used when hovering over the link. */
   hoverColor?: string
+  /** Uses a less prominent shade for Link color, and the default link shade on hover. */
   muted?: boolean
   /** @deprecated use `inline` to specify the type of link instead */
   underline?: boolean
-  // Link inside a text block
+  /** Set to true for links adjacent to text, underlining them for clear visibility and improved accessibility. */
   inline?: boolean
 } & SxProp
 

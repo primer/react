@@ -1,7 +1,7 @@
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import clsx from 'clsx'
 import type {To} from 'history'
-import React, {useRef, useState} from 'react'
+import React, {useRef, useState, type DetailedHTMLProps, type HTMLAttributes} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
@@ -30,7 +30,19 @@ const TabNavNav = styled.nav`
 
 export type TabNavProps = ComponentProps<typeof TabNavBase>
 
-function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
+/**
+ * Tab nav contains a set of links that let users navigate between different views in the same context.
+ * @primerid tab_nav
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
+function TabNav({
+  /** Links in the tabbed navigation */
+  children,
+  /** Used to set the `aria-label` on the top level `<nav>` element. */
+  'aria-label': ariaLabel,
+  ...rest
+}: TabNavProps) {
   const customContainerRef = useRef<HTMLElement>(null)
 
   // Detect if the TabNav is inside an ActionMenu.
@@ -75,12 +87,20 @@ function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
   )
 }
 
-export type TabNavLinkProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> & {
+export type TabNavLinkProps = DetailedHTMLProps<HTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> & {
+  /** Used when the item is rendered using a component like React Router's `Link`. The path to navigate to. */
   to?: To
+  /** Whether this item represents the current page */
   selected?: boolean
+  /** Used to populate the `href` attribute when using an `<a>` tag */
   href?: string
 } & SxProp
 
+/**
+ * An individual link in the TabNav.
+ * @alias TabNav.Link
+ * @primerparentid tab_nav
+ */
 const TabNavLink = styled.a.attrs<TabNavLinkProps>(props => ({
   className: clsx(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
   role: 'tab',

@@ -69,6 +69,11 @@
           "description": "Whether to show or hide the required text in the accessibility tree, the required text is still shown visually."
         },
         {
+          "name": "id",
+          "type": "string",
+          "description": "When `as` prop is 'label', it may be used to override the `htmlFor` given to the <label> element by FormControl's React Context. \n When 'as' prop is 'legend' or 'span', it is used as the `id` for the element."
+        },
+        {
           "name": "sx",
           "type": "SystemStyleObject"
         }

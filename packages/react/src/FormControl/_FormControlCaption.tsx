@@ -1,9 +1,15 @@
 import React from 'react'
+import type {FC, PropsWithChildren} from 'react'
 import InputCaption from '../internal/components/InputCaption'
 import type {SxProp} from '../sx'
 import {useFormControlContext} from './_FormControlContext'
 
-const FormControlCaption: React.FC<React.PropsWithChildren<{id?: string} & SxProp>> = ({children, sx, id}) => {
+/**
+ * The caption with contextual information about the field.
+ * @alias FormControl.Caption
+ * @primerparentid form_control
+ */
+const FormControlCaption: FC<PropsWithChildren<{id?: string} & SxProp>> = ({children, sx, id}) => {
   const {captionId, disabled} = useFormControlContext()
   return (
     <InputCaption id={id || captionId || ''} disabled={disabled} sx={sx}>

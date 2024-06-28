@@ -49,12 +49,19 @@ const sizeVariants = variant({
 })
 
 export type StyledBaseWrapperProps = {
+  /** Whether the input takes up the full width of its parent */
   block?: boolean
+  /** Whether the background color of the input has contrast against the default background color. */
   contrast?: boolean
+  /** Whether the input is styled to look disabled. */
   disabled?: boolean
+  /** Whether the input has a trailing action. */
   hasTrailingAction?: boolean
+  /** Whether the input is focused. */
   isInputFocused?: boolean
+  /** Whether the text rendered in the input is in a monospace font. */
   monospace?: boolean
+  /** The result of validation on the input. */
   validationStatus?: FormValidationStatus
 } & WidthProps &
   MinWidthProps &
@@ -62,10 +69,13 @@ export type StyledBaseWrapperProps = {
   SxProp
 
 export type StyledWrapperProps = {
+  /** Whether the input has a leading visual. */
   hasLeadingVisual?: boolean
+  /** Whether the input has a trailing visual. */
   hasTrailingVisual?: boolean
   /** @deprecated Use `size` prop instead */
   variant?: TextInputSizes
+  /** The size of the input. */
   size?: TextInputSizes
 } & StyledBaseWrapperProps
 

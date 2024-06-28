@@ -1,5 +1,5 @@
 import {CheckIcon} from '@primer/octicons-react'
-import React, {useCallback} from 'react'
+import React, {forwardRef, useCallback} from 'react'
 import {isValidElementType} from 'react-is'
 import {get} from '../../constants'
 import type {SxProp} from '../../sx'
@@ -331,7 +331,7 @@ const MultiSelectIcon = styled.svg<{selected?: boolean}>`
 /**
  * An actionable or selectable `Item` with an optional icon and description.
  */
-export const Item = React.forwardRef((itemProps, ref) => {
+export const Item = forwardRef((itemProps, ref) => {
   const {
     as: Component,
     text,

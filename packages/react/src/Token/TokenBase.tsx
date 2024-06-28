@@ -1,5 +1,5 @@
-import type {ComponentProps, KeyboardEvent} from 'react'
-import React from 'react'
+import type {HTMLProps, ComponentProps, KeyboardEvent} from 'react'
+import React, {forwardRef} from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
@@ -19,7 +19,7 @@ export const tokenSizes: Record<TokenSizeKeys, string> = {
 export const defaultTokenSize: TokenSizeKeys = 'medium'
 
 export interface TokenBaseProps
-  extends Omit<React.HTMLProps<HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement>, 'size' | 'id'> {
+  extends Omit<HTMLProps<HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement>, 'size' | 'id'> {
   as?: 'button' | 'a' | 'span'
   /**
    * The function that gets called when a user clicks the remove button, or keys "Backspace" or "Delete" when focused on the token
@@ -130,7 +130,7 @@ const StyledTokenBase = styled.span<
   ${sx}
 `
 
-const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLSpanElement | undefined, TokenBaseProps>(
+const TokenBase = forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLSpanElement | undefined, TokenBaseProps>(
   ({onRemove, onKeyDown, id, size = defaultTokenSize, ...rest}, forwardedRef) => {
     return (
       <StyledTokenBase

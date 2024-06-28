@@ -55,6 +55,11 @@ const DialogHeaderBase = styled(Box)<SxProp>`
 `
 export type DialogHeaderProps = ComponentProps<typeof DialogHeaderBase>
 
+/**
+ * The Header area of the dialog
+ * @alias Dialog.Header
+ * @primerparentid dialog
+ */
 function DialogHeader({theme, children, backgroundColor = 'canvas.subtle', ...rest}: DialogHeaderProps) {
   if (React.Children.toArray(children).every(ch => typeof ch === 'string')) {
     children = (
@@ -94,6 +99,13 @@ type InternalDialogProps = {
   returnFocusRef?: React.RefObject<HTMLElement>
 } & ComponentProps<typeof DialogBase>
 
+/**
+ * Dialog is a floating surface used to display transient content such as confirmation actions, selection options, and more.
+ * @primerid dialog
+ * @primerdocsid dialog
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 const Dialog = forwardRef<HTMLDivElement, InternalDialogProps>(
   ({children, onDismiss = noop, isOpen, initialFocusRef, returnFocusRef, ...props}, forwardedRef) => {
     const overlayRef = useRef(null)
@@ -140,8 +152,8 @@ DialogHeader.propTypes = {
   ...Box.propTypes,
 }
 
-DialogHeader.displayName = 'Dialog.Header'
 Dialog.displayName = 'Dialog'
+DialogHeader.displayName = 'Dialog.Header'
 
 export type DialogProps = ComponentProps<typeof Dialog>
 export default Object.assign(Dialog, {Header: DialogHeader})

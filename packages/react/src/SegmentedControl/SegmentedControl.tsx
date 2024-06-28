@@ -1,4 +1,5 @@
 import React, {useRef, useState} from 'react'
+import type {FC, PropsWithChildren} from 'react'
 import type {SegmentedControlButtonProps} from './SegmentedControlButton'
 import Button from './SegmentedControlButton'
 import type {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
@@ -44,7 +45,13 @@ const getSegmentedControlStyles = (props: {isFullWidth?: boolean; size?: Segment
   width: props.isFullWidth ? '100%' : undefined,
 })
 
-const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
+/**
+ * Segmented control is used to pick one choice from a linear set of closely related choices, and immediately apply that selection.
+ * @primerid segmented_control
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
+const Root: FC<PropsWithChildren<SegmentedControlProps>> = ({
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledby,
   children,

@@ -3,6 +3,12 @@ import {get} from '../constants'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
 
+/**
+ * Button group renders a series of buttons.
+ * @primerid button_group
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 const ButtonGroup = styled.div`
   display: inline-flex;
   vertical-align: middle;
@@ -33,5 +39,7 @@ const ButtonGroup = styled.div`
   ${sx};
 `
 
+// TODO: figure out how we can show available `div` props in the docs without
+// having to manually add them and then omit them from `ComponentProps`
 export type ButtonGroupProps = ComponentProps<typeof ButtonGroup>
 export default ButtonGroup

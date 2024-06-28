@@ -1,4 +1,5 @@
 import React from 'react'
+import type {FC, PropsWithChildren} from 'react'
 import Text from '../../Text'
 import type {SxProp} from '../../sx'
 
@@ -13,7 +14,7 @@ type Props = {
   disabled?: boolean
 } & SxProp
 
-const InputCaption: React.FC<React.PropsWithChildren<Props>> = ({children, disabled, id, sx}) => (
+const InputCaption: FC<PropsWithChildren<Props>> = ({children, disabled, id, sx}) => (
   <Text color={disabled ? 'fg.subtle' : 'fg.muted'} display="block" fontSize={0} id={id} sx={sx}>
     {children}
   </Text>

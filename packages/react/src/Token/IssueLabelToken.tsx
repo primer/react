@@ -12,6 +12,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 export interface IssueLabelTokenProps extends TokenBaseProps {
   /**
    * The color that corresponds to the label
+   * @default #999
    */
   fillColor?: string
 }
@@ -42,6 +43,10 @@ const darkModeStyles = {
     'hsla(var(--label-h), calc(var(--label-s) * 1%),calc((var(--label-l) + var(--lighten-by)) * 1%),var(--border-alpha))',
 }
 
+/**
+ * An abstraction of Token that includes a color fill to render a token in the style of GitHub issue labels.
+ * @primerparentid token
+ */
 const IssueLabelToken = forwardRef((props, forwardedRef) => {
   const {
     as,

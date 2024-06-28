@@ -9,6 +9,12 @@ type StyledHeaderItemProps = {full?: boolean} & SxProp
 type StyledHeaderProps = SxProp
 type StyledHeaderLinkProps = {to?: Location | Pathname} & SxProp
 
+/**
+ * Header is a navigation bar that has all of its items aligned vertically with consistent horizontal spacing.
+ * @primerid header
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 const Header = styled.header<StyledHeaderProps>`
   z-index: 32;
   display: flex;
@@ -22,6 +28,12 @@ const Header = styled.header<StyledHeaderProps>`
 
   ${sx};
 `
+
+/**
+ * A child of the header
+ * @alias Header.Item
+ * @primerparentid header
+ */
 const HeaderItem = styled.div<StyledHeaderItemProps>`
   display: flex;
   margin-right: ${get('space.3')};
@@ -40,6 +52,11 @@ const HeaderItem = styled.div<StyledHeaderItemProps>`
 
 HeaderItem.displayName = 'Header.Item'
 
+/**
+ * A link child of the header
+ * @alias Header.Link
+ * @primerparentid header
+ */
 const HeaderLink = styled.a.attrs<StyledHeaderLinkProps>(({to}) => {
   const isReactRouter = typeof to === 'string'
   if (isReactRouter) {

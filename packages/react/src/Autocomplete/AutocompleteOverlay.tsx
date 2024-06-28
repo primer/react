@@ -20,7 +20,13 @@ type AutocompleteOverlayInternalProps = {
 } & Partial<OverlayProps> &
   Pick<React.AriaAttributes, 'aria-labelledby'> // TODO: consider making 'aria-labelledby' required
 
-function AutocompleteOverlay({
+/**
+ * A non-modal dialog container for the the dropdown menu with suggestions for an Autocomplete component.
+ * Can be excluded if you want the the Autocomplete suggestions to appear in the DOM flow.
+ * @alias Autocomplete.Overlay
+ * @primerparentid autocomplete
+ */
+export function AutocompleteOverlay({
   menuAnchorRef,
   overlayProps: oldOverlayProps,
   children,
@@ -74,7 +80,4 @@ function AutocompleteOverlay({
   )
 }
 
-AutocompleteOverlay.displayName = 'AutocompleteOverlay'
-
 export type AutocompleteOverlayProps = ComponentProps<typeof AutocompleteOverlay>
-export default AutocompleteOverlay

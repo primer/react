@@ -1,13 +1,14 @@
 import React from 'react'
+import type {FC, HTMLAttributes, PropsWithChildren} from 'react'
 import Box from '../Box'
 import {get} from '../constants'
 import type {SxProp} from '../sx'
 import {merge} from '../sx'
 import {ItemContext, TEXT_ROW_HEIGHT, getVariantStyles} from './shared'
 
-export type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
+export type VisualProps = SxProp & HTMLAttributes<HTMLSpanElement>
 
-export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
+export const LeadingVisualContainer: FC<PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
   return (
     <Box
       as="span"
@@ -30,7 +31,12 @@ export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProp
 }
 
 export type ActionListLeadingVisualProps = VisualProps
-export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
+/**
+ * Icon (or similar) positioned before `Item` text
+ * @alias ActionList.LeadingVisual
+ * @primerparentid action_list
+ */
+export const LeadingVisual: FC<PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
   const {variant, disabled, inactive} = React.useContext(ItemContext)
   return (
     <LeadingVisualContainer
@@ -53,7 +59,12 @@ export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({s
 }
 
 export type ActionListTrailingVisualProps = VisualProps
-export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
+/**
+ * Icon (or similar) positioned after `Item` text
+ * @alias ActionList.TrailingVisual
+ * @primerparentid action_list
+ */
+export const TrailingVisual: FC<PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
   const {variant, disabled, inactive} = React.useContext(ItemContext)
   return (
     <Box

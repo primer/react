@@ -24,11 +24,29 @@ export interface FilteredActionListProps
   extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>,
     ListPropsBase,
     SxProp {
+  /**
+   * Whether the items are loading
+   */
   loading?: boolean
+  /**
+   * Text used as placeholder for search input
+   */
   placeholderText?: string
+  /**
+   * The current value of the search input
+   */
   filterValue?: string
+  /**
+   * Callback when the search input changes
+   */
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
+  /**
+   * Props to pass through to the search input
+   */
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
+  /**
+   * Ref to pass through to the search input
+   */
   inputRef?: React.RefObject<HTMLInputElement>
 }
 

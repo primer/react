@@ -1,6 +1,6 @@
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
 import clsx from 'clsx'
-import React from 'react'
+import React, {type DetailedHTMLProps, type HTMLAttributes} from 'react'
 import styled from 'styled-components'
 import {get} from '../../constants'
 import {TabContainerElement} from '@github/tab-container-element'
@@ -74,21 +74,32 @@ const TabContainer = styled(tabContainerComponent)`
 `
 
 type Label = {
+  /** Used to set the `aria-label` on the `role=\"tablist\"` element. Either aria-label or aria-labelledby must be provided. */
   'aria-label': string
+  /** Used to set the `aria-labelledby` on the `role=\"tablist\"` element. Either aria-label or aria-labelledby must be provided. */
   'aria-labelledby'?: never
 }
 
 type Labelledby = {
+  /** Used to set the `aria-label` on the `role=\"tablist\"` element. Either aria-label or aria-labelledby must be provided. */
   'aria-label'?: never
+  /** Used to set the `aria-labelledby` on the `role=\"tablist\"` element. Either aria-label or aria-labelledby must be provided. */
   'aria-labelledby': string
 }
 
 type Labelled = Label | Labelledby
 
 export type TabPanelsProps = ComponentProps<typeof TabContainer> & {
+  /** The id of the tab container, used to generate child ids. */
   id?: string
 } & Labelled
 
+/**
+ * Tab panels let users switch between views in the same context.
+ * @primerid tab_panels
+ * @primerstatus draft
+ * @primera11yreviewed false
+ */
 function TabPanels({children, defaultTabIndex, ...props}: TabPanelsProps) {
   // We need to always call React.useId() because
   // React Hooks must be called in the exact same order in every component render
@@ -126,10 +137,15 @@ function TabPanels({children, defaultTabIndex, ...props}: TabPanelsProps) {
   )
 }
 
-export type TabPanelsTabProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
+export type TabPanelsTabProps = DetailedHTMLProps<HTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
   selected?: boolean
 } & SxProp
 
+/**
+ * A tab in the tablist of TabPanel
+ * @alias TabPanels.Tab
+ * @primerparentid tab_panels
+ */
 const Tab = styled.button.attrs<TabPanelsTabProps>(props => ({
   className: clsx(TAB_CLASS, props.className),
   role: 'tab',
@@ -169,6 +185,11 @@ export type TabPanelsPanelProps = React.HTMLAttributes<HTMLDivElement> & {
   children: React.ReactNode
 } & SxProp
 
+/**
+ * A tabpanel associated with a TabPanels.Tab in TabPanels
+ * @alias TabPanels.Panel
+ * @primerparentid tab_panels
+ */
 const Panel = styled.div.attrs<TabPanelsPanelProps>(() => ({
   role: 'tabpanel',
   suppressHydrationWarning: true,

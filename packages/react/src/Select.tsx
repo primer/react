@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {forwardRef} from 'react'
+import type {FC, ComponentPropsWithoutRef, PropsWithChildren, HTMLProps} from 'react'
 import styled from 'styled-components'
 import type {StyledWrapperProps} from './internal/components/TextInputWrapper'
 import TextInputWrapper from './internal/components/TextInputWrapper'
@@ -6,7 +7,7 @@ import type {SxProp, BetterSystemStyleObject} from './sx'
 import {merge} from './sx'
 
 export type SelectProps = Omit<
-  Omit<React.ComponentPropsWithoutRef<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant'>,
+  Omit<ComponentPropsWithoutRef<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant'>,
   'multiple' | 'hasLeadingVisual' | 'hasTrailingVisual' | 'as'
 > & {
   placeholder?: string
@@ -54,7 +55,7 @@ const StyledSelect = styled.select`
   }
 `
 
-const ArrowIndicatorSVG: React.FC<React.PropsWithChildren<{className?: string}>> = ({className}) => (
+const ArrowIndicatorSVG: FC<PropsWithChildren<{className?: string}>> = ({className}) => (
   <svg
     aria-hidden="true"
     width="16"
@@ -75,7 +76,7 @@ const ArrowIndicator = styled(ArrowIndicatorSVG)`
   transform: translateY(-50%);
 `
 
-const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
+const Select = forwardRef<HTMLSelectElement, SelectProps>(
   (
     {block, children, contrast, disabled, placeholder, size, required, validationStatus, sx = {}, ...rest}: SelectProps,
     ref,
@@ -122,13 +123,9 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   ),
 )
 
-const Option: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptionElement> & {value: string}>> = props => (
-  <option {...props} />
-)
+const Option: FC<PropsWithChildren<HTMLProps<HTMLOptionElement> & {value: string}>> = props => <option {...props} />
 
-const OptGroup: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptGroupElement>>> = props => (
-  <optgroup {...props} />
-)
+const OptGroup: FC<PropsWithChildren<HTMLProps<HTMLOptGroupElement>>> = props => <optgroup {...props} />
 
 export default Object.assign(Select, {
   Option,

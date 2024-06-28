@@ -5,6 +5,12 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import {defaultSxProp} from '../utils/defaultSxProp'
 import type {BetterSystemStyleObject, CSSCustomProperties} from '../sx'
 
+/**
+ * Button is used to initiate actions on a page or form.
+ * @primerid button
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 const ButtonComponent = forwardRef(({children, sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
   const {block, size, leadingVisual, trailingVisual, trailingAction} = props
   let sxStyles = sxProp

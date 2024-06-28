@@ -1,4 +1,5 @@
 import React from 'react'
+import type {FC, PropsWithChildren} from 'react'
 import Box from '../../Box'
 import type {SxProp} from '../../sx'
 import VisuallyHidden from '../../_VisuallyHidden'
@@ -13,7 +14,12 @@ type BaseProps = SxProp & {
 }
 
 export type LabelProps = BaseProps & {
+  /** The unique identifier for the associated input */
   htmlFor?: string
+  /**
+   * The label element can be changed to a 'legend' when it's being used to label a fieldset, or a 'span' when it's being used to label an element that is not a form input. For example: when using a FormControl to render a labeled SegementedControl, the label should be a 'span'
+   * @default label
+   */
   as?: 'label'
 }
 
@@ -24,7 +30,7 @@ export type LegendOrSpanProps = BaseProps & {
 
 type Props = LabelProps | LegendOrSpanProps
 
-const InputLabel: React.FC<React.PropsWithChildren<Props>> = ({
+const InputLabel: FC<PropsWithChildren<Props>> = ({
   children,
   disabled,
   htmlFor,

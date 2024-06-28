@@ -165,6 +165,11 @@ export type PaginationProps = Omit<React.ComponentPropsWithoutRef<'nav'>, 'onCha
  */
 const MAX_TRUNCATED_STEP_COUNT = 7
 
+/**
+ * A pagination component specific to the `DataTable` component.
+ * @alias Table.Pagination
+ * @primerparentid data_table
+ */
 export function Pagination({
   'aria-label': label,
   defaultPageIndex,

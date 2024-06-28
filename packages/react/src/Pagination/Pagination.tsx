@@ -223,6 +223,12 @@ export type PaginationProps = {
   surroundingPageCount?: number
 }
 
+/**
+ * Pagination is a horizontal set of links to navigate paginated content.
+ * @primerid pagination
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 function Pagination({
   theme,
   pageCount,

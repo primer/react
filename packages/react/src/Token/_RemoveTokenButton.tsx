@@ -1,4 +1,5 @@
 import React from 'react'
+import type {FC, PropsWithChildren} from 'react'
 import {XIcon} from '@primer/octicons-react'
 import styled, {css} from 'styled-components'
 import {variant} from 'styled-system'
@@ -85,7 +86,7 @@ const StyledTokenButton = styled.span<TokenButtonProps & SxProp>`
   ${sx}
 `
 
-const RemoveTokenButton: React.FC<React.PropsWithChildren<ComponentProps<typeof StyledTokenButton>>> = ({
+const RemoveTokenButton: FC<PropsWithChildren<ComponentProps<typeof StyledTokenButton>>> = ({
   'aria-label': ariaLabel,
   isParentInteractive,
   size = defaultTokenSize,

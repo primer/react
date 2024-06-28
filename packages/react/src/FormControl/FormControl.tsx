@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {forwardRef, useContext} from 'react'
 import Autocomplete from '../Autocomplete'
 import Box from '../Box'
 import Checkbox from '../Checkbox'
@@ -40,7 +40,13 @@ export type FormControlProps = {
   layout?: 'horizontal' | 'vertical'
 } & SxProp
 
-const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
+/**
+ * Form control displays a labelled input and, optionally, associated validation text and/or hint text.
+ * @primerid form_control
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
+const FormControl = forwardRef<HTMLDivElement, FormControlProps>(
   ({children, disabled: disabledProp, layout = 'vertical', id: idProp, required, sx}, ref) => {
     const [slots, childrenWithoutSlots] = useSlots(children, {
       caption: FormControlCaption,
