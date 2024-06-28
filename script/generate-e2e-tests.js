@@ -813,7 +813,7 @@ const components = new Map([
           name: 'With TrailingAction in Sub Item',
         },
         {
-          id: 'components-navlist--with-bad-example-of-sub-nav-and-trailing-action',
+          id: 'components-navlist-devonly--with-bad-example-of-sub-nav-and-trailing-action',
           name: 'With Bad Example of SubNav and TrailingAction',
         },
       ],
