@@ -49,7 +49,7 @@ export const WithVisualListHeading = () => (
   <ActionList>
     <ActionList.Heading as="h2">Filter by</ActionList.Heading>
     <ActionList.Group>
-      <ActionList.GroupHeading as="h4">Repositories</ActionList.GroupHeading>
+      <ActionList.GroupHeading as="h3">Repositories</ActionList.GroupHeading>
       <ActionList.Item onClick={() => {}}>
         <ActionList.LeadingVisual>
           <FileDirectoryIcon />
@@ -77,7 +77,7 @@ export const WithVisualListHeading = () => (
     </ActionList.Group>
 
     <ActionList.Group>
-      <ActionList.GroupHeading as="h4">Advanced</ActionList.GroupHeading>
+      <ActionList.GroupHeading as="h3">Advanced</ActionList.GroupHeading>
       <ActionList.Item onClick={() => {}}>
         <ActionList.LeadingVisual>
           <PlusCircleIcon />
@@ -333,7 +333,7 @@ export const ListBoxMultiSelect = () => {
     }
   }
   return (
-    <ActionList selectionVariant="multiple" aria-label="Project">
+    <ActionList role="menu" selectionVariant="multiple" aria-label="Project">
       {projects.map((project, index) => (
         <ActionList.Item
           key={index}
@@ -745,6 +745,7 @@ export const WithTrailingAction = () => {
           </ActionList.LeadingVisual>
           Item 1 (with default TrailingAction)
           <ActionList.TrailingAction label="Expand sidebar" icon={ArrowLeftIcon} />
+          <img src="foo.png" />
         </ActionList.Item>
         <ActionList.Item>
           Item 2 (with link TrailingAction)
