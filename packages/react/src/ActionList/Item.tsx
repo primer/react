@@ -183,7 +183,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       // show between 2 items
       ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
       width: 'calc(100% - 16px)',
-      marginX: buttonSemantics ? '2' : '0',
+      marginX: buttonSemantics && listVariant !== 'full' ? '2' : '0',
       ...(buttonSemantics ? hoverStyles : {}),
     }
 
