@@ -2,7 +2,7 @@ import {render as HTMLRender, fireEvent, waitFor, screen} from '@testing-library
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import type {AutocompleteInputProps} from '../Autocomplete'
-import Autocomplete from '../Autocomplete'
+import {Autocomplete} from '../Autocomplete'
 import type {AutocompleteMenuInternalProps, AutocompleteMenuItem} from '../Autocomplete/AutocompleteMenu'
 import BaseStyles from '../BaseStyles'
 import theme from '../theme'

@@ -1,7 +1,6 @@
 import {ChevronDownIcon} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import type {ComponentProps} from '../utils/types'
-import React, {forwardRef, isValidElement} from 'react'
+import React, {forwardRef, isValidElement, type ComponentProps, type FC, type PropsWithChildren} from 'react'
 import styled from 'styled-components'
 import type {ActionListDividerProps, ActionListLeadingVisualProps, ActionListTrailingVisualProps} from '../ActionList'
 import {ActionList} from '../ActionList'
@@ -41,7 +40,7 @@ const NavBox = styled.nav<SxProp>(sx)
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-const Root = forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
+export const NavList = forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
   return (
     <NavBox {...props} ref={ref}>
       <ActionListContainerContext.Provider
@@ -54,8 +53,6 @@ const Root = forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) =
     </NavBox>
   )
 })
-
-Root.displayName = 'NavList'
 
 // ----------------------------------------------------------------------------
 // NavList.Item
@@ -77,7 +74,7 @@ export type NavListItemProps = {
  * @alias NavList.Item
  * @primerparentid nav_list
  */
-const Item = forwardRef<HTMLAnchorElement, NavListItemProps>(
+export const Item = forwardRef<HTMLAnchorElement, NavListItemProps>(
   ({'aria-current': ariaCurrent, children, defaultOpen, sx: sxProp = defaultSxProp, ...props}, ref) => {
     const {depth} = React.useContext(SubNavContext)
 
@@ -115,8 +112,6 @@ const Item = forwardRef<HTMLAnchorElement, NavListItemProps>(
     )
   },
 ) as PolymorphicForwardRefComponent<'a', NavListItemProps>
-
-Item.displayName = 'NavList.Item'
 
 // ----------------------------------------------------------------------------
 // ItemWithSubNav (internal)
@@ -209,7 +204,7 @@ const SubNavContext = React.createContext<{depth: number}>({depth: 0})
  * @alias NavList.SubNav
  * @primerparentid nav_list
  */
-const SubNav = ({children, sx: sxProp = defaultSxProp}: NavListSubNavProps) => {
+export const SubNav: FC<PropsWithChildren<NavListSubNavProps>> = ({children, sx: sxProp = defaultSxProp}) => {
   const {buttonId, subNavId, isOpen} = React.useContext(ItemWithSubNavContext)
   const {depth} = React.useContext(SubNavContext)
 
@@ -246,8 +241,6 @@ const SubNav = ({children, sx: sxProp = defaultSxProp}: NavListSubNavProps) => {
   )
 }
 
-SubNav.displayName = 'NavList.SubNav'
-
 // ----------------------------------------------------------------------------
 // NavList.LeadingVisual
 
@@ -258,9 +251,7 @@ SubNav.displayName = 'NavList.SubNav'
  */
 export type NavListLeadingVisualProps = ActionListLeadingVisualProps
 
-const LeadingVisual = ActionList.LeadingVisual
-
-LeadingVisual.displayName = 'NavList.LeadingVisual'
+export const LeadingVisual = ActionList.LeadingVisual
 
 // ----------------------------------------------------------------------------
 // NavList.TrailingVisual
@@ -272,9 +263,7 @@ LeadingVisual.displayName = 'NavList.LeadingVisual'
  */
 export type NavListTrailingVisualProps = ActionListTrailingVisualProps
 
-const TrailingVisual = ActionList.TrailingVisual
-
-TrailingVisual.displayName = 'NavList.TrailingVisual'
+export const TrailingVisual = ActionList.TrailingVisual
 
 // ----------------------------------------------------------------------------
 // NavList.Divider
@@ -286,9 +275,7 @@ export type NavListDividerProps = ActionListDividerProps
  * @alias NavList.Divider
  * @primerparentid nav_list
  */
-const Divider = ActionList.Divider
-
-Divider.displayName = 'NavList.Divider'
+export const Divider = ActionList.Divider
 
 // ----------------------------------------------------------------------------
 // NavList.Group
@@ -307,7 +294,7 @@ const defaultSx = {}
  * @alias NavList.Group
  * @primerparentid nav_list
  */
-const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defaultSx, ...props}) => {
+export const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defaultSx, ...props}) => {
   return (
     <>
       {/* Hide divider if the group is the first item in the list */}
@@ -320,17 +307,3 @@ const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defau
     </>
   )
 }
-
-Group.displayName = 'NavList.Group'
-
-// ----------------------------------------------------------------------------
-// Export
-
-export const NavList = Object.assign(Root, {
-  Item,
-  SubNav,
-  LeadingVisual,
-  TrailingVisual,
-  Divider,
-  Group,
-})

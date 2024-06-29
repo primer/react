@@ -3,7 +3,7 @@ import type {FC, PropsWithChildren} from 'react'
 import type {SegmentedControlButtonProps} from './SegmentedControlButton'
 import {SegmentedControlButton} from './SegmentedControlButton'
 import type {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
-import SegmentedControlIconButton from './SegmentedControlIconButton'
+import {SegmentedControlIconButton} from './SegmentedControlIconButton'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
 import {useTheme} from '../ThemeProvider'
@@ -88,7 +88,7 @@ export const SegmentedControl: FC<PropsWithChildren<SegmentedControlProps>> = ({
   const getChildIcon = (childArg: React.ReactNode) => {
     if (
       React.isValidElement<SegmentedControlButtonProps>(childArg) &&
-      childArg.type === Button &&
+      childArg.type === SegmentedControlButton &&
       childArg.props.leadingIcon
     ) {
       return childArg.props.leadingIcon

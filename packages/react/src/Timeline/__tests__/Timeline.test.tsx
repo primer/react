@@ -3,13 +3,14 @@ import axe from 'axe-core'
 import {render, rendersClass, behavesAsComponent, checkExports} from '../../utils/testing'
 
 import React from 'react'
-import Timeline from '..'
+import {Timeline} from '..'
 
 describe('Timeline', () => {
   behavesAsComponent({Component: Timeline})
 
   checkExports('Timeline', {
-    default: Timeline,
+    default: undefined,
+    Timeline,
   })
 
   it('should have no axe violations', async () => {

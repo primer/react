@@ -41,7 +41,8 @@ describe('CheckboxGroup', () => {
   })
 
   checkExports('CheckboxGroup', {
-    default: CheckboxGroup,
+    default: undefined,
+    CheckboxGroup,
     CheckboxGroupContext,
   })
 

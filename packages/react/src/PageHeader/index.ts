@@ -15,7 +15,7 @@ import {
   Description,
   Navigation,
 } from './PageHeader'
-import type {PageHeaderProps, ParentLinkProps, TitleAreaProps, TitleProps, NavigationProps} from './PageHeader'
+import type {PageHeaderProps, ParentLinkProps, TitleProps, NavigationProps} from './PageHeader'
 
 Root.displayName = 'PageHeader'
 
@@ -36,4 +36,4 @@ export const PageHeader = Object.assign(Root, {
   Navigation,
 })
 
-export type {PageHeaderProps, ParentLinkProps, TitleAreaProps, TitleProps, NavigationProps}
+export type {PageHeaderProps, ParentLinkProps, TitleProps, NavigationProps}

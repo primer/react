@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import type {Meta, StoryFn} from '@storybook/react'
-import FilterList from './FilterList'
+import {FilterList} from './'
 
 export default {
   title: 'Components/FilterList',

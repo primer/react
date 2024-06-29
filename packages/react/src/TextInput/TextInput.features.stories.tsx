@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Box, FormControl} from '..'
 import type {TextInputProps} from '../TextInput'
-import TextInput from '../TextInput'
+import {TextInput} from './'
 import {CalendarIcon, CheckIcon, XCircleFillIcon} from '@primer/octicons-react'
 import type {FormControlArgs} from '../utils/story-helpers'
 import {formControlArgTypes, textInputExcludedControlKeys} from '../utils/story-helpers'

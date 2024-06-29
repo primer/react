@@ -36,10 +36,10 @@ export type {
 // end of v35.0.0
 
 // Deprecated in v36.0.0
-export {default as FilterList} from './FilterList'
+export {FilterList} from './FilterList'
 export type {FilterListProps, FilterListItemProps} from './FilterList'
 export {default as FilteredSearch} from './FilteredSearch'
 export type {FilteredSearchProps} from './FilteredSearch'
-export {default as UnderlineNav} from './UnderlineNav'
+export {UnderlineNav} from './UnderlineNav'
 export type {UnderlineNavProps, UnderlineNavLinkProps} from './UnderlineNav'
 // end of v36.0.0

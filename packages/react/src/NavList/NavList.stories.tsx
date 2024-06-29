@@ -1,7 +1,7 @@
 import type {Meta, StoryFn} from '@storybook/react'
 import React from 'react'
 import {PageLayout} from '../PageLayout'
-import {NavList} from './NavList'
+import {NavList} from './'
 
 const meta: Meta = {
   title: 'Components/NavList',

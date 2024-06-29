@@ -1,6 +1,6 @@
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
 import clsx from 'clsx'
-import React, {type DetailedHTMLProps, type HTMLAttributes} from 'react'
+import React, {type DetailedHTMLProps, type FC, type HTMLAttributes, type PropsWithChildren} from 'react'
 import styled from 'styled-components'
 import {get} from '../../constants'
 import {TabContainerElement} from '@github/tab-container-element'
@@ -110,14 +110,14 @@ export type TabPanelsProps = {
  * @primerstatus draft
  * @primera11yreviewed false
  */
-export function TabPanels({children, defaultTabIndex, ...props}: TabPanelsProps) {
+export const TabPanels: FC<PropsWithChildren<TabPanelsProps>> = ({children, defaultTabIndex, ...props}) => {
   // We need to always call React.useId() because
   // React Hooks must be called in the exact same order in every component render
   const defaultId = React.useId()
   const parentId = props.id ?? defaultId
 
   if (defaultTabIndex !== undefined) {
-    // Add 'dafault-tab' to props
+    /* @ts-ignore Add 'dafault-tab' to props */
     props['default-tab'] = defaultTabIndex
   }
 

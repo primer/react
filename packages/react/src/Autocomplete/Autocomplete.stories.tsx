@@ -3,8 +3,8 @@ import type {Meta} from '@storybook/react'
 
 import {BaseStyles, Box, ThemeProvider} from '..'
 
-import Autocomplete from './Autocomplete'
-import FormControl from '../FormControl'
+import {Autocomplete} from './'
+import {FormControl} from '../FormControl'
 
 import type {ComponentProps} from '../utils/types'
 import type {FormControlArgs} from '../utils/story-helpers'

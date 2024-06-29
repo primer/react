@@ -1,7 +1,7 @@
 import React from 'react'
 import type {Meta, StoryFn} from '@storybook/react'
 import {Placeholder} from '../Placeholder'
-import {PageLayout} from './PageLayout'
+import {PageLayout} from './'
 
 const meta: Meta = {
   title: 'Components/PageLayout',

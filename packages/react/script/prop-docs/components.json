@@ -3100,7 +3100,7 @@
     "id": "dialog_v2",
     "description": "A dialog is a type of overlay that can be used for confirming actions, asking\nfor disambiguation, and presenting small forms. They generally allow the user\nto focus on a quick task without having to navigate to a different page.\n\nDialogs appear in the page after a direct user interaction. Don't show dialogs\non page load or as system alerts.\n\nDialogs appear centered in the page, with a visible backdrop that dims the rest\nof the window for focus.\n\nAll dialogs have a title and a close button.\n\nDialogs are modal. Dialogs can be dismissed by clicking on the close button,\npressing the escape key, or by interacting with another button in the dialog.\nTo avoid losing information and missing important messages, clicking outside\nof the dialog will not close it.\n\nThe sub components provided (e.g. Header, Title, etc.) are available for custom\nrenderers only. They are not intended to be used otherwise.",
     "docsId": "dialog",
-    "name": "_Dialog",
+    "name": "Dialog",
     "status": "draft",
     "a11yReviewed": false,
     "stories": [
@@ -3829,13 +3829,133 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/NavList/NavList.tsx",
-    "description": "",
+    "id": "nav_list",
+    "description": "Nav list renders a vertical list of navigation links.",
     "name": "NavList",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
     ],
-    "props": [],
+    "props": [
+      {
+        "name": "children",
+        "type": "any",
+        "required": false,
+        "description": "NavList items",
+        "defaultValue": null
+      },
+      {
+        "name": "sx",
+        "type": "BetterSystemStyleObject",
+        "required": false,
+        "description": "A style object used to override styles using styled-components",
+        "defaultValue": null
+      }
+    ],
+    "subcomponents": [
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/NavList/NavList.tsx",
+        "description": "A navigation item in the NavList.",
+        "name": "NavList.Item",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "as",
+            "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>",
+            "required": true,
+            "description": "",
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/NavList/NavList.tsx",
+        "description": "A nested list of navigation items that appears when a NavList.Item is expanded.\nNavList.SubNav must be a direct child of an Item",
+        "name": "NavList.SubNav",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "sx",
+            "type": "BetterSystemStyleObject",
+            "required": false,
+            "description": "A style object used to override styles using styled-components",
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/NavList/NavList.tsx",
+        "description": "Used to visually separate group of related NavList.Items",
+        "name": "NavList.Divider",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "sx",
+            "type": "BetterSystemStyleObject",
+            "required": false,
+            "description": "A style object used to override styles using styled-components",
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/NavList/NavList.tsx",
+        "description": "Used to group of related NavList.Items",
+        "name": "NavList.Group",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": []
+      }
+    ]
+  },
+  {
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/NavList/NavList.tsx",
+    "description": "",
+    "name": "LeadingVisual",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [
+      {
+        "name": "sx",
+        "type": "BetterSystemStyleObject",
+        "required": false,
+        "description": "A style object used to override styles using styled-components",
+        "defaultValue": null
+      }
+    ],
+    "subcomponents": []
+  },
+  {
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/NavList/NavList.tsx",
+    "description": "",
+    "name": "TrailingVisual",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [
+      {
+        "name": "sx",
+        "type": "BetterSystemStyleObject",
+        "required": false,
+        "description": "A style object used to override styles using styled-components",
+        "defaultValue": null
+      }
+    ],
     "subcomponents": []
   },
   {
@@ -7804,7 +7924,92 @@
     "stories": [
       ""
     ],
-    "props": [],
+    "props": [
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether the control allows user input",
+        "defaultValue": null
+      },
+      {
+        "name": "required",
+        "type": "boolean",
+        "required": false,
+        "description": "If true, the user must specify a value for the input before the owning form can be submitted",
+        "defaultValue": null
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "When `as` prop is 'label', it may be used to override the `htmlFor` given to the <label> element by FormControl's React Context.\nWhen 'as' prop is 'legend' or 'span', it is used as the `id` for the element.\nCustom ID to override the ID set by FormControl's React Context\nMay be used to override the ID assigned by FormControl's React Context",
+        "defaultValue": null
+      },
+      {
+        "name": "htmlFor",
+        "type": "string",
+        "required": false,
+        "description": "The unique identifier for the associated input\nThis prop may be used to override the `htmlFor` set from FormControl's React Context.",
+        "defaultValue": null
+      },
+      {
+        "name": "sx",
+        "type": "BetterSystemStyleObject",
+        "required": false,
+        "description": "A style object used to override styles using styled-components",
+        "defaultValue": null
+      },
+      {
+        "name": "visuallyHidden",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether the label should be visually hidden",
+        "defaultValue": "false"
+      },
+      {
+        "name": "requiredText",
+        "type": "string",
+        "required": false,
+        "description": "The text to display when the field is required",
+        "defaultValue": "*"
+      },
+      {
+        "name": "requiredIndicator",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether to show or hide the required text in the accessibility tree, the required text is still shown visually.",
+        "defaultValue": "true"
+      },
+      {
+        "name": "labelChildren",
+        "type": "React.ReactNode",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "captionChildren",
+        "type": "React.ReactNode",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "variant",
+        "type": "FormValidationStatus",
+        "required": false,
+        "description": "Changes the visual style to match the validation status",
+        "defaultValue": null
+      },
+      {
+        "name": "validationChildren",
+        "type": "React.ReactNode",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      }
+    ],
     "subcomponents": []
   },
   {
@@ -7859,7 +8064,92 @@
     "stories": [
       ""
     ],
-    "props": [],
+    "props": [
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether the control allows user input",
+        "defaultValue": null
+      },
+      {
+        "name": "required",
+        "type": "boolean",
+        "required": false,
+        "description": "If true, the user must specify a value for the input before the owning form can be submitted",
+        "defaultValue": null
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "description": "When `as` prop is 'label', it may be used to override the `htmlFor` given to the <label> element by FormControl's React Context.\nWhen 'as' prop is 'legend' or 'span', it is used as the `id` for the element.\nCustom ID to override the ID set by FormControl's React Context\nMay be used to override the ID assigned by FormControl's React Context",
+        "defaultValue": null
+      },
+      {
+        "name": "htmlFor",
+        "type": "string",
+        "required": false,
+        "description": "The unique identifier for the associated input\nThis prop may be used to override the `htmlFor` set from FormControl's React Context.",
+        "defaultValue": null
+      },
+      {
+        "name": "sx",
+        "type": "BetterSystemStyleObject",
+        "required": false,
+        "description": "A style object used to override styles using styled-components",
+        "defaultValue": null
+      },
+      {
+        "name": "visuallyHidden",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether the label should be visually hidden",
+        "defaultValue": "false"
+      },
+      {
+        "name": "requiredText",
+        "type": "string",
+        "required": false,
+        "description": "The text to display when the field is required",
+        "defaultValue": "*"
+      },
+      {
+        "name": "requiredIndicator",
+        "type": "boolean",
+        "required": false,
+        "description": "Whether to show or hide the required text in the accessibility tree, the required text is still shown visually.",
+        "defaultValue": "true"
+      },
+      {
+        "name": "labelChildren",
+        "type": "React.ReactNode",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "captionChildren",
+        "type": "React.ReactNode",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
+      {
+        "name": "variant",
+        "type": "FormValidationStatus",
+        "required": false,
+        "description": "Changes the visual style to match the validation status",
+        "defaultValue": null
+      },
+      {
+        "name": "validationChildren",
+        "type": "React.ReactNode",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      }
+    ],
     "subcomponents": []
   },
   {

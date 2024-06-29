@@ -8,7 +8,7 @@ import {ThemeProvider, useTheme} from '../ThemeProvider'
 import {FocusKeys} from '@primer/behaviors'
 import {get} from '../constants'
 import type {DialogProps, DialogHeaderProps, DialogButtonProps} from '../Dialog/Dialog'
-import {Dialog} from '../Dialog/Dialog'
+import {Dialog} from '../Dialog/'
 import {useFocusZone} from '../hooks/useFocusZone'
 import BaseStyles from '../BaseStyles'
 

@@ -14,7 +14,8 @@ describe('CircleBadge', () => {
   })
 
   checkExports('CircleBadge', {
-    default: CircleBadge,
+    default: undefined,
+    CircleBadge,
   })
 
   describe('CircleBadge.Icon', () => {

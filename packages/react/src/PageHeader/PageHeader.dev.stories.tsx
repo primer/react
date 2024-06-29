@@ -4,7 +4,7 @@ import {Button, IconButton, Box} from '..'
 import Label from '../Label'
 import {GitBranchIcon, PencilIcon, SidebarExpandIcon} from '@primer/octicons-react'
 
-import {PageHeader} from './PageHeader'
+import {PageHeader} from './'
 
 const meta: Meta<typeof PageHeader> = {
   title: 'Drafts/Components/PageHeader/DevOnly',

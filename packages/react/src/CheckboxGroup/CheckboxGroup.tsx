@@ -7,7 +7,7 @@ import CheckboxOrRadioGroupLabel from '../internal/components/CheckboxOrRadioGro
 import CheckboxOrRadioGroupValidation from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroupValidation'
 import {useRenderForcingRef} from '../hooks'
 import type {SxProp} from '../sx'
-import FormControl from '../FormControl'
+import {FormControl} from '../FormControl'
 import Checkbox from '../Checkbox/Checkbox'
 import {CheckboxGroupContext} from './CheckboxGroupContext'
 

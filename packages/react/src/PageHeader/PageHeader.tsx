@@ -336,7 +336,7 @@ export const ContextAreaActions: FC<PropsWithChildren<ChildrenPropTypes>> = ({
   )
 }
 
-export type TitleAreaProps = {
+type TitleAreaProps = {
   variant?: 'subtitle' | 'medium' | 'large' | ResponsiveValue<'subtitle' | 'medium' | 'large'>
 } & ChildrenPropTypes
 // PageHeader.TitleArea

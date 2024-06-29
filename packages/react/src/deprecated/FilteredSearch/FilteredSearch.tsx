@@ -9,7 +9,7 @@ import type {ComponentProps} from '../../utils/types'
  * Until the new filter component is ready, you can use Button + TextInput + ActionList to reproduce this pattern.
  * @primerid filtered_search
  * @primerstatus deprecated
- * @primera111yreviewed false
+ * @primera11yreviewed false
  */
 const FilteredSearch = styled.div<SxProp>`
   display: flex;

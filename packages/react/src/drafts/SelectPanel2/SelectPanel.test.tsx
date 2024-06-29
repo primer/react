@@ -6,7 +6,7 @@ import type {UserEvent} from '@testing-library/user-event'
 import userEvent from '@testing-library/user-event'
 import data from './mock-story-data'
 import type {SelectPanelProps} from './SelectPanel'
-import {SelectPanel} from './SelectPanel'
+import {SelectPanel} from './'
 
 // window.matchMedia() is not implemented by JSDOM so we have to create a mock:
 // https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom

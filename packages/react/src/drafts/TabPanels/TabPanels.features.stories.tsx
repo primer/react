@@ -1,6 +1,6 @@
 import React from 'react'
 import type {Meta} from '@storybook/react'
-import TabPanels from './TabPanels'
+import {TabPanels} from './'
 import type {ComponentProps} from '../../utils/types'
 import {Button} from '../../Button'
 

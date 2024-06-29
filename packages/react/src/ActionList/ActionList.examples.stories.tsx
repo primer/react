@@ -15,12 +15,12 @@ import {
 } from '@primer/octicons-react'
 import type {ActionListItemProps} from '.'
 import {ActionList} from '.'
-import TextInput from '../TextInput'
+import {TextInput} from '../TextInput'
 import Spinner from '../Spinner'
 import Box from '../Box'
 import Text from '../Text'
 import VisuallyHidden from '../_VisuallyHidden'
-import FormControl from '../FormControl'
+import {FormControl} from '../FormControl'
 
 const meta: Meta = {
   title: 'Components/ActionList/Examples',

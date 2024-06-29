@@ -6024,7 +6024,7 @@
     },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Dialog/Dialog.tsx",
     "description": "A dialog is a type of overlay that can be used for confirming actions, asking\nfor disambiguation, and presenting small forms. They generally allow the user\nto focus on a quick task without having to navigate to a different page.\n\nDialogs appear in the page after a direct user interaction. Don't show dialogs\non page load or as system alerts.\n\nDialogs appear centered in the page, with a visible backdrop that dims the rest\nof the window for focus.\n\nAll dialogs have a title and a close button.\n\nDialogs are modal. Dialogs can be dismissed by clicking on the close button,\npressing the escape key, or by interacting with another button in the dialog.\nTo avoid losing information and missing important messages, clicking outside\nof the dialog will not close it.\n\nThe sub components provided (e.g. Header, Title, etc.) are available for custom\nrenderers only. They are not intended to be used otherwise.",
-    "displayName": "_Dialog",
+    "displayName": "Dialog",
     "methods": [],
     "props": {
       "title": {
@@ -7499,10 +7499,217 @@
     }
   },
   {
+    "tags": {
+      "primerid": "nav_list",
+      "primerstatus": "alpha",
+      "primera11yreviewed": "false"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/NavList/NavList.tsx",
+    "description": "Nav list renders a vertical list of navigation links.",
+    "displayName": "NavList",
+    "methods": [],
+    "props": {
+      "children": {
+        "defaultValue": null,
+        "description": "NavList items",
+        "name": "children",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/NavList/NavList.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "DOMAttributes"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "any"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "NavList.Item",
+      "primerparentid": "nav_list"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/NavList/NavList.tsx",
+    "description": "A navigation item in the NavList.",
+    "displayName": "Item",
+    "methods": [],
+    "props": {
+      "as": {
+        "defaultValue": null,
+        "description": "",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "NavList.SubNav",
+      "primerparentid": "nav_list"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/NavList/NavList.tsx",
+    "description": "A nested list of navigation items that appears when a NavList.Item is expanded.\nNavList.SubNav must be a direct child of an Item",
+    "displayName": "SubNav",
+    "methods": [],
+    "props": {
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
     "tags": {},
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/NavList/NavList.tsx",
     "description": "",
-    "displayName": "NavList",
+    "displayName": "LeadingVisual",
+    "methods": [],
+    "props": {
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/NavList/NavList.tsx",
+    "description": "",
+    "displayName": "TrailingVisual",
+    "methods": [],
+    "props": {
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "NavList.Divider",
+      "primerparentid": "nav_list"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/NavList/NavList.tsx",
+    "description": "Used to visually separate group of related NavList.Items",
+    "displayName": "Divider",
+    "methods": [],
+    "props": {
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "NavList.Group",
+      "primerparentid": "nav_list"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/NavList/NavList.tsx",
+    "description": "Used to group of related NavList.Items",
+    "displayName": "Group",
     "methods": [],
     "props": {}
   },
@@ -15546,7 +15753,282 @@
     "description": "",
     "displayName": "getFormControlArgsByChildComponent",
     "methods": [],
-    "props": {}
+    "props": {
+      "disabled": {
+        "defaultValue": null,
+        "description": "Whether the control allows user input",
+        "name": "disabled",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/FormControl/FormControl.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "required": {
+        "defaultValue": null,
+        "description": "If true, the user must specify a value for the input before the owning form can be submitted",
+        "name": "required",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/FormControl/FormControl.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "id": {
+        "defaultValue": null,
+        "description": "When `as` prop is 'label', it may be used to override the `htmlFor` given to the <label> element by FormControl's React Context.\nWhen 'as' prop is 'legend' or 'span', it is used as the `id` for the element.\nCustom ID to override the ID set by FormControl's React Context\nMay be used to override the ID assigned by FormControl's React Context",
+        "name": "id",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlCaption.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlValidation.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "htmlFor": {
+        "defaultValue": null,
+        "description": "The unique identifier for the associated input\nThis prop may be used to override the `htmlFor` set from FormControl's React Context.",
+        "name": "htmlFor",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          },
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          },
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      },
+      "visuallyHidden": {
+        "defaultValue": {
+          "value": "false"
+        },
+        "description": "Whether the label should be visually hidden",
+        "name": "visuallyHidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "requiredText": {
+        "defaultValue": {
+          "value": "*"
+        },
+        "description": "The text to display when the field is required",
+        "name": "requiredText",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "requiredIndicator": {
+        "defaultValue": {
+          "value": "true"
+        },
+        "description": "Whether to show or hide the required text in the accessibility tree, the required text is still shown visually.",
+        "name": "requiredIndicator",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "labelChildren": {
+        "defaultValue": null,
+        "description": "",
+        "name": "labelChildren",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/utils/form-story-helpers.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.ReactNode"
+        }
+      },
+      "captionChildren": {
+        "defaultValue": null,
+        "description": "",
+        "name": "captionChildren",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/utils/form-story-helpers.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.ReactNode"
+        }
+      },
+      "variant": {
+        "defaultValue": null,
+        "description": "Changes the visual style to match the validation status",
+        "name": "variant",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlValidation.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "FormValidationStatus"
+        }
+      },
+      "validationChildren": {
+        "defaultValue": null,
+        "description": "",
+        "name": "validationChildren",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/utils/form-story-helpers.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.ReactNode"
+        }
+      }
+    }
   },
   {
     "tags": {},
@@ -15586,7 +16068,282 @@
     "description": "",
     "displayName": "getFormControlArgsByChildComponent",
     "methods": [],
-    "props": {}
+    "props": {
+      "disabled": {
+        "defaultValue": null,
+        "description": "Whether the control allows user input",
+        "name": "disabled",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/FormControl/FormControl.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "required": {
+        "defaultValue": null,
+        "description": "If true, the user must specify a value for the input before the owning form can be submitted",
+        "name": "required",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/FormControl/FormControl.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "id": {
+        "defaultValue": null,
+        "description": "When `as` prop is 'label', it may be used to override the `htmlFor` given to the <label> element by FormControl's React Context.\nWhen 'as' prop is 'legend' or 'span', it is used as the `id` for the element.\nCustom ID to override the ID set by FormControl's React Context\nMay be used to override the ID assigned by FormControl's React Context",
+        "name": "id",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlCaption.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlValidation.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "htmlFor": {
+        "defaultValue": null,
+        "description": "The unique identifier for the associated input\nThis prop may be used to override the `htmlFor` set from FormControl's React Context.",
+        "name": "htmlFor",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          },
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          },
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      },
+      "visuallyHidden": {
+        "defaultValue": {
+          "value": "false"
+        },
+        "description": "Whether the label should be visually hidden",
+        "name": "visuallyHidden",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "requiredText": {
+        "defaultValue": {
+          "value": "*"
+        },
+        "description": "The text to display when the field is required",
+        "name": "requiredText",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "requiredIndicator": {
+        "defaultValue": {
+          "value": "true"
+        },
+        "description": "Whether to show or hide the required text in the accessibility tree, the required text is still shown visually.",
+        "name": "requiredIndicator",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/InputLabel.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlLabel.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "labelChildren": {
+        "defaultValue": null,
+        "description": "",
+        "name": "labelChildren",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/utils/story-helpers.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.ReactNode"
+        }
+      },
+      "captionChildren": {
+        "defaultValue": null,
+        "description": "",
+        "name": "captionChildren",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/utils/story-helpers.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.ReactNode"
+        }
+      },
+      "variant": {
+        "defaultValue": null,
+        "description": "Changes the visual style to match the validation status",
+        "name": "variant",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/FormControl/_FormControlValidation.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "FormValidationStatus"
+        }
+      },
+      "validationChildren": {
+        "defaultValue": null,
+        "description": "",
+        "name": "validationChildren",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/utils/story-helpers.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.ReactNode"
+        }
+      }
+    }
   },
   {
     "tags": {},
@@ -16759,7 +17516,7 @@
       "deprecated": "A new filter component is in progress.\nUntil the new filter component is ready, you can use Button + TextInput + ActionList to reproduce this pattern.",
       "primerid": "filtered_search",
       "primerstatus": "deprecated",
-      "primera111yreviewed": "false"
+      "primera11yreviewed": "false"
     },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/deprecated/FilteredSearch/FilteredSearch.tsx",
     "description": "",

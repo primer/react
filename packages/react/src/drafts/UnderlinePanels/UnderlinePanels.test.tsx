@@ -2,7 +2,7 @@
 
 import React from 'react'
 import {render, screen} from '@testing-library/react'
-import UnderlinePanels from './UnderlinePanels'
+import {UnderlinePanels} from './'
 import {behavesAsComponent, checkExports} from '../../utils/testing'
 import TabContainerElement from '@github/tab-container-element'
 
@@ -25,7 +25,8 @@ describe('UnderlinePanels', () => {
   })
 
   checkExports('drafts/UnderlinePanels', {
-    default: UnderlinePanels,
+    default: undefined,
+    UnderlinePanels,
   })
 
   behavesAsComponent({Component: UnderlinePanels, options: {skipAs: true}})

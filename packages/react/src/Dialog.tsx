@@ -151,6 +151,9 @@ DialogHeader.propTypes = {
 // DialogHeader.displayName = 'Dialog.Header'
 
 export type DialogProps = ComponentProps<typeof Dialog>
+
+Dialog.displayName = 'Dialog'
+
 /**
  * Dialog is a floating surface used to display transient content such as confirmation actions, selection options, and more.
  * @primerid dialog

@@ -367,19 +367,19 @@ const DefaultHeader: FunctionComponent<PropsWithChildren<DialogHeaderProps>> = (
     onClose('close-button')
   }, [onClose])
   return (
-    <Dialog.Header>
+    <Header>
       <Box display="flex">
         <Box display="flex" px={2} py="6px" flexDirection="column" flexGrow={1}>
-          <Dialog.Title id={dialogLabelId}>{title ?? 'Dialog'}</Dialog.Title>
-          {subtitle && <Dialog.Subtitle id={dialogDescriptionId}>{subtitle}</Dialog.Subtitle>}
+          <Title id={dialogLabelId}>{title ?? 'Dialog'}</Title>
+          {subtitle && <Subtitle id={dialogDescriptionId}>{subtitle}</Subtitle>}
         </Box>
-        <Dialog.CloseButton onClose={onCloseClick} />
+        <CloseButton onClose={onCloseClick} />
       </Box>
-    </Dialog.Header>
+    </Header>
   )
 }
 const DefaultBody: FunctionComponent<PropsWithChildren<DialogProps>> = ({children}) => {
-  return <Dialog.Body>{children}</Dialog.Body>
+  return <Body>{children}</Body>
 }
 const DefaultFooter: FunctionComponent<PropsWithChildren<DialogProps>> = ({footerButtons}) => {
   const {containerRef: footerRef} = useFocusZone({
@@ -387,9 +387,9 @@ const DefaultFooter: FunctionComponent<PropsWithChildren<DialogProps>> = ({foote
     focusInStrategy: 'closest',
   })
   return footerButtons ? (
-    <Dialog.Footer ref={footerRef as React.RefObject<HTMLDivElement>}>
-      <Dialog.Buttons buttons={footerButtons} />
-    </Dialog.Footer>
+    <Footer ref={footerRef as React.RefObject<HTMLDivElement>}>
+      <Buttons buttons={footerButtons} />
+    </Footer>
   ) : null
 }
 
@@ -423,7 +423,7 @@ const defaultPosition = {
  * @primerstatus draft
  * @primera11yreviewed false
  */
-export const _Dialog = forwardRef<HTMLDivElement, PropsWithChildren<DialogProps>>((props, forwardedRef) => {
+export const Dialog = forwardRef<HTMLDivElement, PropsWithChildren<DialogProps>>((props, forwardedRef) => {
   const {
     title = 'Dialog',
     subtitle = '',
@@ -669,13 +669,3 @@ export const CloseButton: FunctionComponent<
     </DialogCloseButton>
   )
 }
-
-const Dialog = Object.assign(_Dialog, {
-  Header,
-  Title,
-  Subtitle,
-  Body,
-  Footer,
-  Buttons,
-  CloseButton,
-})

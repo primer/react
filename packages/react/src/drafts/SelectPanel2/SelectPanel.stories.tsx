@@ -1,5 +1,5 @@
 import React from 'react'
-import {SelectPanel} from './SelectPanel'
+import {SelectPanel} from './'
 import {ActionList, Box} from '../../index'
 import data from './mock-story-data'
 

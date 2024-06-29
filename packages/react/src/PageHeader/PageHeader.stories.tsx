@@ -19,7 +19,7 @@ import {
 } from '@primer/octicons-react'
 import {OcticonArgType} from '../utils/story-helpers'
 
-import {PageHeader} from './PageHeader'
+import {PageHeader} from './'
 import Hidden from '../Hidden'
 
 const meta: Meta<typeof PageHeader> = {

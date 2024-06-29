@@ -1,5 +1,5 @@
 import React from 'react'
-import CircleBadge from '../CircleBadge'
+import {CircleBadge} from '../CircleBadge'
 
 export function shouldAcceptCallWithNoProps() {
   return <CircleBadge />
