@@ -792,3 +792,13 @@ export const WithTrailingAction = () => {
     </FeatureFlags>
   )
 }
+
+export const FullVariant = () => (
+  <ActionList variant="full">
+    <ActionList.Item>Copy link</ActionList.Item>
+    <ActionList.Item>Quote reply</ActionList.Item>
+    <ActionList.Item>Edit comment</ActionList.Item>
+    <ActionList.Divider />
+    <ActionList.Item variant="danger">Delete file</ActionList.Item>
+  </ActionList>
+)
