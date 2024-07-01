@@ -12,6 +12,11 @@ function getLiveRegion(): LiveRegionElement {
 }
 
 describe('Announce', () => {
+  beforeEach(() => {
+    const liveRegion = document.createElement('live-region')
+    document.body.appendChild(liveRegion)
+  })
+
   afterEach(() => {
     // Reset the live-region after each test so that we do not have overlapping
     // messages from previous tests
@@ -56,5 +61,42 @@ describe('Announce', () => {
       </Announce>,
     )
     expect(screen.getByTestId('container').tagName).toBe('SPAN')
+  })
+
+  it('should not announce the contents of the container if `hidden={false}`', () => {
+    render(<Announce hidden>test</Announce>)
+
+    const liveRegion = getLiveRegion()
+    expect(liveRegion.getMessage('polite')).not.toBe('test')
+  })
+
+  it('should not announce the contents of the container if `display: none`', () => {
+    render(
+      <Announce
+        style={{
+          display: 'none',
+        }}
+      >
+        test
+      </Announce>,
+    )
+
+    const liveRegion = getLiveRegion()
+    expect(liveRegion.getMessage('polite')).not.toBe('test')
+  })
+
+  it('should not announce the contents of the container if `visibility: hidden`', () => {
+    render(
+      <Announce
+        style={{
+          visibility: 'hidden',
+        }}
+      >
+        test
+      </Announce>,
+    )
+
+    const liveRegion = getLiveRegion()
+    expect(liveRegion.getMessage('polite')).not.toBe('test')
   })
 })
