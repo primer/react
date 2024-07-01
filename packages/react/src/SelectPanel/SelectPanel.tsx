@@ -126,9 +126,24 @@ export function SelectPanel({
     }
   }, [placeholder, renderAnchor, selected])
 
+  const testIsItemSelected = React.useCallback((selectedItem: ItemInput, item: ItemInput) => {
+    const itemType = typeof selectedItem
+    if (itemType === 'object') {
+      if (selectedItem.hasOwnProperty('id')) {
+        return selectedItem.id === item.id
+      }
+    }
+
+    return selectedItem === item
+  }, [])
+
   const itemsToRender = useMemo(() => {
     return items.map(item => {
-      const isItemSelected = isMultiSelectVariant(selected) ? selected.includes(item) : selected === item
+      const isItemSelected = isMultiSelectVariant(selected)
+        ? selected.some(selectedItem => {
+            return testIsItemSelected(selectedItem, item)
+          })
+        : selected === item
 
       return {
         ...item,
@@ -142,8 +157,13 @@ export function SelectPanel({
           }
 
           if (isMultiSelectVariant(selected)) {
-            const otherSelectedItems = selected.filter(selectedItem => selectedItem !== item)
-            const newSelectedItems = selected.includes(item) ? otherSelectedItems : [...otherSelectedItems, item]
+            const wasPreviouslySelected = selected.some(selectedItem => {
+              return testIsItemSelected(selectedItem, item)
+            })
+            const otherSelectedItems = selected.filter(selectedItem => {
+              return !testIsItemSelected(selectedItem, item)
+            })
+            const newSelectedItems = wasPreviouslySelected ? otherSelectedItems : [...otherSelectedItems, item]
 
             const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
             multiSelectOnChange(newSelectedItems)
@@ -157,7 +177,7 @@ export function SelectPanel({
         },
       } as ItemProps
     })
-  }, [onClose, onSelectedChange, items, selected])
+  }, [onClose, onSelectedChange, items, selected, testIsItemSelected])
 
   const inputRef = React.useRef<HTMLInputElement>(null)
   const focusTrapSettings = {

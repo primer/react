@@ -1,5 +1,6 @@
-import {render as HTMLRender} from '@testing-library/react'
+import {render as HTMLRender, fireEvent, getByRole, getByText} from '@testing-library/react'
 import axe from 'axe-core'
+
 import React from 'react'
 import theme from '../theme'
 import {SelectPanel} from '../SelectPanel'
@@ -7,9 +8,14 @@ import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, SSRProvider, ThemeProvider} from '..'
 import type {ItemInput} from '../deprecated/ActionList/List'
 
-const items = [{text: 'Foo'}, {text: 'Bar'}, {text: 'Baz'}, {text: 'Bon'}] as ItemInput[]
-
 function SimpleSelectPanel(): JSX.Element {
+  const items = [
+    {text: 'Foo', id: 'foo'},
+    {text: 'Bar', id: 'bar'},
+    {text: 'Baz', id: 'baz'},
+    {text: 'Bon', id: 'bon'},
+  ] as ItemInput[]
+
   const [selected, setSelected] = React.useState<ItemInput[]>([])
   const [, setFilter] = React.useState('')
   const [open, setOpen] = React.useState(false)
@@ -27,6 +33,7 @@ function SimpleSelectPanel(): JSX.Element {
             onFilterChange={setFilter}
             open={open}
             onOpenChange={setOpen}
+            overlayProps={{width: 'medium', height: 'medium'}}
           />
           <div id="portal-root"></div>
         </BaseStyles>
@@ -36,8 +43,16 @@ function SimpleSelectPanel(): JSX.Element {
 }
 
 describe('SelectPanel', () => {
+  const originalScrollTo = Element.prototype.scrollTo
+  beforeAll(() => {
+    Element.prototype.scrollTo = () => {}
+  })
   afterEach(() => {
     jest.clearAllMocks()
+  })
+
+  afterAll(() => {
+    Element.prototype.scrollTo = originalScrollTo
   })
 
   behavesAsComponent({
@@ -55,5 +70,21 @@ describe('SelectPanel', () => {
     const {container} = HTMLRender(<SimpleSelectPanel />)
     const results = await axe.run(container)
     expect(results).toHaveNoViolations()
+  })
+
+  it('should render selected items', () => {
+    const item = HTMLRender(<SimpleSelectPanel />)
+    const {container} = item
+    const button = getByRole(container, 'button')
+    expect(button).toBeTruthy()
+
+    fireEvent.click(button)
+    const selector = getByText(container, 'Foo')
+    expect(selector).toBeVisible()
+
+    fireEvent.click(selector)
+
+    const selected = getByRole(container, 'option', {selected: true})
+    expect(selected).toBeTruthy()
   })
 })
