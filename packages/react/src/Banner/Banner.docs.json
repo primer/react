@@ -2,7 +2,7 @@
   "id": "banner",
   "name": "Banner",
   "status": "alpha",
-  "a11yReviewed": false,
+  "a11yReviewed": true,
   "importPath": "@primer/react/experimental",
   "stories": [],
   "props": [
