@@ -1,4 +1,4 @@
-import {ChevronDownIcon} from '@primer/octicons-react'
+import {ChevronDownIcon, PlusIcon} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import React, {isValidElement} from 'react'
 import styled from 'styled-components'
@@ -275,6 +275,52 @@ const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defau
   )
 }
 
+export type NavListExpandProps = {
+  children: React.ReactNode
+  label: string
+} & SxProp
+
+const Expand = React.forwardRef<HTMLButtonElement, NavListExpandProps>(({label, children, ...props}, forwardedRef) => {
+  const [expanded, setExpanded] = React.useState(false)
+  const triggerContainer = React.useRef<HTMLLIElement>(null)
+  const [focusTargetParent, setFocusTargetParent] = React.useState<HTMLLIElement>()
+
+  const expandList = () => {
+    // Can only be "true", as trigger is removed after expansion
+    const parentItem = triggerContainer.current?.parentElement as HTMLLIElement
+    setFocusTargetParent(parentItem)
+    setExpanded(true)
+  }
+
+  React.useEffect(() => {
+    if (expanded && focusTargetParent) {
+      // Focus the last 'data-target-focus' element that is a child of current list
+      const focusTargets = Array.from(
+        focusTargetParent.querySelectorAll('[data-target--expand-focus]'),
+      ) as HTMLAnchorElement[]
+
+      focusTargets[focusTargets.length - 1]?.focus()
+    }
+  }, [expanded, focusTargetParent])
+
+  return !expanded ? (
+    <Box as="li" sx={{listStyle: 'none'}} ref={triggerContainer}>
+      <ActionList.Item as="button" aria-expanded="false" ref={forwardedRef} onClick={expandList} {...props}>
+        {label}
+        <ActionList.TrailingVisual>
+          <PlusIcon />
+        </ActionList.TrailingVisual>
+      </ActionList.Item>
+    </Box>
+  ) : (
+    React.Children.map(children, (child, index) => {
+      const isFirstChild = index === 0 ? {'data-target--expand-focus': true} : null
+
+      return React.cloneElement(child as React.ReactElement, {...isFirstChild})
+    })
+  )
+})
+
 Group.displayName = 'NavList.Group'
 
 // ----------------------------------------------------------------------------
@@ -287,4 +333,5 @@ export const NavList = Object.assign(Root, {
   TrailingVisual,
   Divider,
   Group,
+  Expand,
 })
