@@ -5,18 +5,9 @@ import React from 'react'
 import Box from '../Box'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import type {ComponentProps} from '../utils/types'
+import {useProvidedRefOrCreate} from '../hooks'
 
 export type ButtonGroupProps = React.PropsWithChildren<SxProp & ComponentProps<typeof StyledButtonGroup>>
-
-function ButtonGroup({children, sx = defaultSxProp, ...rest}: ButtonGroupProps) {
-  const buttons = React.Children.map(children, (child, index) => (
-    <Box key={index} {...rest}>
-      {child}
-    </Box>
-  ))
-
-  return <StyledButtonGroup sx={sx}>{buttons}</StyledButtonGroup>
-}
 
 const StyledButtonGroup = styled.div<SxProp>`
   display: inline-flex;
@@ -45,5 +36,17 @@ const StyledButtonGroup = styled.div<SxProp>`
     border-bottom-right-radius: ${get('radii.2')};
   }
 `
+const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
+  ({children, sx = defaultSxProp, ...rest}: ButtonGroupProps, forwardedRef) => {
+    const ref = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLDivElement>)
+    const buttons = React.Children.map(children, (child, index) => (
+      <Box ref={ref} key={index} {...rest}>
+        {child}
+      </Box>
+    ))
+
+    return <StyledButtonGroup sx={sx}>{buttons}</StyledButtonGroup>
+  },
+)
 
 export default ButtonGroup
