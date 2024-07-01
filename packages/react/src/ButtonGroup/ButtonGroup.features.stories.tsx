@@ -4,12 +4,13 @@ import ButtonGroup from './ButtonGroup'
 import {Button, IconButton} from '../Button'
 import {PlusIcon, DashIcon} from '@primer/octicons-react'
 import {Tooltip} from '../next'
-import {Box, ThemeProvider, BaseStyles} from '..'
 
-const meta: Meta<typeof ButtonGroup> = {
+const meta = {
   title: 'Components/ButtonGroup/Features',
   component: ButtonGroup,
-} as Meta<typeof ButtonGroup>
+} satisfies Meta<typeof ButtonGroup>
+
+export default meta
 
 export const IconButtons = () => (
   <ButtonGroup>
