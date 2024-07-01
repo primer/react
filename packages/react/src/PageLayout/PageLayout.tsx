@@ -608,6 +608,7 @@ export type PageLayoutPaneProps = {
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
   sticky?: boolean
   offsetHeader?: string | number
+  scrollbarGutter?: 'auto' | 'stable' | 'stable both-edges' | 'always'
   hidden?: boolean | ResponsiveValue<boolean>
   id?: string
 } & SxProp
@@ -641,6 +642,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       dividerWhenNarrow = 'inherit',
       sticky = false,
       offsetHeader = 0,
+      scrollbarGutter = 'auto',
       hidden: responsiveHidden = false,
       children,
       id,
@@ -744,6 +746,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
               order: panePositions[position],
               width: '100%',
               marginX: 0,
+              scrollbarGutter: scrollbarGutter,
               ...(position === 'end'
                 ? {flexDirection: 'column', marginTop: SPACING_MAP[rowGap]}
                 : {flexDirection: 'column-reverse', marginBottom: SPACING_MAP[rowGap]}),
