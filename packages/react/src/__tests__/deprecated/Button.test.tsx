@@ -27,9 +27,6 @@ describe('Button', () => {
     ButtonTableList,
     ButtonClose,
   })
-  checkExports('ButtonGroup', {
-    default: ButtonGroup,
-  })
 
   it('renders a <button>', () => {
     expect(render(<Button />).type).toEqual('button')
@@ -115,10 +112,6 @@ describe('ButtonInvisible', () => {
     const item = render(<ButtonInvisible disabled />)
     expect(item).toMatchSnapshot()
   })
-})
-
-describe('ButtonGroup', () => {
-  behavesAsComponent({Component: ButtonGroup})
 })
 
 describe('ButtonTableList', () => {
