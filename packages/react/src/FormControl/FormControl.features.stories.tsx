@@ -10,6 +10,7 @@ import {
   Radio,
   RadioGroup,
   Select,
+  Text,
   TextInput,
   TextInputWithTokens,
   Textarea,
@@ -307,32 +308,29 @@ export const DisabledInputs = () => (
   </Box>
 )
 
-export const ErrorOnlyValidationExample = () => {
-  const [value, setValue] = React.useState('monalisa')
-  const [validationResult, setValidationResult] = React.useState('')
-  const doesValueContainSpaces = (inputValue: string) => /\s/g.test(inputValue)
-  const handleInputChange = (e: {currentTarget: {value: React.SetStateAction<string>}}) => {
-    setValue(e.currentTarget.value)
-  }
-
-  React.useEffect(() => {
-    if (doesValueContainSpaces(value)) {
-      setValidationResult('noSpaces')
-    } else if (value) {
-      setValidationResult('validName')
-    }
-  }, [value])
-
-  return (
-    <FormControl>
-      <FormControl.Label>GitHub handle</FormControl.Label>
-      <TextInput block value={value} onChange={handleInputChange} />
-      {validationResult === 'noSpaces' && (
-        <FormControl.Validation variant="error">GitHub handles cannot contain spaces</FormControl.Validation>
-      )}
-      <FormControl.Caption>
-        Input will show an error message if value contains spaces. Try typing a space in the input field.
-      </FormControl.Caption>
+export const CustomRequired = () => (
+  <Box sx={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
+    <FormControl required={true}>
+      <FormControl.Label requiredText="(required)">Form Input Label</FormControl.Label>
+      <FormControl.Caption>This is a form field with a custom required indicator</FormControl.Caption>
+      <TextInput />
     </FormControl>
-  )
-}
+
+    <Text sx={{fontSize: 1}}>Required fields are marked with an asterisk (*)</Text>
+    <FormControl required={true}>
+      <FormControl.Label requiredIndicator={false}>Form Input Label</FormControl.Label>
+      <FormControl.Caption>
+        This is a form field with a required indicator that is hidden in the accessibility tree
+      </FormControl.Caption>
+      <TextInput />
+    </FormControl>
+
+    <FormControl required={false}>
+      <FormControl.Label requiredText="(optional)" requiredIndicator={false}>
+        Form Input Label
+      </FormControl.Label>
+      <FormControl.Caption>This is a form field that is marked as optional, it is not required</FormControl.Caption>
+      <TextInput />
+    </FormControl>
+  </Box>
+)

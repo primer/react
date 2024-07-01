@@ -92,6 +92,10 @@ const components = new Map([
           id: 'components-actionlist-features--group-with-subtle-title',
           name: 'Group With Subtle Title',
         },
+        {
+          id: 'components-actionlist-features--with-trailing-action',
+          name: 'With Trailing Action',
+        },
       ],
     },
   ],
@@ -886,6 +890,10 @@ const components = new Map([
         {
           id: 'drafts-components-pageheader-features--with-parent-link-and-actions-of-context-area',
           name: 'With Parent Link and Actions of Context Area',
+        },
+        {
+          id: 'drafts-components-pageheader-devonly--large-variant-with-multiline-title',
+          name: 'Large Variant with Multiline Title',
         },
       ],
     },

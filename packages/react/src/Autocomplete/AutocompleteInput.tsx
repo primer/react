@@ -10,11 +10,27 @@ import useSafeTimeout from '../hooks/useSafeTimeout'
 type InternalAutocompleteInputProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   as?: React.ComponentType<React.PropsWithChildren<any>>
+  // When false, the autocomplete menu will not render either on mouse click or
+  // keyboard focus.
+  openOnFocus?: boolean
 }
+
+const ARROW_KEYS_NAV = new Set(['ArrowUp', 'ArrowDown'])
 
 const AutocompleteInput = React.forwardRef(
   (
-    {as: Component = TextInput, onFocus, onBlur, onChange, onKeyDown, onKeyUp, onKeyPress, value, ...props},
+    {
+      as: Component = TextInput,
+      onFocus,
+      onBlur,
+      onChange,
+      onKeyDown,
+      onKeyUp,
+      onKeyPress,
+      value,
+      openOnFocus = true,
+      ...props
+    },
     forwardedRef,
   ) => {
     const autocompleteContext = useContext(AutocompleteContext)
@@ -38,10 +54,12 @@ const AutocompleteInput = React.forwardRef(
 
     const handleInputFocus: FocusEventHandler<HTMLInputElement> = useCallback(
       event => {
-        onFocus && onFocus(event)
-        setShowMenu(true)
+        if (openOnFocus) {
+          onFocus?.(event)
+          setShowMenu(true)
+        }
       },
-      [onFocus, setShowMenu],
+      [onFocus, setShowMenu, openOnFocus],
     )
 
     const handleInputBlur: FocusEventHandler<HTMLInputElement> = useCallback(
@@ -83,8 +101,11 @@ const AutocompleteInput = React.forwardRef(
           setInputValue('')
           inputRef.current.value = ''
         }
+        if (!showMenu && ARROW_KEYS_NAV.has(event.key) && !event.altKey) {
+          setShowMenu(true)
+        }
       },
-      [inputRef, setInputValue, setHighlightRemainingText, onKeyDown],
+      [inputRef, setInputValue, setHighlightRemainingText, onKeyDown, showMenu, setShowMenu],
     )
 
     const handleInputKeyUp: KeyboardEventHandler<HTMLInputElement> = useCallback(

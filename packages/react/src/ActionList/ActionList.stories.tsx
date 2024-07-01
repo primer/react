@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Story, Meta} from '@storybook/react'
+import type {StoryFn, Meta} from '@storybook/react'
 import type {ActionListProps, ActionListGroupProps} from '.'
 import {ActionList} from '.'
 import {Item} from './Item'
@@ -23,7 +23,7 @@ export const Default = () => (
   </ActionList>
 )
 
-export const Playground: Story<ActionListProps> = args => (
+export const Playground: StoryFn<ActionListProps> = args => (
   <ActionList {...args}>
     <ActionList.Item>Copy link</ActionList.Item>
     <ActionList.Item>Quote reply</ActionList.Item>
@@ -34,7 +34,6 @@ Playground.args = {
   showDividers: false,
   selectionVariant: undefined,
   variant: 'inset',
-  role: 'listbox',
 }
 Playground.argTypes = {
   showDividers: {
@@ -163,7 +162,6 @@ ItemPlayground.args = {
   disabled: false,
   inactiveText: '',
   variant: 'default',
-  role: 'listitem',
   id: 'item-1',
   leadingVisual: null,
   trailingVisual: null,
@@ -215,7 +213,6 @@ export const LinkItemPlayground = args => {
 LinkItemPlayground.args = {
   active: false,
   disabled: false,
-  role: 'listitem',
   id: 'item-1',
   inactiveText: '',
   leadingVisual: null,
@@ -255,7 +252,7 @@ LinkItemPlayground.argTypes = {
   },
 }
 
-export const GroupPlayground: Story<ActionListGroupProps> = args => (
+export const GroupPlayground: StoryFn<ActionListGroupProps> = args => (
   <ActionList>
     <ActionList.Group {...args}>
       <ActionList.Item>Item 1</ActionList.Item>
@@ -282,7 +279,6 @@ GroupPlayground.argTypes = {
 }
 GroupPlayground.args = {
   variant: 'subtle',
-  role: 'listbox',
   title: 'Group title',
   auxiliaryText: '',
 }

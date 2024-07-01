@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react'
+import React, {useCallback, useEffect, useRef, useState, type SyntheticEvent} from 'react'
 import styled from 'styled-components'
 import type {ButtonProps} from '../Button'
 import {Button} from '../Button'
@@ -98,9 +98,9 @@ export interface DialogProps extends SxProp {
 
   /**
    * This method is invoked when a gesture to close the dialog is used (either
-   * an Escape key press or clicking the "X" in the top-right corner). The
+   * an Escape key press, clicking the backdrop, or clicking the "X" in the top-right corner). The
    * gesture argument indicates the gesture that was used to close the dialog
-   * (either 'close-button' or 'escape').
+   * ('close-button' or 'escape').
    */
   onClose: (gesture: 'close-button' | 'escape') => void
 
@@ -414,6 +414,14 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     }
   }
   const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
+  const onBackdropClick = useCallback(
+    (e: SyntheticEvent) => {
+      if (e.target === e.currentTarget) {
+        onClose('escape')
+      }
+    },
+    [onClose],
+  )
 
   const dialogRef = useRef<HTMLDivElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, dialogRef)
@@ -465,7 +473,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   return (
     <>
       <Portal>
-        <Backdrop ref={backdropRef} {...positionDataAttributes}>
+        <Backdrop ref={backdropRef} {...positionDataAttributes} onClick={onBackdropClick}>
           <StyledDialog
             width={width}
             height={height}

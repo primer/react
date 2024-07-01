@@ -1,14 +1,14 @@
 import React from 'react'
-import type {ComponentStory, ComponentMeta} from '@storybook/react'
+import type {StoryFn, Meta} from '@storybook/react'
 import Heading from './Heading'
 
 export default {
   title: 'Components/Heading',
   component: Heading,
-} as ComponentMeta<typeof Heading>
-export const Default: ComponentStory<typeof Heading> = () => <Heading>Default H2 Heading</Heading>
+} as Meta<typeof Heading>
+export const Default: StoryFn<typeof Heading> = () => <Heading>Default H2 Heading</Heading>
 
-export const Playground: ComponentStory<typeof Heading> = args => <Heading {...args}>Heading</Heading>
+export const Playground: StoryFn<typeof Heading> = args => <Heading {...args}>Heading</Heading>
 
 Playground.args = {
   as: 'h2',

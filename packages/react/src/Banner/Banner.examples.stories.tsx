@@ -2,8 +2,7 @@ import {Banner} from '../Banner'
 import {action} from '@storybook/addon-actions'
 import Link from '../Link'
 import type {Meta} from '@storybook/react'
-import {Status} from '../internal/components/Status'
-import {Alert} from '../internal/components/Alert'
+import {AriaAlert, AriaStatus} from '../live-region'
 import FormControl from '../FormControl'
 import RadioGroup from '../RadioGroup'
 import Radio from '../Radio'
@@ -30,7 +29,7 @@ export const WithUserAction = () => {
         <Banner
           ref={bannerRef}
           title="Error"
-          description={<Alert>Something went wrong. Please try again later.</Alert>}
+          description={<AriaAlert>Something went wrong. Please try again later.</AriaAlert>}
           variant="critical"
         />
       ) : null}
@@ -60,7 +59,7 @@ export const WithDynamicContent = () => {
     <>
       <Banner
         title="Info"
-        description={<Status>{messages.get(selected)}</Status>}
+        description={<AriaStatus>{messages.get(selected)}</AriaStatus>}
         onDismiss={action('onDismiss')}
         primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
         secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
@@ -148,5 +147,42 @@ export const Multiline = () => {
       primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
       secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
     />
+  )
+}
+
+export const DismissBanner = () => {
+  const ref = React.useRef<React.ElementRef<'h2'>>(null)
+  const [banner, setBanner] = React.useState<React.ComponentPropsWithoutRef<typeof Banner> | null>({
+    title: 'Info',
+    description: (
+      <>
+        GitHub users are{' '}
+        <Link inline underline href="#">
+          now required
+        </Link>{' '}
+        to enable two-factor authentication as an additional security measure.
+      </>
+    ),
+  })
+
+  return (
+    <>
+      <main>
+        {banner ? (
+          <Banner
+            title={banner.title}
+            description={banner.description}
+            onDismiss={() => {
+              setBanner(null)
+              ref.current?.focus()
+            }}
+          />
+        ) : null}
+        <h2 ref={ref} tabIndex={-1}>
+          Example page title
+        </h2>
+        <p>Example page content</p>
+      </main>
+    </>
   )
 }
