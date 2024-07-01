@@ -8,7 +8,6 @@ import {
   ButtonInvisible,
   ButtonTableList,
 } from '../../deprecated'
-import {ButtonGroup} from '../..'
 import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
