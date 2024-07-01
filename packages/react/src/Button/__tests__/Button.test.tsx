@@ -1,5 +1,5 @@
 import {SearchIcon, HeartIcon} from '@primer/octicons-react'
-import {render, screen, fireEvent, getByText} from '@testing-library/react'
+import {render, screen, fireEvent} from '@testing-library/react'
 import axe from 'axe-core'
 import React from 'react'
 import {IconButton, Button} from '../../Button'
