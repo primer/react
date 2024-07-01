@@ -40,3 +40,8 @@ export const SizeResponsive = () => (
     <Avatar size={{narrow: 48, regular: 56, wide: 64}} src="https://avatars.githubusercontent.com/u/92997159?v=4" />
   </div>
 )
+
+export const ObjectSource = () => {
+  const src = {src: 'https://avatars.githubusercontent.com/u/92997159?v=4'}
+  return <Avatar src={src} />
+}

@@ -6,7 +6,7 @@ import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
 
 describe('Avatar', () => {
-  behavesAsComponent({Component: Avatar})
+  behavesAsComponent({Component: Avatar, toRender: () => <Avatar src="primer.png" />})
 
   checkExports('Avatar', {
     default: Avatar,
@@ -33,6 +33,11 @@ describe('Avatar', () => {
 
   it('passes through the src prop', () => {
     expect(render(<Avatar src="primer.png" alt="" />).props.src).toEqual('primer.png')
+  })
+
+  it('extracts and passes through the src from an image-data object', () => {
+    const imageData = {src: 'primer.png', random: 'this_relates_to_next_js_static_images'}
+    expect(render(<Avatar src={imageData} alt="" />).props.src).toEqual('primer.png')
   })
 
   it('respects margin props', () => {

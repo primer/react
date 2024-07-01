@@ -7,6 +7,12 @@
   "importPath": "@primer/react",
   "props": [
     {
+      "name": "src",
+      "type": "string | ImageData",
+      "description": "The source of the avatar image. Either a url or an image-data-object with a url nested inside",
+      "required": true
+    },
+    {
       "name": "alt",
       "type": "string",
       "defaultValue": "''",
