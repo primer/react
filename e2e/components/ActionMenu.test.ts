@@ -43,6 +43,11 @@ test.describe('ActionMenu', () => {
             },
           })
 
+          // Default state
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `ActionMenu.Inactive Items.${theme}.png`,
+          )
+
           // Open state
           await page.locator('button', {hasText: 'Open menu'}).waitFor()
           await page.getByRole('button', {name: 'Open menu'}).click()
@@ -94,6 +99,41 @@ test.describe('ActionMenu', () => {
           })
           // Open Menu
           await page.getByRole('button', {name: 'Open menu'}).click()
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
+
+  test.describe('Loading Items', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionmenu-features--loading-items',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `ActionMenu.Loading Items.${theme}.png`,
+          )
+
+          // Open menu
+          await page.locator('button', {hasText: 'Open menu'}).waitFor()
+          await page.getByRole('button', {name: 'Open menu'}).click()
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot()
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionmenu-features--loading-items',
+            globals: {
+              colorScheme: theme,
+            },
+          })
           await expect(page).toHaveNoViolations()
         })
       })
