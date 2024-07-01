@@ -624,6 +624,14 @@ const components = new Map([
           id: 'components-iconbutton-features--small',
           name: 'Small',
         },
+        {
+          id: 'components-iconbutton-features--keyshortcuts',
+          name: 'Keyshortcuts',
+        },
+        {
+          id: 'components-iconbutton-features--keyshortcuts-on-description',
+          name: 'Keyshortcuts on Description',
+        },
       ],
     },
   ],
