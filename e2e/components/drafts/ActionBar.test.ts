@@ -44,8 +44,8 @@ test.describe('ActionBar', () => {
           await expect(page.locator(toolbarButtonSelector)).toHaveCount(10)
           await page.setViewportSize({width: viewports['primer.breakpoint.xs'], height: 768})
           await expect(page.locator(toolbarButtonSelector)).toHaveCount(6)
-          const moreButtonSelector = `button[aria-label="More Comment box toolbar items"]`
-          await page.locator(moreButtonSelector).click()
+          const moreButtonSelector = page.getByLabel('More Comment box toolbar items')
+          await moreButtonSelector.click()
           await expect(page.locator('ul[role="menu"]>li')).toHaveCount(5)
         })
       })

@@ -16,6 +16,8 @@ export const ToolbarButton = forwardRef<HTMLButtonElement, IconButtonProps>((pro
       onMouseDown={(e: React.MouseEvent) => e.preventDefault()}
       {...props}
       sx={{color: 'fg.muted', ...props.sx}}
+      // Keeping the tooltip disable since it is not maintained anymore and its tests were failing.
+      unsafeDisableTooltip
     />
   )
 })

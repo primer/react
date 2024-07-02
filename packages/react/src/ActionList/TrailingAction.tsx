@@ -48,7 +48,6 @@ export const TrailingAction = forwardRef(({as = 'button', icon, label, href = nu
           aria-label={label}
           icon={icon}
           variant="invisible"
-          unsafeDisableTooltip={false}
           tooltipDirection="w"
           href={href}
           // @ts-expect-error StyledButton wants both Anchor and Button refs

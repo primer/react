@@ -11,7 +11,8 @@ export default {
 
 export const IconButtons = () => (
   <ButtonGroup>
-    <IconButton icon={PlusIcon} aria-label="Add" />
-    <IconButton icon={DashIcon} aria-label="Subtract" />
+    {/* We can remove these unsafe props after we resolve https://github.com/primer/react/issues/4129 */}
+    <IconButton unsafeDisableTooltip={true} icon={PlusIcon} aria-label="Add" />
+    <IconButton unsafeDisableTooltip={true} icon={DashIcon} aria-label="Subtract" />
   </ButtonGroup>
 )
