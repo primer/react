@@ -6277,19 +6277,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   display: inline-flex;
 }
 
-.c7 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c12:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -6304,6 +6291,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
+}
+
+.c7 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
@@ -7083,19 +7083,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   display: inline-flex;
 }
 
-.c11 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c5:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -7116,6 +7103,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: hidden;
+}
+
+.c11 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
@@ -7945,19 +7945,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   display: inline-flex;
 }
 
-.c7 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c12:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -7972,6 +7959,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
+}
+
+.c7 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
@@ -8755,19 +8755,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: hidden;
 }
 
-.c12 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c6:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -8793,6 +8780,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   max-width: 100%;
   visibility: visible;
   left: 0;
+}
+
+.c12 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
@@ -9656,19 +9656,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: hidden;
 }
 
-.c12 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c6:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -9694,6 +9681,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   max-width: 100%;
   visibility: visible;
   left: 0;
+}
+
+.c12 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
@@ -10557,19 +10557,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
-.c12 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c6:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -10595,6 +10582,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   max-width: 100%;
   visibility: hidden;
   left: 0;
+}
+
+.c12 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
@@ -11458,19 +11458,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: hidden;
 }
 
-.c7 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c13:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -11490,6 +11477,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   max-width: 100%;
   visibility: visible;
   right: 0;
+}
+
+.c7 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
@@ -12303,19 +12303,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
-.c11 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c5:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -12341,6 +12328,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   max-width: 100%;
   visibility: hidden;
   right: 0;
+}
+
+.c11 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
@@ -13204,19 +13204,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: hidden;
 }
 
-.c7 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c13:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -13236,6 +13223,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   max-width: 100%;
   visibility: visible;
   right: 0;
+}
+
+.c7 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
@@ -14053,19 +14053,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
-.c12 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c6:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -14096,6 +14083,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   max-width: 100%;
   visibility: hidden;
   right: 0;
+}
+
+.c12 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
@@ -14998,19 +14998,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
-.c12 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c6:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -15041,6 +15028,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   max-width: 100%;
   visibility: hidden;
   right: 0;
+}
+
+.c12 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
@@ -15938,19 +15938,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
-.c12 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c6:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -15981,6 +15968,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   max-width: 100%;
   visibility: visible;
   right: 0;
+}
+
+.c12 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
