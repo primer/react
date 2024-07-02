@@ -60,8 +60,6 @@ export const Minimal = () => {
       <h1>Minimal SelectPanel</h1>
 
       <SelectPanel title="Select labels" onSubmit={onSubmit} onCancel={onCancel}>
-        <SelectPanel.Button>Assign label</SelectPanel.Button>
-
         <ActionList>
           {itemsToShow.map(label => (
             <ActionList.Item
@@ -861,20 +859,22 @@ export const WithinForm = () => {
     <>
       <h1>Within Form</h1>
 
-      <FormControl>
-        <FormControl.Label>SelectPanel within FormControl</FormControl.Label>
-        <SelectPanel title="Choose a tag" selectionVariant="instant" onSubmit={onSubmit}>
-          <SelectPanel.Button leadingVisual={TagIcon}>{selectedTag || 'Choose a tag'}</SelectPanel.Button>
+      <form>
+        <FormControl>
+          <FormControl.Label>SelectPanel within FormControl</FormControl.Label>
+          <SelectPanel title="Choose a tag" selectionVariant="instant" onSubmit={onSubmit}>
+            <SelectPanel.Button leadingVisual={TagIcon}>{selectedTag || 'Choose a tag'}</SelectPanel.Button>
 
-          <ActionList>
-            {itemsToShow.map(tag => (
-              <ActionList.Item key={tag.id} onSelect={() => setSelectedTag(tag.id)} selected={selectedTag === tag.id}>
-                {tag.name}
-              </ActionList.Item>
-            ))}
-          </ActionList>
-        </SelectPanel>
-      </FormControl>
+            <ActionList>
+              {itemsToShow.map(tag => (
+                <ActionList.Item key={tag.id} onSelect={() => setSelectedTag(tag.id)} selected={selectedTag === tag.id}>
+                  {tag.name}
+                </ActionList.Item>
+              ))}
+            </ActionList>
+          </SelectPanel>
+        </FormControl>
+      </form>
     </>
   )
 }
