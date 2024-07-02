@@ -3,7 +3,7 @@ import {IssueLabel} from '../IssueLabel'
 import type {Meta, StoryObj} from '@storybook/react'
 
 const meta = {
-  title: 'Drafts/Components/Label',
+  title: 'Drafts/Components/IssueLabel',
   component: IssueLabel,
 } satisfies Meta<typeof IssueLabel>
 
@@ -15,6 +15,10 @@ export const Playground: StoryObj<typeof IssueLabel> = {
   render: args => <IssueLabel {...args}>Issue label</IssueLabel>,
   args: {},
   argTypes: {
+    fillColor: {
+      hex: undefined,
+      control: {type: 'color', presetColors: ['red', 'green', 'blue', 'brown', 'black', 'white', 'salmon', 'orange']},
+    },
     size: {
       control: 'select',
       option: ['small', 'large'],
