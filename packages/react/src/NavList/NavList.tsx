@@ -286,14 +286,18 @@ const ItemWithinGroup = React.createContext<{groupId: string} | null>(null)
 
 const Expand = React.forwardRef<HTMLButtonElement, NavListExpandProps>(({label, children, ...props}, forwardedRef) => {
   const [expanded, setExpanded] = React.useState(false)
+  const targetFocused = React.useRef(false)
 
   const groupId = useId()
 
   React.useEffect(() => {
-    if (expanded) {
+    if (expanded && !targetFocused.current) {
       const focusTarget: HTMLAnchorElement | null = document.querySelector(`[data-show-more-group-id="${groupId}"]`)
 
-      if (focusTarget) focusTarget.focus()
+      if (focusTarget) {
+        focusTarget.focus()
+        targetFocused.current = true
+      }
     }
   }, [expanded, groupId])
 
