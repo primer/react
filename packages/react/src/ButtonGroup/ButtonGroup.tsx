@@ -39,13 +39,13 @@ const StyledButtonGroup = styled.div<SxProp>`
 const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
   ({children, sx = defaultSxProp, ...rest}: ButtonGroupProps, forwardedRef) => {
     const ref = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLDivElement>)
-    const buttons = React.Children.map(children, (child, index) => (
-      <Box ref={ref} key={index} {...rest}>
-        {child}
-      </Box>
-    ))
+    const buttons = React.Children.map(children, (child, index) => <Box key={index}>{child}</Box>)
 
-    return <StyledButtonGroup sx={sx}>{buttons}</StyledButtonGroup>
+    return (
+      <StyledButtonGroup ref={ref} sx={sx} {...rest}>
+        {buttons}
+      </StyledButtonGroup>
+    )
   },
 )
 
