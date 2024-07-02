@@ -68,7 +68,7 @@ figma.connect(
           value={textInput.label}
           trailingAction={trailingAction}
           leadingVisual={leadingVisual}
-          readOnly={readonly}
+          readonly={readonly}
         />
         {validation}
         {caption}

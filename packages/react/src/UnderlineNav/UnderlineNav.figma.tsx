@@ -28,14 +28,14 @@ figma.connect(
     props: {
       label: figma.textContent('Label'),
       current: figma.enum('state', {
-        selected: 'page',
+        selected: '"page"',
         default: undefined,
-        hover: 'false',
-        focus: 'false',
+        hover: '"false"',
+        focus: '"false"',
       }),
       counter: figma.boolean('counter?', {
         false: undefined,
-        true: figma.string('CounterLabel'),
+        true: figma.children('CounterLabel'),
       }),
       leadingVisual: figma.boolean('leadingIcon?', {
         false: undefined,
@@ -43,11 +43,7 @@ figma.connect(
       }),
     },
     example: ({label, current, counter, leadingVisual}) => (
-      <UnderlineNav.Item
-        aria-current={current}
-        counter={counter}
-        icon={leadingVisual ? () => leadingVisual : undefined}
-      >
+      <UnderlineNav.Item aria-current={current} counter={counter} icon={leadingVisual}>
         {label}
       </UnderlineNav.Item>
     ),
