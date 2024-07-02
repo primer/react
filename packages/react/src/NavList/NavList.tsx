@@ -61,6 +61,7 @@ export type NavListItemProps = {
 const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
   ({'aria-current': ariaCurrent, children, defaultOpen, sx: sxProp = defaultSxProp, ...props}, ref) => {
     const {depth} = React.useContext(SubNavContext)
+    const expandGroupContext = React.useContext(ItemWithinGroup)
 
     // Get SubNav from children
     const subNav = React.Children.toArray(children).find(child => isValidElement(child) && child.type === SubNav)
@@ -89,6 +90,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
         aria-current={ariaCurrent}
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
         sx={merge<SxProp['sx']>(getSubnavStyles(depth), sxProp)}
+        data-show-more-group-id={expandGroupContext?.groupId}
         {...props}
       >
         {children}
@@ -280,32 +282,32 @@ export type NavListExpandProps = {
   label: string
 } & SxProp
 
+const ItemWithinGroup = React.createContext<{groupId: string} | null>(null)
+
 const Expand = React.forwardRef<HTMLButtonElement, NavListExpandProps>(({label, children, ...props}, forwardedRef) => {
   const [expanded, setExpanded] = React.useState(false)
-  const triggerContainer = React.useRef<HTMLLIElement>(null)
-  const [focusTargetParent, setFocusTargetParent] = React.useState<HTMLLIElement>()
 
-  const expandList = () => {
-    // Can only be "true", as trigger is removed after expansion
-    const parentItem = triggerContainer.current?.parentElement as HTMLLIElement
-    setFocusTargetParent(parentItem)
-    setExpanded(true)
-  }
+  const groupId = useId()
 
   React.useEffect(() => {
-    if (expanded && focusTargetParent) {
-      // Focus the last 'data-target-focus' element that is a child of current list
-      const focusTargets = Array.from(
-        focusTargetParent.querySelectorAll('[data-target--expand-focus]'),
-      ) as HTMLAnchorElement[]
+    if (expanded) {
+      const focusTarget: HTMLAnchorElement | null = document.querySelector(`[data-show-more-group-id="${groupId}"]`)
 
-      focusTargets[focusTargets.length - 1]?.focus()
+      if (focusTarget) focusTarget.focus()
     }
-  }, [expanded, focusTargetParent])
+  }, [expanded, groupId])
 
   return !expanded ? (
-    <Box as="li" sx={{listStyle: 'none'}} ref={triggerContainer}>
-      <ActionList.Item as="button" aria-expanded="false" ref={forwardedRef} onClick={expandList} {...props}>
+    <Box as="li" sx={{listStyle: 'none'}}>
+      <ActionList.Item
+        as="button"
+        aria-expanded="false"
+        ref={forwardedRef}
+        onClick={() => {
+          setExpanded(true)
+        }}
+        {...props}
+      >
         {label}
         <ActionList.TrailingVisual>
           <PlusIcon />
@@ -313,11 +315,7 @@ const Expand = React.forwardRef<HTMLButtonElement, NavListExpandProps>(({label, 
       </ActionList.Item>
     </Box>
   ) : (
-    React.Children.map(children, (child, index) => {
-      const isFirstChild = index === 0 ? {'data-target--expand-focus': true} : null
-
-      return React.cloneElement(child as React.ReactElement, {...isFirstChild})
-    })
+    <ItemWithinGroup.Provider value={{groupId}}>{children}</ItemWithinGroup.Provider>
   )
 })
 
