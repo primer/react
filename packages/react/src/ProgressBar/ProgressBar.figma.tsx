@@ -48,6 +48,6 @@ figma.connect(
         gray: '--data-gray-color',
       }),
     },
-    example: ({color}) => <ProgressBarItem sx={color} />,
+    example: ({color}) => <ProgressBarItem sx={{color}} />,
   },
 )
