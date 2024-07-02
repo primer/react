@@ -8,7 +8,6 @@ import {
   ButtonInvisible,
   ButtonTableList,
 } from '../../deprecated'
-import {ButtonGroup} from '../..'
 import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
@@ -26,9 +25,6 @@ describe('Button', () => {
     ButtonInvisible,
     ButtonTableList,
     ButtonClose,
-  })
-  checkExports('ButtonGroup', {
-    default: ButtonGroup,
   })
 
   it('renders a <button>', () => {
@@ -115,10 +111,6 @@ describe('ButtonInvisible', () => {
     const item = render(<ButtonInvisible disabled />)
     expect(item).toMatchSnapshot()
   })
-})
-
-describe('ButtonGroup', () => {
-  behavesAsComponent({Component: ButtonGroup})
 })
 
 describe('ButtonTableList', () => {
