@@ -2,6 +2,9 @@ import React from 'react'
 import figma from '@figma/code-connect'
 import FormControl from '../FormControl'
 
+/* eslint eslint-comments/no-use: off */
+/* eslint-disable primer-react/direct-slot-children */
+
 figma.connect(
   FormControl.Label,
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=34462-69137&t=WXa19NDaeGGhlbLq-4',
@@ -23,6 +26,7 @@ figma.connect(
     example: ({caption}) => <FormControl.Caption>{caption}</FormControl.Caption>,
   },
 )
+/* eslint-enable primer-react/direct-slot-children */
 
 figma.connect(
   FormControl.Validation,
