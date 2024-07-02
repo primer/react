@@ -51,7 +51,7 @@ export const SizeLarge = () => <IssueLabel size="large">Issue label</IssueLabel>
 
 export const SizeSmall = () => <IssueLabel size="small">Issue label</IssueLabel>
 
-export const Hex = hex => <IssueLabel fillColor={hex}>Issue label</IssueLabel>
+export const Hex = (hex: string) => <IssueLabel fillColor={hex}>Issue label</IssueLabel>
 Hex.args = {
   hex: '#59B200',
   variant: undefined,

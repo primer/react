@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import {get} from '../../constants'
+import {getColorsFromHex} from './getColorFromHex'
+import {useTheme} from '../../ThemeProvider'
 
 type LabelColorVariant =
   | 'pink'
@@ -43,8 +45,16 @@ export interface IssueLabelProps extends React.PropsWithChildren {
 }
 
 export function IssueLabel({children, fillColor, size = 'small', variant = 'gray', ...rest}: IssueLabelProps) {
+  const {resolvedColorScheme} = useTheme()
+  // TODO: get the bgColor, getting it from theme.colorScheme seems a bit sketchy
+
   return (
-    <StyledLabel {...rest} data-size={size} data-variant={fillColor ? undefined : variant}>
+    <StyledLabel
+      {...rest}
+      data-size={size}
+      data-variant={fillColor ? undefined : variant}
+      style={fillColor ? getColorsFromHex(fillColor, resolvedColorScheme, '#fff') : undefined}
+    >
       {children}
     </StyledLabel>
   )
