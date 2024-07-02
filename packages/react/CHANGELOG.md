@@ -1,5 +1,11 @@
 # @primer/react
 
+## 36.25.0
+
+### Minor Changes
+
+- [#4697](https://github.com/primer/react/pull/4697) [`a7d1e4f37cd8fd01c86250178ef6ae748d786e03`](https://github.com/primer/react/commit/a7d1e4f37cd8fd01c86250178ef6ae748d786e03) Thanks [@khiga8](https://github.com/khiga8)! - Add TrailingAction support to NavList
+
 ## 36.24.0
 
 ### Minor Changes
