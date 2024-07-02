@@ -1,21 +1,28 @@
-import {type RefObject, useEffect, useState} from 'react'
+import {type RefObject, useCallback, useEffect, useState} from 'react'
+
+type FocusTarget = HTMLElement | RefObject<HTMLElement> | (() => HTMLElement | undefined)
 
 export function useFocus() {
-  const [focusTarget, setFocusTarget] = useState<HTMLElement | RefObject<HTMLElement> | null>(null)
+  const [focusTarget, setFocusTarget] = useState<FocusTarget | null>(null)
 
   useEffect(() => {
     if (focusTarget === null) {
       return
     }
 
-    if (focusTarget instanceof HTMLElement) {
-      focusTarget.focus()
-    } else {
-      focusTarget.current?.focus()
-    }
+    const element =
+      typeof focusTarget === 'function'
+        ? focusTarget()
+        : focusTarget instanceof HTMLElement
+        ? focusTarget
+        : focusTarget.current
+
+    element?.focus()
 
     setFocusTarget(null)
   }, [focusTarget])
 
-  return setFocusTarget
+  return useCallback((target: FocusTarget) => {
+    setFocusTarget(() => target)
+  }, [])
 }
