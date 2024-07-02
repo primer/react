@@ -1,0 +1,428 @@
+.BaseButton {
+  border-radius: 2px;
+  border: 1px solid;
+  border-color: var(--button-default-borderColor-rest, <theme-color>);
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  appearance: none;
+  user-select: none;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 32px;
+  padding: 0 12px;
+  gap: 8px;
+  min-width: max-content;
+  transition: 80ms cubic-bezier(0.65, 0, 0.35, 1);
+  transition-property: color, fill, background-color, border-color;
+}
+
+.BaseButton[href] {
+  display: inline-flex;
+}
+
+.BaseButton[href]:hover {
+  text-decoration: none;
+}
+
+.BaseButton:hover {
+  transition-duration: 80ms;
+}
+
+.BaseButton:active {
+  transition: none;
+}
+
+.BaseButton[data-inactive] {
+  cursor: auto;
+}
+
+.BaseButton:disabled {
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+@media (forced-colors: active) {
+  .BaseButton:focus {
+    outline: solid 1px transparent;
+  }
+}
+
+.BaseButton[data-component='ButtonCounter'] {
+  font-size: 0;
+}
+
+.BaseButton[data-component='IconButton'] {
+  display: inline-grid;
+  padding: unset;
+  place-content: center;
+  width: 32px;
+  min-width: unset;
+}
+
+.BaseButton[data-size='small'] {
+  padding: 0 8px;
+  height: 28px;
+  gap: 4px;
+  font-size: 0.75rem;
+}
+
+.BaseButton[data-size='small'] [data-component='text'] {
+  line-height: calc(20 / 12);
+}
+
+.BaseButton[data-size='small'] [data-component='ButtonCounter'] {
+  font-size: 0;
+}
+
+.BaseButton[data-size='small'] [data-component='buttonContent'] > :not(:last-child) {
+  margin-right: 4px;
+}
+
+.BaseButton[data-size='small'][data-component='IconButton'] {
+  width: 28px;
+  padding: unset;
+}
+
+.BaseButton[data-size='large'] {
+  padding: 0 16px;
+  height: 40px;
+  gap: 8px;
+}
+
+.BaseButton[data-size='large'] [data-component='buttonContent'] > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.BaseButton[data-size='large'][data-component='IconButton'] {
+  width: 40px;
+  padding: unset;
+}
+
+/* Default Variant */
+.BaseButton[data-variant='default'] {
+  color: var(--btn-text);
+  background-color: var(--btn-bg);
+  box-shadow: var(--btn-shadow), var(--btn-insetShadow);
+}
+
+.BaseButton[data-variant='default']:hover:not([disabled]):not([data-inactive]) {
+  background-color: var(--btn-hoverBg);
+  border-color: var(--button-default-borderColor-hover, var(--btn-hoverBorder));
+}
+
+.BaseButton[data-variant='default']:active:not([disabled]):not([data-inactive]) {
+  background-color: var(--btn-activeBg);
+  border-color: var(--button-default-borderColor-active, var(--btn-activeBorder));
+}
+
+.BaseButton[data-variant='default']:disabled {
+  color: var(--primer-fg-disabled);
+  border-color: var(--button-default-borderColor-disabled, var(--btn-border));
+  background-color: var(--button-default-bgColor-disabled, var(--input-disabledBg));
+}
+
+.BaseButton[data-variant='default']:disabled [data-component='ButtonCounter'] {
+  color: inherit;
+}
+
+.BaseButton[data-variant='default'][aria-expanded='true'] {
+  background-color: var(--btn-activeBg);
+  border-color: var(--button-default-borderColor-active, var(--btn-activeBorder));
+}
+
+.BaseButton[data-variant='default'] [data-component='leadingVisual'],
+.BaseButton[data-variant='default'] [data-component='trailingVisual'],
+.BaseButton[data-variant='default'] [data-component='trailingAction'] {
+  color: var(--button-color, var(--fg-muted));
+}
+
+.BaseButton[data-variant='default'] [data-component='ButtonCounter'] {
+  background-color: var(--btn-counterBg);
+}
+
+.BaseButton[data-variant='default'][data-component='IconButton'][data-no-visuals] {
+  color: var(--fg-muted);
+}
+
+/* Primary Variant */
+.BaseButton[data-variant='primary'] {
+  color: var(--btn-primary-text);
+  background-color: var(--btn-primary-bg);
+  border-color: var(--btn-primary-border);
+  box-shadow: var(--btn-primary-shadow);
+}
+
+.BaseButton[data-variant='primary']:hover:not([disabled]):not([data-inactive]) {
+  color: var(--btn-primary-hoverText);
+  background-color: var(--btn-primary-hoverBg);
+}
+
+.BaseButton[data-variant='primary']:focus:not([disabled]),
+.BaseButton[data-variant='primary']:focus-visible:not([disabled]) {
+  box-shadow: inset 0 0 0 3px;
+}
+
+.BaseButton[data-variant='primary']:active:not([disabled]):not([data-inactive]) {
+  background-color: var(--btn-primary-selectedBg);
+  box-shadow: var(--btn-primary-selectedShadow);
+}
+
+.BaseButton[data-variant='primary']:disabled {
+  color: var(--btn-primary-disabledText);
+  background-color: var(--btn-primary-disabledBg);
+  border-color: var(--btn-primary-disabledBorder);
+}
+
+.BaseButton[data-variant='primary']:disabled [data-component='ButtonCounter'] {
+  color: inherit;
+}
+
+.BaseButton[data-variant='primary'] [data-component='ButtonCounter'] {
+  background-color: var(--btn-primary-counterBg);
+  color: var(--btn-primary-text);
+}
+
+.BaseButton[data-variant='primary'][aria-expanded='true'] {
+  background-color: var(--btn-primary-selectedBg);
+  box-shadow: var(--btn-primary-selectedShadow);
+}
+
+/* Danger Variant */
+.BaseButton[data-variant='danger'] {
+  color: var(--btn-danger-text);
+  background-color: var(--btn-bg);
+  box-shadow: var(--btn-shadow);
+}
+
+.BaseButton[data-variant='danger']:hover:not([disabled]):not([data-inactive]) {
+  color: var(--btn-danger-hoverText);
+  background-color: var(--btn-danger-hoverBg);
+  border-color: var(--btn-danger-hoverBorder);
+  box-shadow: var(--btn-danger-hoverShadow);
+}
+
+.BaseButton[data-variant='danger']:hover:not([disabled]):not([data-inactive]) [data-component='ButtonCounter'] {
+  background-color: var(--btn-danger-hoverCounterBg);
+  color: var(--btn-danger-hoverCounterFg);
+}
+
+.BaseButton[data-variant='danger']:active:not([disabled]):not([data-inactive]) {
+  color: var(--btn-danger-selectedText);
+  background-color: var(--btn-danger-selectedBg);
+  box-shadow: var(--btn-danger-selectedShadow);
+  border-color: var(--btn-danger-selectedBorder);
+}
+
+.BaseButton[data-variant='danger']:disabled {
+  color: var(--btn-danger-disabledText);
+  background-color: var(--btn-danger-disabledBg);
+  border-color: var(--button-default-borderColor-disabled, var(--btn-border));
+}
+
+.BaseButton[data-variant='danger']:disabled [data-component='ButtonCounter'] {
+  color: var(--btn-danger-disabledCounterFg);
+  background-color: var (--btn-danger-disabledCounterBg);
+}
+
+.BaseButton[data-variant='danger'] [data-component='ButtonCounter'] {
+  color: var(--btn-danger-counterFg);
+  background-color: var(--btn-danger-counterBg);
+}
+
+.BaseButton[data-variant='danger'][aria-expanded='true'] {
+  color: var(--btn-danger-selectedText);
+  background-color: var(--btn-danger-selectedBg);
+  box-shadow: var(--btn-danger-selectedShadow);
+  border-color: var(--btn-danger-selectedBorder);
+}
+
+/* Invisible Variant */
+.BaseButton[data-variant='invisible'] {
+  color: var(--btn-text);
+  background-color: transparent;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.BaseButton[data-variant='invisible']:hover:not([disabled]) {
+  background-color: var(--actionListItem-default-hoverBg);
+}
+
+.BaseButton[data-variant='invisible']:active:not([disabled]) {
+  background-color: var(--actionListItem-default-activeBg);
+}
+
+.BaseButton[data-variant='invisible']:disabled {
+  color: var(--primer-fg-disabled);
+}
+
+.BaseButton[data-variant='invisible']:disabled [data-component='ButtonCounter'],
+.BaseButton[data-variant='invisible']:disabled [data-component='leadingVisual'],
+.BaseButton[data-variant='invisible']:disabled [data-component='trailingAction'] {
+  color: inherit;
+}
+
+.BaseButton[data-variant='invisible'][aria-expanded='true'] {
+  background-color: var(--actionListItem-default-selectedBg);
+}
+
+.BaseButton[data-variant='invisible'][data-component='IconButton'][data-no-visuals] {
+  color: var(--fg-muted);
+}
+
+.BaseButton[data-variant='invisible'] [data-component='trailingAction'],
+.BaseButton[data-variant='invisible'] [data-component='leadingVisual'] {
+  color: var(--fg-muted);
+}
+
+.BaseButton[data-variant='invisible'][data-no-visuals] {
+  color: var(--accent-fg);
+}
+
+.BaseButton[data-variant='invisible']:has([data-component='ButtonCounter']) {
+  color: var(--btn-text);
+}
+
+.BaseButton[data-variant='invisible']:disabled[data-no-visuals] {
+  color: var(--primer-fg-disabled);
+}
+
+.BaseButton[data-variant='invisible']:disabled[data-no-visuals] [data-component='ButtonCounter'] {
+  color: inherit;
+}
+
+/* Outline Variant */
+.BaseButton[data-variant='outline'] {
+  color: var(--btn-outline-text);
+  box-shadow: var(--btn-shadow);
+  border-color: var(--button-default-borderColor-rest, var(--btn-border));
+  background-color: var(--btn-bg);
+}
+
+.BaseButton[data-variant='outline']:hover:not([disabled]):not([data-inactive]) {
+  color: var(--btn-outline-hoverText);
+  background-color: var(--btn-outline-hoverBg);
+  border-color: var(--btn-outline-hoverBorder);
+  box-shadow: var(--btn-outline-hoverShadow);
+}
+
+.BaseButton[data-variant='outline']:hover:not([disabled]):not([data-inactive]) [data-component='ButtonCounter'] {
+  background-color: var(--btn-outline-hoverCounterBg);
+  color: var(--btn-outline-hoverCounterFg);
+}
+
+.BaseButton[data-variant='outline']:active:not([disabled]):not([data-inactive]) {
+  color: var(--btn-outline-selectedText);
+  background-color: var(--btn-outline-selectedBg);
+  box-shadow: var(--btn-outline-selectedShadow);
+  border-color: var(--btn-outline-selectedBorder);
+}
+
+.BaseButton[data-variant='outline']:disabled {
+  color: var(--btn-outline-disabledText);
+  background-color: var(--btn-outline-disabledBg);
+  border-color: var(--btn-border);
+}
+
+.BaseButton[data-variant='outline']:disabled [data-component='ButtonCounter'] {
+  background-color: var(--btn-outline-disabledCounterBg);
+  color: var(--btn-outline-disabledCounterFg);
+}
+
+.BaseButton[data-variant='outline'] [data-component='ButtonCounter'] {
+  background-color: var(--btn-outline-counterBg);
+  color: var(--btn-outline-counterFg);
+}
+
+.BaseButton[data-variant='outline'][aria-expanded='true'] {
+  color: var(--btn-outline-selectedText);
+  background-color: var(--btn-outline-selectedBg);
+  box-shadow: var(--btn-outline-selectedShadow);
+  border-color: var(--button-default-borderColor-active, var(--btn-outline-selectedBorder));
+}
+
+.BaseButton[data-block='block'] {
+  width: 100%;
+}
+
+.BaseButton[data-label-wrap='true'] {
+  min-width: fit-content;
+  height: unset;
+  min-height: var(--control-medium-size, 2rem);
+}
+
+.BaseButton[data-label-wrap='true'] [data-component='buttonContent'] {
+  flex: 1 1 auto;
+  align-self: stretch;
+  padding-block: calc(var(--control-medium-paddingBlock, 0.375rem) - 2px);
+}
+
+.BaseButton[data-label-wrap='true'] [data-component='text'] {
+  white-space: unset;
+  word-break: break-word;
+}
+
+.BaseButton[data-label-wrap='true'][data-size='small'] {
+  height: unset;
+  min-height: var(--control-small-size, 1.75rem);
+}
+
+.BaseButton[data-label-wrap='true'][data-size='small'] [data-component='buttonContent'] {
+  padding-block: calc(var(--control-small-paddingBlock, 0.25rem) - 2px);
+}
+
+.BaseButton[data-label-wrap='true'][data-size='large'] {
+  height: unset;
+  min-height: var(--control-large-size, 2.5rem);
+  padding-inline: var(--control-large-paddingInline-spacious, 1rem);
+}
+
+.BaseButton[data-label-wrap='true'][data-size='large'] [data-component='buttonContent'] {
+  padding-block: calc(var(--control-large-paddingBlock, 0.625rem) - 2px);
+}
+
+.BaseButton[data-inactive]:not([disabled]) {
+  background-color: var(--button-inactive-bgColor, #theme.colors.btn.inactive.bg);
+  border-color: var(--button-inactive-bgColor, #theme.colors.btn.inactive.bg);
+  color: var(--button-inactive-fgColor, #theme.colors.btn.inactive.text);
+}
+
+.BaseButton[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
+}
+
+.BaseButton [data-component='leadingVisual'] {
+  grid-area: leadingVisual;
+}
+
+.BaseButton [data-component='text'] {
+  grid-area: text;
+  line-height: calc(20 / 14);
+  white-space: nowrap;
+}
+
+.BaseButton [data-component='trailingVisual'] {
+  grid-area: trailingVisual;
+}
+
+.BaseButton [data-component='trailingAction'] {
+  margin-right: -4px;
+}
+
+.BaseButton [data-component='buttonContent'] {
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-areas: 'leadingVisual text trailingVisual';
+  grid-template-columns: min-content minmax(0, auto) min-content;
+  align-items: center;
+  align-content: center;
+}
+
+.BaseButton [data-component='buttonContent'] > :not(:last-child) {
+  margin-right: 8px;
+}
