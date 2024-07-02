@@ -3,10 +3,12 @@ import type {Meta, StoryFn} from '@storybook/react'
 import type {ComponentProps} from '../utils/types'
 import StateLabel from './StateLabel'
 
-export default {
+const meta = {
   title: 'Components/StateLabel',
   component: StateLabel,
-} as Meta<ComponentProps<typeof StateLabel>>
+} satisfies Meta<ComponentProps<typeof StateLabel>>
+
+export default meta
 
 export const Default = () => <StateLabel status="issueOpened">Open</StateLabel>
 
@@ -17,12 +19,6 @@ Playground.args = {
 }
 
 Playground.argTypes = {
-  ref: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
   sx: {
     controls: false,
     table: {

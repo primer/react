@@ -1,12 +1,13 @@
 import React from 'react'
 import type {Meta} from '@storybook/react'
-import type {ComponentProps} from '../utils/types'
 import StateLabel from './StateLabel'
 
-export default {
+const meta = {
   title: 'Components/StateLabel/Features',
   component: StateLabel,
-} as Meta<ComponentProps<typeof StateLabel>>
+} satisfies Meta<React.ComponentProps<typeof StateLabel>>
+
+export default meta
 
 export const IssueOpened = () => <StateLabel status="issueOpened">Open</StateLabel>
 export const IssueClosed = () => <StateLabel status="issueClosed">Closed</StateLabel>
