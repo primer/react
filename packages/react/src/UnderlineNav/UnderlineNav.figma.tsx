@@ -33,9 +33,8 @@ figma.connect(
         hover: '"false"',
         focus: '"false"',
       }),
-      counter: figma.boolean('counter?', {
-        false: undefined,
-        true: figma.children('CounterLabel'),
+      counter: figma.nestedProps('CounterLabel', {
+        count: figma.textContent('text'),
       }),
       leadingVisual: figma.boolean('leadingIcon?', {
         false: undefined,
@@ -43,7 +42,7 @@ figma.connect(
       }),
     },
     example: ({label, current, counter, leadingVisual}) => (
-      <UnderlineNav.Item aria-current={current} counter={counter} icon={leadingVisual}>
+      <UnderlineNav.Item aria-current={current} counter={counter.count} icon={leadingVisual}>
         {label}
       </UnderlineNav.Item>
     ),
