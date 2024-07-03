@@ -801,6 +801,25 @@ const components = new Map([
     },
   ],
   [
+    'NavList',
+    {
+      stories: [
+        {
+          id: 'components-navlist--with-trailing-action',
+          name: 'With TrailingAction',
+        },
+        {
+          id: 'components-navlist--with-trailing-action-in-sub-item',
+          name: 'With TrailingAction in Sub Item',
+        },
+        {
+          id: 'components-navlist-devonly--with-bad-example-of-sub-nav-and-trailing-action',
+          name: 'With Bad Example of SubNav and TrailingAction',
+        },
+      ],
+    },
+  ],
+  [
     'Pagehead',
     {
       stories: [
