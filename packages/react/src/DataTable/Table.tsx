@@ -13,7 +13,7 @@ import type {UniqueRow} from './row'
 import {SortDirection} from './sorting'
 import {useTableLayout} from './useTable'
 import {SkeletonText} from '../drafts/Skeleton/SkeletonText'
-import {ScrollableRegion} from '../internal/components/ScrollableRegion'
+import {ScrollableRegion} from '../ScrollableRegion'
 
 // ----------------------------------------------------------------------------
 // Table
