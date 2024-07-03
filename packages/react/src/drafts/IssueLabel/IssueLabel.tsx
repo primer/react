@@ -46,14 +46,20 @@ export interface IssueLabelProps extends React.PropsWithChildren {
 
 export function IssueLabel({children, fillColor, size = 'small', variant = 'gray', ...rest}: IssueLabelProps) {
   const {resolvedColorScheme} = useTheme()
-  // TODO: get the bgColor, getting it from theme.colorScheme seems a bit sketchy
+  const mode = resolvedColorScheme?.startsWith('dark') ? 'dark' : 'light'
+  // I define those bgColors as we can't easily get them from primitives,
+  // they are needed to calc contrast in getColorsFromHex()
+  const bgColors = {
+    light: '#ffffff',
+    dark: '#0d1117',
+  }
 
   return (
     <StyledLabel
       {...rest}
       data-size={size}
       data-variant={fillColor ? undefined : variant}
-      style={fillColor ? getColorsFromHex(fillColor, resolvedColorScheme, '#fff') : undefined}
+      style={fillColor ? getColorsFromHex(fillColor, resolvedColorScheme, bgColors[mode]) : undefined}
     >
       {children}
     </StyledLabel>
