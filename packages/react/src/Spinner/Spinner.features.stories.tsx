@@ -2,7 +2,7 @@ import React from 'react'
 import type {Meta} from '@storybook/react'
 import Spinner from './Spinner'
 import {Box} from '..'
-import {Status} from '../internal/components/Status'
+import {AriaStatus} from '../live-region'
 
 export default {
   title: 'Components/Spinner/Features',
@@ -16,6 +16,6 @@ export const Large = () => <Spinner size="large" />
 export const SuppressScreenReaderText = () => (
   <Box sx={{alignItems: 'center', display: 'flex', gap: '0.25rem'}}>
     <Spinner size="small" srText={null} />
-    <Status>Loading...</Status>
+    <AriaStatus>Loading...</AriaStatus>
   </Box>
 )
