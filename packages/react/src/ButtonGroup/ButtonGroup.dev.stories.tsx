@@ -36,13 +36,6 @@ export const IconButtonsWithTooltip1 = () => (
   </ButtonGroup>
 )
 
-export const IconButtonsWithTooltip2 = () => (
-  <ButtonGroup>
-    <IconButton icon={PlusIcon} aria-label="Add" unsafeDisableTooltip={false} />
-    <IconButton icon={DashIcon} aria-label="Subtract" unsafeDisableTooltip={false} />
-  </ButtonGroup>
-)
-
 export const LinksWithTooltip1 = () => (
   <ButtonGroup>
     <Tooltip text="Additonal text for link 1" direction="s">
@@ -55,21 +48,6 @@ export const LinksWithTooltip1 = () => (
         Sample Link 2
       </Button>
     </Tooltip>
-  </ButtonGroup>
-)
-
-export const LinksWithTooltip2 = () => (
-  <ButtonGroup>
-    <TooltipV2 text="Additonal text for link 1" direction="s">
-      <Button as="a" href="https://primer.style">
-        Sample Link 1
-      </Button>
-    </TooltipV2>
-    <TooltipV2 text="Additonal text for link 2" direction="s">
-      <Button as="a" href="https://primer.style">
-        Sample Link 2
-      </Button>
-    </TooltipV2>
   </ButtonGroup>
 )
 

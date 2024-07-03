@@ -293,6 +293,38 @@ const components = new Map([
           id: 'components-buttongroup-features--icon-buttons',
           name: 'Icon Buttons',
         },
+        {
+          id: 'components-buttongroup-features--icon-buttons-with-tooltip',
+          name: 'Icon Buttons with Tooltip',
+        },
+        {
+          id: 'components-buttongroup-features--links-with-tooltip',
+          name: 'Links with Tooltip',
+        },
+        {
+          id: 'components-buttongroup-devonly--button-and-link-with-tooltip-1',
+          name: 'Button and Link with Tooltip 1',
+        },
+        {
+          id: 'components-buttongroup-devonly--button-and-link-with-tooltip-2',
+          name: 'Button and Link with Tooltip 2',
+        },
+        {
+          id: 'components-buttongroup-devonly--icon-buttons-with-tooltip-1',
+          name: 'Icon Buttons with Tooltip 1',
+        },
+        {
+          id: 'components-buttongroup-devonly--link-and-button-with-tooltip-1',
+          name: 'Link and Button with Tooltip 1',
+        },
+        {
+          id: 'components-buttongroup-devonly--link-and-button-with-tooltip-2',
+          name: 'Link and Button with Tooltip 2',
+        },
+        {
+          id: 'components-buttongroup-devonly--links-with-tooltip-1',
+          name: 'Links with Tooltip 1',
+        },
       ],
     },
   ],

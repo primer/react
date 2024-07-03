@@ -37,3 +37,18 @@ export const ButtonAndLink = () => (
     </Button>
   </ButtonGroup>
 )
+
+export const LinksWithTooltip = () => (
+  <ButtonGroup>
+    <Tooltip text="Additonal text for link 1" direction="s">
+      <Button as="a" href="https://primer.style">
+        Sample Link 1
+      </Button>
+    </Tooltip>
+    <Tooltip text="Additonal text for link 2" direction="s">
+      <Button as="a" href="https://primer.style">
+        Sample Link 2
+      </Button>
+    </Tooltip>
+  </ButtonGroup>
+)
