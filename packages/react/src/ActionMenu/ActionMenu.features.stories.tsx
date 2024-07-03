@@ -212,12 +212,6 @@ export const LoadingItems = () => (
             <ArchiveIcon />
           </ActionList.LeadingVisual>
         </ActionList.Item>
-        <ActionList.LinkItem href="/" loading>
-          Settings
-          <ActionList.LeadingVisual>
-            <GearIcon />
-          </ActionList.LeadingVisual>
-        </ActionList.LinkItem>
         <ActionList.Item onSelect={() => alert('Make a copy clicked')} loading>
           Make a copy
           <ActionList.LeadingVisual>
