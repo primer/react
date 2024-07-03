@@ -7,6 +7,12 @@ import {generateCustomSxProp} from './Button'
 import {TooltipContext, Tooltip} from '../TooltipV2/Tooltip'
 import {TooltipContext as TooltipContextV1} from '../Tooltip/Tooltip'
 
+/**
+ * Icon button is used for buttons that show an icon in place of a text label.
+ * @primerid icon_button
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 const IconButton = forwardRef(
   (
     {
