@@ -28,10 +28,10 @@ figma.connect(
     props: {
       label: figma.textContent('Label'),
       current: figma.enum('state', {
-        selected: '"page"',
+        selected: 'page',
         default: undefined,
-        hover: '"false"',
-        focus: '"false"',
+        hover: 'false',
+        focus: 'false',
       }),
       counter: figma.nestedProps('CounterLabel', {
         count: figma.textContent('text'),

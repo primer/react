@@ -12,7 +12,7 @@ import figma from '@figma/code-connect'
 
 figma.connect(
   ProgressBar,
-  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=16443-62464&t=39jWyeflbJqVh77d-11',
+  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=34727-143491&t=9IoIKLzTri67l9CV-4',
   {
     props: {
       size: figma.enum('size', {
@@ -36,18 +36,18 @@ figma.connect(
   {
     props: {
       color: figma.enum('color', {
-        green: '--data-green-color',
-        teal: '--data-teal-color',
-        blue: '--data-blue-color',
-        purple: '--data-purple-color',
-        orange: '--data-orange-color',
-        red: '--data-red-color',
-        pink: '--data-pink-color',
-        yellow: '--data-yellow-color',
-        auburn: '--data-auburn-color',
-        gray: '--data-gray-color',
+        green: 'var(--data-green-color)',
+        teal: 'var(--data-teal-color)',
+        blue: 'var(--data-blue-color)',
+        purple: 'var(--data-purple-color)',
+        orange: 'var(--data-orange-color)',
+        red: 'var(--data-red-color)',
+        pink: 'var(--data-pink-color)',
+        yellow: 'var(--data-yellow-color)',
+        auburn: 'var(--data-auburn-color)',
+        gray: 'var(--data-gray-color)',
       }),
     },
-    example: ({color}) => <ProgressBarItem sx={color} />,
+    example: ({color}) => <ProgressBarItem sx={{background: color}} />,
   },
 )
