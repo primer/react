@@ -238,6 +238,18 @@ export const Tooltip = React.forwardRef(
     // context value
     const value = useMemo(() => ({tooltipId}), [tooltipId])
 
+    const getAllDescendants = (node: HTMLElement): HTMLElement[] => {
+      let descendants: HTMLElement[] = []
+
+      for (const child of node.childNodes) {
+        descendants.push(child as HTMLElement)
+        descendants = descendants.concat(getAllDescendants(child as HTMLElement))
+      }
+      return descendants
+    }
+
+    // Usage example
+
     useEffect(() => {
       if (!tooltipElRef.current || !triggerRef.current) return
       /*
@@ -245,12 +257,12 @@ export const Tooltip = React.forwardRef(
        */
       // Has trigger element or any of its children interactive elements?
       const isTriggerInteractive = isInteractive(triggerRef.current)
-      const triggerChildren = triggerRef.current.childNodes
-      const hasInteractiveChild = Array.from(triggerChildren).some(child => {
-        return child instanceof HTMLElement && isInteractive(child)
+      const allDescendants = getAllDescendants(triggerRef.current)
+      const hasInteractiveDescendants = Array.from(allDescendants).some(descendent => {
+        return descendent instanceof HTMLElement && isInteractive(descendent)
       })
       invariant(
-        isTriggerInteractive || hasInteractiveChild,
+        isTriggerInteractive || hasInteractiveDescendants,
         'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
       )
       // If the tooltip is used for labelling the interactive element, the trigger element or any of its children should not have aria-label
