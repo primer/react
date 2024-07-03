@@ -1,7 +1,7 @@
 import type {Meta} from '@storybook/react'
 import React from 'react'
 import {PageLayout} from '../PageLayout'
-import {NavList} from './NavList'
+import {NavList} from './'
 import {ArrowRightIcon, ArrowLeftIcon, BookIcon, FileDirectoryIcon} from '@primer/octicons-react'
 
 const meta: Meta = {

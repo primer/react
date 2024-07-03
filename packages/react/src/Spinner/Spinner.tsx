@@ -80,4 +80,6 @@ const StyledSpinner = styled(Spinner)`
   ${sx}
 `
 
+StyledSpinner.displayName = 'Spinner'
+
 export default StyledSpinner

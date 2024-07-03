@@ -15,7 +15,7 @@ import Box from '../Box'
 import {Button, IconButton} from '../Button'
 import Octicon from '../Octicon'
 import type {SubTreeState} from './TreeView'
-import {TreeView} from './TreeView'
+import {TreeView} from './'
 
 const meta: Meta = {
   title: 'Components/TreeView/Features',
