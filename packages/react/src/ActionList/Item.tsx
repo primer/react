@@ -20,6 +20,7 @@ import {TrailingAction} from './TrailingAction'
 import {ConditionalWrapper} from '../internal/components/ConditionalWrapper'
 import {invariant} from '../utils/invariant'
 import {useFeatureFlag} from '../FeatureFlags'
+import VisuallyHidden from '../_VisuallyHidden'
 
 const LiBox = styled.li<SxProp>(sx)
 
@@ -427,7 +428,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               {slots.blockDescription}
             </Box>
           </ItemWrapper>
-          {!inactive && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}
+          {!inactive && !loading && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}
+          {loading === true && <VisuallyHidden>Loading</VisuallyHidden>}
         </LiBox>
       </ItemContext.Provider>
     )

@@ -20,61 +20,54 @@ type LinkProps = {
   referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
 }
 
-// LinkItem does not support selected, variants, etc.
-export type ActionListLinkItemProps = Pick<
-  ActionListItemProps,
-  'active' | 'children' | 'sx' | 'inactiveText' | 'loading'
-> &
+// LinkItem does not support selected, loading, variants, etc.
+export type ActionListLinkItemProps = Pick<ActionListItemProps, 'active' | 'children' | 'sx' | 'inactiveText'> &
   LinkProps
 
-export const LinkItem = React.forwardRef(
-  ({sx = {}, active, inactiveText, loading, as: Component, ...props}, forwardedRef) => {
-    const styles = {
-      // occupy full size of Item
-      paddingX: 2,
-      paddingY: '6px', // custom value off the scale
-      display: 'flex',
-      flexGrow: 1, // full width
-      borderRadius: 2,
+export const LinkItem = React.forwardRef(({sx = {}, active, inactiveText, as: Component, ...props}, forwardedRef) => {
+  const styles = {
+    // occupy full size of Item
+    paddingX: 2,
+    paddingY: '6px', // custom value off the scale
+    display: 'flex',
+    flexGrow: 1, // full width
+    borderRadius: 2,
 
-      // inherit Item styles
-      color: 'inherit',
-      '&:hover': {color: 'inherit', textDecoration: 'none'},
-    }
+    // inherit Item styles
+    color: 'inherit',
+    '&:hover': {color: 'inherit', textDecoration: 'none'},
+  }
 
-    return (
-      <Item
-        active={active}
-        sx={{paddingY: 0, paddingX: 0}}
-        inactiveText={inactiveText}
-        loading={loading}
-        data-inactive={inactiveText ? true : undefined}
-        data-loading={loading ? true : undefined}
-        _PrivateItemWrapper={({children, onClick, ...rest}) => {
-          const clickHandler = (event: React.MouseEvent<HTMLElement>) => {
-            onClick && onClick(event)
-            props.onClick && props.onClick(event as React.MouseEvent<HTMLAnchorElement>)
-          }
-          return inactiveText ? (
-            <Box sx={merge(styles, sx as SxProp)} {...rest}>
-              {children}
-            </Box>
-          ) : (
-            <Link
-              as={Component}
-              sx={merge(styles, sx as SxProp)}
-              {...rest}
-              {...props}
-              onClick={clickHandler}
-              ref={forwardedRef}
-            >
-              {children}
-            </Link>
-          )
-        }}
-      >
-        {props.children}
-      </Item>
-    )
-  },
-) as PolymorphicForwardRefComponent<'a', ActionListLinkItemProps>
+  return (
+    <Item
+      active={active}
+      sx={{paddingY: 0, paddingX: 0}}
+      inactiveText={inactiveText}
+      data-inactive={inactiveText ? true : undefined}
+      _PrivateItemWrapper={({children, onClick, ...rest}) => {
+        const clickHandler = (event: React.MouseEvent<HTMLElement>) => {
+          onClick && onClick(event)
+          props.onClick && props.onClick(event as React.MouseEvent<HTMLAnchorElement>)
+        }
+        return inactiveText ? (
+          <Box sx={merge(styles, sx as SxProp)} {...rest}>
+            {children}
+          </Box>
+        ) : (
+          <Link
+            as={Component}
+            sx={merge(styles, sx as SxProp)}
+            {...rest}
+            {...props}
+            onClick={clickHandler}
+            ref={forwardedRef}
+          >
+            {children}
+          </Link>
+        )
+      }}
+    >
+      {props.children}
+    </Item>
+  )
+}) as PolymorphicForwardRefComponent<'a', ActionListLinkItemProps>

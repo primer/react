@@ -442,7 +442,6 @@ export const InactiveItem = () => {
   )
 }
 
-// TODO: test inactive _and_ loading - inactive should take precedence
 export const LoadingItem = () => {
   return (
     <ActionList aria-label="Project">
