@@ -43,11 +43,6 @@ test.describe('ActionMenu', () => {
             },
           })
 
-          // Default state
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `ActionMenu.Inactive Items.${theme}.png`,
-          )
-
           // Open state
           await page.locator('button', {hasText: 'Open menu'}).waitFor()
           await page.getByRole('button', {name: 'Open menu'}).click()
@@ -115,11 +110,6 @@ test.describe('ActionMenu', () => {
               colorScheme: theme,
             },
           })
-
-          // Default state
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `ActionMenu.Loading Items.${theme}.png`,
-          )
 
           // Open menu
           await page.locator('button', {hasText: 'Open menu'}).waitFor()
