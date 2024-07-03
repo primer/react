@@ -277,51 +277,53 @@ const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defau
   )
 }
 
-export type NavListExpandProps = {
+export type NavListShowMoreItemProps = {
   children: React.ReactNode
   label: string
 } & SxProp
 
 const ItemWithinGroup = React.createContext<{groupId: string} | null>(null)
 
-const Expand = React.forwardRef<HTMLButtonElement, NavListExpandProps>(({label, children, ...props}, forwardedRef) => {
-  const [expanded, setExpanded] = React.useState(false)
-  const targetFocused = React.useRef(false)
+const ShowMoreItem = React.forwardRef<HTMLButtonElement, NavListShowMoreItemProps>(
+  ({label, children, ...props}, forwardedRef) => {
+    const [expanded, setExpanded] = React.useState(false)
+    const targetFocused = React.useRef(false)
 
-  const groupId = useId()
+    const groupId = useId()
 
-  React.useEffect(() => {
-    if (expanded && !targetFocused.current) {
-      const focusTarget: HTMLAnchorElement | null = document.querySelector(`[data-show-more-group-id="${groupId}"]`)
+    React.useEffect(() => {
+      if (expanded && !targetFocused.current) {
+        const focusTarget: HTMLAnchorElement | null = document.querySelector(`[data-show-more-group-id="${groupId}"]`)
 
-      if (focusTarget) {
-        focusTarget.focus()
-        targetFocused.current = true
+        if (focusTarget) {
+          focusTarget.focus()
+          targetFocused.current = true
+        }
       }
-    }
-  }, [expanded, groupId])
+    }, [expanded, groupId])
 
-  return !expanded ? (
-    <Box as="li" sx={{listStyle: 'none'}}>
-      <ActionList.Item
-        as="button"
-        aria-expanded="false"
-        ref={forwardedRef}
-        onClick={() => {
-          setExpanded(true)
-        }}
-        {...props}
-      >
-        {label}
-        <ActionList.TrailingVisual>
-          <PlusIcon />
-        </ActionList.TrailingVisual>
-      </ActionList.Item>
-    </Box>
-  ) : (
-    <ItemWithinGroup.Provider value={{groupId}}>{children}</ItemWithinGroup.Provider>
-  )
-})
+    return !expanded ? (
+      <Box as="li" sx={{listStyle: 'none'}}>
+        <ActionList.Item
+          as="button"
+          aria-expanded="false"
+          ref={forwardedRef}
+          onClick={() => {
+            setExpanded(true)
+          }}
+          {...props}
+        >
+          {label}
+          <ActionList.TrailingVisual>
+            <PlusIcon />
+          </ActionList.TrailingVisual>
+        </ActionList.Item>
+      </Box>
+    ) : (
+      <ItemWithinGroup.Provider value={{groupId}}>{children}</ItemWithinGroup.Provider>
+    )
+  },
+)
 
 Group.displayName = 'NavList.Group'
 
@@ -335,5 +337,5 @@ export const NavList = Object.assign(Root, {
   TrailingVisual,
   Divider,
   Group,
-  Expand,
+  ShowMoreItem,
 })

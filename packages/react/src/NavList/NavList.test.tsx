@@ -336,16 +336,16 @@ describe('NavList.Item with NavList.SubNav', () => {
   })
 })
 
-describe('NavList.Expand', () => {
+describe('NavList.ShowMoreItem', () => {
   function NavListWithExpand() {
     return (
       <NavList>
         <NavList.Item href="#">Item 1</NavList.Item>
         <NavList.Item href="#">Item 2</NavList.Item>
-        <NavList.Expand label="More">
+        <NavList.ShowMoreItem label="More">
           <NavList.Item href="#">Item 3</NavList.Item>
           <NavList.Item href="#">Item 4</NavList.Item>
-        </NavList.Expand>
+        </NavList.ShowMoreItem>
       </NavList>
     )
   }
@@ -366,7 +366,7 @@ describe('NavList.Expand', () => {
     expect(buttonParent.parentElement?.tagName).toEqual('UL')
   })
 
-  it('hides items inside of NavList.Expand by default', () => {
+  it('hides items inside of NavList.ShowMoreItem by default', () => {
     const {queryByRole} = render(<NavListWithExpand />)
 
     expect(queryByRole('link', {name: 'Item 1'})).toBeInTheDocument()
@@ -375,7 +375,7 @@ describe('NavList.Expand', () => {
     expect(queryByRole('link', {name: 'Item 4'})).not.toBeInTheDocument()
   })
 
-  it('shows items inside of NavList.Expand when expand button is activated', () => {
+  it('shows items inside of NavList.ShowMoreItem when expand button is activated', () => {
     const {queryByRole} = render(<NavListWithExpand />)
 
     act(() => {
@@ -411,7 +411,7 @@ describe('NavList.Expand', () => {
   })
 })
 
-describe('NavList.Expand with Group', () => {
+describe('NavList.ShowMoreItem with Group', () => {
   function NavListWithExpand() {
     return (
       <NavList>
@@ -421,21 +421,21 @@ describe('NavList.Expand with Group', () => {
           </NavList.Item>
           <NavList.Item href="#">Item 1B</NavList.Item>
           <NavList.Item href="#">Item 1C</NavList.Item>
-          <NavList.Expand label="More">
+          <NavList.ShowMoreItem label="More">
             <NavList.Item>Item 1D</NavList.Item>
             <NavList.Item>Item 1E</NavList.Item>
             <NavList.Item>Item 1F</NavList.Item>
-          </NavList.Expand>
+          </NavList.ShowMoreItem>
         </NavList.Group>
         <NavList.Group title="Group 2">
           <NavList.Item href="#">Item 2A</NavList.Item>
           <NavList.Item href="#">Item 2B</NavList.Item>
           <NavList.Item href="#">Item 2C</NavList.Item>
-          <NavList.Expand label="Show">
+          <NavList.ShowMoreItem label="Show">
             <NavList.Item>Item 2D</NavList.Item>
             <NavList.Item>Item 2E</NavList.Item>
             <NavList.Item>Item 2F</NavList.Item>
-          </NavList.Expand>
+          </NavList.ShowMoreItem>
         </NavList.Group>
       </NavList>
     )

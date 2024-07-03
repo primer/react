@@ -256,21 +256,21 @@ export const WithGroupExpand = () => (
           </NavList.Item>
           <NavList.Item href="#">Item 1B</NavList.Item>
           <NavList.Item href="#">Item 1C</NavList.Item>
-          <NavList.Expand label="More">
+          <NavList.ShowMoreItem label="More">
             <NavList.Item>Item 1D</NavList.Item>
             <NavList.Item>Item 1E</NavList.Item>
             <NavList.Item>Item 1F</NavList.Item>
-          </NavList.Expand>
+          </NavList.ShowMoreItem>
         </NavList.Group>
         <NavList.Group title="Group 2">
           <NavList.Item href="#">Item 2A</NavList.Item>
           <NavList.Item href="#">Item 2B</NavList.Item>
           <NavList.Item href="#">Item 2C</NavList.Item>
-          <NavList.Expand label="Show">
+          <NavList.ShowMoreItem label="Show">
             <NavList.Item>Item 2D</NavList.Item>
             <NavList.Item>Item 2E</NavList.Item>
             <NavList.Item>Item 2F</NavList.Item>
-          </NavList.Expand>
+          </NavList.ShowMoreItem>
         </NavList.Group>
       </NavList>
     </PageLayout.Pane>
@@ -287,11 +287,11 @@ export const WithExpand: StoryFn = () => (
         </NavList.Item>
         <NavList.Item href="#">Item 2</NavList.Item>
         <NavList.Item href="#">Item 3</NavList.Item>
-        <NavList.Expand label="Show more">
+        <NavList.ShowMoreItem label="Show more">
           <NavList.Item>Item 4</NavList.Item>
           <NavList.Item>Item 5</NavList.Item>
           <NavList.Item>Item 6</NavList.Item>
-        </NavList.Expand>
+        </NavList.ShowMoreItem>
       </NavList>
     </PageLayout.Pane>
     <PageLayout.Content></PageLayout.Content>
@@ -308,21 +308,21 @@ export const WithMultipleExpands: StoryFn = () => {
           </NavList.Item>
           <NavList.Item href="#">Item 2</NavList.Item>
           <NavList.Item href="#">Item 3</NavList.Item>
-          <NavList.Expand label="Show more">
+          <NavList.ShowMoreItem label="Show more">
             <NavList.Item data-test="wow">Item 4</NavList.Item>
             <NavList.Item>Item 5</NavList.Item>
             <NavList.Item>Item 6</NavList.Item>
-            <NavList.Expand label="Show more">
+            <NavList.ShowMoreItem label="Show more">
               <NavList.Item>Item 7</NavList.Item>
               <NavList.Item>Item 8</NavList.Item>
               <NavList.Item>Item 9</NavList.Item>
-              <NavList.Expand label="Show more">
+              <NavList.ShowMoreItem label="Show more">
                 <NavList.Item>Item 10</NavList.Item>
                 <NavList.Item>Item 11</NavList.Item>
                 <NavList.Item>Item 12</NavList.Item>
-              </NavList.Expand>
-            </NavList.Expand>
-          </NavList.Expand>
+              </NavList.ShowMoreItem>
+            </NavList.ShowMoreItem>
+          </NavList.ShowMoreItem>
         </NavList>
       </PageLayout.Pane>
       <PageLayout.Content></PageLayout.Content>
