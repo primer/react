@@ -123,16 +123,23 @@ function StateLabel({children, status, variant = 'normal', ...rest}: StateLabelP
 function getIconLabel(status: keyof typeof octiconMap): string | null {
   switch (status) {
     case 'issueOpened':
+      return 'Issue Opened'
     case 'issueClosed':
+      return 'Issue Closed'
     case 'issueDraft':
+      return 'Draft issue'
     case 'issueClosedNotPlanned':
-      return 'Issue'
+      return 'Issue Closed, Not Planned'
     case 'pullOpened':
+      return 'Pull Request Opened'
     case 'pullClosed':
+      return 'Pull Request Closed'
     case 'pullMerged':
+      return 'Pull Request Merged'
     case 'pullQueued':
+      return 'Pull Request Queued'
     case 'draft':
-      return 'Pull request'
+      return 'Draft Pull Request'
     case 'unavailable':
       return null
   }
