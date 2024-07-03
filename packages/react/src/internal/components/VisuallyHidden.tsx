@@ -12,7 +12,7 @@ import sx from '../../sx'
  *
  * @see https://www.scottohara.me/blog/2023/03/21/visually-hidden-hack.html
  */
-export const VisuallyHidden = styled.div<SxProp>`
+export const VisuallyHidden = styled.span<SxProp>`
   &:not(:focus):not(:active):not(:focus-within) {
     clip-path: inset(50%);
     height: 1px;

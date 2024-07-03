@@ -3,7 +3,7 @@ import type {Meta} from '@storybook/react'
 import Spinner from './Spinner'
 import {Box, Button} from '..'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
-import {Status} from '../internal/components/Status'
+import {AriaStatus} from '../live-region'
 
 export default {
   title: 'Components/Spinner/Examples',
@@ -47,7 +47,7 @@ export const FullLifecycle = () => {
       {state === 'loading' && <Spinner />}
       <p>{loadedContent}</p>
       <VisuallyHidden>
-        <Status>{state === 'done' && 'Content finished loading'}</Status>
+        <AriaStatus>{state === 'done' && 'Content finished loading'}</AriaStatus>
       </VisuallyHidden>
     </>
   )
@@ -84,12 +84,12 @@ export const FullLifecycleVisibleLoadingText = () => {
       {state !== 'done' && (
         <Box sx={{alignItems: 'center', display: 'flex', gap: '0.25rem'}}>
           {state === 'loading' && <Spinner size="small" srText={null} />}
-          <Status>{state === 'loading' ? 'Content is loading...' : ''}</Status>
+          <AriaStatus>{state === 'loading' ? 'Content is loading...' : ''}</AriaStatus>
         </Box>
       )}
       <p>{loadedContent}</p>
       <VisuallyHidden>
-        <Status>{state === 'done' && 'Content finished loading'}</Status>
+        <AriaStatus>{state === 'done' && 'Content finished loading'}</AriaStatus>
       </VisuallyHidden>
     </Box>
   )
