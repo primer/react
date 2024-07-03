@@ -7,11 +7,11 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       color: 'btn.text',
       backgroundColor: 'btn.bg',
       boxShadow: `${theme?.shadows.btn.shadow}, ${theme?.shadows.btn.insetShadow}`,
-      '&:hover:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive])': {
+      '&:hover:not([disabled]):not([data-inactive])': {
         backgroundColor: 'btn.hoverBg',
         borderColor: `var(--button-default-borderColor-hover, ${theme?.colors.btn.hoverBorder})`,
       },
-      '&:active:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive])': {
+      '&:active:not([disabled]):not([data-inactive])': {
         backgroundColor: 'btn.activeBg',
         borderColor: `var(--button-default-borderColor-active, ${theme?.colors.btn.activeBorder})`,
       },
@@ -42,17 +42,17 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       backgroundColor: 'btn.primary.bg',
       borderColor: 'btn.primary.border',
       boxShadow: `${theme?.shadows.btn.primary.shadow}`,
-      '&:hover:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive])': {
+      '&:hover:not([disabled]):not([data-inactive])': {
         color: 'btn.primary.hoverText',
         backgroundColor: 'btn.primary.hoverBg',
       },
-      '&:focus:not([disabled]):not([aria-disabled][data-loading="false"])': {
+      '&:focus:not([disabled])': {
         boxShadow: 'inset 0 0 0 3px',
       },
-      '&:focus-visible:not([disabled]):not([aria-disabled][data-loading="false"])': {
+      '&:focus-visible:not([disabled])': {
         boxShadow: 'inset 0 0 0 3px',
       },
-      '&:active:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive])': {
+      '&:active:not([disabled]):not([data-inactive])': {
         backgroundColor: 'btn.primary.selectedBg',
         boxShadow: `${theme?.shadows.btn.primary.selectedShadow}`,
       },
@@ -77,7 +77,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       color: 'btn.danger.text',
       backgroundColor: 'btn.bg',
       boxShadow: `${theme?.shadows.btn.shadow}`,
-      '&:hover:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive])': {
+      '&:hover:not([disabled]):not([data-inactive])': {
         color: 'btn.danger.hoverText',
         backgroundColor: 'btn.danger.hoverBg',
         borderColor: 'btn.danger.hoverBorder',
@@ -87,7 +87,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
           color: 'btn.danger.hoverCounterFg',
         },
       },
-      '&:active:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive])': {
+      '&:active:not([disabled]):not([data-inactive])': {
         color: 'btn.danger.selectedText',
         backgroundColor: 'btn.danger.selectedBg',
         boxShadow: `${theme?.shadows.btn.danger.selectedShadow}`,
@@ -118,10 +118,10 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       backgroundColor: 'transparent',
       borderColor: 'transparent',
       boxShadow: 'none',
-      '&:hover:not([disabled]):not([aria-disabled][data-loading="false"])': {
+      '&:hover:not([disabled])': {
         backgroundColor: 'actionListItem.default.hoverBg',
       },
-      '&:active:not([disabled]):not([aria-disabled][data-loading="false"])': {
+      '&:active:not([disabled])': {
         backgroundColor: 'actionListItem.default.activeBg',
       },
       '&:disabled': {
@@ -161,7 +161,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       borderColor: `var(--button-default-borderColor-rest, ${theme?.colors.btn.border})`,
       backgroundColor: 'btn.bg',
 
-      '&:hover:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive])': {
+      '&:hover:not([disabled]):not([data-inactive])': {
         color: 'btn.outline.hoverText',
         backgroundColor: 'btn.outline.hoverBg',
         borderColor: `${theme?.colors.btn.outline.hoverBorder}`,
@@ -171,7 +171,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
           color: 'btn.outline.hoverCounterFg',
         },
       },
-      '&:active:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive])': {
+      '&:active:not([disabled]):not([data-inactive])': {
         color: 'btn.outline.selectedText',
         backgroundColor: 'btn.outline.selectedBg',
         boxShadow: `${theme?.shadows.btn.outline.selectedShadow}`,
@@ -239,7 +239,7 @@ export const getBaseStyles = (theme?: Theme) => ({
   '&[data-inactive]': {
     cursor: 'auto',
   },
-  '&:disabled, &[aria-disabled][data-loading="false"]': {
+  '&:disabled': {
     cursor: 'not-allowed',
     boxShadow: 'none',
   },

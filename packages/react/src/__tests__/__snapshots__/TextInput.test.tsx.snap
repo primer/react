@@ -1757,10 +1757,16 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   cursor: auto;
 }
 
-.c4:disabled,
-.c4[aria-disabled][data-loading="false"] {
+.c4:disabled {
   cursor: not-allowed;
   box-shadow: none;
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+}
+
+.c4:disabled [data-component=ButtonCounter],
+.c4:disabled [data-component="leadingVisual"],
+.c4:disabled [data-component="trailingAction"] {
+  color: inherit;
 }
 
 .c4 [data-component=ButtonCounter] {
@@ -1928,22 +1934,12 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   visibility: hidden;
 }
 
-.c4:hover:not([disabled]):not([aria-disabled][data-loading="false"]) {
+.c4:hover:not([disabled]) {
   background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
 }
 
-.c4:active:not([disabled]):not([aria-disabled][data-loading="false"]) {
+.c4:active:not([disabled]) {
   background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
-}
-
-.c4:disabled {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c4:disabled [data-component=ButtonCounter],
-.c4:disabled [data-component="leadingVisual"],
-.c4:disabled [data-component="trailingAction"] {
-  color: inherit;
 }
 
 .c4[aria-expanded=true] {
@@ -2392,10 +2388,16 @@ exports[`TextInput renders trailingAction text button 1`] = `
   cursor: auto;
 }
 
-.c4:disabled,
-.c4[aria-disabled][data-loading="false"] {
+.c4:disabled {
   cursor: not-allowed;
   box-shadow: none;
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+}
+
+.c4:disabled [data-component=ButtonCounter],
+.c4:disabled [data-component="leadingVisual"],
+.c4:disabled [data-component="trailingAction"] {
+  color: inherit;
 }
 
 .c4 [data-component=ButtonCounter] {
@@ -2563,22 +2565,12 @@ exports[`TextInput renders trailingAction text button 1`] = `
   visibility: hidden;
 }
 
-.c4:hover:not([disabled]):not([aria-disabled][data-loading="false"]) {
+.c4:hover:not([disabled]) {
   background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
 }
 
-.c4:active:not([disabled]):not([aria-disabled][data-loading="false"]) {
+.c4:active:not([disabled]) {
   background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
-}
-
-.c4:disabled {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c4:disabled [data-component=ButtonCounter],
-.c4:disabled [data-component="leadingVisual"],
-.c4:disabled [data-component="trailingAction"] {
-  color: inherit;
 }
 
 .c4[aria-expanded=true] {
@@ -2885,10 +2877,16 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   cursor: auto;
 }
 
-.c4:disabled,
-.c4[aria-disabled][data-loading="false"] {
+.c4:disabled {
   cursor: not-allowed;
   box-shadow: none;
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+}
+
+.c4:disabled [data-component=ButtonCounter],
+.c4:disabled [data-component="leadingVisual"],
+.c4:disabled [data-component="trailingAction"] {
+  color: inherit;
 }
 
 .c4 [data-component=ButtonCounter] {
@@ -3056,22 +3054,12 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   visibility: hidden;
 }
 
-.c4:hover:not([disabled]):not([aria-disabled][data-loading="false"]) {
+.c4:hover:not([disabled]) {
   background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
 }
 
-.c4:active:not([disabled]):not([aria-disabled][data-loading="false"]) {
+.c4:active:not([disabled]) {
   background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
-}
-
-.c4:disabled {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c4:disabled [data-component=ButtonCounter],
-.c4:disabled [data-component="leadingVisual"],
-.c4:disabled [data-component="trailingAction"] {
-  color: inherit;
 }
 
 .c4[aria-expanded=true] {
