@@ -15,7 +15,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         backgroundColor: 'btn.activeBg',
         borderColor: `var(--button-default-borderColor-active, ${theme?.colors.btn.activeBorder})`,
       },
-      '&:disabled, &[aria-disabled][data-loading="false"]': {
+      '&:disabled': {
         color: 'primer.fg.disabled',
         borderColor: `var(--button-default-borderColor-disabled, ${theme?.colors.btn.border})`,
         backgroundColor: `var(--button-default-bgColor-disabled, ${theme?.colors.input.disabledBg})`,
@@ -56,7 +56,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         backgroundColor: 'btn.primary.selectedBg',
         boxShadow: `${theme?.shadows.btn.primary.selectedShadow}`,
       },
-      '&:disabled, &[aria-disabled][data-loading="false"]': {
+      '&:disabled': {
         color: 'btn.primary.disabledText',
         backgroundColor: 'btn.primary.disabledBg',
         borderColor: 'btn.primary.disabledBorder',
@@ -93,7 +93,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         boxShadow: `${theme?.shadows.btn.danger.selectedShadow}`,
         borderColor: 'btn.danger.selectedBorder',
       },
-      '&:disabled, &[aria-disabled][data-loading="false"]': {
+      '&:disabled': {
         color: 'btn.danger.disabledText',
         backgroundColor: 'btn.danger.disabledBg',
         borderColor: `var(--button-default-borderColor-disabled, ${theme?.colors.btn.border})`,
@@ -124,7 +124,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '&:active:not([disabled]):not([aria-disabled][data-loading="false"])': {
         backgroundColor: 'actionListItem.default.activeBg',
       },
-      '&:disabled, &[aria-disabled][data-loading="false"]': {
+      '&:disabled': {
         color: 'primer.fg.disabled',
         '[data-component=ButtonCounter], [data-component="leadingVisual"], [data-component="trailingAction"]': {
           color: 'inherit',
@@ -148,7 +148,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '&:has([data-component="ButtonCounter"])': {
         color: 'btn.text',
       },
-      '&:disabled[data-no-visuals], &[aria-disabled][data-loading="false"][data-no-visuals]': {
+      '&:disabled[data-no-visuals]': {
         color: 'primer.fg.disabled',
         '[data-component=ButtonCounter]': {
           color: 'inherit',
@@ -178,7 +178,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         borderColor: `${theme?.colors.btn.outline.selectedBorder}`,
       },
 
-      '&:disabled, &[aria-disabled][data-loading="false"]': {
+      '&:disabled': {
         color: 'btn.outline.disabledText',
         backgroundColor: 'btn.outline.disabledBg',
         borderColor: 'btn.border',

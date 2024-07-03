@@ -99,14 +99,6 @@ exports[`Button respects block prop 1`] = `
 .c0[aria-disabled][data-loading="false"] {
   cursor: not-allowed;
   box-shadow: none;
-  color: primer.fg.disabled;
-  border-color: var(--button-default-borderColor-disabled,undefined);
-  background-color: var(--button-default-bgColor-disabled,undefined);
-}
-
-.c0:disabled [data-component=ButtonCounter],
-.c0[aria-disabled][data-loading="false"] [data-component=ButtonCounter] {
-  color: inherit;
 }
 
 .c0 [data-component=ButtonCounter] {
@@ -281,6 +273,16 @@ exports[`Button respects block prop 1`] = `
 .c0:active:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive]) {
   background-color: btn.activeBg;
   border-color: var(--button-default-borderColor-active,undefined);
+}
+
+.c0:disabled {
+  color: primer.fg.disabled;
+  border-color: var(--button-default-borderColor-disabled,undefined);
+  background-color: var(--button-default-bgColor-disabled,undefined);
+}
+
+.c0:disabled [data-component=ButtonCounter] {
+  color: inherit;
 }
 
 .c0[aria-expanded=true] {
@@ -425,14 +427,6 @@ exports[`Button respects the alignContent prop 1`] = `
 .c0[aria-disabled][data-loading="false"] {
   cursor: not-allowed;
   box-shadow: none;
-  color: primer.fg.disabled;
-  border-color: var(--button-default-borderColor-disabled,undefined);
-  background-color: var(--button-default-bgColor-disabled,undefined);
-}
-
-.c0:disabled [data-component=ButtonCounter],
-.c0[aria-disabled][data-loading="false"] [data-component=ButtonCounter] {
-  color: inherit;
 }
 
 .c0 [data-component=ButtonCounter] {
@@ -607,6 +601,16 @@ exports[`Button respects the alignContent prop 1`] = `
 .c0:active:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive]) {
   background-color: btn.activeBg;
   border-color: var(--button-default-borderColor-active,undefined);
+}
+
+.c0:disabled {
+  color: primer.fg.disabled;
+  border-color: var(--button-default-borderColor-disabled,undefined);
+  background-color: var(--button-default-bgColor-disabled,undefined);
+}
+
+.c0:disabled [data-component=ButtonCounter] {
+  color: inherit;
 }
 
 .c0[aria-expanded=true] {
@@ -750,14 +754,6 @@ exports[`Button respects the large size prop 1`] = `
 .c0[aria-disabled][data-loading="false"] {
   cursor: not-allowed;
   box-shadow: none;
-  color: primer.fg.disabled;
-  border-color: var(--button-default-borderColor-disabled,undefined);
-  background-color: var(--button-default-bgColor-disabled,undefined);
-}
-
-.c0:disabled [data-component=ButtonCounter],
-.c0[aria-disabled][data-loading="false"] [data-component=ButtonCounter] {
-  color: inherit;
 }
 
 .c0 [data-component=ButtonCounter] {
@@ -932,6 +928,16 @@ exports[`Button respects the large size prop 1`] = `
 .c0:active:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive]) {
   background-color: btn.activeBg;
   border-color: var(--button-default-borderColor-active,undefined);
+}
+
+.c0:disabled {
+  color: primer.fg.disabled;
+  border-color: var(--button-default-borderColor-disabled,undefined);
+  background-color: var(--button-default-bgColor-disabled,undefined);
+}
+
+.c0:disabled [data-component=ButtonCounter] {
+  color: inherit;
 }
 
 .c0[aria-expanded=true] {
@@ -1076,14 +1082,6 @@ exports[`Button respects the small size prop 1`] = `
 .c0[aria-disabled][data-loading="false"] {
   cursor: not-allowed;
   box-shadow: none;
-  color: primer.fg.disabled;
-  border-color: var(--button-default-borderColor-disabled,undefined);
-  background-color: var(--button-default-bgColor-disabled,undefined);
-}
-
-.c0:disabled [data-component=ButtonCounter],
-.c0[aria-disabled][data-loading="false"] [data-component=ButtonCounter] {
-  color: inherit;
 }
 
 .c0 [data-component=ButtonCounter] {
@@ -1260,6 +1258,16 @@ exports[`Button respects the small size prop 1`] = `
   border-color: var(--button-default-borderColor-active,undefined);
 }
 
+.c0:disabled {
+  color: primer.fg.disabled;
+  border-color: var(--button-default-borderColor-disabled,undefined);
+  background-color: var(--button-default-bgColor-disabled,undefined);
+}
+
+.c0:disabled [data-component=ButtonCounter] {
+  color: inherit;
+}
+
 .c0[aria-expanded=true] {
   background-color: btn.activeBg;
   border-color: var(--button-default-borderColor-active,undefined);
@@ -1402,15 +1410,6 @@ exports[`Button styles danger button appropriately 1`] = `
 .c0[aria-disabled][data-loading="false"] {
   cursor: not-allowed;
   box-shadow: none;
-  color: btn.danger.disabledText;
-  background-color: btn.danger.disabledBg;
-  border-color: var(--button-default-borderColor-disabled,undefined);
-}
-
-.c0:disabled [data-component=ButtonCounter],
-.c0[aria-disabled][data-loading="false"] [data-component=ButtonCounter] {
-  color: btn.danger.disabledCounterFg;
-  background-color: btn.danger.disabledCounterBg;
 }
 
 .c0 [data-component=ButtonCounter] {
@@ -1597,6 +1596,17 @@ exports[`Button styles danger button appropriately 1`] = `
   border-color: btn.danger.selectedBorder;
 }
 
+.c0:disabled {
+  color: btn.danger.disabledText;
+  background-color: btn.danger.disabledBg;
+  border-color: var(--button-default-borderColor-disabled,undefined);
+}
+
+.c0:disabled [data-component=ButtonCounter] {
+  color: btn.danger.disabledCounterFg;
+  background-color: btn.danger.disabledCounterBg;
+}
+
 .c0[aria-expanded=true] {
   color: btn.danger.selectedText;
   background-color: btn.danger.selectedBg;
@@ -1730,16 +1740,6 @@ exports[`Button styles invisible button appropriately 1`] = `
 .c0[aria-disabled][data-loading="false"] {
   cursor: not-allowed;
   box-shadow: none;
-  color: primer.fg.disabled;
-}
-
-.c0:disabled [data-component=ButtonCounter],
-.c0[aria-disabled][data-loading="false"] [data-component=ButtonCounter],
-.c0:disabled [data-component="leadingVisual"],
-.c0[aria-disabled][data-loading="false"] [data-component="leadingVisual"],
-.c0:disabled [data-component="trailingAction"],
-.c0[aria-disabled][data-loading="false"] [data-component="trailingAction"] {
-  color: inherit;
 }
 
 .c0 [data-component=ButtonCounter] {
@@ -1915,6 +1915,16 @@ exports[`Button styles invisible button appropriately 1`] = `
   background-color: actionListItem.default.activeBg;
 }
 
+.c0:disabled {
+  color: primer.fg.disabled;
+}
+
+.c0:disabled [data-component=ButtonCounter],
+.c0:disabled [data-component="leadingVisual"],
+.c0:disabled [data-component="trailingAction"] {
+  color: inherit;
+}
+
 .c0[aria-expanded=true] {
   background-color: actionListItem.default.selectedBg;
 }
@@ -1931,13 +1941,11 @@ exports[`Button styles invisible button appropriately 1`] = `
   color: btn.text;
 }
 
-.c0:disabled[data-no-visuals],
-.c0[aria-disabled][data-loading="false"][data-no-visuals] {
+.c0:disabled[data-no-visuals] {
   color: primer.fg.disabled;
 }
 
-.c0:disabled[data-no-visuals] [data-component=ButtonCounter],
-.c0[aria-disabled][data-loading="false"][data-no-visuals] [data-component=ButtonCounter] {
+.c0:disabled[data-no-visuals] [data-component=ButtonCounter] {
   color: inherit;
 }
 
@@ -2067,14 +2075,6 @@ exports[`Button styles primary button appropriately 1`] = `
 .c0[aria-disabled][data-loading="false"] {
   cursor: not-allowed;
   box-shadow: none;
-  color: btn.primary.disabledText;
-  background-color: btn.primary.disabledBg;
-  border-color: btn.primary.disabledBorder;
-}
-
-.c0:disabled [data-component=ButtonCounter],
-.c0[aria-disabled][data-loading="false"] [data-component=ButtonCounter] {
-  color: inherit;
 }
 
 .c0 [data-component=ButtonCounter] {
@@ -2258,6 +2258,16 @@ exports[`Button styles primary button appropriately 1`] = `
 .c0:active:not([disabled]):not([aria-disabled][data-loading="false"]):not([data-inactive]) {
   background-color: btn.primary.selectedBg;
   box-shadow: undefined;
+}
+
+.c0:disabled {
+  color: btn.primary.disabledText;
+  background-color: btn.primary.disabledBg;
+  border-color: btn.primary.disabledBorder;
+}
+
+.c0:disabled [data-component=ButtonCounter] {
+  color: inherit;
 }
 
 .c0[aria-expanded=true] {
