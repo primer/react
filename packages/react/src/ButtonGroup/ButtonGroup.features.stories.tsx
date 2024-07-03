@@ -54,7 +54,7 @@ export const LinksWithTooltip = () => (
   </ButtonGroup>
 )
 
-export const PRX = () => {
+export const ExamplePrx = () => {
   const [isOpen, setIsOpen] = React.useState(false)
   const secondaryButtonInactive = true
   const hideSecondaryButton = false
