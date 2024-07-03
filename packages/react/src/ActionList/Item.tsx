@@ -127,9 +127,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     }
 
     const itemRole = role || inferredItemRole
+    const menuContext = container === 'ActionMenu' || container === 'SelectPanel'
 
     if (slots.trailingAction) {
-      invariant(!container, `ActionList.TrailingAction can not be used within a ${container}.`)
+      invariant(!menuContext, `ActionList.TrailingAction can not be used within a ${container}.`)
     }
 
     /** Infer the proper selection attribute based on the item's role */
@@ -182,8 +183,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       display: 'flex',
       // show between 2 items
       ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
-      width: 'calc(100% - 16px)',
-      marginX: buttonSemantics ? '2' : '0',
+      width: buttonSemantics && listVariant !== 'full' ? 'calc(100% - 16px)' : '100%',
+      marginX: buttonSemantics && listVariant !== 'full' ? '2' : '0',
       ...(buttonSemantics ? hoverStyles : {}),
     }
 
@@ -455,7 +456,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               {slots.blockDescription}
             </Box>
           </ItemWrapper>
-          {!inactive && Boolean(slots.trailingAction) && !container && slots.trailingAction}
+          {!inactive && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}
         </LiBox>
       </ItemContext.Provider>
     )
