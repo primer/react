@@ -373,7 +373,7 @@ exports[`snapshots renders a loading state 1`] = `
       className="c1"
       display="flex"
     >
-      <div
+      <span
         className="c2"
       >
         <svg
@@ -408,7 +408,7 @@ exports[`snapshots renders a loading state 1`] = `
         >
           Loading
         </span>
-      </div>
+      </span>
     </div>
   </span>,
 ]

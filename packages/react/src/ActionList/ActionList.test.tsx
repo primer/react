@@ -4,6 +4,7 @@ import axe from 'axe-core'
 import React from 'react'
 import theme from '../theme'
 import {ActionList} from '.'
+import {BookIcon} from '@primer/octicons-react'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, ThemeProvider, SSRProvider, ActionMenu} from '..'
 import {FeatureFlags} from '../FeatureFlags'
@@ -425,6 +426,34 @@ describe('ActionList', () => {
     expect(listItems.length).toBe(2)
   })
 
+  it('should apply ref to ActionList.Item when feature flag is disabled', async () => {
+    const MockComponent = () => {
+      const ref = React.useRef<HTMLLIElement>(null)
+
+      const focusRef = () => {
+        if (ref.current) ref.current.focus()
+      }
+
+      return (
+        <FeatureFlags flags={{primer_react_action_list_item_as_button: false}}>
+          <button onClick={focusRef}>Prompt</button>
+          <ActionList>
+            <ActionList.Item ref={ref}>Item 1</ActionList.Item>
+            <ActionList.Item>Item 2</ActionList.Item>
+          </ActionList>
+        </FeatureFlags>
+      )
+    }
+
+    const {getByRole} = HTMLRender(<MockComponent />)
+    const triggerBtn = getByRole('button', {name: 'Prompt'})
+    const focusTarget = getByRole('listitem', {name: 'Item 1'})
+
+    fireEvent.click(triggerBtn)
+
+    expect(document.activeElement).toBe(focusTarget)
+  })
+
   it('should render ActionList.Item as li when feature flag is enabled and has proper aria role', async () => {
     const {container} = HTMLRender(
       <FeatureFlags flags={{primer_react_action_list_item_as_button: false}}>
@@ -444,5 +473,65 @@ describe('ActionList', () => {
 
     const listItems = container.querySelectorAll('li')
     expect(listItems.length).toBe(2)
+  })
+
+  it('should render the trailing action as a button (default)', async () => {
+    const {container} = HTMLRender(
+      <ActionList>
+        <ActionList.Item>
+          Item 1
+          <ActionList.TrailingAction icon={BookIcon} label="Action" />
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const action = container.querySelector('button[aria-labelledby]')
+    expect(action).toHaveAccessibleName('Action')
+  })
+
+  it('should render the trailing action as a link', async () => {
+    const {container} = HTMLRender(
+      <ActionList>
+        <ActionList.Item>
+          Item 1
+          <ActionList.TrailingAction as="a" href="#" icon={BookIcon} label="Action" />
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const action = container.querySelector('a[href="#"][aria-labelledby]')
+    expect(action).toHaveAccessibleName('Action')
+  })
+
+  it('should do action when trailing action is clicked', async () => {
+    const onClick = jest.fn()
+    const component = HTMLRender(
+      <ActionList>
+        <ActionList.Item>
+          Item 1
+          <ActionList.TrailingAction icon={BookIcon} label="Action" onClick={onClick} />
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const trailingAction = await waitFor(() => component.getByRole('button', {name: 'Action'}))
+    fireEvent.click(trailingAction)
+    expect(onClick).toHaveBeenCalled()
+  })
+
+  it('should focus the trailing action', async () => {
+    HTMLRender(
+      <ActionList>
+        <ActionList.Item>
+          Item 1
+          <ActionList.TrailingAction icon={BookIcon} label="Action" />
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    await userEvent.tab()
+    expect(document.activeElement).toHaveTextContent('Item 1')
+    await userEvent.tab()
+    expect(document.activeElement).toHaveAccessibleName('Action')
   })
 })
