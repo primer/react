@@ -23,7 +23,7 @@ import type {OverlayProps} from '../../Overlay/Overlay'
 import {StyledOverlay, heightMap} from '../../Overlay/Overlay'
 import InputLabel from '../../internal/components/InputLabel'
 import {invariant} from '../../utils/invariant'
-import {Status} from '../../internal/components/Status'
+import {AriaStatus} from '../../live-region'
 import {useResponsiveValue} from '../../hooks/useResponsiveValue'
 import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
 
@@ -646,7 +646,8 @@ export const SelectPanelSecondaryAction: FC<SelectPanelSecondaryActionProps> = (
  */
 export const SelectPanelLoading = ({children = 'Fetching items...'}: React.PropsWithChildren) => {
   return (
-    <Status
+    <AriaStatus
+      announceOnShow
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -660,7 +661,7 @@ export const SelectPanelLoading = ({children = 'Fetching items...'}: React.Props
     >
       <Spinner size="medium" srText={null} />
       <Text sx={{fontSize: 1, color: 'fg.muted'}}>{children}</Text>
-    </Status>
+    </AriaStatus>
   )
 }
 

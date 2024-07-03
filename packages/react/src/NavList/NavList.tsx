@@ -2,7 +2,12 @@ import {ChevronDownIcon} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import React, {forwardRef, isValidElement, type ComponentProps, type FC, type PropsWithChildren} from 'react'
 import styled from 'styled-components'
-import type {ActionListDividerProps, ActionListLeadingVisualProps, ActionListTrailingVisualProps} from '../ActionList'
+import type {
+  ActionListTrailingActionProps,
+  ActionListDividerProps,
+  ActionListLeadingVisualProps,
+  ActionListTrailingVisualProps,
+} from '../ActionList'
 import {ActionList} from '../ActionList'
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
 import Box from '../Box'
@@ -81,9 +86,9 @@ export const Item = forwardRef<HTMLAnchorElement, NavListItemProps>(
     // Get SubNav from children
     const subNav = React.Children.toArray(children).find(child => isValidElement(child) && child.type === SubNav)
 
-    // Get children without SubNav
-    const childrenWithoutSubNav = React.Children.toArray(children).filter(child =>
-      isValidElement(child) ? child.type !== SubNav : true,
+    // Get children without SubNav or TrailingAction
+    const childrenWithoutSubNavOrTrailingAction = React.Children.toArray(children).filter(child =>
+      isValidElement(child) ? child.type !== SubNav && child.type !== TrailingAction : true,
     )
 
     if (!isValidElement(subNav) && defaultOpen)
@@ -94,7 +99,7 @@ export const Item = forwardRef<HTMLAnchorElement, NavListItemProps>(
     if (subNav && isValidElement(subNav)) {
       return (
         <ItemWithSubNav subNav={subNav} depth={depth} defaultOpen={defaultOpen} sx={sxProp}>
-          {childrenWithoutSubNav}
+          {childrenWithoutSubNavOrTrailingAction}
         </ItemWithSubNav>
       )
     }
@@ -276,6 +281,17 @@ export type NavListDividerProps = ActionListDividerProps
  * @primerparentid nav_list
  */
 export const Divider = ActionList.Divider
+
+// NavList.TrailingAction
+
+export type NavListTrailingActionProps = ActionListTrailingActionProps
+
+/**
+ * An icon or some other visual that appears after the text in a NavList.Item
+ * @alias NavList.TrailingAction
+ * @primerparentid nav_list
+ */
+export const TrailingAction = ActionList.TrailingAction
 
 // ----------------------------------------------------------------------------
 // NavList.Group

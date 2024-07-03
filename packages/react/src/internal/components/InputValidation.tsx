@@ -49,7 +49,6 @@ const InputValidation: FC<PropsWithChildren<Props>> = ({children, id, validation
         },
         ...sx,
       }}
-      aria-live="polite"
     >
       {IconComponent && (
         <Box as="span" alignItems="center" display="flex" minHeight={iconBoxMinHeight} mr={1} aria-hidden="true">

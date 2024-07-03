@@ -2,6 +2,7 @@ import {render, fireEvent} from '@testing-library/react'
 import React from 'react'
 import {ThemeProvider, SSRProvider} from '..'
 import {NavList} from './'
+import {FeatureFlags} from '../FeatureFlags'
 
 type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}
 
@@ -64,6 +65,20 @@ describe('NavList', () => {
       </ThemeProvider>,
     )
     expect(container).toMatchSnapshot()
+  })
+
+  it('supports TrailingAction', async () => {
+    const {getByRole} = render(
+      <NavList>
+        <NavList.Item>
+          Item 1
+          <NavList.TrailingAction label="Some trailing action" />
+        </NavList.Item>
+      </NavList>,
+    )
+
+    const trailingAction = getByRole('button', {name: 'Some trailing action'})
+    expect(trailingAction).toBeInTheDocument()
   })
 })
 
@@ -333,5 +348,44 @@ describe('NavList.Item with NavList.SubNav', () => {
 
     const currentLink = queryByRole('link', {name: 'Current'})
     expect(currentLink).toBeVisible()
+  })
+
+  describe('TrailingAction', () => {
+    function NavListWithSubNavAndTrailingAction() {
+      return (
+        <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+          <NavList>
+            <NavList.Item href="#">
+              Item
+              <NavList.TrailingAction label="This should not be rendered" />
+              <NavList.SubNav>
+                <NavList.Item href="#">
+                  Sub Item 1
+                  <NavList.TrailingAction label="Trailing Action for Sub Item 1" />
+                </NavList.Item>
+                <NavList.Item href="#">Sub Item 2</NavList.Item>
+              </NavList.SubNav>
+            </NavList.Item>
+          </NavList>
+        </FeatureFlags>
+      )
+    }
+
+    it('does not render TrailingAction alongside SubNav', async () => {
+      const {queryByRole} = render(<NavListWithSubNavAndTrailingAction />)
+
+      const trailingAction = queryByRole('button', {name: 'This should not be rendered'})
+      expect(trailingAction).toBeNull()
+    })
+
+    it('supports TrailingAction within an Item inside SubNav', async () => {
+      const {getByRole, queryByRole} = render(<NavListWithSubNavAndTrailingAction />)
+
+      const itemWithSubNav = getByRole('button', {name: 'Item'})
+      fireEvent.click(itemWithSubNav)
+
+      expect(queryByRole('link', {name: 'Sub Item 1'})).toBeVisible()
+      expect(queryByRole('button', {name: 'Trailing Action for Sub Item 1'})).toBeVisible()
+    })
   })
 })
