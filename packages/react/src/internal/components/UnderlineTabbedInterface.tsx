@@ -193,7 +193,7 @@ export type UnderlineItemProps = {
   iconsVisible?: boolean
   loadingCounters?: boolean
   counter?: number | string
-  icon?: FC<IconProps>
+  icon?: FC<IconProps> | React.ReactElement
   id?: string
 } & SxProp
 
@@ -213,11 +213,7 @@ export const UnderlineItem = forwardRef(
   ) => {
     return (
       <StyledUnderlineItem ref={forwardedRef} as={as} sx={sxProp} {...rest}>
-        {iconsVisible && Icon && (
-          <span data-component="icon">
-            <Icon />
-          </span>
-        )}
+        {iconsVisible && Icon && <span data-component="icon">{typeof Icon === 'function' ? <Icon /> : Icon}</span>}
         {children && (
           <span data-component="text" data-content={children}>
             {children}

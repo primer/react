@@ -1,5 +1,5 @@
 import React from 'react'
-import {render} from '@testing-library/react'
+import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import type {IconProps} from '@primer/octicons-react'
 import {
@@ -185,6 +185,22 @@ describe('UnderlineNav', () => {
     // THEN
     // We are expecting a left value back, that way we know the `getAnchoredPosition` ran.
     expect(results).toEqual(expect.objectContaining({left: 0}))
+  })
+
+  it('should support icons passed in as an element', () => {
+    render(
+      <UnderlineNav aria-label="Repository">
+        <UnderlineNav.Item aria-current="page" icon={<CodeIcon data-testid="page-one-icon" />}>
+          Page one
+        </UnderlineNav.Item>
+        <UnderlineNav.Item icon={<IssueOpenedIcon data-testid="page-two-icon" />}>Page two</UnderlineNav.Item>
+        <UnderlineNav.Item icon={<GitPullRequestIcon data-testid="page-three-icon" />}>Page three</UnderlineNav.Item>
+      </UnderlineNav>,
+    )
+
+    expect(screen.getByTestId('page-one-icon')).toBeInTheDocument()
+    expect(screen.getByTestId('page-two-icon')).toBeInTheDocument()
+    expect(screen.getByTestId('page-three-icon')).toBeInTheDocument()
   })
 })
 
