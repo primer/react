@@ -216,8 +216,8 @@
           "description": "Octicon to pass into IconButton. When this is not set, TrailingAction renders as a `Button` instead of an `IconButton`."
         },
         {
-          "name": "ref",
-          "type": "React.RefObject<HTMLAnchorElement>",
+          "name": "href",
+          "type": "string",
           "description": "href when the TrailingAction is rendered as a link."
         }
       ]

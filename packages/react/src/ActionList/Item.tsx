@@ -127,9 +127,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     }
 
     const itemRole = role || inferredItemRole
+    const menuContext = container === 'ActionMenu' || container === 'SelectPanel'
 
     if (slots.trailingAction) {
-      invariant(!container, `ActionList.TrailingAction can not be used within a ${container}.`)
+      invariant(!menuContext, `ActionList.TrailingAction can not be used within a ${container}.`)
     }
 
     /** Infer the proper selection attribute based on the item's role */
@@ -455,7 +456,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               {slots.blockDescription}
             </Box>
           </ItemWrapper>
-          {!inactive && Boolean(slots.trailingAction) && !container && slots.trailingAction}
+          {!inactive && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}
         </LiBox>
       </ItemContext.Provider>
     )
