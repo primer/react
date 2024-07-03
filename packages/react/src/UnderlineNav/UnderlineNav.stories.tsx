@@ -5,7 +5,7 @@ import {UnderlineNavItem} from './UnderlineNavItem'
 
 const excludedControlKeys = ['sx', 'as', 'variant', 'align', 'afterSelect']
 
-export default {
+const meta = {
   title: 'Components/UnderlineNav',
   component: UnderlineNav,
   subcomponents: {UnderlineNavItem},
@@ -33,7 +33,9 @@ export default {
     'aria-label': 'Repository',
     loadingCounters: false,
   },
-} as Meta<typeof UnderlineNav>
+} satisfies Meta<typeof UnderlineNav>
+
+export default meta
 
 export const Default: StoryFn<typeof UnderlineNav> = () => {
   const children = ['Code', 'Pull requests', 'Actions', 'Projects', 'Wiki']
