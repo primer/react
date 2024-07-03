@@ -101,7 +101,9 @@ test.describe('ButtonGroup', () => {
           // Default state
           // focus on the first button to make sure the tooltip is visible
           await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.Icon Buttons with Tooltip.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `ButtonGroup.Icon Buttons with Tooltip.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -161,7 +163,9 @@ test.describe('ButtonGroup', () => {
           // Default state
           // focus on the first button to make sure the tooltip is visible
           await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.Button and Link with Tooltip 1.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `ButtonGroup.Button and Link with Tooltip 1.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -191,7 +195,9 @@ test.describe('ButtonGroup', () => {
           // Default state
           // focus on the first button to make sure the tooltip is visible
           await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.Button and Link with Tooltip 2.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `ButtonGroup.Button and Link with Tooltip 2.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -221,7 +227,9 @@ test.describe('ButtonGroup', () => {
           // Default state
           // focus on the first button to make sure the tooltip is visible
           await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.Icon Buttons with Tooltip 1.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `ButtonGroup.Icon Buttons with Tooltip 1.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -251,7 +259,9 @@ test.describe('ButtonGroup', () => {
           // Default state
           // focus on the first button to make sure the tooltip is visible
           await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.Link and Button with Tooltip 1.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `ButtonGroup.Link and Button with Tooltip 1.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -281,7 +291,9 @@ test.describe('ButtonGroup', () => {
           // Default state
           // focus on the first button to make sure the tooltip is visible
           await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.Link and Button with Tooltip 2.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `ButtonGroup.Link and Button with Tooltip 2.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -311,7 +323,9 @@ test.describe('ButtonGroup', () => {
           // Default state
           // focus on the first button to make sure the tooltip is visible
           await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.Links with Tooltip 1.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `ButtonGroup.Links with Tooltip 1.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
