@@ -1,8 +1,8 @@
-import React, {type ElementType} from 'react'
+import React, {type ComponentPropsWithoutRef, type ElementType, type PropsWithChildren} from 'react'
 import {Announce} from './Announce'
 import type {SxProp} from '../sx'
 
-export type AriaAlertProps<As extends ElementType> = React.PropsWithChildren<
+export type AriaAlertProps<As extends ElementType> = PropsWithChildren<
   {
     /**
      * Customize the element type of the rendered container
@@ -28,7 +28,7 @@ export function AriaAlert<As extends ElementType>({
   announceOnShow = true,
   children,
   ...rest
-}: AriaAlertProps<As> & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>) {
+}: AriaAlertProps<As> & ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>) {
   return (
     <Announce {...rest} announceOnShow={announceOnShow} politeness="assertive">
       {children}

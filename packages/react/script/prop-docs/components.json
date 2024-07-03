@@ -914,6 +914,13 @@
         ],
         "props": [
           {
+            "name": "style",
+            "type": "React.CSSProperties",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
             "name": "height",
             "type": "\"small\" | \"initial\" | \"large\" | \"medium\" | \"auto\" | \"fit-content\" | \"xsmall\" | \"xlarge\"",
             "required": false,
@@ -1119,7 +1126,7 @@
       },
       {
         "name": "overlayProps",
-        "type": "Partial<Omit<Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"ref\"> & { ...; }, \"height\" | ... 7 more ... | keyof BaseOverlayProps> & Omit<...> & BaseOverlayProps & { ...; }>",
+        "type": "Partial<Omit<Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"ref\"> & { ...; }, \"style\" | ... 8 more ... | keyof BaseOverlayProps> & Omit<...> & BaseOverlayProps & { ...; }>",
         "required": false,
         "description": "Props to be spread on the internal `Overlay` component.",
         "defaultValue": null
@@ -1327,9 +1334,16 @@
           },
           {
             "name": "overlayProps",
-            "type": "Partial<Omit<Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"ref\"> & { ...; }, \"height\" | ... 7 more ... | keyof BaseOverlayProps> & Omit<...> & BaseOverlayProps & { ...; }>",
+            "type": "Partial<Omit<Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"ref\"> & { ...; }, \"style\" | ... 8 more ... | keyof BaseOverlayProps> & Omit<...> & BaseOverlayProps & { ...; }>",
             "required": false,
             "description": "Props to be spread on the internal `Overlay` component.",
+            "defaultValue": null
+          },
+          {
+            "name": "style",
+            "type": "React.CSSProperties",
+            "required": false,
+            "description": "",
             "defaultValue": null
           },
           {
@@ -3910,6 +3924,24 @@
       },
       {
         "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/NavList/NavList.tsx",
+        "description": "An action that appears after the text in a NavList.Item",
+        "name": "NavList.TrailingAction",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "as",
+            "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | (\"a\" & (ComponentClass<...> | FunctionComponent<...>))",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/NavList/NavList.tsx",
         "description": "Used to group of related NavList.Items",
         "name": "NavList.Group",
         "a11yReviewed": false,
@@ -4002,6 +4034,13 @@
       ""
     ],
     "props": [
+      {
+        "name": "style",
+        "type": "any",
+        "required": false,
+        "description": "",
+        "defaultValue": null
+      },
       {
         "name": "height",
         "type": "\"small\" | \"initial\" | \"large\" | \"medium\" | \"auto\" | \"fit-content\" | \"xsmall\" | \"xlarge\"",
@@ -5880,7 +5919,7 @@
       },
       {
         "name": "overlayProps",
-        "type": "Partial<Omit<Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"ref\"> & { ...; }, \"height\" | ... 7 more ... | keyof BaseOverlayProps> & Omit<...> & BaseOverlayProps & { ...; }>",
+        "type": "Partial<Omit<Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"ref\"> & { ...; }, \"style\" | ... 8 more ... | keyof BaseOverlayProps> & Omit<...> & BaseOverlayProps & { ...; }>",
         "required": false,
         "description": "See [Overlay props](/react/Overlay#props)",
         "defaultValue": null
@@ -7649,7 +7688,7 @@
       },
       {
         "name": "overlayProps",
-        "type": "Partial<Omit<Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"ref\"> & { ...; }, \"height\" | ... 7 more ... | keyof BaseOverlayProps> & Omit<...> & BaseOverlayProps & { ...; }>",
+        "type": "Partial<Omit<Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, \"ref\"> & { ...; }, \"style\" | ... 8 more ... | keyof BaseOverlayProps> & Omit<...> & BaseOverlayProps & { ...; }>",
         "required": false,
         "description": "Props to be spread on the internal `Overlay` component.",
         "defaultValue": null
@@ -7900,6 +7939,133 @@
         "type": "boolean",
         "required": false,
         "description": "",
+        "defaultValue": null
+      }
+    ],
+    "subcomponents": []
+  },
+  {
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/live-region/Announce.tsx",
+    "description": "`Announce` is a component that will announce the text content of the\n`children` passed in to screen readers using the given politeness level. It\nwill also announce any changes to the text content of `children`",
+    "name": "Announce",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [
+      {
+        "name": "announceOnShow",
+        "type": "boolean",
+        "required": false,
+        "description": "Specify if the content of the element should be announced when this\ncomponent is rendered and is not hidden",
+        "defaultValue": true
+      },
+      {
+        "name": "hidden",
+        "type": "boolean",
+        "required": false,
+        "description": "Specify if the element is hidden",
+        "defaultValue": false
+      },
+      {
+        "name": "delayMs",
+        "type": "number",
+        "required": false,
+        "description": "Provide a delay in milliseconds before the announcement is made. This will\nonly work with `polite` announcements",
+        "defaultValue": null
+      },
+      {
+        "name": "politeness",
+        "type": "\"assertive\" | \"polite\"",
+        "required": false,
+        "description": "The politeness level to use for the announcement",
+        "defaultValue": "polite"
+      }
+    ],
+    "subcomponents": []
+  },
+  {
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/live-region/AriaAlert.tsx",
+    "description": "",
+    "name": "AriaAlert",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [
+      {
+        "name": "as",
+        "type": "ElementType",
+        "required": false,
+        "description": "Customize the element type of the rendered container",
+        "defaultValue": null
+      },
+      {
+        "name": "announceOnShow",
+        "type": "boolean",
+        "required": false,
+        "description": "Specify if the content of the element should be announced when this\ncomponent is rendered and is not hidden",
+        "defaultValue": true
+      },
+      {
+        "name": "hidden",
+        "type": "boolean",
+        "required": false,
+        "description": "Specify if the element is hidden",
+        "defaultValue": "false"
+      },
+      {
+        "name": "sx",
+        "type": "BetterSystemStyleObject",
+        "required": false,
+        "description": "A style object used to override styles using styled-components",
+        "defaultValue": null
+      }
+    ],
+    "subcomponents": []
+  },
+  {
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/live-region/AriaStatus.tsx",
+    "description": "",
+    "name": "AriaStatus",
+    "a11yReviewed": false,
+    "stories": [
+      ""
+    ],
+    "props": [
+      {
+        "name": "as",
+        "type": "ElementType",
+        "required": false,
+        "description": "Customize the element type of the rendered container",
+        "defaultValue": null
+      },
+      {
+        "name": "announceOnShow",
+        "type": "boolean",
+        "required": false,
+        "description": "Specify if the content of the element should be announced when this\ncomponent is rendered and is not hidden",
+        "defaultValue": false
+      },
+      {
+        "name": "hidden",
+        "type": "boolean",
+        "required": false,
+        "description": "Specify if the element is hidden",
+        "defaultValue": "false"
+      },
+      {
+        "name": "delayMs",
+        "type": "number",
+        "required": false,
+        "description": "Provide a delay in milliseconds before the announcement is made",
+        "defaultValue": null
+      },
+      {
+        "name": "sx",
+        "type": "BetterSystemStyleObject",
+        "required": false,
+        "description": "A style object used to override styles using styled-components",
         "defaultValue": null
       }
     ],
@@ -10785,44 +10951,6 @@
     ]
   },
   {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/internal/components/Alert.tsx",
-    "description": "",
-    "name": "Alert",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "politeness",
-        "type": "\"assertive\" | \"polite\"",
-        "required": false,
-        "description": "The politeness level to use for the announcement",
-        "defaultValue": "polite"
-      }
-    ],
-    "subcomponents": []
-  },
-  {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/internal/components/Announce.tsx",
-    "description": "`Announce` is a component that will announce the text content of the\n`children` passed in to screen readers using the given politeness level. It\nwill also announce any changes to the text content of `children`",
-    "name": "Announce",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "politeness",
-        "type": "\"assertive\" | \"polite\"",
-        "required": false,
-        "description": "The politeness level to use for the announcement",
-        "defaultValue": "polite"
-      }
-    ],
-    "subcomponents": []
-  },
-  {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/internal/components/ButtonReset.tsx",
     "description": "Provides an unstyled button that can be styled as-needed for components",
     "name": "Button",
@@ -11060,25 +11188,6 @@
         "required": false,
         "description": "Accepts class names for custom styling",
         "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/internal/components/Status.tsx",
-    "description": "",
-    "name": "Status",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "politeness",
-        "type": "\"assertive\" | \"polite\"",
-        "required": false,
-        "description": "The politeness level to use for the announcement",
-        "defaultValue": "polite"
       }
     ],
     "subcomponents": []

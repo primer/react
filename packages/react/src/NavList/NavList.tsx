@@ -287,7 +287,7 @@ export const Divider = ActionList.Divider
 export type NavListTrailingActionProps = ActionListTrailingActionProps
 
 /**
- * An icon or some other visual that appears after the text in a NavList.Item
+ * An action that appears after the text in a NavList.Item
  * @alias NavList.TrailingAction
  * @primerparentid nav_list
  */

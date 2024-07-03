@@ -1,10 +1,10 @@
 import {announceFromElement} from '@primer/live-region-element'
-import React, {useEffect, useRef, useState, type ElementRef} from 'react'
+import React, {useEffect, useRef, useState, type ComponentPropsWithoutRef, type ElementRef} from 'react'
 import Box from '../Box'
 import {useEffectOnce} from '../internal/hooks/useEffectOnce'
 import {useEffectCallback} from '../internal/hooks/useEffectCallback'
 
-export type AnnounceProps = React.ComponentPropsWithoutRef<typeof Box> & {
+export type AnnounceProps = ComponentPropsWithoutRef<typeof Box> & {
   /**
    * Specify if the content of the element should be announced when this
    * component is rendered and is not hidden
