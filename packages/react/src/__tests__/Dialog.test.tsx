@@ -1,11 +1,10 @@
 import React, {useState, useRef} from 'react'
 import {Dialog, Box, Text, Button} from '..'
-import {render as HTMLRender, fireEvent, waitFor} from '@testing-library/react'
+import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import axe from 'axe-core'
-import userEvent from '@testing-library/user-event'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 
-/* Dialog Version 1 tests */
+/* Dialog Version 2 */
 
 const comp = (
   <Dialog isOpen onDismiss={() => null} aria-labelledby="header">
@@ -68,6 +67,36 @@ const DialogWithCustomFocusRef = () => {
         </Box>
       </div>
     </Dialog>
+  )
+}
+
+const DialogWithCustomFocusRefAndReturnFocusRef = () => {
+  const [isOpen, setIsOpen] = useState(true)
+  const returnFocusRef = useRef(null)
+  const buttonRef = useRef(null)
+  return (
+    <div>
+      <Button data-testid="trigger-button" ref={returnFocusRef} onClick={() => setIsOpen(true)}>
+        Show Dialog
+      </Button>
+      <Dialog
+        returnFocusRef={returnFocusRef}
+        isOpen={isOpen}
+        initialFocusRef={buttonRef}
+        onDismiss={() => setIsOpen(false)}
+        aria-labelledby="header"
+      >
+        <div data-testid="inner">
+          <Dialog.Header id="header">Title</Dialog.Header>
+          <Box p={3}>
+            <Text fontFamily="sans-serif">Some content</Text>
+            <button data-testid="inner-button" ref={buttonRef}>
+              hi
+            </button>
+          </Box>
+        </div>
+      </Dialog>
+    </div>
   )
 }
 
@@ -140,24 +169,14 @@ describe('Dialog', () => {
   })
 
   it('Returns focus to returnFocusRef on escape', async () => {
-    const {getByTestId, queryByTestId, getByText} = HTMLRender(<Component />)
+    const {getByTestId, queryByTestId} = HTMLRender(<DialogWithCustomFocusRefAndReturnFocusRef />)
+    const innerButton = getByTestId('inner-button')
+    expect(document.activeElement).toEqual(innerButton)
 
     expect(getByTestId('inner')).toBeTruthy()
-    const tooltipEl = getByText('Close')
-    // first ESC closes the tooltip
-    const user = userEvent.setup()
-    await user.keyboard('{Escape}')
-    await waitFor(() => {
-      // Wait for the tooltip to close
-      expect(tooltipEl).not.toHaveAttribute(':popover-open')
-    })
+    fireEvent.keyDown(document.body, {key: 'Escape'})
 
-    // second ESC closes the dialog and returns focus
-    await user.keyboard('{Escape}')
-    await waitFor(() => {
-      //   // Wait for the tooltip to close
-      expect(queryByTestId('inner')).toBeNull()
-    })
+    expect(queryByTestId('inner')).toBeNull()
     const triggerButton = getByTestId('trigger-button')
     expect(document.activeElement).toEqual(triggerButton)
   })
