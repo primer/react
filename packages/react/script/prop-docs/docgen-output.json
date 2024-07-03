@@ -4154,60 +4154,6 @@
     "props": {}
   },
   {
-    "tags": {},
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/index.tsx",
-    "description": "",
-    "displayName": "Blankslate",
-    "methods": [],
-    "props": {
-      "border": {
-        "defaultValue": null,
-        "description": "Add a border around this component",
-        "name": "border",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/Blankslate/Blankslate.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
-        }
-      },
-      "narrow": {
-        "defaultValue": null,
-        "description": "Constrain the maximum width of this component",
-        "name": "narrow",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/Blankslate/Blankslate.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
-        }
-      },
-      "spacious": {
-        "defaultValue": null,
-        "description": "Increase the padding of this component",
-        "name": "spacious",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/Blankslate/Blankslate.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "boolean"
-        }
-      }
-    }
-  },
-  {
     "tags": {
       "primerid": "box",
       "primerstatus": "beta",
@@ -7393,34 +7339,6 @@
   },
   {
     "tags": {
-      "primerid": "drafts_hidden",
-      "primerstatus": "draft",
-      "primera11yreviewed": "false"
-    },
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Hidden/index.tsx",
-    "description": "Prevents children from rendered on specified viewport widths.",
-    "displayName": "Hidden",
-    "methods": [],
-    "props": {
-      "when": {
-        "defaultValue": null,
-        "description": "",
-        "name": "when",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/Hidden/Hidden.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": true,
-        "type": {
-          "name": "Viewport | Viewport[]"
-        }
-      }
-    }
-  },
-  {
-    "tags": {
       "primerid": "inline_message",
       "primerstatus": "alpha",
       "primera11yreviewed": "false"
@@ -10052,10 +9970,14 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "primerid": "popover",
+      "primerstatus": "alpha",
+      "primera11yreviewed": "false"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Popover/Popover.tsx",
-    "description": "",
-    "displayName": "Popover.Content",
+    "description": "Popover is used to bring attention to specific user interface elements.",
+    "displayName": "Popover",
     "methods": [],
     "props": {
       "open": {
@@ -10105,6 +10027,37 @@
           "name": "boolean"
         }
       },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "Popover.Content",
+      "primerparentid": "popover"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Popover/Popover.tsx",
+    "description": "",
+    "displayName": "PopoverContent",
+    "methods": [],
+    "props": {
       "sx": {
         "defaultValue": null,
         "description": "A style object used to override styles using styled-components",
@@ -12123,9 +12076,13 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "primerid": "spinner",
+      "primerstatus": "alpha",
+      "primera11yreviewed": "false"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Spinner/Spinner.tsx",
-    "description": "",
+    "description": "Use Spinner to show users that an action is in progress.",
     "displayName": "Spinner",
     "methods": [],
     "props": {
@@ -14995,10 +14952,14 @@
     "props": {}
   },
   {
-    "tags": {},
+    "tags": {
+      "primerid": "tree_view",
+      "primerstatus": "beta",
+      "primera11yreviewed": "true"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/TreeView/TreeView.tsx",
-    "description": "",
-    "displayName": "TreeView",
+    "description": "Tree view is a hierarchical list of items that may have a parent-child relationship where children can be toggled into view by expanding or collapsing their parent item.",
+    "displayName": "Root",
     "methods": [],
     "props": {
       "aria-label": {
@@ -15059,6 +15020,351 @@
         "required": false,
         "type": {
           "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "TreeView.Item",
+      "primerparentid": "tree_view"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/TreeView/TreeView.tsx",
+    "description": "A node in the tree view. May contain a TreeView.SubTree of child nodes.",
+    "displayName": "Item",
+    "methods": [],
+    "props": {
+      "aria-label": {
+        "defaultValue": null,
+        "description": "",
+        "name": "aria-label",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TreeView/TreeView.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.AriaAttributes"
+        }
+      },
+      "aria-labelledby": {
+        "defaultValue": null,
+        "description": "",
+        "name": "aria-labelledby",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TreeView/TreeView.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "React.AriaAttributes"
+        }
+      },
+      "id": {
+        "defaultValue": null,
+        "description": "A unique identifier for the item.",
+        "name": "id",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TreeView/TreeView.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "containIntrinsicSize": {
+        "defaultValue": null,
+        "description": "The size of this item's contents. Passing this will set 'content-visiblity: auto' on the content container, delaying rendering until the item is in the viewport.",
+        "name": "containIntrinsicSize",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TreeView/TreeView.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "current": {
+        "defaultValue": {
+          "value": "false"
+        },
+        "description": "Indicates whether the item is the current item. No more than one item should be current at once. The path to the current item will be expanded by default.",
+        "name": "current",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TreeView/TreeView.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "defaultExpanded": {
+        "defaultValue": null,
+        "description": "The expanded state of the item when it is initially rendered. Use when you do not need to control the state.",
+        "name": "defaultExpanded",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TreeView/TreeView.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "expanded": {
+        "defaultValue": null,
+        "description": "The controlled expanded state of item. Must be used in conjunction with onExpandedChange.",
+        "name": "expanded",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TreeView/TreeView.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "boolean"
+        }
+      },
+      "onExpandedChange": {
+        "defaultValue": null,
+        "description": "Event handler called when the expanded state of the item changes.",
+        "name": "onExpandedChange",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TreeView/TreeView.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "(expanded: boolean) => void"
+        }
+      },
+      "onSelect": {
+        "defaultValue": null,
+        "description": "Callback when a tree view node is activated",
+        "name": "onSelect",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TreeView/TreeView.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "(event: any) => void"
+        }
+      },
+      "className": {
+        "defaultValue": null,
+        "description": "Class name(s) used to customize styles",
+        "name": "className",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TreeView/TreeView.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "TreeView.SubTree",
+      "primerparentid": "tree_view"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/TreeView/TreeView.tsx",
+    "description": "A subtree of items that are nested under a parent node (TreeView.Item) in the tree view.",
+    "displayName": "SubTree",
+    "methods": [],
+    "props": {
+      "state": {
+        "defaultValue": null,
+        "description": "Specify a state if items in the subtree are loaded asynchronously. An asynchronous subtree can be in one of the following states: 'initial', 'loading', 'done', or 'error'. In the 'initial' state, items are neither loaded nor loading. In the 'loading' state, items are loading and the subtree will render a loading indicator. In the 'done' state, items are loaded. Screen readers will announce when a subtree enters the 'done' state. An 'error' state means that an error occured while loading items.",
+        "name": "state",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TreeView/TreeView.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "SubTreeState"
+        }
+      },
+      "count": {
+        "defaultValue": null,
+        "description": "The number of items expected to be in the subtree. When in the loading state, the subtree will render a skeleton loading placeholder with the specified count of items",
+        "name": "count",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TreeView/TreeView.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "number"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "TreeView.LeadingVisual",
+      "primerparentid": "tree_view"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/TreeView/TreeView.tsx",
+    "description": "A visual that appears at the beginning of a tree view node (after the TreeView.LeadingAction if one is passed).",
+    "displayName": "LeadingVisual",
+    "methods": [],
+    "props": {
+      "label": {
+        "defaultValue": null,
+        "description": "Provide an accessible label for the visual. This is not necessary for decorative visuals.",
+        "name": "label",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TreeView/TreeView.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "TreeView.TrailingVisual",
+      "primerparentid": "tree_view"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/TreeView/TreeView.tsx",
+    "description": "A visual that appears at the end of a tree view node.",
+    "displayName": "TrailingVisual",
+    "methods": [],
+    "props": {
+      "label": {
+        "defaultValue": null,
+        "description": "Provide an accessible label for the visual. This is not necessary for decorative visuals.",
+        "name": "label",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TreeView/TreeView.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "TreeView.LeadingAction",
+      "primerparentid": "tree_view"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/TreeView/TreeView.tsx",
+    "description": "An interactive element appears at the beginning of a tree view node (before the leading visual).",
+    "displayName": "LeadingAction",
+    "methods": [],
+    "props": {}
+  },
+  {
+    "tags": {
+      "alias": "TreeView.ErrorDialog",
+      "primerparentid": "tree_view"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/TreeView/TreeView.tsx",
+    "description": "A dialog that may be used to show a dialog with an error message when an error occurs that prevents the tree view from rendering.",
+    "displayName": "ErrorDialog",
+    "methods": [],
+    "props": {
+      "children": {
+        "defaultValue": null,
+        "description": "The content of the dialog. This is usually a message explaining the error.",
+        "name": "children",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TreeView/TreeView.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "React.ReactNode"
+        }
+      },
+      "title": {
+        "defaultValue": {
+          "value": "Error"
+        },
+        "description": "The title of the dialog. This is usually a short description of the error.",
+        "name": "title",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TreeView/TreeView.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "string"
+        }
+      },
+      "onRetry": {
+        "defaultValue": null,
+        "description": "Event handler called when the user clicks the retry button.",
+        "name": "onRetry",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TreeView/TreeView.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "() => void"
+        }
+      },
+      "onDismiss": {
+        "defaultValue": null,
+        "description": "Event handler called when the dialog is dismissed.",
+        "name": "onDismiss",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TreeView/TreeView.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "() => void"
         }
       }
     }
@@ -21617,7 +21923,27 @@
     "description": "A tabpanel associated with a TabPanels.Tab in TabPanels",
     "displayName": "Panel",
     "methods": [],
-    "props": {}
+    "props": {
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "BetterSystemStyleObject"
+        }
+      }
+    }
   },
   {
     "tags": {

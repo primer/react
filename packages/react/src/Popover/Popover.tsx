@@ -41,7 +41,7 @@ type StyledPopoverProps = {
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-const Popover = styled.div.attrs<StyledPopoverProps>(({className, caret = 'top'}) => {
+export const Popover = styled.div.attrs<StyledPopoverProps>(({className, caret = 'top'}) => {
   return {
     className: clsx(className, `caret-pos--${caret}`),
   }
@@ -56,7 +56,7 @@ const Popover = styled.div.attrs<StyledPopoverProps>(({className, caret = 'top'}
  * @alias Popover.Content
  * @primerparentid popover
  */
-const PopoverContent = styled.div<SxProp>`
+export const PopoverContent = styled.div<SxProp>`
   border: 1px solid ${get('colors.border.default')};
   border-radius: ${get('radii.2')};
   position: relative;
@@ -235,16 +235,5 @@ const PopoverContent = styled.div<SxProp>`
   ${sx};
 `
 
-PopoverContent.displayName = 'Popover.Content'
-
 export type PopoverProps = ComponentProps<typeof Popover>
 export type PopoverContentProps = ComponentProps<typeof PopoverContent>
-export default Object.assign(Popover, {Content: PopoverContent})
-
-// const PopoverComponent = Object.assign(Popover, {Content: PopoverContent})
-
-// PopoverComponent.displayName = 'Popover'
-
-// export type PopoverProps = ComponentProps<typeof Popover>
-// export type PopoverContentProps = ComponentProps<typeof PopoverContent>
-// export default PopoverComponent

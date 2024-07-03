@@ -2068,39 +2068,6 @@
     ]
   },
   {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Blankslate/index.tsx",
-    "description": "",
-    "name": "Blankslate",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "border",
-        "type": "boolean",
-        "required": false,
-        "description": "Add a border around this component",
-        "defaultValue": null
-      },
-      {
-        "name": "narrow",
-        "type": "boolean",
-        "required": false,
-        "description": "Constrain the maximum width of this component",
-        "defaultValue": null
-      },
-      {
-        "name": "spacious",
-        "type": "boolean",
-        "required": false,
-        "description": "Increase the padding of this component",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Box/Box.tsx",
     "id": "box",
     "description": "Box is a basic wrapper component for most layout related needs.",
@@ -3758,27 +3725,6 @@
     "subcomponents": []
   },
   {
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Hidden/index.tsx",
-    "id": "drafts_hidden",
-    "description": "Prevents children from rendered on specified viewport widths.",
-    "name": "Hidden",
-    "status": "draft",
-    "a11yReviewed": false,
-    "stories": [
-      ""
-    ],
-    "props": [
-      {
-        "name": "when",
-        "type": "Viewport | Viewport[]",
-        "required": true,
-        "description": "",
-        "defaultValue": null
-      }
-    ],
-    "subcomponents": []
-  },
-  {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/InlineMessage/InlineMessage.tsx",
     "id": "inline_message",
     "description": "Inline message is used to inform the user about the result of an action within the content.",
@@ -5072,8 +5018,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Popover/Popover.tsx",
-    "description": "",
-    "name": "Popover.Content",
+    "id": "popover",
+    "description": "Popover is used to bring attention to specific user interface elements.",
+    "name": "Popover",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -5108,7 +5056,26 @@
         "defaultValue": null
       }
     ],
-    "subcomponents": []
+    "subcomponents": [
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Popover/Popover.tsx",
+        "description": "",
+        "name": "Popover.Content",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "sx",
+            "type": "BetterSystemStyleObject",
+            "required": false,
+            "description": "A style object used to override styles using styled-components",
+            "defaultValue": null
+          }
+        ]
+      }
+    ]
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Portal/Portal.tsx",
@@ -6083,8 +6050,10 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/Spinner/Spinner.tsx",
-    "description": "",
+    "id": "spinner",
+    "description": "Use Spinner to show users that an action is in progress.",
     "name": "Spinner",
+    "status": "alpha",
     "a11yReviewed": false,
     "stories": [
       ""
@@ -7509,9 +7478,11 @@
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/TreeView/TreeView.tsx",
-    "description": "",
-    "name": "TreeView",
-    "a11yReviewed": false,
+    "id": "tree_view",
+    "description": "Tree view is a hierarchical list of items that may have a parent-child relationship where children can be toggled into view by expanding or collapsing their parent item.",
+    "name": "Root",
+    "status": "beta",
+    "a11yReviewed": true,
     "stories": [
       ""
     ],
@@ -7545,7 +7516,199 @@
         "defaultValue": null
       }
     ],
-    "subcomponents": []
+    "subcomponents": [
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/TreeView/TreeView.tsx",
+        "description": "A node in the tree view. May contain a TreeView.SubTree of child nodes.",
+        "name": "TreeView.Item",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "aria-label",
+            "type": "React.AriaAttributes",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "aria-labelledby",
+            "type": "React.AriaAttributes",
+            "required": false,
+            "description": "",
+            "defaultValue": null
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "required": true,
+            "description": "A unique identifier for the item.",
+            "defaultValue": null
+          },
+          {
+            "name": "containIntrinsicSize",
+            "type": "string",
+            "required": false,
+            "description": "The size of this item's contents. Passing this will set 'content-visiblity: auto' on the content container, delaying rendering until the item is in the viewport.",
+            "defaultValue": null
+          },
+          {
+            "name": "current",
+            "type": "boolean",
+            "required": false,
+            "description": "Indicates whether the item is the current item. No more than one item should be current at once. The path to the current item will be expanded by default.",
+            "defaultValue": "false"
+          },
+          {
+            "name": "defaultExpanded",
+            "type": "boolean",
+            "required": false,
+            "description": "The expanded state of the item when it is initially rendered. Use when you do not need to control the state.",
+            "defaultValue": null
+          },
+          {
+            "name": "expanded",
+            "type": "boolean",
+            "required": false,
+            "description": "The controlled expanded state of item. Must be used in conjunction with onExpandedChange.",
+            "defaultValue": null
+          },
+          {
+            "name": "onExpandedChange",
+            "type": "(expanded: boolean) => void",
+            "required": false,
+            "description": "Event handler called when the expanded state of the item changes.",
+            "defaultValue": null
+          },
+          {
+            "name": "onSelect",
+            "type": "(event: any) => void",
+            "required": false,
+            "description": "Callback when a tree view node is activated",
+            "defaultValue": null
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Class name(s) used to customize styles",
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/TreeView/TreeView.tsx",
+        "description": "A subtree of items that are nested under a parent node (TreeView.Item) in the tree view.",
+        "name": "TreeView.SubTree",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "state",
+            "type": "SubTreeState",
+            "required": false,
+            "description": "Specify a state if items in the subtree are loaded asynchronously. An asynchronous subtree can be in one of the following states: 'initial', 'loading', 'done', or 'error'. In the 'initial' state, items are neither loaded nor loading. In the 'loading' state, items are loading and the subtree will render a loading indicator. In the 'done' state, items are loaded. Screen readers will announce when a subtree enters the 'done' state. An 'error' state means that an error occured while loading items.",
+            "defaultValue": null
+          },
+          {
+            "name": "count",
+            "type": "number",
+            "required": false,
+            "description": "The number of items expected to be in the subtree. When in the loading state, the subtree will render a skeleton loading placeholder with the specified count of items",
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/TreeView/TreeView.tsx",
+        "description": "A visual that appears at the beginning of a tree view node (after the TreeView.LeadingAction if one is passed).",
+        "name": "TreeView.LeadingVisual",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "label",
+            "type": "string",
+            "required": false,
+            "description": "Provide an accessible label for the visual. This is not necessary for decorative visuals.",
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/TreeView/TreeView.tsx",
+        "description": "A visual that appears at the end of a tree view node.",
+        "name": "TreeView.TrailingVisual",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "label",
+            "type": "string",
+            "required": false,
+            "description": "Provide an accessible label for the visual. This is not necessary for decorative visuals.",
+            "defaultValue": null
+          }
+        ]
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/TreeView/TreeView.tsx",
+        "description": "An interactive element appears at the beginning of a tree view node (before the leading visual).",
+        "name": "TreeView.LeadingAction",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": []
+      },
+      {
+        "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/TreeView/TreeView.tsx",
+        "description": "A dialog that may be used to show a dialog with an error message when an error occurs that prevents the tree view from rendering.",
+        "name": "TreeView.ErrorDialog",
+        "a11yReviewed": false,
+        "stories": [
+          ""
+        ],
+        "props": [
+          {
+            "name": "children",
+            "type": "React.ReactNode",
+            "required": true,
+            "description": "The content of the dialog. This is usually a message explaining the error.",
+            "defaultValue": null
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "required": false,
+            "description": "The title of the dialog. This is usually a short description of the error.",
+            "defaultValue": "Error"
+          },
+          {
+            "name": "onRetry",
+            "type": "() => void",
+            "required": false,
+            "description": "Event handler called when the user clicks the retry button.",
+            "defaultValue": null
+          },
+          {
+            "name": "onDismiss",
+            "type": "() => void",
+            "required": false,
+            "description": "Event handler called when the dialog is dismissed.",
+            "defaultValue": null
+          }
+        ]
+      }
+    ]
   },
   {
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/UnderlineNav/UnderlineNav.tsx",
@@ -10832,7 +10995,15 @@
         "stories": [
           ""
         ],
-        "props": []
+        "props": [
+          {
+            "name": "sx",
+            "type": "BetterSystemStyleObject",
+            "required": false,
+            "description": "A style object used to override styles using styled-components",
+            "defaultValue": null
+          }
+        ]
       }
     ]
   },

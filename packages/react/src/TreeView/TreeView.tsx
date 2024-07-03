@@ -286,7 +286,7 @@ const UlBox = styled.ul<SxProp>`
  * @primerstatus beta
  * @primera11yreviewed true
  */
-const Root: FC<TreeViewProps> = ({
+export const Root: FC<TreeViewProps> = ({
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledby,
   children,
@@ -357,8 +357,6 @@ const Root: FC<TreeViewProps> = ({
   )
 }
 
-Root.displayName = 'TreeView'
-
 // ----------------------------------------------------------------------------
 // TreeView.Item
 
@@ -392,7 +390,7 @@ export type TreeViewItemProps = {
  * @alias TreeView.Item
  * @primerparentid tree_view
  */
-const Item = forwardRef<HTMLElement, TreeViewItemProps>(
+export const Item = forwardRef<HTMLElement, TreeViewItemProps>(
   (
     {
       id: itemId,
@@ -600,8 +598,6 @@ const LevelIndicatorLines: FC<{level: number}> = ({level}) => {
   )
 }
 
-Item.displayName = 'TreeView.Item'
-
 // ----------------------------------------------------------------------------
 // TreeView.SubTree
 
@@ -620,7 +616,7 @@ export type TreeViewSubTreeProps = {
  * @alias TreeView.SubTree
  * @primerparentid tree_view
  */
-const SubTree: FC<TreeViewSubTreeProps> = ({count, state, children}) => {
+export const SubTree: FC<TreeViewSubTreeProps> = ({count, state, children}) => {
   const {announceUpdate} = React.useContext(RootContext)
   const {itemId, isExpanded, isSubTreeEmpty, setIsSubTreeEmpty} = React.useContext(ItemContext)
   const loadingItemRef = React.useRef<HTMLElement>(null)
@@ -727,8 +723,6 @@ const SubTree: FC<TreeViewSubTreeProps> = ({count, state, children}) => {
     </ul>
   )
 }
-
-SubTree.displayName = 'TreeView.SubTree'
 
 function usePreviousValue<T>(value: T): T {
   const ref = React.useRef(value)
@@ -844,7 +838,7 @@ export type TreeViewVisualProps = {
  * @alias TreeView.LeadingVisual
  * @primerparentid tree_view
  */
-const LeadingVisual: FC<TreeViewVisualProps> = props => {
+export const LeadingVisual: FC<TreeViewVisualProps> = props => {
   const {isExpanded, leadingVisualId} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
@@ -859,14 +853,12 @@ const LeadingVisual: FC<TreeViewVisualProps> = props => {
   )
 }
 
-LeadingVisual.displayName = 'TreeView.LeadingVisual'
-
 /**
  * A visual that appears at the end of a tree view node.
  * @alias TreeView.TrailingVisual
  * @primerparentid tree_view
  */
-const TrailingVisual: FC<TreeViewVisualProps> = props => {
+export const TrailingVisual: FC<TreeViewVisualProps> = props => {
   const {isExpanded, trailingVisualId} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
@@ -881,8 +873,6 @@ const TrailingVisual: FC<TreeViewVisualProps> = props => {
   )
 }
 
-TrailingVisual.displayName = 'TreeView.TrailingVisual'
-
 // ----------------------------------------------------------------------------
 // TreeView.LeadingAction
 /**
@@ -890,7 +880,7 @@ TrailingVisual.displayName = 'TreeView.TrailingVisual'
  * @alias TreeView.LeadingAction
  * @primerparentid tree_view
  */
-const LeadingAction: React.FC<TreeViewVisualProps> = props => {
+export const LeadingAction: React.FC<TreeViewVisualProps> = props => {
   const {isExpanded} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
@@ -905,11 +895,10 @@ const LeadingAction: React.FC<TreeViewVisualProps> = props => {
   )
 }
 
-LeadingAction.displayName = 'TreeView.LeadingAction'
 // ----------------------------------------------------------------------------
 // TreeView.DirectoryIcon
 
-const DirectoryIcon = () => {
+export const DirectoryIcon = () => {
   const {isExpanded} = React.useContext(ItemContext)
   const Icon = isExpanded ? FileDirectoryOpenFillIcon : FileDirectoryFillIcon
   return (
@@ -936,7 +925,12 @@ export type TreeViewErrorDialogProps = {
   onDismiss?: () => void
 }
 
-const ErrorDialog: FC<TreeViewErrorDialogProps> = ({title = 'Error', children, onRetry, onDismiss}) => {
+/**
+ * A dialog that may be used to show a dialog with an error message when an error occurs that prevents the tree view from rendering.
+ * @alias TreeView.ErrorDialog
+ * @primerparentid tree_view
+ */
+export const ErrorDialog: FC<TreeViewErrorDialogProps> = ({title = 'Error', children, onRetry, onDismiss}) => {
   const {itemId, setIsExpanded} = React.useContext(ItemContext)
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions
@@ -973,18 +967,3 @@ const ErrorDialog: FC<TreeViewErrorDialogProps> = ({title = 'Error', children, o
     </div>
   )
 }
-
-ErrorDialog.displayName = 'TreeView.ErrorDialog'
-
-// ----------------------------------------------------------------------------
-// Export
-
-export const TreeView = Object.assign(Root, {
-  Item,
-  SubTree,
-  LeadingAction,
-  LeadingVisual,
-  TrailingVisual,
-  DirectoryIcon,
-  ErrorDialog,
-})

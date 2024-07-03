@@ -190,7 +190,7 @@ export const Tab = styled.button.attrs<TabPanelsTabProps>(props => ({
   ${sx};
 ` as PolymorphicForwardRefComponent<'button', TabPanelsTabProps>
 
-export type TabPanelsPanelProps = React.HTMLAttributes<HTMLDivElement> & {
+export type TabPanelsPanelProps = HTMLAttributes<HTMLDivElement> & {
   children: React.ReactNode
 } & SxProp
 
