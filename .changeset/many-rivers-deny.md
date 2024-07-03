@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-Adds new sub-component to `NavList`, `NavList.Expand`
+Add `NavList.ShowMoreItem` component to support showing more content within a `NavList`.
