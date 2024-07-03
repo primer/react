@@ -321,7 +321,9 @@ test.describe('IconButton', () => {
 
           // Default state
           await page.keyboard.press('Tab') // focus on icon button
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Keyshortcuts.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `IconButton.Keyshortcuts.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -351,7 +353,9 @@ test.describe('IconButton', () => {
 
           // Default state
           await page.keyboard.press('Tab') // focus on icon button
-          expect(await page.screenshot()).toMatchSnapshot(`IconButton.Keyshortcuts on Description.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `IconButton.Keyshortcuts on Description.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
