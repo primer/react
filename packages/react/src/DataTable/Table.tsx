@@ -250,6 +250,8 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
   ref,
 ) {
   return (
+    // TODO update type to be non-optional in next major release
+    // @ts-expect-error this type should be required in the next major version
     <ScrollableRegion aria-labelledby={labelledby} className="TableOverflowWrapper">
       <StyledTable
         {...rest}
