@@ -133,7 +133,9 @@ test.describe('ButtonGroup', () => {
           // Default state
           // focus on the first button to make sure the tooltip is visible
           await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.Links with Tooltip.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `ButtonGroup.Links with Tooltip.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
