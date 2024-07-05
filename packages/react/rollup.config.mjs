@@ -1,5 +1,6 @@
 import {fileURLToPath} from 'node:url'
 import path from 'node:path'
+import fs from 'node:fs'
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import babel from '@rollup/plugin-babel'
@@ -9,6 +10,7 @@ import glob from 'fast-glob'
 import {visualizer} from 'rollup-plugin-visualizer'
 import {importCSS} from 'rollup-plugin-import-css'
 import MagicString from 'magic-string'
+import customPropertiesFallback from 'postcss-custom-properties-fallback'
 import packageJson from './package.json' assert {type: 'json'}
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -127,7 +129,32 @@ const baseConfig = {
     }),
     importCSS({
       modulesRoot: 'src',
-      postcssPlugins: [],
+      postcssPlugins: [
+        customPropertiesFallback({
+          importFrom: [
+            () => {
+              let customProperties = {}
+              const filePaths = glob.sync(['**/*.json'], {
+                cwd: path.join(__dirname, '../../node_modules/@primer/primitives/dist/fallbacks/'),
+                ignore: ['color-fallbacks.json'],
+              })
+
+              for (const filePath of filePaths) {
+                const fileData = fs.readFileSync(
+                  path.join(__dirname, '../../node_modules/@primer/primitives/dist/fallbacks/', filePath),
+                  'utf8',
+                )
+                customProperties = {
+                  ...customProperties,
+                  ...JSON.parse(fileData),
+                }
+              }
+
+              return {customProperties}
+            },
+          ],
+        }),
+      ],
       postcssModulesOptions: {
         generateScopedName: 'prc-[folder]-[local]-[hash:base64:5]',
       },
