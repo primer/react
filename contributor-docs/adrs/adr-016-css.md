@@ -1,4 +1,4 @@
-# ADR 17: Styling with CSS
+# Styling with CSS
 
 ## Status
 

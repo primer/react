@@ -1,4 +1,4 @@
-# ADR 015: NPM Workspaces
+# NPM Workspaces
 
 ## Status
 
