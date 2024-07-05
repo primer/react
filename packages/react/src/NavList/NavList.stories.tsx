@@ -12,6 +12,7 @@ const meta: Meta = {
   },
 }
 
+// TODO: add a "Default" story
 export const Simple: StoryFn = () => (
   <PageLayout>
     <PageLayout.Pane position="start">

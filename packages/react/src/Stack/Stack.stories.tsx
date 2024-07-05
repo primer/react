@@ -12,6 +12,7 @@ const meta: Meta<typeof Stack> = {
 
 export default meta
 
+// TODO: Figure out why we use `render:` instead of a function
 export const Default: Story = {
   render: () => (
     <Stack>

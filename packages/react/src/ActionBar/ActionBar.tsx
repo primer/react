@@ -307,6 +307,11 @@ export const ActionBar: FC<PropsWithChildren<ActionBarProps>> = props => {
   )
 }
 
+/**
+ * Icon button to render in the action bar.
+ * @alias ActionBar.IconButton
+ * @primerparentid actionbar
+ */
 export const ActionBarIconButton = forwardRef<HTMLButtonElement, ActionBarIconButtonProps>((props, forwardedRef) => {
   const backupRef = useRef<HTMLElement>(null)
   const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
@@ -324,6 +329,12 @@ const sizeToHeight = {
   medium: '28px',
   large: '32px',
 }
+
+/**
+ * Divider to render between icon buttons in the action bar.
+ * @alias ActionBar.Divider
+ * @primerparentid actionbar
+ */
 export const VerticalDivider = () => {
   const ref = useRef<HTMLDivElement>(null)
   const {size, setChildrenWidth} = React.useContext(ActionBarContext)

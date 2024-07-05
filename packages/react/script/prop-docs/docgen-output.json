@@ -808,9 +808,12 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "alias": "ActionBar.IconButton",
+      "primerparentid": "actionbar"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionBar/ActionBar.tsx",
-    "description": "",
+    "description": "Icon button to render in the action bar.",
     "displayName": "ActionBarIconButton",
     "methods": [],
     "props": {
@@ -1028,6 +1031,17 @@
         }
       }
     }
+  },
+  {
+    "tags": {
+      "alias": "ActionBar.Divider",
+      "primerparentid": "actionbar"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionBar/ActionBar.tsx",
+    "description": "Divider to render between icon buttons in the action bar.",
+    "displayName": "VerticalDivider",
+    "methods": [],
+    "props": {}
   },
   {
     "tags": {
