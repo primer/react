@@ -395,6 +395,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                     }}
                   >
                     {childrenWithoutSlots}
+                    {/* Loading message needs to be in here so it is read with the label */}
+                    {loading === true && <VisuallyHidden>Loading</VisuallyHidden>}
                   </Box>
                   {slots.inlineDescription}
                 </ConditionalWrapper>
@@ -429,7 +431,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
             </Box>
           </ItemWrapper>
           {!inactive && !loading && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}
-          {loading === true && <VisuallyHidden>Loading</VisuallyHidden>}
         </LiBox>
       </ItemContext.Provider>
     )
