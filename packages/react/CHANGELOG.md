@@ -1,5 +1,21 @@
 # @primer/react
 
+## 36.25.0
+
+### Minor Changes
+
+- [#4051](https://github.com/primer/react/pull/4051) [`7e644b70359fcba07810560abcb8b1fbe785668a`](https://github.com/primer/react/commit/7e644b70359fcba07810560abcb8b1fbe785668a) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds a loading state to ActionList items. Also allows the Spinner component to accept screenreader text.
+
+  <!-- Changed components: ActionList, ActionMenu, NavList, Spinners -->
+
+- [#4697](https://github.com/primer/react/pull/4697) [`a7d1e4f37cd8fd01c86250178ef6ae748d786e03`](https://github.com/primer/react/commit/a7d1e4f37cd8fd01c86250178ef6ae748d786e03) Thanks [@khiga8](https://github.com/khiga8)! - Add TrailingAction support to NavList
+
+### Patch Changes
+
+- [#4706](https://github.com/primer/react/pull/4706) [`71859edc30664e259c855ffdc3732cda8dc6d169`](https://github.com/primer/react/commit/71859edc30664e259c855ffdc3732cda8dc6d169) Thanks [@TylerJDev](https://github.com/TylerJDev)! - (Behind feature flag) ActionList: Fix for "full" variant when using button semantics
+
+- [#4711](https://github.com/primer/react/pull/4711) [`199e3840af17d8ea7c75dbba60cdfbaaf7ef4021`](https://github.com/primer/react/commit/199e3840af17d8ea7c75dbba60cdfbaaf7ef4021) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Removes live region from `FormControl` validation
+
 ## 36.24.0
 
 ### Minor Changes
