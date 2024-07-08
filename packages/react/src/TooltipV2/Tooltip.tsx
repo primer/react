@@ -1,4 +1,4 @@
-import React, {Children, useEffect, useRef, useState, useMemo} from 'react'
+import React, {Children, useEffect, useRef, useState, useMemo, useCallback} from 'react'
 import type {SxProp} from '../sx'
 import sx from '../sx'
 import {useId, useProvidedRefOrCreate, useOnEscapePress} from '../hooks'
@@ -238,7 +238,7 @@ export const Tooltip = React.forwardRef(
     // context value
     const value = useMemo(() => ({tooltipId}), [tooltipId])
 
-    const getAllDescendants = (node: HTMLElement): HTMLElement[] => {
+    const getAllDescendants = useCallback((node: HTMLElement): HTMLElement[] => {
       let descendants: HTMLElement[] = []
 
       for (const child of node.childNodes) {
@@ -246,15 +246,25 @@ export const Tooltip = React.forwardRef(
         descendants = descendants.concat(getAllDescendants(child as HTMLElement))
       }
       return descendants
-    }
-
-    // Usage example
+    }, [])
 
     useEffect(() => {
       if (!tooltipElRef.current || !triggerRef.current) return
+
+      // SSR safe polyfill apply
+      if (typeof window !== 'undefined') {
+        if (!isSupported()) {
+          apply()
+        }
+      }
+
+      const tooltip = tooltipElRef.current
+      tooltip.setAttribute('popover', 'auto')
+
       /*
-       * ACCESSIBILITY CHECKS
+       * DEV ENV ACCESSIBILITY CHECKS
        */
+      if (!__DEV__) return
       // Has trigger element or any of its children interactive elements?
       const isTriggerInteractive = isInteractive(triggerRef.current)
       const allDescendants = getAllDescendants(triggerRef.current)
@@ -276,17 +286,7 @@ export const Tooltip = React.forwardRef(
           'The label type `Tooltip` is going to be used here to label the trigger element. Please remove the aria-label from the trigger element.',
         )
       }
-
-      // SSR safe polyfill apply
-      if (typeof window !== 'undefined') {
-        if (!isSupported()) {
-          apply()
-        }
-      }
-
-      const tooltip = tooltipElRef.current
-      tooltip.setAttribute('popover', 'auto')
-    }, [tooltipElRef, triggerRef, direction, type])
+    }, [tooltipElRef, triggerRef, type, getAllDescendants])
 
     useOnEscapePress(
       (event: KeyboardEvent) => {

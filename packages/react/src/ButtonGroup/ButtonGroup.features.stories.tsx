@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import React from 'react'
 import type {Meta} from '@storybook/react'
 import ButtonGroup from './ButtonGroup'
@@ -54,34 +53,25 @@ export const LinksWithTooltip = () => (
   </ButtonGroup>
 )
 
-export const ExamplePrx = () => {
+export const ExampleInactiveButtonGroup = () => {
   const [isOpen, setIsOpen] = React.useState(false)
-  const secondaryButtonInactive = true
-  const hideSecondaryButton = false
 
   const buttonContent = (
     <ButtonGroup>
       <Button inactive={true} aria-disabled={true}>
-        Hello
+        Primary Button
       </Button>
-      {!hideSecondaryButton && (
-        <ActionMenu open={isOpen} onOpenChange={secondaryButtonInactive ? () => {} : open => setIsOpen(open)}>
-          <ActionMenu.Anchor>
-            <IconButton
-              aria-label="SecondaryButtonAriaLabel"
-              aria-disabled={secondaryButtonInactive}
-              inactive={secondaryButtonInactive}
-              icon={TriangleDownIcon}
-            />
-          </ActionMenu.Anchor>
-          <ActionMenu.Overlay align="end">
-            <ActionList>
-              <ActionList.Item>Item 1</ActionList.Item>
-              <ActionList.Item>Item 2</ActionList.Item>
-            </ActionList>
-          </ActionMenu.Overlay>
-        </ActionMenu>
-      )}
+      <ActionMenu open={isOpen} onOpenChange={open => setIsOpen(open)}>
+        <ActionMenu.Anchor>
+          <IconButton aria-label="Secondary Button Aria Label" aria-disabled inactive icon={TriangleDownIcon} />
+        </ActionMenu.Anchor>
+        <ActionMenu.Overlay align="end">
+          <ActionList>
+            <ActionList.Item>Item 1</ActionList.Item>
+            <ActionList.Item>Item 2</ActionList.Item>
+          </ActionList>
+        </ActionMenu.Overlay>
+      </ActionMenu>
     </ButtonGroup>
   )
 
