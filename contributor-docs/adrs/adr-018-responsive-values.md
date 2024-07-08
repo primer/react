@@ -1,4 +1,4 @@
-# ADR 019: Responsive Values
+# Responsive Values
 
 ## Status
 

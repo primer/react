@@ -1,4 +1,4 @@
-# ADR 010: Merge drafts status into experimental
+# Merge drafts status into experimental
 
 ## Status
 
