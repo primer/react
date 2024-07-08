@@ -1,4 +1,4 @@
-# ADR 2: Isolating behaviors through custom clements and vanilla JavaScript
+# Isolating behaviors through custom clements and vanilla JavaScript
 
 ## Status
 

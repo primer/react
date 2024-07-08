@@ -225,7 +225,7 @@ export const WithInactiveItems: StoryFn = () => (
   </PageLayout>
 )
 
-export const WithGroup = () => (
+export const WithGroup: StoryFn = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
       <NavList>
