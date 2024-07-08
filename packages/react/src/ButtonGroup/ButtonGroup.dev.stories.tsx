@@ -84,17 +84,13 @@ export const LinkAndButtonWithTooltip2 = () => (
         Link
       </Button>
     </TooltipV2>
-    <TooltipV2 text="Open GitHub Copilot chat" direction="s">
-      <IconButton icon={CopilotIcon} aria-label="Open GitHub Copilot chat" />
-    </TooltipV2>
+    <IconButton icon={CopilotIcon} aria-label="Open GitHub Copilot chat" unsafeDisableTooltip={false} />
   </ButtonGroup>
 )
 
 export const ButtonAndLinkWithTooltip2 = () => (
   <ButtonGroup sx={{pl: 2}}>
-    <TooltipV2 text="Open GitHub Copilot chat" direction="s">
-      <IconButton icon={CopilotIcon} aria-label="Open GitHub Copilot chat" />
-    </TooltipV2>
+    <IconButton icon={CopilotIcon} aria-label="Open GitHub Copilot chat" unsafeDisableTooltip={false} />
     <TooltipV2 text="Additional info about the link">
       <Button as="a" href="https://primer.style">
         Link

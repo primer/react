@@ -21,12 +21,8 @@ export const IconButtons = () => (
 
 export const IconButtonsWithTooltip = () => (
   <ButtonGroup>
-    <Tooltip text="Add" type="label">
-      <IconButton icon={PlusIcon} aria-label="Add" />
-    </Tooltip>
-    <Tooltip text="Subtract" type="label">
-      <IconButton icon={DashIcon} aria-label="Subtract" />
-    </Tooltip>
+    <IconButton icon={PlusIcon} aria-label="Add" unsafeDisableTooltip={false} />
+    <IconButton icon={DashIcon} aria-label="Subtract" unsafeDisableTooltip={false} />
   </ButtonGroup>
 )
 export const ButtonAndLink = () => (
