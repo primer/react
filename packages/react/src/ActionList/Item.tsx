@@ -1,10 +1,7 @@
 import React, {forwardRef} from 'react'
 import styled from 'styled-components'
-import {AlertIcon} from '@primer/octicons-react'
 
 import Box from '../Box'
-import type {TooltipProps} from '../TooltipV2/Tooltip'
-import {Tooltip} from '../TooltipV2/Tooltip'
 import {useId} from '../hooks/useId'
 import {useSlots} from '../hooks/useSlots'
 import type {BetterSystemStyleObject, SxProp} from '../sx'
@@ -17,41 +14,15 @@ import {Description} from './Description'
 import {GroupContext} from './Group'
 import type {ActionListItemProps, ActionListProps} from './shared'
 import {Selection} from './Selection'
+import {LeadingVisual, TrailingVisual, VisualOrIndicator} from './Visuals'
 import {getVariantStyles, ItemContext, TEXT_ROW_HEIGHT, ListContext} from './shared'
-import type {VisualProps} from './Visuals'
-import {LeadingVisual, TrailingVisual} from './Visuals'
 import {TrailingAction} from './TrailingAction'
 import {ConditionalWrapper} from '../internal/components/ConditionalWrapper'
 import {invariant} from '../utils/invariant'
 import {useFeatureFlag} from '../FeatureFlags'
+import VisuallyHidden from '../_VisuallyHidden'
 
 const LiBox = styled.li<SxProp>(sx)
-
-const InactiveIndicator: React.FC<{
-  labelId: string
-  text: TooltipProps['text']
-  visualComponent: React.FC<React.PropsWithChildren<VisualProps>>
-}> = ({labelId, text, visualComponent: VisualComponent}) => (
-  <Tooltip text={text}>
-    <Box
-      as="button"
-      sx={{
-        background: 'none',
-        color: 'inherit',
-        border: 'none',
-        padding: 0,
-        font: 'inherit',
-        cursor: 'pointer',
-        display: 'flex',
-      }}
-      aria-labelledby={labelId}
-    >
-      <VisualComponent>
-        <AlertIcon />
-      </VisualComponent>
-    </Box>
-  </Tooltip>
-)
 
 /**
  * An actionable or selectable `Item`
@@ -70,6 +41,7 @@ export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
       sx: sxProp = defaultSxProp,
       id,
       role,
+      loading,
       _PrivateItemWrapper,
       ...props
     },
@@ -204,8 +176,11 @@ export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
       marginX: listVariant === 'inset' && !buttonSemantics ? 2 : 0,
       borderRadius: 2,
       transition: 'background 33.333ms linear',
-      color: getVariantStyles(variant, disabled, inactive).color,
+      color: getVariantStyles(variant, disabled, inactive || loading).color,
       cursor: 'pointer',
+      '&[data-loading]': {
+        cursor: 'default',
+      },
       '&[aria-disabled], &[data-inactive]': {
         cursor: 'not-allowed',
         '[data-component="ActionList.Checkbox"]': {
@@ -225,9 +200,9 @@ export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
       marginY: 'unset',
 
       '@media (hover: hover) and (pointer: fine)': {
-        ':hover:not([aria-disabled]):not([data-inactive])': {
+        ':hover:not([aria-disabled]):not([data-inactive]):not([data-loading])': {
           backgroundColor: `actionListItem.${variant}.hoverBg`,
-          color: getVariantStyles(variant, disabled, inactive).hoverColor,
+          color: getVariantStyles(variant, disabled, inactive || loading).hoverColor,
           boxShadow: `inset 0 0 0 max(1px, 0.0625rem) ${theme?.colors.actionListItem.default.activeBorder}`,
         },
         '&:focus-visible, > a.focus-visible, &:focus.focus-visible': {
@@ -235,9 +210,9 @@ export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
           border: `2 solid`,
           boxShadow: `0 0 0 2px ${theme?.colors.accent.emphasis}`,
         },
-        ':active:not([aria-disabled]):not([data-inactive])': {
+        ':active:not([aria-disabled]):not([data-inactive]):not([data-loading])': {
           backgroundColor: `actionListItem.${variant}.activeBg`,
-          color: getVariantStyles(variant, disabled, inactive).hoverColor,
+          color: getVariantStyles(variant, disabled, inactive || loading).hoverColor,
         },
       },
 
@@ -268,11 +243,11 @@ export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
       // hide divider after dividers & group header, with higher importance!
       '[data-component="ActionList.Divider"] + &': {'--divider-color': 'transparent !important'},
       // hide border on current and previous item
-      '&:hover:not([aria-disabled]):not([data-inactive]), &:focus:not([aria-disabled]):not([data-inactive]), &[data-focus-visible-added]:not([aria-disabled]):not([data-inactive])':
+      '&:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]), &:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]), &[data-focus-visible-added]:not([aria-disabled]):not([data-inactive])':
         {
           '--divider-color': 'transparent',
         },
-      '&:hover:not([aria-disabled]):not([data-inactive]) + &, &[data-focus-visible-added] + li': {
+      '&:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + &, &[data-focus-visible-added] + li': {
         '--divider-color': 'transparent',
       },
       ...(active ? activeStyles : {}),
@@ -280,15 +255,15 @@ export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const clickHandler = React.useCallback(
       (event: React.MouseEvent<HTMLElement>) => {
-        if (disabled || inactive) return
+        if (disabled || inactive || loading) return
         onSelect(event, afterSelect)
       },
-      [onSelect, disabled, inactive, afterSelect],
+      [onSelect, disabled, inactive, afterSelect, loading],
     )
 
     const keyPressHandler = React.useCallback(
       (event: React.KeyboardEvent<HTMLElement>) => {
-        if (disabled || inactive) return
+        if (disabled || inactive || loading) return
         if ([' ', 'Enter'].includes(event.key)) {
           if (event.key === ' ') {
             event.preventDefault() // prevent scrolling on Space
@@ -299,7 +274,7 @@ export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
           onSelect(event, afterSelect)
         }
       },
-      [onSelect, disabled, inactive, afterSelect],
+      [onSelect, disabled, loading, inactive, afterSelect],
     )
 
     const itemId = useId(id)
@@ -337,6 +312,7 @@ export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
       onKeyPress: keyPressHandler,
       'aria-disabled': disabled ? true : undefined,
       'data-inactive': inactive ? true : undefined,
+      'data-loading': loading && !inactive ? true : undefined,
       tabIndex: disabled || showInactiveIndicator ? undefined : 0,
       'aria-labelledby': `${labelId} ${slots.inlineDescription ? inlineDescriptionId : ''}`,
       'aria-describedby': slots.blockDescription
@@ -388,25 +364,25 @@ export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
         >
           <ItemWrapper {...wrapperProps}>
             <Selection selected={selected} />
-            {
-              // If we're showing an inactive indicator and a leading visual has been passed,
-              // replace the leading visual with the inactive indicator.
-              //
-              // Inactive items without a leading visual place the inactive indicator in the
-              // trailing visual slot. This preserves the left alignment of item text.
-              showInactiveIndicator && slots.leadingVisual ? (
-                <InactiveIndicator labelId={labelId} text={inactiveText!} visualComponent={LeadingVisual} />
-              ) : (
-                // If it's not inactive, just render the leading visual slot
-                slots.leadingVisual
-              )
-            }
+            <VisualOrIndicator
+              inactiveText={inactiveText}
+              itemHasLeadingVisual={Boolean(slots.leadingVisual)}
+              labelId={labelId}
+              loading={loading}
+              position="leading"
+            >
+              {slots.leadingVisual}
+            </VisualOrIndicator>
             <Box
               data-component="ActionList.Item--DividerContainer"
               sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
             >
               <ConditionalWrapper
-                if={Boolean(trailingVisual) || (showInactiveIndicator && !slots.leadingVisual)}
+                // we need a flex container if:
+                // - there is a trailing visual
+                // - OR there is a loading or inactive indicator
+                // - AND no leading visual to replace with an indicator
+                if={Boolean(trailingVisual || ((showInactiveIndicator || loading) && !slots.leadingVisual))}
                 sx={{display: 'flex', flexGrow: 1}}
               >
                 <ConditionalWrapper
@@ -424,22 +400,20 @@ export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
                     }}
                   >
                     {childrenWithoutSlots}
+                    {/* Loading message needs to be in here so it is read with the label */}
+                    {loading === true && <VisuallyHidden>Loading</VisuallyHidden>}
                   </Box>
                   {slots.inlineDescription}
                 </ConditionalWrapper>
-                {
-                  // If we're showing an inactive indicator and a leading visual has NOT been passed,
-                  // replace the trailing visual with the inactive indicator.
-                  //
-                  // This preserves the left alignment of item text.
-                  showInactiveIndicator && !slots.leadingVisual ? (
-                    <InactiveIndicator labelId={labelId} text={inactiveText!} visualComponent={TrailingVisual} />
-                  ) : (
-                    // If it's not inactive, or it has a leading visual that can be replaced,
-                    // just render the trailing visual slot.
-                    trailingVisual
-                  )
-                }
+                <VisualOrIndicator
+                  inactiveText={inactiveText}
+                  itemHasLeadingVisual={Boolean(slots.leadingVisual)}
+                  labelId={labelId}
+                  loading={loading}
+                  position="trailing"
+                >
+                  {trailingVisual}
+                </VisualOrIndicator>
               </ConditionalWrapper>
               {
                 // If the item is inactive, but it's not in an overlay (e.g. ActionMenu, SelectPanel),
@@ -461,7 +435,7 @@ export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
               {slots.blockDescription}
             </Box>
           </ItemWrapper>
-          {!inactive && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}
+          {!inactive && !loading && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}
         </LiBox>
       </ItemContext.Provider>
     )

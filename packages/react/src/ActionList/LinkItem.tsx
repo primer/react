@@ -20,7 +20,7 @@ type LinkProps = {
   referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
 }
 
-// LinkItem does not support selected, variants, etc.
+// LinkItem does not support selected, loading, variants, etc.
 export type ActionListLinkItemProps = Pick<ActionListItemProps, 'active' | 'children' | 'sx' | 'inactiveText'> &
   LinkProps
 
