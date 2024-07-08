@@ -166,11 +166,28 @@ const getStoryData = docgenData => {
   return stories
 }
 
+// TODO: investigate if there is a smarter way to determine the import path
+const getImportPath = (status, deprecated) => {
+  if (status === 'deprecated' || deprecated) {
+    return '@primer/react/deprecated'
+  }
+
+  // TODO: eventually all `draft` components should be moved to `experimental`
+  if (status === 'draft') {
+    return '@primer/react/drafts'
+  }
+
+  if (status === 'experimental') {
+    return '@primer/react/experimental'
+  }
+
+  return '@primer/react'
+}
+
 const formatComponentJson = ({description, displayName, filePath, props: propsData, tags}) => {
-  const {alias, primerdocsid, primerid, primerstatus, primera11yreviewed, primerparentid} = tags
+  const {alias, deprecated, primerdocsid, primerid, primerstatus, primera11yreviewed, primerparentid} = tags
 
   const componentName = alias || displayName
-
   const stories = primerparentid ? [] : getStoryData({description, displayName, filePath, propsData, tags})
   const props = Object.keys(propsData).map(propName => {
     const {type, required, description, defaultValue} = propsData[propName]
@@ -183,6 +200,7 @@ const formatComponentJson = ({description, displayName, filePath, props: propsDa
       defaultValue: defaultValue ? defaultValue.value : '',
     }
   })
+  const importPath = getImportPath(primerstatus, deprecated)
 
   // TODO: don't render everything for subcomponents, just:
   // - name
@@ -195,13 +213,10 @@ const formatComponentJson = ({description, displayName, filePath, props: propsDa
     name: componentName,
     ...(!primerparentid ? {status: primerstatus} : {}),
     ...(!primerparentid ? {a11yReviewed: primera11yreviewed === 'true'} : {}),
+    // TODO: decide whether or not we want a `description` field
     // description,
     ...(!primerparentid ? {stories} : {}),
-    // TODO: figure out how to get `importPath` dynamically
-    // - default to `primer/react`
-    // - drafts/ get `primer/react/drafts`
-    // - deprecated/ get `primer/react/deprecated`\
-    ...(!primerparentid ? {importPath: 'TBD'} : {}),
+    ...(!primerparentid ? {importPath} : {}),
     props,
   }
 }
@@ -214,7 +229,8 @@ const transformArray = (docgenOutputData: any[]): any[] => {
 
       const subComponents = docgenOutputData.filter(({tags}) => tags.primerparentid && tags.primerparentid === primerid)
 
-      // TODO: make this smart enough to know when we just have a parsing error
+      // TODO: make this smart enough to know when we just have a parsing error, but the
+      // component ID is actually there.
       if (!primerparentid && !primerid) {
         // console.error(
         //   `Component with the name ${

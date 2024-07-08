@@ -8,6 +8,12 @@ export type FeatureFlagsProps = PropsWithChildren<{
   flags: FeatureFlags
 }>
 
+/**
+ * A helper component that uses context to let consumers check if a feature flag is enabled.
+ * @primerid feature_flags
+ * @primerstatus experimental
+ * @primera11yreviewed false
+ */
 export function FeatureFlags({children, flags}: FeatureFlagsProps) {
   const value = useMemo(() => {
     const scope = FeatureFlagScope.merge(DefaultFeatureFlags, FeatureFlagScope.create(flags))

@@ -6476,9 +6476,13 @@
     }
   },
   {
-    "tags": {},
+    "tags": {
+      "primerid": "feature_flags",
+      "primerstatus": "experimental",
+      "primera11yreviewed": "false"
+    },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/FeatureFlags/FeatureFlags.tsx",
-    "description": "",
+    "description": "A helper component that uses context to let consumers check if a feature flag is enabled.",
     "displayName": "FeatureFlags",
     "methods": [],
     "props": {
