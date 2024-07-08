@@ -1,4 +1,4 @@
-# ADR 016: Internal Modules
+# Internal Modules
 
 ## Status
 

@@ -1,4 +1,4 @@
-# ADR 018: Interaction testing (revisited)
+# Interaction testing (revisited)
 
 ## Status
 

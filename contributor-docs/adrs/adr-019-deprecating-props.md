@@ -1,4 +1,4 @@
-# ADR 020: Deprecating Props
+# Deprecating Props
 
 ## Status
 
