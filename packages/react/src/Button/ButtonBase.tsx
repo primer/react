@@ -7,10 +7,11 @@ import {merge} from '../sx'
 import {useTheme} from '../ThemeProvider'
 import type {ButtonProps} from './types'
 import {StyledButton} from './types'
-import {getVariantStyles, getButtonStyles, getAlignContentSize} from './styles'
+import {getVariantStyles, getAlignContentSize} from './styles'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import CounterLabel from '../CounterLabel'
+import classes from './ButtonBase.module.css'
 
 const ButtonBase = forwardRef(
   ({children, as: Component = 'button', sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
@@ -34,7 +35,7 @@ const ButtonBase = forwardRef(
 
     const {theme} = useTheme()
     const baseStyles = useMemo(() => {
-      return merge.all([getButtonStyles(theme), getVariantStyles(variant, theme)])
+      return merge.all([getVariantStyles(variant, theme)])
     }, [theme, variant])
     const sxStyles = useMemo(() => {
       return merge<BetterSystemStyleObject>(baseStyles, sxProp)
@@ -70,11 +71,13 @@ const ButtonBase = forwardRef(
         sx={sxStyles}
         {...rest}
         ref={innerRef}
+        className={classes.ButtonBase}
         data-block={block ? 'block' : null}
         data-size={size === 'small' || size === 'large' ? size : undefined}
         data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
         data-inactive={inactive ? true : undefined}
         data-label-wrap={labelWrap}
+        data-variant={variant}
       >
         {Icon ? (
           <Icon />
