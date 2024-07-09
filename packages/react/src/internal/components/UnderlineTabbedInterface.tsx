@@ -1,6 +1,7 @@
 // Used for UnderlineNav and UnderlinePanels components
 
 import React, {forwardRef, type FC, type PropsWithChildren} from 'react'
+import {isElement} from 'react-is'
 import type {IconProps} from '@primer/octicons-react'
 import styled, {keyframes} from 'styled-components'
 import CounterLabel from '../../CounterLabel'
@@ -193,7 +194,7 @@ export type UnderlineItemProps = {
   iconsVisible?: boolean
   loadingCounters?: boolean
   counter?: number | string
-  icon?: FC<IconProps>
+  icon?: FC<IconProps> | React.ReactElement
   id?: string
 } & SxProp
 
@@ -213,11 +214,7 @@ export const UnderlineItem = forwardRef(
   ) => {
     return (
       <StyledUnderlineItem ref={forwardedRef} as={as} sx={sxProp} {...rest}>
-        {iconsVisible && Icon && (
-          <span data-component="icon">
-            <Icon />
-          </span>
-        )}
+        {iconsVisible && Icon && <span data-component="icon">{isElement(Icon) ? Icon : <Icon />}</span>}
         {children && (
           <span data-component="text" data-content={children}>
             {children}
