@@ -442,6 +442,19 @@ export const InactiveItem = () => {
   )
 }
 
+export const LoadingItem = () => {
+  return (
+    <ActionList aria-label="Project">
+      {projects.map((project, index) => (
+        <ActionList.Item key={index} loading={index === 1}>
+          {project.name}
+          <ActionList.Description variant="block">{project.scope}</ActionList.Description>
+        </ActionList.Item>
+      ))}
+    </ActionList>
+  )
+}
+
 export const Links = () => (
   <>
     <ActionList.Heading as="h1" sx={{fontSize: 1}}>
