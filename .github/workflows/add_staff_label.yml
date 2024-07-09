@@ -1,4 +1,4 @@
-name: Move new issues to inbox
+name: Add Staff Label
 
 on:
   issues:
