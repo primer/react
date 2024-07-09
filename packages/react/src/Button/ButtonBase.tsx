@@ -1,13 +1,10 @@
 import type {ComponentPropsWithRef} from 'react'
-import React, {forwardRef, useMemo} from 'react'
+import React, {forwardRef} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import Box from '../Box'
-import type {BetterSystemStyleObject} from '../sx'
-import {merge} from '../sx'
-import {useTheme} from '../ThemeProvider'
 import type {ButtonProps} from './types'
 import {StyledButton} from './types'
-import {getVariantStyles, getAlignContentSize} from './styles'
+import {getAlignContentSize} from './styles'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import CounterLabel from '../CounterLabel'
@@ -33,13 +30,6 @@ const ButtonBase = forwardRef(
     const innerRef = React.useRef<HTMLButtonElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
-    const {theme} = useTheme()
-    const baseStyles = useMemo(() => {
-      return merge.all([getVariantStyles(variant, theme)])
-    }, [theme, variant])
-    const sxStyles = useMemo(() => {
-      return merge<BetterSystemStyleObject>(baseStyles, sxProp)
-    }, [baseStyles, sxProp])
     const iconWrapStyles = {
       display: 'flex',
       pointerEvents: 'none',
@@ -68,7 +58,7 @@ const ButtonBase = forwardRef(
     return (
       <StyledButton
         as={Component}
-        sx={sxStyles}
+        sx={sxProp}
         {...rest}
         ref={innerRef}
         className={classes.ButtonBase}

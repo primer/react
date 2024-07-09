@@ -48,7 +48,7 @@ export const TrailingCounter = () => {
   }
   return (
     <>
-      <Button onClick={onClick} count={count}>
+      <Button onClick={onClick} count={count} variant="danger">
         Watch
       </Button>
       <AccessibilityNote />

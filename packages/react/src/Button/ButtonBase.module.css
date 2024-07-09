@@ -4,7 +4,7 @@
   border: var(--borderWidth-thin) solid;
   border-color: var(--button-default-borderColor-rest, var(--borderColor-default));
   font-family: inherit;
-  font-weight: var(--base-text-weight-semibold);
+  font-weight: var(--base-text-weight-medium);
   font-size: var(--text-body-size-medium);
   cursor: pointer;
   appearance: none;
@@ -197,18 +197,18 @@
 
 .ButtonBase[data-variant='default']:hover:not([disabled]):not([data-inactive]) {
   background-color: var(--button-default-bgColor-hover);
-  border-color: var(--button-default-borderColor-hover, var(--btn-hoverBorder));
+  border-color: var(--button-default-borderColor-hover);
 }
 
 .ButtonBase[data-variant='default']:active:not([disabled]):not([data-inactive]) {
   background-color: var(--button-default-bgColor-active);
-  border-color: var(--button-default-borderColor-active, var(--btn-activeBorder));
+  border-color: var(--button-default-borderColor-active);
 }
 
 .ButtonBase[data-variant='default']:disabled {
   color: var(--primer-fg-disabled);
-  border-color: var(--button-default-borderColor-disabled, var(--btn-border));
-  background-color: var(--button-default-bgColor-disabled, var(--input-disabledBg));
+  border-color: var(--button-default-borderColor-disabled);
+  background-color: var(--button-default-bgColor-disabled);
 }
 
 .ButtonBase[data-variant='default']:disabled [data-component='ButtonCounter'] {
@@ -216,8 +216,8 @@
 }
 
 .ButtonBase[data-variant='default'][aria-expanded='true'] {
-  background-color: var(--button-default-bgColor-active,);
-  border-color: var(--button-default-borderColor-active, var (--btn-activeBorder));
+  background-color: var(--button-default-bgColor-active);
+  border-color: var(--button-default-borderColor-active);
 }
 
 .ButtonBase[data-variant='default'] [data-component='leadingVisual'],
@@ -230,21 +230,17 @@
   background-color: var(--buttonCounter-default-bgColor-rest);
 }
 
-.ButtonBase[data-variant='default'][data-component='IconButton'][data-no-visuals] {
-  color: var(--fgColor-muted);
-}
-
 /* Primary Variant */
 .ButtonBase[data-variant='primary'] {
-  color: var(--btn-primary-text);
-  background-color: var(--btn-primary-bg);
-  border-color: var(--btn-primary-border);
-  box-shadow: var(--btn-primary-shadow);
+  color: var(--button-primary-fgColor-rest);
+  background-color: var(--button-primary-bgColor-rest);
+  border-color: var(--button-primary-borderColor-rest);
+  box-shadow: var(--shadow-resting-small);
 }
 
 .ButtonBase[data-variant='primary']:hover:not([disabled]):not([data-inactive]) {
-  color: var(--btn-primary-hoverText);
-  background-color: var(--btn-primary-hoverBg);
+  background-color: var(--button-primary-bgColor-hover);
+  border-color: var(--button-primary-borderColor-hover);
 }
 
 .ButtonBase[data-variant='primary']:focus:not([disabled]),
@@ -253,14 +249,14 @@
 }
 
 .ButtonBase[data-variant='primary']:active:not([disabled]):not([data-inactive]) {
-  background-color: var(--btn-primary-selectedBg);
-  box-shadow: var(--btn-primary-selectedShadow);
+  background-color: var(--button-primary-bgColor-active);
+  box-shadow: var(--button-primary-shadow-selected);
 }
 
 .ButtonBase[data-variant='primary']:disabled {
-  color: var(--btn-primary-disabledText);
-  background-color: var(--btn-primary-disabledBg);
-  border-color: var(--btn-primary-disabledBorder);
+  color: var(--button-primary-fgColor-disabled);
+  background-color: var(--button-primary-bgColor-disabled);
+  border-color: var(--button-primary-borderColor-disabled);
 }
 
 .ButtonBase[data-variant='primary']:disabled [data-component='ButtonCounter'] {
@@ -268,165 +264,121 @@
 }
 
 .ButtonBase[data-variant='primary'] [data-component='ButtonCounter'] {
-  background-color: var(--btn-primary-counterBg);
-  color: var(--btn-primary-text);
+  background-color: var(--buttonCounter-primary-bgColor-rest);
+  color: inherit;
 }
 
 .ButtonBase[data-variant='primary'][aria-expanded='true'] {
-  background-color: var(--btn-primary-selectedBg);
-  box-shadow: var(--btn-primary-selectedShadow);
+  background-color: var(--button-primary-bgColor-selected);
+  box-shadow: var(--button-primary-shadow-selected);
 }
 
 /* Danger Variant */
 .ButtonBase[data-variant='danger'] {
-  color: var(--btn-danger-text);
-  background-color: var(--btn-bg);
-  box-shadow: var(--btn-shadow);
+  color: var(--button-danger-fgColor-rest);
+  background-color: var(--button-danger-bgColor-rest);
+  box-shadow: var(--button-default-shadow-resting);
 }
 
 .ButtonBase[data-variant='danger']:hover:not([disabled]):not([data-inactive]) {
-  color: var(--btn-danger-hoverText);
-  background-color: var(--btn-danger-hoverBg);
-  border-color: var(--btn-danger-hoverBorder);
-  box-shadow: var(--btn-danger-hoverShadow);
-}
-
-.ButtonBase[data-variant='danger']:hover:not([disabled]):not([data-inactive]) [data-component='ButtonCounter'] {
-  background-color: var(--btn-danger-hoverCounterBg);
-  color: var(--btn-danger-hoverCounterFg);
+  color: var(--button-danger-fgColor-hover);
+  background-color: var(--button-danger-bgColor-hover);
+  border-color: var(--button-danger-borderColor-hover);
+  box-shadow: var(--shadow-resting-small);
 }
 
 .ButtonBase[data-variant='danger']:active:not([disabled]):not([data-inactive]) {
-  color: var(--btn-danger-selectedText);
-  background-color: var(--btn-danger-selectedBg);
-  border-color: var(--btn-danger-selectedBorder);
-  box-shadow: var(--btn-danger-selectedShadow);
+  color: var(--button-danger-fgColor-active);
+  background-color: var(--button-danger-bgColor-active);
+  border-color: var(--button-danger-borderColor-active);
+  box-shadow: var(--button-danger-shadow-selected);
 }
 
 .ButtonBase[data-variant='danger']:disabled {
-  color: var(--btn-danger-disabledText);
-  background-color: var(--btn-danger-disabledBg);
-  border-color: var(--button-default-borderColor-disabled, var(--btn-border));
-}
-
-.ButtonBase[data-variant='danger']:disabled [data-component='ButtonCounter'] {
-  color: var(--btn-danger-disabledCounterFg);
-  background-color: var(--btn-danger-disabledCounterBg);
+  color: var(--button-danger-fgColor-disabled);
+  background-color: var(--button-danger-bgColor-disabled);
+  border-color: var(--button-default-borderColor-disabled, var(--button-border));
 }
 
 .ButtonBase[data-variant='danger'] [data-component='ButtonCounter'] {
-  color: var(--btn-danger-counterFg);
-  background-color: var(--btn-danger-counterBg);
+  background-color: var(--buttonCounter-danger-bgColor-rest);
+  color: var(--buttonCounter-danger-fgColor-rest);
+}
+
+.ButtonBase[data-variant='danger']:active:not([disabled]):not([data-inactive]) [data-component='ButtonCounter'] {
+  background-color: var(--buttonCounter-danger-bgColor-hover);
+  color: var(--buttonCounter-danger-fgColor-hover);
+}
+
+.ButtonBase[data-variant='danger']:hover:not([disabled]):not([data-inactive]) [data-component='ButtonCounter'] {
+  background-color: var(--buttonCounter-danger-bgColor-hover);
+  color: var(--buttonCounter-danger-fgColor-hover);
+}
+
+.ButtonBase[data-variant='danger']:disabled [data-component='ButtonCounter'] {
+  color: var(--buttonCounter-danger-fgColor-disabled);
+  background-color: var(--buttonCounter-danger-fgColor-disabled);
 }
 
 .ButtonBase[data-variant='danger'][aria-expanded='true'] {
-  color: var(--btn-danger-selectedText);
-  background-color: var(--btn-danger-selectedBg);
-  border-color: var(--btn-danger-selectedBorder);
-  box-shadow: var(--btn-danger-selectedShadow);
+  color: var(--button-danger-fgColor-active);
+  background-color: var(--button-danger-bgColor-active);
+  border-color: var(--button-danger-borderColor-active);
+  box-shadow: var(--button-danger-shadow-selected);
 }
 
 /* Invisible Variant */
 .ButtonBase[data-variant='invisible'] {
-  color: var(--btn-text);
+  color: var(--button-default-fgColor-rest);
   background-color: transparent;
   border-color: transparent;
   box-shadow: none;
 }
 
 .ButtonBase[data-variant='invisible']:hover:not([disabled]) {
-  background-color: var(--actionListItem-default-hoverBg);
+  background-color: var(--button-invisible-bgColor-hover);
 }
 
 .ButtonBase[data-variant='invisible']:active:not([disabled]) {
-  background-color: var(--actionListItem-default-activeBg);
+  background-color: var(--button-invisible-bgColor-active);
 }
 
 .ButtonBase[data-variant='invisible']:disabled {
-  color: var(--primer-fg-disabled);
+  background-color: var(--button-invisible-bgColor-disabled);
+  border-color: var(--button-invisible-borderColor-disabled);
+  color: var(--button-invisible-fgColor-disabled);
 }
 
 .ButtonBase[data-variant='invisible']:disabled [data-component='ButtonCounter'],
 .ButtonBase[data-variant='invisible']:disabled [data-component='leadingVisual'],
-.ButtonBase[data-variant='invisible']:disabled [data-component='trailingAction'] {
+.ButtonBase[data-variant='invisible']:disabled [data-component='trailingVisual'] {
   color: inherit;
 }
 
 .ButtonBase[data-variant='invisible'][aria-expanded='true'] {
-  background-color: var(--actionListItem-default-selectedBg);
+  background-color: var(--button-invisible-bgColor-active);
 }
 
-.ButtonBase[data-variant='invisible'][data-component='IconButton'][data-no-visuals] {
-  color: var(--fg-muted);
-}
-
-.ButtonBase[data-variant='invisible'] [data-component='trailingAction'],
+.ButtonBase[data-variant='invisible'] [data-component='trailingVisual'],
 .ButtonBase[data-variant='invisible'] [data-component='leadingVisual'] {
-  color: var(--fg-muted);
+  color: var(--button-invisible-iconColor-rest);
 }
 
-.ButtonBase[data-variant='invisible'][data-no-visuals] {
-  color: var(--accent-fg);
+.ButtonBase[data-variant='invisible']:hover [data-component='trailingVisual'],
+.ButtonBase[data-variant='invisible']:hover [data-component='leadingVisual'] {
+  color: var(--button-invisible-iconColor-hover);
+}
+
+.ButtonBase[data-variant='invisible']:active [data-component='trailingVisual'],
+.ButtonBase[data-variant='invisible']:active [data-component='leadingVisual'] {
+  color: var(--button-invisible-iconColor-active);
+}
+
+.ButtonBase[data-variant='invisible']:disabled [data-component='trailingVisual'],
+.ButtonBase[data-variant='invisible']:disabled [data-component='leadingVisual'] {
+  color: var(--button-invisible-iconColor-disabled);
 }
 
 .ButtonBase[data-variant='invisible']:has([data-component='ButtonCounter']) {
-  color: var(--btn-text);
-}
-
-.ButtonBase[data-variant='invisible']:disabled[data-no-visuals] {
-  color: var(--primer-fg-disabled);
-}
-
-.ButtonBase[data-variant='invisible']:disabled[data-no-visuals] [data-component='ButtonCounter'] {
-  color: inherit;
-}
-
-/* Outline Variant */
-.ButtonBase[data-variant='outline'] {
-  color: var(--btn-outline-text);
-  box-shadow: var(--btn-shadow);
-  border-color: var(--button-default-borderColor-rest, var(--btn-border));
-  background-color: var(--btn-bg);
-}
-
-.ButtonBase[data-variant='outline']:hover:not([disabled]):not([data-inactive]) {
-  color: var(--btn-outline-hoverText);
-  background-color: var(--btn-outline-hoverBg);
-  border-color: var(--btn-outline-hoverBorder);
-  box-shadow: var(--btn-outline-hoverShadow);
-}
-
-.ButtonBase[data-variant='outline']:hover:not([disabled]):not([data-inactive]) [data-component='ButtonCounter'] {
-  background-color: var(--btn-outline-hoverCounterBg);
-  color: var(--btn-outline-hoverCounterFg);
-}
-
-.ButtonBase[data-variant='outline']:active:not([disabled]):not([data-inactive]) {
-  color: var(--btn-outline-selectedText);
-  background-color: var(--btn-outline-selectedBg);
-  border-color: var(--btn-outline-selectedBorder);
-  box-shadow: var(--btn-outline-selectedShadow);
-}
-
-.ButtonBase[data-variant='outline']:disabled {
-  color: var(--btn-outline-disabledText);
-  background-color: var(--btn-outline-disabledBg);
-  border-color: var(--btn-border);
-}
-
-.ButtonBase[data-variant='outline']:disabled [data-component='ButtonCounter'] {
-  color: var(--btn-outline-disabledCounterFg);
-  background-color: var (--btn-outline-disabledCounterBg);
-}
-
-.ButtonBase[data-variant='outline'] [data-component='ButtonCounter'] {
-  color: var(--btn-outline-counterFg);
-  background-color: var(--btn-outline-counterBg);
-}
-
-.ButtonBase[data-variant='outline'][aria-expanded='true'] {
-  color: var(--btn-outline-selectedText);
-  background-color: var(--btn-outline-selectedBg);
-  border-color: var(--button-default-borderColor-active, var(--btn-outline-selectedBorder));
-  box-shadow: var(--btn-outline-selectedShadow);
+  color: var(--buttonCounter-invisible-bgColor-rest);
 }
