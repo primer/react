@@ -39,6 +39,8 @@ const docgenOptions = {
 
     return true
   },
+  shouldExtractValuesFromUnion: true,
+  skipChildrenPropWithoutDoc: false,
   //TODO: figure out how we might use the `componentNameResolver` option to fix react-docgen-typescript's
   // issues with component files that have a displayName.
   //
@@ -99,6 +101,30 @@ const printSkippedProps = () => {
   })
 
   console.log('\n')
+}
+
+const rawPropTypeNameWhitelist = [
+  'ReactNode',
+  'string & ReactNode',
+  'ReactNode & string',
+  'BetterSystemStyleObject',
+  'boolean',
+  'boolean | ResponsiveValue<boolean>',
+  'ResponsiveValue<boolean> | boolean',
+]
+
+// TODO: parse `ResponsiveValue` type
+// TODO: figure out how to deal with types like `Viewport | Viewport[]` and `ItemInput | ItemInput[]`
+const getTypeName = (type, propName) => {
+  if (type.name !== 'enum') {
+    return type.name
+  }
+
+  if (rawPropTypeNameWhitelist.includes(type.raw)) {
+    return type.raw
+  }
+
+  return type.value.map(({value}) => value).join(' | ')
 }
 
 // TODO: update the `.replace` regex that will work for cases like ActionList
@@ -194,7 +220,7 @@ const formatComponentJson = ({description, displayName, filePath, props: propsDa
 
     return {
       name: propName,
-      type: type.name,
+      type: getTypeName(type, propName),
       required,
       description,
       defaultValue: defaultValue ? defaultValue.value : '',

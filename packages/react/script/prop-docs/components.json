@@ -82,7 +82,7 @@
       "props": [
         {
           "name": "size",
-          "type": "Size",
+          "type": "\"small\" | \"large\" | \"medium\"",
           "required": false,
           "description": "Size of the action bar",
           "defaultValue": ""
@@ -136,7 +136,7 @@
             },
             {
               "name": "size",
-              "type": "Size",
+              "type": "\"small\" | \"large\" | \"medium\"",
               "required": false,
               "description": "Size of button and fontSize of text in button",
               "defaultValue": ""
@@ -185,7 +185,7 @@
             },
             {
               "name": "tooltipDirection",
-              "type": "TooltipDirection",
+              "type": "\"s\" | \"nw\" | \"n\" | \"ne\" | \"e\" | \"se\" | \"sw\" | \"w\"",
               "required": false,
               "description": "Sets where the tooltip renders in relation to the target.",
               "defaultValue": ""
@@ -208,7 +208,7 @@
       "props": [
         {
           "name": "as",
-          "type": "keyof IntrinsicElements",
+          "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\"",
           "required": true,
           "description": "",
           "defaultValue": ""
@@ -272,7 +272,7 @@
             },
             {
               "name": "role",
-              "type": "AriaRole",
+              "type": "\"article\" | \"button\" | \"dialog\" | \"figure\" | \"form\" | \"img\" | \"link\" | \"main\" | \"menu\" | \"menuitem\" | \"option\" | \"search\" | \"table\" | \"switch\" | \"list\" | \"alert\" | \"alertdialog\" | \"application\" | \"banner\" | \"cell\" | \"checkbox\" | \"columnheader\" | \"combobox\" | \"complementary\" | \"contentinfo\" | \"definition\" | \"directory\" | \"document\" | \"feed\" | \"grid\" | \"gridcell\" | \"group\" | \"heading\" | \"listbox\" | \"listitem\" | \"log\" | \"marquee\" | \"math\" | \"menubar\" | \"menuitemcheckbox\" | \"menuitemradio\" | \"navigation\" | \"none\" | \"note\" | \"presentation\" | \"progressbar\" | \"radio\" | \"radiogroup\" | \"region\" | \"row\" | \"rowgroup\" | \"rowheader\" | \"scrollbar\" | \"searchbox\" | \"separator\" | \"slider\" | \"spinbutton\" | \"status\" | \"tab\" | \"tablist\" | \"tabpanel\" | \"term\" | \"textbox\" | \"timer\" | \"toolbar\" | \"tooltip\" | \"tree\" | \"treegrid\" | \"treeitem\"",
               "required": false,
               "description": "The ARIA role describing the function of the list inside `Group` component. `listbox` or `menu` are a common values.",
               "defaultValue": ""
@@ -345,7 +345,7 @@
           "props": [
             {
               "name": "as",
-              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 166 more ... | (\"h6\" & (ComponentClass<...> | FunctionComponent<...>))",
+              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | \"h1\" & ComponentClass<unknown, any> | \"h1\" & FunctionComponent<unknown> | \"h2\" & ComponentClass<unknown, any> | \"h2\" & FunctionComponent<unknown> | \"h3\" & ComponentClass<unknown, any> | \"h3\" & FunctionComponent<unknown> | \"h4\" & ComponentClass<unknown, any> | \"h4\" & FunctionComponent<unknown> | \"h5\" & ComponentClass<unknown, any> | \"h5\" & FunctionComponent<unknown> | \"h6\" & ComponentClass<unknown, any> | \"h6\" & FunctionComponent<unknown>",
               "required": true,
               "description": "",
               "defaultValue": ""
@@ -357,7 +357,7 @@
           "props": [
             {
               "name": "as",
-              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>",
+              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<unknown, any> | FunctionComponent<unknown>",
               "required": true,
               "description": "",
               "defaultValue": ""
@@ -369,7 +369,7 @@
           "props": [
             {
               "name": "as",
-              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>",
+              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<unknown, any> | FunctionComponent<unknown>",
               "required": true,
               "description": "",
               "defaultValue": ""
@@ -473,6 +473,13 @@
           "name": "ActionMenu.Anchor",
           "props": [
             {
+              "name": "children",
+              "type": "React.ReactElement",
+              "required": true,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
               "name": "id",
               "type": "string",
               "required": false,
@@ -486,7 +493,7 @@
           "props": [
             {
               "name": "as",
-              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>",
+              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<unknown, any> | FunctionComponent<unknown>",
               "required": true,
               "description": "",
               "defaultValue": ""
@@ -547,7 +554,7 @@
             },
             {
               "name": "anchorSide",
-              "type": "AnchorSide",
+              "type": "\"inside-top\" | \"inside-bottom\" | \"inside-left\" | \"inside-right\" | \"inside-center\" | \"outside-top\" | \"outside-bottom\" | \"outside-left\" | \"outside-right\"",
               "required": false,
               "description": "",
               "defaultValue": ""
@@ -652,7 +659,7 @@
             },
             {
               "name": "role",
-              "type": "AriaRole",
+              "type": "\"article\" | \"button\" | \"dialog\" | \"figure\" | \"form\" | \"img\" | \"link\" | \"main\" | \"menu\" | \"menuitem\" | \"option\" | \"search\" | \"table\" | \"switch\" | \"list\" | \"alert\" | \"alertdialog\" | \"application\" | \"banner\" | \"cell\" | \"checkbox\" | \"columnheader\" | \"combobox\" | \"complementary\" | \"contentinfo\" | \"definition\" | \"directory\" | \"document\" | \"feed\" | \"grid\" | \"gridcell\" | \"group\" | \"heading\" | \"listbox\" | \"listitem\" | \"log\" | \"marquee\" | \"math\" | \"menubar\" | \"menuitemcheckbox\" | \"menuitemradio\" | \"navigation\" | \"none\" | \"note\" | \"presentation\" | \"progressbar\" | \"radio\" | \"radiogroup\" | \"region\" | \"row\" | \"rowgroup\" | \"rowheader\" | \"scrollbar\" | \"searchbox\" | \"separator\" | \"slider\" | \"spinbutton\" | \"status\" | \"tab\" | \"tablist\" | \"tabpanel\" | \"term\" | \"textbox\" | \"timer\" | \"toolbar\" | \"tooltip\" | \"tree\" | \"treegrid\" | \"treeitem\"",
               "required": false,
               "description": "",
               "defaultValue": ""
@@ -953,6 +960,13 @@
               "defaultValue": ""
             },
             {
+              "name": "children",
+              "type": "any",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
               "name": "style",
               "type": "React.CSSProperties",
               "required": false,
@@ -1003,7 +1017,7 @@
             },
             {
               "name": "anchorSide",
-              "type": "AnchorSide",
+              "type": "\"inside-top\" | \"inside-bottom\" | \"inside-left\" | \"inside-right\" | \"inside-center\" | \"outside-top\" | \"outside-bottom\" | \"outside-left\" | \"outside-right\"",
               "required": false,
               "description": "",
               "defaultValue": ""
@@ -1108,7 +1122,7 @@
             },
             {
               "name": "role",
-              "type": "AriaRole",
+              "type": "\"article\" | \"button\" | \"dialog\" | \"figure\" | \"form\" | \"img\" | \"link\" | \"main\" | \"menu\" | \"menuitem\" | \"option\" | \"search\" | \"table\" | \"switch\" | \"list\" | \"alert\" | \"alertdialog\" | \"application\" | \"banner\" | \"cell\" | \"checkbox\" | \"columnheader\" | \"combobox\" | \"complementary\" | \"contentinfo\" | \"definition\" | \"directory\" | \"document\" | \"feed\" | \"grid\" | \"gridcell\" | \"group\" | \"heading\" | \"listbox\" | \"listitem\" | \"log\" | \"marquee\" | \"math\" | \"menubar\" | \"menuitemcheckbox\" | \"menuitemradio\" | \"navigation\" | \"none\" | \"note\" | \"presentation\" | \"progressbar\" | \"radio\" | \"radiogroup\" | \"region\" | \"row\" | \"rowgroup\" | \"rowheader\" | \"scrollbar\" | \"searchbox\" | \"separator\" | \"slider\" | \"spinbutton\" | \"status\" | \"tab\" | \"tablist\" | \"tabpanel\" | \"term\" | \"textbox\" | \"timer\" | \"toolbar\" | \"tooltip\" | \"tree\" | \"treegrid\" | \"treeitem\"",
               "required": false,
               "description": "",
               "defaultValue": ""
@@ -1412,7 +1426,7 @@
         },
         {
           "name": "variant",
-          "type": "BannerVariant",
+          "type": "\"success\" | \"critical\" | \"info\" | \"upsell\" | \"warning\"",
           "required": false,
           "description": "Specify the type of the Banner",
           "defaultValue": "info"
@@ -1424,7 +1438,7 @@
           "props": [
             {
               "name": "as",
-              "type": "HeadingElement",
+              "type": "\"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\"",
               "required": false,
               "description": "",
               "defaultValue": ""
@@ -1454,6 +1468,13 @@
           "name": "Banner.PrimaryAction",
           "props": [
             {
+              "name": "children",
+              "type": "any",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
               "name": "disabled",
               "type": "boolean",
               "required": false,
@@ -1462,7 +1483,7 @@
             },
             {
               "name": "size",
-              "type": "Size",
+              "type": "\"small\" | \"large\" | \"medium\"",
               "required": false,
               "description": "Size of button and fontSize of text in button",
               "defaultValue": ""
@@ -1483,7 +1504,7 @@
             },
             {
               "name": "alignContent",
-              "type": "AlignContent",
+              "type": "\"center\" | \"start\"",
               "required": false,
               "description": "Content alignment for when visuals are present",
               "defaultValue": ""
@@ -1550,6 +1571,13 @@
           "name": "Banner.SecondaryAction",
           "props": [
             {
+              "name": "children",
+              "type": "any",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
               "name": "disabled",
               "type": "boolean",
               "required": false,
@@ -1558,7 +1586,7 @@
             },
             {
               "name": "size",
-              "type": "Size",
+              "type": "\"small\" | \"large\" | \"medium\"",
               "required": false,
               "description": "Size of button and fontSize of text in button",
               "defaultValue": ""
@@ -1579,7 +1607,7 @@
             },
             {
               "name": "alignContent",
-              "type": "AlignContent",
+              "type": "\"center\" | \"start\"",
               "required": false,
               "description": "Content alignment for when visuals are present",
               "defaultValue": ""
@@ -1822,7 +1850,7 @@
           "props": [
             {
               "name": "to",
-              "type": "To",
+              "type": "string | Partial<Path>",
               "required": false,
               "description": "Used when the item is rendered using a component like React Router's `Link`. The path to navigate to.",
               "defaultValue": ""
@@ -1898,7 +1926,7 @@
         },
         {
           "name": "value",
-          "type": "string | (string & readonly string[])",
+          "type": "string | string & readonly string[]",
           "required": false,
           "description": "A unique value that is never shown to the user.\nUsed during form submission and to identify which checkbox inputs are selected",
           "defaultValue": ""
@@ -1919,7 +1947,7 @@
         },
         {
           "name": "validationStatus",
-          "type": "FormValidationStatus",
+          "type": "\"success\" | \"error\"",
           "required": false,
           "description": "Only used to inform ARIA attributes. Individual checkboxes do not have validation styles.",
           "defaultValue": ""
@@ -2047,7 +2075,7 @@
           "props": [
             {
               "name": "variant",
-              "type": "FormValidationStatus",
+              "type": "\"success\" | \"error\"",
               "required": true,
               "description": "Changes the visual style to match the validation status",
               "defaultValue": ""
@@ -2156,7 +2184,7 @@
         },
         {
           "name": "size",
-          "type": "number & ResponsiveValue<Height<TLengthStyledSystem>, Required<Theme<TLengthStyledSystem>>>",
+          "type": "number | number & Height<TLengthStyledSystem>[] | number & { [x: string]: Height<TLengthStyledSystem>; [x: number]: Height<TLengthStyledSystem>; }",
           "required": false,
           "description": "Set the width and height of the icon in pixels",
           "defaultValue": ""
@@ -2512,7 +2540,7 @@
           "props": [
             {
               "name": "align",
-              "type": "CellAlignment",
+              "type": "\"end\" | \"start\"",
               "required": false,
               "description": "The horizontal alignment of the cell's content",
               "defaultValue": ""
@@ -2524,14 +2552,14 @@
           "props": [
             {
               "name": "align",
-              "type": "CellAlignment",
+              "type": "\"end\" | \"start\"",
               "required": false,
               "description": "The horizontal alignment of the cell's content",
               "defaultValue": ""
             },
             {
               "name": "direction",
-              "type": "SortDirection",
+              "type": "\"ASC\" | \"DESC\" | \"NONE\"",
               "required": true,
               "description": "Specify the sort direction for the TableHeader",
               "defaultValue": ""
@@ -2557,7 +2585,7 @@
             },
             {
               "name": "align",
-              "type": "CellAlignment",
+              "type": "\"end\" | \"start\"",
               "required": false,
               "description": "The horizontal alignment of the cell's content",
               "defaultValue": ""
@@ -2904,6 +2932,13 @@
       "importPath": "@primer/react",
       "props": [
         {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
           "name": "disabled",
           "type": "boolean",
           "required": false,
@@ -3044,7 +3079,7 @@
           "props": [
             {
               "name": "variant",
-              "type": "FormValidationStatus",
+              "type": "\"success\" | \"error\"",
               "required": true,
               "description": "Changes the visual style to match the validation status",
               "defaultValue": ""
@@ -3090,8 +3125,15 @@
       "props": [
         {
           "name": "when",
-          "type": "Viewport | Viewport[]",
+          "type": "\"narrow\" | \"wide\" | \"regular\" | Viewport[]",
           "required": true,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "children",
+          "type": "any",
+          "required": false,
           "description": "",
           "defaultValue": ""
         }
@@ -3140,7 +3182,7 @@
         },
         {
           "name": "variant",
-          "type": "MessageVariant",
+          "type": "\"success\" | \"critical\" | \"warning\" | \"unavailable\"",
           "required": true,
           "description": "Specify the type of the InlineMessage",
           "defaultValue": ""
@@ -3234,7 +3276,7 @@
           "props": [
             {
               "name": "as",
-              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>",
+              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<unknown, any> | FunctionComponent<unknown>",
               "required": true,
               "description": "",
               "defaultValue": ""
@@ -3244,6 +3286,13 @@
         {
           "name": "NavList.SubNav",
           "props": [
+            {
+              "name": "children",
+              "type": "any",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
             {
               "name": "sx",
               "type": "BetterSystemStyleObject",
@@ -3270,7 +3319,7 @@
           "props": [
             {
               "name": "as",
-              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | (\"a\" & (ComponentClass<...> | FunctionComponent<...>))",
+              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | \"button\" & ComponentClass<unknown, any> | \"button\" & FunctionComponent<unknown> | \"a\" & ComponentClass<unknown, any> | \"a\" & FunctionComponent<unknown>",
               "required": false,
               "description": "",
               "defaultValue": ""
@@ -3421,7 +3470,7 @@
           "props": [
             {
               "name": "as",
-              "type": "keyof IntrinsicElements",
+              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\"",
               "required": false,
               "description": "",
               "defaultValue": "h2"
@@ -3485,7 +3534,7 @@
           "props": [
             {
               "name": "as",
-              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>",
+              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<unknown, any> | FunctionComponent<unknown>",
               "required": false,
               "description": "",
               "defaultValue": "h2"
@@ -4252,35 +4301,35 @@
       "props": [
         {
           "name": "caret",
-          "type": "Location",
+          "type": "\"left\" | \"right\" | \"top\" | \"top-left\" | \"top-right\" | \"right-top\" | \"right-bottom\" | \"bottom\" | \"bottom-left\" | \"bottom-right\" | \"left-top\" | \"left-bottom\"",
           "required": false,
           "description": "Sets the location of the caret. The format is [edge]-[position on edge]. For example, right-top will position the caret on the top of the right edge of the box.",
           "defaultValue": ""
         },
         {
           "name": "bg",
-          "type": "string & ResponsiveValue<string | number | symbol, Required<Theme<TLengthStyledSystem>>>",
+          "type": "string | string & (string | number | symbol)[] | string & { [x: string]: string | number | symbol; [x: number]: string | number | symbol; }",
           "required": false,
           "description": "Background color of the box\nThe color utility parses a component's `color` and `bg` props and converts them into CSS declarations.\nBy default the raw value of the prop is returned.\n\nColor palettes can be configured with the ThemeProvider to use keys as prop values, with support for dot notation.\nArray values are converted into responsive values.\n\n[MDN Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/background-color)",
           "defaultValue": ""
         },
         {
           "name": "borderColor",
-          "type": "string & ResponsiveValue<string | number | symbol, Required<Theme<TLengthStyledSystem>>>",
+          "type": "string | string & (string | number | symbol)[] | string & { [x: string]: string | number | symbol; [x: number]: string | number | symbol; }",
           "required": false,
           "description": "Color of the border around the box\nThe border-color shorthand CSS property sets the color of all sides of an element's border.\n\n[MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border-color)",
           "defaultValue": ""
         },
         {
           "name": "border",
-          "type": "(string | number) & ResponsiveValue<Border<TLengthStyledSystem>, Required<Theme<TLengthStyledSystem>>>",
+          "type": "string | number | string & Border<TLengthStyledSystem>[] | string & { [x: string]: Border<TLengthStyledSystem>; [x: number]: Border<TLengthStyledSystem>; } | number & Border<TLengthStyledSystem>[] | number & { [x: string]: Border<TLengthStyledSystem>; [x: number]: Border<TLengthStyledSystem>; }",
           "required": false,
           "description": "Width of the border around the box\nThe border CSS property sets an element's border. It's a shorthand for border-width, border-style,\nand border-color.\n\n[MDN reference](https://developer.mozilla.org/en-US/docs/Web/CSS/border)",
           "defaultValue": ""
         },
         {
           "name": "sx",
-          "type": "BetterSystemStyleObject & { bg?: string; backgroundColor?: string; borderColor?: string; }",
+          "type": "SystemCssProperties & { bg?: string; backgroundColor?: string; borderColor?: string; } | CSSPseudoSelectorProps & { bg?: string; backgroundColor?: string; borderColor?: string; } | CSSSelectorObject & { bg?: string; backgroundColor?: string; borderColor?: string; } | VariantProperty & { bg?: string; backgroundColor?: string; borderColor?: string; } | UseThemeFunction & { bg?: string; backgroundColor?: string; borderColor?: string; } | EmotionLabel & { bg?: string; backgroundColor?: string; borderColor?: string; } | BetterCssProperties & { bg?: string; backgroundColor?: string; borderColor?: string; } | CSSCustomProperties & { bg?: string; backgroundColor?: string; borderColor?: string; } | CSSSelectorObject & { bg?: string; backgroundColor?: string; borderColor?: string; }",
           "required": false,
           "description": "A style object used to override styles using styled-components",
           "defaultValue": ""
@@ -4310,7 +4359,7 @@
         },
         {
           "name": "caret",
-          "type": "CaretPosition",
+          "type": "\"left\" | \"right\" | \"top\" | \"top-left\" | \"top-right\" | \"right-top\" | \"right-bottom\" | \"bottom\" | \"bottom-left\" | \"bottom-right\" | \"left-top\" | \"left-bottom\"",
           "required": false,
           "description": "Controls the position of the caret",
           "defaultValue": "top"
@@ -4542,7 +4591,7 @@
         },
         {
           "name": "value",
-          "type": "string | (string & readonly string[])",
+          "type": "string | string & readonly string[]",
           "required": false,
           "description": "A unique value that is never shown to the user.\nUsed during form submission and to identify which radio button in a group is selected",
           "defaultValue": ""
@@ -4570,7 +4619,7 @@
         },
         {
           "name": "validationStatus",
-          "type": "FormValidationStatus",
+          "type": "\"success\" | \"error\"",
           "required": false,
           "description": "Only used to inform ARIA attributes. Individual radio inputs do not have validation styles.",
           "defaultValue": ""
@@ -4698,7 +4747,7 @@
           "props": [
             {
               "name": "variant",
-              "type": "FormValidationStatus",
+              "type": "\"success\" | \"error\"",
               "required": true,
               "description": "Changes the visual style to match the validation status",
               "defaultValue": ""
@@ -4741,7 +4790,7 @@
       "props": [
         {
           "name": "format",
-          "type": "Format",
+          "type": "\"datetime\" | \"auto\" | \"relative\" | \"micro\" | \"elapsed\" | \"duration\"",
           "required": false,
           "description": "",
           "defaultValue": ""
@@ -4818,7 +4867,7 @@
         },
         {
           "name": "tense",
-          "type": "Tense",
+          "type": "\"auto\" | \"past\" | \"future\"",
           "required": false,
           "description": "",
           "defaultValue": ""
@@ -4832,7 +4881,7 @@
         },
         {
           "name": "formatStyle",
-          "type": "FormatStyle",
+          "type": "\"narrow\" | \"short\" | \"long\"",
           "required": false,
           "description": "",
           "defaultValue": ""
@@ -5147,7 +5196,7 @@
         },
         {
           "name": "size",
-          "type": "TextInputSizes",
+          "type": "\"small\" | \"large\" | \"medium\"",
           "required": false,
           "description": "The size of the input.",
           "defaultValue": ""
@@ -5196,7 +5245,7 @@
         },
         {
           "name": "validationStatus",
-          "type": "FormValidationStatus",
+          "type": "\"success\" | \"error\"",
           "required": false,
           "description": "The result of validation on the input.",
           "defaultValue": ""
@@ -5215,7 +5264,7 @@
           "props": [
             {
               "name": "value",
-              "type": "string | (readonly string[] & string)",
+              "type": "string | readonly string[] & string",
               "required": false,
               "description": "",
               "defaultValue": ""
@@ -5336,7 +5385,7 @@
         },
         {
           "name": "role",
-          "type": "AriaRole",
+          "type": "\"article\" | \"button\" | \"dialog\" | \"figure\" | \"form\" | \"img\" | \"link\" | \"main\" | \"menu\" | \"menuitem\" | \"option\" | \"search\" | \"table\" | \"switch\" | \"list\" | \"alert\" | \"alertdialog\" | \"application\" | \"banner\" | \"cell\" | \"checkbox\" | \"columnheader\" | \"combobox\" | \"complementary\" | \"contentinfo\" | \"definition\" | \"directory\" | \"document\" | \"feed\" | \"grid\" | \"gridcell\" | \"group\" | \"heading\" | \"listbox\" | \"listitem\" | \"log\" | \"marquee\" | \"math\" | \"menubar\" | \"menuitemcheckbox\" | \"menuitemradio\" | \"navigation\" | \"none\" | \"note\" | \"presentation\" | \"progressbar\" | \"radio\" | \"radiogroup\" | \"region\" | \"row\" | \"rowgroup\" | \"rowheader\" | \"scrollbar\" | \"searchbox\" | \"separator\" | \"slider\" | \"spinbutton\" | \"status\" | \"tab\" | \"tablist\" | \"tabpanel\" | \"term\" | \"textbox\" | \"timer\" | \"toolbar\" | \"tooltip\" | \"tree\" | \"treegrid\" | \"treeitem\"",
           "required": false,
           "description": "The ARIA role describing the function of `List` component. `listbox` is a common value.",
           "defaultValue": ""
@@ -5462,14 +5511,14 @@
         },
         {
           "name": "selected",
-          "type": "ItemInput | ItemInput[]",
+          "type": "Merge<React.ComponentPropsWithoutRef<\"div\">, ItemProps> | Partial<ItemProps> & { renderItem: RenderItemFn; } & { key?: Key; } | ItemInput[]",
           "required": true,
           "description": "Specify the selected items\nSpecify the selected item",
           "defaultValue": ""
         },
         {
           "name": "onSelectedChange",
-          "type": "((selected: ItemInput) => void) | ((selected: ItemInput[]) => void)",
+          "type": "(selected: ItemInput) => void | (selected: ItemInput[]) => void",
           "required": true,
           "description": "Provide a callback called when the selected item changes\nProvide a callback called when the selected items change",
           "defaultValue": ""
@@ -5850,49 +5899,49 @@
       "props": [
         {
           "name": "as",
-          "type": "ElementType",
+          "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<any, any> | FunctionComponent<any>",
           "required": false,
           "description": "Customize the element type of the rendered container",
           "defaultValue": ""
         },
         {
           "name": "gap",
-          "type": "Gap",
+          "type": "\"normal\" | \"none\" | \"condensed\" | \"spacious\" | ResponsiveValue<GapScale>",
           "required": false,
           "description": "Specify the gap between children elements in the stack",
           "defaultValue": ""
         },
         {
           "name": "direction",
-          "type": "Direction",
+          "type": "\"vertical\" | \"horizontal\" | ResponsiveValue<DirectionScale>",
           "required": false,
           "description": "Specify the direction for the stack container",
           "defaultValue": "vertical"
         },
         {
           "name": "align",
-          "type": "Align",
+          "type": "\"center\" | \"end\" | \"start\" | \"baseline\" | \"stretch\" | ResponsiveValue<AlignScale>",
           "required": false,
           "description": "Specify the alignment between items in the cross-axis of the direction",
           "defaultValue": "stretch"
         },
         {
           "name": "wrap",
-          "type": "Wrap",
+          "type": "\"wrap\" | \"nowrap\" | ResponsiveValue<WrapScale>",
           "required": false,
           "description": "Specify whether items are forced onto one line or can wrap onto multiple lines",
           "defaultValue": "nowrap"
         },
         {
           "name": "justify",
-          "type": "Justify",
+          "type": "\"center\" | \"end\" | \"start\" | \"space-between\" | \"space-evenly\" | ResponsiveValue<JustifyScale>",
           "required": false,
           "description": "Specify how items will be distributed in the stacking direction",
           "defaultValue": "start"
         },
         {
           "name": "padding",
-          "type": "Padding",
+          "type": "\"normal\" | \"none\" | \"condensed\" | \"spacious\" | ResponsiveValue<PaddingScale>",
           "required": false,
           "description": "Specify the padding of the stack container",
           "defaultValue": "none"
@@ -5904,7 +5953,7 @@
           "props": [
             {
               "name": "as",
-              "type": "ElementType",
+              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<any, any> | FunctionComponent<any>",
               "required": false,
               "description": "Customize the element type of the rendered container",
               "defaultValue": ""
@@ -6072,7 +6121,7 @@
           "props": [
             {
               "name": "to",
-              "type": "To",
+              "type": "string | Partial<Path>",
               "required": false,
               "description": "Used when the item is rendered using a component like React Router's `Link`. The path to navigate to.",
               "defaultValue": ""
@@ -6204,7 +6253,7 @@
       "props": [
         {
           "name": "as",
-          "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>",
+          "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<unknown, any> | FunctionComponent<unknown>",
           "required": true,
           "description": "",
           "defaultValue": ""
@@ -6244,7 +6293,7 @@
             },
             {
               "name": "variant",
-              "type": "VariantType",
+              "type": "\"default\" | \"danger\" | \"primary\" | \"invisible\"",
               "required": false,
               "description": "@deprecated Text input action buttons should only use the 'invisible' button variant\nDetermine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
               "defaultValue": "invisible"
@@ -6309,14 +6358,14 @@
         },
         {
           "name": "tokenComponent",
-          "type": "AnyReactComponent | ForwardRefComponent<\"a\" | \"button\" | \"span\", TokenProps>",
+          "type": "ComponentClass<any, any> | FunctionComponent<any> | ForwardRefComponent<\"a\" | \"button\" | \"span\", TokenProps>",
           "required": false,
           "description": "The component used to render each token",
           "defaultValue": "Token"
         },
         {
           "name": "maxHeight",
-          "type": "MaxHeight<string | number>",
+          "type": "string | number | string & {}",
           "required": false,
           "description": "The maximum height of the component. If the content in the input exceeds this height,\nit will scroll vertically",
           "defaultValue": ""
@@ -6330,7 +6379,7 @@
         },
         {
           "name": "size",
-          "type": "TokenSizeKeys",
+          "type": "\"small\" | \"large\" | \"medium\" | \"xlarge\"",
           "required": false,
           "description": "The size of the tokens and text input",
           "defaultValue": "xlarge"
@@ -6393,7 +6442,7 @@
         },
         {
           "name": "variant",
-          "type": "TextInputSizes",
+          "type": "\"small\" | \"large\" | \"medium\"",
           "required": false,
           "description": "@deprecated Use `size` prop instead",
           "defaultValue": ""
@@ -6407,7 +6456,7 @@
         },
         {
           "name": "validationStatus",
-          "type": "FormValidationStatus",
+          "type": "\"success\" | \"error\"",
           "required": false,
           "description": "The result of validation on the input.",
           "defaultValue": ""
@@ -6489,7 +6538,7 @@
         },
         {
           "name": "validationStatus",
-          "type": "FormValidationStatus",
+          "type": "\"success\" | \"error\"",
           "required": false,
           "description": "Indicates whether the Textarea validation state",
           "defaultValue": ""
@@ -6592,6 +6641,13 @@
         {
           "name": "Timeline.Badge",
           "props": [
+            {
+              "name": "children",
+              "type": "any",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
             {
               "name": "sx",
               "type": "BetterSystemStyleObject",
@@ -6737,7 +6793,7 @@
         },
         {
           "name": "statusLabelPosition",
-          "type": "CellAlignment",
+          "type": "\"end\" | \"start\"",
           "required": false,
           "description": "Whether the \"on\" and \"off\" labels should appear before or after the switch.\n**This should only be changed when the switch's alignment needs to be adjusted.** For example: It needs to be left-aligned because the label appears above it and the caption appears below it.",
           "defaultValue": ""
@@ -6959,6 +7015,13 @@
           "defaultValue": ""
         },
         {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
           "name": "flat",
           "type": "boolean",
           "required": false,
@@ -6996,6 +7059,13 @@
               "type": "string",
               "required": true,
               "description": "A unique identifier for the item.",
+              "defaultValue": ""
+            },
+            {
+              "name": "children",
+              "type": "React.ReactNode",
+              "required": true,
+              "description": "",
               "defaultValue": ""
             },
             {
@@ -7053,8 +7123,15 @@
           "name": "TreeView.SubTree",
           "props": [
             {
+              "name": "children",
+              "type": "React.ReactNode",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
               "name": "state",
-              "type": "SubTreeState",
+              "type": "\"loading\" | \"initial\" | \"done\" | \"error\"",
               "required": false,
               "description": "Specify a state if items in the subtree are loaded asynchronously. An asynchronous subtree can be in one of the following states: 'initial', 'loading', 'done', or 'error'. In the 'initial' state, items are neither loaded nor loading. In the 'loading' state, items are loading and the subtree will render a loading indicator. In the 'done' state, items are loaded. Screen readers will announce when a subtree enters the 'done' state. An 'error' state means that an error occured while loading items.",
               "defaultValue": ""
@@ -7072,6 +7149,13 @@
           "name": "TreeView.LeadingVisual",
           "props": [
             {
+              "name": "children",
+              "type": "any",
+              "required": true,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
               "name": "label",
               "type": "string",
               "required": false,
@@ -7083,6 +7167,13 @@
         {
           "name": "TreeView.TrailingVisual",
           "props": [
+            {
+              "name": "children",
+              "type": "any",
+              "required": true,
+              "description": "",
+              "defaultValue": ""
+            },
             {
               "name": "label",
               "type": "string",
@@ -7168,6 +7259,13 @@
       ],
       "importPath": "@primer/react",
       "props": [
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "",
+          "defaultValue": ""
+        },
         {
           "name": "aria-label",
           "type": "React.AriaAttributes",
@@ -7343,7 +7441,7 @@
           "props": [
             {
               "name": "to",
-              "type": "To",
+              "type": "string | Partial<Path>",
               "required": false,
               "description": "Used when the link is rendered using a component like React Router's `Link`. The path to navigate to.",
               "defaultValue": ""
@@ -7429,7 +7527,7 @@
         },
         {
           "name": "suggestions",
-          "type": "Suggestions",
+          "type": "\"loading\" | Suggestion[]",
           "required": true,
           "description": "The currently visible list of suggestions. If `loading`, a loading indicator will be\nshown. If `null` or empty, the list will be hidden. Suggestion sort will be preserved.\n\nTypically, this should not contain more than five or so suggestions.",
           "defaultValue": ""
@@ -7450,14 +7548,14 @@
         },
         {
           "name": "children",
-          "type": "ReactElement<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> | DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>, string | JSXElementConstructor<...>> & RefAttributes<...> & ReactNode",
+          "type": "ReactElement<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> | DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>, string | JSXElementConstructor<...>> & RefAttributes<...> & string | ReactElement<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> | DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>, string | JSXElementConstructor<...>> & RefAttributes<...> & number | ReactElement<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> | DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>, string | JSXElementConstructor<...>> & RefAttributes<...> & false | ReactElement<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> | DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>, string | JSXElementConstructor<...>> & RefAttributes<...> & true | ReactElement<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> | DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>, string | JSXElementConstructor<...>> & RefAttributes<...> & ReactElement<...> | ReactElement<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> | DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>, string | JSXElementConstructor<...>> & RefAttributes<...> & Iterable<...> | ReactElement<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> | DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>, string | JSXElementConstructor<...>> & RefAttributes<...> & ReactPortal",
           "required": false,
           "description": "An `input` or `textarea` compatible component to extend. A compatible component is any\ncomponent that forwards a ref and props to an underlying `input` or `textarea` element,\nincluding but not limited to `Input`, `TextArea`, `input`, `textarea`, `styled.input`,\nand `styled.textarea`. If the child is not compatible, a runtime `TypeError` will be\nthrown.",
           "defaultValue": ""
         },
         {
           "name": "suggestionsPlacement",
-          "type": "SuggestionsPlacement",
+          "type": "\"above\" | \"below\"",
           "required": false,
           "description": "Control which side of the insertion point the suggestions list appears on by default. This\nshould almost always be `\"below\"` because it typically provides a better user experience\n(the most-relevant suggestions will appear closest to the text). However, if the input\nis always near the bottom of the screen (ie, a chat composition form), it may be better to\ndisplay the suggestions above the input.\n\nIn either case, if there is not enough room to display the suggestions in the default direction,\nthe suggestions will appear in the other direction.",
           "defaultValue": "below"
@@ -7523,6 +7621,13 @@
           "defaultValue": ""
         },
         {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": true,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
           "name": "disabled",
           "type": "boolean",
           "required": false,
@@ -7559,7 +7664,7 @@
         },
         {
           "name": "viewMode",
-          "type": "MarkdownViewMode",
+          "type": "\"preview\" | \"edit\"",
           "required": false,
           "description": "Optionally control the view mode. If uncontrolled, leave this `undefined`.",
           "defaultValue": ""
@@ -7594,21 +7699,21 @@
         },
         {
           "name": "emojiSuggestions",
-          "type": "SuggestionOptions<Emoji>",
+          "type": "\"loading\" | Emoji[] | () => Promise<Emoji[]>",
           "required": false,
           "description": "Array of all possible emojis to suggest. Leave `undefined` to disable emoji autocomplete.\nFor lazy-loading suggestions, an async function can be provided instead.",
           "defaultValue": ""
         },
         {
           "name": "mentionSuggestions",
-          "type": "SuggestionOptions<Mentionable>",
+          "type": "\"loading\" | Mentionable[] | () => Promise<Mentionable[]>",
           "required": false,
           "description": "Array of all possible mention suggestions. Leave `undefined` to disable `@`-mention autocomplete.\nFor lazy-loading suggestions, an async function can be provided instead.",
           "defaultValue": ""
         },
         {
           "name": "referenceSuggestions",
-          "type": "SuggestionOptions<Reference>",
+          "type": "\"loading\" | Reference[] | () => Promise<Reference[]>",
           "required": false,
           "description": "Array of all possible references to suggest. Leave `undefined` to disable `#`-reference autocomplete.\nFor lazy-loading suggestions, an async function can be provided instead.",
           "defaultValue": ""
@@ -7746,7 +7851,7 @@
             },
             {
               "name": "tooltipDirection",
-              "type": "TooltipDirection",
+              "type": "\"s\" | \"nw\" | \"n\" | \"ne\" | \"e\" | \"se\" | \"sw\" | \"w\"",
               "required": false,
               "description": "Sets where the tooltip renders in relation to the target.",
               "defaultValue": ""
@@ -7760,7 +7865,7 @@
             },
             {
               "name": "size",
-              "type": "Size",
+              "type": "\"small\" | \"large\" | \"medium\"",
               "required": false,
               "description": "Size of button and fontSize of text in button",
               "defaultValue": ""
@@ -7781,7 +7886,7 @@
             },
             {
               "name": "variant",
-              "type": "VariantType",
+              "type": "\"default\" | \"danger\" | \"primary\" | \"invisible\"",
               "required": false,
               "description": "Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
               "defaultValue": ""
@@ -8016,6 +8121,13 @@
           "required": false,
           "description": "",
           "defaultValue": "large"
+        },
+        {
+          "name": "children",
+          "type": "React.ReactNode",
+          "required": false,
+          "description": "",
+          "defaultValue": "Fetching items..."
         }
       ],
       "subcomponents": [
@@ -8024,7 +8136,7 @@
           "props": [
             {
               "name": "alignContent",
-              "type": "AlignContent",
+              "type": "\"center\" | \"start\"",
               "required": false,
               "description": "Content alignment for when visuals are present",
               "defaultValue": ""
@@ -8058,6 +8170,13 @@
               "defaultValue": ""
             },
             {
+              "name": "children",
+              "type": "any",
+              "required": false,
+              "description": "",
+              "defaultValue": "Fetching items..."
+            },
+            {
               "name": "count",
               "type": "number",
               "required": false,
@@ -8066,14 +8185,14 @@
             },
             {
               "name": "variant",
-              "type": "VariantType",
+              "type": "\"default\" | \"danger\" | \"primary\" | \"invisible\"",
               "required": false,
               "description": "Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
               "defaultValue": "warning"
             },
             {
               "name": "size",
-              "type": "Size",
+              "type": "\"small\" | \"large\" | \"medium\"",
               "required": false,
               "description": "Size of button and fontSize of text in button",
               "defaultValue": "variant === 'empty' ? 'full' : 'inline'"
@@ -8173,7 +8292,7 @@
             },
             {
               "name": "size",
-              "type": "TextInputSizes",
+              "type": "\"small\" | \"large\" | \"medium\"",
               "required": false,
               "description": "The size of the input.",
               "defaultValue": "variant === 'empty' ? 'full' : 'inline'"
@@ -8201,7 +8320,7 @@
             },
             {
               "name": "variant",
-              "type": "TextInputSizes",
+              "type": "\"small\" | \"large\" | \"medium\"",
               "required": false,
               "description": "@deprecated Use `size` prop instead",
               "defaultValue": "warning"
@@ -8215,7 +8334,7 @@
             },
             {
               "name": "validationStatus",
-              "type": "FormValidationStatus",
+              "type": "\"success\" | \"error\"",
               "required": false,
               "description": "The result of validation on the input.",
               "defaultValue": ""
@@ -8229,6 +8348,13 @@
         {
           "name": "SelectPanel.SecondaryAction",
           "props": [
+            {
+              "name": "children",
+              "type": "any",
+              "required": false,
+              "description": "",
+              "defaultValue": "Fetching items..."
+            },
             {
               "name": "variant",
               "type": "\"button\" | \"link\" | \"checkbox\"",
@@ -8252,14 +8378,14 @@
             },
             {
               "name": "value",
-              "type": "string | number | readonly string[] | (string & readonly string[])",
+              "type": "string | number | readonly string[] | string & readonly string[]",
               "required": false,
               "description": "A unique value that is never shown to the user.\nUsed during form submission and to identify which checkbox inputs are selected",
               "defaultValue": ""
             },
             {
               "name": "size",
-              "type": "number | Size",
+              "type": "number | \"small\" | \"large\" | \"medium\"",
               "required": false,
               "description": "Size of button and fontSize of text in button",
               "defaultValue": "variant === 'empty' ? 'full' : 'inline'"
@@ -8273,7 +8399,7 @@
             },
             {
               "name": "alignContent",
-              "type": "AlignContent",
+              "type": "\"center\" | \"start\"",
               "required": false,
               "description": "Content alignment for when visuals are present",
               "defaultValue": ""
@@ -8392,7 +8518,7 @@
             },
             {
               "name": "validationStatus",
-              "type": "FormValidationStatus",
+              "type": "\"success\" | \"error\"",
               "required": false,
               "description": "Only used to inform ARIA attributes. Individual checkboxes do not have validation styles.",
               "defaultValue": ""
@@ -8406,6 +8532,13 @@
         {
           "name": "SelectPanel.Message",
           "props": [
+            {
+              "name": "children",
+              "type": "React.ReactNode",
+              "required": false,
+              "description": "",
+              "defaultValue": "Fetching items..."
+            },
             {
               "name": "size",
               "type": "\"inline\" | \"full\"",
@@ -8710,7 +8843,7 @@
           "props": [
             {
               "name": "as",
-              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>",
+              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<unknown, any> | FunctionComponent<unknown>",
               "required": true,
               "description": "",
               "defaultValue": ""
@@ -8720,6 +8853,13 @@
         {
           "name": "TabPanels.Panel",
           "props": [
+            {
+              "name": "children",
+              "type": "any",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
             {
               "name": "sx",
               "type": "BetterSystemStyleObject",
