@@ -14,8 +14,10 @@ jobs:
     steps:
       - name: Check author
         id: check-author
+        env:
+          CONTEXT: ${{ toJson(github.event) }}
         run: |
-          echo ${{ github.event.issue }}
+          echo "$CONTEXT"
       - name: Add label
         if: ${{ steps.check-author.outputs.staff == 'true' }}
         run: |
