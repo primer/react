@@ -1,0 +1,22 @@
+name: Move new issues to inbox
+
+on:
+  issues:
+    types: [opened, reopened]
+  pull_request:
+
+jobs:
+  add-staff-label:
+    if: ${{ github.repository == 'primer/react' }}
+    runs-on: ubuntu-latest
+    env:
+      ISSUE_URL: ${{ github.event.issue.html_url }}
+    steps:
+      - name: Check author
+        id: check-author
+        run: |
+          echo ${{ github.event.issue }}
+      - name: Add label
+        if: ${{ steps.check-author.outputs.staff == 'true' }}
+        run: |
+          gh issue edit $ISSUE_URL --add-label staff
