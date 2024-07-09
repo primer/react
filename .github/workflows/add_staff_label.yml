@@ -12,6 +12,7 @@ jobs:
     env:
       ISSUE_URL: ${{ github.event.issue.html_url }}
       PULL_REQUEST_URL: ${{ github.event.pull_request.html_url }}
+      GH_TOKEN: ${{ github.token }}
     steps:
       - name: Add label to issue
         if: ${{ github.event.issue.author_association == 'MEMBER' }}
