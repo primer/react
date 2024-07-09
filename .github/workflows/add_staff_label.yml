@@ -1,0 +1,23 @@
+name: Add Staff Label
+
+on:
+  issues:
+    types: [opened, reopened]
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  add-staff-label:
+    if: ${{ github.repository == 'primer/react' }}
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Add label to issue
+        if: ${{ github.event.issue.author_association == 'MEMBER' }}
+        run: |
+          gh issue edit ${{github.event.issue.html_url}} --add-label staff
+      - name: Add label to pull_request
+        if: ${{ github.event.pull_request.author_association == 'MEMBER' }}
+        run: |
+          gh pr edit ${{github.event.pull_request.html_url}} --add-label staff
