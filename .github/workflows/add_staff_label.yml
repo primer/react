@@ -11,14 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ISSUE_URL: ${{ github.event.issue.html_url }}
+      PULL_REQUEST_URL: ${{ github.event.pull_request.html_url }}
     steps:
-      - name: Check author
-        id: check-author
-        env:
-          CONTEXT: ${{ toJson(github.event) }}
-        run: |
-          echo "$CONTEXT"
-      - name: Add label
-        if: ${{ steps.check-author.outputs.staff == 'true' }}
+      - name: Add label to issue
+        if: ${{ github.event.issue.author_association == 'MEMBER' }}
         run: |
           gh issue edit $ISSUE_URL --add-label staff
+      - name: Add label to pull_request
+        if: ${{ github.event.pull_request.author_association == 'MEMBER' }}
+        run: |
+          gh pr edit $PULL_REQUEST_URL --add-label staff
