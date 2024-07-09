@@ -16,8 +16,8 @@ jobs:
       - name: Add label to issue
         if: ${{ github.event.issue.author_association == 'MEMBER' }}
         run: |
-          gh issue edit {{github.event.issue.html_url}} --add-label staff
+          gh issue edit ${{github.event.issue.html_url}} --add-label staff
       - name: Add label to pull_request
         if: ${{ github.event.pull_request.author_association == 'MEMBER' }}
         run: |
-          gh pr edit {{github.event.pull_request.html_url}} --add-label staff
+          gh pr edit ${{github.event.pull_request.html_url}} --add-label staff
