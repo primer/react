@@ -20,10 +20,8 @@ const storyPrefix = {
 }
 
 const docgenOptions = {
-  // savePropValueAsString: true,
-  // allowSyntheticDefaultImports might let us avoid separately importing types from React
-  // (e.g.: you can do `React.FC` instead of importing and using `FC` from React)
-  // allowSyntheticDefaultImports: true,
+  // Gets components cast with `as PolymorphicForwardRefComponent` into the docs, but only the `as` prop is picked up
+  // customComponentTypes: ['ForwardRefComponent', 'PolymorphicForwardRefComponent'],
   propFilter: (prop, _component) => {
     if (prop.declarations !== undefined && prop.declarations.length > 0) {
       // TODO: figure out how to choose which props we want to document.
@@ -41,6 +39,7 @@ const docgenOptions = {
   },
   shouldExtractValuesFromUnion: true,
   skipChildrenPropWithoutDoc: false,
+  shouldRemoveUndefinedFromOptional: true,
   //TODO: figure out how we might use the `componentNameResolver` option to fix react-docgen-typescript's
   // issues with component files that have a displayName.
   //
@@ -77,7 +76,8 @@ const files = glob.sync(
     absolute: true,
   },
 )
-const docgenOutput = docgen.parse(files, docgenOptions)
+
+const docgenOutput = docgen.withCustomConfig('./tsconfig.json', docgenOptions).parse(files)
 
 const printSkippedComponents = () => {
   console.log('COMPONENTS SKIPPED:')
