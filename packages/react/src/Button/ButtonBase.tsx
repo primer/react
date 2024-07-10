@@ -4,7 +4,6 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import Box from '../Box'
 import type {ButtonProps} from './types'
 import {StyledButton} from './types'
-import {getAlignContentSize} from './styles'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import CounterLabel from '../CounterLabel'
@@ -29,11 +28,6 @@ const ButtonBase = forwardRef(
 
     const innerRef = React.useRef<HTMLButtonElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, innerRef)
-
-    const iconWrapStyles = {
-      display: 'flex',
-      pointerEvents: 'none',
-    }
 
     if (__DEV__) {
       /**
@@ -73,27 +67,27 @@ const ButtonBase = forwardRef(
           <Icon />
         ) : (
           <>
-            <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
+            <Box as="span" data-component="buttonContent" data-align={alignContent} className={classes.ButtonContent}>
               {LeadingVisual && (
-                <Box as="span" data-component="leadingVisual" sx={{...iconWrapStyles}}>
+                <span data-component="leadingVisual" className={classes.Visual}>
                   <LeadingVisual />
-                </Box>
+                </span>
               )}
               {children && <span data-component="text">{children}</span>}
               {count !== undefined && !TrailingVisual ? (
-                <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
+                <span data-component="trailingVisual" className={classes.Visual}>
                   <CounterLabel data-component="ButtonCounter">{count}</CounterLabel>
-                </Box>
+                </span>
               ) : TrailingVisual ? (
-                <Box as="span" data-component="trailingVisual" sx={{...iconWrapStyles}}>
+                <span data-component="trailingVisual" className={classes.Visual}>
                   <TrailingVisual />
-                </Box>
+                </span>
               ) : null}
             </Box>
             {TrailingAction && (
-              <Box as="span" data-component="trailingAction" sx={{...iconWrapStyles}}>
+              <span data-component="trailingAction" className={classes.Visual}>
                 <TrailingAction />
-              </Box>
+              </span>
             )}
           </>
         )}

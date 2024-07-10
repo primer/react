@@ -369,6 +369,21 @@
   color: var(--button-invisible-fgColor-rest);
 }
 
+/* Content alignment -------------------------------------------------------- */
+.ButtonContent[data-align='center'] {
+  justify-content: center;
+}
+
+.ButtonContent[data-align='start'] {
+  justify-content: flex-start;
+}
+
+/* Visuals ------------------------------------------------------------------ */
+.Visual {
+  display: flex;
+  pointer-events: none;
+}
+
 /* IconButton --------------------------------------------------------------- */
 .ButtonBase[data-component='IconButton'] {
   display: inline-grid;
