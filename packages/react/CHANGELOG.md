@@ -1,5 +1,63 @@
 # @primer/react
 
+## 36.25.0
+
+### Minor Changes
+
+- [#4051](https://github.com/primer/react/pull/4051) [`7e644b70359fcba07810560abcb8b1fbe785668a`](https://github.com/primer/react/commit/7e644b70359fcba07810560abcb8b1fbe785668a) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds a loading state to ActionList items. Also allows the Spinner component to accept screenreader text.
+
+  <!-- Changed components: ActionList, ActionMenu, NavList, Spinners -->
+
+- [#4697](https://github.com/primer/react/pull/4697) [`a7d1e4f37cd8fd01c86250178ef6ae748d786e03`](https://github.com/primer/react/commit/a7d1e4f37cd8fd01c86250178ef6ae748d786e03) Thanks [@khiga8](https://github.com/khiga8)! - Add TrailingAction support to NavList
+
+### Patch Changes
+
+- [#4706](https://github.com/primer/react/pull/4706) [`71859edc30664e259c855ffdc3732cda8dc6d169`](https://github.com/primer/react/commit/71859edc30664e259c855ffdc3732cda8dc6d169) Thanks [@TylerJDev](https://github.com/TylerJDev)! - (Behind feature flag) ActionList: Fix for "full" variant when using button semantics
+
+- [#4711](https://github.com/primer/react/pull/4711) [`199e3840af17d8ea7c75dbba60cdfbaaf7ef4021`](https://github.com/primer/react/commit/199e3840af17d8ea7c75dbba60cdfbaaf7ef4021) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Removes live region from `FormControl` validation
+
+## 36.24.0
+
+### Minor Changes
+
+- [#4673](https://github.com/primer/react/pull/4673) [`eedc6b16ba3078025c636a8c1368f38f7f9b798d`](https://github.com/primer/react/commit/eedc6b16ba3078025c636a8c1368f38f7f9b798d) Thanks [@joshblack](https://github.com/joshblack)! - Add experimental support for the AriaStatus, AriaAlert, and Announce components
+
+- [#4691](https://github.com/primer/react/pull/4691) [`55e97a9027aafd0ee432d8d5c293d75792de96dc`](https://github.com/primer/react/commit/55e97a9027aafd0ee432d8d5c293d75792de96dc) Thanks [@joshblack](https://github.com/joshblack)! - Update internal VisuallyHidden helper to use a `span` by default over a `div` to support more nesting scenarios by default
+
+### Patch Changes
+
+- [#4699](https://github.com/primer/react/pull/4699) [`546803e66661d353450c9ef2fc8cbfd51ca18d41`](https://github.com/primer/react/commit/546803e66661d353450c9ef2fc8cbfd51ca18d41) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Overlay: Set `style` prop correctly
+
+- [#4669](https://github.com/primer/react/pull/4669) [`1403ef7e015165119b03b73832c5aa8b2f093021`](https://github.com/primer/react/commit/1403ef7e015165119b03b73832c5aa8b2f093021) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - PageHeader: Resolve layout shift issues on Title and Actions
+
+## 36.23.0
+
+### Minor Changes
+
+- [#4634](https://github.com/primer/react/pull/4634) [`db72a714211b1f2aa8ee0cebaca056c702963542`](https://github.com/primer/react/commit/db72a714211b1f2aa8ee0cebaca056c702963542) Thanks [@khiga8](https://github.com/khiga8)! - Introduce ActionList.TrailingAction to support secondary action on ActionList.Item
+
+- [#4052](https://github.com/primer/react/pull/4052) [`e2f35e2eda04e2128aaaf98c188cc94a34de7aeb`](https://github.com/primer/react/commit/e2f35e2eda04e2128aaaf98c188cc94a34de7aeb) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds components to support skeleton loading states, and uses those components to replace ad-hoc skeleton loading states in Primer React components.
+
+  <!-- Changed components: SkeletonAvatar, SkeletonBox, SkeletonText -->
+
+- [#4140](https://github.com/primer/react/pull/4140) [`c093411ec6caa4d4ce1720a68a22e492d5f39458`](https://github.com/primer/react/commit/c093411ec6caa4d4ce1720a68a22e492d5f39458) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds a prop, `srText`, to the Spinner component to convey a loading message to assistive technologies such as screen readers.
+
+  <!-- Changed components: Spinner -->
+
+- [#4272](https://github.com/primer/react/pull/4272) [`3c467efc794d47326613796149f422c24a9b3cb9`](https://github.com/primer/react/commit/3c467efc794d47326613796149f422c24a9b3cb9) Thanks [@TylerJDev](https://github.com/TylerJDev)! - (Behind feature flag) ActionList: Utilizes `<button>` inside of `<li>` for interactive items.
+
+- [#4527](https://github.com/primer/react/pull/4527) [`623b16e9832173d418092e47a85fd0a0a0d895f8`](https://github.com/primer/react/commit/623b16e9832173d418092e47a85fd0a0a0d895f8) Thanks [@langermank](https://github.com/langermank)! - Add `truncation` prop to `Button` to allow for ellipses overflow or text wrapping for long button labels
+
+- [#4550](https://github.com/primer/react/pull/4550) [`3e493ba0723c9f0eadfacae6389959023561a700`](https://github.com/primer/react/commit/3e493ba0723c9f0eadfacae6389959023561a700) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds UnderlinePanels component. It's like UnderlineNav, but for rendering semantic tabs instead of links.
+
+  <!-- Changed components: UnderilnePanels -->
+
+### Patch Changes
+
+- [#4651](https://github.com/primer/react/pull/4651) [`b13bbb33d547352926af5206741db123457a09a1`](https://github.com/primer/react/commit/b13bbb33d547352926af5206741db123457a09a1) Thanks [@mperrotti](https://github.com/mperrotti)! - Prevents text color from changing on hover for "inactive" ActionMenu.Items of the "danger" variant. Before this change, the text color would change on hover. After this change, the text color remains the same on hover.
+
+- [#4695](https://github.com/primer/react/pull/4695) [`9ee8ec9a16d9a72e4723163115dd59ce7e8dce28`](https://github.com/primer/react/commit/9ee8ec9a16d9a72e4723163115dd59ce7e8dce28) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Fixes conditional in `ActionList.Item` that was dependent on FF being active before applying forwarded ref.
+
 ## 36.22.0
 
 ### Minor Changes
