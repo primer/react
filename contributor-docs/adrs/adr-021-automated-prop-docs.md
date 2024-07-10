@@ -145,7 +145,7 @@ export type {TestComponentProps, TestComponentHeadingProps, TestComponentBodyPro
 Referencing generic React types directly off the `React` object could cause Docgen to fail to parse the props.
 
 **Workaround (preferred):** Import React types directly. For example: `import React, {type FC} from 'react'`
-**Workaround:** Import all React types/modules. For example: `import * from 'react'`
+**Workaround:** Import all React types/modules. For example: `import * as React from 'react'`
 **Workaround:** Keep import as-is, but explicitly set props without using generic types from React. For example: `const ComponentName = (props: P) => {}`, `const ComponentThatForwardsRef = React.forwardRef((props: P, ref) => {})`
 
 ---
