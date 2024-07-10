@@ -145,10 +145,6 @@ const baseConfig = {
                   'utf8',
                 )
 
-                if (fileData.includes('--color-border-default')) {
-                  console.log(filePath)
-                }
-
                 const jsonData = JSON.parse(fileData)
                 let result = {}
 
