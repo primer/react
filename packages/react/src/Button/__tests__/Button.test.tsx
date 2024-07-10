@@ -131,11 +131,12 @@ describe('Button', () => {
     const tooltipEl = getByText('Love is all around')
     expect(triggerEL).toHaveAttribute('aria-describedby', tooltipEl.id)
   })
-  it('should not render tooltip on an icon button by default', () => {
-    const {getByRole} = render(<IconButton icon={HeartIcon} aria-label="Heart" />)
+  it('should render tooltip on an icon button by default', () => {
+    const {getByRole, getByText} = render(<IconButton icon={HeartIcon} aria-label="Heart" />)
     const triggerEl = getByRole('button')
-    expect(triggerEl).not.toHaveAttribute('aria-labelledby')
-    expect(triggerEl).toHaveAttribute('aria-label', 'Heart')
+    const tooltipEl = getByText('Heart')
+    expect(triggerEl).toHaveAttribute('aria-labelledby', tooltipEl.id)
+    expect(triggerEl).not.toHaveAttribute('aria-label')
   })
   it('should render aria-keyshorts on an icon button when keyshortcuts prop is passed', () => {
     const {getByRole} = render(

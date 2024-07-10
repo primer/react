@@ -17,7 +17,7 @@ const IconButton = forwardRef(
       disabled,
       tooltipDirection,
       // This is planned to be a temporary prop until the default tooltip on icon buttons are fully rolled out.
-      unsafeDisableTooltip = true,
+      unsafeDisableTooltip = false,
       keyshortcuts,
       ...props
     },
