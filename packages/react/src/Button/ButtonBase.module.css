@@ -1,25 +1,27 @@
+/* stylelint-disable selector-max-specificity */
+
 /* Base styles -------------------------------------------------------------- */
 .ButtonBase {
-  border-radius: var(--borderRadius-medium);
+  display: flex;
+  min-width: max-content;
+  height: 32px;
+  padding: 0 var(--base-size-12);
+  font-family: inherit;
+  font-size: var(--text-body-size-medium);
+  font-weight: var(--base-text-weight-medium);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
   border: var(--borderWidth-thin) solid;
   border-color: var(--button-default-borderColor-rest, var(--borderColor-default));
-  font-family: inherit;
-  font-weight: var(--base-text-weight-medium);
-  font-size: var(--text-body-size-medium);
-  cursor: pointer;
-  appearance: none;
-  user-select: none;
-  text-decoration: none;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 32px;
-  padding: 0 12px;
-  gap: 8px;
-  min-width: max-content;
+  border-radius: var(--borderRadius-medium);
   transition: 80ms cubic-bezier(0.65, 0, 0.35, 1);
   transition-property: color, fill, background-color, border-color;
+  appearance: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .ButtonBase[href] {
@@ -59,17 +61,18 @@
 
 .ButtonBase[data-component='IconButton'] {
   display: inline-grid;
-  padding: unset;
-  place-content: center;
   width: 32px;
   min-width: unset;
+  /* stylelint-disable-next-line primer/spacing */
+  padding: unset;
+  place-content: center;
 }
 
 .ButtonBase[data-size='small'] {
-  padding: 0 8px;
   height: 28px;
-  gap: 4px;
+  padding: 0 var(--base-size-8);
   font-size: var(--text-body-size-small);
+  gap: 4px;
 }
 
 .ButtonBase[data-size='small'] [data-component='text'] {
@@ -81,26 +84,28 @@
 }
 
 .ButtonBase[data-size='small'] [data-component='buttonContent'] > :not(:last-child) {
-  margin-right: 4px;
+  margin-right: var(--base-size-4);
 }
 
 .ButtonBase[data-size='small'][data-component='IconButton'] {
   width: 28px;
+  /* stylelint-disable-next-line primer/spacing */
   padding: unset;
 }
 
 .ButtonBase[data-size='large'] {
-  padding: 0 16px;
   height: 40px;
+  padding: 0 var(--base-size-16);
   gap: 8px;
 }
 
 .ButtonBase[data-size='large'] [data-component='buttonContent'] > :not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8);
 }
 
 .ButtonBase[data-size='large'][data-component='IconButton'] {
   width: 40px;
+  /* stylelint-disable-next-line primer/spacing */
   padding: unset;
 }
 
@@ -118,12 +123,13 @@
 .ButtonBase[data-label-wrap='true'] [data-component='buttonContent'] {
   flex: 1 1 auto;
   align-self: stretch;
-  padding-block: calc(var(--control-medium-paddingBlock, 0.375rem) - 2px);
+  /* stylelint-disable-next-line primer/spacing */
+  padding-block: calc(var(--control-medium-paddingBlock) - var(--base-size-2));
 }
 
 .ButtonBase[data-label-wrap='true'] [data-component='text'] {
-  white-space: unset;
   word-break: break-word;
+  white-space: unset;
 }
 
 .ButtonBase[data-label-wrap='true'][data-size='small'] {
@@ -132,23 +138,26 @@
 }
 
 .ButtonBase[data-label-wrap='true'][data-size='small'] [data-component='buttonContent'] {
-  padding-block: calc(var(--control-small-paddingBlock, 0.25rem) - 2px);
+  /* stylelint-disable-next-line primer/spacing */
+  padding-block: calc(var(--control-small-paddingBlock) - var(--base-size-2));
 }
 
 .ButtonBase[data-label-wrap='true'][data-size='large'] {
   height: unset;
   min-height: var(--control-large-size, 2.5rem);
-  padding-inline: var(--control-large-paddingInline-spacious, 1rem);
+  /* stylelint-disable-next-line primer/spacing */
+  padding-inline: var(--control-large-paddingInline-spacious);
 }
 
 .ButtonBase[data-label-wrap='true'][data-size='large'] [data-component='buttonContent'] {
-  padding-block: calc(var(--control-large-paddingBlock, 0.625rem) - 2px);
+  /* stylelint-disable-next-line primer/spacing */
+  padding-block: calc(var(--control-large-paddingBlock) - var(--base-size-2));
 }
 
 .ButtonBase[data-inactive]:not([disabled]) {
+  color: var(--button-inactive-fgColor);
   background-color: var(--button-inactive-bgColor);
   border-color: var(--button-inactive-bgColor);
-  color: var(--button-inactive-fgColor);
 }
 
 .ButtonBase[data-inactive]:not([disabled]):focus-visible {
@@ -170,7 +179,7 @@
 }
 
 .ButtonBase [data-component='trailingAction'] {
-  margin-right: -4px;
+  margin-right: calc(var(--base-size-4) * -1);
 }
 
 .ButtonBase [data-component='buttonContent'] {
@@ -183,7 +192,7 @@
 }
 
 .ButtonBase [data-component='buttonContent'] > :not(:last-child) {
-  margin-right: 8px;
+  margin-right: var(--base-size-8);
 }
 
 /* Variants ----------------------------------------------------------------- */
@@ -192,7 +201,7 @@
 .ButtonBase[data-variant='default'] {
   color: var(--button-default-fgColor-rest);
   background-color: var(--button-default-bgColor-rest);
-  box-shadow: var(--button-default-shadow-resting), var(--button-default-shadow-inset);
+  box-shadow: var(--button-default-shadow-resting);
 }
 
 .ButtonBase[data-variant='default']:hover:not([disabled]):not([data-inactive]) {
@@ -206,9 +215,9 @@
 }
 
 .ButtonBase[data-variant='default']:disabled {
-  color: var(--primer-fg-disabled);
-  border-color: var(--button-default-borderColor-disabled);
+  color: var(--control-fgColor-disabled);
   background-color: var(--button-default-bgColor-disabled);
+  border-color: var(--button-default-borderColor-disabled);
 }
 
 .ButtonBase[data-variant='default']:disabled [data-component='ButtonCounter'] {
@@ -264,12 +273,12 @@
 }
 
 .ButtonBase[data-variant='primary'] [data-component='ButtonCounter'] {
-  background-color: var(--buttonCounter-primary-bgColor-rest);
   color: inherit;
+  background-color: var(--buttonCounter-primary-bgColor-rest);
 }
 
 .ButtonBase[data-variant='primary'][aria-expanded='true'] {
-  background-color: var(--button-primary-bgColor-selected);
+  background-color: var(--button-primary-bgColor-active);
   box-shadow: var(--button-primary-shadow-selected);
 }
 
@@ -297,22 +306,22 @@
 .ButtonBase[data-variant='danger']:disabled {
   color: var(--button-danger-fgColor-disabled);
   background-color: var(--button-danger-bgColor-disabled);
-  border-color: var(--button-default-borderColor-disabled, var(--button-border));
+  border-color: var(--button-default-borderColor-disabled);
 }
 
 .ButtonBase[data-variant='danger'] [data-component='ButtonCounter'] {
-  background-color: var(--buttonCounter-danger-bgColor-rest);
   color: var(--buttonCounter-danger-fgColor-rest);
+  background-color: var(--buttonCounter-danger-bgColor-rest);
 }
 
 .ButtonBase[data-variant='danger']:active:not([disabled]):not([data-inactive]) [data-component='ButtonCounter'] {
-  background-color: var(--buttonCounter-danger-bgColor-hover);
   color: var(--buttonCounter-danger-fgColor-hover);
+  background-color: var(--buttonCounter-danger-bgColor-hover);
 }
 
 .ButtonBase[data-variant='danger']:hover:not([disabled]):not([data-inactive]) [data-component='ButtonCounter'] {
-  background-color: var(--buttonCounter-danger-bgColor-hover);
   color: var(--buttonCounter-danger-fgColor-hover);
+  background-color: var(--buttonCounter-danger-bgColor-hover);
 }
 
 .ButtonBase[data-variant='danger']:disabled [data-component='ButtonCounter'] {
@@ -344,9 +353,9 @@
 }
 
 .ButtonBase[data-variant='invisible']:disabled {
+  color: var(--button-invisible-fgColor-disabled);
   background-color: var(--button-invisible-bgColor-disabled);
   border-color: var(--button-invisible-borderColor-disabled);
-  color: var(--button-invisible-fgColor-disabled);
 }
 
 .ButtonBase[data-variant='invisible']:disabled [data-component='ButtonCounter'],
@@ -371,14 +380,10 @@
 
 .ButtonBase[data-variant='invisible']:active [data-component='trailingVisual'],
 .ButtonBase[data-variant='invisible']:active [data-component='leadingVisual'] {
-  color: var(--button-invisible-iconColor-active);
+  color: var(--button-invisible-iconColor-hover);
 }
 
 .ButtonBase[data-variant='invisible']:disabled [data-component='trailingVisual'],
 .ButtonBase[data-variant='invisible']:disabled [data-component='leadingVisual'] {
   color: var(--button-invisible-iconColor-disabled);
-}
-
-.ButtonBase[data-variant='invisible']:has([data-component='ButtonCounter']) {
-  color: var(--buttonCounter-invisible-bgColor-rest);
 }

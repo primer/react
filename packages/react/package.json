@@ -46,6 +46,7 @@
   "scripts": {
     "build": "./script/build",
     "clean": "rimraf dist lib lib-esm css",
+    "stylelint": "stylelint src/**/*.module.css",
     "start": "concurrently npm:start:*",
     "start:storybook": "STORYBOOK=true storybook dev -p 6006",
     "build:storybook": "script/build-storybook",
@@ -132,6 +133,7 @@
     "@babel/preset-typescript": "7.24.7",
     "@figma/code-connect": "^0.1.1",
     "@primer/css": "^21.0.1",
+    "@primer/stylelint-config": "^13.0.0-rc.21ca0f0",
     "@rollup/plugin-babel": "6.0.4",
     "@rollup/plugin-commonjs": "25.0.4",
     "@rollup/plugin-node-resolve": "15.1.0",
