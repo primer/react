@@ -10,14 +10,13 @@ import {Hsluv} from 'hsluv'
  * @returns
  */
 export const getColorsFromHex = (
-  colorHex: string,
-  colorScheme = 'light',
+  colorHex: `#{string}`,
+  colorScheme: string = 'light',
   bgColor: string,
 ): React.CSSProperties | undefined => {
-  if (typeof colorHex !== 'string' || colorHex.startsWith('#') === false) return undefined
   // start values for light mode
   let bgLightness = 96
-  let lightnessIncrement = -1
+  let lightnessIncrement: 1 | -1 = -1
   let ratio = 4.5
   // start values for dark mode
   if (colorScheme.startsWith('dark')) {

@@ -51,12 +51,19 @@ export const SizeLarge = () => <IssueLabel size="large">Issue label</IssueLabel>
 
 export const SizeSmall = () => <IssueLabel size="small">Issue label</IssueLabel>
 
-export const Hex = (hex: string) => <IssueLabel fillColor={hex}>Issue label</IssueLabel>
-Hex.args = {
-  hex: '#59B200',
+export const FillColor = ({fillColor}: {fillColor: string}) => (
+  <IssueLabel fillColor={fillColor}>Issue label</IssueLabel>
+)
+FillColor.args = {
+  fillColor: '#59B200',
   variant: undefined,
 }
-Hex.argTypes = {
-  hex: {control: {type: 'color'}},
+FillColor.argTypes = {
+  fillColor: {
+    control: {
+      type: 'color',
+      presetColors: ['#FF0000', '#008000', '#0000FF', '#A52A2A', '#000000', '#FFFFFF', '#FA8072', '#FFA500'],
+    },
+  },
   variant: {control: {disable: true}},
 }

@@ -16,8 +16,11 @@ export const Playground: StoryObj<typeof IssueLabel> = {
   args: {},
   argTypes: {
     fillColor: {
-      hex: undefined,
-      control: {type: 'color', presetColors: ['red', 'green', 'blue', 'brown', 'black', 'white', 'salmon', 'orange']},
+      fillColor: undefined,
+      control: {
+        type: 'color',
+        presetColors: ['#FF0000', '#008000', '#0000FF', '#A52A2A', '#000000', '#FFFFFF', '#FA8072', '#FFA500'],
+      },
     },
     size: {
       control: 'select',
