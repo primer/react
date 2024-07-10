@@ -59,15 +59,6 @@
   font-size: var(--text-body-size-small);
 }
 
-.ButtonBase[data-component='IconButton'] {
-  display: inline-grid;
-  width: 32px;
-  min-width: unset;
-  /* stylelint-disable-next-line primer/spacing */
-  padding: unset;
-  place-content: center;
-}
-
 .ButtonBase[data-size='small'] {
   height: 28px;
   padding: 0 var(--base-size-8);
@@ -87,12 +78,6 @@
   margin-right: var(--base-size-4);
 }
 
-.ButtonBase[data-size='small'][data-component='IconButton'] {
-  width: 28px;
-  /* stylelint-disable-next-line primer/spacing */
-  padding: unset;
-}
-
 .ButtonBase[data-size='large'] {
   height: 40px;
   padding: 0 var(--base-size-16);
@@ -101,12 +86,6 @@
 
 .ButtonBase[data-size='large'] [data-component='buttonContent'] > :not(:last-child) {
   margin-right: var(--base-size-8);
-}
-
-.ButtonBase[data-size='large'][data-component='IconButton'] {
-  width: 40px;
-  /* stylelint-disable-next-line primer/spacing */
-  padding: unset;
 }
 
 /* Button styles ------------------------------------------------------------ */
@@ -386,4 +365,45 @@
 .ButtonBase[data-variant='invisible']:disabled [data-component='trailingVisual'],
 .ButtonBase[data-variant='invisible']:disabled [data-component='leadingVisual'] {
   color: var(--button-invisible-iconColor-disabled);
+}
+
+.ButtonBase[data-variant='invisible'][data-no-visuals] {
+  color: var(--button-invisible-fgColor-rest);
+}
+
+/* Content alignment -------------------------------------------------------- */
+.ButtonContent[data-align='center'] {
+  justify-content: center;
+}
+
+.ButtonContent[data-align='start'] {
+  justify-content: flex-start;
+}
+
+/* Visuals ------------------------------------------------------------------ */
+.Visual {
+  display: flex;
+  pointer-events: none;
+}
+
+/* IconButton --------------------------------------------------------------- */
+.ButtonBase[data-component='IconButton'] {
+  display: inline-grid;
+  width: 32px;
+  min-width: unset;
+  /* stylelint-disable-next-line primer/spacing */
+  padding: unset;
+  place-content: center;
+}
+
+.ButtonBase[data-size='small'][data-component='IconButton'] {
+  width: 28px;
+  /* stylelint-disable-next-line primer/spacing */
+  padding: unset;
+}
+
+.ButtonBase[data-size='large'][data-component='IconButton'] {
+  width: 40px;
+  /* stylelint-disable-next-line primer/spacing */
+  padding: unset;
 }
