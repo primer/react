@@ -16,9 +16,11 @@ import type {Meta} from '@storybook/react'
 import {UnderlineNav} from './index'
 import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport'
 
-export default {
+const meta = {
   title: 'Components/UnderlineNav/Features',
-} as Meta
+} satisfies Meta<typeof UnderlineNav>
+
+export default meta
 
 export const Default = () => {
   return (
@@ -33,17 +35,17 @@ export const Default = () => {
 export const WithIcons = () => {
   return (
     <UnderlineNav aria-label="Repository with icons">
-      <UnderlineNav.Item icon={CodeIcon}>Code</UnderlineNav.Item>
-      <UnderlineNav.Item icon={EyeIcon} counter={6}>
+      <UnderlineNav.Item icon={<CodeIcon />}>Code</UnderlineNav.Item>
+      <UnderlineNav.Item icon={<EyeIcon />} counter={6}>
         Issues
       </UnderlineNav.Item>
-      <UnderlineNav.Item aria-current="page" icon={GitPullRequestIcon}>
+      <UnderlineNav.Item aria-current="page" icon={<GitPullRequestIcon />}>
         Pull Requests
       </UnderlineNav.Item>
-      <UnderlineNav.Item icon={CommentDiscussionIcon} counter={7}>
+      <UnderlineNav.Item icon={<CommentDiscussionIcon />} counter={7}>
         Discussions
       </UnderlineNav.Item>
-      <UnderlineNav.Item icon={ProjectIcon}>Projects</UnderlineNav.Item>
+      <UnderlineNav.Item icon={<ProjectIcon />}>Projects</UnderlineNav.Item>
     </UnderlineNav>
   )
 }
@@ -51,10 +53,10 @@ export const WithIcons = () => {
 export const WithCounterLabels = () => {
   return (
     <UnderlineNav aria-label="Repository with counters">
-      <UnderlineNav.Item aria-current="page" icon={CodeIcon} counter="11K">
+      <UnderlineNav.Item aria-current="page" icon={<CodeIcon />} counter="11K">
         Code
       </UnderlineNav.Item>
-      <UnderlineNav.Item icon={IssueOpenedIcon} counter={12}>
+      <UnderlineNav.Item icon={<IssueOpenedIcon />} counter={12}>
         Issues
       </UnderlineNav.Item>
     </UnderlineNav>
