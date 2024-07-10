@@ -267,10 +267,11 @@ describe('Button', () => {
     const tooltipEl = getByText('Love is all around')
     expect(triggerEL.getAttribute('aria-describedby')).toContain(tooltipEl.id)
   })
-  it('should not render tooltip on an icon button by default', () => {
-    const {getByRole} = render(<IconButton icon={HeartIcon} aria-label="Heart" />)
+  it('should render tooltip on an icon button by default', () => {
+    const {getByRole, getByText} = render(<IconButton icon={HeartIcon} aria-label="Heart" />)
     const triggerEl = getByRole('button')
-    expect(triggerEl).not.toHaveAttribute('aria-labelledby')
-    expect(triggerEl).toHaveAttribute('aria-label', 'Heart')
+    const tooltipEl = getByText('Heart')
+    expect(triggerEl).toHaveAttribute('aria-labelledby', tooltipEl.id)
+    expect(triggerEl).not.toHaveAttribute('aria-label')
   })
 })
