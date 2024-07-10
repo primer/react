@@ -2,7 +2,7 @@
 .ButtonBase {
   border-radius: var(--borderRadius-medium);
   border: var(--borderWidth-thin) solid;
-  border-color: var(--button-default-borderColor-rest, var(--borderColor-default));
+  border-color: var(--button-default-borderColor-rest);
   font-family: inherit;
   font-weight: var(--base-text-weight-medium);
   font-size: var(--text-body-size-medium);

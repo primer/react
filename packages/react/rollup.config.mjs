@@ -134,19 +134,35 @@ const baseConfig = {
           importFrom: [
             () => {
               let customProperties = {}
-              const filePaths = glob.sync(['**/*.json'], {
-                cwd: path.join(__dirname, '../../node_modules/@primer/primitives/dist/fallbacks/'),
-                ignore: ['color-fallbacks.json'],
+              const filePaths = glob.sync(['fallbacks/**/*.json', 'docs/functional/themes/light.json'], {
+                cwd: path.join(__dirname, '../../node_modules/@primer/primitives/dist/'),
+                ignore: ['fallbacks/color-fallbacks.json'],
               })
 
               for (const filePath of filePaths) {
                 const fileData = fs.readFileSync(
-                  path.join(__dirname, '../../node_modules/@primer/primitives/dist/fallbacks/', filePath),
+                  path.join(__dirname, '../../node_modules/@primer/primitives/dist/', filePath),
                   'utf8',
                 )
+
+                if (fileData.includes('--color-border-default')) {
+                  console.log(filePath)
+                }
+
+                const jsonData = JSON.parse(fileData)
+                let result = {}
+
+                if (filePath === 'docs/functional/themes/light.json') {
+                  for (const variable of Object.keys(jsonData)) {
+                    result[`--${variable}`] = jsonData[variable].value
+                  }
+                } else {
+                  result = jsonData
+                }
+
                 customProperties = {
                   ...customProperties,
-                  ...JSON.parse(fileData),
+                  ...result,
                 }
               }
 
