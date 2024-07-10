@@ -57,14 +57,6 @@
   font-size: var(--text-body-size-small);
 }
 
-.ButtonBase[data-component='IconButton'] {
-  display: inline-grid;
-  padding: unset;
-  place-content: center;
-  width: 32px;
-  min-width: unset;
-}
-
 .ButtonBase[data-size='small'] {
   padding: 0 8px;
   height: 28px;
@@ -84,11 +76,6 @@
   margin-right: 4px;
 }
 
-.ButtonBase[data-size='small'][data-component='IconButton'] {
-  width: 28px;
-  padding: unset;
-}
-
 .ButtonBase[data-size='large'] {
   padding: 0 16px;
   height: 40px;
@@ -97,11 +84,6 @@
 
 .ButtonBase[data-size='large'] [data-component='buttonContent'] > :not(:last-child) {
   margin-right: 8px;
-}
-
-.ButtonBase[data-size='large'][data-component='IconButton'] {
-  width: 40px;
-  padding: unset;
 }
 
 /* Button styles ------------------------------------------------------------ */
@@ -206,7 +188,7 @@
 }
 
 .ButtonBase[data-variant='default']:disabled {
-  color: var(--primer-fg-disabled);
+  color: var(--control-fgColor-disabled);
   border-color: var(--button-default-borderColor-disabled);
   background-color: var(--button-default-bgColor-disabled);
 }
@@ -381,4 +363,28 @@
 
 .ButtonBase[data-variant='invisible']:has([data-component='ButtonCounter']) {
   color: var(--buttonCounter-invisible-bgColor-rest);
+}
+
+.ButtonBase[data-variant='invisible'][data-no-visuals] {
+  color: var(--button-invisible-fgColor-rest);
+}
+
+/* IconButton --------------------------------------------------------------- */
+.ButtonBase[data-component='IconButton'] {
+  display: inline-grid;
+  padding: unset;
+  place-content: center;
+  width: 32px;
+  min-width: unset;
+  color: var(--fgColor-muted);
+}
+
+.ButtonBase[data-size='small'][data-component='IconButton'] {
+  width: 28px;
+  padding: unset;
+}
+
+.ButtonBase[data-size='large'][data-component='IconButton'] {
+  width: 40px;
+  padding: unset;
 }
