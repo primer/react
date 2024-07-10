@@ -5,8 +5,10 @@
 .Blankslate {
   --blankslate-outer-padding-block: var(--base-size-32);
   --blankslate-outer-padding-inline: var(--base-size-32);
+
   display: grid;
   justify-items: center;
+  /* stylelint-disable-next-line primer/spacing */
   padding: var(--blankslate-outer-padding-block) var(--blankslate-outer-padding-inline);
 }
 
@@ -16,19 +18,19 @@
 }
 
 .Blankslate[data-border='true'] {
-  /* border: var(--borderWidth-thin) solid var(--borderColor-default, ${get('colors.border.default')}); */
   border: var(--borderWidth-thin) solid var(--borderColor-default);
   border-radius: var(--borderRadius-medium);
 }
 
 .Blankslate[data-narrow='true'] {
-  margin: 0 auto;
   max-width: 485px;
+  margin: 0 auto;
 }
 
 .BlankslateHeading,
 .BlankslateDescription {
   margin: 0;
+  /* stylelint-disable-next-line primer/spacing */
   margin-bottom: var(--stack-gap-condensed);
 }
 
@@ -38,20 +40,22 @@
 }
 
 .BlankslateDescription {
-  /* color: var(--fgColor-muted, ${get('colors.fg.muted')}); */
-  color: var(--fgColor-muted);
   font-size: var(--text-body-size-large);
+  color: var(--fgColor-muted);
 }
 
 .BlankslateAction {
+  /* stylelint-disable-next-line primer/spacing */
   margin-top: var(--stack-gap-normal);
 }
 
 .BlankslateAction:first-of-type {
+  /* stylelint-disable-next-line primer/spacing */
   margin-top: var(--stack-gap-spacious);
 }
 
 .BlankslateAction:last-of-type {
+  /* stylelint-disable-next-line primer/spacing */
   margin-bottom: var(--stack-gap-condensed);
 }
 
@@ -68,10 +72,12 @@
   }
 
   .BlankslateVisual {
-    margin-bottom: var(--stack-gap-condensed);
     max-width: var(--base-size-24);
+    /* stylelint-disable-next-line primer/spacing */
+    margin-bottom: var(--stack-gap-condensed);
   }
 
+  /* stylelint-disable-next-line selector-max-type */
   .BlankslateVisual svg {
     width: 100%;
   }
@@ -85,14 +91,17 @@
   }
 
   .BlankslateAction {
+    /* stylelint-disable-next-line primer/spacing */
     margin-top: var(--stack-gap-condensed);
   }
 
   .BlankslateAction:first-of-type {
+    /* stylelint-disable-next-line primer/spacing */
     margin-top: var(--stack-gap-normal);
   }
 
   .BlankslateAction:last-of-type {
+    /* stylelint-disable-next-line primer/spacing */
     margin-bottom: calc(var(--stack-gap-condensed) / 2);
   }
 }
