@@ -1,5 +1,3 @@
-import type {ComponentType, PropsWithChildren} from 'react'
-
 /**
  * Extract a component's props
  *
@@ -7,7 +5,7 @@ import type {ComponentType, PropsWithChildren} from 'react'
  *
  * @example ComponentProps<typeof MyComponent>
  */
-export type ComponentProps<T> = T extends ComponentType<PropsWithChildren<infer Props>>
+export type ComponentProps<T> = T extends React.ComponentType<React.PropsWithChildren<infer Props>>
   ? Props extends object
     ? Props
     : never

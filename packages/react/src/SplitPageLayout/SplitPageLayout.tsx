@@ -1,5 +1,4 @@
 import React from 'react'
-import type {FC, PropsWithChildren} from 'react'
 import type {SxProp} from '..'
 import type {
   PageLayoutContentProps,
@@ -20,7 +19,7 @@ export type SplitPageLayoutProps = SxProp
  * @primerstatus alpha
  * @primera11yreviewed true
  */
-export const SplitPageLayout: FC<PropsWithChildren<SplitPageLayoutProps>> = props => {
+export const SplitPageLayout: React.FC<React.PropsWithChildren<SplitPageLayoutProps>> = props => {
   return (
     <PageLayout
       containerWidth="full"
@@ -46,7 +45,7 @@ export type SplitPageLayoutHeaderProps = PageLayoutHeaderProps
  * @alias SplitPageLayout.Header
  * @primerparentid split_page_layout
  */
-export const Header: FC<PropsWithChildren<SplitPageLayoutHeaderProps>> = ({
+export const Header: React.FC<React.PropsWithChildren<SplitPageLayoutHeaderProps>> = ({
   padding = 'normal',
   divider = 'line',
   ...props
@@ -65,7 +64,7 @@ export type SplitPageLayoutContentProps = PageLayoutContentProps
  * @alias SplitPageLayout.Content
  * @primerparentid split_page_layout
  */
-export const Content: FC<PropsWithChildren<SplitPageLayoutContentProps>> = ({
+export const Content: React.FC<React.PropsWithChildren<SplitPageLayoutContentProps>> = ({
   width = 'large',
   padding = 'normal',
   ...props
@@ -82,7 +81,7 @@ export type SplitPageLayoutPaneProps = PageLayoutPaneProps
  * @alias SplitPageLayout.Pane
  * @primerparentid split_page_layout
  */
-export const Pane: FC<PropsWithChildren<SplitPageLayoutPaneProps>> = ({
+export const Pane: React.FC<React.PropsWithChildren<SplitPageLayoutPaneProps>> = ({
   position = 'start',
   sticky = true,
   padding = 'normal',
@@ -110,7 +109,7 @@ export type SplitPageLayoutFooterProps = PageLayoutFooterProps
  * @alias SplitPageLayout.Footer
  * @primerparentid split_page_layout
  */
-export const Footer: FC<PropsWithChildren<SplitPageLayoutFooterProps>> = ({
+export const Footer: React.FC<React.PropsWithChildren<SplitPageLayoutFooterProps>> = ({
   padding = 'normal',
   divider = 'line',
   ...props

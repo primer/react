@@ -1,10 +1,9 @@
-import {type FC, type PropsWithChildren, type RefObject, type MutableRefObject} from 'react'
 import React, {useState, useCallback, useRef, forwardRef} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {ActionList} from '../ActionList'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import styled from 'styled-components'
-import sx, {type SxProp} from '../sx'
+import sx from '../sx'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
@@ -180,7 +179,7 @@ const overflowEffect = (
  * @primerstatus alpha
  * @primera11yreviewed true
  */
-export const ActionBar: FC<PropsWithChildren<ActionBarProps>> = props => {
+export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = props => {
   const {size = 'medium', children, 'aria-label': ariaLabel} = props
   const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
   const setChildrenWidth = useCallback((size: ChildSize) => {
@@ -221,7 +220,7 @@ export const ActionBar: FC<PropsWithChildren<ActionBarProps>> = props => {
     const navWidth = resizeObserverEntries[0].contentRect.width
     const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
     navWidth !== 0 && overflowEffect(navWidth, moreMenuWidth, validChildren, childWidthArray, updateListAndMenu)
-  }, navRef as RefObject<HTMLElement>)
+  }, navRef as React.RefObject<HTMLElement>)
 
   const [isWidgetOpen, setIsWidgetOpen] = useState(false)
 
@@ -314,11 +313,11 @@ export const ActionBar: FC<PropsWithChildren<ActionBarProps>> = props => {
  */
 export const ActionBarIconButton = forwardRef<HTMLButtonElement, ActionBarIconButtonProps>((props, forwardedRef) => {
   const backupRef = useRef<HTMLElement>(null)
-  const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
+  const ref = (forwardedRef ?? backupRef) as React.RefObject<HTMLAnchorElement>
   const {size, setChildrenWidth} = React.useContext(ActionBarContext)
   useIsomorphicLayoutEffect(() => {
     const text = props['aria-label'] ? props['aria-label'] : ''
-    const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
+    const domRect = (ref as React.MutableRefObject<HTMLElement>).current.getBoundingClientRect()
     setChildrenWidth({text, width: domRect.width})
   }, [ref, setChildrenWidth])
   return <IconButton ref={ref} size={size} {...props} variant="invisible" />
@@ -340,7 +339,7 @@ export const VerticalDivider = () => {
   const {size, setChildrenWidth} = React.useContext(ActionBarContext)
   useIsomorphicLayoutEffect(() => {
     const text = 'divider'
-    const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
+    const domRect = (ref as React.MutableRefObject<HTMLElement>).current.getBoundingClientRect()
     setChildrenWidth({text, width: domRect.width})
   }, [ref, setChildrenWidth])
   return (

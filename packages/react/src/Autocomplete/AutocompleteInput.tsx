@@ -1,5 +1,5 @@
 import type {ChangeEventHandler, FocusEventHandler, KeyboardEventHandler} from 'react'
-import React, {forwardRef, useCallback, useContext, useEffect, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {AutocompleteContext} from './AutocompleteContext'
 import {TextInput} from '../TextInput'
@@ -22,7 +22,7 @@ const ARROW_KEYS_NAV = new Set(['ArrowUp', 'ArrowDown'])
  * @alias Autocomplete.Input
  * @primerparentid autocomplete
  */
-export const AutocompleteInput = forwardRef(
+export const AutocompleteInput = React.forwardRef(
   (
     {
       as: Component = TextInput,

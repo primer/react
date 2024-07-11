@@ -21262,14 +21262,10 @@
         "defaultValue": null,
         "description": "Used when associating the input group with a label other than `CheckboxOrRadioGroup.Label`",
         "name": "aria-labelledby",
-        "parent": {
-          "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-          "name": "CheckboxOrRadioGroupProps"
-        },
         "declarations": [
           {
             "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-            "name": "CheckboxOrRadioGroupProps"
+            "name": "TypeLiteral"
           }
         ],
         "required": false,
@@ -21287,14 +21283,10 @@
         "defaultValue": null,
         "description": "Whether the input group allows user input",
         "name": "disabled",
-        "parent": {
-          "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-          "name": "CheckboxOrRadioGroupProps"
-        },
         "declarations": [
           {
             "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-            "name": "CheckboxOrRadioGroupProps"
+            "name": "TypeLiteral"
           }
         ],
         "required": false,
@@ -21315,14 +21307,10 @@
         "defaultValue": null,
         "description": "The unique identifier for this input group. Used to associate the label, validation text, and caption text.\nYou may want a custom ID to make it easier to select elements in integration tests.",
         "name": "id",
-        "parent": {
-          "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-          "name": "CheckboxOrRadioGroupProps"
-        },
         "declarations": [
           {
             "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-            "name": "CheckboxOrRadioGroupProps"
+            "name": "TypeLiteral"
           }
         ],
         "required": false,
@@ -21340,14 +21328,10 @@
         "defaultValue": null,
         "description": "If true, the user must make a selection before the owning form can be submitted",
         "name": "required",
-        "parent": {
-          "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-          "name": "CheckboxOrRadioGroupProps"
-        },
         "declarations": [
           {
             "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-            "name": "CheckboxOrRadioGroupProps"
+            "name": "TypeLiteral"
           }
         ],
         "required": false,
@@ -40848,6 +40832,123 @@
   },
   {
     "tags": {
+      "alias": "ProgressBar.Item",
+      "primerparentid": "progress_bar"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ProgressBar/ProgressBar.tsx",
+    "description": "A segment of a ProgressBar with multiple parts.",
+    "displayName": "Item",
+    "methods": [],
+    "props": {
+      "progress": {
+        "defaultValue": {
+          "value": "0"
+        },
+        "description": "Used to set the size of the green bar",
+        "name": "progress",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/ProgressBar/ProgressBar.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "string | number",
+          "value": [
+            {
+              "value": "string"
+            },
+            {
+              "value": "number"
+            }
+          ]
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "BetterSystemStyleObject",
+          "value": [
+            {
+              "value": "null"
+            },
+            {
+              "value": "SystemCssProperties",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "CSSPseudoSelectorProps",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "CSSSelectorObject",
+              "description": "Map all nested selectors",
+              "fullComment": "Map all nested selectors",
+              "tags": {}
+            },
+            {
+              "value": "VariantProperty",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "UseThemeFunction",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "EmotionLabel",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "BetterCssProperties",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "CSSCustomProperties",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "CSSSelectorObject",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "tags": {
       "primerid": "progress_bar",
       "primerstatus": "alpha",
       "primera11yreviewed": "false"
@@ -41058,123 +41159,6 @@
             },
             {
               "value": "number"
-            }
-          ]
-        }
-      }
-    }
-  },
-  {
-    "tags": {
-      "alias": "ProgressBar.Item",
-      "primerparentid": "progress_bar"
-    },
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ProgressBar/ProgressBar.tsx",
-    "description": "A segment of a ProgressBar with multiple parts.",
-    "displayName": "Item",
-    "methods": [],
-    "props": {
-      "progress": {
-        "defaultValue": {
-          "value": "0"
-        },
-        "description": "Used to set the size of the green bar",
-        "name": "progress",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/ProgressBar/ProgressBar.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "string | number",
-          "value": [
-            {
-              "value": "string"
-            },
-            {
-              "value": "number"
-            }
-          ]
-        }
-      },
-      "sx": {
-        "defaultValue": null,
-        "description": "A style object used to override styles using styled-components",
-        "name": "sx",
-        "parent": {
-          "fileName": "react/packages/react/src/sx.ts",
-          "name": "SxProp"
-        },
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/sx.ts",
-            "name": "SxProp"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "BetterSystemStyleObject",
-          "value": [
-            {
-              "value": "null"
-            },
-            {
-              "value": "SystemCssProperties",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSPseudoSelectorProps",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSSelectorObject",
-              "description": "Map all nested selectors",
-              "fullComment": "Map all nested selectors",
-              "tags": {}
-            },
-            {
-              "value": "VariantProperty",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "UseThemeFunction",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "EmotionLabel",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "BetterCssProperties",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSCustomProperties",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSSelectorObject",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
             }
           ]
         }
@@ -41488,14 +41472,10 @@
         "defaultValue": null,
         "description": "Used when associating the input group with a label other than `CheckboxOrRadioGroup.Label`",
         "name": "aria-labelledby",
-        "parent": {
-          "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-          "name": "CheckboxOrRadioGroupProps"
-        },
         "declarations": [
           {
             "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-            "name": "CheckboxOrRadioGroupProps"
+            "name": "TypeLiteral"
           }
         ],
         "required": false,
@@ -41513,14 +41493,10 @@
         "defaultValue": null,
         "description": "Whether the input group allows user input",
         "name": "disabled",
-        "parent": {
-          "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-          "name": "CheckboxOrRadioGroupProps"
-        },
         "declarations": [
           {
             "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-            "name": "CheckboxOrRadioGroupProps"
+            "name": "TypeLiteral"
           }
         ],
         "required": false,
@@ -41541,14 +41517,10 @@
         "defaultValue": null,
         "description": "The unique identifier for this input group. Used to associate the label, validation text, and caption text.\nYou may want a custom ID to make it easier to select elements in integration tests.",
         "name": "id",
-        "parent": {
-          "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-          "name": "CheckboxOrRadioGroupProps"
-        },
         "declarations": [
           {
             "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-            "name": "CheckboxOrRadioGroupProps"
+            "name": "TypeLiteral"
           }
         ],
         "required": false,
@@ -41566,14 +41538,10 @@
         "defaultValue": null,
         "description": "If true, the user must make a selection before the owning form can be submitted",
         "name": "required",
-        "parent": {
-          "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-          "name": "CheckboxOrRadioGroupProps"
-        },
         "declarations": [
           {
             "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-            "name": "CheckboxOrRadioGroupProps"
+            "name": "TypeLiteral"
           }
         ],
         "required": false,
@@ -78531,7 +78499,7 @@
     "props": {
       "aria-labelledby": {
         "defaultValue": null,
-        "description": "The ID of the element that labels the region",
+        "description": "",
         "name": "aria-labelledby",
         "declarations": [
           {
@@ -78552,7 +78520,7 @@
       },
       "className": {
         "defaultValue": null,
-        "description": "Accepts class names for custom styling",
+        "description": "",
         "name": "className",
         "declarations": [
           {
@@ -78567,6 +78535,279 @@
           "value": [
             {
               "value": "string"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/internal/components/TextInputInnerAction.tsx",
+    "description": "",
+    "displayName": "TextInputInnerAction",
+    "methods": [],
+    "props": {
+      "children": {
+        "defaultValue": null,
+        "description": "@deprecated Text input action buttons should only use icon buttons",
+        "name": "children",
+        "parent": {
+          "fileName": "react/node_modules/@types/react/index.d.ts",
+          "name": "DOMAttributes"
+        },
+        "declarations": [
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "DOMAttributes"
+          },
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputInnerAction.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "ReactNode",
+          "value": [
+            {
+              "value": "null"
+            },
+            {
+              "value": "string"
+            },
+            {
+              "value": "number"
+            },
+            {
+              "value": "false"
+            },
+            {
+              "value": "true"
+            },
+            {
+              "value": "ReactElement<any, string | JSXElementConstructor<any>>",
+              "description": "Represents a JSX element.\n\nWhere {@link ReactNode} represents everything that can be rendered, `ReactElement`\nonly represents JSX.",
+              "fullComment": "Represents a JSX element.\n\nWhere {@link ReactNode} represents everything that can be rendered, `ReactElement`\nonly represents JSX.\n@template P The type of the props object\n@template T The type of the component or tag\n@example ```tsx\nconst element: ReactElement = <div />;\n```",
+              "tags": {
+                "template": "P The type of the props object\nT The type of the component or tag",
+                "example": "```tsx\nconst element: ReactElement = <div />;\n```"
+              }
+            },
+            {
+              "value": "Iterable<ReactNode>",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "ReactPortal",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            }
+          ]
+        }
+      },
+      "aria-label": {
+        "defaultValue": null,
+        "description": "Text that appears in a tooltip. If an icon is passed, this is also used as the label used by assistive technologies.",
+        "name": "aria-label",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputInnerAction.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "string",
+          "value": [
+            {
+              "value": "string"
+            }
+          ]
+        }
+      },
+      "tooltipDirection": {
+        "defaultValue": null,
+        "description": "Position of tooltip. If no position is passed or defaults to \"n\"",
+        "name": "tooltipDirection",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputInnerAction.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "\"s\" | \"nw\" | \"n\" | \"ne\" | \"e\" | \"se\" | \"sw\" | \"w\"",
+          "value": [
+            {
+              "value": "\"s\""
+            },
+            {
+              "value": "\"nw\""
+            },
+            {
+              "value": "\"n\""
+            },
+            {
+              "value": "\"ne\""
+            },
+            {
+              "value": "\"e\""
+            },
+            {
+              "value": "\"se\""
+            },
+            {
+              "value": "\"sw\""
+            },
+            {
+              "value": "\"w\""
+            }
+          ]
+        }
+      },
+      "icon": {
+        "defaultValue": null,
+        "description": "The icon to render inside the button",
+        "name": "icon",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputInnerAction.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "FunctionComponent<PropsWithChildren<IconProps>>",
+          "value": [
+            {
+              "value": "FunctionComponent<PropsWithChildren<IconProps>>",
+              "description": "Represents the type of a function component. Can optionally\nreceive a type argument that represents the props the component\naccepts.",
+              "fullComment": "Represents the type of a function component. Can optionally\nreceive a type argument that represents the props the component\naccepts.\n@template P The props the component accepts.\n@see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components React TypeScript Cheatsheet}\n@example ```tsx\n// With props:\ntype Props = { name: string }\n\nconst MyComponent: FunctionComponent<Props> = (props) => {\n return <div>{props.name}</div>\n}\n```\n@example ```tsx\n// Without props:\nconst MyComponentWithoutProps: FunctionComponent = () => {\n  return <div>MyComponentWithoutProps</div>\n}\n```",
+              "tags": {
+                "template": "P The props the component accepts.",
+                "see": "{@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components React TypeScript Cheatsheet}",
+                "example": "```tsx\n// With props:\ntype Props = { name: string }\n\nconst MyComponent: FunctionComponent<Props> = (props) => {\n return <div>{props.name}</div>\n}\n```\n```tsx\n// Without props:\nconst MyComponentWithoutProps: FunctionComponent = () => {\n  return <div>MyComponentWithoutProps</div>\n}\n```"
+              }
+            }
+          ]
+        }
+      },
+      "variant": {
+        "defaultValue": {
+          "value": "invisible"
+        },
+        "description": "@deprecated Text input action buttons should only use the 'invisible' button variant\nDetermine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
+        "name": "variant",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/internal/components/TextInputInnerAction.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "VariantType",
+          "value": [
+            {
+              "value": "\"default\""
+            },
+            {
+              "value": "\"danger\""
+            },
+            {
+              "value": "\"primary\""
+            },
+            {
+              "value": "\"invisible\""
+            }
+          ]
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "BetterSystemStyleObject",
+          "value": [
+            {
+              "value": "null"
+            },
+            {
+              "value": "SystemCssProperties",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "CSSPseudoSelectorProps",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "CSSSelectorObject",
+              "description": "Map all nested selectors",
+              "fullComment": "Map all nested selectors",
+              "tags": {}
+            },
+            {
+              "value": "VariantProperty",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "UseThemeFunction",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "EmotionLabel",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "BetterCssProperties",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "CSSCustomProperties",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "CSSSelectorObject",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
             }
           ]
         }
@@ -82468,14 +82709,10 @@
         "defaultValue": null,
         "description": "Used when associating the input group with a label other than `CheckboxOrRadioGroup.Label`",
         "name": "aria-labelledby",
-        "parent": {
-          "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-          "name": "CheckboxOrRadioGroupProps"
-        },
         "declarations": [
           {
             "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-            "name": "CheckboxOrRadioGroupProps"
+            "name": "TypeLiteral"
           }
         ],
         "required": false,
@@ -82495,14 +82732,10 @@
         },
         "description": "Whether the input group allows user input",
         "name": "disabled",
-        "parent": {
-          "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-          "name": "CheckboxOrRadioGroupProps"
-        },
         "declarations": [
           {
             "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-            "name": "CheckboxOrRadioGroupProps"
+            "name": "TypeLiteral"
           }
         ],
         "required": false,
@@ -82523,14 +82756,10 @@
         "defaultValue": null,
         "description": "The unique identifier for this input group. Used to associate the label, validation text, and caption text.\nYou may want a custom ID to make it easier to select elements in integration tests.",
         "name": "id",
-        "parent": {
-          "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-          "name": "CheckboxOrRadioGroupProps"
-        },
         "declarations": [
           {
             "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-            "name": "CheckboxOrRadioGroupProps"
+            "name": "TypeLiteral"
           }
         ],
         "required": false,
@@ -82550,14 +82779,10 @@
         },
         "description": "If true, the user must make a selection before the owning form can be submitted",
         "name": "required",
-        "parent": {
-          "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-          "name": "CheckboxOrRadioGroupProps"
-        },
         "declarations": [
           {
             "fileName": "react/packages/react/src/internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroup.tsx",
-            "name": "CheckboxOrRadioGroupProps"
+            "name": "TypeLiteral"
           }
         ],
         "required": false,

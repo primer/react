@@ -1,11 +1,11 @@
-import React, {type PropsWithChildren} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import {Button} from '../Button'
 import Link from '../Link'
 import {get} from '../constants'
 
-export type BlankslateProps = PropsWithChildren<{
+export type BlankslateProps = React.PropsWithChildren<{
   /**
    * Add a border around this component
    */

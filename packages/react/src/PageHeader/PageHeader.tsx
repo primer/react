@@ -1,5 +1,4 @@
 import React, {forwardRef, useEffect} from 'react'
-import type {FC, PropsWithChildren} from 'react'
 import {Box} from '..'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
@@ -71,7 +70,6 @@ const hiddenOnNarrow = {
 export type PageHeaderProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType | 'header' | 'div'
-  /** Class name(s) to override styles */
   className?: string
 } & SxProp
 
@@ -82,7 +80,7 @@ export type PageHeaderProps = {
  * @primerstatus draft
  * @primera11yreviewed true
  */
-export const Root = forwardRef<HTMLDivElement, PropsWithChildren<PageHeaderProps>>(
+export const Root = forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
   ({children, className, sx = {}, as = 'div'}, forwardedRef) => {
     const rootStyles = {
       display: 'grid',
@@ -191,7 +189,7 @@ export const Root = forwardRef<HTMLDivElement, PropsWithChildren<PageHeaderProps
  * @alias PageHeader.ContextArea
  * @primerparentid drafts_page_header
  */
-export const ContextArea: FC<PropsWithChildren<ChildrenPropTypes>> = ({
+export const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
   hidden = hiddenOnRegularAndWide,
@@ -275,7 +273,7 @@ export const ParentLink = forwardRef<HTMLAnchorElement, ParentLinkProps>(
  * @alias PageHeader.ContextBar
  * @primerparentid drafts_page_header
  */
-export const ContextBar: FC<PropsWithChildren<ChildrenPropTypes>> = ({
+export const ContextBar: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
   sx = {},
@@ -306,7 +304,7 @@ export const ContextBar: FC<PropsWithChildren<ChildrenPropTypes>> = ({
  * @alias PageHeader.ContextAreaActions
  * @primerparentid drafts_page_header
  */
-export const ContextAreaActions: FC<PropsWithChildren<ChildrenPropTypes>> = ({
+export const ContextAreaActions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
   sx = {},
@@ -384,7 +382,7 @@ export const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildre
  * @alias PageHeader.LeadingAction
  * @primerparentid drafts_page_header
  */
-export const LeadingAction: FC<PropsWithChildren<ChildrenPropTypes>> = ({
+export const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
   sx = {},
@@ -423,7 +421,7 @@ export const LeadingAction: FC<PropsWithChildren<ChildrenPropTypes>> = ({
  * @alias PageHeader.Breadcrumbs
  * @primerparentid drafts_page_header
  */
-export const Breadcrumbs: FC<PropsWithChildren<ChildrenPropTypes>> = ({
+export const Breadcrumbs: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
   sx = {},
@@ -460,7 +458,7 @@ export const Breadcrumbs: FC<PropsWithChildren<ChildrenPropTypes>> = ({
  * @alias PageHeader.LeadingVisual
  * @primerparentid drafts_page_header
  */
-export const LeadingVisual: FC<PropsWithChildren<ChildrenPropTypes>> = ({
+export const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
   sx = {},
@@ -501,7 +499,13 @@ export type TitleProps = {
  * @alias PageHeader.Title
  * @primerparentid drafts_page_header
  */
-export const Title: FC<PropsWithChildren<TitleProps>> = ({children, className, sx = {}, hidden = false, as = 'h2'}) => {
+export const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
+  children,
+  className,
+  sx = {},
+  hidden = false,
+  as = 'h2',
+}) => {
   const style: CSSCustomProperties = {}
   // @ts-ignore sxProp can have color attribute
   const {fontSize, lineHeight, fontWeight} = sx
@@ -539,7 +543,7 @@ export const Title: FC<PropsWithChildren<TitleProps>> = ({children, className, s
  * @alias PageHeader.TrailingVisual
  * @primerparentid drafts_page_header
  */
-export const TrailingVisual: FC<PropsWithChildren<ChildrenPropTypes>> = ({
+export const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
   sx = {},
@@ -576,7 +580,7 @@ export const TrailingVisual: FC<PropsWithChildren<ChildrenPropTypes>> = ({
  * @alias PageHeader.TrailingAction
  * @primerparentid drafts_page_header
  */
-export const TrailingAction: FC<PropsWithChildren<ChildrenPropTypes>> = ({
+export const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
   sx = {},
@@ -614,7 +618,12 @@ export const TrailingAction: FC<PropsWithChildren<ChildrenPropTypes>> = ({
  * @alias PageHeader.Actions
  * @primerparentid drafts_page_header
  */
-export const Actions: FC<PropsWithChildren<ChildrenPropTypes>> = ({children, className, sx = {}, hidden = false}) => {
+export const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
+  children,
+  className,
+  sx = {},
+  hidden = false,
+}) => {
   const style: CSSCustomProperties = {}
   // @ts-ignore sx has height attribute
   const {height} = sx
@@ -652,7 +661,7 @@ export const Actions: FC<PropsWithChildren<ChildrenPropTypes>> = ({children, cla
  * @alias PageHeader.Description
  * @primerparentid drafts_page_header
  */
-export const Description: FC<PropsWithChildren<ChildrenPropTypes>> = ({
+export const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   children,
   className,
   sx = {},
@@ -697,7 +706,7 @@ export type NavigationProps = {
  * @alias PageHeader.Navigation
  * @primerparentid drafts_page_header
  */
-export const Navigation: FC<PropsWithChildren<NavigationProps>> = ({
+export const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
   children,
   className,
   sx = {},

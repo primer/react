@@ -1,7 +1,7 @@
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import clsx from 'clsx'
 import type {To} from 'history'
-import React, {useRef, useState, type DetailedHTMLProps, type HTMLAttributes} from 'react'
+import React, {useRef, useState} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
@@ -87,7 +87,7 @@ function TabNav({
   )
 }
 
-export type TabNavLinkProps = DetailedHTMLProps<HTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> & {
+export type TabNavLinkProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> & {
   /** Used when the item is rendered using a component like React Router's `Link`. The path to navigate to. */
   to?: To
   /** Whether this item represents the current page */

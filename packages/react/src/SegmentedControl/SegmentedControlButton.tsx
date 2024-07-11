@@ -1,4 +1,5 @@
-import React, {type ButtonHTMLAttributes, type FC, type PropsWithChildren} from 'react'
+import type {ButtonHTMLAttributes} from 'react'
+import React from 'react'
 import type {IconProps} from '@primer/octicons-react'
 import styled from 'styled-components'
 import Box from '../Box'
@@ -28,7 +29,7 @@ const SegmentedControlButtonStyled = styled.button`
  * @alias SegmentedControl.Button
  * @primerparentid segmented_control
  */
-export const SegmentedControlButton: FC<PropsWithChildren<SegmentedControlButtonProps>> = ({
+export const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlButtonProps>> = ({
   children,
   leadingIcon: LeadingIcon,
   selected,

@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
@@ -101,7 +101,7 @@ const StyledLabel = styled.span<LabelProps>`
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-const Label = forwardRef(function Label({as, size = 'small', variant = 'default', ...rest}, ref) {
+const Label = React.forwardRef(function Label({as, size = 'small', variant = 'default', ...rest}, ref) {
   return <StyledLabel as={as} size={size} variant={variant} ref={ref} {...rest} />
 }) as PolymorphicForwardRefComponent<'span', LabelProps>
 

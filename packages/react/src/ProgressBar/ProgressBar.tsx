@@ -1,4 +1,4 @@
-import React, {forwardRef, type HTMLAttributes} from 'react'
+import React, {forwardRef} from 'react'
 import styled, {keyframes} from 'styled-components'
 import type {WidthProps} from 'styled-system'
 import {width} from 'styled-system'
@@ -18,6 +18,28 @@ type ProgressProp = {
 const shimmer = keyframes`
   from { mask-position: 200%; }
   to { mask-position: 0%; }
+`
+
+/**
+ * A segment of a ProgressBar with multiple parts.
+ * @alias ProgressBar.Item
+ * @primerparentid progress_bar
+ */
+export const Item = styled.span<ProgressProp & SxProp>`
+  width: ${props => (props.progress ? `${props.progress}%` : 0)};
+  background-color: ${get('colors.success.emphasis')};
+
+  @media (prefers-reduced-motion: no-preference) {
+    &[data-animated='true'] {
+      mask-image: linear-gradient(75deg, #000 30%, rgba(0, 0, 0, 0.65) 80%);
+      mask-size: 200%;
+      animation: ${shimmer};
+      animation-duration: 1s;
+      animation-iteration-count: infinite;
+    }
+  }
+
+  ${sx};
 `
 
 const sizeMap = {
@@ -54,7 +76,7 @@ const ProgressContainer = styled.span<StyledProgressContainerProps>`
   ${sx};
 `
 
-export type ProgressBarProps = HTMLAttributes<HTMLSpanElement> & {
+export type ProgressBarProps = React.HTMLAttributes<HTMLSpanElement> & {
   /**
    * Set the progress bar color
    * @default bg.successInverse
@@ -101,25 +123,3 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
     )
   },
 )
-
-/**
- * A segment of a ProgressBar with multiple parts.
- * @alias ProgressBar.Item
- * @primerparentid progress_bar
- */
-export const Item = styled.span<ProgressProp & SxProp>`
-  width: ${props => (props.progress ? `${props.progress}%` : 0)};
-  background-color: ${get('colors.success.emphasis')};
-
-  @media (prefers-reduced-motion: no-preference) {
-    &[data-animated='true'] {
-      mask-image: linear-gradient(75deg, #000 30%, rgba(0, 0, 0, 0.65) 80%);
-      mask-size: 200%;
-      animation: ${shimmer};
-      animation-duration: 1s;
-      animation-iteration-count: infinite;
-    }
-  }
-
-  ${sx};
-`

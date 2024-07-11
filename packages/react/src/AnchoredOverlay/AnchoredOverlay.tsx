@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect} from 'react'
-import type {FC, PropsWithChildren} from 'react'
 import type {OverlayProps} from '../Overlay'
 import Overlay from '../Overlay'
 import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
@@ -93,7 +92,7 @@ export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-export const AnchoredOverlay: FC<PropsWithChildren<AnchoredOverlayProps>> = ({
+export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayProps>> = ({
   renderAnchor,
   anchorRef: externalAnchorRef,
   anchorId: externalAnchorId,

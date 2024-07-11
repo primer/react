@@ -1,5 +1,4 @@
 import React, {useRef, useState} from 'react'
-import type {FC, PropsWithChildren} from 'react'
 import type {SegmentedControlButtonProps} from './SegmentedControlButton'
 import {SegmentedControlButton} from './SegmentedControlButton'
 import type {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
@@ -51,7 +50,7 @@ const getSegmentedControlStyles = (props: {isFullWidth?: boolean; size?: Segment
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-export const SegmentedControl: FC<PropsWithChildren<SegmentedControlProps>> = ({
+export const SegmentedControl: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledby,
   children,

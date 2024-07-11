@@ -45,7 +45,6 @@ const darkModeStyles = {
 
 /**
  * An abstraction of Token that includes a color fill to render a token in the style of GitHub issue labels.
- * @primerparentid token
  */
 const IssueLabelToken = forwardRef((props, forwardedRef) => {
   const {

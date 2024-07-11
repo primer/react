@@ -1,11 +1,10 @@
 import React from 'react'
-import type {FC, PropsWithChildren} from 'react'
 import Box from '../../Box'
 import Spinner from '../../Spinner'
 import type {TextInputNonPassthroughProps} from '../../TextInput'
 
-const TextInputInnerVisualSlot: FC<
-  PropsWithChildren<{
+const TextInputInnerVisualSlot: React.FC<
+  React.PropsWithChildren<{
     /** Whether the input is expected to ever show a loading indicator */
     hasLoadingIndicator: boolean
     /** Whether the to show the loading indicator */

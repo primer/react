@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 import Box from '../Box'
@@ -29,7 +29,7 @@ const LiBox = styled.li<SxProp>(sx)
  * @alias ActionList.Item
  * @primerparentid action_list
  */
-export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
+export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
   (
     {
       variant = 'default',

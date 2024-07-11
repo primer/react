@@ -1,4 +1,4 @@
-import React, {forwardRef, useEffect, useState, type MutableRefObject, type FC} from 'react'
+import React, {useEffect, useState, type MutableRefObject} from 'react'
 import {SearchIcon, XCircleFillIcon, XIcon, FilterRemoveIcon, AlertIcon, ArrowLeftIcon} from '@primer/octicons-react'
 
 import type {ButtonProps, TextInputProps, ActionListProps, LinkProps, CheckboxProps} from '../../index'
@@ -80,7 +80,7 @@ export type SelectPanelProps = {
  * @primerstatus draft
  * @primera11yreviewed false
  */
-export const Panel: FC<SelectPanelProps> = ({
+export const Panel: React.FC<SelectPanelProps> = ({
   title,
   description,
   variant: propsVariant,
@@ -360,7 +360,7 @@ export const Panel: FC<SelectPanelProps> = ({
  * @alias SelectPanel.Button
  * @primerparentid select_panel_v2
  */
-export const SelectPanelButton = forwardRef<HTMLButtonElement, ButtonProps>((props, anchorRef) => {
+export const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((props, anchorRef) => {
   const inputProps = useFormControlForwardedProps(props)
   const [labelText, setLabelText] = useState('')
   useEffect(() => {
@@ -388,7 +388,7 @@ export const SelectPanelButton = forwardRef<HTMLButtonElement, ButtonProps>((pro
  * @alias SelectPanel.Header
  * @primerparentid select_panel_v2
  */
-export const SelectPanelHeader: FC<React.PropsWithChildren & {onBack?: () => void}> = ({
+export const SelectPanelHeader: React.FC<React.PropsWithChildren & {onBack?: () => void}> = ({
   children,
   onBack,
   ...props
@@ -470,7 +470,7 @@ export const SelectPanelHeader: FC<React.PropsWithChildren & {onBack?: () => voi
  * @alias SelectPanel.SearchInput
  * @primerparentid select_panel_v2
  */
-export const SelectPanelSearchInput: FC<TextInputProps> = ({
+export const SelectPanelSearchInput: React.FC<TextInputProps> = ({
   onChange: propsOnChange,
   onKeyDown: propsOnKeyDown,
   ...props
@@ -578,12 +578,12 @@ export const SelectPanelFooter = ({...props}) => {
   )
 }
 
-const SecondaryButton: FC<ButtonProps> = props => {
+const SecondaryButton: React.FC<ButtonProps> = props => {
   const size = useResponsiveValue(responsiveButtonSizes, 'small')
   return <Button type="button" size={size} block {...props} />
 }
 
-const SecondaryLink: FC<LinkProps> = props => {
+const SecondaryLink: React.FC<LinkProps> = props => {
   const size = useResponsiveValue(responsiveButtonSizes, 'small')
   return (
     // @ts-ignore TODO: is as prop is not recognised by button?
@@ -593,7 +593,7 @@ const SecondaryLink: FC<LinkProps> = props => {
   )
 }
 
-const SecondaryCheckbox: FC<CheckboxProps> = ({id, children, ...props}) => {
+const SecondaryCheckbox: React.FC<CheckboxProps> = ({id, children, ...props}) => {
   const checkboxId = useId(id)
   const {selectionVariant} = React.useContext(SelectPanelContext)
 
@@ -624,7 +624,7 @@ export type SelectPanelSecondaryActionProps = {children: React.ReactNode} & (
  * @alias SelectPanel.SecondaryAction
  * @primerparentid select_panel_v2
  */
-export const SelectPanelSecondaryAction: FC<SelectPanelSecondaryActionProps> = ({variant, ...props}) => {
+export const SelectPanelSecondaryAction: React.FC<SelectPanelSecondaryActionProps> = ({variant, ...props}) => {
   const insideFooter = React.useContext(FooterContext)
   invariant(insideFooter, 'SelectPanel.SecondaryAction is only allowed inside SelectPanel.Footer')
 
@@ -681,7 +681,7 @@ export type SelectPanelMessageProps = {children: React.ReactNode} & (
  * @alias SelectPanel.Message
  * @primerparentid select_panel_v2
  */
-export const SelectPanelMessage: FC<SelectPanelMessageProps> = ({
+export const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
   variant = 'warning',
   size = variant === 'empty' ? 'full' : 'inline',
   title,

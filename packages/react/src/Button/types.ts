@@ -1,5 +1,4 @@
 import type React from 'react'
-import {type ButtonHTMLAttributes} from 'react'
 import styled from 'styled-components'
 import type {SxProp} from '../sx'
 import sx from '../sx'
@@ -48,7 +47,7 @@ export type ButtonBaseProps = {
    */
   labelWrap?: boolean
 } & SxProp &
-  ButtonHTMLAttributes<HTMLButtonElement>
+  React.ButtonHTMLAttributes<HTMLButtonElement>
 
 export type ButtonProps = {
   /**

@@ -1,6 +1,6 @@
 import styled, {css} from 'styled-components'
 import type {TextareaHTMLAttributes, ReactElement} from 'react'
-import React, {forwardRef} from 'react'
+import React from 'react'
 import {TextInputBaseWrapper} from '../internal/components/TextInputWrapper'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import type {SxProp} from '../sx'
@@ -69,7 +69,7 @@ const StyledTextarea = styled.textarea<TextareaProps>`
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
+const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   (
     {
       value,

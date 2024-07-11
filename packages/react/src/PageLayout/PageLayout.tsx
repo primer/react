@@ -1,5 +1,4 @@
-import React, {forwardRef, useRef} from 'react'
-import type {FC, PropsWithChildren} from 'react'
+import React, {useRef} from 'react'
 import {createGlobalStyle} from 'styled-components'
 import Box from '../Box'
 import {useId} from '../hooks/useId'
@@ -88,7 +87,7 @@ const containerWidths = {
  * @primerstatus alpha
  * @primera11yreviewed true
  */
-export const PageLayout: FC<PropsWithChildren<PageLayoutProps>> = ({
+export const PageLayout: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   containerWidth = 'xlarge',
   padding = 'normal',
   rowGap = 'normal',
@@ -177,7 +176,7 @@ function negateSpacingValue(value: number | null | Array<number | null>) {
   return value === null ? null : -value
 }
 
-const HorizontalDivider: FC<PropsWithChildren<DividerProps>> = ({variant = 'none', sx = {}}) => {
+const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({variant = 'none', sx = {}}) => {
   const {padding} = React.useContext(PageLayoutContext)
   const responsiveVariant = useResponsiveValue(variant, 'none')
   return (
@@ -239,7 +238,7 @@ const DraggingGlobalStyles = createGlobalStyle`
   }
 `
 
-const VerticalDivider: FC<PropsWithChildren<DividerProps & DraggableDividerProps>> = ({
+const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & DraggableDividerProps>> = ({
   variant = 'none',
   draggable = false,
   onDragStart,
@@ -438,7 +437,7 @@ export type PageLayoutHeaderProps = {
  * @alias PageLayout.Header
  * @primerparentid page_layout
  */
-export const Header: FC<PropsWithChildren<PageLayoutHeaderProps>> = ({
+export const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   'aria-label': label,
   'aria-labelledby': labelledBy,
   padding = 'none',
@@ -522,7 +521,7 @@ const contentWidths = {
  * @alias PageLayout.Content
  * @primerparentid page_layout
  */
-export const Content: FC<PropsWithChildren<PageLayoutContentProps>> = ({
+export const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
   as = 'main',
   'aria-label': label,
   'aria-labelledby': labelledBy,
@@ -708,7 +707,7 @@ const defaultPaneWidth = {small: 256, medium: 296, large: 320}
  * @alias PageHeader.Pane
  * @primerparentid page_layout
  */
-export const Pane = forwardRef<HTMLDivElement, PropsWithChildren<PageLayoutPaneProps>>(
+export const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
   (
     {
       'aria-label': label,
@@ -969,7 +968,7 @@ export type PageLayoutFooterProps = {
  * @alias PageHeader.Footer
  * @primerparentid page_layout
  */
-export const Footer: FC<PropsWithChildren<PageLayoutFooterProps>> = ({
+export const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
   'aria-label': label,
   'aria-labelledby': labelledBy,
   padding = 'none',

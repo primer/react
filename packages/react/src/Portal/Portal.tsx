@@ -1,5 +1,4 @@
 import React from 'react'
-import type {FC, PropsWithChildren} from 'react'
 import {createPortal} from 'react-dom'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 
@@ -69,7 +68,11 @@ export interface PortalProps {
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-export const Portal: FC<PropsWithChildren<PortalProps>> = ({children, onMount, containerName: _containerName}) => {
+export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
+  children,
+  onMount,
+  containerName: _containerName,
+}) => {
   const elementRef = React.useRef<HTMLDivElement | null>(null)
   if (!elementRef.current) {
     const div = document.createElement('div')

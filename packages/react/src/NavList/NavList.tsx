@@ -1,6 +1,6 @@
 import {ChevronDownIcon} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import React, {forwardRef, isValidElement, type ComponentProps, type FC, type PropsWithChildren} from 'react'
+import React, {isValidElement} from 'react'
 import styled from 'styled-components'
 import type {
   ActionListTrailingActionProps,
@@ -35,7 +35,7 @@ export type NavListProps = {
   /** NavList items */
   children: React.ReactNode
 } & SxProp &
-  ComponentProps<'nav'>
+  React.ComponentProps<'nav'>
 
 const NavBox = styled.nav<SxProp>(sx)
 
@@ -45,7 +45,7 @@ const NavBox = styled.nav<SxProp>(sx)
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-export const NavList = forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
+export const NavList = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
   return (
     <NavBox {...props} ref={ref}>
       <ActionListContainerContext.Provider
@@ -79,7 +79,7 @@ export type NavListItemProps = {
  * @alias NavList.Item
  * @primerparentid nav_list
  */
-export const Item = forwardRef<HTMLAnchorElement, NavListItemProps>(
+export const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
   ({'aria-current': ariaCurrent, children, defaultOpen, sx: sxProp = defaultSxProp, ...props}, ref) => {
     const {depth} = React.useContext(SubNavContext)
 
@@ -209,7 +209,10 @@ const SubNavContext = React.createContext<{depth: number}>({depth: 0})
  * @alias NavList.SubNav
  * @primerparentid nav_list
  */
-export const SubNav: FC<PropsWithChildren<NavListSubNavProps>> = ({children, sx: sxProp = defaultSxProp}) => {
+export const SubNav: React.FC<React.PropsWithChildren<NavListSubNavProps>> = ({
+  children,
+  sx: sxProp = defaultSxProp,
+}) => {
   const {buttonId, subNavId, isOpen} = React.useContext(ItemWithSubNavContext)
   const {depth} = React.useContext(SubNavContext)
 

@@ -1,4 +1,4 @@
-import React, {type FC} from 'react'
+import React from 'react'
 import Box from '../../Box'
 import {SkeletonBox} from './SkeletonBox'
 
@@ -74,7 +74,7 @@ const skeletonTextStyles = {
  * @primerstatus draft
  * @primera11yreviewed false
  */
-export const SkeletonText: FC<SkeletonTextProps> = ({lines = 1, maxWidth, size = 'bodyMedium', ...rest}) => {
+export const SkeletonText: React.FC<SkeletonTextProps> = ({lines = 1, maxWidth, size = 'bodyMedium', ...rest}) => {
   return lines < 2 ? (
     <SkeletonBox
       data-component="SkeletonText"

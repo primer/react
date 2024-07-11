@@ -7,16 +7,8 @@ import type {
   MenuContextProps,
   ActionMenuAnchorProps,
   ActionMenuButtonProps,
-  MenuOverlayProps,
 } from './ActionMenu'
 
 export const ActionMenu = Object.assign(ActionMenuImpl, {Button: MenuButton, Anchor, Overlay, Divider})
 
-export type {
-  ActionMenuProps,
-  MenuCloseHandler,
-  MenuContextProps,
-  ActionMenuAnchorProps,
-  ActionMenuButtonProps,
-  MenuOverlayProps,
-}
+export type {ActionMenuProps, MenuCloseHandler, MenuContextProps, ActionMenuAnchorProps, ActionMenuButtonProps}

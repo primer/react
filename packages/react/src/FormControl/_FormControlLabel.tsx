@@ -1,5 +1,4 @@
 import React from 'react'
-import type {FC, ComponentProps, PropsWithChildren} from 'react'
 import InputLabel from '../internal/components/InputLabel'
 import type {SxProp} from '../sx'
 import {useFormControlContext} from './_FormControlContext'
@@ -38,9 +37,9 @@ since they are intended to be controlled by the FormControl context:
  * @alias FormControl.Label
  * @primerparentid form_control
  */
-const FormControlLabel: FC<
-  PropsWithChildren<
-    ComponentProps<typeof InputLabel> & {
+const FormControlLabel: React.FC<
+  React.PropsWithChildren<
+    React.ComponentProps<typeof InputLabel> & {
       /**
        * This prop may be used to override the `htmlFor` set from FormControl's React Context.
        */

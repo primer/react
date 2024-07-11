@@ -1,4 +1,4 @@
-import React, {type FC, type PropsWithChildren} from 'react'
+import React from 'react'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
 import Box from '../Box'
@@ -36,9 +36,11 @@ function normalize(hiddenViewports: Array<Viewport> | Viewport): ResponsiveValue
  * @primerstatus draft
  * @primera11yreviewed false
  */
-export const Hidden: FC<PropsWithChildren<HiddenProps>> = ({when, children}) => {
+export const Hidden: React.FC<React.PropsWithChildren<HiddenProps>> = ({when, children}) => {
   // Get breakpoint declarations for the normalized ResponsiveValue object
   const styles = getBreakpointDeclarations(normalize(when), 'display', () => 'none')
   // Render the children with the styles
   return styles ? <Box sx={styles}>{children}</Box> : null
 }
+
+Hidden.displayName = 'Hidden'

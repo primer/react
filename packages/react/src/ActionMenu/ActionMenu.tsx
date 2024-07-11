@@ -1,4 +1,4 @@
-import React, {useCallback, useContext, useMemo, useEffect, useState, forwardRef} from 'react'
+import React, {useCallback, useContext, useMemo, useEffect, useState} from 'react'
 import type {FC, PropsWithChildren} from 'react'
 import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
@@ -150,7 +150,7 @@ export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string}
  * @alias ActionMenu.Anchor
  * @primerparentid action_menu
  */
-export const Anchor = forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, ...anchorProps}, anchorRef) => {
+export const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, ...anchorProps}, anchorRef) => {
   const {onOpen, isSubmenu} = React.useContext(MenuContext)
 
   const openSubmenuOnRightArrow: React.KeyboardEventHandler<HTMLElement> = useCallback(
@@ -162,7 +162,7 @@ export const Anchor = forwardRef<HTMLElement, ActionMenuAnchorProps>(({children,
   )
 
   // Add right chevron icon to submenu anchors rendered using `ActionList.Item`
-  const parentActionListContext = useContext(ActionListContainerContext)
+  const parentActionListContext = React.useContext(ActionListContainerContext)
   const thisActionListContext = useMemo(
     () =>
       isSubmenu
@@ -198,7 +198,7 @@ export type ActionMenuButtonProps = Omit<ButtonProps, 'children'> & {
  * @alias ActionMenu.Button
  * @primerparentid action_menu
  */
-export const MenuButton = forwardRef(({...props}, anchorRef) => {
+export const MenuButton = React.forwardRef(({...props}, anchorRef) => {
   return (
     <Anchor ref={anchorRef}>
       <Button type="button" trailingAction={TriangleDownIcon} {...props} />
@@ -206,7 +206,7 @@ export const MenuButton = forwardRef(({...props}, anchorRef) => {
   )
 }) as PolymorphicForwardRefComponent<'button', ActionMenuButtonProps>
 
-export type MenuOverlayProps = Partial<OverlayProps> &
+type MenuOverlayProps = Partial<OverlayProps> &
   Pick<AnchoredOverlayProps, 'align' | 'side'> & {
     /**
      * Recommended: `ActionList`

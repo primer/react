@@ -1,5 +1,4 @@
 import React from 'react'
-import type {FC, PropsWithChildren} from 'react'
 import InputCaption from '../internal/components/InputCaption'
 import type {SxProp} from '../sx'
 import {useFormControlContext} from './_FormControlContext'
@@ -9,8 +8,8 @@ import {useFormControlContext} from './_FormControlContext'
  * @alias FormControl.Caption
  * @primerparentid form_control
  */
-const FormControlCaption: FC<
-  PropsWithChildren<
+const FormControlCaption: React.FC<
+  React.PropsWithChildren<
     {
       /** Custom ID to override the ID set by FormControl's React Context */
       id?: string

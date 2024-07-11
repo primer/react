@@ -1,4 +1,4 @@
-import type {HTMLAttributes, PropsWithChildren} from 'react'
+import type {HTMLAttributes} from 'react'
 import React, {forwardRef} from 'react'
 import Box from '../Box'
 import type {BetterSystemStyleObject, SxProp} from '../sx'
@@ -6,7 +6,7 @@ import {merge} from '../sx'
 import VisuallyHidden from '../_VisuallyHidden'
 import {defaultSxProp} from '../utils/defaultSxProp'
 
-export type CounterLabelProps = PropsWithChildren<
+export type CounterLabelProps = React.PropsWithChildren<
   HTMLAttributes<HTMLSpanElement> & {
     /** Pass in 'primary' for a darker background and inverse text, or 'secondary' for a lighter background and primary text. Omitting the scheme prop renders the default counter scheme */
     scheme?: 'primary' | 'secondary'
@@ -20,7 +20,7 @@ export type CounterLabelProps = PropsWithChildren<
  * @primera11yreviewed false
  */
 const CounterLabel = forwardRef<HTMLSpanElement, CounterLabelProps>(
-  ({scheme = 'secondary', sx = defaultSxProp, children, ...props}: CounterLabelProps, forwardedRef) => {
+  ({scheme = 'secondary', sx = defaultSxProp, children, ...props}, forwardedRef) => {
     return (
       <>
         <Box
