@@ -128,6 +128,9 @@ export const Inactive = () => (
     <Button variant="invisible" inactive>
       Invisible
     </Button>
+    <Button inactive leadingVisual={HeartIcon} trailingVisual={EyeIcon} trailingAction={TriangleDownIcon}>
+      Visuals
+    </Button>
   </div>
 )
 
@@ -154,5 +157,43 @@ export const LabelWrap = () => {
         This button label will wrap if the label is too long
       </Button>
     </Stack>
+  )
+}
+
+export const TrailingCounterAllVariantsVRT = () => {
+  const [count, setCount] = useState(0)
+  const onClick = () => {
+    setCount(count + 1)
+    announce(`Watch ${count + 1}`)
+  }
+  return (
+    <>
+      <Stack direction="vertical" align="start">
+        <Button onClick={onClick} count={count} size="small">
+          Watch
+        </Button>
+        <Button onClick={onClick} disabled count={count}>
+          Watch
+        </Button>
+        <Button onClick={onClick} variant="primary" count={count}>
+          Watch
+        </Button>
+        <Button onClick={onClick} variant="primary" disabled count={count}>
+          Watch
+        </Button>
+        <Button onClick={onClick} variant="danger" count={count}>
+          Watch
+        </Button>
+        <Button onClick={onClick} variant="danger" disabled count={count}>
+          Watch
+        </Button>
+        <Button onClick={onClick} variant="invisible" count={count}>
+          Watch
+        </Button>
+        <Button onClick={onClick} variant="invisible" disabled count={count}>
+          Watch
+        </Button>
+      </Stack>
+    </>
   )
 }
