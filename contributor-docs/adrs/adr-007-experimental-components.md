@@ -1,4 +1,4 @@
-# ADR 008: Lowering the barrier to entry for experimental components
+# Lowering the barrier to entry for experimental components
 
 ## Status
 

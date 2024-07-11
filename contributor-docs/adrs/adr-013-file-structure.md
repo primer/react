@@ -1,4 +1,4 @@
-# ADR 12: File structure
+# File structure
 
 ## Status
 

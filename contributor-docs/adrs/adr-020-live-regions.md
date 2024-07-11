@@ -1,4 +1,4 @@
-# ADR 020: Live Regions
+# Live Regions
 
 ## Status
 
