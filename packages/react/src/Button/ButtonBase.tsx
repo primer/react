@@ -60,6 +60,7 @@ const ButtonBase = forwardRef(
         data-size={size === 'small' || size === 'large' ? size : undefined}
         data-inactive={inactive ? true : undefined}
         data-label-wrap={labelWrap}
+        data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
         data-variant={variant}
       >
         {Icon ? (
