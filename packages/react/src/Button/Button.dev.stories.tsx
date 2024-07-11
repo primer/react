@@ -1,7 +1,9 @@
+import {announce} from '@primer/live-region-element'
 import {SearchIcon, TriangleDownIcon, EyeIcon, IssueClosedIcon} from '@primer/octicons-react'
-import React from 'react'
+import React, {useState} from 'react'
 import {Button, IconButton} from '.'
 import {default as Text} from '../Text'
+import {Stack} from '../Stack'
 
 export default {
   title: 'Components/Button/DevOnly',
@@ -92,5 +94,43 @@ export const TestSxProp = () => {
         Watch
       </Button>
     </div>
+  )
+}
+
+export const TrailingCounterAllVariantsVRT = () => {
+  const [count, setCount] = useState(0)
+  const onClick = () => {
+    setCount(count + 1)
+    announce(`Watch ${count + 1}`)
+  }
+  return (
+    <>
+      <Stack direction="vertical" align="start">
+        <Button onClick={onClick} count={count} size="small">
+          Watch
+        </Button>
+        <Button onClick={onClick} disabled count={count}>
+          Watch
+        </Button>
+        <Button onClick={onClick} variant="primary" count={count}>
+          Watch
+        </Button>
+        <Button onClick={onClick} variant="primary" disabled count={count}>
+          Watch
+        </Button>
+        <Button onClick={onClick} variant="danger" count={count}>
+          Watch
+        </Button>
+        <Button onClick={onClick} variant="danger" disabled count={count}>
+          Watch
+        </Button>
+        <Button onClick={onClick} variant="invisible" count={count}>
+          Watch
+        </Button>
+        <Button onClick={onClick} variant="invisible" disabled count={count}>
+          Watch
+        </Button>
+      </Stack>
+    </>
   )
 }
