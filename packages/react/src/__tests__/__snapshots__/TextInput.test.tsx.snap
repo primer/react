@@ -1670,51 +1670,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   line-height: 0;
 }
 
-.c4 {
-  border-radius: 6px;
-  border: 1px solid;
-  border-color: transparent;
-  font-family: inherit;
-  font-weight: 500;
-  font-size: 14px;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-align: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  height: 32px;
-  padding: 0 12px;
-  gap: 8px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  -webkit-transition-property: color,fill,background-color,border-color;
-  transition-property: color,fill,background-color,border-color;
-  color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
-  background-color: transparent;
-  box-shadow: none;
-}
-
 .c4:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
@@ -1729,223 +1684,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   box-shadow: none;
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -2px;
-}
-
-.c4[href] {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c4[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c4:hover {
-  -webkit-transition-duration: 80ms;
-  transition-duration: 80ms;
-}
-
-.c4:active {
-  -webkit-transition: none;
-  transition: none;
-}
-
-.c4[data-inactive] {
-  cursor: auto;
-}
-
-.c4:disabled {
-  cursor: not-allowed;
-  box-shadow: none;
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c4:disabled [data-component=ButtonCounter],
-.c4:disabled [data-component="leadingVisual"],
-.c4:disabled [data-component="trailingAction"] {
-  color: inherit;
-}
-
-.c4 [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c4[data-component=IconButton] {
-  display: inline-grid;
-  padding: unset;
-  place-content: center;
-  width: 32px;
-  min-width: unset;
-}
-
-.c4[data-size="small"] {
-  padding: 0 8px;
-  height: 28px;
-  gap: 4px;
-  font-size: 12px;
-}
-
-.c4[data-size="small"] [data-component="text"] {
-  line-height: calc(20 / 12);
-}
-
-.c4[data-size="small"] [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c4[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 4px;
-}
-
-.c4[data-size="small"][data-component=IconButton] {
-  width: 28px;
-  padding: unset;
-}
-
-.c4[data-size="large"] {
-  padding: 0 16px;
-  height: 40px;
-  gap: 8px;
-}
-
-.c4[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c4[data-size="large"][data-component=IconButton] {
-  width: 40px;
-  padding: unset;
-}
-
-.c4[data-block="block"] {
-  width: 100%;
-}
-
-.c4[data-label-wrap="true"] {
-  min-width: -webkit-fit-content;
-  min-width: -moz-fit-content;
-  min-width: fit-content;
-  height: unset;
-  min-height: var(--control-medium-size,2rem);
-}
-
-.c4[data-label-wrap="true"] [data-component="buttonContent"] {
-  -webkit-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  -webkit-align-self: stretch;
-  -ms-flex-item-align: stretch;
-  align-self: stretch;
-  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
-}
-
-.c4[data-label-wrap="true"] [data-component="text"] {
-  white-space: unset;
-  word-break: break-word;
-}
-
-.c4[data-label-wrap="true"][data-size="small"] {
-  height: unset;
-  min-height: var(--control-small-size,1.75rem);
-}
-
-.c4[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
-  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
-}
-
-.c4[data-label-wrap="true"][data-size="large"] {
-  height: unset;
-  min-height: var(--control-large-size,2.5rem);
-  padding-inline: var(--control-large-paddingInline-spacious,1rem);
-}
-
-.c4[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
-  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
-}
-
-.c4[data-inactive]:not([disabled]) {
-  background-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
-  border-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
-  color: var(--button-inactive-fgColor,var(--button-inactive-fgColor-rest,var(--color-btn-inactive-text,#57606a)));
-}
-
-.c4[data-inactive]:not([disabled]):focus-visible {
-  box-shadow: none;
-}
-
-.c4 [data-component="leadingVisual"] {
-  grid-area: leadingVisual;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-}
-
-.c4 [data-component="text"] {
-  grid-area: text;
-  line-height: calc(20/14);
-  white-space: nowrap;
-}
-
-.c4 [data-component="trailingVisual"] {
-  grid-area: trailingVisual;
-}
-
-.c4 [data-component="trailingAction"] {
-  margin-right: -4px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-}
-
-.c4 [data-component="buttonContent"] {
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  display: grid;
-  grid-template-areas: "leadingVisual text trailingVisual";
-  grid-template-columns: min-content minmax(0,auto) min-content;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-}
-
-.c4 [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c4:hover:not([disabled]) {
-  background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
-}
-
-.c4:active:not([disabled]) {
-  background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
-}
-
-.c4[aria-expanded=true] {
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
-}
-
-.c4[data-component="IconButton"][data-no-visuals] {
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-}
-
-.c4[data-no-visuals] {
-  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-}
-
-.c4:has([data-component="ButtonCounter"]) {
-  color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
-}
-
-.c4:disabled[data-no-visuals] {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c4:disabled[data-no-visuals] [data-component=ButtonCounter] {
-  color: inherit;
 }
 
 .c4[data-size="small"][data-no-visuals] {
@@ -2168,12 +1906,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   outline: 0;
 }
 
-@media (forced-colors:active) {
-  .c4:focus {
-    outline: solid 1px transparent;
-  }
-}
-
 @media (pointer:coarse) {
   .c4[data-size="small"][data-no-visuals]:after {
     content: "";
@@ -2219,11 +1951,11 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   >
     <button
       aria-labelledby=":rl:"
-      className="c4"
+      className="c4 ButtonBase"
       data-block={null}
       data-component="IconButton"
-      data-no-visuals={true}
       data-size="small"
+      data-variant="invisible"
       onBlur={[Function]}
       onClick={[MockFunction]}
       onFocus={[Function]}
@@ -2274,58 +2006,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
   line-height: 0;
 }
 
-.c5 {
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.c4 {
-  border-radius: 6px;
-  border: 1px solid;
-  border-color: transparent;
-  font-family: inherit;
-  font-weight: 500;
-  font-size: 14px;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-align: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  height: 32px;
-  padding: 0 12px;
-  gap: 8px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  -webkit-transition-property: color,fill,background-color,border-color;
-  transition-property: color,fill,background-color,border-color;
-  color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
-  background-color: transparent;
-  box-shadow: none;
-}
-
 .c4:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
@@ -2342,209 +2022,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   outline-offset: -2px;
 }
 
-.c4[href] {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c4[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c4:hover {
-  -webkit-transition-duration: 80ms;
-  transition-duration: 80ms;
-}
-
-.c4:active {
-  -webkit-transition: none;
-  transition: none;
-}
-
-.c4[data-inactive] {
-  cursor: auto;
-}
-
-.c4:disabled {
-  cursor: not-allowed;
-  box-shadow: none;
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c4:disabled [data-component=ButtonCounter],
-.c4:disabled [data-component="leadingVisual"],
-.c4:disabled [data-component="trailingAction"] {
-  color: inherit;
-}
-
-.c4 [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c4[data-component=IconButton] {
-  display: inline-grid;
-  padding: unset;
-  place-content: center;
-  width: 32px;
-  min-width: unset;
-}
-
-.c4[data-size="small"] {
-  padding: 0 8px;
-  height: 28px;
-  gap: 4px;
-  font-size: 12px;
-}
-
-.c4[data-size="small"] [data-component="text"] {
-  line-height: calc(20 / 12);
-}
-
-.c4[data-size="small"] [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c4[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 4px;
-}
-
-.c4[data-size="small"][data-component=IconButton] {
-  width: 28px;
-  padding: unset;
-}
-
-.c4[data-size="large"] {
-  padding: 0 16px;
-  height: 40px;
-  gap: 8px;
-}
-
-.c4[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c4[data-size="large"][data-component=IconButton] {
-  width: 40px;
-  padding: unset;
-}
-
-.c4[data-block="block"] {
-  width: 100%;
-}
-
-.c4[data-label-wrap="true"] {
-  min-width: -webkit-fit-content;
-  min-width: -moz-fit-content;
-  min-width: fit-content;
-  height: unset;
-  min-height: var(--control-medium-size,2rem);
-}
-
-.c4[data-label-wrap="true"] [data-component="buttonContent"] {
-  -webkit-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  -webkit-align-self: stretch;
-  -ms-flex-item-align: stretch;
-  align-self: stretch;
-  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
-}
-
-.c4[data-label-wrap="true"] [data-component="text"] {
-  white-space: unset;
-  word-break: break-word;
-}
-
-.c4[data-label-wrap="true"][data-size="small"] {
-  height: unset;
-  min-height: var(--control-small-size,1.75rem);
-}
-
-.c4[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
-  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
-}
-
-.c4[data-label-wrap="true"][data-size="large"] {
-  height: unset;
-  min-height: var(--control-large-size,2.5rem);
-  padding-inline: var(--control-large-paddingInline-spacious,1rem);
-}
-
-.c4[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
-  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
-}
-
-.c4[data-inactive]:not([disabled]) {
-  background-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
-  border-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
-  color: var(--button-inactive-fgColor,var(--button-inactive-fgColor-rest,var(--color-btn-inactive-text,#57606a)));
-}
-
-.c4[data-inactive]:not([disabled]):focus-visible {
-  box-shadow: none;
-}
-
-.c4 [data-component="leadingVisual"] {
-  grid-area: leadingVisual;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-}
-
-.c4 [data-component="text"] {
-  grid-area: text;
-  line-height: calc(20/14);
-  white-space: nowrap;
-}
-
-.c4 [data-component="trailingVisual"] {
-  grid-area: trailingVisual;
-}
-
-.c4 [data-component="trailingAction"] {
-  margin-right: -4px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-}
-
-.c4 [data-component="buttonContent"] {
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  display: grid;
-  grid-template-areas: "leadingVisual text trailingVisual";
-  grid-template-columns: min-content minmax(0,auto) min-content;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-}
-
-.c4 [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c4:hover:not([disabled]) {
-  background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
-}
-
-.c4:active:not([disabled]) {
-  background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
-}
-
-.c4[aria-expanded=true] {
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
-}
-
-.c4[data-component="IconButton"][data-no-visuals] {
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-}
-
 .c4[data-no-visuals] {
-  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   padding-top: 2px;
   padding-right: 4px;
   padding-bottom: 2px;
@@ -2555,18 +2033,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
 .c4[data-no-visuals][data-component="IconButton"] {
   width: var(--inner-action-size);
   height: var(--inner-action-size);
-}
-
-.c4:has([data-component="ButtonCounter"]) {
-  color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
-}
-
-.c4:disabled[data-no-visuals] {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c4:disabled[data-no-visuals] [data-component=ButtonCounter] {
-  color: inherit;
 }
 
 .c0 {
@@ -2668,12 +2134,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c2:focus {
   outline: 0;
-}
-
-@media (forced-colors:active) {
-  .c4:focus {
-    outline: solid 1px transparent;
-  }
 }
 
 @media (pointer:coarse) {
@@ -2714,15 +2174,16 @@ exports[`TextInput renders trailingAction text button 1`] = `
     className="c3 TextInput-action"
   >
     <button
-      className="c4"
+      className="c4 ButtonBase"
       data-block={null}
-      data-no-visuals={true}
+      data-variant="invisible"
       onClick={[MockFunction]}
       style={{}}
       type="button"
     >
       <span
-        className="c5"
+        className="ButtonContent"
+        data-align="center"
         data-component="buttonContent"
       >
         <span
@@ -2743,58 +2204,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   line-height: 0;
 }
 
-.c5 {
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.c4 {
-  border-radius: 6px;
-  border: 1px solid;
-  border-color: transparent;
-  font-family: inherit;
-  font-weight: 500;
-  font-size: 14px;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-align: center;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
-  height: 32px;
-  padding: 0 12px;
-  gap: 8px;
-  min-width: -webkit-max-content;
-  min-width: -moz-max-content;
-  min-width: max-content;
-  -webkit-transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  transition: 80ms cubic-bezier(0.65,0,0.35,1);
-  -webkit-transition-property: color,fill,background-color,border-color;
-  transition-property: color,fill,background-color,border-color;
-  color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
-  background-color: transparent;
-  box-shadow: none;
-}
-
 .c4:focus:not(:disabled) {
   box-shadow: none;
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
@@ -2811,209 +2220,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   outline-offset: -2px;
 }
 
-.c4[href] {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c4[href]:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c4:hover {
-  -webkit-transition-duration: 80ms;
-  transition-duration: 80ms;
-}
-
-.c4:active {
-  -webkit-transition: none;
-  transition: none;
-}
-
-.c4[data-inactive] {
-  cursor: auto;
-}
-
-.c4:disabled {
-  cursor: not-allowed;
-  box-shadow: none;
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c4:disabled [data-component=ButtonCounter],
-.c4:disabled [data-component="leadingVisual"],
-.c4:disabled [data-component="trailingAction"] {
-  color: inherit;
-}
-
-.c4 [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c4[data-component=IconButton] {
-  display: inline-grid;
-  padding: unset;
-  place-content: center;
-  width: 32px;
-  min-width: unset;
-}
-
-.c4[data-size="small"] {
-  padding: 0 8px;
-  height: 28px;
-  gap: 4px;
-  font-size: 12px;
-}
-
-.c4[data-size="small"] [data-component="text"] {
-  line-height: calc(20 / 12);
-}
-
-.c4[data-size="small"] [data-component=ButtonCounter] {
-  font-size: 12px;
-}
-
-.c4[data-size="small"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 4px;
-}
-
-.c4[data-size="small"][data-component=IconButton] {
-  width: 28px;
-  padding: unset;
-}
-
-.c4[data-size="large"] {
-  padding: 0 16px;
-  height: 40px;
-  gap: 8px;
-}
-
-.c4[data-size="large"] [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c4[data-size="large"][data-component=IconButton] {
-  width: 40px;
-  padding: unset;
-}
-
-.c4[data-block="block"] {
-  width: 100%;
-}
-
-.c4[data-label-wrap="true"] {
-  min-width: -webkit-fit-content;
-  min-width: -moz-fit-content;
-  min-width: fit-content;
-  height: unset;
-  min-height: var(--control-medium-size,2rem);
-}
-
-.c4[data-label-wrap="true"] [data-component="buttonContent"] {
-  -webkit-flex: 1 1 auto;
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  -webkit-align-self: stretch;
-  -ms-flex-item-align: stretch;
-  align-self: stretch;
-  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
-}
-
-.c4[data-label-wrap="true"] [data-component="text"] {
-  white-space: unset;
-  word-break: break-word;
-}
-
-.c4[data-label-wrap="true"][data-size="small"] {
-  height: unset;
-  min-height: var(--control-small-size,1.75rem);
-}
-
-.c4[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
-  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
-}
-
-.c4[data-label-wrap="true"][data-size="large"] {
-  height: unset;
-  min-height: var(--control-large-size,2.5rem);
-  padding-inline: var(--control-large-paddingInline-spacious,1rem);
-}
-
-.c4[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
-  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
-}
-
-.c4[data-inactive]:not([disabled]) {
-  background-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
-  border-color: var(--button-inactive-bgColor,var(--button-inactive-bgColor-rest,var(--color-btn-inactive-bg,#eaeef2)));
-  color: var(--button-inactive-fgColor,var(--button-inactive-fgColor-rest,var(--color-btn-inactive-text,#57606a)));
-}
-
-.c4[data-inactive]:not([disabled]):focus-visible {
-  box-shadow: none;
-}
-
-.c4 [data-component="leadingVisual"] {
-  grid-area: leadingVisual;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-}
-
-.c4 [data-component="text"] {
-  grid-area: text;
-  line-height: calc(20/14);
-  white-space: nowrap;
-}
-
-.c4 [data-component="trailingVisual"] {
-  grid-area: trailingVisual;
-}
-
-.c4 [data-component="trailingAction"] {
-  margin-right: -4px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-}
-
-.c4 [data-component="buttonContent"] {
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
-  display: grid;
-  grid-template-areas: "leadingVisual text trailingVisual";
-  grid-template-columns: min-content minmax(0,auto) min-content;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-}
-
-.c4 [data-component="buttonContent"] > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c4:hover:not([disabled]) {
-  background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
-}
-
-.c4:active:not([disabled]) {
-  background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
-}
-
-.c4[aria-expanded=true] {
-  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
-}
-
-.c4[data-component="IconButton"][data-no-visuals] {
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-}
-
 .c4[data-no-visuals] {
-  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   padding-top: 2px;
   padding-right: 4px;
   padding-bottom: 2px;
@@ -3026,24 +2233,12 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   height: var(--inner-action-size);
 }
 
-.c4:has([data-component="ButtonCounter"]) {
-  color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
-}
-
-.c4:disabled[data-no-visuals] {
-  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
-}
-
-.c4:disabled[data-no-visuals] [data-component=ButtonCounter] {
-  color: inherit;
-}
-
-.c6 {
+.c5 {
   display: none;
   display: inline-block;
 }
 
-.c6[popover] {
+.c5[popover] {
   position: absolute;
   padding: 0.5em 0.75em;
   width: -webkit-max-content;
@@ -3067,15 +2262,15 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   overflow: visible;
 }
 
-.c6[popover]:popover-open {
+.c5[popover]:popover-open {
   display: block;
 }
 
-.c6[popover].\\:popover-open {
+.c5[popover].\\:popover-open {
   display: block;
 }
 
-.c6::after {
+.c5::after {
   position: absolute;
   display: block;
   right: 0;
@@ -3084,19 +2279,19 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   content: '';
 }
 
-.c6[data-direction='n']::after,
-.c6[data-direction='ne']::after,
-.c6[data-direction='nw']::after {
+.c5[data-direction='n']::after,
+.c5[data-direction='ne']::after,
+.c5[data-direction='nw']::after {
   top: 100%;
 }
 
-.c6[data-direction='s']::after,
-.c6[data-direction='se']::after,
-.c6[data-direction='sw']::after {
+.c5[data-direction='s']::after,
+.c5[data-direction='se']::after,
+.c5[data-direction='sw']::after {
   bottom: 100%;
 }
 
-.c6[data-direction='w']::after {
+.c5[data-direction='w']::after {
   position: absolute;
   display: block;
   height: 100%;
@@ -3106,7 +2301,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   left: 100%;
 }
 
-.c6[data-direction='e']::after {
+.c5[data-direction='e']::after {
   position: absolute;
   display: block;
   height: 100%;
@@ -3117,8 +2312,8 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   margin-left: -8px;
 }
 
-.c6:popover-open,
-.c6:popover-open::before {
+.c5:popover-open,
+.c5:popover-open::before {
   -webkit-animation-name: tooltip-appear;
   animation-name: tooltip-appear;
   -webkit-animation-duration: 0.1s;
@@ -3131,8 +2326,8 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   animation-delay: 0s;
 }
 
-.c6.\\:popover-open,
-.c6.\\:popover-open::before {
+.c5.\\:popover-open,
+.c5.\\:popover-open::before {
   -webkit-animation-name: tooltip-appear;
   animation-name: tooltip-appear;
   -webkit-animation-duration: 0.1s;
@@ -3246,12 +2441,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   outline: 0;
 }
 
-@media (forced-colors:active) {
-  .c4:focus {
-    outline: solid 1px transparent;
-  }
-}
-
 @media (pointer:coarse) {
   .c4[data-no-visuals]:after {
     content: "";
@@ -3267,7 +2456,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c6 {
+  .c5 {
     outline: 1px solid transparent;
   }
 }
@@ -3297,9 +2486,9 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   >
     <button
       aria-describedby=":rj:"
-      className="c4"
+      className="c4 ButtonBase"
       data-block={null}
-      data-no-visuals={true}
+      data-variant="invisible"
       onBlur={[Function]}
       onClick={[MockFunction]}
       onFocus={[Function]}
@@ -3309,7 +2498,8 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
       type="button"
     >
       <span
-        className="c5"
+        className="ButtonContent"
+        data-align="center"
         data-component="buttonContent"
       >
         <span
@@ -3320,7 +2510,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
       </span>
     </button>
     <span
-      className="c6"
+      className="c5"
       data-direction="s"
       id=":rj:"
       onMouseEnter={[Function]}
