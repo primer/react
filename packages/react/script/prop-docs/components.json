@@ -468,7 +468,219 @@
           "defaultValue": ""
         }
       ],
-      "subcomponents": []
+      "subcomponents": [
+        {
+          "name": "ActionMenu.Anchor",
+          "props": [
+            {
+              "name": "children",
+              "type": "ReactElement<any, string | JSXElementConstructor<any>>",
+              "required": true,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "id",
+              "type": "string",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ActionMenu.Button",
+          "props": [
+            {
+              "name": "as",
+              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<unknown, any> | FunctionComponent<unknown>",
+              "required": true,
+              "description": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ActionMenu.Overlay",
+          "props": [
+            {
+              "name": "style",
+              "type": "CSSProperties",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "height",
+              "type": "\"small\" | \"initial\" | \"large\" | \"medium\" | \"auto\" | \"fit-content\" | \"xsmall\" | \"xlarge\"",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "width",
+              "type": "\"small\" | \"large\" | \"medium\" | \"auto\" | \"xlarge\" | \"xxlarge\"",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "overflow",
+              "type": "\"hidden\" | \"scroll\" | \"auto\" | \"visible\"",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "maxHeight",
+              "type": "\"small\" | \"large\" | \"medium\" | \"fit-content\" | \"xsmall\" | \"xlarge\"",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "maxWidth",
+              "type": "\"small\" | \"large\" | \"medium\" | \"xlarge\" | \"xxlarge\"",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "sx",
+              "type": "BetterSystemStyleObject",
+              "required": false,
+              "description": "A style object used to override styles using styled-components",
+              "defaultValue": ""
+            },
+            {
+              "name": "anchorSide",
+              "type": "\"inside-top\" | \"inside-bottom\" | \"inside-left\" | \"inside-right\" | \"inside-center\" | \"outside-top\" | \"outside-bottom\" | \"outside-left\" | \"outside-right\"",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "ignoreClickRefs",
+              "type": "RefObject<HTMLElement>[]",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "initialFocusRef",
+              "type": "RefObject<HTMLElement>",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "returnFocusRef",
+              "type": "RefObject<HTMLElement>",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "onClickOutside",
+              "type": "(e: TouchOrMouseEvent) => void",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "onEscape",
+              "type": "(e: KeyboardEvent) => void",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "visibility",
+              "type": "\"hidden\" | \"visible\"",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "data-test-id",
+              "type": "unknown",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "position",
+              "type": "\"-moz-initial\" | \"inherit\" | \"initial\" | \"revert\" | \"revert-layer\" | \"unset\" | \"fixed\" | \"-webkit-sticky\" | \"absolute\" | \"relative\" | \"static\" | \"sticky\"",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "top",
+              "type": "string | number | string & {}",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "left",
+              "type": "string | number | string & {}",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "right",
+              "type": "string | number | string & {}",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "bottom",
+              "type": "string | number | string & {}",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "portalContainerName",
+              "type": "string",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "preventFocusOnOpen",
+              "type": "boolean",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "role",
+              "type": "\"article\" | \"button\" | \"dialog\" | \"figure\" | \"form\" | \"img\" | \"link\" | \"main\" | \"menu\" | \"menuitem\" | \"option\" | \"search\" | \"table\" | \"switch\" | \"list\" | \"alert\" | \"alertdialog\" | \"application\" | \"banner\" | \"cell\" | \"checkbox\" | \"columnheader\" | \"combobox\" | \"complementary\" | \"contentinfo\" | \"definition\" | \"directory\" | \"document\" | \"feed\" | \"grid\" | \"gridcell\" | \"group\" | \"heading\" | \"listbox\" | \"listitem\" | \"log\" | \"marquee\" | \"math\" | \"menubar\" | \"menuitemcheckbox\" | \"menuitemradio\" | \"navigation\" | \"none\" | \"note\" | \"presentation\" | \"progressbar\" | \"radio\" | \"radiogroup\" | \"region\" | \"row\" | \"rowgroup\" | \"rowheader\" | \"scrollbar\" | \"searchbox\" | \"separator\" | \"slider\" | \"spinbutton\" | \"status\" | \"tab\" | \"tablist\" | \"tabpanel\" | \"term\" | \"textbox\" | \"timer\" | \"toolbar\" | \"tooltip\" | \"tree\" | \"treegrid\" | \"treeitem\"",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "description": "Recommended: `ActionList`",
+              "defaultValue": ""
+            },
+            {
+              "name": "as",
+              "type": "\"div\"",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ]
     },
     "anchored_overlay": {
       "id": "anchored_overlay",

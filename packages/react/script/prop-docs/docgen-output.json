@@ -6931,6 +6931,1667 @@
   },
   {
     "tags": {
+      "alias": "ActionMenu.Anchor",
+      "primerparentid": "action_menu"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionMenu/ActionMenu.tsx",
+    "description": "Container for a custom anchor element that triggers the ActionMenu. Commonly used to wrap an IconButton.",
+    "displayName": "Anchor",
+    "methods": [],
+    "props": {
+      "children": {
+        "defaultValue": null,
+        "description": "",
+        "name": "children",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/ActionMenu/ActionMenu.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "ReactElement<any, string | JSXElementConstructor<any>>"
+        }
+      },
+      "id": {
+        "defaultValue": null,
+        "description": "",
+        "name": "id",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/ActionMenu/ActionMenu.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "string",
+          "value": [
+            {
+              "value": "string"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "ActionMenu.Button",
+      "primerparentid": "action_menu"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionMenu/ActionMenu.tsx",
+    "description": "The button that toggles the ActionMenu",
+    "displayName": "MenuButton",
+    "methods": [],
+    "props": {
+      "as": {
+        "defaultValue": null,
+        "description": "",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "enum",
+          "raw": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>",
+          "value": [
+            {
+              "value": "\"symbol\""
+            },
+            {
+              "value": "\"object\""
+            },
+            {
+              "value": "\"a\""
+            },
+            {
+              "value": "\"abbr\""
+            },
+            {
+              "value": "\"address\""
+            },
+            {
+              "value": "\"area\""
+            },
+            {
+              "value": "\"article\""
+            },
+            {
+              "value": "\"aside\""
+            },
+            {
+              "value": "\"audio\""
+            },
+            {
+              "value": "\"b\""
+            },
+            {
+              "value": "\"base\""
+            },
+            {
+              "value": "\"bdi\""
+            },
+            {
+              "value": "\"bdo\""
+            },
+            {
+              "value": "\"big\""
+            },
+            {
+              "value": "\"blockquote\""
+            },
+            {
+              "value": "\"body\""
+            },
+            {
+              "value": "\"br\""
+            },
+            {
+              "value": "\"button\""
+            },
+            {
+              "value": "\"canvas\""
+            },
+            {
+              "value": "\"caption\""
+            },
+            {
+              "value": "\"center\""
+            },
+            {
+              "value": "\"cite\""
+            },
+            {
+              "value": "\"code\""
+            },
+            {
+              "value": "\"col\""
+            },
+            {
+              "value": "\"colgroup\""
+            },
+            {
+              "value": "\"data\""
+            },
+            {
+              "value": "\"datalist\""
+            },
+            {
+              "value": "\"dd\""
+            },
+            {
+              "value": "\"del\""
+            },
+            {
+              "value": "\"details\""
+            },
+            {
+              "value": "\"dfn\""
+            },
+            {
+              "value": "\"dialog\""
+            },
+            {
+              "value": "\"div\""
+            },
+            {
+              "value": "\"dl\""
+            },
+            {
+              "value": "\"dt\""
+            },
+            {
+              "value": "\"em\""
+            },
+            {
+              "value": "\"embed\""
+            },
+            {
+              "value": "\"fieldset\""
+            },
+            {
+              "value": "\"figcaption\""
+            },
+            {
+              "value": "\"figure\""
+            },
+            {
+              "value": "\"footer\""
+            },
+            {
+              "value": "\"form\""
+            },
+            {
+              "value": "\"h1\""
+            },
+            {
+              "value": "\"h2\""
+            },
+            {
+              "value": "\"h3\""
+            },
+            {
+              "value": "\"h4\""
+            },
+            {
+              "value": "\"h5\""
+            },
+            {
+              "value": "\"h6\""
+            },
+            {
+              "value": "\"head\""
+            },
+            {
+              "value": "\"header\""
+            },
+            {
+              "value": "\"hgroup\""
+            },
+            {
+              "value": "\"hr\""
+            },
+            {
+              "value": "\"html\""
+            },
+            {
+              "value": "\"i\""
+            },
+            {
+              "value": "\"iframe\""
+            },
+            {
+              "value": "\"img\""
+            },
+            {
+              "value": "\"input\""
+            },
+            {
+              "value": "\"ins\""
+            },
+            {
+              "value": "\"kbd\""
+            },
+            {
+              "value": "\"keygen\""
+            },
+            {
+              "value": "\"label\""
+            },
+            {
+              "value": "\"legend\""
+            },
+            {
+              "value": "\"li\""
+            },
+            {
+              "value": "\"link\""
+            },
+            {
+              "value": "\"main\""
+            },
+            {
+              "value": "\"map\""
+            },
+            {
+              "value": "\"mark\""
+            },
+            {
+              "value": "\"menu\""
+            },
+            {
+              "value": "\"menuitem\""
+            },
+            {
+              "value": "\"meta\""
+            },
+            {
+              "value": "\"meter\""
+            },
+            {
+              "value": "\"nav\""
+            },
+            {
+              "value": "\"noindex\""
+            },
+            {
+              "value": "\"noscript\""
+            },
+            {
+              "value": "\"ol\""
+            },
+            {
+              "value": "\"optgroup\""
+            },
+            {
+              "value": "\"option\""
+            },
+            {
+              "value": "\"output\""
+            },
+            {
+              "value": "\"p\""
+            },
+            {
+              "value": "\"param\""
+            },
+            {
+              "value": "\"picture\""
+            },
+            {
+              "value": "\"pre\""
+            },
+            {
+              "value": "\"progress\""
+            },
+            {
+              "value": "\"q\""
+            },
+            {
+              "value": "\"rp\""
+            },
+            {
+              "value": "\"rt\""
+            },
+            {
+              "value": "\"ruby\""
+            },
+            {
+              "value": "\"s\""
+            },
+            {
+              "value": "\"samp\""
+            },
+            {
+              "value": "\"search\""
+            },
+            {
+              "value": "\"slot\""
+            },
+            {
+              "value": "\"script\""
+            },
+            {
+              "value": "\"section\""
+            },
+            {
+              "value": "\"select\""
+            },
+            {
+              "value": "\"small\""
+            },
+            {
+              "value": "\"source\""
+            },
+            {
+              "value": "\"span\""
+            },
+            {
+              "value": "\"strong\""
+            },
+            {
+              "value": "\"style\""
+            },
+            {
+              "value": "\"sub\""
+            },
+            {
+              "value": "\"summary\""
+            },
+            {
+              "value": "\"sup\""
+            },
+            {
+              "value": "\"table\""
+            },
+            {
+              "value": "\"template\""
+            },
+            {
+              "value": "\"tbody\""
+            },
+            {
+              "value": "\"td\""
+            },
+            {
+              "value": "\"textarea\""
+            },
+            {
+              "value": "\"tfoot\""
+            },
+            {
+              "value": "\"th\""
+            },
+            {
+              "value": "\"thead\""
+            },
+            {
+              "value": "\"time\""
+            },
+            {
+              "value": "\"title\""
+            },
+            {
+              "value": "\"tr\""
+            },
+            {
+              "value": "\"track\""
+            },
+            {
+              "value": "\"u\""
+            },
+            {
+              "value": "\"ul\""
+            },
+            {
+              "value": "\"var\""
+            },
+            {
+              "value": "\"video\""
+            },
+            {
+              "value": "\"wbr\""
+            },
+            {
+              "value": "\"webview\""
+            },
+            {
+              "value": "\"svg\""
+            },
+            {
+              "value": "\"animate\""
+            },
+            {
+              "value": "\"animateMotion\""
+            },
+            {
+              "value": "\"animateTransform\""
+            },
+            {
+              "value": "\"circle\""
+            },
+            {
+              "value": "\"clipPath\""
+            },
+            {
+              "value": "\"defs\""
+            },
+            {
+              "value": "\"desc\""
+            },
+            {
+              "value": "\"ellipse\""
+            },
+            {
+              "value": "\"feBlend\""
+            },
+            {
+              "value": "\"feColorMatrix\""
+            },
+            {
+              "value": "\"feComponentTransfer\""
+            },
+            {
+              "value": "\"feComposite\""
+            },
+            {
+              "value": "\"feConvolveMatrix\""
+            },
+            {
+              "value": "\"feDiffuseLighting\""
+            },
+            {
+              "value": "\"feDisplacementMap\""
+            },
+            {
+              "value": "\"feDistantLight\""
+            },
+            {
+              "value": "\"feDropShadow\""
+            },
+            {
+              "value": "\"feFlood\""
+            },
+            {
+              "value": "\"feFuncA\""
+            },
+            {
+              "value": "\"feFuncB\""
+            },
+            {
+              "value": "\"feFuncG\""
+            },
+            {
+              "value": "\"feFuncR\""
+            },
+            {
+              "value": "\"feGaussianBlur\""
+            },
+            {
+              "value": "\"feImage\""
+            },
+            {
+              "value": "\"feMerge\""
+            },
+            {
+              "value": "\"feMergeNode\""
+            },
+            {
+              "value": "\"feMorphology\""
+            },
+            {
+              "value": "\"feOffset\""
+            },
+            {
+              "value": "\"fePointLight\""
+            },
+            {
+              "value": "\"feSpecularLighting\""
+            },
+            {
+              "value": "\"feSpotLight\""
+            },
+            {
+              "value": "\"feTile\""
+            },
+            {
+              "value": "\"feTurbulence\""
+            },
+            {
+              "value": "\"filter\""
+            },
+            {
+              "value": "\"foreignObject\""
+            },
+            {
+              "value": "\"g\""
+            },
+            {
+              "value": "\"image\""
+            },
+            {
+              "value": "\"line\""
+            },
+            {
+              "value": "\"linearGradient\""
+            },
+            {
+              "value": "\"marker\""
+            },
+            {
+              "value": "\"mask\""
+            },
+            {
+              "value": "\"metadata\""
+            },
+            {
+              "value": "\"mpath\""
+            },
+            {
+              "value": "\"path\""
+            },
+            {
+              "value": "\"pattern\""
+            },
+            {
+              "value": "\"polygon\""
+            },
+            {
+              "value": "\"polyline\""
+            },
+            {
+              "value": "\"radialGradient\""
+            },
+            {
+              "value": "\"rect\""
+            },
+            {
+              "value": "\"set\""
+            },
+            {
+              "value": "\"stop\""
+            },
+            {
+              "value": "\"switch\""
+            },
+            {
+              "value": "\"text\""
+            },
+            {
+              "value": "\"textPath\""
+            },
+            {
+              "value": "\"tspan\""
+            },
+            {
+              "value": "\"use\""
+            },
+            {
+              "value": "\"view\""
+            },
+            {
+              "value": "\"relative-time\""
+            },
+            {
+              "value": "\"tab-container\""
+            },
+            {
+              "value": "ComponentClass<unknown, any>",
+              "description": "Represents a component class in React.",
+              "fullComment": "Represents a component class in React.\n@template P The props the component accepts.\n@template S The internal state of the component.",
+              "tags": {
+                "template": "P The props the component accepts.\nS The internal state of the component."
+              }
+            },
+            {
+              "value": "FunctionComponent<unknown>",
+              "description": "Represents the type of a function component. Can optionally\nreceive a type argument that represents the props the component\naccepts.",
+              "fullComment": "Represents the type of a function component. Can optionally\nreceive a type argument that represents the props the component\naccepts.\n@template P The props the component accepts.\n@see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components React TypeScript Cheatsheet}\n@example ```tsx\n// With props:\ntype Props = { name: string }\n\nconst MyComponent: FunctionComponent<Props> = (props) => {\n return <div>{props.name}</div>\n}\n```\n@example ```tsx\n// Without props:\nconst MyComponentWithoutProps: FunctionComponent = () => {\n  return <div>MyComponentWithoutProps</div>\n}\n```",
+              "tags": {
+                "template": "P The props the component accepts.",
+                "see": "{@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components React TypeScript Cheatsheet}",
+                "example": "```tsx\n// With props:\ntype Props = { name: string }\n\nconst MyComponent: FunctionComponent<Props> = (props) => {\n return <div>{props.name}</div>\n}\n```\n```tsx\n// Without props:\nconst MyComponentWithoutProps: FunctionComponent = () => {\n  return <div>MyComponentWithoutProps</div>\n}\n```"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "ActionMenu.Overlay",
+      "primerparentid": "action_menu"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionMenu/ActionMenu.tsx",
+    "description": "The non-modal dialog that overlays the UI",
+    "displayName": "Overlay",
+    "methods": [],
+    "props": {
+      "style": {
+        "defaultValue": null,
+        "description": "",
+        "name": "style",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "CSSProperties",
+          "value": [
+            {
+              "value": "CSSProperties",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            }
+          ]
+        }
+      },
+      "height": {
+        "defaultValue": null,
+        "description": "",
+        "name": "height",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "\"small\" | \"initial\" | \"large\" | \"medium\" | \"auto\" | \"fit-content\" | \"xsmall\" | \"xlarge\"",
+          "value": [
+            {
+              "value": "\"small\""
+            },
+            {
+              "value": "\"initial\""
+            },
+            {
+              "value": "\"large\""
+            },
+            {
+              "value": "\"medium\""
+            },
+            {
+              "value": "\"auto\""
+            },
+            {
+              "value": "\"fit-content\""
+            },
+            {
+              "value": "\"xsmall\""
+            },
+            {
+              "value": "\"xlarge\""
+            }
+          ]
+        }
+      },
+      "width": {
+        "defaultValue": null,
+        "description": "",
+        "name": "width",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "\"small\" | \"large\" | \"medium\" | \"auto\" | \"xlarge\" | \"xxlarge\"",
+          "value": [
+            {
+              "value": "\"small\""
+            },
+            {
+              "value": "\"large\""
+            },
+            {
+              "value": "\"medium\""
+            },
+            {
+              "value": "\"auto\""
+            },
+            {
+              "value": "\"xlarge\""
+            },
+            {
+              "value": "\"xxlarge\""
+            }
+          ]
+        }
+      },
+      "overflow": {
+        "defaultValue": null,
+        "description": "",
+        "name": "overflow",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "\"hidden\" | \"scroll\" | \"auto\" | \"visible\"",
+          "value": [
+            {
+              "value": "\"hidden\""
+            },
+            {
+              "value": "\"scroll\""
+            },
+            {
+              "value": "\"auto\""
+            },
+            {
+              "value": "\"visible\""
+            }
+          ]
+        }
+      },
+      "maxHeight": {
+        "defaultValue": null,
+        "description": "",
+        "name": "maxHeight",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "\"small\" | \"large\" | \"medium\" | \"fit-content\" | \"xsmall\" | \"xlarge\"",
+          "value": [
+            {
+              "value": "\"small\""
+            },
+            {
+              "value": "\"large\""
+            },
+            {
+              "value": "\"medium\""
+            },
+            {
+              "value": "\"fit-content\""
+            },
+            {
+              "value": "\"xsmall\""
+            },
+            {
+              "value": "\"xlarge\""
+            }
+          ]
+        }
+      },
+      "maxWidth": {
+        "defaultValue": null,
+        "description": "",
+        "name": "maxWidth",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "\"small\" | \"large\" | \"medium\" | \"xlarge\" | \"xxlarge\"",
+          "value": [
+            {
+              "value": "\"small\""
+            },
+            {
+              "value": "\"large\""
+            },
+            {
+              "value": "\"medium\""
+            },
+            {
+              "value": "\"xlarge\""
+            },
+            {
+              "value": "\"xxlarge\""
+            }
+          ]
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "BetterSystemStyleObject",
+          "value": [
+            {
+              "value": "null"
+            },
+            {
+              "value": "SystemCssProperties",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "CSSPseudoSelectorProps",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "CSSSelectorObject",
+              "description": "Map all nested selectors",
+              "fullComment": "Map all nested selectors",
+              "tags": {}
+            },
+            {
+              "value": "VariantProperty",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "UseThemeFunction",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "EmotionLabel",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "BetterCssProperties",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "CSSCustomProperties",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "CSSSelectorObject",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            }
+          ]
+        }
+      },
+      "anchorSide": {
+        "defaultValue": null,
+        "description": "",
+        "name": "anchorSide",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "AnchorSide",
+          "value": [
+            {
+              "value": "\"inside-top\""
+            },
+            {
+              "value": "\"inside-bottom\""
+            },
+            {
+              "value": "\"inside-left\""
+            },
+            {
+              "value": "\"inside-right\""
+            },
+            {
+              "value": "\"inside-center\""
+            },
+            {
+              "value": "\"outside-top\""
+            },
+            {
+              "value": "\"outside-bottom\""
+            },
+            {
+              "value": "\"outside-left\""
+            },
+            {
+              "value": "\"outside-right\""
+            }
+          ]
+        }
+      },
+      "ignoreClickRefs": {
+        "defaultValue": null,
+        "description": "",
+        "name": "ignoreClickRefs",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "RefObject<HTMLElement>[]",
+          "value": [
+            {
+              "value": "RefObject<HTMLElement>[]",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            }
+          ]
+        }
+      },
+      "initialFocusRef": {
+        "defaultValue": null,
+        "description": "",
+        "name": "initialFocusRef",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "RefObject<HTMLElement>",
+          "value": [
+            {
+              "value": "RefObject<HTMLElement>",
+              "description": "A readonly ref container where {@link current} cannot be mutated.\n\nCreated by {@link createRef}, or {@link useRef} when passed `null`.",
+              "fullComment": "A readonly ref container where {@link current} cannot be mutated.\n\nCreated by {@link createRef}, or {@link useRef} when passed `null`.\n@template T The type of the ref's value.\n@example ```tsx\nconst ref = createRef<HTMLDivElement>();\n\nref.current = document.createElement('div'); // Error\n```",
+              "tags": {
+                "template": "T The type of the ref's value.",
+                "example": "```tsx\nconst ref = createRef<HTMLDivElement>();\n\nref.current = document.createElement('div'); // Error\n```"
+              }
+            }
+          ]
+        }
+      },
+      "returnFocusRef": {
+        "defaultValue": null,
+        "description": "",
+        "name": "returnFocusRef",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "RefObject<HTMLElement>",
+          "value": [
+            {
+              "value": "RefObject<HTMLElement>",
+              "description": "A readonly ref container where {@link current} cannot be mutated.\n\nCreated by {@link createRef}, or {@link useRef} when passed `null`.",
+              "fullComment": "A readonly ref container where {@link current} cannot be mutated.\n\nCreated by {@link createRef}, or {@link useRef} when passed `null`.\n@template T The type of the ref's value.\n@example ```tsx\nconst ref = createRef<HTMLDivElement>();\n\nref.current = document.createElement('div'); // Error\n```",
+              "tags": {
+                "template": "T The type of the ref's value.",
+                "example": "```tsx\nconst ref = createRef<HTMLDivElement>();\n\nref.current = document.createElement('div'); // Error\n```"
+              }
+            }
+          ]
+        }
+      },
+      "onClickOutside": {
+        "defaultValue": null,
+        "description": "",
+        "name": "onClickOutside",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "((e: TouchOrMouseEvent) => void)",
+          "value": [
+            {
+              "value": "(e: TouchOrMouseEvent) => void",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            }
+          ]
+        }
+      },
+      "onEscape": {
+        "defaultValue": null,
+        "description": "",
+        "name": "onEscape",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "((e: KeyboardEvent) => void)",
+          "value": [
+            {
+              "value": "(e: KeyboardEvent) => void",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            }
+          ]
+        }
+      },
+      "visibility": {
+        "defaultValue": null,
+        "description": "",
+        "name": "visibility",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "\"hidden\" | \"visible\"",
+          "value": [
+            {
+              "value": "\"hidden\""
+            },
+            {
+              "value": "\"visible\""
+            }
+          ]
+        }
+      },
+      "data-test-id": {
+        "defaultValue": null,
+        "description": "",
+        "name": "data-test-id",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "unknown"
+        }
+      },
+      "position": {
+        "defaultValue": null,
+        "description": "",
+        "name": "position",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "Position",
+          "value": [
+            {
+              "value": "\"-moz-initial\""
+            },
+            {
+              "value": "\"inherit\""
+            },
+            {
+              "value": "\"initial\""
+            },
+            {
+              "value": "\"revert\""
+            },
+            {
+              "value": "\"revert-layer\""
+            },
+            {
+              "value": "\"unset\""
+            },
+            {
+              "value": "\"fixed\""
+            },
+            {
+              "value": "\"-webkit-sticky\""
+            },
+            {
+              "value": "\"absolute\""
+            },
+            {
+              "value": "\"relative\""
+            },
+            {
+              "value": "\"static\""
+            },
+            {
+              "value": "\"sticky\""
+            }
+          ]
+        }
+      },
+      "top": {
+        "defaultValue": null,
+        "description": "",
+        "name": "top",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "Top<string | number>",
+          "value": [
+            {
+              "value": "string"
+            },
+            {
+              "value": "number"
+            },
+            {
+              "value": "string & {}"
+            }
+          ]
+        }
+      },
+      "left": {
+        "defaultValue": null,
+        "description": "",
+        "name": "left",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "Left<string | number>",
+          "value": [
+            {
+              "value": "string"
+            },
+            {
+              "value": "number"
+            },
+            {
+              "value": "string & {}"
+            }
+          ]
+        }
+      },
+      "right": {
+        "defaultValue": null,
+        "description": "",
+        "name": "right",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "Right<string | number>",
+          "value": [
+            {
+              "value": "string"
+            },
+            {
+              "value": "number"
+            },
+            {
+              "value": "string & {}"
+            }
+          ]
+        }
+      },
+      "bottom": {
+        "defaultValue": null,
+        "description": "",
+        "name": "bottom",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "Bottom<string | number>",
+          "value": [
+            {
+              "value": "string"
+            },
+            {
+              "value": "number"
+            },
+            {
+              "value": "string & {}"
+            }
+          ]
+        }
+      },
+      "portalContainerName": {
+        "defaultValue": null,
+        "description": "",
+        "name": "portalContainerName",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "string",
+          "value": [
+            {
+              "value": "string"
+            }
+          ]
+        }
+      },
+      "preventFocusOnOpen": {
+        "defaultValue": null,
+        "description": "",
+        "name": "preventFocusOnOpen",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "boolean",
+          "value": [
+            {
+              "value": "false"
+            },
+            {
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "role": {
+        "defaultValue": null,
+        "description": "",
+        "name": "role",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "AriaRole",
+          "value": [
+            {
+              "value": "\"article\""
+            },
+            {
+              "value": "\"button\""
+            },
+            {
+              "value": "\"dialog\""
+            },
+            {
+              "value": "\"figure\""
+            },
+            {
+              "value": "\"form\""
+            },
+            {
+              "value": "\"img\""
+            },
+            {
+              "value": "\"link\""
+            },
+            {
+              "value": "\"main\""
+            },
+            {
+              "value": "\"menu\""
+            },
+            {
+              "value": "\"menuitem\""
+            },
+            {
+              "value": "\"option\""
+            },
+            {
+              "value": "\"search\""
+            },
+            {
+              "value": "\"table\""
+            },
+            {
+              "value": "\"switch\""
+            },
+            {
+              "value": "\"list\""
+            },
+            {
+              "value": "\"alert\""
+            },
+            {
+              "value": "\"alertdialog\""
+            },
+            {
+              "value": "\"application\""
+            },
+            {
+              "value": "\"banner\""
+            },
+            {
+              "value": "\"cell\""
+            },
+            {
+              "value": "\"checkbox\""
+            },
+            {
+              "value": "\"columnheader\""
+            },
+            {
+              "value": "\"combobox\""
+            },
+            {
+              "value": "\"complementary\""
+            },
+            {
+              "value": "\"contentinfo\""
+            },
+            {
+              "value": "\"definition\""
+            },
+            {
+              "value": "\"directory\""
+            },
+            {
+              "value": "\"document\""
+            },
+            {
+              "value": "\"feed\""
+            },
+            {
+              "value": "\"grid\""
+            },
+            {
+              "value": "\"gridcell\""
+            },
+            {
+              "value": "\"group\""
+            },
+            {
+              "value": "\"heading\""
+            },
+            {
+              "value": "\"listbox\""
+            },
+            {
+              "value": "\"listitem\""
+            },
+            {
+              "value": "\"log\""
+            },
+            {
+              "value": "\"marquee\""
+            },
+            {
+              "value": "\"math\""
+            },
+            {
+              "value": "\"menubar\""
+            },
+            {
+              "value": "\"menuitemcheckbox\""
+            },
+            {
+              "value": "\"menuitemradio\""
+            },
+            {
+              "value": "\"navigation\""
+            },
+            {
+              "value": "\"none\""
+            },
+            {
+              "value": "\"note\""
+            },
+            {
+              "value": "\"presentation\""
+            },
+            {
+              "value": "\"progressbar\""
+            },
+            {
+              "value": "\"radio\""
+            },
+            {
+              "value": "\"radiogroup\""
+            },
+            {
+              "value": "\"region\""
+            },
+            {
+              "value": "\"row\""
+            },
+            {
+              "value": "\"rowgroup\""
+            },
+            {
+              "value": "\"rowheader\""
+            },
+            {
+              "value": "\"scrollbar\""
+            },
+            {
+              "value": "\"searchbox\""
+            },
+            {
+              "value": "\"separator\""
+            },
+            {
+              "value": "\"slider\""
+            },
+            {
+              "value": "\"spinbutton\""
+            },
+            {
+              "value": "\"status\""
+            },
+            {
+              "value": "\"tab\""
+            },
+            {
+              "value": "\"tablist\""
+            },
+            {
+              "value": "\"tabpanel\""
+            },
+            {
+              "value": "\"term\""
+            },
+            {
+              "value": "\"textbox\""
+            },
+            {
+              "value": "\"timer\""
+            },
+            {
+              "value": "\"toolbar\""
+            },
+            {
+              "value": "\"tooltip\""
+            },
+            {
+              "value": "\"tree\""
+            },
+            {
+              "value": "\"treegrid\""
+            },
+            {
+              "value": "\"treeitem\""
+            }
+          ]
+        }
+      },
+      "children": {
+        "defaultValue": null,
+        "description": "Recommended: `ActionList`",
+        "name": "children",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Overlay/Overlay.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/ActionMenu/ActionMenu.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "ReactNode",
+          "value": [
+            {
+              "value": "null"
+            },
+            {
+              "value": "string"
+            },
+            {
+              "value": "number"
+            },
+            {
+              "value": "false"
+            },
+            {
+              "value": "true"
+            },
+            {
+              "value": "ReactElement<any, string | JSXElementConstructor<any>>",
+              "description": "Represents a JSX element.\n\nWhere {@link ReactNode} represents everything that can be rendered, `ReactElement`\nonly represents JSX.",
+              "fullComment": "Represents a JSX element.\n\nWhere {@link ReactNode} represents everything that can be rendered, `ReactElement`\nonly represents JSX.\n@template P The type of the props object\n@template T The type of the component or tag\n@example ```tsx\nconst element: ReactElement = <div />;\n```",
+              "tags": {
+                "template": "P The type of the props object\nT The type of the component or tag",
+                "example": "```tsx\nconst element: ReactElement = <div />;\n```"
+              }
+            },
+            {
+              "value": "Iterable<ReactNode>",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "ReactPortal",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            }
+          ]
+        }
+      },
+      "as": {
+        "defaultValue": null,
+        "description": "",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "\"div\"",
+          "value": [
+            {
+              "value": "\"div\""
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "tags": {
       "primerid": "anchored_overlay",
       "primerstatus": "alpha",
       "primera11yreviewed": "false"
