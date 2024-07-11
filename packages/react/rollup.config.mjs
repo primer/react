@@ -12,6 +12,7 @@ import {importCSS} from 'rollup-plugin-import-css'
 import MagicString from 'magic-string'
 import customPropertiesFallback from 'postcss-custom-properties-fallback'
 import packageJson from './package.json' assert {type: 'json'}
+import postcss from 'rollup-plugin-postcss'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -286,7 +287,7 @@ export default [
       dir: 'lib',
       format: 'commonjs',
       preserveModules: true,
-      preserveModulesRoot: 'src',
+      preserveModulesRoot: path.join(__dirname, 'src'),
       exports: 'auto',
     },
   },
@@ -301,7 +302,50 @@ export default [
         'process.env.NODE_ENV': JSON.stringify('production'),
         preventAssignment: true,
       }),
-      ...baseConfig.plugins,
+      babel({
+        extensions,
+        exclude: /node_modules/,
+        babelHelpers: 'inline',
+        babelrc: false,
+        configFile: false,
+        presets: [
+          '@babel/preset-typescript',
+          [
+            '@babel/preset-react',
+            {
+              modules: false,
+            },
+          ],
+        ],
+        plugins: [
+          'macros',
+          'add-react-displayname',
+          'dev-expression',
+          'babel-plugin-styled-components',
+          '@babel/plugin-proposal-nullish-coalescing-operator',
+          '@babel/plugin-proposal-optional-chaining',
+          [
+            'babel-plugin-transform-replace-expressions',
+            {
+              replace: {
+                __DEV__: "process.env.NODE_ENV !== 'production'",
+              },
+            },
+          ],
+        ],
+      }),
+      resolve({
+        extensions,
+      }),
+      commonjs({
+        extensions,
+      }),
+
+      postcss({
+        extract: 'components.css',
+        autoModules: true,
+        modules: {generateScopedName: 'prc_[local]_[hash:base64:5]'},
+      }),
       terser(),
       visualizer({sourcemap: true}),
     ],
