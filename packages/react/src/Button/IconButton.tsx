@@ -24,6 +24,7 @@ const IconButton = forwardRef(
       tooltipDirection,
       // This is planned to be a temporary prop until the default tooltip on icon buttons are fully rolled out.
       unsafeDisableTooltip = false,
+      keyshortcuts,
       ...props
     },
     forwardedRef,
@@ -59,10 +60,13 @@ const IconButton = forwardRef(
         />
       )
     } else {
+      // Does it have keyshortcuts?
+      const tooltipSuffix = keyshortcuts ? `, ${keyshortcuts}` : ''
+      const tooltipText = description ?? ariaLabel
       return (
         <Tooltip
           ref={forwardedRef}
-          text={description ?? ariaLabel}
+          text={`${tooltipText}${tooltipSuffix}`}
           type={description ? undefined : 'label'}
           direction={tooltipDirection}
         >
@@ -71,6 +75,7 @@ const IconButton = forwardRef(
             data-component="IconButton"
             sx={sxStyles}
             type="button"
+            aria-keyshortcuts={keyshortcuts ?? undefined}
             // If description is provided, we will use the tooltip to describe the button, so we need to keep the aria-label to label the button.
             aria-label={description ? ariaLabel : undefined}
             {...props}

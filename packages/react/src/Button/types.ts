@@ -89,6 +89,7 @@ export type IconButtonProps = ButtonA11yProps & {
   description?: string
   /** Sets where the tooltip renders in relation to the target. */
   tooltipDirection?: TooltipDirection
+  keyshortcuts?: string
 } & Omit<ButtonBaseProps, 'aria-label' | 'aria-labelledby'>
 
 // adopted from React.AnchorHTMLAttributes
