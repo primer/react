@@ -58,7 +58,6 @@ const ButtonBase = forwardRef(
         className={classes.ButtonBase}
         data-block={block ? 'block' : null}
         data-size={size === 'small' || size === 'large' ? size : undefined}
-        data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
         data-inactive={inactive ? true : undefined}
         data-label-wrap={labelWrap}
         data-variant={variant}
