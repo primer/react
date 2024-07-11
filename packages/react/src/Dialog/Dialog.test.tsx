@@ -209,3 +209,21 @@ describe('Dialog', () => {
     expect(getByRole('button', {name: 'return focus to (button 2)'})).toHaveFocus()
   })
 })
+
+it('automatically focuses the element that is specified as initialFocusRef', () => {
+  const initialFocusRef = React.createRef<HTMLAnchorElement>()
+  const {getByRole} = render(
+    <Dialog
+      initialFocusRef={initialFocusRef}
+      onClose={() => {}}
+      title="New issue"
+      renderBody={() => (
+        <a ref={initialFocusRef} href="https://github.com">
+          Item 1
+        </a>
+      )}
+    ></Dialog>,
+  )
+
+  expect(getByRole('link')).toHaveFocus()
+})
