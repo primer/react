@@ -1,5 +1,35 @@
 # @primer/react
 
+## 36.25.0
+
+### Minor Changes
+
+- [#4051](https://github.com/primer/react/pull/4051) [`7e644b70359fcba07810560abcb8b1fbe785668a`](https://github.com/primer/react/commit/7e644b70359fcba07810560abcb8b1fbe785668a) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds a loading state to ActionList items. Also allows the Spinner component to accept screenreader text.
+
+  <!-- Changed components: ActionList, ActionMenu, NavList, Spinners -->
+
+- [#4697](https://github.com/primer/react/pull/4697) [`a7d1e4f37cd8fd01c86250178ef6ae748d786e03`](https://github.com/primer/react/commit/a7d1e4f37cd8fd01c86250178ef6ae748d786e03) Thanks [@khiga8](https://github.com/khiga8)! - Add TrailingAction support to NavList
+
+### Patch Changes
+
+- [#4706](https://github.com/primer/react/pull/4706) [`71859edc30664e259c855ffdc3732cda8dc6d169`](https://github.com/primer/react/commit/71859edc30664e259c855ffdc3732cda8dc6d169) Thanks [@TylerJDev](https://github.com/TylerJDev)! - (Behind feature flag) ActionList: Fix for "full" variant when using button semantics
+
+- [#4711](https://github.com/primer/react/pull/4711) [`199e3840af17d8ea7c75dbba60cdfbaaf7ef4021`](https://github.com/primer/react/commit/199e3840af17d8ea7c75dbba60cdfbaaf7ef4021) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Removes live region from `FormControl` validation
+
+## 36.24.0
+
+### Minor Changes
+
+- [#4673](https://github.com/primer/react/pull/4673) [`eedc6b16ba3078025c636a8c1368f38f7f9b798d`](https://github.com/primer/react/commit/eedc6b16ba3078025c636a8c1368f38f7f9b798d) Thanks [@joshblack](https://github.com/joshblack)! - Add experimental support for the AriaStatus, AriaAlert, and Announce components
+
+- [#4691](https://github.com/primer/react/pull/4691) [`55e97a9027aafd0ee432d8d5c293d75792de96dc`](https://github.com/primer/react/commit/55e97a9027aafd0ee432d8d5c293d75792de96dc) Thanks [@joshblack](https://github.com/joshblack)! - Update internal VisuallyHidden helper to use a `span` by default over a `div` to support more nesting scenarios by default
+
+### Patch Changes
+
+- [#4699](https://github.com/primer/react/pull/4699) [`546803e66661d353450c9ef2fc8cbfd51ca18d41`](https://github.com/primer/react/commit/546803e66661d353450c9ef2fc8cbfd51ca18d41) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Overlay: Set `style` prop correctly
+
+- [#4669](https://github.com/primer/react/pull/4669) [`1403ef7e015165119b03b73832c5aa8b2f093021`](https://github.com/primer/react/commit/1403ef7e015165119b03b73832c5aa8b2f093021) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - PageHeader: Resolve layout shift issues on Title and Actions
+
 ## 36.23.0
 
 ### Minor Changes
