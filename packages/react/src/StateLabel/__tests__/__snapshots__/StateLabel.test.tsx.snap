@@ -1,10 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StateLabel renders children 1`] = `
-.c1 {
-  margin-right: 4px;
-}
-
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -16,27 +12,83 @@ exports[`StateLabel renders children 1`] = `
   align-items: center;
   font-weight: 600;
   line-height: 16px;
-  color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
   text-align: center;
   border-radius: 100px;
+}
+
+.c0[data-variant='small'] {
+  padding-inline: var(--base-size-8,8px);
+  padding-block: var(--base-size-4,4px);
+  font-size: var(--text-body-size-small,12px);
+}
+
+.c0[data-variant='normal'] {
+  padding-inline: 12px;
+  padding-block: var(--base-size-8,8px);
+  font-size: var(--text-body-size-medium,14px);
+}
+
+.c0[data-status='issueClosed'] {
+  background-color: var(--bgColor-done-emphasis,);
+}
+
+.c0[data-status='issueClosedNotPlanned'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0[data-status='pullClosed'] {
+  background-color: var(--bgColor-closed-emphasis,var(--color-closed-emphasis,#cf222e));
+}
+
+.c0[data-status='pullMerged'] {
+  background-color: var(--bgColor-done-emphasis,var(--color-done-emphasis,#8250df));
+}
+
+.c0[data-status='pullQueued'] {
+  background-color: var(--bgColor-attention-emphasis,var(--color-attention-emphasis,#9a6700));
+}
+
+.c0[data-status='issueOpened'] {
   background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  font-size: 14px;
+}
+
+.c0[data-status='pullOpened'] {
+  background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
+}
+
+.c0[data-status='draft'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0[data-status='issueDraft'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0[data-status='unavailable'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0 .StateLabelIcon {
+  margin-inline-end: var(--base-size-4,4px);
+}
+
+.c0[data-variant='small'] .StateLabelIcon {
+  width: 1em;
 }
 
 <span
   className="c0"
+  data-status="issueOpened"
+  data-variant="normal"
 >
   <svg
-    aria-hidden="true"
-    className="c1"
+    aria-label="Issue"
+    className="StateLabelIcon"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
@@ -60,10 +112,6 @@ exports[`StateLabel renders children 1`] = `
 `;
 
 exports[`StateLabel respects the status prop 1`] = `
-.c1 {
-  margin-right: 4px;
-}
-
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -75,27 +123,83 @@ exports[`StateLabel respects the status prop 1`] = `
   align-items: center;
   font-weight: 600;
   line-height: 16px;
-  color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
   text-align: center;
   border-radius: 100px;
+}
+
+.c0[data-variant='small'] {
+  padding-inline: var(--base-size-8,8px);
+  padding-block: var(--base-size-4,4px);
+  font-size: var(--text-body-size-small,12px);
+}
+
+.c0[data-variant='normal'] {
+  padding-inline: 12px;
+  padding-block: var(--base-size-8,8px);
+  font-size: var(--text-body-size-medium,14px);
+}
+
+.c0[data-status='issueClosed'] {
+  background-color: var(--bgColor-done-emphasis,);
+}
+
+.c0[data-status='issueClosedNotPlanned'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0[data-status='pullClosed'] {
+  background-color: var(--bgColor-closed-emphasis,var(--color-closed-emphasis,#cf222e));
+}
+
+.c0[data-status='pullMerged'] {
+  background-color: var(--bgColor-done-emphasis,var(--color-done-emphasis,#8250df));
+}
+
+.c0[data-status='pullQueued'] {
+  background-color: var(--bgColor-attention-emphasis,var(--color-attention-emphasis,#9a6700));
+}
+
+.c0[data-status='issueOpened'] {
   background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  font-size: 14px;
+}
+
+.c0[data-status='pullOpened'] {
+  background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
+}
+
+.c0[data-status='draft'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0[data-status='issueDraft'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0[data-status='unavailable'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0 .StateLabelIcon {
+  margin-inline-end: var(--base-size-4,4px);
+}
+
+.c0[data-variant='small'] .StateLabelIcon {
+  width: 1em;
 }
 
 <span
   className="c0"
+  data-status="issueOpened"
+  data-variant="normal"
 >
   <svg
-    aria-hidden="true"
-    className="c1"
+    aria-label="Issue"
+    className="StateLabelIcon"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
@@ -118,10 +222,6 @@ exports[`StateLabel respects the status prop 1`] = `
 `;
 
 exports[`StateLabel respects the status prop 2`] = `
-.c1 {
-  margin-right: 4px;
-}
-
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -133,27 +233,83 @@ exports[`StateLabel respects the status prop 2`] = `
   align-items: center;
   font-weight: 600;
   line-height: 16px;
-  color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
   text-align: center;
   border-radius: 100px;
+}
+
+.c0[data-variant='small'] {
+  padding-inline: var(--base-size-8,8px);
+  padding-block: var(--base-size-4,4px);
+  font-size: var(--text-body-size-small,12px);
+}
+
+.c0[data-variant='normal'] {
+  padding-inline: 12px;
+  padding-block: var(--base-size-8,8px);
+  font-size: var(--text-body-size-medium,14px);
+}
+
+.c0[data-status='issueClosed'] {
+  background-color: var(--bgColor-done-emphasis,);
+}
+
+.c0[data-status='issueClosedNotPlanned'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0[data-status='pullClosed'] {
+  background-color: var(--bgColor-closed-emphasis,var(--color-closed-emphasis,#cf222e));
+}
+
+.c0[data-status='pullMerged'] {
   background-color: var(--bgColor-done-emphasis,var(--color-done-emphasis,#8250df));
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  font-size: 14px;
+}
+
+.c0[data-status='pullQueued'] {
+  background-color: var(--bgColor-attention-emphasis,var(--color-attention-emphasis,#9a6700));
+}
+
+.c0[data-status='issueOpened'] {
+  background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
+}
+
+.c0[data-status='pullOpened'] {
+  background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
+}
+
+.c0[data-status='draft'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0[data-status='issueDraft'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0[data-status='unavailable'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0 .StateLabelIcon {
+  margin-inline-end: var(--base-size-4,4px);
+}
+
+.c0[data-variant='small'] .StateLabelIcon {
+  width: 1em;
 }
 
 <span
   className="c0"
+  data-status="issueClosed"
+  data-variant="normal"
 >
   <svg
-    aria-hidden="true"
-    className="c1"
+    aria-label="Issue"
+    className="StateLabelIcon"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
@@ -176,10 +332,6 @@ exports[`StateLabel respects the status prop 2`] = `
 `;
 
 exports[`StateLabel respects the status prop 3`] = `
-.c1 {
-  margin-right: 4px;
-}
-
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -191,27 +343,83 @@ exports[`StateLabel respects the status prop 3`] = `
   align-items: center;
   font-weight: 600;
   line-height: 16px;
-  color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
   text-align: center;
   border-radius: 100px;
+}
+
+.c0[data-variant='small'] {
+  padding-inline: var(--base-size-8,8px);
+  padding-block: var(--base-size-4,4px);
+  font-size: var(--text-body-size-small,12px);
+}
+
+.c0[data-variant='normal'] {
+  padding-inline: 12px;
+  padding-block: var(--base-size-8,8px);
+  font-size: var(--text-body-size-medium,14px);
+}
+
+.c0[data-status='issueClosed'] {
+  background-color: var(--bgColor-done-emphasis,);
+}
+
+.c0[data-status='issueClosedNotPlanned'] {
   background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  font-size: 14px;
+}
+
+.c0[data-status='pullClosed'] {
+  background-color: var(--bgColor-closed-emphasis,var(--color-closed-emphasis,#cf222e));
+}
+
+.c0[data-status='pullMerged'] {
+  background-color: var(--bgColor-done-emphasis,var(--color-done-emphasis,#8250df));
+}
+
+.c0[data-status='pullQueued'] {
+  background-color: var(--bgColor-attention-emphasis,var(--color-attention-emphasis,#9a6700));
+}
+
+.c0[data-status='issueOpened'] {
+  background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
+}
+
+.c0[data-status='pullOpened'] {
+  background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
+}
+
+.c0[data-status='draft'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0[data-status='issueDraft'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0[data-status='unavailable'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0 .StateLabelIcon {
+  margin-inline-end: var(--base-size-4,4px);
+}
+
+.c0[data-variant='small'] .StateLabelIcon {
+  width: 1em;
 }
 
 <span
   className="c0"
+  data-status="issueClosedNotPlanned"
+  data-variant="normal"
 >
   <svg
-    aria-hidden="true"
-    className="c1"
+    aria-label="Issue"
+    className="StateLabelIcon"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
@@ -231,10 +439,6 @@ exports[`StateLabel respects the status prop 3`] = `
 `;
 
 exports[`StateLabel respects the status prop 4`] = `
-.c1 {
-  margin-right: 4px;
-}
-
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -246,27 +450,83 @@ exports[`StateLabel respects the status prop 4`] = `
   align-items: center;
   font-weight: 600;
   line-height: 16px;
-  color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
   text-align: center;
   border-radius: 100px;
+}
+
+.c0[data-variant='small'] {
+  padding-inline: var(--base-size-8,8px);
+  padding-block: var(--base-size-4,4px);
+  font-size: var(--text-body-size-small,12px);
+}
+
+.c0[data-variant='normal'] {
+  padding-inline: 12px;
+  padding-block: var(--base-size-8,8px);
+  font-size: var(--text-body-size-medium,14px);
+}
+
+.c0[data-status='issueClosed'] {
+  background-color: var(--bgColor-done-emphasis,);
+}
+
+.c0[data-status='issueClosedNotPlanned'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0[data-status='pullClosed'] {
+  background-color: var(--bgColor-closed-emphasis,var(--color-closed-emphasis,#cf222e));
+}
+
+.c0[data-status='pullMerged'] {
   background-color: var(--bgColor-done-emphasis,var(--color-done-emphasis,#8250df));
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  font-size: 14px;
+}
+
+.c0[data-status='pullQueued'] {
+  background-color: var(--bgColor-attention-emphasis,var(--color-attention-emphasis,#9a6700));
+}
+
+.c0[data-status='issueOpened'] {
+  background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
+}
+
+.c0[data-status='pullOpened'] {
+  background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
+}
+
+.c0[data-status='draft'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0[data-status='issueDraft'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0[data-status='unavailable'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0 .StateLabelIcon {
+  margin-inline-end: var(--base-size-4,4px);
+}
+
+.c0[data-variant='small'] .StateLabelIcon {
+  width: 1em;
 }
 
 <span
   className="c0"
+  data-status="pullMerged"
+  data-variant="normal"
 >
   <svg
-    aria-hidden="true"
-    className="c1"
+    aria-label="Pull request"
+    className="StateLabelIcon"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
@@ -286,10 +546,6 @@ exports[`StateLabel respects the status prop 4`] = `
 `;
 
 exports[`StateLabel respects the status prop 5`] = `
-.c1 {
-  margin-right: 4px;
-}
-
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -301,27 +557,83 @@ exports[`StateLabel respects the status prop 5`] = `
   align-items: center;
   font-weight: 600;
   line-height: 16px;
-  color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
   text-align: center;
   border-radius: 100px;
+}
+
+.c0[data-variant='small'] {
+  padding-inline: var(--base-size-8,8px);
+  padding-block: var(--base-size-4,4px);
+  font-size: var(--text-body-size-small,12px);
+}
+
+.c0[data-variant='normal'] {
+  padding-inline: 12px;
+  padding-block: var(--base-size-8,8px);
+  font-size: var(--text-body-size-medium,14px);
+}
+
+.c0[data-status='issueClosed'] {
+  background-color: var(--bgColor-done-emphasis,);
+}
+
+.c0[data-status='issueClosedNotPlanned'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0[data-status='pullClosed'] {
+  background-color: var(--bgColor-closed-emphasis,var(--color-closed-emphasis,#cf222e));
+}
+
+.c0[data-status='pullMerged'] {
+  background-color: var(--bgColor-done-emphasis,var(--color-done-emphasis,#8250df));
+}
+
+.c0[data-status='pullQueued'] {
   background-color: var(--bgColor-attention-emphasis,var(--color-attention-emphasis,#9a6700));
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  font-size: 14px;
+}
+
+.c0[data-status='issueOpened'] {
+  background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
+}
+
+.c0[data-status='pullOpened'] {
+  background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
+}
+
+.c0[data-status='draft'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0[data-status='issueDraft'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0[data-status='unavailable'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0 .StateLabelIcon {
+  margin-inline-end: var(--base-size-4,4px);
+}
+
+.c0[data-variant='small'] .StateLabelIcon {
+  width: 1em;
 }
 
 <span
   className="c0"
+  data-status="pullQueued"
+  data-variant="normal"
 >
   <svg
-    aria-hidden="true"
-    className="c1"
+    aria-label="Pull request"
+    className="StateLabelIcon"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
@@ -341,10 +653,6 @@ exports[`StateLabel respects the status prop 5`] = `
 `;
 
 exports[`StateLabel respects the variant prop 1`] = `
-.c1 {
-  margin-right: 4px;
-}
-
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -356,27 +664,83 @@ exports[`StateLabel respects the variant prop 1`] = `
   align-items: center;
   font-weight: 600;
   line-height: 16px;
-  color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
   text-align: center;
   border-radius: 100px;
+}
+
+.c0[data-variant='small'] {
+  padding-inline: var(--base-size-8,8px);
+  padding-block: var(--base-size-4,4px);
+  font-size: var(--text-body-size-small,12px);
+}
+
+.c0[data-variant='normal'] {
+  padding-inline: 12px;
+  padding-block: var(--base-size-8,8px);
+  font-size: var(--text-body-size-medium,14px);
+}
+
+.c0[data-status='issueClosed'] {
+  background-color: var(--bgColor-done-emphasis,);
+}
+
+.c0[data-status='issueClosedNotPlanned'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0[data-status='pullClosed'] {
+  background-color: var(--bgColor-closed-emphasis,var(--color-closed-emphasis,#cf222e));
+}
+
+.c0[data-status='pullMerged'] {
+  background-color: var(--bgColor-done-emphasis,var(--color-done-emphasis,#8250df));
+}
+
+.c0[data-status='pullQueued'] {
+  background-color: var(--bgColor-attention-emphasis,var(--color-attention-emphasis,#9a6700));
+}
+
+.c0[data-status='issueOpened'] {
   background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  font-size: 12px;
+}
+
+.c0[data-status='pullOpened'] {
+  background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
+}
+
+.c0[data-status='draft'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0[data-status='issueDraft'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0[data-status='unavailable'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0 .StateLabelIcon {
+  margin-inline-end: var(--base-size-4,4px);
+}
+
+.c0[data-variant='small'] .StateLabelIcon {
+  width: 1em;
 }
 
 <span
   className="c0"
+  data-status="issueOpened"
+  data-variant="small"
 >
   <svg
-    aria-hidden="true"
-    className="c1"
+    aria-label="Issue"
+    className="StateLabelIcon"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
@@ -399,10 +763,6 @@ exports[`StateLabel respects the variant prop 1`] = `
 `;
 
 exports[`StateLabel respects the variant prop 2`] = `
-.c1 {
-  margin-right: 4px;
-}
-
 .c0 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
@@ -414,27 +774,83 @@ exports[`StateLabel respects the variant prop 2`] = `
   align-items: center;
   font-weight: 600;
   line-height: 16px;
-  color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
   text-align: center;
   border-radius: 100px;
+}
+
+.c0[data-variant='small'] {
+  padding-inline: var(--base-size-8,8px);
+  padding-block: var(--base-size-4,4px);
+  font-size: var(--text-body-size-small,12px);
+}
+
+.c0[data-variant='normal'] {
+  padding-inline: 12px;
+  padding-block: var(--base-size-8,8px);
+  font-size: var(--text-body-size-medium,14px);
+}
+
+.c0[data-status='issueClosed'] {
+  background-color: var(--bgColor-done-emphasis,);
+}
+
+.c0[data-status='issueClosedNotPlanned'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0[data-status='pullClosed'] {
+  background-color: var(--bgColor-closed-emphasis,var(--color-closed-emphasis,#cf222e));
+}
+
+.c0[data-status='pullMerged'] {
+  background-color: var(--bgColor-done-emphasis,var(--color-done-emphasis,#8250df));
+}
+
+.c0[data-status='pullQueued'] {
+  background-color: var(--bgColor-attention-emphasis,var(--color-attention-emphasis,#9a6700));
+}
+
+.c0[data-status='issueOpened'] {
   background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  font-size: 14px;
+}
+
+.c0[data-status='pullOpened'] {
+  background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
+}
+
+.c0[data-status='draft'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0[data-status='issueDraft'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0[data-status='unavailable'] {
+  background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
+}
+
+.c0 .StateLabelIcon {
+  margin-inline-end: var(--base-size-4,4px);
+}
+
+.c0[data-variant='small'] .StateLabelIcon {
+  width: 1em;
 }
 
 <span
   className="c0"
+  data-status="issueOpened"
+  data-variant="normal"
 >
   <svg
-    aria-hidden="true"
-    className="c1"
+    aria-label="Issue"
+    className="StateLabelIcon"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
