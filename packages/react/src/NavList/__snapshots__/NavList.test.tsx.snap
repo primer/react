@@ -1280,7 +1280,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
         <button
           aria-controls=":r26:"
           aria-expanded="true"
-          aria-labelledby=":r23:--label :r23:--trailing-visual"
+          aria-labelledby=":r25:--label :r25:--trailing-visual"
           class="c3 c4"
           id=":r25:"
           tabindex="0"
@@ -1300,7 +1300,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
               </span>
               <span
                 class="c1 c8"
-                id=":r23:--trailing-visual"
+                id=":r25:--trailing-visual"
               >
                 <svg
                   aria-hidden="true"
@@ -1782,7 +1782,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
         <button
           aria-controls=":r20:"
           aria-expanded="false"
-          aria-labelledby=":r1t:--label :r1t:--trailing-visual"
+          aria-labelledby=":r1v:--label :r1v:--trailing-visual"
           class="c3 c4"
           id=":r1v:"
           tabindex="0"
@@ -1802,7 +1802,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
               </span>
               <span
                 class="c1 c8"
-                id=":r1t:--trailing-visual"
+                id=":r1v:--trailing-visual"
               >
                 <svg
                   aria-hidden="true"
