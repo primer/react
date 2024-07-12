@@ -308,4 +308,67 @@ test.describe('IconButton', () => {
       })
     }
   })
+  test.describe('Keyshortcuts', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-iconbutton-features--keyshortcuts',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          await page.keyboard.press('Tab') // focus on icon button
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `IconButton.Keyshortcuts.${theme}.png`,
+          )
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-iconbutton-features--keyshortcuts',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await page.keyboard.press('Tab') // focus on icon button
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
+
+  test.describe('Keyshortcuts on Description', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-iconbutton-features--keyshortcuts-on-description',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          await page.keyboard.press('Tab') // focus on icon button
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `IconButton.Keyshortcuts on Description.${theme}.png`,
+          )
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-iconbutton-features--keyshortcuts-on-description',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await page.keyboard.press('Tab') // focus on icon button
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
 })
