@@ -292,13 +292,13 @@ const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defau
 
 export type NavListShowMoreItemProps = {
   children: React.ReactNode
-  label: string
+  label?: string
 } & SxProp
 
 const ItemWithinGroup = React.createContext<{groupId: string} | null>(null)
 
 const ShowMoreItem = React.forwardRef<HTMLButtonElement, NavListShowMoreItemProps>(
-  ({label, children, ...props}, forwardedRef) => {
+  ({label = 'Show more', children, ...props}, forwardedRef) => {
     const [expanded, setExpanded] = React.useState(false)
     const targetFocused = React.useRef(false)
 
