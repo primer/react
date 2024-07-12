@@ -86,7 +86,7 @@ export const RadioGroupLabel = CheckboxOrRadioGroupLabel
 
 /**
  * The message about the validation status of the set of related checkboxes.
- * @alias RadioGroup.Caption
+ * @alias RadioGroup.Validation
  * @primerparentid radio_group
  */
 export const RadioGroupValidation = CheckboxOrRadioGroupValidation

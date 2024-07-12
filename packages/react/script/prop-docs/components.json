@@ -189,6 +189,13 @@
               "required": false,
               "description": "Sets where the tooltip renders in relation to the target.",
               "defaultValue": ""
+            },
+            {
+              "name": "keyshortcuts",
+              "type": "string",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
             }
           ]
         },
@@ -2103,7 +2110,7 @@
           ]
         },
         {
-          "name": "CheckboxGroup.Caption",
+          "name": "CheckboxGroup.Validation",
           "props": [
             {
               "name": "variant",
@@ -4797,7 +4804,7 @@
           ]
         },
         {
-          "name": "RadioGroup.Caption",
+          "name": "RadioGroup.Validation",
           "props": [
             {
               "name": "variant",
@@ -7960,6 +7967,13 @@
               "type": "\"s\" | \"nw\" | \"n\" | \"ne\" | \"e\" | \"se\" | \"sw\" | \"w\"",
               "required": false,
               "description": "Sets where the tooltip renders in relation to the target.",
+              "defaultValue": ""
+            },
+            {
+              "name": "keyshortcuts",
+              "type": "string",
+              "required": false,
+              "description": "",
               "defaultValue": ""
             },
             {

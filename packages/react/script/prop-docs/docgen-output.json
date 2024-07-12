@@ -2451,6 +2451,27 @@
             }
           ]
         }
+      },
+      "keyshortcuts": {
+        "defaultValue": null,
+        "description": "",
+        "name": "keyshortcuts",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "string",
+          "value": [
+            {
+              "value": "string"
+            }
+          ]
+        }
       }
     }
   },
@@ -21637,7 +21658,7 @@
   },
   {
     "tags": {
-      "alias": "CheckboxGroup.Caption",
+      "alias": "CheckboxGroup.Validation",
       "primerparentid": "checkbox_group"
     },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/CheckboxGroup/CheckboxGroup.tsx",
@@ -41847,7 +41868,7 @@
   },
   {
     "tags": {
-      "alias": "RadioGroup.Caption",
+      "alias": "RadioGroup.Validation",
       "primerparentid": "radio_group"
     },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/RadioGroup/RadioGroup.tsx",
@@ -67563,6 +67584,27 @@
             },
             {
               "value": "\"w\""
+            }
+          ]
+        }
+      },
+      "keyshortcuts": {
+        "defaultValue": null,
+        "description": "",
+        "name": "keyshortcuts",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "string",
+          "value": [
+            {
+              "value": "string"
             }
           ]
         }
