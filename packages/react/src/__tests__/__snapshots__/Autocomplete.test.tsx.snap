@@ -523,10 +523,6 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   outline: 0;
 }
 
-@media (hover:hover) and (pointer:fine) {
-
-}
-
 @media (forced-colors:active) {
 
 }
@@ -536,6 +532,10 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 }
 
 @media (forced-colors:active) {
+
+}
+
+@media (hover:hover) and (pointer:fine) {
 
 }
 
@@ -797,8 +797,16 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   --divider-color: transparent;
 }
 
+@media (forced-colors:active) {
+  .c3:focus,
+  .c3:focus-visible,
+  .c3 > a.focus-visible {
+    outline: solid 1px transparent !important;
+  }
+}
+
 @media (hover:hover) and (pointer:fine) {
-  .c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
+  .c3:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
     box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
@@ -812,25 +820,17 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
     box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
   }
 
-  .c3:active:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
+  .c3:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   }
 }
 
 @media (forced-colors:active) {
-  .c3:focus,
-  .c3:focus-visible,
-  .c3 > a.focus-visible {
-    outline: solid 1px transparent !important;
-  }
+
 }
 
 @media (hover:hover) and (pointer:fine) {
-
-}
-
-@media (forced-colors:active) {
 
 }
 
@@ -1340,11 +1340,11 @@ exports[`snapshots renders a multiselect input 1`] = `
   outline: 0;
 }
 
-@media (hover:hover) and (pointer:fine) {
+@media (forced-colors:active) {
 
 }
 
-@media (forced-colors:active) {
+@media (hover:hover) and (pointer:fine) {
 
 }
 
@@ -1565,8 +1565,16 @@ exports[`snapshots renders a multiselect input 1`] = `
   --divider-color: transparent;
 }
 
+@media (forced-colors:active) {
+  .c3:focus,
+  .c3:focus-visible,
+  .c3 > a.focus-visible {
+    outline: solid 1px transparent !important;
+  }
+}
+
 @media (hover:hover) and (pointer:fine) {
-  .c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
+  .c3:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
     box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
@@ -1580,17 +1588,9 @@ exports[`snapshots renders a multiselect input 1`] = `
     box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
   }
 
-  .c3:active:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
+  .c3:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  }
-}
-
-@media (forced-colors:active) {
-  .c3:focus,
-  .c3:focus-visible,
-  .c3 > a.focus-visible {
-    outline: solid 1px transparent !important;
   }
 }
 
@@ -2043,10 +2043,6 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   outline: 0;
 }
 
-@media (hover:hover) and (pointer:fine) {
-
-}
-
 @media (forced-colors:active) {
 
 }
@@ -2056,6 +2052,10 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 }
 
 @media (forced-colors:active) {
+
+}
+
+@media (hover:hover) and (pointer:fine) {
 
 }
 
@@ -2396,8 +2396,16 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   --divider-color: transparent;
 }
 
+@media (forced-colors:active) {
+  .c3:focus,
+  .c3:focus-visible,
+  .c3 > a.focus-visible {
+    outline: solid 1px transparent !important;
+  }
+}
+
 @media (hover:hover) and (pointer:fine) {
-  .c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
+  .c3:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
     box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
@@ -2411,22 +2419,22 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
     box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
   }
 
-  .c3:active:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
+  .c3:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   }
 }
 
 @media (forced-colors:active) {
-  .c3:focus,
-  .c3:focus-visible,
-  .c3 > a.focus-visible {
+  .c8:focus,
+  .c8:focus-visible,
+  .c8 > a.focus-visible {
     outline: solid 1px transparent !important;
   }
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c8:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
+  .c8:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
     box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
@@ -2440,17 +2448,9 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
     box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
   }
 
-  .c8:active:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
+  .c8:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  }
-}
-
-@media (forced-colors:active) {
-  .c8:focus,
-  .c8:focus-visible,
-  .c8 > a.focus-visible {
-    outline: solid 1px transparent !important;
   }
 }
 
@@ -2903,11 +2903,11 @@ exports[`snapshots renders a single select input 1`] = `
   outline: 0;
 }
 
-@media (hover:hover) and (pointer:fine) {
+@media (forced-colors:active) {
 
 }
 
-@media (forced-colors:active) {
+@media (hover:hover) and (pointer:fine) {
 
 }
 
@@ -3090,8 +3090,16 @@ exports[`snapshots renders a single select input 1`] = `
   --divider-color: transparent;
 }
 
+@media (forced-colors:active) {
+  .c3:focus,
+  .c3:focus-visible,
+  .c3 > a.focus-visible {
+    outline: solid 1px transparent !important;
+  }
+}
+
 @media (hover:hover) and (pointer:fine) {
-  .c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
+  .c3:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
     box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
@@ -3105,17 +3113,9 @@ exports[`snapshots renders a single select input 1`] = `
     box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
   }
 
-  .c3:active:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
+  .c3:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  }
-}
-
-@media (forced-colors:active) {
-  .c3:focus,
-  .c3:focus-visible,
-  .c3 > a.focus-visible {
-    outline: solid 1px transparent !important;
   }
 }
 
@@ -3401,11 +3401,11 @@ exports[`snapshots renders a single select input 1`] = `
 
 exports[`snapshots renders with a custom text input component 1`] = `
 [
-  @media (hover:hover) and (pointer:fine) {
+  @media (forced-colors:active) {
 
 }
 
-@media (forced-colors:active) {
+@media (hover:hover) and (pointer:fine) {
 
 }
 
@@ -3561,8 +3561,16 @@ exports[`snapshots renders with a custom text input component 1`] = `
   --divider-color: transparent;
 }
 
+@media (forced-colors:active) {
+  .c3:focus,
+  .c3:focus-visible,
+  .c3 > a.focus-visible {
+    outline: solid 1px transparent !important;
+  }
+}
+
 @media (hover:hover) and (pointer:fine) {
-  .c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
+  .c3:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
     box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
@@ -3576,17 +3584,9 @@ exports[`snapshots renders with a custom text input component 1`] = `
     box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
   }
 
-  .c3:active:not([aria-disabled]):not([data-inactive]):not([data-loading]) {
+  .c3:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  }
-}
-
-@media (forced-colors:active) {
-  .c3:focus,
-  .c3:focus-visible,
-  .c3 > a.focus-visible {
-    outline: solid 1px transparent !important;
   }
 }
 
@@ -3975,11 +3975,11 @@ exports[`snapshots renders with an input value 1`] = `
   outline: 0;
 }
 
-@media (hover:hover) and (pointer:fine) {
+@media (forced-colors:active) {
 
 }
 
-@media (forced-colors:active) {
+@media (hover:hover) and (pointer:fine) {
 
 }
 
@@ -4031,11 +4031,11 @@ exports[`snapshots renders with an input value 1`] = `
   border-width: 0;
 }
 
-@media (hover:hover) and (pointer:fine) {
+@media (forced-colors:active) {
 
 }
 
-@media (forced-colors:active) {
+@media (hover:hover) and (pointer:fine) {
 
 }
 

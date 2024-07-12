@@ -93,6 +93,7 @@ export type IconButtonProps = ButtonA11yProps & {
   unsafeDisableTooltip?: boolean
   description?: string
   tooltipDirection?: TooltipDirection
+  keyshortcuts?: string
 } & Omit<ButtonBaseProps, 'aria-label' | 'aria-labelledby'>
 
 // adopted from React.AnchorHTMLAttributes

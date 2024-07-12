@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {HeartIcon, InboxIcon, ChevronDownIcon, DownloadIcon} from '@primer/octicons-react'
+import {HeartIcon, InboxIcon, ChevronDownIcon, DownloadIcon, BoldIcon} from '@primer/octicons-react'
 import {IconButton} from '.'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
@@ -103,3 +103,16 @@ export const LoadingTrigger = () => {
 
   return <IconButton loading={isLoading} onClick={handleClick} icon={DownloadIcon} aria-label="Download" />
 }
+export const KeyshortcutsOnDescription = () => (
+  <IconButton
+    unsafeDisableTooltip={false}
+    icon={InboxIcon}
+    aria-label="Notifications"
+    description="You have unread notifications"
+    keyshortcuts="G+N"
+  />
+)
+
+export const Keyshortcuts = () => (
+  <IconButton unsafeDisableTooltip={false} icon={BoldIcon} aria-label="Bold" keyshortcuts="Command+B" />
+)
