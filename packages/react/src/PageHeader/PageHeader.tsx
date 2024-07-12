@@ -337,6 +337,7 @@ const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Title
     )
   },
 ) as PolymorphicForwardRefComponent<'div', TitleAreaProps>
+TitleArea.displayName = 'TitleArea'
 
 // PageHeader.LeadingAction and PageHeader.TrailingAction should only be visible on regular viewports.
 // So they come as hidden on narrow viewports by default and their visibility can be managed by their `hidden` prop.
