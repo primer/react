@@ -67,7 +67,7 @@ The following code style has given me the best results with Docgen.
 // --------------------------------------------------
 // packages/react/src/TestComponent/TestComponent.tsx
 // --------------------------------------------------
-import React, {forwardRef, type FC, type PropsWithChildren} from 'react'
+import React from 'react'
 
 export type TestComponentProps = {
   /** Unique identifier associated with this instance of the test component */
@@ -83,7 +83,7 @@ export type TestComponentProps = {
  * @primerstatus alpha
  * @primera11yreviewed true
  */
-export const TestComponent: FC<PropsWithChildren<TestComponentProps>> = ({children, id, status}) => (
+export const TestComponent: React.FC<React.PropsWithChildren<TestComponentProps>> = ({children, id, status}) => (
   <div data-status={status} id={id}>{children}</div>
 )
 
@@ -100,7 +100,7 @@ export type TestComponentHeadingProps = {
  * @alias TestComponent.Heading
  * @primerparentid test_component
  */
-export const TestComponentHeading: FC<PropsWithChildren<TestComponentHeadingProps>> = ({children, variant = 'moderate'}) => (
+export const TestComponentHeading: React.FC<React.PropsWithChildren<TestComponentHeadingProps>> = ({children, variant = 'moderate'}) => (
   <div data-variant={variant}>{children}</div>
 )
 
@@ -114,7 +114,7 @@ export type TestComponentBodyProps = {
  * @alias TestComponent.Body
  * @primerparentid test_component
  */
-export const TestComponentBody: FC<PropsWithChildren<TestComponentBodyProps>> = ({children, scrollable}) => (
+export const TestComponentBody: React.FC<React.PropsWithChildren<TestComponentBodyProps>> = ({children, scrollable}) => (
   <div data-scrollable={scrollable} id={id}>{children}</div>
 )
 ```
@@ -126,13 +126,6 @@ export const TestComponentBody: FC<PropsWithChildren<TestComponentBodyProps>> = 
 import {TestComponent as TestComponentImpl, TestComponentHeading, TestComponentBody} from './TestComponent'
 import type {TestComponentProps, TestComponentHeadingProps, TestComponentBodyProps} from './TestComponent'
 
-// start OPTIONAL - customize React display names
-// You might want to do this if you're detecting specific components in `children` by checking `.displayName`.
-// When display names are set in the component file, it causes issues with Docgen
-TestComponentHeading.displayName = 'TestComponent.Heading'
-TestComponentBody = 'TestComponent.Body'
-// end OPTIONAL
-
 export const TestComponent = Object.assign(TestComponentImpl, {
   Heading: TestComponentHeading,
   Body: TestComponentBody,
@@ -142,30 +135,11 @@ export type {TestComponentProps, TestComponentHeadingProps, TestComponentBodyPro
 
 #### Gotchas
 
-Referencing generic React types directly off the `React` object could cause Docgen to fail to parse the props.
-
-**Workaround (preferred):** Import React types directly. For example: `import React, {type FC} from 'react'`
-**Workaround:** Import all React types/modules. For example: `import * from 'react'`
-**Workaround:** Keep import as-is, but explicitly set props without using generic types from React. For example: `const ComponentName = (props: P) => {}`, `const ComponentThatForwardsRef = React.forwardRef((props: P, ref) => {})`
-
----
-
 Exporting a component and its children directly from the `.tsx` file causes the child components to not be associated with its parent.
 
+If you want a component to be documented, it must be exported from the `.tsx` file.
+
 **Workaround:** Instead of `export const Root = Object.assign(RootComponent, {Item: ItemComponent})` in the component's `.tsx` file, export it each component from the `.tsx` file and then import into the component's index.ts, then export with `Object.assign` from there.
-
----
-
-Unexpected/undesired behavior when setting `.displayName` in a component file
-
-**Workaround:** Set `.displayName`s in the `index.ts` file we export the component from for public consumption
-**Workaround:** If the component isn't named with dot-notation, just name the function exactly what the component should be named
-
----
-
-Components will be documented twice if you export them from an index file with a `.tsx` extension.
-
-**Workaround:** Rename `index.tsx` to `index.ts`
 
 ---
 
