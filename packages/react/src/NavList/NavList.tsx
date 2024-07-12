@@ -95,7 +95,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
         aria-current={ariaCurrent}
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
         sx={merge<SxProp['sx']>(getSubnavStyles(depth), sxProp)}
-        data-show-more-group-id={expandGroupContext?.groupId}
+        data-show-more-group-id={expandGroupContext?.id}
         {...props}
       >
         {children}
@@ -295,18 +295,21 @@ export type NavListShowMoreItemProps = {
   label?: string
 } & SxProp
 
-const ItemWithinGroup = React.createContext<{groupId: string} | null>(null)
+const ItemWithinGroup = React.createContext<{id: string} | null>(null)
 
 const ShowMoreItem = React.forwardRef<HTMLButtonElement, NavListShowMoreItemProps>(
   ({label = 'Show more', children, ...props}, forwardedRef) => {
     const [expanded, setExpanded] = React.useState(false)
     const targetFocused = React.useRef(false)
 
-    const groupId = useId()
+    const id = useId()
+    const groupId = React.useMemo(() => ({id}), [id])
 
     React.useEffect(() => {
       if (expanded && !targetFocused.current) {
-        const focusTarget: HTMLAnchorElement | null = document.querySelector(`[data-show-more-group-id="${groupId}"]`)
+        const focusTarget: HTMLAnchorElement | null = document.querySelector(
+          `[data-show-more-group-id="${groupId.id}"]`,
+        )
 
         if (focusTarget) {
           focusTarget.focus()
@@ -333,7 +336,7 @@ const ShowMoreItem = React.forwardRef<HTMLButtonElement, NavListShowMoreItemProp
         </ActionList.Item>
       </Box>
     ) : (
-      <ItemWithinGroup.Provider value={{groupId}}>{children}</ItemWithinGroup.Provider>
+      <ItemWithinGroup.Provider value={groupId}>{children}</ItemWithinGroup.Provider>
     )
   },
 )
