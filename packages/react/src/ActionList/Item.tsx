@@ -157,6 +157,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
       width: buttonSemantics && listVariant !== 'full' ? 'calc(100% - 16px)' : '100%',
       marginX: buttonSemantics && listVariant !== 'full' ? '2' : '0',
+      borderRadius: 2,
       ...(buttonSemantics ? hoverStyles : {}),
     }
 
@@ -194,23 +195,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       textAlign: 'unset',
       marginY: 'unset',
 
-      '@media (hover: hover) and (pointer: fine)': {
-        ':hover:not([aria-disabled]):not([data-inactive]):not([data-loading])': {
-          backgroundColor: `actionListItem.${variant}.hoverBg`,
-          color: getVariantStyles(variant, disabled, inactive || loading).hoverColor,
-          boxShadow: `inset 0 0 0 max(1px, 0.0625rem) ${theme?.colors.actionListItem.default.activeBorder}`,
-        },
-        '&:focus-visible, > a.focus-visible, &:focus.focus-visible': {
-          outline: 'none',
-          border: `2 solid`,
-          boxShadow: `0 0 0 2px ${theme?.colors.accent.emphasis}`,
-        },
-        ':active:not([aria-disabled]):not([data-inactive]):not([data-loading])': {
-          backgroundColor: `actionListItem.${variant}.activeBg`,
-          color: getVariantStyles(variant, disabled, inactive || loading).hoverColor,
-        },
-      },
-
       '@media (forced-colors: active)': {
         ':focus, &:focus-visible, > a.focus-visible': {
           // Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips
@@ -246,6 +230,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         '--divider-color': 'transparent',
       },
       ...(active ? activeStyles : {}),
+      ...(!buttonSemantics ? hoverStyles : {}),
     }
 
     const clickHandler = React.useCallback(
