@@ -39,8 +39,8 @@
   },
   "typings": "lib/index.d.ts",
   "sideEffects": [
-    "lib-esm/**/*.css.js",
-    "lib/**/*.css.js"
+    "lib-esm/**/*.css",
+    "lib/**/*.css"
   ],
   "scripts": {
     "build": "./script/build",
