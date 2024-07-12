@@ -1,3 +1,4 @@
+import ts from 'typescript'
 import generate from '@babel/generator'
 import {parse} from '@babel/parser'
 import traverse from '@babel/traverse'
@@ -40,26 +41,83 @@ const docgenOptions = {
   shouldExtractValuesFromUnion: true,
   skipChildrenPropWithoutDoc: false,
   shouldRemoveUndefinedFromOptional: true,
-  //TODO: figure out how we might use the `componentNameResolver` option to fix react-docgen-typescript's
-  // issues with component files that have a displayName.
-  //
-  // When `.displayName` is set in the component file::
-  // - none of the subcomponents (e.g.: ActionMenu.Anchor) are parsed by docgen
-  // - the root component end up getting documented with the name of the last subcomponent's displayName (e.g.: `ActionMenu` and its props get documented with the display name 'ActionMenu.Anchor')
-  //
-  // This PR might have some hints: https://github.com/styleguidist/react-docgen-typescript/pull/449
-}
+  componentNameResolver: (exp: ts.Symbol, source: ts.SourceFile) => {
+    const nameFromAlias = exp.getJsDocTags().find(tag => tag.name === 'alias')?.text[0].text
+    // const defaultExportName = source.statements.find(s => ts.isExportAssignment(s))?.expression.getText()
 
-// const noPropsWhitelist = [
-//   'ButtonGroup/ButtonGroup.tsx',
-//   {fileName: 'ConfirmationDialog/ConfirmationDialog.tsx', displayName: 'useConfirm'},
-//   'UnderlineNav/LoadingCounter.tsx',
-//   {fileName: 'components/LiveRegion.tsx', displayName: 'LiveRegion'},
-//   {fileName: 'DataTable/Table.tsx', displayName: 'TableActions'},
-//   {fileName: 'DataTable/Table.tsx', displayName: 'TableHead'},
-//   {fileName: 'DataTable/Table.tsx', displayName: 'TableBody'},
-//   {fileName: 'DataTable/Table.tsx', displayName: 'TableRow'},
-// ]
+    // If `@alias` is defined, use that as the component name
+    if (nameFromAlias) {
+      return nameFromAlias
+    }
+
+    // Otherwise, parse out the `displayName` property of the component
+    // Stolen from https://github.com/styleguidist/react-docgen-typescript/pull/449
+    //
+    // TODO: fix this to work when `displayName` is set consecutively
+    // Works:
+    // ```tsx
+    // const Component = () => <div />
+    // Component.displayName = 'Component'
+    // const Subcomponent = () => <div />
+    // Subcomponent.displayName = 'Component.Subcomponent'
+    // ```
+    //
+    // Breaks:
+    // ```tsx
+    // const Component = () => <div />
+    // const Subcomponent = () => <div />
+    // Component.displayName = 'Component'
+    // Subcomponent.displayName = 'Component.Subcomponent'
+    // ```
+    const [textValue] = source.statements
+      .filter(statement => ts.isExpressionStatement(statement))
+      .filter(statement => {
+        const expr = (statement as ts.ExpressionStatement).expression as ts.BinaryExpression
+
+        const locals = Array.from((source as any).locals as [string, ts.Symbol][])
+        const hasOneLocalExport = locals.filter(local => !!local[1].exports).length === 1
+
+        if (hasOneLocalExport) {
+          return (
+            expr.left &&
+            (expr.left as ts.PropertyAccessExpression).name &&
+            (expr.left as ts.PropertyAccessExpression).name.escapedText === 'displayName'
+          )
+        }
+
+        /**
+         * Ensure the .displayName is for the currently processing function.
+         *
+         * This avoids the following situations:
+         *
+         *  - A file has multiple functions, one has `.displayName`, and all
+         *    functions ends up with that same `.displayName` value.
+         *
+         *  - A file has multiple functions, each with a different
+         *    `.displayName`, but the first is applied to all of them.
+         */
+        const flowNodeNameEscapedText = (statement as any)?.flowNode?.node?.name?.escapedText as
+          | false
+          | ts.__String
+          | undefined
+
+        return (
+          expr.left &&
+          (expr.left as ts.PropertyAccessExpression).name &&
+          (expr.left as ts.PropertyAccessExpression).name.escapedText === 'displayName' &&
+          flowNodeNameEscapedText === exp.escapedName
+        )
+      })
+      .filter(statement => {
+        return ts.isStringLiteral(((statement as ts.ExpressionStatement).expression as ts.BinaryExpression).right)
+      })
+      .map(statement => {
+        return (((statement as ts.ExpressionStatement).expression as ts.BinaryExpression).right as ts.Identifier).text
+      })
+
+    return textValue || ''
+  },
+}
 
 // Parse a file for docgen info
 const files = glob.sync(

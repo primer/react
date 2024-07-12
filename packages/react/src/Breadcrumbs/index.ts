@@ -7,8 +7,6 @@ import {
   type BreadcrumbsProps,
 } from './Breadcrumbs'
 
-BreadcrumbsItem.displayName = 'Breadcrumbs.Item'
-
 export const Breadcrumbs = Object.assign(BreadcrumbsImpl, {Item: BreadcrumbsItem})
 
 export type {BreadcrumbsItemProps, BreadcrumbItemProps}
