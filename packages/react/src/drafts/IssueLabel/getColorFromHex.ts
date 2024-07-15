@@ -40,7 +40,7 @@ export const getColorsFromHex = (
     hsluvToHex({h, s, l: bgLightness}),
     bgColor,
     1.2,
-    lightnessIncrement as 1 | -1,
+    lightnessIncrement,
   )
 
   // avoid intense bright colors
