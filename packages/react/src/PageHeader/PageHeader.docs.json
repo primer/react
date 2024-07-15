@@ -1,7 +1,7 @@
 {
   "id": "drafts_page_header",
   "name": "PageHeader",
-  "status": "beta",
+  "status": "alpha",
   "a11yReviewed": true,
   "stories": [],
   "importPath": "@primer/react",
