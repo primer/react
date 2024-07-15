@@ -4,7 +4,7 @@ import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import axe from 'axe-core'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 
-/* Dialog Version 2 */
+/* Dialog Version 1*/
 
 const comp = (
   <Dialog isOpen onDismiss={() => null} aria-labelledby="header">
