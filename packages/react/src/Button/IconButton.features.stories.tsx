@@ -1,4 +1,4 @@
-import {HeartIcon, InboxIcon, ChevronDownIcon} from '@primer/octicons-react'
+import {HeartIcon, InboxIcon, ChevronDownIcon, BoldIcon} from '@primer/octicons-react'
 import React from 'react'
 import {IconButton} from '.'
 import {ActionMenu} from '../ActionMenu'
@@ -87,4 +87,18 @@ export const AsAMenuAnchor = () => (
       </ActionList>
     </ActionMenu.Overlay>
   </ActionMenu>
+)
+
+export const KeyshortcutsOnDescription = () => (
+  <IconButton
+    unsafeDisableTooltip={false}
+    icon={InboxIcon}
+    aria-label="Notifications"
+    description="You have unread notifications"
+    keyshortcuts="G+N"
+  />
+)
+
+export const Keyshortcuts = () => (
+  <IconButton unsafeDisableTooltip={false} icon={BoldIcon} aria-label="Bold" keyshortcuts="Command+B" />
 )
