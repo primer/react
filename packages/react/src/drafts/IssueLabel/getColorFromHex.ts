@@ -1,6 +1,8 @@
 import {getContrast} from 'color2k'
 import {Hsluv} from 'hsluv'
 
+type Hex = `#${string}`;
+
 /**
  * transforms a hex color provided by the user into a color object with background and text colors
  * @param colorHex — the hex color provided by the user
@@ -10,9 +12,9 @@ import {Hsluv} from 'hsluv'
  * @returns
  */
 export const getColorsFromHex = (
-  colorHex: `#{string}`,
+  colorHex: Hex,
   colorScheme: string = 'light',
-  bgColor: string,
+  bgColor: Hex,
 ): React.CSSProperties | undefined => {
   // start values for light mode
   let bgLightness = 96
@@ -54,7 +56,7 @@ export const getColorsFromHex = (
     hsluvToHex({h, s, l: 50}),
     backgroundColor,
     ratio,
-    lightnessIncrement as 1 | -1,
+    lightnessIncrement,
   )
 
   return {
@@ -65,8 +67,6 @@ export const getColorsFromHex = (
     '--label-fgColor-hover': textColor,
     '--label-fgColor-active': textColor,
   } as React.CSSProperties
-  // backgroundColorHover: hsluvToHex({h, s, l: currentBgLightness + 4 * lightnessIncrement}),
-  //   backgroundColorPressed: hsluvToHex({h, s, l: currentBgLightness + 8 * lightnessIncrement}),
 }
 /**
  * Changes the lightness of a hex color until the contrast ratio is reached and returns the new hex color
@@ -77,11 +77,11 @@ export const getColorsFromHex = (
  * @returns the new hex color
  */
 const getColorWithContrast = (
-  colorHex: string,
-  bgHex: string,
+  colorHex: Hex,
+  bgHex: Hex,
   contrastRatio: number,
   increment: 1 | -1,
-): {colorHex: string; lightness: number} => {
+): {colorHex: Hex; lightness: number} => {
   // deconstruct color
   const hsluv = hexToHsluv(colorHex)
   let {l: lightness} = hsluv
@@ -101,7 +101,7 @@ const getColorWithContrast = (
  * @returns an object with the hue, saturation and lightness values
  */
 const hexToHsluv = (
-  hex: string,
+  hex: Hex,
 ): {
   h: number
   s: number
