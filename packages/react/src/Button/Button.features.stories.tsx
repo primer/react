@@ -128,6 +128,9 @@ export const Inactive = () => (
     <Button variant="invisible" inactive>
       Invisible
     </Button>
+    <Button inactive leadingVisual={HeartIcon} trailingVisual={EyeIcon} trailingAction={TriangleDownIcon}>
+      Visuals
+    </Button>
   </div>
 )
 

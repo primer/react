@@ -92,6 +92,10 @@ const components = new Map([
           id: 'components-actionlist-features--group-with-subtle-title',
           name: 'Group With Subtle Title',
         },
+        {
+          id: 'components-actionlist-features--with-trailing-action',
+          name: 'With Trailing Action',
+        },
       ],
     },
   ],
@@ -792,6 +796,25 @@ const components = new Map([
         {
           id: 'components-linkbutton-features--with-react-router',
           name: 'With React Router',
+        },
+      ],
+    },
+  ],
+  [
+    'NavList',
+    {
+      stories: [
+        {
+          id: 'components-navlist--with-trailing-action',
+          name: 'With TrailingAction',
+        },
+        {
+          id: 'components-navlist--with-trailing-action-in-sub-item',
+          name: 'With TrailingAction in Sub Item',
+        },
+        {
+          id: 'components-navlist-devonly--with-bad-example-of-sub-nav-and-trailing-action',
+          name: 'With Bad Example of SubNav and TrailingAction',
         },
       ],
     },

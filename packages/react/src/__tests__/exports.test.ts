@@ -164,7 +164,7 @@ async function setup(): Promise<Project> {
           }
 
           const extension = path.extname(source)
-          if (extension !== '' && extensions.includes(extension)) {
+          if (extension !== '' && !extensions.includes(extension)) {
             return null
           }
 
