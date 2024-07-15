@@ -295,7 +295,7 @@ function TableHead({children}: TableHeadProps) {
   return (
     // We need to explicitly pass this role because some ATs and browsers drop table semantics
     // when we use `display: contents` or `display: grid` in the table
-    // eslint-disable-next-line jsx-a11y/no-redundant-roles
+
     <thead className="TableHead" role="rowgroup">
       {children}
     </thead>
@@ -312,7 +312,7 @@ function TableBody({children}: TableBodyProps) {
   return (
     // We need to explicitly pass this role because some ATs and browsers drop table semantics
     // when we use `display: contents` or `display: grid` in the table
-    // eslint-disable-next-line jsx-a11y/no-redundant-roles
+
     <tbody className="TableBody" role="rowgroup">
       {children}
     </tbody>

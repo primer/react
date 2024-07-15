@@ -1,7 +1,7 @@
 import {getContrast} from 'color2k'
 import {Hsluv} from 'hsluv'
 
-type Hex = `#${string}`;
+type Hex = `#${string}`
 
 /**
  * transforms a hex color provided by the user into a color object with background and text colors
