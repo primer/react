@@ -238,6 +238,7 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
     )
   },
 ) as PolymorphicForwardRefComponent<'a', ParentLinkProps>
+ParentLink.displayName = 'ParentLink'
 
 // ContextBar
 // Generic slot for any component above the title region. Use it for custom breadcrumbs and other navigation elements instead of ParentLink.
