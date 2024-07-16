@@ -106,6 +106,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   align = 'start',
   alignmentOffset,
   anchorOffset,
+  className,
 }) => {
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
@@ -191,6 +192,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           top={position?.top || 0}
           left={position?.left || 0}
           anchorSide={position?.anchorSide}
+          className={className}
           {...overlayProps}
         >
           {children}
