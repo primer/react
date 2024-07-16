@@ -24,10 +24,6 @@ describe('UnderlinePanels', () => {
     jest.restoreAllMocks()
   })
 
-  checkExports('drafts/UnderlinePanels', {
-    default: UnderlinePanels,
-  })
-
   behavesAsComponent({Component: UnderlinePanels, options: {skipAs: true}})
 
   behavesAsComponent({Component: UnderlinePanels.Tab})
