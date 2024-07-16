@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
-import ToggleSwitch, {ToggleSwitchProps} from './ToggleSwitch'
+import type {ToggleSwitchProps} from './ToggleSwitch'
+import ToggleSwitch from './ToggleSwitch'
 import {Box, Text} from '..'
 import {action} from '@storybook/addon-actions'
 import ToggleSwitchStoryWrapper from './ToggleSwitchStoryWrapper'
-import {StoryFn} from '@storybook/react'
+import type {StoryFn} from '@storybook/react'
 
 export default {
   title: 'Components/ToggleSwitch/Features',
