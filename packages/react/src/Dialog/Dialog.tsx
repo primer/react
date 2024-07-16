@@ -138,6 +138,11 @@ export interface DialogProps extends SxProp {
    * instead of the element that had focus immediately before the Dialog opened
    */
   returnFocusRef?: React.RefObject<HTMLElement>
+
+  /**
+   * The element to focus when the Dialog opens
+   */
+  initialFocusRef?: React.RefObject<HTMLElement>
 }
 
 /**
@@ -428,6 +433,7 @@ export const Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<D
     footerButtons = [],
     position = defaultPosition,
     returnFocusRef,
+    initialFocusRef,
     sx,
   } = props
   const dialogLabelId = useId()
@@ -454,7 +460,7 @@ export const Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<D
 
   useFocusTrap({
     containerRef: dialogRef,
-    initialFocusRef: autoFocusedFooterButtonRef,
+    initialFocusRef: initialFocusRef ?? autoFocusedFooterButtonRef,
     restoreFocusOnCleanUp: returnFocusRef?.current ? false : true,
     returnFocusRef,
   })
