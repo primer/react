@@ -138,6 +138,9 @@ function ItemWithSubNav({children, subNav, depth, defaultOpen, sx: sxProp = defa
       if (currentItem) {
         setContainsCurrentItem(true)
         setIsOpen(true)
+      } else {
+        // If the SubNav doesn't contain the current item, set it to false
+        setContainsCurrentItem(false)
       }
     }
   }, [subNav, buttonId])
