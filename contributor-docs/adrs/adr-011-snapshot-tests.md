@@ -1,4 +1,4 @@
-# ADR 011: Snapshot tests
+# Snapshot tests
 
 ## Status
 
