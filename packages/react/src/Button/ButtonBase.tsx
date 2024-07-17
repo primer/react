@@ -1,5 +1,6 @@
 import type {ComponentPropsWithRef} from 'react'
 import React, {forwardRef} from 'react'
+import cx from 'clsx'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import Box from '../Box'
 import type {ButtonProps} from './types'
@@ -15,6 +16,7 @@ const ButtonBase = forwardRef(
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
       trailingAction: TrailingAction,
+      className,
       count,
       icon: Icon,
       variant = 'default',
@@ -55,7 +57,7 @@ const ButtonBase = forwardRef(
         sx={sxProp}
         {...rest}
         ref={innerRef}
-        className={classes.ButtonBase}
+        className={cx(classes.ButtonBase, className)}
         data-block={block ? 'block' : null}
         data-size={size === 'small' || size === 'large' ? size : undefined}
         data-inactive={inactive ? true : undefined}
