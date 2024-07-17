@@ -20,6 +20,7 @@ exports[`Button respects block prop 1`] = `
 <button
   class="c0 ButtonBase"
   data-block="block"
+  data-no-visuals="true"
   data-variant="default"
   type="button"
 >
@@ -56,6 +57,7 @@ exports[`Button respects the alignContent prop 1`] = `
 
 <button
   class="c0 ButtonBase"
+  data-no-visuals="true"
   data-variant="default"
   type="button"
 >
@@ -92,6 +94,7 @@ exports[`Button respects the large size prop 1`] = `
 
 <button
   class="c0 ButtonBase"
+  data-no-visuals="true"
   data-size="large"
   data-variant="default"
   type="button"
@@ -129,6 +132,7 @@ exports[`Button respects the small size prop 1`] = `
 
 <button
   class="c0 ButtonBase"
+  data-no-visuals="true"
   data-size="small"
   data-variant="default"
   type="button"
@@ -166,6 +170,7 @@ exports[`Button styles danger button appropriately 1`] = `
 
 <button
   class="c0 ButtonBase"
+  data-no-visuals="true"
   data-variant="danger"
   type="button"
 >
@@ -202,6 +207,7 @@ exports[`Button styles invisible button appropriately 1`] = `
 
 <button
   class="c0 ButtonBase"
+  data-no-visuals="true"
   data-variant="invisible"
   type="button"
 >
@@ -238,6 +244,7 @@ exports[`Button styles primary button appropriately 1`] = `
 
 <button
   class="c0 ButtonBase"
+  data-no-visuals="true"
   data-variant="primary"
   type="button"
 >
