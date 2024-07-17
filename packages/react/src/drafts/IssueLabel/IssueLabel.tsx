@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import {get} from '../../constants'
 import {getColorsFromHex} from './getColorFromHex'
 import {useTheme} from '../../ThemeProvider'
+import type {Hex} from './hex'
 
 type LabelColorVariant =
   | 'pink'
@@ -31,7 +32,7 @@ export interface IssueLabelProps extends React.PropsWithChildren {
   /**
    *
    */
-  fillColor?: `#${string}`
+  fillColor?: Hex
 
   /**
    *

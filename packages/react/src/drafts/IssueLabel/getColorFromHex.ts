@@ -1,7 +1,6 @@
 import {getContrast} from 'color2k'
 import {Hsluv} from 'hsluv'
-
-type Hex = `#${string}`
+import type {Hex} from './hex'
 
 /**
  * transforms a hex color provided by the user into a color object with background and text colors
@@ -39,7 +38,7 @@ export const getColorsFromHex = (
    * creating a background color from the provided hex color
    */
   const {colorHex: backgroundColor, lightness: currentBgLightness} = getColorWithContrast(
-    hsluvToHex({h, s, l: bgLightness}),
+    hsluvToHex({h, s, l: bgLightness}) as Hex,
     bgColor,
     1.2,
     lightnessIncrement,
@@ -53,7 +52,7 @@ export const getColorsFromHex = (
    * creating a text color from with a contrast ratio of at least 4.5 to the generated background color
    */
   const {colorHex: textColor} = getColorWithContrast(
-    hsluvToHex({h, s, l: 50}),
+    hsluvToHex({h, s, l: 50}) as Hex,
     backgroundColor,
     ratio,
     lightnessIncrement,
@@ -77,22 +76,24 @@ export const getColorsFromHex = (
  * @returns the new hex color
  */
 const getColorWithContrast = (
-  colorHex: Hex,
-  bgHex: Hex,
+  fgColor: Hex,
+  bgColor: Hex,
   contrastRatio: number,
   increment: 1 | -1,
 ): {colorHex: Hex; lightness: number} => {
   // deconstruct color
-  const hsluv = hexToHsluv(colorHex)
-  let {l: lightness} = hsluv
-  const {h, s} = hsluv
+  const hsluv = hexToHsluv(fgColor)
+  let color: string = fgColor
   // change lightness until contrast is reached
-  while (getContrast(colorHex, bgHex) < contrastRatio && lightness > 0 && lightness < 100) {
-    lightness += increment
-    colorHex = hsluvToHex({h, s, l: lightness})
+  while (getContrast(color, bgColor) < contrastRatio && hsluv.l > 0 && hsluv.l < 100) {
+    hsluv.l += increment
+    color = hsluvToHex(hsluv)
   }
   // return hex color and ligthness
-  return {colorHex, lightness}
+  return {
+    colorHex: color as Hex,
+    lightness: hsluv.l,
+  }
 }
 
 /**
