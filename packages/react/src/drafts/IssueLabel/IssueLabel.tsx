@@ -31,7 +31,7 @@ export interface IssueLabelProps extends React.PropsWithChildren {
   /**
    *
    */
-  fillColor?: `#{string}`
+  fillColor?: `#${string}`
 
   /**
    *
