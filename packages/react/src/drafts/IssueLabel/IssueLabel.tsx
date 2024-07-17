@@ -49,7 +49,7 @@ export function IssueLabel({children, fillColor, size = 'small', variant = 'gray
   const mode = resolvedColorScheme?.startsWith('dark') ? 'dark' : 'light'
   // I define those bgColors as we can't easily get them from primitives,
   // they are needed to calc contrast in getColorsFromHex()
-  const bgColors = {
+  const bgColors: Record<string, Hex> = {
     light: '#ffffff',
     dark: '#0d1117',
   }
