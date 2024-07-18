@@ -1,5 +1,23 @@
 # @primer/react
 
+## 36.26.0
+
+### Minor Changes
+
+- [#4718](https://github.com/primer/react/pull/4718) [`fd80a60eeb615b3c4464ade10cde7e26e1349e40`](https://github.com/primer/react/commit/fd80a60eeb615b3c4464ade10cde7e26e1349e40) Thanks [@joshblack](https://github.com/joshblack)! - Add support for providing icons as an element to UnderlineNavItem
+
+- [#4702](https://github.com/primer/react/pull/4702) [`2536b4995568a6353c67c812a34a970fca7e76bb`](https://github.com/primer/react/commit/2536b4995568a6353c67c812a34a970fca7e76bb) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - IconButton: Enable tooltips by default in icon buttons by updating the default value of `unsafeDisableTooltip` to `false`.
+
+  This is a behaviour change in icon buttons, please upgrade with a caution.
+
+- [#4707](https://github.com/primer/react/pull/4707) [`d773f264f923677b4109d03b9c5bd5054151037b`](https://github.com/primer/react/commit/d773f264f923677b4109d03b9c5bd5054151037b) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - IconButton: Add `keyshortcuts` prop to allow labelling and describing support for keyboard shortcut (through tooltips)
+
+- [#4729](https://github.com/primer/react/pull/4729) [`71bdfa847d4cc569bb59b0b4e7a3010f1d7a0faa`](https://github.com/primer/react/commit/71bdfa847d4cc569bb59b0b4e7a3010f1d7a0faa) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Dialog2: Add support for "InitialFocusRef" that allows to specify an element that should receive focus when the dialog opens.
+
+### Patch Changes
+
+- [#4742](https://github.com/primer/react/pull/4742) [`c004fd50fb333022644c39645f6fabb494fc1d8b`](https://github.com/primer/react/commit/c004fd50fb333022644c39645f6fabb494fc1d8b) Thanks [@joshblack](https://github.com/joshblack)! - Update exports for UnderlinePanels component
+
 ## 36.25.0
 
 ### Minor Changes
