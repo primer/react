@@ -1,14 +1,15 @@
-// In the below records, we don't intend to cover every single possible key - only those that
-// would be realistically used in shortcuts. For example, the Pause/Break key is not necessary
-// because it is not found on many keyboards.
-
 import {isMacOS} from '@primer/behaviors/utils'
 
 /** Converts the first character of the string to upper case and the remaining to lower case. */
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 const capitalize = ([first, ...rest]: string) => (first?.toUpperCase() ?? '') + rest.join('').toLowerCase()
 
-// These are methods instead of plain objects to delay calling isMacOS (which depends on `window.navigator`) and avoid SSR issues
+// In the below records, we don't intend to cover every single possible key - only those that
+// would be realistically used in shortcuts. For example, the Pause/Break key is not necessary
+// because it is not found on many keyboards.
+
+// These are methods instead of plain objects to delay calling isMacOS (which depends on
+// `window.navigator`) and avoid SSR issues
 
 /**
  * Short-form iconic versions of keys. These should be intuitive (not archaic) and match icons on keyboards.
