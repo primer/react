@@ -2,9 +2,8 @@ import React, {type ReactNode} from 'react'
 import {memo} from 'react'
 import Text from '../Text'
 
-import {Chord} from './components/Chord'
 import type {KeybindingHintProps} from './props'
-import {accessibleSequenceString} from './components/Sequence'
+import {accessibleSequenceString, Sequence} from './components/Sequence'
 
 /** `kbd` element with style resets. */
 const Kbd = ({children}: {children: ReactNode}) => (
@@ -32,7 +31,7 @@ const Kbd = ({children}: {children: ReactNode}) => (
 // KeybindingHint is a good candidate for memoizing since props will rarely change
 export const KeybindingHint = memo((props: KeybindingHintProps) => (
   <Kbd>
-    <Chord {...props} />
+    <Sequence {...props} />
   </Kbd>
 ))
 KeybindingHint.displayName = 'KeybindingHint'
