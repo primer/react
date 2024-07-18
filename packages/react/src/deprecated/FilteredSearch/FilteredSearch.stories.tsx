@@ -7,7 +7,7 @@ import TextInput from '../../TextInput'
 import {SearchIcon} from '@primer/octicons-react'
 
 export default {
-  title: 'Components/FilteredSearch',
+  title: 'Deprecated/Components/FilteredSearch',
   component: FilteredSearch,
 } as Meta<typeof FilteredSearch>
 
