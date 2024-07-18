@@ -12,7 +12,6 @@
     "@primer/primitives": "8.2.3",
     "glob": "11.0.0",
     "postcss-custom-media": "10.0.8",
-    "postcss-mixins": "10.0.1",
     "postcss-nesting": "12.1.5",
     "postcss-preset-env": "9.6.0"
   },

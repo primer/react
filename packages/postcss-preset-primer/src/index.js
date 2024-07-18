@@ -13,7 +13,7 @@ const {root: ROOT_DIR} = path.parse(filepath)
 /**
  * @type {import('postcss').PluginCreator<PluginOptions>}
  */
-const postcssPresetPrimer = _options => {
+const postcssPresetPrimer = () => {
   const primitivesPaths = ancestors(filepath).flatMap(directory => {
     if (directory.endsWith('node_modules') && existsSync(path.join(directory, '@primer', 'primitives'))) {
       return path.join(directory, '@primer', 'primitives')
@@ -41,7 +41,9 @@ const postcssPresetPrimer = _options => {
           stage: 2,
           // https://preset-env.cssdb.org/features/#stage-2
           features: {
-            'nesting-rules': {noIsPseudoSelector: true},
+            'nesting-rules': {
+              noIsPseudoSelector: true,
+            },
             'focus-visible-pseudo-class': false,
             'logical-properties-and-values': false,
           },
@@ -50,12 +52,13 @@ const postcssPresetPrimer = _options => {
       [
         '@csstools/postcss-global-data',
         {
-          files: globSync(`dist/css/**/*.css`, {cwd: primitivesPath}),
+          files: globSync('dist/css/**/*.css', {
+            cwd: primitivesPath,
+          }),
         },
       ],
       ['postcss-nesting', {edition: '2024-02'}],
       ['postcss-custom-media', {}],
-      ['postcss-mixins', {}],
     ],
   }
 }

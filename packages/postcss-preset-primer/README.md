@@ -15,7 +15,7 @@ npm install postcss-preset-primer --save-dev
 You can import and use `postcss-preset-primer` directly in your PostCSS config
 file:
 
-```tsx
+```js
 // postcss.config.js
 const postcssPresetPrimer = require('postcss-preset-primer')
 
