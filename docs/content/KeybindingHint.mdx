@@ -1,0 +1,138 @@
+---
+title: KeybindingHint
+componentId: keybinding_hint
+status: Alpha
+source: https://github.com/primer/react/tree/main/packages/react/src/KeybindingHint
+storybook: '/react/storybook?path=/story/components-keybindinghint'
+description: Indicates the presence of a keybinding available for an action.
+---
+
+import data from '../../packages/react/src/KeybindingHint/KeybindingHint.docs.json'
+import {ActionList, KeybindingHint, Button, Text, Box} from '@primer/react'
+import {TrashIcon} from "@primer/octicons-react"
+
+Use `KeybindingHint` to make keyboard shortcuts discoverable. Can render visual keybinding hints in condensed (abbreviated) form or expanded form, and provides accessible alternative text for screen reader users.
+
+<Box sx={{border: '1px solid', borderColor: 'border.default', borderRadius: 2, padding: 6, marginBottom: 3}}>
+  <ActionList sx={{width: 320}}>
+    <ActionList.Item>
+      Move down
+      <ActionList.TrailingVisual><KeybindingHint keys="Mod+ArrowDown" /></ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item>
+      Unsubscribe
+      <ActionList.TrailingVisual><KeybindingHint keys="i j" /></ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item variant="danger">
+      <ActionList.LeadingVisual><TrashIcon /></ActionList.LeadingVisual>
+      Delete
+      <ActionList.TrailingVisual><KeybindingHint keys="Mod+Shift+Delete" /></ActionList.TrailingVisual>
+    </ActionList.Item>
+  </ActionList>
+</Box>
+
+## Examples
+
+### Single keys
+
+Use the [full names of the keys as returned by `KeyboardEvent.key`](https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values). Key names are case-insensitive.
+
+```javascript live noinline
+render(<>
+  <KeybindingHint keys="a" /> <br />
+  <KeybindingHint keys="B" /> <br />
+  <KeybindingHint keys="ArrowLeft" /> <br />
+  <KeybindingHint keys="shift" />
+</>)
+```
+
+#### Special key names
+
+Because the `+` and ` `&nbsp;(space) characters are used to build chords and sequences as described below, their names must be spelled out to be used as keys.
+
+```javascript live noinline
+render(<>
+  <KeybindingHint keys="Plus" /> <br />
+  <KeybindingHint keys="Space" />
+</>)
+```
+
+### Chords
+
+_Chords_ are multiple keys that are pressed at the same time. Combine keys in a chord with `+`. Keys are automatically sorted into a standardized order so that modifiers come first.
+
+```javascript live noinline
+render(<>
+  <KeybindingHint keys="Alt+a" /> <br />
+  <KeybindingHint keys="a+Alt" /> <br />
+  <KeybindingHint keys="Control+Shift+ArrowUp" /> <br />
+  <KeybindingHint keys="Meta+Shift+&" />
+</>)
+```
+
+#### Platform-dependent modifier
+
+Typical chords use `Command` on MacOS and `Control` on other devices. To automatically render `Command` or `Control` based on the user's operating system, use the special key name `Mod`.
+
+```javascript live noinline
+render(<KeybindingHint keys="Mod+Shift+X" />)
+```
+
+### Sequences
+
+_Sequences_ are keys or chords that are pressed one after the other. Combine elements in a sequence with ` `. For example, `a b` means "press a, then press b".
+
+```javascript live noinline
+render(<>
+  <KeybindingHint keys="a b" /> <br />
+  <KeybindingHint keys="Mod+g ArrowLeft" />
+</>)
+```
+
+### Full display format
+
+The default `condensed` format should be used on UI elements like buttons, menuitems, and inputs. In long-form text (prose), the `full` variant can be used instead to help the text flow better.
+
+```javascript live noinline
+render(
+  <Text>Press <KeybindingHint keys="Mod+Enter" format="ful" /> to submit the form.</Text>
+)
+```
+
+### `onEmphasis` variant
+
+When rendering on 'emphasis' colors, use the `onEmphasis` variant.
+
+```javascript live noinline
+const CmdEnterHint = () => <KeybindingHint variant="onEmphasis" keys="Mod+Enter" />
+
+render(
+  <Button variant="primary" trailingVisual={CmdEnterHint}>Submit</Button>
+)
+```
+
+## Props
+
+<ComponentProps data={data} />
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: true,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: true,
+    usageExamplesDocumented: true,
+    hasStorybookStories: true,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false,
+  }}
+/>
+
