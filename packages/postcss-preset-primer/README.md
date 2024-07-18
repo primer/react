@@ -21,7 +21,7 @@ const postcssPresetPrimer = require('postcss-preset-primer')
 
 /** @type {import('postcss-load-config').Config} */
 const config = {
-  plugins: [psotcssPresetPrimer()],
+  plugins: [postcssPresetPrimer()],
 }
 
 module.exports = config
