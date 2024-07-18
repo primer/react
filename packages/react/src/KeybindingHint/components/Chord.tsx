@@ -64,4 +64,7 @@ export const Chord = ({keys, format = 'condensed', variant = 'normal'}: Keybindi
 )
 
 /** Plain string version of `Chord` for use in `aria` string attributes. */
-export const accessibleChordString = (chord: string) => splitChord(chord).map(accessibleKeyName).join(' ')
+export const accessibleChordString = (chord: string, isMacOS: boolean) =>
+  splitChord(chord)
+    .map(key => accessibleKeyName(key, isMacOS))
+    .join(' ')

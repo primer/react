@@ -21,5 +21,7 @@ export const Sequence = ({keys, format = 'condensed', variant = 'normal'}: Keybi
   ))
 
 /** Plain string version of `Sequence` for use in `aria` string attributes. */
-export const accessibleSequenceString = (sequence: string) =>
-  splitSequence(sequence).map(accessibleChordString).join(', then ')
+export const accessibleSequenceString = (sequence: string, isMacOS: boolean) =>
+  splitSequence(sequence)
+    .map(chord => accessibleChordString(chord, isMacOS))
+    .join(', then ')

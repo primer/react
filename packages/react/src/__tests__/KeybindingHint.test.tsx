@@ -77,13 +77,21 @@ describe('KeybindingHint', () => {
 })
 
 describe('getAccessibleKeybindingHintString', () => {
-  it('returns full readable key names', () => expect(getAccessibleKeybindingHintString('{')).toBe('left curly brace'))
+  it('returns full readable key names', () =>
+    expect(getAccessibleKeybindingHintString('{', false)).toBe('left curly brace'))
 
-  it('joins keys in a chord with space', () => expect(getAccessibleKeybindingHintString('Command+U')).toBe('command u'))
+  it('joins keys in a chord with space', () =>
+    expect(getAccessibleKeybindingHintString('Command+U', false)).toBe('command u'))
 
   it('sorts modifiers in standard order', () =>
-    expect(getAccessibleKeybindingHintString('Alt+Shift+Command+%')).toBe('alt shift command percent'))
+    expect(getAccessibleKeybindingHintString('Alt+Shift+Command+%', false)).toBe('alt shift command percent'))
 
   it('joins chords in a sequence with "then"', () =>
-    expect(getAccessibleKeybindingHintString('Alt+9 x y')).toBe('alt 9, then x, then y'))
+    expect(getAccessibleKeybindingHintString('Alt+9 x y', false)).toBe('alt 9, then x, then y'))
+
+  it('returns "command" for "mod" on MacOS', () =>
+    expect(getAccessibleKeybindingHintString('Mod+x', true)).toBe('command x'))
+
+  it('returns "control" for "mod" on non-MacOS', () =>
+    expect(getAccessibleKeybindingHintString('Mod+x', false)).toBe('control x'))
 })
