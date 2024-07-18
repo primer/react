@@ -1,0 +1,25 @@
+import React, {Fragment} from 'react'
+import type {KeybindingHintProps} from '../props'
+import VisuallyHidden from '../../_VisuallyHidden'
+import {accessibleChordString, Chord} from './Chord'
+
+const splitSequence = (sequence: string) => sequence.split(' ')
+
+export const Sequence = ({keys, format = 'condensed', variant = 'normal'}: KeybindingHintProps) =>
+  splitSequence(keys).map((c, i) => (
+    <Fragment key={i}>
+      {
+        //  Since we audibly separate individual keys in chord with space, we need some other separator for chords in a sequence
+        i > 0 && (
+          <>
+            <VisuallyHidden>, then</VisuallyHidden>{' '}
+          </>
+        )
+      }
+      <Chord keys={c} format={format} variant={variant} />
+    </Fragment>
+  ))
+
+/** Plain string version of `Sequence` for use in `aria` string attributes. */
+export const accessibleSequenceString = (sequence: string) =>
+  splitSequence(sequence).map(accessibleChordString).join(', then ')

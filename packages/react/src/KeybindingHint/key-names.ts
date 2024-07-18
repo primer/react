@@ -4,14 +4,14 @@
 
 import {isMacOS} from '@primer/behaviors/utils'
 
-// These are methods instead of plain objects to delay querying isMacOS and avoid SSR issues
-
 /** Converts the first character of the string to upper case and the remaining to lower case. */
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
 const capitalize = ([first, ...rest]: string) => (first?.toUpperCase() ?? '') + rest.join('').toLowerCase()
 
+// These are methods instead of plain objects to delay calling isMacOS (which depends on `window.navigator`) and avoid SSR issues
+
 /**
- * Short-form iconic versions of keys. These should be intuitive and match icons on keyboards.
+ * Short-form iconic versions of keys. These should be intuitive (not archaic) and match icons on keyboards.
  */
 export const condensedKeyName = (key: string) =>
   ({
@@ -26,10 +26,10 @@ export const condensedKeyName = (key: string) =>
     arrowdown: '↓',
     arrowleft: '←',
     arrowright: '→',
-    plus: '+', // needed to allow +-separated key names
+    plus: '+', // needed to allow +-separated chords
     backspace: '⌫',
     delete: 'Del',
-    space: '␣', // allow consumers to use the word "Space" even though it's not the browser key name, because it's more readable in props
+    space: '␣', // needed to allow space-separated sequences
     tab: '⇥',
     enter: '⏎',
     escape: 'Esc',
