@@ -7,7 +7,7 @@ import {default as Dialog} from './Dialog'
 /* Dialog Version 1*/
 
 export default {
-  title: 'Components/DialogV1',
+  title: 'Deprecated/Components/DialogV1',
   component: Dialog,
 } as Meta
 
