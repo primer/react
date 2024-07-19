@@ -33,7 +33,21 @@ figma.connect(
     props: {
       selected: figma.enum('state', {selected: true}),
       label: figma.string('label'),
+      counter: figma.boolean('counter?', {
+        true: figma.children('CounterLabel'),
+        false: undefined,
+      }),
+      leadingVisual: figma.boolean('leadingVisual?', {
+        true: figma.children('leadingVisual'),
+        false: undefined,
+      }),
     },
-    example: ({label, selected}) => <TabNav.Link selected={selected}>{label}</TabNav.Link>,
+    example: ({label, selected, counter, leadingVisual}) => (
+      <TabNav.Link selected={selected}>
+        {leadingVisual}
+        {label}
+        {counter}
+      </TabNav.Link>
+    ),
   },
 )
