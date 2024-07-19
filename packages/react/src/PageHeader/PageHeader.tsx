@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import {Box} from '..'
+import Box from '../Box'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import type {SxProp, BetterSystemStyleObject, CSSCustomProperties} from '../sx'
