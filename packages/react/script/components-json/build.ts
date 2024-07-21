@@ -13,6 +13,7 @@ import outputSchema from './output.schema.json'
 
 // Only includes fields we use in this script
 type Component = {
+  id: string
   name: string
   status: 'draft' | 'experimental' | 'alpha' | 'beta' | 'stable' | 'deprecated'
   importPath:
@@ -59,7 +60,12 @@ const components = docsFiles.map(docsFilepath => {
   const componentName = isComponentV2 ? `${docsName}v2` : docsName
 
   // Get the default story id
-  const defaultStoryId = `${storyPrefix[docs.status]}components-${componentName}--default`
+  let defaultStoryId = `${storyPrefix[docs.status]}components-${componentName}--default`
+
+  // Special case for Dialog component. Dialog alpha is v1 and Dialog draft is v2
+  if (docs.id === 'dialog' || docs.id === 'dialog_v2') {
+    defaultStoryId = docs.id === 'dialog_v2' ? 'components-dialog--default' : 'components-dialogv1--default'
+  }
 
   // Get source code for default story
   const {Default: defaultStoryCode} = getStorySourceCode(defaultStoryFilepath)
