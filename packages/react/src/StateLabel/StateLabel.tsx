@@ -33,6 +33,19 @@ const octiconMap = {
   unavailable: AlertIcon,
 }
 
+const labelMap = {
+  issueOpened: 'Issue',
+  pullOpened: 'Pull request',
+  issueClosed: 'Issue',
+  issueClosedNotPlanned: 'Issue',
+  pullClosed: 'Pull request',
+  pullMerged: 'Pull request',
+  draft: 'Pull request',
+  issueDraft: 'Issue',
+  pullQueued: 'Pull request',
+  unavailable: '',
+}
+
 const colorVariants = variant({
   prop: 'status',
   variants: {
@@ -120,7 +133,14 @@ function StateLabel({children, status, variant: variantProp = 'normal', ...rest}
   return (
     <StateLabelBase {...rest} variant={variantProp} status={status}>
       {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
-      {status && <Octicon {...octiconProps} icon={octiconMap[status] || QuestionIcon} sx={{mr: 1}} />}
+      {status && (
+        <Octicon
+          {...octiconProps}
+          icon={octiconMap[status] || QuestionIcon}
+          aria-label={labelMap[status]}
+          sx={{mr: 1}}
+        />
+      )}
       {children}
     </StateLabelBase>
   )
