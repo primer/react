@@ -103,6 +103,8 @@ exports[`@primer/react should not update exports without a semver change 1`] = `
   "Overlay",
   "type OverlayProps",
   "Pagehead",
+  "PageHeader",
+  "type PageHeaderProps",
   "type PageheadProps",
   "PageLayout",
   "type PageLayoutContentProps",

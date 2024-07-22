@@ -249,6 +249,7 @@ const Panel: React.FC<SelectPanelProps> = ({
           // reset dialog default styles
           border: 'none',
           padding: 0,
+          color: 'fg.default',
           '&[open]': {display: 'flex'}, // to fit children
 
           '&[data-variant="anchored"], &[data-variant="full-screen"]': {
