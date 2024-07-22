@@ -133,7 +133,14 @@ function StateLabel({children, status, variant: variantProp = 'normal', ...rest}
   return (
     <StateLabelBase {...rest} variant={variantProp} status={status}>
       {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
-      {status && <Octicon {...octiconProps} icon={octiconMap[status] || QuestionIcon} aria-label={labelMap[status]} sx={{mr: 1}} />}
+      {status && (
+        <Octicon
+          {...octiconProps}
+          icon={octiconMap[status] || QuestionIcon}
+          aria-label={labelMap[status]}
+          sx={{mr: 1}}
+        />
+      )}
       {children}
     </StateLabelBase>
   )
