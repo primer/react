@@ -579,7 +579,7 @@ const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
           flexDirection: 'row',
           paddingLeft: '0.5rem',
           gap: '0.5rem',
-          flexGrow: '1',
+          minWidth: 'max-content',
           justifyContent: 'right',
           alignItems: 'center',
         },
