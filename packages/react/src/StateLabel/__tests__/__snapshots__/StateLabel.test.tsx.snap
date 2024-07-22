@@ -32,11 +32,12 @@ exports[`StateLabel renders children 1`] = `
   className="c0"
 >
   <svg
-    aria-hidden="true"
+    aria-label="Issue"
     className="c1"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
@@ -91,11 +92,12 @@ exports[`StateLabel respects the status prop 1`] = `
   className="c0"
 >
   <svg
-    aria-hidden="true"
+    aria-label="Issue"
     className="c1"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
@@ -149,11 +151,12 @@ exports[`StateLabel respects the status prop 2`] = `
   className="c0"
 >
   <svg
-    aria-hidden="true"
+    aria-label="Issue"
     className="c1"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
@@ -207,11 +210,12 @@ exports[`StateLabel respects the status prop 3`] = `
   className="c0"
 >
   <svg
-    aria-hidden="true"
+    aria-label="Issue"
     className="c1"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
@@ -262,11 +266,12 @@ exports[`StateLabel respects the status prop 4`] = `
   className="c0"
 >
   <svg
-    aria-hidden="true"
+    aria-label="Pull request"
     className="c1"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
@@ -317,11 +322,12 @@ exports[`StateLabel respects the status prop 5`] = `
   className="c0"
 >
   <svg
-    aria-hidden="true"
+    aria-label="Pull request"
     className="c1"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
@@ -372,11 +378,12 @@ exports[`StateLabel respects the variant prop 1`] = `
   className="c0"
 >
   <svg
-    aria-hidden="true"
+    aria-label="Issue"
     className="c1"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
@@ -430,11 +437,12 @@ exports[`StateLabel respects the variant prop 2`] = `
   className="c0"
 >
   <svg
-    aria-hidden="true"
+    aria-label="Issue"
     className="c1"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
