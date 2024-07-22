@@ -136,6 +136,7 @@ function StateLabel({children, status, variant: variantProp = 'normal', ...rest}
       {status && (
         <Octicon
           {...octiconProps}
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
           icon={octiconMap[status] || QuestionIcon}
           aria-label={labelMap[status]}
           sx={{mr: 1}}
