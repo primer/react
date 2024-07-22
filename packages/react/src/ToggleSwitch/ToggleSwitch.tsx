@@ -12,6 +12,7 @@ import sx from '../sx'
 import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import VisuallyHidden from '../_VisuallyHidden'
 import type {CellAlignment} from '../DataTable/column'
+import {AriaStatus} from '../live-region'
 
 const TRANSITION_DURATION = '80ms'
 const EASE_OUT_QUAD_CURVE = 'cubic-bezier(0.5, 1, 0.89, 1)'
@@ -311,9 +312,9 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
       >
         {isLoadingLabelVisible ? (
           <VisuallyHidden>
-            <span aria-live="polite" id={loadingLabelId}>
+            <AriaStatus announceOnShow id={loadingLabelId}>
               {loadingLabel}
-            </span>
+            </AriaStatus>
           </VisuallyHidden>
         ) : null}
         {loading ? <Spinner size="small" /> : null}
