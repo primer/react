@@ -327,6 +327,13 @@ exports[`snapshots renders a loading state 1`] = `
   justify-content: center;
 }
 
+.c2 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
 .c0 {
   position: absolute;
   width: 1px;
@@ -340,7 +347,17 @@ exports[`snapshots renders a loading state 1`] = `
   border-width: 0;
 }
 
-.c2 {
+.c4:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.c3 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
 }
@@ -356,30 +373,42 @@ exports[`snapshots renders a loading state 1`] = `
       className="c1"
       display="flex"
     >
-      <svg
+      <span
         className="c2"
-        fill="none"
-        height="32px"
-        viewBox="0 0 16 16"
-        width="32px"
       >
-        <circle
-          cx="8"
-          cy="8"
-          r="7"
-          stroke="currentColor"
-          strokeOpacity="0.25"
-          strokeWidth="2"
-          vectorEffect="non-scaling-stroke"
-        />
-        <path
-          d="M15 8a7.002 7.002 0 00-7-7"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeWidth="2"
-          vectorEffect="non-scaling-stroke"
-        />
-      </svg>
+        <svg
+          aria-hidden={true}
+          aria-labelledby=":r1v:"
+          className="c3"
+          fill="none"
+          height="32px"
+          viewBox="0 0 16 16"
+          width="32px"
+        >
+          <circle
+            cx="8"
+            cy="8"
+            r="7"
+            stroke="currentColor"
+            strokeOpacity="0.25"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+          <path
+            d="M15 8a7.002 7.002 0 00-7-7"
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeWidth="2"
+            vectorEffect="non-scaling-stroke"
+          />
+        </svg>
+        <span
+          className="c4"
+          id=":r1v:"
+        >
+          Loading
+        </span>
+      </span>
     </div>
   </span>,
 ]
@@ -494,10 +523,6 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   outline: 0;
 }
 
-@media (hover:hover) and (pointer:fine) {
-
-}
-
 @media (forced-colors:active) {
 
 }
@@ -507,6 +532,10 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 }
 
 @media (forced-colors:active) {
+
+}
+
+@media (hover:hover) and (pointer:fine) {
 
 }
 
@@ -652,7 +681,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   font-size: 12px;
 }
 
-[data-variant="danger"]:hover .c4,
+[data-variant="danger"]:not([aria-disabled]):not([data-inactive]):hover .c4,
 [data-variant="danger"]:active .c9 {
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
@@ -709,6 +738,10 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   margin-bottom: unset;
 }
 
+.c3[data-loading] {
+  cursor: default;
+}
+
 .c3[aria-disabled],
 .c3[data-inactive] {
   cursor: not-allowed;
@@ -744,13 +777,13 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   --divider-color: transparent !important;
 }
 
-.c3:hover:not([aria-disabled]):not([data-inactive]),
-.c3:focus:not([aria-disabled]):not([data-inactive]),
+.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c3:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c3[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c3:hover:not([aria-disabled]):not([data-inactive]) + .c2,
+.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
 .c3[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -759,9 +792,17 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   --divider-color: transparent !important;
 }
 
-.c10:hover:not([aria-disabled]):not([data-inactive]) + .c2,
+.c10:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
 .c10[data-focus-visible-added] + li {
   --divider-color: transparent;
+}
+
+@media (forced-colors:active) {
+  .c3:focus,
+  .c3:focus-visible,
+  .c3 > a.focus-visible {
+    outline: solid 1px transparent !important;
+  }
 }
 
 @media (hover:hover) and (pointer:fine) {
@@ -786,18 +827,10 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 }
 
 @media (forced-colors:active) {
-  .c3:focus,
-  .c3:focus-visible,
-  .c3 > a.focus-visible {
-    outline: solid 1px transparent !important;
-  }
+
 }
 
 @media (hover:hover) and (pointer:fine) {
-
-}
-
-@media (forced-colors:active) {
 
 }
 
@@ -1307,11 +1340,11 @@ exports[`snapshots renders a multiselect input 1`] = `
   outline: 0;
 }
 
-@media (hover:hover) and (pointer:fine) {
+@media (forced-colors:active) {
 
 }
 
-@media (forced-colors:active) {
+@media (hover:hover) and (pointer:fine) {
 
 }
 
@@ -1482,6 +1515,10 @@ exports[`snapshots renders a multiselect input 1`] = `
   margin-bottom: unset;
 }
 
+.c3[data-loading] {
+  cursor: default;
+}
+
 .c3[aria-disabled],
 .c3[data-inactive] {
   cursor: not-allowed;
@@ -1517,15 +1554,23 @@ exports[`snapshots renders a multiselect input 1`] = `
   --divider-color: transparent !important;
 }
 
-.c3:hover:not([aria-disabled]):not([data-inactive]),
-.c3:focus:not([aria-disabled]):not([data-inactive]),
+.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c3:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c3[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c3:hover:not([aria-disabled]):not([data-inactive]) + .c2,
+.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
 .c3[data-focus-visible-added] + li {
   --divider-color: transparent;
+}
+
+@media (forced-colors:active) {
+  .c3:focus,
+  .c3:focus-visible,
+  .c3 > a.focus-visible {
+    outline: solid 1px transparent !important;
+  }
 }
 
 @media (hover:hover) and (pointer:fine) {
@@ -1546,14 +1591,6 @@ exports[`snapshots renders a multiselect input 1`] = `
   .c3:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  }
-}
-
-@media (forced-colors:active) {
-  .c3:focus,
-  .c3:focus-visible,
-  .c3 > a.focus-visible {
-    outline: solid 1px transparent !important;
   }
 }
 
@@ -2006,10 +2043,6 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   outline: 0;
 }
 
-@media (hover:hover) and (pointer:fine) {
-
-}
-
 @media (forced-colors:active) {
 
 }
@@ -2019,6 +2052,10 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 }
 
 @media (forced-colors:active) {
+
+}
+
+@media (hover:hover) and (pointer:fine) {
 
 }
 
@@ -2227,6 +2264,10 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   margin-bottom: unset;
 }
 
+.c3[data-loading] {
+  cursor: default;
+}
+
 .c3[aria-disabled],
 .c3[data-inactive] {
   cursor: not-allowed;
@@ -2262,13 +2303,13 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   --divider-color: transparent !important;
 }
 
-.c3:hover:not([aria-disabled]):not([data-inactive]),
-.c3:focus:not([aria-disabled]):not([data-inactive]),
+.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c3:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c3[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c3:hover:not([aria-disabled]):not([data-inactive]) + .c2,
+.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
 .c3[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
@@ -2303,6 +2344,10 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   text-align: unset;
   margin-top: unset;
   margin-bottom: unset;
+}
+
+.c8[data-loading] {
+  cursor: default;
 }
 
 .c8[aria-disabled],
@@ -2340,15 +2385,23 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   --divider-color: transparent !important;
 }
 
-.c8:hover:not([aria-disabled]):not([data-inactive]),
-.c8:focus:not([aria-disabled]):not([data-inactive]),
+.c8:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c8:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c8[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c8:hover:not([aria-disabled]):not([data-inactive]) + .c2,
+.c8:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
 .c8[data-focus-visible-added] + li {
   --divider-color: transparent;
+}
+
+@media (forced-colors:active) {
+  .c3:focus,
+  .c3:focus-visible,
+  .c3 > a.focus-visible {
+    outline: solid 1px transparent !important;
+  }
 }
 
 @media (hover:hover) and (pointer:fine) {
@@ -2373,9 +2426,9 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c3:focus,
-  .c3:focus-visible,
-  .c3 > a.focus-visible {
+  .c8:focus,
+  .c8:focus-visible,
+  .c8 > a.focus-visible {
     outline: solid 1px transparent !important;
   }
 }
@@ -2398,14 +2451,6 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   .c8:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  }
-}
-
-@media (forced-colors:active) {
-  .c8:focus,
-  .c8:focus-visible,
-  .c8 > a.focus-visible {
-    outline: solid 1px transparent !important;
   }
 }
 
@@ -2858,11 +2903,11 @@ exports[`snapshots renders a single select input 1`] = `
   outline: 0;
 }
 
-@media (hover:hover) and (pointer:fine) {
+@media (forced-colors:active) {
 
 }
 
-@media (forced-colors:active) {
+@media (hover:hover) and (pointer:fine) {
 
 }
 
@@ -2995,6 +3040,10 @@ exports[`snapshots renders a single select input 1`] = `
   margin-bottom: unset;
 }
 
+.c3[data-loading] {
+  cursor: default;
+}
+
 .c3[aria-disabled],
 .c3[data-inactive] {
   cursor: not-allowed;
@@ -3030,15 +3079,23 @@ exports[`snapshots renders a single select input 1`] = `
   --divider-color: transparent !important;
 }
 
-.c3:hover:not([aria-disabled]):not([data-inactive]),
-.c3:focus:not([aria-disabled]):not([data-inactive]),
+.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c3:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c3[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c3:hover:not([aria-disabled]):not([data-inactive]) + .c2,
+.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
 .c3[data-focus-visible-added] + li {
   --divider-color: transparent;
+}
+
+@media (forced-colors:active) {
+  .c3:focus,
+  .c3:focus-visible,
+  .c3 > a.focus-visible {
+    outline: solid 1px transparent !important;
+  }
 }
 
 @media (hover:hover) and (pointer:fine) {
@@ -3059,14 +3116,6 @@ exports[`snapshots renders a single select input 1`] = `
   .c3:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  }
-}
-
-@media (forced-colors:active) {
-  .c3:focus,
-  .c3:focus-visible,
-  .c3 > a.focus-visible {
-    outline: solid 1px transparent !important;
   }
 }
 
@@ -3352,11 +3401,11 @@ exports[`snapshots renders a single select input 1`] = `
 
 exports[`snapshots renders with a custom text input component 1`] = `
 [
-  @media (hover:hover) and (pointer:fine) {
+  @media (forced-colors:active) {
 
 }
 
-@media (forced-colors:active) {
+@media (hover:hover) and (pointer:fine) {
 
 }
 
@@ -3462,6 +3511,10 @@ exports[`snapshots renders with a custom text input component 1`] = `
   margin-bottom: unset;
 }
 
+.c3[data-loading] {
+  cursor: default;
+}
+
 .c3[aria-disabled],
 .c3[data-inactive] {
   cursor: not-allowed;
@@ -3497,15 +3550,23 @@ exports[`snapshots renders with a custom text input component 1`] = `
   --divider-color: transparent !important;
 }
 
-.c3:hover:not([aria-disabled]):not([data-inactive]),
-.c3:focus:not([aria-disabled]):not([data-inactive]),
+.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c3:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c3[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c3:hover:not([aria-disabled]):not([data-inactive]) + .c2,
+.c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
 .c3[data-focus-visible-added] + li {
   --divider-color: transparent;
+}
+
+@media (forced-colors:active) {
+  .c3:focus,
+  .c3:focus-visible,
+  .c3 > a.focus-visible {
+    outline: solid 1px transparent !important;
+  }
 }
 
 @media (hover:hover) and (pointer:fine) {
@@ -3526,14 +3587,6 @@ exports[`snapshots renders with a custom text input component 1`] = `
   .c3:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  }
-}
-
-@media (forced-colors:active) {
-  .c3:focus,
-  .c3:focus-visible,
-  .c3 > a.focus-visible {
-    outline: solid 1px transparent !important;
   }
 }
 
@@ -3922,11 +3975,11 @@ exports[`snapshots renders with an input value 1`] = `
   outline: 0;
 }
 
-@media (hover:hover) and (pointer:fine) {
+@media (forced-colors:active) {
 
 }
 
-@media (forced-colors:active) {
+@media (hover:hover) and (pointer:fine) {
 
 }
 
@@ -3978,11 +4031,11 @@ exports[`snapshots renders with an input value 1`] = `
   border-width: 0;
 }
 
-@media (hover:hover) and (pointer:fine) {
+@media (forced-colors:active) {
 
 }
 
-@media (forced-colors:active) {
+@media (hover:hover) and (pointer:fine) {
 
 }
 

@@ -25,6 +25,7 @@ const ButtonBase = forwardRef(
       alignContent = 'center',
       block = false,
       inactive,
+      labelWrap,
       ...rest
     } = props
 
@@ -73,6 +74,7 @@ const ButtonBase = forwardRef(
         data-size={size === 'small' || size === 'large' ? size : undefined}
         data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
         data-inactive={inactive ? true : undefined}
+        data-label-wrap={labelWrap}
       >
         {Icon ? (
           <Icon />

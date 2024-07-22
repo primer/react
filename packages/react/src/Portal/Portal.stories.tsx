@@ -1,5 +1,5 @@
 import React from 'react'
-import type {ComponentMeta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 
 import {Box} from '..'
 import {Portal} from './Portal'
@@ -7,7 +7,7 @@ import {Portal} from './Portal'
 export default {
   title: 'Behaviors/Portal',
   component: Portal,
-} as ComponentMeta<typeof Portal>
+} as Meta<typeof Portal>
 
 export const Default = () => (
   <>

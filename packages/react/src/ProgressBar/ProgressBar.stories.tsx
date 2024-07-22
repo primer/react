@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta, ComponentStory} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import {ProgressBar} from '..'
 
 export default {
@@ -9,7 +9,7 @@ export default {
 
 export const Default = () => <ProgressBar aria-label="Upload test.png" />
 
-export const Playground: ComponentStory<typeof ProgressBar> = args => (
+export const Playground: StoryFn<typeof ProgressBar> = args => (
   <ProgressBar {...args} sx={args.inline ? {width: '100px'} : {}} aria-label="Upload test.png" />
 )
 

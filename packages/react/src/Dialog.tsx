@@ -11,6 +11,7 @@ import type {ComponentProps} from './utils/types'
 import {useRefObjectAsForwardedRef} from './hooks/useRefObjectAsForwardedRef'
 import {XIcon} from '@primer/octicons-react'
 
+// Dialog v1
 const noop = () => null
 
 type StyledDialogBaseProps = {

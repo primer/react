@@ -42,6 +42,10 @@ export type ButtonBaseProps = {
    * interactions as an enabled button.
    */
   inactive?: boolean
+  /**
+   * Whether the button label should wrap to multiple lines of it is longer than the button width.
+   */
+  labelWrap?: boolean
 } & SxProp &
   React.ButtonHTMLAttributes<HTMLButtonElement>
 
@@ -81,6 +85,7 @@ export type IconButtonProps = ButtonA11yProps & {
   unsafeDisableTooltip?: boolean
   description?: string
   tooltipDirection?: TooltipDirection
+  keyshortcuts?: string
 } & Omit<ButtonBaseProps, 'aria-label' | 'aria-labelledby'>
 
 // adopted from React.AnchorHTMLAttributes

@@ -41,6 +41,9 @@ export type {
   Trigger,
 } from './InlineAutocomplete'
 
+export {InlineMessage} from '../InlineMessage'
+export type {InlineMessageProps} from '../InlineMessage'
+
 export {default as MarkdownViewer} from './MarkdownViewer'
 export type {MarkdownViewerProps, InteractiveMarkdownViewerProps} from './MarkdownViewer'
 
@@ -71,3 +74,11 @@ export * from '../ActionBar'
 
 export {Stack} from '../Stack'
 export type {StackProps, StackItemProps} from '../Stack'
+
+export {Announce, AriaStatus, AriaAlert} from '../live-region'
+export type {AnnounceProps, AriaStatusProps, AriaAlertProps} from '../live-region'
+
+export {UnderlinePanels} from './UnderlinePanels'
+export type {UnderlinePanelsProps, UnderlinePanelsTabProps, UnderlinePanelsPanelProps} from './UnderlinePanels'
+
+export {SkeletonBox, SkeletonText, SkeletonAvatar} from './Skeleton'

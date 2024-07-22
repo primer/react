@@ -11,7 +11,7 @@ export type ActionListItemProps = {
    * Callback that will trigger both on click selection and keyboard selection.
    * This is not called for disabled or inactive items.
    */
-  onSelect?: (event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => void
+  onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
   /**
    * Is the `Item` is currently selected?
    */
@@ -45,14 +45,18 @@ export type ActionListItemProps = {
    */
   inactiveText?: string
   /**
+   * Whether the item is loading
+   */
+  loading?: boolean
+  /**
    * Private API for use internally only. Used by LinkItem to wrap contents in an anchor
    */
   _PrivateItemWrapper?: React.FC<React.PropsWithChildren<MenuItemProps>>
 } & SxProp
 
 type MenuItemProps = {
-  onClick?: (event: React.MouseEvent) => void
-  onKeyPress?: (event: React.KeyboardEvent) => void
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void
+  onKeyPress?: (event: React.KeyboardEvent<HTMLElement>) => void
   'aria-disabled'?: boolean
   tabIndex?: number
   'aria-labelledby'?: string

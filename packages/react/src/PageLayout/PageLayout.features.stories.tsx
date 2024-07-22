@@ -1,5 +1,5 @@
 import React from 'react'
-import type {ComponentMeta, Story} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
 import {Box, BranchName, Heading, Link, StateLabel, TabNav, Text} from '..'
@@ -7,7 +7,7 @@ import {Box, BranchName, Heading, Link, StateLabel, TabNav, Text} from '..'
 export default {
   title: 'Components/PageLayout/Features',
   component: PageLayout,
-} as ComponentMeta<typeof PageLayout>
+} as Meta<typeof PageLayout>
 
 export const PullRequestPage = () => (
   <PageLayout>
@@ -78,7 +78,7 @@ export const PullRequestPage = () => (
   </PageLayout>
 )
 
-export const StickyPane: Story = args => (
+export const StickyPane: StoryFn = args => (
   <PageLayout rowGap="none" columnGap="none" padding="none" containerWidth="full">
     <PageLayout.Header padding="normal" divider="line">
       <Placeholder label="Header" height={64} />
@@ -153,7 +153,7 @@ StickyPane.argTypes = {
   },
 }
 
-export const NestedScrollContainer: Story = args => (
+export const NestedScrollContainer: StoryFn = args => (
   <Box sx={{display: 'grid', gridTemplateRows: 'auto 1fr auto', height: '100vh'}}>
     <Placeholder label="Above scroll container" height={120} />
     <Box sx={{overflow: 'auto'}}>
@@ -162,7 +162,7 @@ export const NestedScrollContainer: Story = args => (
           <Placeholder label="Header" height={64} />
         </PageLayout.Header>
         <PageLayout.Content padding="normal" width="large">
-          <Box sx={{display: 'grid', gap: 3}}>
+          <Box sx={{display: 'grid', gap: 3}} tabIndex={0} aria-label="Page content">
             {Array.from({length: args.numParagraphsInContent}).map((_, i) => (
               <Box key={i} as="p" sx={{margin: 0}}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non
@@ -210,7 +210,7 @@ NestedScrollContainer.argTypes = {
   },
 }
 
-export const CustomStickyHeader: Story = args => (
+export const CustomStickyHeader: StoryFn = args => (
   // a box to create a sticky top element that will be on the consumer side and outside of the PageLayout component
   <Box data-testid="story-window">
     <Box
@@ -304,7 +304,7 @@ CustomStickyHeader.argTypes = {
   },
 }
 
-export const ResizablePane: Story = () => (
+export const ResizablePane: StoryFn = () => (
   <PageLayout containerWidth="full">
     <PageLayout.Header>
       <Placeholder height={64} label="Header" />
@@ -321,7 +321,7 @@ export const ResizablePane: Story = () => (
   </PageLayout>
 )
 
-export const ScrollContainerWithinPageLayoutPane: Story = () => (
+export const ScrollContainerWithinPageLayoutPane: StoryFn = () => (
   <Box sx={{display: 'grid', gridTemplateRows: 'auto 1fr auto', height: '100vh'}}>
     <Box sx={{overflow: 'auto'}}>
       <Placeholder label="Above inner scroll container" height={120} />
@@ -334,7 +334,7 @@ export const ScrollContainerWithinPageLayoutPane: Story = () => (
           </Box>
         </PageLayout.Pane>
         <PageLayout.Content padding="normal" width="large">
-          <Box sx={{display: 'grid'}}>
+          <Box sx={{display: 'grid'}} tabIndex={0} aria-label="Page content">
             <Placeholder label="Page content" height={1600} />
           </Box>
         </PageLayout.Content>
@@ -344,7 +344,7 @@ export const ScrollContainerWithinPageLayoutPane: Story = () => (
   </Box>
 )
 
-export const CustomPaneWidths: Story = () => (
+export const CustomPaneWidths: StoryFn = () => (
   <PageLayout containerWidth="full">
     <PageLayout.Header>
       <Placeholder height={64} label="Header" />
@@ -361,7 +361,7 @@ export const CustomPaneWidths: Story = () => (
   </PageLayout>
 )
 
-export const WithCustomPaneHeading: Story = () => (
+export const WithCustomPaneHeading: StoryFn = () => (
   <PageLayout containerWidth="full">
     <PageLayout.Header>
       <Placeholder height={64} label="Header" />

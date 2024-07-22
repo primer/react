@@ -2,8 +2,14 @@ import {ChevronDownIcon} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import React, {isValidElement} from 'react'
 import styled from 'styled-components'
-import type {ActionListDividerProps, ActionListLeadingVisualProps, ActionListTrailingVisualProps} from '../ActionList'
+import type {
+  ActionListTrailingActionProps,
+  ActionListDividerProps,
+  ActionListLeadingVisualProps,
+  ActionListTrailingVisualProps,
+} from '../ActionList'
 import {ActionList} from '../ActionList'
+import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
 import Box from '../Box'
 import Octicon from '../Octicon'
 import type {SxProp} from '../sx'
@@ -33,7 +39,13 @@ const NavBox = styled.nav<SxProp>(sx)
 const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
   return (
     <NavBox {...props} ref={ref}>
-      <ActionList>{children}</ActionList>
+      <ActionListContainerContext.Provider
+        value={{
+          container: 'NavList',
+        }}
+      >
+        <ActionList>{children}</ActionList>
+      </ActionListContainerContext.Provider>
     </NavBox>
   )
 })
@@ -58,9 +70,9 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
     // Get SubNav from children
     const subNav = React.Children.toArray(children).find(child => isValidElement(child) && child.type === SubNav)
 
-    // Get children without SubNav
-    const childrenWithoutSubNav = React.Children.toArray(children).filter(child =>
-      isValidElement(child) ? child.type !== SubNav : true,
+    // Get children without SubNav or TrailingAction
+    const childrenWithoutSubNavOrTrailingAction = React.Children.toArray(children).filter(child =>
+      isValidElement(child) ? child.type !== SubNav && child.type !== TrailingAction : true,
     )
 
     if (!isValidElement(subNav) && defaultOpen)
@@ -71,7 +83,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
     if (subNav && isValidElement(subNav)) {
       return (
         <ItemWithSubNav subNav={subNav} depth={depth} defaultOpen={defaultOpen} sx={sxProp}>
-          {childrenWithoutSubNav}
+          {childrenWithoutSubNavOrTrailingAction}
         </ItemWithSubNav>
       )
     }
@@ -244,6 +256,14 @@ const Divider = ActionList.Divider
 
 Divider.displayName = 'NavList.Divider'
 
+// NavList.TrailingAction
+
+export type NavListTrailingActionProps = ActionListTrailingActionProps
+
+const TrailingAction = ActionList.TrailingAction
+
+TrailingAction.displayName = 'NavList.TrailingAction'
+
 // ----------------------------------------------------------------------------
 // NavList.Group
 
@@ -278,6 +298,7 @@ export const NavList = Object.assign(Root, {
   SubNav,
   LeadingVisual,
   TrailingVisual,
+  TrailingAction,
   Divider,
   Group,
 })

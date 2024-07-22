@@ -264,7 +264,7 @@ const StyledBanner = styled.div`
   }
 
   &[data-title-hidden=''] .BannerContent {
-    margin-block: var(--space-small, 0.375rem);
+    margin-block: var(--base-size-6, 0.375rem);
   }
 
   @media screen and (min-width: 544px) {

@@ -1,7 +1,6 @@
 import {render} from '@testing-library/react'
-import React from 'react'
+import React, {act} from 'react'
 import ReactDOM from 'react-dom/server'
-import {act} from 'react-dom/test-utils'
 import {useMedia, MatchMedia} from '../useMedia'
 
 type MediaQueryEventListener = (event: {matches: boolean}) => void

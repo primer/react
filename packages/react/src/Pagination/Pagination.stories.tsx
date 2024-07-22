@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta, Story} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import type {ComponentProps} from '../utils/types'
 import Pagination from './Pagination'
 
@@ -30,7 +30,7 @@ export const Default = () => (
   <Pagination pageCount={15} currentPage={2} onPageChange={e => e.preventDefault()} showPages={{narrow: false}} />
 )
 
-export const Playground: Story<ComponentProps<typeof Pagination>> = ({showPages, ...args}) => {
+export const Playground: StoryFn<ComponentProps<typeof Pagination>> = ({showPages, ...args}) => {
   return (
     <Pagination
       onPageChange={e => e.preventDefault()}

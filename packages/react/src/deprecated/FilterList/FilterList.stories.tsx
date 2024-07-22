@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
-import type {Meta, ComponentStory} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import FilterList from './FilterList'
 
 export default {
-  title: 'Components/FilterList',
+  title: 'Deprecated/Components/FilterList',
   component: FilterList,
 } as Meta<typeof FilterList>
 
@@ -24,7 +24,7 @@ export const Default = () => {
   )
 }
 
-export const Playground: ComponentStory<typeof FilterList> = args => {
+export const Playground: StoryFn<typeof FilterList> = args => {
   const [selectedIndex, setSelectedIndex] = useState(0)
   return (
     <FilterList {...args}>

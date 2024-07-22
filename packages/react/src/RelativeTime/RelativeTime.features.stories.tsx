@@ -1,6 +1,6 @@
 import RelativeTime from './RelativeTime'
 import React from 'react'
-import type {Meta, Story} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 
 const meta: Meta = {
   title: 'Components/RelativeTime/Features',
@@ -125,25 +125,25 @@ const meta: Meta = {
       control: 'date',
     },
     format: {
-      control: 'string',
+      control: 'text',
     },
   },
 }
 
-export const MicroFormat: Story = args => {
+export const MicroFormat: StoryFn = args => {
   const {date, ...rest} = args
   return <RelativeTime {...rest} date={new Date(date)} format="micro" />
 }
 MicroFormat.args = {tense: 'past'}
 MicroFormat.argTypes = {format: {control: false}}
 
-export const RecentTime: Story = args => {
+export const RecentTime: StoryFn = args => {
   const {...rest} = args
   return <RelativeTime {...rest} date={new Date()} />
 }
 RecentTime.argTypes = {date: {control: false}}
 
-export const CountDownTimer: Story = args => {
+export const CountDownTimer: StoryFn = args => {
   const {...rest} = args
   return <RelativeTime {...rest} />
 }
