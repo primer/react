@@ -1,4 +1,4 @@
-import {EyeIcon, TriangleDownIcon, HeartIcon, DownloadIcon} from '@primer/octicons-react'
+import {EyeIcon, TriangleDownIcon, HeartIcon, DownloadIcon, CommentIcon} from '@primer/octicons-react'
 import React, {useState} from 'react'
 import {Button} from '.'
 import {Stack} from '../Stack/Stack'
@@ -55,6 +55,10 @@ export const TrailingCounter = () => {
       <p>In this example, a live region has been implemented to communicate the change.</p>
     </>
   )
+}
+
+export const TrailingCounterWithNoText = () => {
+  return <Button leadingVisual={CommentIcon} count={3} />
 }
 
 export const TrailingCounterAllVariants = () => {
