@@ -93,10 +93,11 @@ export const LoadingWithDelay: StoryFn<ToggleSwitchProps & LoadingWithDelayProps
   return (
     <ToggleSwitchStoryWrapper>
       <Text id="toggle" fontWeight={'bold'} fontSize={1}>
-        Toggle label
+        Save changes
       </Text>
       <ToggleSwitch
         loading={isLoading}
+        loadingLabel="Saving file changes"
         loadingLabelDelay={loadingLabelDelay}
         aria-labelledby="toggle"
         onClick={handleToggleClick}
