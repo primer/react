@@ -7,7 +7,6 @@ import {
   SkipIcon,
   IssueDraftIcon,
   IssueOpenedIcon,
-  QuestionIcon,
   GitMergeQueueIcon,
   AlertIcon,
 } from '@primer/octicons-react'
@@ -19,78 +18,6 @@ import Octicon from '../Octicon'
 import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
-
-const octiconMap = {
-  issueOpened: IssueOpenedIcon,
-  pullOpened: GitPullRequestIcon,
-  issueClosed: IssueClosedIcon,
-  issueClosedNotPlanned: SkipIcon,
-  pullClosed: GitPullRequestClosedIcon,
-  pullMerged: GitMergeIcon,
-  draft: GitPullRequestDraftIcon,
-  issueDraft: IssueDraftIcon,
-  pullQueued: GitMergeQueueIcon,
-  unavailable: AlertIcon,
-}
-
-const labelMap: Record<keyof typeof octiconMap, 'Issue' | 'Pull request' | ''> = {
-  issueOpened: 'Issue',
-  pullOpened: 'Pull request',
-  issueClosed: 'Issue',
-  issueClosedNotPlanned: 'Issue',
-  pullClosed: 'Pull request',
-  pullMerged: 'Pull request',
-  draft: 'Pull request',
-  issueDraft: 'Issue',
-  pullQueued: 'Pull request',
-  unavailable: '',
-}
-
-const colorVariants = variant({
-  prop: 'status',
-  variants: {
-    issueClosed: {
-      backgroundColor: 'done.emphasis',
-      color: 'fg.onEmphasis',
-    },
-    issueClosedNotPlanned: {
-      backgroundColor: 'neutral.emphasis',
-      color: 'fg.onEmphasis',
-    },
-    pullClosed: {
-      backgroundColor: 'closed.emphasis',
-      color: 'fg.onEmphasis',
-    },
-    pullMerged: {
-      backgroundColor: 'done.emphasis',
-      color: 'fg.onEmphasis',
-    },
-    pullQueued: {
-      backgroundColor: 'attention.emphasis',
-      color: 'fg.onEmphasis',
-    },
-    issueOpened: {
-      backgroundColor: 'open.emphasis',
-      color: 'fg.onEmphasis',
-    },
-    pullOpened: {
-      backgroundColor: 'open.emphasis',
-      color: 'fg.onEmphasis',
-    },
-    draft: {
-      backgroundColor: 'neutral.emphasis',
-      color: 'fg.onEmphasis',
-    },
-    issueDraft: {
-      backgroundColor: 'neutral.emphasis',
-      color: 'fg.onEmphasis',
-    },
-    unavailable: {
-      backgroundColor: 'neutral.emphasis',
-      color: 'fg.onEmphasis',
-    },
-  },
-})
 
 const sizeVariants = variant({
   prop: 'variant',
@@ -108,9 +35,72 @@ const sizeVariants = variant({
   },
 })
 
+const statusVariants = {
+  issueClosed: {
+    icon: IssueClosedIcon,
+    iconLabel: 'Issue',
+    backgroundColor: 'colors.done.emphasis',
+    color: 'colors.fg.onEmphasis',
+  },
+  issueClosedNotPlanned: {
+    icon: SkipIcon,
+    iconLabel: 'Issue',
+    backgroundColor: 'colors.neutral.emphasis',
+    color: 'colors.fg.onEmphasis',
+  },
+  pullClosed: {
+    icon: GitPullRequestClosedIcon,
+    iconLabel: 'Pull request',
+    backgroundColor: 'colors.closed.emphasis',
+    color: 'colors.fg.onEmphasis',
+  },
+  pullMerged: {
+    icon: GitMergeIcon,
+    iconLabel: 'Pull request',
+    backgroundColor: 'colors.done.emphasis',
+    color: 'colors.fg.onEmphasis',
+  },
+  pullQueued: {
+    icon: GitMergeQueueIcon,
+    iconLabel: 'Pull request',
+    backgroundColor: 'colors.attention.emphasis',
+    color: 'colors.fg.onEmphasis',
+  },
+  issueOpened: {
+    icon: IssueOpenedIcon,
+    iconLabel: 'Issue',
+    backgroundColor: 'colors.open.emphasis',
+    color: 'colors.fg.onEmphasis',
+  },
+  pullOpened: {
+    icon: GitPullRequestIcon,
+    iconLabel: 'Pull request',
+    backgroundColor: 'colors.open.emphasis',
+    color: 'colors.fg.onEmphasis',
+  },
+  draft: {
+    icon: GitPullRequestDraftIcon,
+    iconLabel: 'Pull request',
+    backgroundColor: 'colors.neutral.emphasis',
+    color: 'colors.fg.onEmphasis',
+  },
+  issueDraft: {
+    icon: IssueDraftIcon,
+    iconLabel: 'Issue',
+    backgroundColor: 'colors.neutral.emphasis',
+    color: 'colors.fg.onEmphasis',
+  },
+  unavailable: {
+    icon: AlertIcon,
+    iconLabel: '',
+    backgroundColor: 'colors.neutral.emphasis',
+    color: 'colors.fg.onEmphasis',
+  },
+}
+
 type StyledStateLabelBaseProps = {
   variant?: 'small' | 'normal'
-  status: keyof typeof octiconMap
+  status: keyof typeof statusVariants
 } & SxProp
 
 const StateLabelBase = styled.span<StyledStateLabelBaseProps>`
@@ -118,10 +108,10 @@ const StateLabelBase = styled.span<StyledStateLabelBaseProps>`
   align-items: center;
   font-weight: ${get('fontWeights.bold')};
   line-height: 16px;
-  color: ${get('colors.canvas.default')};
   text-align: center;
   border-radius: ${get('radii.3')};
-  ${colorVariants};
+  color: ${props => get(statusVariants[props.status].color)};
+  background-color: ${props => get(statusVariants[props.status].backgroundColor)};
   ${sizeVariants};
   ${sx};
 `
@@ -132,8 +122,12 @@ function StateLabel({children, status, variant: variantProp = 'normal', ...rest}
   const octiconProps = variantProp === 'small' ? {width: '1em'} : {}
   return (
     <StateLabelBase {...rest} variant={variantProp} status={status}>
-      {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
-      {status && <Octicon {...octiconProps} icon={octiconMap[status]} aria-label={labelMap[status]} sx={{mr: 1}} />}
+      <Octicon
+        {...octiconProps}
+        icon={statusVariants[status].icon}
+        aria-label={statusVariants[status].iconLabel}
+        sx={{mr: 1}}
+      />
       {children}
     </StateLabelBase>
   )
