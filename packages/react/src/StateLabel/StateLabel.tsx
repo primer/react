@@ -4,10 +4,10 @@ import {
   GitPullRequestClosedIcon,
   GitPullRequestDraftIcon,
   IssueClosedIcon,
-  QuestionIcon,
   SkipIcon,
   IssueDraftIcon,
   IssueOpenedIcon,
+  QuestionIcon,
   GitMergeQueueIcon,
   AlertIcon,
 } from '@primer/octicons-react'
