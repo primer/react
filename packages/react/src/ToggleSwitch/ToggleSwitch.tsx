@@ -38,8 +38,12 @@ export interface ToggleSwitchProps extends Omit<React.HTMLAttributes<HTMLDivElem
    */
   statusLabelPosition?: CellAlignment
   /** If the switch is in the loading state, this value controls the amount of delay in milliseconds before
-   * the word "Loading" is announced to screen readers. Default: 2000. */
+   * the `loadingLabel` is announced to screen readers. Default: 2000. */
   loadingLabelDelay?: number
+  /** The text to describe what is loading. it should be descriptive and not too verbose.
+   * This is primarily used for AT (screen readers) to convey what is currently loading.
+   */
+  loadingLabel?: string
 }
 
 const sizeVariants = variant({
@@ -239,6 +243,7 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
       size = 'medium',
       statusLabelPosition = 'start',
       loadingLabelDelay = 2000,
+      loadingLabel = 'Loading',
       sx: sxProp,
       ...rest
     } = props
@@ -307,7 +312,7 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
         {isLoadingLabelVisible ? (
           <VisuallyHidden>
             <span aria-live="polite" id={loadingLabelId}>
-              Loading
+              {loadingLabel}
             </span>
           </VisuallyHidden>
         ) : null}
