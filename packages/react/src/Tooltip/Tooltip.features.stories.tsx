@@ -8,7 +8,7 @@ import {SearchIcon} from '@primer/octicons-react'
 /* Tooltip v1 */
 
 export default {
-  title: 'Deprecated/Components/TooltipV1/Features',
+  title: 'Deprecated/Components/Tooltip/Features',
   component: Tooltip,
 
   decorators: [
