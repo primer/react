@@ -100,6 +100,36 @@ test.describe('ActionMenu', () => {
     }
   })
 
+  test.describe('Loading Items', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionmenu-features--loading-items',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Open menu
+          await page.locator('button', {hasText: 'Open menu'}).waitFor()
+          await page.getByRole('button', {name: 'Open menu'}).click()
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot()
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionmenu-features--loading-items',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
+
   test.describe('Multi Select', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
