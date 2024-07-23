@@ -161,6 +161,12 @@ export const LoadingWithTrailingVisual = () => (
   </Button>
 )
 
+export const LoadingWithTrailingAction = () => (
+  <Button loading trailingAction={TriangleDownIcon}>
+    Export dropdown
+  </Button>
+)
+
 export const LoadingTrigger = () => {
   const [isLoading, setIsLoading] = useState(false)
 

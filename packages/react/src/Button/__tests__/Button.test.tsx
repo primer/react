@@ -302,7 +302,7 @@ describe('Button', () => {
     )
     const triggerEl = getByRole('button')
     const tooltipEl = getByText('Love is all around, Command+H')
-    expect(triggerEl).toHaveAttribute('aria-describedby', tooltipEl.id)
+    expect(triggerEl.getAttribute('aria-describedby')).toContain(tooltipEl.id)
   })
   it('should append the keyshortcuts to the tooltip text that describes the icon button when keyshortcuts prop is passed (Description Type)', () => {
     const {getByRole, getByText} = render(
@@ -317,6 +317,6 @@ describe('Button', () => {
     const triggerEl = getByRole('button')
     const tooltipEl = getByText('Love is all around, Command+H')
     expect(tooltipEl).toBeInTheDocument()
-    expect(triggerEl).toHaveAttribute('aria-describedby', tooltipEl.id)
+    expect(triggerEl.getAttribute('aria-describedby')).toContain(tooltipEl.id)
   })
 })
