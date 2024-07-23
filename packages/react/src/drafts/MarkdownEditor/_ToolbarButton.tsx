@@ -17,6 +17,7 @@ export const ToolbarButton = forwardRef<HTMLButtonElement, IconButtonProps>((pro
       {...props}
       sx={{color: 'fg.muted', ...props.sx}}
       // Keeping the tooltip disable since it is not maintained anymore and its tests were failing.
+      // eslint-disable-next-line primer-react/a11y-remove-disable-tooltip
       unsafeDisableTooltip
     />
   )
