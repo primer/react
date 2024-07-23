@@ -317,7 +317,7 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
             </AriaStatus>
           </VisuallyHidden>
         ) : null}
-        {loading ? <Spinner size="small" /> : null}
+        {loading ? <Spinner size="small" srText={null} /> : null}
         <Text
           color={acceptsInteraction ? 'fg.default' : 'fg.muted'}
           fontSize={size === 'small' ? 0 : 1}
