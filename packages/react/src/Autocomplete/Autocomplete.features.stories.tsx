@@ -297,7 +297,7 @@ WithTokenInput.parameters = {
 export const AddNewItem = (args: FormControlArgs<AutocompleteArgs>) => {
   const {parentArgs, labelArgs, captionArgs, validationArgs} = getFormControlArgsByChildComponent(args)
   const {menuArgs, overlayArgs, textInputWithTokensArgs} = getArgsByChildComponent(args)
-  const [localItemsState, setLocalItemsState] = useState<Datum[]>(items)
+  const [localItemsState, setLocalItemsState] = useState<Datum[]>(items.slice(0, 3))
   const [filterVal, setFilterVal] = useState<string>('')
   const [tokens, setTokens] = useState<Datum[]>(mockTokens)
   const selectedTokenIds = tokens.map(token => token.id)
@@ -328,7 +328,10 @@ export const AddNewItem = (args: FormControlArgs<AutocompleteArgs>) => {
   }
 
   const onItemSelect: (item: Datum) => void = item => {
-    onSelectedChange([...selectedItemIds.map(id => items.find(selectedItem => selectedItem.id === id) as Datum), item])
+    onSelectedChange([
+      ...selectedItemIds.map(id => localItemsState.find(selectedItem => selectedItem.id === id) as Datum),
+      item,
+    ])
 
     if (!localItemsState.some(localItem => localItem.id === item.id)) {
       setLocalItemsState([...localItemsState, item])
@@ -363,6 +366,7 @@ export const AddNewItem = (args: FormControlArgs<AutocompleteArgs>) => {
                           ...item,
                           text: filterVal,
                           selected: true,
+                          id: `${tokens.length}`,
                         })
                         setFilterVal('')
                       },
@@ -650,7 +654,6 @@ export const InOverlayWithCustomScrollContainerRef = (args: FormControlArgs<Auto
         onOpen={handleOpen}
         onClose={() => setIsOpen(false)}
         width="large"
-        height="xsmall"
         focusTrapSettings={{initialFocusRef: inputRef}}
         side="inside-top"
         renderAnchor={props => <Button {...props}>open overlay</Button>}
