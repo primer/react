@@ -7,7 +7,7 @@ import Tooltip from './Tooltip'
 /* Tooltip v1 */
 
 export default {
-  title: 'Deprecated/Components/TooltipV1',
+  title: 'Deprecated/Components/Tooltip',
   component: Tooltip,
 
   decorators: [
