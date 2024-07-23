@@ -107,7 +107,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   overlayProps,
   focusTrapSettings,
   focusZoneSettings,
-  className,
   side = 'outside-bottom',
   align = 'start',
   alignmentOffset,
@@ -192,7 +191,6 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           onEscape={onEscape}
           ref={updateOverlayRef}
           role="none"
-          className={className}
           visibility={position ? 'visible' : 'hidden'}
           height={height}
           width={width}
