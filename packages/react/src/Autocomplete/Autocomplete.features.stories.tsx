@@ -640,15 +640,27 @@ export const InOverlayWithCustomScrollContainerRef = (args: FormControlArgs<Auto
   const {menuArgs, textInputArgs} = getArgsByChildComponent(args)
   const scrollContainerRef = useRef<HTMLElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const triggerRef = useRef<HTMLButtonElement>(null)
 
   const [isOpen, setIsOpen] = useState(false)
+  const [selectedItem, setSelectedItem] = useState<Datum>()
+
   const handleOpen = () => {
     setIsOpen(true)
     inputRef.current && inputRef.current.focus()
   }
 
+  const selectChange = (item: Datum[] | Datum) => {
+    setIsOpen(false)
+
+    if (Array.isArray(item) && item.length) setSelectedItem(item[0])
+
+    triggerRef.current?.focus()
+  }
+
   return (
     <Box as="form" sx={{p: 3}}>
+      Selected item: {selectedItem ? selectedItem.text : 'none'}
       <AnchoredOverlay
         open={isOpen}
         onOpen={handleOpen}
@@ -656,6 +668,7 @@ export const InOverlayWithCustomScrollContainerRef = (args: FormControlArgs<Auto
         width="large"
         focusTrapSettings={{initialFocusRef: inputRef}}
         side="inside-top"
+        anchorRef={triggerRef}
         renderAnchor={props => <Button {...props}>open overlay</Button>}
       >
         <Autocomplete>
@@ -685,6 +698,7 @@ export const InOverlayWithCustomScrollContainerRef = (args: FormControlArgs<Auto
                 selectedItemIds={[]}
                 customScrollContainerRef={scrollContainerRef}
                 aria-labelledby="autocompleteLabel"
+                onSelectedChange={selectChange}
                 {...menuArgs}
               />
             </Box>
