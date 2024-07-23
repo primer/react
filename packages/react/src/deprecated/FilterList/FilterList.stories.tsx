@@ -3,7 +3,7 @@ import type {Meta, StoryFn} from '@storybook/react'
 import FilterList from './FilterList'
 
 export default {
-  title: 'Components/FilterList',
+  title: 'Deprecated/Components/FilterList',
   component: FilterList,
 } as Meta<typeof FilterList>
 
