@@ -87,7 +87,7 @@ exports[`NavList renders a simple list 1`] = `
 .c2[aria-disabled] [data-component="ActionList.Checkbox"],
 .c2[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -180,7 +180,7 @@ exports[`NavList renders a simple list 1`] = `
 .c7[aria-disabled] [data-component="ActionList.Checkbox"],
 .c7[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -535,7 +535,7 @@ exports[`NavList renders with groups 1`] = `
 .c6[aria-disabled] [data-component="ActionList.Checkbox"],
 .c6[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -628,7 +628,7 @@ exports[`NavList renders with groups 1`] = `
 .c11[aria-disabled] [data-component="ActionList.Checkbox"],
 .c11[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -1014,7 +1014,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 .c11[aria-disabled] [data-component="ActionList.Checkbox"],
 .c11[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -1107,7 +1107,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 .c4[aria-disabled] [data-component="ActionList.Checkbox"],
 .c4[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -1486,7 +1486,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 .c11[aria-disabled] [data-component="ActionList.Checkbox"],
 .c11[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -1589,7 +1589,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 .c4[aria-disabled] [data-component="ActionList.Checkbox"],
 .c4[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
