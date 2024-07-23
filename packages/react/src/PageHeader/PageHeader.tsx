@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import {Box} from '..'
+import Box from '../Box'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import type {SxProp, BetterSystemStyleObject, CSSCustomProperties} from '../sx'
@@ -238,6 +238,7 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
     )
   },
 ) as PolymorphicForwardRefComponent<'a', ParentLinkProps>
+ParentLink.displayName = 'ParentLink'
 
 // ContextBar
 // Generic slot for any component above the title region. Use it for custom breadcrumbs and other navigation elements instead of ParentLink.
@@ -337,6 +338,7 @@ const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Title
     )
   },
 ) as PolymorphicForwardRefComponent<'div', TitleAreaProps>
+TitleArea.displayName = 'TitleArea'
 
 // PageHeader.LeadingAction and PageHeader.TrailingAction should only be visible on regular viewports.
 // So they come as hidden on narrow viewports by default and their visibility can be managed by their `hidden` prop.
@@ -577,7 +579,7 @@ const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
           flexDirection: 'row',
           paddingLeft: '0.5rem',
           gap: '0.5rem',
-          flexGrow: '1',
+          minWidth: 'max-content',
           justifyContent: 'right',
           alignItems: 'center',
         },

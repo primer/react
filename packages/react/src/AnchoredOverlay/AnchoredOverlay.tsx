@@ -81,7 +81,7 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
   focusZoneSettings?: Partial<FocusZoneHookSettings>
 
   /**
-   * Class name for custom styling
+   * Optional className to be added to the overlay component.
    */
   className?: string
 }
@@ -112,6 +112,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   align = 'start',
   alignmentOffset,
   anchorOffset,
+  className,
 }) => {
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
@@ -198,6 +199,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           top={position?.top || 0}
           left={position?.left || 0}
           anchorSide={position?.anchorSide}
+          className={className}
           {...overlayProps}
         >
           {children}
