@@ -33,7 +33,7 @@ const octiconMap = {
   unavailable: AlertIcon,
 }
 
-const labelMap: Record<keyof typeof octiconMap, 'Issue' | 'Pull request' | ''> = {
+const labelMap: Record<keyof typeof octiconMap, 'Issue' | 'Issue, not planned' | 'Pull request' | ''> = {
   issueOpened: 'Issue',
   pullOpened: 'Pull request',
   issueClosed: 'Issue',
