@@ -37,7 +37,7 @@ const labelMap: Record<keyof typeof octiconMap, 'Issue' | 'Pull request' | ''> =
   issueOpened: 'Issue',
   pullOpened: 'Pull request',
   issueClosed: 'Issue',
-  issueClosedNotPlanned: 'Issue',
+  issueClosedNotPlanned: 'Issue, not planned',
   pullClosed: 'Pull request',
   pullMerged: 'Pull request',
   draft: 'Pull request',
