@@ -210,7 +210,7 @@ exports[`StateLabel respects the status prop 3`] = `
   className="c0"
 >
   <svg
-    aria-label="Issue"
+    aria-label="Issue, not planned"
     className="c1"
     fill="currentColor"
     focusable="false"
