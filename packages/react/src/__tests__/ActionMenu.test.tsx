@@ -5,7 +5,7 @@ import React from 'react'
 import theme from '../theme'
 import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider, Tooltip, Button, IconButton} from '..'
 import {Tooltip as TooltipV2} from '../TooltipV2/Tooltip'
-import {behavesAsComponent, checkExports} from '../utils/testing'
+import {behavesAsComponent, checkExports, checkRenderDuration} from '../utils/testing'
 import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
 import {MixedSelection} from '../ActionMenu/ActionMenu.examples.stories'
 import {SearchIcon, KebabHorizontalIcon} from '@primer/octicons-react'
@@ -143,6 +143,10 @@ describe('ActionMenu', () => {
     default: undefined,
     ActionMenu,
   })
+
+  checkRenderDuration(Example, 80)
+  checkRenderDuration(ExampleWithSubmenus, 38)
+  checkRenderDuration(ExampleWithTooltip, 66)
 
   it('should open Menu on MenuButton click', async () => {
     const component = HTMLRender(<Example />)

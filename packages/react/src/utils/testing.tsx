@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {Profiler} from 'react'
 import {promisify} from 'util'
 import renderer from 'react-test-renderer'
 import {render as HTMLRender} from '@testing-library/react'
@@ -183,6 +183,24 @@ export function unloadCSS(path: string) {
     style.remove()
     return true
   }
+}
+
+export function checkRenderDuration(Component: React.ComponentType, expectedDuration: number) {
+  it(`${Component.displayName} renders with expected performance ${expectedDuration}`, () => {
+    // Add and subtract a small value to account for the variability of the test environment
+    const minMaxValue = 1
+    let duration = 0
+    HTMLRender(
+      <Profiler
+        id="ComponentProfiler"
+        onRender={(id, phase, actualDuration, baseDuration) => (duration = Math.ceil(baseDuration))}
+      >
+        <Component />
+      </Profiler>,
+    )
+    expect(duration).toBeLessThanOrEqual(expectedDuration + minMaxValue)
+    expect(duration).toBeGreaterThanOrEqual(expectedDuration - minMaxValue)
+  })
 }
 
 // If a component requires certain props or other conditions in order
