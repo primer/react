@@ -24,6 +24,7 @@ export const Playground: StoryFn<Args> = args => {
       size={parseSizeFromArgs(args)}
       square={args.square}
       src="https://avatars.githubusercontent.com/u/92997159?v=4"
+      alt="mona"
     />
   )
 }
