@@ -1,4 +1,4 @@
-import type {ChangeEventHandler, FocusEventHandler, KeyboardEventHandler} from 'react'
+import type {ChangeEventHandler, FocusEventHandler, KeyboardEventHandler, MouseEventHandler} from 'react'
 import React, {useCallback, useContext, useEffect, useState} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {AutocompleteContext} from './AutocompleteContext'
@@ -52,7 +52,7 @@ const AutocompleteInput = React.forwardRef(
     const [highlightRemainingText, setHighlightRemainingText] = useState<boolean>(true)
     const {safeSetTimeout} = useSafeTimeout()
 
-    const handleInputFocus: FocusEventHandler<HTMLInputElement> = useCallback(
+    const handleInputClick: MouseEventHandler<HTMLInputElement> = useCallback(
       event => {
         if (openOnFocus) {
           onFocus?.(event)
@@ -166,7 +166,7 @@ const AutocompleteInput = React.forwardRef(
 
     return (
       <Component
-        onFocus={handleInputFocus}
+        onClick={handleInputClick}
         onBlur={handleInputBlur}
         onChange={handleInputChange}
         onKeyDown={handleInputKeyDown}
