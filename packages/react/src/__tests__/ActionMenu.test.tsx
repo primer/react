@@ -497,7 +497,7 @@ describe('ActionMenu', () => {
           <BaseStyles>
             <ActionMenu>
               <ActionMenu.Anchor>
-                <IconButton icon={SearchIcon} aria-label="More actions" unsafeDisableTooltip={false} />
+                <IconButton icon={SearchIcon} aria-label="More actions" />
               </ActionMenu.Anchor>
 
               <ActionMenu.Overlay width="medium">
