@@ -21,7 +21,7 @@ const AutocompleteInput = React.forwardRef(
   (
     {
       as: Component = TextInput,
-      onFocus,
+      onClick,
       onBlur,
       onChange,
       onKeyDown,
@@ -55,11 +55,11 @@ const AutocompleteInput = React.forwardRef(
     const handleInputClick: MouseEventHandler<HTMLInputElement> = useCallback(
       event => {
         if (openOnFocus) {
-          onFocus?.(event)
+          onClick?.(event)
           setShowMenu(true)
         }
       },
-      [onFocus, setShowMenu, openOnFocus],
+      [onClick, setShowMenu, openOnFocus],
     )
 
     const handleInputBlur: FocusEventHandler<HTMLInputElement> = useCallback(
