@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-Only show `Autocomplete` menu when click instead of focus.
+Only show `Autocomplete` menu when clicked instead of focus.
