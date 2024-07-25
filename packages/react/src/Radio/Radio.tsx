@@ -52,18 +52,15 @@ const StyledRadio = styled.input`
   // radial-gradient creates a smooth transition between the checked "fill" and the border color, which is only visible in high contrast themes
   &:checked {
     border-width: 0px;
-    background: radial-gradient(50% 50% at 50% 50%, ${get(
-      'colors.canvas.default',
-    )} 59.5%, var(--control-checked-bgColor-rest, ${get(
-      'colors.accent.fg',
-    )}) 59.51%, var(--control-checked-bgColor-rest, ${get(
-      'colors.accent.fg',
-    )}) 90.48%, var(--control-checked-borderColor-rest, ${get('colors.accent.fg')}) 90.5%);
-    );
+    background-color: var(--control-checked-bgColor-rest, ${get('colors.accent.fg')});
+    box-shadow: var(--boxShadow-thick, inset 0 0 0 2px)
+      var(--control-checked-fgColor-rest, ${get('colors.canvas.default')});
+    border: solid 2px var(--control-checked-borderColor-rest, ${get('colors.accent.fg')});
 
     &:disabled {
       cursor: not-allowed;
       border-color: ${get('colors.fg.muted')};
+      background-color: ${get('colors.fg.muted')};
     }
   }
 
