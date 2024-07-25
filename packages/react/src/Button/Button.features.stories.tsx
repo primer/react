@@ -1,4 +1,4 @@
-import {EyeIcon, TriangleDownIcon, HeartIcon} from '@primer/octicons-react'
+import {EyeIcon, TriangleDownIcon, HeartIcon, DownloadIcon, CommentIcon} from '@primer/octicons-react'
 import React, {useState} from 'react'
 import {Button} from '.'
 import {Stack} from '../Stack/Stack'
@@ -55,6 +55,10 @@ export const TrailingCounter = () => {
       <p>In this example, a live region has been implemented to communicate the change.</p>
     </>
   )
+}
+
+export const TrailingCounterWithNoText = () => {
+  return <Button leadingVisual={CommentIcon} count={3} />
 }
 
 export const TrailingCounterAllVariants = () => {
@@ -136,6 +140,46 @@ export const Small = () => <Button size="small">Default</Button>
 export const Medium = () => <Button size="medium">Default</Button>
 
 export const Large = () => <Button size="large">Default</Button>
+
+export const Loading = () => <Button loading>Default</Button>
+
+export const LoadingCustomAnnouncement = () => (
+  <Button loading loadingAnnouncement="This is a custom loading announcement">
+    Default
+  </Button>
+)
+
+export const LoadingWithLeadingVisual = () => (
+  <Button loading leadingVisual={DownloadIcon}>
+    Export
+  </Button>
+)
+
+export const LoadingWithTrailingVisual = () => (
+  <Button loading trailingVisual={DownloadIcon}>
+    Export
+  </Button>
+)
+
+export const LoadingWithTrailingAction = () => (
+  <Button loading trailingAction={TriangleDownIcon}>
+    Export dropdown
+  </Button>
+)
+
+export const LoadingTrigger = () => {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleClick = () => {
+    setIsLoading(true)
+  }
+
+  return (
+    <Button loading={isLoading} onClick={handleClick} leadingVisual={DownloadIcon}>
+      Export
+    </Button>
+  )
+}
 
 export const LabelWrap = () => {
   return (

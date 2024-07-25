@@ -37,7 +37,7 @@ import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
 
 const meta: Meta = {
-  title: 'Drafts/Components/PageHeader/Examples',
+  title: 'Components/PageHeader/Examples',
   parameters: {
     layout: 'fullscreen',
     controls: {expanded: true},

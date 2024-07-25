@@ -7,7 +7,7 @@ import {GitBranchIcon, PencilIcon, SidebarExpandIcon} from '@primer/octicons-rea
 import {PageHeader} from './PageHeader'
 
 const meta: Meta<typeof PageHeader> = {
-  title: 'Drafts/Components/PageHeader/DevOnly',
+  title: 'Components/PageHeader/DevOnly',
   parameters: {
     layout: 'fullscreen',
     controls: {expanded: true},
