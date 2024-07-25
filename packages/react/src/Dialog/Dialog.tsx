@@ -15,7 +15,7 @@ import {FocusKeys} from '@primer/behaviors'
 import Portal from '../Portal'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {useId} from '../hooks/useId'
-import {ScrollableRegion} from '../internal/components/ScrollableRegion'
+import {ScrollableRegion} from '../ScrollableRegion'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 
 /* Dialog Version 2 */
