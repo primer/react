@@ -492,7 +492,7 @@ describe('ActionList', () => {
 
   it('should render ActionList.Item as li when feature flag is enabled and has proper aria role', async () => {
     const {container} = HTMLRender(
-      <FeatureFlags flags={{primer_react_action_list_item_as_button: false}}>
+      <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
         <ActionList role="listbox">
           <ActionList.Item role="option">Item 1</ActionList.Item>
           <ActionList.Item role="option">Item 2</ActionList.Item>
@@ -569,5 +569,25 @@ describe('ActionList', () => {
     expect(document.activeElement).toHaveTextContent('Item 1')
     await userEvent.tab()
     expect(document.activeElement).toHaveAccessibleName('Action')
+  })
+
+  it('should only trigger a key event once when feature flag is enabled', async () => {
+    const mockOnSelect = jest.fn()
+    const user = userEvent.setup()
+    const {getByRole} = HTMLRender(
+      <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+        <ActionList>
+          <ActionList.Item onSelect={mockOnSelect}>Item 1</ActionList.Item>
+        </ActionList>
+      </FeatureFlags>,
+    )
+    const item = getByRole('button')
+
+    item.focus()
+
+    expect(document.activeElement).toBe(item)
+    await user.keyboard('{Enter}')
+
+    expect(mockOnSelect).toHaveBeenCalledTimes(1)
   })
 })
