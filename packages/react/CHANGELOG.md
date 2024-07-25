@@ -1,5 +1,53 @@
 # @primer/react
 
+## 36.26.0
+
+### Minor Changes
+
+- [#4718](https://github.com/primer/react/pull/4718) [`fd80a60eeb615b3c4464ade10cde7e26e1349e40`](https://github.com/primer/react/commit/fd80a60eeb615b3c4464ade10cde7e26e1349e40) Thanks [@joshblack](https://github.com/joshblack)! - Add support for providing icons as an element to UnderlineNavItem
+
+- [#4702](https://github.com/primer/react/pull/4702) [`2536b4995568a6353c67c812a34a970fca7e76bb`](https://github.com/primer/react/commit/2536b4995568a6353c67c812a34a970fca7e76bb) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - IconButton: Enable tooltips by default in icon buttons by updating the default value of `unsafeDisableTooltip` to `false`.
+
+  This is a behaviour change in icon buttons, please upgrade with a caution.
+
+- [#4707](https://github.com/primer/react/pull/4707) [`d773f264f923677b4109d03b9c5bd5054151037b`](https://github.com/primer/react/commit/d773f264f923677b4109d03b9c5bd5054151037b) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - IconButton: Add `keyshortcuts` prop to allow labelling and describing support for keyboard shortcut (through tooltips)
+
+- [#4729](https://github.com/primer/react/pull/4729) [`71bdfa847d4cc569bb59b0b4e7a3010f1d7a0faa`](https://github.com/primer/react/commit/71bdfa847d4cc569bb59b0b4e7a3010f1d7a0faa) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Dialog2: Add support for "InitialFocusRef" that allows to specify an element that should receive focus when the dialog opens.
+
+### Patch Changes
+
+- [#4742](https://github.com/primer/react/pull/4742) [`c004fd50fb333022644c39645f6fabb494fc1d8b`](https://github.com/primer/react/commit/c004fd50fb333022644c39645f6fabb494fc1d8b) Thanks [@joshblack](https://github.com/joshblack)! - Update exports for UnderlinePanels component
+
+## 36.25.0
+
+### Minor Changes
+
+- [#4051](https://github.com/primer/react/pull/4051) [`7e644b70359fcba07810560abcb8b1fbe785668a`](https://github.com/primer/react/commit/7e644b70359fcba07810560abcb8b1fbe785668a) Thanks [@mperrotti](https://github.com/mperrotti)! - Adds a loading state to ActionList items. Also allows the Spinner component to accept screenreader text.
+
+  <!-- Changed components: ActionList, ActionMenu, NavList, Spinners -->
+
+- [#4697](https://github.com/primer/react/pull/4697) [`a7d1e4f37cd8fd01c86250178ef6ae748d786e03`](https://github.com/primer/react/commit/a7d1e4f37cd8fd01c86250178ef6ae748d786e03) Thanks [@khiga8](https://github.com/khiga8)! - Add TrailingAction support to NavList
+
+### Patch Changes
+
+- [#4706](https://github.com/primer/react/pull/4706) [`71859edc30664e259c855ffdc3732cda8dc6d169`](https://github.com/primer/react/commit/71859edc30664e259c855ffdc3732cda8dc6d169) Thanks [@TylerJDev](https://github.com/TylerJDev)! - (Behind feature flag) ActionList: Fix for "full" variant when using button semantics
+
+- [#4711](https://github.com/primer/react/pull/4711) [`199e3840af17d8ea7c75dbba60cdfbaaf7ef4021`](https://github.com/primer/react/commit/199e3840af17d8ea7c75dbba60cdfbaaf7ef4021) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Removes live region from `FormControl` validation
+
+## 36.24.0
+
+### Minor Changes
+
+- [#4673](https://github.com/primer/react/pull/4673) [`eedc6b16ba3078025c636a8c1368f38f7f9b798d`](https://github.com/primer/react/commit/eedc6b16ba3078025c636a8c1368f38f7f9b798d) Thanks [@joshblack](https://github.com/joshblack)! - Add experimental support for the AriaStatus, AriaAlert, and Announce components
+
+- [#4691](https://github.com/primer/react/pull/4691) [`55e97a9027aafd0ee432d8d5c293d75792de96dc`](https://github.com/primer/react/commit/55e97a9027aafd0ee432d8d5c293d75792de96dc) Thanks [@joshblack](https://github.com/joshblack)! - Update internal VisuallyHidden helper to use a `span` by default over a `div` to support more nesting scenarios by default
+
+### Patch Changes
+
+- [#4699](https://github.com/primer/react/pull/4699) [`546803e66661d353450c9ef2fc8cbfd51ca18d41`](https://github.com/primer/react/commit/546803e66661d353450c9ef2fc8cbfd51ca18d41) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Overlay: Set `style` prop correctly
+
+- [#4669](https://github.com/primer/react/pull/4669) [`1403ef7e015165119b03b73832c5aa8b2f093021`](https://github.com/primer/react/commit/1403ef7e015165119b03b73832c5aa8b2f093021) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - PageHeader: Resolve layout shift issues on Title and Actions
+
 ## 36.23.0
 
 ### Minor Changes

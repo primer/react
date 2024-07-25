@@ -442,6 +442,19 @@ export const InactiveItem = () => {
   )
 }
 
+export const LoadingItem = () => {
+  return (
+    <ActionList aria-label="Project">
+      {projects.map((project, index) => (
+        <ActionList.Item key={index} loading={index === 1}>
+          {project.name}
+          <ActionList.Description variant="block">{project.scope}</ActionList.Description>
+        </ActionList.Item>
+      ))}
+    </ActionList>
+  )
+}
+
 export const Links = () => (
   <>
     <ActionList.Heading as="h1" sx={{fontSize: 1}}>
@@ -792,3 +805,13 @@ export const WithTrailingAction = () => {
     </FeatureFlags>
   )
 }
+
+export const FullVariant = () => (
+  <ActionList variant="full">
+    <ActionList.Item>Copy link</ActionList.Item>
+    <ActionList.Item>Quote reply</ActionList.Item>
+    <ActionList.Item>Edit comment</ActionList.Item>
+    <ActionList.Divider />
+    <ActionList.Item variant="danger">Delete file</ActionList.Item>
+  </ActionList>
+)
