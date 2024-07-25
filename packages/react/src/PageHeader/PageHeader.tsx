@@ -265,6 +265,7 @@ export const ParentLink = forwardRef<HTMLAnchorElement, ParentLinkProps>(
     )
   },
 ) as PolymorphicForwardRefComponent<'a', ParentLinkProps>
+ParentLink.displayName = 'ParentLink'
 
 // ContextBar
 // ---------------------------------------------------------------------
@@ -375,6 +376,7 @@ export const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildre
     )
   },
 ) as PolymorphicForwardRefComponent<'div', TitleAreaProps>
+TitleArea.displayName = 'TitleArea'
 
 // PageHeader.LeadingAction and PageHeader.TrailingAction should only be visible on regular viewports.
 // So they come as hidden on narrow viewports by default and their visibility can be managed by their `hidden` prop.
@@ -643,7 +645,7 @@ export const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
           flexDirection: 'row',
           paddingLeft: '0.5rem',
           gap: '0.5rem',
-          flexGrow: '1',
+          minWidth: 'max-content',
           justifyContent: 'right',
           alignItems: 'center',
         },

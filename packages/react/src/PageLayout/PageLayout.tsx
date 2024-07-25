@@ -10,7 +10,7 @@ import type {BetterSystemStyleObject, SxProp} from '../sx'
 import {merge} from '../sx'
 import type {Theme} from '../ThemeProvider'
 import {canUseDOM} from '../utils/environment'
-import {useOverflow} from '../internal/hooks/useOverflow'
+import {useOverflow} from '../hooks/useOverflow'
 import {warning} from '../utils/warning'
 import {useStickyPaneHeight} from './useStickyPaneHeight'
 

@@ -1274,15 +1274,15 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
       class="c0"
     >
       <li
-        aria-labelledby=":r25:"
+        aria-labelledby=":r26:"
         class="c1 c2"
       >
         <button
-          aria-controls=":r26:"
+          aria-controls=":r27:"
           aria-expanded="true"
-          aria-labelledby=":r25:--label "
+          aria-labelledby=":r26:--label "
           class="c3 c4"
-          id=":r25:"
+          id=":r26:"
           tabindex="0"
         >
           <div
@@ -1294,7 +1294,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
             >
               <span
                 class="c1 c7"
-                id=":r25:--label"
+                id=":r26:--label"
               >
                 Item
               </span>
@@ -1321,19 +1321,19 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
         </button>
         <div>
           <ul
-            aria-labelledby=":r25:"
+            aria-labelledby=":r26:"
             class="c1 c10"
-            id=":r26:"
+            id=":r27:"
           >
             <li
               class="c3 c11"
             >
               <a
                 aria-current="page"
-                aria-labelledby=":r28:--label "
+                aria-labelledby=":r29:--label "
                 class="c12 c13"
                 href="#"
-                id=":r28:"
+                id=":r29:"
                 tabindex="0"
               >
                 <div
@@ -1342,7 +1342,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
                 >
                   <span
                     class="c1 c14"
-                    id=":r28:--label"
+                    id=":r29:--label"
                   >
                     Sub Item
                   </span>
@@ -1775,15 +1775,15 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
       class="c0"
     >
       <li
-        aria-labelledby=":r1v:"
+        aria-labelledby=":r20:"
         class="c1 c2"
       >
         <button
-          aria-controls=":r20:"
+          aria-controls=":r21:"
           aria-expanded="false"
-          aria-labelledby=":r1v:--label "
+          aria-labelledby=":r20:--label "
           class="c3 c4"
-          id=":r1v:"
+          id=":r20:"
           tabindex="0"
         >
           <div
@@ -1795,7 +1795,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
             >
               <span
                 class="c1 c7"
-                id=":r1v:--label"
+                id=":r20:--label"
               >
                 Item
               </span>
@@ -1822,19 +1822,19 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
         </button>
         <div>
           <ul
-            aria-labelledby=":r1v:"
+            aria-labelledby=":r20:"
             class="c1 c10"
-            id=":r20:"
+            id=":r21:"
           >
             <li
               class="c3 c11"
             >
               <a
                 aria-current="page"
-                aria-labelledby=":r22:--label "
+                aria-labelledby=":r23:--label "
                 class="c12 c13"
                 href="#"
-                id=":r22:"
+                id=":r23:"
                 tabindex="0"
               >
                 <div
@@ -1843,7 +1843,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
                 >
                   <span
                     class="c1 c7"
-                    id=":r22:--label"
+                    id=":r23:--label"
                   >
                     Sub Item
                   </span>

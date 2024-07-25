@@ -72,6 +72,9 @@ export type {TabPanelsProps, TabPanelsTabProps, TabPanelsPanelProps} from './Tab
 export * from '../TooltipV2'
 export * from '../ActionBar'
 
+export {ScrollableRegion} from '../ScrollableRegion'
+export type {ScrollableRegionProps} from '../ScrollableRegion'
+
 export {Stack} from '../Stack'
 export type {StackProps, StackItemProps} from '../Stack'
 

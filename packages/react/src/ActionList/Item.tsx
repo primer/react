@@ -350,7 +350,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           <ItemWrapper {...wrapperProps}>
             <Selection selected={selected} />
             <VisualOrIndicator
-              inactiveText={inactiveText}
+              inactiveText={showInactiveIndicator ? inactiveText : undefined}
               itemHasLeadingVisual={Boolean(slots.leadingVisual)}
               labelId={labelId}
               loading={loading}
@@ -391,7 +391,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                   {slots.inlineDescription}
                 </ConditionalWrapper>
                 <VisualOrIndicator
-                  inactiveText={inactiveText}
+                  inactiveText={showInactiveIndicator ? inactiveText : undefined}
                   itemHasLeadingVisual={Boolean(slots.leadingVisual)}
                   labelId={labelId}
                   loading={loading}
