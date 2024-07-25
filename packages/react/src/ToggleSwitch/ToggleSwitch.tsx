@@ -143,7 +143,7 @@ const SwitchButton = styled.button<SwitchButtonProps>`
     if (props.checked) {
       return css`
         background-color: ${get('colors.switchTrack.checked.bg')};
-        border-color: var(--control-checked-borderColor-rest);
+        border-color: var(--control-checked-borderColor-rest, transparent);
 
         &:hover,
         &:focus:focus-visible {
@@ -158,7 +158,7 @@ const SwitchButton = styled.button<SwitchButtonProps>`
     } else {
       return css`
         background-color: ${get('colors.switchTrack.bg')};
-        border-color: var(--controlTrack-borderColor-rest);
+        border-color: var(--controlTrack-borderColor-rest, transparent);
 
         &:active {
           background-color: ${get('colors.switchTrack.activeBg')};
