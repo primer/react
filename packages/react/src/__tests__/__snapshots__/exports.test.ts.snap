@@ -144,6 +144,8 @@ exports[`@primer/react should not update exports without a semver change 1`] = `
   "type SplitPageLayoutPaneProps",
   "type SplitPageLayoutProps",
   "SSRProvider",
+  "Stack",
+  "type StackProps",
   "StateLabel",
   "type StateLabelProps",
   "SubNav",

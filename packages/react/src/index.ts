@@ -197,7 +197,7 @@ export {ActionBar} from './ActionBar'
 export type {ActionBarProps} from './ActionBar'
 
 export {Stack} from './Stack'
-export type {StackProps} from './Stack'
+export type {StackProps, StackItemProps} from './Stack'
 
 export {PageHeader} from './PageHeader'
 export type {PageHeaderProps} from './PageHeader'
