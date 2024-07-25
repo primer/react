@@ -289,7 +289,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const menuItemProps = {
       onClick: clickHandler,
-      onKeyPress: keyPressHandler,
+      onKeyPress: !buttonSemantics ? keyPressHandler : undefined,
       'aria-disabled': disabled ? true : undefined,
       'data-inactive': inactive ? true : undefined,
       'data-loading': loading && !inactive ? true : undefined,
