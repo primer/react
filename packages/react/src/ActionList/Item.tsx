@@ -222,7 +222,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       // hide divider after dividers & group header, with higher importance!
       '[data-component="ActionList.Divider"] + &': {'--divider-color': 'transparent !important'},
       // hide border on current and previous item
-      '&:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]), &:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]), &[data-focus-visible-added]:not([aria-disabled]):not([data-inactive])':
+      '&:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]), &[data-focus-visible-added]:not([aria-disabled]):not([data-inactive])':
         {
           '--divider-color': 'transparent',
         },
