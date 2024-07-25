@@ -63,8 +63,8 @@ const StyledCheckbox = styled.input`
 
   &:checked,
   &:indeterminate {
-    background: ${get('colors.accent.fg')};
-    border-color: ${get('colors.accent.fg')};
+    background: var(--control-checked-bgColor-rest, ${get('colors.accent.fg')});
+    border-color: var(--control-checked-borderColor-rest, ${get('colors.accent.fg')});
 
     &::before {
       animation: checkmarkIn 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards 80ms;
@@ -86,12 +86,12 @@ const StyledCheckbox = styled.input`
     }
 
     &:disabled {
-      background-color: ${get('colors.fg.muted')};
-      border-color: ${get('colors.fg.muted')};
+      background-color: var(--control-checked-bgColor-disabled, ${get('colors.fg.muted')});
+      border-color: var(--control-checked-borderColor-disabled, ${get('colors.fg.muted')});
       opacity: 1;
 
       &::before {
-        background-color: ${get('colors.fg.onEmphasis')};
+        background-color: var(--control-checked-fgColor-disabled, ${get('colors.fg.onEmphasis')});
       }
     }
 
