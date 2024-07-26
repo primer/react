@@ -222,7 +222,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       // hide divider after dividers & group header, with higher importance!
       '[data-component="ActionList.Divider"] + &': {'--divider-color': 'transparent !important'},
       // hide border on current and previous item
-      '&:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]), &:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]), &[data-focus-visible-added]:not([aria-disabled]):not([data-inactive])':
+      '&:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]), &[data-focus-visible-added]:not([aria-disabled]):not([data-inactive])':
         {
           '--divider-color': 'transparent',
         },
@@ -289,7 +289,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const menuItemProps = {
       onClick: clickHandler,
-      onKeyPress: keyPressHandler,
+      onKeyPress: !buttonSemantics ? keyPressHandler : undefined,
       'aria-disabled': disabled ? true : undefined,
       'data-inactive': inactive ? true : undefined,
       'data-loading': loading && !inactive ? true : undefined,
@@ -345,7 +345,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           <ItemWrapper {...wrapperProps}>
             <Selection selected={selected} />
             <VisualOrIndicator
-              inactiveText={inactiveText}
+              inactiveText={showInactiveIndicator ? inactiveText : undefined}
               itemHasLeadingVisual={Boolean(slots.leadingVisual)}
               labelId={labelId}
               loading={loading}
@@ -386,7 +386,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                   {slots.inlineDescription}
                 </ConditionalWrapper>
                 <VisualOrIndicator
-                  inactiveText={inactiveText}
+                  inactiveText={showInactiveIndicator ? inactiveText : undefined}
                   itemHasLeadingVisual={Boolean(slots.leadingVisual)}
                   labelId={labelId}
                   loading={loading}

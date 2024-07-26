@@ -198,6 +198,9 @@ export type {ActionBarProps} from './ActionBar'
 
 export * from './KeybindingHint'
 
+export {Stack} from './Stack'
+export type {StackProps, StackItemProps} from './Stack'
+
 export {PageHeader} from './PageHeader'
 export type {PageHeaderProps} from './PageHeader'
 
