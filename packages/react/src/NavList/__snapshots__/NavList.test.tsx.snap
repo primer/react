@@ -115,7 +115,6 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 .c2:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c2:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c2[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
@@ -208,7 +207,6 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 .c7:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c7:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c7[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
@@ -563,7 +561,6 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c6:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c6:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c6[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
@@ -656,7 +653,6 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c11:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c11:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c11[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
@@ -1042,7 +1038,6 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 .c11:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c11:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c11[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
@@ -1135,7 +1130,6 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 .c4:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c4:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c4[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
@@ -1514,7 +1508,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 .c11:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c11:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c11[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
@@ -1617,7 +1610,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 .c4:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c4:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c4[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }

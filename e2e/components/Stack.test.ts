@@ -17,7 +17,7 @@ test.describe('Stack', () => {
 
     test(`${id} @vrt`, async ({page}) => {
       await visit(page, {
-        id: 'drafts-components-stack--playground',
+        id: 'components-stack--playground',
         args: scenario,
       })
       expect(await page.screenshot()).toMatchSnapshot(`Stack.${id}.png`)
