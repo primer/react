@@ -49,13 +49,13 @@ const StyledRadio = styled.input`
     background-color,
     border-color 80ms cubic-bezier(0.33, 1, 0.68, 1); /* checked -> unchecked - add 120ms delay to fully see animation-out */
 
-  // radial-gradient creates a smooth transition between the checked "fill" and the border color, which is only visible in high contrast themes
   &:checked {
-    border-width: 0px;
-    background-color: var(--control-checked-bgColor-rest, ${get('colors.accent.fg')});
-    box-shadow: var(--boxShadow-thick, inset 0 0 0 2px)
-      var(--control-checked-fgColor-rest, ${get('colors.canvas.default')});
-    border: solid 2px var(--control-checked-borderColor-rest, ${get('colors.accent.fg')});
+    border-width: var(--base-size-4, 4px);
+    border-color: var(
+      --control-checked-bgColor-rest,
+      ${get('colors.accent.fg')}
+    ); /* using bgColor here to avoid a border change in dark high contrast */
+    background-color: var(--control-checked-fgColor-rest, ${get('colors.fg.onEmphasis')});
 
     &:disabled {
       cursor: not-allowed;

@@ -120,7 +120,7 @@ const SwitchButton = styled.button<SwitchButtonProps>`
     }
   }
 
-  &:hover,
+  &:hover:not(:disabled),
   &:focus:focus-visible {
     background-color: ${get('colors.switchTrack.hoverBg')};
   }
@@ -145,7 +145,7 @@ const SwitchButton = styled.button<SwitchButtonProps>`
         background-color: ${get('colors.switchTrack.checked.bg')};
         border-color: var(--control-checked-borderColor-rest, transparent);
 
-        &:hover,
+        &:hover:not(:disabled),
         &:focus:focus-visible {
           background-color: ${get('colors.switchTrack.checked.hoverBg')};
         }

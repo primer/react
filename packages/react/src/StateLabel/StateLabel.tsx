@@ -19,6 +19,7 @@ import Octicon from '../Octicon'
 import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
+import type {Theme} from '../ThemeProvider'
 
 const octiconMap = {
   issueOpened: IssueOpenedIcon,
@@ -52,42 +53,62 @@ const colorVariants = variant({
     issueClosed: {
       backgroundColor: 'done.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: (theme: Theme) =>
+        `var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-done-emphasis, ${theme.colors.done.emphasis})`,
     },
     issueClosedNotPlanned: {
       backgroundColor: 'neutral.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: (theme: Theme) =>
+        `var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-neutral-emphasis, ${theme.colors.neutral.emphasis})`,
     },
     pullClosed: {
       backgroundColor: 'closed.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: (theme: Theme) =>
+        `var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-closed-emphasis, ${theme.colors.closed.emphasis})`,
     },
     pullMerged: {
       backgroundColor: 'done.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: (theme: Theme) =>
+        `var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-done-emphasis, ${theme.colors.done.emphasis})`,
     },
     pullQueued: {
       backgroundColor: 'attention.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: (theme: Theme) =>
+        `var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-attention-emphasis, ${theme.colors.attention.emphasis})`,
     },
     issueOpened: {
       backgroundColor: 'open.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: (theme: Theme) =>
+        `var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-open-emphasis, ${theme.colors.open.emphasis})`,
     },
     pullOpened: {
       backgroundColor: 'open.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: (theme: Theme) =>
+        `var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-open-emphasis, ${theme.colors.open.emphasis})`,
     },
     draft: {
       backgroundColor: 'neutral.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: (theme: Theme) =>
+        `var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-neutral-emphasis, ${theme.colors.neutral.emphasis})`,
     },
     issueDraft: {
       backgroundColor: 'neutral.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: (theme: Theme) =>
+        `var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-neutral-emphasis, ${theme.colors.neutral.emphasis})`,
     },
     unavailable: {
       backgroundColor: 'neutral.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: (theme: Theme) =>
+        `var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-neutral-emphasis, ${theme.colors.neutral.emphasis})`,
     },
   },
 })
