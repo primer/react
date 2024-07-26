@@ -135,6 +135,13 @@
               "defaultValue": ""
             },
             {
+              "name": "loading",
+              "type": "boolean",
+              "required": false,
+              "description": "When true, the button is in a loading state.",
+              "defaultValue": ""
+            },
+            {
               "name": "size",
               "type": "\"small\" | \"large\" | \"medium\"",
               "required": false,
@@ -163,10 +170,17 @@
               "defaultValue": ""
             },
             {
+              "name": "loadingAnnouncement",
+              "type": "string",
+              "required": false,
+              "description": "The content to announce to screen readers when loading.",
+              "defaultValue": ""
+            },
+            {
               "name": "inactive",
               "type": "boolean",
               "required": false,
-              "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+              "description": "",
               "defaultValue": ""
             },
             {
@@ -749,6 +763,13 @@
           "defaultValue": ""
         },
         {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "Optional className to be added to the overlay component.",
+          "defaultValue": ""
+        },
+        {
           "name": "height",
           "type": "\"small\" | \"initial\" | \"large\" | \"medium\" | \"auto\" | \"fit-content\" | \"xsmall\" | \"xlarge\"",
           "required": false,
@@ -802,7 +823,7 @@
         },
         {
           "id": "components-autocomplete-features--add-new-item",
-          "code": "(args: FormControlArgs<AutocompleteArgs>) => {\n  const { parentArgs, labelArgs, captionArgs, validationArgs } =\n    getFormControlArgsByChildComponent(args)\n  const { menuArgs, overlayArgs, textInputWithTokensArgs } =\n    getArgsByChildComponent(args)\n  const [localItemsState, setLocalItemsState] = useState<Datum[]>(items)\n  const [filterVal, setFilterVal] = useState<string>('')\n  const [tokens, setTokens] = useState<Datum[]>(mockTokens)\n  const selectedTokenIds = tokens.map((token) => token.id)\n  const [selectedItemIds, setSelectedItemIds] =\n    useState<Array<string>>(selectedTokenIds)\n  const onTokenRemove: (tokenId: string | number) => void = (tokenId) => {\n    setTokens(tokens.filter((token) => token.id !== tokenId))\n    setSelectedItemIds(selectedItemIds.filter((id) => id !== tokenId))\n  }\n  const onSelectedChange = (newlySelectedItems: Datum | Datum[]) => {\n    if (!Array.isArray(newlySelectedItems)) {\n      return\n    }\n    setSelectedItemIds(newlySelectedItems.map((item) => item.id))\n    if (newlySelectedItems.length < selectedItemIds.length) {\n      const newlySelectedItemIds = newlySelectedItems.map(({ id }) => id)\n      const removedItemIds = selectedTokenIds.filter(\n        (id) => !newlySelectedItemIds.includes(id),\n      )\n      for (const removedItemId of removedItemIds) {\n        onTokenRemove(removedItemId)\n      }\n      return\n    }\n    setTokens(\n      newlySelectedItems.map(({ id, text }) => ({\n        id,\n        text,\n      })),\n    )\n  }\n  const onItemSelect: (item: Datum) => void = (item) => {\n    onSelectedChange([\n      ...selectedItemIds.map(\n        (id) => items.find((selectedItem) => selectedItem.id === id) as Datum,\n      ),\n      item,\n    ])\n    if (!localItemsState.some((localItem) => localItem.id === item.id)) {\n      setLocalItemsState([...localItemsState, item])\n    }\n  }\n  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {\n    setFilterVal(e.currentTarget.value)\n  }\n  return (\n    <Box\n      as=\"form\"\n      sx={{\n        p: 3,\n      }}\n    >\n      <FormControl {...parentArgs}>\n        <FormControl.Label id=\"autocompleteLabel\" {...labelArgs} />\n        <Autocomplete>\n          <Autocomplete.Input\n            as={TextInputTokens}\n            tokens={tokens}\n            onTokenRemove={onTokenRemove}\n            onChange={handleChange}\n            {...textInputWithTokensArgs}\n          />\n          <Autocomplete.Overlay {...overlayArgs}>\n            <Autocomplete.Menu\n              addNewItem={\n                filterVal &&\n                !localItemsState\n                  .map((localItem) => localItem.text)\n                  .includes(filterVal)\n                  ? {\n                      id: filterVal,\n                      text: `Add '${filterVal}'`,\n                      handleAddItem: (item) => {\n                        onItemSelect({\n                          ...item,\n                          text: filterVal,\n                          selected: true,\n                        })\n                        setFilterVal('')\n                      },\n                    }\n                  : undefined\n              }\n              items={localItemsState}\n              selectedItemIds={selectedItemIds}\n              onSelectedChange={onSelectedChange}\n              aria-labelledby=\"autocompleteLabel\"\n              {...menuArgs}\n            />\n          </Autocomplete.Overlay>\n        </Autocomplete>\n        {captionArgs.children && <FormControl.Caption {...captionArgs} />}\n        {validationArgs.children && validationArgs.variant && (\n          <FormControl.Validation\n            {...validationArgs}\n            variant={validationArgs.variant}\n          />\n        )}\n      </FormControl>\n    </Box>\n  )\n}"
+          "code": "(args: FormControlArgs<AutocompleteArgs>) => {\n  const { parentArgs, labelArgs, captionArgs, validationArgs } =\n    getFormControlArgsByChildComponent(args)\n  const { menuArgs, overlayArgs, textInputWithTokensArgs } =\n    getArgsByChildComponent(args)\n  const [localItemsState, setLocalItemsState] = useState<Datum[]>(\n    items.slice(0, 3),\n  )\n  const [filterVal, setFilterVal] = useState<string>('')\n  const [tokens, setTokens] = useState<Datum[]>(mockTokens)\n  const selectedTokenIds = tokens.map((token) => token.id)\n  const [selectedItemIds, setSelectedItemIds] =\n    useState<Array<string>>(selectedTokenIds)\n  const onTokenRemove: (tokenId: string | number) => void = (tokenId) => {\n    setTokens(tokens.filter((token) => token.id !== tokenId))\n    setSelectedItemIds(selectedItemIds.filter((id) => id !== tokenId))\n  }\n  const onSelectedChange = (newlySelectedItems: Datum | Datum[]) => {\n    if (!Array.isArray(newlySelectedItems)) {\n      return\n    }\n    setSelectedItemIds(newlySelectedItems.map((item) => item.id))\n    if (newlySelectedItems.length < selectedItemIds.length) {\n      const newlySelectedItemIds = newlySelectedItems.map(({ id }) => id)\n      const removedItemIds = selectedTokenIds.filter(\n        (id) => !newlySelectedItemIds.includes(id),\n      )\n      for (const removedItemId of removedItemIds) {\n        onTokenRemove(removedItemId)\n      }\n      return\n    }\n    setTokens(\n      newlySelectedItems.map(({ id, text }) => ({\n        id,\n        text,\n      })),\n    )\n  }\n  const onItemSelect: (item: Datum) => void = (item) => {\n    onSelectedChange([\n      ...selectedItemIds.map(\n        (id) =>\n          localItemsState.find(\n            (selectedItem) => selectedItem.id === id,\n          ) as Datum,\n      ),\n      item,\n    ])\n    if (!localItemsState.some((localItem) => localItem.id === item.id)) {\n      setLocalItemsState([...localItemsState, item])\n    }\n  }\n  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {\n    setFilterVal(e.currentTarget.value)\n  }\n  return (\n    <Box\n      as=\"form\"\n      sx={{\n        p: 3,\n      }}\n    >\n      <FormControl {...parentArgs}>\n        <FormControl.Label id=\"autocompleteLabel\" {...labelArgs} />\n        <Autocomplete>\n          <Autocomplete.Input\n            as={TextInputTokens}\n            tokens={tokens}\n            onTokenRemove={onTokenRemove}\n            onChange={handleChange}\n            {...textInputWithTokensArgs}\n          />\n          <Autocomplete.Overlay {...overlayArgs}>\n            <Autocomplete.Menu\n              addNewItem={\n                filterVal &&\n                !localItemsState\n                  .map((localItem) => localItem.text)\n                  .includes(filterVal)\n                  ? {\n                      id: filterVal,\n                      text: `Add '${filterVal}'`,\n                      handleAddItem: (item) => {\n                        onItemSelect({\n                          ...item,\n                          text: filterVal,\n                          selected: true,\n                          id: `${tokens.length}`,\n                        })\n                        setFilterVal('')\n                      },\n                    }\n                  : undefined\n              }\n              items={localItemsState}\n              selectedItemIds={selectedItemIds}\n              onSelectedChange={onSelectedChange}\n              aria-labelledby=\"autocompleteLabel\"\n              {...menuArgs}\n            />\n          </Autocomplete.Overlay>\n        </Autocomplete>\n        {captionArgs.children && <FormControl.Caption {...captionArgs} />}\n        {validationArgs.children && validationArgs.variant && (\n          <FormControl.Validation\n            {...validationArgs}\n            variant={validationArgs.variant}\n          />\n        )}\n      </FormControl>\n    </Box>\n  )\n}"
         },
         {
           "id": "components-autocomplete-features--custom-search-filter-fn",
@@ -830,7 +851,7 @@
         },
         {
           "id": "components-autocomplete-features--in-overlay-with-custom-scroll-container-ref",
-          "code": "(args: FormControlArgs<AutocompleteArgs>) => {\n  const { menuArgs, textInputArgs } = getArgsByChildComponent(args)\n  const scrollContainerRef = useRef<HTMLElement>(null)\n  const inputRef = useRef<HTMLInputElement>(null)\n  const [isOpen, setIsOpen] = useState(false)\n  const handleOpen = () => {\n    setIsOpen(true)\n    inputRef.current && inputRef.current.focus()\n  }\n  return (\n    <Box\n      as=\"form\"\n      sx={{\n        p: 3,\n      }}\n    >\n      <AnchoredOverlay\n        open={isOpen}\n        onOpen={handleOpen}\n        onClose={() => setIsOpen(false)}\n        width=\"large\"\n        height=\"xsmall\"\n        focusTrapSettings={{\n          initialFocusRef: inputRef,\n        }}\n        side=\"inside-top\"\n        renderAnchor={(props) => <Button {...props}>open overlay</Button>}\n      >\n        <Autocomplete>\n          <Box display=\"flex\" flexDirection=\"column\" height=\"100%\">\n            <Box\n              borderWidth={0}\n              borderBottomWidth={1}\n              borderColor=\"border.default\"\n              borderStyle=\"solid\"\n            >\n              <Autocomplete.Input\n                ref={inputRef}\n                sx={{\n                  display: 'flex',\n                  border: '0',\n                  paddingX: 3,\n                  paddingY: 1,\n                  boxShadow: 'none',\n                  ':focus-within': {\n                    border: '0',\n                    boxShadow: 'none',\n                  },\n                }}\n                {...textInputArgs}\n                size={textInputArgs.inputSize}\n                block\n              />\n            </Box>\n            <Box\n              overflow=\"auto\"\n              flexGrow={1}\n              ref={scrollContainerRef as RefObject<HTMLDivElement>}\n            >\n              <Autocomplete.Menu\n                items={items}\n                selectedItemIds={[]}\n                customScrollContainerRef={scrollContainerRef}\n                aria-labelledby=\"autocompleteLabel\"\n                {...menuArgs}\n              />\n            </Box>\n          </Box>\n        </Autocomplete>\n      </AnchoredOverlay>\n    </Box>\n  )\n}"
+          "code": "(args: FormControlArgs<AutocompleteArgs>) => {\n  const { menuArgs, textInputArgs } = getArgsByChildComponent(args)\n  const scrollContainerRef = useRef<HTMLElement>(null)\n  const inputRef = useRef<HTMLInputElement>(null)\n  const triggerRef = useRef<HTMLButtonElement>(null)\n  const [isOpen, setIsOpen] = useState(false)\n  const [selectedItem, setSelectedItem] = useState<Datum>()\n  const handleOpen = () => {\n    setIsOpen(true)\n    inputRef.current && inputRef.current.focus()\n  }\n  const selectChange = (item: Datum[] | Datum) => {\n    setIsOpen(false)\n    if (Array.isArray(item) && item.length) setSelectedItem(item[0])\n    triggerRef.current?.focus()\n  }\n  return (\n    <Box\n      as=\"form\"\n      sx={{\n        p: 3,\n      }}\n    >\n      Selected item: {selectedItem ? selectedItem.text : 'none'}\n      <AnchoredOverlay\n        open={isOpen}\n        onOpen={handleOpen}\n        onClose={() => setIsOpen(false)}\n        width=\"large\"\n        focusTrapSettings={{\n          initialFocusRef: inputRef,\n        }}\n        side=\"inside-top\"\n        anchorRef={triggerRef}\n        renderAnchor={(props) => <Button {...props}>open overlay</Button>}\n      >\n        <Autocomplete>\n          <Box display=\"flex\" flexDirection=\"column\" height=\"100%\">\n            <Box\n              borderWidth={0}\n              borderBottomWidth={1}\n              borderColor=\"border.default\"\n              borderStyle=\"solid\"\n            >\n              <Autocomplete.Input\n                ref={inputRef}\n                sx={{\n                  display: 'flex',\n                  border: '0',\n                  paddingX: 3,\n                  paddingY: 1,\n                  boxShadow: 'none',\n                  ':focus-within': {\n                    border: '0',\n                    boxShadow: 'none',\n                  },\n                }}\n                {...textInputArgs}\n                size={textInputArgs.inputSize}\n                block\n              />\n            </Box>\n            <Box\n              overflow=\"auto\"\n              flexGrow={1}\n              ref={scrollContainerRef as RefObject<HTMLDivElement>}\n            >\n              <Autocomplete.Menu\n                items={items}\n                selectedItemIds={[]}\n                customScrollContainerRef={scrollContainerRef}\n                aria-labelledby=\"autocompleteLabel\"\n                onSelectedChange={selectChange}\n                {...menuArgs}\n              />\n            </Box>\n          </Box>\n        </Autocomplete>\n      </AnchoredOverlay>\n    </Box>\n  )\n}"
         },
         {
           "id": "components-autocomplete-features--in-a-dialog",
@@ -1157,15 +1178,15 @@
         },
         {
           "id": "components-avatar-features--square",
-          "code": "() => <Avatar square src=\"https://avatars.githubusercontent.com/primer\" />"
+          "code": "() => (\n  <Avatar\n    square\n    alt=\"primer\"\n    src=\"https://avatars.githubusercontent.com/primer\"\n  />\n)"
         },
         {
           "id": "components-avatar-features--size",
-          "code": "() => (\n  <div>\n    <Avatar\n      size={4}\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={8}\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={12}\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={16}\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={20}\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={24}\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={28}\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={32}\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={40}\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={48}\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={56}\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={64}\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n  </div>\n)"
+          "code": "() => (\n  <div>\n    <Avatar\n      size={4}\n      alt=\"mona\"\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={8}\n      alt=\"mona\"\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={12}\n      alt=\"mona\"\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={16}\n      alt=\"mona\"\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={20}\n      alt=\"mona\"\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={24}\n      alt=\"mona\"\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={28}\n      alt=\"mona\"\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={32}\n      alt=\"mona\"\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={40}\n      alt=\"mona\"\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={48}\n      alt=\"mona\"\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={56}\n      alt=\"mona\"\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={64}\n      alt=\"mona\"\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n  </div>\n)"
         },
         {
           "id": "components-avatar-features--size-responsive",
-          "code": "() => (\n  <div>\n    <Avatar\n      size={{\n        narrow: 4,\n        regular: 8,\n        wide: 12,\n      }}\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={{\n        narrow: 8,\n        regular: 12,\n        wide: 16,\n      }}\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={{\n        narrow: 12,\n        regular: 16,\n        wide: 20,\n      }}\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={{\n        narrow: 16,\n        regular: 20,\n        wide: 24,\n      }}\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={{\n        narrow: 20,\n        regular: 24,\n        wide: 28,\n      }}\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={{\n        narrow: 24,\n        regular: 28,\n        wide: 32,\n      }}\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={{\n        narrow: 28,\n        regular: 32,\n        wide: 40,\n      }}\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={{\n        narrow: 32,\n        regular: 40,\n        wide: 48,\n      }}\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={{\n        narrow: 40,\n        regular: 48,\n        wide: 56,\n      }}\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={{\n        narrow: 48,\n        regular: 56,\n        wide: 64,\n      }}\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n  </div>\n)"
+          "code": "() => (\n  <div>\n    <Avatar\n      size={{\n        narrow: 4,\n        regular: 8,\n        wide: 12,\n      }}\n      alt=\"mona\"\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={{\n        narrow: 8,\n        regular: 12,\n        wide: 16,\n      }}\n      alt=\"mona\"\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={{\n        narrow: 12,\n        regular: 16,\n        wide: 20,\n      }}\n      alt=\"mona\"\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={{\n        narrow: 16,\n        regular: 20,\n        wide: 24,\n      }}\n      alt=\"mona\"\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={{\n        narrow: 20,\n        regular: 24,\n        wide: 28,\n      }}\n      alt=\"mona\"\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={{\n        narrow: 24,\n        regular: 28,\n        wide: 32,\n      }}\n      alt=\"mona\"\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={{\n        narrow: 28,\n        regular: 32,\n        wide: 40,\n      }}\n      alt=\"mona\"\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={{\n        narrow: 32,\n        regular: 40,\n        wide: 48,\n      }}\n      alt=\"mona\"\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={{\n        narrow: 40,\n        regular: 48,\n        wide: 56,\n      }}\n      alt=\"mona\"\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n    <Avatar\n      size={{\n        narrow: 48,\n        regular: 56,\n        wide: 64,\n      }}\n      alt=\"mona\"\n      src=\"https://avatars.githubusercontent.com/u/92997159?v=4\"\n    />\n  </div>\n)"
         }
       ],
       "importPath": "@primer/react",
@@ -1489,6 +1510,13 @@
               "defaultValue": ""
             },
             {
+              "name": "loading",
+              "type": "boolean",
+              "required": false,
+              "description": "When true, the button is in a loading state.",
+              "defaultValue": ""
+            },
+            {
               "name": "size",
               "type": "\"small\" | \"large\" | \"medium\"",
               "required": false,
@@ -1531,10 +1559,17 @@
               "defaultValue": ""
             },
             {
+              "name": "loadingAnnouncement",
+              "type": "string",
+              "required": false,
+              "description": "The content to announce to screen readers when loading.",
+              "defaultValue": ""
+            },
+            {
               "name": "inactive",
               "type": "boolean",
               "required": false,
-              "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+              "description": "",
               "defaultValue": ""
             },
             {
@@ -1592,6 +1627,13 @@
               "defaultValue": ""
             },
             {
+              "name": "loading",
+              "type": "boolean",
+              "required": false,
+              "description": "When true, the button is in a loading state.",
+              "defaultValue": ""
+            },
+            {
               "name": "size",
               "type": "\"small\" | \"large\" | \"medium\"",
               "required": false,
@@ -1634,10 +1676,17 @@
               "defaultValue": ""
             },
             {
+              "name": "loadingAnnouncement",
+              "type": "string",
+              "required": false,
+              "description": "The content to announce to screen readers when loading.",
+              "defaultValue": ""
+            },
+            {
               "name": "inactive",
               "type": "boolean",
               "required": false,
-              "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+              "description": "",
               "defaultValue": ""
             },
             {
@@ -1917,6 +1966,10 @@
         {
           "id": "components-buttongroup-features--icon-buttons",
           "code": "() => (\n  <ButtonGroup>\n    {/* We can remove these unsafe props after we resolve https://github.com/primer/react/issues/4129 */}\n    <IconButton unsafeDisableTooltip={true} icon={PlusIcon} aria-label=\"Add\" />\n    <IconButton\n      unsafeDisableTooltip={true}\n      icon={DashIcon}\n      aria-label=\"Subtract\"\n    />\n  </ButtonGroup>\n)"
+        },
+        {
+          "id": "components-buttongroup-features--loading-buttons",
+          "code": "() => {\n  const [isLoading, setIsLoading] = useState(false)\n  const handleClick = () => {\n    setIsLoading(true)\n  }\n  return (\n    <ButtonGroup>\n      <Button loading={isLoading} onClick={handleClick}>\n        Button 1\n      </Button>\n      <Button onClick={handleClick}>Button 2</Button>\n      <Button onClick={handleClick}>Button 3</Button>\n    </ButtonGroup>\n  )\n}"
         }
       ],
       "importPath": "@primer/react",
@@ -2724,6 +2777,10 @@
         {
           "id": "drafts-components-dialog-features--return-focus-ref",
           "code": "() => {\n  const [isOpen, setIsOpen] = useState(false)\n  const onDialogClose = useCallback(() => setIsOpen(false), [])\n  const triggerRef = React.useRef<HTMLButtonElement>(null)\n  const triggerButton = (\n    <Button ref={triggerRef} variant=\"primary\" onClick={() => setIsOpen(true)}>\n      Show dialog\n    </Button>\n  )\n  if (!isOpen) return triggerButton\n  return (\n    <React.Suspense fallback={<Button>Show Dialog</Button>}>\n      {triggerButton}\n      <Dialog title=\"title\" onClose={onDialogClose} returnFocusRef={triggerRef}>\n        body\n      </Dialog>\n    </React.Suspense>\n  )\n}"
+        },
+        {
+          "id": "drafts-components-dialog-features--new-issues",
+          "code": "() => {\n  const [isOpen, setIsOpen] = useState(false)\n  const onDialogClose = useCallback(() => setIsOpen(false), [])\n  const initialFocusRef = useRef(null)\n  return (\n    <>\n      <Button onClick={() => setIsOpen(true)}>Show dialog</Button>\n      {isOpen ? (\n        <Dialog\n          initialFocusRef={initialFocusRef}\n          onClose={onDialogClose}\n          title=\"New issue\"\n          renderBody={() => (\n            <ActionList>\n              <ActionList.LinkItem\n                ref={initialFocusRef}\n                href=\"https://github.com\"\n              >\n                Item 1\n              </ActionList.LinkItem>\n              <ActionList.LinkItem href=\"https://github.com\">\n                Link\n              </ActionList.LinkItem>\n            </ActionList>\n          )}\n        ></Dialog>\n      ) : null}\n    </>\n  )\n}"
         }
       ],
       "importPath": "@primer/react/drafts",
@@ -2810,6 +2867,13 @@
           "type": "RefObject<HTMLElement>",
           "required": false,
           "description": "Return focus to this element when the Dialog closes,\ninstead of the element that had focus immediately before the Dialog opened",
+          "defaultValue": ""
+        },
+        {
+          "name": "initialFocusRef",
+          "type": "RefObject<HTMLElement>",
+          "required": false,
+          "description": "The element to focus when the Dialog opens",
           "defaultValue": ""
         },
         {
@@ -7975,10 +8039,24 @@
               "defaultValue": ""
             },
             {
+              "name": "loading",
+              "type": "boolean",
+              "required": false,
+              "description": "When true, the button is in a loading state.",
+              "defaultValue": ""
+            },
+            {
+              "name": "loadingAnnouncement",
+              "type": "string",
+              "required": false,
+              "description": "The content to announce to screen readers when loading.",
+              "defaultValue": ""
+            },
+            {
               "name": "inactive",
               "type": "boolean",
               "required": false,
-              "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+              "description": "",
               "defaultValue": ""
             },
             {
@@ -8078,10 +8156,24 @@
               "defaultValue": ""
             },
             {
+              "name": "loading",
+              "type": "boolean",
+              "required": false,
+              "description": "When true, the button is in a loading state.",
+              "defaultValue": ""
+            },
+            {
+              "name": "loadingAnnouncement",
+              "type": "string",
+              "required": false,
+              "description": "The content to announce to screen readers when loading.",
+              "defaultValue": ""
+            },
+            {
               "name": "inactive",
               "type": "boolean",
               "required": false,
-              "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+              "description": "",
               "defaultValue": ""
             },
             {
@@ -8202,6 +8294,13 @@
               "defaultValue": ""
             },
             {
+              "name": "loading",
+              "type": "boolean",
+              "required": false,
+              "description": "When true, the button is in a loading state.",
+              "defaultValue": ""
+            },
+            {
               "name": "size",
               "type": "\"small\" | \"large\" | \"medium\"",
               "required": false,
@@ -8230,10 +8329,17 @@
               "defaultValue": ""
             },
             {
+              "name": "loadingAnnouncement",
+              "type": "string",
+              "required": false,
+              "description": "The content to announce to screen readers when loading.",
+              "defaultValue": ""
+            },
+            {
               "name": "inactive",
               "type": "boolean",
               "required": false,
-              "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+              "description": "",
               "defaultValue": ""
             },
             {
@@ -8305,6 +8411,13 @@
               "defaultValue": ""
             },
             {
+              "name": "loading",
+              "type": "boolean",
+              "required": false,
+              "description": "When true, the button is in a loading state.",
+              "defaultValue": ""
+            },
+            {
               "name": "size",
               "type": "\"small\" | \"large\" | \"medium\"",
               "required": false,
@@ -8333,10 +8446,17 @@
               "defaultValue": ""
             },
             {
+              "name": "loadingAnnouncement",
+              "type": "string",
+              "required": false,
+              "description": "The content to announce to screen readers when loading.",
+              "defaultValue": ""
+            },
+            {
               "name": "inactive",
               "type": "boolean",
               "required": false,
-              "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+              "description": "",
               "defaultValue": ""
             },
             {
@@ -8653,10 +8773,24 @@
               "defaultValue": ""
             },
             {
+              "name": "loading",
+              "type": "boolean",
+              "required": false,
+              "description": "When true, the button is in a loading state.",
+              "defaultValue": ""
+            },
+            {
+              "name": "loadingAnnouncement",
+              "type": "string",
+              "required": false,
+              "description": "The content to announce to screen readers when loading.",
+              "defaultValue": ""
+            },
+            {
               "name": "inactive",
               "type": "boolean",
               "required": false,
-              "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+              "description": "",
               "defaultValue": ""
             },
             {
@@ -8833,6 +8967,13 @@
               "defaultValue": ""
             },
             {
+              "name": "loading",
+              "type": "boolean",
+              "required": false,
+              "description": "When true, the button is in a loading state.",
+              "defaultValue": ""
+            },
+            {
               "name": "size",
               "type": "number | \"small\" | \"large\" | \"medium\"",
               "required": false,
@@ -8868,10 +9009,17 @@
               "defaultValue": ""
             },
             {
+              "name": "loadingAnnouncement",
+              "type": "string",
+              "required": false,
+              "description": "The content to announce to screen readers when loading.",
+              "defaultValue": ""
+            },
+            {
               "name": "inactive",
               "type": "boolean",
               "required": false,
-              "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+              "description": "",
               "defaultValue": ""
             },
             {

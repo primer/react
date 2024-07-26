@@ -1635,6 +1635,30 @@
           ]
         }
       },
+      "loading": {
+        "defaultValue": null,
+        "description": "When true, the button is in a loading state.",
+        "name": "loading",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "boolean",
+          "value": [
+            {
+              "value": "false"
+            },
+            {
+              "value": "true"
+            }
+          ]
+        }
+      },
       "size": {
         "defaultValue": null,
         "description": "Size of button and fontSize of text in button",
@@ -2341,9 +2365,30 @@
           ]
         }
       },
+      "loadingAnnouncement": {
+        "defaultValue": null,
+        "description": "The content to announce to screen readers when loading.",
+        "name": "loadingAnnouncement",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "string",
+          "value": [
+            {
+              "value": "string"
+            }
+          ]
+        }
+      },
       "inactive": {
         "defaultValue": null,
-        "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+        "description": "",
         "name": "inactive",
         "declarations": [
           {
@@ -8790,6 +8835,31 @@
           ]
         }
       },
+      "className": {
+        "defaultValue": null,
+        "description": "Optional className to be added to the overlay component.",
+        "name": "className",
+        "parent": {
+          "fileName": "react/packages/react/src/AnchoredOverlay/AnchoredOverlay.tsx",
+          "name": "AnchoredOverlayBaseProps"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/AnchoredOverlay/AnchoredOverlay.tsx",
+            "name": "AnchoredOverlayBaseProps"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "string",
+          "value": [
+            {
+              "value": "string"
+            }
+          ]
+        }
+      },
       "height": {
         "defaultValue": null,
         "description": "",
@@ -12878,6 +12948,30 @@
           ]
         }
       },
+      "loading": {
+        "defaultValue": null,
+        "description": "When true, the button is in a loading state.",
+        "name": "loading",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "boolean",
+          "value": [
+            {
+              "value": "false"
+            },
+            {
+              "value": "true"
+            }
+          ]
+        }
+      },
       "size": {
         "defaultValue": null,
         "description": "Size of button and fontSize of text in button",
@@ -13632,9 +13726,30 @@
           ]
         }
       },
+      "loadingAnnouncement": {
+        "defaultValue": null,
+        "description": "The content to announce to screen readers when loading.",
+        "name": "loadingAnnouncement",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "string",
+          "value": [
+            {
+              "value": "string"
+            }
+          ]
+        }
+      },
       "inactive": {
         "defaultValue": null,
-        "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+        "description": "",
         "name": "inactive",
         "declarations": [
           {
@@ -15536,6 +15651,30 @@
           ]
         }
       },
+      "loading": {
+        "defaultValue": null,
+        "description": "When true, the button is in a loading state.",
+        "name": "loading",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "boolean",
+          "value": [
+            {
+              "value": "false"
+            },
+            {
+              "value": "true"
+            }
+          ]
+        }
+      },
       "size": {
         "defaultValue": null,
         "description": "Size of button and fontSize of text in button",
@@ -16290,9 +16429,30 @@
           ]
         }
       },
+      "loadingAnnouncement": {
+        "defaultValue": null,
+        "description": "The content to announce to screen readers when loading.",
+        "name": "loadingAnnouncement",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "string",
+          "value": [
+            {
+              "value": "string"
+            }
+          ]
+        }
+      },
       "inactive": {
         "defaultValue": null,
-        "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+        "description": "",
         "name": "inactive",
         "declarations": [
           {
@@ -26411,6 +26571,37 @@
         "defaultValue": null,
         "description": "Return focus to this element when the Dialog closes,\ninstead of the element that had focus immediately before the Dialog opened",
         "name": "returnFocusRef",
+        "parent": {
+          "fileName": "react/packages/react/src/Dialog/Dialog.tsx",
+          "name": "DialogProps"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Dialog/Dialog.tsx",
+            "name": "DialogProps"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "RefObject<HTMLElement>",
+          "value": [
+            {
+              "value": "RefObject<HTMLElement>",
+              "description": "A readonly ref container where {@link current} cannot be mutated.\n\nCreated by {@link createRef}, or {@link useRef} when passed `null`.",
+              "fullComment": "A readonly ref container where {@link current} cannot be mutated.\n\nCreated by {@link createRef}, or {@link useRef} when passed `null`.\n@template T The type of the ref's value.\n@example ```tsx\nconst ref = createRef<HTMLDivElement>();\n\nref.current = document.createElement('div'); // Error\n```",
+              "tags": {
+                "template": "T The type of the ref's value.",
+                "example": "```tsx\nconst ref = createRef<HTMLDivElement>();\n\nref.current = document.createElement('div'); // Error\n```"
+              }
+            }
+          ]
+        }
+      },
+      "initialFocusRef": {
+        "defaultValue": null,
+        "description": "The element to focus when the Dialog opens",
+        "name": "initialFocusRef",
         "parent": {
           "fileName": "react/packages/react/src/Dialog/Dialog.tsx",
           "name": "DialogProps"
@@ -42526,6 +42717,89 @@
               "description": "",
               "fullComment": "",
               "tags": {}
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ScrollableRegion/ScrollableRegion.tsx",
+    "description": "",
+    "displayName": "ScrollableRegion",
+    "methods": [],
+    "props": {
+      "aria-label": {
+        "defaultValue": null,
+        "description": "Defines a string value that labels the current element.\n@see aria-labelledby.",
+        "name": "aria-label",
+        "parent": {
+          "fileName": "react/node_modules/@types/react/index.d.ts",
+          "name": "AriaAttributes"
+        },
+        "declarations": [
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "AriaAttributes"
+          },
+          {
+            "fileName": "react/packages/react/src/ScrollableRegion/ScrollableRegion.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "AriaAttributes"
+          },
+          {
+            "fileName": "react/packages/react/src/ScrollableRegion/ScrollableRegion.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "string",
+          "value": [
+            {
+              "value": "string"
+            }
+          ]
+        }
+      },
+      "aria-labelledby": {
+        "defaultValue": null,
+        "description": "Identifies the element (or elements) that labels the current element.\n@see aria-describedby.",
+        "name": "aria-labelledby",
+        "parent": {
+          "fileName": "react/node_modules/@types/react/index.d.ts",
+          "name": "AriaAttributes"
+        },
+        "declarations": [
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "AriaAttributes"
+          },
+          {
+            "fileName": "react/packages/react/src/ScrollableRegion/ScrollableRegion.tsx",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "AriaAttributes"
+          },
+          {
+            "fileName": "react/packages/react/src/ScrollableRegion/ScrollableRegion.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "string",
+          "value": [
+            {
+              "value": "string"
             }
           ]
         }
@@ -67771,9 +68045,54 @@
           ]
         }
       },
+      "loading": {
+        "defaultValue": null,
+        "description": "When true, the button is in a loading state.",
+        "name": "loading",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "boolean",
+          "value": [
+            {
+              "value": "false"
+            },
+            {
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "loadingAnnouncement": {
+        "defaultValue": null,
+        "description": "The content to announce to screen readers when loading.",
+        "name": "loadingAnnouncement",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "string",
+          "value": [
+            {
+              "value": "string"
+            }
+          ]
+        }
+      },
       "inactive": {
         "defaultValue": null,
-        "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+        "description": "",
         "name": "inactive",
         "declarations": [
           {
@@ -70504,9 +70823,54 @@
           ]
         }
       },
+      "loading": {
+        "defaultValue": null,
+        "description": "When true, the button is in a loading state.",
+        "name": "loading",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "boolean",
+          "value": [
+            {
+              "value": "false"
+            },
+            {
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "loadingAnnouncement": {
+        "defaultValue": null,
+        "description": "The content to announce to screen readers when loading.",
+        "name": "loadingAnnouncement",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "string",
+          "value": [
+            {
+              "value": "string"
+            }
+          ]
+        }
+      },
       "inactive": {
         "defaultValue": null,
-        "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+        "description": "",
         "name": "inactive",
         "declarations": [
           {
@@ -72347,6 +72711,30 @@
           ]
         }
       },
+      "loading": {
+        "defaultValue": null,
+        "description": "When true, the button is in a loading state.",
+        "name": "loading",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "boolean",
+          "value": [
+            {
+              "value": "false"
+            },
+            {
+              "value": "true"
+            }
+          ]
+        }
+      },
       "size": {
         "defaultValue": null,
         "description": "Size of button and fontSize of text in button",
@@ -72507,9 +72895,30 @@
           ]
         }
       },
+      "loadingAnnouncement": {
+        "defaultValue": null,
+        "description": "The content to announce to screen readers when loading.",
+        "name": "loadingAnnouncement",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "string",
+          "value": [
+            {
+              "value": "string"
+            }
+          ]
+        }
+      },
       "inactive": {
         "defaultValue": null,
-        "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+        "description": "",
         "name": "inactive",
         "declarations": [
           {
@@ -74019,6 +74428,30 @@
           ]
         }
       },
+      "loading": {
+        "defaultValue": null,
+        "description": "When true, the button is in a loading state.",
+        "name": "loading",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "boolean",
+          "value": [
+            {
+              "value": "false"
+            },
+            {
+              "value": "true"
+            }
+          ]
+        }
+      },
       "size": {
         "defaultValue": null,
         "description": "Size of button and fontSize of text in button",
@@ -74179,9 +74612,30 @@
           ]
         }
       },
+      "loadingAnnouncement": {
+        "defaultValue": null,
+        "description": "The content to announce to screen readers when loading.",
+        "name": "loadingAnnouncement",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "string",
+          "value": [
+            {
+              "value": "string"
+            }
+          ]
+        }
+      },
       "inactive": {
         "defaultValue": null,
-        "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+        "description": "",
         "name": "inactive",
         "declarations": [
           {
@@ -77490,9 +77944,54 @@
           ]
         }
       },
+      "loading": {
+        "defaultValue": null,
+        "description": "When true, the button is in a loading state.",
+        "name": "loading",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "boolean",
+          "value": [
+            {
+              "value": "false"
+            },
+            {
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "loadingAnnouncement": {
+        "defaultValue": null,
+        "description": "The content to announce to screen readers when loading.",
+        "name": "loadingAnnouncement",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "string",
+          "value": [
+            {
+              "value": "string"
+            }
+          ]
+        }
+      },
       "inactive": {
         "defaultValue": null,
-        "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+        "description": "",
         "name": "inactive",
         "declarations": [
           {
@@ -78978,6 +79477,30 @@
           ]
         }
       },
+      "loading": {
+        "defaultValue": null,
+        "description": "When true, the button is in a loading state.",
+        "name": "loading",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "boolean",
+          "value": [
+            {
+              "value": "false"
+            },
+            {
+              "value": "true"
+            }
+          ]
+        }
+      },
       "size": {
         "defaultValue": {
           "value": "variant === 'empty' ? 'full' : 'inline'"
@@ -79728,9 +80251,30 @@
           ]
         }
       },
+      "loadingAnnouncement": {
+        "defaultValue": null,
+        "description": "The content to announce to screen readers when loading.",
+        "name": "loadingAnnouncement",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "string",
+          "value": [
+            {
+              "value": "string"
+            }
+          ]
+        }
+      },
       "inactive": {
         "defaultValue": null,
-        "description": "Whether the button looks visually disabled, but can still accept all the same\ninteractions as an enabled button.",
+        "description": "",
         "name": "inactive",
         "declarations": [
           {
@@ -84910,57 +85454,6 @@
         "required": true,
         "type": {
           "name": "string"
-        }
-      }
-    }
-  },
-  {
-    "tags": {},
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/internal/components/ScrollableRegion.tsx",
-    "description": "",
-    "displayName": "ScrollableRegion",
-    "methods": [],
-    "props": {
-      "aria-labelledby": {
-        "defaultValue": null,
-        "description": "",
-        "name": "aria-labelledby",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/internal/components/ScrollableRegion.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "string",
-          "value": [
-            {
-              "value": "string"
-            }
-          ]
-        }
-      },
-      "className": {
-        "defaultValue": null,
-        "description": "",
-        "name": "className",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/internal/components/ScrollableRegion.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "string",
-          "value": [
-            {
-              "value": "string"
-            }
-          ]
         }
       }
     }
