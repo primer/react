@@ -7,7 +7,6 @@ import type {AutocompleteMenuInternalProps, AutocompleteMenuItem} from '../Autoc
 import BaseStyles from '../BaseStyles'
 import theme from '../theme'
 import {ThemeProvider} from '../ThemeProvider'
-import {SSRProvider} from '../utils/ssr'
 import {render} from '../utils/testing'
 
 const mockItems = [
@@ -35,19 +34,17 @@ const LabelledAutocomplete = <T extends AutocompleteMenuItem>({
   const {id = 'autocompleteInput', ...inputPropsRest} = inputProps
   return (
     <ThemeProvider theme={theme}>
-      <SSRProvider>
-        <BaseStyles>
-          <label htmlFor={id} id={ariaLabelledBy}>
-            Autocomplete field
-          </label>
-          <Autocomplete id="autocompleteId">
-            <Autocomplete.Input id={id} {...inputPropsRest} />
-            <Autocomplete.Overlay>
-              <Autocomplete.Menu aria-labelledby={ariaLabelledBy} {...menuPropsRest} />
-            </Autocomplete.Overlay>
-          </Autocomplete>
-        </BaseStyles>
-      </SSRProvider>
+      <BaseStyles>
+        <label htmlFor={id} id={ariaLabelledBy}>
+          Autocomplete field
+        </label>
+        <Autocomplete id="autocompleteId">
+          <Autocomplete.Input id={id} {...inputPropsRest} />
+          <Autocomplete.Overlay>
+            <Autocomplete.Menu aria-labelledby={ariaLabelledBy} {...menuPropsRest} />
+          </Autocomplete.Overlay>
+        </Autocomplete>
+      </BaseStyles>
     </ThemeProvider>
   )
 }
@@ -456,12 +453,10 @@ describe('snapshots', () => {
   it('renders a single select input', () => {
     expect(
       render(
-        <SSRProvider>
-          <Autocomplete id="autocompleteId">
-            <Autocomplete.Input />
-            <Autocomplete.Menu aria-labelledby="labelId" items={mockItems} selectedItemIds={[]} />
-          </Autocomplete>
-        </SSRProvider>,
+        <Autocomplete id="autocompleteId">
+          <Autocomplete.Input />
+          <Autocomplete.Menu aria-labelledby="labelId" items={mockItems} selectedItemIds={[]} />
+        </Autocomplete>,
       ),
     ).toMatchSnapshot()
   })
@@ -469,17 +464,15 @@ describe('snapshots', () => {
   it('renders a multiselect input', () => {
     expect(
       render(
-        <SSRProvider>
-          <Autocomplete id="autocompleteId">
-            <Autocomplete.Input />
-            <Autocomplete.Menu
-              aria-labelledby="labelId"
-              items={mockItems}
-              selectedItemIds={[]}
-              selectionVariant="multiple"
-            />
-          </Autocomplete>
-        </SSRProvider>,
+        <Autocomplete id="autocompleteId">
+          <Autocomplete.Input />
+          <Autocomplete.Menu
+            aria-labelledby="labelId"
+            items={mockItems}
+            selectedItemIds={[]}
+            selectionVariant="multiple"
+          />
+        </Autocomplete>,
       ),
     ).toMatchSnapshot()
   })
@@ -487,17 +480,15 @@ describe('snapshots', () => {
   it('renders a multiselect input with selected menu items', () => {
     expect(
       render(
-        <SSRProvider>
-          <Autocomplete id="autocompleteId">
-            <Autocomplete.Input />
-            <Autocomplete.Menu
-              aria-labelledby="labelId"
-              items={mockItems}
-              selectedItemIds={['0', '1', '2']}
-              selectionVariant="multiple"
-            />
-          </Autocomplete>
-        </SSRProvider>,
+        <Autocomplete id="autocompleteId">
+          <Autocomplete.Input />
+          <Autocomplete.Menu
+            aria-labelledby="labelId"
+            items={mockItems}
+            selectedItemIds={['0', '1', '2']}
+            selectionVariant="multiple"
+          />
+        </Autocomplete>,
       ),
     ).toMatchSnapshot()
   })
@@ -506,22 +497,20 @@ describe('snapshots', () => {
     const handleAddItemMock = jest.fn()
     expect(
       render(
-        <SSRProvider>
-          <Autocomplete id="autocompleteId">
-            <Autocomplete.Input />
-            <Autocomplete.Menu
-              aria-labelledby="labelId"
-              items={mockItems}
-              selectionVariant="multiple"
-              selectedItemIds={[]}
-              addNewItem={{
-                id: 'add-new-item',
-                text: 'Add new item',
-                handleAddItem: handleAddItemMock,
-              }}
-            />
-          </Autocomplete>
-        </SSRProvider>,
+        <Autocomplete id="autocompleteId">
+          <Autocomplete.Input />
+          <Autocomplete.Menu
+            aria-labelledby="labelId"
+            items={mockItems}
+            selectionVariant="multiple"
+            selectedItemIds={[]}
+            addNewItem={{
+              id: 'add-new-item',
+              text: 'Add new item',
+              handleAddItem: handleAddItemMock,
+            }}
+          />
+        </Autocomplete>,
       ),
     ).toMatchSnapshot()
   })
@@ -529,12 +518,10 @@ describe('snapshots', () => {
   it('renders a custom empty state message', () => {
     expect(
       render(
-        <SSRProvider>
-          <Autocomplete id="autocompleteId">
-            <Autocomplete.Input />
-            <Autocomplete.Menu aria-labelledby="labelId" items={[]} selectedItemIds={[]} emptyStateText="No results" />
-          </Autocomplete>
-        </SSRProvider>,
+        <Autocomplete id="autocompleteId">
+          <Autocomplete.Input />
+          <Autocomplete.Menu aria-labelledby="labelId" items={[]} selectedItemIds={[]} emptyStateText="No results" />
+        </Autocomplete>,
       ),
     ).toMatchSnapshot()
   })
@@ -542,12 +529,10 @@ describe('snapshots', () => {
   it('renders a loading state', () => {
     expect(
       render(
-        <SSRProvider>
-          <Autocomplete id="autocompleteId">
-            <Autocomplete.Input />
-            <Autocomplete.Menu aria-labelledby="labelId" loading items={[]} selectedItemIds={[]} />
-          </Autocomplete>
-        </SSRProvider>,
+        <Autocomplete id="autocompleteId">
+          <Autocomplete.Input />
+          <Autocomplete.Menu aria-labelledby="labelId" loading items={[]} selectedItemIds={[]} />
+        </Autocomplete>,
       ),
     ).toMatchSnapshot()
   })
@@ -559,12 +544,10 @@ describe('snapshots', () => {
 
     expect(
       render(
-        <SSRProvider>
-          <Autocomplete id="autocompleteId">
-            <Autocomplete.Input as={CustomInput} />
-            <Autocomplete.Menu aria-labelledby="labelId" items={mockItems} selectedItemIds={[]} />
-          </Autocomplete>
-        </SSRProvider>,
+        <Autocomplete id="autocompleteId">
+          <Autocomplete.Input as={CustomInput} />
+          <Autocomplete.Menu aria-labelledby="labelId" items={mockItems} selectedItemIds={[]} />
+        </Autocomplete>,
       ),
     ).toMatchSnapshot()
   })
@@ -572,12 +555,10 @@ describe('snapshots', () => {
   it('renders with an input value', () => {
     expect(
       render(
-        <SSRProvider>
-          <Autocomplete id="autocompleteId">
-            <Autocomplete.Input value="test" />
-            <Autocomplete.Menu aria-labelledby="labelId" items={mockItems} selectedItemIds={[]} />
-          </Autocomplete>
-        </SSRProvider>,
+        <Autocomplete id="autocompleteId">
+          <Autocomplete.Input value="test" />
+          <Autocomplete.Menu aria-labelledby="labelId" items={mockItems} selectedItemIds={[]} />
+        </Autocomplete>,
       ),
     ).toMatchSnapshot()
   })
