@@ -143,7 +143,7 @@ export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
           footerButtons={[
             ...manyButtons,
             {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
-            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
+            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog},
           ]}
         >
           {lipsum}
