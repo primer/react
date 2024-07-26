@@ -12,7 +12,7 @@ import type {Column, CellAlignment} from './column'
 import type {UniqueRow} from './row'
 import {SortDirection} from './sorting'
 import {useTableLayout} from './useTable'
-import {SkeletonText} from '../drafts/Skeleton/SkeletonText'
+import {SkeletonText} from '../experimental/Skeleton/SkeletonText'
 import {ScrollableRegion} from '../ScrollableRegion'
 
 // ----------------------------------------------------------------------------

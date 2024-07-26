@@ -42,20 +42,6 @@ describe('@primer/react/experimental', () => {
   })
 })
 
-describe('@primer/react/drafts', () => {
-  it('should not update exports without a semver change', async () => {
-    const exports = project.getEntrypointExports(path.join(ROOT_DIR, 'src', 'drafts', 'index.ts'))
-    expect(
-      exports.map(exportInfo => {
-        if (exportInfo.type === 'type') {
-          return `type ${exportInfo.identifier}`
-        }
-        return exportInfo.identifier
-      }),
-    ).toMatchSnapshot()
-  })
-})
-
 describe('@primer/react/deprecated', () => {
   it('should not update exports without a semver change', async () => {
     const exports = project.getEntrypointExports(path.join(ROOT_DIR, 'src', 'deprecated', 'index.ts'))

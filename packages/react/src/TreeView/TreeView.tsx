@@ -21,8 +21,8 @@ import sx from '../sx'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
-import {SkeletonAvatar} from '../drafts/Skeleton/SkeletonAvatar'
-import {SkeletonText} from '../drafts/Skeleton/SkeletonText'
+import {SkeletonAvatar} from '../experimental/Skeleton/SkeletonAvatar'
+import {SkeletonText} from '../experimental/Skeleton/SkeletonText'
 
 // ----------------------------------------------------------------------------
 // Context
