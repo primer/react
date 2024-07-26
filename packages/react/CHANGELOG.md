@@ -1,5 +1,35 @@
 # @primer/react
 
+## 36.27.0
+
+### Minor Changes
+
+- [#4485](https://github.com/primer/react/pull/4485) [`991839cd2487a24e76f45b516acb974ea006e1c8`](https://github.com/primer/react/commit/991839cd2487a24e76f45b516acb974ea006e1c8) Thanks [@mperrotti](https://github.com/mperrotti)! - Add `loading` state to `Button` and `IconButton`
+
+- [#4725](https://github.com/primer/react/pull/4725) [`6db8b2fba72ac934db1481adc4a6f067032b5936`](https://github.com/primer/react/commit/6db8b2fba72ac934db1481adc4a6f067032b5936) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - PageHeader: Promote the component to Beta status and now it is available to import from "@primer/react"
+
+- [#4719](https://github.com/primer/react/pull/4719) [`801ca9653154490f664e55bbb357cd6cf6f198be`](https://github.com/primer/react/commit/801ca9653154490f664e55bbb357cd6cf6f198be) Thanks [@joshblack](https://github.com/joshblack)! - Add experimental ScrollableRegion component and useOverflow hook
+
+### Patch Changes
+
+- [#4770](https://github.com/primer/react/pull/4770) [`8574027d887eeb202f3c902397d3f9750b0aeaa4`](https://github.com/primer/react/commit/8574027d887eeb202f3c902397d3f9750b0aeaa4) Thanks [@mperrotti](https://github.com/mperrotti)! - Prevents inactive indicator icon/tooltip from appearing in ActionMenu items
+
+- [#4733](https://github.com/primer/react/pull/4733) [`1c131f8ca56790ae516290a8a4199718ccff475b`](https://github.com/primer/react/commit/1c131f8ca56790ae516290a8a4199718ccff475b) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - TextInput: Refactor TextInputInnerAction to use the default icon button tooltip (No changes in the behaviour or DOM is expected)
+
+- [#4778](https://github.com/primer/react/pull/4778) [`a9730c93f3d51b6d976fe598f8168e67d4649fb0`](https://github.com/primer/react/commit/a9730c93f3d51b6d976fe598f8168e67d4649fb0) Thanks [@langermank](https://github.com/langermank)! - Bug fix: ActionList divider disappears on selected items
+
+- [#4757](https://github.com/primer/react/pull/4757) [`d4f23fbaf6ee251e142fddadfa69ab1bd6216ef5`](https://github.com/primer/react/commit/d4f23fbaf6ee251e142fddadfa69ab1bd6216ef5) Thanks [@siddharthkp](https://github.com/siddharthkp)! - experimental/SelectPanel v2: Fix heading color for dark themes
+
+- [#4741](https://github.com/primer/react/pull/4741) [`a9fab9805e166a80585366f865ce50f0a727e660`](https://github.com/primer/react/commit/a9fab9805e166a80585366f865ce50f0a727e660) Thanks [@Princeyadav05](https://github.com/Princeyadav05)! - AnchoredOverlay: Add 'className' prop to the component
+
+- [#4738](https://github.com/primer/react/pull/4738) [`453279368462c8e8581b65c56ba3d31a689009c3`](https://github.com/primer/react/commit/453279368462c8e8581b65c56ba3d31a689009c3) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - PageHeader: Fix shrinking Actions sub component in Safari
+
+- [#4772](https://github.com/primer/react/pull/4772) [`3779dbf117793112945668fe2694cdc6715c2e32`](https://github.com/primer/react/commit/3779dbf117793112945668fe2694cdc6715c2e32) Thanks [@TylerJDev](https://github.com/TylerJDev)! - (Behind feature flag) ActionList: Fix issue where triggering a keyboard event was possible when using the `onSelect` prop
+
+- [#4764](https://github.com/primer/react/pull/4764) [`533f997922f2621e242ab3bbe1799939a3d5a6f0`](https://github.com/primer/react/commit/533f997922f2621e242ab3bbe1799939a3d5a6f0) Thanks [@siddharthkp](https://github.com/siddharthkp)! - StateLabel: Differentiate issue and pull request labels for screen readers
+
+- [#4710](https://github.com/primer/react/pull/4710) [`7d086c73a980de333c55717717dd9e744196dd8e`](https://github.com/primer/react/commit/7d086c73a980de333c55717717dd9e744196dd8e) Thanks [@joshblack](https://github.com/joshblack)! - Update Blankslate styles to better support server-side rendering
+
 ## 36.26.0
 
 ### Minor Changes
