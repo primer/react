@@ -130,7 +130,7 @@ describe('Autocomplete', () => {
       expect(onKeyPressMock).toHaveBeenCalled()
     })
 
-    it('opens the menu when the input is focused', () => {
+    it('opens the menu when the input is focused and arrow key is pressed', () => {
       const {getByLabelText} = HTMLRender(
         <LabelledAutocomplete menuProps={{items: [], selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}} />,
       )
@@ -138,6 +138,7 @@ describe('Autocomplete', () => {
 
       expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
       fireEvent.click(inputNode)
+      fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
       expect(inputNode.getAttribute('aria-expanded')).toBe('true')
     })
 
@@ -149,6 +150,8 @@ describe('Autocomplete', () => {
 
       expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
       fireEvent.click(inputNode)
+      fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
+
       expect(inputNode.getAttribute('aria-expanded')).toBe('true')
 
       await userEvent.tab()
@@ -305,7 +308,13 @@ describe('Autocomplete', () => {
       expect(onSelectedChangeMock).not.toHaveBeenCalled()
       if (inputNode) {
         fireEvent.focus(inputNode)
-        await user.type(inputNode, '{enter}')
+        fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
+
+        await user.keyboard('{Enter}')
+        fireEvent.keyDown(inputNode, {key: 'Enter'})
+
+        console.log(inputNode.value)
+        expect(inputNode.getAttribute('aria-expanded')).toBe('false')
       }
 
       expect(onSelectedChangeMock).toHaveBeenCalledWith([mockItems[0]])
@@ -328,6 +337,8 @@ describe('Autocomplete', () => {
       if (inputNode) {
         expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
         await user.click(inputNode)
+
+        fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
         expect(inputNode.getAttribute('aria-expanded')).toBe('true')
         await user.click(getByText(mockItems[1].text))
         expect(inputNode.getAttribute('aria-expanded')).toBe('true')
@@ -351,6 +362,7 @@ describe('Autocomplete', () => {
       if (inputNode) {
         expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
         await user.click(inputNode)
+        fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
         expect(inputNode.getAttribute('aria-expanded')).toBe('true')
         await user.click(getByText(mockItems[1].text))
         expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
