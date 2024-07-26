@@ -8076,6 +8076,18 @@
           ]
         },
         {
+          "name": "MarkdownEditor.Footer",
+          "props": [
+            {
+              "name": "children",
+              "type": "ReactNode",
+              "required": false,
+              "description": "Children to render in the footer",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "MarkdownEditor.FooterButton",
           "props": [
             {

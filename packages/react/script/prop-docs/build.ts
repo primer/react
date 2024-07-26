@@ -42,80 +42,41 @@ const docgenOptions = {
   skipChildrenPropWithoutDoc: false,
   shouldRemoveUndefinedFromOptional: true,
   componentNameResolver: (exp: ts.Symbol, source: ts.SourceFile) => {
-    const nameFromAlias = exp.getJsDocTags().find(tag => tag.name === 'alias')?.text[0].text
-    // const defaultExportName = source.statements.find(s => ts.isExportAssignment(s))?.expression.getText()
+    const aliasJSDocTag = exp.getJsDocTags().find(tag => tag.name === 'alias')?.text?.[0]?.text
+    const expressionName = exp.getName()
+    const componentDisplayNameProperty = getTextValueOfFunctionProperty(exp, source, 'displayName')
+    const supportedComponentTypes = [
+      'default',
+      '__function',
+      'Stateless',
+      'StyledComponentClass',
+      'StyledComponent',
+      'FunctionComponent',
+      'StatelessComponent',
+      'ForwardRefExoticComponent',
+      'MemoExoticComponent',
+      'ForwardRefComponent',
+      'PolymorphicForwardRefComponent',
+    ]
 
-    // If `@alias` is defined, use that as the component name
-    if (nameFromAlias) {
-      return nameFromAlias
+    // If `@alias` JSDoc tag is set, use that as the component name
+    if (aliasJSDocTag) {
+      return aliasJSDocTag
     }
 
-    // Otherwise, parse out the `displayName` property of the component
-    // Stolen from https://github.com/styleguidist/react-docgen-typescript/pull/449
-    //
-    // TODO: fix this to work when `displayName` is set consecutively
-    // Works:
-    // ```tsx
-    // const Component = () => <div />
-    // Component.displayName = 'Component'
-    // const Subcomponent = () => <div />
-    // Subcomponent.displayName = 'Component.Subcomponent'
-    // ```
-    //
-    // Breaks:
-    // ```tsx
-    // const Component = () => <div />
-    // const Subcomponent = () => <div />
-    // Component.displayName = 'Component'
-    // Subcomponent.displayName = 'Component.Subcomponent'
-    // ```
-    const [textValue] = source.statements
-      .filter(statement => ts.isExpressionStatement(statement))
-      .filter(statement => {
-        const expr = (statement as ts.ExpressionStatement).expression as ts.BinaryExpression
+    // If the component function has a `displayName` property, use that as the component name
+    if (componentDisplayNameProperty) {
+      return componentDisplayNameProperty || ''
+    }
 
-        const locals = Array.from((source as any).locals as [string, ts.Symbol][])
-        const hasOneLocalExport = locals.filter(local => !!local[1].exports).length === 1
+    // If the name of the function is not one of the default React component names, use the name of the function
+    if (!supportedComponentTypes.includes(expressionName)) {
+      return expressionName
+    }
 
-        if (hasOneLocalExport) {
-          return (
-            expr.left &&
-            (expr.left as ts.PropertyAccessExpression).name &&
-            (expr.left as ts.PropertyAccessExpression).name.escapedText === 'displayName'
-          )
-        }
-
-        /**
-         * Ensure the .displayName is for the currently processing function.
-         *
-         * This avoids the following situations:
-         *
-         *  - A file has multiple functions, one has `.displayName`, and all
-         *    functions ends up with that same `.displayName` value.
-         *
-         *  - A file has multiple functions, each with a different
-         *    `.displayName`, but the first is applied to all of them.
-         */
-        const flowNodeNameEscapedText = (statement as any)?.flowNode?.node?.name?.escapedText as
-          | false
-          | ts.__String
-          | undefined
-
-        return (
-          expr.left &&
-          (expr.left as ts.PropertyAccessExpression).name &&
-          (expr.left as ts.PropertyAccessExpression).name.escapedText === 'displayName' &&
-          flowNodeNameEscapedText === exp.escapedName
-        )
-      })
-      .filter(statement => {
-        return ts.isStringLiteral(((statement as ts.ExpressionStatement).expression as ts.BinaryExpression).right)
-      })
-      .map(statement => {
-        return (((statement as ts.ExpressionStatement).expression as ts.BinaryExpression).right as ts.Identifier).text
-      })
-
-    return textValue || ''
+    // If none of those apply, return a falsy value which makes `react-docgen-typescript`
+    // use its internal logic to determine the component name
+    return undefined
   },
 }
 
@@ -129,7 +90,13 @@ const files = glob.sync(
   //   '!./packages/react/src/**/*.stories.tsx',
   //   '!./packages/react/src/**/*.test.tsx',
   // ],
-  ['./packages/react/src/**/*.tsx', '!./packages/react/src/**/*.stories.tsx', '!./packages/react/src/**/*.test.tsx'],
+  [
+    // './packages/react/src/Breadcrumbs/Breadcrumbs.tsx',
+    './packages/react/src/**/*.tsx',
+    '!./packages/react/src/**/*.stories.tsx',
+    '!./packages/react/src/**/*.test.tsx',
+    '!./packages/react/src/**/*.figma.tsx',
+  ],
   {
     absolute: true,
   },
@@ -382,6 +349,79 @@ printSkippedProps()
 // -----------------------------------------------------------------------------
 // Helper functions
 // -----------------------------------------------------------------------------
+
+// Stolen from https://github.com/styleguidist/react-docgen-typescript/pull/449
+//
+// TODO: fix this to work when `displayName` is set consecutively
+// and there is no `@alias` JSDoc tag.
+// Works:
+// ```tsx
+// const Component = () => <div />
+// Component.displayName = 'Component'
+// const Subcomponent = () => <div />
+// Subcomponent.displayName = 'Component.Subcomponent'
+// ```
+//
+// Breaks:
+// ```tsx
+// const Component = () => <div />
+// const Subcomponent = () => <div />
+// Component.displayName = 'Component'
+// Subcomponent.displayName = 'Component.Subcomponent'
+// ```
+function getTextValueOfFunctionProperty(exp: ts.Symbol, source: ts.SourceFile, propertyName: string) {
+  const [textValue] = source.statements
+    .filter(statement => ts.isExpressionStatement(statement))
+    .filter(statement => {
+      const expr = (statement as ts.ExpressionStatement).expression as ts.BinaryExpression
+
+      const locals = Array.from((source as any).locals as [string, ts.Symbol][])
+      const hasOneLocalExport = locals.filter(local => !!local[1].exports).length === 1
+
+      if (hasOneLocalExport) {
+        return (
+          expr.left &&
+          (expr.left as ts.PropertyAccessExpression).name &&
+          (expr.left as ts.PropertyAccessExpression).name.escapedText === propertyName
+        )
+      }
+
+      /**
+       * Ensure the .displayName is for the currently processing function.
+       *
+       * This avoids the following situations:
+       *
+       *  - A file has multiple functions, one has `.displayName`, and all
+       *    functions ends up with that same `.displayName` value.
+       *
+       *  - A file has multiple functions, each with a different
+       *    `.displayName`, but the first is applied to all of them.
+       */
+      const flowNodeNameEscapedText = (statement as any)?.flowNode?.node?.name?.escapedText as
+        | false
+        | ts.__String
+        | undefined
+
+      return (
+        expr.left &&
+        (expr.left as ts.PropertyAccessExpression).name &&
+        (expr.left as ts.PropertyAccessExpression).name.escapedText === propertyName &&
+        flowNodeNameEscapedText === exp.escapedName
+      )
+    })
+    .filter(statement => {
+      // console.log(
+      //   'statement.expression.right',
+      //   ((statement as ts.ExpressionStatement).expression as ts.BinaryExpression).right,
+      // )
+      return ts.isStringLiteral(((statement as ts.ExpressionStatement).expression as ts.BinaryExpression).right)
+    })
+    .map(statement => {
+      return (((statement as ts.ExpressionStatement).expression as ts.BinaryExpression).right as ts.Identifier).text
+    })
+
+  return textValue || ''
+}
 
 /**
  * Returns an object mapping story names to their source code

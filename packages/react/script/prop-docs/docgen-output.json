@@ -58289,7 +58289,7 @@
     },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/deprecated/ActionMenu.tsx",
     "description": "",
-    "displayName": "ActionMenu.Item",
+    "displayName": "ActionMenu",
     "methods": [],
     "props": {
       "anchorContent": {
@@ -62841,7 +62841,7 @@
     "tags": {},
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/deprecated/ActionList/Item.tsx",
     "description": "",
-    "displayName": "ActionList.Item",
+    "displayName": "TextContainer",
     "methods": [],
     "props": {
       "dangerouslySetInnerHtml": {
@@ -62864,6 +62864,599 @@
               "description": "",
               "fullComment": "",
               "tags": {}
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/deprecated/ActionList/Item.tsx",
+    "description": "An actionable or selectable `Item` with an optional icon and description.",
+    "displayName": "ActionList.Item",
+    "methods": [],
+    "props": {
+      "as": {
+        "defaultValue": null,
+        "description": "",
+        "name": "as",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "enum",
+          "raw": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>",
+          "value": [
+            {
+              "value": "\"symbol\""
+            },
+            {
+              "value": "\"object\""
+            },
+            {
+              "value": "\"a\""
+            },
+            {
+              "value": "\"abbr\""
+            },
+            {
+              "value": "\"address\""
+            },
+            {
+              "value": "\"area\""
+            },
+            {
+              "value": "\"article\""
+            },
+            {
+              "value": "\"aside\""
+            },
+            {
+              "value": "\"audio\""
+            },
+            {
+              "value": "\"b\""
+            },
+            {
+              "value": "\"base\""
+            },
+            {
+              "value": "\"bdi\""
+            },
+            {
+              "value": "\"bdo\""
+            },
+            {
+              "value": "\"big\""
+            },
+            {
+              "value": "\"blockquote\""
+            },
+            {
+              "value": "\"body\""
+            },
+            {
+              "value": "\"br\""
+            },
+            {
+              "value": "\"button\""
+            },
+            {
+              "value": "\"canvas\""
+            },
+            {
+              "value": "\"caption\""
+            },
+            {
+              "value": "\"center\""
+            },
+            {
+              "value": "\"cite\""
+            },
+            {
+              "value": "\"code\""
+            },
+            {
+              "value": "\"col\""
+            },
+            {
+              "value": "\"colgroup\""
+            },
+            {
+              "value": "\"data\""
+            },
+            {
+              "value": "\"datalist\""
+            },
+            {
+              "value": "\"dd\""
+            },
+            {
+              "value": "\"del\""
+            },
+            {
+              "value": "\"details\""
+            },
+            {
+              "value": "\"dfn\""
+            },
+            {
+              "value": "\"dialog\""
+            },
+            {
+              "value": "\"div\""
+            },
+            {
+              "value": "\"dl\""
+            },
+            {
+              "value": "\"dt\""
+            },
+            {
+              "value": "\"em\""
+            },
+            {
+              "value": "\"embed\""
+            },
+            {
+              "value": "\"fieldset\""
+            },
+            {
+              "value": "\"figcaption\""
+            },
+            {
+              "value": "\"figure\""
+            },
+            {
+              "value": "\"footer\""
+            },
+            {
+              "value": "\"form\""
+            },
+            {
+              "value": "\"h1\""
+            },
+            {
+              "value": "\"h2\""
+            },
+            {
+              "value": "\"h3\""
+            },
+            {
+              "value": "\"h4\""
+            },
+            {
+              "value": "\"h5\""
+            },
+            {
+              "value": "\"h6\""
+            },
+            {
+              "value": "\"head\""
+            },
+            {
+              "value": "\"header\""
+            },
+            {
+              "value": "\"hgroup\""
+            },
+            {
+              "value": "\"hr\""
+            },
+            {
+              "value": "\"html\""
+            },
+            {
+              "value": "\"i\""
+            },
+            {
+              "value": "\"iframe\""
+            },
+            {
+              "value": "\"img\""
+            },
+            {
+              "value": "\"input\""
+            },
+            {
+              "value": "\"ins\""
+            },
+            {
+              "value": "\"kbd\""
+            },
+            {
+              "value": "\"keygen\""
+            },
+            {
+              "value": "\"label\""
+            },
+            {
+              "value": "\"legend\""
+            },
+            {
+              "value": "\"li\""
+            },
+            {
+              "value": "\"link\""
+            },
+            {
+              "value": "\"main\""
+            },
+            {
+              "value": "\"map\""
+            },
+            {
+              "value": "\"mark\""
+            },
+            {
+              "value": "\"menu\""
+            },
+            {
+              "value": "\"menuitem\""
+            },
+            {
+              "value": "\"meta\""
+            },
+            {
+              "value": "\"meter\""
+            },
+            {
+              "value": "\"nav\""
+            },
+            {
+              "value": "\"noindex\""
+            },
+            {
+              "value": "\"noscript\""
+            },
+            {
+              "value": "\"ol\""
+            },
+            {
+              "value": "\"optgroup\""
+            },
+            {
+              "value": "\"option\""
+            },
+            {
+              "value": "\"output\""
+            },
+            {
+              "value": "\"p\""
+            },
+            {
+              "value": "\"param\""
+            },
+            {
+              "value": "\"picture\""
+            },
+            {
+              "value": "\"pre\""
+            },
+            {
+              "value": "\"progress\""
+            },
+            {
+              "value": "\"q\""
+            },
+            {
+              "value": "\"rp\""
+            },
+            {
+              "value": "\"rt\""
+            },
+            {
+              "value": "\"ruby\""
+            },
+            {
+              "value": "\"s\""
+            },
+            {
+              "value": "\"samp\""
+            },
+            {
+              "value": "\"search\""
+            },
+            {
+              "value": "\"slot\""
+            },
+            {
+              "value": "\"script\""
+            },
+            {
+              "value": "\"section\""
+            },
+            {
+              "value": "\"select\""
+            },
+            {
+              "value": "\"small\""
+            },
+            {
+              "value": "\"source\""
+            },
+            {
+              "value": "\"span\""
+            },
+            {
+              "value": "\"strong\""
+            },
+            {
+              "value": "\"style\""
+            },
+            {
+              "value": "\"sub\""
+            },
+            {
+              "value": "\"summary\""
+            },
+            {
+              "value": "\"sup\""
+            },
+            {
+              "value": "\"table\""
+            },
+            {
+              "value": "\"template\""
+            },
+            {
+              "value": "\"tbody\""
+            },
+            {
+              "value": "\"td\""
+            },
+            {
+              "value": "\"textarea\""
+            },
+            {
+              "value": "\"tfoot\""
+            },
+            {
+              "value": "\"th\""
+            },
+            {
+              "value": "\"thead\""
+            },
+            {
+              "value": "\"time\""
+            },
+            {
+              "value": "\"title\""
+            },
+            {
+              "value": "\"tr\""
+            },
+            {
+              "value": "\"track\""
+            },
+            {
+              "value": "\"u\""
+            },
+            {
+              "value": "\"ul\""
+            },
+            {
+              "value": "\"var\""
+            },
+            {
+              "value": "\"video\""
+            },
+            {
+              "value": "\"wbr\""
+            },
+            {
+              "value": "\"webview\""
+            },
+            {
+              "value": "\"svg\""
+            },
+            {
+              "value": "\"animate\""
+            },
+            {
+              "value": "\"animateMotion\""
+            },
+            {
+              "value": "\"animateTransform\""
+            },
+            {
+              "value": "\"circle\""
+            },
+            {
+              "value": "\"clipPath\""
+            },
+            {
+              "value": "\"defs\""
+            },
+            {
+              "value": "\"desc\""
+            },
+            {
+              "value": "\"ellipse\""
+            },
+            {
+              "value": "\"feBlend\""
+            },
+            {
+              "value": "\"feColorMatrix\""
+            },
+            {
+              "value": "\"feComponentTransfer\""
+            },
+            {
+              "value": "\"feComposite\""
+            },
+            {
+              "value": "\"feConvolveMatrix\""
+            },
+            {
+              "value": "\"feDiffuseLighting\""
+            },
+            {
+              "value": "\"feDisplacementMap\""
+            },
+            {
+              "value": "\"feDistantLight\""
+            },
+            {
+              "value": "\"feDropShadow\""
+            },
+            {
+              "value": "\"feFlood\""
+            },
+            {
+              "value": "\"feFuncA\""
+            },
+            {
+              "value": "\"feFuncB\""
+            },
+            {
+              "value": "\"feFuncG\""
+            },
+            {
+              "value": "\"feFuncR\""
+            },
+            {
+              "value": "\"feGaussianBlur\""
+            },
+            {
+              "value": "\"feImage\""
+            },
+            {
+              "value": "\"feMerge\""
+            },
+            {
+              "value": "\"feMergeNode\""
+            },
+            {
+              "value": "\"feMorphology\""
+            },
+            {
+              "value": "\"feOffset\""
+            },
+            {
+              "value": "\"fePointLight\""
+            },
+            {
+              "value": "\"feSpecularLighting\""
+            },
+            {
+              "value": "\"feSpotLight\""
+            },
+            {
+              "value": "\"feTile\""
+            },
+            {
+              "value": "\"feTurbulence\""
+            },
+            {
+              "value": "\"filter\""
+            },
+            {
+              "value": "\"foreignObject\""
+            },
+            {
+              "value": "\"g\""
+            },
+            {
+              "value": "\"image\""
+            },
+            {
+              "value": "\"line\""
+            },
+            {
+              "value": "\"linearGradient\""
+            },
+            {
+              "value": "\"marker\""
+            },
+            {
+              "value": "\"mask\""
+            },
+            {
+              "value": "\"metadata\""
+            },
+            {
+              "value": "\"mpath\""
+            },
+            {
+              "value": "\"path\""
+            },
+            {
+              "value": "\"pattern\""
+            },
+            {
+              "value": "\"polygon\""
+            },
+            {
+              "value": "\"polyline\""
+            },
+            {
+              "value": "\"radialGradient\""
+            },
+            {
+              "value": "\"rect\""
+            },
+            {
+              "value": "\"set\""
+            },
+            {
+              "value": "\"stop\""
+            },
+            {
+              "value": "\"switch\""
+            },
+            {
+              "value": "\"text\""
+            },
+            {
+              "value": "\"textPath\""
+            },
+            {
+              "value": "\"tspan\""
+            },
+            {
+              "value": "\"use\""
+            },
+            {
+              "value": "\"view\""
+            },
+            {
+              "value": "\"relative-time\""
+            },
+            {
+              "value": "\"tab-container\""
+            },
+            {
+              "value": "ComponentClass<unknown, any>",
+              "description": "Represents a component class in React.",
+              "fullComment": "Represents a component class in React.\n@template P The props the component accepts.\n@template S The internal state of the component.",
+              "tags": {
+                "template": "P The props the component accepts.\nS The internal state of the component."
+              }
+            },
+            {
+              "value": "FunctionComponent<unknown>",
+              "description": "Represents the type of a function component. Can optionally\nreceive a type argument that represents the props the component\naccepts.",
+              "fullComment": "Represents the type of a function component. Can optionally\nreceive a type argument that represents the props the component\naccepts.\n@template P The props the component accepts.\n@see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components React TypeScript Cheatsheet}\n@example ```tsx\n// With props:\ntype Props = { name: string }\n\nconst MyComponent: FunctionComponent<Props> = (props) => {\n return <div>{props.name}</div>\n}\n```\n@example ```tsx\n// Without props:\nconst MyComponentWithoutProps: FunctionComponent = () => {\n  return <div>MyComponentWithoutProps</div>\n}\n```",
+              "tags": {
+                "template": "P The props the component accepts.",
+                "see": "{@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components React TypeScript Cheatsheet}",
+                "example": "```tsx\n// With props:\ntype Props = { name: string }\n\nconst MyComponent: FunctionComponent<Props> = (props) => {\n return <div>{props.name}</div>\n}\n```\n```tsx\n// Without props:\nconst MyComponentWithoutProps: FunctionComponent = () => {\n  return <div>MyComponentWithoutProps</div>\n}\n```"
+              }
             }
           ]
         }
@@ -68223,7 +68816,7 @@
     "tags": {},
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/MarkdownEditor/Footer.tsx",
     "description": "",
-    "displayName": "MarkdownEditor.Footer",
+    "displayName": "CoreFooter",
     "methods": [],
     "props": {
       "children": {
@@ -68244,6 +68837,72 @@
             {
               "value": "undefined"
             },
+            {
+              "value": "null"
+            },
+            {
+              "value": "string"
+            },
+            {
+              "value": "number"
+            },
+            {
+              "value": "false"
+            },
+            {
+              "value": "true"
+            },
+            {
+              "value": "ReactElement<any, string | JSXElementConstructor<any>>",
+              "description": "Represents a JSX element.\n\nWhere {@link ReactNode} represents everything that can be rendered, `ReactElement`\nonly represents JSX.",
+              "fullComment": "Represents a JSX element.\n\nWhere {@link ReactNode} represents everything that can be rendered, `ReactElement`\nonly represents JSX.\n@template P The type of the props object\n@template T The type of the component or tag\n@example ```tsx\nconst element: ReactElement = <div />;\n```",
+              "tags": {
+                "template": "P The type of the props object\nT The type of the component or tag",
+                "example": "```tsx\nconst element: ReactElement = <div />;\n```"
+              }
+            },
+            {
+              "value": "Iterable<ReactNode>",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "ReactPortal",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "alias": "MarkdownEditor.Footer",
+      "primerparentid": "drafts_markdown_editor"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/MarkdownEditor/Footer.tsx",
+    "description": "",
+    "displayName": "MarkdownEditor.Footer",
+    "methods": [],
+    "props": {
+      "children": {
+        "defaultValue": null,
+        "description": "Children to render in the footer",
+        "name": "children",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/drafts/MarkdownEditor/Footer.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "ReactNode",
+          "value": [
             {
               "value": "null"
             },
