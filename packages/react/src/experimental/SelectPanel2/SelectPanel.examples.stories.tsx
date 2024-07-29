@@ -17,7 +17,7 @@ import {
 import data from './mock-story-data'
 
 export default {
-  title: 'Drafts/Components/SelectPanel/Examples',
+  title: 'Experimental/Components/SelectPanel/Examples',
   component: SelectPanel,
 }
 

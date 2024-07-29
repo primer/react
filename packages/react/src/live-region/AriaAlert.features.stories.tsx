@@ -4,7 +4,7 @@ import {AriaAlert} from './AriaAlert'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 
 export default {
-  title: 'Drafts/Components/AriaAlert/Features',
+  title: 'Experimental/Components/AriaAlert/Features',
   component: AriaAlert,
 }
 

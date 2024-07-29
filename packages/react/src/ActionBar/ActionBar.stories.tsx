@@ -26,7 +26,7 @@ import {Divider} from '../deprecated/ActionList/Divider'
 import mockData from '../drafts/SelectPanel2/mock-story-data'
 
 export default {
-  title: 'Drafts/Components/ActionBar',
+  title: 'Experimental/Components/ActionBar',
 } as Meta<typeof ActionBar>
 
 export const Default = () => (
