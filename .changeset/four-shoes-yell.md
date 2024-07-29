@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-Only show `Autocomplete` menu when clicked instead of focus.
+Set `openOnFocus` default to `false`, making the menu closed initially rather than opening on focus of input
