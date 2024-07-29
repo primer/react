@@ -433,13 +433,6 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   useRefObjectAsForwardedRef(forwardedRef, dialogRef)
   const backdropRef = useRef<HTMLDivElement>(null)
 
-  useFocusTrap({
-    containerRef: dialogRef,
-    initialFocusRef: initialFocusRef ?? autoFocusedFooterButtonRef,
-    restoreFocusOnCleanUp: returnFocusRef?.current ? false : true,
-    returnFocusRef,
-  })
-
   useOnEscapePress(
     (event: KeyboardEvent) => {
       onClose('escape')
@@ -475,6 +468,16 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             return [`data-position-${key}`, value]
           }),
         )
+
+  useFocusTrap(
+    {
+      containerRef: dialogRef,
+      initialFocusRef: initialFocusRef ?? autoFocusedFooterButtonRef,
+      restoreFocusOnCleanUp: returnFocusRef?.current ? false : true,
+      returnFocusRef,
+    },
+    [dialogRef, body, footer],
+  )
 
   return (
     <>
