@@ -41,8 +41,13 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN_SHARED }}
       - name: Publish canary release
         run: |
+          # Remove existing pre.json if one exists. Snapshots are not allowed
+          # in pre-release mode.
+          # TODO: remove in v37
+          rm .changeset/pre.json
+
           echo -e "---\n$( jq .name packages/react/package.json ): patch\n---\n\nFake entry to force publishing" > .changeset/force-snapshot-release.md
-          npx changeset version
+          npx changeset version --snapshot
           npx changeset publish --tag canary
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
