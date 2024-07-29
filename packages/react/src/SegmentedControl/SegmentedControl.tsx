@@ -37,7 +37,7 @@ const getSegmentedControlStyles = (props: {isFullWidth?: boolean; size?: Segment
   backgroundColor: 'segmentedControl.bg',
   borderRadius: 2,
   border: '1px solid',
-  borderColor: 'border.default',
+  borderColor: 'var(--controlTrack-borderColor-rest, transparent)',
   display: props.isFullWidth ? 'flex' : 'inline-flex',
   fontSize: props.size === 'small' ? 0 : 1,
   height: props.size === 'small' ? '28px' : '32px', // TODO: use primitive `control.{small|medium}.size` when it is available
