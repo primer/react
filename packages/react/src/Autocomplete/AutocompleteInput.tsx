@@ -75,16 +75,13 @@ const AutocompleteInput = React.forwardRef(
       [onBlur, setShowMenu, inputRef, safeSetTimeout],
     )
 
-    const handleInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
-      event => {
-        onChange && onChange(event)
-        setInputValue(event.currentTarget.value)
-        if (!showMenu) {
-          setShowMenu(true)
-        }
-      },
-      [onChange, setInputValue, setShowMenu, showMenu],
-    )
+    const handleInputChange: ChangeEventHandler<HTMLInputElement> = event => {
+      onChange && onChange(event)
+      setInputValue(event.currentTarget.value)
+      if (!showMenu) {
+        setShowMenu(true)
+      }
+    }
 
     const handleInputKeyDown: KeyboardEventHandler<HTMLInputElement> = useCallback(
       event => {
