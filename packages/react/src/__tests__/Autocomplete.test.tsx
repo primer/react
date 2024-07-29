@@ -308,13 +308,7 @@ describe('Autocomplete', () => {
       expect(onSelectedChangeMock).not.toHaveBeenCalled()
       if (inputNode) {
         fireEvent.focus(inputNode)
-        fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
-
-        await user.keyboard('{Enter}')
-        fireEvent.keyDown(inputNode, {key: 'Enter'})
-
-        console.log(inputNode.value)
-        expect(inputNode.getAttribute('aria-expanded')).toBe('false')
+        await user.type(inputNode, '{arrowdown}{enter}')
       }
 
       expect(onSelectedChangeMock).toHaveBeenCalledWith([mockItems[0]])

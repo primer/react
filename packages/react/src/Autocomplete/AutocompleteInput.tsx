@@ -53,8 +53,8 @@ const AutocompleteInput = React.forwardRef(
     const {safeSetTimeout} = useSafeTimeout()
 
     const handleInputFocus: FocusEventHandler<HTMLInputElement> = event => {
+      onFocus?.(event)
       if (openOnFocus) {
-        onFocus?.(event)
         setShowMenu(true)
       }
     }
@@ -119,7 +119,6 @@ const AutocompleteInput = React.forwardRef(
     const onInputKeyPress: KeyboardEventHandler<HTMLInputElement> = useCallback(
       event => {
         onKeyPress && onKeyPress(event)
-
         if (showMenu && event.key === 'Enter' && activeDescendantRef.current) {
           event.preventDefault()
           event.nativeEvent.stopImmediatePropagation()
