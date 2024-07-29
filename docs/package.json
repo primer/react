@@ -16,7 +16,7 @@
   "dependencies": {
     "@mdx-js/mdx": "1.6.22",
     "@mdx-js/react": "1.6.22",
-    "@primer/gatsby-theme-doctocat": "0.0.0-2023930155223",
+    "@primer/gatsby-theme-doctocat": "5.1.1",
     "@primer/octicons-react": "^19.9.0",
     "@primer/primitives": "4.1.0",
     "@styled-system/prop-types": "^5.1.0",
