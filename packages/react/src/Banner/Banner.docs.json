@@ -1,7 +1,7 @@
 {
   "id": "banner",
   "name": "Banner",
-  "status": "alpha",
+  "status": "draft",
   "a11yReviewed": true,
   "importPath": "@primer/react/experimental",
   "stories": [],

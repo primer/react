@@ -1,10 +1,10 @@
 {
   "id": "drafts_page_header",
   "name": "PageHeader",
-  "status": "draft",
+  "status": "beta",
   "a11yReviewed": true,
   "stories": [],
-  "importPath": "@primer/react/experimental",
+  "importPath": "@primer/react",
   "props": [
     {
       "name": "aria-label",

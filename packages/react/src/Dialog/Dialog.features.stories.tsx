@@ -1,5 +1,5 @@
 import React, {useState, useRef, useCallback} from 'react'
-import {Box, TextInput, Text, Button} from '..'
+import {Box, TextInput, Text, Button, ActionList} from '..'
 import type {DialogProps, DialogWidth, DialogHeight} from './Dialog'
 import {Dialog} from './Dialog'
 
@@ -302,5 +302,31 @@ export const ReturnFocusRef = () => {
         body
       </Dialog>
     </React.Suspense>
+  )
+}
+
+export const NewIssues = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+  const initialFocusRef = useRef(null)
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Show dialog</Button>
+      {isOpen ? (
+        <Dialog
+          initialFocusRef={initialFocusRef}
+          onClose={onDialogClose}
+          title="New issue"
+          renderBody={() => (
+            <ActionList>
+              <ActionList.LinkItem ref={initialFocusRef} href="https://github.com">
+                Item 1
+              </ActionList.LinkItem>
+              <ActionList.LinkItem href="https://github.com">Link</ActionList.LinkItem>
+            </ActionList>
+          )}
+        ></Dialog>
+      ) : null}
+    </>
   )
 }
