@@ -24,7 +24,8 @@
           "name": "openOnFocus",
           "type": "boolean",
           "defaultValue": "false",
-          "description": "Whether the associated autocomplete menu should open on an input focus event"
+          "description": "Whether the associated autocomplete menu should open on an input focus event",
+          "deprecated": true
         }
       ],
       "passthrough": {

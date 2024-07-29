@@ -10,8 +10,11 @@ import useSafeTimeout from '../hooks/useSafeTimeout'
 type InternalAutocompleteInputProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   as?: React.ComponentType<React.PropsWithChildren<any>>
-  // When false, the autocomplete menu will not render either on mouse click or
-  // keyboard focus.
+
+  /**
+   * @deprecated `openOnFocus` is deprecated and will be removed in v38.
+   * When `true`, autocomplete menu will show on focus or click.
+   */
   openOnFocus?: boolean
 }
 
