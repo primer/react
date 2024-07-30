@@ -3,7 +3,7 @@ import type {Meta} from '@storybook/react'
 
 import Box from '../Box'
 import {Button} from '../Button'
-import type {ItemInput} from '../deprecated/ActionList/List'
+import type {ItemInput} from '../FilteredActionList/FilteredActionList'
 import {SelectPanel} from './SelectPanel'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import type {OverlayProps} from '../Overlay'

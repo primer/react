@@ -8,8 +8,8 @@ import Spinner from '../Spinner'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {get} from '../constants'
-import {ActionList} from '../deprecated/ActionList'
-import type {GroupedListProps, ListPropsBase} from '../deprecated/ActionList/List'
+import {ActionList} from '../ActionList'
+import type {ActionListProps, ActionListItemProps} from '../ActionList'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
@@ -17,19 +17,22 @@ import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import type {SxProp} from '../sx'
+import type {ItemProps as DeprecatedActionListItemProps} from '../deprecated/ActionList/Item'
+import {isValidElementType} from 'react-is'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
-export interface FilteredActionListProps
-  extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>,
-    ListPropsBase,
-    SxProp {
+export type ItemInput = DeprecatedActionListItemProps
+
+// Since the filteredActionList is based on the ActionList component, we should support the same props
+export interface FilteredActionListProps extends ActionListProps {
   loading?: boolean
   placeholderText?: string
   filterValue?: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
+  items: ItemInput[]
 }
 
 const StyledHeader = styled.div`
@@ -59,7 +62,7 @@ export function FilteredActionList({
   )
 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const listContainerRef = useRef<HTMLDivElement>(null)
+  const listContainerRef = useRef<HTMLUListElement>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useId()
@@ -109,6 +112,48 @@ export function FilteredActionList({
 
   useScrollFlash(scrollContainerRef)
 
+  const renderFn = ({
+    description,
+    descriptionVariant,
+    id,
+    sx,
+    text,
+    trailingVisual: TrailingVisual,
+    leadingVisual: LeadingVisual,
+    trailingText,
+    trailingIcon: TrailingIcon,
+    onAction,
+    selected,
+  }: ItemInput): React.ReactElement => {
+    return (
+      <ActionList.Item key={id} sx={sx} role="option" onSelect={} selected={selected}>
+        {LeadingVisual ? (
+          <ActionList.LeadingVisual>
+            <LeadingVisual />
+          </ActionList.LeadingVisual>
+        ) : null}
+        {text}
+        {description ? (
+          <ActionList.Description variant={descriptionVariant}>{description}</ActionList.Description>
+        ) : null}
+        {TrailingVisual ? (
+          <ActionList.TrailingVisual>
+            {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
+              <TrailingVisual />
+            ) : (
+              TrailingVisual
+            )}
+          </ActionList.TrailingVisual>
+        ) : TrailingIcon || trailingText ? (
+          <ActionList.TrailingVisual>
+            {trailingText}
+            {TrailingIcon && <TrailingIcon />}
+          </ActionList.TrailingVisual>
+        ) : null}
+      </ActionList.Item>
+    )
+  }
+
   return (
     <Box display="flex" flexDirection="column" overflow="hidden" sx={sx}>
       <StyledHeader>
@@ -134,7 +179,9 @@ export function FilteredActionList({
             <Spinner />
           </Box>
         ) : (
-          <ActionList ref={listContainerRef} items={items} {...listProps} role="listbox" id={listId} />
+          <ActionList ref={listContainerRef} {...listProps} role="listbox" id={listId}>
+            {items.map(i => renderFn(i))}
+          </ActionList>
         )}
       </Box>
     </Box>
