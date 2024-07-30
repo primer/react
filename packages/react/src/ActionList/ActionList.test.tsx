@@ -205,23 +205,22 @@ describe('ActionList', () => {
   it('should focus the button around the leading visual when tabbing to an inactive item', async () => {
     const component = HTMLRender(<SingleSelectListStory />)
     const inactiveOptionButton = await waitFor(() => component.getByRole('button', {name: projects[3].inactiveText}))
-    const inactiveIndex = projects.findIndex(project => project.inactiveText === projects[3].inactiveText)
 
-    for (let i = 0; i < inactiveIndex; i++) {
-      await userEvent.tab()
-    }
-
+    await userEvent.tab() // get focus on first element
+    await userEvent.keyboard('{ArrowDown}')
+    await userEvent.keyboard('{ArrowDown}')
     expect(inactiveOptionButton).toHaveFocus()
   })
 
   it('should behave as inactive if both inactiveText and loading props are passed', async () => {
     const component = HTMLRender(<SingleSelectListStory />)
     const inactiveOptionButton = await waitFor(() => component.getByRole('button', {name: projects[5].inactiveText}))
-    const inactiveIndex = projects.findIndex(project => project.inactiveText === projects[5].inactiveText)
 
-    for (let i = 0; i < inactiveIndex; i++) {
-      await userEvent.tab()
-    }
+    await userEvent.tab() // get focus on first element
+    await userEvent.keyboard('{ArrowDown}')
+    await userEvent.keyboard('{ArrowDown}')
+    await userEvent.keyboard('{ArrowDown}')
+    await userEvent.keyboard('{ArrowDown}')
 
     expect(inactiveOptionButton).toHaveFocus()
   })
@@ -606,21 +605,20 @@ describe('ActionList', () => {
       </ActionList>,
     )
 
-    const user = userEvent.setup()
-    await user.tab() // tab into the story, this should focus on the first button
+    await userEvent.tab() // tab into the story, this should focus on the first button
     expect(document.activeElement).toHaveTextContent('Option 1')
 
-    await user.keyboard('{ArrowDown}')
+    await userEvent.keyboard('{ArrowDown}')
     expect(document.activeElement).toHaveTextContent('Option 2')
 
-    await user.keyboard('{ArrowDown}')
+    await userEvent.keyboard('{ArrowDown}')
     expect(document.activeElement).not.toHaveTextContent('Option 3') // option 3 is disabled
     expect(document.activeElement).toHaveTextContent('Option 4')
 
-    await user.keyboard('{ArrowDown}')
+    await userEvent.keyboard('{ArrowDown}')
     expect(document.activeElement).toHaveAccessibleName('Unavailable due to an outage')
 
-    await user.keyboard('{ArrowUp}')
+    await userEvent.keyboard('{ArrowUp}')
     expect(document.activeElement).toHaveTextContent('Option 4')
   })
 })
