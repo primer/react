@@ -1,23 +1,8 @@
-# Component Lifecycle
+# Component Status
 
-## Planned
+`New` && `Ready` > `Deprecating` > `Deprecated`
 
-**Description**: The initial stage where a new component idea is proposed.
-
-**Criteria**:
-The component has some work in progress started which may include:
-
-- Purpose and rationale for the component written in a tracking issue
-- Documentation including usage guidelines and basic accessibility considerations
-- Initial Figma component design proposed
-- Existing code work in a pull request or Primer Recipe
-
-**Activities**:
-
-- Discussing the component's necessity and potential use cases.
-- Gathering initial feedback from the design and engineering teams.
-
-### New
+## New
 
 **Description**: The component is new and ready to use, with ongoing support and potential changes.
 
@@ -51,7 +36,7 @@ The component has some work in progress started which may include:
 - Tested in various environments.
 - Providing ongoing support and guidance.
 
-## Phase Out
+## Deprecating
 
 **Description**: The component is no longer recommended but can be used as needed with caution, with plans to be deprecated.
 
