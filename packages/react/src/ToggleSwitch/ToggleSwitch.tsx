@@ -310,13 +310,12 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
         sx={sxProp}
         {...rest}
       >
-        {isLoadingLabelVisible ? (
-          <VisuallyHidden>
-            <AriaStatus announceOnShow id={loadingLabelId}>
-              {loadingLabel}
-            </AriaStatus>
-          </VisuallyHidden>
-        ) : null}
+        <VisuallyHidden>
+          <AriaStatus announceOnShow id={loadingLabelId}>
+            {isLoadingLabelVisible && loadingLabel}
+          </AriaStatus>
+        </VisuallyHidden>
+
         {loading ? <Spinner size="small" srText={null} /> : null}
         <Text
           color={acceptsInteraction ? 'fg.default' : 'fg.muted'}
