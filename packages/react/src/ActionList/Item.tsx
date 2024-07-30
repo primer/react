@@ -296,7 +296,13 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       'data-loading': loading && !inactive ? true : undefined,
       tabIndex: disabled || showInactiveIndicator ? undefined : 0,
       'aria-labelledby': `${labelId} ${slots.trailingVisual ? trailingVisualId : ''}`,
-      'aria-describedby':
+      'aria-describedby': [
+        slots.blockDescription ? blockDescriptionId : undefined,
+        inactiveWarningId ?? undefined,
+        slots.inlineDescription ? inlineDescriptionId : undefined,
+      ]
+        .filter(String)
+        .join(' '),
         `${slots.blockDescription ? blockDescriptionId : ''} ${inactiveWarningId ?? ''} ${
           slots.inlineDescription ? inlineDescriptionId : ''
         }`.trim() || undefined,
