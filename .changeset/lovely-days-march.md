@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-Adds `aria-describedby` to `ActionList` inline descriptions, adds `aria-labelledby` to `ActionList.TrailingVisual`
+Adds `aria-labelledby` to `ActionList.TrailingVisual`, making it part of the accessible name of `ActionList.Item`
