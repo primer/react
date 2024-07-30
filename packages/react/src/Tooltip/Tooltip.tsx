@@ -20,7 +20,7 @@ const TooltipBase = styled.span<SxProp>`
     padding: 0.5em 0.75em;
     font: normal normal 11px/1.5 ${get('fonts.normal')};
     -webkit-font-smoothing: subpixel-antialiased;
-    color: ${get('colors.fg.onEmphasis')};
+    color: var(--tooltip-fgColor, ${get('colors.fg.onEmphasis')});
     text-align: center;
     text-decoration: none;
     text-shadow: none;
@@ -30,7 +30,7 @@ const TooltipBase = styled.span<SxProp>`
     white-space: pre;
     pointer-events: none;
     content: attr(aria-label);
-    background: ${get('colors.neutral.emphasisPlus')};
+    background: var(--tooltip-bgColor, ${get('colors.neutral.emphasisPlus')});
     border-radius: ${get('radii.2')};
     opacity: 0;
   }

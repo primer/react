@@ -1987,10 +1987,10 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   white-space: normal;
   font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
   -webkit-font-smoothing: subpixel-antialiased;
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
+  color: var(--tooltip-fgColor,var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff)));
   text-align: center;
   word-wrap: break-word;
-  background: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
+  background: var(--tooltip-bgColor,var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f)));
   border-radius: 6px;
   border: 0;
   opacity: 0;
@@ -3089,10 +3089,10 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   white-space: normal;
   font: normal normal 11px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
   -webkit-font-smoothing: subpixel-antialiased;
-  color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
+  color: var(--tooltip-fgColor,var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff)));
   text-align: center;
   word-wrap: break-word;
-  background: var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f));
+  background: var(--tooltip-bgColor,var(--bgColor-emphasis,var(--color-neutral-emphasis-plus,#24292f)));
   border-radius: 6px;
   border: 0;
   opacity: 0;
