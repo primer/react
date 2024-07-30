@@ -22,7 +22,6 @@ import {isValidElementType} from 'react-is'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
-// Since the filteredActionList is based on the ActionList component, we should support the same props
 export interface FilteredActionListProps
   extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>,
     ListPropsBase,
