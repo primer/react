@@ -34,6 +34,7 @@ This is the process I've used in the past. Please correct me if I made any mista
   - passthrough (when a component passes through any additional props to an underlying element)
     - element
     - url
+- Test each `{ComponentName}.docs.json` against the following ([schema](https://github.com/primer/react/blob/main/packages/react/script/components-json/component.schema.json))
 - Use the data from each `{ComponentName}.docs.json` to generate a `components.json` file with data we can use for generating docs ([example components.json](https://unpkg.com/browse/@primer/react@36.24.0/generated/components.json))
 
 ### Proposed process
@@ -45,6 +46,7 @@ This is the process I've used in the past. Please correct me if I made any mista
   - status
   - a11yReviewed
 - Parse component source code and generate a `components.json` file with data we can use for generating docs ([example components.json](https://unpkg.com/browse/@primer/react@36.24.0/generated/components.json))
+- Test output `components.json` against a schema AND use snapshot testing to ensure we don't introduce regressions
 
 #### Suggested metadata documented with JSDoc tags:
 
@@ -258,7 +260,6 @@ TBD:
   - Throw an error if the component doesn't have an ID (set using `@primerid` JSDoc tag) unless it's a subcomponent (like `ActionList.Item`)
   - Throw an error if the prop doesn't have a `type` property
   - Other requirements TBD
-- How might we check for regressions? For example, if somebody changes a component's source code and it can no longer be parsed by Docgen.
 - Is it too much to ask folks to understand the ["gotchas"](#gotchas)? If so, what are some ways we can make it easier?
 
 ## Suggested roll-out plan
