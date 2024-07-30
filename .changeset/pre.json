@@ -4,6 +4,8 @@
   "initialVersions": {
     "docs": "1.0.0",
     "codesandbox": "0.0.0",
+    "example-app-router": "0.0.0",
+    "example-consumer-test": "0.0.0",
     "example-nextjs": "0.0.0",
     "@primer/react": "36.27.0",
     "rollup-plugin-import-css": "0.0.0"
