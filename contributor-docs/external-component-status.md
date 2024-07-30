@@ -1,6 +1,8 @@
-# Component Status
+# External Component Status
 
-`New` && `Ready` > `Deprecating` > `Deprecated`
+When communicating component readiness to consumers, we provide simple component statuses. We intentially decouple this from the accessibility status.
+
+`Ready` + `New` > `Deprecating` > `Deprecated`
 
 ## New
 
