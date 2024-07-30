@@ -40,7 +40,7 @@ When communicating component readiness to consumers, we provide simple component
 
 ## Deprecating
 
-**Description**: The component is no longer recommended but can be used as needed with caution, with plans to be deprecated.
+**Description**: The component is no longer recommended but can be used as needed with caution, with plans to be deprecated in a future major release.
 
 **Criteria**:
 
@@ -56,7 +56,7 @@ When communicating component readiness to consumers, we provide simple component
 
 ## Deprecated
 
-**Description**: The component is no longer recommended and should not be used. Users need to migrate to alternatives.
+**Description**: The component is no longer recommended and should not be used. Officially deprecated in a major release. Users need to migrate to alternatives.
 
 **Criteria**:
 
