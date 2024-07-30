@@ -476,7 +476,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
       restoreFocusOnCleanUp: returnFocusRef?.current ? false : true,
       returnFocusRef,
     },
-    [dialogRef, body, footer],
+    [dialogRef, footer],
   )
 
   return (
