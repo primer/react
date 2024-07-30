@@ -9,7 +9,7 @@ import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {get} from '../constants'
 import {ActionList} from '../ActionList'
-import type {ActionListProps, ActionListItemProps} from '../ActionList'
+import type {GroupedListProps, ListPropsBase, ItemInput} from '../deprecated/ActionList/List'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
@@ -17,22 +17,22 @@ import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import type {SxProp} from '../sx'
-import type {ItemProps as DeprecatedActionListItemProps} from '../deprecated/ActionList/Item'
+
 import {isValidElementType} from 'react-is'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
-export type ItemInput = DeprecatedActionListItemProps
-
 // Since the filteredActionList is based on the ActionList component, we should support the same props
-export interface FilteredActionListProps extends ActionListProps {
+export interface FilteredActionListProps
+  extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>,
+    ListPropsBase,
+    SxProp {
   loading?: boolean
   placeholderText?: string
   filterValue?: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
-  items: ItemInput[]
 }
 
 const StyledHeader = styled.div`
@@ -126,7 +126,7 @@ export function FilteredActionList({
     selected,
   }: ItemInput): React.ReactElement => {
     return (
-      <ActionList.Item key={id} sx={sx} role="option" onSelect={} selected={selected}>
+      <ActionList.Item key={id} sx={sx} role="option" onSelect={() => {}} selected={selected}>
         {LeadingVisual ? (
           <ActionList.LeadingVisual>
             <LeadingVisual />

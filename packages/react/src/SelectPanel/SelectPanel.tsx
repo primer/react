@@ -4,19 +4,19 @@ import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 import Box from '../Box'
+import type {FilteredActionListProps} from '../FilteredActionList'
 import {FilteredActionList} from '../FilteredActionList'
 import Heading from '../Heading'
 import type {OverlayProps} from '../Overlay'
 import type {TextInputProps} from '../TextInput'
-import type {ItemInput} from '../FilteredActionList/FilteredActionList'
-import type {FilteredActionListProps} from '../FilteredActionList'
+import type {ItemProps} from '../deprecated/ActionList'
+import type {ItemInput} from '../deprecated/ActionList/List'
 import {Button} from '../Button'
 import {useProvidedRefOrCreate} from '../hooks'
 import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
-import type {ActionListItemProps} from '../ActionList'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -155,7 +155,7 @@ export function SelectPanel({
           singleSelectOnChange(item === selected ? undefined : item)
           onClose('selection')
         },
-      } as ActionListItemProps
+      } as ItemProps
     })
   }, [onClose, onSelectedChange, items, selected])
 
