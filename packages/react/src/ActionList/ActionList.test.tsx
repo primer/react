@@ -417,26 +417,6 @@ describe('ActionList', () => {
     expect(list).toHaveAttribute('aria-label', heading.textContent)
   })
 
-  it('descriptions should be referenced via aria-describedby', async () => {
-    const {getByRole} = HTMLRender(
-      <ActionList>
-        <ActionList.Item>
-          Item <ActionList.Description>Inline description</ActionList.Description>
-        </ActionList.Item>
-        <ActionList.Item>
-          Item
-          <ActionList.Description variant="block">Block description</ActionList.Description>
-        </ActionList.Item>
-      </ActionList>,
-    )
-
-    const inlineItem = getByRole('listitem', {description: 'Inline description'})
-    const blockItem = getByRole('listitem', {description: 'Block description'})
-
-    expect(inlineItem).toBeInTheDocument()
-    expect(blockItem).toBeInTheDocument()
-  })
-
   it('should render ActionList.Item as button when feature flag is enabled', async () => {
     const featureFlag = {
       primer_react_action_list_item_as_button: true,
