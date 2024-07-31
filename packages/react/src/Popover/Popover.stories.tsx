@@ -1,6 +1,6 @@
 import React from 'react'
 import type {Meta, StoryFn} from '@storybook/react'
-import Heading from '../Heading'
+import {Heading} from '../Heading'
 import {Popover} from './'
 import Text from '../Text'
 import {Button} from '../Button'

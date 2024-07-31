@@ -1,7 +1,7 @@
 import React, {useCallback, useContext} from 'react'
 import {useAnchoredPosition} from '../hooks'
 import type {OverlayProps} from '../Overlay'
-import Overlay from '../Overlay'
+import {Overlay} from '../Overlay'
 import type {ComponentProps} from '../utils/types'
 import {AutocompleteContext} from './AutocompleteContext'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'

@@ -4,7 +4,7 @@ import type {ComponentProps} from '../utils/types'
 import {Timeline} from './'
 import Octicon from '../Octicon'
 import {GitBranchIcon, GitCommitIcon, GitMergeIcon} from '@primer/octicons-react'
-import Link from '../Link'
+import {Link} from '../Link'
 
 export default {
   title: 'Components/Timeline/Features',

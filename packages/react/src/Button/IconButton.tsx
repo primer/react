@@ -13,7 +13,7 @@ import {TooltipContext as TooltipContextV1} from '../Tooltip/Tooltip'
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-const IconButton = forwardRef(
+export const IconButton = forwardRef(
   (
     {
       sx: sxProp = defaultSxProp,
@@ -85,5 +85,3 @@ const IconButton = forwardRef(
     }
   },
 ) as PolymorphicForwardRefComponent<'button' | 'a', IconButtonProps>
-
-export {IconButton}

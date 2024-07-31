@@ -9,7 +9,7 @@ import {Description} from './Description'
 import Avatar from '../Avatar'
 import Box from '../Box'
 import Label from '../Label'
-import Heading from '../Heading'
+import {Heading} from '../Heading'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {
   EyeIcon,

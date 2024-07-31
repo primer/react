@@ -4,10 +4,10 @@ import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import type {SxProp, BetterSystemStyleObject, CSSCustomProperties} from '../sx'
 import {merge} from '../sx'
-import Heading from '../Heading'
+import {Heading} from '../Heading'
 import {ArrowLeftIcon} from '@primer/octicons-react'
 import type {LinkProps as BaseLinkProps} from '../Link'
-import Link from '../Link'
+import {Link} from '../Link'
 
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
@@ -179,6 +179,7 @@ export const Root = forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeade
     )
   },
 ) as PolymorphicForwardRefComponent<'div', PageHeaderProps>
+Root.displayName = 'PageHeader'
 
 // PageHeader.ContextArea
 // ---------------------------------------------------------------------

@@ -1,6 +1,6 @@
 import React from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import Link from '../Link'
+import {Link} from '../Link'
 import type {SxProp} from '../sx'
 import {merge} from '../sx'
 import {Item} from './Item'

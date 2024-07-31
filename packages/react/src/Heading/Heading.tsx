@@ -17,7 +17,13 @@ const StyledHeading = styled.h2<StyledHeadingProps>`
   margin: 0;
   ${sx};
 `
-const Heading = forwardRef(({as: Component = 'h2', ...props}, forwardedRef) => {
+
+/**
+ * @primerid heading
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
+export const Heading = forwardRef(({as: Component = 'h2', ...props}, forwardedRef) => {
   const innerRef = React.useRef<HTMLHeadingElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
@@ -50,4 +56,3 @@ const Heading = forwardRef(({as: Component = 'h2', ...props}, forwardedRef) => {
 Heading.displayName = 'Heading'
 
 export type HeadingProps = ComponentProps<typeof Heading>
-export default Heading

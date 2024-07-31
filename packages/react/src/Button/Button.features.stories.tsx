@@ -2,7 +2,7 @@ import {EyeIcon, TriangleDownIcon, HeartIcon, DownloadIcon, CommentIcon} from '@
 import React, {useState} from 'react'
 import {Button} from '.'
 import {Stack} from '../Stack/Stack'
-import Link from '../Link'
+import {Link} from '../Link'
 import {announce} from '@primer/live-region-element'
 
 export default {

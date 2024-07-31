@@ -42,7 +42,7 @@ export type TruncateProps = ComponentProps<typeof StyledTruncate>
  * @primerstatus alpha
  * @a11yreviewed false
  */
-const Truncate = React.forwardRef(function Truncate(
+export const Truncate = React.forwardRef(function Truncate(
   {as, expandable = false, inline = false, maxWidth = 125, ...rest},
   ref,
 ) {
@@ -52,5 +52,3 @@ const Truncate = React.forwardRef(function Truncate(
 if (__DEV__) {
   Truncate.displayName = 'Truncate'
 }
-
-export default Truncate

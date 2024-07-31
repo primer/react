@@ -622,6 +622,39 @@
           ]
         },
         {
+          "name": "ActionList.TrailingAction",
+          "props": [
+            {
+              "name": "as",
+              "type": "\"a\" | \"button\" | \"button\" & ComponentClass<unknown, any> | \"button\" & FunctionComponent<unknown> | \"a\" & ComponentClass<unknown, any> | \"a\" & FunctionComponent<unknown>",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "href",
+              "type": "string",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "icon",
+              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<any, any> | FunctionComponent<any>",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "label",
+              "type": "string",
+              "required": true,
+              "description": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
           "name": "ActionList.LeadingVisual",
           "props": [
             {
@@ -2296,6 +2329,689 @@
         }
       ]
     },
+    "button": {
+      "id": "button",
+      "name": "Button",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-button--default",
+          "code": "() => <Button>Default</Button>"
+        },
+        {
+          "id": "components-button-features--primary",
+          "code": "() => <Button variant=\"primary\">Primary</Button>"
+        },
+        {
+          "id": "components-button-features--danger",
+          "code": "() => <Button variant=\"danger\">Danger</Button>"
+        },
+        {
+          "id": "components-button-features--invisible",
+          "code": "() => <Button variant=\"invisible\">Invisible</Button>"
+        },
+        {
+          "id": "components-button-features--leading-visual",
+          "code": "() => <Button leadingVisual={HeartIcon}>Leading visual</Button>"
+        },
+        {
+          "id": "components-button-features--trailing-visual",
+          "code": "() => <Button trailingVisual={EyeIcon}>Trailing visual</Button>"
+        },
+        {
+          "id": "components-button-features--trailing-counter",
+          "code": "() => {\n  const [count, setCount] = useState(0)\n  const onClick = () => {\n    setCount(count + 1)\n    announce(`Watch ${count + 1}`)\n  }\n  return (\n    <>\n      <Button onClick={onClick} count={count}>\n        Watch\n      </Button>\n      <AccessibilityNote />\n      <p>\n        In this example, a live region has been implemented to communicate the\n        change.\n      </p>\n    </>\n  )\n}"
+        },
+        {
+          "id": "components-button-features--trailing-counter-with-no-text",
+          "code": "() => {\n  return <Button leadingVisual={CommentIcon} count={3} />\n}"
+        },
+        {
+          "id": "components-button-features--trailing-counter-all-variants",
+          "code": "() => {\n  const [count, setCount] = useState(0)\n  const onClick = () => {\n    setCount(count + 1)\n    announce(`Watch ${count + 1}`)\n  }\n  return (\n    <>\n      <div\n        style={{\n          display: 'flex',\n          flexDirection: 'row',\n          gap: '1rem',\n        }}\n      >\n        <Button onClick={onClick} count={count}>\n          Watch\n        </Button>\n        <Button onClick={onClick} count={count}>\n          Watch\n        </Button>\n        <Button onClick={onClick} count={count}>\n          Watch\n        </Button>\n        <Button onClick={onClick} variant=\"primary\" disabled count={count}>\n          Watch\n        </Button>\n        <Button onClick={onClick} variant=\"danger\" count={count}>\n          Watch\n        </Button>\n        <Button onClick={onClick} variant=\"danger\" disabled count={count}>\n          Watch\n        </Button>\n        <Button onClick={onClick} variant=\"invisible\" count={count}>\n          Watch\n        </Button>\n        <Button onClick={onClick} variant=\"invisible\" disabled count={count}>\n          Watch\n        </Button>\n      </div>\n      <AccessibilityNote />\n      <p>\n        In these examples, a live region has been implemented to communicate the\n        change.\n      </p>\n    </>\n  )\n}"
+        },
+        {
+          "id": "components-button-features--trailing-action",
+          "code": "() => <Button trailingAction={TriangleDownIcon}>Trailing action</Button>"
+        },
+        {
+          "id": "components-button-features--block",
+          "code": "() => <Button block>Default</Button>"
+        },
+        {
+          "id": "components-button-features--disabled",
+          "code": "() => (\n  <div\n    style={{\n      display: 'flex',\n      flexDirection: 'row',\n      gap: '1rem',\n    }}\n  >\n    <Button disabled>Default</Button>\n    <Button variant=\"primary\" disabled>\n      Primary\n    </Button>\n    <Button variant=\"danger\" disabled>\n      Danger\n    </Button>\n    <Button variant=\"invisible\" disabled>\n      Invisible\n    </Button>\n  </div>\n)"
+        },
+        {
+          "id": "components-button-features--inactive",
+          "code": "() => (\n  <div\n    style={{\n      display: 'flex',\n      flexDirection: 'row',\n      gap: '1rem',\n    }}\n  >\n    <Button inactive>Default</Button>\n    <Button variant=\"primary\" inactive>\n      Primary\n    </Button>\n    <Button variant=\"danger\" inactive>\n      Danger\n    </Button>\n    <Button variant=\"invisible\" inactive>\n      Invisible\n    </Button>\n  </div>\n)"
+        },
+        {
+          "id": "components-button-features--small",
+          "code": "() => <Button size=\"small\">Default</Button>"
+        },
+        {
+          "id": "components-button-features--medium",
+          "code": "() => <Button size=\"medium\">Default</Button>"
+        },
+        {
+          "id": "components-button-features--large",
+          "code": "() => <Button size=\"large\">Default</Button>"
+        },
+        {
+          "id": "components-button-features--loading",
+          "code": "() => <Button loading>Default</Button>"
+        },
+        {
+          "id": "components-button-features--loading-custom-announcement",
+          "code": "() => (\n  <Button loading loadingAnnouncement=\"This is a custom loading announcement\">\n    Default\n  </Button>\n)"
+        },
+        {
+          "id": "components-button-features--loading-with-leading-visual",
+          "code": "() => (\n  <Button loading leadingVisual={DownloadIcon}>\n    Export\n  </Button>\n)"
+        },
+        {
+          "id": "components-button-features--loading-with-trailing-visual",
+          "code": "() => (\n  <Button loading trailingVisual={DownloadIcon}>\n    Export\n  </Button>\n)"
+        },
+        {
+          "id": "components-button-features--loading-with-trailing-action",
+          "code": "() => (\n  <Button loading trailingAction={TriangleDownIcon}>\n    Export dropdown\n  </Button>\n)"
+        },
+        {
+          "id": "components-button-features--loading-trigger",
+          "code": "() => {\n  const [isLoading, setIsLoading] = useState(false)\n  const handleClick = () => {\n    setIsLoading(true)\n  }\n  return (\n    <Button\n      loading={isLoading}\n      onClick={handleClick}\n      leadingVisual={DownloadIcon}\n    >\n      Export\n    </Button>\n  )\n}"
+        },
+        {
+          "id": "components-button-features--label-wrap",
+          "code": "() => {\n  return (\n    <Stack\n      style={{\n        width: '200px',\n      }}\n    >\n      <Button labelWrap>\n        This button label will wrap if the label is too long\n      </Button>\n      <Button size=\"small\" labelWrap>\n        This small button label will wrap if the label is too long\n      </Button>\n      <Button size=\"large\" labelWrap>\n        This large button label will wrap if the label is too long\n      </Button>\n      <Button labelWrap leadingVisual={HeartIcon} trailingVisual={EyeIcon}>\n        This button label will wrap if the label is too long\n      </Button>\n      <Button labelWrap trailingAction={TriangleDownIcon}>\n        This button label will wrap if the label is too long\n      </Button>\n    </Stack>\n  )\n}"
+        }
+      ],
+      "importPath": "@primer/react",
+      "props": [
+        {
+          "name": "as",
+          "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<unknown, any> | FunctionComponent<unknown>",
+          "required": true,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\"",
+          "required": false,
+          "description": "Content alignment for when visuals are present",
+          "defaultValue": ""
+        },
+        {
+          "name": "icon",
+          "type": "null | \"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<any, any> | FunctionComponent<any>",
+          "required": false,
+          "description": "The icon for the IconButton",
+          "defaultValue": ""
+        },
+        {
+          "name": "leadingVisual",
+          "type": "null | \"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<any, any> | FunctionComponent<any>",
+          "required": false,
+          "description": "The leading visual which comes before the button content",
+          "defaultValue": ""
+        },
+        {
+          "name": "trailingVisual",
+          "type": "null | \"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<any, any> | FunctionComponent<any>",
+          "required": false,
+          "description": "The trailing visual which comes after the button content",
+          "defaultValue": ""
+        },
+        {
+          "name": "trailingAction",
+          "type": "null | \"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<any, any> | FunctionComponent<any>",
+          "required": false,
+          "description": "Trailing action appears to the right of the trailing visual and is always locked to the end",
+          "defaultValue": ""
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "count",
+          "type": "number",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "variant",
+          "type": "\"default\" | \"danger\" | \"primary\" | \"invisible\"",
+          "required": false,
+          "description": "Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
+          "defaultValue": ""
+        },
+        {
+          "name": "size",
+          "type": "\"small\" | \"large\" | \"medium\"",
+          "required": false,
+          "description": "Size of button and fontSize of text in button",
+          "defaultValue": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "description": "Items that are disabled can not be clicked, selected, or navigated through.",
+          "defaultValue": ""
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "required": false,
+          "description": "Allow button width to fill its container.",
+          "defaultValue": ""
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "description": "When true, the button is in a loading state.",
+          "defaultValue": ""
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string",
+          "required": false,
+          "description": "The content to announce to screen readers when loading.",
+          "defaultValue": ""
+        },
+        {
+          "name": "inactive",
+          "type": "boolean",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether the button label should wrap to multiple lines of it is longer than the button width.",
+          "defaultValue": ""
+        },
+        {
+          "name": "sx",
+          "type": "BetterSystemStyleObject",
+          "required": false,
+          "description": "A style object used to override styles using styled-components",
+          "defaultValue": ""
+        }
+      ],
+      "subcomponents": []
+    },
+    "icon_button": {
+      "id": "icon_button",
+      "name": "IconButton",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-iconbutton--default",
+          "code": "() => (\n  <IconButton\n    icon={HeartIcon}\n    aria-label=\"Favorite\"\n    unsafeDisableTooltip={false}\n  />\n)"
+        },
+        {
+          "id": "components-iconbutton-features--primary",
+          "code": "() => (\n  <IconButton\n    icon={HeartIcon}\n    variant=\"primary\"\n    aria-label=\"Favorite\"\n    unsafeDisableTooltip={false}\n  />\n)"
+        },
+        {
+          "id": "components-iconbutton-features--danger",
+          "code": "() => (\n  <IconButton\n    icon={HeartIcon}\n    variant=\"danger\"\n    aria-label=\"Favorite\"\n    unsafeDisableTooltip={false}\n  />\n)"
+        },
+        {
+          "id": "components-iconbutton-features--invisible",
+          "code": "() => (\n  <IconButton\n    icon={HeartIcon}\n    variant=\"invisible\"\n    aria-label=\"Favorite\"\n    unsafeDisableTooltip={false}\n  />\n)"
+        },
+        {
+          "id": "components-iconbutton-features--disabled",
+          "code": "() => (\n  <IconButton\n    disabled\n    icon={HeartIcon}\n    aria-label=\"Favorite\"\n    unsafeDisableTooltip={false}\n  />\n)"
+        },
+        {
+          "id": "components-iconbutton-features--small",
+          "code": "() => (\n  <IconButton\n    size=\"small\"\n    icon={HeartIcon}\n    aria-label=\"Favorite\"\n    unsafeDisableTooltip={false}\n  />\n)"
+        },
+        {
+          "id": "components-iconbutton-features--medium",
+          "code": "() => (\n  <IconButton\n    size=\"medium\"\n    icon={HeartIcon}\n    aria-label=\"Favorite\"\n    unsafeDisableTooltip={false}\n  />\n)"
+        },
+        {
+          "id": "components-iconbutton-features--large",
+          "code": "() => (\n  <IconButton\n    size=\"large\"\n    icon={HeartIcon}\n    aria-label=\"Favorite\"\n    unsafeDisableTooltip={false}\n  />\n)"
+        },
+        {
+          "id": "components-iconbutton-features--with-description",
+          "code": "() => (\n  <IconButton\n    icon={InboxIcon}\n    aria-label=\"Notifications\"\n    description=\"You have no unread notifications.\"\n    unsafeDisableTooltip={false}\n  />\n)"
+        },
+        {
+          "id": "components-iconbutton-features--external-tooltip",
+          "code": "() => (\n  <Tooltip\n    text=\"this is a supportive description for icon button\"\n    direction=\"se\"\n  >\n    <IconButton icon={HeartIcon} aria-label=\"HeartIcon\" />\n  </Tooltip>\n)"
+        },
+        {
+          "id": "components-iconbutton-features--external-tooltip-version1",
+          "code": "() => (\n  <TooltipV1\n    text=\"this is a supportive description for icon button\"\n    direction=\"se\"\n  >\n    <IconButton icon={HeartIcon} aria-label=\"HeartIcon\" />\n  </TooltipV1>\n)"
+        },
+        {
+          "id": "components-iconbutton-features--as-a-menu-anchor",
+          "code": "() => (\n  <ActionMenu>\n    <ActionMenu.Anchor>\n      <IconButton\n        icon={ChevronDownIcon}\n        aria-label=\"Something\"\n        unsafeDisableTooltip={false}\n      />\n    </ActionMenu.Anchor>\n\n    <ActionMenu.Overlay width=\"medium\">\n      <ActionList>\n        <ActionList.Item onSelect={() => alert('Copy link clicked')}>\n          Copy link\n          <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>\n        </ActionList.Item>\n        <ActionList.Item onSelect={() => alert('Quote reply clicked')}>\n          Quote reply\n          <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>\n        </ActionList.Item>\n        <ActionList.Item onSelect={() => alert('Edit comment clicked')}>\n          Edit comment\n          <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>\n        </ActionList.Item>\n        <ActionList.Divider />\n        <ActionList.Item\n          variant=\"danger\"\n          onSelect={() => alert('Delete file clicked')}\n        >\n          Delete file\n          <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>\n        </ActionList.Item>\n      </ActionList>\n    </ActionMenu.Overlay>\n  </ActionMenu>\n)"
+        },
+        {
+          "id": "components-iconbutton-features--loading",
+          "code": "() => (\n  <IconButton loading icon={HeartIcon} variant=\"primary\" aria-label=\"Primary\" />\n)"
+        },
+        {
+          "id": "components-iconbutton-features--loading-trigger",
+          "code": "() => {\n  const [isLoading, setIsLoading] = useState(false)\n  const handleClick = () => {\n    setIsLoading(true)\n    setTimeout(() => {\n      setIsLoading(false)\n    }, 3000)\n  }\n  return (\n    <IconButton\n      loading={isLoading}\n      onClick={handleClick}\n      icon={DownloadIcon}\n      aria-label=\"Download\"\n    />\n  )\n}"
+        },
+        {
+          "id": "components-iconbutton-features--keyshortcuts-on-description",
+          "code": "() => (\n  <IconButton\n    unsafeDisableTooltip={false}\n    icon={InboxIcon}\n    aria-label=\"Notifications\"\n    description=\"You have unread notifications\"\n    keyshortcuts=\"G+N\"\n  />\n)"
+        },
+        {
+          "id": "components-iconbutton-features--keyshortcuts",
+          "code": "() => (\n  <IconButton\n    unsafeDisableTooltip={false}\n    icon={BoldIcon}\n    aria-label=\"Bold\"\n    keyshortcuts=\"Command+B\"\n  />\n)"
+        }
+      ],
+      "importPath": "@primer/react",
+      "props": [
+        {
+          "name": "as",
+          "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<unknown, any> | FunctionComponent<unknown>",
+          "required": true,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "icon",
+          "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<any, any> | FunctionComponent<any>",
+          "required": true,
+          "description": "Provide an octicon. It will be placed in the center of the button",
+          "defaultValue": ""
+        },
+        {
+          "name": "unsafeDisableTooltip",
+          "type": "boolean",
+          "required": false,
+          "description": "Do not use. This is planned to be a temporary prop until the default tooltip on icon buttons are fully rolled out.",
+          "defaultValue": ""
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "required": false,
+          "description": "If `description` is provided, we will use a Tooltip to describe the button. Then `aria-label` is used to label the button.",
+          "defaultValue": ""
+        },
+        {
+          "name": "tooltipDirection",
+          "type": "\"s\" | \"nw\" | \"n\" | \"ne\" | \"e\" | \"se\" | \"sw\" | \"w\"",
+          "required": false,
+          "description": "Sets where the tooltip renders in relation to the target.",
+          "defaultValue": ""
+        },
+        {
+          "name": "keyshortcuts",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "description": "Items that are disabled can not be clicked, selected, or navigated through.",
+          "defaultValue": ""
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "description": "When true, the button is in a loading state.",
+          "defaultValue": ""
+        },
+        {
+          "name": "size",
+          "type": "\"small\" | \"large\" | \"medium\"",
+          "required": false,
+          "description": "Size of button and fontSize of text in button",
+          "defaultValue": ""
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "required": false,
+          "description": "Allow button width to fill its container.",
+          "defaultValue": ""
+        },
+        {
+          "name": "sx",
+          "type": "BetterSystemStyleObject",
+          "required": false,
+          "description": "A style object used to override styles using styled-components",
+          "defaultValue": ""
+        },
+        {
+          "name": "variant",
+          "type": "\"default\" | \"danger\" | \"primary\" | \"invisible\"",
+          "required": false,
+          "description": "Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
+          "defaultValue": ""
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string",
+          "required": false,
+          "description": "The content to announce to screen readers when loading.",
+          "defaultValue": ""
+        },
+        {
+          "name": "inactive",
+          "type": "boolean",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether the button label should wrap to multiple lines of it is longer than the button width.",
+          "defaultValue": ""
+        }
+      ],
+      "subcomponents": []
+    },
+    "link_button": {
+      "id": "link_button",
+      "name": "LinkButton",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-linkbutton--default",
+          "code": "() => (\n  <Button as=\"a\" href=\"/\">\n    Default\n  </Button>\n)"
+        },
+        {
+          "id": "components-linkbutton-features--primary",
+          "code": "() => (\n  <Button as=\"a\" href=\"/\" variant=\"primary\">\n    Primary\n  </Button>\n)"
+        },
+        {
+          "id": "components-linkbutton-features--danger",
+          "code": "() => (\n  <Button as=\"a\" href=\"/\" variant=\"danger\">\n    Danger\n  </Button>\n)"
+        },
+        {
+          "id": "components-linkbutton-features--invisible",
+          "code": "() => (\n  <Button as=\"a\" href=\"/\" variant=\"invisible\">\n    Invisible\n  </Button>\n)"
+        },
+        {
+          "id": "components-linkbutton-features--leading-visual",
+          "code": "() => (\n  <Button as=\"a\" href=\"/\" leadingVisual={HeartIcon}>\n    Leading visual\n  </Button>\n)"
+        },
+        {
+          "id": "components-linkbutton-features--trailing-visual",
+          "code": "() => (\n  <Button as=\"a\" href=\"/\" trailingVisual={EyeIcon}>\n    Trailing visual\n  </Button>\n)"
+        },
+        {
+          "id": "components-linkbutton-features--trailing-action",
+          "code": "() => (\n  <Button as=\"a\" href=\"/\" trailingAction={ChevronRightIcon}>\n    Trailing action\n  </Button>\n)"
+        },
+        {
+          "id": "components-linkbutton-features--block",
+          "code": "() => (\n  <Button as=\"a\" href=\"/\" block>\n    Default\n  </Button>\n)"
+        },
+        {
+          "id": "components-linkbutton-features--small",
+          "code": "() => (\n  <Button as=\"a\" href=\"/\" size=\"small\">\n    Default\n  </Button>\n)"
+        },
+        {
+          "id": "components-linkbutton-features--medium",
+          "code": "() => (\n  <Button as=\"a\" href=\"/\" size=\"medium\">\n    Default\n  </Button>\n)"
+        },
+        {
+          "id": "components-linkbutton-features--large",
+          "code": "() => (\n  <Button as=\"a\" href=\"/\" size=\"large\">\n    Default\n  </Button>\n)"
+        },
+        {
+          "id": "components-linkbutton-features--with-react-router",
+          "code": "() => (\n  <Button to=\"/dummy\" as={ReactRouterLikeLink}>\n    Default\n  </Button>\n)"
+        },
+        {
+          "id": "components-linkbutton-features--loading",
+          "code": "() => <Button loading>Default</Button>"
+        },
+        {
+          "id": "components-linkbutton-features--loading-custom-announcement",
+          "code": "() => (\n  <Button\n    as=\"a\"\n    href=\"/\"\n    loading\n    loadingAnnouncement=\"This is a custom loading announcement\"\n  >\n    Default\n  </Button>\n)"
+        },
+        {
+          "id": "components-linkbutton-features--loading-with-leading-visual",
+          "code": "() => (\n  <Button as=\"a\" href=\"/\" loading leadingVisual={DownloadIcon}>\n    Export\n  </Button>\n)"
+        },
+        {
+          "id": "components-linkbutton-features--loading-with-trailing-visual",
+          "code": "() => (\n  <Button as=\"a\" href=\"/\" loading trailingVisual={DownloadIcon}>\n    Export\n  </Button>\n)"
+        }
+      ],
+      "importPath": "@primer/react",
+      "props": [
+        {
+          "name": "as",
+          "type": "\"a\" | \"button\" | \"button\" & ComponentClass<unknown, any> | \"button\" & FunctionComponent<unknown> | \"a\" & ComponentClass<unknown, any> | \"a\" & FunctionComponent<unknown>",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "underline",
+          "type": "boolean",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "download",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "hrefLang",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "media",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "ping",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "rel",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "target",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "type",
+          "type": "\"button\" | \"reset\" | \"submit\"",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "referrerPolicy",
+          "type": "\"\" | \"origin\" | \"no-referrer\" | \"no-referrer-when-downgrade\" | \"origin-when-cross-origin\" | \"same-origin\" | \"strict-origin\" | \"strict-origin-when-cross-origin\" | \"unsafe-url\"",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "alignContent",
+          "type": "\"center\" | \"start\"",
+          "required": false,
+          "description": "Content alignment for when visuals are present",
+          "defaultValue": ""
+        },
+        {
+          "name": "icon",
+          "type": "null | \"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<any, any> | FunctionComponent<any>",
+          "required": false,
+          "description": "The icon for the IconButton",
+          "defaultValue": ""
+        },
+        {
+          "name": "leadingVisual",
+          "type": "null | \"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<any, any> | FunctionComponent<any>",
+          "required": false,
+          "description": "The leading visual which comes before the button content",
+          "defaultValue": ""
+        },
+        {
+          "name": "trailingVisual",
+          "type": "null | \"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<any, any> | FunctionComponent<any>",
+          "required": false,
+          "description": "The trailing visual which comes after the button content",
+          "defaultValue": ""
+        },
+        {
+          "name": "trailingAction",
+          "type": "null | \"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<any, any> | FunctionComponent<any>",
+          "required": false,
+          "description": "Trailing action appears to the right of the trailing visual and is always locked to the end",
+          "defaultValue": ""
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "count",
+          "type": "number",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "variant",
+          "type": "\"default\" | \"danger\" | \"primary\" | \"invisible\"",
+          "required": false,
+          "description": "Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
+          "defaultValue": ""
+        },
+        {
+          "name": "size",
+          "type": "\"small\" | \"large\" | \"medium\"",
+          "required": false,
+          "description": "Size of button and fontSize of text in button",
+          "defaultValue": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "description": "Items that are disabled can not be clicked, selected, or navigated through.",
+          "defaultValue": ""
+        },
+        {
+          "name": "block",
+          "type": "boolean",
+          "required": false,
+          "description": "Allow button width to fill its container.",
+          "defaultValue": ""
+        },
+        {
+          "name": "loading",
+          "type": "boolean",
+          "required": false,
+          "description": "When true, the button is in a loading state.",
+          "defaultValue": ""
+        },
+        {
+          "name": "loadingAnnouncement",
+          "type": "string",
+          "required": false,
+          "description": "The content to announce to screen readers when loading.",
+          "defaultValue": ""
+        },
+        {
+          "name": "inactive",
+          "type": "boolean",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "labelWrap",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether the button label should wrap to multiple lines of it is longer than the button width.",
+          "defaultValue": ""
+        },
+        {
+          "name": "sx",
+          "type": "BetterSystemStyleObject",
+          "required": false,
+          "description": "A style object used to override styles using styled-components",
+          "defaultValue": ""
+        }
+      ],
+      "subcomponents": []
+    },
     "button_group": {
       "id": "button_group",
       "name": "ButtonGroup",
@@ -3332,6 +4048,74 @@
       ],
       "subcomponents": []
     },
+    "flash": {
+      "id": "flash",
+      "name": "Flash",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-flash--default",
+          "code": "() => <Flash>Default</Flash>"
+        },
+        {
+          "id": "components-flash-features--success",
+          "code": "() => <Flash variant=\"success\">Success</Flash>"
+        },
+        {
+          "id": "components-flash-features--danger",
+          "code": "() => <Flash variant=\"danger\">Danger</Flash>"
+        },
+        {
+          "id": "components-flash-features--warning",
+          "code": "() => <Flash variant=\"warning\">Warning</Flash>"
+        },
+        {
+          "id": "components-flash-features--full",
+          "code": "() => <Flash full>Full</Flash>"
+        },
+        {
+          "id": "components-flash-features--with-icon-and-action",
+          "code": "() => (\n  <Flash\n    sx={{\n      display: 'grid',\n      gridTemplateColumns: 'min-content 1fr minmax(0, auto)',\n      gridTemplateRows: 'min-content',\n      gridTemplateAreas: `'visual message actions'`,\n      '@media screen and (max-width: 543.98px)': {\n        gridTemplateColumns: 'min-content 1fr',\n        gridTemplateRows: 'min-content min-content',\n        gridTemplateAreas: `\n        'visual message'\n        '.      actions'\n      `,\n      },\n    }}\n  >\n    <Box\n      sx={{\n        display: 'grid',\n        paddingBlock: 'var(--base-size-8)',\n        alignSelf: 'start',\n        gridArea: 'visual',\n      }}\n    >\n      <Octicon icon={InfoIcon} />\n    </Box>\n    <Box\n      sx={{\n        fontSize: 1,\n        lineHeight: '1.5',\n        padding: '0.375rem var(--base-size-8)',\n        alignSelf: 'center',\n        gridArea: 'message',\n      }}\n    >\n      This is a flash message with an icon and an action.\n      <Link href=\"/\"> Learn more.</Link>\n    </Box>\n    <Box\n      sx={{\n        gridArea: 'actions',\n        '@media screen and (max-width: 543.98px)': {\n          alignSelf: 'start',\n          margin: 'var(--base-size-8) 0 0 var(--base-size-8)',\n        },\n      }}\n    >\n      <Button>Join waitlist</Button>\n    </Box>\n  </Flash>\n)"
+        },
+        {
+          "id": "components-flash-features--with-icon-action-dismiss",
+          "code": "() => (\n  <Flash\n    sx={{\n      display: 'grid',\n      gridTemplateColumns: 'min-content 1fr minmax(0, auto)',\n      gridTemplateRows: 'min-content',\n      gridTemplateAreas: `'visual message actions close'`,\n      '@media screen and (max-width: 543.98px)': {\n        gridTemplateColumns: 'min-content 1fr',\n        gridTemplateRows: 'min-content min-content',\n        gridTemplateAreas: `\n        'visual message close'\n        '.      actions actions'\n      `,\n      },\n    }}\n  >\n    <Box\n      sx={{\n        display: 'grid',\n        paddingBlock: 'var(--base-size-8)',\n        alignSelf: 'start',\n        gridArea: 'visual',\n      }}\n    >\n      <Octicon icon={InfoIcon} />\n    </Box>\n    <Box\n      sx={{\n        fontSize: 1,\n        lineHeight: '1.5',\n        padding: '0.375rem var(--base-size-8)',\n        alignSelf: 'center',\n        gridArea: 'message',\n      }}\n    >\n      This is a flash message with an icon and an action.\n      <Link href=\"/\"> Learn more.</Link>\n    </Box>\n    <Box\n      sx={{\n        gridArea: 'actions',\n        '@media screen and (max-width: 543.98px)': {\n          alignSelf: 'start',\n          margin: 'var(--base-size-8) 0 0 var(--base-size-8)',\n        },\n      }}\n    >\n      <Button>Join waitlist</Button>\n    </Box>\n    <Box\n      sx={{\n        gridArea: 'close',\n        marginLeft: 'var(--controlStack-medium-gap-condensed)',\n      }}\n    >\n      <IconButton\n        variant=\"invisible\"\n        icon={XIcon}\n        aria-label=\"Dismiss\"\n        sx={{\n          svg: {\n            margin: '0',\n            color: 'fg.muted',\n          },\n        }}\n      />\n    </Box>\n  </Flash>\n)"
+        }
+      ],
+      "importPath": "@primer/react",
+      "props": [
+        {
+          "name": "as",
+          "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<unknown, any> | FunctionComponent<unknown>",
+          "required": true,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "variant",
+          "type": "\"default\" | \"success\" | \"danger\" | \"warning\"",
+          "required": false,
+          "description": "Sets the background color and border",
+          "defaultValue": ""
+        },
+        {
+          "name": "full",
+          "type": "boolean",
+          "required": false,
+          "description": "Creates a full width Flash component",
+          "defaultValue": ""
+        },
+        {
+          "name": "sx",
+          "type": "BetterSystemStyleObject",
+          "required": false,
+          "description": "A style object used to override styles using styled-components",
+          "defaultValue": ""
+        }
+      ],
+      "subcomponents": []
+    },
     "form_control": {
       "id": "form_control",
       "name": "FormControl",
@@ -3548,6 +4332,36 @@
         }
       ]
     },
+    "heading": {
+      "id": "heading",
+      "name": "Heading",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-heading--default",
+          "code": "() => <Heading>Default H2 Heading</Heading>"
+        }
+      ],
+      "importPath": "@primer/react",
+      "props": [
+        {
+          "name": "as",
+          "type": "\"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"h1\" & ComponentClass<unknown, any> | \"h1\" & FunctionComponent<unknown> | \"h2\" & ComponentClass<unknown, any> | \"h2\" & FunctionComponent<unknown> | \"h3\" & ComponentClass<unknown, any> | \"h3\" & FunctionComponent<unknown> | \"h4\" & ComponentClass<unknown, any> | \"h4\" & FunctionComponent<unknown> | \"h5\" & ComponentClass<unknown, any> | \"h5\" & FunctionComponent<unknown> | \"h6\" & ComponentClass<unknown, any> | \"h6\" & FunctionComponent<unknown>",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "sx",
+          "type": "BetterSystemStyleObject",
+          "required": false,
+          "description": "A style object used to override styles using styled-components",
+          "defaultValue": ""
+        }
+      ],
+      "subcomponents": []
+    },
     "drafts_hidden": {
       "id": "drafts_hidden",
       "name": "Hidden",
@@ -3636,6 +4450,94 @@
       ],
       "subcomponents": []
     },
+    "label": {
+      "id": "label",
+      "name": "Label",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-label--default",
+          "code": "() => <Label>Default</Label>"
+        },
+        {
+          "id": "components-label-features--primary",
+          "code": "() => <Label variant=\"primary\">Primary</Label>"
+        },
+        {
+          "id": "components-label-features--secondary",
+          "code": "() => <Label variant=\"secondary\">Secondary</Label>"
+        },
+        {
+          "id": "components-label-features--accent",
+          "code": "() => <Label variant=\"accent\">Accent</Label>"
+        },
+        {
+          "id": "components-label-features--success",
+          "code": "() => <Label variant=\"success\">Success</Label>"
+        },
+        {
+          "id": "components-label-features--attention",
+          "code": "() => <Label variant=\"attention\">Attention</Label>"
+        },
+        {
+          "id": "components-label-features--severe",
+          "code": "() => <Label variant=\"severe\">Primary</Label>"
+        },
+        {
+          "id": "components-label-features--danger",
+          "code": "() => <Label variant=\"danger\">Danger</Label>"
+        },
+        {
+          "id": "components-label-features--done",
+          "code": "() => <Label variant=\"done\">Done</Label>"
+        },
+        {
+          "id": "components-label-features--sponsors",
+          "code": "() => <Label variant=\"sponsors\">Sponsors</Label>"
+        },
+        {
+          "id": "components-label-features--size-large",
+          "code": "() => <Label size=\"large\">Default</Label>"
+        },
+        {
+          "id": "components-label-features--size-small",
+          "code": "() => <Label size=\"small\">Default</Label>"
+        }
+      ],
+      "importPath": "@primer/react",
+      "props": [
+        {
+          "name": "as",
+          "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<unknown, any> | FunctionComponent<unknown>",
+          "required": true,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "variant",
+          "type": "\"default\" | \"accent\" | \"success\" | \"attention\" | \"severe\" | \"danger\" | \"done\" | \"sponsors\" | \"primary\" | \"secondary\"",
+          "required": false,
+          "description": "The color of the label",
+          "defaultValue": ""
+        },
+        {
+          "name": "size",
+          "type": "\"small\" | \"large\"",
+          "required": false,
+          "description": "How large the label is rendered",
+          "defaultValue": ""
+        },
+        {
+          "name": "sx",
+          "type": "BetterSystemStyleObject",
+          "required": false,
+          "description": "A style object used to override styles using styled-components",
+          "defaultValue": ""
+        }
+      ],
+      "subcomponents": []
+    },
     "label_group": {
       "id": "label_group",
       "name": "LabelGroup",
@@ -3681,6 +4583,76 @@
           "type": "number | \"auto\"",
           "required": false,
           "description": "How many tokens to show. `'auto'` truncates the tokens to fit in the parent container. Passing a number will truncate after that number tokens. If this is undefined, tokens will never be truncated.",
+          "defaultValue": ""
+        },
+        {
+          "name": "sx",
+          "type": "BetterSystemStyleObject",
+          "required": false,
+          "description": "A style object used to override styles using styled-components",
+          "defaultValue": ""
+        }
+      ],
+      "subcomponents": []
+    },
+    "link": {
+      "id": "link",
+      "name": "Link",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-link--default",
+          "code": "() => <Link href=\"#\">Link</Link>"
+        },
+        {
+          "id": "components-link-features--muted",
+          "code": "() => (\n  <Link href=\"#\" muted>\n    Link\n  </Link>\n)"
+        },
+        {
+          "id": "components-link-features--underline",
+          "code": "() => (\n  <Link href=\"#\" underline>\n    Link\n  </Link>\n)"
+        },
+        {
+          "id": "components-link-features--inline",
+          "code": "() => (\n  <div data-a11y-link-underlines=\"true\">\n    <Link inline={true} href=\"#\">\n      Link\n    </Link>\n  </div>\n)"
+        }
+      ],
+      "importPath": "@primer/react",
+      "props": [
+        {
+          "name": "as",
+          "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<unknown, any> | FunctionComponent<unknown>",
+          "required": true,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "hoverColor",
+          "type": "string",
+          "required": false,
+          "description": "Color used when hovering over the link.",
+          "defaultValue": ""
+        },
+        {
+          "name": "muted",
+          "type": "boolean",
+          "required": false,
+          "description": "Uses a less prominent shade for Link color, and the default link shade on hover.",
+          "defaultValue": ""
+        },
+        {
+          "name": "underline",
+          "type": "boolean",
+          "required": false,
+          "description": "@deprecated use `inline` to specify the type of link instead",
+          "defaultValue": ""
+        },
+        {
+          "name": "inline",
+          "type": "boolean",
+          "required": false,
+          "description": "Set to true for links adjacent to text, underlining them for clear visibility and improved accessibility.",
           "defaultValue": ""
         },
         {
@@ -3895,6 +4867,221 @@
           "type": "BetterSystemStyleObject",
           "required": false,
           "description": "A style object used to override styles using styled-components",
+          "defaultValue": ""
+        }
+      ],
+      "subcomponents": []
+    },
+    "overlay": {
+      "id": "overlay",
+      "name": "Overlay",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-overlay-features--dropdown-overlay",
+          "code": "({ anchorSide }: OverlayProps) => {\n  const [isOpen, setIsOpen] = useState(false)\n  const buttonRef = useRef<HTMLButtonElement>(null)\n  return (\n    <>\n      <Button\n        ref={buttonRef}\n        sx={{\n          position: 'relative',\n        }}\n        onClick={() => setIsOpen(!isOpen)}\n      >\n        open overlay\n      </Button>\n      {isOpen ? (\n        <Overlay\n          returnFocusRef={buttonRef}\n          height=\"auto\"\n          width=\"small\"\n          ignoreClickRefs={[buttonRef]}\n          onEscape={() => setIsOpen(false)}\n          onClickOutside={() => setIsOpen(false)}\n          anchorSide={anchorSide}\n        >\n          <ActionList>\n            <ActionList.Item>Copy link</ActionList.Item>\n            <ActionList.Item>Quote reply</ActionList.Item>\n            <ActionList.Item>Reference in new issue</ActionList.Item>\n            <ActionList.Item>Edit</ActionList.Item>\n            <ActionList.Divider />\n            <ActionList.Item variant=\"danger\">Delete</ActionList.Item>\n          </ActionList>\n        </Overlay>\n      ) : null}\n    </>\n  )\n}"
+        },
+        {
+          "id": "components-overlay-features--dialog-overlay",
+          "code": "({ anchorSide }: OverlayProps) => {\n  const [isOpen, setIsOpen] = useState(false)\n  const buttonRef = useRef<HTMLButtonElement>(null)\n  const confirmButtonRef = useRef<HTMLButtonElement>(null)\n  const anchorRef = useRef<HTMLDivElement>(null)\n  const closeOverlay = () => setIsOpen(false)\n  return (\n    <Box ref={anchorRef}>\n      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>\n        open overlay\n      </Button>\n      {isOpen ? (\n        <Overlay\n          initialFocusRef={confirmButtonRef}\n          returnFocusRef={buttonRef}\n          ignoreClickRefs={[buttonRef]}\n          onEscape={closeOverlay}\n          onClickOutside={closeOverlay}\n          width=\"small\"\n          anchorSide={anchorSide}\n        >\n          <Box display=\"flex\" flexDirection=\"column\" p={2}>\n            <Text>Are you sure?</Text>\n            <Button variant=\"danger\" onClick={closeOverlay}>\n              Cancel\n            </Button>\n            <Button onClick={closeOverlay} ref={confirmButtonRef}>\n              Confirm\n            </Button>\n          </Box>\n        </Overlay>\n      ) : null}\n    </Box>\n  )\n}"
+        },
+        {
+          "id": "components-overlay-features--overlay-on-top-of-overlay",
+          "code": "({ anchorSide }: OverlayProps) => {\n  const [isOpen, setIsOpen] = useState(false)\n  const [isSecondaryOpen, setIsSecondaryOpen] = useState(false)\n  const buttonRef = useRef<HTMLButtonElement>(null)\n  const secondaryButtonRef = useRef<HTMLButtonElement>(null)\n  const confirmButtonRef = useRef<HTMLButtonElement>(null)\n  const anchorRef = useRef<HTMLDivElement>(null)\n  const closeOverlay = () => setIsOpen(false) // intentionally not memoized\n  const closeSecondaryOverlay = useCallback(\n    () => setIsSecondaryOpen(false),\n    [setIsSecondaryOpen],\n  )\n  const items = ['🔵 Cyan', '🔴 Magenta', '🟡 Yellow']\n  const [selectedItem, setSelectedItem] = React.useState(items[0])\n  return (\n    <Box\n      position=\"absolute\"\n      top={0}\n      left={0}\n      bottom={0}\n      right={0}\n      ref={anchorRef}\n    >\n      <input placeholder=\"Input for focus testing\" />\n      <br />\n      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>\n        open overlay\n      </Button>\n      {isOpen ? (\n        <Overlay\n          initialFocusRef={confirmButtonRef}\n          returnFocusRef={buttonRef}\n          onEscape={closeOverlay}\n          onClickOutside={closeOverlay}\n          width=\"small\"\n          anchorSide={anchorSide}\n        >\n          <Button\n            ref={secondaryButtonRef}\n            onClick={() => setIsSecondaryOpen(!isSecondaryOpen)}\n          >\n            open overlay\n          </Button>\n          {isSecondaryOpen ? (\n            <Overlay\n              initialFocusRef={confirmButtonRef}\n              returnFocusRef={secondaryButtonRef}\n              onEscape={closeSecondaryOverlay}\n              onClickOutside={closeSecondaryOverlay}\n              width=\"small\"\n              sx={{\n                top: '40px',\n              }}\n              anchorSide={anchorSide}\n            >\n              <Box display=\"flex\" flexDirection=\"column\" p={2}>\n                <Text>Select an option!</Text>\n                <ActionMenu>\n                  <ActionMenu.Button\n                    sx={{\n                      width: 200,\n                    }}\n                  >\n                    {selectedItem}\n                  </ActionMenu.Button>\n                  <ActionMenu.Overlay>\n                    <ActionList selectionVariant=\"single\">\n                      {items.map((item) => (\n                        <ActionList.Item\n                          key={item}\n                          selected={item === selectedItem}\n                          onSelect={() => setSelectedItem(item)}\n                        >\n                          {item}\n                        </ActionList.Item>\n                      ))}\n                    </ActionList>\n                  </ActionMenu.Overlay>\n                </ActionMenu>\n              </Box>\n            </Overlay>\n          ) : null}\n        </Overlay>\n      ) : null}\n    </Box>\n  )\n}"
+        },
+        {
+          "id": "components-overlay-features--memex-nested-overlays",
+          "code": "() => {\n  const [overlayOpen, setOverlayOpen] = React.useState(false)\n  const buttonRef = useRef<HTMLButtonElement>(null)\n  const durations = ['days', 'weeks']\n  const [duration, setDuration] = React.useState(durations[0])\n  return (\n    <div>\n      <ButtonGroup>\n        <Button>Add iteration</Button>\n        <IconButton\n          aria-label=\"Add custom iteration\"\n          ref={buttonRef}\n          onClick={() => setOverlayOpen(!overlayOpen)}\n          icon={TriangleDownIcon}\n        />\n      </ButtonGroup>\n      {overlayOpen && (\n        <Overlay\n          width=\"medium\"\n          onEscape={() => setOverlayOpen(false)}\n          onClickOutside={() => setOverlayOpen(false)}\n          returnFocusRef={buttonRef}\n          ignoreClickRefs={[buttonRef]}\n          top={60}\n          left={16}\n        >\n          <Box\n            as=\"form\"\n            onSubmit={() => setOverlayOpen(false)}\n            sx={{\n              display: 'flex',\n              flexDirection: 'column',\n              py: 2,\n            }}\n          >\n            <Box\n              sx={{\n                paddingX: 3,\n                display: 'flex',\n                alignItems: 'center',\n                gap: 1,\n              }}\n            >\n              <Text\n                color=\"fg.muted\"\n                sx={{\n                  fontSize: 1,\n                }}\n              >\n                Duration:\n              </Text>\n              <TextInput defaultValue={2} />\n              <ActionMenu>\n                <ActionMenu.Button\n                  sx={{\n                    width: 200,\n                  }}\n                  aria-label=\"Change duration unit\"\n                >\n                  {duration}\n                </ActionMenu.Button>\n                <ActionMenu.Overlay>\n                  <ActionList selectionVariant=\"single\">\n                    {durations.map((item) => (\n                      <ActionList.Item\n                        key={item}\n                        selected={item === duration}\n                        onSelect={() => setDuration(item)}\n                      >\n                        {item}\n                      </ActionList.Item>\n                    ))}\n                  </ActionList>\n                </ActionMenu.Overlay>\n              </ActionMenu>\n            </Box>\n            <ActionList.Divider />\n            <Box\n              sx={{\n                display: 'flex',\n                justifyContent: 'flex-end',\n                px: 2,\n                gap: 1,\n              }}\n            >\n              <Button>Cancel</Button>\n              <Button variant=\"primary\">Add</Button>\n            </Box>\n          </Box>\n        </Overlay>\n      )}\n    </div>\n  )\n}"
+        },
+        {
+          "id": "components-overlay-features--nested-overlays",
+          "code": "() => {\n  const [listOverlayOpen, setListOverlayOpen] = React.useState(false)\n  const [createListOverlayOpen, setCreateListOverlayOpen] =\n    React.useState(false)\n  const buttonRef = useRef<HTMLButtonElement>(null)\n  const secondaryButtonRef = useRef<HTMLButtonElement>(null)\n  React.useEffect(() => {\n    // eslint-disable-next-line no-console\n    const handler = (event: KeyboardEvent) =>\n      console.log('global handler:', event.key)\n    document.addEventListener('keydown', handler)\n    return () => document.removeEventListener('keydown', handler)\n  }, [])\n  return (\n    <div>\n      <TextInput placeholder=\"Input for focus testing\" />\n      <div>\n        primary overlay open: {String(listOverlayOpen)}, secondary overlay open:{' '}\n        {String(createListOverlayOpen)}\n      </div>\n      <ButtonGroup>\n        <Button>Star</Button>\n        <IconButton\n          aria-label=\"Add this repository to a list\"\n          ref={buttonRef}\n          onClick={() => setListOverlayOpen(!listOverlayOpen)}\n          icon={TriangleDownIcon}\n        />\n      </ButtonGroup>\n      {listOverlayOpen && (\n        <Overlay\n          width=\"medium\"\n          onEscape={() => setListOverlayOpen(false)}\n          onClickOutside={() => setListOverlayOpen(false)}\n          returnFocusRef={buttonRef}\n          ignoreClickRefs={[buttonRef]}\n          top={100}\n          left={16}\n        >\n          <Box\n            sx={{\n              display: 'flex',\n              flexDirection: 'column',\n              py: 2,\n            }}\n          >\n            <Box\n              sx={{\n                paddingX: 3,\n                paddingY: 2,\n              }}\n            >\n              <CheckboxGroup>\n                <CheckboxGroup.Label>Add to list</CheckboxGroup.Label>\n                <FormControl>\n                  <FormControl.Label>My stack</FormControl.Label>\n                  <FormControl.Caption id=\"custom-checkbox-one-caption\">\n                    Personal repositories\n                  </FormControl.Caption>\n                  <Checkbox value=\"my-stack\" />\n                </FormControl>\n                <FormControl>\n                  <FormControl.Label>Want to try</FormControl.Label>\n                  <FormControl.Caption id=\"custom-checkbox-one-caption\">\n                    Testing new libraries\n                  </FormControl.Caption>\n                  <Checkbox value=\"wanna-try\" />\n                </FormControl>\n              </CheckboxGroup>\n            </Box>\n            <ActionList.Divider />\n            <Tooltip text=\"Allows you to add more lists\">\n              <Button\n                variant=\"invisible\"\n                ref={secondaryButtonRef}\n                sx={{\n                  px: 2,\n                  mx: 2,\n                  display: 'flex',\n                }}\n                leadingVisual={PlusIcon}\n                onClick={() => setCreateListOverlayOpen(!createListOverlayOpen)}\n              >\n                Create list\n              </Button>\n            </Tooltip>\n          </Box>\n          {createListOverlayOpen && (\n            <Overlay\n              width=\"medium\"\n              onEscape={() => setCreateListOverlayOpen(false)}\n              onClickOutside={() => setCreateListOverlayOpen(false)}\n              returnFocusRef={secondaryButtonRef}\n              ignoreClickRefs={[secondaryButtonRef]}\n              top={120}\n              left={64}\n            >\n              <Box\n                as=\"form\"\n                sx={{\n                  display: 'flex',\n                  flexDirection: 'column',\n                  p: 3,\n                }}\n              >\n                <Text\n                  color=\"fg.muted\"\n                  sx={{\n                    fontSize: 1,\n                    mb: 3,\n                  }}\n                >\n                  Create a list to organize your starred repositories.\n                </Text>\n                <TextInput\n                  placeholder=\"Name this list\"\n                  sx={{\n                    mb: 2,\n                  }}\n                />\n                <TextInput\n                  as=\"textarea\"\n                  placeholder=\"Write a description\"\n                  rows={3}\n                  sx={{\n                    mb: 2,\n                    textarea: {\n                      p: 2,\n                    },\n                  }}\n                />\n\n                <Button\n                  variant=\"primary\"\n                  onClick={() =>\n                    setCreateListOverlayOpen(!createListOverlayOpen)\n                  }\n                >\n                  Create\n                </Button>\n              </Box>\n            </Overlay>\n          )}\n        </Overlay>\n      )}\n    </div>\n  )\n}"
+        },
+        {
+          "id": "components-overlay-features--memex-issue-overlay",
+          "code": "() => {\n  const [overlayOpen, setOverlayOpen] = React.useState(false)\n  const linkRef = useRef<HTMLAnchorElement>(null)\n  const inputRef = useRef<HTMLInputElement>(null)\n  const buttonRef = useRef<HTMLButtonElement>(null)\n  const [title, setTitle] = React.useState('Implement draft issue editor')\n  const [editing, setEditing] = React.useState(false)\n  React.useEffect(() => {\n    // If we just started editing, focus the newly rendered input\n    if (editing) inputRef.current?.focus()\n  }, [editing])\n  return (\n    <>\n      <Link\n        href=\"#\"\n        muted\n        ref={linkRef}\n        onClick={(event) => {\n          event.preventDefault()\n          setOverlayOpen(true)\n        }}\n        sx={{\n          display: 'block',\n          border: '1px solid',\n          borderColor: 'border.default',\n          p: 2,\n          ':hover': {\n            backgroundColor: 'canvas.subtle',\n          },\n        }}\n      >\n        <IssueDraftIcon /> {title}\n      </Link>\n      {overlayOpen && (\n        <Overlay\n          height=\"auto\"\n          width=\"large\"\n          onEscape={() => setOverlayOpen(false)}\n          onClickOutside={() => setOverlayOpen(false)}\n          returnFocusRef={linkRef}\n          top={0}\n          left=\"calc(100vw - 480px)\"\n        >\n          <Box\n            sx={{\n              p: 4,\n              height: '100vh',\n            }}\n          >\n            <Box\n              sx={{\n                display: 'flex',\n                alignItems: 'center',\n                gap: 1,\n                mb: 2,\n              }}\n            >\n              <Label size=\"large\">\n                <IssueDraftIcon /> Draft\n              </Label>\n              <Text\n                sx={{\n                  fontSize: 1,\n                }}\n              >\n                opened 2 days ago,\n              </Text>\n              <Text\n                sx={{\n                  fontSize: 1,\n                }}\n              >\n                showing {editing ? 'input' : 'button'}\n              </Text>\n            </Box>\n            {editing ? (\n              <TextInput\n                defaultValue={title}\n                onBlur={(event: React.FocusEvent<HTMLInputElement>) => {\n                  setEditing(false)\n                  setTitle(event.target.value)\n                }}\n                onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>) => {\n                  if (event.key === 'Enter') {\n                    setEditing(false)\n                    setTitle((event.target as HTMLInputElement).value)\n                  } else if (event.key === 'Escape') {\n                    setEditing(false)\n                    setTitle(title)\n                    event.preventDefault() // prevent Overlay from closing, this is what we recommend\n                    // event.stopPropagation() // this also works and feels nicer to use\n                  }\n                }}\n                ref={inputRef}\n                sx={{\n                  width: '100%',\n                  py: '2px',\n                  px: '7px',\n                  textAlign: 'left',\n                  color: 'fg.default',\n                  input: {\n                    fontWeight: 'bold',\n                    fontSize: 4,\n                    px: 0,\n                  },\n                }}\n              />\n            ) : (\n              <Button\n                variant=\"invisible\"\n                ref={buttonRef}\n                onClick={() => setEditing(true)}\n                aria-label=\"Change issue title\"\n                sx={{\n                  width: '100%',\n                  fontSize: 4,\n                  color: 'fg.default',\n                  p: 2,\n                  textAlign: 'left',\n                  borderRadius: '2',\n                }}\n              >\n                {title}\n              </Button>\n            )}\n          </Box>\n        </Overlay>\n      )}\n    </>\n  )\n}"
+        },
+        {
+          "id": "components-overlay-features--positioned-overlays",
+          "code": "({ right }: { right?: boolean }) => {\n  const [isOpen, setIsOpen] = useState(false)\n  const [direction, setDirection] = useState<'left' | 'right'>(\n    right ? 'right' : 'left',\n  )\n  const buttonRef = useRef<HTMLButtonElement>(null)\n  const confirmButtonRef = useRef<HTMLButtonElement>(null)\n  const anchorRef = useRef<HTMLDivElement>(null)\n  const closeOverlay = () => setIsOpen(false)\n  return (\n    <Box ref={anchorRef}>\n      <Button\n        ref={buttonRef}\n        onClick={() => {\n          setIsOpen(!isOpen)\n          setDirection('left')\n        }}\n      >\n        Open left overlay\n      </Button>\n      <Button\n        ref={buttonRef}\n        onClick={() => {\n          setIsOpen(!isOpen)\n          setDirection('right')\n        }}\n        sx={{\n          mt: 2,\n        }}\n      >\n        Open right overlay\n      </Button>\n      {isOpen ? (\n        direction === 'left' ? (\n          <Overlay\n            initialFocusRef={confirmButtonRef}\n            returnFocusRef={buttonRef}\n            ignoreClickRefs={[buttonRef]}\n            onEscape={closeOverlay}\n            onClickOutside={closeOverlay}\n            width=\"auto\"\n            anchorSide=\"inside-right\"\n          >\n            <Box\n              sx={{\n                height: '100vh',\n                width: '500px',\n                display: 'flex',\n                justifyContent: 'center',\n                alignItems: 'center',\n              }}\n            >\n              <Text>Look! left aligned</Text>\n            </Box>\n          </Overlay>\n        ) : (\n          <Overlay\n            initialFocusRef={confirmButtonRef}\n            returnFocusRef={buttonRef}\n            ignoreClickRefs={[buttonRef]}\n            onEscape={closeOverlay}\n            onClickOutside={closeOverlay}\n            width=\"auto\"\n            anchorSide={'inside-left'}\n            right={0}\n            position=\"fixed\"\n          >\n            <Box\n              sx={{\n                height: '100vh',\n                width: '500px',\n                display: 'flex',\n                justifyContent: 'center',\n                alignItems: 'center',\n              }}\n            >\n              <Text>Look! right aligned</Text>\n            </Box>\n          </Overlay>\n        )\n      ) : null}\n    </Box>\n  )\n}"
+        }
+      ],
+      "importPath": "@primer/react",
+      "props": [
+        {
+          "name": "as",
+          "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<unknown, any> | FunctionComponent<unknown>",
+          "required": true,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "style",
+          "type": "CSSProperties",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "height",
+          "type": "\"small\" | \"initial\" | \"large\" | \"medium\" | \"auto\" | \"fit-content\" | \"xsmall\" | \"xlarge\"",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "width",
+          "type": "\"small\" | \"large\" | \"medium\" | \"auto\" | \"xlarge\" | \"xxlarge\"",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "overflow",
+          "type": "\"hidden\" | \"scroll\" | \"auto\" | \"visible\"",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "maxHeight",
+          "type": "\"small\" | \"large\" | \"medium\" | \"fit-content\" | \"xsmall\" | \"xlarge\"",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "maxWidth",
+          "type": "\"small\" | \"large\" | \"medium\" | \"xlarge\" | \"xxlarge\"",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "sx",
+          "type": "BetterSystemStyleObject",
+          "required": false,
+          "description": "A style object used to override styles using styled-components",
+          "defaultValue": ""
+        },
+        {
+          "name": "anchorSide",
+          "type": "\"inside-top\" | \"inside-bottom\" | \"inside-left\" | \"inside-right\" | \"inside-center\" | \"outside-top\" | \"outside-bottom\" | \"outside-left\" | \"outside-right\"",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "ignoreClickRefs",
+          "type": "RefObject<HTMLElement>[]",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "initialFocusRef",
+          "type": "RefObject<HTMLElement>",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "returnFocusRef",
+          "type": "RefObject<HTMLElement>",
+          "required": true,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "onClickOutside",
+          "type": "(e: TouchOrMouseEvent) => void",
+          "required": true,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "onEscape",
+          "type": "(e: KeyboardEvent) => void",
+          "required": true,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "visibility",
+          "type": "\"hidden\" | \"visible\"",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "data-test-id",
+          "type": "unknown",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "position",
+          "type": "\"-moz-initial\" | \"inherit\" | \"initial\" | \"revert\" | \"revert-layer\" | \"unset\" | \"fixed\" | \"-webkit-sticky\" | \"absolute\" | \"relative\" | \"static\" | \"sticky\"",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "top",
+          "type": "string | number | string & {}",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "left",
+          "type": "string | number | string & {}",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "right",
+          "type": "string | number | string & {}",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "bottom",
+          "type": "string | number | string & {}",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "portalContainerName",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "preventFocusOnOpen",
+          "type": "boolean",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "role",
+          "type": "\"article\" | \"button\" | \"dialog\" | \"figure\" | \"form\" | \"img\" | \"link\" | \"main\" | \"menu\" | \"menuitem\" | \"option\" | \"search\" | \"table\" | \"switch\" | \"list\" | \"alert\" | \"alertdialog\" | \"application\" | \"banner\" | \"cell\" | \"checkbox\" | \"columnheader\" | \"combobox\" | \"complementary\" | \"contentinfo\" | \"definition\" | \"directory\" | \"document\" | \"feed\" | \"grid\" | \"gridcell\" | \"group\" | \"heading\" | \"listbox\" | \"listitem\" | \"log\" | \"marquee\" | \"math\" | \"menubar\" | \"menuitemcheckbox\" | \"menuitemradio\" | \"navigation\" | \"none\" | \"note\" | \"presentation\" | \"progressbar\" | \"radio\" | \"radiogroup\" | \"region\" | \"row\" | \"rowgroup\" | \"rowheader\" | \"scrollbar\" | \"searchbox\" | \"separator\" | \"slider\" | \"spinbutton\" | \"status\" | \"tab\" | \"tablist\" | \"tabpanel\" | \"term\" | \"textbox\" | \"timer\" | \"toolbar\" | \"tooltip\" | \"tree\" | \"treegrid\" | \"treeitem\"",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "",
           "defaultValue": ""
         }
       ],
@@ -6752,6 +7939,67 @@
         }
       ]
     },
+    "tab_nav": {
+      "id": "tab_nav",
+      "name": "TabNav",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-tabnav--default",
+          "code": "() => (\n  <TabNav aria-label=\"Main\">\n    <TabNav.Link href=\"#\" selected>\n      Home\n    </TabNav.Link>\n    <TabNav.Link href=\"#\">Documentation</TabNav.Link>\n    <TabNav.Link href=\"#\">Support</TabNav.Link>\n  </TabNav>\n)"
+        },
+        {
+          "id": "components-tabnav-features--selected",
+          "code": "() => (\n  <TabNav aria-label=\"Main\">\n    <TabNav.Link href=\"#\">Home</TabNav.Link>\n    <TabNav.Link href=\"#\" selected>\n      Documentation\n    </TabNav.Link>\n    <TabNav.Link href=\"#\">Support</TabNav.Link>\n  </TabNav>\n)"
+        }
+      ],
+      "importPath": "@primer/react",
+      "props": [
+        {
+          "name": "sx",
+          "type": "BetterSystemStyleObject",
+          "required": false,
+          "description": "A style object used to override styles using styled-components",
+          "defaultValue": ""
+        }
+      ],
+      "subcomponents": [
+        {
+          "name": "TabNav.Link",
+          "props": [
+            {
+              "name": "href",
+              "type": "string",
+              "required": false,
+              "description": "Used to populate the `href` attribute when using an `<a>` tag",
+              "defaultValue": ""
+            },
+            {
+              "name": "to",
+              "type": "string | Partial<Path>",
+              "required": false,
+              "description": "Used when the item is rendered using a component like React Router's `Link`. The path to navigate to.",
+              "defaultValue": ""
+            },
+            {
+              "name": "selected",
+              "type": "boolean",
+              "required": false,
+              "description": "Whether this item represents the current page",
+              "defaultValue": ""
+            },
+            {
+              "name": "sx",
+              "type": "BetterSystemStyleObject",
+              "required": false,
+              "description": "A style object used to override styles using styled-components",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ]
+    },
     "text": {
       "id": "text",
       "name": "Text",
@@ -7514,6 +8762,280 @@
       ],
       "subcomponents": []
     },
+    "avatar_token": {
+      "id": "avatar_token",
+      "name": "AvatarToken",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "importPath": "@primer/react",
+      "props": [
+        {
+          "name": "as",
+          "type": "\"a\" | \"button\" | \"span\" | \"button\" & ComponentClass<unknown, any> | \"button\" & FunctionComponent<unknown> | \"a\" & ComponentClass<unknown, any> | \"a\" & FunctionComponent<unknown> | \"span\" & ComponentClass<unknown, any> | \"span\" & FunctionComponent<unknown>",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "avatarSrc",
+          "type": "string",
+          "required": true,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "onRemove",
+          "type": "() => void",
+          "required": false,
+          "description": "The function that gets called when a user clicks the remove button, or keys \"Backspace\" or \"Delete\" when focused on the token",
+          "defaultValue": ""
+        },
+        {
+          "name": "hideRemoveButton",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether the remove button should be rendered in the token",
+          "defaultValue": ""
+        },
+        {
+          "name": "isSelected",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether the token is selected",
+          "defaultValue": ""
+        },
+        {
+          "name": "text",
+          "type": "ReactNode",
+          "required": true,
+          "description": "The text label inside the token",
+          "defaultValue": ""
+        },
+        {
+          "name": "id",
+          "type": "string | number",
+          "required": false,
+          "description": "A unique identifier that can be associated with the token",
+          "defaultValue": ""
+        },
+        {
+          "name": "size",
+          "type": "\"small\" | \"large\" | \"medium\" | \"xlarge\"",
+          "required": false,
+          "description": "Which size the token will be rendered at",
+          "defaultValue": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether or not the token is disabled (non-interactive).",
+          "defaultValue": ""
+        }
+      ],
+      "subcomponents": []
+    },
+    "issue_label_token": {
+      "id": "issue_label_token",
+      "name": "IssueLabelToken",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [],
+      "importPath": "@primer/react",
+      "props": [
+        {
+          "name": "as",
+          "type": "\"a\" | \"button\" | \"span\" | \"button\" & ComponentClass<unknown, any> | \"button\" & FunctionComponent<unknown> | \"a\" & ComponentClass<unknown, any> | \"a\" & FunctionComponent<unknown> | \"span\" & ComponentClass<unknown, any> | \"span\" & FunctionComponent<unknown>",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "fillColor",
+          "type": "string",
+          "required": false,
+          "description": "The color that corresponds to the label",
+          "defaultValue": "#999"
+        },
+        {
+          "name": "onRemove",
+          "type": "() => void",
+          "required": false,
+          "description": "The function that gets called when a user clicks the remove button, or keys \"Backspace\" or \"Delete\" when focused on the token",
+          "defaultValue": ""
+        },
+        {
+          "name": "hideRemoveButton",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether the remove button should be rendered in the token",
+          "defaultValue": ""
+        },
+        {
+          "name": "isSelected",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether the token is selected",
+          "defaultValue": ""
+        },
+        {
+          "name": "text",
+          "type": "ReactNode",
+          "required": true,
+          "description": "The text label inside the token",
+          "defaultValue": ""
+        },
+        {
+          "name": "id",
+          "type": "string | number",
+          "required": false,
+          "description": "A unique identifier that can be associated with the token",
+          "defaultValue": ""
+        },
+        {
+          "name": "size",
+          "type": "\"small\" | \"large\" | \"medium\" | \"xlarge\"",
+          "required": false,
+          "description": "Which size the token will be rendered at",
+          "defaultValue": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether or not the token is disabled (non-interactive).",
+          "defaultValue": ""
+        }
+      ],
+      "subcomponents": []
+    },
+    "token": {
+      "id": "token",
+      "name": "Token",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-token--default",
+          "code": "() => <Token text=\"token\" />"
+        },
+        {
+          "id": "components-token-features--interactive-token",
+          "code": "() => {\n  return (\n    <Box\n      display=\"flex\"\n      sx={{\n        alignItems: 'start',\n        gap: get('space.2'),\n      }}\n    >\n      <Token\n        as=\"a\"\n        href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n        text=\"Link\"\n      />\n      <Token as=\"button\" onClick={action('clicked')} text=\"Button\" />\n      <Token\n        as=\"span\"\n        tabIndex={0}\n        onFocus={action('focused')}\n        text=\"Focusable Span\"\n      />\n    </Box>\n  )\n}"
+        },
+        {
+          "id": "components-token-features--token-with-leading-visual",
+          "code": "() => {\n  return <Token text=\"token\" leadingVisual={GitBranchIcon} />\n}"
+        },
+        {
+          "id": "components-token-features--token-with-on-remove-fn",
+          "code": "() => {\n  return (\n    <Box\n      display=\"flex\"\n      sx={{\n        alignItems: 'start',\n        gap: get('space.2'),\n      }}\n    >\n      <Token text=\"token\" onRemove={action('remove me')} />\n      <Token\n        as=\"a\"\n        href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n        onRemove={action('remove me')}\n        text=\"Link\"\n      />\n      <Token\n        as=\"button\"\n        onClick={action('clicked')}\n        onRemove={action('remove me')}\n        text=\"Button\"\n      />\n      <Token\n        as=\"span\"\n        tabIndex={0}\n        onFocus={action('focused')}\n        onRemove={action('remove me')}\n        text=\"Focusable Span\"\n      />\n    </Box>\n  )\n}"
+        },
+        {
+          "id": "components-token-features--default-issue-label-token",
+          "code": "() => {\n  return <IssueLabelToken text=\"good first issue\" />\n}"
+        },
+        {
+          "id": "components-token-features--interactive-issue-label-token",
+          "code": "() => {\n  return (\n    <Box\n      display=\"flex\"\n      sx={{\n        alignItems: 'start',\n        gap: get('space.2'),\n      }}\n    >\n      <IssueLabelToken\n        as=\"a\"\n        href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n        text=\"Link\"\n      />\n      <IssueLabelToken as=\"button\" onClick={action('clicked')} text=\"Button\" />\n      <IssueLabelToken\n        as=\"span\"\n        tabIndex={0}\n        onFocus={action('focused')}\n        text=\"Focusable Span\"\n      />\n    </Box>\n  )\n}"
+        },
+        {
+          "id": "components-token-features--issue-label-token-with-on-remove-fn",
+          "code": "() => {\n  return (\n    <Box\n      display=\"flex\"\n      sx={{\n        alignItems: 'start',\n        gap: get('space.2'),\n      }}\n    >\n      <IssueLabelToken text=\"token\" onRemove={action('remove me')} />\n      <IssueLabelToken\n        as=\"a\"\n        href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n        onRemove={action('remove me')}\n        text=\"Link\"\n      />\n      <IssueLabelToken\n        as=\"button\"\n        onClick={action('clicked')}\n        onRemove={action('remove me')}\n        text=\"Button\"\n      />\n      <IssueLabelToken\n        as=\"span\"\n        tabIndex={0}\n        onFocus={action('focused')}\n        onRemove={action('remove me')}\n        text=\"Focusable Span\"\n      />\n    </Box>\n  )\n}"
+        },
+        {
+          "id": "components-token-features--small-token",
+          "code": "() => <Token text=\"token\" size=\"small\" />"
+        },
+        {
+          "id": "components-token-features--large-token",
+          "code": "() => <Token text=\"token\" size=\"xlarge\" />"
+        },
+        {
+          "id": "components-token-features--x-large-token",
+          "code": "() => <Token text=\"token\" size=\"xlarge\" />"
+        },
+        {
+          "id": "components-token-features--issue-label-token-custom-colors",
+          "code": "() => {\n  return (\n    <Box\n      display=\"flex\"\n      sx={{\n        flexDirection: 'column',\n        alignItems: 'start',\n        gap: get('space.2'),\n      }}\n    >\n      <Box\n        display=\"flex\"\n        sx={{\n          alignItems: 'start',\n          gap: get('space.2'),\n        }}\n      >\n        <IssueLabelToken\n          as=\"a\"\n          href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n          text=\"Link\"\n          fillColor=\"#0366d6\"\n        />\n        <IssueLabelToken\n          as=\"button\"\n          onClick={action('clicked')}\n          text=\"Button\"\n          fillColor=\"lightpink\"\n        />\n        <IssueLabelToken\n          as=\"span\"\n          tabIndex={0}\n          onFocus={action('focused')}\n          text=\"Focusable Span\"\n          fillColor=\"coral\"\n        />\n      </Box>\n      <h3>Color examples</h3>\n      <Box\n        display=\"flex\"\n        flexWrap=\"wrap\"\n        sx={{\n          alignItems: 'start',\n          gap: get('space.2'),\n        }}\n      >\n        <IssueLabelToken\n          as=\"a\"\n          href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n          text=\"😀 Link\"\n          fillColor=\"#8c50c8\"\n        />\n        <IssueLabelToken\n          as=\"a\"\n          href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n          text=\"Token\"\n          fillColor=\"#a9d3bc\"\n        />\n        <IssueLabelToken\n          as=\"a\"\n          href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n          text=\"🚨 Problem\"\n          fillColor=\"#98afa7\"\n        />\n        <IssueLabelToken\n          as=\"a\"\n          href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n          text=\"📥 Inbox\"\n          fillColor=\"#573807\"\n        />\n        <IssueLabelToken\n          as=\"a\"\n          href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n          text=\"deeppink\"\n          fillColor=\"#b7b41e\"\n        />\n        <IssueLabelToken\n          as=\"a\"\n          href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n          text=\"👹 Link\"\n          fillColor=\"#0f65b1\"\n        />\n        <IssueLabelToken\n          as=\"a\"\n          href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n          text=\"Tiger\"\n          fillColor=\"#e7bc68\"\n        />\n        <IssueLabelToken\n          as=\"a\"\n          href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n          text=\"🐛 coral\"\n          fillColor=\"#D6F2DE\"\n        />\n        <IssueLabelToken\n          as=\"a\"\n          href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n          text=\"Long label\"\n          fillColor=\"#161E37\"\n        />\n        <IssueLabelToken\n          as=\"a\"\n          href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n          text=\"✅ Done\"\n          fillColor=\"#232323\"\n        />\n        <IssueLabelToken\n          as=\"a\"\n          href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n          text=\"Hello\"\n          fillColor=\"#E0E0E0\"\n        />\n        <IssueLabelToken\n          as=\"a\"\n          href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n          text=\"Lorem\"\n          fillColor=\"#aed531\"\n        />\n        <IssueLabelToken\n          as=\"a\"\n          href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n          text=\"Lorem\"\n          fillColor=\"#d980fc\"\n        />\n        <IssueLabelToken\n          as=\"a\"\n          href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n          text=\"Lorem\"\n          fillColor=\"#e7f922\"\n        />\n        <IssueLabelToken\n          as=\"a\"\n          href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n          text=\"🚀 Lorem\"\n          fillColor=\"#ef70e9\"\n        />\n        <IssueLabelToken\n          as=\"a\"\n          href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n          text=\"Lorem\"\n          fillColor=\"#72ea84\"\n        />\n        <IssueLabelToken\n          as=\"a\"\n          href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n          text=\"Lorem\"\n          fillColor=\"#87e50b\"\n        />\n        <IssueLabelToken\n          as=\"a\"\n          href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n          text=\"🤷 Lorem\"\n          fillColor=\"#fcf646\"\n        />\n        <IssueLabelToken\n          as=\"a\"\n          href=\"/?path=/story/components-token-features--issue-label-token-custom-colors\"\n          text=\"💡 Light\"\n          fillColor=\"#E40C74\"\n        />\n      </Box>\n    </Box>\n  )\n}"
+        }
+      ],
+      "importPath": "@primer/react",
+      "props": [
+        {
+          "name": "as",
+          "type": "\"a\" | \"button\" | \"span\" | \"button\" & ComponentClass<unknown, any> | \"button\" & FunctionComponent<unknown> | \"a\" & ComponentClass<unknown, any> | \"a\" & FunctionComponent<unknown> | \"span\" & ComponentClass<unknown, any> | \"span\" & FunctionComponent<unknown>",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "leadingVisual",
+          "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<any, any> | FunctionComponent<any>",
+          "required": false,
+          "description": "A component that renders before the token text",
+          "defaultValue": ""
+        },
+        {
+          "name": "onRemove",
+          "type": "() => void",
+          "required": false,
+          "description": "The function that gets called when a user clicks the remove button, or keys \"Backspace\" or \"Delete\" when focused on the token",
+          "defaultValue": ""
+        },
+        {
+          "name": "hideRemoveButton",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether the remove button should be rendered in the token",
+          "defaultValue": ""
+        },
+        {
+          "name": "isSelected",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether the token is selected",
+          "defaultValue": ""
+        },
+        {
+          "name": "text",
+          "type": "ReactNode",
+          "required": true,
+          "description": "The text label inside the token",
+          "defaultValue": ""
+        },
+        {
+          "name": "id",
+          "type": "string | number",
+          "required": false,
+          "description": "A unique identifier that can be associated with the token",
+          "defaultValue": ""
+        },
+        {
+          "name": "size",
+          "type": "\"small\" | \"large\" | \"medium\" | \"xlarge\"",
+          "required": false,
+          "description": "Which size the token will be rendered at",
+          "defaultValue": ""
+        },
+        {
+          "name": "disabled",
+          "type": "boolean",
+          "required": false,
+          "description": "Whether or not the token is disabled (non-interactive).",
+          "defaultValue": ""
+        },
+        {
+          "name": "sx",
+          "type": "BetterSystemStyleObject",
+          "required": false,
+          "description": "A style object used to override styles using styled-components",
+          "defaultValue": ""
+        }
+      ],
+      "subcomponents": []
+    },
     "tooltip": {
       "id": "tooltip",
       "docsId": "tooltip",
@@ -7971,6 +9493,57 @@
           ]
         }
       ]
+    },
+    "truncate": {
+      "id": "truncate",
+      "name": "Truncate",
+      "status": "alpha",
+      "a11yReviewed": false,
+      "stories": [
+        {
+          "id": "components-truncate--default",
+          "code": "() => <Truncate title=\"Some example text\">Some example text</Truncate>"
+        }
+      ],
+      "importPath": "@primer/react",
+      "props": [
+        {
+          "name": "as",
+          "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<unknown, any> | FunctionComponent<unknown>",
+          "required": true,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "description": "@deprecated use children instead",
+          "defaultValue": ""
+        },
+        {
+          "name": "inline",
+          "type": "boolean",
+          "required": false,
+          "description": "Displays text as inline block and vertical aligns to the top.",
+          "defaultValue": "false"
+        },
+        {
+          "name": "sx",
+          "type": "BetterSystemStyleObject",
+          "required": false,
+          "description": "A style object used to override styles using styled-components",
+          "defaultValue": ""
+        },
+        {
+          "name": "expandable",
+          "type": "boolean",
+          "required": false,
+          "description": "Displays text as inline block and vertical aligns to the top.",
+          "defaultValue": "false"
+        }
+      ],
+      "subcomponents": []
     },
     "underline_nav": {
       "id": "underline_nav",

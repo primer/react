@@ -17,6 +17,7 @@ type InternalAutocompleteInputProps = {
 
 const ARROW_KEYS_NAV = new Set(['ArrowUp', 'ArrowDown'])
 
+// TODO: Update this so the default props from `TextInput` are also documented by react-typescript-docgen
 /**
  * The text input field for an Autocomplete component. Defaults to using a `TextInput` component, but is polymorphic to allow for custom components.
  * @alias Autocomplete.Input

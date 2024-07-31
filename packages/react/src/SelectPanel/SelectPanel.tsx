@@ -6,7 +6,7 @@ import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/Anchore
 import Box from '../Box'
 import type {FilteredActionListProps} from '../FilteredActionList'
 import {FilteredActionList} from '../FilteredActionList'
-import Heading from '../Heading'
+import {Heading} from '../Heading'
 import type {OverlayProps} from '../Overlay'
 import type {TextInputProps} from '../TextInput'
 import type {ItemProps} from '../deprecated/ActionList'

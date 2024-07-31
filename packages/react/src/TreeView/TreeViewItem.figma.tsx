@@ -1,5 +1,5 @@
 import React from 'react'
-import {TreeView} from './TreeView'
+import {TreeView} from './'
 import figma from '@figma/code-connect'
 
 /**

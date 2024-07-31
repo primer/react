@@ -137,7 +137,7 @@ type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
  * @param position Optional. Sets how an element is positioned in a document. Defaults to `absolute` positioning.
  * @param portalContainerName Optional. The name of the portal container to render the Overlay into.
  */
-const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
+export const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
   (
     {
       onClickOutside,
@@ -229,5 +229,3 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
 ) as PolymorphicForwardRefComponent<'div', OwnOverlayProps>
 
 export type OverlayProps = ComponentPropsWithRef<typeof Overlay>
-
-export default Overlay

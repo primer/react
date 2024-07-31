@@ -1,7 +1,7 @@
 import React from 'react'
 import type {Meta, StoryFn} from '@storybook/react'
 import type {ComponentProps} from '../utils/types'
-import Label from './Label'
+import {Label} from './Label'
 
 export default {
   title: 'Components/Label',

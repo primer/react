@@ -45,8 +45,11 @@ const darkModeStyles = {
 
 /**
  * An abstraction of Token that includes a color fill to render a token in the style of GitHub issue labels.
+ * @primerid issue_label_token
+ * @primerstatus alpha
+ * @primera11yreviewed false
  */
-const IssueLabelToken = forwardRef((props, forwardedRef) => {
+export const IssueLabelToken = forwardRef((props, forwardedRef) => {
   const {
     as,
     fillColor = '#999',
@@ -172,5 +175,3 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
 }) as PolymorphicForwardRefComponent<'span' | 'a' | 'button', IssueLabelTokenProps>
 
 IssueLabelToken.displayName = 'IssueLabelToken'
-
-export default IssueLabelToken

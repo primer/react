@@ -6,8 +6,12 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import {defaultSxProp} from '../utils/defaultSxProp'
 
 type MyProps = LinkButtonProps & ButtonBaseProps
-
-const LinkButton = forwardRef(
+/**
+ * @primerid link_button
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
+export const LinkButton = forwardRef(
   ({children, as: Component = 'a', sx = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
     return (
       <ButtonBase
@@ -22,5 +26,3 @@ const LinkButton = forwardRef(
     )
   },
 ) as PolymorphicForwardRefComponent<'a', MyProps>
-
-export {LinkButton}

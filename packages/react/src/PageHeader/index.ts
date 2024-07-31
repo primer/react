@@ -17,8 +17,6 @@ import {
 } from './PageHeader'
 import type {PageHeaderProps, ParentLinkProps, TitleProps, NavigationProps} from './PageHeader'
 
-Root.displayName = 'PageHeader'
-
 export const PageHeader = Object.assign(Root, {
   ContextArea,
   ParentLink,

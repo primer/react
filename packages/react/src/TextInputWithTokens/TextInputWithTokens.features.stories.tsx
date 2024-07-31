@@ -3,7 +3,7 @@ import {CheckIcon, NumberIcon} from '@primer/octicons-react'
 import {Box, FormControl} from '..'
 import type {TextInputWithTokensProps} from '../TextInputWithTokens'
 import TextInputWithTokens from '../TextInputWithTokens'
-import IssueLabelToken from '../Token/IssueLabelToken'
+import {IssueLabelToken} from '../Token/IssueLabelToken'
 import type {FormControlArgs} from '../utils/story-helpers'
 import {formControlArgTypes, textInputExcludedControlKeys} from '../utils/story-helpers'
 

@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import {Button} from '../Button'
-import Link from '../Link'
+import {Link} from '../Link'
 import {get} from '../constants'
 
 export type BlankslateProps = React.PropsWithChildren<{

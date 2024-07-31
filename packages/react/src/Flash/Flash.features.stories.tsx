@@ -1,10 +1,10 @@
 import React from 'react'
 import type {Meta} from '@storybook/react'
-import Flash from './Flash'
+import {Flash} from './Flash'
 import Octicon from '../Octicon'
 import {InfoIcon, XIcon} from '@primer/octicons-react'
 import {Button, IconButton} from '../Button'
-import Link from '../Link'
+import {Link} from '../Link'
 import Box from '../Box'
 
 export default {

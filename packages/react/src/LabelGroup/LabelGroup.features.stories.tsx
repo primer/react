@@ -2,8 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import LabelGroup from './LabelGroup'
 import type {Meta, StoryFn} from '@storybook/react'
-import Token from '../Token/Token'
-import Label from '../Label/Label'
+import {Token} from '../Token/Token'
+import {Label} from '../Label/Label'
 
 const meta: Meta = {
   title: 'Components/LabelGroup/Features',

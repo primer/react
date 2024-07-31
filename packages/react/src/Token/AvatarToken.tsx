@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {get} from '../constants'
 import type {TokenBaseProps, TokenSizeKeys} from './TokenBase'
 import {defaultTokenSize, tokenSizes} from './TokenBase'
-import Token from './Token'
+import {Token} from './'
 import Avatar from '../Avatar'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
@@ -24,8 +24,11 @@ const AvatarContainer = styled.span<{avatarSize: TokenSizeKeys}>`
 
 /**
  * An abstraction of Token that includes an avatar image as a leading visual.
+ * @primerid avatar_token
+ * @primerstatus alpha
+ * @primera11yreviewed false
  */
-const AvatarToken = forwardRef(({avatarSrc, id, size = defaultTokenSize, ...rest}, forwardedRef) => {
+export const AvatarToken = forwardRef(({avatarSrc, id, size = defaultTokenSize, ...rest}, forwardedRef) => {
   return (
     <Token
       leadingVisual={() => (
@@ -52,5 +55,3 @@ const AvatarToken = forwardRef(({avatarSrc, id, size = defaultTokenSize, ...rest
 }) as PolymorphicForwardRefComponent<'span' | 'a' | 'button', AvatarTokenProps>
 
 AvatarToken.displayName = 'AvatarToken'
-
-export default AvatarToken

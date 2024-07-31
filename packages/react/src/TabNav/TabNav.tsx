@@ -36,7 +36,7 @@ export type TabNavProps = ComponentProps<typeof TabNavBase>
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-function TabNav({
+export function TabNav({
   /** Links in the tabbed navigation */
   children,
   /** Used to set the `aria-label` on the top level `<nav>` element. */
@@ -101,7 +101,7 @@ export type TabNavLinkProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLA
  * @alias TabNav.Link
  * @primerparentid tab_nav
  */
-const TabNavLink = styled.a.attrs<TabNavLinkProps>(props => ({
+export const TabNavLink = styled.a.attrs<TabNavLinkProps>(props => ({
   className: clsx(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
   role: 'tab',
   'aria-selected': !!props.selected,
@@ -136,5 +136,3 @@ const TabNavLink = styled.a.attrs<TabNavLinkProps>(props => ({
 ` as PolymorphicForwardRefComponent<'a', TabNavLinkProps>
 
 TabNavLink.displayName = 'TabNav.Link'
-
-export default Object.assign(TabNav, {Link: TabNavLink})

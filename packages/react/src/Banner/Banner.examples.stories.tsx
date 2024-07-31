@@ -1,6 +1,6 @@
 import {Banner} from '../Banner'
 import {action} from '@storybook/addon-actions'
-import Link from '../Link'
+import {Link} from '../Link'
 import type {Meta} from '@storybook/react'
 import {AriaAlert, AriaStatus} from '../live-region'
 import {FormControl} from '../FormControl'

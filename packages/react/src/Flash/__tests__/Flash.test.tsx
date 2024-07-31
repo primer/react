@@ -1,5 +1,5 @@
 import React from 'react'
-import Flash from '..'
+import {Flash} from '..'
 import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
@@ -8,7 +8,8 @@ describe('Flash', () => {
   behavesAsComponent({Component: Flash})
 
   checkExports('Flash', {
-    default: Flash,
+    default: undefined,
+    Flash,
   })
 
   it('should have no axe violations', async () => {
