@@ -469,15 +469,12 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           }),
         )
 
-  useFocusTrap(
-    {
-      containerRef: dialogRef,
-      initialFocusRef: initialFocusRef ?? autoFocusedFooterButtonRef,
-      restoreFocusOnCleanUp: returnFocusRef?.current ? false : true,
-      returnFocusRef,
-    },
-    [dialogRef, footer],
-  )
+  useFocusTrap({
+    containerRef: dialogRef,
+    initialFocusRef: initialFocusRef ?? autoFocusedFooterButtonRef,
+    restoreFocusOnCleanUp: returnFocusRef?.current ? false : true,
+    returnFocusRef,
+  })
 
   return (
     <>
@@ -494,11 +491,11 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             {...positionDataAttributes}
             sx={sx}
           >
-            {header}
+            <Box>{header}</Box>
             <ScrollableRegion aria-labelledby={dialogLabelId} className="DialogOverflowWrapper">
               {body}
             </ScrollableRegion>
-            {footer}
+            <Box>{footer}</Box>
           </StyledDialog>
         </Backdrop>
       </Portal>
