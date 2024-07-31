@@ -111,7 +111,7 @@ Currently, I'd prefer to move forward with [react-docgen-typescript](https://git
 ##### react-docgen-typescript pros
 
 - Made specifically for extracting type data from React components
-- I'm able to get almost all (about 95%) components and prop data parsed into a `components.json` file (example of existing JSON file: [components.json](https://unpkg.com/browse/@primer/react@36.27.0/generated/components.json))
+- I'm able to get all components and prop data parsed into a `components.json` file (example of existing JSON file: [components.json](https://unpkg.com/browse/@primer/react@36.27.0/generated/components.json))
 - The `shouldIncludeExpression` option opens us up to further customization because it has the option to return expression data with output
 - Is the same tool Storybook uses to show prop types, so Storybook will be better aligned with component docs
 
