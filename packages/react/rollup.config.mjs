@@ -1,3 +1,4 @@
+import fs from 'node:fs'
 import path from 'node:path'
 import {fileURLToPath} from 'node:url'
 import commonjs from '@rollup/plugin-commonjs'
@@ -10,6 +11,7 @@ import customPropertiesFallback from 'postcss-custom-properties-fallback'
 import {visualizer} from 'rollup-plugin-visualizer'
 import {importCSS} from 'rollup-plugin-import-css'
 import postcss from 'rollup-plugin-postcss'
+import postssPresetPrimer from 'postcss-preset-primer'
 import MagicString from 'magic-string'
 import packageJson from './package.json' assert {type: 'json'}
 
@@ -87,6 +89,7 @@ function createPackageRegex(name) {
 }
 
 const postcssPlugins = [
+  postssPresetPrimer(),
   customPropertiesFallback({
     importFrom: [
       () => {
@@ -170,6 +173,12 @@ const baseConfig = {
     commonjs({
       extensions,
     }),
+    importCSS({
+      modulesRoot: 'src',
+      postcssPlugins,
+      postcssModulesOptions,
+    }),
+
     /**
      * This custom rollup plugin allows us to preserve directives in source
      * code, such as "use client", in order to support React Server Components.
@@ -278,14 +287,6 @@ export default [
   // ESM
   {
     ...baseConfig,
-    plugins: [
-      ...baseConfig.plugins,
-      importCSS({
-        modulesRoot: 'src',
-        postcssPlugins,
-        postcssModulesOptions,
-      }),
-    ],
     external: dependencies.map(createPackageRegex),
     output: {
       interop: 'auto',
@@ -299,14 +300,6 @@ export default [
   // CommonJS
   {
     ...baseConfig,
-    plugins: [
-      ...baseConfig.plugins,
-      importCSS({
-        modulesRoot: 'src',
-        postcssPlugins,
-        postcssModulesOptions,
-      }),
-    ],
     external: dependencies.filter(name => !ESM_ONLY.has(name)).map(createPackageRegex),
     output: {
       interop: 'auto',
@@ -328,7 +321,44 @@ export default [
         'process.env.NODE_ENV': JSON.stringify('production'),
         preventAssignment: true,
       }),
-      ...baseConfig.plugins,
+      babel({
+        extensions,
+        exclude: /node_modules/,
+        babelHelpers: 'inline',
+        babelrc: false,
+        configFile: false,
+        presets: [
+          '@babel/preset-typescript',
+          [
+            '@babel/preset-react',
+            {
+              modules: false,
+            },
+          ],
+        ],
+        plugins: [
+          'macros',
+          'add-react-displayname',
+          'dev-expression',
+          'babel-plugin-styled-components',
+          '@babel/plugin-proposal-nullish-coalescing-operator',
+          '@babel/plugin-proposal-optional-chaining',
+          [
+            'babel-plugin-transform-replace-expressions',
+            {
+              replace: {
+                __DEV__: "process.env.NODE_ENV !== 'production'",
+              },
+            },
+          ],
+        ],
+      }),
+      resolve({
+        extensions,
+      }),
+      commonjs({
+        extensions,
+      }),
       // PostCSS plugins are defined in postcss.config.js
       postcss({
         extract: 'components.css',
