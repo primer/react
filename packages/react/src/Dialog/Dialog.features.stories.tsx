@@ -164,6 +164,8 @@ export const ReproMultistepDialogWithConditionalFooter = ({width, height}: Dialo
   const onDialogClose = useCallback(() => setIsOpen(false), [])
   const [step, setStep] = React.useState(1)
 
+  const [inputText, setInputText] = React.useState('')
+
   const renderFooterConditionally = () => {
     if (step === 1) return null
 
@@ -196,12 +198,17 @@ export const ReproMultistepDialogWithConditionalFooter = ({width, height}: Dialo
               </Box>
             </Box>
           ) : (
-            <p>
+            <div>
               <Box sx={{display: 'flex', flexDirection: 'column', gap: 1}}>
                 <label htmlFor="description">Description</label>
-                <TextInput id="description" placeholder="Write the description here" />
+                <TextInput
+                  id="description"
+                  placeholder="Write the description here"
+                  value={inputText}
+                  onChange={event => setInputText(event.target.value)}
+                />
               </Box>
-            </p>
+            </div>
           )}
         </Dialog>
       )}
