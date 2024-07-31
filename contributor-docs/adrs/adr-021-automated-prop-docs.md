@@ -126,7 +126,7 @@ Currently, I'd prefer to move forward with [react-docgen-typescript](https://git
 
 ##### Example component
 
-`primer-react-docgen` and other tools I've tested only document components and props that are exported.
+`react-typescript-docgen` and other tools I've tested only document components and props that are exported.
 
 The following code style has given me the best results with `react-typescript-docgen`, and is very close to what we already do.
 
