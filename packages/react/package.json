@@ -38,7 +38,10 @@
     "./lib-esm/internal/*": null
   },
   "typings": "lib/index.d.ts",
-  "sideEffects": false,
+  "sideEffects": [
+    "lib-esm/**/*.css",
+    "lib/**/*.css"
+  ],
   "scripts": {
     "build": "./script/build",
     "clean": "rimraf dist lib lib-esm css",
