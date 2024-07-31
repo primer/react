@@ -111,23 +111,14 @@ export function FilteredActionList({
 
   useScrollFlash(scrollContainerRef)
 
-  const MappingFn: React.FC = listProps => {
-    return (
-      <ActionList ref={listContainerRef} {...listProps} role="listbox" id={listId}>
-        {items.map((i, index) => {
-          return <ActionListItem key={index} {...i} />
-        })}
-      </ActionList>
-    )
-  }
-
-  const ActionListItem: React.FC = (item: ItemInput) => {
+  function MappedActionList(item: ItemInput) {
     const {
       description,
       descriptionVariant,
-      id,
       sx,
       text,
+      variant,
+      disabled,
       trailingVisual: TrailingVisual,
       leadingVisual: LeadingVisual,
       trailingText,
@@ -145,6 +136,8 @@ export function FilteredActionList({
             onAction(item, e as React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>)
         }}
         selected={selected}
+        variant={variant}
+        disabled={disabled}
       >
         {LeadingVisual ? (
           <ActionList.LeadingVisual>
@@ -198,7 +191,11 @@ export function FilteredActionList({
             <Spinner />
           </Box>
         ) : (
-          MappingFn(listProps)
+          <ActionList ref={listContainerRef} {...listProps} role="listbox" id={listId}>
+            {items.map((item, index) => {
+              return <MappedActionList key={index} {...item} />
+            })}
+          </ActionList>
         )}
       </Box>
     </Box>
