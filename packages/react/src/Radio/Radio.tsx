@@ -50,12 +50,17 @@ const StyledRadio = styled.input`
     border-color 80ms cubic-bezier(0.33, 1, 0.68, 1); /* checked -> unchecked - add 120ms delay to fully see animation-out */
 
   &:checked {
-    border-color: ${get('colors.accent.fg')};
     border-width: var(--base-size-4, 4px);
+    border-color: var(
+      --control-checked-bgColor-rest,
+      ${get('colors.accent.fg')}
+    ); /* using bgColor here to avoid a border change in dark high contrast */
+    background-color: var(--control-checked-fgColor-rest, ${get('colors.fg.onEmphasis')});
 
     &:disabled {
       cursor: not-allowed;
       border-color: ${get('colors.fg.muted')};
+      background-color: ${get('colors.fg.muted')};
     }
   }
 

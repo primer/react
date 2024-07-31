@@ -52,42 +52,52 @@ const colorVariants = variant({
     issueClosed: {
       backgroundColor: 'done.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-done-emphasis, transparent)',
     },
     issueClosedNotPlanned: {
       backgroundColor: 'neutral.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-neutral-emphasis, transparent)',
     },
     pullClosed: {
       backgroundColor: 'closed.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-closed-emphasis, transparent)',
     },
     pullMerged: {
       backgroundColor: 'done.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-done-emphasis, transparent)',
     },
     pullQueued: {
       backgroundColor: 'attention.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-attention-emphasis, transparent)',
     },
     issueOpened: {
       backgroundColor: 'open.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-open-emphasis, transparent)',
     },
     pullOpened: {
       backgroundColor: 'open.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-open-emphasis, transparent)',
     },
     draft: {
       backgroundColor: 'neutral.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-neutral-emphasis, transparent)',
     },
     issueDraft: {
       backgroundColor: 'neutral.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-neutral-emphasis, transparent)',
     },
     unavailable: {
       backgroundColor: 'neutral.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-neutral-emphasis, transparent)',
     },
   },
 })
