@@ -85,8 +85,6 @@ const Token = forwardRef((props, forwardedRef) => {
     sxProp,
   )
 
-  console.log(as)
-
   return (
     <TokenBase
       onRemove={onRemove}
