@@ -166,6 +166,8 @@ export const ReproMultistepDialogWithConditionalFooter = ({width, height}: Dialo
 
   const [inputText, setInputText] = React.useState('')
 
+  const dialogRef = useRef<HTMLDivElement>(null)
+
   const renderFooterConditionally = () => {
     if (step === 1) return null
 
@@ -175,6 +177,14 @@ export const ReproMultistepDialogWithConditionalFooter = ({width, height}: Dialo
       </Dialog.Footer>
     )
   }
+
+  React.useEffect(() => {
+    // focus the close button when the step changes
+    const focusTarget = dialogRef.current?.querySelector('button[aria-label="Close"]') as HTMLButtonElement
+    if (step === 2) {
+      focusTarget.focus()
+    }
+  }, [step])
 
   return (
     <>
@@ -187,6 +197,7 @@ export const ReproMultistepDialogWithConditionalFooter = ({width, height}: Dialo
           renderFooter={renderFooterConditionally}
           onClose={onDialogClose}
           footerButtons={[{buttonType: 'primary', content: 'Proceed'}]}
+          ref={dialogRef}
         >
           {step === 1 ? (
             <Box sx={{display: 'flex', flexDirection: 'column', gap: 4}}>
