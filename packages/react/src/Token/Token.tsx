@@ -19,7 +19,7 @@ export interface TokenProps extends TokenBaseProps, SxProp {
    */
   leadingVisual?: React.ElementType
   /**
-   * Label to add to the token for screen readers
+   * Label to give the remove control for screen readers
    */
   removeButtonLabel?: string
 }

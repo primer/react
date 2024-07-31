@@ -51,6 +51,12 @@
     {
       "name": "sx",
       "type": "SystemStyleObject"
+    },
+    {
+      "name": "removeButtonLabel",
+      "type": "string",
+      "defaultValue": "'Remove token'",
+      "description": "Label to give the remove button for assistive technologies, such as screen readers"
     }
   ],
   "subcomponents": [
