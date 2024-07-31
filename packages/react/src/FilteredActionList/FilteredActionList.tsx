@@ -141,7 +141,8 @@ export function FilteredActionList({
         sx={sx}
         role="option"
         onSelect={(e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
-          if (typeof onAction === 'function') onAction(item, e)
+          if (typeof onAction === 'function')
+            onAction(item, e as React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>)
         }}
         selected={selected}
       >

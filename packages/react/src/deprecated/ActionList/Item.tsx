@@ -99,7 +99,7 @@ export interface ItemProps extends SxProp {
   /**
    * Callback that will trigger both on click selection and keyboard selection.
    */
-  onAction?: (item: ItemProps, event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
+  onAction?: (item: ItemProps, event: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void
 
   /**
    * An id associated with this item.  Should be unique between items
