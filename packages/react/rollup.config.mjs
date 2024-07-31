@@ -1,13 +1,19 @@
+import path from 'node:path'
+import {fileURLToPath} from 'node:url'
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import babel from '@rollup/plugin-babel'
 import replace from '@rollup/plugin-replace'
 import terser from '@rollup/plugin-terser'
 import glob from 'fast-glob'
+import customPropertiesFallback from 'postcss-custom-properties-fallback'
 import {visualizer} from 'rollup-plugin-visualizer'
+import {importCSS} from 'rollup-plugin-import-css'
 import postcss from 'rollup-plugin-postcss'
 import MagicString from 'magic-string'
-import packageJson from './package.json'
+import packageJson from './package.json' assert {type: 'json'}
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const input = new Set([
   // "exports"
@@ -80,6 +86,49 @@ function createPackageRegex(name) {
   return new RegExp(`^${name}(/.*)?`)
 }
 
+const postcssPlugins = [
+  customPropertiesFallback({
+    importFrom: [
+      () => {
+        let customProperties = {}
+        const filePaths = glob.sync(['fallbacks/**/*.json', 'docs/functional/themes/light.json'], {
+          cwd: path.join(__dirname, '../../node_modules/@primer/primitives/dist/'),
+          ignore: ['fallbacks/color-fallbacks.json'],
+        })
+
+        for (const filePath of filePaths) {
+          const fileData = fs.readFileSync(
+            path.join(__dirname, '../../node_modules/@primer/primitives/dist/', filePath),
+            'utf8',
+          )
+
+          const jsonData = JSON.parse(fileData)
+          let result = {}
+
+          if (filePath === 'docs/functional/themes/light.json') {
+            for (const variable of Object.keys(jsonData)) {
+              result[`--${variable}`] = jsonData[variable].value
+            }
+          } else {
+            result = jsonData
+          }
+
+          customProperties = {
+            ...customProperties,
+            ...result,
+          }
+        }
+
+        return {customProperties}
+      },
+    ],
+  }),
+]
+
+const postcssModulesOptions = {
+  generateScopedName: 'prc-[folder]-[local]-[hash:base64:5]',
+}
+
 const baseConfig = {
   input: Array.from(input),
   plugins: [
@@ -120,12 +169,6 @@ const baseConfig = {
     }),
     commonjs({
       extensions,
-    }),
-    postcss({
-      extract: 'components.css',
-      autoModules: false,
-      modules: {generateScopedName: 'prc_[local]_[hash:base64:5]'},
-      // plugins are defined in postcss.config.js
     }),
     /**
      * This custom rollup plugin allows us to preserve directives in source
@@ -235,6 +278,14 @@ export default [
   // ESM
   {
     ...baseConfig,
+    plugins: [
+      ...baseConfig.plugins,
+      importCSS({
+        modulesRoot: 'src',
+        postcssPlugins,
+        postcssModulesOptions,
+      }),
+    ],
     external: dependencies.map(createPackageRegex),
     output: {
       interop: 'auto',
@@ -248,6 +299,14 @@ export default [
   // CommonJS
   {
     ...baseConfig,
+    plugins: [
+      ...baseConfig.plugins,
+      importCSS({
+        modulesRoot: 'src',
+        postcssPlugins,
+        postcssModulesOptions,
+      }),
+    ],
     external: dependencies.filter(name => !ESM_ONLY.has(name)).map(createPackageRegex),
     output: {
       interop: 'auto',
@@ -270,6 +329,14 @@ export default [
         preventAssignment: true,
       }),
       ...baseConfig.plugins,
+      // PostCSS plugins are defined in postcss.config.js
+      postcss({
+        extract: 'components.css',
+        autoModules: false,
+        modules: {
+          generateScopedName: 'prc_[local]_[hash:base64:5]',
+        },
+      }),
       terser(),
       visualizer({sourcemap: true}),
     ],
