@@ -111,21 +111,40 @@ export function FilteredActionList({
 
   useScrollFlash(scrollContainerRef)
 
-  const renderFn = ({
-    description,
-    descriptionVariant,
-    id,
-    sx,
-    text,
-    trailingVisual: TrailingVisual,
-    leadingVisual: LeadingVisual,
-    trailingText,
-    trailingIcon: TrailingIcon,
-    onAction,
-    selected,
-  }: ItemInput): React.ReactElement => {
+  const MappingFn: React.FC = listProps => {
     return (
-      <ActionList.Item key={id} sx={sx} role="option" onSelect={() => {}} selected={selected}>
+      <ActionList ref={listContainerRef} {...listProps} role="listbox" id={listId}>
+        {items.map((i, index) => {
+          return <ActionListItem key={index} {...i} />
+        })}
+      </ActionList>
+    )
+  }
+
+  const ActionListItem: React.FC = (item: ItemInput) => {
+    const {
+      description,
+      descriptionVariant,
+      id,
+      sx,
+      text,
+      trailingVisual: TrailingVisual,
+      leadingVisual: LeadingVisual,
+      trailingText,
+      trailingIcon: TrailingIcon,
+      onAction,
+      selected,
+    } = item
+
+    return (
+      <ActionList.Item
+        sx={sx}
+        role="option"
+        onSelect={(e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
+          if (typeof onAction === 'function') onAction(item, e)
+        }}
+        selected={selected}
+      >
         {LeadingVisual ? (
           <ActionList.LeadingVisual>
             <LeadingVisual />
@@ -178,9 +197,7 @@ export function FilteredActionList({
             <Spinner />
           </Box>
         ) : (
-          <ActionList ref={listContainerRef} {...listProps} role="listbox" id={listId}>
-            {items.map(i => renderFn(i))}
-          </ActionList>
+          MappingFn(listProps)
         )}
       </Box>
     </Box>
