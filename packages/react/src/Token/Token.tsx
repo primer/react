@@ -101,8 +101,11 @@ const Token = forwardRef((props, forwardedRef) => {
           <LeadingVisual />
         </LeadingVisualContainer>
       ) : null}
-      <TokenTextContainer {...(hasMultipleActionTargets ? interactiveTokenProps : {})}>{text}</TokenTextContainer>
-      {onRemove && <VisuallyHidden> (press backspace or delete to remove)</VisuallyHidden>}
+      <TokenTextContainer {...(hasMultipleActionTargets ? interactiveTokenProps : {})}>
+        {text}
+        {onRemove && <VisuallyHidden> (press backspace or delete to remove)</VisuallyHidden>}
+      </TokenTextContainer>
+
       {!hideRemoveButton && onRemove ? (
         <RemoveTokenButton
           borderOffset={tokenBorderWidthPx}
