@@ -48,6 +48,6 @@ render(
 
 ### Impact
 
-This ADP doesn't have any impact on the existing components. It only provides a path for encouraging the adoption of a new component.
+This ADR doesn't have any impact on the existing components. It only provides a path for encouraging the adoption of a new component.
 
 <!-- Describe the impact of the decision -->
