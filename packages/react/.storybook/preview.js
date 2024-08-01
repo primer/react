@@ -183,9 +183,22 @@ export const globalTypes = {
     },
     showSurroundingElements: {},
   },
+  featureFlags: {
+    name: 'Feature flags',
+    description: 'Toggle feature flags',
+    defaultValue: {},
+  },
 }
 
 export const decorators = [
+  (Story, context) => {
+    const {featureFlags} = context.globals
+    return (
+      <FeatureFlags flags={featureFlags}>
+        <Story {...context} />
+      </FeatureFlags>
+    )
+  },
   (Story, context) => {
     const {colorScheme} = context.globals
 
