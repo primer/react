@@ -134,8 +134,6 @@ const stylePropsMap = {
   Breadcrumb: [...COMMON, ...FLEX],
   Button: [...COMMON, ...LAYOUT, ...TYPOGRAPHY],
   ButtonBase: [...COMMON, ...LAYOUT],
-  ButtonClose: [...COMMON, ...LAYOUT],
-  ButtonTableList: [...COMMON, ...TYPOGRAPHY, ...LAYOUT],
   CircleBadge: [...COMMON],
   CounterLabel: [...COMMON],
   Details: [...COMMON],
