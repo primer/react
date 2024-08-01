@@ -1,10 +1,18 @@
 import type {Page} from '@playwright/test'
 import {waitForImages} from './waitForImages'
 
+type Value =
+  | string
+  | boolean
+  | number
+  | {
+      [Key: string]: Value
+    }
+
 interface Options {
   id: string
   args?: Record<string, string | boolean>
-  globals?: Record<string, string>
+  globals?: Record<string, Value>
 }
 
 const {STORYBOOK_URL = 'http://localhost:6006'} = process.env
@@ -30,7 +38,19 @@ export async function visit(page: Page, options: Options) {
       if (params !== '') {
         params += '&'
       }
-      params += `${key}:${value}`
+      if (typeof value === 'object') {
+        const serialized = Object.entries(value)
+          .map(([key, value]) => {
+            if (typeof value === 'boolean') {
+              return [key, `!${!value}`]
+            }
+            return [key, value]
+          })
+          .join(';')
+        params += `${key}:${serialized}`
+      } else {
+        params += `${key}:${value}`
+      }
     }
     url.searchParams.set('globals', params)
   }
@@ -46,3 +66,22 @@ export async function visit(page: Page, options: Options) {
 
   await waitForImages(page)
 }
+
+// function serialize(value: Value): string {
+// if (typeof value === 'string') {
+// return value
+// }
+
+// if (typeof value === 'number') {
+// return `${value}`;
+// }
+
+// if (typeof value === 'boolean') {
+// return `!${!value}`;
+// }
+
+// if (typeof value === 'object') {
+// }
+
+// return value.toString();
+// }
