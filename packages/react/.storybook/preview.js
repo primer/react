@@ -2,6 +2,7 @@ import {PrimerBreakpoints} from '../src/utils/layout'
 import React, {useEffect} from 'react'
 import {ThemeProvider, BaseStyles, theme} from '../src'
 import {FeatureFlags} from '../src/FeatureFlags'
+import {DefaultFeatureFlags} from '../src/FeatureFlags/DefaultFeatureFlags'
 import clsx from 'clsx'
 
 import './storybook.css'
@@ -186,7 +187,7 @@ export const globalTypes = {
   featureFlags: {
     name: 'Feature flags',
     description: 'Toggle feature flags',
-    defaultValue: {},
+    defaultValue: Object.fromEntries(DefaultFeatureFlags.flags),
   },
 }
 

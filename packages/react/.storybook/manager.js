@@ -5,6 +5,7 @@ import {BeakerIcon} from '@primer/octicons-react'
 import React from 'react'
 import {Tool, TOOL_ID, ADDON_ID} from './src/accessibility-tool'
 import theme from './theme'
+import {DefaultFeatureFlags} from '../src/FeatureFlags/DefaultFeatureFlags'
 
 addons.setConfig({
   theme,
@@ -20,7 +21,7 @@ addons.register(ADDON_ID, () => {
   })
 })
 
-const featureFlagList = ['primer_react_action_list_item_as_button', 'primer_react_css_modules']
+const featureFlagList = Array.from(DefaultFeatureFlags.flags.keys())
 
 addons.register('FEATURE_FLAG_ADDON', () => {
   addons.add('FEATURE_FLAG_ADDON/toolbar', {
