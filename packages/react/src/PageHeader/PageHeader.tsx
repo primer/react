@@ -1,5 +1,5 @@
-import React, {forwardRef, useEffect} from 'react'
-import {Box} from '..'
+import React, {useEffect} from 'react'
+import Box from '../Box'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import type {SxProp, BetterSystemStyleObject, CSSCustomProperties} from '../sx'
@@ -80,7 +80,7 @@ export type PageHeaderProps = {
  * @primerstatus draft
  * @primera11yreviewed true
  */
-export const Root = forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
+export const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
   ({children, className, sx = {}, as = 'div'}, forwardedRef) => {
     const rootStyles = {
       display: 'grid',
@@ -179,6 +179,7 @@ export const Root = forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeade
     )
   },
 ) as PolymorphicForwardRefComponent<'div', PageHeaderProps>
+
 Root.displayName = 'PageHeader'
 
 // PageHeader.ContextArea
@@ -235,7 +236,7 @@ export type ParentLinkProps = React.PropsWithChildren<ChildrenPropTypes & LinkPr
  * @primerparentid drafts_page_header
  * @default a
  */
-export const ParentLink = forwardRef<HTMLAnchorElement, ParentLinkProps>(
+export const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
   ({children, className, sx = {}, href, 'aria-label': ariaLabel, as = 'a', hidden = hiddenOnRegularAndWide}, ref) => {
     return (
       <>

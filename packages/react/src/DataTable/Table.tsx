@@ -18,6 +18,7 @@ import {ScrollableRegion} from '../ScrollableRegion'
 // ----------------------------------------------------------------------------
 // Table
 // ----------------------------------------------------------------------------
+
 const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   /* Default table styles */
   --table-border-radius: 0.375rem;

@@ -42,6 +42,8 @@ export const Item = styled.span<ProgressProp & SxProp>`
   ${sx};
 `
 
+Item.displayName = 'ProgressBar.Item'
+
 const sizeMap = {
   small: '5px',
   large: '10px',
@@ -123,3 +125,5 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
     )
   },
 )
+
+ProgressBar.displayName = 'ProgressBar'

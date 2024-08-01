@@ -137,3 +137,5 @@ export const UnderlineNavItem = forwardRef(
     )
   },
 ) as PolymorphicForwardRefComponent<'a', UnderlineNavItemProps>
+
+UnderlineNavItem.displayName = 'UnderlineNavItem'

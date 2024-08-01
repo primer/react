@@ -172,3 +172,5 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     )
   },
 ) as PolymorphicForwardRefComponent<'input', TextInputProps>
+
+TextInput.displayName = 'TextInput'

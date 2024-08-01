@@ -80,4 +80,6 @@ export function AutocompleteOverlay({
   )
 }
 
+AutocompleteOverlay.displayName = 'AutocompleteOverlay'
+
 export type AutocompleteOverlayProps = ComponentProps<typeof AutocompleteOverlay>

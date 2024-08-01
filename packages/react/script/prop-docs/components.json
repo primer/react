@@ -105,7 +105,7 @@
           "name": "aria-labelledby",
           "type": "string",
           "required": false,
-          "description": "",
+          "description": "When provided, uses the element with that ID as the accessible name for the ActionBar",
           "defaultValue": ""
         }
       ],
@@ -122,6 +122,41 @@
             },
             {
               "name": "aria-labelledby",
+              "type": "string",
+              "required": false,
+              "description": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "icon",
+              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<any, any> | FunctionComponent<any>",
+              "required": true,
+              "description": "Provide an octicon. It will be placed in the center of the button",
+              "defaultValue": ""
+            },
+            {
+              "name": "unsafeDisableTooltip",
+              "type": "boolean",
+              "required": false,
+              "description": "Do not use. This is planned to be a temporary prop until the default tooltip on icon buttons are fully rolled out.",
+              "defaultValue": ""
+            },
+            {
+              "name": "description",
+              "type": "string",
+              "required": false,
+              "description": "If `description` is provided, we will use a Tooltip to describe the button. Then `aria-label` is used to label the button.",
+              "defaultValue": ""
+            },
+            {
+              "name": "tooltipDirection",
+              "type": "\"s\" | \"nw\" | \"n\" | \"ne\" | \"e\" | \"se\" | \"sw\" | \"w\"",
+              "required": false,
+              "description": "Sets where the tooltip renders in relation to the target.",
+              "defaultValue": ""
+            },
+            {
+              "name": "keyshortcuts",
               "type": "string",
               "required": false,
               "description": "",
@@ -156,17 +191,17 @@
               "defaultValue": ""
             },
             {
-              "name": "icon",
-              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<any, any> | FunctionComponent<any>",
-              "required": true,
-              "description": "Provide an octicon. It will be placed in the center of the button",
-              "defaultValue": ""
-            },
-            {
               "name": "sx",
               "type": "BetterSystemStyleObject",
               "required": false,
               "description": "A style object used to override styles using styled-components",
+              "defaultValue": ""
+            },
+            {
+              "name": "variant",
+              "type": "\"default\" | \"danger\" | \"primary\" | \"invisible\"",
+              "required": false,
+              "description": "Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
               "defaultValue": ""
             },
             {
@@ -188,27 +223,6 @@
               "type": "boolean",
               "required": false,
               "description": "Whether the button label should wrap to multiple lines of it is longer than the button width.",
-              "defaultValue": ""
-            },
-            {
-              "name": "description",
-              "type": "string",
-              "required": false,
-              "description": "If `description` is provided, we will use a Tooltip to describe the button. Then `aria-label` is used to label the button.",
-              "defaultValue": ""
-            },
-            {
-              "name": "tooltipDirection",
-              "type": "\"s\" | \"nw\" | \"n\" | \"ne\" | \"e\" | \"se\" | \"sw\" | \"w\"",
-              "required": false,
-              "description": "Sets where the tooltip renders in relation to the target.",
-              "defaultValue": ""
-            },
-            {
-              "name": "keyshortcuts",
-              "type": "string",
-              "required": false,
-              "description": "",
               "defaultValue": ""
             }
           ]
@@ -1252,7 +1266,7 @@
               "name": "openOnFocus",
               "type": "boolean",
               "required": false,
-              "description": "",
+              "description": "@deprecated `openOnFocus` is deprecated and will be removed in v38.\nWhen `true`, autocomplete menu will show on focus or click.",
               "defaultValue": ""
             }
           ]
@@ -3321,7 +3335,7 @@
       "stories": [
         {
           "id": "components-circleocticon--default",
-          "code": "() => (\n  <CircleOcticon\n    icon={CheckIcon}\n    size={32}\n    sx={{\n      backgroundColor: 'success.fg',\n      color: 'fg.onEmphasis',\n    }}\n  />\n)"
+          "code": "() => (\n  <CircleOcticon\n    icon={CheckIcon}\n    size={32}\n    sx={{\n      backgroundColor: 'success.emphasis',\n      color: 'fg.onEmphasis',\n    }}\n  />\n)"
         }
       ],
       "importPath": "@primer/react",
@@ -5798,7 +5812,7 @@
           ]
         },
         {
-          "name": "PageHeader.Pane",
+          "name": "PageLayout.Pane",
           "props": [
             {
               "name": "position",
@@ -5915,7 +5929,7 @@
           ]
         },
         {
-          "name": "PageHeader.Footer",
+          "name": "PageLayout.Footer",
           "props": [
             {
               "name": "aria-label",
@@ -7969,10 +7983,10 @@
           "name": "TabNav.Link",
           "props": [
             {
-              "name": "href",
-              "type": "string",
-              "required": false,
-              "description": "Used to populate the `href` attribute when using an `<a>` tag",
+              "name": "as",
+              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<unknown, any> | FunctionComponent<unknown>",
+              "required": true,
+              "description": "",
               "defaultValue": ""
             },
             {
@@ -7987,6 +8001,13 @@
               "type": "boolean",
               "required": false,
               "description": "Whether this item represents the current page",
+              "defaultValue": ""
+            },
+            {
+              "name": "href",
+              "type": "string",
+              "required": false,
+              "description": "Used to populate the `href` attribute when using an `<a>` tag",
               "defaultValue": ""
             },
             {
@@ -9182,76 +9203,76 @@
     },
     "tree_view": {
       "id": "tree_view",
-      "name": "Root",
+      "name": "TreeView",
       "status": "beta",
       "a11yReviewed": true,
       "stories": [
         {
-          "id": "components-root--default",
+          "id": "components-treeview--default",
           "code": "() => (\n  <nav aria-label=\"Files changed\">\n    <TreeView aria-label=\"Files changed\">\n      <TreeView.Item id=\"src\" defaultExpanded>\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        src\n        <TreeView.SubTree>\n          <TreeView.Item id=\"src/Avatar.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Avatar.tsx\n            <TreeView.TrailingVisual label=\"Added\">\n              <Octicon icon={DiffAddedIcon} color=\"success.fg\" />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n          <TreeView.Item id=\"src/Button.tsx\" current>\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Button.tsx\n            <TreeView.TrailingVisual label=\"Modified\">\n              <Octicon icon={DiffModifiedIcon} color=\"attention.fg\" />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item id=\"package.json\">\n        <TreeView.LeadingVisual>\n          <FileIcon />\n        </TreeView.LeadingVisual>\n        package.json\n        <TreeView.TrailingVisual label=\"Modified\">\n          <Octicon icon={DiffModifiedIcon} color=\"attention.fg\" />\n        </TreeView.TrailingVisual>\n      </TreeView.Item>\n    </TreeView>\n  </nav>\n)"
         },
         {
-          "id": "components-root-features--files",
+          "id": "components-treeview-features--files",
           "code": "() => (\n  <nav aria-label=\"Files\">\n    <TreeView aria-label=\"Files\">\n      <TreeView.Item id=\"src\" defaultExpanded>\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        src\n        <TreeView.SubTree>\n          <TreeView.Item id=\"src/Avatar.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Avatar.tsx\n          </TreeView.Item>\n          <TreeView.Item id=\"src/Button\" current>\n            <TreeView.LeadingVisual>\n              <TreeView.DirectoryIcon />\n            </TreeView.LeadingVisual>\n            Button\n            <TreeView.SubTree>\n              <TreeView.Item id=\"src/Button/Button.tsx\">\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                Button.tsx\n              </TreeView.Item>\n              <TreeView.Item id=\"src/Button/Button.test.tsx\">\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                Button.test.tsx\n              </TreeView.Item>\n            </TreeView.SubTree>\n          </TreeView.Item>\n          <TreeView.Item id=\"src/ReallyLongFileNameThatShouldBeTruncated.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            ReallyLongFileNameThatShouldBeTruncated.tsx\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item\n        id=\"public\"\n        // eslint-disable-next-line no-console\n        onExpandedChange={(isExpanded) =>\n          console.log(\n            `${isExpanded ? 'Expanded' : 'Collapsed'} \"public\" folder `,\n          )\n        }\n      >\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        public\n        <TreeView.SubTree>\n          <TreeView.Item id=\"public/index.html\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            index.html\n          </TreeView.Item>\n          <TreeView.Item id=\"public/favicon.ico\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            favicon.ico\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item id=\"package.json\">\n        <TreeView.LeadingVisual>\n          <FileIcon />\n        </TreeView.LeadingVisual>\n        package.json\n      </TreeView.Item>\n    </TreeView>\n  </nav>\n)"
         },
         {
-          "id": "components-root-features--files-changed",
+          "id": "components-treeview-features--files-changed",
           "code": "() => {\n  return (\n    <nav aria-label=\"Files\">\n      <TreeView aria-label=\"Files\">\n        <TreeView.Item id=\"src\" defaultExpanded>\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          src\n          <TreeView.SubTree>\n            <TreeView.Item id=\"src/Avatar.tsx\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              Avatar.tsx\n              <TreeView.TrailingVisual label=\"added\">\n                <Octicon icon={DiffAddedIcon} color=\"success.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n            <TreeView.Item id=\"src/Button\" defaultExpanded>\n              <TreeView.LeadingVisual>\n                <TreeView.DirectoryIcon />\n              </TreeView.LeadingVisual>\n              Button\n              <TreeView.SubTree>\n                <TreeView.Item id=\"src/Button/Button.tsx\" current>\n                  <TreeView.LeadingVisual>\n                    <FileIcon />\n                  </TreeView.LeadingVisual>\n                  Button.tsx\n                  <TreeView.TrailingVisual label=\"modified\">\n                    <Octicon icon={DiffModifiedIcon} color=\"attention.fg\" />\n                  </TreeView.TrailingVisual>\n                </TreeView.Item>\n                <TreeView.Item id=\"src/Button/Button.test.tsx\">\n                  <TreeView.LeadingVisual>\n                    <FileIcon />\n                  </TreeView.LeadingVisual>\n                  Button.test.tsx\n                  <TreeView.TrailingVisual label=\"modified\">\n                    <Octicon icon={DiffModifiedIcon} color=\"attention.fg\" />\n                  </TreeView.TrailingVisual>\n                </TreeView.Item>\n              </TreeView.SubTree>\n            </TreeView.Item>\n            <TreeView.Item id=\"src/ReallyLongFileNameThatShouldBeTruncated.tsx\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              ReallyLongFileNameThatShouldBeTruncated.tsx\n              <TreeView.TrailingVisual label=\"modified\">\n                <Octicon icon={DiffModifiedIcon} color=\"attention.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n          </TreeView.SubTree>\n        </TreeView.Item>\n        <TreeView.Item id=\"public\" defaultExpanded>\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          public\n          <TreeView.SubTree>\n            <TreeView.Item id=\"public/index.html\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              index.html\n              <TreeView.TrailingVisual label=\"renamed\">\n                <Octicon icon={DiffRenamedIcon} />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n            <TreeView.Item id=\"public/favicon.ico\">\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              favicon.ico\n              <TreeView.TrailingVisual label=\"removed\">\n                <Octicon icon={DiffRemovedIcon} color=\"danger.fg\" />\n              </TreeView.TrailingVisual>\n            </TreeView.Item>\n          </TreeView.SubTree>\n        </TreeView.Item>\n      </TreeView>\n    </nav>\n  )\n}"
         },
         {
-          "id": "components-root-features--controlled",
+          "id": "components-treeview-features--controlled",
           "code": "() => {\n  const [currentPath, setCurrentPath] = React.useState<string[]>([\n    'src',\n    'Avatar.tsx',\n  ])\n  const [tree, setTree] = React.useState<TreeItem[]>(intialTree)\n  return (\n    <Box\n      sx={{\n        display: 'grid',\n        gap: 3,\n      }}\n    >\n      <Box\n        sx={{\n          display: 'flex',\n          gap: 2,\n        }}\n      >\n        <Button onClick={() => setTree(collapseAll)}>Collapse all</Button>\n        <Button onClick={() => setTree(expandAll)}>Expand all</Button>\n      </Box>\n      <nav aria-label=\"Files\">\n        <CurrentPathContext.Provider\n          value={{\n            currentPath,\n            setCurrentPath,\n          }}\n        >\n          <TreeView aria-label=\"Files\">\n            {tree.map((item) => (\n              <TreeItem\n                key={item.data.name}\n                item={item}\n                path={[item.data.name]}\n                onExpandedChange={(path, expanded) =>\n                  setTree((tree) => setExpanded(tree, path, expanded))\n                }\n              />\n            ))}\n          </TreeView>\n        </CurrentPathContext.Provider>\n      </nav>\n    </Box>\n  )\n}"
         },
         {
-          "id": "components-root-features--async-success",
+          "id": "components-treeview-features--async-success",
           "code": "(args) => {\n  const [isLoading, setIsLoading] = React.useState(false)\n  const [asyncItems, setAsyncItems] = React.useState<string[]>([])\n  let state: SubTreeState = 'initial'\n  if (isLoading) {\n    state = 'loading'\n  } else if (asyncItems.length > 0) {\n    state = 'done'\n  }\n  return (\n    <nav aria-label=\"Files\">\n      <TreeView aria-label=\"Files\">\n        <TreeView.Item id=\"file-1\">\n          <TreeView.LeadingVisual>\n            <FileIcon />\n          </TreeView.LeadingVisual>\n          Some file\n        </TreeView.Item>\n        <TreeView.Item\n          id=\"async-directory\"\n          onExpandedChange={async (isExpanded) => {\n            if (asyncItems.length === 0 && isExpanded) {\n              setIsLoading(true)\n\n              // Load items\n              const items = await loadItems(args.responseTime)\n              setIsLoading(false)\n              setAsyncItems(items)\n            }\n          }}\n        >\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          Directory with async items\n          <TreeView.SubTree state={state}>\n            {asyncItems.map((item) => (\n              <TreeView.Item id={`item-${item}`} key={item}>\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                {item}\n              </TreeView.Item>\n            ))}\n          </TreeView.SubTree>\n        </TreeView.Item>\n        <TreeView.Item id=\"another-file\">\n          <TreeView.LeadingVisual>\n            <FileIcon />\n          </TreeView.LeadingVisual>\n          Another file\n        </TreeView.Item>\n      </TreeView>\n    </nav>\n  )\n}"
         },
         {
-          "id": "components-root-features--async-with-count",
+          "id": "components-treeview-features--async-with-count",
           "code": "(args) => {\n  const [isLoading, setIsLoading] = React.useState(false)\n  const [asyncItems, setAsyncItems] = React.useState<string[]>([])\n  let state: SubTreeState = 'initial'\n  if (isLoading) {\n    state = 'loading'\n  } else if (asyncItems.length > 0) {\n    state = 'done'\n  }\n  return (\n    <nav aria-label=\"Files\">\n      <TreeView aria-label=\"Files\">\n        <TreeView.Item id=\"some-file\">\n          <TreeView.LeadingVisual>\n            <FileIcon />\n          </TreeView.LeadingVisual>\n          Some file\n        </TreeView.Item>\n        <TreeView.Item\n          id=\"async-directory\"\n          onExpandedChange={async (isExpanded) => {\n            if (asyncItems.length === 0 && isExpanded) {\n              setIsLoading(true)\n\n              // Load items\n              const items = await loadItems(args.responseTime)\n              setIsLoading(false)\n              setAsyncItems(items)\n            }\n          }}\n        >\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          Directory with async items\n          <TreeView.SubTree state={state} count={args.count}>\n            {asyncItems.map((item) => (\n              <TreeView.Item key={item} id={`item-${item}`}>\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                {item}\n              </TreeView.Item>\n            ))}\n          </TreeView.SubTree>\n        </TreeView.Item>\n        <TreeView.Item id=\"another-file\">\n          <TreeView.LeadingVisual>\n            <FileIcon />\n          </TreeView.LeadingVisual>\n          Another file\n        </TreeView.Item>\n      </TreeView>\n    </nav>\n  )\n}"
         },
         {
-          "id": "components-root-features--async-error",
+          "id": "components-treeview-features--async-error",
           "code": "(args) => {\n  const [isLoading, setIsLoading] = React.useState(false)\n  const [asyncItems, setAsyncItems] = React.useState<string[]>([])\n  const [error, setError] = React.useState<Error | null>(null)\n  let state: SubTreeState = 'initial'\n  if (isLoading) {\n    state = 'loading'\n  } else if (error) {\n    state = 'error'\n  } else if (asyncItems.length > 0) {\n    state = 'done'\n  }\n  async function loadItems() {\n    if (asyncItems.length === 0) {\n      setIsLoading(true)\n      try {\n        // Try to load items\n        const items = await alwaysFails(args.responseTime)\n        setAsyncItems(items)\n      } catch (error) {\n        setError(error as Error)\n      } finally {\n        setIsLoading(false)\n      }\n    }\n  }\n  return (\n    <TreeView aria-label=\"Files\">\n      <TreeView.Item id=\"some-file\">\n        <TreeView.LeadingVisual>\n          <FileIcon />\n        </TreeView.LeadingVisual>\n        Some file\n      </TreeView.Item>\n      <TreeView.Item\n        id=\"async-directory\"\n        onExpandedChange={(isExpanded) => {\n          if (isExpanded) {\n            loadItems()\n          }\n        }}\n      >\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        Directory with async items\n        <TreeView.SubTree state={state}>\n          {error ? (\n            <TreeView.ErrorDialog\n              onRetry={() => {\n                setError(null)\n                loadItems()\n              }}\n              onDismiss={() => {\n                setError(null)\n              }}\n            >\n              {error.message}\n            </TreeView.ErrorDialog>\n          ) : null}\n          {asyncItems.map((item) => (\n            <TreeView.Item key={item} id={`item-${item}`}>\n              <TreeView.LeadingVisual>\n                <FileIcon />\n              </TreeView.LeadingVisual>\n              {item}\n            </TreeView.Item>\n          ))}\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item id=\"another-file\">\n        <TreeView.LeadingVisual>\n          <FileIcon />\n        </TreeView.LeadingVisual>\n        Another file\n      </TreeView.Item>\n    </TreeView>\n  )\n}"
         },
         {
-          "id": "components-root-features--empty-directories",
+          "id": "components-treeview-features--empty-directories",
           "code": "() => {\n  const [state, setState] = React.useState<SubTreeState>('loading')\n  const timeoutId = React.useRef<ReturnType<typeof setTimeout> | null>(null)\n  React.useEffect(() => {\n    return () => {\n      if (timeoutId.current) {\n        clearTimeout(timeoutId.current)\n        timeoutId.current = null\n      }\n    }\n  }, [])\n  return (\n    <TreeView aria-label=\"Files\">\n      <TreeView.Item\n        id=\"src\"\n        onExpandedChange={(expanded) => {\n          if (expanded) {\n            timeoutId.current = setTimeout(() => {\n              setState('done')\n              timeoutId.current = null\n            }, 2000)\n          }\n        }}\n      >\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        src\n        <TreeView.SubTree state={state} />\n      </TreeView.Item>\n      <TreeView.Item id=\".github\">\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        .github\n        <TreeView.SubTree />\n      </TreeView.Item>\n    </TreeView>\n  )\n}"
         },
         {
-          "id": "components-root-features--nested-trees",
+          "id": "components-treeview-features--nested-trees",
           "code": "() => {\n  const [isLoading, setIsLoading] = React.useState(false)\n  const [asyncItems, setAsyncItems] = React.useState<string[]>([])\n  let state: SubTreeState = 'initial'\n  if (isLoading) {\n    state = 'loading'\n  } else if (asyncItems.length > 0) {\n    state = 'done'\n  }\n  return (\n    <nav aria-label=\"Files\">\n      <TreeView aria-label=\"Files\">\n        <TreeView.Item id=\"file-1\">\n          <TreeView.LeadingVisual>\n            <FileIcon />\n          </TreeView.LeadingVisual>\n          Some file\n        </TreeView.Item>\n        <TreeView.Item\n          id=\"async-directory\"\n          onExpandedChange={async (isExpanded) => {\n            if (asyncItems.length === 0 && isExpanded) {\n              setIsLoading(true)\n\n              // Load items\n              const items = await loadItems(1000)\n              setIsLoading(false)\n              setAsyncItems(items)\n            }\n          }}\n        >\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          Directory with async items\n          <TreeView.SubTree state={state}>\n            {asyncItems.map((item) => (\n              <TreeView.Item id={`item-${item}`} key={item}>\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                {item}\n              </TreeView.Item>\n            ))}\n            <TreeView.Item id=\"nested-directory\">\n              Nested Sub-tree\n              <TreeView.SubTree state=\"done\">\n                <TreeView.Item id=\"nested-directory/file-1\">\n                  <TreeView.LeadingVisual>\n                    <FileIcon />\n                  </TreeView.LeadingVisual>\n                  Some file\n                </TreeView.Item>\n                <TreeView.Item id=\"nested-directory/another-file\">\n                  <TreeView.LeadingVisual>\n                    <FileIcon />\n                  </TreeView.LeadingVisual>\n                  Another file\n                </TreeView.Item>\n              </TreeView.SubTree>\n            </TreeView.Item>\n          </TreeView.SubTree>\n        </TreeView.Item>\n        <TreeView.Item id=\"another-file\">\n          <TreeView.LeadingVisual>\n            <FileIcon />\n          </TreeView.LeadingVisual>\n          Another file\n        </TreeView.Item>\n      </TreeView>\n    </nav>\n  )\n}"
         },
         {
-          "id": "components-root-features--nested-scroll-container",
+          "id": "components-treeview-features--nested-scroll-container",
           "code": "() => {\n  return (\n    <Box\n      sx={{\n        maxHeight: '50vh',\n        overflow: 'auto',\n      }}\n    >\n      <TreeView aria-label=\"Files\">\n        {Array.from({\n          length: 100,\n        }).map((_, i) => (\n          <TreeView.Item key={i} id={`directory-${i}`}>\n            <TreeView.LeadingVisual>\n              <TreeView.DirectoryIcon />\n            </TreeView.LeadingVisual>\n            Directory {i}\n            <TreeView.SubTree>\n              {Array.from({\n                length: 10,\n              }).map((_, j) => (\n                <TreeView.Item\n                  key={j}\n                  id={`directory-${i}/file-${j}`}\n                  // eslint-disable-next-line no-console\n                  onSelect={() => console.log(`Directory ${i}/File ${j}`)}\n                >\n                  <TreeView.LeadingVisual>\n                    <FileIcon />\n                  </TreeView.LeadingVisual>\n                  File {j}\n                </TreeView.Item>\n              ))}\n            </TreeView.SubTree>\n          </TreeView.Item>\n        ))}\n      </TreeView>\n    </Box>\n  )\n}"
         },
         {
-          "id": "components-root-features--stress-test",
+          "id": "components-treeview-features--stress-test",
           "code": "() => {\n  return (\n    <TreeView aria-label=\"Files\">\n      {Array.from({\n        length: 1000,\n      }).map((_, i) => (\n        <TreeView.Item key={i} id={`directory-${i}`}>\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          Directory {i}\n          <TreeView.SubTree>\n            {Array.from({\n              length: 100,\n            }).map((_, j) => (\n              <TreeView.Item key={j} id={`directory-${i}/file-${j}`}>\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                File {j}\n              </TreeView.Item>\n            ))}\n          </TreeView.SubTree>\n        </TreeView.Item>\n      ))}\n    </TreeView>\n  )\n}"
         },
         {
-          "id": "components-root-features--contain-intrinsic-size",
+          "id": "components-treeview-features--contain-intrinsic-size",
           "code": "() => {\n  return (\n    <TreeView aria-label=\"Files\">\n      {Array.from({\n        length: 10,\n      }).map((_, i) => (\n        <TreeView.Item\n          key={i}\n          id={`directory-${i}`}\n          defaultExpanded\n          containIntrinsicSize=\"2rem\"\n        >\n          <TreeView.LeadingVisual>\n            <TreeView.DirectoryIcon />\n          </TreeView.LeadingVisual>\n          Directory {i}\n          <TreeView.SubTree>\n            {Array.from({\n              length: 1000,\n            }).map((_, j) => (\n              <TreeView.Item\n                key={j}\n                id={`directory-${i}/file-${j}`}\n                containIntrinsicSize=\"2rem\"\n              >\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                File {j}\n              </TreeView.Item>\n            ))}\n          </TreeView.SubTree>\n        </TreeView.Item>\n      ))}\n    </TreeView>\n  )\n}"
         },
         {
-          "id": "components-root-features--initial-focus",
+          "id": "components-treeview-features--initial-focus",
           "code": "() => (\n  <div>\n    <Button>Focusable element before TreeView</Button>\n    <TreeView aria-label=\"Test tree\">\n      <TreeView.Item id=\"src\" defaultExpanded>\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        src\n        <TreeView.SubTree>\n          <TreeView.Item id=\"src/Avatar.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Avatar.tsx\n          </TreeView.Item>\n          <TreeView.Item id=\"src/Button\" defaultExpanded>\n            <TreeView.LeadingVisual>\n              <TreeView.DirectoryIcon />\n            </TreeView.LeadingVisual>\n            Button\n            <TreeView.SubTree>\n              <TreeView.Item id=\"src/Button/Button.tsx\">\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                Button.tsx\n              </TreeView.Item>\n              <TreeView.Item id=\"src/Button/Button.test.tsx\">\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                Button.test.tsx\n              </TreeView.Item>\n              <TreeView.Item id=\"src/Button/Button2.tsx\">\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                Button2.tsx\n              </TreeView.Item>\n              <TreeView.Item id=\"src/Button/Button2.test.tsx\">\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                Button2.test.tsx\n              </TreeView.Item>\n              <TreeView.Item id=\"src/Button/Button3.tsx\">\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                Button3.tsx\n              </TreeView.Item>\n              <TreeView.Item id=\"src/Button/Button3.test.tsx\">\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                Button3.test.tsx\n              </TreeView.Item>\n              <TreeView.Item id=\"src/Button/Button4.tsx\">\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                Button4.tsx\n              </TreeView.Item>\n              <TreeView.Item id=\"src/Button/Button4.test.tsx\">\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                Button4.test.tsx\n              </TreeView.Item>\n              <TreeView.Item id=\"src/Button/Button5.tsx\">\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                Button5.tsx\n              </TreeView.Item>\n              <TreeView.Item id=\"src/Button/Button5.test.tsx\">\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                Button5.test.tsx\n              </TreeView.Item>\n              <TreeView.Item id=\"src/Button/Button6.tsx\">\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                Button6.tsx\n              </TreeView.Item>\n              <TreeView.Item id=\"src/Button/Button6.test.tsx\">\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                Button6.test.tsx\n              </TreeView.Item>\n              <TreeView.Item id=\"src/Button/Button7.tsx\">\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                Button7.tsx\n              </TreeView.Item>\n              <TreeView.Item id=\"src/Button/Button7.test.tsx\" current>\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                Button7.test.tsx\n              </TreeView.Item>\n            </TreeView.SubTree>\n          </TreeView.Item>\n          <TreeView.Item id=\"src/ReallyLongFileNameThatShouldBeTruncated.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            ReallyLongFileNameThatShouldBeTruncated.tsx\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n    </TreeView>\n    <Button>Focusable element after TreeView</Button>\n  </div>\n)"
         },
         {
-          "id": "components-root-features--focus-management",
+          "id": "components-treeview-features--focus-management",
           "code": "() => (\n  <div>\n    <Button>Focusable element before TreeView</Button>\n    <TreeView aria-label=\"Test tree\">\n      <TreeView.Item id=\"src\" defaultExpanded>\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        src\n        <TreeView.SubTree>\n          <TreeView.Item id=\"src/Avatar.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Avatar.tsx\n            <IconButton\n              variant=\"invisible\"\n              icon={KebabHorizontalIcon}\n              aria-label=\"Secondary actions\"\n              aria-hidden\n              tabIndex={-1}\n            ></IconButton>\n          </TreeView.Item>\n          <TreeView.Item id=\"src/Button\" defaultExpanded>\n            <TreeView.LeadingVisual>\n              <TreeView.DirectoryIcon />\n            </TreeView.LeadingVisual>\n            Button\n            <TreeView.SubTree>\n              <TreeView.Item id=\"src/Button/Button.tsx\">\n                <TreeView.LeadingVisual>\n                  <FileIcon />\n                </TreeView.LeadingVisual>\n                Button.tsx\n                <IconButton\n                  variant=\"invisible\"\n                  icon={KebabHorizontalIcon}\n                  aria-label=\"Secondary actions\"\n                  aria-hidden\n                  tabIndex={-1}\n                ></IconButton>\n              </TreeView.Item>\n            </TreeView.SubTree>\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n    </TreeView>\n    <Button>Focusable element after TreeView</Button>\n  </div>\n)"
         },
         {
-          "id": "components-root-features--without-indentation",
+          "id": "components-treeview-features--without-indentation",
           "code": "() => (\n  <nav aria-label=\"Files changed\">\n    <TreeView aria-label=\"Files changed\" flat>\n      <TreeView.Item id=\"src\" defaultExpanded>\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        src\n      </TreeView.Item>\n      <TreeView.Item id=\"src/Avatar.tsx\">\n        <TreeView.LeadingVisual>\n          <FileIcon />\n        </TreeView.LeadingVisual>\n        Avatar.tsx\n        <TreeView.TrailingVisual label=\"Added\">\n          <Octicon icon={DiffAddedIcon} color=\"success.fg\" />\n        </TreeView.TrailingVisual>\n      </TreeView.Item>\n      <TreeView.Item id=\"src/Button.tsx\" current>\n        <TreeView.LeadingVisual>\n          <FileIcon />\n        </TreeView.LeadingVisual>\n        Button.tsx\n        <TreeView.TrailingVisual label=\"Modified\">\n          <Octicon icon={DiffModifiedIcon} color=\"attention.fg\" />\n        </TreeView.TrailingVisual>\n      </TreeView.Item>\n      <TreeView.Item id=\"package.json\">\n        <TreeView.LeadingVisual>\n          <FileIcon />\n        </TreeView.LeadingVisual>\n        package.json\n        <TreeView.TrailingVisual label=\"Modified\">\n          <Octicon icon={DiffModifiedIcon} color=\"attention.fg\" />\n        </TreeView.TrailingVisual>\n      </TreeView.Item>\n    </TreeView>\n  </nav>\n)"
         },
         {
-          "id": "components-root-features--leading-action",
+          "id": "components-treeview-features--leading-action",
           "code": "() => {\n  return (\n    <TreeView aria-label=\"Issues\">\n      <TreeView.Item id=\"item-0\">\n        <TreeView.LeadingAction>\n          <IconButton\n            icon={GrabberIcon}\n            aria-label=\"Reorder item 1\"\n            variant=\"invisible\"\n          />\n        </TreeView.LeadingAction>\n        <TreeView.LeadingVisual>\n          <Octicon\n            icon={IssueClosedIcon}\n            sx={{\n              color: 'done.fg',\n            }}\n          />\n        </TreeView.LeadingVisual>\n        Item 1\n      </TreeView.Item>\n      <TreeView.Item id=\"item-2\">\n        <TreeView.LeadingAction>\n          <IconButton\n            icon={GrabberIcon}\n            aria-label=\"Reorder item 2\"\n            variant=\"invisible\"\n          />\n        </TreeView.LeadingAction>\n        <TreeView.LeadingVisual>\n          <Octicon\n            icon={IssueOpenedIcon}\n            sx={{\n              color: 'open.fg',\n            }}\n          />\n        </TreeView.LeadingVisual>\n        Item 2\n        <TreeView.SubTree>\n          <TreeView.Item id=\"item-2-sub-task-1\">\n            <TreeView.LeadingVisual>\n              <Octicon\n                icon={IssueOpenedIcon}\n                sx={{\n                  color: 'open.fg',\n                }}\n              />\n            </TreeView.LeadingVisual>\n            sub task 1\n          </TreeView.Item>\n          <TreeView.Item id=\"item-2-sub-task-2\">\n            <TreeView.LeadingVisual>\n              <Octicon\n                icon={IssueOpenedIcon}\n                sx={{\n                  color: 'open.fg',\n                }}\n              />\n            </TreeView.LeadingVisual>\n            sub task 2\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item id=\"item-3\">\n        <TreeView.LeadingAction>\n          <IconButton\n            icon={GrabberIcon}\n            aria-label=\"Reorder item 3\"\n            variant=\"invisible\"\n          />\n        </TreeView.LeadingAction>\n        <TreeView.LeadingVisual>\n          <Octicon\n            icon={IssueOpenedIcon}\n            sx={{\n              color: 'open.fg',\n            }}\n          />\n        </TreeView.LeadingVisual>\n        Item 3\n      </TreeView.Item>\n    </TreeView>\n  )\n}"
         },
         {
-          "id": "components-root-features--multiline-items",
+          "id": "components-treeview-features--multiline-items",
           "code": "() => (\n  <nav aria-label=\"Files changed\">\n    <TreeView aria-label=\"Files changed\">\n      <TreeView.Item id=\"src\" defaultExpanded>\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        <div\n          style={{\n            whiteSpace: 'wrap',\n          }}\n        >\n          this is a very long directory name that we have intentionally allowed\n          to wrap over multiple lines to demonstrate alignment\n        </div>\n        <TreeView.SubTree>\n          <TreeView.Item id=\"src/Avatar.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Avatar.tsx\n            <TreeView.TrailingVisual label=\"Added\">\n              <Octicon icon={DiffAddedIcon} color=\"success.fg\" />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item id=\"src\" defaultExpanded>\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        <div\n          style={{\n            whiteSpace: 'wrap',\n          }}\n        >\n          this is a medium directory name that we wrap over 2 lines to\n          demonstrate alignment\n        </div>\n        <TreeView.TrailingVisual label=\"Added\">\n          <Octicon icon={DiffAddedIcon} color=\"success.fg\" />\n        </TreeView.TrailingVisual>\n        <TreeView.SubTree>\n          <TreeView.Item id=\"src/Avatar.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Avatar.tsx\n            <TreeView.TrailingVisual label=\"Added\">\n              <Octicon icon={DiffAddedIcon} color=\"success.fg\" />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item id=\"src\" defaultExpanded>\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        this is a very long directory name that we have intentionally NOT\n        allowed to wrap over multiple lines to demonstrate alignment\n        <TreeView.SubTree>\n          <TreeView.Item id=\"src/Avatar.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Avatar.tsx\n            <TreeView.TrailingVisual label=\"Added\">\n              <Octicon icon={DiffAddedIcon} color=\"success.fg\" />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n      <TreeView.Item id=\"src\" defaultExpanded>\n        <TreeView.LeadingVisual>\n          <TreeView.DirectoryIcon />\n        </TreeView.LeadingVisual>\n        short name\n        <TreeView.SubTree>\n          <TreeView.Item id=\"src/Avatar.tsx\">\n            <TreeView.LeadingVisual>\n              <FileIcon />\n            </TreeView.LeadingVisual>\n            Avatar.tsx\n            <TreeView.TrailingVisual label=\"Added\">\n              <Octicon icon={DiffAddedIcon} color=\"success.fg\" />\n            </TreeView.TrailingVisual>\n          </TreeView.Item>\n        </TreeView.SubTree>\n      </TreeView.Item>\n    </TreeView>\n  </nav>\n)"
         }
       ],

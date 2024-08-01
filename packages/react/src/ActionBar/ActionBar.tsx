@@ -1,4 +1,4 @@
-import React, {useState, useCallback, useRef, forwardRef} from 'react'
+import React, {useState, useCallback, useRef, forwardRef, type MutableRefObject, type RefObject} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {ActionList} from '../ActionList'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
@@ -14,7 +14,6 @@ import {IconButton} from '../Button'
 import Box from '../Box'
 import {ActionMenu} from '../ActionMenu'
 import {useFocusZone, FocusKeys} from '../hooks/useFocusZone'
-import type {ButtonA11yProps} from '../Button/types'
 
 type ChildSize = {
   text: string
@@ -40,11 +39,13 @@ type A11yProps =
   | {
       /** When provided, a label is added to the action bar */
       'aria-label': React.AriaAttributes['aria-label']
+      /** When provided, uses the element with that ID as the accessible name for the ActionBar */
       'aria-labelledby'?: undefined
     }
   | {
       /** When provided, a label is added to the action bar */
       'aria-label'?: undefined
+      /** When provided, uses the element with that ID as the accessible name for the ActionBar */
       'aria-labelledby': React.AriaAttributes['aria-labelledby']
     }
 
@@ -55,7 +56,7 @@ export type ActionBarProps = {
   children: React.ReactNode
 } & A11yProps
 
-export type ActionBarIconButtonProps = Omit<IconButtonProps, 'variant' | 'unsafeDisableTooltip'> & ButtonA11yProps
+export type ActionBarIconButtonProps = IconButtonProps
 
 const NavigationList = styled.div`
   ${sx};
@@ -220,7 +221,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
     const navWidth = resizeObserverEntries[0].contentRect.width
     const moreMenuWidth = moreMenuRef.current?.getBoundingClientRect().width ?? 0
     navWidth !== 0 && overflowEffect(navWidth, moreMenuWidth, validChildren, childWidthArray, updateListAndMenu)
-  }, navRef as React.RefObject<HTMLElement>)
+  }, navRef as RefObject<HTMLElement>)
 
   const [isWidgetOpen, setIsWidgetOpen] = useState(false)
 
@@ -313,11 +314,11 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
  */
 export const ActionBarIconButton = forwardRef<HTMLButtonElement, ActionBarIconButtonProps>((props, forwardedRef) => {
   const backupRef = useRef<HTMLElement>(null)
-  const ref = (forwardedRef ?? backupRef) as React.RefObject<HTMLAnchorElement>
+  const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
   const {size, setChildrenWidth} = React.useContext(ActionBarContext)
   useIsomorphicLayoutEffect(() => {
     const text = props['aria-label'] ? props['aria-label'] : ''
-    const domRect = (ref as React.MutableRefObject<HTMLElement>).current.getBoundingClientRect()
+    const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
     setChildrenWidth({text, width: domRect.width})
   }, [ref, setChildrenWidth])
   return <IconButton ref={ref} size={size} {...props} variant="invisible" />
@@ -339,7 +340,7 @@ export const VerticalDivider = () => {
   const {size, setChildrenWidth} = React.useContext(ActionBarContext)
   useIsomorphicLayoutEffect(() => {
     const text = 'divider'
-    const domRect = (ref as React.MutableRefObject<HTMLElement>).current.getBoundingClientRect()
+    const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
     setChildrenWidth({text, width: domRect.width})
   }, [ref, setChildrenWidth])
   return (

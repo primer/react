@@ -1,5 +1,5 @@
 import {
-  NavList as NavListImpl,
+  Root as NavListImpl,
   Item,
   SubNav,
   LeadingVisual,
@@ -18,14 +18,6 @@ import type {
   NavListDividerProps,
   NavListGroupProps,
 } from './NavList'
-
-Item.displayName = 'NavList.Item'
-SubNav.displayName = 'NavList.SubNav'
-LeadingVisual.displayName = 'NavList.LeadingVisual'
-TrailingVisual.displayName = 'NavList.TrailingVisual'
-TrailingAction.displayName = 'NavList.TrailingAction'
-Divider.displayName = 'NavList.Divider'
-Group.displayName = 'NavList.Group'
 
 export const NavList = Object.assign(NavListImpl, {
   Item,

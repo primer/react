@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import React, {type FC, type PropsWithChildren} from 'react'
+import React from 'react'
 import styled, {css} from 'styled-components'
 import Box from '../Box'
 import {get} from '../constants'
@@ -94,7 +94,7 @@ export type TimelineBadgeProps = {children?: React.ReactNode} & SxProp
  * @alias Timeline.Badge
  * @primerparentid timeline
  */
-export const TimelineBadge: FC<PropsWithChildren<TimelineBadgeProps>> = props => {
+export const TimelineBadge: React.FC<React.PropsWithChildren<TimelineBadgeProps>> = props => {
   return (
     <Box position="relative" zIndex={1}>
       <Box
@@ -154,6 +154,15 @@ export const TimelineBreak = styled.div<SxProp>`
   border-top: ${get('space.1')} solid ${get('colors.border.default')};
   ${sx};
 `
+
+TimelineItem.displayName = 'Timeline.Item'
+
+TimelineBadge.displayName = 'Timeline.Badge'
+
+TimelineBody.displayName = 'Timeline.Body'
+
+TimelineBreak.displayName = 'Timeline.Break'
+
 export type TimelineProps = ComponentProps<typeof Timeline>
 export type TimelineItemsProps = ComponentProps<typeof TimelineItem>
 export type TimelineBodyProps = ComponentProps<typeof TimelineBody>

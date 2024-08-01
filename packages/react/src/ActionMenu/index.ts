@@ -1,4 +1,4 @@
-import {ActionMenu as ActionMenuImpl, MenuButton, Anchor, Overlay} from './ActionMenu'
+import {Menu as ActionMenuImpl, MenuButton, Anchor, Overlay} from './ActionMenu'
 import {Divider} from '../ActionList/Divider'
 
 import type {

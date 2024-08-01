@@ -528,6 +528,8 @@ export const Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<D
   )
 })
 
+Dialog.displayName = 'Dialog'
+
 /**
  * The header area of a Dialog.
  * @alias Dialog.Header

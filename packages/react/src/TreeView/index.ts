@@ -8,14 +8,6 @@ import type {
   TreeViewErrorDialogProps,
 } from './TreeView'
 
-Root.displayName = 'TreeView'
-Item.displayName = 'TreeView.Item'
-SubTree.displayName = 'TreeView.SubTree'
-LeadingVisual.displayName = 'TreeView.LeadingVisual'
-TrailingVisual.displayName = 'TreeView.TrailingVisual'
-LeadingAction.displayName = 'TreeView.LeadingAction'
-ErrorDialog.displayName = 'TreeView.ErrorDialog'
-
 export const TreeView = Object.assign(Root, {
   Item,
   SubTree,

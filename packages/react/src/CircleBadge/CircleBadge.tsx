@@ -57,5 +57,7 @@ export const CircleBadgeIcon = styled(Octicon)`
   max-height: 55%;
 `
 
+CircleBadgeIcon.displayName = 'CircleBadge.Icon'
+
 export type CircleBadgeProps = ComponentProps<typeof CircleBadge>
 export type CircleBadgeIconProps = ComponentProps<typeof CircleBadgeIcon>

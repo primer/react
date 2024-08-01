@@ -137,4 +137,8 @@ export const SubNavLink = styled.a.attrs<StyledSubNavLinkProps>(props => ({
   ${sx};
 `
 
+SubNavLink.displayName = 'SubNav.Link'
+
+SubNavLinks.displayName = 'SubNav.Links'
+
 export type SubNavLinkProps = ComponentProps<typeof SubNavLink>

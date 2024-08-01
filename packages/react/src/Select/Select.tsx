@@ -1,11 +1,10 @@
-import React, {forwardRef} from 'react'
-import type {FC, ComponentPropsWithoutRef, HTMLProps, PropsWithChildren} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import type {StyledWrapperProps} from '../internal/components/TextInputWrapper'
 import TextInputWrapper from '../internal/components/TextInputWrapper'
 
 export type SelectProps = Omit<
-  Omit<ComponentPropsWithoutRef<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant'>,
+  Omit<React.ComponentPropsWithoutRef<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant'>,
   'multiple' | 'hasLeadingVisual' | 'hasTrailingVisual' | 'as'
 > & {
   /**
@@ -56,7 +55,7 @@ const StyledSelect = styled.select`
   }
 `
 
-const ArrowIndicatorSVG: FC<PropsWithChildren<{className?: string}>> = ({className}) => (
+const ArrowIndicatorSVG: React.FC<React.PropsWithChildren<{className?: string}>> = ({className}) => (
   <svg
     aria-hidden="true"
     width="16"
@@ -83,7 +82,7 @@ const ArrowIndicator = styled(ArrowIndicatorSVG)`
  * @primerstatus alpha
  * @primera11yreviewed true
  */
-export const Select = forwardRef<HTMLSelectElement, SelectProps>(
+export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   ({block, children, contrast, disabled, placeholder, size, required, validationStatus, ...rest}: SelectProps, ref) => (
     <TextInputWrapper
       sx={{
@@ -127,13 +126,15 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
  * @alias Select.Option
  * @primerparentid select
  */
-export const Option: FC<PropsWithChildren<HTMLProps<HTMLOptionElement> & {value: string}>> = props => (
-  <option {...props} />
-)
+export const Option: React.FC<
+  React.PropsWithChildren<React.HTMLProps<HTMLOptionElement> & {value: string}>
+> = props => <option {...props} />
 
 /**
  * Creates a group of related selectable options in the Select component.
  * @alias Select.OptGroup
  * @primerparentid select
  */
-export const OptGroup: FC<PropsWithChildren<HTMLProps<HTMLOptGroupElement>>> = props => <optgroup {...props} />
+export const OptGroup: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptGroupElement>>> = props => (
+  <optgroup {...props} />
+)

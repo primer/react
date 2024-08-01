@@ -1490,7 +1490,7 @@
       },
       "aria-labelledby": {
         "defaultValue": null,
-        "description": "",
+        "description": "When provided, uses the element with that ID as the accessible name for the ActionBar",
         "name": "aria-labelledby",
         "declarations": [
           {
@@ -1537,22 +1537,6 @@
           {
             "fileName": "react/packages/react/src/Button/types.ts",
             "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/Button/types.ts",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/Button/types.ts",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/Button/types.ts",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/Button/types.ts",
-            "name": "TypeLiteral"
           }
         ],
         "required": false,
@@ -1578,22 +1562,6 @@
           {
             "fileName": "react/packages/react/src/Button/types.ts",
             "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/Button/types.ts",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/Button/types.ts",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/Button/types.ts",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/Button/types.ts",
-            "name": "TypeLiteral"
           }
         ],
         "required": false,
@@ -1603,109 +1571,6 @@
           "value": [
             {
               "value": "string"
-            }
-          ]
-        }
-      },
-      "disabled": {
-        "defaultValue": null,
-        "description": "Items that are disabled can not be clicked, selected, or navigated through.",
-        "name": "disabled",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/Button/types.ts",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/node_modules/@types/react/index.d.ts",
-            "name": "ButtonHTMLAttributes"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "boolean",
-          "value": [
-            {
-              "value": "false"
-            },
-            {
-              "value": "true"
-            }
-          ]
-        }
-      },
-      "loading": {
-        "defaultValue": null,
-        "description": "When true, the button is in a loading state.",
-        "name": "loading",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/Button/types.ts",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "boolean",
-          "value": [
-            {
-              "value": "false"
-            },
-            {
-              "value": "true"
-            }
-          ]
-        }
-      },
-      "size": {
-        "defaultValue": null,
-        "description": "Size of button and fontSize of text in button",
-        "name": "size",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/Button/types.ts",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "Size",
-          "value": [
-            {
-              "value": "\"small\""
-            },
-            {
-              "value": "\"large\""
-            },
-            {
-              "value": "\"medium\""
-            }
-          ]
-        }
-      },
-      "block": {
-        "defaultValue": null,
-        "description": "Allow button width to fill its container.",
-        "name": "block",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/Button/types.ts",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "boolean",
-          "value": [
-            {
-              "value": "false"
-            },
-            {
-              "value": "true"
             }
           ]
         }
@@ -2286,134 +2151,10 @@
           ]
         }
       },
-      "sx": {
+      "unsafeDisableTooltip": {
         "defaultValue": null,
-        "description": "A style object used to override styles using styled-components",
-        "name": "sx",
-        "parent": {
-          "fileName": "react/packages/react/src/sx.ts",
-          "name": "SxProp"
-        },
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/sx.ts",
-            "name": "SxProp"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "BetterSystemStyleObject",
-          "value": [
-            {
-              "value": "null"
-            },
-            {
-              "value": "SystemCssProperties",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSPseudoSelectorProps",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSSelectorObject",
-              "description": "Map all nested selectors",
-              "fullComment": "Map all nested selectors",
-              "tags": {}
-            },
-            {
-              "value": "VariantProperty",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "UseThemeFunction",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "EmotionLabel",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "BetterCssProperties",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSCustomProperties",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSSelectorObject",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            }
-          ]
-        }
-      },
-      "loadingAnnouncement": {
-        "defaultValue": null,
-        "description": "The content to announce to screen readers when loading.",
-        "name": "loadingAnnouncement",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/Button/types.ts",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "string",
-          "value": [
-            {
-              "value": "string"
-            }
-          ]
-        }
-      },
-      "inactive": {
-        "defaultValue": null,
-        "description": "",
-        "name": "inactive",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/Button/types.ts",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "boolean",
-          "value": [
-            {
-              "value": "false"
-            },
-            {
-              "value": "true"
-            }
-          ]
-        }
-      },
-      "labelWrap": {
-        "defaultValue": null,
-        "description": "Whether the button label should wrap to multiple lines of it is longer than the button width.",
-        "name": "labelWrap",
+        "description": "Do not use. This is planned to be a temporary prop until the default tooltip on icon buttons are fully rolled out.",
+        "name": "unsafeDisableTooltip",
         "declarations": [
           {
             "fileName": "react/packages/react/src/Button/types.ts",
@@ -2514,6 +2255,287 @@
           "value": [
             {
               "value": "string"
+            }
+          ]
+        }
+      },
+      "disabled": {
+        "defaultValue": null,
+        "description": "Items that are disabled can not be clicked, selected, or navigated through.",
+        "name": "disabled",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/node_modules/@types/react/index.d.ts",
+            "name": "ButtonHTMLAttributes"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "boolean",
+          "value": [
+            {
+              "value": "false"
+            },
+            {
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "loading": {
+        "defaultValue": null,
+        "description": "When true, the button is in a loading state.",
+        "name": "loading",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "boolean",
+          "value": [
+            {
+              "value": "false"
+            },
+            {
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "size": {
+        "defaultValue": null,
+        "description": "Size of button and fontSize of text in button",
+        "name": "size",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "Size",
+          "value": [
+            {
+              "value": "\"small\""
+            },
+            {
+              "value": "\"large\""
+            },
+            {
+              "value": "\"medium\""
+            }
+          ]
+        }
+      },
+      "block": {
+        "defaultValue": null,
+        "description": "Allow button width to fill its container.",
+        "name": "block",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "boolean",
+          "value": [
+            {
+              "value": "false"
+            },
+            {
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "sx": {
+        "defaultValue": null,
+        "description": "A style object used to override styles using styled-components",
+        "name": "sx",
+        "parent": {
+          "fileName": "react/packages/react/src/sx.ts",
+          "name": "SxProp"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/sx.ts",
+            "name": "SxProp"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "BetterSystemStyleObject",
+          "value": [
+            {
+              "value": "null"
+            },
+            {
+              "value": "SystemCssProperties",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "CSSPseudoSelectorProps",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "CSSSelectorObject",
+              "description": "Map all nested selectors",
+              "fullComment": "Map all nested selectors",
+              "tags": {}
+            },
+            {
+              "value": "VariantProperty",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "UseThemeFunction",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "EmotionLabel",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "BetterCssProperties",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "CSSCustomProperties",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            },
+            {
+              "value": "CSSSelectorObject",
+              "description": "",
+              "fullComment": "",
+              "tags": {}
+            }
+          ]
+        }
+      },
+      "variant": {
+        "defaultValue": null,
+        "description": "Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
+        "name": "variant",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "VariantType",
+          "value": [
+            {
+              "value": "\"default\""
+            },
+            {
+              "value": "\"danger\""
+            },
+            {
+              "value": "\"primary\""
+            },
+            {
+              "value": "\"invisible\""
+            }
+          ]
+        }
+      },
+      "loadingAnnouncement": {
+        "defaultValue": null,
+        "description": "The content to announce to screen readers when loading.",
+        "name": "loadingAnnouncement",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "string",
+          "value": [
+            {
+              "value": "string"
+            }
+          ]
+        }
+      },
+      "inactive": {
+        "defaultValue": null,
+        "description": "",
+        "name": "inactive",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "boolean",
+          "value": [
+            {
+              "value": "false"
+            },
+            {
+              "value": "true"
+            }
+          ]
+        }
+      },
+      "labelWrap": {
+        "defaultValue": null,
+        "description": "Whether the button label should wrap to multiple lines of it is longer than the button width.",
+        "name": "labelWrap",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Button/types.ts",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "boolean",
+          "value": [
+            {
+              "value": "false"
+            },
+            {
+              "value": "true"
             }
           ]
         }
@@ -15015,7 +15037,7 @@
       },
       "openOnFocus": {
         "defaultValue": null,
-        "description": "",
+        "description": "@deprecated `openOnFocus` is deprecated and will be removed in v38.\nWhen `true`, autocomplete menu will show on focus or click.",
         "name": "openOnFocus",
         "declarations": [
           {
@@ -43385,7 +43407,7 @@
     "tags": {},
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/NavList/NavList.tsx",
     "description": "",
-    "displayName": "LeadingVisual",
+    "displayName": "NavList.LeadingVisual",
     "methods": [],
     "props": {
       "sx": {
@@ -43473,7 +43495,7 @@
     "tags": {},
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/NavList/NavList.tsx",
     "description": "",
-    "displayName": "TrailingVisual",
+    "displayName": "NavList.TrailingVisual",
     "methods": [],
     "props": {
       "sx": {
@@ -53935,6 +53957,7 @@
   },
   {
     "tags": {
+      "alias": "PageLayout",
       "primerid": "page_layout",
       "primerstatus": "alpha",
       "primera11yreviewed": "true"
@@ -55238,12 +55261,12 @@
   },
   {
     "tags": {
-      "alias": "PageHeader.Pane",
+      "alias": "PageLayout.Pane",
       "primerparentid": "page_layout"
     },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PageLayout/PageLayout.tsx",
     "description": "Area for supplemental page content. Used like sidebars on wide viewports.",
-    "displayName": "PageHeader.Pane",
+    "displayName": "PageLayout.Pane",
     "methods": [],
     "props": {
       "position": {
@@ -55737,12 +55760,12 @@
   },
   {
     "tags": {
-      "alias": "PageHeader.Footer",
+      "alias": "PageLayout.Footer",
       "primerparentid": "page_layout"
     },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/PageLayout/PageLayout.tsx",
     "description": "The footer area of the overall page layout.",
-    "displayName": "PageHeader.Footer",
+    "displayName": "PageLayout.Footer",
     "methods": [],
     "props": {
       "aria-label": {
@@ -58636,6 +58659,7 @@
   },
   {
     "tags": {
+      "alias": "SegmentedControl",
       "primerid": "segmented_control",
       "primerstatus": "alpha",
       "primera11yreviewed": "false"
@@ -58903,7 +58927,7 @@
     },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/SegmentedControl/SegmentedControlButton.tsx",
     "description": "A button segment in the SegmentedControl",
-    "displayName": "SegmentedControl.Button",
+    "displayName": "SegmentedControlButton",
     "methods": [],
     "props": {
       "children": {
@@ -59108,7 +59132,7 @@
     },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/SegmentedControl/SegmentedControlIconButton.tsx",
     "description": "A button segment in the SegmentedControl",
-    "displayName": "SegmentedControl.IconButton",
+    "displayName": "SegmentedControlIconButton",
     "methods": [],
     "props": {
       "aria-label": {
@@ -64917,31 +64941,586 @@
     "displayName": "TabNav.Link",
     "methods": [],
     "props": {
-      "href": {
+      "as": {
         "defaultValue": null,
-        "description": "Used to populate the `href` attribute when using an `<a>` tag",
-        "name": "href",
-        "parent": {
-          "fileName": "react/node_modules/@types/react/index.d.ts",
-          "name": "AnchorHTMLAttributes"
-        },
+        "description": "",
+        "name": "as",
         "declarations": [
           {
-            "fileName": "react/node_modules/@types/react/index.d.ts",
-            "name": "AnchorHTMLAttributes"
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
           },
           {
-            "fileName": "react/packages/react/src/TabNav/TabNav.tsx",
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
+            "name": "TypeLiteral"
+          },
+          {
+            "fileName": "react/packages/react/src/utils/polymorphic.ts",
             "name": "TypeLiteral"
           }
         ],
-        "required": false,
+        "required": true,
         "type": {
           "name": "enum",
-          "raw": "string",
+          "raw": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>",
           "value": [
             {
-              "value": "string"
+              "value": "\"symbol\""
+            },
+            {
+              "value": "\"object\""
+            },
+            {
+              "value": "\"a\""
+            },
+            {
+              "value": "\"abbr\""
+            },
+            {
+              "value": "\"address\""
+            },
+            {
+              "value": "\"area\""
+            },
+            {
+              "value": "\"article\""
+            },
+            {
+              "value": "\"aside\""
+            },
+            {
+              "value": "\"audio\""
+            },
+            {
+              "value": "\"b\""
+            },
+            {
+              "value": "\"base\""
+            },
+            {
+              "value": "\"bdi\""
+            },
+            {
+              "value": "\"bdo\""
+            },
+            {
+              "value": "\"big\""
+            },
+            {
+              "value": "\"blockquote\""
+            },
+            {
+              "value": "\"body\""
+            },
+            {
+              "value": "\"br\""
+            },
+            {
+              "value": "\"button\""
+            },
+            {
+              "value": "\"canvas\""
+            },
+            {
+              "value": "\"caption\""
+            },
+            {
+              "value": "\"center\""
+            },
+            {
+              "value": "\"cite\""
+            },
+            {
+              "value": "\"code\""
+            },
+            {
+              "value": "\"col\""
+            },
+            {
+              "value": "\"colgroup\""
+            },
+            {
+              "value": "\"data\""
+            },
+            {
+              "value": "\"datalist\""
+            },
+            {
+              "value": "\"dd\""
+            },
+            {
+              "value": "\"del\""
+            },
+            {
+              "value": "\"details\""
+            },
+            {
+              "value": "\"dfn\""
+            },
+            {
+              "value": "\"dialog\""
+            },
+            {
+              "value": "\"div\""
+            },
+            {
+              "value": "\"dl\""
+            },
+            {
+              "value": "\"dt\""
+            },
+            {
+              "value": "\"em\""
+            },
+            {
+              "value": "\"embed\""
+            },
+            {
+              "value": "\"fieldset\""
+            },
+            {
+              "value": "\"figcaption\""
+            },
+            {
+              "value": "\"figure\""
+            },
+            {
+              "value": "\"footer\""
+            },
+            {
+              "value": "\"form\""
+            },
+            {
+              "value": "\"h1\""
+            },
+            {
+              "value": "\"h2\""
+            },
+            {
+              "value": "\"h3\""
+            },
+            {
+              "value": "\"h4\""
+            },
+            {
+              "value": "\"h5\""
+            },
+            {
+              "value": "\"h6\""
+            },
+            {
+              "value": "\"head\""
+            },
+            {
+              "value": "\"header\""
+            },
+            {
+              "value": "\"hgroup\""
+            },
+            {
+              "value": "\"hr\""
+            },
+            {
+              "value": "\"html\""
+            },
+            {
+              "value": "\"i\""
+            },
+            {
+              "value": "\"iframe\""
+            },
+            {
+              "value": "\"img\""
+            },
+            {
+              "value": "\"input\""
+            },
+            {
+              "value": "\"ins\""
+            },
+            {
+              "value": "\"kbd\""
+            },
+            {
+              "value": "\"keygen\""
+            },
+            {
+              "value": "\"label\""
+            },
+            {
+              "value": "\"legend\""
+            },
+            {
+              "value": "\"li\""
+            },
+            {
+              "value": "\"link\""
+            },
+            {
+              "value": "\"main\""
+            },
+            {
+              "value": "\"map\""
+            },
+            {
+              "value": "\"mark\""
+            },
+            {
+              "value": "\"menu\""
+            },
+            {
+              "value": "\"menuitem\""
+            },
+            {
+              "value": "\"meta\""
+            },
+            {
+              "value": "\"meter\""
+            },
+            {
+              "value": "\"nav\""
+            },
+            {
+              "value": "\"noindex\""
+            },
+            {
+              "value": "\"noscript\""
+            },
+            {
+              "value": "\"ol\""
+            },
+            {
+              "value": "\"optgroup\""
+            },
+            {
+              "value": "\"option\""
+            },
+            {
+              "value": "\"output\""
+            },
+            {
+              "value": "\"p\""
+            },
+            {
+              "value": "\"param\""
+            },
+            {
+              "value": "\"picture\""
+            },
+            {
+              "value": "\"pre\""
+            },
+            {
+              "value": "\"progress\""
+            },
+            {
+              "value": "\"q\""
+            },
+            {
+              "value": "\"rp\""
+            },
+            {
+              "value": "\"rt\""
+            },
+            {
+              "value": "\"ruby\""
+            },
+            {
+              "value": "\"s\""
+            },
+            {
+              "value": "\"samp\""
+            },
+            {
+              "value": "\"search\""
+            },
+            {
+              "value": "\"slot\""
+            },
+            {
+              "value": "\"script\""
+            },
+            {
+              "value": "\"section\""
+            },
+            {
+              "value": "\"select\""
+            },
+            {
+              "value": "\"small\""
+            },
+            {
+              "value": "\"source\""
+            },
+            {
+              "value": "\"span\""
+            },
+            {
+              "value": "\"strong\""
+            },
+            {
+              "value": "\"style\""
+            },
+            {
+              "value": "\"sub\""
+            },
+            {
+              "value": "\"summary\""
+            },
+            {
+              "value": "\"sup\""
+            },
+            {
+              "value": "\"table\""
+            },
+            {
+              "value": "\"template\""
+            },
+            {
+              "value": "\"tbody\""
+            },
+            {
+              "value": "\"td\""
+            },
+            {
+              "value": "\"textarea\""
+            },
+            {
+              "value": "\"tfoot\""
+            },
+            {
+              "value": "\"th\""
+            },
+            {
+              "value": "\"thead\""
+            },
+            {
+              "value": "\"time\""
+            },
+            {
+              "value": "\"title\""
+            },
+            {
+              "value": "\"tr\""
+            },
+            {
+              "value": "\"track\""
+            },
+            {
+              "value": "\"u\""
+            },
+            {
+              "value": "\"ul\""
+            },
+            {
+              "value": "\"var\""
+            },
+            {
+              "value": "\"video\""
+            },
+            {
+              "value": "\"wbr\""
+            },
+            {
+              "value": "\"webview\""
+            },
+            {
+              "value": "\"svg\""
+            },
+            {
+              "value": "\"animate\""
+            },
+            {
+              "value": "\"animateMotion\""
+            },
+            {
+              "value": "\"animateTransform\""
+            },
+            {
+              "value": "\"circle\""
+            },
+            {
+              "value": "\"clipPath\""
+            },
+            {
+              "value": "\"defs\""
+            },
+            {
+              "value": "\"desc\""
+            },
+            {
+              "value": "\"ellipse\""
+            },
+            {
+              "value": "\"feBlend\""
+            },
+            {
+              "value": "\"feColorMatrix\""
+            },
+            {
+              "value": "\"feComponentTransfer\""
+            },
+            {
+              "value": "\"feComposite\""
+            },
+            {
+              "value": "\"feConvolveMatrix\""
+            },
+            {
+              "value": "\"feDiffuseLighting\""
+            },
+            {
+              "value": "\"feDisplacementMap\""
+            },
+            {
+              "value": "\"feDistantLight\""
+            },
+            {
+              "value": "\"feDropShadow\""
+            },
+            {
+              "value": "\"feFlood\""
+            },
+            {
+              "value": "\"feFuncA\""
+            },
+            {
+              "value": "\"feFuncB\""
+            },
+            {
+              "value": "\"feFuncG\""
+            },
+            {
+              "value": "\"feFuncR\""
+            },
+            {
+              "value": "\"feGaussianBlur\""
+            },
+            {
+              "value": "\"feImage\""
+            },
+            {
+              "value": "\"feMerge\""
+            },
+            {
+              "value": "\"feMergeNode\""
+            },
+            {
+              "value": "\"feMorphology\""
+            },
+            {
+              "value": "\"feOffset\""
+            },
+            {
+              "value": "\"fePointLight\""
+            },
+            {
+              "value": "\"feSpecularLighting\""
+            },
+            {
+              "value": "\"feSpotLight\""
+            },
+            {
+              "value": "\"feTile\""
+            },
+            {
+              "value": "\"feTurbulence\""
+            },
+            {
+              "value": "\"filter\""
+            },
+            {
+              "value": "\"foreignObject\""
+            },
+            {
+              "value": "\"g\""
+            },
+            {
+              "value": "\"image\""
+            },
+            {
+              "value": "\"line\""
+            },
+            {
+              "value": "\"linearGradient\""
+            },
+            {
+              "value": "\"marker\""
+            },
+            {
+              "value": "\"mask\""
+            },
+            {
+              "value": "\"metadata\""
+            },
+            {
+              "value": "\"mpath\""
+            },
+            {
+              "value": "\"path\""
+            },
+            {
+              "value": "\"pattern\""
+            },
+            {
+              "value": "\"polygon\""
+            },
+            {
+              "value": "\"polyline\""
+            },
+            {
+              "value": "\"radialGradient\""
+            },
+            {
+              "value": "\"rect\""
+            },
+            {
+              "value": "\"set\""
+            },
+            {
+              "value": "\"stop\""
+            },
+            {
+              "value": "\"switch\""
+            },
+            {
+              "value": "\"text\""
+            },
+            {
+              "value": "\"textPath\""
+            },
+            {
+              "value": "\"tspan\""
+            },
+            {
+              "value": "\"use\""
+            },
+            {
+              "value": "\"view\""
+            },
+            {
+              "value": "\"relative-time\""
+            },
+            {
+              "value": "\"tab-container\""
+            },
+            {
+              "value": "ComponentClass<unknown, any>",
+              "description": "Represents a component class in React.",
+              "fullComment": "Represents a component class in React.\n@template P The props the component accepts.\n@template S The internal state of the component.",
+              "tags": {
+                "template": "P The props the component accepts.\nS The internal state of the component."
+              }
+            },
+            {
+              "value": "FunctionComponent<unknown>",
+              "description": "Represents the type of a function component. Can optionally\nreceive a type argument that represents the props the component\naccepts.",
+              "fullComment": "Represents the type of a function component. Can optionally\nreceive a type argument that represents the props the component\naccepts.\n@template P The props the component accepts.\n@see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components React TypeScript Cheatsheet}\n@example ```tsx\n// With props:\ntype Props = { name: string }\n\nconst MyComponent: FunctionComponent<Props> = (props) => {\n return <div>{props.name}</div>\n}\n```\n@example ```tsx\n// Without props:\nconst MyComponentWithoutProps: FunctionComponent = () => {\n  return <div>MyComponentWithoutProps</div>\n}\n```",
+              "tags": {
+                "template": "P The props the component accepts.",
+                "see": "{@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components React TypeScript Cheatsheet}",
+                "example": "```tsx\n// With props:\ntype Props = { name: string }\n\nconst MyComponent: FunctionComponent<Props> = (props) => {\n return <div>{props.name}</div>\n}\n```\n```tsx\n// Without props:\nconst MyComponentWithoutProps: FunctionComponent = () => {\n  return <div>MyComponentWithoutProps</div>\n}\n```"
+              }
             }
           ]
         }
@@ -64993,6 +65572,27 @@
             },
             {
               "value": "true"
+            }
+          ]
+        }
+      },
+      "href": {
+        "defaultValue": null,
+        "description": "Used to populate the `href` attribute when using an `<a>` tag",
+        "name": "href",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/TabNav/TabNav.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "string",
+          "value": [
+            {
+              "value": "string"
             }
           ]
         }
@@ -72365,7 +72965,7 @@
     },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/TreeView/TreeView.tsx",
     "description": "Tree view is a hierarchical list of items that may have a parent-child relationship where children can be toggled into view by expanding or collapsing their parent item.",
-    "displayName": "Root",
+    "displayName": "TreeView",
     "methods": [],
     "props": {
       "aria-label": {

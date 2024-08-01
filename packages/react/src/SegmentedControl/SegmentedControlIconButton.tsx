@@ -34,7 +34,7 @@ const SegmentedControlIconButtonStyled = styled.button`
  * @alias SegmentedControl.IconButton
  * @primerparentid segmented_control
  */
-export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<SegmentedControlIconButtonProps>> = ({
+const SegmentedControlIconButton: React.FC<React.PropsWithChildren<SegmentedControlIconButtonProps>> = ({
   'aria-label': ariaLabel,
   icon: Icon,
   selected,
@@ -65,3 +65,5 @@ export const SegmentedControlIconButton: React.FC<React.PropsWithChildren<Segmen
     </Box>
   )
 }
+
+export default SegmentedControlIconButton

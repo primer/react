@@ -1,5 +1,5 @@
 import React, {useCallback, useContext, useMemo, useEffect, useState} from 'react'
-import type {FC, PropsWithChildren} from 'react'
+import type {PropsWithChildren} from 'react'
 import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -50,7 +50,7 @@ export type ActionMenuProps = {
  * @primerstatus beta
  * @primera11yreviewed false
  */
-export const ActionMenu: FC<PropsWithChildren<ActionMenuProps>> = ({
+export const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   anchorRef: externalAnchorRef,
   open,
   onOpenChange,
@@ -162,7 +162,7 @@ export const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({chi
   )
 
   // Add right chevron icon to submenu anchors rendered using `ActionList.Item`
-  const parentActionListContext = React.useContext(ActionListContainerContext)
+  const parentActionListContext = useContext(ActionListContainerContext)
   const thisActionListContext = useMemo(
     () =>
       isSubmenu
@@ -219,7 +219,7 @@ type MenuOverlayProps = Partial<OverlayProps> &
  * @alias ActionMenu.Overlay
  * @primerparentid action_menu
  */
-export const Overlay: FC<PropsWithChildren<MenuOverlayProps>> = ({
+export const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
   children,
   align = 'start',
   side,
@@ -236,7 +236,7 @@ export const Overlay: FC<PropsWithChildren<MenuOverlayProps>> = ({
     onOpen,
     onClose,
     isSubmenu = false,
-  } = useContext(MenuContext) as MandateProps<MenuContextProps, 'anchorRef'>
+  } = React.useContext(MenuContext) as MandateProps<MenuContextProps, 'anchorRef'>
 
   const containerRef = React.useRef<HTMLDivElement>(null)
   useMenuKeyboardNavigation(open, onClose, containerRef, anchorRef, isSubmenu)
@@ -282,3 +282,5 @@ export const Overlay: FC<PropsWithChildren<MenuOverlayProps>> = ({
     </AnchoredOverlay>
   )
 }
+
+Menu.displayName = 'ActionMenu'

@@ -5,9 +5,6 @@ import type {
   PanelProps as UnderlinePanelsPanelProps,
 } from './UnderlinePanels'
 
-Tab.displayName = 'UnderlinePanels.Tab'
-Panel.displayName = 'UnderlinePanels.Panel'
-
 export const UnderlinePanels = Object.assign(UnderlinePanelsImpl, {Panel, Tab})
 
 export type {UnderlinePanelsProps, UnderlinePanelsTabProps, UnderlinePanelsPanelProps}

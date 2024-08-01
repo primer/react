@@ -1,4 +1,4 @@
-import {PageLayout as PageLayoutImpl, Header, Content, Pane, Footer} from './PageLayout'
+import {Root as PageLayoutImpl, Header, Content, Pane, Footer} from './PageLayout'
 import type {
   PageLayoutProps,
   PageLayoutHeaderProps,
@@ -6,12 +6,6 @@ import type {
   PageLayoutContentProps,
   PageLayoutPaneProps,
 } from './PageLayout'
-
-PageLayoutImpl.displayName = 'PageLayout'
-Header.displayName = 'PageLayout.Header'
-Footer.displayName = 'PageLayout.Footer'
-Content.displayName = 'PageLayout.Content'
-Pane.displayName = 'PageLayout.Pane'
 
 export const PageLayout = Object.assign(PageLayoutImpl, {
   Header,

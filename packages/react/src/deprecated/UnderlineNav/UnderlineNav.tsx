@@ -126,4 +126,6 @@ export const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(prop
   ${sx};
 `
 
+UnderlineNavLink.displayName = 'UnderlineNav.Link'
+
 export type UnderlineNavLinkProps = ComponentProps<typeof UnderlineNavLink>

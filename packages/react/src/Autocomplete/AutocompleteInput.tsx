@@ -189,4 +189,6 @@ export const AutocompleteInput = React.forwardRef(
   },
 ) as PolymorphicForwardRefComponent<typeof TextInput, InternalAutocompleteInputProps>
 
+AutocompleteInput.displayName = 'AutocompleteInput'
+
 export type AutocompleteInputProps = ComponentProps<typeof AutocompleteInput>

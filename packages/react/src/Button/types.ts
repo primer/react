@@ -16,7 +16,7 @@ export type Size = 'small' | 'medium' | 'large'
 
 export type AlignContent = 'start' | 'center'
 
-export type ButtonA11yProps =
+type ButtonA11yProps =
   | {'aria-label': string; 'aria-labelledby'?: undefined}
   | {'aria-label'?: undefined; 'aria-labelledby': string}
 

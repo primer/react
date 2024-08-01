@@ -83,11 +83,12 @@ const containerWidths = {
 // TODO: refs
 /**
  * Page layout defines the header, main, pane, and footer areas of a page.
+ * @alias PageLayout
  * @primerid page_layout
  * @primerstatus alpha
  * @primera11yreviewed true
  */
-export const PageLayout: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
+export const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   containerWidth = 'xlarge',
   padding = 'normal',
   rowGap = 'normal',
@@ -140,6 +141,8 @@ export const PageLayout: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
     </PageLayoutContext.Provider>
   )
 }
+
+Root.displayName = 'PageLayout'
 
 // ----------------------------------------------------------------------------
 // Divider (internal)
@@ -476,6 +479,8 @@ export const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = 
   )
 }
 
+Header.displayName = 'PageLayout.Header'
+
 // ----------------------------------------------------------------------------
 // PageLayout.Content
 
@@ -575,6 +580,8 @@ export const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> 
     </Box>
   )
 }
+
+Content.displayName = 'PageLayout.Content'
 
 // ----------------------------------------------------------------------------
 // PageLayout.Pane
@@ -704,7 +711,7 @@ const defaultPaneWidth = {small: 256, medium: 296, large: 320}
 
 /**
  * Area for supplemental page content. Used like sidebars on wide viewports.
- * @alias PageHeader.Pane
+ * @alias PageLayout.Pane
  * @primerparentid page_layout
  */
 export const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
@@ -919,6 +926,8 @@ export const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<Pag
   },
 )
 
+Pane.displayName = 'PageLayout.Pane'
+
 // ----------------------------------------------------------------------------
 // PageLayout.Footer
 
@@ -965,7 +974,7 @@ export type PageLayoutFooterProps = {
 
 /**
  * The footer area of the overall page layout.
- * @alias PageHeader.Footer
+ * @alias PageLayout.Footer
  * @primerparentid page_layout
  */
 export const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
@@ -1007,3 +1016,5 @@ export const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = 
     </Box>
   )
 }
+
+Footer.displayName = 'PageLayout.Footer'

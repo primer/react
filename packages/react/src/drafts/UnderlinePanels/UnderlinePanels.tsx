@@ -39,7 +39,7 @@ export type UnderlinePanelsProps = {
   loadingCounters?: boolean
 } & SxProp
 
-export type TabProps = PropsWithChildren<{
+export type TabProps = {
   /**
    * Whether this is the selected tab
    */
@@ -52,8 +52,7 @@ export type TabProps = PropsWithChildren<{
    *  Icon rendered before the tab text label
    */
   icon?: FC<IconProps>
-}> &
-  SxProp
+} & SxProp
 
 export type PanelProps = Omit<BoxProps, 'as'>
 
@@ -176,12 +175,18 @@ export const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   )
 }
 
+UnderlinePanels.displayName = 'UnderlinePanels'
+
 /**
  * A tab in the tablist of UnderlinePanels
  * @alias UnderlinePanels.Tab
  * @primerparentid underline_panels
  */
-export const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, sx: sxProp = defaultSxProp, ...props}) => (
+export const Tab: React.FC<React.PropsWithChildren<TabProps>> = ({
+  'aria-selected': ariaSelected,
+  sx: sxProp = defaultSxProp,
+  ...props
+}) => (
   <UnderlineItem
     as="button"
     role="tab"
@@ -192,6 +197,8 @@ export const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, sx: sxProp = d
   />
 )
 
+Tab.displayName = 'UnderlinePanels.Tab'
+
 /**
  * A tabpanel associated with a UnderlinePanels.Tab in UnderlinePanels
  * @alias UnderlinePanels.Panel
@@ -200,3 +207,5 @@ export const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, sx: sxProp = d
 export const Panel: FC<PanelProps> = props => {
   return <Box as="div" role="tabpanel" {...props} />
 }
+
+Panel.displayName = 'UnderlinePanels.Panel'

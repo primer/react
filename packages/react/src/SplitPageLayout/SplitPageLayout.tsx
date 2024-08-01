@@ -19,7 +19,7 @@ export type SplitPageLayoutProps = SxProp
  * @primerstatus alpha
  * @primera11yreviewed true
  */
-export const SplitPageLayout: React.FC<React.PropsWithChildren<SplitPageLayoutProps>> = props => {
+export const Root: React.FC<React.PropsWithChildren<SplitPageLayoutProps>> = props => {
   return (
     <PageLayout
       containerWidth="full"
@@ -34,6 +34,8 @@ export const SplitPageLayout: React.FC<React.PropsWithChildren<SplitPageLayoutPr
     />
   )
 }
+
+Root.displayName = 'SplitPageLayout'
 
 // ----------------------------------------------------------------------------
 // SplitPageLayout.Header
@@ -54,6 +56,8 @@ export const Header: React.FC<React.PropsWithChildren<SplitPageLayoutHeaderProps
   return <PageLayout.Header padding={padding} divider={divider} {...props} />
 }
 
+Header.displayName = 'SplitPageLayout.Header'
+
 // ----------------------------------------------------------------------------
 // SplitPageLayout.Content
 
@@ -71,6 +75,8 @@ export const Content: React.FC<React.PropsWithChildren<SplitPageLayoutContentPro
 }) => {
   return <PageLayout.Content width={width} padding={padding} {...props} />
 }
+
+Content.displayName = 'SplitPageLayout.Content'
 
 // ----------------------------------------------------------------------------
 // SplitPageLayout.Pane
@@ -99,6 +105,8 @@ export const Pane: React.FC<React.PropsWithChildren<SplitPageLayoutPaneProps>> =
   )
 }
 
+Pane.displayName = 'SplitPageLayout.Pane'
+
 // ----------------------------------------------------------------------------
 // SplitPageLayout.Footer
 
@@ -117,3 +125,5 @@ export const Footer: React.FC<React.PropsWithChildren<SplitPageLayoutFooterProps
   // eslint-disable-next-line primer-react/direct-slot-children
   return <PageLayout.Footer padding={padding} divider={divider} {...props} />
 }
+
+Footer.displayName = 'SplitPageLayout.Footer'

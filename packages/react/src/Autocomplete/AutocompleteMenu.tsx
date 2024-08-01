@@ -379,4 +379,6 @@ export function AutocompleteMenu<T extends AutocompleteItemProps>(props: Autocom
   )
 }
 
+AutocompleteMenu.displayName = 'AutocompleteMenu'
+
 export type AutocompleteMenuProps = ComponentProps<typeof AutocompleteMenu>

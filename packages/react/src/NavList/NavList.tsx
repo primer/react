@@ -29,8 +29,6 @@ const getSubnavStyles = (depth: number) => {
 // ----------------------------------------------------------------------------
 // NavList
 
-// TODO: figure out how to get stuff from `ComponentProps<'nav'>` documented
-// OR specify and document passthrough props.
 export type NavListProps = {
   /** NavList items */
   children: React.ReactNode
@@ -45,7 +43,7 @@ const NavBox = styled.nav<SxProp>(sx)
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-export const NavList = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
+export const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
   return (
     <NavBox {...props} ref={ref}>
       <ActionListContainerContext.Provider
@@ -58,6 +56,8 @@ export const NavList = React.forwardRef<HTMLElement, NavListProps>(({children, .
     </NavBox>
   )
 })
+
+Root.displayName = 'NavList'
 
 // ----------------------------------------------------------------------------
 // NavList.Item
@@ -117,6 +117,8 @@ export const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
     )
   },
 ) as PolymorphicForwardRefComponent<'a', NavListItemProps>
+
+Item.displayName = 'NavList.Item'
 
 // ----------------------------------------------------------------------------
 // ItemWithSubNav (internal)
@@ -249,6 +251,8 @@ export const SubNav: React.FC<React.PropsWithChildren<NavListSubNavProps>> = ({
   )
 }
 
+SubNav.displayName = 'NavList.SubNav'
+
 // ----------------------------------------------------------------------------
 // NavList.LeadingVisual
 
@@ -260,6 +264,8 @@ export const SubNav: React.FC<React.PropsWithChildren<NavListSubNavProps>> = ({
 export type NavListLeadingVisualProps = ActionListLeadingVisualProps
 
 export const LeadingVisual = ActionList.LeadingVisual
+
+LeadingVisual.displayName = 'NavList.LeadingVisual'
 
 // ----------------------------------------------------------------------------
 // NavList.TrailingVisual
@@ -273,6 +279,8 @@ export type NavListTrailingVisualProps = ActionListTrailingVisualProps
 
 export const TrailingVisual = ActionList.TrailingVisual
 
+TrailingVisual.displayName = 'NavList.TrailingVisual'
+
 // ----------------------------------------------------------------------------
 // NavList.Divider
 
@@ -284,6 +292,8 @@ export type NavListDividerProps = ActionListDividerProps
  * @primerparentid nav_list
  */
 export const Divider = ActionList.Divider
+
+Divider.displayName = 'NavList.Divider'
 
 // NavList.TrailingAction
 
@@ -326,3 +336,5 @@ export const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp 
     </>
   )
 }
+
+Group.displayName = 'NavList.Group'
