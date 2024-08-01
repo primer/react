@@ -51,6 +51,9 @@ test.describe('Blankslate', () => {
               id: story.id,
               globals: {
                 colorScheme: theme,
+                featureFlags: {
+                  primer_react_css_modules: true,
+                },
               },
             })
 
@@ -75,6 +78,11 @@ test.describe('Blankslate', () => {
           test(`${name} @vrt`, async ({page}) => {
             await visit(page, {
               id: story.id,
+              globals: {
+                featureFlags: {
+                  primer_react_css_modules: true,
+                },
+              },
             })
             const width = viewports[name]
 

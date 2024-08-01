@@ -36,18 +36,10 @@ export async function visit(page: Page, options: Options) {
     let params = ''
     for (const [key, value] of Object.entries(globals)) {
       if (params !== '') {
-        params += '&'
+        params += ';'
       }
       if (typeof value === 'object') {
-        const serialized = Object.entries(value)
-          .map(([key, value]) => {
-            if (typeof value === 'boolean') {
-              return [key, `!${!value}`]
-            }
-            return [key, value]
-          })
-          .join(';')
-        params += `${key}:${serialized}`
+        params += serializeObject(value, key)
       } else {
         params += `${key}:${value}`
       }
@@ -67,21 +59,21 @@ export async function visit(page: Page, options: Options) {
   await waitForImages(page)
 }
 
-// function serialize(value: Value): string {
-// if (typeof value === 'string') {
-// return value
-// }
+function serializeObject<T extends {[Key: string]: Value}>(object: T, parentPath: string): string {
+  return Object.entries(object)
+    .map(([key, value]) => {
+      if (typeof value === 'object') {
+        return serializeObject(value, `${parentPath}.${key}`)
+      }
+      return `${parentPath}.${key}:${serialize(value)}`
+    })
+    .join(';')
+}
 
-// if (typeof value === 'number') {
-// return `${value}`;
-// }
+function serialize(value: Value): string {
+  if (typeof value === 'boolean') {
+    return `!${value}`
+  }
 
-// if (typeof value === 'boolean') {
-// return `!${!value}`;
-// }
-
-// if (typeof value === 'object') {
-// }
-
-// return value.toString();
-// }
+  return `${value}`
+}
