@@ -212,7 +212,7 @@ function PrimaryAction({children, href}: PrimaryActionProps) {
   return (
     <div
       className={cx('Blankslate-Action', {
-        [classes.Action]: !enabled,
+        [classes.Action]: enabled,
       })}
     >
       <Button as="a" href={href} variant="primary">
