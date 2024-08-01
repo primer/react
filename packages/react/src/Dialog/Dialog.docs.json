@@ -4,7 +4,16 @@
   "name": "Dialog",
   "status": "draft",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {"id": "components-dialog-features--bottom-sheet-narrow"},
+    {"id": "components-dialog-features--full-screen-narrow"},
+    {"id": "components-dialog-features--side-sheet"},
+    {"id": "components-dialog-features--new-issues"},
+    {"id": "components-dialog-features--repro-multistep-dialog-with-conditional-footer"},
+    {"id": "components-dialog-features--return-focus-ref"},
+    {"id": "components-dialog-features--stress-test"},
+    {"id": "components-dialog-features--with-custom-renderers"}
+  ],
   "importPath": "@primer/react/experimental",
   "props": [
     {
