@@ -3,10 +3,11 @@ import type {Meta, StoryFn} from '@storybook/react'
 import CircleBadge from './CircleBadge'
 import {ZapIcon} from '@primer/octicons-react'
 
-export default {
+const meta: Meta<typeof CircleBadge> = {
   title: 'Components/CircleBadge',
   component: CircleBadge,
-} as Meta<typeof CircleBadge>
+}
+export default meta
 
 export const Default = () => (
   <CircleBadge>
