@@ -7,10 +7,12 @@ import {Button} from '../Button'
 import {SelectPanel} from '../SelectPanel'
 import type {ItemInput} from '../deprecated/ActionList/List'
 
-export default {
+const meta = {
   title: 'Components/SelectPanel',
   component: SelectPanel,
-} as Meta<typeof SelectPanel>
+} satisfies Meta<typeof SelectPanel>
+
+export default meta
 
 function getColorCircle(color: string) {
   return function () {

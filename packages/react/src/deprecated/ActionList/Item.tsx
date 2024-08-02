@@ -357,6 +357,8 @@ export const Item = React.forwardRef((itemProps, ref) => {
   const labelId = useId()
   const descriptionId = useId()
 
+  console.log({selectionVariant})
+
   const keyPressHandler = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
       if (disabled) {

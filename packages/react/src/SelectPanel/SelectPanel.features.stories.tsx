@@ -8,10 +8,12 @@ import {SelectPanel} from './SelectPanel'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import type {OverlayProps} from '../Overlay'
 
-export default {
+const meta = {
   title: 'Components/SelectPanel/Features',
   component: SelectPanel,
-} as Meta<typeof SelectPanel>
+} satisfies Meta<typeof SelectPanel>
+
+export default meta
 
 function getColorCircle(color: string) {
   return function () {
