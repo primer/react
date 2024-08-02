@@ -3,10 +3,11 @@ import type {Meta, StoryFn} from '@storybook/react'
 import Octicon from './Octicon'
 import {HeartFillIcon} from '@primer/octicons-react'
 
-export default {
+const meta: Meta<typeof Octicon> = {
   title: 'Components/Octicon',
   component: Octicon,
-} as Meta<typeof Octicon>
+}
+export default meta
 
 export const Default = () => <Octicon icon={HeartFillIcon} aria-label="Like" size={32} />
 
@@ -25,6 +26,8 @@ Playground.argTypes = {
   },
   verticalAlign: {
     type: 'string',
+    control: {type: 'select'},
+    options: ['middle', 'text-bottom', 'text-top', 'top', 'unset'],
   },
   icon: {
     controls: false,
