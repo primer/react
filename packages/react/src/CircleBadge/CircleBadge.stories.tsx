@@ -15,9 +15,9 @@ export const Default = () => (
   </CircleBadge>
 )
 
-export const Playground: StoryFn<typeof CircleBadge> = args => (
+export const Playground: StoryFn<typeof CircleBadge> = ({'CircleBadge.Icon aria-label': iconAriaLabel, args}) => (
   <CircleBadge {...args}>
-    <CircleBadge.Icon icon={ZapIcon} />
+    <CircleBadge.Icon icon={ZapIcon} aria-label={iconAriaLabel} />
   </CircleBadge>
 )
 
@@ -26,6 +26,7 @@ Playground.args = {
   size: null,
   inline: false,
   as: 'div',
+  'CircleBadge.Icon aria-label': undefined,
 }
 
 Playground.argTypes = {
@@ -44,5 +45,8 @@ Playground.argTypes = {
     control: {
       type: 'boolean',
     },
+  },
+  'CircleBadge.Icon aria-label': {
+    type: 'string',
   },
 }
