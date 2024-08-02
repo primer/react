@@ -17,13 +17,14 @@ export const Default = () => (
 )
 
 type PlaygroundTypes = Omit<CircleOcticonProps, 'icon'> & {icon: keyof typeof Icons}
-export const Playground: StoryFn<PlaygroundTypes> = ({icon: iconName, ...args}) => (
-  <CircleOcticon icon={Icons[iconName]} {...args} />
+export const Playground: StoryFn<PlaygroundTypes> = ({icon: iconName, 'aria-label': ariaLabel, ...args}) => (
+  <CircleOcticon icon={Icons[iconName]} aria-label={ariaLabel ? ariaLabel : undefined} {...args} />
 )
 
 Playground.args = {
   size: 32,
   icon: 'CheckIcon',
+  'aria-label': undefined,
   sx: {backgroundColor: 'success.emphasis', color: 'fg.onEmphasis'},
 }
 
@@ -38,6 +39,9 @@ Playground.argTypes = {
       type: 'select',
     },
     options: Object.keys(Icons),
+  },
+  'aria-label': {
+    type: 'string',
   },
   sx: {
     controls: false,
