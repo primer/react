@@ -8,12 +8,12 @@ export default {
   component: Octicon,
 } as Meta<typeof Octicon>
 
-export const Default = () => <Octicon icon={HeartFillIcon} size={32} />
+export const Default = () => <Octicon icon={HeartFillIcon} aria-label="Like" size={32} />
 
 export const Playground: StoryFn<typeof Octicon> = args => <Octicon icon={HeartFillIcon} {...args} />
 
 Playground.args = {
-  ariaLabel: 'Heart',
+  'aria-label': 'Heart',
   size: 32,
 }
 
