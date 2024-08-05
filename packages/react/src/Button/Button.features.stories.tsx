@@ -32,7 +32,10 @@ const AccessibilityNote = () => {
         </p>
         <p>
           Learn more about at{' '}
-          <a href="https://github.com/github/accessibility/blob/8b300b36d8bca28fd5e3e70ffa077a6f8ee65c05/docs/wiki/screen-reader-testing/dynamically-updated-buttons-support-april-2024.md">
+          <a
+            style={{color: 'var(--fgColor-link)', textDecoration: 'underline'}}
+            href="https://github.com/github/accessibility/blob/8b300b36d8bca28fd5e3e70ffa077a6f8ee65c05/docs/wiki/screen-reader-testing/dynamically-updated-buttons-support-april-2024.md"
+          >
             Staff-only: Dynamically updated button labels
           </a>
           .
