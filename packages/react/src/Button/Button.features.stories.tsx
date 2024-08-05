@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import {Button} from '.'
 import {Stack} from '../Stack/Stack'
 import {announce} from '@primer/live-region-element'
-
+import {Tooltip} from '../TooltipV2/Tooltip'
 export default {
   title: 'Components/Button/Features',
 }
@@ -201,3 +201,9 @@ export const LabelWrap = () => {
     </Stack>
   )
 }
+
+export const InactiveButtonWithTooltip = () => (
+  <Tooltip text="Action unavailable: an error occured while loading respository permissions" direction="n">
+    <Button inactive>Review changes</Button>
+  </Tooltip>
+)
