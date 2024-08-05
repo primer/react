@@ -5,106 +5,72 @@ const theme = 'light'
 
 test.describe('Heading', () => {
   test.describe('Default', () => {
-    test.describe(theme, () => {
-      test('default @vrt', async ({page}) => {
-        await visit(page, {
-          id: 'components-heading--default',
-          globals: {
-            colorScheme: theme,
-          },
-        })
-
-        // Default state
-        expect(await page.screenshot()).toMatchSnapshot(`Heading.Default.${theme}.png`)
+    test('default @vrt', async ({page}) => {
+      await visit(page, {
+        id: 'components-heading--default',
       })
 
-      test('axe @aat', async ({page}) => {
-        await visit(page, {
-          id: 'components-heading--default',
-          globals: {
-            colorScheme: theme,
-          },
-        })
-        await expect(page).toHaveNoViolations()
+      // Default state
+      expect(await page.screenshot()).toMatchSnapshot(`Heading.Default.png`)
+    })
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-heading--default',
       })
+      await expect(page).toHaveNoViolations()
     })
   })
 
   test.describe('Small', () => {
-    test.describe(theme, () => {
-      test('default @vrt', async ({page}) => {
-        await visit(page, {
-          id: 'components-heading--small',
-          globals: {
-            colorScheme: theme,
-          },
-        })
-
-        // Default state
-        expect(await page.screenshot()).toMatchSnapshot(`Heading.Default.${theme}.png`)
+    test('default @vrt', async ({page}) => {
+      await visit(page, {
+        id: 'components-heading--small',
       })
 
-      test('axe @aat', async ({page}) => {
-        await visit(page, {
-          id: 'components-heading--small',
-          globals: {
-            colorScheme: theme,
-          },
-        })
-        await expect(page).toHaveNoViolations()
+      expect(await page.screenshot()).toMatchSnapshot(`Heading.Small.png`)
+    })
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-heading--small',
       })
+      await expect(page).toHaveNoViolations()
     })
   })
 
   test.describe('Medium', () => {
-    test.describe(theme, () => {
-      test('default @vrt', async ({page}) => {
-        await visit(page, {
-          id: 'components-heading--medium',
-          globals: {
-            colorScheme: theme,
-          },
-        })
-
-        // Default state
-        expect(await page.screenshot()).toMatchSnapshot(`Heading.Default.${theme}.png`)
+    test('default @vrt', async ({page}) => {
+      await visit(page, {
+        id: 'components-heading--medium',
       })
 
-      test('axe @aat', async ({page}) => {
-        await visit(page, {
-          id: 'components-heading--medium',
-          globals: {
-            colorScheme: theme,
-          },
-        })
-        await expect(page).toHaveNoViolations()
+      expect(await page.screenshot()).toMatchSnapshot(`Heading.Medium.png`)
+    })
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-heading--medium',
       })
+      await expect(page).toHaveNoViolations()
     })
   })
 
   test.describe('Large', () => {
-    test.describe(theme, () => {
-      test('default @vrt', async ({page}) => {
-        await visit(page, {
-          id: 'components-heading--large',
-          globals: {
-            colorScheme: theme,
-          },
-        })
-
-        // Default state
-        expect(await page.screenshot()).toMatchSnapshot(`Heading.Default.${theme}.png`)
+    test('default @vrt', async ({page}) => {
+      await visit(page, {
+        id: 'components-heading--large',
       })
 
-      test('axe @aat', async ({page}) => {
-        await visit(page, {
-          id: 'components-heading--large',
-          globals: {
-            colorScheme: theme,
-          },
-        })
-        await expect(page).toHaveNoViolations()
+      // Default state
+      expect(await page.screenshot()).toMatchSnapshot(`Heading.Large.png`)
+    })
+
+    test('axe @aat', async ({page}) => {
+      await visit(page, {
+        id: 'components-heading--large',
       })
+      await expect(page).toHaveNoViolations()
     })
   })
 })
