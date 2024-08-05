@@ -1,8 +1,6 @@
 import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 
-const theme = 'light'
-
 test.describe('Heading', () => {
   test.describe('Default', () => {
     test('default @vrt', async ({page}) => {
