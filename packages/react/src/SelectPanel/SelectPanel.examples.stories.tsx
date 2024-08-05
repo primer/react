@@ -61,21 +61,20 @@ export const WithGroups = () => {
   //     },
   //   ]
 
-  const items = [
+  const items: Array<ItemInput> = [
     {
       id: '1',
       key: 1,
       leadingVisual: SearchIcon,
-      text: 'repo:github/memex',
+      text: 'item 1',
       groupId: '1',
-      renderItem: props => <ActionList.Item style={{color: 'rebeccapurple'}} {...props} />,
     },
     {
       id: '2',
       key: 2,
       leadingVisual: NoteIcon,
-      text: 'Table',
-      description: 'Information-dense table optimized for operations across teams',
+      text: 'Item 2',
+      description: 'Some description',
       descriptionVariant: 'block',
       groupId: '1',
     },
@@ -83,8 +82,8 @@ export const WithGroups = () => {
       id: '3',
       key: 3,
       leadingVisual: ProjectIcon,
-      text: 'Board',
-      description: 'Kanban-style board focused on visual states',
+      text: 'Item 3',
+      description: 'Some description as well',
       descriptionVariant: 'block',
       groupId: '2',
     },
@@ -92,7 +91,7 @@ export const WithGroups = () => {
       id: '4',
       key: 4,
       leadingVisual: FilterIcon,
-      text: 'Save sort and filters to current view',
+      text: 'Item 4',
       groupId: '2',
     },
     {id: '5', key: 5, leadingVisual: FilterIcon, text: 'Save sort and filters to new view', groupId: '1'},
@@ -102,14 +101,14 @@ export const WithGroups = () => {
   ]
   const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
   const [filter, setFilter] = React.useState('')
-  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const filteredItems = items.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
   const groupMetadata: GroupedListProps['groupMetadata'] = [
-    {groupId: '0'},
-    {groupId: '1', header: {title: 'Live query', variant: 'filled', 'aria-level': 3}},
-    {groupId: '2', header: {title: 'Layout', variant: 'subtle', 'aria-level': 3}},
+    {groupId: '0', header: {title: 'Repos', variant: 'filled'}},
+    {groupId: '1', header: {title: 'Live query', variant: 'filled'}},
+    {groupId: '2', header: {title: 'Layout', variant: 'filled'}},
     // {groupId: '3', renderItem: props => <ActionList.Item style={{fontWeight: 'bold'}} {...props} />},
     // {
     //   groupId: '4',
@@ -127,6 +126,11 @@ export const WithGroups = () => {
     // },
   ]
 
+  const onSelectedChange = (newSelected: ItemInput[]) => {
+    console.log({newSelected})
+    setSelected(newSelected)
+  }
+
   return (
     <>
       <h1>Multi Select Panel With Footer</h1>
@@ -141,12 +145,12 @@ export const WithGroups = () => {
         )}
         anchorRef={buttonRef}
         groupMetadata={groupMetadata}
-        placeholderText="Filter Labels"
+        placeholderText="Filter things"
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
         selected={selected}
-        onSelectedChange={setSelected}
+        onSelectedChange={onSelectedChange}
         onFilterChange={setFilter}
         showItemDividers={true}
         overlayProps={{width: 'large', height: 'xlarge'}}

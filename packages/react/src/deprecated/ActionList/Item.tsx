@@ -354,6 +354,8 @@ export const Item = React.forwardRef((itemProps, ref) => {
     ...props
   } = itemProps
 
+  console.log({selected}, {text})
+
   const labelId = useId()
   const descriptionId = useId()
 
