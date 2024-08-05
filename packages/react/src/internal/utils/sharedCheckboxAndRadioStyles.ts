@@ -3,7 +3,7 @@ import {get} from '../../constants'
 
 export const sharedCheckboxAndRadioStyles = css`
   appearance: none;
-  border-color: ${get('colors.neutral.emphasis')};
+  border-color: var(--control-borderColor-emphasis, ${get('colors.neutral.emphasis')});
   border-style: solid;
   border-width: ${get('borderWidths.1')};
   cursor: pointer;
@@ -14,6 +14,7 @@ export const sharedCheckboxAndRadioStyles = css`
   place-content: center;
   position: relative;
   width: var(--base-size-16, 16px);
+  background-color: ${get('colors.canvas.default')};
 
   &:disabled {
     background-color: ${get('colors.input.disabledBg')};

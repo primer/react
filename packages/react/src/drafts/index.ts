@@ -72,12 +72,16 @@ export type {TabPanelsProps, TabPanelsTabProps, TabPanelsPanelProps} from './Tab
 export * from '../TooltipV2'
 export * from '../ActionBar'
 
+export {ScrollableRegion} from '../ScrollableRegion'
+export type {ScrollableRegionProps} from '../ScrollableRegion'
+
 export {Stack} from '../Stack'
 export type {StackProps, StackItemProps} from '../Stack'
 
 export {Announce, AriaStatus, AriaAlert} from '../live-region'
 export type {AnnounceProps, AriaStatusProps, AriaAlertProps} from '../live-region'
 
-export * from './UnderlinePanels'
+export {UnderlinePanels} from './UnderlinePanels'
+export type {UnderlinePanelsProps, UnderlinePanelsTabProps, UnderlinePanelsPanelProps} from './UnderlinePanels'
 
 export {SkeletonBox, SkeletonText, SkeletonAvatar} from './Skeleton'

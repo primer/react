@@ -222,7 +222,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       // hide divider after dividers & group header, with higher importance!
       '[data-component="ActionList.Divider"] + &': {'--divider-color': 'transparent !important'},
       // hide border on current and previous item
-      '&:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]), &:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]), &[data-focus-visible-added]:not([aria-disabled]):not([data-inactive])':
+      '&:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]), &[data-focus-visible-added]:not([aria-disabled]):not([data-inactive])':
         {
           '--divider-color': 'transparent',
         },
@@ -261,6 +261,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const labelId = `${itemId}--label`
     const inlineDescriptionId = `${itemId}--inline-description`
     const blockDescriptionId = `${itemId}--block-description`
+    const trailingVisualId = `${itemId}--trailing-visual`
     const inactiveWarningId = inactive && !showInactiveIndicator ? `${itemId}--warning-message` : undefined
 
     const ButtonItemWrapper = React.forwardRef(({as: Component = 'button', children, ...props}, forwardedRef) => {
@@ -289,15 +290,19 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const menuItemProps = {
       onClick: clickHandler,
-      onKeyPress: keyPressHandler,
+      onKeyPress: !buttonSemantics ? keyPressHandler : undefined,
       'aria-disabled': disabled ? true : undefined,
       'data-inactive': inactive ? true : undefined,
       'data-loading': loading && !inactive ? true : undefined,
       tabIndex: (disabled && !inferredItemRole) || showInactiveIndicator ? undefined : 0,
-      'aria-labelledby': `${labelId} ${slots.inlineDescription ? inlineDescriptionId : ''}`,
-      'aria-describedby': slots.blockDescription
-        ? [blockDescriptionId, inactiveWarningId].join(' ')
-        : inactiveWarningId,
+      'aria-labelledby': `${labelId} ${slots.trailingVisual ? trailingVisualId : ''} ${
+        slots.inlineDescription ? inlineDescriptionId : ''
+      }`,
+      'aria-describedby':
+        [slots.blockDescription ? blockDescriptionId : undefined, inactiveWarningId ?? undefined]
+          .filter(String)
+          .join(' ')
+          .trim() || undefined,
       ...(includeSelectionAttribute && {[itemSelectionAttribute]: selected}),
       role: itemRole,
       id: itemId,
@@ -327,7 +332,14 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     return (
       <ItemContext.Provider
-        value={{variant, disabled, inactive: Boolean(inactiveText), inlineDescriptionId, blockDescriptionId}}
+        value={{
+          variant,
+          disabled,
+          inactive: Boolean(inactiveText),
+          inlineDescriptionId,
+          blockDescriptionId,
+          trailingVisualId,
+        }}
       >
         <LiBox
           ref={!buttonSemanticsFeatureFlag || listSemantics ? forwardedRef : null}
@@ -345,7 +357,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           <ItemWrapper {...wrapperProps}>
             <Selection selected={selected} />
             <VisualOrIndicator
-              inactiveText={inactiveText}
+              inactiveText={showInactiveIndicator ? inactiveText : undefined}
               itemHasLeadingVisual={Boolean(slots.leadingVisual)}
               labelId={labelId}
               loading={loading}
@@ -386,7 +398,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                   {slots.inlineDescription}
                 </ConditionalWrapper>
                 <VisualOrIndicator
-                  inactiveText={inactiveText}
+                  inactiveText={showInactiveIndicator ? inactiveText : undefined}
                   itemHasLeadingVisual={Boolean(slots.leadingVisual)}
                   labelId={labelId}
                   loading={loading}

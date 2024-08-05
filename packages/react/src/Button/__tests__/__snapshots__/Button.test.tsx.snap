@@ -253,6 +253,16 @@ exports[`Button respects block prop 1`] = `
   margin-right: 8px;
 }
 
+.c0 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+}
+
+.c0 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
 .c0:hover:not([disabled]):not([data-inactive]) {
   background-color: btn.hoverBg;
   border-color: var(--button-default-borderColor-hover,undefined);
@@ -285,9 +295,12 @@ exports[`Button respects block prop 1`] = `
 }
 
 <button
+  aria-describedby="test-button-loading-announcement"
   class="c0"
   data-block="block"
+  data-loading="false"
   data-no-visuals="true"
+  id="test-button"
   type="button"
 >
   <span
@@ -556,6 +569,16 @@ exports[`Button respects the alignContent prop 1`] = `
   margin-right: 8px;
 }
 
+.c0 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+}
+
+.c0 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
 .c0:hover:not([disabled]):not([data-inactive]) {
   background-color: btn.hoverBg;
   border-color: var(--button-default-borderColor-hover,undefined);
@@ -588,8 +611,11 @@ exports[`Button respects the alignContent prop 1`] = `
 }
 
 <button
+  aria-describedby="test-button-loading-announcement"
   class="c0"
+  data-loading="false"
   data-no-visuals="true"
+  id="test-button"
   type="button"
 >
   <span
@@ -858,6 +884,16 @@ exports[`Button respects the large size prop 1`] = `
   margin-right: 8px;
 }
 
+.c0 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+}
+
+.c0 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
 .c0:hover:not([disabled]):not([data-inactive]) {
   background-color: btn.hoverBg;
   border-color: var(--button-default-borderColor-hover,undefined);
@@ -890,9 +926,12 @@ exports[`Button respects the large size prop 1`] = `
 }
 
 <button
+  aria-describedby="test-button-loading-announcement"
   class="c0"
+  data-loading="false"
   data-no-visuals="true"
   data-size="large"
+  id="test-button"
   type="button"
 >
   <span
@@ -1161,6 +1200,16 @@ exports[`Button respects the small size prop 1`] = `
   margin-right: 8px;
 }
 
+.c0 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+}
+
+.c0 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
 .c0:hover:not([disabled]):not([data-inactive]) {
   background-color: btn.hoverBg;
   border-color: var(--button-default-borderColor-hover,undefined);
@@ -1193,9 +1242,12 @@ exports[`Button respects the small size prop 1`] = `
 }
 
 <button
+  aria-describedby="test-button-loading-announcement"
   class="c0"
+  data-loading="false"
   data-no-visuals="true"
   data-size="small"
+  id="test-button"
   type="button"
 >
   <span
@@ -1466,6 +1518,16 @@ exports[`Button styles danger button appropriately 1`] = `
   margin-right: 8px;
 }
 
+.c0 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+}
+
+.c0 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
 .c0:hover:not([disabled]):not([data-inactive]) {
   color: btn.danger.hoverText;
   background-color: btn.danger.hoverBg;
@@ -1499,8 +1561,11 @@ exports[`Button styles danger button appropriately 1`] = `
 }
 
 <button
+  aria-describedby="test-button-loading-announcement"
   class="c0"
+  data-loading="false"
   data-no-visuals="true"
+  id="test-button"
   type="button"
 >
   <span
@@ -1770,6 +1835,16 @@ exports[`Button styles invisible button appropriately 1`] = `
   margin-right: 8px;
 }
 
+.c0 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+}
+
+.c0 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
 .c0:hover:not([disabled]) {
   background-color: actionListItem.default.hoverBg;
 }
@@ -1809,8 +1884,11 @@ exports[`Button styles invisible button appropriately 1`] = `
 }
 
 <button
+  aria-describedby="test-button-loading-announcement"
   class="c0"
+  data-loading="false"
   data-no-visuals="true"
+  id="test-button"
   type="button"
 >
   <span
@@ -2080,6 +2158,16 @@ exports[`Button styles primary button appropriately 1`] = `
   margin-right: 8px;
 }
 
+.c0 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+}
+
+.c0 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
 .c0:hover:not([disabled]):not([data-inactive]) {
   color: btn.primary.hoverText;
   background-color: btn.primary.hoverBg;
@@ -2110,8 +2198,11 @@ exports[`Button styles primary button appropriately 1`] = `
 }
 
 <button
+  aria-describedby="test-button-loading-announcement"
   class="c0"
+  data-loading="false"
   data-no-visuals="true"
+  id="test-button"
   type="button"
 >
   <span

@@ -33,48 +33,71 @@ const octiconMap = {
   unavailable: AlertIcon,
 }
 
+const labelMap: Record<keyof typeof octiconMap, 'Issue' | 'Issue, not planned' | 'Pull request' | ''> = {
+  issueOpened: 'Issue',
+  pullOpened: 'Pull request',
+  issueClosed: 'Issue',
+  issueClosedNotPlanned: 'Issue, not planned',
+  pullClosed: 'Pull request',
+  pullMerged: 'Pull request',
+  draft: 'Pull request',
+  issueDraft: 'Issue',
+  pullQueued: 'Pull request',
+  unavailable: '',
+}
+
 const colorVariants = variant({
   prop: 'status',
   variants: {
     issueClosed: {
       backgroundColor: 'done.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-done-emphasis, transparent)',
     },
     issueClosedNotPlanned: {
       backgroundColor: 'neutral.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-neutral-emphasis, transparent)',
     },
     pullClosed: {
       backgroundColor: 'closed.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-closed-emphasis, transparent)',
     },
     pullMerged: {
       backgroundColor: 'done.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-done-emphasis, transparent)',
     },
     pullQueued: {
       backgroundColor: 'attention.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-attention-emphasis, transparent)',
     },
     issueOpened: {
       backgroundColor: 'open.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-open-emphasis, transparent)',
     },
     pullOpened: {
       backgroundColor: 'open.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-open-emphasis, transparent)',
     },
     draft: {
       backgroundColor: 'neutral.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-neutral-emphasis, transparent)',
     },
     issueDraft: {
       backgroundColor: 'neutral.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-neutral-emphasis, transparent)',
     },
     unavailable: {
       backgroundColor: 'neutral.emphasis',
       color: 'fg.onEmphasis',
+      boxShadow: 'var(--boxShadow-thin, inset 0 0 0 1px) var(--borderColor-neutral-emphasis, transparent)',
     },
   },
 })
@@ -120,7 +143,15 @@ function StateLabel({children, status, variant: variantProp = 'normal', ...rest}
   return (
     <StateLabelBase {...rest} variant={variantProp} status={status}>
       {/* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */}
-      {status && <Octicon {...octiconProps} icon={octiconMap[status] || QuestionIcon} sx={{mr: 1}} />}
+      {status && (
+        <Octicon
+          {...octiconProps}
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+          icon={octiconMap[status] || QuestionIcon}
+          aria-label={labelMap[status]}
+          sx={{mr: 1}}
+        />
+      )}
       {children}
     </StateLabelBase>
   )
