@@ -17,7 +17,7 @@
     },
     {
       "name": "variant",
-      "type": "'large' | 'medium' | 'small'",
+      "type": "'large' | 'medium' | 'small'"
     }
   ]
 }
