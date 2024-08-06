@@ -18,7 +18,6 @@
     {
       "name": "variant",
       "type": "'large' | 'medium' | 'small'",
-      "defaultValue": ""
     }
   ]
 }
