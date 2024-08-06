@@ -73,10 +73,23 @@ test.describe('Blankslate', () => {
             })
 
             // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`Blankslate.styled-components.${story.title}.${theme}.png`)
+            expect(await page.screenshot()).toMatchSnapshot(`Blankslate.${story.title}.${theme}.png`)
           })
 
           test('axe @aat', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+                featureFlags: {
+                  primer_react_css_modules: true,
+                },
+              },
+            })
+            await expect(page).toHaveNoViolations()
+          })
+
+          test('axe (styled-components) @aat', async ({page}) => {
             await visit(page, {
               id: story.id,
               globals: {
@@ -123,7 +136,7 @@ test.describe('Blankslate', () => {
               width,
               height: 667,
             })
-            expect(await page.screenshot()).toMatchSnapshot(`Blankslate.styled-components.${story.title}.${name}.png`)
+            expect(await page.screenshot()).toMatchSnapshot(`Blankslate.${story.title}.${name}.png`)
           })
         }
       }
