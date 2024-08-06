@@ -3,7 +3,7 @@ import type {StoryFn} from '@storybook/react'
 import Heading from './Heading'
 
 export default {
-  title: 'Components/Heading',
+  title: 'Components/Heading/Features',
 }
 
 export const TestSx: StoryFn<typeof Heading> = () => (
