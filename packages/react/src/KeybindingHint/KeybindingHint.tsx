@@ -1,7 +1,6 @@
 import React, {type ReactNode} from 'react'
 import {memo} from 'react'
 import Text from '../Text'
-
 import type {KeybindingHintProps} from './props'
 import {accessibleSequenceString, Sequence} from './components/Sequence'
 
