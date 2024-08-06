@@ -1,0 +1,5 @@
+.Heading {
+  font-weight: var(--base-text-weight-semibold);
+  font-size: var(--text-title-size-large);
+  margin: 0;
+}

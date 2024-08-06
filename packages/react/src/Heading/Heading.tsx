@@ -1,3 +1,4 @@
+import cx from 'clsx'
 import React, {forwardRef, useEffect} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
@@ -6,6 +7,9 @@ import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import classes from './Heading.module.css'
+import {useFeatureFlag} from '../FeatureFlags'
+import Box from '../Box'
 
 type StyledHeadingProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
@@ -17,7 +21,9 @@ const StyledHeading = styled.h2<StyledHeadingProps>`
   margin: 0;
   ${sx};
 `
-const Heading = forwardRef(({as: Component = 'h2', ...props}, forwardedRef) => {
+
+const Heading = forwardRef(({as: Component = 'h2', className, sx, ...props}, forwardedRef) => {
+  const enabled = useFeatureFlag('primer_react_css_modules')
   const innerRef = React.useRef<HTMLHeadingElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
@@ -37,9 +43,28 @@ const Heading = forwardRef(({as: Component = 'h2', ...props}, forwardedRef) => {
     }, [innerRef])
   }
 
+  if (enabled) {
+    if (sx) {
+      return (
+        <Box
+          as={Component}
+          className={cx(className, classes.Heading)}
+          sx={sx}
+          {...props}
+          // @ts-ignore shh
+          ref={innerRef}
+        />
+      )
+    }
+
+    return <Component className={cx(className, classes.Heading)} {...props} ref={innerRef} />
+  }
+
   return (
     <StyledHeading
       as={Component}
+      className={className}
+      sx={sx}
       {...props}
       // @ts-ignore shh
       ref={innerRef}
