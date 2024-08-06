@@ -206,3 +206,6 @@ export type {PageHeaderProps} from './PageHeader'
 export {SSRProvider, useSSRSafeId} from './utils/ssr'
 export {default as sx, merge} from './sx'
 export type {SxProp} from './sx'
+
+export {FilteredActionList} from './FilteredActionList'
+export type {FilteredActionListProps} from './FilteredActionList'

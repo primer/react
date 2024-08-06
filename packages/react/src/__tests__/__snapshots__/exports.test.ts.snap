@@ -66,6 +66,8 @@ exports[`@primer/react should not update exports without a semver change 1`] = `
   "Dialog",
   "type DialogHeaderProps",
   "type DialogProps",
+  "FilteredActionList",
+  "type FilteredActionListProps",
   "Flash",
   "type FlashProps",
   "type FocusTrapHookSettings",
