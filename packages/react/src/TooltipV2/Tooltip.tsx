@@ -169,23 +169,14 @@ const positionToDirection: Record<string, TooltipDirection> = {
 }
 
 // The list is from GitHub's custom-axe-rules https://github.com/github/github/blob/master/app/assets/modules/github/axe-custom-rules.ts#L3
-const interactiveElements = [
-  'a[href]',
-  'button:not(:disabled)',
-  'summary',
-  'select',
-  'input:not([type=hidden])',
-  'textarea',
-]
+const interactiveElements = ['a[href]', 'button', 'summary', 'select', 'input:not([type=hidden])', 'textarea']
 
 const isInteractive = (element: HTMLElement) => {
-  return (
-    interactiveElements.some(selector => {
-      console.log('selector', element.matches(selector))
-      return element.matches(selector)
-    }) ||
+  const notDisabled = !element.hasAttribute('disabled')
+  const interactive =
+    interactiveElements.some(selector => element.matches(selector)) ||
     (element.hasAttribute('role') && element.getAttribute('role') === 'button')
-  )
+  return notDisabled && interactive
 }
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 
@@ -252,11 +243,11 @@ export const Tooltip = React.forwardRef(
       const hasInteractiveChild = Array.from(triggerChildren).some(child => {
         return child instanceof HTMLElement && isInteractive(child)
       })
-      console.log('test logging', triggerRef.current, isTriggerInteractive, hasInteractiveChild)
-      // invariant(
-      //   isTriggerInteractive || hasInteractiveChild,
-      //   'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
-      // )
+      // console.log('test logging', triggerRef.current, isTriggerInteractive, hasInteractiveChild)
+      invariant(
+        isTriggerInteractive || hasInteractiveChild,
+        'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
+      )
       // If the tooltip is used for labelling the interactive element, the trigger element or any of its children should not have aria-label
       if (type === 'label') {
         const hasAriaLabel = triggerRef.current.hasAttribute('aria-label')
