@@ -11,5 +11,17 @@
     "src/**/*.ts",
     "src/**/*.tsx",
     "script/**/*.ts"
+  ],
+  "exclude": [
+    "src/utils/story-helpers.tsx",
+    "**/*.stories.tsx",
+    "**/*.test.tsx",
+    "**/*.figma.tsx",
+    "script/**/*.ts",
+    "src/__tests__/",
+    "src/utils/test-*.tsx",
+    "src/utils/testing.tsx",
+    "e2e/**/*.ts",
+    "playwright.config.ts",
   ]
 }

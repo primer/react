@@ -1,6 +1,6 @@
 function emptyFunction() {}
 
-const warn = __DEV__
+const warn = true
   ? function warn(message: string) {
       // eslint-disable-next-line no-console
       console.warn('Warning:', message)
@@ -9,7 +9,7 @@ const warn = __DEV__
 
 // Inspired by warning by fbjs
 // @see https://github.com/facebook/fbjs/blob/main/packages/fbjs/src/__forks__/warning.js
-const warning = __DEV__
+const warning = true
   ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
     function warning(condition: any, format: string, ...args: Array<any>) {
       if (condition) {

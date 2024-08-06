@@ -76,8 +76,8 @@ const Flash = React.forwardRef(function Flash({as, variant = 'default', ...rest}
   return <StyledFlash ref={ref} as={as} variant={variant} {...rest} />
 }) as PolymorphicForwardRefComponent<'div', StyledFlashProps>
 
-if (__DEV__) {
-  Flash.displayName = 'Flash'
-}
+// if (__DEV__) {
+Flash.displayName = 'Flash'
+// }
 
 export default Flash

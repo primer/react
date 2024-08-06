@@ -2,7 +2,7 @@ function emptyFunction() {}
 
 // Inspired by invariant by fbjs
 // @see https://github.com/facebook/fbjs/blob/main/packages/fbjs/src/__forks__/invariant.js
-const invariant = __DEV__
+const invariant = true
   ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
     function invariant(condition: any, format?: string, ...args: Array<any>) {
       if (!condition) {

@@ -59,8 +59,8 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
   )
 })
 
-if (__DEV__) {
-  Avatar.displayName = 'Avatar'
-}
+// if (__DEV__) {
+Avatar.displayName = 'Avatar'
+// }
 
 export default Avatar

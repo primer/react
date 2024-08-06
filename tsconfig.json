@@ -4,6 +4,7 @@
     "noEmit": true
   },
   "include": [
+    "./packages/react/src/index.ts",
     "@types/**/*.ts",
     "script/**/*.ts",
     "e2e/**/*.ts",

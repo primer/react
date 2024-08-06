@@ -21,21 +21,21 @@ const Heading = forwardRef(({as: Component = 'h2', ...props}, forwardedRef) => {
   const innerRef = React.useRef<HTMLHeadingElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
-  if (__DEV__) {
-    /**
-     * The Linter yells because it thinks this conditionally calls an effect,
-     * but since this is a compile-time flag and not a runtime conditional
-     * this is safe, and ensures the entire effect is kept out of prod builds
-     * shaving precious bytes from the output, and avoiding mounting a noop effect
-     */
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      if (innerRef.current && !(innerRef.current instanceof HTMLHeadingElement)) {
-        // eslint-disable-next-line no-console
-        console.warn('This Heading component should be an instanceof of h1-h6')
-      }
-    }, [innerRef])
-  }
+  // if (__DEV__) {
+  /**
+   * The Linter yells because it thinks this conditionally calls an effect,
+   * but since this is a compile-time flag and not a runtime conditional
+   * this is safe, and ensures the entire effect is kept out of prod builds
+   * shaving precious bytes from the output, and avoiding mounting a noop effect
+   */
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    if (innerRef.current && !(innerRef.current instanceof HTMLHeadingElement)) {
+      // eslint-disable-next-line no-console
+      console.warn('This Heading component should be an instanceof of h1-h6')
+    }
+  }, [innerRef])
+  // }
 
   return (
     <StyledHeading

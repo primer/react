@@ -36,6 +36,10 @@ export type UnderlineNavProps = {
    * loading state for all counters. It displays loading animation for individual counters (UnderlineNav.Item) until all are resolved. It is needed to prevent multiple layout shift.
    */
   loadingCounters?: boolean
+  /**
+   * Just a fake optional prop for fun
+   */
+  // fakeOptionalProp?: 'one' | 'two' | 'three'
 }
 // When page is loaded, we don't have ref for the more button as it is not on the DOM yet.
 // However, we need to calculate number of possible items when the more button present as well. So using the width of the more button as a constant.
@@ -138,6 +142,10 @@ const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: numb
   return breakpoint
 }
 
+// export const UnderlineNav = forwardRef<HTMLElement, UnderlineNavProps>(
+//   (
+//     {as = 'nav', 'aria-label': ariaLabel, sx: sxProp = defaultSxProp, loadingCounters = false, children},
+
 export const UnderlineNav = forwardRef(
   (
     {
@@ -183,18 +191,18 @@ export const UnderlineNav = forwardRef(
     // This is the case where the viewport is too narrow to show any list item with the more menu. In this case, we only show the dropdown
     const onlyMenuVisible = responsiveProps.items.length === 0
 
-    if (__DEV__) {
-      // Practically, this is not a conditional hook, it is just making sure this hook runs only on DEV not PROD.
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      useEffect(() => {
-        // Address illegal state where there are multiple items that have `aria-current='page'` attribute
-        const activeElements = validChildren.filter(child => {
-          return child.props['aria-current'] !== undefined
-        })
-        invariant(activeElements.length <= 1, 'Only one current element is allowed')
-        invariant(ariaLabel, 'Use the `aria-label` prop to provide an accessible label for assistive technology')
+    // if (__DEV__) {
+    // Practically, this is not a conditional hook, it is just making sure this hook runs only on DEV not PROD.
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+      // Address illegal state where there are multiple items that have `aria-current='page'` attribute
+      const activeElements = validChildren.filter(child => {
+        return child.props['aria-current'] !== undefined
       })
-    }
+      invariant(activeElements.length <= 1, 'Only one current element is allowed')
+      invariant(ariaLabel, 'Use the `aria-label` prop to provide an accessible label for assistive technology')
+    })
+    // }
 
     function getItemsWidth(itemText: string): number {
       return noIconChildWidthArray.find(item => item.text === itemText)?.width ?? 0

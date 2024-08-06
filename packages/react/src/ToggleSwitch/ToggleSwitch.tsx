@@ -316,8 +316,8 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
   },
 )
 
-if (__DEV__) {
-  ToggleSwitch.displayName = 'ToggleSwitch'
-}
+// if (__DEV__) {
+ToggleSwitch.displayName = 'ToggleSwitch'
+// }
 
 export default ToggleSwitch

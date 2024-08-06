@@ -1,6 +1,5 @@
 import {FocusKeys} from '@primer/behaviors'
 import {isFocusable} from '@primer/behaviors/utils'
-import {omit} from '@styled-system/props'
 import type {FocusEventHandler, KeyboardEventHandler, MouseEventHandler, RefObject} from 'react'
 import React, {useRef, useState} from 'react'
 import {isValidElementType} from 'react-is'
@@ -97,7 +96,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   }: TextInputWithTokensProps<TokenComponentType | typeof Token>,
   forwardedRef: React.ForwardedRef<HTMLInputElement>,
 ) {
-  const {onBlur, onFocus, onKeyDown, ...inputPropsRest} = omit(rest)
+  const {onBlur, onFocus, onKeyDown, ...inputPropsRest} = rest
   const ref = useRef<HTMLInputElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, ref)
   const [selectedTokenIndex, setSelectedTokenIndex] = useState<number | undefined>()
@@ -180,13 +179,13 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     }
   }
 
-  const handleInputFocus: FocusEventHandler = event => {
+  const handleInputFocus = (event: React.FocusEvent<HTMLInputElement, Element>) => {
     onFocus && onFocus(event)
     setSelectedTokenIndex(undefined)
     visibleTokenCount && setTokensAreTruncated(false)
   }
 
-  const handleInputBlur: FocusEventHandler = event => {
+  const handleInputBlur = (event: React.FocusEvent<HTMLInputElement, Element>) => {
     onBlur && onBlur(event)
 
     // HACK: wait a tick and check the focused element before hiding truncated tokens
@@ -199,7 +198,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     }, 0)
   }
 
-  const handleInputKeyDown: KeyboardEventHandler = e => {
+  const handleInputKeyDown: KeyboardEventHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (onKeyDown) {
       onKeyDown(e)
     }
