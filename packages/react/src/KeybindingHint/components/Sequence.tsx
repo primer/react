@@ -12,7 +12,7 @@ export const Sequence = ({keys, format = 'condensed', variant = 'normal'}: Keybi
         //  Since we audibly separate individual keys in chord with space, we need some other separator for chords in a sequence
         i > 0 && (
           <>
-            <VisuallyHidden>, then</VisuallyHidden>{' '}
+            <VisuallyHidden>then</VisuallyHidden>{' '}
           </>
         )
       }
@@ -24,4 +24,4 @@ export const Sequence = ({keys, format = 'condensed', variant = 'normal'}: Keybi
 export const accessibleSequenceString = (sequence: string, isMacOS: boolean) =>
   splitSequence(sequence)
     .map(chord => accessibleChordString(chord, isMacOS))
-    .join(', then ')
+    .join(' then ')
