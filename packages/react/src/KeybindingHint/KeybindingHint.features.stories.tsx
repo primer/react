@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta, StoryFn} from '@storybook/react'
+import type {Meta, StoryObj} from '@storybook/react'
 import {KeybindingHint, type KeybindingHintProps} from '.'
 import Box from '../Box'
 
@@ -20,9 +20,11 @@ export const SequenceCondensed = {args: {keys: sequence}}
 
 export const SequenceFull = {args: {keys: sequence, format: 'full'}}
 
-export const OnEmphasis: StoryFn<KeybindingHintProps> = args => (
-  <Box sx={{backgroundColor: 'accent.fg', p: 3}}>
-    <KeybindingHint {...args} />
-  </Box>
-)
-OnEmphasis.args = {keys: chord, variant: 'onEmphasis'}
+export const OnEmphasis: StoryObj<KeybindingHintProps> = {
+  render: args => (
+    <Box sx={{backgroundColor: 'accent.fg', p: 3}}>
+      <KeybindingHint {...args} />
+    </Box>
+  ),
+  args: {keys: chord, variant: 'onEmphasis'},
+}
