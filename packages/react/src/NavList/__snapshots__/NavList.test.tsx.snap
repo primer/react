@@ -339,7 +339,7 @@ exports[`NavList renders a simple list 1`] = `
       >
         <a
           aria-current="page"
-          aria-labelledby=":r2:--label "
+          aria-labelledby=":r2:--label  "
           class="c3 c4"
           href="/"
           id=":r2:"
@@ -362,7 +362,7 @@ exports[`NavList renders a simple list 1`] = `
         class="c1 c7"
       >
         <a
-          aria-labelledby=":r3:--label "
+          aria-labelledby=":r3:--label  "
           class="c3 c4"
           href="/about"
           id=":r3:"
@@ -385,7 +385,7 @@ exports[`NavList renders a simple list 1`] = `
         class="c1 c7"
       >
         <a
-          aria-labelledby=":r4:--label "
+          aria-labelledby=":r4:--label  "
           class="c3 c4"
           href="/contact"
           id=":r4:"
@@ -803,7 +803,7 @@ exports[`NavList renders with groups 1`] = `
           >
             <a
               aria-current="page"
-              aria-labelledby=":r8:--label "
+              aria-labelledby=":r8:--label  "
               class="c7 c8"
               href="/getting-started"
               id=":r8:"
@@ -846,7 +846,7 @@ exports[`NavList renders with groups 1`] = `
             class="c5 c11"
           >
             <a
-              aria-labelledby=":ra:--label "
+              aria-labelledby=":ra:--label  "
               class="c7 c8"
               href="/Avatar"
               id=":ra:"
@@ -1274,7 +1274,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
         <button
           aria-controls=":r27:"
           aria-expanded="true"
-          aria-labelledby=":r26:--label "
+          aria-labelledby=":r26:--label :r26:--trailing-visual "
           class="c3 c4"
           id=":r26:"
           tabindex="0"
@@ -1294,6 +1294,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
               </span>
               <span
                 class="c1 c8"
+                id=":r26:--trailing-visual"
               >
                 <svg
                   aria-hidden="true"
@@ -1324,7 +1325,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
             >
               <a
                 aria-current="page"
-                aria-labelledby=":r29:--label "
+                aria-labelledby=":r29:--label  "
                 class="c12 c13"
                 href="#"
                 id=":r29:"
@@ -1773,7 +1774,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
         <button
           aria-controls=":r21:"
           aria-expanded="false"
-          aria-labelledby=":r20:--label "
+          aria-labelledby=":r20:--label :r20:--trailing-visual "
           class="c3 c4"
           id=":r20:"
           tabindex="0"
@@ -1793,6 +1794,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
               </span>
               <span
                 class="c1 c8"
+                id=":r20:--trailing-visual"
               >
                 <svg
                   aria-hidden="true"
@@ -1823,7 +1825,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
             >
               <a
                 aria-current="page"
-                aria-labelledby=":r23:--label "
+                aria-labelledby=":r23:--label  "
                 class="c12 c13"
                 href="#"
                 id=":r23:"

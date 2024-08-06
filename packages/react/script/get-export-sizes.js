@@ -63,6 +63,17 @@ async function main() {
           commonjs({
             include: /node_modules/,
           }),
+          {
+            name: 'empty-css-modules',
+            transform(_code, id) {
+              if (!id.endsWith('.css')) {
+                return
+              }
+              return {
+                code: `export default {}`,
+              }
+            },
+          },
           virtual({
             __entrypoint__: `export { ${identifier} } from '${filepath}';`,
           }),
