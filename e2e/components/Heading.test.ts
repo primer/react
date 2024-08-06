@@ -23,7 +23,7 @@ test.describe('Heading', () => {
   test.describe('Small', () => {
     test('default @vrt', async ({page}) => {
       await visit(page, {
-        id: 'components-heading--small',
+        id: 'components-heading-features--small',
       })
 
       expect(await page.screenshot()).toMatchSnapshot(`Heading.Small.png`)
@@ -31,7 +31,7 @@ test.describe('Heading', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-heading--small',
+        id: 'components-heading-features--small',
       })
       await expect(page).toHaveNoViolations()
     })
@@ -40,7 +40,7 @@ test.describe('Heading', () => {
   test.describe('Medium', () => {
     test('default @vrt', async ({page}) => {
       await visit(page, {
-        id: 'components-heading--medium',
+        id: 'components-heading-features--medium',
       })
 
       expect(await page.screenshot()).toMatchSnapshot(`Heading.Medium.png`)
@@ -48,7 +48,7 @@ test.describe('Heading', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-heading--medium',
+        id: 'components-heading-features--medium',
       })
       await expect(page).toHaveNoViolations()
     })
@@ -57,7 +57,7 @@ test.describe('Heading', () => {
   test.describe('Large', () => {
     test('default @vrt', async ({page}) => {
       await visit(page, {
-        id: 'components-heading--large',
+        id: 'components-heading-features--large',
       })
 
       // Default state
@@ -66,7 +66,7 @@ test.describe('Heading', () => {
 
     test('axe @aat', async ({page}) => {
       await visit(page, {
-        id: 'components-heading--large',
+        id: 'components-heading-features--large',
       })
       await expect(page).toHaveNoViolations()
     })
