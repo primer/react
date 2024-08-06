@@ -20,6 +20,7 @@ const Kbd = ({children}: {children: ReactNode}) => (
       position: 'relative',
       overflow: 'visible',
       verticalAlign: 'baseline',
+      textWrap: 'nowrap',
     }}
   >
     {children}

@@ -33,7 +33,7 @@ export const Chord = ({keys, format = 'condensed', variant = 'normal'}: Keybindi
   <Text
     sx={{
       display: 'inline-flex',
-      bg: variant === 'onEmphasis' ? 'transparent' : 'canvas.default',
+      bg: 'transparent',
       color: variant === 'onEmphasis' ? 'fg.onEmphasis' : 'fg.muted',
       border: '1px solid',
       borderColor: 'border.default',
