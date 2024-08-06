@@ -179,9 +179,11 @@ const interactiveElements = [
 ]
 
 const isInteractive = (element: HTMLElement) => {
-  console.log('my element', element)
   return (
-    interactiveElements.some(selector => element.matches(selector)) ||
+    interactiveElements.some(selector => {
+      console.log('selector', element.matches(selector))
+      return element.matches(selector)
+    }) ||
     (element.hasAttribute('role') && element.getAttribute('role') === 'button')
   )
 }
