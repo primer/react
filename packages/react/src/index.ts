@@ -196,8 +196,6 @@ export type {UnderlineNavProps, UnderlineNavItemProps} from './UnderlineNav'
 export {ActionBar} from './ActionBar'
 export type {ActionBarProps} from './ActionBar'
 
-export * from './KeybindingHint'
-
 export {Stack} from './Stack'
 export type {StackProps, StackItemProps} from './Stack'
 
