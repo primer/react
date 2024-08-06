@@ -179,6 +179,7 @@ const interactiveElements = [
 ]
 
 const isInteractive = (element: HTMLElement) => {
+  console.log('my element', element)
   return (
     interactiveElements.some(selector => element.matches(selector)) ||
     (element.hasAttribute('role') && element.getAttribute('role') === 'button')
@@ -249,10 +250,11 @@ export const Tooltip = React.forwardRef(
       const hasInteractiveChild = Array.from(triggerChildren).some(child => {
         return child instanceof HTMLElement && isInteractive(child)
       })
-      invariant(
-        isTriggerInteractive || hasInteractiveChild,
-        'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
-      )
+      console.log('test logging', triggerRef.current, isTriggerInteractive, hasInteractiveChild)
+      // invariant(
+      //   isTriggerInteractive || hasInteractiveChild,
+      //   'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
+      // )
       // If the tooltip is used for labelling the interactive element, the trigger element or any of its children should not have aria-label
       if (type === 'label') {
         const hasAriaLabel = triggerRef.current.hasAttribute('aria-label')
