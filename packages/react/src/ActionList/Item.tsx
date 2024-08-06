@@ -288,15 +288,11 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option']
     const includeSelectionAttribute = itemSelectionAttribute && itemRole && selectableRoles.includes(itemRole)
 
-    let focusable = true
+    let focusable
 
-    if (showInactiveIndicator) focusable = false // inactive elements are not focusable
-    if (disabled && container) {
-      if (['SelectPanel', 'ActionMenu'].includes(container)) {
-        focusable = true // disabled items inside these components should still get focus
-      } else {
-        focusable = false
-      }
+    // if item is disabled and is of type (menuitem*, option) it should remain focusable, if inactive, apply the same rules
+    if ((disabled && !inferredItemRole) || showInactiveIndicator) {
+      focusable = true
     }
 
     const menuItemProps = {
@@ -305,7 +301,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       'aria-disabled': disabled ? true : undefined,
       'data-inactive': inactive ? true : undefined,
       'data-loading': loading && !inactive ? true : undefined,
-      tabIndex: focusable ? 0 : undefined,
+      tabIndex: focusable ? undefined : 0,
       'aria-labelledby': `${labelId} ${slots.trailingVisual ? trailingVisualId : ''} ${
         slots.inlineDescription ? inlineDescriptionId : ''
       }`,
