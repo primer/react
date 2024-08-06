@@ -42,6 +42,11 @@ jobs:
 
       - name: Publish release candidate
         run: |
+          # Remove existing pre.json if one exists. Snapshots are not allowed
+          # in pre-release mode.
+          # TODO: remove in v37
+          rm .changeset/pre.json
+
           pkg_json_path=packages/react/package.json
           version=$(jq -r .version $pkg_json_path)
           echo "$( jq ".version = \"$(echo $version)-rc.$(git rev-parse --short HEAD)\"" $pkg_json_path )" > $pkg_json_path
