@@ -31,7 +31,7 @@ const docsFiles = glob.sync('src/**/*.docs.json')
 
 // Get the story name prefix for the default story id
 const storyPrefix = {
-  draft: 'drafts-',
+  draft: 'experimental-',
   experimental: 'experimental-',
   deprecated: 'deprecated-',
   alpha: '',

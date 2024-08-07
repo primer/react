@@ -16,7 +16,7 @@ import {
 } from '@primer/octicons-react'
 
 export default {
-  title: 'Drafts/Components/UnderlinePanels/Features',
+  title: 'Experimental/Components/UnderlinePanels/Features',
   component: UnderlinePanels,
 } as Meta<ComponentProps<typeof UnderlinePanels>>
 

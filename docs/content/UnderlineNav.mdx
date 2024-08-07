@@ -21,7 +21,7 @@ import {UnderlineNav} from '@primer/react'
 
 ### Simple
 
-```jsx live drafts
+```jsx live experimental
 <UnderlineNav aria-label="Repository">
   <UnderlineNav.Item aria-current="page">Code</UnderlineNav.Item>
   <UnderlineNav.Item>Issues</UnderlineNav.Item>
@@ -31,7 +31,7 @@ import {UnderlineNav} from '@primer/react'
 
 ### With Icons
 
-```jsx live drafts
+```jsx live experimental
 <UnderlineNav aria-label="Repository">
   <UnderlineNav.Item aria-current="page" icon={CodeIcon}>
     Code
@@ -56,7 +56,7 @@ import {UnderlineNav} from '@primer/react'
 
 Component first hides icons if they present to optimize for space and show as many items as possible. If there is still an overflow, it will display the items that don't fit in the `More` menu.
 
-```javascript noinline live drafts
+```javascript noinline live experimental
 const Navigation = () => {
   const items = [
     {navigation: 'Code', icon: CodeIcon},
@@ -96,7 +96,7 @@ render(<Navigation />)
 
 ### Loading State For Counters
 
-```jsx live drafts
+```jsx live experimental
 <UnderlineNav aria-label="Repository" loadingCounters={true}>
   <UnderlineNav.Item counter={4} aria-current="page">
     Code

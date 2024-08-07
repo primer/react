@@ -6,11 +6,11 @@ import {matrix, serialize} from '../test-helpers/matrix'
 const stories = [
   {
     title: 'Default',
-    id: 'drafts-components-inlinemessage--default',
+    id: 'experimental-components-inlinemessage--default',
   },
   {
     title: 'Multiline',
-    id: 'drafts-components-inlinemessage-features--multiline',
+    id: 'experimental-components-inlinemessage-features--multiline',
   },
 ]
 
@@ -58,7 +58,7 @@ test.describe('InlineMessage', () => {
         test.describe(theme, () => {
           test('default @vrt', async ({page}) => {
             await visit(page, {
-              id: 'drafts-components-inlinemessage--playground',
+              id: 'experimental-components-inlinemessage--playground',
               globals: {
                 colorScheme: theme,
               },
@@ -72,7 +72,7 @@ test.describe('InlineMessage', () => {
 
           test('axe @aat', async ({page}) => {
             await visit(page, {
-              id: 'drafts-components-inlinemessage--playground',
+              id: 'experimental-components-inlinemessage--playground',
               globals: {
                 colorScheme: theme,
               },

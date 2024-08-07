@@ -1,7 +1,7 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
 import {ActionList, ActionMenu, Avatar, Box, Button, Text, Octicon, Flash, FormControl, TextInput} from '../../index'
-import {Dialog} from '../../drafts'
+import {Dialog} from '../../experimental'
 import {
   ArrowRightIcon,
   EyeIcon,
@@ -17,7 +17,7 @@ import {
 import data from './mock-story-data'
 
 export default {
-  title: 'Drafts/Components/SelectPanel/Examples',
+  title: 'Experimental/Components/SelectPanel/Examples',
   component: SelectPanel,
 }
 

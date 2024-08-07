@@ -2,7 +2,7 @@ import React from 'react'
 import type {Meta} from '@storybook/react'
 import {Button} from '.'
 import {DownloadIcon} from '@primer/octicons-react'
-import {Banner} from '../drafts'
+import {Banner} from '../experimental'
 import {AriaStatus} from '../live-region'
 
 const meta: Meta<typeof Button> = {

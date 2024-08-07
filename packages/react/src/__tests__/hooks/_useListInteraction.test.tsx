@@ -1,4 +1,4 @@
-import {parseCodeFenceBegin, isCodeFenceEnd} from '../../drafts/MarkdownViewer/_useListInteraction'
+import {parseCodeFenceBegin, isCodeFenceEnd} from '../../experimental/MarkdownViewer/_useListInteraction'
 
 describe('parseCodeFenceBegin', () => {
   it('should return null for a line without a code fence', () => {

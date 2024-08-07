@@ -8,7 +8,7 @@ test.describe('UnderlinePanels', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinepanels--default',
+            id: 'experimental-components-underlinepanels--default',
             globals: {
               colorScheme: theme,
             },
@@ -20,7 +20,7 @@ test.describe('UnderlinePanels', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinepanels--default',
+            id: 'experimental-components-underlinepanels--default',
             globals: {
               colorScheme: theme,
             },
@@ -42,7 +42,7 @@ test.describe('UnderlinePanels', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinepanels-features--labelled-by-external-element',
+            id: 'experimental-components-underlinepanels-features--labelled-by-external-element',
             globals: {
               colorScheme: theme,
             },
@@ -54,7 +54,7 @@ test.describe('UnderlinePanels', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinepanels-features--labelled-by-external-element',
+            id: 'experimental-components-underlinepanels-features--labelled-by-external-element',
             globals: {
               colorScheme: theme,
             },
@@ -76,7 +76,7 @@ test.describe('UnderlinePanels', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinepanels-features--selected-tab',
+            id: 'experimental-components-underlinepanels-features--selected-tab',
             globals: {
               colorScheme: theme,
             },
@@ -88,7 +88,7 @@ test.describe('UnderlinePanels', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinepanels-features--selected-tab',
+            id: 'experimental-components-underlinepanels-features--selected-tab',
             globals: {
               colorScheme: theme,
             },
@@ -110,7 +110,7 @@ test.describe('UnderlinePanels', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinepanels-features--with-counters',
+            id: 'experimental-components-underlinepanels-features--with-counters',
             globals: {
               colorScheme: theme,
             },
@@ -122,7 +122,7 @@ test.describe('UnderlinePanels', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinepanels-features--with-counters',
+            id: 'experimental-components-underlinepanels-features--with-counters',
             globals: {
               colorScheme: theme,
             },
@@ -144,7 +144,7 @@ test.describe('UnderlinePanels', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinepanels-features--with-counters-in-loading-state',
+            id: 'experimental-components-underlinepanels-features--with-counters-in-loading-state',
             globals: {
               colorScheme: theme,
             },
@@ -156,7 +156,7 @@ test.describe('UnderlinePanels', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinepanels-features--with-counters-in-loading-state',
+            id: 'experimental-components-underlinepanels-features--with-counters-in-loading-state',
             globals: {
               colorScheme: theme,
             },
@@ -178,7 +178,7 @@ test.describe('UnderlinePanels', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinepanels-features--with-icons',
+            id: 'experimental-components-underlinepanels-features--with-icons',
             globals: {
               colorScheme: theme,
             },
@@ -190,7 +190,7 @@ test.describe('UnderlinePanels', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinepanels-features--with-icons',
+            id: 'experimental-components-underlinepanels-features--with-icons',
             globals: {
               colorScheme: theme,
             },
@@ -212,7 +212,7 @@ test.describe('UnderlinePanels', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinepanels-features--with-icons-hidden-on-narrow-screen',
+            id: 'experimental-components-underlinepanels-features--with-icons-hidden-on-narrow-screen',
             globals: {
               colorScheme: theme,
             },
@@ -226,7 +226,7 @@ test.describe('UnderlinePanels', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-underlinepanels-features--with-icons-hidden-on-narrow-screen',
+            id: 'experimental-components-underlinepanels-features--with-icons-hidden-on-narrow-screen',
             globals: {
               colorScheme: theme,
             },

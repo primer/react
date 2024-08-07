@@ -5,10 +5,10 @@ status: Deprecated
 description: Displays rendered Markdown and facilitates interaction.
 ---
 
-import data from '../../../packages/react/src/drafts/MarkdownViewer/MarkdownViewer.docs.json'
+import data from '../../../packages/react/src/experimental/MarkdownViewer/MarkdownViewer.docs.json'
 
 ```js
-import {MarkdownViewer} from '@primer/react/drafts'
+import {MarkdownViewer} from '@primer/react/experimental'
 ```
 
 The `MarkdownViewer` displays rendered Markdown and handles interaction (link clicking and checkbox checking/unchecking) with that content.
@@ -17,7 +17,7 @@ The `MarkdownViewer` displays rendered Markdown and handles interaction (link cl
 
 ### Simple Example
 
-```javascript live noinline drafts
+```javascript live noinline experimental
 const MarkdownViewerExample = () => {
   return (
     // eslint-disable-next-line github/unescaped-html-literal
@@ -30,7 +30,7 @@ render(MarkdownViewerExample)
 
 ### Link-Handling Example
 
-```javascript live noinline drafts
+```javascript live noinline experimental
 const MarkdownViewerExample = () => {
   return (
     <MarkdownViewer
@@ -46,7 +46,7 @@ render(MarkdownViewerExample)
 
 ### Checkbox Interaction Example
 
-```javascript live noinline drafts
+```javascript live noinline experimental
 const markdownSource = `
 text before list
 

@@ -2,7 +2,7 @@ import React, {useState, useCallback, useRef} from 'react'
 import {Button, IconButton, Breadcrumbs, ActionMenu, ActionList, NavList} from '..'
 import {PageHeader} from '../PageHeader'
 import {Tooltip} from './Tooltip'
-import {Dialog} from '../drafts'
+import {Dialog} from '../experimental'
 import {
   GitBranchIcon,
   KebabHorizontalIcon,

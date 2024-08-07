@@ -4,7 +4,7 @@ import {Announce} from './Announce'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 
 export default {
-  title: 'Drafts/Components/Announce/Features',
+  title: 'Experimental/Components/Announce/Features',
   component: Announce,
 }
 

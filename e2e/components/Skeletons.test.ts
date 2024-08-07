@@ -11,7 +11,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonavatar--default',
+            id: 'experimental-components-skeleton-skeletonavatar--default',
             globals: {
               colorScheme: theme,
             },
@@ -23,7 +23,7 @@ test.describe('Skeleton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonavatar--default',
+            id: 'experimental-components-skeleton-skeletonavatar--default',
             globals: {
               colorScheme: theme,
             },
@@ -45,7 +45,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonavatar-features--in-a-stack',
+            id: 'experimental-components-skeleton-skeletonavatar-features--in-a-stack',
             globals: {
               colorScheme: theme,
             },
@@ -59,7 +59,7 @@ test.describe('Skeleton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonavatar-features--in-a-stack',
+            id: 'experimental-components-skeleton-skeletonavatar-features--in-a-stack',
             globals: {
               colorScheme: theme,
             },
@@ -81,7 +81,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonavatar-features--in-an-avatar-pair',
+            id: 'experimental-components-skeleton-skeletonavatar-features--in-an-avatar-pair',
             globals: {
               colorScheme: theme,
             },
@@ -95,7 +95,7 @@ test.describe('Skeleton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonavatar-features--in-an-avatar-pair',
+            id: 'experimental-components-skeleton-skeletonavatar-features--in-an-avatar-pair',
             globals: {
               colorScheme: theme,
             },
@@ -117,7 +117,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonavatar-features--size',
+            id: 'experimental-components-skeleton-skeletonavatar-features--size',
             globals: {
               colorScheme: theme,
             },
@@ -129,7 +129,7 @@ test.describe('Skeleton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonavatar-features--size',
+            id: 'experimental-components-skeleton-skeletonavatar-features--size',
             globals: {
               colorScheme: theme,
             },
@@ -151,7 +151,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonavatar-features--size-responsive',
+            id: 'experimental-components-skeleton-skeletonavatar-features--size-responsive',
             globals: {
               colorScheme: theme,
             },
@@ -165,7 +165,7 @@ test.describe('Skeleton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonavatar-features--size-responsive',
+            id: 'experimental-components-skeleton-skeletonavatar-features--size-responsive',
             globals: {
               colorScheme: theme,
             },
@@ -187,7 +187,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonavatar-features--square',
+            id: 'experimental-components-skeleton-skeletonavatar-features--square',
             globals: {
               colorScheme: theme,
             },
@@ -199,7 +199,7 @@ test.describe('Skeleton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonavatar-features--square',
+            id: 'experimental-components-skeleton-skeletonavatar-features--square',
             globals: {
               colorScheme: theme,
             },
@@ -224,7 +224,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonbox--default',
+            id: 'experimental-components-skeleton-skeletonbox--default',
             globals: {
               colorScheme: theme,
             },
@@ -236,7 +236,7 @@ test.describe('Skeleton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonbox--default',
+            id: 'experimental-components-skeleton-skeletonbox--default',
             globals: {
               colorScheme: theme,
             },
@@ -258,7 +258,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonbox-features--custom-height',
+            id: 'experimental-components-skeleton-skeletonbox-features--custom-height',
             globals: {
               colorScheme: theme,
             },
@@ -270,7 +270,7 @@ test.describe('Skeleton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonbox-features--custom-height',
+            id: 'experimental-components-skeleton-skeletonbox-features--custom-height',
             globals: {
               colorScheme: theme,
             },
@@ -292,7 +292,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonbox-features--custom-width',
+            id: 'experimental-components-skeleton-skeletonbox-features--custom-width',
             globals: {
               colorScheme: theme,
             },
@@ -304,7 +304,7 @@ test.describe('Skeleton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletonbox-features--custom-width',
+            id: 'experimental-components-skeleton-skeletonbox-features--custom-width',
             globals: {
               colorScheme: theme,
             },
@@ -329,7 +329,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletontext--default',
+            id: 'experimental-components-skeleton-skeletontext--default',
             globals: {
               colorScheme: theme,
             },
@@ -341,7 +341,7 @@ test.describe('Skeleton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletontext--default',
+            id: 'experimental-components-skeleton-skeletontext--default',
             globals: {
               colorScheme: theme,
             },
@@ -363,7 +363,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletontext-features--body-large',
+            id: 'experimental-components-skeleton-skeletontext-features--body-large',
             globals: {
               colorScheme: theme,
             },
@@ -375,7 +375,7 @@ test.describe('Skeleton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletontext-features--body-large',
+            id: 'experimental-components-skeleton-skeletontext-features--body-large',
             globals: {
               colorScheme: theme,
             },
@@ -397,7 +397,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletontext-features--body-medium',
+            id: 'experimental-components-skeleton-skeletontext-features--body-medium',
             globals: {
               colorScheme: theme,
             },
@@ -411,7 +411,7 @@ test.describe('Skeleton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletontext-features--body-medium',
+            id: 'experimental-components-skeleton-skeletontext-features--body-medium',
             globals: {
               colorScheme: theme,
             },
@@ -433,7 +433,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletontext-features--body-small',
+            id: 'experimental-components-skeleton-skeletontext-features--body-small',
             globals: {
               colorScheme: theme,
             },
@@ -445,7 +445,7 @@ test.describe('Skeleton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletontext-features--body-small',
+            id: 'experimental-components-skeleton-skeletontext-features--body-small',
             globals: {
               colorScheme: theme,
             },
@@ -467,7 +467,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletontext-features--display',
+            id: 'experimental-components-skeleton-skeletontext-features--display',
             globals: {
               colorScheme: theme,
             },
@@ -479,7 +479,7 @@ test.describe('Skeleton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletontext-features--display',
+            id: 'experimental-components-skeleton-skeletontext-features--display',
             globals: {
               colorScheme: theme,
             },
@@ -501,7 +501,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletontext-features--subtitle',
+            id: 'experimental-components-skeleton-skeletontext-features--subtitle',
             globals: {
               colorScheme: theme,
             },
@@ -513,7 +513,7 @@ test.describe('Skeleton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletontext-features--subtitle',
+            id: 'experimental-components-skeleton-skeletontext-features--subtitle',
             globals: {
               colorScheme: theme,
             },
@@ -535,7 +535,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletontext-features--title-large',
+            id: 'experimental-components-skeleton-skeletontext-features--title-large',
             globals: {
               colorScheme: theme,
             },
@@ -549,7 +549,7 @@ test.describe('Skeleton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletontext-features--title-large',
+            id: 'experimental-components-skeleton-skeletontext-features--title-large',
             globals: {
               colorScheme: theme,
             },
@@ -571,7 +571,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletontext-features--title-medium',
+            id: 'experimental-components-skeleton-skeletontext-features--title-medium',
             globals: {
               colorScheme: theme,
             },
@@ -585,7 +585,7 @@ test.describe('Skeleton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletontext-features--title-medium',
+            id: 'experimental-components-skeleton-skeletontext-features--title-medium',
             globals: {
               colorScheme: theme,
             },
@@ -607,7 +607,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletontext-features--title-small',
+            id: 'experimental-components-skeleton-skeletontext-features--title-small',
             globals: {
               colorScheme: theme,
             },
@@ -621,7 +621,7 @@ test.describe('Skeleton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletontext-features--title-small',
+            id: 'experimental-components-skeleton-skeletontext-features--title-small',
             globals: {
               colorScheme: theme,
             },
@@ -643,7 +643,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletontext-features--with-max-width',
+            id: 'experimental-components-skeleton-skeletontext-features--with-max-width',
             globals: {
               colorScheme: theme,
             },
@@ -657,7 +657,7 @@ test.describe('Skeleton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletontext-features--with-max-width',
+            id: 'experimental-components-skeleton-skeletontext-features--with-max-width',
             globals: {
               colorScheme: theme,
             },
@@ -679,7 +679,7 @@ test.describe('Skeleton', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletontext-features--with-multiple-lines',
+            id: 'experimental-components-skeleton-skeletontext-features--with-multiple-lines',
             globals: {
               colorScheme: theme,
             },
@@ -693,7 +693,7 @@ test.describe('Skeleton', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-skeleton-skeletontext-features--with-multiple-lines',
+            id: 'experimental-components-skeleton-skeletontext-features--with-multiple-lines',
             globals: {
               colorScheme: theme,
             },
