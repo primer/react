@@ -16,6 +16,8 @@ import CounterLabel from '../CounterLabel'
 import {useId} from '../hooks'
 import {ConditionalWrapper} from '../internal/components/ConditionalWrapper'
 import {AriaStatus} from '../live-region'
+import cx from 'clsx'
+import classes from './ButtonBase.module.css'
 
 const iconWrapStyles = {
   display: 'flex',
@@ -23,7 +25,7 @@ const iconWrapStyles = {
 }
 
 const renderVisual = (Visual: React.ElementType, loading: boolean, visualName: string) => (
-  <Box as="span" data-component={visualName} sx={{...iconWrapStyles}}>
+  <Box as="span" data-component={visualName} sx={{...iconWrapStyles}} className={classes.Visual}>
     {loading ? <Spinner size="small" /> : <Visual />}
   </Box>
 )
@@ -100,6 +102,7 @@ const ButtonBase = forwardRef(
           aria-disabled={loading ? true : undefined}
           {...rest}
           ref={innerRef}
+          className={cx(classes.ButtonBase, className)}
           data-block={block ? 'block' : null}
           data-inactive={inactive ? true : undefined}
           data-loading={Boolean(loading)}
@@ -126,7 +129,12 @@ const ButtonBase = forwardRef(
             )
           ) : (
             <>
-              <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
+              <Box
+                as="span"
+                data-component="buttonContent"
+                sx={getAlignContentSize(alignContent)}
+                className={classes.ButtonContent}
+              >
                 {
                   /* If there are no leading/trailing visuals/actions to replace with a loading spinner,
                      render a loading spiner in place of the button content. */

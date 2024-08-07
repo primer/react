@@ -1,0 +1,407 @@
+/* stylelint-disable selector-max-specificity */
+
+/* Base styles -------------------------------------------------------------- */
+.ButtonBase {
+  display: flex;
+  min-width: max-content;
+  height: var(--control-medium-size);
+  /* stylelint-disable-next-line primer/spacing */
+  padding: 0 var(--control-medium-paddingInline-normal);
+  font-family: inherit;
+  font-size: var(--text-body-size-medium);
+  font-weight: var(--base-text-weight-medium);
+  color: var(--button-default-fgColor-rest);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  background-color: transparent;
+  border: var(--borderWidth-thin) solid;
+  border-color: var(--button-default-borderColor-rest);
+  border-radius: var(--borderRadius-medium);
+  transition: var(--duration-fast) var(--easing-easeInOut);
+  transition-property: color, fill, background-color, border-color;
+  appearance: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--base-size-4);
+}
+
+.ButtonBase[href] {
+  display: inline-flex;
+}
+
+.ButtonBase[href]:hover {
+  text-decoration: none;
+}
+
+.ButtonBase:hover {
+  transition-duration: var(--duration-fast);
+}
+
+.ButtonBase:active {
+  transition: none;
+}
+
+.ButtonBase[data-inactive] {
+  cursor: auto;
+}
+
+.ButtonBase:disabled {
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+@media (forced-colors: active) {
+  .ButtonBase:focus {
+    outline: solid 1px transparent;
+  }
+}
+
+/* Size ----------------------------------------------------------------- */
+
+.ButtonBase[data-size='small'] {
+  height: var(--control-small-size);
+  /* stylelint-disable-next-line primer/spacing */
+  padding: 0 var(--control-small-paddingInline-condensed);
+  font-size: var(--text-body-size-small);
+  gap: var(--control-small-gap);
+}
+
+.ButtonBase[data-size='small'] [data-component='text'] {
+  line-height: var(--text-body-lineHeight-small);
+}
+
+.ButtonBase[data-size='small'] [data-component='buttonContent'] > :not(:last-child) {
+  /* stylelint-disable-next-line primer/spacing */
+  margin-right: var(--control-small-gap);
+}
+
+.ButtonBase[data-size='large'] {
+  height: var(--control-large-size);
+  /* stylelint-disable-next-line primer/spacing */
+  padding: 0 var(--control-large-paddingInline-spacious);
+  gap: var(--control-large-gap);
+}
+
+.ButtonBase[data-size='large'] [data-component='text'] {
+  line-height: var(--text-body-lineHeight-large);
+}
+
+.ButtonBase[data-size='large'] [data-component='buttonContent'] > :not(:last-child) {
+  /* stylelint-disable-next-line primer/spacing */
+  margin-right: var(--control-large-gap);
+}
+
+/* Button styles ------------------------------------------------------------ */
+.ButtonBase[data-block='block'] {
+  width: 100%;
+}
+
+.ButtonBase[data-label-wrap='true'] {
+  min-width: fit-content;
+  height: unset;
+  min-height: var(--control-medium-size, 2rem);
+}
+
+.ButtonBase[data-label-wrap='true'] [data-component='buttonContent'] {
+  flex: 1 1 auto;
+  align-self: stretch;
+  /* stylelint-disable-next-line primer/spacing */
+  padding-block: calc(var(--control-medium-paddingBlock) - var(--base-size-2));
+}
+
+.ButtonBase[data-label-wrap='true'] [data-component='text'] {
+  word-break: break-word;
+  white-space: unset;
+}
+
+.ButtonBase[data-label-wrap='true'][data-size='small'] {
+  height: unset;
+  min-height: var(--control-small-size, 1.75rem);
+}
+
+.ButtonBase[data-label-wrap='true'][data-size='small'] [data-component='buttonContent'] {
+  /* stylelint-disable-next-line primer/spacing */
+  padding-block: calc(var(--control-small-paddingBlock) - var(--base-size-2));
+}
+
+.ButtonBase[data-label-wrap='true'][data-size='large'] {
+  height: unset;
+  min-height: var(--control-large-size, 2.5rem);
+  /* stylelint-disable-next-line primer/spacing */
+  padding-inline: var(--control-large-paddingInline-spacious);
+}
+
+.ButtonBase[data-label-wrap='true'][data-size='large'] [data-component='buttonContent'] {
+  /* stylelint-disable-next-line primer/spacing */
+  padding-block: calc(var(--control-large-paddingBlock) - var(--base-size-2));
+}
+
+/* Button layout ----------------------------------------------------------------- */
+
+.ButtonBase [data-component='buttonContent'] {
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-areas: 'leadingVisual text trailingVisual';
+  grid-template-columns: min-content minmax(0, auto) min-content;
+  align-items: center;
+  align-content: center;
+}
+
+.ButtonBase[data-component='leadingVisual'] {
+  grid-area: leadingVisual;
+}
+
+.ButtonBase [data-component='text'] {
+  grid-area: text;
+  line-height: var(--text-body-lineHeight-medium);
+  white-space: nowrap;
+}
+
+.ButtonBase [data-component='trailingVisual'] {
+  grid-area: trailingVisual;
+}
+
+.ButtonBase [data-component='trailingAction'] {
+  margin-right: calc(var(--base-size-4) * -1);
+}
+
+.ButtonBase [data-component='buttonContent'] > :not(:last-child) {
+  margin-right: var(--base-size-8);
+}
+
+/* Content alignment -------------------------------------------------------- */
+.ButtonContent[data-align='center'] {
+  justify-content: center;
+}
+
+.ButtonContent[data-align='start'] {
+  justify-content: flex-start;
+}
+
+/* Visuals ------------------------------------------------------------------ */
+.Visual > :not([data-component='ButtonCounter']) {
+  display: flex;
+  color: var(--fgColor-muted);
+  pointer-events: none;
+}
+
+/* Variants ----------------------------------------------------------------- */
+
+/* Default Variant */
+.ButtonBase[data-variant='default'] {
+  color: var(--button-default-fgColor-rest);
+  background-color: var(--button-default-bgColor-rest);
+  box-shadow: var(--button-default-shadow-resting);
+}
+
+.ButtonBase[data-variant='default']:hover:not([disabled]):not([data-inactive]) {
+  background-color: var(--button-default-bgColor-hover);
+  border-color: var(--button-default-borderColor-hover);
+}
+
+.ButtonBase[data-variant='default']:active:not([disabled]):not([data-inactive]) {
+  background-color: var(--button-default-bgColor-active);
+  border-color: var(--button-default-borderColor-active);
+}
+
+.ButtonBase[data-variant='default']:disabled {
+  color: var(--control-fgColor-disabled);
+  background-color: var(--button-default-bgColor-disabled);
+  border-color: var(--button-default-borderColor-disabled);
+  box-shadow: none;
+}
+
+.ButtonBase[data-variant='default']:disabled .Visual {
+  color: var(--control-fgColor-disabled);
+}
+
+.ButtonBase[data-variant='default']:disabled [data-component='ButtonCounter'] {
+  color: inherit;
+}
+
+.ButtonBase[data-variant='default'][aria-expanded='true'] {
+  background-color: var(--button-default-bgColor-active);
+  border-color: var(--button-default-borderColor-active);
+}
+
+.ButtonBase[data-variant='default'] [data-component='ButtonCounter'] {
+  background-color: var(--buttonCounter-default-bgColor-rest);
+}
+
+/* Primary Variant */
+.ButtonBase[data-variant='primary'] {
+  color: var(--button-primary-fgColor-rest);
+  background-color: var(--button-primary-bgColor-rest);
+  border-color: var(--button-primary-borderColor-rest);
+  box-shadow: var(--shadow-resting-small);
+}
+
+.ButtonBase[data-variant='primary']:hover:not([disabled]):not([data-inactive]) {
+  background-color: var(--button-primary-bgColor-hover);
+  border-color: var(--button-primary-borderColor-hover);
+}
+
+.ButtonBase[data-variant='primary']:focus:not([disabled]),
+.ButtonBase[data-variant='primary']:focus-visible:not([disabled]) {
+  box-shadow: inset 0 0 0 3px;
+}
+
+.ButtonBase[data-variant='primary']:active:not([disabled]):not([data-inactive]) {
+  background-color: var(--button-primary-bgColor-active);
+  box-shadow: var(--button-primary-shadow-selected);
+}
+
+.ButtonBase[data-variant='primary']:disabled {
+  color: var(--button-primary-fgColor-disabled);
+  background-color: var(--button-primary-bgColor-disabled);
+  border-color: var(--button-primary-borderColor-disabled);
+  box-shadow: none;
+}
+
+.ButtonBase[data-variant='primary']:disabled [data-component='ButtonCounter'] {
+  color: inherit;
+}
+
+.ButtonBase[data-variant='primary'] [data-component='ButtonCounter'] {
+  color: inherit;
+  background-color: var(--buttonCounter-primary-bgColor-rest);
+}
+
+.ButtonBase[data-variant='primary'][aria-expanded='true'] {
+  background-color: var(--button-primary-bgColor-active);
+  box-shadow: var(--button-primary-shadow-selected);
+}
+
+/* Danger Variant */
+.ButtonBase[data-variant='danger'] {
+  color: var(--button-danger-fgColor-rest);
+  background-color: var(--button-danger-bgColor-rest);
+  box-shadow: var(--button-default-shadow-resting);
+}
+
+.ButtonBase[data-variant='danger']:hover:not([disabled]):not([data-inactive]) {
+  color: var(--button-danger-fgColor-hover);
+  background-color: var(--button-danger-bgColor-hover);
+  border-color: var(--button-danger-borderColor-hover);
+  box-shadow: var(--shadow-resting-small);
+}
+
+.ButtonBase[data-variant='danger']:active:not([disabled]):not([data-inactive]) {
+  color: var(--button-danger-fgColor-active);
+  background-color: var(--button-danger-bgColor-active);
+  border-color: var(--button-danger-borderColor-active);
+  box-shadow: var(--button-danger-shadow-selected);
+}
+
+.ButtonBase[data-variant='danger']:disabled {
+  color: var(--button-danger-fgColor-disabled);
+  background-color: var(--button-danger-bgColor-disabled);
+  border-color: var(--button-default-borderColor-disabled);
+  box-shadow: none;
+}
+
+.ButtonBase[data-variant='danger'] [data-component='ButtonCounter'] {
+  color: var(--buttonCounter-danger-fgColor-rest);
+  background-color: var(--buttonCounter-danger-bgColor-rest);
+}
+
+.ButtonBase[data-variant='danger']:active:not([disabled]):not([data-inactive]) [data-component='ButtonCounter'] {
+  color: var(--buttonCounter-danger-fgColor-hover);
+  background-color: var(--buttonCounter-danger-bgColor-hover);
+}
+
+.ButtonBase[data-variant='danger']:hover:not([disabled]):not([data-inactive]) [data-component='ButtonCounter'] {
+  color: var(--buttonCounter-danger-fgColor-hover);
+  background-color: var(--buttonCounter-danger-bgColor-hover);
+}
+
+.ButtonBase[data-variant='danger']:disabled [data-component='ButtonCounter'] {
+  color: var(--buttonCounter-danger-fgColor-disabled);
+  background-color: var(--buttonCounter-danger-bgColor-disabled);
+}
+
+.ButtonBase[data-variant='danger'][aria-expanded='true'] {
+  color: var(--button-danger-fgColor-active);
+  background-color: var(--button-danger-bgColor-active);
+  border-color: var(--button-danger-borderColor-active);
+  box-shadow: var(--button-danger-shadow-selected);
+}
+
+/* Invisible Variant */
+.ButtonBase[data-variant='invisible'] {
+  color: var(--button-default-fgColor-rest);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.ButtonBase[data-variant='invisible']:hover:not([disabled]) {
+  background-color: var(--button-invisible-bgColor-hover);
+}
+
+.ButtonBase[data-variant='invisible']:active:not([disabled]) {
+  background-color: var(--button-invisible-bgColor-active);
+}
+
+.ButtonBase[data-variant='invisible']:disabled {
+  color: var(--button-invisible-fgColor-disabled);
+  background-color: var(--button-invisible-bgColor-disabled);
+  border-color: var(--button-invisible-borderColor-disabled);
+  box-shadow: none;
+}
+
+.ButtonBase[data-variant='invisible']:disabled [data-component='ButtonCounter'] {
+  color: inherit;
+}
+
+.ButtonBase[data-variant='invisible'][aria-expanded='true'] {
+  background-color: var(--button-invisible-bgColor-active);
+}
+
+.ButtonBase[data-variant='invisible'] .Visual {
+  color: var(--button-invisible-iconColor-rest);
+}
+
+.ButtonBase[data-variant='invisible']:hover .Visual {
+  color: var(--button-invisible-iconColor-hover);
+}
+
+.ButtonBase[data-variant='invisible']:active .Visual {
+  color: var(--button-invisible-iconColor-hover);
+}
+
+.ButtonBase[data-variant='invisible']:disabled .Visual {
+  color: var(--button-invisible-iconColor-disabled);
+}
+
+/* Inactive Variant */
+
+.ButtonBase[data-inactive]:not([disabled]) {
+  color: var(--button-inactive-fgColor);
+  background-color: var(--button-inactive-bgColor);
+  border-color: var(--button-inactive-bgColor);
+}
+
+.ButtonBase[data-inactive]:not([disabled]):focus-visible {
+  box-shadow: none;
+}
+
+/* IconButton --------------------------------------------------------------- */
+.ButtonBase[data-component='IconButton'] {
+  display: inline-grid;
+  width: var(--control-medium-size);
+  min-width: unset;
+  /* stylelint-disable-next-line primer/spacing */
+  padding: unset;
+  place-content: center;
+  color: var(--fgColor-muted);
+}
+
+.ButtonBase[data-size='small'][data-component='IconButton'] {
+  width: var(--control-small-size);
+}
+
+.ButtonBase[data-size='large'][data-component='IconButton'] {
+  width: var(--control-large-size);
+}
