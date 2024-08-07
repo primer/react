@@ -1,4 +1,4 @@
-import {render as HTMLRender, fireEvent, waitFor, screen} from '@testing-library/react'
+import {render as HTMLRender, fireEvent, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import type {AutocompleteInputProps} from '../Autocomplete'
@@ -127,14 +127,15 @@ describe('Autocomplete', () => {
       expect(onKeyPressMock).toHaveBeenCalled()
     })
 
-    it('opens the menu when the input is focused', () => {
+    it('opens the menu when the input is focused and arrow key is pressed', () => {
       const {getByLabelText} = HTMLRender(
         <LabelledAutocomplete menuProps={{items: [], selectedItemIds: [], ['aria-labelledby']: 'autocompleteLabel'}} />,
       )
       const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
 
       expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
-      fireEvent.focus(inputNode)
+      fireEvent.click(inputNode)
+      fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
       expect(inputNode.getAttribute('aria-expanded')).toBe('true')
     })
 
@@ -145,13 +146,14 @@ describe('Autocomplete', () => {
       const inputNode = getByLabelText(AUTOCOMPLETE_LABEL)
 
       expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
-      fireEvent.focus(inputNode)
-      expect(inputNode.getAttribute('aria-expanded')).toBe('true')
-      // eslint-disable-next-line github/no-blur
-      fireEvent.blur(inputNode)
+      fireEvent.click(inputNode)
+      fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
 
-      // wait a tick for blur to finish
-      await waitFor(() => expect(inputNode.getAttribute('aria-expanded')).not.toBe('true'))
+      expect(inputNode.getAttribute('aria-expanded')).toBe('true')
+
+      await userEvent.tab()
+
+      expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
     })
 
     it('sets the input value to the suggested item text and highlights the untyped part of the word', async () => {
@@ -303,7 +305,7 @@ describe('Autocomplete', () => {
       expect(onSelectedChangeMock).not.toHaveBeenCalled()
       if (inputNode) {
         fireEvent.focus(inputNode)
-        await user.type(inputNode, '{enter}')
+        await user.type(inputNode, '{arrowdown}{enter}')
       }
 
       expect(onSelectedChangeMock).toHaveBeenCalledWith([mockItems[0]])
@@ -326,6 +328,8 @@ describe('Autocomplete', () => {
       if (inputNode) {
         expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
         await user.click(inputNode)
+
+        fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
         expect(inputNode.getAttribute('aria-expanded')).toBe('true')
         await user.click(getByText(mockItems[1].text))
         expect(inputNode.getAttribute('aria-expanded')).toBe('true')
@@ -349,6 +353,7 @@ describe('Autocomplete', () => {
       if (inputNode) {
         expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
         await user.click(inputNode)
+        fireEvent.keyDown(inputNode, {key: 'ArrowDown'})
         expect(inputNode.getAttribute('aria-expanded')).toBe('true')
         await user.click(getByText(mockItems[1].text))
         expect(inputNode.getAttribute('aria-expanded')).not.toBe('true')
