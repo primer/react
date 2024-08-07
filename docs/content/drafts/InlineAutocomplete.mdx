@@ -3,14 +3,14 @@ title: InlineAutocomplete
 componentId: inline_autocomplete
 status: Deprecated
 description: Provides inline auto completion suggestions for an input or textarea.
-source: https://github.com/primer/react/tree/main/packages/react/src/drafts/InlineAutocomplete
+source: https://github.com/primer/react/tree/main/packages/react/src/experimental/InlineAutocomplete
 storybook: '/react/storybook?path=/story/deprecated-components-inlineautocomplete--default'
 ---
 
-import data from '../../../packages/react/src/drafts/InlineAutocomplete/InlineAutocomplete.docs.json'
+import data from '../../../packages/react/src/experimental/InlineAutocomplete/InlineAutocomplete.docs.json'
 
 ```js
-import {InlineAutocomplete} from '@primer/react/drafts'
+import {InlineAutocomplete} from '@primer/react/experimental'
 ```
 
 The `InlineAutocomplete` component extends an `Input` or `Textarea` component to provide inline suggestions, similar to those provided by a code editor.
@@ -30,7 +30,7 @@ technologies. Examples below are provided for conciseness and may not reflect ac
 
 Try typing a `#` symbol to see suggestions. Use `Enter` or click to apply a suggestion.
 
-```javascript live noinline drafts
+```javascript live noinline experimental
 const options = ['javascript', 'typescript', 'css', 'html', 'webassembly']
 
 const SimpleExample = () => {
@@ -53,7 +53,7 @@ render(SimpleExample)
 
 ### Single-line input
 
-```javascript live noinline drafts
+```javascript live noinline experimental
 const options = ['javascript', 'typescript', 'css', 'html', 'webassembly']
 
 const SimpleExample = () => {
@@ -76,7 +76,7 @@ render(SimpleExample)
 
 ### Labelled
 
-```javascript live noinline drafts
+```javascript live noinline experimental
 const options = ['javascript', 'typescript', 'css', 'html', 'webassembly']
 
 const SimpleExample = () => {

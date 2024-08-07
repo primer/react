@@ -26,7 +26,7 @@ module.exports = {
         alias: {
           '@primer/components': path.resolve(__dirname, '../packages/react/src'),
           '@primer/react': path.resolve(__dirname, '../packages/react/src'),
-          '@primer/react/drafts': path.resolve(__dirname, '../packages/react/src/drafts'),
+          '@primer/react/experimental': path.resolve(__dirname, '../packages/react/src/experimental'),
           'styled-components': path.join(ROOT_DIR, 'node_modules', 'styled-components'),
           react: path.join(ROOT_DIR, 'node_modules', 'react'),
         },

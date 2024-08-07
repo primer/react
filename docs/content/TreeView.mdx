@@ -160,7 +160,7 @@ Please note that we advise against using this pattern for website navigation bec
 ```jsx
 import {useRouter} from 'next/router'
 import Link from 'next/link'
-import {TreeView} from '@primer/react/drafts'
+import {TreeView} from '@primer/react/experimental'
 
 function TreeLinkItem({id, href, children}) {
   const router = useRouter()
@@ -200,7 +200,7 @@ function App() {
 
 ### With controlled expanded state
 
-```javascript live noinline drafts
+```javascript live noinline experimental
 function ControlledTreeView() {
   const [expanded, setExpanded] = React.useState(false)
 
