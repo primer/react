@@ -13,17 +13,34 @@ import Box from '../Box'
 
 type StyledHeadingProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  variant?: 'large' | 'medium' | 'small'
 } & SxProp
 
 const StyledHeading = styled.h2<StyledHeadingProps>`
   font-weight: ${get('fontWeights.bold')};
   font-size: ${get('fontSizes.5')};
   margin: 0;
+
+  &:where([data-variant='large']) {
+    font: var(--text-title-shorthand-large, 600 32px / 1.5 ${get('fonts.normal')});
+  }
+
+  &:where([data-variant='medium']) {
+    font: var(--text-title-shorthand-medium, 600 20px / 1.6 ${get('fonts.normal')});
+  }
+
+  &:where([data-variant='small']) {
+    font: var(--text-title-shorthand-small, 600 16px / 1.5 ${get('fonts.normal')});
+  }
   ${sx};
 `
+<<<<<<< HEAD
 
 const Heading = forwardRef(({as: Component = 'h2', className, sx, ...props}, forwardedRef) => {
   const enabled = useFeatureFlag('primer_react_css_modules')
+=======
+const Heading = forwardRef(({as: Component = 'h2', variant, ...props}, forwardedRef) => {
+>>>>>>> 84d1604ecf2c07b5584f7c5db2cd078c18847cbf
   const innerRef = React.useRef<HTMLHeadingElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
@@ -68,6 +85,7 @@ const Heading = forwardRef(({as: Component = 'h2', className, sx, ...props}, for
       {...props}
       // @ts-ignore shh
       ref={innerRef}
+      data-variant={variant}
     />
   )
 }) as PolymorphicForwardRefComponent<'h2', StyledHeadingProps>

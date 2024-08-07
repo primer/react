@@ -14,6 +14,10 @@
       "name": "as",
       "type": "React.ElementType",
       "defaultValue": "\"h2\""
+    },
+    {
+      "name": "variant",
+      "type": "'large' | 'medium' | 'small'"
     }
   ]
 }

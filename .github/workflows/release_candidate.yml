@@ -49,7 +49,12 @@ jobs:
 
           pkg_json_path=packages/react/package.json
           version=$(jq -r .version $pkg_json_path)
-          echo "$( jq ".version = \"$(echo $version)-rc.$(git rev-parse --short HEAD)\"" $pkg_json_path )" > $pkg_json_path
+
+          # Update how the version is generated in these prereleases. By
+          # default, -rc. is included in versions when `pre.json` is present.
+          # Add this back in when we exit the v37 release
+          # TODO: remove in v37
+          echo "$( jq ".version = \"$(echo $version).$(git rev-parse --short HEAD)\"" $pkg_json_path )" > $pkg_json_path
           npx changeset publish --tag next
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
