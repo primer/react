@@ -30,7 +30,7 @@ jobs:
             var glob = require("glob")
 
             // options is optional
-            glob("packages/react/src/**/*.tsx", {ignore:"__tests__"}, function (er, files) {
+            glob("packages/react/src/**/*.tsx", {ignore:"packages/react/src/__tests__"}, function (er, files) {
               // files is an array of filenames.
               // If the `nonull` option is set, and nothing
               // was found, then files is ["**/*.js"]
