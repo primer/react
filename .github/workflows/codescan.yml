@@ -24,12 +24,35 @@ jobs:
         run: npm ci
 
       - uses: actions/github-script@v7
-        id: release-info
+        id: file-counts
         with:
           script: |
-            const glob = require("glob")
-
-            const files = await glob("packages/react/src/**/*.tsx", {
-              ignore: "packages/react/src/__tests__/**"
+            const files = await fg.glob('packages/react/src/**/*.tsx', {
+              ignore: [
+                '**/__tests__/**',
+                '**/_*.tsx',
+                '**/*.figma.tsx',
+                '**/*.stories.tsx',
+                '**/*.test.tsx',
+                '**/hooks/**',
+                '**/index.tsx',
+                '**/utils/**',
+              ],
             })
-            console.log(files)
+
+            const metrics = []
+
+            for (const file of files) {
+              const content = fs.readFileSync(file, 'utf8')
+              const matched = content.match(/.`$([^`]*)^`$/gm)
+              if (matched) {
+                const count = matched.join('\n').split('\n').length
+                metrics.push(
+                  `- type: "count"\n  name: "primer.react.styled-system.count"\n  value: ${count}\n  tags:\n    - "path:${file}"`,
+                )
+              }
+            }
+
+            core.setOutput('metrics', metrics.join('\n'))
+
+      - run: echo "${{ steps.file-counts.outputs.metrics }}"
