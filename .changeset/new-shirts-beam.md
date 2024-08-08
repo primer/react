@@ -2,4 +2,4 @@
 "@primer/react": patch
 ---
 
-FilteredActionList: export `FilteredActionList` from '@primer/react'
+FilteredActionList: export `FilteredActionList` from '@primer/react/experimental'
