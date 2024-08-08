@@ -3,7 +3,10 @@
  */
 export default {
   extends: ['@primer/stylelint-config'],
-  rules: {},
+  rules: {
+    // We want to allow type selectors like `button`
+    'selector-max-type': 1,
+  },
   overrides: [
     {
       files: ['examples/**/*.css'],

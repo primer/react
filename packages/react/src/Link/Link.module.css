@@ -1,0 +1,40 @@
+.Link {
+  color: var(--fgColor-accent);
+  text-decoration: none;
+
+  /* Reset for button tags */
+  &:is(button) {
+    display: inline-block;
+    padding: 0;
+    font-size: inherit;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    background-color: transparent;
+    border: 0;
+    appearance: none;
+  }
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  /* Deprecated: but need to support backwards compatibility */
+  &[data-underline='true'],
+  /*
+    Inline links (inside a text block), however, should have underline based on accessibility setting set in data-attribute
+    Note: setting underline={false} does not override this
+  */
+  [data-a11y-link-underlines='true'] &[data-inline='true'] {
+    text-decoration: underline;
+  }
+
+  &[data-muted='true'] {
+    color: var(--fgColor-muted);
+
+    &:hover {
+      color: var(--fgColor-accent);
+      text-decoration: none;
+    }
+  }
+}
