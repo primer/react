@@ -18,6 +18,7 @@ import {ConditionalWrapper} from '../internal/components/ConditionalWrapper'
 import {AriaStatus} from '../live-region'
 import cx from 'clsx'
 import classes from './ButtonBase.module.css'
+import {useFeatureFlag} from '../FeatureFlags'
 
 const iconWrapStyles = {
   display: 'flex',
@@ -50,9 +51,11 @@ const ButtonBase = forwardRef(
       inactive,
       onClick,
       labelWrap,
+      className,
       ...rest
     } = props
 
+    const enabled = useFeatureFlag('primer_react_css_modules')
     const innerRef = React.useRef<HTMLButtonElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
@@ -84,6 +87,226 @@ const ButtonBase = forwardRef(
           console.warn('This component should be an instanceof a semantic button or anchor')
         }
       }, [innerRef])
+    }
+
+    if (enabled) {
+      if (props.sx) {
+        return (
+          <ConditionalWrapper
+            // If anything is passsed to `loading`, we need the wrapper:
+            // If we just checked for `loading` as a boolean, the wrapper wouldn't be rendered
+            // when `loading` is `false`.
+            // Then, the component re-renders in a way that the button will lose focus when switching between loading states.
+            if={typeof loading !== 'undefined'}
+            sx={{display: block ? 'block' : 'inline-block'}}
+            data-loading-wrapper
+          >
+            <StyledButton
+              as={Component}
+              sx={sxStyles}
+              aria-disabled={loading ? true : undefined}
+              {...rest}
+              ref={innerRef}
+              className={cx(classes.ButtonBase, className)}
+              data-block={block ? 'block' : null}
+              data-inactive={inactive ? true : undefined}
+              data-loading={Boolean(loading)}
+              data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
+              data-size={size === 'small' || size === 'large' ? size : undefined}
+              data-variant={variant}
+              data-label-wrap={labelWrap}
+              aria-describedby={[loadingAnnouncementID, ariaDescribedBy]
+                .filter(descriptionID => Boolean(descriptionID))
+                .join(' ')}
+              // aria-labelledby is needed because the accessible name becomes unset when the button is in a loading state.
+              // We only set it when the button is in a loading state because it will supercede the aria-label when the screen
+              // reader announces the button name.
+              aria-labelledby={
+                loading
+                  ? [`${uuid}-label`, ariaLabelledBy].filter(labelID => Boolean(labelID)).join(' ')
+                  : ariaLabelledBy
+              }
+              id={id}
+              onClick={loading ? undefined : onClick}
+            >
+              {Icon ? (
+                loading ? (
+                  <Spinner size="small" />
+                ) : (
+                  <Icon />
+                )
+              ) : (
+                <>
+                  <Box
+                    as="span"
+                    data-component="buttonContent"
+                    sx={getAlignContentSize(alignContent)}
+                    className={classes.ButtonContent}
+                  >
+                    {
+                      /* If there are no leading/trailing visuals/actions to replace with a loading spinner,
+                     render a loading spiner in place of the button content. */
+                      loading &&
+                        !LeadingVisual &&
+                        !TrailingVisual &&
+                        !TrailingAction &&
+                        renderVisual(Spinner, loading, 'loadingSpinner')
+                    }
+                    {
+                      /* Render a leading visual unless the button is in a loading state.
+                     Then replace the leading visual with a loading spinner. */
+                      LeadingVisual && renderVisual(LeadingVisual, Boolean(loading), 'leadingVisual')
+                    }
+                    {children && (
+                      <span data-component="text" id={loading ? `${uuid}-label` : undefined}>
+                        {children}
+                      </span>
+                    )}
+                    {
+                      /* If there is a count, render a counter label unless there is a trailing visual.
+                     Then render the counter label as a trailing visual.
+                     Replace the counter label or the trailing visual with a loading spinner if:
+                     - the button is in a loading state
+                     - there is no leading visual to replace with a loading spinner
+                  */
+                      count !== undefined && !TrailingVisual
+                        ? renderVisual(
+                            () => <CounterLabel data-component="ButtonCounter">{count}</CounterLabel>,
+                            Boolean(loading) && !LeadingVisual,
+                            'trailingVisual',
+                          )
+                        : TrailingVisual
+                        ? renderVisual(TrailingVisual, Boolean(loading) && !LeadingVisual, 'trailingVisual')
+                        : null
+                    }
+                  </Box>
+                  {
+                    /* If there is a trailing action, render it unless the button is in a loading state
+                   and there is no leading or trailing visual to replace with a loading spinner. */
+                    TrailingAction &&
+                      renderVisual(
+                        TrailingAction,
+                        Boolean(loading) && !LeadingVisual && !TrailingVisual,
+                        'trailingAction',
+                      )
+                  }
+                </>
+              )}
+            </StyledButton>
+            {loading && (
+              <VisuallyHidden>
+                <AriaStatus id={loadingAnnouncementID}>{loadingAnnouncement}</AriaStatus>
+              </VisuallyHidden>
+            )}
+          </ConditionalWrapper>
+        )
+      }
+      return (
+        <ConditionalWrapper
+          // If anything is passsed to `loading`, we need the wrapper:
+          // If we just checked for `loading` as a boolean, the wrapper wouldn't be rendered
+          // when `loading` is `false`.
+          // Then, the component re-renders in a way that the button will lose focus when switching between loading states.
+          if={typeof loading !== 'undefined'}
+          sx={{display: block ? 'block' : 'inline-block'}}
+          data-loading-wrapper
+        >
+          <StyledButton
+            as={Component}
+            aria-disabled={loading ? true : undefined}
+            {...rest}
+            ref={innerRef}
+            className={cx(classes.ButtonBase, className)}
+            data-block={block ? 'block' : null}
+            data-inactive={inactive ? true : undefined}
+            data-loading={Boolean(loading)}
+            data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
+            data-size={size === 'small' || size === 'large' ? size : undefined}
+            data-variant={variant}
+            data-label-wrap={labelWrap}
+            aria-describedby={[loadingAnnouncementID, ariaDescribedBy]
+              .filter(descriptionID => Boolean(descriptionID))
+              .join(' ')}
+            // aria-labelledby is needed because the accessible name becomes unset when the button is in a loading state.
+            // We only set it when the button is in a loading state because it will supercede the aria-label when the screen
+            // reader announces the button name.
+            aria-labelledby={
+              loading ? [`${uuid}-label`, ariaLabelledBy].filter(labelID => Boolean(labelID)).join(' ') : ariaLabelledBy
+            }
+            id={id}
+            onClick={loading ? undefined : onClick}
+          >
+            {Icon ? (
+              loading ? (
+                <Spinner size="small" />
+              ) : (
+                <Icon />
+              )
+            ) : (
+              <>
+                <Box
+                  as="span"
+                  data-component="buttonContent"
+                  sx={getAlignContentSize(alignContent)}
+                  className={classes.ButtonContent}
+                >
+                  {
+                    /* If there are no leading/trailing visuals/actions to replace with a loading spinner,
+                     render a loading spiner in place of the button content. */
+                    loading &&
+                      !LeadingVisual &&
+                      !TrailingVisual &&
+                      !TrailingAction &&
+                      renderVisual(Spinner, loading, 'loadingSpinner')
+                  }
+                  {
+                    /* Render a leading visual unless the button is in a loading state.
+                     Then replace the leading visual with a loading spinner. */
+                    LeadingVisual && renderVisual(LeadingVisual, Boolean(loading), 'leadingVisual')
+                  }
+                  {children && (
+                    <span data-component="text" id={loading ? `${uuid}-label` : undefined}>
+                      {children}
+                    </span>
+                  )}
+                  {
+                    /* If there is a count, render a counter label unless there is a trailing visual.
+                     Then render the counter label as a trailing visual.
+                     Replace the counter label or the trailing visual with a loading spinner if:
+                     - the button is in a loading state
+                     - there is no leading visual to replace with a loading spinner
+                  */
+                    count !== undefined && !TrailingVisual
+                      ? renderVisual(
+                          () => <CounterLabel data-component="ButtonCounter">{count}</CounterLabel>,
+                          Boolean(loading) && !LeadingVisual,
+                          'trailingVisual',
+                        )
+                      : TrailingVisual
+                      ? renderVisual(TrailingVisual, Boolean(loading) && !LeadingVisual, 'trailingVisual')
+                      : null
+                  }
+                </Box>
+                {
+                  /* If there is a trailing action, render it unless the button is in a loading state
+                   and there is no leading or trailing visual to replace with a loading spinner. */
+                  TrailingAction &&
+                    renderVisual(
+                      TrailingAction,
+                      Boolean(loading) && !LeadingVisual && !TrailingVisual,
+                      'trailingAction',
+                    )
+                }
+              </>
+            )}
+          </StyledButton>
+          {loading && (
+            <VisuallyHidden>
+              <AriaStatus id={loadingAnnouncementID}>{loadingAnnouncement}</AriaStatus>
+            </VisuallyHidden>
+          )}
+        </ConditionalWrapper>
+      )
     }
 
     return (

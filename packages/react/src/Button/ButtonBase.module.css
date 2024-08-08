@@ -25,36 +25,38 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--base-size-4);
+
+  &:hover {
+    transition-duration: var(--duration-fast);
+  }
+
+  &:active {
+    transition: none;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  &[data-inactive] {
+    cursor: auto;
+  }
+
+  @media (forced-colors: active) {
+    &:focus {
+      outline: solid 1px transparent;
+    }
+  }
 }
+
+/* LinkButton */
 
 .ButtonBase[href] {
   display: inline-flex;
-}
 
-.ButtonBase[href]:hover {
-  text-decoration: none;
-}
-
-.ButtonBase:hover {
-  transition-duration: var(--duration-fast);
-}
-
-.ButtonBase:active {
-  transition: none;
-}
-
-.ButtonBase[data-inactive] {
-  cursor: auto;
-}
-
-.ButtonBase:disabled {
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-@media (forced-colors: active) {
-  .ButtonBase:focus {
-    outline: solid 1px transparent;
+  &:hover {
+    text-decoration: none;
   }
 }
 
@@ -194,40 +196,45 @@
   color: var(--button-default-fgColor-rest);
   background-color: var(--button-default-bgColor-rest);
   box-shadow: var(--button-default-shadow-resting);
-}
 
-.ButtonBase[data-variant='default']:hover:not([disabled]):not([data-inactive]) {
-  background-color: var(--button-default-bgColor-hover);
-  border-color: var(--button-default-borderColor-hover);
-}
+  /* &:hover:not([disabled]):not([data-inactive]) {
+    background-color: var(--button-default-bgColor-hover);
+    border-color: var(--button-default-borderColor-hover);
+  } */
 
-.ButtonBase[data-variant='default']:active:not([disabled]):not([data-inactive]) {
-  background-color: var(--button-default-bgColor-active);
-  border-color: var(--button-default-borderColor-active);
-}
+  &:hover {
+    background-color: var(--button-default-bgColor-hover);
+    border-color: var(--button-default-borderColor-hover);
+  }
 
-.ButtonBase[data-variant='default']:disabled {
-  color: var(--control-fgColor-disabled);
-  background-color: var(--button-default-bgColor-disabled);
-  border-color: var(--button-default-borderColor-disabled);
-  box-shadow: none;
-}
+  &:active:not([disabled]):not([data-inactive]) {
+    background-color: var(--button-default-bgColor-active);
+    border-color: var(--button-default-borderColor-active);
+  }
 
-.ButtonBase[data-variant='default']:disabled .Visual {
-  color: var(--control-fgColor-disabled);
-}
+  &:disabled {
+    color: var(--control-fgColor-disabled);
+    background-color: var(--button-default-bgColor-disabled);
+    border-color: var(--button-default-borderColor-disabled);
+    box-shadow: none;
 
-.ButtonBase[data-variant='default']:disabled [data-component='ButtonCounter'] {
-  color: inherit;
-}
+    & .Visual {
+      color: var(--control-fgColor-disabled);
+    }
 
-.ButtonBase[data-variant='default'][aria-expanded='true'] {
-  background-color: var(--button-default-bgColor-active);
-  border-color: var(--button-default-borderColor-active);
-}
+    & [data-component='ButtonCounter'] {
+      color: inherit;
+    }
+  }
 
-.ButtonBase[data-variant='default'] [data-component='ButtonCounter'] {
-  background-color: var(--buttonCounter-default-bgColor-rest);
+  & [aria-expanded='true'] {
+    background-color: var(--button-default-bgColor-active);
+    border-color: var(--button-default-borderColor-active);
+  }
+
+  & [data-component='ButtonCounter'] {
+    background-color: var(--buttonCounter-default-bgColor-rest);
+  }
 }
 
 /* Primary Variant */
