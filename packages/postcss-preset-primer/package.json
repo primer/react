@@ -1,0 +1,21 @@
+{
+  "name": "postcss-preset-primer",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": "./src/index.js",
+  "scripts": {
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@csstools/postcss-global-data": "2.1.1",
+    "@primer/primitives": "8.2.3",
+    "glob": "11.0.0",
+    "postcss-custom-media": "10.0.8",
+    "postcss-nesting": "12.1.5",
+    "postcss-preset-env": "9.6.0"
+  },
+  "devDependencies": {
+    "typescript": "5.5.3"
+  }
+}
