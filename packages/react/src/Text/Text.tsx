@@ -1,9 +1,11 @@
-import React from 'react'
+import React, {forwardRef} from 'react'
 import styled from 'styled-components'
 import {COMMON, TYPOGRAPHY} from '../constants'
 import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
+import {useRefObjectAsForwardedRef} from '../hooks'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 type StyledTextProps = {
   size?: 'large' | 'medium' | 'small'
@@ -49,9 +51,12 @@ const StyledText = styled.span<StyledTextProps>`
   ${sx};
 `
 
-const Text = ({as: Component = 'span', size, weight, ...props}: StyledTextProps) => {
+const Text = forwardRef(({as: Component = 'span', size, weight, ...props}, forwardedRef) => {
+  const innerRef = React.useRef<HTMLSpanElement>(null)
+  useRefObjectAsForwardedRef(forwardedRef, innerRef)
+
   return <StyledText as={Component} {...props} data-size={size} data-weight={weight} />
-}
+}) as PolymorphicForwardRefComponent<'span', StyledTextProps>
 
 export type TextProps = ComponentProps<typeof Text>
 export default Text
