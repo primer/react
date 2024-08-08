@@ -8,8 +8,8 @@ import Spinner from '../Spinner'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {get} from '../constants'
-import {ActionList} from '../deprecated/ActionList'
-import type {GroupedListProps, ListPropsBase} from '../SelectPanel/types'
+import {ActionList} from '../ActionList'
+import type {GroupedListProps, ListPropsBase, ItemInput} from '../SelectPanel/types'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
@@ -48,6 +48,7 @@ export function FilteredActionList({
   textInputProps,
   inputRef: providedInputRef,
   sx,
+  groupMetadata,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -166,6 +167,17 @@ export function FilteredActionList({
     )
   }
 
+  function getItemListForEachGroup(groupId: string) {
+    const itemsInGroup = []
+    for (const item of items) {
+      // Look up the group associated with the current item.
+      if (item.groupId === groupId) {
+        itemsInGroup.push(item)
+      }
+    }
+    return itemsInGroup
+  }
+
   return (
     <Box display="flex" flexDirection="column" overflow="hidden" sx={sx}>
       <StyledHeader>
@@ -190,6 +202,21 @@ export function FilteredActionList({
           <Box width="100%" display="flex" flexDirection="row" justifyContent="center" pt={6} pb={7}>
             <Spinner />
           </Box>
+        ) : groupMetadata ? (
+          <ActionList ref={listContainerRef} {...listProps} role="listbox" id={listId}>
+            {groupMetadata.map((group, index) => {
+              return (
+                <ActionList.Group key={index}>
+                  <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
+                    {group.header?.title ? group.header.title : `Group ${group.groupId}`}
+                  </ActionList.GroupHeading>
+                  {getItemListForEachGroup(group.groupId).map((item, index) => {
+                    return <MappedActionList key={index} {...item} />
+                  })}
+                </ActionList.Group>
+              )
+            })}
+          </ActionList>
         ) : (
           <ActionList ref={listContainerRef} {...listProps} role="listbox" id={listId}>
             {items.map((item, index) => {
