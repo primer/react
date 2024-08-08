@@ -162,7 +162,7 @@ export const WithPlaceholderSelect = () => {
           {children ?? 'Select Labels'}
         </Button>
       )}
-      placeholder="Please select options below"
+      placeholder="Select issue labels"
       open={open}
       onOpenChange={setOpen}
       items={filteredItems}
