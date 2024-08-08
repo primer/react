@@ -298,7 +298,7 @@ const ButtonBase = forwardRef(
                 }
               </>
             )}
-          </StyledButton>
+          </Component>
           {loading && (
             <VisuallyHidden>
               <AriaStatus id={loadingAnnouncementID}>{loadingAnnouncement}</AriaStatus>
