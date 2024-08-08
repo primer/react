@@ -211,8 +211,7 @@ const ButtonBase = forwardRef(
           sx={{display: block ? 'block' : 'inline-block'}}
           data-loading-wrapper
         >
-          <StyledButton
-            as={Component}
+          <Component
             aria-disabled={loading ? true : undefined}
             {...rest}
             ref={innerRef}
