@@ -80,3 +80,8 @@ export const SizeResponsive = () => (
     />
   </div>
 )
+
+export const ObjectSource = () => {
+  const src = {src: 'https://avatars.githubusercontent.com/u/92997159?v=4'}
+  return <Avatar src={src} />
+}
