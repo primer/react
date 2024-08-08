@@ -2457,6 +2457,9 @@
           "raw": "VariantType",
           "value": [
             {
+              "value": "\"link\""
+            },
+            {
               "value": "\"default\""
             },
             {
@@ -9480,6 +9483,9 @@
           "name": "enum",
           "raw": "VariantType",
           "value": [
+            {
+              "value": "\"link\""
+            },
             {
               "value": "\"default\""
             },
@@ -26647,6 +26653,9 @@
           "raw": "VariantType",
           "value": [
             {
+              "value": "\"link\""
+            },
+            {
               "value": "\"default\""
             },
             {
@@ -28456,6 +28465,9 @@
           "name": "enum",
           "raw": "VariantType",
           "value": [
+            {
+              "value": "\"link\""
+            },
             {
               "value": "\"default\""
             },
@@ -31342,6 +31354,9 @@
           "name": "enum",
           "raw": "VariantType",
           "value": [
+            {
+              "value": "\"link\""
+            },
             {
               "value": "\"default\""
             },
@@ -39362,6 +39377,27 @@
           ]
         }
       },
+      "className": {
+        "defaultValue": null,
+        "description": "",
+        "name": "className",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/FormControl/FormControl.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "string",
+          "value": [
+            {
+              "value": "string"
+            }
+          ]
+        }
+      },
       "sx": {
         "defaultValue": null,
         "description": "A style object used to override styles using styled-components",
@@ -40344,6 +40380,33 @@
             },
             {
               "value": "\"h6\" & FunctionComponent<unknown>"
+            }
+          ]
+        }
+      },
+      "variant": {
+        "defaultValue": null,
+        "description": "",
+        "name": "variant",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Heading/Heading.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "\"small\" | \"large\" | \"medium\"",
+          "value": [
+            {
+              "value": "\"small\""
+            },
+            {
+              "value": "\"large\""
+            },
+            {
+              "value": "\"medium\""
             }
           ]
         }
@@ -67876,6 +67939,9 @@
           "raw": "VariantType",
           "value": [
             {
+              "value": "\"link\""
+            },
+            {
               "value": "\"default\""
             },
             {
@@ -92108,6 +92174,9 @@
           "raw": "VariantType",
           "value": [
             {
+              "value": "\"link\""
+            },
+            {
               "value": "\"default\""
             },
             {
@@ -94952,6 +95021,9 @@
           "raw": "VariantType",
           "value": [
             {
+              "value": "\"link\""
+            },
+            {
               "value": "\"default\""
             },
             {
@@ -97103,6 +97175,9 @@
           "raw": "VariantType",
           "value": [
             {
+              "value": "\"link\""
+            },
+            {
               "value": "\"default\""
             },
             {
@@ -98819,6 +98894,9 @@
           "name": "enum",
           "raw": "VariantType",
           "value": [
+            {
+              "value": "\"link\""
+            },
             {
               "value": "\"default\""
             },
@@ -102070,6 +102148,9 @@
           "name": "enum",
           "raw": "VariantType",
           "value": [
+            {
+              "value": "\"link\""
+            },
             {
               "value": "\"default\""
             },
@@ -109960,6 +110041,9 @@
           "name": "enum",
           "raw": "VariantType",
           "value": [
+            {
+              "value": "\"link\""
+            },
             {
               "value": "\"default\""
             },

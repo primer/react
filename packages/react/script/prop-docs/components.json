@@ -199,7 +199,7 @@
             },
             {
               "name": "variant",
-              "type": "\"default\" | \"danger\" | \"primary\" | \"invisible\"",
+              "type": "\"link\" | \"default\" | \"danger\" | \"primary\" | \"invisible\"",
               "required": false,
               "description": "Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
               "defaultValue": ""
@@ -841,7 +841,7 @@
             },
             {
               "name": "variant",
-              "type": "\"default\" | \"danger\" | \"primary\" | \"invisible\"",
+              "type": "\"link\" | \"default\" | \"danger\" | \"primary\" | \"invisible\"",
               "required": false,
               "description": "Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
               "defaultValue": ""
@@ -2366,6 +2366,10 @@
           "code": "() => <Button variant=\"invisible\">Invisible</Button>"
         },
         {
+          "id": "components-button-features--link",
+          "code": "() => <Button variant=\"link\">Button that looks like a link</Button>"
+        },
+        {
           "id": "components-button-features--leading-visual",
           "code": "() => <Button leadingVisual={HeartIcon}>Leading visual</Button>"
         },
@@ -2440,6 +2444,10 @@
         {
           "id": "components-button-features--label-wrap",
           "code": "() => {\n  return (\n    <Stack\n      style={{\n        width: '200px',\n      }}\n    >\n      <Button labelWrap>\n        This button label will wrap if the label is too long\n      </Button>\n      <Button size=\"small\" labelWrap>\n        This small button label will wrap if the label is too long\n      </Button>\n      <Button size=\"large\" labelWrap>\n        This large button label will wrap if the label is too long\n      </Button>\n      <Button labelWrap leadingVisual={HeartIcon} trailingVisual={EyeIcon}>\n        This button label will wrap if the label is too long\n      </Button>\n      <Button labelWrap trailingAction={TriangleDownIcon}>\n        This button label will wrap if the label is too long\n      </Button>\n    </Stack>\n  )\n}"
+        },
+        {
+          "id": "components-button-features--inactive-button-with-tooltip",
+          "code": "() => (\n  <Tooltip\n    text=\"Action unavailable: an error occured while loading respository permissions\"\n    direction=\"n\"\n  >\n    <Button inactive>Review changes</Button>\n  </Tooltip>\n)"
         }
       ],
       "importPath": "@primer/react",
@@ -2502,7 +2510,7 @@
         },
         {
           "name": "variant",
-          "type": "\"default\" | \"danger\" | \"primary\" | \"invisible\"",
+          "type": "\"link\" | \"default\" | \"danger\" | \"primary\" | \"invisible\"",
           "required": false,
           "description": "Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
           "defaultValue": ""
@@ -2732,7 +2740,7 @@
         },
         {
           "name": "variant",
-          "type": "\"default\" | \"danger\" | \"primary\" | \"invisible\"",
+          "type": "\"link\" | \"default\" | \"danger\" | \"primary\" | \"invisible\"",
           "required": false,
           "description": "Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
           "defaultValue": ""
@@ -2962,7 +2970,7 @@
         },
         {
           "name": "variant",
-          "type": "\"default\" | \"danger\" | \"primary\" | \"invisible\"",
+          "type": "\"link\" | \"default\" | \"danger\" | \"primary\" | \"invisible\"",
           "required": false,
           "description": "Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
           "defaultValue": ""
@@ -4211,6 +4219,13 @@
           "defaultValue": "vertical"
         },
         {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
           "name": "sx",
           "type": "BetterSystemStyleObject",
           "required": false,
@@ -4355,6 +4370,22 @@
         {
           "id": "components-heading--default",
           "code": "() => <Heading>Default H2 Heading</Heading>"
+        },
+        {
+          "id": "components-heading-features--test-sx",
+          "code": "() => (\n  <Heading\n    sx={{\n      fontSize: 2,\n      fontWeight: 'normal',\n    }}\n  >\n    Heading with sx override\n  </Heading>\n)"
+        },
+        {
+          "id": "components-heading-features--small",
+          "code": "() => <Heading variant=\"small\">Small heading</Heading>"
+        },
+        {
+          "id": "components-heading-features--medium",
+          "code": "() => <Heading variant=\"medium\">Medium heading</Heading>"
+        },
+        {
+          "id": "components-heading-features--large",
+          "code": "() => <Heading variant=\"large\">Large heading</Heading>"
         }
       ],
       "importPath": "@primer/react",
@@ -4362,6 +4393,13 @@
         {
           "name": "as",
           "type": "\"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"h1\" & ComponentClass<unknown, any> | \"h1\" & FunctionComponent<unknown> | \"h2\" & ComponentClass<unknown, any> | \"h2\" & FunctionComponent<unknown> | \"h3\" & ComponentClass<unknown, any> | \"h3\" & FunctionComponent<unknown> | \"h4\" & ComponentClass<unknown, any> | \"h4\" & FunctionComponent<unknown> | \"h5\" & ComponentClass<unknown, any> | \"h5\" & FunctionComponent<unknown> | \"h6\" & ComponentClass<unknown, any> | \"h6\" & FunctionComponent<unknown>",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "variant",
+          "type": "\"small\" | \"large\" | \"medium\"",
           "required": false,
           "description": "",
           "defaultValue": ""
@@ -8268,7 +8306,7 @@
             },
             {
               "name": "variant",
-              "type": "\"default\" | \"danger\" | \"primary\" | \"invisible\"",
+              "type": "\"link\" | \"default\" | \"danger\" | \"primary\" | \"invisible\"",
               "required": false,
               "description": "@deprecated Text input action buttons should only use the 'invisible' button variant\nDetermine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
               "defaultValue": "invisible"
@@ -10292,7 +10330,7 @@
             },
             {
               "name": "variant",
-              "type": "\"default\" | \"danger\" | \"primary\" | \"invisible\"",
+              "type": "\"link\" | \"default\" | \"danger\" | \"primary\" | \"invisible\"",
               "required": false,
               "description": "Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
               "defaultValue": ""
@@ -10421,7 +10459,7 @@
             },
             {
               "name": "variant",
-              "type": "\"default\" | \"danger\" | \"primary\" | \"invisible\"",
+              "type": "\"link\" | \"default\" | \"danger\" | \"primary\" | \"invisible\"",
               "required": false,
               "description": "Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
               "defaultValue": ""
@@ -10615,7 +10653,7 @@
             },
             {
               "name": "variant",
-              "type": "\"default\" | \"danger\" | \"primary\" | \"invisible\"",
+              "type": "\"link\" | \"default\" | \"danger\" | \"primary\" | \"invisible\"",
               "required": false,
               "description": "Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
               "defaultValue": ""
@@ -10732,7 +10770,7 @@
             },
             {
               "name": "variant",
-              "type": "\"default\" | \"danger\" | \"primary\" | \"invisible\"",
+              "type": "\"link\" | \"default\" | \"danger\" | \"primary\" | \"invisible\"",
               "required": false,
               "description": "Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
               "defaultValue": ""
@@ -11038,7 +11076,7 @@
             },
             {
               "name": "variant",
-              "type": "\"default\" | \"danger\" | \"primary\" | \"invisible\"",
+              "type": "\"link\" | \"default\" | \"danger\" | \"primary\" | \"invisible\"",
               "required": false,
               "description": "Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'",
               "defaultValue": "warning"
