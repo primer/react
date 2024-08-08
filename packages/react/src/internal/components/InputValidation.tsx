@@ -1,7 +1,6 @@
 import type {IconProps} from '@primer/octicons-react'
 import {AlertFillIcon, CheckCircleFillIcon} from '@primer/octicons-react'
 import React from 'react'
-import type {FC, PropsWithChildren} from 'react'
 import Box from '../../Box'
 import Text from '../../Text'
 import type {SxProp} from '../../sx'
@@ -25,7 +24,7 @@ const validationColorMap: Record<NonNullable<Props['validationStatus']>, string>
   error: 'danger.fg',
 }
 
-const InputValidation: FC<PropsWithChildren<Props>> = ({children, id, validationStatus, sx}) => {
+const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({children, id, validationStatus, sx}) => {
   const IconComponent = validationStatus ? validationIconMap[validationStatus] : undefined
   const fgColor = validationStatus ? validationColorMap[validationStatus] : undefined
 

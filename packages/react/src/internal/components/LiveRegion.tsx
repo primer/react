@@ -1,5 +1,4 @@
 import React from 'react'
-import type {PropsWithChildren} from 'react'
 import {VisuallyHidden} from './VisuallyHidden'
 
 type LiveRegionContext = {
@@ -17,7 +16,7 @@ function useLiveRegion() {
   return context
 }
 
-function LiveRegion({children}: PropsWithChildren) {
+function LiveRegion({children}: React.PropsWithChildren) {
   const [message, setMessage] = React.useState('')
   const value = React.useMemo(() => {
     return {

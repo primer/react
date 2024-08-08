@@ -1,5 +1,5 @@
 import cx from 'clsx'
-import React, {forwardRef, useEffect, useRef, type ComponentPropsWithoutRef, type ReactNode} from 'react'
+import React, {useEffect} from 'react'
 import styled from 'styled-components'
 import {AlertIcon, InfoIcon, StopIcon, CheckCircleIcon, XIcon} from '@primer/octicons-react'
 import {Button, IconButton} from '../Button'
@@ -9,7 +9,7 @@ import {useMergedRefs} from '../internal/hooks/useMergedRefs'
 
 type BannerVariant = 'critical' | 'info' | 'success' | 'upsell' | 'warning'
 
-export type BannerProps = ComponentPropsWithoutRef<'section'> & {
+export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
   /**
    * Provide an optional label to override the default name for the Banner
    * landmark region
@@ -20,7 +20,7 @@ export type BannerProps = ComponentPropsWithoutRef<'section'> & {
    * Provide an optional description for the Banner. This should provide
    * supplemental information about the Banner
    */
-  description?: ReactNode
+  description?: React.ReactNode
 
   /**
    * Specify whether the title of the Banner should be visible or not.
@@ -31,7 +31,7 @@ export type BannerProps = ComponentPropsWithoutRef<'section'> & {
    * Provide an icon for the banner.
    * Note: Only `variant="info"` banners should use custom icons
    */
-  icon?: ReactNode
+  icon?: React.ReactNode
 
   /**
    * Optionally provide a handler to be called when the banner is dismissed.
@@ -44,18 +44,18 @@ export type BannerProps = ComponentPropsWithoutRef<'section'> & {
   /**
    * Provide an optional primary action for the Banner.
    */
-  primaryAction?: ReactNode
+  primaryAction?: React.ReactNode
 
   /**
    * Provide an optional secondary action for the Banner
    */
-  secondaryAction?: ReactNode
+  secondaryAction?: React.ReactNode
 
   /**
    * The title for the Banner. This will be used as the accessible name and is
    * required unless `Banner.Title` is used as a child.
    */
-  title?: ReactNode
+  title?: React.ReactNode
 
   /**
    * Specify the type of the Banner
@@ -63,7 +63,7 @@ export type BannerProps = ComponentPropsWithoutRef<'section'> & {
   variant?: BannerVariant
 }
 
-const iconForVariant: Record<BannerVariant, ReactNode> = {
+const iconForVariant: Record<BannerVariant, React.ReactNode> = {
   critical: <StopIcon />,
   info: <InfoIcon />,
   success: <CheckCircleIcon />,
@@ -85,7 +85,7 @@ const labels: Record<BannerVariant, string> = {
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-export const Banner = forwardRef<HTMLElement, BannerProps>(function Banner(
+export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner(
   {
     'aria-label': label,
     children,
@@ -103,7 +103,7 @@ export const Banner = forwardRef<HTMLElement, BannerProps>(function Banner(
 ) {
   const dismissible = variant !== 'critical' && onDismiss
   const hasActions = primaryAction || secondaryAction
-  const bannerRef = useRef<HTMLElement>(null)
+  const bannerRef = React.useRef<HTMLElement>(null)
   const ref = useMergedRefs(forwardRef, bannerRef)
 
   if (__DEV__) {
@@ -373,7 +373,7 @@ type HeadingElement = 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 export type BannerTitleProps<As extends HeadingElement> = {
   as?: As
   className?: string
-} & ComponentPropsWithoutRef<As extends 'h2' ? 'h2' : As>
+} & React.ComponentPropsWithoutRef<As extends 'h2' ? 'h2' : As>
 
 /**
  * The title (heading) of the Banner. May be used instead of the `title` prop on Banner.
@@ -394,7 +394,7 @@ export function BannerTitle<As extends HeadingElement>(props: BannerTitleProps<A
 export type BannerDescriptionProps = {
   /** Class name(s) used for custom styling */
   className?: string
-} & Omit<ComponentPropsWithoutRef<'div'>, 'className'>
+} & Omit<React.ComponentPropsWithoutRef<'div'>, 'className'>
 
 /**
  * An optional description for the Banner when the title needs supplemental information. May be used instead of the `description` prop on Banner.
@@ -410,8 +410,8 @@ export function BannerDescription({children, className, ...rest}: BannerDescript
 }
 
 export type BannerActionsProps = {
-  primaryAction?: ReactNode
-  secondaryAction?: ReactNode
+  primaryAction?: React.ReactNode
+  secondaryAction?: React.ReactNode
 }
 
 export function BannerActions({primaryAction, secondaryAction}: BannerActionsProps) {
@@ -429,7 +429,7 @@ export function BannerActions({primaryAction, secondaryAction}: BannerActionsPro
   )
 }
 
-export type BannerPrimaryActionProps = Omit<ComponentPropsWithoutRef<typeof Button>, 'variant'>
+export type BannerPrimaryActionProps = Omit<React.ComponentPropsWithoutRef<typeof Button>, 'variant'>
 
 /**
  * The primary action to take in response to the messaging in Banner. May be used instead of the `primaryAction` prop on Banner.
@@ -444,7 +444,7 @@ export function BannerPrimaryAction({children, className, ...rest}: BannerPrimar
   )
 }
 
-export type BannerSecondaryActionProps = Omit<ComponentPropsWithoutRef<typeof Button>, 'variant'>
+export type BannerSecondaryActionProps = Omit<React.ComponentPropsWithoutRef<typeof Button>, 'variant'>
 
 /**
  * The secondary action to take in response to the messaging in Banner. May be used instead of the `secondaryAction` prop on Banner.

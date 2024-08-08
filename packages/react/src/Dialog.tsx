@@ -11,6 +11,7 @@ import type {ComponentProps} from './utils/types'
 import {useRefObjectAsForwardedRef} from './hooks/useRefObjectAsForwardedRef'
 import {XIcon} from '@primer/octicons-react'
 
+// Dialog v1
 const noop = () => null
 
 type StyledDialogBaseProps = {
@@ -147,12 +148,10 @@ DialogHeader.propTypes = {
 
 // TODO: make sure this isn't breaking anything
 // This was causing Docgen to document `Dialog` props on `Dialog.Header` and not documenting the parent `Dialog` at all
-// Dialog.displayName = 'Dialog'
-// DialogHeader.displayName = 'Dialog.Header'
+Dialog.displayName = 'Dialog'
+DialogHeader.displayName = 'Dialog.Header'
 
 export type DialogProps = ComponentProps<typeof Dialog>
-
-Dialog.displayName = 'Dialog'
 
 /**
  * Dialog is a floating surface used to display transient content such as confirmation actions, selection options, and more.

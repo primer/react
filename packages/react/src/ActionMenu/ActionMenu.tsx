@@ -1,5 +1,5 @@
-import React, {useCallback, useContext, useMemo, useEffect, useState, forwardRef} from 'react'
-import type {FC, PropsWithChildren} from 'react'
+import React, {useCallback, useContext, useMemo, useEffect, useState} from 'react'
+import type {PropsWithChildren} from 'react'
 import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -50,7 +50,7 @@ export type ActionMenuProps = {
  * @primerstatus beta
  * @primera11yreviewed false
  */
-export const ActionMenu: FC<PropsWithChildren<ActionMenuProps>> = ({
+export const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   anchorRef: externalAnchorRef,
   open,
   onOpenChange,
@@ -150,7 +150,7 @@ export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string}
  * @alias ActionMenu.Anchor
  * @primerparentid action_menu
  */
-export const Anchor = forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, ...anchorProps}, anchorRef) => {
+export const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, ...anchorProps}, anchorRef) => {
   const {onOpen, isSubmenu} = React.useContext(MenuContext)
 
   const openSubmenuOnRightArrow: React.KeyboardEventHandler<HTMLElement> = useCallback(
@@ -198,7 +198,7 @@ export type ActionMenuButtonProps = Omit<ButtonProps, 'children'> & {
  * @alias ActionMenu.Button
  * @primerparentid action_menu
  */
-export const MenuButton = forwardRef(({...props}, anchorRef) => {
+export const MenuButton = React.forwardRef(({...props}, anchorRef) => {
   return (
     <Anchor ref={anchorRef}>
       <Button type="button" trailingAction={TriangleDownIcon} {...props} />
@@ -206,7 +206,7 @@ export const MenuButton = forwardRef(({...props}, anchorRef) => {
   )
 }) as PolymorphicForwardRefComponent<'button', ActionMenuButtonProps>
 
-export type MenuOverlayProps = Partial<OverlayProps> &
+type MenuOverlayProps = Partial<OverlayProps> &
   Pick<AnchoredOverlayProps, 'align' | 'side'> & {
     /**
      * Recommended: `ActionList`
@@ -219,7 +219,7 @@ export type MenuOverlayProps = Partial<OverlayProps> &
  * @alias ActionMenu.Overlay
  * @primerparentid action_menu
  */
-export const Overlay: FC<PropsWithChildren<MenuOverlayProps>> = ({
+export const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
   children,
   align = 'start',
   side,
@@ -236,7 +236,7 @@ export const Overlay: FC<PropsWithChildren<MenuOverlayProps>> = ({
     onOpen,
     onClose,
     isSubmenu = false,
-  } = useContext(MenuContext) as MandateProps<MenuContextProps, 'anchorRef'>
+  } = React.useContext(MenuContext) as MandateProps<MenuContextProps, 'anchorRef'>
 
   const containerRef = React.useRef<HTMLDivElement>(null)
   useMenuKeyboardNavigation(open, onClose, containerRef, anchorRef, isSubmenu)
@@ -282,3 +282,5 @@ export const Overlay: FC<PropsWithChildren<MenuOverlayProps>> = ({
     </AnchoredOverlay>
   )
 }
+
+Menu.displayName = 'ActionMenu'

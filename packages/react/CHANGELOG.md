@@ -1,5 +1,80 @@
 # @primer/react
 
+## 37.0.0-rc.0
+
+### Major Changes
+
+- [#4800](https://github.com/primer/react/pull/4800) [`482b4d6ab815350d5f5b71d686bf76cb3d234686`](https://github.com/primer/react/commit/482b4d6ab815350d5f5b71d686bf76cb3d234686) Thanks [@joshblack](https://github.com/joshblack)! - Update Primer React to emit _.css files that are imported by emitted _.js files for styling
+
+### Minor Changes
+
+- [#4814](https://github.com/primer/react/pull/4814) [`1cda89c2d92719e0fa85e3945a53bd5bd6b301de`](https://github.com/primer/react/commit/1cda89c2d92719e0fa85e3945a53bd5bd6b301de) Thanks [@langermank](https://github.com/langermank)! - Add `link` variant to Button
+
+- [#4771](https://github.com/primer/react/pull/4771) [`92e05f7c51d23778ead897f935f2cc14ed8ceff1`](https://github.com/primer/react/commit/92e05f7c51d23778ead897f935f2cc14ed8ceff1) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Set `openOnFocus` default to `false`, making the menu closed initially rather than opening on focus of input
+
+- [#4798](https://github.com/primer/react/pull/4798) [`0fa60a49177cf6bf60cdb5d4714d5e55708461f9`](https://github.com/primer/react/commit/0fa60a49177cf6bf60cdb5d4714d5e55708461f9) Thanks [@joshblack](https://github.com/joshblack)! - Add the deprecated Dialog, Octicon, Pagehead, TabNav, and Tooltip components to @primer/react/deprecated
+
+### Patch Changes
+
+- [#4774](https://github.com/primer/react/pull/4774) [`11e7aef33f124e84b4cf5c9e62c766834c6d1c31`](https://github.com/primer/react/commit/11e7aef33f124e84b4cf5c9e62c766834c6d1c31) Thanks [@langermank](https://github.com/langermank)! - - Adjust checkbox and radio border color values for high contrast themes
+
+  - Add default border to SegmentedControl
+  - Add inset box-shadow to StatusLabel to prep for new border-color in dark high contrast
+
+- [#4666](https://github.com/primer/react/pull/4666) [`04eac6280224d365f0496d927a87b32150006f9e`](https://github.com/primer/react/commit/04eac6280224d365f0496d927a87b32150006f9e) Thanks [@TylerJDev](https://github.com/TylerJDev)! - ActionList: Adds `aria-labelledby` to `ActionList.TrailingVisual`, making it part of the accessible name of `ActionList.Item`
+
+- [#4768](https://github.com/primer/react/pull/4768) [`b7c90ea44be4abfb00a451567115cda6d9bc864d`](https://github.com/primer/react/commit/b7c90ea44be4abfb00a451567115cda6d9bc864d) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Header: Add overflow when there are a lot of items
+
+- [#4803](https://github.com/primer/react/pull/4803) [`527f9a9320c51b9b1a0884b388d5ff53af7c11b1`](https://github.com/primer/react/commit/527f9a9320c51b9b1a0884b388d5ff53af7c11b1) Thanks [@aprendendofelipe](https://github.com/aprendendofelipe)! - Bumps @github/relative-time-element to v4.4.2
+
+## 36.27.0
+
+### Minor Changes
+
+- [#4485](https://github.com/primer/react/pull/4485) [`991839cd2487a24e76f45b516acb974ea006e1c8`](https://github.com/primer/react/commit/991839cd2487a24e76f45b516acb974ea006e1c8) Thanks [@mperrotti](https://github.com/mperrotti)! - Add `loading` state to `Button` and `IconButton`
+
+- [#4725](https://github.com/primer/react/pull/4725) [`6db8b2fba72ac934db1481adc4a6f067032b5936`](https://github.com/primer/react/commit/6db8b2fba72ac934db1481adc4a6f067032b5936) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - PageHeader: Promote the component to Beta status and now it is available to import from "@primer/react"
+
+- [#4719](https://github.com/primer/react/pull/4719) [`801ca9653154490f664e55bbb357cd6cf6f198be`](https://github.com/primer/react/commit/801ca9653154490f664e55bbb357cd6cf6f198be) Thanks [@joshblack](https://github.com/joshblack)! - Add experimental ScrollableRegion component and useOverflow hook
+
+### Patch Changes
+
+- [#4770](https://github.com/primer/react/pull/4770) [`8574027d887eeb202f3c902397d3f9750b0aeaa4`](https://github.com/primer/react/commit/8574027d887eeb202f3c902397d3f9750b0aeaa4) Thanks [@mperrotti](https://github.com/mperrotti)! - Prevents inactive indicator icon/tooltip from appearing in ActionMenu items
+
+- [#4733](https://github.com/primer/react/pull/4733) [`1c131f8ca56790ae516290a8a4199718ccff475b`](https://github.com/primer/react/commit/1c131f8ca56790ae516290a8a4199718ccff475b) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - TextInput: Refactor TextInputInnerAction to use the default icon button tooltip (No changes in the behaviour or DOM is expected)
+
+- [#4778](https://github.com/primer/react/pull/4778) [`a9730c93f3d51b6d976fe598f8168e67d4649fb0`](https://github.com/primer/react/commit/a9730c93f3d51b6d976fe598f8168e67d4649fb0) Thanks [@langermank](https://github.com/langermank)! - Bug fix: ActionList divider disappears on selected items
+
+- [#4757](https://github.com/primer/react/pull/4757) [`d4f23fbaf6ee251e142fddadfa69ab1bd6216ef5`](https://github.com/primer/react/commit/d4f23fbaf6ee251e142fddadfa69ab1bd6216ef5) Thanks [@siddharthkp](https://github.com/siddharthkp)! - experimental/SelectPanel v2: Fix heading color for dark themes
+
+- [#4741](https://github.com/primer/react/pull/4741) [`a9fab9805e166a80585366f865ce50f0a727e660`](https://github.com/primer/react/commit/a9fab9805e166a80585366f865ce50f0a727e660) Thanks [@Princeyadav05](https://github.com/Princeyadav05)! - AnchoredOverlay: Add 'className' prop to the component
+
+- [#4738](https://github.com/primer/react/pull/4738) [`453279368462c8e8581b65c56ba3d31a689009c3`](https://github.com/primer/react/commit/453279368462c8e8581b65c56ba3d31a689009c3) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - PageHeader: Fix shrinking Actions sub component in Safari
+
+- [#4772](https://github.com/primer/react/pull/4772) [`3779dbf117793112945668fe2694cdc6715c2e32`](https://github.com/primer/react/commit/3779dbf117793112945668fe2694cdc6715c2e32) Thanks [@TylerJDev](https://github.com/TylerJDev)! - (Behind feature flag) ActionList: Fix issue where triggering a keyboard event was possible when using the `onSelect` prop
+
+- [#4764](https://github.com/primer/react/pull/4764) [`533f997922f2621e242ab3bbe1799939a3d5a6f0`](https://github.com/primer/react/commit/533f997922f2621e242ab3bbe1799939a3d5a6f0) Thanks [@siddharthkp](https://github.com/siddharthkp)! - StateLabel: Differentiate issue and pull request labels for screen readers
+
+- [#4710](https://github.com/primer/react/pull/4710) [`7d086c73a980de333c55717717dd9e744196dd8e`](https://github.com/primer/react/commit/7d086c73a980de333c55717717dd9e744196dd8e) Thanks [@joshblack](https://github.com/joshblack)! - Update Blankslate styles to better support server-side rendering
+
+## 36.26.0
+
+### Minor Changes
+
+- [#4718](https://github.com/primer/react/pull/4718) [`fd80a60eeb615b3c4464ade10cde7e26e1349e40`](https://github.com/primer/react/commit/fd80a60eeb615b3c4464ade10cde7e26e1349e40) Thanks [@joshblack](https://github.com/joshblack)! - Add support for providing icons as an element to UnderlineNavItem
+
+- [#4702](https://github.com/primer/react/pull/4702) [`2536b4995568a6353c67c812a34a970fca7e76bb`](https://github.com/primer/react/commit/2536b4995568a6353c67c812a34a970fca7e76bb) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - IconButton: Enable tooltips by default in icon buttons by updating the default value of `unsafeDisableTooltip` to `false`.
+
+  This is a behaviour change in icon buttons, please upgrade with a caution.
+
+- [#4707](https://github.com/primer/react/pull/4707) [`d773f264f923677b4109d03b9c5bd5054151037b`](https://github.com/primer/react/commit/d773f264f923677b4109d03b9c5bd5054151037b) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - IconButton: Add `keyshortcuts` prop to allow labelling and describing support for keyboard shortcut (through tooltips)
+
+- [#4729](https://github.com/primer/react/pull/4729) [`71bdfa847d4cc569bb59b0b4e7a3010f1d7a0faa`](https://github.com/primer/react/commit/71bdfa847d4cc569bb59b0b4e7a3010f1d7a0faa) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Dialog2: Add support for "InitialFocusRef" that allows to specify an element that should receive focus when the dialog opens.
+
+### Patch Changes
+
+- [#4742](https://github.com/primer/react/pull/4742) [`c004fd50fb333022644c39645f6fabb494fc1d8b`](https://github.com/primer/react/commit/c004fd50fb333022644c39645f6fabb494fc1d8b) Thanks [@joshblack](https://github.com/joshblack)! - Update exports for UnderlinePanels component
+
 ## 36.25.0
 
 ### Minor Changes

@@ -1,5 +1,5 @@
 import type {IconProps} from '@primer/octicons-react'
-import React, {forwardRef} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import type {SxProp} from '../sx'
 import sx from '../sx'
@@ -12,7 +12,7 @@ type StyledOcticonProps = {
   color?: string
 } & IconProps
 
-const Icon = forwardRef((props: StyledOcticonProps, ref: React.Ref<SVGSVGElement>) => {
+const Icon = React.forwardRef((props: StyledOcticonProps, ref: React.Ref<SVGSVGElement>) => {
   const {icon: IconComponent, ...rest} = props
   return <IconComponent {...rest} ref={ref} />
 })

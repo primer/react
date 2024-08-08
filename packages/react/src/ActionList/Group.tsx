@@ -1,12 +1,11 @@
 import React from 'react'
-import type {FC, HTMLAttributes, PropsWithChildren} from 'react'
 import {useId} from '../hooks/useId'
 import Box from '../Box'
 import type {SxProp, BetterSystemStyleObject} from '../sx'
 import {merge} from '../sx'
 import {ListContext, type ActionListProps} from './shared'
 import type {AriaRole} from '../utils/types'
-import {default as Heading} from '../Heading'
+import {Heading} from '../Heading'
 import type {ActionListHeadingProps} from './Heading'
 import {useSlots} from '../hooks/useSlots'
 import {defaultSxProp} from '../utils/defaultSxProp'
@@ -50,7 +49,7 @@ export const GroupContext = React.createContext<ContextProps>({
  * @alias ActionList.Group
  * @primerparentid action_list
  */
-export const Group: FC<PropsWithChildren<ActionListGroupProps>> = ({
+export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   title,
   variant = 'subtle',
   auxiliaryText,
@@ -116,7 +115,7 @@ export const Group: FC<PropsWithChildren<ActionListGroupProps>> = ({
 export type GroupHeadingProps = Pick<ActionListGroupProps, 'variant' | 'auxiliaryText'> &
   Omit<ActionListHeadingProps, 'as'> &
   SxProp &
-  HTMLAttributes<HTMLElement> & {
+  React.HTMLAttributes<HTMLElement> & {
     as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
     _internalBackwardCompatibleTitle?: string
   }
@@ -131,7 +130,7 @@ export type GroupHeadingProps = Pick<ActionListGroupProps, 'variant' | 'auxiliar
  * @alias ActionList.GroupHeading
  * @primerparentid action_list
  */
-export const GroupHeading: FC<PropsWithChildren<GroupHeadingProps>> = ({
+export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> = ({
   as,
   variant,
   // We are not recommending this prop to be used, it should only be used internally for incremental rollout.

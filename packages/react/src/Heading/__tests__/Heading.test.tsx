@@ -32,7 +32,8 @@ describe('Heading', () => {
   behavesAsComponent({Component: Heading})
 
   checkExports('Heading', {
-    default: Heading,
+    default: undefined,
+    Heading,
   })
 
   it('renders <h2> by default', () => {

@@ -9,15 +9,34 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 
 type StyledHeadingProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  variant?: 'large' | 'medium' | 'small'
 } & SxProp
 
 const StyledHeading = styled.h2<StyledHeadingProps>`
   font-weight: ${get('fontWeights.bold')};
   font-size: ${get('fontSizes.5')};
   margin: 0;
+
+  &:where([data-variant='large']) {
+    font: var(--text-title-shorthand-large, 600 32px / 1.5 ${get('fonts.normal')});
+  }
+
+  &:where([data-variant='medium']) {
+    font: var(--text-title-shorthand-medium, 600 20px / 1.6 ${get('fonts.normal')});
+  }
+
+  &:where([data-variant='small']) {
+    font: var(--text-title-shorthand-small, 600 16px / 1.5 ${get('fonts.normal')});
+  }
   ${sx};
 `
-const Heading = forwardRef(({as: Component = 'h2', ...props}, forwardedRef) => {
+
+/**
+ * @primerid heading
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
+export const Heading = forwardRef(({as: Component = 'h2', variant, ...props}, forwardedRef) => {
   const innerRef = React.useRef<HTMLHeadingElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
@@ -43,6 +62,7 @@ const Heading = forwardRef(({as: Component = 'h2', ...props}, forwardedRef) => {
       {...props}
       // @ts-ignore shh
       ref={innerRef}
+      data-variant={variant}
     />
   )
 }) as PolymorphicForwardRefComponent<'h2', StyledHeadingProps>
@@ -50,4 +70,3 @@ const Heading = forwardRef(({as: Component = 'h2', ...props}, forwardedRef) => {
 Heading.displayName = 'Heading'
 
 export type HeadingProps = ComponentProps<typeof Heading>
-export default Heading

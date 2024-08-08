@@ -1,28 +1,39 @@
-import React, {type PropsWithChildren} from 'react'
-import Box from '../../Box'
+import React from 'react'
+import Box from '../Box'
 import {useOverflow} from '../hooks/useOverflow'
 
-type ScrollableRegionProps = PropsWithChildren<{
-  /** The ID of the element that labels the region */
-  'aria-labelledby'?: string
-  /** Accepts class names for custom styling */
-  className?: string
-}>
+type Labelled =
+  | {
+      'aria-label': string
+      'aria-labelledby'?: never
+    }
+  | {
+      'aria-label'?: never
+      'aria-labelledby': string
+    }
+
+type ScrollableRegionProps = React.ComponentPropsWithoutRef<'div'> & Labelled
 
 const defaultStyles = {
   // When setting overflow, we also set `position: relative` to avoid
   // `position: absolute` items breaking out of the container and causing
-  // scrollabrs on the page. This can occur with common classes like `sr-only`
+  // scrollbars on the page. This can occur with common classes like `sr-only`
   // and can cause difficult to track down layout issues
   position: 'relative',
   overflow: 'auto',
 }
 
-export function ScrollableRegion({'aria-labelledby': labelledby, children, ...rest}: ScrollableRegionProps) {
+function ScrollableRegion({
+  'aria-label': label,
+  'aria-labelledby': labelledby,
+  children,
+  ...rest
+}: ScrollableRegionProps) {
   const ref = React.useRef(null)
   const hasOverflow = useOverflow(ref)
   const regionProps = hasOverflow
     ? {
+        'aria-label': label,
         'aria-labelledby': labelledby,
         role: 'region',
         tabIndex: 0,
@@ -35,3 +46,6 @@ export function ScrollableRegion({'aria-labelledby': labelledby, children, ...re
     </Box>
   )
 }
+
+export {ScrollableRegion}
+export type {ScrollableRegionProps}

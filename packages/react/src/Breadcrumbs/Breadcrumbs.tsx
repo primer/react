@@ -95,6 +95,10 @@ export const BreadcrumbsItem = styled.a.attrs<StyledBreadcrumbsItemProps>(props 
   ${sx};
 `
 
+Breadcrumbs.displayName = 'Breadcrumbs'
+
+BreadcrumbsItem.displayName = 'Breadcrumbs.Item'
+
 export type BreadcrumbsItemProps = ComponentProps<typeof BreadcrumbsItem>
 
 /**

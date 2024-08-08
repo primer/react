@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect} from 'react'
-import type {FC, PropsWithChildren} from 'react'
 import type {OverlayProps} from '../Overlay'
-import Overlay from '../Overlay'
+import {Overlay} from '../Overlay'
 import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
@@ -80,6 +79,11 @@ interface AnchoredOverlayBaseProps extends Pick<OverlayProps, 'height' | 'width'
    * Settings to apply to the Focus Zone on the internal `Overlay` component.
    */
   focusZoneSettings?: Partial<FocusZoneHookSettings>
+
+  /**
+   * Optional className to be added to the overlay component.
+   */
+  className?: string
 }
 
 export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
@@ -93,7 +97,7 @@ export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-export const AnchoredOverlay: FC<PropsWithChildren<AnchoredOverlayProps>> = ({
+export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayProps>> = ({
   renderAnchor,
   anchorRef: externalAnchorRef,
   anchorId: externalAnchorId,
@@ -110,6 +114,7 @@ export const AnchoredOverlay: FC<PropsWithChildren<AnchoredOverlayProps>> = ({
   align = 'start',
   alignmentOffset,
   anchorOffset,
+  className,
 }) => {
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const [overlayRef, updateOverlayRef] = useRenderForcingRef<HTMLDivElement>()
@@ -195,6 +200,7 @@ export const AnchoredOverlay: FC<PropsWithChildren<AnchoredOverlayProps>> = ({
           top={position?.top || 0}
           left={position?.left || 0}
           anchorSide={position?.anchorSide}
+          className={className}
           {...overlayProps}
         >
           {children}

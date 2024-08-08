@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import type {ChangeEventHandler, InputHTMLAttributes, ReactElement} from 'react'
-import React, {forwardRef, useContext} from 'react'
+import React, {useContext} from 'react'
 import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
@@ -50,12 +50,17 @@ const StyledRadio = styled.input`
     border-color 80ms cubic-bezier(0.33, 1, 0.68, 1); /* checked -> unchecked - add 120ms delay to fully see animation-out */
 
   &:checked {
-    border-color: ${get('colors.accent.fg')};
     border-width: var(--base-size-4, 4px);
+    border-color: var(
+      --control-checked-bgColor-rest,
+      ${get('colors.accent.fg')}
+    ); /* using bgColor here to avoid a border change in dark high contrast */
+    background-color: var(--control-checked-fgColor-rest, ${get('colors.fg.onEmphasis')});
 
     &:disabled {
       cursor: not-allowed;
       border-color: ${get('colors.fg.muted')};
+      background-color: ${get('colors.fg.muted')};
     }
   }
 
@@ -75,7 +80,7 @@ const StyledRadio = styled.input`
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-const Radio = forwardRef<HTMLInputElement, RadioProps>(
+const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   (
     {checked, disabled, name: nameProp, onChange, sx: sxProp, required, validationStatus, value, ...rest}: RadioProps,
     ref,

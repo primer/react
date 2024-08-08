@@ -1,4 +1,4 @@
-import React, {forwardRef, Children, useEffect, useMemo, useRef, useState, type PropsWithChildren} from 'react'
+import React, {Children, useEffect, useRef, useState, useMemo} from 'react'
 import type {SxProp} from '../sx'
 import sx from '../sx'
 import {useId, useProvidedRefOrCreate, useOnEscapePress} from '../hooks'
@@ -31,10 +31,10 @@ const StyledTooltip = styled.span`
     white-space: normal;
     font: normal normal 11px/1.5 ${get('fonts.normal')};
     -webkit-font-smoothing: subpixel-antialiased;
-    color: ${get('colors.fg.onEmphasis')};
+    color: var(--tooltip-fgColor, ${get('colors.fg.onEmphasis')});
     text-align: center;
     word-wrap: break-word;
-    background: ${get('colors.neutral.emphasisPlus')};
+    background: var(--tooltip-bgColor, ${get('colors.neutral.emphasisPlus')});
     border-radius: ${get('radii.2')};
     border: 0;
     opacity: 0;
@@ -124,7 +124,7 @@ const StyledTooltip = styled.span`
 `
 
 export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
-export type TooltipProps = PropsWithChildren<
+export type TooltipProps = React.PropsWithChildren<
   {
     /**
      * TSets where the tooltip renders in relation to the target.
@@ -139,7 +139,7 @@ export type TooltipProps = PropsWithChildren<
      */
     type?: 'label' | 'description'
   } & SxProp &
-    ComponentProps<typeof StyledTooltip> // TODO: figure out why Docgen can't handle this
+    ComponentProps<typeof StyledTooltip>
 >
 
 export type TriggerPropsType = {
@@ -202,7 +202,7 @@ export const TooltipContext = React.createContext<{tooltipId?: string}>({})
  * @primerstatus beta
  * @primera11yreviewed true
  */
-export const Tooltip = forwardRef<HTMLElement, TooltipProps>(
+export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>(
   ({direction = 's', text, type = 'description', children, id, ...rest}, forwardedRef) => {
     const tooltipId = useId(id)
     const child = Children.only(children)

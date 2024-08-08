@@ -1,5 +1,5 @@
-import {HeartIcon, InboxIcon, ChevronDownIcon} from '@primer/octicons-react'
-import React from 'react'
+import React, {useState} from 'react'
+import {HeartIcon, InboxIcon, ChevronDownIcon, DownloadIcon, BoldIcon} from '@primer/octicons-react'
 import {IconButton} from '.'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
@@ -87,4 +87,32 @@ export const AsAMenuAnchor = () => (
       </ActionList>
     </ActionMenu.Overlay>
   </ActionMenu>
+)
+
+export const Loading = () => <IconButton loading icon={HeartIcon} variant="primary" aria-label="Primary" />
+
+export const LoadingTrigger = () => {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handleClick = () => {
+    setIsLoading(true)
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 3000)
+  }
+
+  return <IconButton loading={isLoading} onClick={handleClick} icon={DownloadIcon} aria-label="Download" />
+}
+export const KeyshortcutsOnDescription = () => (
+  <IconButton
+    unsafeDisableTooltip={false}
+    icon={InboxIcon}
+    aria-label="Notifications"
+    description="You have unread notifications"
+    keyshortcuts="G+N"
+  />
+)
+
+export const Keyshortcuts = () => (
+  <IconButton unsafeDisableTooltip={false} icon={BoldIcon} aria-label="Bold" keyshortcuts="Command+B" />
 )

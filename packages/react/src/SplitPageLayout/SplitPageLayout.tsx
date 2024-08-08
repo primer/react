@@ -1,5 +1,4 @@
 import React from 'react'
-import type {FC, PropsWithChildren} from 'react'
 import type {SxProp} from '..'
 import type {
   PageLayoutContentProps,
@@ -20,7 +19,7 @@ export type SplitPageLayoutProps = SxProp
  * @primerstatus alpha
  * @primera11yreviewed true
  */
-export const SplitPageLayout: FC<PropsWithChildren<SplitPageLayoutProps>> = props => {
+export const Root: React.FC<React.PropsWithChildren<SplitPageLayoutProps>> = props => {
   return (
     <PageLayout
       containerWidth="full"
@@ -36,6 +35,8 @@ export const SplitPageLayout: FC<PropsWithChildren<SplitPageLayoutProps>> = prop
   )
 }
 
+Root.displayName = 'SplitPageLayout'
+
 // ----------------------------------------------------------------------------
 // SplitPageLayout.Header
 
@@ -46,7 +47,7 @@ export type SplitPageLayoutHeaderProps = PageLayoutHeaderProps
  * @alias SplitPageLayout.Header
  * @primerparentid split_page_layout
  */
-export const Header: FC<PropsWithChildren<SplitPageLayoutHeaderProps>> = ({
+export const Header: React.FC<React.PropsWithChildren<SplitPageLayoutHeaderProps>> = ({
   padding = 'normal',
   divider = 'line',
   ...props
@@ -54,6 +55,8 @@ export const Header: FC<PropsWithChildren<SplitPageLayoutHeaderProps>> = ({
   // eslint-disable-next-line primer-react/direct-slot-children
   return <PageLayout.Header padding={padding} divider={divider} {...props} />
 }
+
+Header.displayName = 'SplitPageLayout.Header'
 
 // ----------------------------------------------------------------------------
 // SplitPageLayout.Content
@@ -65,13 +68,15 @@ export type SplitPageLayoutContentProps = PageLayoutContentProps
  * @alias SplitPageLayout.Content
  * @primerparentid split_page_layout
  */
-export const Content: FC<PropsWithChildren<SplitPageLayoutContentProps>> = ({
+export const Content: React.FC<React.PropsWithChildren<SplitPageLayoutContentProps>> = ({
   width = 'large',
   padding = 'normal',
   ...props
 }) => {
   return <PageLayout.Content width={width} padding={padding} {...props} />
 }
+
+Content.displayName = 'SplitPageLayout.Content'
 
 // ----------------------------------------------------------------------------
 // SplitPageLayout.Pane
@@ -82,7 +87,7 @@ export type SplitPageLayoutPaneProps = PageLayoutPaneProps
  * @alias SplitPageLayout.Pane
  * @primerparentid split_page_layout
  */
-export const Pane: FC<PropsWithChildren<SplitPageLayoutPaneProps>> = ({
+export const Pane: React.FC<React.PropsWithChildren<SplitPageLayoutPaneProps>> = ({
   position = 'start',
   sticky = true,
   padding = 'normal',
@@ -100,6 +105,8 @@ export const Pane: FC<PropsWithChildren<SplitPageLayoutPaneProps>> = ({
   )
 }
 
+Pane.displayName = 'SplitPageLayout.Pane'
+
 // ----------------------------------------------------------------------------
 // SplitPageLayout.Footer
 
@@ -110,7 +117,7 @@ export type SplitPageLayoutFooterProps = PageLayoutFooterProps
  * @alias SplitPageLayout.Footer
  * @primerparentid split_page_layout
  */
-export const Footer: FC<PropsWithChildren<SplitPageLayoutFooterProps>> = ({
+export const Footer: React.FC<React.PropsWithChildren<SplitPageLayoutFooterProps>> = ({
   padding = 'normal',
   divider = 'line',
   ...props
@@ -118,3 +125,5 @@ export const Footer: FC<PropsWithChildren<SplitPageLayoutFooterProps>> = ({
   // eslint-disable-next-line primer-react/direct-slot-children
   return <PageLayout.Footer padding={padding} divider={divider} {...props} />
 }
+
+Footer.displayName = 'SplitPageLayout.Footer'

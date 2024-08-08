@@ -1,5 +1,4 @@
 import type React from 'react'
-import {type ButtonHTMLAttributes} from 'react'
 import styled from 'styled-components'
 import type {SxProp} from '../sx'
 import sx from '../sx'
@@ -11,13 +10,13 @@ export const StyledButton = styled.button<SxProp>`
   ${sx};
 `
 
-export type VariantType = 'default' | 'primary' | 'invisible' | 'danger'
+export type VariantType = 'default' | 'primary' | 'invisible' | 'danger' | 'link'
 
 export type Size = 'small' | 'medium' | 'large'
 
 export type AlignContent = 'start' | 'center'
 
-export type ButtonA11yProps =
+type ButtonA11yProps =
   | {'aria-label': string; 'aria-labelledby'?: undefined}
   | {'aria-label'?: undefined; 'aria-labelledby': string}
 
@@ -39,6 +38,14 @@ export type ButtonBaseProps = {
    */
   block?: boolean
   /**
+   * When true, the button is in a loading state.
+   */
+  loading?: boolean
+  /**
+   * The content to announce to screen readers when loading.
+   */
+  loadingAnnouncement?: string
+  /*
    * Whether the button looks visually disabled, but can still accept all the same
    * interactions as an enabled button.
    */
@@ -48,7 +55,7 @@ export type ButtonBaseProps = {
    */
   labelWrap?: boolean
 } & SxProp &
-  ButtonHTMLAttributes<HTMLButtonElement>
+  React.ButtonHTMLAttributes<HTMLButtonElement>
 
 export type ButtonProps = {
   /**
@@ -90,6 +97,7 @@ export type IconButtonProps = ButtonA11yProps & {
   description?: string
   /** Sets where the tooltip renders in relation to the target. */
   tooltipDirection?: TooltipDirection
+  keyshortcuts?: string
 } & Omit<ButtonBaseProps, 'aria-label' | 'aria-labelledby'>
 
 // adopted from React.AnchorHTMLAttributes

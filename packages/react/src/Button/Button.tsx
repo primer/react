@@ -11,25 +11,27 @@ import type {BetterSystemStyleObject, CSSCustomProperties} from '../sx'
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-const ButtonComponent = forwardRef(({children, sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
-  const {block, size, leadingVisual, trailingVisual, trailingAction} = props
-  let sxStyles = sxProp
-  const style: CSSCustomProperties = {}
+export const ButtonComponent = forwardRef(
+  ({children, sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
+    const {block, size, leadingVisual, trailingVisual, trailingAction} = props
+    let sxStyles = sxProp
+    const style: CSSCustomProperties = {}
 
-  if (sxProp !== null && Object.keys(sxProp).length > 0) {
-    sxStyles = generateCustomSxProp({block, size, leadingVisual, trailingVisual, trailingAction}, sxProp)
+    if (sxProp !== null && Object.keys(sxProp).length > 0) {
+      sxStyles = generateCustomSxProp({block, size, leadingVisual, trailingVisual, trailingAction}, sxProp)
 
-    // @ts-ignore sxProp can have color attribute
-    const {color} = sxProp
-    if (color) style['--button-color'] = color
-  }
+      // @ts-ignore sxProp can have color attribute
+      const {color} = sxProp
+      if (color) style['--button-color'] = color
+    }
 
-  return (
-    <ButtonBase ref={forwardedRef} as="button" sx={sxStyles} style={style} type="button" {...props}>
-      {children}
-    </ButtonBase>
-  )
-}) as PolymorphicForwardRefComponent<'button', ButtonProps>
+    return (
+      <ButtonBase ref={forwardedRef} as="button" sx={sxStyles} style={style} type="button" {...props}>
+        {children}
+      </ButtonBase>
+    )
+  },
+) as PolymorphicForwardRefComponent<'button', ButtonProps>
 
 // This function is used to generate a custom cssSelector for the sxProp
 
@@ -72,13 +74,16 @@ sx={{
 // We need to make sure we append the customCSSSelector to the original class selector. i.e & - > &[data-attribute="Icon"][data-size="small"]
 */
 export function generateCustomSxProp(
-  props: Partial<Pick<ButtonProps, 'size' | 'block' | 'leadingVisual' | 'trailingVisual' | 'trailingAction'>>,
+  // TODO: Figure out how to extend `react-docgen-typescript` to be smart enough to not interpret this as a React component.
+  // Arg name was changed from `props` because `react-docgen-typescript` interpretted this as a React component.
+  buttonProps: Partial<Pick<ButtonProps, 'size' | 'block' | 'leadingVisual' | 'trailingVisual' | 'trailingAction'>>,
   providedSx: BetterSystemStyleObject,
 ) {
   // Possible data attributes: data-size, data-block, data-no-visuals
-  const size = props.size && props.size !== 'medium' ? `[data-size="${props.size}"]` : '' // medium is a default size therefore it doesn't have a data attribute that used for styling
-  const block = props.block ? `[data-block="block"]` : ''
-  const noVisuals = props.leadingVisual || props.trailingVisual || props.trailingAction ? '' : '[data-no-visuals]'
+  const size = buttonProps.size && buttonProps.size !== 'medium' ? `[data-size="${buttonProps.size}"]` : '' // medium is a default size therefore it doesn't have a data attribute that used for styling
+  const block = buttonProps.block ? `[data-block="block"]` : ''
+  const noVisuals =
+    buttonProps.leadingVisual || buttonProps.trailingVisual || buttonProps.trailingAction ? '' : '[data-no-visuals]'
 
   // this is a custom selector. We need to make sure we add the data attributes to the base css class (& -> &[data-attributename="value"]])
   const cssSelector = `&${size}${block}${noVisuals}` // &[data-size="small"][data-block="block"][data-no-visuals]
@@ -95,5 +100,3 @@ export function generateCustomSxProp(
 }
 
 ButtonComponent.displayName = 'Button'
-
-export {ButtonComponent}

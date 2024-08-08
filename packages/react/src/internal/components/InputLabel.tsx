@@ -1,5 +1,4 @@
 import React from 'react'
-import type {FC, PropsWithChildren} from 'react'
 import Box from '../../Box'
 import type {SxProp} from '../../sx'
 import VisuallyHidden from '../../_VisuallyHidden'
@@ -30,7 +29,7 @@ export type LegendOrSpanProps = BaseProps & {
 
 type Props = LabelProps | LegendOrSpanProps
 
-const InputLabel: FC<PropsWithChildren<Props>> = ({
+const InputLabel: React.FC<React.PropsWithChildren<Props>> = ({
   children,
   disabled,
   htmlFor,

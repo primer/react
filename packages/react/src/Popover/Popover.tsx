@@ -235,5 +235,7 @@ export const PopoverContent = styled.div<SxProp>`
   ${sx};
 `
 
+PopoverContent.displayName = 'Popover.Content'
+
 export type PopoverProps = ComponentProps<typeof Popover>
 export type PopoverContentProps = ComponentProps<typeof PopoverContent>

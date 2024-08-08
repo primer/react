@@ -1,5 +1,4 @@
 import React, {useCallback, useReducer, useRef} from 'react'
-import type {FC, PropsWithChildren} from 'react'
 import {AutocompleteContext} from './AutocompleteContext'
 import {useId} from '../hooks/useId'
 
@@ -42,7 +41,7 @@ const reducer = (state: State, action: Action) => {
   }
 }
 
-export type AutocompleteProps = PropsWithChildren<{
+export type AutocompleteProps = React.PropsWithChildren<{
   /** May be used to customize how the ID is set on the text input to be used by ARIA attributes on related elements. */
   id?: string
 }>
@@ -53,7 +52,7 @@ export type AutocompleteProps = PropsWithChildren<{
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-export const Autocomplete: FC<AutocompleteProps> = ({children, id: idProp}) => {
+export const Autocomplete: React.FC<AutocompleteProps> = ({children, id: idProp}) => {
   const activeDescendantRef = useRef<HTMLElement>(null)
   const scrollContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)

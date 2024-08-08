@@ -1,4 +1,4 @@
-import type {ButtonHTMLAttributes, FC, PropsWithChildren} from 'react'
+import type {ButtonHTMLAttributes} from 'react'
 import React from 'react'
 import type {IconProps} from '@primer/octicons-react'
 import styled from 'styled-components'
@@ -34,7 +34,7 @@ const SegmentedControlIconButtonStyled = styled.button`
  * @alias SegmentedControl.IconButton
  * @primerparentid segmented_control
  */
-export const SegmentedControlIconButton: FC<PropsWithChildren<SegmentedControlIconButtonProps>> = ({
+const SegmentedControlIconButton: React.FC<React.PropsWithChildren<SegmentedControlIconButtonProps>> = ({
   'aria-label': ariaLabel,
   icon: Icon,
   selected,
@@ -65,3 +65,5 @@ export const SegmentedControlIconButton: FC<PropsWithChildren<SegmentedControlIc
     </Box>
   )
 }
+
+export default SegmentedControlIconButton

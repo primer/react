@@ -1,5 +1,4 @@
 import React from 'react'
-import type {FC, PropsWithChildren} from 'react'
 import Box from '../../../Box'
 import VisuallyHidden from '../../../_VisuallyHidden'
 import type {SxProp} from '../../../sx'
@@ -12,7 +11,7 @@ export type CheckboxOrRadioGroupLabelProps = {
   visuallyHidden?: boolean
 } & SxProp
 
-const CheckboxOrRadioGroupLabel: FC<PropsWithChildren<CheckboxOrRadioGroupLabelProps>> = ({
+const CheckboxOrRadioGroupLabel: React.FC<React.PropsWithChildren<CheckboxOrRadioGroupLabelProps>> = ({
   children,
   visuallyHidden = false,
   sx,

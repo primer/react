@@ -1,7 +1,7 @@
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import clsx from 'clsx'
 import type {To} from 'history'
-import React, {useRef, useState, type DetailedHTMLProps, type HTMLAttributes} from 'react'
+import React, {useRef, useState} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
@@ -36,7 +36,7 @@ export type TabNavProps = ComponentProps<typeof TabNavBase>
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-function TabNav({
+export function TabNav({
   /** Links in the tabbed navigation */
   children,
   /** Used to set the `aria-label` on the top level `<nav>` element. */
@@ -87,7 +87,7 @@ function TabNav({
   )
 }
 
-export type TabNavLinkProps = DetailedHTMLProps<HTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> & {
+export type TabNavLinkProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> & {
   /** Used when the item is rendered using a component like React Router's `Link`. The path to navigate to. */
   to?: To
   /** Whether this item represents the current page */
@@ -101,7 +101,7 @@ export type TabNavLinkProps = DetailedHTMLProps<HTMLAttributes<HTMLAnchorElement
  * @alias TabNav.Link
  * @primerparentid tab_nav
  */
-const TabNavLink = styled.a.attrs<TabNavLinkProps>(props => ({
+export const TabNavLink = styled.a.attrs<TabNavLinkProps>(props => ({
   className: clsx(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
   role: 'tab',
   'aria-selected': !!props.selected,
@@ -136,5 +136,3 @@ const TabNavLink = styled.a.attrs<TabNavLinkProps>(props => ({
 ` as PolymorphicForwardRefComponent<'a', TabNavLinkProps>
 
 TabNavLink.displayName = 'TabNav.Link'
-
-export default Object.assign(TabNav, {Link: TabNavLink})

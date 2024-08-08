@@ -1,4 +1,4 @@
-import type {ChangeEvent, ChangeEventHandler, FC, PropsWithChildren} from 'react'
+import type {ChangeEvent, ChangeEventHandler, FC} from 'react'
 import React from 'react'
 import type {CheckboxOrRadioGroupProps} from '../internal/components/CheckboxOrRadioGroup'
 import CheckboxOrRadioGroup from '../internal/components/CheckboxOrRadioGroup'
@@ -25,7 +25,12 @@ type CheckboxGroupProps = {
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-export const CheckboxGroup: FC<PropsWithChildren<CheckboxGroupProps>> = ({children, disabled, onChange, ...rest}) => {
+export const CheckboxGroup: FC<React.PropsWithChildren<CheckboxGroupProps>> = ({
+  children,
+  disabled,
+  onChange,
+  ...rest
+}) => {
   const formControlComponentChildren = React.Children.toArray(children)
     .filter(child => React.isValidElement(child) && child.type === FormControl)
     .map(formControlComponent =>
@@ -90,7 +95,7 @@ export const CheckboxGroupLabel = CheckboxOrRadioGroupLabel
 
 /**
  * The message about the validation status of the set of related checkboxes.
- * @alias CheckboxGroup.Caption
+ * @alias CheckboxGroup.Validation
  * @primerparentid checkbox_group
  */
 export const CheckboxGroupValidation = CheckboxOrRadioGroupValidation

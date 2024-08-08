@@ -1,199 +1,313 @@
-import generate from '@babel/generator'
-import {parse} from '@babel/parser'
-import traverse from '@babel/traverse'
-import type {ArrowFunctionExpression, Identifier, FunctionDeclaration} from '@babel/types'
-import {pascalCase, kebabCase} from 'change-case'
+// TODO: correctly write all the types
+
+import ts from 'typescript'
 import glob from 'fast-glob'
 import fs from 'fs'
-import prettier from '@prettier/sync'
-
+import {getStoryData} from './story-parsing-helpers'
+import type {Component, ComponentDoc, PropItem, PropItemType} from './types'
 // TODO: figure out how use ESM instead of CJS for this
 const docgen = require('react-docgen-typescript')
 
-const storyPrefix = {
-  draft: 'drafts-',
-  experimental: 'experimental-',
-  deprecated: 'deprecated-',
-  alpha: '',
-  beta: '',
-  stable: '',
-}
-
-const docgenOptions = {
-  // savePropValueAsString: true,
-  // allowSyntheticDefaultImports might let us avoid separately importing types from React
-  // (e.g.: you can do `React.FC` instead of importing and using `FC` from React)
-  // allowSyntheticDefaultImports: true,
-  propFilter: (prop, _component) => {
-    if (prop.declarations !== undefined && prop.declarations.length > 0) {
-      // TODO: figure out how to choose which props we want to document.
-      // This will filter out ALL props that are defined by a package from `node_modules`,
-      // but we might want to document props like `className` or `children`.
-      // I think this might also be what's breaking components that use `ComponentProps<P>`.
-      const hasPropAdditionalDescription = prop.declarations.find(declaration => {
-        return !declaration.fileName.includes('node_modules')
-      })
-
-      return Boolean(hasPropAdditionalDescription)
-    }
-
-    return true
-  },
-  shouldExtractValuesFromUnion: true,
-  skipChildrenPropWithoutDoc: false,
-  //TODO: figure out how we might use the `componentNameResolver` option to fix react-docgen-typescript's
-  // issues with component files that have a displayName.
-  //
-  // When `.displayName` is set in the component file::
-  // - none of the subcomponents (e.g.: ActionMenu.Anchor) are parsed by docgen
-  // - the root component end up getting documented with the name of the last subcomponent's displayName (e.g.: `ActionMenu` and its props get documented with the display name 'ActionMenu.Anchor')
-  //
-  // This PR might have some hints: https://github.com/styleguidist/react-docgen-typescript/pull/449
-}
-
-// const noPropsWhitelist = [
-//   'ButtonGroup/ButtonGroup.tsx',
-//   {fileName: 'ConfirmationDialog/ConfirmationDialog.tsx', displayName: 'useConfirm'},
-//   'UnderlineNav/LoadingCounter.tsx',
-//   {fileName: 'components/LiveRegion.tsx', displayName: 'LiveRegion'},
-//   {fileName: 'DataTable/Table.tsx', displayName: 'TableActions'},
-//   {fileName: 'DataTable/Table.tsx', displayName: 'TableHead'},
-//   {fileName: 'DataTable/Table.tsx', displayName: 'TableBody'},
-//   {fileName: 'DataTable/Table.tsx', displayName: 'TableRow'},
-// ]
-
-// Parse a file for docgen info
-const files = glob.sync(
-  // Glob for testing
-  // [
-  //   './packages/react/src/Avatar/*.tsx',
-  //   './packages/react/src/ActionMenu/*.tsx',
-  //   './packages/react/src/DataTable/*.tsx',
-  //   '!./packages/react/src/**/*.stories.tsx',
-  //   '!./packages/react/src/**/*.test.tsx',
-  // ],
-  ['./packages/react/src/**/*.tsx', '!./packages/react/src/**/*.stories.tsx', '!./packages/react/src/**/*.test.tsx'],
+const filesToParseWithDocgen = glob.sync(
+  [
+    './packages/react/src/**/*.tsx',
+    '!./packages/react/src/**/*.stories.tsx',
+    '!./packages/react/src/**/*.test.tsx',
+    '!./packages/react/src/**/*.figma.tsx',
+  ],
   {
     absolute: true,
   },
 )
-const docgenOutput = docgen.parse(files, docgenOptions)
 
-const printSkippedComponents = () => {
-  console.log('COMPONENTS SKIPPED:')
+const docgenOutput = docgen
+  .withCustomConfig('./tsconfig.json', {
+    propFilter: (prop: PropItem, _component: Component) => {
+      if (prop.declarations !== undefined && prop.declarations.length > 0) {
+        // TODO: figure out how to choose which props we want to document.
+        // This will filter out ALL props that are defined by a package from `node_modules`,
+        // but we might want to document props like `className` or `children`.
+        // I think this might also be what's breaking components that use `ComponentProps<P>`.
+        const hasPropAdditionalDescription = prop.declarations.find(declaration => {
+          return !declaration.fileName.includes('node_modules')
+        })
 
-  files.forEach(file => {
-    if (!docgenOutput.map(({filePath}) => filePath).includes(file)) {
-      console.log(file)
-    }
+        return Boolean(hasPropAdditionalDescription)
+      }
+
+      return true
+    },
+    // `shouldIncludeExpression` would include the expression data in the docgen output
+    // but that `JSON.stringify` to choke on circular references
+    // shouldIncludeExpression: true,
+    shouldExtractValuesFromUnion: true,
+    skipChildrenPropWithoutDoc: false,
+    shouldRemoveUndefinedFromOptional: true,
+    componentNameResolver: (exp: ts.Symbol, source: ts.SourceFile) => {
+      const aliasJSDocTag = exp.getJsDocTags().find(tag => tag.name === 'alias')?.text?.[0]?.text
+      const expressionName = exp.getName()
+      const componentDisplayNameProperty = getTextValueOfFunctionProperty(exp, source, 'displayName')
+      const supportedComponentTypes = [
+        'default',
+        '__function',
+        'Stateless',
+        'StyledComponentClass',
+        'StyledComponent',
+        'FunctionComponent',
+        'StatelessComponent',
+        'ForwardRefExoticComponent',
+        'MemoExoticComponent',
+        // `ForwardRefComponent` and `PolymorphicForwardRefComponent` are the types
+        // for components cast with `as PolymorphicForwardRefComponent`
+        'ForwardRefComponent',
+        'PolymorphicForwardRefComponent',
+      ]
+
+      // If `@alias` JSDoc tag is set, use that as the component name
+      if (aliasJSDocTag) {
+        return aliasJSDocTag
+      }
+
+      // If the component function has a `displayName` property, use that as the component name
+      if (componentDisplayNameProperty) {
+        return componentDisplayNameProperty || ''
+      }
+
+      // If the name of the function is not one of the default React component names, use the name of the function
+      if (!supportedComponentTypes.includes(expressionName)) {
+        return expressionName
+      }
+
+      // If none of those apply, return a falsy value which makes `react-docgen-typescript`
+      // use its internal logic to determine the component name
+      return undefined
+    },
   })
+  .parse(filesToParseWithDocgen)
 
-  console.log('\n')
+// -----------------------------------------------------------------------------
+// Write JSON files for:
+// 1. Raw docgen output
+// 2. Component API data formatted to follow the components [schema](https://github.com/primer/react/blob/main/packages/react/script/components-json/component.schema.json)
+// -----------------------------------------------------------------------------
+/**
+ * Writes raw docgen output to a JSON file
+ */
+fs.writeFile(
+  glob.sync('./packages/react/script/prop-docs/docgen-output.json')[0],
+  JSON.stringify(docgenOutput, null, 2),
+  err => {
+    if (err) {
+      // eslint-disable-next-line no-console
+      console.error(err)
+    } else {
+      // eslint-disable-next-line no-console
+      console.log(
+        `Components.json generated at: ${glob.sync('./packages/react/script/prop-docs/docgen-output.json')[0]}`,
+      )
+    }
+  },
+)
+
+/**
+ * Writes formatted docgen output to a JSON file following the components [schema](https://github.com/primer/react/blob/main/packages/react/script/components-json/component.schema.json)
+ */
+fs.writeFile(
+  glob.sync('./packages/react/script/prop-docs/components.json')[0],
+  JSON.stringify(
+    {
+      schemaVersion: 2,
+      components: docgenArrayToComponentsObj(docgenOutput),
+    },
+    null,
+    2,
+  ),
+  err => {
+    if (err) {
+      // eslint-disable-next-line no-console
+      console.error(err)
+    } else {
+      // eslint-disable-next-line no-console
+      console.log(`Components.json generated at: ${glob.sync('./packages/react/script/prop-docs/components.json')[0]}`)
+    }
+  },
+)
+
+/**
+ * Writes formatted docgen output to a JSON file following the components [schema](https://github.com/primer/react/blob/main/packages/react/script/components-json/component.schema.json)
+ * Component docs specified in `*.docs.json` files will override docs generated by `react-docgen-typescript`.
+ *
+ * Commented out for now so we don't just override all generated docs with existing docs.
+ *
+ * @todo uncomment when we decide how we want to handle the removal of `*.docs.json` files
+ */
+// Don't forget to re-import these deps up top
+// import {mergeWith, isArray} from 'lodash'
+// import keyBy from 'lodash.keyby'
+//
+// const docsOverrideFiles = glob.sync('./packages/react/src/**/*.docs.json')
+
+// function customizer(objValue: any, srcValue: any) {
+//   if (isArray(objValue) && isArray(srcValue)) {
+//     const mergedArray = [...objValue]
+
+//     for (const srcItem of srcValue) {
+//       const index = mergedArray.findIndex(objItem => objItem.name === srcItem.name)
+//       if (index > -1) {
+//         mergedArray[index] = mergeWith({}, mergedArray[index], srcItem, customizer)
+//       } else {
+//         mergedArray.push(srcItem)
+//       }
+//     }
+
+//     return mergedArray
+//   }
+// }
+
+// function deepMergeObjects(generatedDocsObj: object, overriddenDocsObj: object): object {
+//   return mergeWith({}, generatedDocsObj, overriddenDocsObj, customizer)
+// }
+
+// const docsOverridesArr = docsOverrideFiles.map(docsFilepath => {
+//   const docs = JSON.parse(fs.readFileSync(docsFilepath, 'utf-8'))
+//   return docs
+// })
+
+// fs.writeFile(
+//   glob.sync('./packages/react/script/prop-docs/components.json')[0],
+//   JSON.stringify(
+//     deepMergeObjects(
+//       {
+//         schemaVersion: 2,
+//         components: docgenArrayToComponentsObj(docgenOutput),
+//       },
+//       {
+//         schemaVersion: 2,
+//         components: keyBy(docsOverridesArr, 'id'),
+//       },
+//     ),
+//     null,
+//     2,
+//   ),
+//   err => {
+//     if (err) {
+//       // eslint-disable-next-line no-console
+//       console.error(err)
+//     } else {
+//       // eslint-disable-next-line no-console
+//       console.log(`components.json generated at: ${glob.sync('./packages/react/script/prop-docs/components.json')[0]}`)
+//     }
+//   },
+// )
+
+// -----------------------------------------------------------------------------
+// Log components and props that were not documented
+// -----------------------------------------------------------------------------
+printSkippedComponents()
+printSkippedProps()
+
+// -----------------------------------------------------------------------------
+// Helper functions
+// -----------------------------------------------------------------------------
+/**
+ * Returns the value of the `displayName` property of a function.
+ * Stolen from https://github.com/styleguidist/react-docgen-typescript/pull/449
+ * @todo fix this to work when `displayName` is set consecutively and there is no `@alias` JSDoc tag.
+   Works:
+   ```tsx
+   const Component = () => <div />
+   Component.displayName = 'Component'
+   const Subcomponent = () => <div />
+   Subcomponent.displayName = 'Component.Subcomponent'
+   ```
+   Breaks:
+   ```tsx
+   const Component = () => <div />
+   const Subcomponent = () => <div />
+   Component.displayName = 'Component'
+   Subcomponent.displayName = 'Component.Subcomponent'
+   ```
+ *
+ */
+function getTextValueOfFunctionProperty(exp: ts.Symbol, source: ts.SourceFile, propertyName: string) {
+  const [textValue] = source.statements
+    .filter(statement => ts.isExpressionStatement(statement))
+    .filter(statement => {
+      const expr = (statement as ts.ExpressionStatement).expression as ts.BinaryExpression
+
+      const locals = Array.from((source as any).locals as [string, ts.Symbol][])
+      const hasOneLocalExport = locals.filter(local => !!local[1].exports).length === 1
+
+      if (hasOneLocalExport) {
+        return (
+          expr.left &&
+          (expr.left as ts.PropertyAccessExpression).name &&
+          (expr.left as ts.PropertyAccessExpression).name.escapedText === propertyName
+        )
+      }
+
+      /**
+       * Ensure the .displayName is for the currently processing function.
+       *
+       * This avoids the following situations:
+       *
+       *  - A file has multiple functions, one has `.displayName`, and all
+       *    functions ends up with that same `.displayName` value.
+       *
+       *  - A file has multiple functions, each with a different
+       *    `.displayName`, but the first is applied to all of them.
+       */
+      const flowNodeNameEscapedText = (statement as any)?.flowNode?.node?.name?.escapedText as
+        | false
+        | ts.__String
+        | undefined
+
+      return (
+        expr.left &&
+        (expr.left as ts.PropertyAccessExpression).name &&
+        (expr.left as ts.PropertyAccessExpression).name.escapedText === propertyName &&
+        flowNodeNameEscapedText === exp.escapedName
+      )
+    })
+    .filter(statement => {
+      return ts.isStringLiteral(((statement as ts.ExpressionStatement).expression as ts.BinaryExpression).right)
+    })
+    .map(statement => {
+      return (((statement as ts.ExpressionStatement).expression as ts.BinaryExpression).right as ts.Identifier).text
+    })
+
+  return textValue || ''
 }
 
-const printSkippedProps = () => {
-  console.log('PROPS NOT DOCUMENTED:')
+/**
+ * Returns our desired type names using raw type data from `react-docgen-typescript`
+ * @todo parse `ResponsiveValue` type
+ * @todo figure out how to deal with types like `Viewport | Viewport[]` and `ItemInput | ItemInput[]`
+ */
+function getTypeName(type: PropItemType, _propName: string) {
+  const rawPropTypeNameWhitelist = [
+    'ReactNode',
+    'string & ReactNode',
+    'ReactNode & string',
+    'BetterSystemStyleObject',
+    'boolean',
+    'boolean | ResponsiveValue<boolean>',
+    'ResponsiveValue<boolean> | boolean',
+  ]
 
-  docgenOutput.forEach(({props, filePath, displayName}) => {
-    if (Object.keys(props).length === 0) {
-      console.log(`${filePath} - ${displayName}`)
-    }
-  })
-
-  console.log('\n')
-}
-
-const rawPropTypeNameWhitelist = [
-  'ReactNode',
-  'string & ReactNode',
-  'ReactNode & string',
-  'BetterSystemStyleObject',
-  'boolean',
-  'boolean | ResponsiveValue<boolean>',
-  'ResponsiveValue<boolean> | boolean',
-]
-
-// TODO: parse `ResponsiveValue` type
-// TODO: figure out how to deal with types like `Viewport | Viewport[]` and `ItemInput | ItemInput[]`
-const getTypeName = (type, propName) => {
   if (type.name !== 'enum') {
     return type.name
   }
 
-  if (rawPropTypeNameWhitelist.includes(type.raw)) {
+  if (type.raw && rawPropTypeNameWhitelist.includes(type.raw)) {
     return type.raw
   }
 
   return type.value.map(({value}) => value).join(' | ')
 }
 
-// TODO: update the `.replace` regex that will work for cases like ActionList
-// where the file is named `List.tsx` and the component is named `ActionList`.
-const getStoryData = docgenData => {
-  const {displayName, filePath, tags} = docgenData
-  const {alias, primerstatus, primerstories} = tags
-
-  // Get path to default story file
-  // Example: src/components/Box/Box.docs.json -> src/components/Box/Box.stories.tsx
-  const defaultStoryFilepath = filePath.replace(/\.tsx$/, '.stories.tsx')
-  const componentName = alias || displayName
-
-  // Get the default story id
-  const defaultStoryId = `${storyPrefix[primerstatus]}components-${String(componentName).toLowerCase()}--default`
-
-  // Get source code for default story
-  const {Default: defaultStoryCode} = getStorySourceCode(defaultStoryFilepath)
-
-  // Get path to feature story file
-  // Example: src/components/Box/Box.docs.json -> src/components/Box/Box.features.stories.tsx
-  const featureStoryFilepath = filePath.replace(/\.tsx$/, '.features.stories.tsx')
-  const exampleStoryFilepath = filePath.replace(/\.tsx$/, '.examples.stories.tsx')
-
-  // Get source code for each feature story
-  const featureStorySourceCode = getStorySourceCode(featureStoryFilepath)
-  const exampleStorySourceCode = getStorySourceCode(exampleStoryFilepath)
-
-  // Populate source code for each feature story
-  // if stories are not defined in *.docs.json, fill feature stories as default
-  const stories = (
-    primerstories && primerstories.split(' ').length > 0
-      ? primerstories.split(' ').map(id => ({id}))
-      : getStoryIds({status: primerstatus, name: componentName}, Object.keys(featureStorySourceCode))
-  )
-    // Filter out the default story
-    .filter(({id}) => id !== defaultStoryId)
-    .map(({id}) => {
-      const storyName = getStoryName(id)
-      const code = id.includes('-features--') ? featureStorySourceCode[storyName] : exampleStorySourceCode[storyName]
-
-      if (!code) {
-        throw new Error(
-          `Invalid story id "${id}" parsed from ${filePath}. No story named "${storyName}" found in ${featureStoryFilepath}`,
-        )
-      }
-
-      return {id, code}
-    })
-
-  // Add default story to the beginning of the array
-  if (defaultStoryCode) {
-    stories.unshift({
-      id: defaultStoryId,
-      code: defaultStoryCode,
-    })
-  }
-
-  if (stories.length === 0) {
-    console.log(
-      `No stories found for ${componentName}. Checked for: \n Default story path: ${defaultStoryFilepath}. \n Feature story path: ${featureStoryFilepath}. \n Example story path: ${exampleStoryFilepath}`,
-    )
-  }
-
-  return stories
-}
-
 // TODO: investigate if there is a smarter way to determine the import path
-const getImportPath = (status, deprecated) => {
+function getImportPath(status: string, deprecated: boolean) {
   if (status === 'deprecated' || deprecated) {
     return '@primer/react/deprecated'
   }
@@ -210,7 +324,11 @@ const getImportPath = (status, deprecated) => {
   return '@primer/react'
 }
 
-const formatComponentJson = ({description, displayName, filePath, props: propsData, tags}) => {
+/**
+ * Converts an item from the docgen output array to the component JSON [schema](https://github.com/primer/react/blob/main/packages/react/script/components-json/component.schema.json)
+ */
+function formatComponentJson(docgenOutputItem: ComponentDoc) {
+  const {description, displayName, filePath, props: propsData, tags} = docgenOutputItem
   const {alias, deprecated, primerdocsid, primerid, primerstatus, primera11yreviewed, primerparentid} = tags
 
   const componentName = alias || displayName
@@ -228,9 +346,6 @@ const formatComponentJson = ({description, displayName, filePath, props: propsDa
   })
   const importPath = getImportPath(primerstatus, deprecated)
 
-  // TODO: don't render everything for subcomponents, just:
-  // - name
-  // - props
   return {
     // `filePath` is just used for debugging. It may not actually be necessary.
     // filePath,
@@ -247,14 +362,19 @@ const formatComponentJson = ({description, displayName, filePath, props: propsDa
   }
 }
 
-// TODO: clean this up to just use a single `.reduce`
-const transformArray = (docgenOutputData: any[]): any[] => {
+/**
+ * Converts the docgen output to an array of components
+ * @todo clean this up to just use a single `.reduce`
+ */
+function docgenArrayToComponentsObj(docgenOutputData: any[]) {
   return docgenOutputData
     .map(outputDatum => {
-      const {alias, primerid, primerparentid} = outputDatum.tags
+      const {primerid, primerparentid} = outputDatum.tags
 
       const subComponents = docgenOutputData.filter(({tags}) => tags.primerparentid && tags.primerparentid === primerid)
 
+      // This uses the `@primerid` and `@primerparentid` JSDoc tags to determine if the
+      // item is a component. If it's not a component, we skip it.
       // TODO: make this smart enough to know when we just have a parsing error, but the
       // component ID is actually there.
       if (!primerparentid && !primerid) {
@@ -281,119 +401,32 @@ const transformArray = (docgenOutputData: any[]): any[] => {
     .reduce((acc, val) => Object.assign(acc, val), {})
 }
 
-// write raw docgen output to file
-fs.writeFile(
-  glob.sync('./packages/react/script/prop-docs/docgen-output.json')[0],
-  JSON.stringify(docgenOutput, null, 2),
-  err => {
-    if (err) {
-      console.error(err)
-    } else {
-      console.log(
-        `Components.json generated at: ${glob.sync('./packages/react/script/prop-docs/docgen-output.json')[0]}`,
-      )
+function printSkippedComponents() {
+  // eslint-disable-next-line no-console
+  console.log('COMPONENTS SKIPPED:')
+
+  for (const file of filesToParseWithDocgen) {
+    if (!docgenOutput.map(({filePath}) => filePath).includes(file)) {
+      // eslint-disable-next-line no-console
+      console.log(file)
     }
-  },
-)
-
-// write formatted docgen output to file ([schema](https://github.com/primer/react/blob/main/packages/react/script/components-json/component.schema.json))
-fs.writeFile(
-  glob.sync('./packages/react/script/prop-docs/components.json')[0],
-  JSON.stringify(
-    {
-      schemaVersion: 2,
-      components: transformArray(docgenOutput),
-    },
-    null,
-    2,
-  ),
-  err => {
-    if (err) {
-      console.error(err)
-    } else {
-      console.log(`Components.json generated at: ${glob.sync('./packages/react/script/prop-docs/components.json')[0]}`)
-    }
-  },
-)
-
-// log debugging info
-
-printSkippedComponents()
-printSkippedProps()
-
-// -----------------------------------------------------------------------------
-// Helper functions
-// -----------------------------------------------------------------------------
-
-/**
- * Returns an object mapping story names to their source code
- *
- * @example
- * getStorySourceCode('src/components/Button/Button.stories.tsx')
- * // {Default: '<Button>Button</Button>'}
- */
-function getStorySourceCode(filepath: string) {
-  if (!fs.existsSync(filepath)) {
-    return {}
   }
 
-  const code = fs.readFileSync(filepath, 'utf-8')
-
-  const ast = parse(code, {
-    sourceType: 'module',
-    plugins: ['jsx', 'typescript'],
-  })
-
-  const stories: Record<string, string> = {}
-
-  traverse(ast, {
-    ExportNamedDeclaration(path) {
-      const varDeclaration = path.node.declaration
-
-      let id: Identifier
-      let func: ArrowFunctionExpression | FunctionDeclaration
-
-      if (varDeclaration?.type === 'VariableDeclaration') {
-        id = varDeclaration.declarations[0].id as Identifier
-        const init = varDeclaration.declarations[0].init
-        if (init?.type === 'ArrowFunctionExpression') func = init
-        else return // not a function = not story
-      } else if (varDeclaration?.type === 'FunctionDeclaration') {
-        id = varDeclaration.id as Identifier
-        func = varDeclaration
-      } else {
-        return // not a function = not story
-      }
-
-      const code = prettier
-        .format(generate(func).code, {
-          parser: 'typescript',
-          singleQuote: true,
-          trailingComma: 'all',
-          semi: false,
-        })
-        .trim()
-        .replace(/;$/, '')
-        .replace(/^;/, '')
-
-      const name = id.name
-      stories[name] = code
-    },
-  })
-
-  return stories
+  // eslint-disable-next-line no-console
+  console.log('\n')
 }
 
-function getStoryName(id: string) {
-  const parts = id.split('--')
-  return pascalCase(parts[parts.length - 1])
-}
+function printSkippedProps() {
+  // eslint-disable-next-line no-console
+  console.log('PROPS NOT DOCUMENTED:')
 
-function getStoryIds(docs: any, storyNames: string[]) {
-  const ids = storyNames.map(
-    storyName =>
-      `${storyPrefix[docs.status]}components-${String(docs.name).toLowerCase()}-features--${kebabCase(storyName)}`,
-  )
+  for (const {props, filePath, displayName} of docgenOutput) {
+    if (Object.keys(props).length === 0) {
+      // eslint-disable-next-line no-console
+      console.log(`${filePath} - ${displayName}`)
+    }
+  }
 
-  return ids.map(id => ({id}))
+  // eslint-disable-next-line no-console
+  console.log('\n')
 }

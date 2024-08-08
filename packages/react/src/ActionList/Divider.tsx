@@ -1,5 +1,4 @@
 import React from 'react'
-import type {FC, PropsWithChildren} from 'react'
 import Box from '../Box'
 import {get} from '../constants'
 import type {Theme} from '../ThemeProvider'
@@ -13,7 +12,7 @@ export type ActionListDividerProps = SxProp
  * @alias ActionList.Divider
  * @primerparentid action_list
  */
-export const Divider: FC<PropsWithChildren<ActionListDividerProps>> = ({sx = {}}) => {
+export const Divider: React.FC<ActionListDividerProps> = ({sx = {}}) => {
   return (
     <Box
       as="li"

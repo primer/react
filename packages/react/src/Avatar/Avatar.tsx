@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import type {BetterCssProperties, BetterSystemStyleObject, SxProp} from '../sx'
@@ -46,7 +46,7 @@ export type AvatarProps = ComponentProps<typeof StyledAvatar>
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-const Avatar = forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
+const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
   {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, sx: sxProp = defaultSxProp, ...rest},
   ref,
 ) {

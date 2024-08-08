@@ -59,7 +59,12 @@ const StyledLink = styled.a<StyledLinkProps>`
   ${sx};
 `
 
-const Link = forwardRef(({as: Component = 'a', ...props}, forwardedRef) => {
+/**
+ * @primerid link
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
+export const Link = forwardRef(({as: Component = 'a', ...props}, forwardedRef) => {
   const innerRef = React.useRef<HTMLAnchorElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
@@ -101,4 +106,3 @@ const Link = forwardRef(({as: Component = 'a', ...props}, forwardedRef) => {
 Link.displayName = 'Link'
 
 export type LinkProps = ComponentProps<typeof Link>
-export default Link

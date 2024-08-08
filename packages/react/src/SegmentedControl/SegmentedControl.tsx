@@ -1,9 +1,8 @@
 import React, {useRef, useState} from 'react'
-import type {FC, PropsWithChildren} from 'react'
 import type {SegmentedControlButtonProps} from './SegmentedControlButton'
-import {SegmentedControlButton} from './SegmentedControlButton'
+import Button from './SegmentedControlButton'
 import type {SegmentedControlIconButtonProps} from './SegmentedControlIconButton'
-import {SegmentedControlIconButton} from './SegmentedControlIconButton'
+import SegmentedControlIconButton from './SegmentedControlIconButton'
 import {ActionList} from '../ActionList'
 import {ActionMenu} from '../ActionMenu'
 import {useTheme} from '../ThemeProvider'
@@ -37,6 +36,8 @@ type SegmentedControlProps = {
 const getSegmentedControlStyles = (props: {isFullWidth?: boolean; size?: SegmentedControlProps['size']}) => ({
   backgroundColor: 'segmentedControl.bg',
   borderRadius: 2,
+  border: '1px solid',
+  borderColor: 'var(--controlTrack-borderColor-rest, transparent)',
   display: props.isFullWidth ? 'flex' : 'inline-flex',
   fontSize: props.size === 'small' ? 0 : 1,
   height: props.size === 'small' ? '28px' : '32px', // TODO: use primitive `control.{small|medium}.size` when it is available
@@ -47,11 +48,12 @@ const getSegmentedControlStyles = (props: {isFullWidth?: boolean; size?: Segment
 
 /**
  * Segmented control is used to pick one choice from a linear set of closely related choices, and immediately apply that selection.
+ * @alias SegmentedControl
  * @primerid segmented_control
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-export const SegmentedControl: FC<PropsWithChildren<SegmentedControlProps>> = ({
+export const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledby,
   children,
@@ -88,7 +90,7 @@ export const SegmentedControl: FC<PropsWithChildren<SegmentedControlProps>> = ({
   const getChildIcon = (childArg: React.ReactNode) => {
     if (
       React.isValidElement<SegmentedControlButtonProps>(childArg) &&
-      childArg.type === SegmentedControlButton &&
+      childArg.type === Button &&
       childArg.props.leadingIcon
     ) {
       return childArg.props.leadingIcon
@@ -97,7 +99,7 @@ export const SegmentedControl: FC<PropsWithChildren<SegmentedControlProps>> = ({
     return React.isValidElement<SegmentedControlIconButtonProps>(childArg) ? childArg.props.icon : null
   }
   const getChildText = (childArg: React.ReactNode) => {
-    if (React.isValidElement<SegmentedControlButtonProps>(childArg) && childArg.type === SegmentedControlButton) {
+    if (React.isValidElement<SegmentedControlButtonProps>(childArg) && childArg.type === Button) {
       return childArg.props.children
     }
 
@@ -187,7 +189,7 @@ export const SegmentedControl: FC<PropsWithChildren<SegmentedControlProps>> = ({
         if (
           responsiveVariant === 'hideLabels' &&
           React.isValidElement<SegmentedControlButtonProps>(child) &&
-          child.type === SegmentedControlButton
+          child.type === Button
         ) {
           const {
             'aria-label': childAriaLabel,
@@ -224,3 +226,5 @@ export const SegmentedControl: FC<PropsWithChildren<SegmentedControlProps>> = ({
     </SegmentedControlList>
   )
 }
+
+Root.displayName = 'SegmentedControl'

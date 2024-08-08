@@ -1,7 +1,6 @@
 import {SortAscIcon, SortDescIcon} from '@primer/octicons-react'
 import clsx from 'clsx'
-import React, {forwardRef} from 'react'
-import type {ComponentPropsWithoutRef, PropsWithChildren} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import Text from '../Text'
@@ -14,12 +13,13 @@ import type {UniqueRow} from './row'
 import {SortDirection} from './sorting'
 import {useTableLayout} from './useTable'
 import {SkeletonText} from '../drafts/Skeleton/SkeletonText'
-import {ScrollableRegion} from '../internal/components/ScrollableRegion'
+import {ScrollableRegion} from '../ScrollableRegion'
 
 // ----------------------------------------------------------------------------
 // Table
 // ----------------------------------------------------------------------------
-const StyledTable = styled.table<ComponentPropsWithoutRef<'table'>>`
+
+const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   /* Default table styles */
   --table-border-radius: 0.375rem;
   --table-cell-padding: var(--cell-padding-block, 0.5rem) var(--cell-padding-inline, 0.75rem);
@@ -222,7 +222,7 @@ const StyledTable = styled.table<ComponentPropsWithoutRef<'table'>>`
   }
 `
 
-export type TableProps = ComponentPropsWithoutRef<'table'> & {
+export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   /**
    * Provide an id to an element which uniquely describes this table
    */
@@ -250,11 +250,13 @@ export type TableProps = ComponentPropsWithoutRef<'table'> & {
  * @alias Table
  * @primerparentid data_table
  */
-const Table = forwardRef<HTMLTableElement, TableProps>(function Table(
+const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
   {'aria-labelledby': labelledby, cellPadding = 'normal', className, gridTemplateColumns, ...rest},
   ref,
 ) {
   return (
+    // TODO update type to be non-optional in next major release
+    // @ts-expect-error this type should be required in the next major version
     <ScrollableRegion aria-labelledby={labelledby} className="TableOverflowWrapper">
       <StyledTable
         {...rest}
@@ -273,7 +275,7 @@ const Table = forwardRef<HTMLTableElement, TableProps>(function Table(
 // TableHead
 // ----------------------------------------------------------------------------
 
-export type TableHeadProps = ComponentPropsWithoutRef<'thead'>
+export type TableHeadProps = React.ComponentPropsWithoutRef<'thead'>
 
 /**
  * The `thead` element for a table component. Not intended to be used directly unless you are building your own table component.
@@ -294,7 +296,7 @@ function TableHead({children}: TableHeadProps) {
 // TableBody
 // ----------------------------------------------------------------------------
 
-export type TableBodyProps = ComponentPropsWithoutRef<'tbody'>
+export type TableBodyProps = React.ComponentPropsWithoutRef<'tbody'>
 
 /**
  * The `tbody` element for a table component. Not intended to be used directly unless you are building your own table component.
@@ -315,7 +317,7 @@ function TableBody({children}: TableBodyProps) {
 // TableHeader
 // ----------------------------------------------------------------------------
 
-export type TableHeaderProps = Omit<ComponentPropsWithoutRef<'th'>, 'align'> & {
+export type TableHeaderProps = Omit<React.ComponentPropsWithoutRef<'th'>, 'align'> & {
   /**
    * The horizontal alignment of the cell's content
    */
@@ -379,7 +381,7 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
 // TableRow
 // ----------------------------------------------------------------------------
 
-export type TableRowProps = ComponentPropsWithoutRef<'tr'>
+export type TableRowProps = React.ComponentPropsWithoutRef<'tr'>
 
 /**
  * The `tr` element for a table component. Not intended to be used directly unless you are building your own table component.
@@ -398,7 +400,7 @@ function TableRow({children, ...rest}: TableRowProps) {
 // TableCell
 // ----------------------------------------------------------------------------
 
-export type TableCellProps = Omit<ComponentPropsWithoutRef<'td'>, 'align'> & {
+export type TableCellProps = Omit<React.ComponentPropsWithoutRef<'td'>, 'align'> & {
   /**
    * The horizontal alignment of the cell's content
    */
@@ -427,7 +429,7 @@ function TableCell({align, className, children, scope, ...rest}: TableCellProps)
   )
 }
 
-type TableCellPlaceholderProps = PropsWithChildren
+type TableCellPlaceholderProps = React.PropsWithChildren
 
 /**
  * Placeholder content to be used inside of a TableCell.
@@ -499,7 +501,7 @@ const StyledTableContainer = styled.div`
   }
 `
 
-export type TableContainerProps = PropsWithChildren<SxProp>
+export type TableContainerProps = React.PropsWithChildren<SxProp>
 
 /**
  * @alias Table.Container
@@ -509,7 +511,7 @@ function TableContainer({children, sx}: TableContainerProps) {
   return <StyledTableContainer sx={sx}>{children}</StyledTableContainer>
 }
 
-export type TableTitleProps = PropsWithChildren<{
+export type TableTitleProps = React.PropsWithChildren<{
   /**
    * Provide an alternate element or component to use as the container for
    * `TableSubtitle`. This is useful when specifying markup that is more
@@ -528,7 +530,7 @@ export type TableTitleProps = PropsWithChildren<{
  * @alias Table.Title
  * @primerparentid data_table
  */
-const TableTitle = forwardRef<HTMLElement, TableTitleProps>(function TableTitle(
+const TableTitle = React.forwardRef<HTMLElement, TableTitleProps>(function TableTitle(
   {as = 'h2', children, id}: TableTitleProps,
   ref,
 ) {
@@ -551,7 +553,7 @@ const TableTitle = forwardRef<HTMLElement, TableTitleProps>(function TableTitle(
   )
 })
 
-export type TableSubtitleProps = PropsWithChildren<{
+export type TableSubtitleProps = React.PropsWithChildren<{
   /**
    * Provide an alternate element or component to use as the container for
    * `TableSubtitle`. This is useful when specifying markup that is more
@@ -608,7 +610,7 @@ function TableDivider() {
   )
 }
 
-export type TableActionsProps = PropsWithChildren
+export type TableActionsProps = React.PropsWithChildren
 
 /**
  * The container for a table component.
@@ -622,7 +624,7 @@ function TableActions({children}: TableActionsProps) {
 // ----------------------------------------------------------------------------
 // TableSkeleton
 // ----------------------------------------------------------------------------
-export type TableSkeletonProps<Data extends UniqueRow> = ComponentPropsWithoutRef<'table'> & {
+export type TableSkeletonProps<Data extends UniqueRow> = React.ComponentPropsWithoutRef<'table'> & {
   /**
    * Specify the amount of space that should be available around the contents of
    * a cell

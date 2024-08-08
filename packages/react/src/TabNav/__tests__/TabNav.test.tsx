@@ -1,5 +1,5 @@
 import React from 'react'
-import TabNav from '..'
+import {TabNav} from '..'
 import {behavesAsComponent, checkExports} from '../../utils/testing'
 import {fireEvent, render as HTMLRender} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -29,7 +29,8 @@ describe('TabNav', () => {
   behavesAsComponent({Component: TabNav})
 
   checkExports('TabNav', {
-    default: TabNav,
+    default: undefined,
+    TabNav,
   })
 
   describe('TabNav.Link', () => {

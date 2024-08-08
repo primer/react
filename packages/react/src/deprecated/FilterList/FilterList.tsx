@@ -1,4 +1,4 @@
-import React, {type FC, type PropsWithChildren} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import {get} from '../../constants'
 import type {SxProp} from '../../sx'
@@ -70,7 +70,7 @@ export type FilterListItemProps = {count?: number} & ComponentProps<typeof Filte
  * @alias FilterList.Item
  * @primerparentid filter_list
  */
-export const FilterListItem: FC<PropsWithChildren<FilterListItemProps>> = ({children, count, ...rest}) => {
+export const FilterListItem: React.FC<React.PropsWithChildren<FilterListItemProps>> = ({children, count, ...rest}) => {
   return (
     <FilterListItemBase {...rest}>
       {count && <span className="count">{count}</span>}
@@ -78,3 +78,5 @@ export const FilterListItem: FC<PropsWithChildren<FilterListItemProps>> = ({chil
     </FilterListItemBase>
   )
 }
+
+FilterListItem.displayName = 'FilterList.Item'

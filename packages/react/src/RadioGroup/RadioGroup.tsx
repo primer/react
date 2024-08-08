@@ -1,4 +1,4 @@
-import type {ChangeEvent, ChangeEventHandler, FC, PropsWithChildren} from 'react'
+import type {ChangeEvent, ChangeEventHandler, FC} from 'react'
 import React, {createContext} from 'react'
 import type {CheckboxOrRadioGroupProps} from '../internal/components/CheckboxOrRadioGroup'
 import CheckboxOrRadioGroup from '../internal/components/CheckboxOrRadioGroup'
@@ -32,7 +32,13 @@ export const RadioGroupContext = createContext<{
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-export const RadioGroup: FC<PropsWithChildren<RadioGroupProps>> = ({children, disabled, onChange, name, ...rest}) => {
+export const RadioGroup: FC<React.PropsWithChildren<RadioGroupProps>> = ({
+  children,
+  disabled,
+  onChange,
+  name,
+  ...rest
+}) => {
   const [selectedRadioValue, setSelectedRadioValue] = useRenderForcingRef<string | null>(null)
 
   const updateSelectedCheckboxes: ChangeEventHandler<HTMLInputElement> = e => {
@@ -80,7 +86,7 @@ export const RadioGroupLabel = CheckboxOrRadioGroupLabel
 
 /**
  * The message about the validation status of the set of related checkboxes.
- * @alias RadioGroup.Caption
+ * @alias RadioGroup.Validation
  * @primerparentid radio_group
  */
 export const RadioGroupValidation = CheckboxOrRadioGroupValidation

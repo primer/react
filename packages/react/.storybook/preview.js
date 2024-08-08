@@ -2,10 +2,12 @@ import {PrimerBreakpoints} from '../src/utils/layout'
 import React, {useEffect} from 'react'
 import {ThemeProvider, BaseStyles, theme} from '../src'
 import {FeatureFlags} from '../src/FeatureFlags'
+import {DefaultFeatureFlags} from '../src/FeatureFlags/DefaultFeatureFlags'
 import clsx from 'clsx'
 
 import './storybook.css'
 import './primitives-v8.css'
+import {Profiler} from 'react'
 
 let storybookViewports = {}
 Object.entries(PrimerBreakpoints).forEach(([viewport, value]) => {
@@ -182,9 +184,22 @@ export const globalTypes = {
     },
     showSurroundingElements: {},
   },
+  featureFlags: {
+    name: 'Feature flags',
+    description: 'Toggle feature flags',
+    defaultValue: Object.fromEntries(DefaultFeatureFlags.flags),
+  },
 }
 
 export const decorators = [
+  (Story, context) => {
+    const {featureFlags} = context.globals
+    return (
+      <FeatureFlags flags={featureFlags}>
+        <Story {...context} />
+      </FeatureFlags>
+    )
+  },
   (Story, context) => {
     const {colorScheme} = context.globals
 
@@ -219,17 +234,23 @@ export const decorators = [
         </ThemeProvider>
       ))
     ) : (
-      <ThemeProvider dayScheme={context.globals.colorScheme} nightScheme={context.globals.colorScheme} colorMode="day">
-        <div className={clsx('story-wrap')}>
-          <BaseStyles>
-            {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
-            <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
-              <Story {...context} />
-            </FeatureFlags>
-            {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
-          </BaseStyles>
-        </div>
-      </ThemeProvider>
+      <Profiler id="storybook-preview">
+        <ThemeProvider
+          dayScheme={context.globals.colorScheme}
+          nightScheme={context.globals.colorScheme}
+          colorMode="day"
+        >
+          <div className={clsx('story-wrap')}>
+            <BaseStyles>
+              {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
+              <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+                <Story {...context} />
+              </FeatureFlags>
+              {showSurroundingElements ? <a href="https://github.com/primer/react">Primer documentation</a> : ''}
+            </BaseStyles>
+          </div>
+        </ThemeProvider>
+      </Profiler>
     )
   },
 ]

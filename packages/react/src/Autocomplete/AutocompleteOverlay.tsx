@@ -1,7 +1,7 @@
 import React, {useCallback, useContext} from 'react'
 import {useAnchoredPosition} from '../hooks'
 import type {OverlayProps} from '../Overlay'
-import Overlay from '../Overlay'
+import {Overlay} from '../Overlay'
 import type {ComponentProps} from '../utils/types'
 import {AutocompleteContext} from './AutocompleteContext'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
@@ -79,5 +79,7 @@ export function AutocompleteOverlay({
     <VisuallyHidden aria-hidden="true">{children}</VisuallyHidden>
   )
 }
+
+AutocompleteOverlay.displayName = 'AutocompleteOverlay'
 
 export type AutocompleteOverlayProps = ComponentProps<typeof AutocompleteOverlay>

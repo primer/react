@@ -1,10 +1,10 @@
 import {CheckIcon} from '@primer/octicons-react'
-import React, {forwardRef, useCallback} from 'react'
+import React, {useCallback} from 'react'
 import {isValidElementType} from 'react-is'
 import {get} from '../../constants'
 import type {SxProp} from '../../sx'
 import sx from '../../sx'
-import Truncate from '../../Truncate'
+import {Truncate} from '../../Truncate'
 import type {ItemInput} from './List'
 import styled from 'styled-components'
 import {StyledHeader} from './Header'
@@ -331,7 +331,7 @@ const MultiSelectIcon = styled.svg<{selected?: boolean}>`
 /**
  * An actionable or selectable `Item` with an optional icon and description.
  */
-export const Item = forwardRef((itemProps, ref) => {
+export const Item = React.forwardRef((itemProps, ref) => {
   const {
     as: Component,
     text,

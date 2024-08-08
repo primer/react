@@ -1,6 +1,6 @@
-import {SegmentedControl as SegmentedControlImpl} from './SegmentedControl'
-import {SegmentedControlButton} from './SegmentedControlButton'
-import {SegmentedControlIconButton} from './SegmentedControlIconButton'
+import {Root as SegmentedControlImpl} from './SegmentedControl'
+import SegmentedControlButton from './SegmentedControlButton'
+import SegmentedControlIconButton from './SegmentedControlIconButton'
 
 SegmentedControlImpl.displayName = 'SegmentedControl'
 

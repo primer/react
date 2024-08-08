@@ -1,4 +1,4 @@
-import React, {type FC} from 'react'
+import React from 'react'
 import {getBreakpointDeclarations} from '../../utils/getBreakpointDeclarations'
 import {get} from '../../constants'
 import {isResponsiveValue} from '../../hooks/useResponsiveValue'
@@ -32,7 +32,7 @@ const avatarSkeletonStyles = {
  * @primerstatus draft
  * @primera11yreviewed false
  */
-export const SkeletonAvatar: FC<SkeletonAvatarProps> = ({size = DEFAULT_AVATAR_SIZE, square, ...rest}) => {
+export const SkeletonAvatar: React.FC<SkeletonAvatarProps> = ({size = DEFAULT_AVATAR_SIZE, square, ...rest}) => {
   const avatarSx = isResponsiveValue(size)
     ? {
         ...getBreakpointDeclarations(

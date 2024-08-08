@@ -1,5 +1,5 @@
 import type {ChangeEventHandler, FocusEventHandler, KeyboardEventHandler} from 'react'
-import React, {forwardRef, useCallback, useContext, useEffect, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {AutocompleteContext} from './AutocompleteContext'
 import {TextInput} from '../TextInput'
@@ -10,19 +10,23 @@ import useSafeTimeout from '../hooks/useSafeTimeout'
 type InternalAutocompleteInputProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   as?: React.ComponentType<React.PropsWithChildren<any>>
-  // When false, the autocomplete menu will not render either on mouse click or
-  // keyboard focus.
+
+  /**
+   * @deprecated `openOnFocus` is deprecated and will be removed in v38.
+   * When `true`, autocomplete menu will show on focus or click.
+   */
   openOnFocus?: boolean
 }
 
 const ARROW_KEYS_NAV = new Set(['ArrowUp', 'ArrowDown'])
 
+// TODO: Update this so the default props from `TextInput` are also documented by react-typescript-docgen
 /**
  * The text input field for an Autocomplete component. Defaults to using a `TextInput` component, but is polymorphic to allow for custom components.
  * @alias Autocomplete.Input
  * @primerparentid autocomplete
  */
-export const AutocompleteInput = forwardRef(
+export const AutocompleteInput = React.forwardRef(
   (
     {
       as: Component = TextInput,
@@ -33,7 +37,7 @@ export const AutocompleteInput = forwardRef(
       onKeyUp,
       onKeyPress,
       value,
-      openOnFocus = true,
+      openOnFocus = false,
       ...props
     },
     forwardedRef,
@@ -57,15 +61,12 @@ export const AutocompleteInput = forwardRef(
     const [highlightRemainingText, setHighlightRemainingText] = useState<boolean>(true)
     const {safeSetTimeout} = useSafeTimeout()
 
-    const handleInputFocus: FocusEventHandler<HTMLInputElement> = useCallback(
-      event => {
-        if (openOnFocus) {
-          onFocus?.(event)
-          setShowMenu(true)
-        }
-      },
-      [onFocus, setShowMenu, openOnFocus],
-    )
+    const handleInputFocus: FocusEventHandler<HTMLInputElement> = event => {
+      onFocus?.(event)
+      if (openOnFocus) {
+        setShowMenu(true)
+      }
+    }
 
     const handleInputBlur: FocusEventHandler<HTMLInputElement> = useCallback(
       event => {
@@ -83,16 +84,13 @@ export const AutocompleteInput = forwardRef(
       [onBlur, setShowMenu, inputRef, safeSetTimeout],
     )
 
-    const handleInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
-      event => {
-        onChange && onChange(event)
-        setInputValue(event.currentTarget.value)
-        if (!showMenu) {
-          setShowMenu(true)
-        }
-      },
-      [onChange, setInputValue, setShowMenu, showMenu],
-    )
+    const handleInputChange: ChangeEventHandler<HTMLInputElement> = event => {
+      onChange && onChange(event)
+      setInputValue(event.currentTarget.value)
+      if (!showMenu) {
+        setShowMenu(true)
+      }
+    }
 
     const handleInputKeyDown: KeyboardEventHandler<HTMLInputElement> = useCallback(
       event => {
@@ -127,7 +125,6 @@ export const AutocompleteInput = forwardRef(
     const onInputKeyPress: KeyboardEventHandler<HTMLInputElement> = useCallback(
       event => {
         onKeyPress && onKeyPress(event)
-
         if (showMenu && event.key === 'Enter' && activeDescendantRef.current) {
           event.preventDefault()
           event.nativeEvent.stopImmediatePropagation()
@@ -191,5 +188,7 @@ export const AutocompleteInput = forwardRef(
     )
   },
 ) as PolymorphicForwardRefComponent<typeof TextInput, InternalAutocompleteInputProps>
+
+AutocompleteInput.displayName = 'AutocompleteInput'
 
 export type AutocompleteInputProps = ComponentProps<typeof AutocompleteInput>

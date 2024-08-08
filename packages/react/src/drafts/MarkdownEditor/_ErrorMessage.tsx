@@ -1,5 +1,5 @@
 import React, {memo} from 'react'
-import Flash from '../../Flash'
+import {Flash} from '../../Flash'
 
 export const ErrorMessage = memo(({message}: {message: string}) => (
   <Flash

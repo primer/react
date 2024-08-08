@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 import Box from '../Box'
@@ -29,7 +29,7 @@ const LiBox = styled.li<SxProp>(sx)
  * @alias ActionList.Item
  * @primerparentid action_list
  */
-export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
+export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
   (
     {
       variant = 'default',
@@ -162,6 +162,7 @@ export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
       ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
       width: buttonSemantics && listVariant !== 'full' ? 'calc(100% - 16px)' : '100%',
       marginX: buttonSemantics && listVariant !== 'full' ? '2' : '0',
+      borderRadius: 2,
       ...(buttonSemantics ? hoverStyles : {}),
     }
 
@@ -199,23 +200,6 @@ export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
       textAlign: 'unset',
       marginY: 'unset',
 
-      '@media (hover: hover) and (pointer: fine)': {
-        ':hover:not([aria-disabled]):not([data-inactive]):not([data-loading])': {
-          backgroundColor: `actionListItem.${variant}.hoverBg`,
-          color: getVariantStyles(variant, disabled, inactive || loading).hoverColor,
-          boxShadow: `inset 0 0 0 max(1px, 0.0625rem) ${theme?.colors.actionListItem.default.activeBorder}`,
-        },
-        '&:focus-visible, > a.focus-visible, &:focus.focus-visible': {
-          outline: 'none',
-          border: `2 solid`,
-          boxShadow: `0 0 0 2px ${theme?.colors.accent.emphasis}`,
-        },
-        ':active:not([aria-disabled]):not([data-inactive]):not([data-loading])': {
-          backgroundColor: `actionListItem.${variant}.activeBg`,
-          color: getVariantStyles(variant, disabled, inactive || loading).hoverColor,
-        },
-      },
-
       '@media (forced-colors: active)': {
         ':focus, &:focus-visible, > a.focus-visible': {
           // Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips
@@ -243,7 +227,7 @@ export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
       // hide divider after dividers & group header, with higher importance!
       '[data-component="ActionList.Divider"] + &': {'--divider-color': 'transparent !important'},
       // hide border on current and previous item
-      '&:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]), &:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]), &[data-focus-visible-added]:not([aria-disabled]):not([data-inactive])':
+      '&:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]), &[data-focus-visible-added]:not([aria-disabled]):not([data-inactive])':
         {
           '--divider-color': 'transparent',
         },
@@ -251,6 +235,7 @@ export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
         '--divider-color': 'transparent',
       },
       ...(active ? activeStyles : {}),
+      ...(!buttonSemantics ? hoverStyles : {}),
     }
 
     const clickHandler = React.useCallback(
@@ -281,6 +266,7 @@ export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
     const labelId = `${itemId}--label`
     const inlineDescriptionId = `${itemId}--inline-description`
     const blockDescriptionId = `${itemId}--block-description`
+    const trailingVisualId = `${itemId}--trailing-visual`
     const inactiveWarningId = inactive && !showInactiveIndicator ? `${itemId}--warning-message` : undefined
 
     const ButtonItemWrapper = React.forwardRef(({as: Component = 'button', children, ...props}, forwardedRef) => {
@@ -309,15 +295,19 @@ export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const menuItemProps = {
       onClick: clickHandler,
-      onKeyPress: keyPressHandler,
+      onKeyPress: !buttonSemantics ? keyPressHandler : undefined,
       'aria-disabled': disabled ? true : undefined,
       'data-inactive': inactive ? true : undefined,
       'data-loading': loading && !inactive ? true : undefined,
       tabIndex: disabled || showInactiveIndicator ? undefined : 0,
-      'aria-labelledby': `${labelId} ${slots.inlineDescription ? inlineDescriptionId : ''}`,
-      'aria-describedby': slots.blockDescription
-        ? [blockDescriptionId, inactiveWarningId].join(' ')
-        : inactiveWarningId,
+      'aria-labelledby': `${labelId} ${slots.trailingVisual ? trailingVisualId : ''} ${
+        slots.inlineDescription ? inlineDescriptionId : ''
+      }`,
+      'aria-describedby':
+        [slots.blockDescription ? blockDescriptionId : undefined, inactiveWarningId ?? undefined]
+          .filter(String)
+          .join(' ')
+          .trim() || undefined,
       ...(includeSelectionAttribute && {[itemSelectionAttribute]: selected}),
       role: itemRole,
       id: itemId,
@@ -347,7 +337,14 @@ export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
 
     return (
       <ItemContext.Provider
-        value={{variant, disabled, inactive: Boolean(inactiveText), inlineDescriptionId, blockDescriptionId}}
+        value={{
+          variant,
+          disabled,
+          inactive: Boolean(inactiveText),
+          inlineDescriptionId,
+          blockDescriptionId,
+          trailingVisualId,
+        }}
       >
         <LiBox
           ref={!buttonSemanticsFeatureFlag || listSemantics ? forwardedRef : null}
@@ -365,7 +362,7 @@ export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
           <ItemWrapper {...wrapperProps}>
             <Selection selected={selected} />
             <VisualOrIndicator
-              inactiveText={inactiveText}
+              inactiveText={showInactiveIndicator ? inactiveText : undefined}
               itemHasLeadingVisual={Boolean(slots.leadingVisual)}
               labelId={labelId}
               loading={loading}
@@ -406,7 +403,7 @@ export const Item = forwardRef<HTMLLIElement, ActionListItemProps>(
                   {slots.inlineDescription}
                 </ConditionalWrapper>
                 <VisualOrIndicator
-                  inactiveText={inactiveText}
+                  inactiveText={showInactiveIndicator ? inactiveText : undefined}
                   itemHasLeadingVisual={Boolean(slots.leadingVisual)}
                   labelId={labelId}
                   loading={loading}

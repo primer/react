@@ -1,4 +1,4 @@
-import React, {forwardRef, type ButtonHTMLAttributes, type FunctionComponent, type PropsWithChildren} from 'react'
+import React, {forwardRef} from 'react'
 import type {IconProps} from '@primer/octicons-react'
 import Box from '../Box'
 import {Button, IconButton} from '../Button'
@@ -8,7 +8,7 @@ import type {BetterSystemStyleObject, SxProp} from '../sx'
 import {merge} from '../sx'
 
 type TextInputActionProps = Omit<
-  ButtonHTMLAttributes<HTMLButtonElement>,
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
   'aria-label' | 'size' | 'tooltipDirection'
 > & {
   /** @deprecated Text input action buttons should only use icon buttons */
@@ -18,7 +18,7 @@ type TextInputActionProps = Omit<
   /** Position of tooltip. If no position is passed or defaults to "n" */
   tooltipDirection?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
   /** The icon to render inside the button */
-  icon?: FunctionComponent<PropsWithChildren<IconProps>>
+  icon?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
   /**
    * @deprecated Text input action buttons should only use the 'invisible' button variant
    * Determine's the styles on a button one of 'default' | 'primary' | 'invisible' | 'danger'

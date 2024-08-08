@@ -2,13 +2,14 @@
   "name": "primer",
   "private": true,
   "workspaces": [
+    "packages/rollup-plugin-import-css",
     "packages/*",
     "docs",
     "examples/*"
   ],
   "scripts": {
     "setup": "./script/setup",
-    "build": "npm run build -w @primer/react",
+    "build": "npm run build -w rollup-plugin-import-css -w @primer/react",
     "clean": "npm run clean -ws --if-present",
     "clean:all": "npm run clean && rimraf node_modules docs/node_modules packages/*/node_modules examples/*/node_modules",
     "format": "prettier --cache --write '**/*.{js,css,md,mdx,ts,tsx,yml}'",
@@ -22,6 +23,7 @@
     "build:components.json": "npm run build:components.json -w @primer/react",
     "build:component-docs-json": "tsx packages/react/script/prop-docs/build.ts",
     "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0",
+    "lint:css": "stylelint '**/*.css'",
     "lint:fix": "npm run lint -- --fix",
     "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!.github\" \"!.changeset\" \"!**/node_modules/**\" \"!**/CHANGELOG.md\"",
     "test": "jest",
@@ -50,6 +52,7 @@
     "@mdx-js/react": "1.6.22",
     "@playwright/test": "1.43.0",
     "@prettier/sync": "0.5.1",
+    "@primer/stylelint-config": "^13.0.0-rc.21ca0f0",
     "@size-limit/preset-big-lib": "11.0.2",
     "@types/jest": "29.5.6",
     "@typescript-eslint/eslint-plugin": "^7.11.0",
@@ -79,6 +82,7 @@
     "react-docgen-typescript": "2.2.2",
     "rimraf": "5.0.5",
     "size-limit": "11.0.2",
+    "stylelint": "^16.8.1",
     "typescript": "5.4.5"
   },
   "optionalDependencies": {

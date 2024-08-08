@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
@@ -80,12 +80,10 @@ export type FlashProps = ComponentProps<typeof StyledFlash>
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-const Flash = forwardRef(function Flash({as, variant = 'default', ...rest}, ref) {
+export const Flash = React.forwardRef(function Flash({as, variant = 'default', ...rest}, ref) {
   return <StyledFlash ref={ref} as={as} variant={variant} {...rest} />
 }) as PolymorphicForwardRefComponent<'div', StyledFlashProps>
 
 if (__DEV__) {
   Flash.displayName = 'Flash'
 }
-
-export default Flash

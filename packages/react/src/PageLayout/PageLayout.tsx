@@ -1,5 +1,4 @@
-import React, {forwardRef, useRef} from 'react'
-import type {FC, PropsWithChildren} from 'react'
+import React, {useRef} from 'react'
 import {createGlobalStyle} from 'styled-components'
 import Box from '../Box'
 import {useId} from '../hooks/useId'
@@ -11,7 +10,7 @@ import type {BetterSystemStyleObject, SxProp} from '../sx'
 import {merge} from '../sx'
 import type {Theme} from '../ThemeProvider'
 import {canUseDOM} from '../utils/environment'
-import {useOverflow} from '../internal/hooks/useOverflow'
+import {useOverflow} from '../hooks/useOverflow'
 import {warning} from '../utils/warning'
 import {useStickyPaneHeight} from './useStickyPaneHeight'
 
@@ -84,11 +83,12 @@ const containerWidths = {
 // TODO: refs
 /**
  * Page layout defines the header, main, pane, and footer areas of a page.
+ * @alias PageLayout
  * @primerid page_layout
  * @primerstatus alpha
  * @primera11yreviewed true
  */
-export const PageLayout: FC<PropsWithChildren<PageLayoutProps>> = ({
+export const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   containerWidth = 'xlarge',
   padding = 'normal',
   rowGap = 'normal',
@@ -142,6 +142,8 @@ export const PageLayout: FC<PropsWithChildren<PageLayoutProps>> = ({
   )
 }
 
+Root.displayName = 'PageLayout'
+
 // ----------------------------------------------------------------------------
 // Divider (internal)
 
@@ -177,7 +179,7 @@ function negateSpacingValue(value: number | null | Array<number | null>) {
   return value === null ? null : -value
 }
 
-const HorizontalDivider: FC<PropsWithChildren<DividerProps>> = ({variant = 'none', sx = {}}) => {
+const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({variant = 'none', sx = {}}) => {
   const {padding} = React.useContext(PageLayoutContext)
   const responsiveVariant = useResponsiveValue(variant, 'none')
   return (
@@ -239,7 +241,7 @@ const DraggingGlobalStyles = createGlobalStyle`
   }
 `
 
-const VerticalDivider: FC<PropsWithChildren<DividerProps & DraggableDividerProps>> = ({
+const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & DraggableDividerProps>> = ({
   variant = 'none',
   draggable = false,
   onDragStart,
@@ -438,7 +440,7 @@ export type PageLayoutHeaderProps = {
  * @alias PageLayout.Header
  * @primerparentid page_layout
  */
-export const Header: FC<PropsWithChildren<PageLayoutHeaderProps>> = ({
+export const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   'aria-label': label,
   'aria-labelledby': labelledBy,
   padding = 'none',
@@ -476,6 +478,8 @@ export const Header: FC<PropsWithChildren<PageLayoutHeaderProps>> = ({
     </Box>
   )
 }
+
+Header.displayName = 'PageLayout.Header'
 
 // ----------------------------------------------------------------------------
 // PageLayout.Content
@@ -522,7 +526,7 @@ const contentWidths = {
  * @alias PageLayout.Content
  * @primerparentid page_layout
  */
-export const Content: FC<PropsWithChildren<PageLayoutContentProps>> = ({
+export const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
   as = 'main',
   'aria-label': label,
   'aria-labelledby': labelledBy,
@@ -576,6 +580,8 @@ export const Content: FC<PropsWithChildren<PageLayoutContentProps>> = ({
     </Box>
   )
 }
+
+Content.displayName = 'PageLayout.Content'
 
 // ----------------------------------------------------------------------------
 // PageLayout.Pane
@@ -705,10 +711,10 @@ const defaultPaneWidth = {small: 256, medium: 296, large: 320}
 
 /**
  * Area for supplemental page content. Used like sidebars on wide viewports.
- * @alias PageHeader.Pane
+ * @alias PageLayout.Pane
  * @primerparentid page_layout
  */
-export const Pane = forwardRef<HTMLDivElement, PropsWithChildren<PageLayoutPaneProps>>(
+export const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayoutPaneProps>>(
   (
     {
       'aria-label': label,
@@ -920,6 +926,8 @@ export const Pane = forwardRef<HTMLDivElement, PropsWithChildren<PageLayoutPaneP
   },
 )
 
+Pane.displayName = 'PageLayout.Pane'
+
 // ----------------------------------------------------------------------------
 // PageLayout.Footer
 
@@ -966,10 +974,10 @@ export type PageLayoutFooterProps = {
 
 /**
  * The footer area of the overall page layout.
- * @alias PageHeader.Footer
+ * @alias PageLayout.Footer
  * @primerparentid page_layout
  */
-export const Footer: FC<PropsWithChildren<PageLayoutFooterProps>> = ({
+export const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
   'aria-label': label,
   'aria-labelledby': labelledBy,
   padding = 'none',
@@ -1008,3 +1016,5 @@ export const Footer: FC<PropsWithChildren<PageLayoutFooterProps>> = ({
     </Box>
   )
 }
+
+Footer.displayName = 'PageLayout.Footer'

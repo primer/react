@@ -1,4 +1,4 @@
-import React, {type ElementType, type PropsWithChildren, type ComponentPropsWithoutRef} from 'react'
+import React, {type ElementType} from 'react'
 import styled from 'styled-components'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
@@ -302,7 +302,7 @@ type Justify = JustifyScale | ResponsiveValue<JustifyScale>
 type PaddingScale = 'none' | 'condensed' | 'normal' | 'spacious'
 type Padding = PaddingScale | ResponsiveValue<PaddingScale>
 
-type StackProps<As> = PropsWithChildren<{
+type StackProps<As> = React.PropsWithChildren<{
   /**
    * Customize the element type of the rendered container
    */
@@ -360,7 +360,7 @@ function Stack<As extends ElementType>({
   padding = 'none',
   wrap = 'nowrap',
   ...rest
-}: StackProps<As> & ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>) {
+}: StackProps<As> & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>) {
   const BaseComponent = as ?? 'div'
 
   return (
@@ -403,7 +403,7 @@ const StyledStackItem = styled.div`
   }
 `
 
-type StackItemProps<As> = PropsWithChildren<{
+type StackItemProps<As> = React.PropsWithChildren<{
   /**
    * Customize the element type of the rendered container
    */
@@ -426,7 +426,7 @@ function StackItem<As extends ElementType>({
   children,
   grow = false,
   ...rest
-}: StackItemProps<As> & ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>) {
+}: StackItemProps<As> & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>) {
   const BaseComponent = as ?? 'div'
 
   return (

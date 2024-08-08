@@ -1,13 +1,4 @@
-import React, {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  type SyntheticEvent,
-  type PropsWithChildren,
-  type FunctionComponent,
-} from 'react'
+import React, {useCallback, useEffect, useRef, useState, type SyntheticEvent} from 'react'
 import styled from 'styled-components'
 import type {ButtonProps} from '../Button'
 import {Button} from '../Button'
@@ -24,7 +15,7 @@ import {FocusKeys} from '@primer/behaviors'
 import Portal from '../Portal'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {useId} from '../hooks/useId'
-import {ScrollableRegion} from '../internal/components/ScrollableRegion'
+import {ScrollableRegion} from '../ScrollableRegion'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 
 /* Dialog Version 2 */
@@ -80,7 +71,7 @@ export interface DialogProps extends SxProp {
    *
    * Warning: using a custom renderer may violate Primer UX principles.
    */
-  renderHeader?: FunctionComponent<PropsWithChildren<DialogHeaderProps>>
+  renderHeader?: React.FunctionComponent<React.PropsWithChildren<DialogHeaderProps>>
 
   /**
    * Provide a custom render function for the dialog body. This content is
@@ -89,7 +80,7 @@ export interface DialogProps extends SxProp {
    *
    * Warning: using a custom renderer may violate Primer UX principles.
    */
-  renderBody?: FunctionComponent<PropsWithChildren<DialogProps>>
+  renderBody?: React.FunctionComponent<React.PropsWithChildren<DialogProps>>
 
   /**
    * Provide a custom render function for the dialog footer. This content is
@@ -98,7 +89,7 @@ export interface DialogProps extends SxProp {
    *
    * Warning: using a custom renderer may violate Primer UX principles.
    */
-  renderFooter?: FunctionComponent<PropsWithChildren<DialogProps>>
+  renderFooter?: React.FunctionComponent<React.PropsWithChildren<DialogProps>>
 
   /**
    * Specifies the buttons to be rendered in the Dialog footer.
@@ -147,6 +138,11 @@ export interface DialogProps extends SxProp {
    * instead of the element that had focus immediately before the Dialog opened
    */
   returnFocusRef?: React.RefObject<HTMLElement>
+
+  /**
+   * The element to focus when the Dialog opens
+   */
+  initialFocusRef?: React.RefObject<HTMLElement>
 }
 
 /**
@@ -356,7 +352,7 @@ const StyledDialog = styled.div<StyledDialogProps>`
   ${sx};
 `
 
-const DefaultHeader: FunctionComponent<PropsWithChildren<DialogHeaderProps>> = ({
+const DefaultHeader: React.FunctionComponent<React.PropsWithChildren<DialogHeaderProps>> = ({
   dialogLabelId,
   title,
   subtitle,
@@ -378,10 +374,10 @@ const DefaultHeader: FunctionComponent<PropsWithChildren<DialogHeaderProps>> = (
     </Header>
   )
 }
-const DefaultBody: FunctionComponent<PropsWithChildren<DialogProps>> = ({children}) => {
+const DefaultBody: React.FunctionComponent<React.PropsWithChildren<DialogProps>> = ({children}) => {
   return <Body>{children}</Body>
 }
-const DefaultFooter: FunctionComponent<PropsWithChildren<DialogProps>> = ({footerButtons}) => {
+const DefaultFooter: React.FunctionComponent<React.PropsWithChildren<DialogProps>> = ({footerButtons}) => {
   const {containerRef: footerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
     focusInStrategy: 'closest',
@@ -423,7 +419,7 @@ const defaultPosition = {
  * @primerstatus draft
  * @primera11yreviewed false
  */
-export const Dialog = forwardRef<HTMLDivElement, PropsWithChildren<DialogProps>>((props, forwardedRef) => {
+export const Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
   const {
     title = 'Dialog',
     subtitle = '',
@@ -437,6 +433,7 @@ export const Dialog = forwardRef<HTMLDivElement, PropsWithChildren<DialogProps>>
     footerButtons = [],
     position = defaultPosition,
     returnFocusRef,
+    initialFocusRef,
     sx,
   } = props
   const dialogLabelId = useId()
@@ -463,7 +460,7 @@ export const Dialog = forwardRef<HTMLDivElement, PropsWithChildren<DialogProps>>
 
   useFocusTrap({
     containerRef: dialogRef,
-    initialFocusRef: autoFocusedFooterButtonRef,
+    initialFocusRef: initialFocusRef ?? autoFocusedFooterButtonRef,
     restoreFocusOnCleanUp: returnFocusRef?.current ? false : true,
     returnFocusRef,
   })
@@ -530,6 +527,8 @@ export const Dialog = forwardRef<HTMLDivElement, PropsWithChildren<DialogProps>>
     </>
   )
 })
+
+Dialog.displayName = 'Dialog'
 
 /**
  * The header area of a Dialog.
@@ -607,7 +606,9 @@ export const Footer = styled.div<SxProp>`
  * @alias Dialog.Buttons
  * @primerparentid dialog_v2
  */
-export const Buttons: FunctionComponent<PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
+export const Buttons: React.FunctionComponent<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({
+  buttons,
+}) => {
   const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
   let autoFocusCount = 0
   const [hasRendered, setHasRendered] = useState(0)
@@ -657,8 +658,8 @@ const DialogCloseButton = styled(Button)`
  * @alias Dialog.CloseButton
  * @primerparentid dialog_v2
  */
-export const CloseButton: FunctionComponent<
-  PropsWithChildren<{
+export const CloseButton: React.FunctionComponent<
+  React.PropsWithChildren<{
     /** Callback for closing the Dialog */
     onClose: () => void
   }>

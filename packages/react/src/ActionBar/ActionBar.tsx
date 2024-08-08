@@ -1,10 +1,9 @@
-import {type FC, type PropsWithChildren, type RefObject, type MutableRefObject} from 'react'
-import React, {useState, useCallback, useRef, forwardRef} from 'react'
+import React, {useState, useCallback, useRef, forwardRef, type MutableRefObject, type RefObject} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {ActionList} from '../ActionList'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import styled from 'styled-components'
-import sx, {type SxProp} from '../sx'
+import sx from '../sx'
 import {useOnEscapePress} from '../hooks/useOnEscapePress'
 import type {ResizeObserverEntry} from '../hooks/useResizeObserver'
 import {useResizeObserver} from '../hooks/useResizeObserver'
@@ -15,7 +14,6 @@ import {IconButton} from '../Button'
 import Box from '../Box'
 import {ActionMenu} from '../ActionMenu'
 import {useFocusZone, FocusKeys} from '../hooks/useFocusZone'
-import type {ButtonA11yProps} from '../Button/types'
 
 type ChildSize = {
   text: string
@@ -41,11 +39,13 @@ type A11yProps =
   | {
       /** When provided, a label is added to the action bar */
       'aria-label': React.AriaAttributes['aria-label']
+      /** When provided, uses the element with that ID as the accessible name for the ActionBar */
       'aria-labelledby'?: undefined
     }
   | {
       /** When provided, a label is added to the action bar */
       'aria-label'?: undefined
+      /** When provided, uses the element with that ID as the accessible name for the ActionBar */
       'aria-labelledby': React.AriaAttributes['aria-labelledby']
     }
 
@@ -56,7 +56,7 @@ export type ActionBarProps = {
   children: React.ReactNode
 } & A11yProps
 
-export type ActionBarIconButtonProps = Omit<IconButtonProps, 'variant' | 'unsafeDisableTooltip'> & ButtonA11yProps
+export type ActionBarIconButtonProps = IconButtonProps
 
 const NavigationList = styled.div`
   ${sx};
@@ -180,7 +180,7 @@ const overflowEffect = (
  * @primerstatus alpha
  * @primera11yreviewed true
  */
-export const ActionBar: FC<PropsWithChildren<ActionBarProps>> = props => {
+export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = props => {
   const {size = 'medium', children, 'aria-label': ariaLabel} = props
   const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
   const setChildrenWidth = useCallback((size: ChildSize) => {
@@ -321,7 +321,7 @@ export const ActionBarIconButton = forwardRef<HTMLButtonElement, ActionBarIconBu
     const domRect = (ref as MutableRefObject<HTMLElement>).current.getBoundingClientRect()
     setChildrenWidth({text, width: domRect.width})
   }, [ref, setChildrenWidth])
-  return <IconButton ref={ref} size={size} {...props} variant="invisible" unsafeDisableTooltip={false} />
+  return <IconButton ref={ref} size={size} {...props} variant="invisible" />
 })
 
 const sizeToHeight = {

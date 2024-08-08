@@ -1,5 +1,5 @@
-import type {HTMLAttributes, MouseEventHandler, PropsWithChildren} from 'react'
-import React, {forwardRef, useCallback, useEffect} from 'react'
+import type {MouseEventHandler} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import styled, {css} from 'styled-components'
 import {variant} from 'styled-system'
 import Box from '../Box'
@@ -15,7 +15,7 @@ import type {CellAlignment} from '../DataTable/column'
 const TRANSITION_DURATION = '80ms'
 const EASE_OUT_QUAD_CURVE = 'cubic-bezier(0.5, 1, 0.89, 1)'
 
-export interface ToggleSwitchProps extends Omit<HTMLAttributes<HTMLDivElement>, 'onChange'>, SxProp {
+export interface ToggleSwitchProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>, SxProp {
   /** The ID(s) of the DOM node(s) that describes the switch */
   ['aria-describedby']?: React.AriaAttributes['aria-describedby']
   // TODO: update `aria-labelledby` to be required in the next major version
@@ -125,7 +125,7 @@ const SwitchButton = styled.button<SwitchButtonProps>`
     }
   }
 
-  &:hover,
+  &:hover:not(:disabled),
   &:focus:focus-visible {
     background-color: ${get('colors.switchTrack.hoverBg')};
   }
@@ -148,9 +148,9 @@ const SwitchButton = styled.button<SwitchButtonProps>`
     if (props.checked) {
       return css`
         background-color: ${get('colors.switchTrack.checked.bg')};
-        border-color: transparent;
+        border-color: var(--control-checked-borderColor-rest, transparent);
 
-        &:hover,
+        &:hover:not(:disabled),
         &:focus:focus-visible {
           background-color: ${get('colors.switchTrack.checked.hoverBg')};
         }
@@ -163,7 +163,7 @@ const SwitchButton = styled.button<SwitchButtonProps>`
     } else {
       return css`
         background-color: ${get('colors.switchTrack.bg')};
-        border-color: transparent;
+        border-color: var(--controlTrack-borderColor-rest, transparent);
 
         &:active {
           background-color: ${get('colors.switchTrack.activeBg')};
@@ -221,7 +221,7 @@ const hiddenTextStyles: BetterSystemStyleObject = {
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-const ToggleSwitch = forwardRef<HTMLButtonElement, PropsWithChildren<ToggleSwitchProps>>(
+const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren<ToggleSwitchProps>>(
   function ToggleSwitch(props, ref) {
     const {
       'aria-labelledby': ariaLabelledby,

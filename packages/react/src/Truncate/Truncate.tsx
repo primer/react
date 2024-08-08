@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import type {MaxWidthProps} from 'styled-system'
 import {maxWidth} from 'styled-system'
@@ -42,12 +42,13 @@ export type TruncateProps = ComponentProps<typeof StyledTruncate>
  * @primerstatus alpha
  * @a11yreviewed false
  */
-const Truncate = forwardRef(function Truncate({as, expandable = false, inline = false, maxWidth = 125, ...rest}, ref) {
+export const Truncate = React.forwardRef(function Truncate(
+  {as, expandable = false, inline = false, maxWidth = 125, ...rest},
+  ref,
+) {
   return <StyledTruncate ref={ref} as={as} expandable={expandable} inline={inline} maxWidth={maxWidth} {...rest} />
 }) as PolymorphicForwardRefComponent<'div', TruncateProps>
 
 if (__DEV__) {
   Truncate.displayName = 'Truncate'
 }
-
-export default Truncate

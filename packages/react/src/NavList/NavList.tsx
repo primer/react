@@ -1,6 +1,6 @@
 import {ChevronDownIcon} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import React, {forwardRef, isValidElement, type ComponentProps, type FC, type PropsWithChildren} from 'react'
+import React, {isValidElement} from 'react'
 import styled from 'styled-components'
 import type {
   ActionListTrailingActionProps,
@@ -29,13 +29,11 @@ const getSubnavStyles = (depth: number) => {
 // ----------------------------------------------------------------------------
 // NavList
 
-// TODO: figure out how to get stuff from `ComponentProps<'nav'>` documented
-// OR specify and document passthrough props.
 export type NavListProps = {
   /** NavList items */
   children: React.ReactNode
 } & SxProp &
-  ComponentProps<'nav'>
+  React.ComponentProps<'nav'>
 
 const NavBox = styled.nav<SxProp>(sx)
 
@@ -45,7 +43,7 @@ const NavBox = styled.nav<SxProp>(sx)
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-export const NavList = forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
+export const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
   return (
     <NavBox {...props} ref={ref}>
       <ActionListContainerContext.Provider
@@ -58,6 +56,8 @@ export const NavList = forwardRef<HTMLElement, NavListProps>(({children, ...prop
     </NavBox>
   )
 })
+
+Root.displayName = 'NavList'
 
 // ----------------------------------------------------------------------------
 // NavList.Item
@@ -79,7 +79,7 @@ export type NavListItemProps = {
  * @alias NavList.Item
  * @primerparentid nav_list
  */
-export const Item = forwardRef<HTMLAnchorElement, NavListItemProps>(
+export const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
   ({'aria-current': ariaCurrent, children, defaultOpen, sx: sxProp = defaultSxProp, ...props}, ref) => {
     const {depth} = React.useContext(SubNavContext)
 
@@ -117,6 +117,8 @@ export const Item = forwardRef<HTMLAnchorElement, NavListItemProps>(
     )
   },
 ) as PolymorphicForwardRefComponent<'a', NavListItemProps>
+
+Item.displayName = 'NavList.Item'
 
 // ----------------------------------------------------------------------------
 // ItemWithSubNav (internal)
@@ -209,7 +211,10 @@ const SubNavContext = React.createContext<{depth: number}>({depth: 0})
  * @alias NavList.SubNav
  * @primerparentid nav_list
  */
-export const SubNav: FC<PropsWithChildren<NavListSubNavProps>> = ({children, sx: sxProp = defaultSxProp}) => {
+export const SubNav: React.FC<React.PropsWithChildren<NavListSubNavProps>> = ({
+  children,
+  sx: sxProp = defaultSxProp,
+}) => {
   const {buttonId, subNavId, isOpen} = React.useContext(ItemWithSubNavContext)
   const {depth} = React.useContext(SubNavContext)
 
@@ -246,6 +251,8 @@ export const SubNav: FC<PropsWithChildren<NavListSubNavProps>> = ({children, sx:
   )
 }
 
+SubNav.displayName = 'NavList.SubNav'
+
 // ----------------------------------------------------------------------------
 // NavList.LeadingVisual
 
@@ -257,6 +264,8 @@ export const SubNav: FC<PropsWithChildren<NavListSubNavProps>> = ({children, sx:
 export type NavListLeadingVisualProps = ActionListLeadingVisualProps
 
 export const LeadingVisual = ActionList.LeadingVisual
+
+LeadingVisual.displayName = 'NavList.LeadingVisual'
 
 // ----------------------------------------------------------------------------
 // NavList.TrailingVisual
@@ -270,6 +279,8 @@ export type NavListTrailingVisualProps = ActionListTrailingVisualProps
 
 export const TrailingVisual = ActionList.TrailingVisual
 
+TrailingVisual.displayName = 'NavList.TrailingVisual'
+
 // ----------------------------------------------------------------------------
 // NavList.Divider
 
@@ -281,6 +292,8 @@ export type NavListDividerProps = ActionListDividerProps
  * @primerparentid nav_list
  */
 export const Divider = ActionList.Divider
+
+Divider.displayName = 'NavList.Divider'
 
 // NavList.TrailingAction
 
@@ -323,3 +336,5 @@ export const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp 
     </>
   )
 }
+
+Group.displayName = 'NavList.Group'

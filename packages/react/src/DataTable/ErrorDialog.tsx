@@ -1,8 +1,7 @@
 import React from 'react'
-import type {PropsWithChildren} from 'react'
 import {ConfirmationDialog} from '../ConfirmationDialog/ConfirmationDialog'
 
-export type TableErrorDialogProps = PropsWithChildren<{
+export type TableErrorDialogProps = React.PropsWithChildren<{
   /**
    * Provide an optional title for the dialog
    * @default 'Error'

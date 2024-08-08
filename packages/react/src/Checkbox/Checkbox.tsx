@@ -1,13 +1,6 @@
 import styled from 'styled-components'
 import {useProvidedRefOrCreate} from '../hooks'
-import React, {
-  forwardRef,
-  useContext,
-  useEffect,
-  type ChangeEventHandler,
-  type InputHTMLAttributes,
-  type ReactElement,
-} from 'react'
+import React, {useContext, useEffect, type ChangeEventHandler, type InputHTMLAttributes, type ReactElement} from 'react'
 import sx, {type SxProp} from '../sx'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
@@ -70,8 +63,11 @@ const StyledCheckbox = styled.input`
 
   &:checked,
   &:indeterminate {
-    background: ${get('colors.accent.fg')};
-    border-color: ${get('colors.accent.fg')};
+    background: var(--control-checked-bgColor-rest, ${get('colors.accent.fg')});
+    border-color: var(
+      --control-checked-bgColor-rest,
+      ${get('colors.accent.fg')}
+    ); /* using bgColor here to avoid a border change in dark high contrast */
 
     &::before {
       animation: checkmarkIn 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards 80ms;
@@ -93,12 +89,12 @@ const StyledCheckbox = styled.input`
     }
 
     &:disabled {
-      background-color: ${get('colors.fg.muted')};
-      border-color: ${get('colors.fg.muted')};
+      background-color: var(--control-checked-bgColor-disabled, ${get('colors.fg.muted')});
+      border-color: var(--control-checked-borderColor-disabled, ${get('colors.fg.muted')});
       opacity: 1;
 
       &::before {
-        background-color: ${get('colors.fg.onEmphasis')};
+        background-color: var(--control-checked-fgColor-disabled, ${get('colors.fg.onEmphasis')});
       }
     }
 
@@ -110,7 +106,7 @@ const StyledCheckbox = styled.input`
   }
 
   &:indeterminate {
-    background: ${get('colors.accent.fg')};
+    background: var(--control-checked-bgColor-rest, ${get('colors.accent.fg')});
     &::before {
       mask-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMiIgdmlld0JveD0iMCAwIDEwIDIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMCAxQzAgMC40NDc3MTUgMC40NDc3MTUgMCAxIDBIOUM5LjU1MjI5IDAgMTAgMC40NDc3MTUgMTAgMUMxMCAxLjU1MjI4IDkuNTUyMjkgMiA5IDJIMUMwLjQ0NzcxNSAyIDAgMS41NTIyOCAwIDFaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K');
       visibility: visible;
@@ -148,7 +144,7 @@ const StyledCheckbox = styled.input`
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
+const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (
     {
       checked,

@@ -198,6 +198,35 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         borderColor: `var(--button-default-borderColor-active, ${theme?.colors.btn.outline.selectedBorder})`,
       },
     },
+    link: {
+      color: 'var(--fgColor-link)',
+      display: 'inline-block',
+      fontSize: 'inherit',
+      border: 'none',
+      height: 'unset',
+      padding: '0',
+      minWidth: 'fit-content',
+      backgroundColor: 'transparent',
+
+      '&:hover:not([disabled]):not([data-inactive])': {
+        textDecoration: 'underline',
+      },
+
+      '&:focus-visible:not([disabled])': {
+        outlineOffset: '2px',
+      },
+
+      '&:disabled': {
+        color: 'primer.fg.disabled',
+        '[data-component=ButtonCounter], [data-component="leadingVisual"], [data-component="trailingAction"]': {
+          color: 'inherit',
+        },
+      },
+
+      '[data-component="text"]': {
+        whiteSpace: 'unset',
+      },
+    },
   }
 
   return style[variant]
@@ -371,6 +400,14 @@ export const getButtonStyles = (theme?: Theme) => {
     },
     '[data-component="buttonContent"] > :not(:last-child)': {
       mr: '8px',
+    },
+    '[data-component="loadingSpinner"]': {
+      gridArea: 'text',
+      marginRight: '0px !important',
+      placeSelf: 'center',
+    },
+    '[data-component="loadingSpinner"] + [data-component="text"]': {
+      visibility: 'hidden',
     },
   }
   return styles
