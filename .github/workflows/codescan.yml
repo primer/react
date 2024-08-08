@@ -1,0 +1,39 @@
+name: 'Code Scan'
+
+on:
+  push:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  codescan:
+    name: Scan the repository
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - run: npm i -g npm@^10.5.1
+      - name: Install dependencies
+        run: npm ci
+
+      - uses: actions/github-script@v7
+        id: release-info
+        with:
+          script: |
+            var glob = require("glob")
+
+            // options is optional
+            glob("packages/react/src/**/*.tsx", {ignore:"__tests__"}, function (er, files) {
+              // files is an array of filenames.
+              // If the `nonull` option is set, and nothing
+              // was found, then files is ["**/*.js"]
+              // er is an error object or null.
+              console.log(files)
+            })
