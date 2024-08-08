@@ -28,6 +28,7 @@ jobs:
           script: |
             const fg = require('fast-glob')
             const fs = require('fs')
+            const path = require('path')
             const files = await fg.glob(['packages/react/src/**/*.tsx', 'packages/react/src/**/*.module.css'], {
               ignore: [
                 '**/__tests__/**',
@@ -46,18 +47,19 @@ jobs:
 
             for (const file of files) {
               const content = fs.readFileSync(file, 'utf8')
+              const name = path.parse(file).name.replace('.module', '')
               if (file.endsWith('.tsx')) {
                 const matched = content.match(/.`$([^`]*)^`$/gm)
                 if (matched) {
                   const count = matched.join('\n').split('\n').length
                   metrics.push(
-                    `- type: "count"\n  name: "primer.react.styled-system.count"\n  value: ${count}\n  tags:\n    - "path:${file}"`,
+                    `- type: "count"\n  name: "primer.react.styled-system.count"\n  value: ${count}\n  tags:\n    - "path:${file}"\n    - "component:${name}"`,
                   )
                 }
               } else {
                 const count = content.split('\n').length
                 metrics.push(
-                  `- type: "count"\n  name: "primer.react.css-module.count"\n  value: ${count}\n  tags:\n    - "path:${file}"`,
+                  `- type: "count"\n  name: "primer.react.css-module.count"\n  value: ${count}\n  tags:\n    - "path:${file}"\n    - "component:${name}"`,
                 )
               }
             }
