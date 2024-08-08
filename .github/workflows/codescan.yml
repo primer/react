@@ -29,13 +29,14 @@ jobs:
           script: |
             const fg = require('fast-glob')
             const fs = require('fs')
-            const files = await fg.glob('packages/react/src/**/*.tsx', {
+            const files = await fg.glob(['packages/react/src/**/*.tsx', 'packages/react/src/**/*.module.css'], {
               ignore: [
                 '**/__tests__/**',
                 '**/_*.tsx',
                 '**/*.figma.tsx',
                 '**/*.stories.tsx',
                 '**/*.test.tsx',
+                '**/CSSComponent/**',
                 '**/hooks/**',
                 '**/index.tsx',
                 '**/utils/**',
@@ -46,15 +47,26 @@ jobs:
 
             for (const file of files) {
               const content = fs.readFileSync(file, 'utf8')
-              const matched = content.match(/.`$([^`]*)^`$/gm)
-              if (matched) {
-                const count = matched.join('\n').split('\n').length
+              if (file.endsWith('.tsx')) {
+                const matched = content.match(/.`$([^`]*)^`$/gm)
+                if (matched) {
+                  const count = matched.join('\n').split('\n').length
+                  metrics.push(
+                    `- type: "count"\n  name: "primer.react.styled-system.count"\n  value: ${count}\n  tags:\n    - "path:${file}"`,
+                  )
+                }
+              } else {
+                const count = content.split('\n').length
                 metrics.push(
-                  `- type: "count"\n  name: "primer.react.styled-system.count"\n  value: ${count}\n  tags:\n    - "path:${file}"`,
+                  `- type: "count"\n  name: "primer.react.css-module.count"\n  value: ${count}\n  tags:\n    - "path:${file}"`,
                 )
               }
             }
 
             core.setOutput('metrics', metrics.join('\n'))
 
-      - run: echo "${{ steps.file-counts.outputs.metrics }}"
+      - name: Build count
+        uses: masci/datadog@v1
+        with:
+          api-key: ${{ secrets.datadog_api_key }}
+          metrics: ${{ steps.file-counts.outputs.metrics }}
