@@ -19,7 +19,49 @@ export const Polymorphism = () => (
 )
 
 export const StyledText = () => (
-  <Text as="p" sx={{color: 'fg.onEmphasis', bg: 'neutral.emphasis', p: 2}}>
+  <Text as="p" sx={{color: 'fg.onEmphasis', bg: 'neutral.emphasis', p: 2}} size="small">
+    Stylized text
+  </Text>
+)
+
+export const Small = () => (
+  <Text as="span" size="small">
+    Stylized text
+  </Text>
+)
+
+export const Medium = () => (
+  <Text as="span" size="medium">
+    Stylized text
+  </Text>
+)
+
+export const Large = () => (
+  <Text as="span" size="large">
+    Stylized text
+  </Text>
+)
+
+export const Light = () => (
+  <Text as="span" weight="light">
+    Stylized text
+  </Text>
+)
+
+export const Normal = () => (
+  <Text as="span" weight="normal">
+    Stylized text
+  </Text>
+)
+
+export const MediumWeight = () => (
+  <Text as="span" weight="medium">
+    Stylized text
+  </Text>
+)
+
+export const Semibold = () => (
+  <Text as="span" weight="semibold">
     Stylized text
   </Text>
 )

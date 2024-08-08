@@ -14,6 +14,8 @@ export const Playground: StoryFn<typeof Text> = args => <Text {...args}>{args.te
 Playground.args = {
   text: 'Playground',
   as: 'span',
+  size: 'medium',
+  weight: 'normal',
 }
 
 Playground.argTypes = {
