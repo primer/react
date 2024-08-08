@@ -16,6 +16,6 @@
     "postcss-preset-env": "9.6.0"
   },
   "devDependencies": {
-    "typescript": "5.5.3"
+    "typescript": "^5.5.4"
   }
 }
