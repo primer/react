@@ -1,9 +1,12 @@
+import cx from 'clsx'
 import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import {Button} from '../Button'
 import {Link} from '../Link'
 import {get} from '../constants'
+import classes from './Blankslate.module.css'
+import {useFeatureFlag} from '../FeatureFlags'
 
 export type BlankslateProps = React.PropsWithChildren<{
   /**
@@ -154,7 +157,16 @@ export type VisualProps = React.PropsWithChildren
  * @primerparentid blankslate
  */
 export function Visual({children}: VisualProps) {
-  return <span className="Blankslate-Visual">{children}</span>
+  const enabled = useFeatureFlag('primer_react_css_modules')
+  return (
+    <span
+      className={cx('Blankslate-Visual', {
+        [classes.Visual]: enabled,
+      })}
+    >
+      {children}
+    </span>
+  )
 }
 
 export type HeadingProps = React.PropsWithChildren<{
@@ -167,8 +179,14 @@ export type HeadingProps = React.PropsWithChildren<{
  * @primerparentid blankslate
  */
 export function Heading({as = 'h2', children}: HeadingProps) {
+  const enabled = useFeatureFlag('primer_react_css_modules')
   return (
-    <Box as={as} className="Blankslate-Heading">
+    <Box
+      as={as}
+      className={cx('Blankslate-Heading', {
+        [classes.Heading]: enabled,
+      })}
+    >
       {children}
     </Box>
   )
@@ -182,7 +200,16 @@ export type DescriptionProps = React.PropsWithChildren
  * @primerparentid blankslate
  */
 export function Description({children}: DescriptionProps) {
-  return <p className="Blankslate-Description">{children}</p>
+  const enabled = useFeatureFlag('primer_react_css_modules')
+  return (
+    <p
+      className={cx('Blankslate-Description', {
+        [classes.Description]: enabled,
+      })}
+    >
+      {children}
+    </p>
+  )
 }
 
 export type PrimaryActionProps = React.PropsWithChildren<{
@@ -196,8 +223,13 @@ export type PrimaryActionProps = React.PropsWithChildren<{
  * @primerparentid blankslate
  */
 export function PrimaryAction({children, href}: PrimaryActionProps) {
+  const enabled = useFeatureFlag('primer_react_css_modules')
   return (
-    <div className="Blankslate-Action">
+    <div
+      className={cx('Blankslate-Action', {
+        [classes.Action]: enabled,
+      })}
+    >
       <Button as="a" href={href} variant="primary">
         {children}
       </Button>
@@ -216,8 +248,13 @@ export type SecondaryActionProps = React.PropsWithChildren<{
  * @primerparentid blankslate
  */
 export function SecondaryAction({children, href}: SecondaryActionProps) {
+  const enabled = useFeatureFlag('primer_react_css_modules')
   return (
-    <div className="Blankslate-Action">
+    <div
+      className={cx('Blankslate-Action', {
+        [classes.Action]: enabled,
+      })}
+    >
       <Link href={href}>{children}</Link>
     </div>
   )
