@@ -27,6 +27,8 @@ jobs:
         id: file-counts
         with:
           script: |
+            const fg = require('fast-glob')
+            const fs = require('fs')
             const files = await fg.glob('packages/react/src/**/*.tsx', {
               ignore: [
                 '**/__tests__/**',
