@@ -354,12 +354,8 @@ export const Item = React.forwardRef((itemProps, ref) => {
     ...props
   } = itemProps
 
-  console.log({selected}, {text})
-
   const labelId = useId()
   const descriptionId = useId()
-
-  console.log({selectionVariant})
 
   const keyPressHandler = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {

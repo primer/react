@@ -1,20 +1,11 @@
-import React, {useState, useRef, useMemo} from 'react'
+import React, {useState} from 'react'
 import Box from '../Box'
 import type {Meta} from '@storybook/react'
 import {Button} from '../Button'
-import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
+import type {ItemInput} from '../deprecated/ActionList/List'
 import {SelectPanel} from './SelectPanel'
 import type {OverlayProps} from '../Overlay'
-import {
-  FilterIcon,
-  GearIcon,
-  NoteIcon,
-  ProjectIcon,
-  SearchIcon,
-  TriangleDownIcon,
-  TypographyIcon,
-  VersionsIcon,
-} from '@primer/octicons-react'
+import {TriangleDownIcon} from '@primer/octicons-react'
 
 const meta = {
   title: 'Components/SelectPanel/Examples',
