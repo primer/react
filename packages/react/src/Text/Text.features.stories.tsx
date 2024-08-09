@@ -24,31 +24,31 @@ export const StyledText = () => (
   </Text>
 )
 
-export const Small = () => (
+export const SizeSmall = () => (
   <Text as="span" size="small">
     Stylized text
   </Text>
 )
 
-export const Medium = () => (
+export const SizeMedium = () => (
   <Text as="span" size="medium">
     Stylized text
   </Text>
 )
 
-export const Large = () => (
+export const SizeLarge = () => (
   <Text as="span" size="large">
     Stylized text
   </Text>
 )
 
-export const Light = () => (
+export const LightWeight = () => (
   <Text as="span" weight="light">
     Stylized text
   </Text>
 )
 
-export const Normal = () => (
+export const NormalWeight = () => (
   <Text as="span" weight="normal">
     Stylized text
   </Text>
@@ -60,7 +60,7 @@ export const MediumWeight = () => (
   </Text>
 )
 
-export const Semibold = () => (
+export const SemiboldWeight = () => (
   <Text as="span" weight="semibold">
     Stylized text
   </Text>
