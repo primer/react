@@ -1,6 +1,6 @@
 import React from 'react'
 import {render, within} from '@testing-library/react'
-import {Checkbox, FormControl, Radio, SSRProvider, TextInput} from '..'
+import {Checkbox, FormControl, Radio, TextInput} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import CheckboxOrRadioGroup, {CheckboxOrRadioGroupContext} from '../internal/components/CheckboxOrRadioGroup'
 
@@ -17,25 +17,23 @@ describe('CheckboxOrRadioGroup', () => {
   })
   behavesAsComponent({
     Component: CheckboxOrRadioGroup,
-    options: {skipAs: true, skipSx: true}, // skipping sx check because we have to render this in a <SSRProvider> to keep snapshots consistent
+    options: {skipAs: true, skipSx: true},
     toRender: () => (
-      <SSRProvider>
-        <CheckboxOrRadioGroup>
-          <CheckboxOrRadioGroup.Label>{INPUT_GROUP_LABEL}</CheckboxOrRadioGroup.Label>
-          <FormControl>
-            <Radio name="radioInput" value="choiceOne" />
-            <FormControl.Label>Choice one</FormControl.Label>
-          </FormControl>
-          <FormControl>
-            <Radio name="radioInput" value="choiceTwo" />
-            <FormControl.Label>Choice two</FormControl.Label>
-          </FormControl>
-          <FormControl>
-            <Radio name="radioInput" value="choiceThree" />
-            <FormControl.Label>Choice three</FormControl.Label>
-          </FormControl>
-        </CheckboxOrRadioGroup>
-      </SSRProvider>
+      <CheckboxOrRadioGroup>
+        <CheckboxOrRadioGroup.Label>{INPUT_GROUP_LABEL}</CheckboxOrRadioGroup.Label>
+        <FormControl>
+          <Radio name="radioInput" value="choiceOne" />
+          <FormControl.Label>Choice one</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Radio name="radioInput" value="choiceTwo" />
+          <FormControl.Label>Choice two</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Radio name="radioInput" value="choiceThree" />
+          <FormControl.Label>Choice three</FormControl.Label>
+        </FormControl>
+      </CheckboxOrRadioGroup>
     ),
   })
   checkExports('internal/components/CheckboxOrRadioGroup', {

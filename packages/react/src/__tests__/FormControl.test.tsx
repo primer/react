@@ -7,7 +7,6 @@ import {
   Checkbox,
   FormControl,
   Select,
-  SSRProvider,
   Textarea,
   TextInput,
   TextInputWithTokens,
@@ -24,12 +23,10 @@ describe('FormControl', () => {
     describe('rendering', () => {
       it('renders with a hidden label', () => {
         const {getByLabelText, getByText} = render(
-          <SSRProvider>
-            <FormControl>
-              <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-              <TextInput />
-            </FormControl>
-          </SSRProvider>,
+          <FormControl>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <TextInput />
+          </FormControl>,
         )
 
         const input = getByLabelText(LABEL_TEXT)
@@ -41,12 +38,10 @@ describe('FormControl', () => {
 
       it('renders with a custom ID', () => {
         const {getByLabelText} = render(
-          <SSRProvider>
-            <FormControl id="customId">
-              <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-              <TextInput />
-            </FormControl>
-          </SSRProvider>,
+          <FormControl id="customId">
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <TextInput />
+          </FormControl>,
         )
 
         const input = getByLabelText(LABEL_TEXT)
@@ -56,12 +51,10 @@ describe('FormControl', () => {
 
       it('renders as disabled', () => {
         const {getByLabelText} = render(
-          <SSRProvider>
-            <FormControl disabled>
-              <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-              <TextInput />
-            </FormControl>
-          </SSRProvider>,
+          <FormControl disabled>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <TextInput />
+          </FormControl>,
         )
 
         const input = getByLabelText(LABEL_TEXT)
@@ -71,12 +64,10 @@ describe('FormControl', () => {
 
       it('renders as required', () => {
         const {getByRole} = render(
-          <SSRProvider>
-            <FormControl required>
-              <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-              <TextInput />
-            </FormControl>
-          </SSRProvider>,
+          <FormControl required>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <TextInput />
+          </FormControl>,
         )
 
         const input = getByRole('textbox')
@@ -86,13 +77,11 @@ describe('FormControl', () => {
 
       it('renders with a caption', () => {
         const {getByText} = render(
-          <SSRProvider>
-            <FormControl>
-              <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-              <TextInput />
-              <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
-            </FormControl>
-          </SSRProvider>,
+          <FormControl>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <TextInput />
+            <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
+          </FormControl>,
         )
 
         const caption = getByText(CAPTION_TEXT)
@@ -102,13 +91,11 @@ describe('FormControl', () => {
 
       it('renders with a successful validation message', () => {
         const {getByText} = render(
-          <SSRProvider>
-            <FormControl>
-              <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-              <TextInput />
-              <FormControl.Validation variant="error">{ERROR_TEXT}</FormControl.Validation>
-            </FormControl>
-          </SSRProvider>,
+          <FormControl>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <TextInput />
+            <FormControl.Validation variant="error">{ERROR_TEXT}</FormControl.Validation>
+          </FormControl>,
         )
 
         const validationMessage = getByText(ERROR_TEXT)
@@ -118,13 +105,11 @@ describe('FormControl', () => {
 
       it('renders with an error validation message', () => {
         const {getByText} = render(
-          <SSRProvider>
-            <FormControl>
-              <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-              <TextInput />
-              <FormControl.Validation variant="error">{ERROR_TEXT}</FormControl.Validation>
-            </FormControl>
-          </SSRProvider>,
+          <FormControl>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <TextInput />
+            <FormControl.Validation variant="error">{ERROR_TEXT}</FormControl.Validation>
+          </FormControl>,
         )
 
         const validationMessage = getByText(ERROR_TEXT)
@@ -135,19 +120,17 @@ describe('FormControl', () => {
       it('renders with the input as a TextInputWithTokens', () => {
         const onRemoveMock = jest.fn()
         const {getByLabelText} = render(
-          <SSRProvider>
-            <FormControl>
-              <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-              <TextInputWithTokens
-                tokens={[
-                  {text: 'zero', id: 0},
-                  {text: 'one', id: 1},
-                  {text: 'two', id: 2},
-                ]}
-                onTokenRemove={onRemoveMock}
-              />
-            </FormControl>
-          </SSRProvider>,
+          <FormControl>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <TextInputWithTokens
+              tokens={[
+                {text: 'zero', id: 0},
+                {text: 'one', id: 1},
+                {text: 'two', id: 2},
+              ]}
+              onTokenRemove={onRemoveMock}
+            />
+          </FormControl>,
         )
 
         const input = getByLabelText(LABEL_TEXT)
@@ -157,14 +140,12 @@ describe('FormControl', () => {
 
       it('renders with the input as an Autocomplete', () => {
         const {getByLabelText} = render(
-          <SSRProvider>
-            <FormControl>
-              <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-              <Autocomplete>
-                <Autocomplete.Input block />
-              </Autocomplete>
-            </FormControl>
-          </SSRProvider>,
+          <FormControl>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <Autocomplete>
+              <Autocomplete.Input block />
+            </Autocomplete>
+          </FormControl>,
         )
 
         const input = getByLabelText(LABEL_TEXT)
@@ -174,16 +155,14 @@ describe('FormControl', () => {
 
       it('renders with the input as a Select', () => {
         const {getByLabelText, getByText} = render(
-          <SSRProvider>
-            <FormControl>
-              <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-              <Select>
-                <Select.Option value="one">Choice one</Select.Option>
-                <Select.Option value="two">Choice two</Select.Option>
-                <Select.Option value="three">Choice three</Select.Option>
-              </Select>
-            </FormControl>
-          </SSRProvider>,
+          <FormControl>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <Select>
+              <Select.Option value="one">Choice one</Select.Option>
+              <Select.Option value="two">Choice two</Select.Option>
+              <Select.Option value="three">Choice three</Select.Option>
+            </Select>
+          </FormControl>,
         )
 
         const input = getByLabelText(LABEL_TEXT)
@@ -195,12 +174,10 @@ describe('FormControl', () => {
 
       it('renders with the input as a Textarea', () => {
         const {getByLabelText, getByText} = render(
-          <SSRProvider>
-            <FormControl>
-              <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-              <Textarea />
-            </FormControl>
-          </SSRProvider>,
+          <FormControl>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <Textarea />
+          </FormControl>,
         )
 
         const input = getByLabelText(LABEL_TEXT)
@@ -212,12 +189,10 @@ describe('FormControl', () => {
 
       it('passes through props on the label element', () => {
         const {getByLabelText, getByText} = render(
-          <SSRProvider>
-            <FormControl>
-              <FormControl.Label data-testid="some-test-id">{LABEL_TEXT}</FormControl.Label>
-              <Textarea />
-            </FormControl>
-          </SSRProvider>,
+          <FormControl>
+            <FormControl.Label data-testid="some-test-id">{LABEL_TEXT}</FormControl.Label>
+            <Textarea />
+          </FormControl>,
         )
 
         const input = getByLabelText(LABEL_TEXT)
@@ -232,12 +207,10 @@ describe('FormControl', () => {
     describe('ARIA attributes', () => {
       it('associates the label with the input', () => {
         const {getByLabelText} = render(
-          <SSRProvider>
-            <FormControl>
-              <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-              <TextInput />
-            </FormControl>
-          </SSRProvider>,
+          <FormControl>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <TextInput />
+          </FormControl>,
         )
 
         const inputNode = getByLabelText(LABEL_TEXT)
@@ -247,13 +220,11 @@ describe('FormControl', () => {
       it('associates caption text with the input', () => {
         const fieldId = 'captionedInput'
         const {getByLabelText, getByText} = render(
-          <SSRProvider>
-            <FormControl id={fieldId}>
-              <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-              <TextInput />
-              <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
-            </FormControl>
-          </SSRProvider>,
+          <FormControl id={fieldId}>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <TextInput />
+            <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
+          </FormControl>,
         )
 
         const inputNode = getByLabelText(LABEL_TEXT)
@@ -266,13 +237,11 @@ describe('FormControl', () => {
       it('associates validation text with the input', () => {
         const fieldId = 'validatedInput'
         const {getByLabelText, getByText} = render(
-          <SSRProvider>
-            <FormControl id={fieldId}>
-              <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-              <TextInput />
-              <FormControl.Validation variant="error">{ERROR_TEXT}</FormControl.Validation>
-            </FormControl>
-          </SSRProvider>,
+          <FormControl id={fieldId}>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <TextInput />
+            <FormControl.Validation variant="error">{ERROR_TEXT}</FormControl.Validation>
+          </FormControl>,
         )
 
         const inputNode = getByLabelText(LABEL_TEXT)
@@ -288,12 +257,10 @@ describe('FormControl', () => {
         const spy = jest.spyOn(console, 'error').mockImplementationOnce(() => {})
 
         render(
-          <SSRProvider>
-            <FormControl>
-              <TextInput />
-              <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
-            </FormControl>
-          </SSRProvider>,
+          <FormControl>
+            <TextInput />
+            <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
+          </FormControl>,
         )
 
         expect(spy).toHaveBeenCalledTimes(1)
@@ -304,15 +271,13 @@ describe('FormControl', () => {
         const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
 
         render(
-          <SSRProvider>
-            <FormControl>
-              <FormControl.LeadingVisual>
-                <MarkGithubIcon />
-              </FormControl.LeadingVisual>
-              <FormControl.Label>Name</FormControl.Label>
-              <TextInput />
-            </FormControl>
-          </SSRProvider>,
+          <FormControl>
+            <FormControl.LeadingVisual>
+              <MarkGithubIcon />
+            </FormControl.LeadingVisual>
+            <FormControl.Label>Name</FormControl.Label>
+            <TextInput />
+          </FormControl>,
         )
 
         expect(spy).toHaveBeenCalledTimes(1)
@@ -323,13 +288,11 @@ describe('FormControl', () => {
         const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
 
         render(
-          <SSRProvider>
-            <FormControl>
-              <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-              <TextInput id="testId" />
-              <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
-            </FormControl>
-          </SSRProvider>,
+          <FormControl>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <TextInput id="testId" />
+            <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
+          </FormControl>,
         )
 
         expect(spy).toHaveBeenCalledTimes(1)
@@ -340,13 +303,11 @@ describe('FormControl', () => {
         const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
 
         render(
-          <SSRProvider>
-            <FormControl>
-              <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-              <TextInput disabled />
-              <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
-            </FormControl>
-          </SSRProvider>,
+          <FormControl>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <TextInput disabled />
+            <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
+          </FormControl>,
         )
 
         expect(spy).toHaveBeenCalledTimes(1)
@@ -357,13 +318,11 @@ describe('FormControl', () => {
         const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
 
         render(
-          <SSRProvider>
-            <FormControl>
-              <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-              <TextInput required />
-              <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
-            </FormControl>
-          </SSRProvider>,
+          <FormControl>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <TextInput required />
+            <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
+          </FormControl>,
         )
 
         expect(spy).toHaveBeenCalledTimes(1)
@@ -373,13 +332,11 @@ describe('FormControl', () => {
 
     it('should have no axe violations', async () => {
       const {container} = render(
-        <SSRProvider>
-          <FormControl>
-            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-            <TextInput />
-            <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
-          </FormControl>
-        </SSRProvider>,
+        <FormControl>
+          <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+          <TextInput />
+          <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
+        </FormControl>,
       )
       const results = await axe.run(container)
       expect(results).toHaveNoViolations()
@@ -390,15 +347,13 @@ describe('FormControl', () => {
     describe('rendering', () => {
       it('renders with a LeadingVisual', () => {
         const {getByLabelText} = render(
-          <SSRProvider>
-            <FormControl>
-              <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-              <Checkbox />
-              <FormControl.LeadingVisual>
-                <MarkGithubIcon aria-label="Icon label" />
-              </FormControl.LeadingVisual>
-            </FormControl>
-          </SSRProvider>,
+          <FormControl>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <Checkbox />
+            <FormControl.LeadingVisual>
+              <MarkGithubIcon aria-label="Icon label" />
+            </FormControl.LeadingVisual>
+          </FormControl>,
         )
 
         expect(getByLabelText('Icon label')).toBeDefined()
@@ -409,14 +364,12 @@ describe('FormControl', () => {
       it('should warn users if they try to render a validation message when using a checkbox or radio', async () => {
         const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
         render(
-          <SSRProvider>
-            <FormControl>
-              <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-              <Checkbox />
-              <FormControl.Validation variant="error">Some error</FormControl.Validation>
-              <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
-            </FormControl>
-          </SSRProvider>,
+          <FormControl>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <Checkbox />
+            <FormControl.Validation variant="error">Some error</FormControl.Validation>
+            <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
+          </FormControl>,
         )
 
         expect(consoleSpy).toHaveBeenCalled()
@@ -427,13 +380,11 @@ describe('FormControl', () => {
         const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
 
         render(
-          <SSRProvider>
-            <FormControl required>
-              <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-              <Checkbox required />
-              <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
-            </FormControl>
-          </SSRProvider>,
+          <FormControl required>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <Checkbox required />
+            <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
+          </FormControl>,
         )
 
         expect(consoleSpy).toHaveBeenCalled()
@@ -443,13 +394,11 @@ describe('FormControl', () => {
 
     it('should have no axe violations', async () => {
       const {container} = render(
-        <SSRProvider>
-          <FormControl>
-            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-            <Checkbox />
-            <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
-          </FormControl>
-        </SSRProvider>,
+        <FormControl>
+          <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+          <Checkbox />
+          <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
+        </FormControl>,
       )
       const results = await axe.run(container)
       expect(results).toHaveNoViolations()
