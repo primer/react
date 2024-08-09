@@ -1,12 +1,21 @@
+import fs from 'node:fs'
+import path from 'node:path'
+import {fileURLToPath} from 'node:url'
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import babel from '@rollup/plugin-babel'
 import replace from '@rollup/plugin-replace'
 import terser from '@rollup/plugin-terser'
+import glob from 'fast-glob'
+import customPropertiesFallback from 'postcss-custom-properties-fallback'
 import {visualizer} from 'rollup-plugin-visualizer'
+import {importCSS} from 'rollup-plugin-import-css'
 import postcss from 'rollup-plugin-postcss'
+import postssPresetPrimer from 'postcss-preset-primer'
 import MagicString from 'magic-string'
-import packageJson from './package.json'
+import packageJson from './package.json' assert {type: 'json'}
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const input = new Set([
   // "exports"
@@ -47,6 +56,50 @@ const dependencies = [
 
 function createPackageRegex(name) {
   return new RegExp(`^${name}(/.*)?`)
+}
+
+const postcssPlugins = [
+  postssPresetPrimer(),
+  customPropertiesFallback({
+    importFrom: [
+      () => {
+        let customProperties = {}
+        const filePaths = glob.sync(['fallbacks/**/*.json', 'docs/functional/themes/light.json'], {
+          cwd: path.join(__dirname, '../../node_modules/@primer/primitives/dist/'),
+          ignore: ['fallbacks/color-fallbacks.json'],
+        })
+
+        for (const filePath of filePaths) {
+          const fileData = fs.readFileSync(
+            path.join(__dirname, '../../node_modules/@primer/primitives/dist/', filePath),
+            'utf8',
+          )
+
+          const jsonData = JSON.parse(fileData)
+          let result = {}
+
+          if (filePath === 'docs/functional/themes/light.json') {
+            for (const variable of Object.keys(jsonData)) {
+              result[`--${variable}`] = jsonData[variable].value
+            }
+          } else {
+            result = jsonData
+          }
+
+          customProperties = {
+            ...customProperties,
+            ...result,
+          }
+        }
+
+        return {customProperties}
+      },
+    ],
+  }),
+]
+
+const postcssModulesOptions = {
+  generateScopedName: 'prc-[folder]-[local]-[hash:base64:5]',
 }
 
 const baseConfig = {
@@ -90,12 +143,12 @@ const baseConfig = {
     commonjs({
       extensions,
     }),
-    postcss({
-      extract: 'components.css',
-      autoModules: false,
-      modules: {generateScopedName: 'prc_[local]_[hash:base64:5]'},
-      // plugins are defined in postcss.config.js
+    importCSS({
+      modulesRoot: 'src',
+      postcssPlugins,
+      postcssModulesOptions,
     }),
+
     /**
      * This custom rollup plugin allows us to preserve directives in source
      * code, such as "use client", in order to support React Server Components.
@@ -238,7 +291,52 @@ export default [
         'process.env.NODE_ENV': JSON.stringify('production'),
         preventAssignment: true,
       }),
-      ...baseConfig.plugins,
+      babel({
+        extensions,
+        exclude: /node_modules/,
+        babelHelpers: 'inline',
+        babelrc: false,
+        configFile: false,
+        presets: [
+          '@babel/preset-typescript',
+          [
+            '@babel/preset-react',
+            {
+              modules: false,
+            },
+          ],
+        ],
+        plugins: [
+          'macros',
+          'add-react-displayname',
+          'dev-expression',
+          'babel-plugin-styled-components',
+          '@babel/plugin-proposal-nullish-coalescing-operator',
+          '@babel/plugin-proposal-optional-chaining',
+          [
+            'babel-plugin-transform-replace-expressions',
+            {
+              replace: {
+                __DEV__: "process.env.NODE_ENV !== 'production'",
+              },
+            },
+          ],
+        ],
+      }),
+      resolve({
+        extensions,
+      }),
+      commonjs({
+        extensions,
+      }),
+      // PostCSS plugins are defined in postcss.config.js
+      postcss({
+        extract: 'components.css',
+        autoModules: false,
+        modules: {
+          generateScopedName: 'prc_[local]_[hash:base64:5]',
+        },
+      }),
       terser(),
       visualizer({sourcemap: true}),
     ],

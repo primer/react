@@ -1,5 +1,32 @@
 # @primer/react
 
+## 37.0.0-rc.0
+
+### Major Changes
+
+- [#4800](https://github.com/primer/react/pull/4800) [`482b4d6ab815350d5f5b71d686bf76cb3d234686`](https://github.com/primer/react/commit/482b4d6ab815350d5f5b71d686bf76cb3d234686) Thanks [@joshblack](https://github.com/joshblack)! - Update Primer React to emit _.css files that are imported by emitted _.js files for styling
+
+### Minor Changes
+
+- [#4814](https://github.com/primer/react/pull/4814) [`1cda89c2d92719e0fa85e3945a53bd5bd6b301de`](https://github.com/primer/react/commit/1cda89c2d92719e0fa85e3945a53bd5bd6b301de) Thanks [@langermank](https://github.com/langermank)! - Add `link` variant to Button
+
+- [#4771](https://github.com/primer/react/pull/4771) [`92e05f7c51d23778ead897f935f2cc14ed8ceff1`](https://github.com/primer/react/commit/92e05f7c51d23778ead897f935f2cc14ed8ceff1) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Set `openOnFocus` default to `false`, making the menu closed initially rather than opening on focus of input
+
+- [#4798](https://github.com/primer/react/pull/4798) [`0fa60a49177cf6bf60cdb5d4714d5e55708461f9`](https://github.com/primer/react/commit/0fa60a49177cf6bf60cdb5d4714d5e55708461f9) Thanks [@joshblack](https://github.com/joshblack)! - Add the deprecated Dialog, Octicon, Pagehead, TabNav, and Tooltip components to @primer/react/deprecated
+
+### Patch Changes
+
+- [#4774](https://github.com/primer/react/pull/4774) [`11e7aef33f124e84b4cf5c9e62c766834c6d1c31`](https://github.com/primer/react/commit/11e7aef33f124e84b4cf5c9e62c766834c6d1c31) Thanks [@langermank](https://github.com/langermank)! - - Adjust checkbox and radio border color values for high contrast themes
+
+  - Add default border to SegmentedControl
+  - Add inset box-shadow to StatusLabel to prep for new border-color in dark high contrast
+
+- [#4666](https://github.com/primer/react/pull/4666) [`04eac6280224d365f0496d927a87b32150006f9e`](https://github.com/primer/react/commit/04eac6280224d365f0496d927a87b32150006f9e) Thanks [@TylerJDev](https://github.com/TylerJDev)! - ActionList: Adds `aria-labelledby` to `ActionList.TrailingVisual`, making it part of the accessible name of `ActionList.Item`
+
+- [#4768](https://github.com/primer/react/pull/4768) [`b7c90ea44be4abfb00a451567115cda6d9bc864d`](https://github.com/primer/react/commit/b7c90ea44be4abfb00a451567115cda6d9bc864d) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Header: Add overflow when there are a lot of items
+
+- [#4803](https://github.com/primer/react/pull/4803) [`527f9a9320c51b9b1a0884b388d5ff53af7c11b1`](https://github.com/primer/react/commit/527f9a9320c51b9b1a0884b388d5ff53af7c11b1) Thanks [@aprendendofelipe](https://github.com/aprendendofelipe)! - Bumps @github/relative-time-element to v4.4.2
+
 ## 36.27.0
 
 ### Minor Changes
