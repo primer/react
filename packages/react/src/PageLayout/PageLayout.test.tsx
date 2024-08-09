@@ -4,7 +4,7 @@ import MatchMediaMock from 'jest-matchmedia-mock'
 import 'react-intersection-observer/test-utils'
 import {ThemeProvider} from '..'
 import {viewportRanges} from '../hooks/useResponsiveValue'
-import {PageLayout} from './PageLayout'
+import {PageLayout} from './'
 import {Placeholder} from '../Placeholder'
 
 let matchMedia: MatchMediaMock

@@ -1,5 +1,5 @@
 import React from 'react'
-import Breadcrumbs, {Breadcrumb} from '..'
+import {Breadcrumbs, Breadcrumb} from '..'
 import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
@@ -8,7 +8,8 @@ describe('Breadcrumbs', () => {
   behavesAsComponent({Component: Breadcrumbs, options: {skipAs: true}})
 
   checkExports('Breadcrumbs', {
-    default: Breadcrumbs,
+    default: undefined,
+    Breadcrumbs,
     Breadcrumb,
   })
 

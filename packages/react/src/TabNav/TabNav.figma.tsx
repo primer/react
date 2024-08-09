@@ -1,5 +1,5 @@
 import React from 'react'
-import TabNav from './TabNav'
+import {TabNav} from './'
 import figma from '@figma/code-connect'
 
 /**

@@ -39,7 +39,7 @@ export type UnderlinePanelsProps = {
   loadingCounters?: boolean
 } & SxProp
 
-export type TabProps = PropsWithChildren<{
+export type TabProps = {
   /**
    * Whether this is the selected tab
    */
@@ -52,14 +52,19 @@ export type TabProps = PropsWithChildren<{
    *  Icon rendered before the tab text label
    */
   icon?: FC<IconProps>
-}> &
-  SxProp
+} & SxProp
 
 export type PanelProps = Omit<BoxProps, 'as'>
 
 const TabContainerComponent = createComponent(TabContainerElement, 'tab-container')
 
-const UnderlinePanels: FC<UnderlinePanelsProps> = ({
+/**
+ * The underline panels are used to break related content into tabbed panels.
+ * @primerid underline_panels
+ * @primerstatus draft
+ * @primera11yreviewed false
+ */
+export const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledBy,
   children,
@@ -170,7 +175,18 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   )
 }
 
-const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, sx: sxProp = defaultSxProp, ...props}) => (
+UnderlinePanels.displayName = 'UnderlinePanels'
+
+/**
+ * A tab in the tablist of UnderlinePanels
+ * @alias UnderlinePanels.Tab
+ * @primerparentid underline_panels
+ */
+export const Tab: React.FC<React.PropsWithChildren<TabProps>> = ({
+  'aria-selected': ariaSelected,
+  sx: sxProp = defaultSxProp,
+  ...props
+}) => (
   <UnderlineItem
     as="button"
     role="tab"
@@ -183,10 +199,13 @@ const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, sx: sxProp = defaultS
 
 Tab.displayName = 'UnderlinePanels.Tab'
 
-const Panel: FC<PanelProps> = props => {
+/**
+ * A tabpanel associated with a UnderlinePanels.Tab in UnderlinePanels
+ * @alias UnderlinePanels.Panel
+ * @primerparentid underline_panels
+ */
+export const Panel: FC<PanelProps> = props => {
   return <Box as="div" role="tabpanel" {...props} />
 }
 
 Panel.displayName = 'UnderlinePanels.Panel'
-
-export default Object.assign(UnderlinePanels, {Panel, Tab})

@@ -8,7 +8,8 @@ describe('SubNav', () => {
   behavesAsComponent({Component: SubNav})
 
   checkExports('SubNav', {
-    default: SubNav,
+    default: undefined,
+    SubNav,
   })
 
   it('should have no axe violations', async () => {

@@ -24,6 +24,11 @@ import VisuallyHidden from '../_VisuallyHidden'
 
 const LiBox = styled.li<SxProp>(sx)
 
+/**
+ * An actionable or selectable `Item`
+ * @alias ActionList.Item
+ * @primerparentid action_list
+ */
 export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
   (
     {

@@ -3,7 +3,7 @@ import {render} from '@testing-library/react'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import 'react-intersection-observer/test-utils'
 import {ThemeProvider} from '..'
-import {SplitPageLayout} from '../SplitPageLayout/SplitPageLayout'
+import {SplitPageLayout} from './'
 
 let matchMedia: MatchMediaMock
 

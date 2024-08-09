@@ -73,7 +73,14 @@ export type SelectPanelProps = {
   children: React.ReactNode
 }
 
-const Panel: React.FC<SelectPanelProps> = ({
+/**
+ * Select panel is a semantic dialog that allows for complex selection options within an overlay.
+ * @primerid select_panel_v2
+ * @primerdocsid select_panel
+ * @primerstatus draft
+ * @primera11yreviewed false
+ */
+export const Panel: React.FC<SelectPanelProps> = ({
   title,
   description,
   variant: propsVariant,
@@ -349,7 +356,12 @@ const Panel: React.FC<SelectPanelProps> = ({
   )
 }
 
-const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((props, anchorRef) => {
+/**
+ * The button that toggles the SelectPanel.
+ * @alias SelectPanel.Button
+ * @primerparentid select_panel_v2
+ */
+export const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((props, anchorRef) => {
   const inputProps = useFormControlForwardedProps(props)
   const [labelText, setLabelText] = useState('')
   useEffect(() => {
@@ -372,7 +384,16 @@ const SelectPanelButton = React.forwardRef<HTMLButtonElement, ButtonProps>((prop
   }
 })
 
-const SelectPanelHeader: React.FC<React.PropsWithChildren & {onBack?: () => void}> = ({children, onBack, ...props}) => {
+/**
+ * The header area of the SelectPanel.
+ * @alias SelectPanel.Header
+ * @primerparentid select_panel_v2
+ */
+export const SelectPanelHeader: React.FC<React.PropsWithChildren & {onBack?: () => void}> = ({
+  children,
+  onBack,
+  ...props
+}) => {
   const [slots, childrenWithoutSlots] = useSlots(children, {
     searchInput: SelectPanelSearchInput,
   })
@@ -445,7 +466,12 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren & {onBack?: () => void
   )
 }
 
-const SelectPanelSearchInput: React.FC<TextInputProps> = ({
+/**
+ * The search/filter input at the top of the SelectPanel.
+ * @alias SelectPanel.SearchInput
+ * @primerparentid select_panel_v2
+ */
+export const SelectPanelSearchInput: React.FC<TextInputProps> = ({
   onChange: propsOnChange,
   onKeyDown: propsOnKeyDown,
   ...props
@@ -504,7 +530,13 @@ const SelectPanelSearchInput: React.FC<TextInputProps> = ({
 }
 
 const FooterContext = React.createContext<boolean>(false)
-const SelectPanelFooter = ({...props}) => {
+
+/**
+ * The footer area of the SelectPanel.
+ * @alias SelectPanel.Footer
+ * @primerparentid select_panel_v2
+ */
+export const SelectPanelFooter = ({...props}) => {
   const {onCancel, selectionVariant} = React.useContext(SelectPanelContext)
 
   const hidePrimaryActions = selectionVariant === 'instant'
@@ -588,7 +620,12 @@ export type SelectPanelSecondaryActionProps = {children: React.ReactNode} & (
   | ({variant: 'checkbox'; id?: string} & CheckboxProps)
 )
 
-const SelectPanelSecondaryAction: React.FC<SelectPanelSecondaryActionProps> = ({variant, ...props}) => {
+/**
+ * The secondary action in the footer area of the SelectPanel. Often a "cancel" action.
+ * @alias SelectPanel.SecondaryAction
+ * @primerparentid select_panel_v2
+ */
+export const SelectPanelSecondaryAction: React.FC<SelectPanelSecondaryActionProps> = ({variant, ...props}) => {
   const insideFooter = React.useContext(FooterContext)
   invariant(insideFooter, 'SelectPanel.SecondaryAction is only allowed inside SelectPanel.Footer')
 
@@ -601,7 +638,12 @@ const SelectPanelSecondaryAction: React.FC<SelectPanelSecondaryActionProps> = ({
   else if (variant === 'checkbox') return <SecondaryCheckbox {...props} />
 }
 
-const SelectPanelLoading = ({children = 'Fetching items...'}: React.PropsWithChildren) => {
+/**
+ * The loading indicator used when the data for the SelectPanel content is still loading
+ * @alias SelectPanel.Loading
+ * @primerparentid select_panel_v2
+ */
+export const SelectPanelLoading = ({children = 'Fetching items...'}: React.PropsWithChildren) => {
   return (
     <AriaStatus
       announceOnShow
@@ -635,7 +677,12 @@ export type SelectPanelMessageProps = {children: React.ReactNode} & (
     }
 )
 
-const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
+/**
+ * A message to render in the SelectPanel to indicate some kind of status or error.
+ * @alias SelectPanel.Message
+ * @primerparentid select_panel_v2
+ */
+export const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
   variant = 'warning',
   size = variant === 'empty' ? 'full' : 'inline',
   title,
@@ -706,13 +753,3 @@ const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
     )
   }
 }
-
-export const SelectPanel = Object.assign(Panel, {
-  Button: SelectPanelButton,
-  Header: SelectPanelHeader,
-  SearchInput: SelectPanelSearchInput,
-  Footer: SelectPanelFooter,
-  Loading: SelectPanelLoading,
-  Message: SelectPanelMessage,
-  SecondaryAction: SelectPanelSecondaryAction,
-})

@@ -1,7 +1,7 @@
 import React from 'react'
 import {render, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {Dialog} from './Dialog'
+import {Dialog} from './'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import axe from 'axe-core'
@@ -31,6 +31,13 @@ describe('Dialog', () => {
   checkExports('Dialog/Dialog', {
     default: undefined,
     Dialog,
+    Header: Dialog.Header,
+    Title: Dialog.Title,
+    Subtitle: Dialog.Subtitle,
+    Body: Dialog.Body,
+    Footer: Dialog.Footer,
+    Buttons: Dialog.Buttons,
+    CloseButton: Dialog.CloseButton,
   })
 
   it('renders with role "dialog" by default', () => {

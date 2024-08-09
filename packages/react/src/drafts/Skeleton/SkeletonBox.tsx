@@ -15,6 +15,12 @@ const shimmer = keyframes`
   to { mask-position: 0%; }
 `
 
+/**
+ * SkeletonBox is a low-level component used to create a skeleton loading animation.
+ * @primerid skeleton_box
+ * @primerstatus draft
+ * @primera11yreviewed false
+ */
 export const SkeletonBox = styled.div<SkeletonBoxProps>`
   animation: ${shimmer};
   display: block;

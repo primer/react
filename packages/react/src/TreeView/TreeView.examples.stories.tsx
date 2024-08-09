@@ -2,7 +2,7 @@ import {GrabberIcon} from '@primer/octicons-react'
 import type {Meta, StoryFn} from '@storybook/react'
 import React from 'react'
 import Box from '../Box'
-import {TreeView} from './TreeView'
+import {TreeView} from './'
 import {IconButton} from '../Button'
 
 const meta: Meta = {

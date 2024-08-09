@@ -11,8 +11,8 @@ import getGlobalFocusStyles from '../../internal/utils/getGlobalFocusStyles'
 
 const TAB_CLASS = 'TabPanel-tab'
 
-const tabContainerComponent = createComponent(TabContainerElement, 'tab-container')
-const TabContainer = styled(tabContainerComponent)`
+const TabContainerComponent = createComponent(TabContainerElement, 'tab-container')
+const TabContainer = styled(TabContainerComponent)`
   & > :not([role='tabpanel']) {
     display: inline-block;
   }
@@ -74,29 +74,50 @@ const TabContainer = styled(tabContainerComponent)`
 `
 
 type Label = {
+  /** Used to set the `aria-label` on the `role=\"tablist\"` element. Either aria-label or aria-labelledby must be provided. */
   'aria-label': string
+  /** Used to set the `aria-labelledby` on the `role=\"tablist\"` element. Either aria-label or aria-labelledby must be provided. */
   'aria-labelledby'?: never
 }
 
 type Labelledby = {
+  /** Used to set the `aria-label` on the `role=\"tablist\"` element. Either aria-label or aria-labelledby must be provided. */
   'aria-label'?: never
+  /** Used to set the `aria-labelledby` on the `role=\"tablist\"` element. Either aria-label or aria-labelledby must be provided. */
   'aria-labelledby': string
 }
 
 type Labelled = Label | Labelledby
 
-export type TabPanelsProps = ComponentProps<typeof TabContainer> & {
+export type TabPanelsProps = {
+  /** The id of the tab container, used to generate child ids. */
   id?: string
+  // TODO: Figure out how to move these JSDoc comments into `@github/tab-container-element`
+  // so we can remove them from here.
+  /** The 0-based index of the tab that is selected by default when the component is loaded. */
+  defaultTabIndex?: ComponentProps<typeof TabContainerComponent>['defaultTabIndex']
+  /** The 0-based index of the tab that is selected. */
+  selectedTabIndex?: ComponentProps<typeof TabContainerComponent>['selectedTabIndex']
+  /** Callback fired when the tab container changes (bubbles, cancelable): fired on `<tab-container>` before a new tab is selected and visibility is updated. `event.tab` is the tab that will be focused and `tab.panel` is the panel that will be shown if the event isn't cancelled. */
+  onChange?: ComponentProps<typeof TabContainerComponent>['onChange']
+  /** Callback fired when the tab container changes (bubbles): fired on `<tab-container>` after a new tab is selected and visibility is updated. `event.tab` is the tab that is now active (and will be focused right after this event) and `event.panel` is the newly visible tab panel. */
+  onChanged?: ComponentProps<typeof TabContainerComponent>['onChanged']
 } & Labelled
 
-function TabPanels({children, defaultTabIndex, ...props}: TabPanelsProps) {
+/**
+ * Tab panels let users switch between views in the same context.
+ * @primerid tab_panels
+ * @primerstatus draft
+ * @primera11yreviewed false
+ */
+export const TabPanels: React.FC<React.PropsWithChildren<TabPanelsProps>> = ({children, defaultTabIndex, ...props}) => {
   // We need to always call React.useId() because
   // React Hooks must be called in the exact same order in every component render
   const defaultId = React.useId()
   const parentId = props.id ?? defaultId
 
   if (defaultTabIndex !== undefined) {
-    // Add 'dafault-tab' to props
+    /* @ts-ignore Add 'dafault-tab' to props */
     props['default-tab'] = defaultTabIndex
   }
 
@@ -127,10 +148,16 @@ function TabPanels({children, defaultTabIndex, ...props}: TabPanelsProps) {
 }
 
 export type TabPanelsTabProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLButtonElement>, HTMLButtonElement> & {
+  /** Whether the tab is selected */
   selected?: boolean
 } & SxProp
 
-const Tab = styled.button.attrs<TabPanelsTabProps>(props => ({
+/**
+ * A tab in the tablist of TabPanel
+ * @alias TabPanels.Tab
+ * @primerparentid tab_panels
+ */
+export const Tab = styled.button.attrs<TabPanelsTabProps>(props => ({
   className: clsx(TAB_CLASS, props.className),
   role: 'tab',
   'aria-selected': !!props.selected,
@@ -169,7 +196,12 @@ export type TabPanelsPanelProps = React.HTMLAttributes<HTMLDivElement> & {
   children: React.ReactNode
 } & SxProp
 
-const Panel = styled.div.attrs<TabPanelsPanelProps>(() => ({
+/**
+ * A tabpanel associated with a TabPanels.Tab in TabPanels
+ * @alias TabPanels.Panel
+ * @primerparentid tab_panels
+ */
+export const Panel = styled.div.attrs<TabPanelsPanelProps>(() => ({
   role: 'tabpanel',
   suppressHydrationWarning: true,
 }))<TabPanelsPanelProps>`
@@ -177,5 +209,3 @@ const Panel = styled.div.attrs<TabPanelsPanelProps>(() => ({
 `
 
 Panel.displayName = 'TabPanels.Panel'
-
-export default Object.assign(TabPanels, {Panel, Tab})

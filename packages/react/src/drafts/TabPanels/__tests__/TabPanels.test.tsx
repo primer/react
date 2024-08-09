@@ -1,6 +1,6 @@
 import React from 'react'
 import {render, screen} from '@testing-library/react'
-import TabPanels from '../TabPanels'
+import {TabPanels} from '../'
 import TabContainerElement from '@github/tab-container-element'
 
 // Mock the selectTab method, jsdom doesn't like it

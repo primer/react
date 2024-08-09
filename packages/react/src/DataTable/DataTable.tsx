@@ -52,6 +52,13 @@ export type DataTableProps<Data extends UniqueRow> = {
   initialSortDirection?: Exclude<SortDirection, 'NONE'>
 }
 
+/**
+ * The `table` element where all columns and rows are rendered.
+ * @primerid data_table
+ * @primerstatus draft
+ * @primera11yreviewed false
+ * @primerstories drafts-components-datatable-features--with-title drafts-components-datatable-features--with-title-and-subtitle drafts-components-datatable-features--with-sorting drafts-components-datatable-features--with-actions drafts-components-datatable-features--with-action drafts-components-datatable-features--with-row-action drafts-components-datatable-features--with-row-actions drafts-components-datatable-features--with-row-action-menu drafts-components-datatable-features--with-custom-heading drafts-components-datatable-features--with-no-content drafts-components-datatable-features--with-loading drafts-components-datatable-features--with-pagination
+ */
 function DataTable<Data extends UniqueRow>({
   'aria-labelledby': labelledby,
   'aria-describedby': describedby,

@@ -30,7 +30,7 @@ export type {
   Column,
 } from '../DataTable'
 
-export * from '../Dialog/Dialog'
+export * from '../Dialog/'
 
 export {default as InlineAutocomplete} from './InlineAutocomplete'
 export type {
@@ -67,7 +67,7 @@ export type {
   NavListDividerProps,
 } from '../NavList'
 export * from './SelectPanel2'
-export {default as TabPanels} from './TabPanels'
+export {TabPanels} from './TabPanels'
 export type {TabPanelsProps, TabPanelsTabProps, TabPanelsPanelProps} from './TabPanels'
 export * from '../TooltipV2'
 export * from '../ActionBar'

@@ -41,7 +41,8 @@ describe('RadioGroup', () => {
   })
 
   checkExports('RadioGroup', {
-    default: RadioGroup,
+    default: undefined,
+    RadioGroup,
     RadioGroupContext,
   })
 

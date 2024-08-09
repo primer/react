@@ -126,8 +126,17 @@ const StyledTooltip = styled.span`
 export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<
   {
+    /**
+     * TSets where the tooltip renders in relation to the target.
+     * @default s
+     */
     direction?: TooltipDirection
+    /** The text to be displayed in the tooltip */
     text: string
+    /**
+     * The type of tooltip. `label` is used for labelling the element that triggers tooltip. `description` is used for describing or adding a suplementary information to the element that triggers the tooltip.
+     * @default description
+     */
     type?: 'label' | 'description'
   } & SxProp &
     ComponentProps<typeof StyledTooltip>
@@ -186,8 +195,15 @@ const isInteractive = (element: HTMLElement) => {
 }
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 
-export const Tooltip = React.forwardRef(
-  ({direction = 's', text, type = 'description', children, id, ...rest}: TooltipProps, forwardedRef) => {
+/**
+ * Tooltips add additional context to interactive UI elements and appear on mouse hover or keyboard focus.
+ * @primerid tooltip_v2
+ * @primerdocsid tooltip
+ * @primerstatus beta
+ * @primera11yreviewed true
+ */
+export const Tooltip = React.forwardRef<HTMLElement, TooltipProps>(
+  ({direction = 's', text, type = 'description', children, id, ...rest}, forwardedRef) => {
     const tooltipId = useId(id)
     const child = Children.only(children)
     const triggerRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)

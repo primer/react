@@ -3,8 +3,11 @@ import type {FormValidationStatus} from '../utils/types/FormValidationStatus'
 import type {FormControlProps} from './FormControl'
 
 interface FormControlContext extends Pick<FormControlProps, 'disabled' | 'id' | 'required'> {
+  /** ID for the caption associated with the input */
   captionId?: string
+  /** ID for the validation message associated with the input */
   validationMessageId?: string
+  /** Validation status of the input */
   validationStatus?: FormValidationStatus
 }
 

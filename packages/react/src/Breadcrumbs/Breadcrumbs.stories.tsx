@@ -1,7 +1,7 @@
 import React from 'react'
 import type {Meta} from '@storybook/react'
 import type {ComponentProps} from '../utils/types'
-import Breadcrumbs from './Breadcrumbs'
+import {Breadcrumbs} from './'
 
 export default {
   title: 'Components/Breadcrumbs',

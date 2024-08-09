@@ -40,13 +40,17 @@ const BreadcrumbsBase = styled.nav<SxProp>`
   ${sx};
 `
 
-export type BreadcrumbsProps = React.PropsWithChildren<
-  {
-    className?: string
-  } & SxProp
->
+export interface BreadcrumbsProps extends React.PropsWithChildren, SxProp {
+  className?: string
+}
 
-function Breadcrumbs({className, children, sx: sxProp}: React.PropsWithChildren<BreadcrumbsProps>) {
+/**
+ * Breadcrumbs display the current page or context within the site, allowing them to navigate different levels of the hierarchy.
+ * @primerid breadcrumbs
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
+export function Breadcrumbs({className, children, sx: sxProp}: BreadcrumbsProps) {
   const wrappedChildren = React.Children.map(children, child => <Wrapper>{child}</Wrapper>)
   return (
     <BreadcrumbsBase className={className} aria-label="Breadcrumbs" sx={sxProp}>
@@ -58,11 +62,18 @@ function Breadcrumbs({className, children, sx: sxProp}: React.PropsWithChildren<
 }
 
 type StyledBreadcrumbsItemProps = {
+  /** Used when the item is rendered using a component like React Router's `Link`. The path to navigate to. */
   to?: To
+  /** Whether this item represents the current page */
   selected?: boolean
 } & SxProp
 
-const BreadcrumbsItem = styled.a.attrs<StyledBreadcrumbsItemProps>(props => ({
+/**
+ * Breadcrumbs.Item is used to represent each link in the Breadcrumbs component. The last item is not a link, it shows the current page.
+ * @alias Breadcrumbs.Item
+ * @primerparentid breadcrumbs
+ */
+export const BreadcrumbsItem = styled.a.attrs<StyledBreadcrumbsItemProps>(props => ({
   className: clsx(props.selected && SELECTED_CLASS, props.className),
   'aria-current': props.selected ? 'page' : null,
 }))<StyledBreadcrumbsItemProps>`
@@ -89,12 +100,6 @@ Breadcrumbs.displayName = 'Breadcrumbs'
 BreadcrumbsItem.displayName = 'Breadcrumbs.Item'
 
 export type BreadcrumbsItemProps = ComponentProps<typeof BreadcrumbsItem>
-export default Object.assign(Breadcrumbs, {Item: BreadcrumbsItem})
-
-/**
- * @deprecated Use the `Breadcrumbs` component instead (i.e. `<Breadcrumb>` → `<Breadcrumbs>`)
- */
-export const Breadcrumb = Object.assign(Breadcrumbs, {Item: BreadcrumbsItem})
 
 /**
  * @deprecated Use the `BreadcrumbsProps` type instead

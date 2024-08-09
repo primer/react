@@ -1,7 +1,7 @@
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import Token from '../Token'
+import {Token} from '../Token'
 import {render, behavesAsComponent} from '../../utils/testing'
 import axe from 'axe-core'
 import type {TokenSizeKeys} from '../TokenBase'

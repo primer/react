@@ -13,7 +13,12 @@ const portalRootRegistry: Partial<Record<string, Element>> = {}
  * @param name The name of the container, to be used with the `containerName` prop on the Portal Component.
  * If name is not specified, registers the default portal root.
  */
-export function registerPortalRoot(root: Element, name = DEFAULT_PORTAL_CONTAINER_NAME): void {
+export function registerPortalRoot(
+  /** The element to portal into */
+  root: Element,
+  /** The name of the portal to register */
+  name = DEFAULT_PORTAL_CONTAINER_NAME,
+): void {
   portalRootRegistry[name] = root
 }
 
@@ -59,6 +64,9 @@ export interface PortalProps {
 /**
  * Creates a React Portal, placing all children in a separate physical DOM root node.
  * @see https://reactjs.org/docs/portals.html
+ * @primerid portal
+ * @primerstatus alpha
+ * @primera11yreviewed false
  */
 export const Portal: React.FC<React.PropsWithChildren<PortalProps>> = ({
   children,

@@ -9,11 +9,13 @@ import type {ComponentProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 type StyledLinkProps = {
+  /** Color used when hovering over the link. */
   hoverColor?: string
+  /** Uses a less prominent shade for Link color, and the default link shade on hover. */
   muted?: boolean
   /** @deprecated use `inline` to specify the type of link instead */
   underline?: boolean
-  // Link inside a text block
+  /** Set to true for links adjacent to text, underlining them for clear visibility and improved accessibility. */
   inline?: boolean
 } & SxProp
 
@@ -57,7 +59,12 @@ const StyledLink = styled.a<StyledLinkProps>`
   ${sx};
 `
 
-const Link = forwardRef(({as: Component = 'a', ...props}, forwardedRef) => {
+/**
+ * @primerid link
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
+export const Link = forwardRef(({as: Component = 'a', ...props}, forwardedRef) => {
   const innerRef = React.useRef<HTMLAnchorElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
@@ -99,4 +106,3 @@ const Link = forwardRef(({as: Component = 'a', ...props}, forwardedRef) => {
 Link.displayName = 'Link'
 
 export type LinkProps = ComponentProps<typeof Link>
-export default Link

@@ -140,6 +140,9 @@ const StyledCheckbox = styled.input`
 
 /**
  * An accessible, native checkbox component
+ * @primerid checkbox
+ * @primerstatus alpha
+ * @primera11yreviewed false
  */
 const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (

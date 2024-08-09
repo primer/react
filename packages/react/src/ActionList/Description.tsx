@@ -1,6 +1,7 @@
 import React from 'react'
+import type {FC, PropsWithChildren} from 'react'
 import Box from '../Box'
-import Truncate from '../Truncate'
+import {Truncate} from '../Truncate'
 import type {SxProp} from '../sx'
 import {merge} from '../sx'
 import {ItemContext} from './shared'
@@ -15,7 +16,12 @@ export type ActionListDescriptionProps = {
   variant?: 'inline' | 'block'
 } & SxProp
 
-export const Description: React.FC<React.PropsWithChildren<ActionListDescriptionProps>> = ({
+/**
+ * Secondary text which provides additional information about an `Item`
+ * @alias ActionList.Description
+ * @primerparentid action_list
+ */
+export const Description: FC<PropsWithChildren<ActionListDescriptionProps>> = ({
   variant = 'inline',
   sx = {},
   ...props

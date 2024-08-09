@@ -7,13 +7,24 @@ import type {SxProp} from '../sx'
 import sx from '../sx'
 import {warning} from '../utils/warning'
 
-type ProgressProp = {progress?: string | number}
+type ProgressProp = {
+  /**
+   * Used to set the size of the green bar
+   * @default 0
+   */
+  progress?: string | number
+}
 
 const shimmer = keyframes`
   from { mask-position: 200%; }
   to { mask-position: 0%; }
 `
 
+/**
+ * A segment of a ProgressBar with multiple parts.
+ * @alias ProgressBar.Item
+ * @primerparentid progress_bar
+ */
 export const Item = styled.span<ProgressProp & SxProp>`
   width: ${props => (props.progress ? `${props.progress}%` : 0)};
   background-color: ${get('colors.success.emphasis')};
@@ -40,8 +51,18 @@ const sizeMap = {
 }
 
 type StyledProgressContainerProps = {
+  /**
+   * Styles the progress bar inline
+   */
   inline?: boolean
+  /**
+   * Controls the height of the progress bar. If omitted, height is set to the default height.
+   * @default default
+   */
   barSize?: keyof typeof sizeMap
+  /**
+   * Whether the filled in area(s) of the progress bar will be animated or not
+   */
   animated?: boolean
 } & WidthProps &
   SxProp
@@ -57,9 +78,21 @@ const ProgressContainer = styled.span<StyledProgressContainerProps>`
   ${sx};
 `
 
-export type ProgressBarProps = React.HTMLAttributes<HTMLSpanElement> & {bg?: string} & StyledProgressContainerProps &
+export type ProgressBarProps = React.HTMLAttributes<HTMLSpanElement> & {
+  /**
+   * Set the progress bar color
+   * @default bg.successInverse
+   */
+  bg?: string
+} & StyledProgressContainerProps &
   ProgressProp
 
+/**
+ * Progress bar visualizes one or more parts of a whole.
+ * @primerid progress_bar
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
   (
     {animated, progress, bg = 'success.emphasis', barSize = 'default', children, ...rest}: ProgressBarProps,

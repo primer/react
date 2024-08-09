@@ -13,6 +13,12 @@ import {PageLayout} from '../PageLayout'
 
 export type SplitPageLayoutProps = SxProp
 
+/**
+ * Split page layout is an abstraction for using the PageLayout component to provide structure for a split layout.
+ * @primerid split_page_layout
+ * @primerstatus alpha
+ * @primera11yreviewed true
+ */
 export const Root: React.FC<React.PropsWithChildren<SplitPageLayoutProps>> = props => {
   return (
     <PageLayout
@@ -36,6 +42,11 @@ Root.displayName = 'SplitPageLayout'
 
 export type SplitPageLayoutHeaderProps = PageLayoutHeaderProps
 
+/**
+ * The header area of the overall page layout.
+ * @alias SplitPageLayout.Header
+ * @primerparentid split_page_layout
+ */
 export const Header: React.FC<React.PropsWithChildren<SplitPageLayoutHeaderProps>> = ({
   padding = 'normal',
   divider = 'line',
@@ -52,6 +63,11 @@ Header.displayName = 'SplitPageLayout.Header'
 
 export type SplitPageLayoutContentProps = PageLayoutContentProps
 
+/**
+ * The main content area.
+ * @alias SplitPageLayout.Content
+ * @primerparentid split_page_layout
+ */
 export const Content: React.FC<React.PropsWithChildren<SplitPageLayoutContentProps>> = ({
   width = 'large',
   padding = 'normal',
@@ -66,7 +82,11 @@ Content.displayName = 'SplitPageLayout.Content'
 // SplitPageLayout.Pane
 
 export type SplitPageLayoutPaneProps = PageLayoutPaneProps
-
+/**
+ * By default, it is a sidebar that sticks on the left used for navigating to update the main content area.
+ * @alias SplitPageLayout.Pane
+ * @primerparentid split_page_layout
+ */
 export const Pane: React.FC<React.PropsWithChildren<SplitPageLayoutPaneProps>> = ({
   position = 'start',
   sticky = true,
@@ -84,6 +104,7 @@ export const Pane: React.FC<React.PropsWithChildren<SplitPageLayoutPaneProps>> =
     ></PageLayout.Pane>
   )
 }
+
 Pane.displayName = 'SplitPageLayout.Pane'
 
 // ----------------------------------------------------------------------------
@@ -91,6 +112,11 @@ Pane.displayName = 'SplitPageLayout.Pane'
 
 export type SplitPageLayoutFooterProps = PageLayoutFooterProps
 
+/**
+ * The footer area of the overall page layout.
+ * @alias SplitPageLayout.Footer
+ * @primerparentid split_page_layout
+ */
 export const Footer: React.FC<React.PropsWithChildren<SplitPageLayoutFooterProps>> = ({
   padding = 'normal',
   divider = 'line',
@@ -101,13 +127,3 @@ export const Footer: React.FC<React.PropsWithChildren<SplitPageLayoutFooterProps
 }
 
 Footer.displayName = 'SplitPageLayout.Footer'
-
-// ----------------------------------------------------------------------------
-// Export
-
-export const SplitPageLayout = Object.assign(Root, {
-  Header,
-  Content,
-  Pane,
-  Footer,
-})

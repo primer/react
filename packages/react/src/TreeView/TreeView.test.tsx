@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {ThemeProvider} from '../ThemeProvider'
 import type {SubTreeState} from './TreeView'
-import {TreeView} from './TreeView'
+import {TreeView} from './'
 
 jest.useFakeTimers()
 

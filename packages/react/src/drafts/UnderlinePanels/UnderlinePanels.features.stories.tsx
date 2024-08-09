@@ -1,7 +1,7 @@
 import React from 'react'
 import type {Meta} from '@storybook/react'
 import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport'
-import UnderlinePanels from './UnderlinePanels'
+import {UnderlinePanels} from './'
 import type {ComponentProps} from '../../utils/types'
 import {
   CodeIcon,

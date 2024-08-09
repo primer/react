@@ -44,13 +44,24 @@ const UnderlineNavBase = styled.nav<SxProp>`
 `
 
 export type UnderlineNavProps = {
+  /** Place another element, such as a button, to the opposite side of the navigation items. */
   actions?: React.ReactNode
+  /** Use `right` to have navigation items aligned right. */
   align?: 'right'
+  /** Used to make navigation fill the width of the container. */
   full?: boolean
+  /** Used to set the `aria-label` on the top level `<nav>` element. */
   label?: string
 } & ComponentProps<typeof UnderlineNavBase>
 
-function UnderlineNav({actions, className, align, children, full, label, theme, ...rest}: UnderlineNavProps) {
+/**
+ * The underline nav is used to display navigation in a horizontal tabbed format.
+ * @deprecated UnderlineNav is deprecated and will be replaced by the draft `UnderlineNav` in the next major release. See https://primer.style/react/drafts/UnderlineNav2 for more details.
+ * @primerid legacy_underline_nav
+ * @primerstatus deprecated
+ * @primera11yreviewed false
+ */
+export function UnderlineNav({actions, className, align, children, full, label, theme, ...rest}: UnderlineNavProps) {
   const classes = clsx(
     className,
     'PRC-UnderlineNav',
@@ -66,11 +77,18 @@ function UnderlineNav({actions, className, align, children, full, label, theme, 
 }
 
 type StyledUnderlineNavLinkProps = {
+  /** Used when the link is rendered using a component like React Router's `Link`. The path to navigate to. */
   to?: To
+  /** Whether this child represents the current page */
   selected?: boolean
 } & SxProp
 
-const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
+/**
+ * Links in the UnderlineNav
+ * @alias UnderlineNav.Link
+ * @primerparentid legacy_underline_nav
+ */
+export const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
   className: clsx(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
 }))<StyledUnderlineNavLinkProps>`
   padding: ${get('space.3')} ${get('space.2')};
@@ -111,7 +129,3 @@ const UnderlineNavLink = styled.a.attrs<StyledUnderlineNavLinkProps>(props => ({
 UnderlineNavLink.displayName = 'UnderlineNav.Link'
 
 export type UnderlineNavLinkProps = ComponentProps<typeof UnderlineNavLink>
-/**
- * @deprecated UnderlineNav is deprecated and will be replaced by the draft `UnderlineNav` in the next major release. See https://primer.style/react/drafts/UnderlineNav2 for more details.
- */
-export default Object.assign(UnderlineNav, {Link: UnderlineNavLink})

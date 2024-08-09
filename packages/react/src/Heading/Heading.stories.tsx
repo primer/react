@@ -1,6 +1,6 @@
 import React from 'react'
 import type {StoryFn, Meta} from '@storybook/react'
-import Heading from './Heading'
+import {Heading} from './'
 
 export default {
   title: 'Components/Heading',

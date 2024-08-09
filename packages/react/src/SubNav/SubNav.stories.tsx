@@ -1,6 +1,6 @@
 import React from 'react'
 import type {Meta, StoryFn} from '@storybook/react'
-import SubNav from './SubNav'
+import {SubNav} from './'
 import type {ComponentProps} from '../utils/types'
 
 export default {

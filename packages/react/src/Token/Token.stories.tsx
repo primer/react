@@ -1,6 +1,6 @@
 import React from 'react'
 import type {Meta, StoryFn} from '@storybook/react'
-import Token from './Token'
+import {Token} from './Token'
 
 export default {
   title: 'Components/Token',

@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import type {Meta} from '@storybook/react'
 import {Box, FormControl} from '..'
 import type {TextInputProps} from '../TextInput'
-import TextInput from '../TextInput'
+import {TextInput} from './'
 import type {FormControlArgs} from '../utils/story-helpers'
 import {
   formControlArgs,

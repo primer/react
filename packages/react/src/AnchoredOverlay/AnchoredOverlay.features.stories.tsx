@@ -3,7 +3,7 @@ import type {Args, Meta} from '@storybook/react'
 
 import {Box} from '..'
 import {AnchoredOverlay} from '../AnchoredOverlay'
-import Heading from '../Heading'
+import {Heading} from '../Heading'
 import {registerPortalRoot} from '../Portal'
 import {Playground} from './AnchoredOverlay.stories'
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import type {StoryFn, Meta} from '@storybook/react'
-import UnderlineNav from './UnderlineNav'
+import {UnderlineNav} from './'
 import {Button} from '../../Button'
 
 export default {

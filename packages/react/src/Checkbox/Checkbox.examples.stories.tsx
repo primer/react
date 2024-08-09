@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react'
 import {Box, Checkbox} from '..'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
 import {action} from '@storybook/addon-actions'
-import FormControl from '../FormControl'
+import {FormControl} from '../FormControl'
 
 export default {
   title: 'Components/Checkbox/Examples',

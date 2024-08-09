@@ -6,7 +6,8 @@ import axe from 'axe-core'
 
 describe('UnderlineNav', () => {
   checkExports('deprecated/UnderlineNav', {
-    default: UnderlineNav,
+    default: undefined,
+    UnderlineNav,
   })
 
   it('should have no axe violations', async () => {

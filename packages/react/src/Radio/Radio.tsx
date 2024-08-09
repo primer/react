@@ -76,6 +76,9 @@ const StyledRadio = styled.input`
 
 /**
  * An accessible, native radio component for selecting one option from a list.
+ * @primerid radio
+ * @primerstatus alpha
+ * @primera11yreviewed false
  */
 const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   (

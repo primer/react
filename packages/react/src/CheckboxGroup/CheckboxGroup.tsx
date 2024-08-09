@@ -7,7 +7,7 @@ import CheckboxOrRadioGroupLabel from '../internal/components/CheckboxOrRadioGro
 import CheckboxOrRadioGroupValidation from '../internal/components/CheckboxOrRadioGroup/CheckboxOrRadioGroupValidation'
 import {useRenderForcingRef} from '../hooks'
 import type {SxProp} from '../sx'
-import FormControl from '../FormControl'
+import {FormControl} from '../FormControl'
 import Checkbox from '../Checkbox/Checkbox'
 import {CheckboxGroupContext} from './CheckboxGroupContext'
 
@@ -19,7 +19,18 @@ type CheckboxGroupProps = {
 } & CheckboxOrRadioGroupProps &
   SxProp
 
-const CheckboxGroup: FC<React.PropsWithChildren<CheckboxGroupProps>> = ({children, disabled, onChange, ...rest}) => {
+/**
+ * Checkbox group renders a set of checkboxes.
+ * @primerid checkbox_group
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
+export const CheckboxGroup: FC<React.PropsWithChildren<CheckboxGroupProps>> = ({
+  children,
+  disabled,
+  onChange,
+  ...rest
+}) => {
   const formControlComponentChildren = React.Children.toArray(children)
     .filter(child => React.isValidElement(child) && child.type === FormControl)
     .map(formControlComponent =>
@@ -68,10 +79,23 @@ const CheckboxGroup: FC<React.PropsWithChildren<CheckboxGroupProps>> = ({childre
   )
 }
 
-export {CheckboxGroupContext}
+/**
+ * The caption with contextual information about the set of related checkboxes.
+ * @alias CheckboxGroup.Caption
+ * @primerparentid checkbox_group
+ */
+export const CheckboxGroupCaption = CheckboxOrRadioGroupCaption
 
-export default Object.assign(CheckboxGroup, {
-  Caption: CheckboxOrRadioGroupCaption,
-  Label: CheckboxOrRadioGroupLabel,
-  Validation: CheckboxOrRadioGroupValidation,
-})
+/**
+ * The name for the set of related checkboxes.
+ * @alias CheckboxGroup.Label
+ * @primerparentid checkbox_group
+ */
+export const CheckboxGroupLabel = CheckboxOrRadioGroupLabel
+
+/**
+ * The message about the validation status of the set of related checkboxes.
+ * @alias CheckboxGroup.Validation
+ * @primerparentid checkbox_group
+ */
+export const CheckboxGroupValidation = CheckboxOrRadioGroupValidation

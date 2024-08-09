@@ -2,7 +2,7 @@ import type {ChangeEventHandler, FocusEventHandler, KeyboardEventHandler} from '
 import React, {useCallback, useContext, useEffect, useState} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {AutocompleteContext} from './AutocompleteContext'
-import TextInput from '../TextInput'
+import {TextInput} from '../TextInput'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import type {ComponentProps} from '../utils/types'
 import useSafeTimeout from '../hooks/useSafeTimeout'
@@ -20,7 +20,13 @@ type InternalAutocompleteInputProps = {
 
 const ARROW_KEYS_NAV = new Set(['ArrowUp', 'ArrowDown'])
 
-const AutocompleteInput = React.forwardRef(
+// TODO: Update this so the default props from `TextInput` are also documented by react-typescript-docgen
+/**
+ * The text input field for an Autocomplete component. Defaults to using a `TextInput` component, but is polymorphic to allow for custom components.
+ * @alias Autocomplete.Input
+ * @primerparentid autocomplete
+ */
+export const AutocompleteInput = React.forwardRef(
   (
     {
       as: Component = TextInput,
@@ -186,4 +192,3 @@ const AutocompleteInput = React.forwardRef(
 AutocompleteInput.displayName = 'AutocompleteInput'
 
 export type AutocompleteInputProps = ComponentProps<typeof AutocompleteInput>
-export default AutocompleteInput

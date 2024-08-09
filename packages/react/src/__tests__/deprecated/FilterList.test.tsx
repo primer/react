@@ -8,7 +8,8 @@ describe('FilterList', () => {
   behavesAsComponent({Component: FilterList})
 
   checkExports('deprecated/FilterList', {
-    default: FilterList,
+    default: undefined,
+    FilterList,
   })
 
   it('should have no axe violations', async () => {

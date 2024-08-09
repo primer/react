@@ -1,6 +1,6 @@
 import React from 'react'
 import type {Meta} from '@storybook/react'
-import UnderlinePanels from './UnderlinePanels'
+import {UnderlinePanels} from './'
 import type {ComponentProps} from '../../utils/types'
 
 export default {

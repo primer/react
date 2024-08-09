@@ -1,6 +1,6 @@
 import React from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import Link from '../Link'
+import {Link} from '../Link'
 import type {SxProp} from '../sx'
 import {merge} from '../sx'
 import {Item} from './Item'
@@ -24,6 +24,11 @@ type LinkProps = {
 export type ActionListLinkItemProps = Pick<ActionListItemProps, 'active' | 'children' | 'sx' | 'inactiveText'> &
   LinkProps
 
+/**
+ * A `Item` that renders a full-size anchor inside ListItem
+ * @alias ActionList.LinkItem
+ * @primerparentid action_list
+ */
 export const LinkItem = React.forwardRef(({sx = {}, active, inactiveText, as: Component, ...props}, forwardedRef) => {
   const styles = {
     // occupy full size of Item

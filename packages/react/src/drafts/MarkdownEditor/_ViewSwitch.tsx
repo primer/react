@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Box from '../../Box'
-import TabNav from '../../TabNav'
+import {TabNav} from '../../TabNav'
 
 export type MarkdownViewMode = 'preview' | 'edit'
 

@@ -89,9 +89,13 @@ export type ButtonProps = {
 } & ButtonBaseProps
 
 export type IconButtonProps = ButtonA11yProps & {
+  /** Provide an octicon. It will be placed in the center of the button */
   icon: React.ElementType
+  /** Do not use. This is planned to be a temporary prop until the default tooltip on icon buttons are fully rolled out. */
   unsafeDisableTooltip?: boolean
+  /** If `description` is provided, we will use a Tooltip to describe the button. Then `aria-label` is used to label the button. */
   description?: string
+  /** Sets where the tooltip renders in relation to the target. */
   tooltipDirection?: TooltipDirection
   keyshortcuts?: string
 } & Omit<ButtonBaseProps, 'aria-label' | 'aria-labelledby'>

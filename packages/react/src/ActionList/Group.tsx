@@ -5,7 +5,7 @@ import type {SxProp, BetterSystemStyleObject} from '../sx'
 import {merge} from '../sx'
 import {ListContext, type ActionListProps} from './shared'
 import type {AriaRole} from '../utils/types'
-import {default as Heading} from '../Heading'
+import {Heading} from '../Heading'
 import type {ActionListHeadingProps} from './Heading'
 import {useSlots} from '../hooks/useSlots'
 import {defaultSxProp} from '../utils/defaultSxProp'
@@ -44,6 +44,11 @@ export const GroupContext = React.createContext<ContextProps>({
   selectionVariant: undefined,
 })
 
+/**
+ * Collects related `Items` in an `ActionList`.
+ * @alias ActionList.Group
+ * @primerparentid action_list
+ */
 export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   title,
   variant = 'subtle',
@@ -122,6 +127,8 @@ export type GroupHeadingProps = Pick<ActionListGroupProps, 'variant' | 'auxiliar
  * If the role is "listbox" or "menu" (ActionMenu), the group heading is rendered as a div with presentation role and it is
  * hidden from the accessibility tree due to the limitation of listbox children. https://w3c.github.io/aria/#listbox
  * groups under menu or listbox are labelled by `aria-label`
+ * @alias ActionList.GroupHeading
+ * @primerparentid action_list
  */
 export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> = ({
   as,

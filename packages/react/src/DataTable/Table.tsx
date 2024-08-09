@@ -245,6 +245,11 @@ export type TableProps = React.ComponentPropsWithoutRef<'table'> & {
   cellPadding?: 'condensed' | 'normal' | 'spacious'
 }
 
+/**
+ * The `table` element for a table component. Not intended to be used directly unless you are building your own table component.
+ * @alias Table
+ * @primerparentid data_table
+ */
 const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
   {'aria-labelledby': labelledby, cellPadding = 'normal', className, gridTemplateColumns, ...rest},
   ref,
@@ -272,6 +277,11 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
 
 export type TableHeadProps = React.ComponentPropsWithoutRef<'thead'>
 
+/**
+ * The `thead` element for a table component. Not intended to be used directly unless you are building your own table component.
+ * @alias Table.Head
+ * @primerparentid data_table
+ */
 function TableHead({children}: TableHeadProps) {
   return (
     // We need to explicitly pass this role because some ATs and browsers drop table semantics
@@ -288,6 +298,11 @@ function TableHead({children}: TableHeadProps) {
 
 export type TableBodyProps = React.ComponentPropsWithoutRef<'tbody'>
 
+/**
+ * The `tbody` element for a table component. Not intended to be used directly unless you are building your own table component.
+ * @alias Table.Body
+ * @primerparentid data_table
+ */
 function TableBody({children}: TableBodyProps) {
   return (
     // We need to explicitly pass this role because some ATs and browsers drop table semantics
@@ -309,6 +324,11 @@ export type TableHeaderProps = Omit<React.ComponentPropsWithoutRef<'th'>, 'align
   align?: CellAlignment
 }
 
+/**
+ * The `th` element for a table component. Not intended to be used directly unless you are building your own table component.
+ * @alias Table.Header
+ * @primerparentid data_table
+ */
 function TableHeader({align, children, ...rest}: TableHeaderProps) {
   return (
     <th {...rest} className="TableHeader" role="columnheader" scope="col" data-cell-align={align}>
@@ -330,6 +350,11 @@ type TableSortHeaderProps = TableHeaderProps & {
   onToggleSort: () => void
 }
 
+/**
+ * Same as `Table.Header`, but each `th` contains a button that performs a sort. Not intended to be used directly unless you are building your own table component.
+ * @alias Table.SortHeader
+ * @primerparentid data_table
+ */
 function TableSortHeader({align, children, direction, onToggleSort, ...rest}: TableSortHeaderProps) {
   const ariaSort = direction === 'DESC' ? 'descending' : direction === 'ASC' ? 'ascending' : undefined
 
@@ -358,6 +383,11 @@ function TableSortHeader({align, children, direction, onToggleSort, ...rest}: Ta
 
 export type TableRowProps = React.ComponentPropsWithoutRef<'tr'>
 
+/**
+ * The `tr` element for a table component. Not intended to be used directly unless you are building your own table component.
+ * @alias Table.Row
+ * @primerparentid data_table
+ */
 function TableRow({children, ...rest}: TableRowProps) {
   return (
     <tr {...rest} className="TableRow" role="row">
@@ -383,6 +413,11 @@ export type TableCellProps = Omit<React.ComponentPropsWithoutRef<'td'>, 'align'>
   scope?: 'row'
 }
 
+/**
+ * The `td` or `tr` element for a table component. Not intended to be used directly unless you are building your own table component.
+ * @alias Table.Cell
+ * @primerparentid data_table
+ */
 function TableCell({align, className, children, scope, ...rest}: TableCellProps) {
   const BaseComponent = scope ? 'th' : 'td'
   const role = scope ? 'rowheader' : 'cell'
@@ -396,6 +431,11 @@ function TableCell({align, className, children, scope, ...rest}: TableCellProps)
 
 type TableCellPlaceholderProps = React.PropsWithChildren
 
+/**
+ * Placeholder content to be used inside of a TableCell.
+ * @alias Table.CellPlaceholder
+ * @primerparentid data_table
+ */
 function TableCellPlaceholder({children}: TableCellPlaceholderProps) {
   return <Text color="fg.subtle">{children}</Text>
 }
@@ -463,6 +503,10 @@ const StyledTableContainer = styled.div`
 
 export type TableContainerProps = React.PropsWithChildren<SxProp>
 
+/**
+ * @alias Table.Container
+ * @primerparentid data_table
+ */
 function TableContainer({children, sx}: TableContainerProps) {
   return <StyledTableContainer sx={sx}>{children}</StyledTableContainer>
 }
@@ -482,7 +526,14 @@ export type TableTitleProps = React.PropsWithChildren<{
   id: string
 }>
 
-const TableTitle = React.forwardRef<HTMLElement, TableTitleProps>(function TableTitle({as = 'h2', children, id}, ref) {
+/**
+ * @alias Table.Title
+ * @primerparentid data_table
+ */
+const TableTitle = React.forwardRef<HTMLElement, TableTitleProps>(function TableTitle(
+  {as = 'h2', children, id}: TableTitleProps,
+  ref,
+) {
   return (
     <Box
       as={as}
@@ -517,6 +568,10 @@ export type TableSubtitleProps = React.PropsWithChildren<{
   id: string
 }>
 
+/**
+ * @alias Table.Subtitle
+ * @primerparentid data_table
+ */
 function TableSubtitle({as, children, id}: TableSubtitleProps) {
   return (
     <Box
@@ -536,6 +591,11 @@ function TableSubtitle({as, children, id}: TableSubtitleProps) {
   )
 }
 
+/**
+ * An optional divider to separate the area that contains Table.Title and Table.Actions from Table.Subtitle.
+ * @alias Table.Divider
+ * @primerparentid data_table
+ */
 function TableDivider() {
   return (
     <Box
@@ -552,6 +612,11 @@ function TableDivider() {
 
 export type TableActionsProps = React.PropsWithChildren
 
+/**
+ * The container for a table component.
+ * @alias Table.Actions
+ * @primerparentid data_table
+ */
 function TableActions({children}: TableActionsProps) {
   return <div className="TableActions">{children}</div>
 }
@@ -579,6 +644,11 @@ export type TableSkeletonProps<Data extends UniqueRow> = React.ComponentPropsWit
   rows?: number
 }
 
+/**
+ * A placeholder "skeleton" to use when table content is loading. Not intended to be used directly unless you are building your own table component.
+ * @alias Table.Skeleton
+ * @primerparentid data_table
+ */
 function TableSkeleton<Data extends UniqueRow>({cellPadding, columns, rows = 10, ...rest}: TableSkeletonProps<Data>) {
   const {gridTemplateColumns} = useTableLayout(columns)
   return (

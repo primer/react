@@ -1,4 +1,4 @@
-import Link from '../Link'
+import {Link} from '../Link'
 import type {Meta, StoryFn} from '@storybook/react'
 import React from 'react'
 import type {ComponentProps} from '../utils/types'
