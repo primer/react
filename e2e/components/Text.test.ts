@@ -1,6 +1,7 @@
 import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
-import {themes} from '../test-helpers/themes'
+
+// only testing light theme because this component is only concerned with text size and weight
 
 test.describe('Text', () => {
   test.describe('Default', () => {
