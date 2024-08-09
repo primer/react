@@ -1,5 +1,6 @@
 #!/bin/bash
 
+args="$@"
 set -x
 
 PLAYWRIGHT_VERSION=$(npm --json list @playwright/test | jq --raw-output '.dependencies["@playwright/test"].version')
