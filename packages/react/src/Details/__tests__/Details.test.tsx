@@ -1,9 +1,8 @@
 import {render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import {Details, useDetails, Box} from '../..'
-import {Button, ButtonPrimary} from '../../deprecated'
-import type {ButtonProps} from '../../deprecated/Button/Button'
+import {Details, useDetails, Box, Button} from '../..'
+import type {ButtonProps} from '../../Button'
 import {behavesAsComponent, checkExports} from '../../utils/testing'
 import axe from 'axe-core'
 
@@ -90,7 +89,7 @@ describe('Details', () => {
             {open ? 'Open' : 'Closed'}
           </Button>
           <Box>
-            <ButtonPrimary>test</ButtonPrimary>
+            <Button variant="primary">test</Button>
           </Box>
         </Details>
       )
