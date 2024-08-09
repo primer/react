@@ -24,6 +24,9 @@ const input = new Set([
 
   // "./next"
   'src/next/index.ts',
+
+  // "./utils/test-helpers"
+  'src/utils/test-helpers.tsx',
 ])
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx']
