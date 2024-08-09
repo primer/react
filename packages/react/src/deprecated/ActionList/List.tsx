@@ -149,7 +149,6 @@ function useListVariant(variant: ListProps['variant'] = 'inset'): {
 export const List = React.forwardRef<HTMLDivElement, ListProps>((props, forwardedRef): JSX.Element => {
   // Get `sx` prop values for `List` children matching the given `List` style variation.
   const {firstGroupStyle, lastGroupStyle, headerStyle, itemStyle} = useListVariant(props.variant)
-
   /**
    * Render a `Group` using the first of the following renderers that is defined:
    * A `Group`-level or `List`-level custom `Group` renderer, or

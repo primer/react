@@ -7,10 +7,12 @@ import {Button} from '../Button'
 import {SelectPanel} from '../SelectPanel'
 import type {ItemInput} from '../deprecated/ActionList/List'
 
-export default {
+const meta = {
   title: 'Components/SelectPanel',
   component: SelectPanel,
-} as Meta<typeof SelectPanel>
+} satisfies Meta<typeof SelectPanel>
+
+export default meta
 
 function getColorCircle(color: string) {
   return function () {
@@ -51,8 +53,6 @@ export const Default = () => {
     <>
       <h1>Multi Select Panel</h1>
       <SelectPanel
-        title="Select labels"
-        subtitle="Use labels to organize issues and pull requests"
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
           <Button
             trailingAction={TriangleDownIcon}
@@ -63,15 +63,12 @@ export const Default = () => {
             {children ?? 'Select Labels'}
           </Button>
         )}
-        placeholderText="Filter labels"
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        showItemDividers={true}
-        overlayProps={{width: 'small', height: 'xsmall'}}
       />
     </>
   )

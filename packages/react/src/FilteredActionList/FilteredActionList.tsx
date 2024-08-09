@@ -8,8 +8,8 @@ import Spinner from '../Spinner'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {get} from '../constants'
-import {ActionList} from '../deprecated/ActionList'
-import type {GroupedListProps, ListPropsBase} from '../deprecated/ActionList/List'
+import {ActionList} from '../ActionList'
+import type {GroupedListProps, ListPropsBase, ItemInput} from '../SelectPanel/types'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
@@ -17,6 +17,8 @@ import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import type {SxProp} from '../sx'
+
+import {isValidElementType} from 'react-is'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -46,6 +48,7 @@ export function FilteredActionList({
   textInputProps,
   inputRef: providedInputRef,
   sx,
+  groupMetadata,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -59,7 +62,7 @@ export function FilteredActionList({
   )
 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const listContainerRef = useRef<HTMLDivElement>(null)
+  const listContainerRef = useRef<HTMLUListElement>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useId()
@@ -109,6 +112,72 @@ export function FilteredActionList({
 
   useScrollFlash(scrollContainerRef)
 
+  function MappedActionList(item: ItemInput) {
+    const {
+      description,
+      descriptionVariant,
+      sx,
+      text,
+      variant,
+      disabled,
+      trailingVisual: TrailingVisual,
+      leadingVisual: LeadingVisual,
+      trailingText,
+      trailingIcon: TrailingIcon,
+      onAction,
+      selected,
+    } = item
+
+    return (
+      <ActionList.Item
+        sx={sx}
+        role="option"
+        onSelect={(e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
+          if (typeof onAction === 'function')
+            onAction(item, e as React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>)
+        }}
+        selected={selected}
+        variant={variant}
+        disabled={disabled}
+      >
+        {LeadingVisual ? (
+          <ActionList.LeadingVisual>
+            <LeadingVisual />
+          </ActionList.LeadingVisual>
+        ) : null}
+        {text}
+        {description ? (
+          <ActionList.Description variant={descriptionVariant}>{description}</ActionList.Description>
+        ) : null}
+        {TrailingVisual ? (
+          <ActionList.TrailingVisual>
+            {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
+              <TrailingVisual />
+            ) : (
+              TrailingVisual
+            )}
+          </ActionList.TrailingVisual>
+        ) : TrailingIcon || trailingText ? (
+          <ActionList.TrailingVisual>
+            {trailingText}
+            {TrailingIcon && <TrailingIcon />}
+          </ActionList.TrailingVisual>
+        ) : null}
+      </ActionList.Item>
+    )
+  }
+
+  function getItemListForEachGroup(groupId: string) {
+    const itemsInGroup = []
+    for (const item of items) {
+      // Look up the group associated with the current item.
+      if (item.groupId === groupId) {
+        itemsInGroup.push(item)
+      }
+    }
+    return itemsInGroup
+  }
+
   return (
     <Box display="flex" flexDirection="column" overflow="hidden" sx={sx}>
       <StyledHeader>
@@ -133,8 +202,27 @@ export function FilteredActionList({
           <Box width="100%" display="flex" flexDirection="row" justifyContent="center" pt={6} pb={7}>
             <Spinner />
           </Box>
+        ) : groupMetadata ? (
+          <ActionList ref={listContainerRef} {...listProps} role="listbox" id={listId}>
+            {groupMetadata.map((group, index) => {
+              return (
+                <ActionList.Group key={index}>
+                  <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
+                    {group.header?.title ? group.header.title : `Group ${group.groupId}`}
+                  </ActionList.GroupHeading>
+                  {getItemListForEachGroup(group.groupId).map((item, index) => {
+                    return <MappedActionList key={index} {...item} />
+                  })}
+                </ActionList.Group>
+              )
+            })}
+          </ActionList>
         ) : (
-          <ActionList ref={listContainerRef} items={items} {...listProps} role="listbox" id={listId} />
+          <ActionList ref={listContainerRef} {...listProps} role="listbox" id={listId}>
+            {items.map((item, index) => {
+              return <MappedActionList key={index} {...item} />
+            })}
+          </ActionList>
         )}
       </Box>
     </Box>
