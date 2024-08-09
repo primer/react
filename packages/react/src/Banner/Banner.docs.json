@@ -17,6 +17,11 @@
       "description": "Provide an optional description for the Banner. This should provide supplemental information about the Banner"
     },
     {
+      "name": "hideTitle",
+       "type": "boolean",
+      "description": "Whether to hide the title visually."
+    },
+    {
       "name": "icon",
       "type": "React.ReactNode",
       "description": "Provide an icon for the banner"
