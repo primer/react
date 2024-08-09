@@ -143,7 +143,7 @@ export const StressTest = ({width, height, subtitle}: DialogStoryProps) => {
           footerButtons={[
             ...manyButtons,
             {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
-            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
+            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog},
           ]}
         >
           {lipsum}
@@ -164,6 +164,10 @@ export const ReproMultistepDialogWithConditionalFooter = ({width, height}: Dialo
   const onDialogClose = useCallback(() => setIsOpen(false), [])
   const [step, setStep] = React.useState(1)
 
+  const [inputText, setInputText] = React.useState('')
+
+  const dialogRef = useRef<HTMLDivElement>(null)
+
   const renderFooterConditionally = () => {
     if (step === 1) return null
 
@@ -173,6 +177,14 @@ export const ReproMultistepDialogWithConditionalFooter = ({width, height}: Dialo
       </Dialog.Footer>
     )
   }
+
+  React.useEffect(() => {
+    // focus the close button when the step changes
+    const focusTarget = dialogRef.current?.querySelector('button[aria-label="Close"]') as HTMLButtonElement
+    if (step === 2) {
+      focusTarget.focus()
+    }
+  }, [step])
 
   return (
     <>
@@ -185,6 +197,7 @@ export const ReproMultistepDialogWithConditionalFooter = ({width, height}: Dialo
           renderFooter={renderFooterConditionally}
           onClose={onDialogClose}
           footerButtons={[{buttonType: 'primary', content: 'Proceed'}]}
+          ref={dialogRef}
         >
           {step === 1 ? (
             <Box sx={{display: 'flex', flexDirection: 'column', gap: 4}}>
@@ -196,12 +209,17 @@ export const ReproMultistepDialogWithConditionalFooter = ({width, height}: Dialo
               </Box>
             </Box>
           ) : (
-            <p>
+            <div>
               <Box sx={{display: 'flex', flexDirection: 'column', gap: 1}}>
                 <label htmlFor="description">Description</label>
-                <TextInput id="description" placeholder="Write the description here" />
+                <TextInput
+                  id="description"
+                  placeholder="Write the description here"
+                  value={inputText}
+                  onChange={event => setInputText(event.target.value)}
+                />
               </Box>
-            </p>
+            </div>
           )}
         </Dialog>
       )}
@@ -327,6 +345,59 @@ export const NewIssues = () => {
           )}
         ></Dialog>
       ) : null}
+    </>
+  )
+}
+
+export const RetainsFocusTrapWithDynamicContent = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [secondOpen, setSecondOpen] = useState(false)
+  const [expandContent, setExpandContent] = useState(false)
+  const [changeBodyContent, setChangeBodyContent] = useState(false)
+
+  const buttonRef = useRef<HTMLButtonElement>(null)
+  const onDialogClose = useCallback(() => setIsOpen(false), [])
+  const onSecondDialogClose = useCallback(() => setSecondOpen(false), [])
+  const openSecondDialog = useCallback(() => setSecondOpen(true), [])
+
+  const renderFooterConditionally = () => {
+    if (!changeBodyContent) return null
+
+    return (
+      <Dialog.Footer>
+        <Button variant="primary">Submit</Button>
+      </Dialog.Footer>
+    )
+  }
+
+  return (
+    <>
+      <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+        Show dialog
+      </Button>
+      {isOpen && (
+        <Dialog title="My Dialog" onClose={onDialogClose} renderFooter={renderFooterConditionally}>
+          <Button onClick={() => setExpandContent(!expandContent)}>
+            Click me to dynamically {expandContent ? 'remove' : 'render'} content
+          </Button>
+          <Button onClick={() => setChangeBodyContent(!changeBodyContent)}>
+            Click me to {changeBodyContent ? 'remove' : 'add'} a footer
+          </Button>
+          <Button onClick={openSecondDialog}>Click me to open a new dialog</Button>
+          {expandContent && (
+            <Box>
+              {lipsum}
+              <Button>Dialog Button Example 1</Button>
+              <Button>Dialog Button Example 2</Button>
+            </Box>
+          )}
+          {secondOpen && (
+            <Dialog title="Inner dialog!" onClose={onSecondDialogClose} width="small">
+              Hello world
+            </Dialog>
+          )}
+        </Dialog>
+      )}
     </>
   )
 }

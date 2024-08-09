@@ -433,13 +433,6 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   useRefObjectAsForwardedRef(forwardedRef, dialogRef)
   const backdropRef = useRef<HTMLDivElement>(null)
 
-  useFocusTrap({
-    containerRef: dialogRef,
-    initialFocusRef: initialFocusRef ?? autoFocusedFooterButtonRef,
-    restoreFocusOnCleanUp: returnFocusRef?.current ? false : true,
-    returnFocusRef,
-  })
-
   useOnEscapePress(
     (event: KeyboardEvent) => {
       onClose('escape')
@@ -476,6 +469,13 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           }),
         )
 
+  useFocusTrap({
+    containerRef: dialogRef,
+    initialFocusRef: initialFocusRef ?? autoFocusedFooterButtonRef,
+    restoreFocusOnCleanUp: returnFocusRef?.current ? false : true,
+    returnFocusRef,
+  })
+
   return (
     <>
       <Portal>
@@ -491,11 +491,13 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             {...positionDataAttributes}
             sx={sx}
           >
+            <Box />
             {header}
             <ScrollableRegion aria-labelledby={dialogLabelId} className="DialogOverflowWrapper">
               {body}
             </ScrollableRegion>
             {footer}
+            <Box />
           </StyledDialog>
         </Backdrop>
       </Portal>
