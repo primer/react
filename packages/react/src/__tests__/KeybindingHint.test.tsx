@@ -70,7 +70,7 @@ describe('KeybindingHint', () => {
 
   it('renders sequences separated by hidden "then"', () => {
     render(<KeybindingHint keys="Mod+A F" format="full" />)
-    const el = screen.getByText(', then')
+    const el = screen.getByText('then')
     expect(el).toBeInTheDocument()
     expect(el).not.toHaveAttribute('aria-hidden')
   })
@@ -87,7 +87,7 @@ describe('getAccessibleKeybindingHintString', () => {
     expect(getAccessibleKeybindingHintString('Alt+Shift+Command+%', false)).toBe('alt shift command percent'))
 
   it('joins chords in a sequence with "then"', () =>
-    expect(getAccessibleKeybindingHintString('Alt+9 x y', false)).toBe('alt 9, then x, then y'))
+    expect(getAccessibleKeybindingHintString('Alt+9 x y', false)).toBe('alt 9 then x then y'))
 
   it('returns "command" for "mod" on MacOS', () =>
     expect(getAccessibleKeybindingHintString('Mod+x', true)).toBe('command x'))
