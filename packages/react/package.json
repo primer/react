@@ -25,17 +25,10 @@
       "import": "./lib-esm/next/index.js",
       "require": "./lib/next/index.js"
     },
-    "./lib-esm/*": {
-      "import": [
-        "./lib-esm/*.js",
-        "./lib-esm/*/index.js"
-      ],
-      "require": [
-        "./lib/*.js",
-        "./lib/*/index.js"
-      ]
-    },
-    "./lib-esm/internal/*": null
+    "./utils/test-helpers": {
+      "import": "./lib-esm/utils/test-helpers.js",
+      "require": "./lib/utils/test-helpers.js"
+    }
   },
   "typings": "lib/index.d.ts",
   "sideEffects": [

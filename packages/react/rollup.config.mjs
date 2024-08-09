@@ -34,38 +34,8 @@ const input = new Set([
   // "./next"
   'src/next/index.ts',
 
-  // Make sure all members are exported
-  'src/constants.ts',
-
-  ...glob.sync(
-    [
-      // "./lib-esm/hooks/*"
-      'src/hooks/*',
-
-      // "./lib-esm/polyfills/*"
-      'src/polyfills/*',
-
-      // "./lib-esm/utils/*"
-      'src/utils/*',
-
-      // for backward compatbility, see https://github.com/primer/react/pull/3740
-      'src/ActionMenu/index.ts',
-    ],
-    {
-      cwd: __dirname,
-      ignore: [
-        '**/__tests__/**',
-        '*.stories.tsx',
-
-        // File currently imports from package.json
-        'src/utils/test-deprecations.tsx',
-
-        // Files use dependencies which are not listed by package
-        'src/utils/testing.tsx',
-        'src/utils/test-matchers.tsx',
-      ],
-    },
-  ),
+  // "./utils/test-helpers"
+  'src/utils/test-helpers.tsx',
 ])
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx']
