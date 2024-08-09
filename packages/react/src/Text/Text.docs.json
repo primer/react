@@ -14,6 +14,14 @@
     {
       "name": "sx",
       "type": "SystemStyleObject"
+    },
+    {
+      "name": "size",
+      "type": "'large' | 'medium' | 'small'"
+    },
+    {
+      "name": "weight",
+      "type": "'light' | 'normal' | 'medium' | 'semibold'"
     }
   ],
   "subcomponents": []
