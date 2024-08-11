@@ -13,9 +13,8 @@ When there is a new component added to the library and it is ready for use, we n
 
 For example:
 
-{# Tooltip v1 is discouraged #}
-
 ```jsx
+// Tooltip v1 is discouraged
 import {Tooltip} from '@primer/react'
 
 render(
@@ -25,9 +24,8 @@ render(
 )
 ```
 
-{# Tooltip v2 is the recommended component #}
-
 ```jsx
+// Tooltip v2 is the recommended component
 import {Tooltip} from '@primer/react/next'
 
 render(
