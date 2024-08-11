@@ -173,6 +173,40 @@ test.describe('Button', () => {
     }
   })
 
+  test.describe('Link', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--link',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Button.Link.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--link',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
+      })
+    }
+  })
+
   test.describe('Large', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
@@ -463,6 +497,184 @@ test.describe('Button', () => {
         test('axe @aat', async ({page}) => {
           await visit(page, {
             id: 'components-button-features--inactive',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
+      })
+    }
+  })
+
+  test.describe('Loading', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--loading',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Button.Loading.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--loading',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
+      })
+    }
+  })
+
+  test.describe('Loading Custom Announcement', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--loading-custom-announcement',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `Button.Loading Custom Announcement.${theme}.png`,
+          )
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--loading-custom-announcement',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
+      })
+    }
+  })
+
+  test.describe('Loading With Leading Visual', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--loading-with-leading-visual',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `Button.Loading With Leading Visual.${theme}.png`,
+          )
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--loading-with-leading-visual',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
+      })
+    }
+  })
+
+  test.describe('Loading With Trailing Visual', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--loading-with-trailing-visual',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `Button.Loading With Trailing Visual.${theme}.png`,
+          )
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--loading-with-trailing-visual',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: theme !== 'dark_dimmed',
+              },
+            },
+          })
+        })
+      })
+    }
+  })
+
+  test.describe('Loading With Trailing Action', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--loading-with-trailing-action',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `Button.Loading With Trailing Action.${theme}.png`,
+          )
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--loading-with-trailing-action',
             globals: {
               colorScheme: theme,
             },

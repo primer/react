@@ -19,6 +19,7 @@ const Header = styled.header<StyledHeaderProps>`
   background-color: ${get('colors.header.bg')};
   align-items: center;
   flex-wrap: nowrap;
+  overflow: auto;
 
   ${sx};
 `
