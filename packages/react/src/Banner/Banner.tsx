@@ -28,8 +28,7 @@ export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
   hideTitle?: boolean
 
   /**
-   * Provide an icon for the banner.
-   * Note: Only `variant="info"` banners should use custom icons
+   * Provide a custom icon for the Banner. This is only available when `variant` is `info` or `upsell`
    */
   icon?: React.ReactNode
 

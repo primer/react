@@ -180,6 +180,26 @@ describe('Banner', () => {
     expect(screen.queryByTestId('icon')).toBe(null)
   })
 
+  it('should support a custom icon only for upsell variants', () => {
+    const CustomIcon = jest.fn(() => <svg data-testid="icon" aria-hidden="true" />)
+    const {rerender} = render(
+      <Banner title="test" description="test-description" variant="upsell" icon={<CustomIcon />} />,
+    )
+    expect(screen.getByTestId('icon')).toBeInTheDocument()
+
+    rerender(<Banner title="test" description="test-description" variant="critical" icon={<CustomIcon />} />)
+    expect(screen.queryByTestId('icon')).toBe(null)
+
+    rerender(<Banner title="test" description="test-description" variant="success" icon={<CustomIcon />} />)
+    expect(screen.queryByTestId('icon')).toBe(null)
+
+    rerender(<Banner title="test" description="test-description" variant="upsell" icon={<CustomIcon />} />)
+    expect(screen.queryByTestId('icon')).toBe(null)
+
+    rerender(<Banner title="test" description="test-description" variant="warning" icon={<CustomIcon />} />)
+    expect(screen.queryByTestId('icon')).toBe(null)
+  })
+
   describe('Banner.Title', () => {
     it('should render as a h2 element by default', () => {
       render(
