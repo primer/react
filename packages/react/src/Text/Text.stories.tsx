@@ -14,6 +14,8 @@ export const Playground: StoryFn<typeof Text> = args => <Text {...args}>{args.te
 Playground.args = {
   text: 'Playground',
   as: 'span',
+  size: 'medium',
+  weight: 'normal',
 }
 
 Playground.argTypes = {
@@ -24,12 +26,6 @@ Playground.argTypes = {
     type: 'string',
   },
   sx: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
-  theme: {
     controls: false,
     table: {
       disable: true,
@@ -46,5 +42,17 @@ Playground.argTypes = {
     table: {
       disable: true,
     },
+  },
+  size: {
+    control: {
+      type: 'radio',
+    },
+    options: ['small', 'medium', 'large'],
+  },
+  weight: {
+    control: {
+      type: 'radio',
+    },
+    options: ['light', 'normal', 'medium', 'semibold'],
   },
 }
