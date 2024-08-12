@@ -7,7 +7,7 @@ test.describe('Link', () => {
     test.describe('Default', () => {
       for (const theme of themes) {
         test.describe(theme, () => {
-          test(`default @vrt #{featureFlagEnabled ? '(css modules)':'(styled-components)'}`, async ({page}) => {
+          test(`default @vrt ${featureFlagEnabled ? '(css modules)' : '(styled-components)'}`, async ({page}) => {
             await visit(page, {
               id: 'components-link--default',
               globals: {
@@ -30,7 +30,7 @@ test.describe('Link', () => {
             expect(await page.screenshot()).toMatchSnapshot(`Link.Default.${theme}.focus.png`)
           })
 
-          test(`axe @aat #{featureFlagEnabled ? '(css modules)':'(styled-components)'}`, async ({page}) => {
+          test(`axe @aat ${featureFlagEnabled ? '(css modules)' : '(styled-components)'}`, async ({page}) => {
             await visit(page, {
               id: 'components-link--default',
               globals: {
@@ -55,7 +55,7 @@ test.describe('Link', () => {
     test.describe('Muted', () => {
       for (const theme of themes) {
         test.describe(theme, () => {
-          test(`default @vrt #{featureFlagEnabled ? '(css modules)':'(styled-components)'}`, async ({page}) => {
+          test(`default @vrt ${featureFlagEnabled ? '(css modules)' : '(styled-components)'}`, async ({page}) => {
             await visit(page, {
               id: 'components-link-features--muted',
               globals: {
@@ -78,7 +78,7 @@ test.describe('Link', () => {
             expect(await page.screenshot()).toMatchSnapshot(`Link.Muted.${theme}.focus.png`)
           })
 
-          test(`axe @aat #{featureFlagEnabled ? '(css modules)':'(styled-components)'}`, async ({page}) => {
+          test(`axe @aat ${featureFlagEnabled ? '(css modules)' : '(styled-components)'}`, async ({page}) => {
             await visit(page, {
               id: 'components-link-features--muted',
               globals: {
@@ -103,7 +103,7 @@ test.describe('Link', () => {
     test.describe('Underline', () => {
       for (const theme of themes) {
         test.describe(theme, () => {
-          test(`default @vrt #{featureFlagEnabled ? '(css modules)':'(styled-components)'}`, async ({page}) => {
+          test(`default @vrt ${featureFlagEnabled ? '(css modules)' : '(styled-components)'}`, async ({page}) => {
             await visit(page, {
               id: 'components-link-features--underline',
               globals: {
@@ -126,7 +126,7 @@ test.describe('Link', () => {
             expect(await page.screenshot()).toMatchSnapshot(`Link.Underline.${theme}.focus.png`)
           })
 
-          test(`axe @aat #{featureFlagEnabled ? '(css modules)':'(styled-components)'}`, async ({page}) => {
+          test(`axe @aat ${featureFlagEnabled ? '(css modules)' : '(styled-components)'}`, async ({page}) => {
             await visit(page, {
               id: 'components-link-features--underline',
               globals: {
@@ -151,7 +151,7 @@ test.describe('Link', () => {
     test.describe('Dev: Inline', () => {
       for (const theme of themes) {
         test.describe(theme, () => {
-          test(`default @vrt #{featureFlagEnabled ? '(css modules)':'(styled-components)'}`, async ({page}) => {
+          test(`default @vrt ${featureFlagEnabled ? '(css modules)' : '(styled-components)'}`, async ({page}) => {
             await visit(page, {
               id: 'components-link-devonly--inline',
               globals: {
@@ -166,7 +166,7 @@ test.describe('Link', () => {
             expect(await page.screenshot()).toMatchSnapshot(`Link.Inline.${theme}.png`)
           })
 
-          test(`axe @aat #{featureFlagEnabled ? '(css modules)':'(styled-components)'}`, async ({page}) => {
+          test(`axe @aat ${featureFlagEnabled ? '(css modules)' : '(styled-components)'}`, async ({page}) => {
             await visit(page, {
               id: 'components-link-devonly--inline',
               globals: {
