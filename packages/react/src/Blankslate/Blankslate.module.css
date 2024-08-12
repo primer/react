@@ -79,7 +79,6 @@
     margin-bottom: var(--stack-gap-condensed, var(--base-size-8));
   }
 
-  /* stylelint-disable-next-line selector-max-type */
   .Visual svg {
     width: 100%;
   }
