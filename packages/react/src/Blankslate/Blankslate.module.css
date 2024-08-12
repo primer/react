@@ -3,8 +3,8 @@
 }
 
 .Blankslate {
-  --blankslate-outer-padding-block: var(--base-size-32, 2rem);
-  --blankslate-outer-padding-inline: var(--base-size-32, 2rem);
+  --blankslate-outer-padding-block: var(--base-size-32);
+  --blankslate-outer-padding-inline: var(--base-size-32);
 
   display: grid;
   justify-items: center;
@@ -12,8 +12,8 @@
   padding: var(--blankslate-outer-padding-block) var(--blankslate-outer-padding-inline);
 
   &[data-spacious='true'] {
-    --blankslate-outer-padding-block: var(--base-size-80, 5rem);
-    --blankslate-outer-padding-inline: var(--base-size-40, 2.5rem);
+    --blankslate-outer-padding-block: var(--base-size-80);
+    --blankslate-outer-padding-inline: var(--base-size-40);
   }
 
   &[data-border='true'] {
@@ -30,34 +30,30 @@
 .Heading,
 .Description {
   margin: 0;
-  /* stylelint-disable-next-line primer/spacing */
-  margin-bottom: var(--stack-gap-condensed, var(--base-size-8));
+  margin-bottom: var(--base-size-8);
 }
 
 .Heading {
-  font-size: var(--text-title-size-medium, 1.25rem);
-  font-weight: var(--text-title-weight-medium, 600);
+  font-size: var(--text-title-size-medium);
+  font-weight: var(--text-title-weight-medium);
 }
 
 .Description {
-  font-size: var(--text-body-size-large, 1rem);
-  line-height: var(--text-body-lineHeight-large, 1.5);
+  font-size: var(--text-body-size-large);
+  line-height: var(--text-body-lineHeight-large);
   color: var(--fgColor-muted);
 }
 
 .Action {
-  /* stylelint-disable-next-line primer/spacing */
-  margin-top: var(--stack-gap-normal, var(--base-size-16));
-}
+  margin-top: var(--base-size-16);
 
-.Action:first-of-type {
-  /* stylelint-disable-next-line primer/spacing */
-  margin-top: var(--stack-gap-spacious, var(--base-size-24));
-}
+  &:first-of-type {
+    margin-top: var(--base-size-24);
+  }
 
-.Action:last-of-type {
-  /* stylelint-disable-next-line primer/spacing */
-  margin-bottom: var(--stack-gap-condensed, var(--base-size-8));
+  &:last-of-type {
+    margin-bottom: var(--base-size-8);
+  }
 }
 
 /* At the time these styles were written, 34rem was our "small" breakpoint width */
@@ -66,22 +62,21 @@
   .Blankslate {
     --blankslate-outer-padding-block: var(--base-size-20);
     --blankslate-outer-padding-inline: var(--base-size-20);
-  }
 
-  .Blankslate[data-spacious='true'] {
-    --blankslate-outer-padding-block: var(--base-size-44);
-    --blankslate-outer-padding-inline: var(--base-size-28);
+    &[data-spacious='true'] {
+      --blankslate-outer-padding-block: var(--base-size-44);
+      --blankslate-outer-padding-inline: var(--base-size-28);
+    }
   }
 
   .Visual {
     max-width: var(--base-size-24);
-    /* stylelint-disable-next-line primer/spacing */
-    margin-bottom: var(--stack-gap-condensed, var(--base-size-8));
-  }
+    margin-bottom: var(--base-size-8);
 
-  /* stylelint-disable-next-line selector-max-type */
-  .Visual svg {
-    width: 100%;
+    /* stylelint-disable-next-line selector-max-type */
+    & svg {
+      width: 100%;
+    }
   }
 
   .Heading {
@@ -93,17 +88,14 @@
   }
 
   .Action {
-    /* stylelint-disable-next-line primer/spacing */
-    margin-top: var(--stack-gap-condensed, var(--base-size-8));
-  }
+    margin-top: var(--base-size-8);
 
-  .Action:first-of-type {
-    /* stylelint-disable-next-line primer/spacing */
-    margin-top: var(--stack-gap-normal, var(--base-size-16));
-  }
+    &:first-of-type {
+      margin-top: var(--base-size-16);
+    }
 
-  .Action:last-of-type {
-    /* stylelint-disable-next-line primer/spacing */
-    margin-bottom: calc(var(--stack-gap-condensed, var(--base-size-8)) / 2);
+    &:last-of-type {
+      margin-bottom: calc(var(--base-size-8) / 2);
+    }
   }
 }
