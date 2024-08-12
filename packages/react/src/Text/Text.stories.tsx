@@ -31,12 +31,6 @@ Playground.argTypes = {
       disable: true,
     },
   },
-  theme: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
   ref: {
     controls: false,
     table: {
@@ -48,5 +42,17 @@ Playground.argTypes = {
     table: {
       disable: true,
     },
+  },
+  size: {
+    control: {
+      type: 'radio',
+    },
+    options: ['small', 'medium', 'large'],
+  },
+  weight: {
+    control: {
+      type: 'radio',
+    },
+    options: ['light', 'normal', 'medium', 'semibold'],
   },
 }
