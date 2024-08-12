@@ -36,6 +36,14 @@ const postcssPresetPrimer = () => {
     postcssPlugin: 'postcss-preset-primer',
     plugins: [
       [
+        '@csstools/postcss-global-data',
+        {
+          files: globSync('dist/css/**/*.css', {
+            cwd: primitivesPath,
+          }),
+        },
+      ],
+      [
         'postcss-preset-env',
         {
           stage: 2,
@@ -49,16 +57,6 @@ const postcssPresetPrimer = () => {
           },
         },
       ],
-      [
-        '@csstools/postcss-global-data',
-        {
-          files: globSync('dist/css/**/*.css', {
-            cwd: primitivesPath,
-          }),
-        },
-      ],
-      ['postcss-nesting', {edition: '2024-02'}],
-      ['postcss-custom-media', {}],
     ],
   }
 }
