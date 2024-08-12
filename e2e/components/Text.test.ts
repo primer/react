@@ -1,150 +1,61 @@
 import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 
+const stories = [
+  {
+    title: 'Default',
+    id: 'components-text--default',
+  },
+  {
+    title: 'Small',
+    id: 'components-text-features--size-small',
+  },
+  {
+    title: 'Medium',
+    id: 'components-text-features--size-medium',
+  },
+  {
+    title: 'Large',
+    id: 'components-text-features--size-large',
+  },
+  {
+    title: 'LightWeight',
+    id: 'components-text-features--light-weight',
+  },
+  {
+    title: 'NormalWeight',
+    id: 'components-text-features--normal-weight',
+  },
+  {
+    title: 'MediumWeight',
+    id: 'components-text-features--medium-weight',
+  },
+  {
+    title: 'SemiboldWeight',
+    id: 'components-text-features--semibold-weight',
+  },
+] as const
+
 // only testing light theme because this component is only concerned with text size and weight
 
 test.describe('Text', () => {
-  test.describe('Default', () => {
-    test('default @vrt', async ({page}) => {
-      await visit(page, {
-        id: 'components-text--default',
+  for (const story of stories) {
+    test.describe(story.title, () => {
+      test('default @vrt', async ({page}) => {
+        await visit(page, {
+          id: story.id,
+        })
+
+        // Default state
+        expect(await page.screenshot()).toMatchSnapshot(`Text.${story.title}.png`)
       })
 
-      // Default state
-      expect(await page.screenshot()).toMatchSnapshot(`Text.Default.png`)
-    })
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-text--default',
+      test('axe @aat', async ({page}) => {
+        await visit(page, {
+          id: story.id,
+        })
+        await expect(page).toHaveNoViolations()
       })
-      await expect(page).toHaveNoViolations()
     })
-  })
-
-  test.describe('Small', () => {
-    test('default @vrt', async ({page}) => {
-      await visit(page, {
-        id: 'components-text-features--size-small',
-      })
-
-      // Default state
-      expect(await page.screenshot()).toMatchSnapshot(`Text.Small.png`)
-    })
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-text-features--size-small',
-      })
-      await expect(page).toHaveNoViolations()
-    })
-  })
-
-  test.describe('Medium', () => {
-    test('default @vrt', async ({page}) => {
-      await visit(page, {
-        id: 'components-text-features--size-medium',
-      })
-
-      // Default state
-      expect(await page.screenshot()).toMatchSnapshot(`Text.Medium.png`)
-    })
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-text-features--size-medium',
-      })
-      await expect(page).toHaveNoViolations()
-    })
-  })
-
-  test.describe('Large', () => {
-    test('default @vrt', async ({page}) => {
-      await visit(page, {
-        id: 'components-text-features--size-large',
-      })
-
-      // Default state
-      expect(await page.screenshot()).toMatchSnapshot(`Text.Large.png`)
-    })
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-text-features--size-large',
-      })
-      await expect(page).toHaveNoViolations()
-    })
-  })
-
-  test.describe('LightWeight', () => {
-    test('default @vrt', async ({page}) => {
-      await visit(page, {
-        id: 'components-text-features--light-weight',
-      })
-
-      // Default state
-      expect(await page.screenshot()).toMatchSnapshot(`Text.Light.png`)
-    })
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-text-features--light-weight',
-      })
-      await expect(page).toHaveNoViolations()
-    })
-  })
-
-  test.describe('NormalWeight', () => {
-    test('default @vrt', async ({page}) => {
-      await visit(page, {
-        id: 'components-text-features--normal-weight',
-      })
-
-      // Default state
-      expect(await page.screenshot()).toMatchSnapshot(`Text.Normal.png`)
-    })
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-text-features--normal-weight',
-      })
-      await expect(page).toHaveNoViolations()
-    })
-  })
-
-  test.describe('MediumWeight', () => {
-    test('default @vrt', async ({page}) => {
-      await visit(page, {
-        id: 'components-text-features--medium-weight',
-      })
-
-      // Default state
-      expect(await page.screenshot()).toMatchSnapshot(`Text.Medium.png`)
-    })
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-text-features--medium-weight',
-      })
-      await expect(page).toHaveNoViolations()
-    })
-  })
-
-  test.describe('SemiboldWeight', () => {
-    test('default @vrt', async ({page}) => {
-      await visit(page, {
-        id: 'components-text-features--semibold-weight',
-      })
-
-      // Default state
-      expect(await page.screenshot()).toMatchSnapshot(`Text.Semibold.png`)
-    })
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-text-features--semibold-weight',
-      })
-      await expect(page).toHaveNoViolations()
-    })
-  })
+  }
 })
