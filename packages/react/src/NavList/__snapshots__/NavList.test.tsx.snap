@@ -87,7 +87,7 @@ exports[`NavList renders a simple list 1`] = `
 .c2[aria-disabled] [data-component="ActionList.Checkbox"],
 .c2[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -179,7 +179,7 @@ exports[`NavList renders a simple list 1`] = `
 .c7[aria-disabled] [data-component="ActionList.Checkbox"],
 .c7[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -339,7 +339,7 @@ exports[`NavList renders a simple list 1`] = `
       >
         <a
           aria-current="page"
-          aria-labelledby=":r2:--label "
+          aria-labelledby=":r2:--label  "
           class="c3 c4"
           href="/"
           id=":r2:"
@@ -362,7 +362,7 @@ exports[`NavList renders a simple list 1`] = `
         class="c1 c7"
       >
         <a
-          aria-labelledby=":r3:--label "
+          aria-labelledby=":r3:--label  "
           class="c3 c4"
           href="/about"
           id=":r3:"
@@ -385,7 +385,7 @@ exports[`NavList renders a simple list 1`] = `
         class="c1 c7"
       >
         <a
-          aria-labelledby=":r4:--label "
+          aria-labelledby=":r4:--label  "
           class="c3 c4"
           href="/contact"
           id=":r4:"
@@ -480,6 +480,18 @@ exports[`NavList renders with groups 1`] = `
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
+.c3:where([data-variant='large']) {
+  font: var(--text-title-shorthand-large,600 32px / 1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji");
+}
+
+.c3:where([data-variant='medium']) {
+  font: var(--text-title-shorthand-medium,600 20px / 1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji");
+}
+
+.c3:where([data-variant='small']) {
+  font: var(--text-title-shorthand-small,600 16px / 1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji");
+}
+
 .c0 {
   margin: 0;
   padding-inline-start: 0;
@@ -533,7 +545,7 @@ exports[`NavList renders with groups 1`] = `
 .c6[aria-disabled] [data-component="ActionList.Checkbox"],
 .c6[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -625,7 +637,7 @@ exports[`NavList renders with groups 1`] = `
 .c11[aria-disabled] [data-component="ActionList.Checkbox"],
 .c11[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -803,7 +815,7 @@ exports[`NavList renders with groups 1`] = `
           >
             <a
               aria-current="page"
-              aria-labelledby=":r8:--label "
+              aria-labelledby=":r8:--label  "
               class="c7 c8"
               href="/getting-started"
               id=":r8:"
@@ -846,7 +858,7 @@ exports[`NavList renders with groups 1`] = `
             class="c5 c11"
           >
             <a
-              aria-labelledby=":ra:--label "
+              aria-labelledby=":ra:--label  "
               class="c7 c8"
               href="/Avatar"
               id=":ra:"
@@ -1010,7 +1022,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 .c11[aria-disabled] [data-component="ActionList.Checkbox"],
 .c11[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -1102,7 +1114,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 .c4[aria-disabled] [data-component="ActionList.Checkbox"],
 .c4[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -1274,7 +1286,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
         <button
           aria-controls=":r27:"
           aria-expanded="true"
-          aria-labelledby=":r26:--label "
+          aria-labelledby=":r26:--label :r26:--trailing-visual "
           class="c3 c4"
           id=":r26:"
           tabindex="0"
@@ -1294,6 +1306,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
               </span>
               <span
                 class="c1 c8"
+                id=":r26:--trailing-visual"
               >
                 <svg
                   aria-hidden="true"
@@ -1324,7 +1337,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
             >
               <a
                 aria-current="page"
-                aria-labelledby=":r29:--label "
+                aria-labelledby=":r29:--label  "
                 class="c12 c13"
                 href="#"
                 id=":r29:"
@@ -1480,7 +1493,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 .c11[aria-disabled] [data-component="ActionList.Checkbox"],
 .c11[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -1582,7 +1595,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 .c4[aria-disabled] [data-component="ActionList.Checkbox"],
 .c4[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -1773,7 +1786,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
         <button
           aria-controls=":r21:"
           aria-expanded="false"
-          aria-labelledby=":r20:--label "
+          aria-labelledby=":r20:--label :r20:--trailing-visual "
           class="c3 c4"
           id=":r20:"
           tabindex="0"
@@ -1793,6 +1806,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
               </span>
               <span
                 class="c1 c8"
+                id=":r20:--trailing-visual"
               >
                 <svg
                   aria-hidden="true"
@@ -1823,7 +1837,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
             >
               <a
                 aria-current="page"
-                aria-labelledby=":r23:--label "
+                aria-labelledby=":r23:--label  "
                 class="c12 c13"
                 href="#"
                 id=":r23:"

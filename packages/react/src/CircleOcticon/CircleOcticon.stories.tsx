@@ -9,7 +9,7 @@ export default {
 } as Meta<typeof CircleOcticon>
 
 export const Default = () => (
-  <CircleOcticon icon={CheckIcon} size={32} sx={{backgroundColor: 'success.fg', color: 'fg.onEmphasis'}} />
+  <CircleOcticon icon={CheckIcon} size={32} sx={{backgroundColor: 'success.emphasis', color: 'fg.onEmphasis'}} />
 )
 
 export const Playground: StoryFn<typeof CircleOcticon> = args => <CircleOcticon {...args} />
@@ -17,7 +17,7 @@ export const Playground: StoryFn<typeof CircleOcticon> = args => <CircleOcticon 
 Playground.args = {
   icon: CheckIcon,
   size: 32,
-  sx: {backgroundColor: 'success.fg', color: 'fg.onEmphasis'},
+  sx: {backgroundColor: 'success.emphasis', color: 'fg.onEmphasis'},
 }
 
 Playground.argTypes = {
