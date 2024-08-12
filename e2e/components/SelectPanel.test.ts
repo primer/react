@@ -18,7 +18,7 @@ test.describe('SelectPanel', () => {
           await page.keyboard.press('Tab')
           await page.keyboard.press('Enter')
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SelectPanel.Default.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SelectPanel.Default.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -49,7 +49,9 @@ test.describe('SelectPanel', () => {
           await page.keyboard.press('Tab')
           await page.keyboard.press('Enter')
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SelectPanel.Single Select.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `SelectPanel.Single Select.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -80,7 +82,9 @@ test.describe('SelectPanel', () => {
           await page.keyboard.press('Tab')
           await page.keyboard.press('Enter')
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SelectPanel.External Anchor.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `SelectPanel.External Anchor.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -111,7 +115,9 @@ test.describe('SelectPanel', () => {
           await page.keyboard.press('Tab')
           await page.keyboard.press('Enter')
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SelectPanel.With Footer.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `SelectPanel.With Footer.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -142,7 +148,9 @@ test.describe('SelectPanel', () => {
           await page.keyboard.press('Tab')
           await page.keyboard.press('Enter')
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SelectPanel.With Groups.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `SelectPanel.With Groups.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -173,7 +181,9 @@ test.describe('SelectPanel', () => {
           await page.keyboard.press('Tab')
           await page.keyboard.press('Enter')
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SelectPanel.With Item Dividers.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `SelectPanel.With Item Dividers.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -204,7 +214,9 @@ test.describe('SelectPanel', () => {
           await page.keyboard.press('Tab')
           await page.keyboard.press('Enter')
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SelectPanel.With Placeholder for Search Input.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `SelectPanel.With Placeholder for Search Input.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -235,7 +247,9 @@ test.describe('SelectPanel', () => {
           await page.keyboard.press('Tab')
           await page.keyboard.press('Enter')
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SelectPanel.With Placeholder Select.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `SelectPanel.With Placeholder Select.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -266,7 +280,9 @@ test.describe('SelectPanel', () => {
           await page.keyboard.press('Tab')
           await page.keyboard.press('Enter')
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SelectPanel.Above Tall Body.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `SelectPanel.Above Tall Body.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -297,7 +313,9 @@ test.describe('SelectPanel', () => {
           await page.keyboard.press('Tab')
           await page.keyboard.press('Enter')
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`SelectPanel.Height Variantions and Scroll.${theme}.png`)
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+            `SelectPanel.Height Variantions and Scroll.${theme}.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -328,7 +346,7 @@ test.describe('SelectPanel', () => {
           await page.keyboard.press('Tab')
           await page.keyboard.press('Enter')
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `SelectPanel.Height Initial with Overflowing Items.${theme}.png`,
           )
         })
@@ -361,7 +379,7 @@ test.describe('SelectPanel', () => {
           await page.keyboard.press('Tab')
           await page.keyboard.press('Enter')
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `SelectPanel.Height Initial with Underflowing Items.${theme}.png`,
           )
         })
@@ -394,7 +412,7 @@ test.describe('SelectPanel', () => {
           await page.keyboard.press('Tab')
           await page.keyboard.press('Enter')
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
             `SelectPanel.Height Initial with Underflowing Items After Fetch.${theme}.png`,
           )
         })
