@@ -453,12 +453,13 @@ describe('SelectPanel', () => {
       expect(listbox).toHaveAttribute('aria-multiselectable', 'true')
 
       // listbox should has 3 gorups and each have heading
-      const headings = screen.getAllByRole('heading')
+      const groups = screen.getAllByRole('group')
 
       // The first heading is the h1 and it is the title of the dialog
-      expect(headings[1]).toHaveTextContent('Group title 1')
-      expect(headings[2]).toHaveTextContent('Group title 2')
-      expect(headings[3]).toHaveTextContent('Group title 3')
+      expect(groups).toHaveLength(3)
+      expect(groups[0]).toHaveAttribute('aria-label', 'Group title 1')
+      expect(groups[1]).toHaveAttribute('aria-label', 'Group title 2')
+      expect(groups[2]).toHaveAttribute('aria-label', 'Group title 3')
 
       expect(screen.getAllByRole('option')).toHaveLength(4)
     })
