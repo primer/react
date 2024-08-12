@@ -65,12 +65,12 @@ test.describe('SelectPanel', () => {
     }
   })
 
-  test.describe('External Anchor', () => {
+  test.describe('With External Anchor', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-selectpanel-features--external-anchor-story',
+            id: 'components-selectpanel-features--with-external-anchor',
             globals: {
               colorScheme: theme,
             },
@@ -85,7 +85,7 @@ test.describe('SelectPanel', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-selectpanel-features--external-anchor-story',
+            id: 'components-selectpanel-features--with-external-anchor',
             globals: {
               colorScheme: theme,
             },

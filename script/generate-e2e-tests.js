@@ -1129,8 +1129,8 @@ const components = new Map([
           name: 'Single Select',
         },
         {
-          id: 'components-selectpanel-features--external-anchor-story',
-          name: 'External Anchor',
+          id: 'components-selectpanel-features--with-external-anchor',
+          name: 'With External Anchor',
         },
         {
           id: 'components-selectpanel-features--with-footer',
