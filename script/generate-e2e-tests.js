@@ -1125,7 +1125,7 @@ const components = new Map([
           name: 'Default',
         },
         {
-          id: 'components-selectpanel-features--single-select-story',
+          id: 'components-selectpanel-features--single-select',
           name: 'Single Select',
         },
         {

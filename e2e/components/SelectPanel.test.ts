@@ -39,7 +39,7 @@ test.describe('SelectPanel', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-selectpanel-features--single-select-story',
+            id: 'components-selectpanel-features--single-select',
             globals: {
               colorScheme: theme,
             },
@@ -54,7 +54,7 @@ test.describe('SelectPanel', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-selectpanel-features--single-select-story',
+            id: 'components-selectpanel-features--single-select',
             globals: {
               colorScheme: theme,
             },
