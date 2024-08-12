@@ -53,6 +53,8 @@ export const Default = () => {
     <>
       <h1>Multi Select Panel</h1>
       <SelectPanel
+        title="Select labels"
+        subtitle="Use labels to organize issues and pull requests"
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
           <Button
             trailingAction={TriangleDownIcon}

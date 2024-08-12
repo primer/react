@@ -81,36 +81,6 @@ export const WithItemDividers = () => {
   )
 }
 
-export const WithTitleAndSubtitle = () => {
-  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
-  const [filter, setFilter] = React.useState('')
-  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
-  const [open, setOpen] = useState(false)
-
-  return (
-    <SelectPanel
-      title="Select labels"
-      subtitle="Use labels to organize issues and pull requests"
-      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-        <Button
-          trailingAction={TriangleDownIcon}
-          aria-labelledby={` ${ariaLabelledBy}`}
-          {...anchorProps}
-          aria-haspopup="dialog"
-        >
-          {children ?? 'Select Labels'}
-        </Button>
-      )}
-      open={open}
-      onOpenChange={setOpen}
-      items={filteredItems}
-      selected={selected}
-      onSelectedChange={setSelected}
-      onFilterChange={setFilter}
-    />
-  )
-}
-
 export const WithPlaceholderForSeachInput = () => {
   const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
   const [filter, setFilter] = React.useState('')
