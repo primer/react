@@ -99,6 +99,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
   const hasActions = primaryAction || secondaryAction
   const bannerRef = React.useRef<HTMLElement>(null)
   const ref = useMergedRefs(forwardRef, bannerRef)
+  const supportsCustomIcon = variant === 'info' || variant === 'upsell'
 
   if (__DEV__) {
     // This hook is called consistently depending on the environment
@@ -134,7 +135,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
       ref={ref}
     >
       <style>{BannerContainerQuery}</style>
-      <div className="BannerIcon">{icon && variant === 'info' ? icon : iconForVariant[variant]}</div>
+      <div className="BannerIcon">{icon && supportsCustomIcon ? icon : iconForVariant[variant]}</div>
       <div className="BannerContainer">
         <div className="BannerContent">
           {title ? (
