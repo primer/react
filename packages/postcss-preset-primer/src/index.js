@@ -2,6 +2,8 @@ import {existsSync} from 'node:fs'
 import path from 'node:path'
 import {fileURLToPath} from 'node:url'
 import {globSync} from 'glob'
+// @ts-ignore
+import browsers from '@github/browserslist-config'
 
 const filepath = fileURLToPath(import.meta.url)
 const {root: ROOT_DIR} = path.parse(filepath)
@@ -46,6 +48,7 @@ const postcssPresetPrimer = () => {
       [
         'postcss-preset-env',
         {
+          browsers,
           stage: 2,
           // https://preset-env.cssdb.org/features/#stage-2
           features: {
