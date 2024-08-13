@@ -696,7 +696,7 @@ test.describe('Button', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-devonly--invisible-variants',
+            id: 'dev-components-button--invisible-variants',
             globals: {
               colorScheme: theme,
             },
@@ -714,7 +714,7 @@ test.describe('Button', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-button-devonly--test-sx-prop',
+            id: 'dev-components-button--test-sx-prop',
             globals: {
               colorScheme: theme,
             },

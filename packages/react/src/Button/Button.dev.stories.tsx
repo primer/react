@@ -4,7 +4,7 @@ import {Button, IconButton} from '.'
 import {default as Text} from '../Text'
 
 export default {
-  title: 'Components/Button/DevOnly',
+  title: 'Dev/Components/Button',
 }
 
 export const InvisibleVariants = () => {
