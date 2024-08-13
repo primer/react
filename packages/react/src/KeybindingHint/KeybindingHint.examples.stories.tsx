@@ -4,7 +4,7 @@ import {KeybindingHint, type KeybindingHintProps} from '.'
 import {Button, ActionList, FormControl, TextInput} from '..'
 
 export default {
-  title: 'Components/KeybindingHint/Examples',
+  title: 'Drafts/Components/KeybindingHint/Examples',
   component: KeybindingHint,
 } satisfies Meta<typeof KeybindingHint>
 
