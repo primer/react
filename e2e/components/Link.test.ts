@@ -65,7 +65,7 @@ test.describe('Link', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-link-devonly--inline',
+            id: 'dev-components-link--inline',
             globals: {
               colorScheme: theme,
             },
@@ -77,7 +77,7 @@ test.describe('Link', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-link-devonly--inline',
+            id: 'dev-components-link--inline',
             globals: {
               colorScheme: theme,
             },

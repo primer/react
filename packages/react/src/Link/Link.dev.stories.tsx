@@ -4,7 +4,7 @@ import React from 'react'
 import type {ComponentProps} from '../utils/types'
 
 export default {
-  title: 'Components/Link/DevOnly',
+  title: 'Dev/Components/Link',
   component: Link,
 } as Meta<ComponentProps<typeof Link>>
 
