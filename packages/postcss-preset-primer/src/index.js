@@ -4,6 +4,8 @@ import {fileURLToPath} from 'node:url'
 import {globSync} from 'glob'
 import postcssGlobalData from '@csstools/postcss-global-data'
 import postcssPresetEnv from 'postcss-preset-env'
+// @ts-ignore
+import browsers from '@github/browserslist-config'
 
 const filepath = fileURLToPath(import.meta.url)
 const {root: ROOT_DIR} = path.parse(filepath)
@@ -35,6 +37,7 @@ const postcssPresetPrimer = () => {
   const [primitivesPath] = primitivesPaths
   const preset = postcssPresetEnv({
     stage: 2,
+    browsers,
     // https://preset-env.cssdb.org/features/#stage-2
     features: {
       'nesting-rules': {
