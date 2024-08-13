@@ -73,7 +73,6 @@
     max-width: var(--base-size-24);
     margin-bottom: var(--base-size-8);
 
-    /* stylelint-disable-next-line selector-max-type */
     & svg {
       width: 100%;
     }
