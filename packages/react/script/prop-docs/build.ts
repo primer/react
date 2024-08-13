@@ -333,17 +333,27 @@ function formatComponentJson(docgenOutputItem: ComponentDoc) {
 
   const componentName = alias || displayName
   const stories = primerparentid ? [] : getStoryData({description, displayName, filePath, propsData, tags})
-  const props = Object.keys(propsData).map(propName => {
-    const {type, required, description, defaultValue} = propsData[propName]
+  const props = Object.keys(propsData)
+    .map(propName => {
+      const {type, required, description, defaultValue} = propsData[propName]
 
-    return {
-      name: propName,
-      type: getTypeName(type, propName),
-      required,
-      description,
-      defaultValue: defaultValue ? defaultValue.value : '',
-    }
-  })
+      return {
+        name: propName,
+        type: getTypeName(type, propName),
+        required,
+        description,
+        defaultValue: defaultValue ? defaultValue.value : '',
+      }
+    })
+    .sort((a, b) => {
+      if (a.required && !b.required) {
+        return -1
+      }
+      if (!a.required && b.required) {
+        return 1
+      }
+      return a.name.localeCompare(b.name)
+    })
   const importPath = getImportPath(primerstatus, deprecated)
 
   return {
@@ -371,7 +381,20 @@ function docgenArrayToComponentsObj(docgenOutputData: any[]) {
     .map(outputDatum => {
       const {primerid, primerparentid} = outputDatum.tags
 
-      const subComponents = docgenOutputData.filter(({tags}) => tags.primerparentid && tags.primerparentid === primerid)
+      const subComponents = docgenOutputData
+        .filter(({tags}) => tags.primerparentid && tags.primerparentid === primerid)
+        .sort((a, b) => {
+          const orderA =
+            a.tags.primersubcomponentorder !== undefined ? parseInt(a.tags.primersubcomponentorder, 10) : Infinity
+          const orderB =
+            b.tags.primersubcomponentorder !== undefined ? parseInt(b.tags.primersubcomponentorder, 10) : Infinity
+
+          if (orderA !== orderB) {
+            return orderA - orderB
+          }
+
+          return (a.alias || a.displayName).localeCompare(b.alias || b.displayName)
+        })
 
       // This uses the `@primerid` and `@primerparentid` JSDoc tags to determine if the
       // item is a component. If it's not a component, we skip it.

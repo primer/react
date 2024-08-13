@@ -28,6 +28,7 @@ export type ActionListLinkItemProps = Pick<ActionListItemProps, 'active' | 'chil
  * A `Item` that renders a full-size anchor inside ListItem
  * @alias ActionList.LinkItem
  * @primerparentid action_list
+ * @primersubcomponentorder 1
  */
 export const LinkItem = React.forwardRef(({sx = {}, active, inactiveText, as: Component, ...props}, forwardedRef) => {
   const styles = {

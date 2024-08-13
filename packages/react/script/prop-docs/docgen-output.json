@@ -3409,7 +3409,8 @@
   {
     "tags": {
       "alias": "ActionList.Heading",
-      "primerparentid": "action_list"
+      "primerparentid": "action_list",
+      "primersubcomponentorder": "2"
     },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Heading.tsx",
     "description": "Heading for an `ActionList`",
@@ -3616,7 +3617,8 @@
   {
     "tags": {
       "alias": "ActionList.Item",
-      "primerparentid": "action_list"
+      "primerparentid": "action_list",
+      "primersubcomponentorder": "0"
     },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/Item.tsx",
     "description": "An actionable or selectable `Item`",
@@ -4784,7 +4786,8 @@
   {
     "tags": {
       "alias": "ActionList.LinkItem",
-      "primerparentid": "action_list"
+      "primerparentid": "action_list",
+      "primersubcomponentorder": "1"
     },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/ActionList/LinkItem.tsx",
     "description": "A `Item` that renders a full-size anchor inside ListItem",
@@ -22732,7 +22735,7 @@
       },
       "icon": {
         "defaultValue": null,
-        "description": "Provide an icon for the banner.\nNote: Only `variant=\"info\"` banners should use custom icons",
+        "description": "Provide a custom icon for the Banner. This is only available when `variant` is `info` or `upsell`",
         "name": "icon",
         "declarations": [
           {
@@ -65992,6 +65995,33 @@
     "displayName": "Text",
     "methods": [],
     "props": {
+      "size": {
+        "defaultValue": null,
+        "description": "",
+        "name": "size",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Text/Text.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "\"small\" | \"large\" | \"medium\"",
+          "value": [
+            {
+              "value": "\"small\""
+            },
+            {
+              "value": "\"large\""
+            },
+            {
+              "value": "\"medium\""
+            }
+          ]
+        }
+      },
       "whiteSpace": {
         "defaultValue": null,
         "description": "",
@@ -66025,6 +66055,36 @@
             },
             {
               "value": "\"pre-line\""
+            }
+          ]
+        }
+      },
+      "weight": {
+        "defaultValue": null,
+        "description": "",
+        "name": "weight",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Text/Text.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "\"medium\" | \"normal\" | \"light\" | \"semibold\"",
+          "value": [
+            {
+              "value": "\"medium\""
+            },
+            {
+              "value": "\"normal\""
+            },
+            {
+              "value": "\"light\""
+            },
+            {
+              "value": "\"semibold\""
             }
           ]
         }

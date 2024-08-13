@@ -20,6 +20,7 @@ export type ActionListHeadingProps = {
  * Heading for an `ActionList`
  * @alias ActionList.Heading
  * @primerparentid action_list
+ * @primersubcomponentorder 2
  */
 export const Heading = forwardRef(
   ({as, children, sx = defaultSxProp, visuallyHidden = false, ...props}, forwardedRef) => {

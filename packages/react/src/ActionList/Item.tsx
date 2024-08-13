@@ -28,6 +28,7 @@ const LiBox = styled.li<SxProp>(sx)
  * An actionable or selectable `Item`
  * @alias ActionList.Item
  * @primerparentid action_list
+ * @primersubcomponentorder 0
  */
 export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
   (
@@ -186,7 +187,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         cursor: 'not-allowed',
         '[data-component="ActionList.Checkbox"]': {
           cursor: 'not-allowed',
-          bg: selected ? 'fg.muted' : 'var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2))',
+          bg: selected ? 'fg.muted' : 'var(--control-bgColor-disabled, rgba(175, 184, 193, 0.2))',
           borderColor: selected ? 'fg.muted' : 'var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2))',
         },
       },

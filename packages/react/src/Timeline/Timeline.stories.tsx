@@ -20,19 +20,19 @@ export const Default = () => (
   <Timeline>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} />
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} />
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} />
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
@@ -43,19 +43,19 @@ export const Playground: StoryFn<ComponentProps<typeof Timeline>> = args => (
   <Timeline {...args}>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} />
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} />
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} />
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
