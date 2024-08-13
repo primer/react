@@ -2,6 +2,8 @@ import {existsSync} from 'node:fs'
 import path from 'node:path'
 import {fileURLToPath} from 'node:url'
 import {globSync} from 'glob'
+import postcssGlobalData from '@csstools/postcss-global-data'
+import postcssPresetEnv from 'postcss-preset-env'
 
 const filepath = fileURLToPath(import.meta.url)
 const {root: ROOT_DIR} = path.parse(filepath)
@@ -31,34 +33,34 @@ const postcssPresetPrimer = () => {
   }
 
   const [primitivesPath] = primitivesPaths
+  const preset = postcssPresetEnv({
+    stage: 2,
+    // https://preset-env.cssdb.org/features/#stage-2
+    features: {
+      'nesting-rules': {
+        noIsPseudoSelector: true,
+      },
+      'focus-visible-pseudo-class': false,
+      'logical-properties-and-values': false,
+    },
+  })
+  const plugins = 'plugins' in preset ? preset.plugins : []
 
   return {
     postcssPlugin: 'postcss-preset-primer',
+    // Note: plugins passed into here must be called as functions and cannot use
+    // array syntax typically used in PostCSS config. Also, presets that use
+    // their own plugins won't work by default. We need to pull the plugins out
+    // and apply them from the preset
     plugins: [
-      [
-        'postcss-preset-env',
-        {
-          stage: 2,
-          // https://preset-env.cssdb.org/features/#stage-2
-          features: {
-            'nesting-rules': {
-              noIsPseudoSelector: true,
-            },
-            'focus-visible-pseudo-class': false,
-            'logical-properties-and-values': false,
-          },
-        },
-      ],
-      [
-        '@csstools/postcss-global-data',
-        {
-          files: globSync('dist/css/**/*.css', {
-            cwd: primitivesPath,
-          }),
-        },
-      ],
-      ['postcss-nesting', {edition: '2024-02'}],
-      ['postcss-custom-media', {}],
+      postcssGlobalData({
+        files: globSync('dist/css/**/*.css', {
+          cwd: primitivesPath,
+        }).map(file => {
+          return path.join(primitivesPath, file)
+        }),
+      }),
+      ...plugins,
     ],
   }
 }
