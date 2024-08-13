@@ -7,14 +7,7 @@ export default {
 }
 
 export const CustomSize = () => (
-  <IconButton
-    aria-label="Expand"
-    variant="primary"
-    size="small"
-    icon={ChevronDownIcon}
-    unsafeDisableTooltip={false}
-    sx={{width: 16, height: 16}}
-  />
+  <IconButton aria-label="Expand" variant="primary" size="small" icon={ChevronDownIcon} sx={{width: 16, height: 16}} />
 )
 
 export const CustomSizeWithMedia = () => {
@@ -24,19 +17,11 @@ export const CustomSizeWithMedia = () => {
       variant="primary"
       size="small"
       icon={ChevronDownIcon}
-      unsafeDisableTooltip={false}
       sx={{'@media (min-width: 123px)': {width: 16, height: 16}}}
     />
   )
 }
 
 export const CustomIconColor = () => (
-  <IconButton
-    aria-label="Expand"
-    variant="invisible"
-    size="small"
-    icon={ChevronDownIcon}
-    unsafeDisableTooltip={false}
-    sx={{color: 'red'}}
-  />
+  <IconButton aria-label="Expand" variant="invisible" size="small" icon={ChevronDownIcon} sx={{color: 'red'}} />
 )
