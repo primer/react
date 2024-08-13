@@ -36,7 +36,7 @@ test.describe('NavList', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-navlist-devonly--with-bad-example-of-sub-nav-and-trailing-action',
+            id: 'dev-components-navlist--with-bad-example-of-sub-nav-and-trailing-action',
             globals: {
               colorScheme: theme,
             },
@@ -50,7 +50,7 @@ test.describe('NavList', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-navlist-devonly--with-bad-example-of-sub-nav-and-trailing-action',
+            id: 'dev-components-navlist--with-bad-example-of-sub-nav-and-trailing-action',
             globals: {
               colorScheme: theme,
             },
