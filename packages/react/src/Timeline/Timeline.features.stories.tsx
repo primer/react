@@ -21,7 +21,7 @@ export const ClipSidebar = () => (
   <Timeline clipSidebar>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} />
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
@@ -32,13 +32,13 @@ export const CondensedItems = () => (
   <Timeline>
     <Timeline.Item condensed>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} />
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item condensed>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} />
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
@@ -49,14 +49,14 @@ export const TimelineBreak = () => (
   <Timeline>
     <Timeline.Item>
       <Timeline.Badge sx={{bg: 'done.emphasis'}}>
-        <Octicon icon={GitMergeIcon} color="fg.onEmphasis" />
+        <Octicon icon={GitMergeIcon} color="fg.onEmphasis" aria-label="Merged" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Break />
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitBranchIcon} />
+        <Octicon icon={GitBranchIcon} aria-label="Branch" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
@@ -67,7 +67,7 @@ export const WithInlineLinks = () => (
   <Timeline>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} />
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>
         <Link href="#" sx={{fontWeight: 'bold', color: 'fg.default', mr: 1}} muted>

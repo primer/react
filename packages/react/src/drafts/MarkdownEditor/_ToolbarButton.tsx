@@ -11,7 +11,9 @@ export const ToolbarButton = forwardRef<HTMLButtonElement, IconButtonProps>((pro
   const {disabled, condensed} = useContext(MarkdownEditorContext)
 
   return (
+    // eslint-disable-next-line primer-react/a11y-remove-disable-tooltip
     <IconButton
+      unsafeDisableTooltip={true}
       ref={ref}
       size={condensed ? 'small' : 'medium'}
       variant="invisible"
@@ -21,7 +23,6 @@ export const ToolbarButton = forwardRef<HTMLButtonElement, IconButtonProps>((pro
       {...props}
       sx={{color: 'fg.muted', ...props.sx}}
       // Keeping the tooltip disable since it is not maintained anymore and its tests were failing.
-      unsafeDisableTooltip
     />
   )
 })
