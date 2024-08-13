@@ -821,7 +821,7 @@ const components = new Map([
           name: 'With TrailingAction in Sub Item',
         },
         {
-          id: 'components-navlist-devonly--with-bad-example-of-sub-nav-and-trailing-action',
+          id: 'dev-components-navlist--with-bad-example-of-sub-nav-and-trailing-action',
           name: 'With Bad Example of SubNav and TrailingAction',
         },
       ],
@@ -919,7 +919,7 @@ const components = new Map([
           name: 'With Parent Link and Actions of Context Area',
         },
         {
-          id: 'components-pageheader-devonly--large-variant-with-multiline-title',
+          id: 'dev-components-pageheader--large-variant-with-multiline-title',
           name: 'Large Variant with Multiline Title',
         },
       ],
