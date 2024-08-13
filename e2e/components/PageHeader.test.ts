@@ -679,7 +679,7 @@ test.describe('PageHeader', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-pageheader-devonly--large-variant-with-multiline-title',
+            id: 'dev-components-pageheader--large-variant-with-multiline-title',
             globals: {
               colorScheme: theme,
             },
@@ -691,7 +691,7 @@ test.describe('PageHeader', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-pageheader-devonly--large-variant-with-multiline-title',
+            id: 'dev-components-pageheader--large-variant-with-multiline-title',
             globals: {
               colorScheme: theme,
             },
