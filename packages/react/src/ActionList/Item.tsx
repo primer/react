@@ -28,6 +28,7 @@ const LiBox = styled.li<SxProp>(sx)
  * An actionable or selectable `Item`
  * @alias ActionList.Item
  * @primerparentid action_list
+ * @primersubcomponentorder 0
  */
 export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
   (
