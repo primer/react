@@ -606,7 +606,7 @@ test.describe('ActionList', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-actionlist-dev--group-with-filled-title-old-api',
+            id: 'dev-components-actionlist--group-with-filled-title-old-api',
             globals: {
               colorScheme: theme,
             },
@@ -618,7 +618,7 @@ test.describe('ActionList', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-actionlist-dev--group-with-filled-title-old-api',
+            id: 'dev-components-actionlist--group-with-filled-title-old-api',
             globals: {
               colorScheme: theme,
             },
@@ -634,7 +634,7 @@ test.describe('ActionList', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-actionlist-dev--group-with-subtle-title-old-api',
+            id: 'dev-components-actionlist--group-with-subtle-title-old-api',
             globals: {
               colorScheme: theme,
             },
@@ -646,7 +646,7 @@ test.describe('ActionList', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-actionlist-dev--group-with-subtle-title-old-api',
+            id: 'dev-components-actionlist--group-with-subtle-title-old-api',
             globals: {
               colorScheme: theme,
             },

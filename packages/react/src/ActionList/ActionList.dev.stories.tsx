@@ -9,7 +9,7 @@ import {Description} from './Description'
 import Avatar from '../Avatar'
 
 export default {
-  title: 'Components/ActionList/Dev',
+  title: 'Dev/Components/ActionList',
   component: ActionList,
   subcomponents: {Item, LinkItem, Group, Divider, Description},
 } as Meta<typeof ActionList>
