@@ -22735,7 +22735,7 @@
       },
       "icon": {
         "defaultValue": null,
-        "description": "Provide an icon for the banner.\nNote: Only `variant=\"info\"` banners should use custom icons",
+        "description": "Provide a custom icon for the Banner. This is only available when `variant` is `info` or `upsell`",
         "name": "icon",
         "declarations": [
           {
@@ -65995,6 +65995,33 @@
     "displayName": "Text",
     "methods": [],
     "props": {
+      "size": {
+        "defaultValue": null,
+        "description": "",
+        "name": "size",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Text/Text.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "\"small\" | \"large\" | \"medium\"",
+          "value": [
+            {
+              "value": "\"small\""
+            },
+            {
+              "value": "\"large\""
+            },
+            {
+              "value": "\"medium\""
+            }
+          ]
+        }
+      },
       "whiteSpace": {
         "defaultValue": null,
         "description": "",
@@ -66028,6 +66055,36 @@
             },
             {
               "value": "\"pre-line\""
+            }
+          ]
+        }
+      },
+      "weight": {
+        "defaultValue": null,
+        "description": "",
+        "name": "weight",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Text/Text.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "\"medium\" | \"normal\" | \"light\" | \"semibold\"",
+          "value": [
+            {
+              "value": "\"medium\""
+            },
+            {
+              "value": "\"normal\""
+            },
+            {
+              "value": "\"light\""
+            },
+            {
+              "value": "\"semibold\""
             }
           ]
         }

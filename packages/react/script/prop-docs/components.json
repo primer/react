@@ -722,7 +722,7 @@
         },
         {
           "id": "components-actionmenu-features--loading-items",
-          "code": "() => (\n  <ActionMenu>\n    <ActionMenu.Button>Open menu</ActionMenu.Button>\n    <ActionMenu.Overlay width=\"auto\">\n      <ActionList>\n        <ActionList.Item onSelect={() => alert('Workflows clicked')} loading>\n          Workflows\n          <ActionList.LeadingVisual>\n            <WorkflowIcon />\n          </ActionList.LeadingVisual>\n        </ActionList.Item>\n        <ActionList.Item\n          onSelect={() => alert('Archived items clicked')}\n          loading\n        >\n          Archived items\n          <ActionList.LeadingVisual>\n            <ArchiveIcon />\n          </ActionList.LeadingVisual>\n        </ActionList.Item>\n        <ActionList.Item onSelect={() => alert('Make a copy clicked')} loading>\n          Make a copy\n          <ActionList.LeadingVisual>\n            <CopyIcon />\n          </ActionList.LeadingVisual>\n        </ActionList.Item>\n        <ActionList.Divider />\n        <ActionList.Group title=\"Github projects\">\n          <ActionList.LinkItem href=\"/\">\n            What&apos;s new\n            <ActionList.LeadingVisual>\n              <RocketIcon />\n            </ActionList.LeadingVisual>\n          </ActionList.LinkItem>\n          <ActionList.LinkItem href=\"/\">\n            Give feedback\n            <ActionList.LeadingVisual>\n              <CommentIcon />\n            </ActionList.LeadingVisual>\n          </ActionList.LinkItem>\n          <ActionList.LinkItem href=\"/\">\n            GitHub Docs\n            <ActionList.LeadingVisual>\n              <BookIcon />\n            </ActionList.LeadingVisual>\n          </ActionList.LinkItem>\n        </ActionList.Group>\n      </ActionList>\n    </ActionMenu.Overlay>\n  </ActionMenu>\n)"
+          "code": "() => (\n  <ActionMenu>\n    <ActionMenu.Button>Open menu</ActionMenu.Button>\n    <ActionMenu.Overlay width=\"auto\">\n      <ActionList>\n        <ActionList.Item onSelect={() => alert('Workflows clicked')} loading>\n          Workflows\n          <ActionList.LeadingVisual>\n            <WorkflowIcon />\n          </ActionList.LeadingVisual>\n        </ActionList.Item>\n        <ActionList.Item\n          onSelect={() => alert('Archived items clicked')}\n          loading\n        >\n          Archived items\n          <ActionList.LeadingVisual>\n            <ArchiveIcon />\n          </ActionList.LeadingVisual>\n        </ActionList.Item>\n        <ActionList.Item onSelect={() => alert('Make a copy clicked')} loading>\n          Make a copy\n          <ActionList.LeadingVisual>\n            <CopyIcon />\n          </ActionList.LeadingVisual>\n        </ActionList.Item>\n        <ActionList.Divider />\n        <ActionList.Group>\n          <ActionList.GroupHeading>Github projects</ActionList.GroupHeading>\n          <ActionList.LinkItem href=\"/\">\n            What&apos;s new\n            <ActionList.LeadingVisual>\n              <RocketIcon />\n            </ActionList.LeadingVisual>\n          </ActionList.LinkItem>\n          <ActionList.LinkItem href=\"/\">\n            Give feedback\n            <ActionList.LeadingVisual>\n              <CommentIcon />\n            </ActionList.LeadingVisual>\n          </ActionList.LinkItem>\n          <ActionList.LinkItem href=\"/\">\n            GitHub Docs\n            <ActionList.LeadingVisual>\n              <BookIcon />\n            </ActionList.LeadingVisual>\n          </ActionList.LinkItem>\n        </ActionList.Group>\n      </ActionList>\n    </ActionMenu.Overlay>\n  </ActionMenu>\n)"
         },
         {
           "id": "components-actionmenu-features--submenus",
@@ -1782,6 +1782,10 @@
         {
           "id": "components-banner-features--with-actions",
           "code": "() => {\n  return (\n    <Banner\n      title=\"Warning\"\n      description={\n        <>\n          GitHub users are{' '}\n          <Link inline underline href=\"#\">\n            now required\n          </Link>{' '}\n          to enable two-factor authentication as an additional security measure.\n        </>\n      }\n      primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}\n      secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}\n      variant=\"warning\"\n    />\n  )\n}"
+        },
+        {
+          "id": "components-banner-features--custom-icon",
+          "code": "() => {\n  return (\n    <Banner\n      title=\"Upsell\"\n      description=\"An example banner with a custom icon\"\n      icon={<CopilotIcon />}\n      onDismiss={action('onDismiss')}\n      variant=\"upsell\"\n    />\n  )\n}"
         }
       ],
       "importPath": "@primer/react",
@@ -1811,7 +1815,7 @@
           "name": "icon",
           "type": "ReactNode",
           "required": false,
-          "description": "Provide an icon for the banner.\nNote: Only `variant=\"info\"` banners should use custom icons",
+          "description": "Provide a custom icon for the Banner. This is only available when `variant` is `info` or `upsell`",
           "defaultValue": ""
         },
         {
@@ -2582,39 +2586,39 @@
       "stories": [
         {
           "id": "components-iconbutton--default",
-          "code": "() => (\n  <IconButton\n    icon={HeartIcon}\n    aria-label=\"Favorite\"\n    unsafeDisableTooltip={false}\n  />\n)"
+          "code": "() => <IconButton icon={HeartIcon} aria-label=\"Favorite\" />"
         },
         {
           "id": "components-iconbutton-features--primary",
-          "code": "() => (\n  <IconButton\n    icon={HeartIcon}\n    variant=\"primary\"\n    aria-label=\"Favorite\"\n    unsafeDisableTooltip={false}\n  />\n)"
+          "code": "() => <IconButton icon={HeartIcon} variant=\"primary\" aria-label=\"Favorite\" />"
         },
         {
           "id": "components-iconbutton-features--danger",
-          "code": "() => (\n  <IconButton\n    icon={HeartIcon}\n    variant=\"danger\"\n    aria-label=\"Favorite\"\n    unsafeDisableTooltip={false}\n  />\n)"
+          "code": "() => <IconButton icon={HeartIcon} variant=\"danger\" aria-label=\"Favorite\" />"
         },
         {
           "id": "components-iconbutton-features--invisible",
-          "code": "() => (\n  <IconButton\n    icon={HeartIcon}\n    variant=\"invisible\"\n    aria-label=\"Favorite\"\n    unsafeDisableTooltip={false}\n  />\n)"
+          "code": "() => <IconButton icon={HeartIcon} variant=\"invisible\" aria-label=\"Favorite\" />"
         },
         {
           "id": "components-iconbutton-features--disabled",
-          "code": "() => (\n  <IconButton\n    disabled\n    icon={HeartIcon}\n    aria-label=\"Favorite\"\n    unsafeDisableTooltip={false}\n  />\n)"
+          "code": "() => <IconButton disabled icon={HeartIcon} aria-label=\"Favorite\" />"
         },
         {
           "id": "components-iconbutton-features--small",
-          "code": "() => (\n  <IconButton\n    size=\"small\"\n    icon={HeartIcon}\n    aria-label=\"Favorite\"\n    unsafeDisableTooltip={false}\n  />\n)"
+          "code": "() => <IconButton size=\"small\" icon={HeartIcon} aria-label=\"Favorite\" />"
         },
         {
           "id": "components-iconbutton-features--medium",
-          "code": "() => (\n  <IconButton\n    size=\"medium\"\n    icon={HeartIcon}\n    aria-label=\"Favorite\"\n    unsafeDisableTooltip={false}\n  />\n)"
+          "code": "() => <IconButton size=\"medium\" icon={HeartIcon} aria-label=\"Favorite\" />"
         },
         {
           "id": "components-iconbutton-features--large",
-          "code": "() => (\n  <IconButton\n    size=\"large\"\n    icon={HeartIcon}\n    aria-label=\"Favorite\"\n    unsafeDisableTooltip={false}\n  />\n)"
+          "code": "() => <IconButton size=\"large\" icon={HeartIcon} aria-label=\"Favorite\" />"
         },
         {
           "id": "components-iconbutton-features--with-description",
-          "code": "() => (\n  <IconButton\n    icon={InboxIcon}\n    aria-label=\"Notifications\"\n    description=\"You have no unread notifications.\"\n    unsafeDisableTooltip={false}\n  />\n)"
+          "code": "() => (\n  <IconButton\n    icon={InboxIcon}\n    aria-label=\"Notifications\"\n    description=\"You have no unread notifications.\"\n  />\n)"
         },
         {
           "id": "components-iconbutton-features--external-tooltip",
@@ -2626,7 +2630,7 @@
         },
         {
           "id": "components-iconbutton-features--as-a-menu-anchor",
-          "code": "() => (\n  <ActionMenu>\n    <ActionMenu.Anchor>\n      <IconButton\n        icon={ChevronDownIcon}\n        aria-label=\"Something\"\n        unsafeDisableTooltip={false}\n      />\n    </ActionMenu.Anchor>\n\n    <ActionMenu.Overlay width=\"medium\">\n      <ActionList>\n        <ActionList.Item onSelect={() => alert('Copy link clicked')}>\n          Copy link\n          <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>\n        </ActionList.Item>\n        <ActionList.Item onSelect={() => alert('Quote reply clicked')}>\n          Quote reply\n          <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>\n        </ActionList.Item>\n        <ActionList.Item onSelect={() => alert('Edit comment clicked')}>\n          Edit comment\n          <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>\n        </ActionList.Item>\n        <ActionList.Divider />\n        <ActionList.Item\n          variant=\"danger\"\n          onSelect={() => alert('Delete file clicked')}\n        >\n          Delete file\n          <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>\n        </ActionList.Item>\n      </ActionList>\n    </ActionMenu.Overlay>\n  </ActionMenu>\n)"
+          "code": "() => (\n  <ActionMenu>\n    <ActionMenu.Anchor>\n      <IconButton icon={ChevronDownIcon} aria-label=\"Something\" />\n    </ActionMenu.Anchor>\n\n    <ActionMenu.Overlay width=\"medium\">\n      <ActionList>\n        <ActionList.Item onSelect={() => alert('Copy link clicked')}>\n          Copy link\n          <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>\n        </ActionList.Item>\n        <ActionList.Item onSelect={() => alert('Quote reply clicked')}>\n          Quote reply\n          <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>\n        </ActionList.Item>\n        <ActionList.Item onSelect={() => alert('Edit comment clicked')}>\n          Edit comment\n          <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>\n        </ActionList.Item>\n        <ActionList.Divider />\n        <ActionList.Item\n          variant=\"danger\"\n          onSelect={() => alert('Delete file clicked')}\n        >\n          Delete file\n          <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>\n        </ActionList.Item>\n      </ActionList>\n    </ActionMenu.Overlay>\n  </ActionMenu>\n)"
         },
         {
           "id": "components-iconbutton-features--loading",
@@ -2638,11 +2642,11 @@
         },
         {
           "id": "components-iconbutton-features--keyshortcuts-on-description",
-          "code": "() => (\n  <IconButton\n    unsafeDisableTooltip={false}\n    icon={InboxIcon}\n    aria-label=\"Notifications\"\n    description=\"You have unread notifications\"\n    keyshortcuts=\"G+N\"\n  />\n)"
+          "code": "() => (\n  <IconButton\n    icon={InboxIcon}\n    aria-label=\"Notifications\"\n    description=\"You have unread notifications\"\n    keyshortcuts=\"G+N\"\n  />\n)"
         },
         {
           "id": "components-iconbutton-features--keyshortcuts",
-          "code": "() => (\n  <IconButton\n    unsafeDisableTooltip={false}\n    icon={BoldIcon}\n    aria-label=\"Bold\"\n    keyshortcuts=\"Command+B\"\n  />\n)"
+          "code": "() => <IconButton icon={BoldIcon} aria-label=\"Bold\" keyshortcuts=\"Command+B\" />"
         }
       ],
       "importPath": "@primer/react",
@@ -3046,7 +3050,7 @@
         },
         {
           "id": "components-buttongroup-features--icon-buttons",
-          "code": "() => (\n  <ButtonGroup>\n    {/* We can remove these unsafe props after we resolve https://github.com/primer/react/issues/4129 */}\n    <IconButton unsafeDisableTooltip={true} icon={PlusIcon} aria-label=\"Add\" />\n    <IconButton\n      unsafeDisableTooltip={true}\n      icon={DashIcon}\n      aria-label=\"Subtract\"\n    />\n  </ButtonGroup>\n)"
+          "code": "() => (\n  <ButtonGroup>\n    {/* We can remove these unsafe props after we resolve https://github.com/primer/react/issues/4129 */}\n    {/* eslint-disable-next-line primer-react/a11y-remove-disable-tooltip */}\n    <IconButton unsafeDisableTooltip={true} icon={PlusIcon} aria-label=\"Add\" />\n    {/* eslint-disable-next-line primer-react/a11y-remove-disable-tooltip */}\n    <IconButton\n      unsafeDisableTooltip={true}\n      icon={DashIcon}\n      aria-label=\"Subtract\"\n    />\n  </ButtonGroup>\n)"
         },
         {
           "id": "components-buttongroup-features--loading-buttons",
@@ -5672,7 +5676,7 @@
         },
         {
           "id": "components-pagelayout-features--nested-scroll-container",
-          "code": "(args) => (\n  <Box\n    sx={{\n      display: 'grid',\n      gridTemplateRows: 'auto 1fr auto',\n      height: '100vh',\n    }}\n  >\n    <Placeholder label=\"Above scroll container\" height={120} />\n    <Box\n      sx={{\n        overflow: 'auto',\n      }}\n    >\n      <PageLayout\n        rowGap=\"none\"\n        columnGap=\"none\"\n        padding=\"none\"\n        containerWidth=\"full\"\n      >\n        <PageLayout.Header padding=\"normal\" divider=\"line\">\n          <Placeholder label=\"Header\" height={64} />\n        </PageLayout.Header>\n        <PageLayout.Content padding=\"normal\" width=\"large\">\n          <Box\n            sx={{\n              display: 'grid',\n              gap: 3,\n            }}\n            tabIndex={0}\n            aria-label=\"Page content\"\n          >\n            {Array.from({\n              length: args.numParagraphsInContent,\n            }).map((_, i) => (\n              <Box\n                key={i}\n                as=\"p\"\n                sx={{\n                  margin: 0,\n                }}\n              >\n                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at\n                enim id lorem tempus egestas a non ipsum. Maecenas imperdiet\n                ante quam, at varius lorem molestie vel. Sed at eros consequat,\n                varius tellus et, auctor felis. Donec pulvinar lacinia urna nec\n                commodo. Phasellus at imperdiet risus. Donec sit amet massa\n                purus. Nunc sem lectus, bibendum a sapien nec, tristique tempus\n                felis. Ut porttitor auctor tellus in imperdiet. Ut blandit\n                tincidunt augue, quis fringilla nunc tincidunt sed. Vestibulum\n                auctor euismod nisi. Nullam tincidunt est in mi tincidunt\n                dictum. Sed consectetur aliquet velit ut ornare.\n              </Box>\n            ))}\n          </Box>\n        </PageLayout.Content>\n        <PageLayout.Pane\n          position=\"start\"\n          padding=\"normal\"\n          divider=\"line\"\n          sticky\n          aria-label=\"Side pane\"\n        >\n          <Box\n            sx={{\n              display: 'grid',\n              gap: 3,\n            }}\n          >\n            {Array.from({\n              length: args.numParagraphsInPane,\n            }).map((_, i) => (\n              <Box\n                key={i}\n                as=\"p\"\n                sx={{\n                  margin: 0,\n                }}\n              >\n                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at\n                enim id lorem tempus egestas a non ipsum. Maecenas imperdiet\n                ante quam, at varius lorem molestie vel. Sed at eros consequat,\n                varius tellus et, auctor felis. Donec pulvinar lacinia urna nec\n                commodo. Phasellus at imperdiet risus. Donec sit amet massa\n                purus.\n              </Box>\n            ))}\n          </Box>\n        </PageLayout.Pane>\n        <PageLayout.Footer padding=\"normal\" divider=\"line\">\n          <Placeholder label=\"Footer\" height={64} />\n        </PageLayout.Footer>\n      </PageLayout>\n    </Box>\n    <Placeholder label=\"Below scroll container\" height={120} />\n  </Box>\n)"
+          "code": "(args) => (\n  <Box\n    sx={{\n      display: 'grid',\n      gridTemplateRows: 'auto 1fr auto',\n      height: '100vh',\n    }}\n  >\n    <Placeholder label=\"Above scroll container\" height={120} />\n    <Box\n      sx={{\n        overflow: 'auto',\n      }}\n    >\n      <PageLayout\n        rowGap=\"none\"\n        columnGap=\"none\"\n        padding=\"none\"\n        containerWidth=\"full\"\n      >\n        <PageLayout.Header padding=\"normal\" divider=\"line\">\n          <Placeholder label=\"Header\" height={64} />\n        </PageLayout.Header>\n        <PageLayout.Content padding=\"normal\" width=\"large\">\n          <Box\n            sx={{\n              display: 'grid',\n              gap: 3,\n            }}\n            tabIndex={0}\n            role=\"region\"\n            aria-label=\"Page content\"\n          >\n            {Array.from({\n              length: args.numParagraphsInContent,\n            }).map((_, i) => (\n              <Box\n                key={i}\n                as=\"p\"\n                sx={{\n                  margin: 0,\n                }}\n              >\n                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at\n                enim id lorem tempus egestas a non ipsum. Maecenas imperdiet\n                ante quam, at varius lorem molestie vel. Sed at eros consequat,\n                varius tellus et, auctor felis. Donec pulvinar lacinia urna nec\n                commodo. Phasellus at imperdiet risus. Donec sit amet massa\n                purus. Nunc sem lectus, bibendum a sapien nec, tristique tempus\n                felis. Ut porttitor auctor tellus in imperdiet. Ut blandit\n                tincidunt augue, quis fringilla nunc tincidunt sed. Vestibulum\n                auctor euismod nisi. Nullam tincidunt est in mi tincidunt\n                dictum. Sed consectetur aliquet velit ut ornare.\n              </Box>\n            ))}\n          </Box>\n        </PageLayout.Content>\n        <PageLayout.Pane\n          position=\"start\"\n          padding=\"normal\"\n          divider=\"line\"\n          sticky\n          aria-label=\"Side pane\"\n        >\n          <Box\n            sx={{\n              display: 'grid',\n              gap: 3,\n            }}\n          >\n            {Array.from({\n              length: args.numParagraphsInPane,\n            }).map((_, i) => (\n              <Box\n                key={i}\n                as=\"p\"\n                sx={{\n                  margin: 0,\n                }}\n              >\n                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at\n                enim id lorem tempus egestas a non ipsum. Maecenas imperdiet\n                ante quam, at varius lorem molestie vel. Sed at eros consequat,\n                varius tellus et, auctor felis. Donec pulvinar lacinia urna nec\n                commodo. Phasellus at imperdiet risus. Donec sit amet massa\n                purus.\n              </Box>\n            ))}\n          </Box>\n        </PageLayout.Pane>\n        <PageLayout.Footer padding=\"normal\" divider=\"line\">\n          <Placeholder label=\"Footer\" height={64} />\n        </PageLayout.Footer>\n      </PageLayout>\n    </Box>\n    <Placeholder label=\"Below scroll container\" height={120} />\n  </Box>\n)"
         },
         {
           "id": "components-pagelayout-features--custom-sticky-header",
@@ -5684,7 +5688,7 @@
         },
         {
           "id": "components-pagelayout-features--scroll-container-within-page-layout-pane",
-          "code": "() => (\n  <Box\n    sx={{\n      display: 'grid',\n      gridTemplateRows: 'auto 1fr auto',\n      height: '100vh',\n    }}\n  >\n    <Box\n      sx={{\n        overflow: 'auto',\n      }}\n    >\n      <Placeholder label=\"Above inner scroll container\" height={120} />\n      <PageLayout\n        rowGap=\"none\"\n        columnGap=\"none\"\n        padding=\"none\"\n        containerWidth=\"full\"\n      >\n        <PageLayout.Pane\n          position=\"start\"\n          padding=\"normal\"\n          divider=\"line\"\n          sticky\n          aria-label=\"Sticky pane\"\n        >\n          <Box\n            sx={{\n              overflow: 'auto',\n            }}\n          >\n            <PageLayout.Pane padding=\"normal\">\n              <Placeholder label=\"Inner scroll container\" height={800} />\n            </PageLayout.Pane>\n          </Box>\n        </PageLayout.Pane>\n        <PageLayout.Content padding=\"normal\" width=\"large\">\n          <Box\n            sx={{\n              display: 'grid',\n            }}\n            tabIndex={0}\n            aria-label=\"Page content\"\n          >\n            <Placeholder label=\"Page content\" height={1600} />\n          </Box>\n        </PageLayout.Content>\n      </PageLayout>\n      <Placeholder label=\"Beneath inner scroll container\" height={120} />\n    </Box>\n  </Box>\n)"
+          "code": "() => (\n  <Box\n    sx={{\n      display: 'grid',\n      gridTemplateRows: 'auto 1fr auto',\n      height: '100vh',\n    }}\n  >\n    <Box\n      sx={{\n        overflow: 'auto',\n      }}\n    >\n      <Placeholder label=\"Above inner scroll container\" height={120} />\n      <PageLayout\n        rowGap=\"none\"\n        columnGap=\"none\"\n        padding=\"none\"\n        containerWidth=\"full\"\n      >\n        <PageLayout.Pane\n          position=\"start\"\n          padding=\"normal\"\n          divider=\"line\"\n          sticky\n          aria-label=\"Sticky pane\"\n        >\n          <Box\n            sx={{\n              overflow: 'auto',\n            }}\n          >\n            <PageLayout.Pane padding=\"normal\">\n              <Placeholder label=\"Inner scroll container\" height={800} />\n            </PageLayout.Pane>\n          </Box>\n        </PageLayout.Pane>\n        <PageLayout.Content padding=\"normal\" width=\"large\">\n          <Box\n            sx={{\n              display: 'grid',\n            }}\n            tabIndex={0}\n            role=\"region\"\n            aria-label=\"Page content\"\n          >\n            <Placeholder label=\"Page content\" height={1600} />\n          </Box>\n        </PageLayout.Content>\n      </PageLayout>\n      <Placeholder label=\"Beneath inner scroll container\" height={120} />\n    </Box>\n  </Box>\n)"
         },
         {
           "id": "components-pagelayout-features--custom-pane-widths",
@@ -7133,43 +7137,39 @@
       "stories": [
         {
           "id": "components-selectpanel--default",
-          "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput[]>([\n    items[0],\n    items[1],\n  ])\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  return (\n    <>\n      <h1>Multi Select Panel</h1>\n      <SelectPanel\n        title=\"Select labels\"\n        subtitle=\"Use labels to organize issues and pull requests\"\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n            aria-haspopup=\"dialog\"\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        placeholderText=\"Filter labels\"\n        open={open}\n        onOpenChange={setOpen}\n        items={filteredItems}\n        selected={selected}\n        onSelectedChange={setSelected}\n        onFilterChange={setFilter}\n        showItemDividers={true}\n        overlayProps={{\n          width: 'small',\n          height: 'xsmall',\n        }}\n      />\n    </>\n  )\n}"
+          "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput[]>([\n    items[0],\n    items[1],\n  ])\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  return (\n    <>\n      <h1>Multi Select Panel</h1>\n      <SelectPanel\n        title=\"Select labels\"\n        subtitle=\"Use labels to organize issues and pull requests\"\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n            aria-haspopup=\"dialog\"\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        open={open}\n        onOpenChange={setOpen}\n        items={filteredItems}\n        selected={selected}\n        onSelectedChange={setSelected}\n        onFilterChange={setFilter}\n      />\n    </>\n  )\n}"
         },
         {
-          "id": "components-selectpanel-features--single-select-story",
+          "id": "components-selectpanel-features--with-item-dividers",
+          "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput[]>([\n    items[0],\n    items[1],\n  ])\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  return (\n    <SelectPanel\n      title=\"Select labels\"\n      subtitle=\"Use labels to organize issues and pull requests\"\n      renderAnchor={({\n        children,\n        'aria-labelledby': ariaLabelledBy,\n        ...anchorProps\n      }) => (\n        <Button\n          trailingAction={TriangleDownIcon}\n          aria-labelledby={` ${ariaLabelledBy}`}\n          {...anchorProps}\n          aria-haspopup=\"dialog\"\n        >\n          {children ?? 'Select Labels'}\n        </Button>\n      )}\n      placeholderText=\"Filter labels\"\n      open={open}\n      onOpenChange={setOpen}\n      items={filteredItems}\n      selected={selected}\n      onSelectedChange={setSelected}\n      onFilterChange={setFilter}\n      showItemDividers={true}\n    />\n  )\n}"
+        },
+        {
+          "id": "components-selectpanel-features--with-placeholder-for-seach-input",
+          "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput[]>([\n    items[0],\n    items[1],\n  ])\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  return (\n    <SelectPanel\n      title=\"Select labels\"\n      subtitle=\"Use labels to organize issues and pull requests\"\n      renderAnchor={({\n        children,\n        'aria-labelledby': ariaLabelledBy,\n        ...anchorProps\n      }) => (\n        <Button\n          trailingAction={TriangleDownIcon}\n          aria-labelledby={` ${ariaLabelledBy}`}\n          {...anchorProps}\n          aria-haspopup=\"dialog\"\n        >\n          {children ?? 'Select Labels'}\n        </Button>\n      )}\n      placeholderText=\"Filter labels\"\n      open={open}\n      onOpenChange={setOpen}\n      items={filteredItems}\n      selected={selected}\n      onSelectedChange={setSelected}\n      onFilterChange={setFilter}\n    />\n  )\n}"
+        },
+        {
+          "id": "components-selectpanel-features--with-placeholder-select",
+          "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput[]>([])\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  return (\n    <SelectPanel\n      title=\"Select labels\"\n      subtitle=\"Use labels to organize issues and pull requests\"\n      renderAnchor={({\n        children,\n        'aria-labelledby': ariaLabelledBy,\n        ...anchorProps\n      }) => (\n        <Button\n          trailingAction={TriangleDownIcon}\n          aria-labelledby={` ${ariaLabelledBy}`}\n          {...anchorProps}\n          aria-haspopup=\"dialog\"\n        >\n          {children ?? 'Select Labels'}\n        </Button>\n      )}\n      placeholder=\"Select issue labels\"\n      open={open}\n      onOpenChange={setOpen}\n      items={filteredItems}\n      selected={selected}\n      onSelectedChange={setSelected}\n      onFilterChange={setFilter}\n    />\n  )\n}"
+        },
+        {
+          "id": "components-selectpanel-features--single-select",
           "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput | undefined>(\n    items[0],\n  )\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  return (\n    <>\n      <h1>Single Select Panel</h1>\n      <div>Please select a label that describe your issue:</div>\n      <SelectPanel\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        placeholderText=\"Filter Labels\"\n        open={open}\n        onOpenChange={setOpen}\n        items={filteredItems}\n        selected={selected}\n        onSelectedChange={setSelected}\n        onFilterChange={setFilter}\n        showItemDividers={true}\n        overlayProps={{\n          width: 'small',\n          height: 'xsmall',\n        }}\n      />\n    </>\n  )\n}"
         },
         {
-          "id": "components-selectpanel-features--external-anchor-story",
+          "id": "components-selectpanel-features--multi-select",
+          "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput[]>([\n    items[0],\n    items[1],\n  ])\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  const buttonRef = useRef<HTMLButtonElement>(null)\n  return (\n    <>\n      <h1>Multi Select Panel With Footer</h1>\n      <SelectPanel\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        anchorRef={buttonRef}\n        placeholderText=\"Filter Labels\"\n        open={open}\n        onOpenChange={setOpen}\n        items={filteredItems}\n        selected={selected}\n        onSelectedChange={setSelected}\n        onFilterChange={setFilter}\n        showItemDividers={true}\n        overlayProps={{\n          width: 'small',\n          height: 'medium',\n        }}\n      />\n    </>\n  )\n}"
+        },
+        {
+          "id": "components-selectpanel-features--with-external-anchor",
           "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput | undefined>(\n    items[0],\n  )\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  const buttonRef = useRef<HTMLButtonElement>(null)\n  return (\n    <>\n      <h1>Select Panel With External Anchor</h1>\n      <Button\n        trailingAction={TriangleDownIcon}\n        ref={buttonRef}\n        onClick={() => setOpen(!open)}\n      >\n        Custom: {selected?.text || 'Click Me'}\n      </Button>\n      <SelectPanel\n        renderAnchor={null}\n        anchorRef={buttonRef}\n        placeholderText=\"Filter Labels\"\n        open={open}\n        onOpenChange={setOpen}\n        items={filteredItems}\n        selected={selected}\n        onSelectedChange={setSelected}\n        onFilterChange={setFilter}\n        showItemDividers={true}\n        overlayProps={{\n          width: 'small',\n          height: 'xsmall',\n        }}\n      />\n    </>\n  )\n}"
         },
         {
-          "id": "components-selectpanel-features--with-footer-story",
+          "id": "components-selectpanel-features--with-footer",
           "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput | undefined>(\n    items[0],\n  )\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  const buttonRef = useRef<HTMLButtonElement>(null)\n  return (\n    <>\n      <h1>Select Panel With Footer</h1>\n      <SelectPanel\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        anchorRef={buttonRef}\n        placeholderText=\"Filter Labels\"\n        open={open}\n        onOpenChange={setOpen}\n        items={filteredItems}\n        selected={selected}\n        onSelectedChange={setSelected}\n        onFilterChange={setFilter}\n        showItemDividers={true}\n        overlayProps={{\n          width: 'small',\n          height: 'medium',\n        }}\n        footer={\n          <Button size=\"small\" block>\n            Edit labels\n          </Button>\n        }\n      />\n    </>\n  )\n}"
         },
         {
-          "id": "components-selectpanel-features--multi-select-with-footer-story",
-          "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput[]>([\n    items[0],\n    items[1],\n  ])\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  const buttonRef = useRef<HTMLButtonElement>(null)\n  return (\n    <>\n      <h1>Multi Select Panel With Footer</h1>\n      <SelectPanel\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        anchorRef={buttonRef}\n        placeholderText=\"Filter Labels\"\n        open={open}\n        onOpenChange={setOpen}\n        items={filteredItems}\n        selected={selected}\n        onSelectedChange={setSelected}\n        onFilterChange={setFilter}\n        showItemDividers={true}\n        overlayProps={{\n          width: 'small',\n          height: 'medium',\n        }}\n        footer={\n          <Button size=\"small\" block>\n            Edit labels\n          </Button>\n        }\n      />\n    </>\n  )\n}"
-        },
-        {
-          "id": "components-selectpanel-features--select-panel-height-initial-with-overflowing-items-story",
-          "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput | undefined>(\n    items[0],\n  )\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  return (\n    <>\n      <h1>Single Select Panel</h1>\n      <div>Please select a label that describe your issue:</div>\n      <SelectPanel\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        placeholderText=\"Filter Labels\"\n        open={open}\n        onOpenChange={setOpen}\n        items={filteredItems}\n        selected={selected}\n        onSelectedChange={setSelected}\n        onFilterChange={setFilter}\n        showItemDividers={true}\n        overlayProps={{\n          width: 'small',\n          height: 'initial',\n          maxHeight: 'xsmall',\n        }}\n      />\n    </>\n  )\n}"
-        },
-        {
-          "id": "components-selectpanel-features--select-panel-height-initial-with-underflowing-items-story",
-          "code": "() => {\n  const underflowingItems = [items[0], items[1]]\n  const [selected, setSelected] = React.useState<ItemInput | undefined>(\n    underflowingItems[0],\n  )\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = underflowingItems.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  return (\n    <>\n      <h1>Single Select Panel</h1>\n      <div>Please select a label that describe your issue:</div>\n      <SelectPanel\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        placeholderText=\"Filter Labels\"\n        open={open}\n        onOpenChange={setOpen}\n        items={filteredItems}\n        selected={selected}\n        onSelectedChange={setSelected}\n        onFilterChange={setFilter}\n        showItemDividers={true}\n        overlayProps={{\n          width: 'small',\n          height: 'initial',\n          maxHeight: 'xsmall',\n        }}\n      />\n    </>\n  )\n}"
-        },
-        {
-          "id": "components-selectpanel-features--select-panel-height-initial-with-underflowing-items-after-fetch",
-          "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput | undefined>(\n    items[0],\n  )\n  const [filter, setFilter] = React.useState('')\n  const [fetchedItems, setFetchedItems] = useState<typeof items>([])\n  const filteredItems = React.useMemo(\n    () =>\n      fetchedItems.filter((item) =>\n        item.text.toLowerCase().startsWith(filter.toLowerCase()),\n      ),\n    [fetchedItems, filter],\n  )\n  const [open, setOpen] = useState(false)\n  const [height, setHeight] = useState<OverlayProps['height']>('auto')\n  const onOpenChange = () => {\n    setOpen(!open)\n    setTimeout(() => {\n      setFetchedItems([items[0], items[1]])\n      setHeight('initial')\n    }, 1500)\n  }\n  return (\n    <>\n      <h1>Single Select Panel</h1>\n      <div>Please select a label that describe your issue:</div>\n      <SelectPanel\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        placeholderText=\"Filter Labels\"\n        open={open}\n        onOpenChange={onOpenChange}\n        loading={filteredItems.length === 0}\n        items={filteredItems}\n        selected={selected}\n        onSelectedChange={setSelected}\n        onFilterChange={setFilter}\n        showItemDividers={true}\n        overlayProps={{\n          width: 'small',\n          height,\n          maxHeight: 'xsmall',\n        }}\n      />\n    </>\n  )\n}"
-        },
-        {
-          "id": "components-selectpanel-features--select-panel-above-tall-body",
-          "code": "() => {\n  const [selected, setSelected] = React.useState<ItemInput | undefined>(\n    items[0],\n  )\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = items.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  return (\n    <>\n      <h1>Single Select Panel</h1>\n      <div>Please select a label that describe your issue:</div>\n      <SelectPanel\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        placeholderText=\"Filter Labels\"\n        open={open}\n        onOpenChange={setOpen}\n        items={filteredItems}\n        selected={selected}\n        onSelectedChange={setSelected}\n        onFilterChange={setFilter}\n        showItemDividers={true}\n        overlayProps={{\n          width: 'small',\n          height: 'xsmall',\n        }}\n      />\n      <div\n        style={{\n          backgroundColor: 'cornflowerblue',\n          height: '100vh',\n        }}\n      >\n        This element makes the body really tall. This is to test that we do not\n        have layout/focus issues if the Portal is far down the page\n      </div>\n    </>\n  )\n}"
-        },
-        {
-          "id": "components-selectpanel-features--select-panel-height-and-scroll",
-          "code": "() => {\n  const longItems = [\n    ...items,\n    ...items,\n    ...items,\n    ...items,\n    ...items,\n    ...items,\n    ...items,\n    ...items,\n  ]\n  const [selectedA, setSelectedA] = React.useState<ItemInput | undefined>(\n    longItems[0],\n  )\n  const [selectedB, setSelectedB] = React.useState<ItemInput | undefined>(\n    longItems[0],\n  )\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = longItems.filter((item) =>\n    item.text.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [openA, setOpenA] = useState(false)\n  const [openB, setOpenB] = useState(false)\n  return (\n    <>\n      <h2>With height:medium</h2>\n      <SelectPanel\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        placeholderText=\"Filter Labels\"\n        open={openA}\n        onOpenChange={setOpenA}\n        items={filteredItems}\n        selected={selectedA}\n        onSelectedChange={setSelectedA}\n        onFilterChange={setFilter}\n        showItemDividers={true}\n        overlayProps={{\n          height: 'medium',\n        }}\n      />\n      <h2>With height:auto, maxheight:medium</h2>\n      <SelectPanel\n        renderAnchor={({\n          children,\n          'aria-labelledby': ariaLabelledBy,\n          ...anchorProps\n        }) => (\n          <Button\n            trailingAction={TriangleDownIcon}\n            aria-labelledby={` ${ariaLabelledBy}`}\n            {...anchorProps}\n          >\n            {children ?? 'Select Labels'}\n          </Button>\n        )}\n        placeholderText=\"Filter Labels\"\n        open={openB}\n        onOpenChange={setOpenB}\n        items={filteredItems}\n        selected={selectedB}\n        onSelectedChange={setSelectedB}\n        onFilterChange={setFilter}\n        showItemDividers={true}\n        overlayProps={{\n          height: 'auto',\n          maxHeight: 'medium',\n        }}\n      />\n    </>\n  )\n}"
+          "id": "components-selectpanel-features--with-groups",
+          "code": "() => {\n  const [selectedIDs, setSelectedIDs] = useState<string[]>([])\n  const [filter, setFilter] = React.useState('')\n  const filteredItems = listOfItems.filter(\n    (item) => item.text?.toLowerCase().startsWith(filter.toLowerCase()),\n  )\n  const [open, setOpen] = useState(false)\n  const buttonRef = useRef<HTMLButtonElement>(null)\n  const onSelectedChange = async (selections: ItemInput[]) => {\n    const _selectedIDs = selections.flatMap((item) => {\n      if (item.id === undefined || typeof item.id !== 'string') {\n        return []\n      }\n      return item.id\n    })\n    setSelectedIDs(_selectedIDs)\n  }\n  const selectedObjects: ItemInput[] = useMemo(() => {\n    const selected: ItemInput[] = []\n    for (const selectedID of selectedIDs) {\n      const item = listOfItems.find((value) => value.id === selectedID)\n      if (item) {\n        selected.push(item)\n      }\n    }\n    return selected\n  }, [selectedIDs])\n  return (\n    <SelectPanel\n      variant=\"full\"\n      title=\"Attach files and symbols\"\n      subtitle=\"Choose which files and symbols you want to chat about. Use fewer references for more accurate responses.\"\n      renderAnchor={({\n        children,\n        'aria-labelledby': ariaLabelledBy,\n        ...anchorProps\n      }) => (\n        <Button\n          trailingAction={TriangleDownIcon}\n          aria-labelledby={` ${ariaLabelledBy}`}\n          {...anchorProps}\n        >\n          {children ?? 'Select Labels'}\n        </Button>\n      )}\n      anchorRef={buttonRef}\n      groupMetadata={groupMetadata}\n      placeholderText=\"Filter things\"\n      open={open}\n      onOpenChange={setOpen}\n      items={filteredItems}\n      selected={selectedObjects}\n      onSelectedChange={onSelectedChange}\n      onFilterChange={setFilter}\n      showItemDividers={true}\n      overlayProps={{\n        width: 'large',\n        height: 'xlarge',\n      }}\n    />\n  )\n}"
         }
       ],
       "importPath": "@primer/react",
@@ -8075,16 +8075,58 @@
         },
         {
           "id": "components-text-features--styled-text",
-          "code": "() => (\n  <Text\n    as=\"p\"\n    sx={{\n      color: 'fg.onEmphasis',\n      bg: 'neutral.emphasis',\n      p: 2,\n    }}\n  >\n    Stylized text\n  </Text>\n)"
+          "code": "() => (\n  <Text\n    as=\"p\"\n    sx={{\n      color: 'fg.onEmphasis',\n      bg: 'neutral.emphasis',\n      p: 2,\n    }}\n    size=\"small\"\n  >\n    Stylized text\n  </Text>\n)"
+        },
+        {
+          "id": "components-text-features--size-small",
+          "code": "() => (\n  <Text as=\"span\" size=\"small\">\n    Stylized text\n  </Text>\n)"
+        },
+        {
+          "id": "components-text-features--size-medium",
+          "code": "() => (\n  <Text as=\"span\" size=\"medium\">\n    Stylized text\n  </Text>\n)"
+        },
+        {
+          "id": "components-text-features--size-large",
+          "code": "() => (\n  <Text as=\"span\" size=\"large\">\n    Stylized text\n  </Text>\n)"
+        },
+        {
+          "id": "components-text-features--light-weight",
+          "code": "() => (\n  <Text as=\"span\" weight=\"light\">\n    Stylized text\n  </Text>\n)"
+        },
+        {
+          "id": "components-text-features--normal-weight",
+          "code": "() => (\n  <Text as=\"span\" weight=\"normal\">\n    Stylized text\n  </Text>\n)"
+        },
+        {
+          "id": "components-text-features--medium-weight",
+          "code": "() => (\n  <Text as=\"span\" weight=\"medium\">\n    Stylized text\n  </Text>\n)"
+        },
+        {
+          "id": "components-text-features--semibold-weight",
+          "code": "() => (\n  <Text as=\"span\" weight=\"semibold\">\n    Stylized text\n  </Text>\n)"
         }
       ],
       "importPath": "@primer/react",
       "props": [
         {
+          "name": "size",
+          "type": "\"small\" | \"large\" | \"medium\"",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
           "name": "sx",
           "type": "BetterSystemStyleObject",
           "required": false,
           "description": "A style object used to override styles using styled-components",
+          "defaultValue": ""
+        },
+        {
+          "name": "weight",
+          "type": "\"medium\" | \"normal\" | \"light\" | \"semibold\"",
+          "required": false,
+          "description": "",
           "defaultValue": ""
         },
         {
@@ -8595,23 +8637,23 @@
       "stories": [
         {
           "id": "components-timeline--default",
-          "code": "() => (\n  <Timeline>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n  </Timeline>\n)"
+          "code": "() => (\n  <Timeline>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} aria-label=\"Commit\" />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} aria-label=\"Commit\" />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} aria-label=\"Commit\" />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n  </Timeline>\n)"
         },
         {
           "id": "components-timeline-features--clip-sidebar",
-          "code": "() => (\n  <Timeline clipSidebar>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n  </Timeline>\n)"
+          "code": "() => (\n  <Timeline clipSidebar>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} aria-label=\"Commit\" />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n  </Timeline>\n)"
         },
         {
           "id": "components-timeline-features--condensed-items",
-          "code": "() => (\n  <Timeline>\n    <Timeline.Item condensed>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Item condensed>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n  </Timeline>\n)"
+          "code": "() => (\n  <Timeline>\n    <Timeline.Item condensed>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} aria-label=\"Commit\" />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Item condensed>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} aria-label=\"Commit\" />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n  </Timeline>\n)"
         },
         {
           "id": "components-timeline-features--timeline-break",
-          "code": "() => (\n  <Timeline>\n    <Timeline.Item>\n      <Timeline.Badge\n        sx={{\n          bg: 'done.emphasis',\n        }}\n      >\n        <Octicon icon={GitMergeIcon} color=\"fg.onEmphasis\" />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Break />\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitBranchIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n  </Timeline>\n)"
+          "code": "() => (\n  <Timeline>\n    <Timeline.Item>\n      <Timeline.Badge\n        sx={{\n          bg: 'done.emphasis',\n        }}\n      >\n        <Octicon\n          icon={GitMergeIcon}\n          color=\"fg.onEmphasis\"\n          aria-label=\"Merged\"\n        />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Break />\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitBranchIcon} aria-label=\"Branch\" />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n  </Timeline>\n)"
         },
         {
           "id": "components-timeline-features--with-inline-links",
-          "code": "() => (\n  <Timeline>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} />\n      </Timeline.Badge>\n      <Timeline.Body>\n        <Link\n          href=\"#\"\n          sx={{\n            fontWeight: 'bold',\n            color: 'fg.default',\n            mr: 1,\n          }}\n          muted\n        >\n          Monalisa\n        </Link>\n        enabled auto-merge (squash)\n      </Timeline.Body>\n    </Timeline.Item>\n  </Timeline>\n)"
+          "code": "() => (\n  <Timeline>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} aria-label=\"Commit\" />\n      </Timeline.Badge>\n      <Timeline.Body>\n        <Link\n          href=\"#\"\n          sx={{\n            fontWeight: 'bold',\n            color: 'fg.default',\n            mr: 1,\n          }}\n          muted\n        >\n          Monalisa\n        </Link>\n        enabled auto-merge (squash)\n      </Timeline.Body>\n    </Timeline.Item>\n  </Timeline>\n)"
         }
       ],
       "importPath": "@primer/react",
