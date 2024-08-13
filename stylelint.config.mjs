@@ -4,7 +4,7 @@
 export default {
   extends: ['@primer/stylelint-config'],
   rules: {
-    // We want to allow type selectors like `button`
+    // We want to allow type selectors like `svg`
     'selector-max-type': 1,
   },
   overrides: [
