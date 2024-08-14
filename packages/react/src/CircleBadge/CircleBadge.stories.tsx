@@ -11,7 +11,7 @@ export default meta
 
 export const Default = () => (
   <CircleBadge>
-    <CircleBadge.Icon icon={ZapIcon} />
+    <CircleBadge.Icon icon={ZapIcon} aria-label="User badge" />
   </CircleBadge>
 )
 
