@@ -13,7 +13,12 @@ const meta: Meta<typeof CircleOcticon> = {
 export default meta
 
 export const Default = () => (
-  <CircleOcticon icon={CheckIcon} size={32} sx={{backgroundColor: 'success.emphasis', color: 'fg.onEmphasis'}} />
+  <CircleOcticon
+    icon={CheckIcon}
+    size={32}
+    sx={{backgroundColor: 'success.emphasis', color: 'fg.onEmphasis'}}
+    aria-label="Changes approved"
+  />
 )
 
 type PlaygroundTypes = Omit<CircleOcticonProps, 'icon'> & {icon: keyof typeof Icons}
