@@ -126,7 +126,10 @@ export function FilteredActionList({
       trailingIcon: TrailingIcon,
       onAction,
       selected,
+      ...rest
     } = item
+
+    console.log('from primer react', item, rest)
 
     return (
       <ActionList.Item
