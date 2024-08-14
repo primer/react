@@ -58,13 +58,12 @@ const Heading = forwardRef(({as: Component = 'h2', className, variant, ...props}
   }
 
   if (enabled) {
-    if (sx) {
+    if (props.sx) {
       return (
         <Box
           as={Component}
           className={cx(className, classes.Heading)}
           data-variant={variant}
-          sx={sx}
           {...props}
           // @ts-ignore shh
           ref={innerRef}
