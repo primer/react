@@ -8,8 +8,6 @@
   /* stylelint-disable-next-line primer/spacing */
   padding: 0 var(--control-medium-paddingInline-normal);
   font-family: inherit;
-  font-size: var(--text-body-size-medium);
-  font-weight: var(--base-text-weight-medium);
   color: var(--button-default-fgColor-rest);
   text-align: center;
   text-decoration: none;
@@ -70,10 +68,6 @@
   gap: var(--control-small-gap);
 }
 
-.ButtonBase[data-size='small'] [data-component='text'] {
-  line-height: var(--text-body-lineHeight-small);
-}
-
 .ButtonBase[data-size='small'] [data-component='buttonContent'] > :not(:last-child) {
   /* stylelint-disable-next-line primer/spacing */
   margin-right: var(--control-small-gap);
@@ -84,10 +78,6 @@
   /* stylelint-disable-next-line primer/spacing */
   padding: 0 var(--control-large-paddingInline-spacious);
   gap: var(--control-large-gap);
-}
-
-.ButtonBase[data-size='large'] [data-component='text'] {
-  line-height: var(--text-body-lineHeight-large);
 }
 
 .ButtonBase[data-size='large'] [data-component='buttonContent'] > :not(:last-child) {
@@ -157,7 +147,6 @@
 
 .ButtonBase [data-component='text'] {
   grid-area: text;
-  line-height: var(--text-body-lineHeight-medium);
   white-space: nowrap;
 }
 
