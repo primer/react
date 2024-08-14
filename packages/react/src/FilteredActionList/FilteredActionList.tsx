@@ -126,6 +126,7 @@ export function FilteredActionList({
       trailingIcon: TrailingIcon,
       onAction,
       selected,
+      children,
       ...rest
     } = item
 
@@ -150,6 +151,7 @@ export function FilteredActionList({
             <LeadingVisual />
           </ActionList.LeadingVisual>
         ) : null}
+        {children}
         {text}
         {description ? (
           <ActionList.Description variant={descriptionVariant}>{description}</ActionList.Description>
