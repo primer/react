@@ -51,6 +51,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
       disabled: !enableFocusZone,
       containerRef: listRef,
       bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
+      focusOutBehavior: listRole === 'menu' ? 'wrap' : undefined,
     })
 
     return (
