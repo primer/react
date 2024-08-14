@@ -6,19 +6,25 @@
     "codesandbox": "0.0.0",
     "example-app-router": "0.0.0",
     "example-consumer-test": "0.0.0",
-    "example-nextjs": "0.0.0",
     "@primer/react": "36.27.0",
     "rollup-plugin-import-css": "0.0.0",
     "postcss-preset-primer": "0.0.0"
   },
   "changesets": [
     "beige-schools-kneel",
+    "clever-birds-press",
     "dry-trainers-protect",
     "fluffy-ravens-thank",
     "four-shoes-yell",
     "four-tables-glow",
+    "gold-cups-explode",
+    "honest-ligers-fly",
     "lovely-days-march",
     "moody-rivers-impress",
+    "new-shirts-beam",
+    "tall-wasps-end",
+    "tough-pans-punch",
+    "twelve-tables-leave",
     "young-meals-worry"
   ]
 }

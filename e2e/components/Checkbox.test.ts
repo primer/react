@@ -140,4 +140,38 @@ test.describe('Checkbox', () => {
       })
     }
   })
+
+  test.describe('Indeterminate', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-checkbox-features--indeterminate',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`Checkbox.Indeterminate.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-checkbox-features--indeterminate',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations({
+            rules: {
+              'color-contrast': {
+                enabled: false,
+              },
+            },
+          })
+        })
+      })
+    }
+  })
 })

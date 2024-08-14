@@ -143,7 +143,6 @@ exports[`@primer/react should not update exports without a semver change 1`] = `
   "type SplitPageLayoutHeaderProps",
   "type SplitPageLayoutPaneProps",
   "type SplitPageLayoutProps",
-  "SSRProvider",
   "Stack",
   "type StackItemProps",
   "type StackProps",
@@ -207,7 +206,6 @@ exports[`@primer/react should not update exports without a semver change 1`] = `
   "useResizeObserver",
   "useResponsiveValue",
   "useSafeTimeout",
-  "useSSRSafeId",
   "useTheme",
 ]
 `;
@@ -405,6 +403,8 @@ exports[`@primer/react/experimental should not update exports without a semver c
   "type FeatureFlagsProps",
   "type FileType",
   "type FileUploadResult",
+  "FilteredActionList",
+  "type FilteredActionListProps",
   "Hidden",
   "type HiddenProps",
   "InlineAutocomplete",

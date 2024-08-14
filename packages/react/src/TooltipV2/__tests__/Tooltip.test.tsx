@@ -4,7 +4,7 @@ import {Tooltip} from '../Tooltip'
 import {checkStoriesForAxeViolations} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import theme from '../../theme'
-import {Button, IconButton, ActionMenu, ActionList, ThemeProvider, SSRProvider, BaseStyles} from '../..'
+import {Button, IconButton, ActionMenu, ActionList, ThemeProvider, BaseStyles} from '../..'
 import {XIcon} from '@primer/octicons-react'
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
@@ -16,18 +16,16 @@ const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) =
 function ExampleWithActionMenu(actionMenuTrigger: React.ReactElement): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
-      <SSRProvider>
-        <BaseStyles>
-          <ActionMenu>
-            {actionMenuTrigger}
-            <ActionMenu.Overlay>
-              <ActionList>
-                <ActionList.Item>New file</ActionList.Item>
-              </ActionList>
-            </ActionMenu.Overlay>
-          </ActionMenu>
-        </BaseStyles>
-      </SSRProvider>
+      <BaseStyles>
+        <ActionMenu>
+          {actionMenuTrigger}
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item>New file</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+      </BaseStyles>
     </ThemeProvider>
   )
 }

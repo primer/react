@@ -1,6 +1,7 @@
 import {render, screen} from '@testing-library/react'
 import React from 'react'
 import {SelectPanel, type SelectPanelProps} from '../SelectPanel'
+import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
 import {userEvent} from '@testing-library/user-event'
 import ThemeProvider from '../ThemeProvider'
 
@@ -371,6 +372,124 @@ describe('SelectPanel', () => {
 
       await user.click(screen.getByText('Select items'))
       expect(screen.getByText('test footer')).toBeVisible()
+    })
+  })
+
+  const listOfItems: Array<ItemInput> = [
+    {
+      id: '1',
+      key: 1,
+      text: 'Item 1',
+      groupId: '1',
+    },
+    {
+      id: '2',
+      key: 2,
+      text: 'Item 2',
+      groupId: '1',
+    },
+    {
+      id: '3',
+      key: 3,
+      text: 'Item 3',
+      groupId: '2',
+    },
+    {
+      id: '4',
+      key: 4,
+      text: 'Item 4',
+      groupId: '3',
+    },
+  ]
+
+  const groupMetadata: GroupedListProps['groupMetadata'] = [
+    {groupId: '1', header: {title: 'Group title 1'}},
+    {groupId: '2', header: {title: 'Group title 2'}},
+    {groupId: '3', header: {title: 'Group title 3'}},
+  ]
+
+  function SelectPanelWithGroups() {
+    const [selectedItems, setSelectedItems] = React.useState<SelectPanelProps['items']>([])
+    const [open, setOpen] = React.useState(false)
+    const [filter, setFilter] = React.useState('')
+
+    const onSelectedChange = (selections: ItemInput[]) => {
+      setSelectedItems(selections)
+    }
+
+    return (
+      <ThemeProvider>
+        <SelectPanel
+          title="test title"
+          subtitle="test subtitle"
+          groupMetadata={groupMetadata}
+          placeholderText="Filter items"
+          placeholder="Select items"
+          items={listOfItems}
+          selected={selectedItems}
+          onSelectedChange={onSelectedChange}
+          open={open}
+          onOpenChange={isOpen => {
+            setOpen(isOpen)
+          }}
+          filterValue={filter}
+          onFilterChange={value => {
+            setFilter(value)
+          }}
+        />
+      </ThemeProvider>
+    )
+  }
+
+  describe('with groups', () => {
+    it('should render groups with items', async () => {
+      const user = userEvent.setup()
+
+      render(<SelectPanelWithGroups />)
+
+      await user.click(screen.getByText('Select items'))
+      const listbox = screen.getByRole('listbox')
+      expect(listbox).toBeVisible()
+      expect(listbox).toHaveAttribute('aria-multiselectable', 'true')
+
+      // listbox should has 3 gorups and each have heading
+      const headings = screen.getAllByRole('heading')
+
+      // The first heading is the h1 and it is the title of the dialog
+      expect(headings[1]).toHaveTextContent('Group title 1')
+      expect(headings[2]).toHaveTextContent('Group title 2')
+      expect(headings[3]).toHaveTextContent('Group title 3')
+
+      expect(screen.getAllByRole('option')).toHaveLength(4)
+    })
+    it('should select items within groups', async () => {
+      const user = userEvent.setup()
+
+      render(<SelectPanelWithGroups />)
+
+      await user.click(screen.getByText('Select items'))
+
+      // Select the first item
+      await user.click(screen.getByRole('option', {name: 'Item 1'}))
+      expect(
+        screen.getByRole('option', {
+          name: 'Item 1',
+        }),
+      ).toHaveAttribute('aria-selected', 'true')
+
+      await user.click(screen.getByRole('option', {name: 'Item 3'}))
+      expect(
+        screen.getByRole('option', {
+          name: 'Item 3',
+        }),
+      ).toHaveAttribute('aria-selected', 'true')
+
+      await user.click(screen.getByRole('option', {name: 'Item 4'}))
+      expect(
+        screen.getByRole('option', {
+          name: 'Item 4',
+        }),
+      ).toHaveAttribute('aria-selected', 'true')
     })
   })
 })
