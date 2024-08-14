@@ -129,7 +129,7 @@
     "@babel/plugin-transform-modules-commonjs": "7.24.1",
     "@babel/preset-react": "7.24.7",
     "@babel/preset-typescript": "7.24.7",
-    "@figma/code-connect": "1.0.4",
+    "@figma/code-connect": "1.0.5",
     "@primer/css": "^21.0.1",
     "@rollup/plugin-babel": "6.0.4",
     "@rollup/plugin-commonjs": "25.0.4",
