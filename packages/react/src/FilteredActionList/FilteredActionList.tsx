@@ -130,8 +130,6 @@ export function FilteredActionList({
       ...rest
     } = item
 
-    console.log('from primer react', item, rest)
-
     return (
       <ActionList.Item
         sx={sx}
