@@ -1,61 +1,61 @@
 import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
-import {themes} from '../test-helpers/themes'
+
+const stories = [
+  {
+    title: 'Default',
+    id: 'components-text--default',
+  },
+  {
+    title: 'Small',
+    id: 'components-text-features--size-small',
+  },
+  {
+    title: 'Medium',
+    id: 'components-text-features--size-medium',
+  },
+  {
+    title: 'Large',
+    id: 'components-text-features--size-large',
+  },
+  {
+    title: 'LightWeight',
+    id: 'components-text-features--light-weight',
+  },
+  {
+    title: 'NormalWeight',
+    id: 'components-text-features--normal-weight',
+  },
+  {
+    title: 'MediumWeight',
+    id: 'components-text-features--medium-weight',
+  },
+  {
+    title: 'SemiboldWeight',
+    id: 'components-text-features--semibold-weight',
+  },
+] as const
+
+// only testing light theme because this component is only concerned with text size and weight
 
 test.describe('Text', () => {
-  test.describe('Default', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-text--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Text.Default.${theme}.png`)
+  for (const story of stories) {
+    test.describe(story.title, () => {
+      test('default @vrt', async ({page}) => {
+        await visit(page, {
+          id: story.id,
         })
 
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-text--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
+        // Default state
+        expect(await page.screenshot()).toMatchSnapshot(`Text.${story.title}.png`)
       })
-    }
-  })
 
-  test.describe('Playground', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-text--playground',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Text.Playground.${theme}.png`)
+      test('axe @aat', async ({page}) => {
+        await visit(page, {
+          id: story.id,
         })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-text--playground',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
+        await expect(page).toHaveNoViolations()
       })
-    }
-  })
+    })
+  }
 })

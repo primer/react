@@ -405,6 +405,8 @@ exports[`@primer/react/experimental should not update exports without a semver c
   "type FeatureFlagsProps",
   "type FileType",
   "type FileUploadResult",
+  "FilteredActionList",
+  "type FilteredActionListProps",
   "Hidden",
   "type HiddenProps",
   "InlineAutocomplete",
