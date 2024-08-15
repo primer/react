@@ -35,7 +35,7 @@ Playground.argTypes = {
     control: {
       type: 'radio',
     },
-    options: ['default', 'primary', 'danger', 'invisible'],
+    options: ['default', 'primary', 'danger', 'invisible', 'link'],
   },
   alignContent: {
     control: {

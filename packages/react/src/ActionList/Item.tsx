@@ -181,7 +181,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         cursor: 'not-allowed',
         '[data-component="ActionList.Checkbox"]': {
           cursor: 'not-allowed',
-          bg: selected ? 'fg.muted' : 'var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2))',
+          bg: selected ? 'fg.muted' : 'var(--control-bgColor-disabled, rgba(175, 184, 193, 0.2))',
           borderColor: selected ? 'fg.muted' : 'var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2))',
         },
       },
@@ -261,6 +261,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const labelId = `${itemId}--label`
     const inlineDescriptionId = `${itemId}--inline-description`
     const blockDescriptionId = `${itemId}--block-description`
+    const trailingVisualId = `${itemId}--trailing-visual`
     const inactiveWarningId = inactive && !showInactiveIndicator ? `${itemId}--warning-message` : undefined
 
     const ButtonItemWrapper = React.forwardRef(({as: Component = 'button', children, ...props}, forwardedRef) => {
@@ -294,10 +295,14 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       'data-inactive': inactive ? true : undefined,
       'data-loading': loading && !inactive ? true : undefined,
       tabIndex: disabled || showInactiveIndicator ? undefined : 0,
-      'aria-labelledby': `${labelId} ${slots.inlineDescription ? inlineDescriptionId : ''}`,
-      'aria-describedby': slots.blockDescription
-        ? [blockDescriptionId, inactiveWarningId].join(' ')
-        : inactiveWarningId,
+      'aria-labelledby': `${labelId} ${slots.trailingVisual ? trailingVisualId : ''} ${
+        slots.inlineDescription ? inlineDescriptionId : ''
+      }`,
+      'aria-describedby':
+        [slots.blockDescription ? blockDescriptionId : undefined, inactiveWarningId ?? undefined]
+          .filter(String)
+          .join(' ')
+          .trim() || undefined,
       ...(includeSelectionAttribute && {[itemSelectionAttribute]: selected}),
       role: itemRole,
       id: itemId,
@@ -327,7 +332,14 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     return (
       <ItemContext.Provider
-        value={{variant, disabled, inactive: Boolean(inactiveText), inlineDescriptionId, blockDescriptionId}}
+        value={{
+          variant,
+          disabled,
+          inactive: Boolean(inactiveText),
+          inlineDescriptionId,
+          blockDescriptionId,
+          trailingVisualId,
+        }}
       >
         <LiBox
           ref={!buttonSemanticsFeatureFlag || listSemantics ? forwardedRef : null}
