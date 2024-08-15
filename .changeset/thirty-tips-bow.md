@@ -1,5 +1,4 @@
 ---
-'rollup-plugin-import-css': minor
 '@primer/react': minor
 ---
 
