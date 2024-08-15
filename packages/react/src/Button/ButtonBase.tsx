@@ -105,7 +105,7 @@ const ButtonBase = forwardRef(
             // when `loading` is `false`.
             // Then, the component re-renders in a way that the button will lose focus when switching between loading states.
             if={typeof loading !== 'undefined'}
-            sx={{display: block ? 'block' : 'inline-block'}}
+            className={block ? 'd-block' : 'd-inline-block'}
             data-loading-wrapper
           >
             <Box
@@ -215,7 +215,7 @@ const ButtonBase = forwardRef(
           // when `loading` is `false`.
           // Then, the component re-renders in a way that the button will lose focus when switching between loading states.
           if={typeof loading !== 'undefined'}
-          sx={{display: block ? 'block' : 'inline-block'}}
+          className={block ? 'd-block' : 'd-inline-block'}
           data-loading-wrapper
         >
           <Component
@@ -326,7 +326,7 @@ const ButtonBase = forwardRef(
           aria-disabled={loading ? true : undefined}
           {...rest}
           ref={innerRef}
-          className={cx(classes.ButtonBase, className)}
+          className={className}
           data-block={block ? 'block' : null}
           data-inactive={inactive ? true : undefined}
           data-loading={Boolean(loading)}
@@ -353,12 +353,7 @@ const ButtonBase = forwardRef(
             )
           ) : (
             <>
-              <Box
-                as="span"
-                data-component="buttonContent"
-                sx={getAlignContentSize(alignContent)}
-                className={classes.ButtonContent}
-              >
+              <Box as="span" data-component="buttonContent" sx={getAlignContentSize(alignContent)}>
                 {
                   /* If there are no leading/trailing visuals/actions to replace with a loading spinner,
                      render a loading spiner in place of the button content. */
