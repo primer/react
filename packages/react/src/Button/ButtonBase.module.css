@@ -172,6 +172,11 @@
 }
 
 /* Visuals ------------------------------------------------------------------ */
+.Visual {
+  display: flex;
+  pointer-events: none;
+}
+
 .Visual > :not([data-component='ButtonCounter']) {
   display: flex;
   color: var(--fgColor-muted);

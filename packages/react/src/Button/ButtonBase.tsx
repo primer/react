@@ -27,9 +27,15 @@ const iconWrapStyles = {
 }
 
 const renderVisual = (Visual: React.ElementType, loading: boolean, visualName: string) => (
-  <Box as="span" data-component={visualName} sx={{...iconWrapStyles}} className={classes.Visual}>
+  <Box as="span" data-component={visualName} sx={{...iconWrapStyles}}>
     {loading ? <Spinner size="small" /> : <Visual />}
   </Box>
+)
+
+const renderModuleVisual = (Visual: React.ElementType, loading: boolean, visualName: string) => (
+  <span data-component={visualName} className={classes.Visual}>
+    {loading ? <Spinner size="small" /> : <Visual />}
+  </span>
 )
 
 const ButtonBase = forwardRef(
@@ -91,7 +97,7 @@ const ButtonBase = forwardRef(
     }
 
     if (enabled) {
-      if (sxProp) {
+      if (sxProp !== defaultSxProp) {
         return (
           <ConditionalWrapper
             // If anything is passsed to `loading`, we need the wrapper:
@@ -151,12 +157,12 @@ const ButtonBase = forwardRef(
                         !LeadingVisual &&
                         !TrailingVisual &&
                         !TrailingAction &&
-                        renderVisual(Spinner, loading, 'loadingSpinner')
+                        renderModuleVisual(Spinner, loading, 'loadingSpinner')
                     }
                     {
                       /* Render a leading visual unless the button is in a loading state.
                      Then replace the leading visual with a loading spinner. */
-                      LeadingVisual && renderVisual(LeadingVisual, Boolean(loading), 'leadingVisual')
+                      LeadingVisual && renderModuleVisual(LeadingVisual, Boolean(loading), 'leadingVisual')
                     }
                     {children && (
                       <span data-component="text" id={loading ? `${uuid}-label` : undefined}>
@@ -171,13 +177,13 @@ const ButtonBase = forwardRef(
                      - there is no leading visual to replace with a loading spinner
                   */
                       count !== undefined && !TrailingVisual
-                        ? renderVisual(
+                        ? renderModuleVisual(
                             () => <CounterLabel data-component="ButtonCounter">{count}</CounterLabel>,
                             Boolean(loading) && !LeadingVisual,
                             'trailingVisual',
                           )
                         : TrailingVisual
-                        ? renderVisual(TrailingVisual, Boolean(loading) && !LeadingVisual, 'trailingVisual')
+                        ? renderModuleVisual(TrailingVisual, Boolean(loading) && !LeadingVisual, 'trailingVisual')
                         : null
                     }
                   </Box>
@@ -185,7 +191,7 @@ const ButtonBase = forwardRef(
                     /* If there is a trailing action, render it unless the button is in a loading state
                    and there is no leading or trailing visual to replace with a loading spinner. */
                     TrailingAction &&
-                      renderVisual(
+                      renderModuleVisual(
                         TrailingAction,
                         Boolean(loading) && !LeadingVisual && !TrailingVisual,
                         'trailingAction',
@@ -252,12 +258,12 @@ const ButtonBase = forwardRef(
                       !LeadingVisual &&
                       !TrailingVisual &&
                       !TrailingAction &&
-                      renderVisual(Spinner, loading, 'loadingSpinner')
+                      renderModuleVisual(Spinner, loading, 'loadingSpinner')
                   }
                   {
                     /* Render a leading visual unless the button is in a loading state.
                      Then replace the leading visual with a loading spinner. */
-                    LeadingVisual && renderVisual(LeadingVisual, Boolean(loading), 'leadingVisual')
+                    LeadingVisual && renderModuleVisual(LeadingVisual, Boolean(loading), 'leadingVisual')
                   }
                   {children && (
                     <Text size={size} weight="medium" data-component="text" id={loading ? `${uuid}-label` : undefined}>
@@ -272,13 +278,13 @@ const ButtonBase = forwardRef(
                      - there is no leading visual to replace with a loading spinner
                   */
                     count !== undefined && !TrailingVisual
-                      ? renderVisual(
+                      ? renderModuleVisual(
                           () => <CounterLabel data-component="ButtonCounter">{count}</CounterLabel>,
                           Boolean(loading) && !LeadingVisual,
                           'trailingVisual',
                         )
                       : TrailingVisual
-                      ? renderVisual(TrailingVisual, Boolean(loading) && !LeadingVisual, 'trailingVisual')
+                      ? renderModuleVisual(TrailingVisual, Boolean(loading) && !LeadingVisual, 'trailingVisual')
                       : null
                   }
                 </span>
@@ -286,7 +292,7 @@ const ButtonBase = forwardRef(
                   /* If there is a trailing action, render it unless the button is in a loading state
                    and there is no leading or trailing visual to replace with a loading spinner. */
                   TrailingAction &&
-                    renderVisual(
+                    renderModuleVisual(
                       TrailingAction,
                       Boolean(loading) && !LeadingVisual && !TrailingVisual,
                       'trailingAction',
