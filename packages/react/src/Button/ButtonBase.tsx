@@ -244,12 +244,7 @@ const ButtonBase = forwardRef(
               )
             ) : (
               <>
-                <Box
-                  as="span"
-                  data-component="buttonContent"
-                  sx={getAlignContentSize(alignContent)}
-                  className={classes.ButtonContent}
-                >
+                <span data-component="buttonContent" data-align={alignContent} className={classes.ButtonContent}>
                   {
                     /* If there are no leading/trailing visuals/actions to replace with a loading spinner,
                      render a loading spiner in place of the button content. */
@@ -286,7 +281,7 @@ const ButtonBase = forwardRef(
                       ? renderVisual(TrailingVisual, Boolean(loading) && !LeadingVisual, 'trailingVisual')
                       : null
                   }
-                </Box>
+                </span>
                 {
                   /* If there is a trailing action, render it unless the button is in a loading state
                    and there is no leading or trailing visual to replace with a loading spinner. */
