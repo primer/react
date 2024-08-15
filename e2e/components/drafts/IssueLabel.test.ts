@@ -5,98 +5,98 @@ import {themes} from '../../test-helpers/themes'
 const variants = [
   {
     title: 'Default',
-    id: 'drafts-components-label--default',
+    id: 'drafts-components-issue-label--default',
   },
   {
     title: 'Auburn',
-    id: 'drafts-components-label-features--auburn',
+    id: 'drafts-components-issue-label-features--auburn',
   },
   {
     title: 'Blue',
-    id: 'drafts-components-label-features--blue',
+    id: 'drafts-components-issue-label-features--blue',
   },
   {
     title: 'Brown',
-    id: 'drafts-components-label-features--brown',
+    id: 'drafts-components-issue-label-features--brown',
   },
   {
     title: 'Coral',
-    id: 'drafts-components-label-features--coral',
+    id: 'drafts-components-issue-label-features--coral',
   },
   {
     title: 'Cyan',
-    id: 'drafts-components-label-features--cyan',
+    id: 'drafts-components-issue-label-features--cyan',
   },
   {
     title: 'Gray',
-    id: 'drafts-components-label-features--gray',
+    id: 'drafts-components-issue-label-features--gray',
   },
   {
     title: 'Green',
-    id: 'drafts-components-label-features--green',
+    id: 'drafts-components-issue-label-features--green',
   },
   {
     title: 'Indigo',
-    id: 'drafts-components-label-features--indigo',
+    id: 'drafts-components-issue-label-features--indigo',
   },
   {
     title: 'Lemon',
-    id: 'drafts-components-label-features--lemon',
+    id: 'drafts-components-issue-label-features--lemon',
   },
   {
     title: 'Lime',
-    id: 'drafts-components-label-features--lime',
+    id: 'drafts-components-issue-label-features--lime',
   },
   {
     title: 'Olive',
-    id: 'drafts-components-label-features--olive',
+    id: 'drafts-components-issue-label-features--olive',
   },
   {
     title: 'Orange',
-    id: 'drafts-components-label-features--orange',
+    id: 'drafts-components-issue-label-features--orange',
   },
   {
     title: 'Pine',
-    id: 'drafts-components-label-features--pine',
+    id: 'drafts-components-issue-label-features--pine',
   },
   {
     title: 'Pink',
-    id: 'drafts-components-label-features--pink',
+    id: 'drafts-components-issue-label-features--pink',
   },
   {
     title: 'Plum',
-    id: 'drafts-components-label-features--plum',
+    id: 'drafts-components-issue-label-features--plum',
   },
   {
     title: 'Purple',
-    id: 'drafts-components-label-features--purple',
+    id: 'drafts-components-issue-label-features--purple',
   },
   {
     title: 'Red',
-    id: 'drafts-components-label-features--red',
+    id: 'drafts-components-issue-label-features--red',
   },
   {
     title: 'Teal',
-    id: 'drafts-components-label-features--teal',
+    id: 'drafts-components-issue-label-features--teal',
   },
   {
     title: 'Yellow',
-    id: 'drafts-components-label-features--yellow',
+    id: 'drafts-components-issue-label-features--yellow',
   },
 ] as const
 
 const sizes = [
   {
     title: 'Size: Large',
-    id: 'drafts-components-label-features--size-large',
+    id: 'drafts-components-issue-label-features--size-large',
   },
   {
     title: 'Size: Small',
-    id: 'drafts-components-label-features--size-small',
+    id: 'drafts-components-issue-label-features--size-small',
   },
 ] as const
 
-test.describe('Label', () => {
+test.describe('IssueLabel', () => {
   for (const story of variants) {
     test.describe(story.title, () => {
       for (const theme of themes) {
@@ -115,7 +115,7 @@ test.describe('Label', () => {
             })
 
             // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`Label.${story.title}.${theme}.png`)
+            expect(await page.screenshot()).toMatchSnapshot(`IssueLabel.${story.title}.${theme}.png`)
           })
 
           test('axe @aat', async ({page}) => {
@@ -145,7 +145,7 @@ test.describe('Label', () => {
         })
 
         // Default state
-        expect(await page.screenshot()).toMatchSnapshot(`Label.${story.title}.png`)
+        expect(await page.screenshot()).toMatchSnapshot(`IssueLabel.${story.title}.png`)
       })
 
       test('axe @aat', async ({page}) => {
