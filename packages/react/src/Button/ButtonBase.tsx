@@ -91,7 +91,7 @@ const ButtonBase = forwardRef(
     }
 
     if (enabled) {
-      if (props.sx) {
+      if (sxProp) {
         return (
           <ConditionalWrapper
             // If anything is passsed to `loading`, we need the wrapper:
@@ -102,7 +102,7 @@ const ButtonBase = forwardRef(
             sx={{display: block ? 'block' : 'inline-block'}}
             data-loading-wrapper
           >
-            <StyledButton
+            <Box
               as={Component}
               sx={sxStyles}
               aria-disabled={loading ? true : undefined}
@@ -193,7 +193,7 @@ const ButtonBase = forwardRef(
                   }
                 </>
               )}
-            </StyledButton>
+            </Box>
             {loading && (
               <VisuallyHidden>
                 <AriaStatus id={loadingAnnouncementID}>{loadingAnnouncement}</AriaStatus>
