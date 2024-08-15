@@ -6,7 +6,6 @@ import type {Hex} from './IssueLabel'
  * transforms a hex color provided by the user into a color object with background and text colors
  * @param colorHex — the hex color provided by the user
  * @param colorScheme — the color scheme the user has currently set
- * @param isSelected
  * @param bgColor — the background color from the selected theme, needed to calc the contrast for the colors
  * @returns
  */
@@ -15,7 +14,6 @@ export const getColorsFromHex = (
   colorScheme = 'light',
   bgColor: Hex,
 ): React.CSSProperties | undefined => {
-  if (typeof colorHex !== 'string' || colorHex.startsWith('#') === false) return undefined
   // start values for light mode
   let bgLightness = 96
   let lightnessIncrement: 1 | -1 = -1
@@ -32,6 +30,12 @@ export const getColorsFromHex = (
   let {h, s} = hexToHsluv(colorHex)
 
   // avoid intense bright colors
+  // Hue range: 58 - 198
+  // 58 marks the transition from yellow to yellow-green
+  // 198 makes the tranisiton from cyan to blue
+  // yellow, yellow-green, green, cyan, blue tend to be bright and intense
+  // Setting the hue range of 58 and 198 helps avoid bright colors
+  // saturation: represents the intensity of a color, measured as a percentage from 0 to 100. Capping at 70% to avoid intense bright colors
   if (h >= 58 && h <= 198 && s > 70) {
     s = 70
   }

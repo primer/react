@@ -5,94 +5,94 @@ import {themes} from '../../test-helpers/themes'
 const variants = [
   {
     title: 'Default',
-    id: 'drafts-components-issue-label--default',
+    id: 'drafts-components-issuelabel--default',
   },
   {
     title: 'Auburn',
-    id: 'drafts-components-issue-label-features--auburn',
+    id: 'drafts-components-issuelabel-features--auburn',
   },
   {
     title: 'Blue',
-    id: 'drafts-components-issue-label-features--blue',
+    id: 'drafts-components-issuelabel-features--blue',
   },
   {
     title: 'Brown',
-    id: 'drafts-components-issue-label-features--brown',
+    id: 'drafts-components-issuelabel-features--brown',
   },
   {
     title: 'Coral',
-    id: 'drafts-components-issue-label-features--coral',
+    id: 'drafts-components-issuelabel-features--coral',
   },
   {
     title: 'Cyan',
-    id: 'drafts-components-issue-label-features--cyan',
+    id: 'drafts-components-issuelabel-features--cyan',
   },
   {
     title: 'Gray',
-    id: 'drafts-components-issue-label-features--gray',
+    id: 'drafts-components-issuelabel-features--gray',
   },
   {
     title: 'Green',
-    id: 'drafts-components-issue-label-features--green',
+    id: 'drafts-components-issuelabel-features--green',
   },
   {
     title: 'Indigo',
-    id: 'drafts-components-issue-label-features--indigo',
+    id: 'drafts-components-issuelabel-features--indigo',
   },
   {
     title: 'Lemon',
-    id: 'drafts-components-issue-label-features--lemon',
+    id: 'drafts-components-issuelabel-features--lemon',
   },
   {
     title: 'Lime',
-    id: 'drafts-components-issue-label-features--lime',
+    id: 'drafts-components-issuelabel-features--lime',
   },
   {
     title: 'Olive',
-    id: 'drafts-components-issue-label-features--olive',
+    id: 'drafts-components-issuelabel-features--olive',
   },
   {
     title: 'Orange',
-    id: 'drafts-components-issue-label-features--orange',
+    id: 'drafts-components-issuelabel-features--orange',
   },
   {
     title: 'Pine',
-    id: 'drafts-components-issue-label-features--pine',
+    id: 'drafts-components-issuelabel-features--pine',
   },
   {
     title: 'Pink',
-    id: 'drafts-components-issue-label-features--pink',
+    id: 'drafts-components-issuelabel-features--pink',
   },
   {
     title: 'Plum',
-    id: 'drafts-components-issue-label-features--plum',
+    id: 'drafts-components-issuelabel-features--plum',
   },
   {
     title: 'Purple',
-    id: 'drafts-components-issue-label-features--purple',
+    id: 'drafts-components-issuelabel-features--purple',
   },
   {
     title: 'Red',
-    id: 'drafts-components-issue-label-features--red',
+    id: 'drafts-components-issuelabel-features--red',
   },
   {
     title: 'Teal',
-    id: 'drafts-components-issue-label-features--teal',
+    id: 'drafts-components-issuelabel-features--teal',
   },
   {
     title: 'Yellow',
-    id: 'drafts-components-issue-label-features--yellow',
+    id: 'drafts-components-issuelabel-features--yellow',
   },
 ] as const
 
 const sizes = [
   {
     title: 'Size: Large',
-    id: 'drafts-components-issue-label-features--size-large',
+    id: 'drafts-components-issuelabel-features--size-large',
   },
   {
     title: 'Size: Small',
-    id: 'drafts-components-issue-label-features--size-small',
+    id: 'drafts-components-issuelabel-features--size-small',
   },
 ] as const
 
