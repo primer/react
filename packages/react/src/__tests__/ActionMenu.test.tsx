@@ -326,6 +326,29 @@ describe('ActionMenu', () => {
     })
   })
 
+  it('should wrap focus when ArrowDown is pressed on the last element', async () => {
+    const component = HTMLRender(<Example />)
+    const button = component.getByRole('button')
+
+    const user = userEvent.setup()
+    await user.click(button)
+
+    expect(component.queryByRole('menu')).toBeInTheDocument()
+    const menuItems = component.getAllByRole('menuitem')
+
+    await user.keyboard('{ArrowDown}')
+    expect(menuItems[0]).toEqual(document.activeElement)
+
+    await user.keyboard('{ArrowDown}')
+    await user.keyboard('{ArrowDown}')
+    await user.keyboard('{ArrowDown}')
+    await user.keyboard('{ArrowDown}')
+    expect(menuItems[menuItems.length - 1]).toEqual(document.activeElement) // last elememt
+
+    await user.keyboard('{ArrowDown}')
+    expect(menuItems[0]).toEqual(document.activeElement) // wrap to first
+  })
+
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Example />)
     const results = await axe.run(container)
