@@ -77,11 +77,11 @@ const components = new Map([
           name: 'Disabled Selected Multiselect',
         },
         {
-          id: 'components-actionlist-dev--group-with-filled-title-old-api',
+          id: 'dev-components-actionlist--group-with-filled-title-old-api',
           name: 'Group With Filled Title Old Api',
         },
         {
-          id: 'components-actionlist-dev--group-with-subtle-title-old-api',
+          id: 'dev-components-actionlist--group-with-subtle-title-old-api',
           name: 'Group With Subtle Title Old Api',
         },
         {
