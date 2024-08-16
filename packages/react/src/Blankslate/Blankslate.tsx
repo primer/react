@@ -174,15 +174,15 @@ export type HeadingProps = React.PropsWithChildren<{
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }>
 
-function Heading({as = 'h2', children}: HeadingProps) {
+function Heading({as: Component = 'h2', children}: HeadingProps) {
   const enabled = useFeatureFlag('primer_react_css_modules')
+
+  if (enabled) {
+    return <Component className={cx('Blankslate-Heading', classes.Heading)}>{children}</Component>
+  }
+
   return (
-    <Box
-      as={as}
-      className={cx('Blankslate-Heading', {
-        [classes.Heading]: enabled,
-      })}
-    >
+    <Box as={Component} className={cx('Blankslate-Heading')}>
       {children}
     </Box>
   )
