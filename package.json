@@ -4,7 +4,6 @@
   "workspaces": [
     "packages/rollup-plugin-import-css",
     "packages/*",
-    "docs",
     "examples/*"
   ],
   "scripts": {
