@@ -6,6 +6,7 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 import {generateCustomSxProp} from './Button'
 import {TooltipContext, Tooltip} from '../TooltipV2/Tooltip'
 import {TooltipContext as TooltipContextV1} from '../Tooltip/Tooltip'
+import classes from './ButtonBase.module.css'
 
 const IconButton = forwardRef(
   (
@@ -66,6 +67,7 @@ const IconButton = forwardRef(
         >
           <ButtonBase
             icon={Icon}
+            className={classes.IconButton}
             data-component="IconButton"
             sx={sxStyles}
             type="button"
