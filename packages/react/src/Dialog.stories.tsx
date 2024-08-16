@@ -23,7 +23,10 @@ export const Default = () => {
           description={
             <>
               There are plans to deprecate this component in a future release. We recommend using{' '}
-              <Link href="/?path=/story/components-dialog--default">Dialog</Link> instead.
+              <Link inline={true} href="/?path=/story/components-dialog--default">
+                Dialog
+              </Link>{' '}
+              instead.
             </>
           }
           variant="warning"
