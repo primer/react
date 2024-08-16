@@ -41,6 +41,7 @@ export const GroupWithSubtleTitleOldAPI = () => {
         under features.
       </p>
       <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
+        {/* eslint-disable-next-line primer-react/no-deprecated-props */}
         <ActionList.Group title="Everyone">
           {users.slice(2).map(user => (
             <ActionList.Item
@@ -80,6 +81,7 @@ export const GroupWithFilledTitleOldAPI = () => {
         under features.
       </p>
       <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
+        {/* eslint-disable-next-line primer-react/no-deprecated-props */}
         <ActionList.Group title="Everyone" variant="filled">
           {users.slice(2).map(user => (
             <ActionList.Item

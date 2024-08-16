@@ -202,7 +202,5 @@ export type {StackProps, StackItemProps} from './Stack'
 export {PageHeader} from './PageHeader'
 export type {PageHeaderProps} from './PageHeader'
 
-// eslint-disable-next-line no-restricted-imports
-export {SSRProvider, useSSRSafeId} from './utils/ssr'
 export {default as sx, merge} from './sx'
 export type {SxProp} from './sx'
