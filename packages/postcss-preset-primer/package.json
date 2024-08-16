@@ -22,6 +22,7 @@
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.3",
     "@babel/preset-typescript": "^7.24.7",
+    "@types/postcss-mixins": "9.0.5",
     "babel-jest": "^29.7.0",
     "babel-plugin-transform-import-meta": "^2.2.1",
     "postcss": "^8.4.41",
