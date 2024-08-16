@@ -1,6 +1,4 @@
-/* stylelint-disable selector-max-specificity */
-
-/* Base styles -------------------------------------------------------------- */
+/* Base styles */
 .ButtonBase {
   display: flex;
   min-width: max-content;
