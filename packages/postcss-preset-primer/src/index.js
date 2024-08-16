@@ -64,10 +64,10 @@ const postcssPresetPrimer = () => {
           return path.join(primitivesPath, file)
         }),
       }),
-      ...plugins,
       postcssMixins({
         mixinsDir: path.join(path.dirname(filepath), 'mixins'),
       }),
+      ...plugins,
     ],
   }
 }
