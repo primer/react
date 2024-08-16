@@ -1,7 +1,8 @@
 import React, {useState, useRef} from 'react'
 import type {Meta} from '@storybook/react'
 import {Button} from './Button'
-import {Box, Text} from '.'
+import {Box, Link, Text} from '.'
+import {Banner} from './Banner'
 import {default as Dialog} from './Dialog'
 
 /* Dialog Version 1*/
@@ -16,6 +17,18 @@ export const Default = () => {
   const returnFocusRef = useRef(null)
   return (
     <div>
+      <Box sx={{mb: 3}}>
+        <Banner
+          title="Planned for deprecation"
+          description={
+            <>
+              There are plans to deprecate this component in a future release. We recommend using{' '}
+              <Link href="/?path=/story/components-dialog--default">Dialog</Link> instead.
+            </>
+          }
+          variant="warning"
+        />
+      </Box>
       <Button data-testid="trigger-button" ref={returnFocusRef} onClick={() => setIsOpen(true)}>
         Show Dialog
       </Button>
