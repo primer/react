@@ -1,25 +1,29 @@
 # Contribution guidelines
 
-1. [Roadmap](#roadmap)
-2. [Before Getting Started](#before-getting-started)
-3. [Discussing non-public features or products](#discussing-non-public-features-or-products)
-4. [Developing Components](#developing-components)
-   - [Tools we use](#tools-we-use)
-   - [File Structure](#file-structure)
-   - [Component patterns](#component-patterns)
-   - [SSR compatibility](#ssr-compatibility)
-   - [Adding the sx prop](#adding-the-sx-prop)
-   - [Linting](#linting)
-   - [TypeScript support](#typescript-support)
-   - [Additional resources](#additional-resources)
-5. [Writing documentation](#writing-documentation)
-6. [Creating a pull request](#creating-a-pull-request)
-   - [Adding changeset to your pull request](#adding-changeset-to-your-pull-request)
-   - [What to expect after opening a pull request](#what-to-expect-after-opening-a-pull-request)
-     - [What we look for in reviews](#what-we-look-for-in-reviews)
-   - [Previewing your changes](#previewing-your-changes)
-7. [Deploying](#deploying)
-8. [Troubleshooting](#troubleshooting)
+- [Contribution guidelines](#contribution-guidelines)
+  - [Roadmap](#roadmap)
+  - [Before Getting Started](#before-getting-started)
+    - [Proposing new components](#proposing-new-components)
+  - [Discussing non-public features or products](#discussing-non-public-features-or-products)
+  - [Developing components](#developing-components)
+    - [Tools we use](#tools-we-use)
+    - [File structure](#file-structure)
+    - [Component patterns](#component-patterns)
+    - [SSR compatibility](#ssr-compatibility)
+    - [Adding the `sx` prop](#adding-the-sx-prop)
+    - [Linting](#linting)
+      - [ESLint](#eslint)
+      - [Markdownlint](#markdownlint)
+    - [TypeScript support](#typescript-support)
+    - [Additional resources](#additional-resources)
+  - [Writing documentation](#writing-documentation)
+  - [Creating a pull request](#creating-a-pull-request)
+    - [Adding changeset to your pull request](#adding-changeset-to-your-pull-request)
+    - [What to expect after opening a pull request](#what-to-expect-after-opening-a-pull-request)
+      - [What we look for in reviews](#what-we-look-for-in-reviews)
+    - [Previewing your changes](#previewing-your-changes)
+  - [Deploying](#deploying)
+  - [Troubleshooting](#troubleshooting)
 
 ## Roadmap
 
@@ -147,8 +151,6 @@ We consider a component SSR-compatible if it...
 1. doesn’t cause layout shift during hydration.
 
 We use [`eslint-plugin-ssr-friendly`](https://github.com/kopiro/eslint-plugin-ssr-friendly) to prevent misuse of DOM globals. If you see an error from this plugin, please fix it before merging your PR.
-
-If your component doesn't use DOM globals, it likely won't cause layout shift during hydration. However, if you suspect that your component might cause layout shift, you can use the example Next.js app (`examples/nextjs`) to debug. Import and render your component in `examples/nextjs/src/pages/index.js` then run the example app with `cd examples/nextjs && npm run develop`.
 
 ### Adding the `sx` prop
 

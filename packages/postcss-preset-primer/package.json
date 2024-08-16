@@ -7,13 +7,13 @@
   "scripts": {
     "type-check": "tsc --noEmit"
   },
+  "browserslist": "extends @github/browserslist-config",
   "dependencies": {
-    "@csstools/postcss-global-data": "2.1.1",
-    "@primer/primitives": "8.2.3",
-    "glob": "11.0.0",
-    "postcss-custom-media": "10.0.8",
-    "postcss-nesting": "12.1.5",
-    "postcss-preset-env": "9.6.0"
+    "@csstools/postcss-global-data": "^2.1.1",
+    "@github/browserslist-config": "^1.0.0",
+    "@primer/primitives": "^8.2.3",
+    "glob": "^11.0.0",
+    "postcss-preset-env": "^10.0.0"
   },
   "devDependencies": {
     "typescript": "5.5.3"
