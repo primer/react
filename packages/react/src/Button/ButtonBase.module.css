@@ -58,81 +58,84 @@
   }
 }
 
+.ConditionalWrapper {
+  display: block;
+}
+
 /* Size ----------------------------------------------------------------- */
 
-.ButtonBase[data-size='small'] {
+.ButtonBase:where([data-size='small']) {
   height: var(--control-small-size);
   /* stylelint-disable-next-line primer/spacing */
   padding: 0 var(--control-small-paddingInline-condensed);
-  font-size: var(--text-body-size-small);
   gap: var(--control-small-gap);
+
+  .ButtonContent > :not(:last-child) {
+    /* stylelint-disable-next-line primer/spacing */
+    margin-right: var(--control-small-gap);
+  }
 }
 
-.ButtonBase[data-size='small'] [data-component='buttonContent'] > :not(:last-child) {
-  /* stylelint-disable-next-line primer/spacing */
-  margin-right: var(--control-small-gap);
-}
-
-.ButtonBase[data-size='large'] {
+.ButtonBase:where([data-size='large']) {
   height: var(--control-large-size);
   /* stylelint-disable-next-line primer/spacing */
   padding: 0 var(--control-large-paddingInline-spacious);
   gap: var(--control-large-gap);
-}
 
-.ButtonBase[data-size='large'] [data-component='buttonContent'] > :not(:last-child) {
-  /* stylelint-disable-next-line primer/spacing */
-  margin-right: var(--control-large-gap);
+  .ButtonContent > :not(:last-child) {
+    /* stylelint-disable-next-line primer/spacing */
+    margin-right: var(--control-large-gap);
+  }
 }
 
 /* Button styles ------------------------------------------------------------ */
-.ButtonBase[data-block='block'] {
+.ButtonBase:where([data-block='block']) {
   width: 100%;
 }
 
-.ButtonBase[data-label-wrap='true'] {
+.ButtonBase:where([data-label-wrap='true']) {
   min-width: fit-content;
   height: unset;
-  min-height: var(--control-medium-size, 2rem);
-}
+  min-height: var(--control-medium-size);
 
-.ButtonBase[data-label-wrap='true'] [data-component='buttonContent'] {
-  flex: 1 1 auto;
-  align-self: stretch;
-  /* stylelint-disable-next-line primer/spacing */
-  padding-block: calc(var(--control-medium-paddingBlock) - var(--base-size-2));
-}
+  & .ButtonContent {
+    flex: 1 1 auto;
+    align-self: stretch;
+    /* stylelint-disable-next-line primer/spacing */
+    padding-block: calc(var(--control-medium-paddingBlock) - var(--base-size-2));
+  }
 
-.ButtonBase[data-label-wrap='true'] [data-component='text'] {
-  word-break: break-word;
-  white-space: unset;
-}
+  & .Label {
+    word-break: break-word;
+    white-space: unset;
+  }
 
-.ButtonBase[data-label-wrap='true'][data-size='small'] {
-  height: unset;
-  min-height: var(--control-small-size, 1.75rem);
-}
+  &:where([data-size='small']) {
+    height: unset;
+    min-height: var(--control-small-size);
 
-.ButtonBase[data-label-wrap='true'][data-size='small'] [data-component='buttonContent'] {
-  /* stylelint-disable-next-line primer/spacing */
-  padding-block: calc(var(--control-small-paddingBlock) - var(--base-size-2));
-}
+    & .ButtonContent {
+      /* stylelint-disable-next-line primer/spacing */
+      padding-block: calc(var(--control-small-paddingBlock) - var(--base-size-2));
+    }
+  }
 
-.ButtonBase[data-label-wrap='true'][data-size='large'] {
-  height: unset;
-  min-height: var(--control-large-size, 2.5rem);
-  /* stylelint-disable-next-line primer/spacing */
-  padding-inline: var(--control-large-paddingInline-spacious);
-}
+  &:where([data-size='large']) {
+    height: unset;
+    min-height: var(--control-large-size);
+    /* stylelint-disable-next-line primer/spacing */
+    padding-inline: var(--control-large-paddingInline-spacious);
 
-.ButtonBase[data-label-wrap='true'][data-size='large'] [data-component='buttonContent'] {
-  /* stylelint-disable-next-line primer/spacing */
-  padding-block: calc(var(--control-large-paddingBlock) - var(--base-size-2));
+    & .ButtonContent {
+      /* stylelint-disable-next-line primer/spacing */
+      padding-block: calc(var(--control-large-paddingBlock) - var(--base-size-2));
+    }
+  }
 }
 
 /* Button layout ----------------------------------------------------------------- */
 
-.ButtonBase [data-component='buttonContent'] {
+.ButtonContent {
   flex: 1 0 auto;
   display: grid;
   grid-template-areas: 'leadingVisual text trailingVisual';
@@ -141,11 +144,11 @@
   align-content: center;
 }
 
-.ButtonBase[data-component='leadingVisual'] {
+.ButtonBase [data-component='leadingVisual'] {
   grid-area: leadingVisual;
 }
 
-.ButtonBase [data-component='text'] {
+.Label {
   grid-area: text;
   white-space: nowrap;
 }
@@ -163,11 +166,11 @@
 }
 
 /* Content alignment -------------------------------------------------------- */
-.ButtonContent[data-align='center'] {
+.ButtonContent:where([data-align='center']) {
   justify-content: center;
 }
 
-.ButtonContent[data-align='start'] {
+.ButtonContent:where([data-align='start']) {
   justify-content: flex-start;
 }
 
@@ -177,7 +180,7 @@
   pointer-events: none;
 }
 
-.Visual > :not([data-component='ButtonCounter']) {
+.Visual > :not(.CounterLabel) {
   display: flex;
   color: var(--fgColor-muted);
   pointer-events: none;

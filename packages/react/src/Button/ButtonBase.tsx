@@ -105,7 +105,7 @@ const ButtonBase = forwardRef(
             // when `loading` is `false`.
             // Then, the component re-renders in a way that the button will lose focus when switching between loading states.
             if={typeof loading !== 'undefined'}
-            className={block ? 'd-block' : 'd-inline-block'}
+            className={block ? classes.ConditionalWrapper : undefined}
             data-loading-wrapper
           >
             <Box
@@ -119,7 +119,7 @@ const ButtonBase = forwardRef(
               data-inactive={inactive ? true : undefined}
               data-loading={Boolean(loading)}
               data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
-              data-size={size === 'small' || size === 'large' ? size : undefined}
+              data-size={size}
               data-variant={variant}
               data-label-wrap={labelWrap}
               aria-describedby={[loadingAnnouncementID, ariaDescribedBy]
@@ -165,9 +165,15 @@ const ButtonBase = forwardRef(
                       LeadingVisual && renderModuleVisual(LeadingVisual, Boolean(loading), 'leadingVisual')
                     }
                     {children && (
-                      <span data-component="text" id={loading ? `${uuid}-label` : undefined}>
+                      <Text
+                        size={size}
+                        weight="medium"
+                        data-component="text"
+                        className={classes.Label}
+                        id={loading ? `${uuid}-label` : undefined}
+                      >
                         {children}
-                      </span>
+                      </Text>
                     )}
                     {
                       /* If there is a count, render a counter label unless there is a trailing visual.
@@ -178,7 +184,11 @@ const ButtonBase = forwardRef(
                   */
                       count !== undefined && !TrailingVisual
                         ? renderModuleVisual(
-                            () => <CounterLabel data-component="ButtonCounter">{count}</CounterLabel>,
+                            () => (
+                              <CounterLabel className={classes.CounterLabel} data-component="ButtonCounter">
+                                {count}
+                              </CounterLabel>
+                            ),
                             Boolean(loading) && !LeadingVisual,
                             'trailingVisual',
                           )
@@ -215,7 +225,7 @@ const ButtonBase = forwardRef(
           // when `loading` is `false`.
           // Then, the component re-renders in a way that the button will lose focus when switching between loading states.
           if={typeof loading !== 'undefined'}
-          className={block ? 'd-block' : 'd-inline-block'}
+          className={block ? classes.ConditionalWrapper : undefined}
           data-loading-wrapper
         >
           <Component
@@ -227,7 +237,7 @@ const ButtonBase = forwardRef(
             data-inactive={inactive ? true : undefined}
             data-loading={Boolean(loading)}
             data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
-            data-size={size === 'small' || size === 'large' ? size : undefined}
+            data-size={size}
             data-variant={variant}
             data-label-wrap={labelWrap}
             aria-describedby={[loadingAnnouncementID, ariaDescribedBy]
@@ -266,7 +276,13 @@ const ButtonBase = forwardRef(
                     LeadingVisual && renderModuleVisual(LeadingVisual, Boolean(loading), 'leadingVisual')
                   }
                   {children && (
-                    <Text size={size} weight="medium" data-component="text" id={loading ? `${uuid}-label` : undefined}>
+                    <Text
+                      size={size}
+                      weight="medium"
+                      className={classes.Label}
+                      data-component="text"
+                      id={loading ? `${uuid}-label` : undefined}
+                    >
                       {children}
                     </Text>
                   )}
@@ -279,7 +295,11 @@ const ButtonBase = forwardRef(
                   */
                     count !== undefined && !TrailingVisual
                       ? renderModuleVisual(
-                          () => <CounterLabel data-component="ButtonCounter">{count}</CounterLabel>,
+                          () => (
+                            <CounterLabel className={classes.CounterLabel} data-component="ButtonCounter">
+                              {count}
+                            </CounterLabel>
+                          ),
                           Boolean(loading) && !LeadingVisual,
                           'trailingVisual',
                         )
