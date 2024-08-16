@@ -102,3 +102,4 @@
     "**/*.{js,ts,tsx,md,mdx}": "npm run lint"
   }
 }
+
