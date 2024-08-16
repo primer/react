@@ -31,13 +31,13 @@ export const Default = () => (
       <Banner
         title="Planned for deprecation"
         description={
-          <>
+          <div data-a11y-link-underlines="true">
             There are plans to deprecate this component in a future release. We recommend using{' '}
             <Link inline={true} href="/?path=/story/components-tooltipv2--default">
               Tooltip
             </Link>{' '}
             instead.
-          </>
+          </div>
         }
         variant="warning"
       />

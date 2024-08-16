@@ -21,13 +21,13 @@ export const Default = () => {
         <Banner
           title="Planned for deprecation"
           description={
-            <>
+            <div data-a11y-link-underlines="true">
               There are plans to deprecate this component in a future release. We recommend using{' '}
               <Link inline={true} href="/?path=/story/components-dialog--default">
                 Dialog
               </Link>{' '}
               instead.
-            </>
+            </div>
           }
           variant="warning"
         />
