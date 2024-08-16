@@ -61,8 +61,6 @@ export type {
   NavListDividerProps,
 } from '../NavList'
 export * from './SelectPanel2'
-export {default as TabPanels} from './TabPanels'
-export type {TabPanelsProps, TabPanelsTabProps, TabPanelsPanelProps} from './TabPanels'
 export * from '../TooltipV2'
 export * from '../ActionBar'
 
@@ -79,3 +77,5 @@ export {UnderlinePanels} from './UnderlinePanels'
 export type {UnderlinePanelsProps, UnderlinePanelsTabProps, UnderlinePanelsPanelProps} from './UnderlinePanels'
 
 export {SkeletonBox, SkeletonText, SkeletonAvatar} from './Skeleton'
+
+export * from '../KeybindingHint'

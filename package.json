@@ -100,6 +100,5 @@
   ],
   "lint-staged": {
     "**/*.{js,ts,tsx,md,mdx}": "npm run lint"
-  },
-  "packageManager": "pnpm@8.15.4+sha256.cea6d0bdf2de3a0549582da3983c70c92ffc577ff4410cbf190817ddc35137c2"
+  }
 }
