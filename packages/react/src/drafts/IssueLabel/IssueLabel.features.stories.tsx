@@ -1,6 +1,7 @@
 import React from 'react'
 import {IssueLabel} from '../IssueLabel'
 import type {Meta} from '@storybook/react'
+import type {Hex} from './IssueLabel'
 
 const meta = {
   title: 'Drafts/Components/IssueLabel/Features',
@@ -51,12 +52,12 @@ export const SizeLarge = () => <IssueLabel size="large">Issue label</IssueLabel>
 
 export const SizeSmall = () => <IssueLabel size="small">Issue label</IssueLabel>
 
-export const Hex = hex => <IssueLabel fillColor={hex}>Issue label</IssueLabel>
-Hex.args = {
+export const HexColor = (hex: Hex) => <IssueLabel fillColor={hex}>Issue label</IssueLabel>
+HexColor.args = {
   hex: '#59B200',
   variant: undefined,
 }
-Hex.argTypes = {
+HexColor.argTypes = {
   hex: {control: {type: 'color'}},
   variant: {control: {disable: true}},
 }
