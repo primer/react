@@ -85,3 +85,5 @@ export {UnderlinePanels} from './UnderlinePanels'
 export type {UnderlinePanelsProps, UnderlinePanelsTabProps, UnderlinePanelsPanelProps} from './UnderlinePanels'
 
 export {SkeletonBox, SkeletonText, SkeletonAvatar} from './Skeleton'
+
+export * from '../KeybindingHint'
