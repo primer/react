@@ -4,6 +4,7 @@ import {fileURLToPath} from 'node:url'
 import {globSync} from 'glob'
 import postcssGlobalData from '@csstools/postcss-global-data'
 import postcssPresetEnv from 'postcss-preset-env'
+import postcssMixins from 'postcss-mixins'
 // @ts-ignore
 import browsers from '@github/browserslist-config'
 
@@ -62,6 +63,9 @@ const postcssPresetPrimer = () => {
         }).map(file => {
           return path.join(primitivesPath, file)
         }),
+      }),
+      postcssMixins({
+        mixinsDir: path.join(path.dirname(filepath), 'mixins'),
       }),
       ...plugins,
     ],
