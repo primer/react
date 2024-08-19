@@ -4,22 +4,22 @@ import {themes} from '../../test-helpers/themes'
 import {viewports} from '../../test-helpers/viewports'
 
 test.describe('ActionBar', () => {
-  test.describe('Default', () => {
+  test.describe('Default state', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-actionbar--default',
+            id: 'drafts-components-actionbar--comment-box',
             globals: {
               colorScheme: theme,
             },
           })
-          expect(await page.screenshot()).toMatchSnapshot(`drafts.ActionBar.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`drafts.ActionBar.CommentBox.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-actionbar--default',
+            id: 'drafts-components-actionbar--comment-box',
             globals: {
               colorScheme: theme,
             },
@@ -31,24 +31,24 @@ test.describe('ActionBar', () => {
   })
 
   test.describe('ActionBar Interactions', () => {
-    test('Overflow interaction @vrt', async ({page}) => {
-      await visit(page, {
-        id: 'drafts-components-actionbar--default',
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('Overflow interaction @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'drafts-components-actionbar--comment-box',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          const toolbarButtonSelector = `button[data-component="IconButton"]`
+          await expect(page.locator(toolbarButtonSelector)).toHaveCount(10)
+          await page.setViewportSize({width: viewports['primer.breakpoint.xs'], height: 768})
+          await expect(page.locator(toolbarButtonSelector)).toHaveCount(6)
+          const moreButtonSelector = page.getByLabel('More Comment box toolbar items')
+          await moreButtonSelector.click()
+          await expect(page.locator('ul[role="menu"]>li')).toHaveCount(5)
+        })
       })
-
-      await page.setViewportSize({width: viewports['primer.breakpoint.lg'], height: 768})
-
-      const toolbarButtonSelector = `button[data-component="IconButton"]`
-      await expect(page.locator(toolbarButtonSelector)).toHaveCount(10)
-
-      await page.setViewportSize({width: 320, height: 768})
-      await page.getByLabel('More Toolbar items').waitFor()
-
-      await expect(page.locator(toolbarButtonSelector)).toHaveCount(6)
-
-      const moreButtonSelector = page.getByLabel('More Toolbar items')
-      await moreButtonSelector.click()
-      await expect(page.locator('ul[role="menu"] > li')).toHaveCount(5)
-    })
+    }
   })
 })
