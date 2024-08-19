@@ -3,7 +3,7 @@ name: Figma Connect Publish on Change
 on:
   push:
     paths:
-      - packages/react/src/components/**/*.figma.tsx
+      - packages/react/src/**/*.figma.tsx
     branches:
       - main
 
@@ -12,6 +12,7 @@ jobs:
     name: Code Connect
     runs-on: ubuntu-latest
     steps:
+      - run: npm ci
       - run: npx figma connect publish
         env:
           FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
