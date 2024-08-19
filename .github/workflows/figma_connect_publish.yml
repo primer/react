@@ -6,7 +6,6 @@ on:
       - packages/react/src/**/*.figma.tsx
     branches:
       - main
-  pull_request:
 
 jobs:
   code-connect:
