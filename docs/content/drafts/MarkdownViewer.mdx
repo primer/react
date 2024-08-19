@@ -1,0 +1,103 @@
+---
+componentId: markdown_viewer
+title: MarkdownViewer
+status: Deprecated
+description: Displays rendered Markdown and facilitates interaction.
+---
+
+import data from '../../../packages/react/src/drafts/MarkdownViewer/MarkdownViewer.docs.json'
+
+```js
+import {MarkdownViewer} from '@primer/react/drafts'
+```
+
+The `MarkdownViewer` displays rendered Markdown and handles interaction (link clicking and checkbox checking/unchecking) with that content.
+
+## Examples
+
+### Simple Example
+
+```javascript live noinline drafts
+const MarkdownViewerExample = () => {
+  return (
+    // eslint-disable-next-line github/unescaped-html-literal
+    <MarkdownViewer dangerousRenderedHTML={{__html: '<strong>Lorem ipsum</strong> dolor sit amet.'}} />
+  )
+}
+
+render(MarkdownViewerExample)
+```
+
+### Link-Handling Example
+
+```javascript live noinline drafts
+const MarkdownViewerExample = () => {
+  return (
+    <MarkdownViewer
+      // eslint-disable-next-line github/unescaped-html-literal
+      dangerousRenderedHTML={{__html: "<a href='https://example.com'>Example link</a>"}}
+      onLinkClick={ev => console.log(ev)}
+    />
+  )
+}
+
+render(MarkdownViewerExample)
+```
+
+### Checkbox Interaction Example
+
+```javascript live noinline drafts
+const markdownSource = `
+text before list
+
+- [ ] item 1
+- [ ] item 2
+
+text after list`
+
+const renderedHtml = `
+<p>text before list</p>
+<ul class='contains-task-list'>
+  <li class='task-list-item'><input type='checkbox' class='task-list-item-checkbox' disabled/> item 1</li>
+  <li class='task-list-item'><input type='checkbox' class='task-list-item-checkbox' disabled/> item 2</li>
+</ul>
+<p>text after list</p>`
+
+const MarkdownViewerExample = () => {
+  return (
+    <MarkdownViewer
+      dangerousRenderedHTML={{__html: renderedHtml}}
+      markdownValue={markdownSource}
+      onChange={value => console.log(value) /* save the value to the server */}
+      disabled={false}
+    />
+  )
+}
+
+render(MarkdownViewerExample)
+```
+
+## Props
+
+<ComponentProps data={data} />
+
+## Status
+
+<ComponentChecklist
+  items={{
+    propsDocumented: false,
+    noUnnecessaryDeps: true,
+    adaptsToThemes: true,
+    adaptsToScreenSizes: true,
+    fullTestCoverage: true,
+    usedInProduction: true,
+    usageExamplesDocumented: false,
+    hasStorybookStories: false,
+    designReviewed: false,
+    a11yReviewed: false,
+    stableApi: false,
+    addressedApiFeedback: false,
+    hasDesignGuidelines: false,
+    hasFigmaComponent: false,
+  }}
+/>
