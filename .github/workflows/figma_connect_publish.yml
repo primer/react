@@ -12,7 +12,25 @@ jobs:
     name: Code Connect
     runs-on: ubuntu-latest
     steps:
-      - run: npm ci
-      - run: npx figma connect publish
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - run: npx figma connect publish --config=./packages/react/figma.config.json
         env:
           FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}
