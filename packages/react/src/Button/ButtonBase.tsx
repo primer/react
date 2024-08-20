@@ -231,6 +231,7 @@ const ButtonBase = forwardRef(
           <Component
             aria-disabled={loading ? true : undefined}
             {...rest}
+            // @ts-ignore temporary disable as we migrate to css modules, until we remove PolymorphicForwardRefComponent
             ref={innerRef}
             className={cx(classes.ButtonBase, className)}
             data-block={block ? 'block' : null}
@@ -250,6 +251,7 @@ const ButtonBase = forwardRef(
               loading ? [`${uuid}-label`, ariaLabelledBy].filter(labelID => Boolean(labelID)).join(' ') : ariaLabelledBy
             }
             id={id}
+            // @ts-ignore temporary disable as we migrate to css modules, until we remove PolymorphicForwardRefComponent
             onClick={loading ? undefined : onClick}
           >
             {Icon ? (
