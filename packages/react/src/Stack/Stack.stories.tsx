@@ -46,6 +46,41 @@ export const Default: Story = {
   ),
 }
 
+// direction={{narrow: 'vertical', regular: 'horizontal'}}
+
+export const WrapTest: Story = {
+  render: () => (
+    <Stack direction="horizontal" wrap={{narrow: 'wrap', regular: 'nowrap'}}>
+      <Stack.Item>
+        <Stack direction="horizontal">
+          <Stack.Item>
+            <div>Breadcrumb</div>
+          </Stack.Item>
+          <Stack.Item>
+            {/* Wide */}
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            {/* Narrow */}
+            <button>...</button>
+          </Stack.Item>
+        </Stack>
+      </Stack.Item>
+
+      <Stack.Item>
+        <Stack direction="horizontal">
+          <Stack.Item>
+            <button>Compare</button>
+          </Stack.Item>
+          <Stack.Item>
+            <button>Commit</button>
+          </Stack.Item>
+        </Stack>
+      </Stack.Item>
+    </Stack>
+  ),
+}
+
 export const Playground: Story = {
   argTypes: {
     gap: {
