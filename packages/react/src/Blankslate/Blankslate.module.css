@@ -1,0 +1,100 @@
+.Container {
+  container: blankslate / inline-size;
+}
+
+.Blankslate {
+  --blankslate-outer-padding-block: var(--base-size-32);
+  --blankslate-outer-padding-inline: var(--base-size-32);
+
+  display: grid;
+  justify-items: center;
+  /* stylelint-disable-next-line primer/spacing */
+  padding: var(--blankslate-outer-padding-block) var(--blankslate-outer-padding-inline);
+
+  &[data-spacious='true'] {
+    --blankslate-outer-padding-block: var(--base-size-80);
+    --blankslate-outer-padding-inline: var(--base-size-40);
+  }
+
+  &[data-border='true'] {
+    border: var(--borderWidth-thin) solid var(--borderColor-default);
+    border-radius: var(--borderRadius-medium);
+  }
+
+  &[data-narrow='true'] {
+    max-width: 485px;
+    margin: 0 auto;
+  }
+}
+
+.Heading,
+.Description {
+  margin: 0;
+  margin-bottom: var(--base-size-8);
+}
+
+.Heading {
+  font-size: var(--text-title-size-medium);
+  font-weight: var(--text-title-weight-medium);
+}
+
+.Description {
+  font-size: var(--text-body-size-large);
+  line-height: var(--text-body-lineHeight-large);
+  color: var(--fgColor-muted);
+}
+
+.Action {
+  margin-top: var(--base-size-16);
+
+  &:first-of-type {
+    margin-top: var(--base-size-24);
+  }
+
+  &:last-of-type {
+    margin-bottom: var(--base-size-8);
+  }
+}
+
+/* At the time these styles were written, 34rem was our "small" breakpoint width */
+/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+@container blankslate (max-width: 34rem) {
+  .Blankslate {
+    --blankslate-outer-padding-block: var(--base-size-20);
+    --blankslate-outer-padding-inline: var(--base-size-20);
+
+    &[data-spacious='true'] {
+      --blankslate-outer-padding-block: var(--base-size-44);
+      --blankslate-outer-padding-inline: var(--base-size-28);
+    }
+  }
+
+  .Visual {
+    max-width: var(--base-size-24);
+    margin-bottom: var(--base-size-8);
+
+    & svg {
+      width: 100%;
+    }
+  }
+
+  .Heading {
+    font-size: var(--text-title-size-small);
+  }
+
+  .Description {
+    font-size: var(--text-body-size-medium);
+  }
+
+  .Action {
+    margin-top: var(--base-size-8);
+
+    &:first-of-type {
+      margin-top: var(--base-size-16);
+    }
+
+    &:last-of-type {
+      margin-bottom: calc(var(--base-size-8) / 2);
+    }
+  }
+}

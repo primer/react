@@ -1,4 +1,5 @@
 import React from 'react'
+import {CopilotIcon} from '@primer/octicons-react'
 import {action} from '@storybook/addon-actions'
 import type {Meta} from '@storybook/react'
 import {Banner} from '../Banner'
@@ -199,6 +200,18 @@ export const WithActions = () => {
       primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
       secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
       variant="warning"
+    />
+  )
+}
+
+export const CustomIcon = () => {
+  return (
+    <Banner
+      title="Upsell"
+      description="An example banner with a custom icon"
+      icon={<CopilotIcon />}
+      onDismiss={action('onDismiss')}
+      variant="upsell"
     />
   )
 }

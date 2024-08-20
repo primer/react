@@ -219,7 +219,8 @@ export const LoadingItems = () => (
           </ActionList.LeadingVisual>
         </ActionList.Item>
         <ActionList.Divider />
-        <ActionList.Group title="Github projects">
+        <ActionList.Group>
+          <ActionList.GroupHeading>Github projects</ActionList.GroupHeading>
           <ActionList.LinkItem href="/">
             What&apos;s new
             <ActionList.LeadingVisual>

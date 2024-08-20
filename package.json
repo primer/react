@@ -2,13 +2,14 @@
   "name": "primer",
   "private": true,
   "workspaces": [
+    "packages/rollup-plugin-import-css",
     "packages/*",
     "docs",
     "examples/*"
   ],
   "scripts": {
     "setup": "./script/setup",
-    "build": "npm run build -w @primer/react",
+    "build": "npm run build -w rollup-plugin-import-css -w @primer/react",
     "clean": "npm run clean -ws --if-present",
     "clean:all": "npm run clean && rimraf node_modules docs/node_modules packages/*/node_modules examples/*/node_modules",
     "format": "prettier --cache --write '**/*.{js,css,md,mdx,ts,tsx,yml}'",
@@ -63,7 +64,7 @@
     "eslint-plugin-mdx": "3.0.0",
     "eslint-plugin-playwright": "0.15.1",
     "eslint-plugin-prettier": "5.0.0",
-    "eslint-plugin-primer-react": "4.0.2",
+    "eslint-plugin-primer-react": "5.4.0",
     "eslint-plugin-react": "7.32.2",
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-ssr-friendly": "1.3.0",
