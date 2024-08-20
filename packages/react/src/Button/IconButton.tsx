@@ -44,6 +44,7 @@ const IconButton = forwardRef(
       return (
         <ButtonBase
           icon={Icon}
+          className={classes.IconButton}
           data-component="IconButton"
           sx={sxStyles}
           type="button"
