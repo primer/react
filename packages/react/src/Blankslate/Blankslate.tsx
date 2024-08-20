@@ -23,6 +23,8 @@ export type BlankslateProps = React.PropsWithChildren<{
    * Increase the padding of this component
    */
   spacious?: boolean
+
+  className?: string
 }>
 
 const StyledBlankslate = styled.div`
@@ -126,13 +128,18 @@ const BlankslateContainerQuery = `
   }
 `
 
-function Blankslate({border, children, narrow, spacious}: BlankslateProps) {
+function Blankslate({border, children, narrow, spacious, className}: BlankslateProps) {
   const enabled = useFeatureFlag('primer_react_css_modules')
 
   if (enabled) {
     return (
       <div className={classes.Container}>
-        <div className={classes.Blankslate} data-border={border} data-narrow={narrow} data-spacious={spacious}>
+        <div
+          className={cx(classes.Blankslate, className)}
+          data-border={border}
+          data-narrow={narrow}
+          data-spacious={spacious}
+        >
           {children}
         </div>
       </div>
