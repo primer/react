@@ -2230,7 +2230,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
     <button
       aria-describedby=":ro:-loading-announcement"
       aria-labelledby=":rn:"
-      className="c4"
+      className="c4 IconButton"
       data-block={null}
       data-component="IconButton"
       data-loading={false}
