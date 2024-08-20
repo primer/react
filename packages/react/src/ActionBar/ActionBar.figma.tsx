@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import React from 'react'
 import {ActionBar} from '../../src'
 import figma from '@figma/code-connect'
@@ -15,12 +17,15 @@ figma.connect(
 
 figma.connect(
   ActionBar.IconButton,
-  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=30468-5843&t=ARVklwnsUc0zUmot-4',
+  'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=35848-26016&m=dev',
   {
     props: {
-      icon: figma.instance('icon'),
+      iconButton: figma.nestedProps('IconButton', {
+        icon: figma.instance('icon'),
+        ariaLabel: figma.string('aria-label'),
+      }),
     },
-    example: ({icon}) => <ActionBar.IconButton icon={icon} />,
+    example: ({iconButton}) => <ActionBar.IconButton icon={iconButton.icon} aria-label={iconButton.ariaLabel} />,
   },
 )
 
