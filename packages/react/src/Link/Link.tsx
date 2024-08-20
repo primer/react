@@ -61,45 +61,59 @@ const StyledLink = styled.a<StyledLinkProps>`
   ${sx};
 `
 
-const Link = forwardRef(({as: Component = 'a', className, ...props}, forwardedRef) => {
-  const enabled = useFeatureFlag('primer_react_css_modules')
+const Link = forwardRef(
+  ({as: Component = 'a', className, inline, muted, underline, hoverColor, ...props}, forwardedRef) => {
+    const enabled = useFeatureFlag('primer_react_css_modules')
 
-  const innerRef = React.useRef<HTMLAnchorElement>(null)
-  useRefObjectAsForwardedRef(forwardedRef, innerRef)
+    const innerRef = React.useRef<HTMLAnchorElement>(null)
+    useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
-  if (__DEV__) {
-    /**
-     * The Linter yells because it thinks this conditionally calls an effect,
-     * but since this is a compile-time flag and not a runtime conditional
-     * this is safe, and ensures the entire effect is kept out of prod builds
-     * shaving precious bytes from the output, and avoiding mounting a noop effect
-     */
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      if (
-        innerRef.current &&
-        !(innerRef.current instanceof HTMLButtonElement) &&
-        !(innerRef.current instanceof HTMLAnchorElement)
-      ) {
-        // eslint-disable-next-line no-console
-        console.error(
-          'Error: Found `Link` component that renders an inaccessible element',
-          innerRef.current,
-          'Please ensure `Link` always renders as <a> or <button>',
+    if (__DEV__) {
+      /**
+       * The Linter yells because it thinks this conditionally calls an effect,
+       * but since this is a compile-time flag and not a runtime conditional
+       * this is safe, and ensures the entire effect is kept out of prod builds
+       * shaving precious bytes from the output, and avoiding mounting a noop effect
+       */
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      useEffect(() => {
+        if (
+          innerRef.current &&
+          !(innerRef.current instanceof HTMLButtonElement) &&
+          !(innerRef.current instanceof HTMLAnchorElement)
+        ) {
+          // eslint-disable-next-line no-console
+          console.error(
+            'Error: Found `Link` component that renders an inaccessible element',
+            innerRef.current,
+            'Please ensure `Link` always renders as <a> or <button>',
+          )
+        }
+      }, [innerRef])
+    }
+
+    if (enabled) {
+      if (props.sx) {
+        return (
+          <Box
+            as={Component}
+            className={cx(className, classes.Link)}
+            data-muted={muted}
+            data-inline={inline}
+            data-underline={underline}
+            {...props}
+            // @ts-ignore shh
+            ref={innerRef}
+          />
         )
       }
-    }, [innerRef])
-  }
 
-  if (enabled) {
-    if (props.sx) {
       return (
-        <Box
-          as={Component}
+        <Component
           className={cx(className, classes.Link)}
-          data-muted={props.muted}
-          data-inline={props.inline}
-          data-underline={props.underline}
+          data-muted={muted}
+          data-inline={inline}
+          data-underline={underline}
           {...props}
           // @ts-ignore shh
           ref={innerRef}
@@ -108,29 +122,20 @@ const Link = forwardRef(({as: Component = 'a', className, ...props}, forwardedRe
     }
 
     return (
-      <Component
-        className={cx(className, classes.Link)}
-        data-muted={props.muted}
-        data-inline={props.inline}
-        data-underline={props.underline}
+      <StyledLink
+        as={Component}
+        className={className}
+        data-inline={inline}
+        muted={muted}
+        underline={underline}
+        hoverColor={hoverColor}
         {...props}
         // @ts-ignore shh
         ref={innerRef}
       />
     )
-  }
-
-  return (
-    <StyledLink
-      as={Component}
-      className={className}
-      data-inline={props.inline}
-      {...props}
-      // @ts-ignore shh
-      ref={innerRef}
-    />
-  )
-}) as PolymorphicForwardRefComponent<'a', StyledLinkProps>
+  },
+) as PolymorphicForwardRefComponent<'a', StyledLinkProps>
 
 Link.displayName = 'Link'
 
