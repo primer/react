@@ -1,0 +1,157 @@
+---
+componentId: markdown_editor
+title: MarkdownEditor
+status: Deprecated
+description: Full-featured Markdown input.
+storybook: '/react/storybook?path=/story/components-forms-markdowneditor--default'
+---
+
+import data from '../../../packages/react/src/drafts/MarkdownEditor/MarkdownEditor.docs.json'
+
+```js
+import {MarkdownEditor} from '@primer/react/drafts'
+```
+
+`MarkdownEditor` is a full-featured editor for GitHub Flavored Markdown, with support for:
+
+- Formatting (keyboard shortcuts & toolbar buttons)
+- File uploads (drag & drop, paste, click to upload)
+- Inline suggestions (emojis, `@` mentions, and `#` references)
+- Saved replies
+- Markdown pasting (ie, paste URL onto selected text to create a link)
+- List editing (create a new list item on `Enter`)
+- Indenting selected text
+
+## Examples
+
+### Minimal Example
+
+A `Label` is always required for accessibility:
+
+```javascript live noinline drafts
+const renderMarkdown = async markdown => {
+  // In production code, this would make a query to some external API endpoint to render
+  return 'Rendered Markdown.'
+}
+
+const MinimalExample = () => {
+  const [value, setValue] = React.useState('')
+
+  return (
+    <MarkdownEditor value={value} onChange={setValue} onRenderPreview={renderMarkdown}>
+      <MarkdownEditor.Label>Minimal Example</MarkdownEditor.Label>
+    </MarkdownEditor>
+  )
+}
+
+render(MinimalExample)
+```
+
+### Suggestions, File Uploads, and Saved Replies
+
+```javascript live noinline drafts
+const renderMarkdown = async markdown => 'Rendered Markdown.'
+
+const uploadFile = async file => ({
+  url: `https://example.com/${encodeURIComponent(file.name)}`,
+  file,
+})
+
+const emojis = [
+  {name: '+1', character: '👍'},
+  {name: '-1', character: '👎'},
+  {name: 'heart', character: '❤️'},
+  {name: 'wave', character: '👋'},
+  {name: 'raised_hands', character: '🙌'},
+  {name: 'pray', character: '🙏'},
+  {name: 'clap', character: '👏'},
+  {name: 'ok_hand', character: '👌'},
+  {name: 'point_up', character: '☝️'},
+  {name: 'point_down', character: '👇'},
+  {name: 'point_left', character: '👈'},
+  {name: 'point_right', character: '👉'},
+  {name: 'raised_hand', character: '✋'},
+  {name: 'thumbsup', character: '👍'},
+  {name: 'thumbsdown', character: '👎'},
+]
+
+const references = [
+  {id: '1', titleText: 'Add logging functionality', titleHtml: 'Add logging functionality'},
+  {
+    id: '2',
+    titleText: 'Error: `Failed to install` when installing',
+    titleHtml: 'Error: <code>Failed to install</code> when installing',
+  },
+  {id: '3', titleText: 'Add error-handling functionality', titleHtml: 'Add error-handling functionality'},
+]
+
+const mentionables = [
+  {identifier: 'monalisa', description: 'Monalisa Octocat'},
+  {identifier: 'github', description: 'GitHub'},
+  {identifier: 'primer', description: 'Primer'},
+]
+
+const savedReplies = [
+  {name: 'Duplicate', content: 'Duplicate of #'},
+  {name: 'Welcome', content: 'Welcome to the project!\n\nPlease be sure to read the contributor guidelines.'},
+  {name: 'Thanks', content: 'Thanks for your contribution!'},
+]
+
+const MinimalExample = () => {
+  const [value, setValue] = React.useState('')
+
+  return (
+    <MarkdownEditor
+      value={value}
+      onChange={setValue}
+      onRenderPreview={renderMarkdown}
+      onUploadFile={uploadFile}
+      emojiSuggestions={emojis}
+      referenceSuggestions={references}
+      mentionSuggestions={mentionables}
+      savedReplies={savedReplies}
+    >
+      <MarkdownEditor.Label>Suggestions, File Uploads, and Saved Replies Example</MarkdownEditor.Label>
+    </MarkdownEditor>
+  )
+}
+
+render(MinimalExample)
+```
+
+### Custom Buttons
+
+```javascript live noinline drafts
+const renderMarkdown = async markdown => 'Rendered Markdown.'
+
+const MinimalExample = () => {
+  const [value, setValue] = React.useState('')
+
+  return (
+    <MarkdownEditor value={value} onChange={setValue} onRenderPreview={renderMarkdown}>
+      <MarkdownEditor.Label visuallyHidden>Custom Buttons</MarkdownEditor.Label>
+
+      <MarkdownEditor.Toolbar>
+        <MarkdownEditor.ToolbarButton icon={SquirrelIcon} aria-label="Custom button 1" />
+        <MarkdownEditor.DefaultToolbarButtons />
+        <MarkdownEditor.ToolbarButton icon={BugIcon} aria-label="Custom button 2" />
+      </MarkdownEditor.Toolbar>
+
+      <MarkdownEditor.Footer>
+        <MarkdownEditor.FooterButton variant="danger">Custom Button</MarkdownEditor.FooterButton>
+
+        <MarkdownEditor.Action>
+          <MarkdownEditor.ActionButton variant="danger">Cancel</MarkdownEditor.ActionButton>
+          <MarkdownEditor.ActionButton variant="primary">Submit</MarkdownEditor.ActionButton>
+        </MarkdownEditor.Action>
+      </MarkdownEditor.Footer>
+    </MarkdownEditor>
+  )
+}
+
+render(MinimalExample)
+```
+
+## Props
+
+<ComponentProps data={data} />
