@@ -154,7 +154,7 @@ function Blankslate({border, children, narrow, spacious, className}: BlankslateP
       */}
       <style type="text/css" dangerouslySetInnerHTML={{__html: BlankslateContainerQuery}} />
       <StyledBlankslate>
-        <div className="Blankslate" data-border={border} data-narrow={narrow} data-spacious={spacious}>
+        <div className={cx('Blankslate', className)} data-border={border} data-narrow={narrow} data-spacious={spacious}>
           {children}
         </div>
       </StyledBlankslate>
