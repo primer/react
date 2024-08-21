@@ -27,7 +27,8 @@
     "babel-plugin-transform-import-meta": "^2.2.1",
     "postcss": "^8.4.41",
     "postcss-mixins": "^10.0.1",
-    "typescript": "^5.5.3",
-    "postcss-wrap": "^0.0.4"
+    "postcss-prefixwrap": "1.51.0",
+    "postcss-wrap": "^0.0.4",
+    "typescript": "^5.5.3"
   }
 }
