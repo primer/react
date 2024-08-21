@@ -116,32 +116,24 @@ export function FilteredActionList({
     const {
       description,
       descriptionVariant,
-      sx,
       text,
-      variant,
-      disabled,
       trailingVisual: TrailingVisual,
       leadingVisual: LeadingVisual,
       trailingText,
       trailingIcon: TrailingIcon,
       onAction,
-      selected,
       children,
       ...rest
     } = item
 
     return (
       <ActionList.Item
-        sx={sx}
         role="option"
         // @ts-ignore - for now
         onSelect={(e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
           if (typeof onAction === 'function')
             onAction(item, e as React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>)
         }}
-        selected={selected}
-        variant={variant}
-        disabled={disabled}
         {...rest}
       >
         {LeadingVisual ? (
