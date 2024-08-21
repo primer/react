@@ -38,7 +38,13 @@ const postcssPresetPrimer = () => {
   const [primitivesPath] = primitivesPaths
   const preset = postcssPresetEnv({
     stage: 2,
-    browsers,
+    browsers: [
+      'last 10 Chrome versions',
+      'last 10 Edge versions',
+      'last 10 Firefox versions',
+      'last 2 Safari major versions',
+      'Firefox ESR',
+    ],
     // https://preset-env.cssdb.org/features/#stage-2
     features: {
       'nesting-rules': {
