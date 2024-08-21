@@ -200,26 +200,24 @@ export function FilteredActionList({
           <Box width="100%" display="flex" flexDirection="row" justifyContent="center" pt={6} pb={7}>
             <Spinner />
           </Box>
-        ) : groupMetadata ? (
-          <ActionList ref={listContainerRef} showDividers={showItemDividers} {...listProps} role="listbox" id={listId}>
-            {groupMetadata.map((group, index) => {
-              return (
-                <ActionList.Group key={index}>
-                  <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
-                    {group.header?.title ? group.header.title : `Group ${group.groupId}`}
-                  </ActionList.GroupHeading>
-                  {getItemListForEachGroup(group.groupId).map((item, index) => {
-                    return <MappedActionListItem key={index} {...item} />
-                  })}
-                </ActionList.Group>
-              )
-            })}
-          </ActionList>
         ) : (
           <ActionList ref={listContainerRef} showDividers={showItemDividers} {...listProps} role="listbox" id={listId}>
-            {items.map((item, index) => {
-              return <MappedActionListItem key={index} {...item} />
-            })}
+            {groupMetadata
+              ? groupMetadata.map((group, index) => {
+                  return (
+                    <ActionList.Group key={index}>
+                      <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
+                        {group.header?.title ? group.header.title : `Group ${group.groupId}`}
+                      </ActionList.GroupHeading>
+                      {getItemListForEachGroup(group.groupId).map((item, index) => {
+                        return <MappedActionListItem key={index} {...item} />
+                      })}
+                    </ActionList.Group>
+                  )
+                })
+              : items.map((item, index) => {
+                  return <MappedActionListItem key={index} {...item} />
+                })}
           </ActionList>
         )}
       </Box>
