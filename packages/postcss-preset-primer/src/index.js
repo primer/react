@@ -68,7 +68,7 @@ const postcssPresetPrimer = () => {
       postcssMixins({
         mixinsDir: path.join(path.dirname(filepath), 'mixins'),
       }),
-      postcssWrap({selector: '.my-wrapper-class'}), // Add this line
+      postcssWrap({selector: '@layer primer-react'}),
       ...plugins,
     ],
   }
