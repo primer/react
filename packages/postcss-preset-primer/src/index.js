@@ -7,8 +7,6 @@ import postcssPresetEnv from 'postcss-preset-env'
 import postcssMixins from 'postcss-mixins'
 // @ts-ignore
 import browsers from '@github/browserslist-config'
-// import postcssWrap from 'postcss-wrap'
-// import postCSSPrefixWrap from 'postcss-prefixwrap'
 
 const filepath = fileURLToPath(import.meta.url)
 const {root: ROOT_DIR} = path.parse(filepath)
@@ -69,8 +67,6 @@ const postcssPresetPrimer = () => {
       postcssMixins({
         mixinsDir: path.join(path.dirname(filepath), 'mixins'),
       }),
-      // postCSSPrefixWrap('@layer primer-react'),
-      // postcssWrap({selector: '@layer primer-react'}),
       ...plugins,
     ],
   }
