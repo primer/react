@@ -112,7 +112,7 @@ export function FilteredActionList({
 
   useScrollFlash(scrollContainerRef)
 
-  function MappedActionList(item: ItemInput) {
+  function MappedActionListItem(item: ItemInput) {
     const {
       description,
       descriptionVariant,
@@ -216,7 +216,7 @@ export function FilteredActionList({
                     {group.header?.title ? group.header.title : `Group ${group.groupId}`}
                   </ActionList.GroupHeading>
                   {getItemListForEachGroup(group.groupId).map((item, index) => {
-                    return <MappedActionList key={index} {...item} />
+                    return <MappedActionListItem key={index} {...item} />
                   })}
                 </ActionList.Group>
               )
@@ -225,7 +225,7 @@ export function FilteredActionList({
         ) : (
           <ActionList ref={listContainerRef} {...listProps} role="listbox" id={listId}>
             {items.map((item, index) => {
-              return <MappedActionList key={index} {...item} />
+              return <MappedActionListItem key={index} {...item} />
             })}
           </ActionList>
         )}
