@@ -49,6 +49,7 @@ export function FilteredActionList({
   inputRef: providedInputRef,
   sx,
   groupMetadata,
+  showItemDividers,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -200,7 +201,7 @@ export function FilteredActionList({
             <Spinner />
           </Box>
         ) : groupMetadata ? (
-          <ActionList ref={listContainerRef} {...listProps} role="listbox" id={listId}>
+          <ActionList ref={listContainerRef} showDividers={showItemDividers} {...listProps} role="listbox" id={listId}>
             {groupMetadata.map((group, index) => {
               return (
                 <ActionList.Group key={index}>
@@ -215,7 +216,7 @@ export function FilteredActionList({
             })}
           </ActionList>
         ) : (
-          <ActionList ref={listContainerRef} {...listProps} role="listbox" id={listId}>
+          <ActionList ref={listContainerRef} showDividers={showItemDividers} {...listProps} role="listbox" id={listId}>
             {items.map((item, index) => {
               return <MappedActionListItem key={index} {...item} />
             })}
