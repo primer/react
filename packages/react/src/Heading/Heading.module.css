@@ -1,5 +1,5 @@
 @layer primer-react {
-  :where(.Heading) {
+  .Heading {
     margin: 0;
     font-size: var(--text-title-size-large);
     font-weight: var(--base-text-weight-semibold);
