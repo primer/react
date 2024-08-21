@@ -28,7 +28,7 @@ test.describe('Heading', () => {
           id: story.id,
           globals: {
             featureFlags: {
-              primer_react_css_modules: true,
+              primer_react_css_modules_heading: true,
             },
           },
         })
@@ -51,7 +51,7 @@ test.describe('Heading', () => {
           id: story.id,
           globals: {
             featureFlags: {
-              primer_react_css_modules: true,
+              primer_react_css_modules_heading: true,
             },
           },
         })

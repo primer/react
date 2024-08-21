@@ -62,7 +62,7 @@ const StyledLink = styled.a<StyledLinkProps>`
 `
 
 const Link = forwardRef(({as: Component = 'a', className, ...props}, forwardedRef) => {
-  const enabled = useFeatureFlag('primer_react_css_modules')
+  const enabled = useFeatureFlag('primer_react_css_modules_link')
 
   const innerRef = React.useRef<HTMLAnchorElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, innerRef)
