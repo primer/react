@@ -960,24 +960,26 @@ export const WithoutIndentation: StoryFn = () => (
           <TreeView.DirectoryIcon />
         </TreeView.LeadingVisual>
         src
-      </TreeView.Item>
-      <TreeView.Item id="src/Avatar.tsx">
-        <TreeView.LeadingVisual>
-          <FileIcon />
-        </TreeView.LeadingVisual>
-        Avatar.tsx
-        <TreeView.TrailingVisual label="Added">
-          <Octicon icon={DiffAddedIcon} color="success.fg" />
-        </TreeView.TrailingVisual>
-      </TreeView.Item>
-      <TreeView.Item id="src/Button.tsx" current>
-        <TreeView.LeadingVisual>
-          <FileIcon />
-        </TreeView.LeadingVisual>
-        Button.tsx
-        <TreeView.TrailingVisual label="Modified">
-          <Octicon icon={DiffModifiedIcon} color="attention.fg" />
-        </TreeView.TrailingVisual>
+        <TreeView.SubTree>
+          <TreeView.Item id="src/Avatar.tsx">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Avatar.tsx
+            <TreeView.TrailingVisual label="Added">
+              <Octicon icon={DiffAddedIcon} color="success.fg" />
+            </TreeView.TrailingVisual>
+          </TreeView.Item>
+          <TreeView.Item id="src/Button.tsx" current>
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Button.tsx
+            <TreeView.TrailingVisual label="Modified">
+              <Octicon icon={DiffModifiedIcon} color="attention.fg" />
+            </TreeView.TrailingVisual>
+          </TreeView.Item>
+        </TreeView.SubTree>
       </TreeView.Item>
       <TreeView.Item id="package.json">
         <TreeView.LeadingVisual>
