@@ -3,20 +3,21 @@ import type {Meta, StoryFn} from '@storybook/react'
 import CircleBadge from './CircleBadge'
 import {ZapIcon} from '@primer/octicons-react'
 
-export default {
+const meta: Meta<typeof CircleBadge> = {
   title: 'Components/CircleBadge',
   component: CircleBadge,
-} as Meta<typeof CircleBadge>
+}
+export default meta
 
 export const Default = () => (
   <CircleBadge>
-    <CircleBadge.Icon icon={ZapIcon} />
+    <CircleBadge.Icon icon={ZapIcon} aria-label="User badge" />
   </CircleBadge>
 )
 
-export const Playground: StoryFn<typeof CircleBadge> = args => (
+export const Playground: StoryFn<typeof CircleBadge> = ({'CircleBadge.Icon aria-label': iconAriaLabel, args}) => (
   <CircleBadge {...args}>
-    <CircleBadge.Icon icon={ZapIcon} />
+    <CircleBadge.Icon icon={ZapIcon} aria-label={iconAriaLabel} />
   </CircleBadge>
 )
 
@@ -25,6 +26,7 @@ Playground.args = {
   size: null,
   inline: false,
   as: 'div',
+  'CircleBadge.Icon aria-label': undefined,
 }
 
 Playground.argTypes = {
@@ -43,5 +45,8 @@ Playground.argTypes = {
     control: {
       type: 'boolean',
     },
+  },
+  'CircleBadge.Icon aria-label': {
+    type: 'string',
   },
 }
