@@ -175,6 +175,7 @@ export function FilteredActionList({
 
 function MappedActionListItem(item: ItemInput) {
   const {
+    id,
     description,
     descriptionVariant,
     text,
@@ -195,6 +196,7 @@ function MappedActionListItem(item: ItemInput) {
         if (typeof onAction === 'function')
           onAction(item, e as React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>)
       }}
+      data-id={id}
       {...rest}
     >
       {LeadingVisual ? (
