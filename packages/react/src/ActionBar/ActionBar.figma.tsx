@@ -9,7 +9,7 @@ figma.connect(
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=17042-65810&t=ARVklwnsUc0zUmot-4',
   {
     props: {
-      items: figma.children(['IconButton', '_ActionBar.Divider']),
+      items: figma.children(['ActionBar.IconButton', 'ActionBar.Divider']),
     },
     example: ({items}) => <ActionBar>{items}</ActionBar>,
   },
