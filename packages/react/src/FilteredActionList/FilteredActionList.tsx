@@ -113,58 +113,6 @@ export function FilteredActionList({
 
   useScrollFlash(scrollContainerRef)
 
-  function MappedActionListItem(item: ItemInput) {
-    const {
-      description,
-      descriptionVariant,
-      text,
-      trailingVisual: TrailingVisual,
-      leadingVisual: LeadingVisual,
-      trailingText,
-      trailingIcon: TrailingIcon,
-      onAction,
-      children,
-      ...rest
-    } = item
-
-    return (
-      <ActionList.Item
-        role="option"
-        // @ts-ignore - for now
-        onSelect={(e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
-          if (typeof onAction === 'function')
-            onAction(item, e as React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>)
-        }}
-        {...rest}
-      >
-        {LeadingVisual ? (
-          <ActionList.LeadingVisual>
-            <LeadingVisual />
-          </ActionList.LeadingVisual>
-        ) : null}
-        {children}
-        {text}
-        {description ? (
-          <ActionList.Description variant={descriptionVariant}>{description}</ActionList.Description>
-        ) : null}
-        {TrailingVisual ? (
-          <ActionList.TrailingVisual>
-            {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
-              <TrailingVisual />
-            ) : (
-              TrailingVisual
-            )}
-          </ActionList.TrailingVisual>
-        ) : TrailingIcon || trailingText ? (
-          <ActionList.TrailingVisual>
-            {trailingText}
-            {TrailingIcon && <TrailingIcon />}
-          </ActionList.TrailingVisual>
-        ) : null}
-      </ActionList.Item>
-    )
-  }
-
   function getItemListForEachGroup(groupId: string) {
     const itemsInGroup = []
     for (const item of items) {
@@ -222,6 +170,56 @@ export function FilteredActionList({
         )}
       </Box>
     </Box>
+  )
+}
+
+function MappedActionListItem(item: ItemInput) {
+  const {
+    description,
+    descriptionVariant,
+    text,
+    trailingVisual: TrailingVisual,
+    leadingVisual: LeadingVisual,
+    trailingText,
+    trailingIcon: TrailingIcon,
+    onAction,
+    children,
+    ...rest
+  } = item
+
+  return (
+    <ActionList.Item
+      role="option"
+      // @ts-ignore - for now
+      onSelect={(e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
+        if (typeof onAction === 'function')
+          onAction(item, e as React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>)
+      }}
+      {...rest}
+    >
+      {LeadingVisual ? (
+        <ActionList.LeadingVisual>
+          <LeadingVisual />
+        </ActionList.LeadingVisual>
+      ) : null}
+      {children}
+      {text}
+      {description ? <ActionList.Description variant={descriptionVariant}>{description}</ActionList.Description> : null}
+      {TrailingVisual ? (
+        <ActionList.TrailingVisual>
+          {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
+            <TrailingVisual />
+          ) : (
+            TrailingVisual
+          )}
+        </ActionList.TrailingVisual>
+      ) : TrailingIcon || trailingText ? (
+        <ActionList.TrailingVisual>
+          {trailingText}
+          {TrailingIcon && <TrailingIcon />}
+        </ActionList.TrailingVisual>
+      ) : null}
+    </ActionList.Item>
   )
 }
 
