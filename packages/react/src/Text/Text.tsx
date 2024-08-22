@@ -1,9 +1,16 @@
+import cx from 'clsx'
 import styled from 'styled-components'
+import React, {forwardRef} from 'react'
 import type {SystemCommonProps, SystemTypographyProps} from '../constants'
 import {COMMON, TYPOGRAPHY} from '../constants'
 import type {SxProp} from '../sx'
 import sx from '../sx'
+import {useFeatureFlag} from '../FeatureFlags'
+import Box from '../Box'
+import {useRefObjectAsForwardedRef} from '../hooks'
+import classes from './Text.module.css'
 import type {ComponentProps} from '../utils/types'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 type StyledTextProps = {
   size?: 'large' | 'medium' | 'small'
@@ -12,10 +19,7 @@ type StyledTextProps = {
   SystemCommonProps &
   SxProp
 
-const Text = styled.span.attrs<StyledTextProps>(({size, weight}) => ({
-  'data-size': size,
-  'data-weight': weight,
-}))<StyledTextProps>`
+const StyledText = styled.span<StyledTextProps>`
   ${TYPOGRAPHY};
   ${COMMON};
 
@@ -52,5 +56,57 @@ const Text = styled.span.attrs<StyledTextProps>(({size, weight}) => ({
 
   ${sx};
 `
-export type TextProps = ComponentProps<typeof Text>
+
+const Text = forwardRef(({as: Component = 'span', className, size, weight, ...props}, forwardedRef) => {
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
+
+  const innerRef = React.useRef<HTMLElement>(null)
+  useRefObjectAsForwardedRef(forwardedRef, innerRef)
+
+  if (enabled) {
+    if (props.sx) {
+      return (
+        // @ts-ignore shh
+        <Box
+          as={Component}
+          className={cx(className, classes.Text)}
+          data-size={size}
+          data-weight={weight}
+          {...props}
+          // @ts-ignore shh
+          ref={innerRef}
+        />
+      )
+    }
+
+    return (
+      // @ts-ignore shh
+      <Component
+        className={cx(className, classes.Text)}
+        data-size={size}
+        data-weight={weight}
+        {...props}
+        // @ts-ignore shh
+        ref={innerRef}
+      />
+    )
+  }
+
+  return (
+    // @ts-ignore shh
+    <StyledText
+      as={Component}
+      className={className}
+      data-size={size}
+      data-weight={weight}
+      {...props}
+      // @ts-ignore shh
+      ref={innerRef}
+    />
+  )
+}) as PolymorphicForwardRefComponent<'span', StyledTextProps>
+
+Text.displayName = 'Text'
+
+export type TextProps = ComponentProps<typeof StyledText>
 export default Text
