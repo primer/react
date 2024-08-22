@@ -129,7 +129,7 @@ const BlankslateContainerQuery = `
 `
 
 function Blankslate({border, children, narrow, spacious, className}: BlankslateProps) {
-  const enabled = useFeatureFlag('primer_react_css_modules')
+  const enabled = useFeatureFlag('primer_react_css_modules_staff')
 
   if (enabled) {
     return (
@@ -165,7 +165,7 @@ function Blankslate({border, children, narrow, spacious, className}: BlankslateP
 export type VisualProps = React.PropsWithChildren
 
 function Visual({children}: VisualProps) {
-  const enabled = useFeatureFlag('primer_react_css_modules')
+  const enabled = useFeatureFlag('primer_react_css_modules_staff')
   return (
     <span
       className={cx('Blankslate-Visual', {
@@ -182,7 +182,7 @@ export type HeadingProps = React.PropsWithChildren<{
 }>
 
 function Heading({as: Component = 'h2', children}: HeadingProps) {
-  const enabled = useFeatureFlag('primer_react_css_modules')
+  const enabled = useFeatureFlag('primer_react_css_modules_staff')
 
   if (enabled) {
     return <Component className={cx('Blankslate-Heading', classes.Heading)}>{children}</Component>
@@ -198,7 +198,7 @@ function Heading({as: Component = 'h2', children}: HeadingProps) {
 export type DescriptionProps = React.PropsWithChildren
 
 function Description({children}: DescriptionProps) {
-  const enabled = useFeatureFlag('primer_react_css_modules')
+  const enabled = useFeatureFlag('primer_react_css_modules_staff')
   return (
     <p
       className={cx('Blankslate-Description', {
@@ -215,7 +215,7 @@ export type PrimaryActionProps = React.PropsWithChildren<{
 }>
 
 function PrimaryAction({children, href}: PrimaryActionProps) {
-  const enabled = useFeatureFlag('primer_react_css_modules')
+  const enabled = useFeatureFlag('primer_react_css_modules_staff')
   return (
     <div
       className={cx('Blankslate-Action', {
@@ -234,7 +234,7 @@ export type SecondaryActionProps = React.PropsWithChildren<{
 }>
 
 function SecondaryAction({children, href}: SecondaryActionProps) {
-  const enabled = useFeatureFlag('primer_react_css_modules')
+  const enabled = useFeatureFlag('primer_react_css_modules_staff')
   return (
     <div
       className={cx('Blankslate-Action', {
