@@ -9,7 +9,7 @@ figma.connect(
   'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=35998-101114&t=YpDA3JEwnEs85tYu-4',
   {
     props: {
-      TextInput: figma.children('TextInput'),
+      TextInput: figma.children('Autocomplete.Input'),
       // menu: figma.nestedProps('_AutocompleteMenu', {
       //   items: figma.children('*'),
       // }),
@@ -67,15 +67,17 @@ figma.connect(
     },
     // variant: {'label?': true},
     example: ({textInput, input}) => (
-      {input.label}
-      <Autocomplete.Input
-        size={input.size}
-        value={textInput.label}
-        trailingAction={input.trailingAction}
-        leadingVisual={input.leadingVisual}
-      />
-      {input.validation}
-      {input.caption}
+      <>
+        {input.label}
+        <Autocomplete.Input
+          size={input.size}
+          value={textInput.label}
+          trailingAction={input.trailingAction}
+          leadingVisual={input.leadingVisual}
+        />
+        {input.validation}
+        {input.caption}
+      </>
     ),
   },
 )
