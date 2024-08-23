@@ -1,9 +1,12 @@
+import cx from 'clsx'
 import React from 'react'
 import Box from '../Box'
 import {Button} from '../Button'
 import Link from '../Link'
 import {get} from '../constants'
 import styled from 'styled-components'
+import classes from './Blankslate.module.css'
+import {useFeatureFlag} from '../FeatureFlags'
 
 export type BlankslateProps = React.PropsWithChildren<{
   /**
@@ -20,6 +23,8 @@ export type BlankslateProps = React.PropsWithChildren<{
    * Increase the padding of this component
    */
   spacious?: boolean
+
+  className?: string
 }>
 
 const StyledBlankslate = styled.div`
@@ -123,7 +128,24 @@ const BlankslateContainerQuery = `
   }
 `
 
-function Blankslate({border, children, narrow, spacious}: BlankslateProps) {
+function Blankslate({border, children, narrow, spacious, className}: BlankslateProps) {
+  const enabled = useFeatureFlag('primer_react_css_modules_staff')
+
+  if (enabled) {
+    return (
+      <div className={classes.Container}>
+        <div
+          className={cx(classes.Blankslate, className)}
+          data-border={border}
+          data-narrow={narrow}
+          data-spacious={spacious}
+        >
+          {children}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <>
       {/*
@@ -132,7 +154,7 @@ function Blankslate({border, children, narrow, spacious}: BlankslateProps) {
       */}
       <style type="text/css" dangerouslySetInnerHTML={{__html: BlankslateContainerQuery}} />
       <StyledBlankslate>
-        <div className="Blankslate" data-border={border} data-narrow={narrow} data-spacious={spacious}>
+        <div className={cx('Blankslate', className)} data-border={border} data-narrow={narrow} data-spacious={spacious}>
           {children}
         </div>
       </StyledBlankslate>
@@ -143,16 +165,31 @@ function Blankslate({border, children, narrow, spacious}: BlankslateProps) {
 export type VisualProps = React.PropsWithChildren
 
 function Visual({children}: VisualProps) {
-  return <span className="Blankslate-Visual">{children}</span>
+  const enabled = useFeatureFlag('primer_react_css_modules_staff')
+  return (
+    <span
+      className={cx('Blankslate-Visual', {
+        [classes.Visual]: enabled,
+      })}
+    >
+      {children}
+    </span>
+  )
 }
 
 export type HeadingProps = React.PropsWithChildren<{
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }>
 
-function Heading({as = 'h2', children}: HeadingProps) {
+function Heading({as: Component = 'h2', children}: HeadingProps) {
+  const enabled = useFeatureFlag('primer_react_css_modules_staff')
+
+  if (enabled) {
+    return <Component className={cx('Blankslate-Heading', classes.Heading)}>{children}</Component>
+  }
+
   return (
-    <Box as={as} className="Blankslate-Heading">
+    <Box as={Component} className={cx('Blankslate-Heading')}>
       {children}
     </Box>
   )
@@ -161,7 +198,16 @@ function Heading({as = 'h2', children}: HeadingProps) {
 export type DescriptionProps = React.PropsWithChildren
 
 function Description({children}: DescriptionProps) {
-  return <p className="Blankslate-Description">{children}</p>
+  const enabled = useFeatureFlag('primer_react_css_modules_staff')
+  return (
+    <p
+      className={cx('Blankslate-Description', {
+        [classes.Description]: enabled,
+      })}
+    >
+      {children}
+    </p>
+  )
 }
 
 export type PrimaryActionProps = React.PropsWithChildren<{
@@ -169,8 +215,13 @@ export type PrimaryActionProps = React.PropsWithChildren<{
 }>
 
 function PrimaryAction({children, href}: PrimaryActionProps) {
+  const enabled = useFeatureFlag('primer_react_css_modules_staff')
   return (
-    <div className="Blankslate-Action">
+    <div
+      className={cx('Blankslate-Action', {
+        [classes.Action]: enabled,
+      })}
+    >
       <Button as="a" href={href} variant="primary">
         {children}
       </Button>
@@ -183,8 +234,13 @@ export type SecondaryActionProps = React.PropsWithChildren<{
 }>
 
 function SecondaryAction({children, href}: SecondaryActionProps) {
+  const enabled = useFeatureFlag('primer_react_css_modules_staff')
   return (
-    <div className="Blankslate-Action">
+    <div
+      className={cx('Blankslate-Action', {
+        [classes.Action]: enabled,
+      })}
+    >
       <Link href={href}>{children}</Link>
     </div>
   )

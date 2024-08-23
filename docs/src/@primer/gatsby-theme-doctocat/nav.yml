@@ -82,6 +82,8 @@
       url: /Heading
     - title: IconButton
       url: /IconButton
+    - title: KeybindingHint
+      url: /KeybindingHint
     - title: Label
       url: /Label
     - title: LabelGroup

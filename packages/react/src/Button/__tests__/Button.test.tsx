@@ -251,16 +251,14 @@ describe('Button', () => {
   })
 
   it('should render tooltip on an icon button when unsafeDisableTooltip prop is passed as false', () => {
-    const {getByRole, getByText} = render(
-      <IconButton icon={HeartIcon} aria-label="Heart" unsafeDisableTooltip={false} />,
-    )
+    const {getByRole, getByText} = render(<IconButton icon={HeartIcon} aria-label="Heart" />)
     const triggerEL = getByRole('button')
     const tooltipEl = getByText('Heart')
     expect(triggerEL).toHaveAttribute('aria-labelledby', tooltipEl.id)
   })
   it('should render description type tooltip on an icon button when unsafeDisableTooltip prop is passed as false', () => {
     const {getByRole, getByText} = render(
-      <IconButton icon={HeartIcon} aria-label="Heart" description="Love is all around" unsafeDisableTooltip={false} />,
+      <IconButton icon={HeartIcon} aria-label="Heart" description="Love is all around" />,
     )
     const triggerEL = getByRole('button')
     expect(triggerEL).toHaveAttribute('aria-label', 'Heart')
@@ -275,16 +273,12 @@ describe('Button', () => {
     expect(triggerEl).not.toHaveAttribute('aria-label')
   })
   it('should render aria-keyshorts on an icon button when keyshortcuts prop is passed', () => {
-    const {getByRole} = render(
-      <IconButton unsafeDisableTooltip={false} icon={HeartIcon} aria-label="Heart" keyshortcuts="Command+H" />,
-    )
+    const {getByRole} = render(<IconButton icon={HeartIcon} aria-label="Heart" keyshortcuts="Command+H" />)
     const triggerEl = getByRole('button')
     expect(triggerEl).toHaveAttribute('aria-keyshortcuts', 'Command+H')
   })
   it('should append the keyshortcuts to the tooltip text that labels the icon button when keyshortcuts prop is passed', () => {
-    const {getByRole, getByText} = render(
-      <IconButton unsafeDisableTooltip={false} icon={HeartIcon} aria-label="Heart" keyshortcuts="Command+H" />,
-    )
+    const {getByRole, getByText} = render(<IconButton icon={HeartIcon} aria-label="Heart" keyshortcuts="Command+H" />)
     const triggerEl = getByRole('button')
     const tooltipEl = getByText('Heart, Command+H')
     expect(tooltipEl).toBeInTheDocument()
@@ -292,26 +286,14 @@ describe('Button', () => {
   })
   it('should render aria-keyshorts on an icon button when keyshortcuts prop is passed (Description Type)', () => {
     const {getByRole} = render(
-      <IconButton
-        unsafeDisableTooltip={false}
-        icon={HeartIcon}
-        aria-label="Heart"
-        description="Love is all around"
-        keyshortcuts="Command+H"
-      />,
+      <IconButton icon={HeartIcon} aria-label="Heart" description="Love is all around" keyshortcuts="Command+H" />,
     )
     const triggerEl = getByRole('button')
     expect(triggerEl).toHaveAttribute('aria-keyshortcuts', 'Command+H')
   })
   it('should append the keyshortcuts to the tooltip text that describes the icon button when keyshortcuts prop is passed (Description Type)', () => {
     const {getByRole, getByText} = render(
-      <IconButton
-        unsafeDisableTooltip={false}
-        icon={HeartIcon}
-        aria-label="Heart"
-        description="Love is all around"
-        keyshortcuts="Command+H"
-      />,
+      <IconButton icon={HeartIcon} aria-label="Heart" description="Love is all around" keyshortcuts="Command+H" />,
     )
     const triggerEl = getByRole('button')
     const tooltipEl = getByText('Love is all around, Command+H')
