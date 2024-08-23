@@ -48,6 +48,18 @@ export function importCSS(options: ImportCSSOptions): Plugin {
         return
       }
 
+      const hash = getSourceHash(code)
+      const relativePath = path.relative(rootDirectory, id)
+      const name = path.basename(relativePath, '.module.css')
+
+      const fileName = path.join(
+        path.dirname(relativePath),
+        path.format({
+          name: `${name}-${hash}`,
+          ext: '.css',
+        }),
+      )
+
       // When transforming CSS modules, we want to emit the generated CSS as an
       // asset and include the generated file in our generated CSS Modules file
       // which contains the classes. This makes sure that if the file containing
@@ -66,24 +78,23 @@ export function importCSS(options: ImportCSSOptions): Plugin {
             cssModuleClasses = json
           },
         }),
-      ]).process(code, {from: id})
-      const source = result.css
-      const hash = getSourceHash(source)
-      const relativePath = path.relative(rootDirectory, id)
-      const name = path.basename(relativePath, '.module.css')
-
-      const fileName = path.join(
-        path.dirname(relativePath),
-        path.format({
-          name: `${name}-${hash}`,
-          ext: '.css',
-        }),
-      )
+      ]).process(code, {
+        from: id,
+        to: fileName,
+        map: {
+          inline: false,
+        },
+      })
 
       this.emitFile({
         type: 'asset',
-        source,
+        source: result.css,
         fileName,
+      })
+      this.emitFile({
+        type: 'asset',
+        source: result.map.toString(),
+        fileName: `${fileName}.map`,
       })
 
       const moduleInfo = this.getModuleInfo(id)

@@ -1,9 +1,10 @@
 import React from 'react'
 import {Heading} from '../..'
 import {render, behavesAsComponent, checkExports} from '../../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
+import {render as HTMLRender, screen} from '@testing-library/react'
 import axe from 'axe-core'
 import ThemeProvider from '../../ThemeProvider'
+import {FeatureFlags} from '../../FeatureFlags'
 
 const theme = {
   breakpoints: ['400px', '640px', '960px', '1280px'],
@@ -139,5 +140,56 @@ describe('Heading', () => {
         </ThemeProvider>,
       ),
     ).toHaveStyleRule('font-style', 'italic')
+  })
+
+  describe('with primer_react_css_modules_team enabled', () => {
+    it('should only include css modules class', () => {
+      HTMLRender(
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+          }}
+        >
+          <Heading>test</Heading>
+        </FeatureFlags>,
+      )
+      expect(screen.getByText('test')).toHaveClass('Heading')
+      // Note: this is the generated class name when styled-components is used
+      // for this component
+      expect(screen.getByText('test')).not.toHaveClass(/^Heading__StyledHeading/)
+    })
+
+    it('should support `className` on the outermost element', () => {
+      const {container} = HTMLRender(
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+          }}
+        >
+          <Heading className="test">test</Heading>
+        </FeatureFlags>,
+      )
+      expect(container.firstChild).toHaveClass('test')
+    })
+
+    it('should support overrides with sx if provided', () => {
+      HTMLRender(
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+          }}
+        >
+          <Heading
+            sx={{
+              fontWeight: '900',
+            }}
+          >
+            test
+          </Heading>
+        </FeatureFlags>,
+      )
+
+      expect(screen.getByText('test')).toHaveStyle('font-weight: 900')
+    })
   })
 })
