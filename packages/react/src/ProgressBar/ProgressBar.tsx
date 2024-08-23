@@ -14,7 +14,7 @@ const shimmer = keyframes`
   to { mask-position: 0%; }
 `
 
-export const Item = styled.span<ProgressProp & SxProp>`
+const ProgressItem = styled.span<ProgressProp & SxProp>`
   width: ${props => (props.progress ? `${props.progress}%` : 0)};
   background-color: ${get('colors.success.emphasis')};
 
@@ -30,8 +30,6 @@ export const Item = styled.span<ProgressProp & SxProp>`
 
   ${sx};
 `
-
-Item.displayName = 'ProgressBar.Item'
 
 const sizeMap = {
   small: '5px',
@@ -57,21 +55,12 @@ const ProgressContainer = styled.span<StyledProgressContainerProps>`
   ${sx};
 `
 
-export type ProgressBarProps = React.HTMLAttributes<HTMLSpanElement> & {bg?: string} & StyledProgressContainerProps &
-  ProgressProp
+export type ProgressBarItems = React.HTMLAttributes<HTMLSpanElement> & {'aria-label'?: string} & ProgressProp & SxProp
 
-export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
-  (
-    {animated, progress, bg = 'success.emphasis', barSize = 'default', children, ...rest}: ProgressBarProps,
-    forwardRef,
-  ) => {
-    if (children && progress) {
-      throw new Error('You should pass `progress` or children, not both.')
-    }
-
+export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
+  ({progress, 'aria-label': ariaLabel, ...rest}, forwardRef) => {
     warning(
-      children &&
-        typeof (rest as React.AriaAttributes)['aria-valuenow'] === 'undefined' &&
+      typeof (rest as React.AriaAttributes)['aria-valuenow'] === 'undefined' &&
         typeof (rest as React.AriaAttributes)['aria-valuetext'] === 'undefined',
       'Expected `aria-valuenow` or `aria-valuetext` to be provided to <ProgressBar>. Provide one of these values so screen reader users can determine the current progress. This warning will become an error in the next major release.',
     )
@@ -85,8 +74,45 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
     }
 
     return (
-      <ProgressContainer ref={forwardRef} role="progressbar" barSize={barSize} {...ariaAttributes} {...rest}>
-        {children ?? <Item data-animated={animated} progress={progress} sx={{backgroundColor: bg}} />}
+      <ProgressItem
+        role="progressbar"
+        aria-label={ariaLabel}
+        ref={forwardRef}
+        progress={progress}
+        {...ariaAttributes}
+        {...rest}
+      />
+    )
+  },
+)
+
+Item.displayName = 'ProgressBar.Item'
+
+export type ProgressBarProps = React.HTMLAttributes<HTMLSpanElement> & {bg?: string} & StyledProgressContainerProps &
+  ProgressProp
+
+export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
+  (
+    {
+      animated,
+      progress,
+      bg = 'success.emphasis',
+      barSize = 'default',
+      children,
+      'aria-label': ariaLabel,
+      ...rest
+    }: ProgressBarProps,
+    forwardRef,
+  ) => {
+    if (children && progress) {
+      throw new Error('You should pass `progress` or children, not both.')
+    }
+
+    return (
+      <ProgressContainer ref={forwardRef} barSize={barSize} {...rest}>
+        {children ?? (
+          <Item data-animated={animated} progress={progress} aria-label={ariaLabel} sx={{backgroundColor: bg}} />
+        )}
       </ProgressContainer>
     )
   },
