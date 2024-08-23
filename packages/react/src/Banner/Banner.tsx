@@ -6,6 +6,8 @@ import {Button, IconButton} from '../Button'
 import {get} from '../constants'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import {useMergedRefs} from '../internal/hooks/useMergedRefs'
+import classes from './Banner.module.css'
+import {useFeatureFlag} from '../FeatureFlags'
 
 type BannerVariant = 'critical' | 'info' | 'success' | 'upsell' | 'warning'
 
@@ -90,6 +92,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
     secondaryAction,
     title,
     variant = 'info',
+    as: Component = 'section',
     ...rest
   },
   forwardRef,
@@ -99,6 +102,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
   const bannerRef = React.useRef<HTMLElement>(null)
   const ref = useMergedRefs(forwardRef, bannerRef)
   const supportsCustomIcon = variant === 'info' || variant === 'upsell'
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
 
   if (__DEV__) {
     // This hook is called consistently depending on the environment
@@ -120,6 +124,48 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
         )
       }
     }, [title])
+  }
+
+  if (enabled) {
+    return (
+      <Component
+        {...rest}
+        aria-label={label ?? labels[variant]}
+        data-dismissible={onDismiss ? '' : undefined}
+        data-title-hidden={hideTitle ? '' : undefined}
+        data-variant={variant}
+        tabIndex={-1}
+        ref={ref}
+      >
+        <style>{BannerContainerQuery}</style>
+        <div className="BannerIcon">{icon && supportsCustomIcon ? icon : iconForVariant[variant]}</div>
+        <div className="BannerContainer">
+          <div className="BannerContent">
+            {title ? (
+              hideTitle ? (
+                <VisuallyHidden>
+                  <BannerTitle>{title}</BannerTitle>
+                </VisuallyHidden>
+              ) : (
+                <BannerTitle>{title}</BannerTitle>
+              )
+            ) : null}
+            {description ? <BannerDescription>{description}</BannerDescription> : null}
+            {children}
+          </div>
+          {hasActions ? <BannerActions primaryAction={primaryAction} secondaryAction={secondaryAction} /> : null}
+        </div>
+        {dismissible ? (
+          <IconButton
+            aria-label="Dismiss banner"
+            onClick={onDismiss}
+            className="BannerDismiss"
+            icon={XIcon}
+            variant="invisible"
+          />
+        ) : null}
+      </Component>
+    )
   }
 
   return (
