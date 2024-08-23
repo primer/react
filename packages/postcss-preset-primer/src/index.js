@@ -5,6 +5,7 @@ import {globSync} from 'glob'
 import postcssGlobalData from '@csstools/postcss-global-data'
 import postcssPresetEnv from 'postcss-preset-env'
 import postcssMixins from 'postcss-mixins'
+import postcssLayers from 'postcss-assign-layer'
 // @ts-ignore
 import browsers from '@github/browserslist-config'
 
@@ -67,6 +68,7 @@ const postcssPresetPrimer = () => {
       postcssMixins({
         mixinsDir: path.join(path.dirname(filepath), 'mixins'),
       }),
+      postcssLayers({layerName: 'primer-react'}),
       ...plugins,
     ],
   }
