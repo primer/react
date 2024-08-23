@@ -62,7 +62,7 @@ const ButtonBase = forwardRef(
       ...rest
     } = props
 
-    const enabled = useFeatureFlag('primer_react_css_modules')
+    const enabled = useFeatureFlag('primer_react_css_modules_team')
     const innerRef = React.useRef<HTMLButtonElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, innerRef)
 

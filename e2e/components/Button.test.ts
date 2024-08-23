@@ -14,7 +14,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -29,7 +29,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -54,7 +54,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -69,7 +69,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -94,7 +94,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -109,7 +109,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -134,7 +134,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -149,7 +149,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -174,7 +174,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -189,7 +189,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -214,7 +214,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -229,7 +229,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -254,7 +254,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -269,7 +269,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -294,7 +294,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -309,7 +309,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -334,7 +334,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -349,7 +349,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -374,7 +374,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -389,7 +389,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -414,7 +414,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -429,7 +429,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -454,7 +454,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -469,7 +469,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -494,7 +494,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -509,7 +509,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -534,7 +534,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -549,7 +549,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -574,7 +574,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -589,7 +589,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -614,7 +614,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -629,7 +629,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -654,7 +654,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -671,7 +671,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -696,7 +696,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -713,7 +713,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -738,7 +738,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -755,7 +755,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -780,7 +780,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -797,7 +797,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -822,7 +822,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
@@ -843,7 +843,7 @@ test.describe('Button', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules: featureFlagOn,
+                    primer_react_css_modules_team: featureFlagOn,
                   },
                 },
               })
