@@ -1964,6 +1964,13 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   padding-bottom: 2px;
   padding-left: 4px;
   position: relative;
+  background-color: transparent;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+}
+
+.c4[data-size="small"][data-no-visuals]:hover,
+.c4[data-size="small"][data-no-visuals]:focus {
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c4[data-size="small"][data-no-visuals][data-component="IconButton"] {
@@ -2566,12 +2573,18 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c4[data-no-visuals] {
-  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
   padding-top: 2px;
   padding-right: 4px;
   padding-bottom: 2px;
   padding-left: 4px;
   position: relative;
+  background-color: transparent;
+}
+
+.c4[data-no-visuals]:hover,
+.c4[data-no-visuals]:focus {
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c4[data-no-visuals][data-component="IconButton"] {
@@ -2742,7 +2755,11 @@ exports[`TextInput renders trailingAction text button 1`] = `
       data-loading={false}
       data-no-visuals={true}
       onClick={[MockFunction]}
-      style={{}}
+      style={
+        {
+          "--button-color": "fg.subtle",
+        }
+      }
       type="button"
     >
       <span
@@ -3047,12 +3064,18 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c4[data-no-visuals] {
-  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
   padding-top: 2px;
   padding-right: 4px;
   padding-bottom: 2px;
   padding-left: 4px;
   position: relative;
+  background-color: transparent;
+}
+
+.c4[data-no-visuals]:hover,
+.c4[data-no-visuals]:focus {
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c4[data-no-visuals][data-component="IconButton"] {
@@ -3340,7 +3363,11 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
       onFocus={[Function]}
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
-      style={{}}
+      style={
+        {
+          "--button-color": "fg.subtle",
+        }
+      }
       type="button"
     >
       <span
