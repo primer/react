@@ -491,13 +491,11 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             {...positionDataAttributes}
             sx={sx}
           >
-            <Box />
             {header}
             <ScrollableRegion aria-labelledby={dialogLabelId} className="DialogOverflowWrapper">
               {body}
             </ScrollableRegion>
             {footer}
-            <Box />
           </StyledDialog>
         </Backdrop>
       </Portal>
