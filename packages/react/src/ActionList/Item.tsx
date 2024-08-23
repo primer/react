@@ -112,7 +112,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const itemSelectionAttribute = selectionAttribute || inferredSelectionAttribute
     // Ensures ActionList.Item retains list item semantics if a valid ARIA role is applied, or if item is inactive
-    const listSemantics = listRole === 'listbox' || listRole === 'menu' || inactive || container === 'NavList'
+    const listItemSemantics =
+      role === 'option' || role === 'menuitem' || role === 'menuitemradio' || role === 'menuitemcheckbox'
+    const listSemantics =
+      listRole === 'listbox' || listRole === 'menu' || inactive || container === 'NavList' || listItemSemantics
     const buttonSemantics = !listSemantics && !_PrivateItemWrapper && buttonSemanticsFeatureFlag
 
     const {theme} = useTheme()
