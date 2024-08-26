@@ -8,8 +8,8 @@ import Spinner from '../Spinner'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {get} from '../constants'
-import {ActionList} from '../deprecated/ActionList'
-import type {GroupedListProps, ListPropsBase} from '../SelectPanel/types'
+import {ActionList} from '../ActionList'
+import type {GroupedListProps, ListPropsBase, ItemInput} from '../SelectPanel/types'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
@@ -17,6 +17,9 @@ import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import type {SxProp} from '../sx'
+
+import {isValidElementType} from 'react-is'
+import type {RenderItemFn} from '../deprecated/ActionList/List'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -46,6 +49,8 @@ export function FilteredActionList({
   textInputProps,
   inputRef: providedInputRef,
   sx,
+  groupMetadata,
+  showItemDividers,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -59,7 +64,7 @@ export function FilteredActionList({
   )
 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const listContainerRef = useRef<HTMLDivElement>(null)
+  const listContainerRef = useRef<HTMLUListElement>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useId()
@@ -109,6 +114,17 @@ export function FilteredActionList({
 
   useScrollFlash(scrollContainerRef)
 
+  function getItemListForEachGroup(groupId: string) {
+    const itemsInGroup = []
+    for (const item of items) {
+      // Look up the group associated with the current item.
+      if (item.groupId === groupId) {
+        itemsInGroup.push(item)
+      }
+    }
+    return itemsInGroup
+  }
+
   return (
     <Box display="flex" flexDirection="column" overflow="hidden" sx={sx}>
       <StyledHeader>
@@ -134,10 +150,83 @@ export function FilteredActionList({
             <Spinner />
           </Box>
         ) : (
-          <ActionList ref={listContainerRef} items={items} {...listProps} role="listbox" id={listId} />
+          <ActionList ref={listContainerRef} showDividers={showItemDividers} {...listProps} role="listbox" id={listId}>
+            {groupMetadata
+              ? groupMetadata.map((group, index) => {
+                  return (
+                    <ActionList.Group key={index}>
+                      <ActionList.GroupHeading variant={group.header?.variant ? group.header.variant : undefined}>
+                        {group.header?.title ? group.header.title : `Group ${group.groupId}`}
+                      </ActionList.GroupHeading>
+                      {getItemListForEachGroup(group.groupId).map((item, index) => {
+                        return <MappedActionListItem key={index} {...item} renderItem={listProps.renderItem} />
+                      })}
+                    </ActionList.Group>
+                  )
+                })
+              : items.map((item, index) => {
+                  return <MappedActionListItem key={index} {...item} renderItem={listProps.renderItem} />
+                })}
+          </ActionList>
         )}
       </Box>
     </Box>
+  )
+}
+
+function MappedActionListItem(item: ItemInput & {renderItem?: RenderItemFn}) {
+  // keep backward compatibility for renderItem
+  // escape hatch for custom Item rendering
+  if (typeof item.renderItem === 'function') return item.renderItem(item)
+
+  const {
+    id,
+    description,
+    descriptionVariant,
+    text,
+    trailingVisual: TrailingVisual,
+    leadingVisual: LeadingVisual,
+    trailingText,
+    trailingIcon: TrailingIcon,
+    onAction,
+    children,
+    ...rest
+  } = item
+
+  return (
+    <ActionList.Item
+      role="option"
+      // @ts-ignore - for now
+      onSelect={(e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {
+        if (typeof onAction === 'function')
+          onAction(item, e as React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>)
+      }}
+      data-id={id}
+      {...rest}
+    >
+      {LeadingVisual ? (
+        <ActionList.LeadingVisual>
+          <LeadingVisual />
+        </ActionList.LeadingVisual>
+      ) : null}
+      {children}
+      {text}
+      {description ? <ActionList.Description variant={descriptionVariant}>{description}</ActionList.Description> : null}
+      {TrailingVisual ? (
+        <ActionList.TrailingVisual>
+          {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
+            <TrailingVisual />
+          ) : (
+            TrailingVisual
+          )}
+        </ActionList.TrailingVisual>
+      ) : TrailingIcon || trailingText ? (
+        <ActionList.TrailingVisual>
+          {trailingText}
+          {TrailingIcon && <TrailingIcon />}
+        </ActionList.TrailingVisual>
+      ) : null}
+    </ActionList.Item>
   )
 }
 
