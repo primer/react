@@ -6,6 +6,7 @@ import type {ItemInput} from '../deprecated/ActionList/List'
 import {SelectPanel} from './SelectPanel'
 import type {OverlayProps} from '../Overlay'
 import {TriangleDownIcon} from '@primer/octicons-react'
+import {ActionList} from '../deprecated/ActionList'
 
 const meta = {
   title: 'Components/SelectPanel/Examples',
@@ -250,7 +251,7 @@ const longItems = [
   {text: 'src/SelectPanel/SelectPanel.examples.stories.tsx', id: 6},
 ]
 
-export const LongStringWithTruncation = () => {
+export const CustomItemRenderer = () => {
   const items = longItems
   const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
   const [filter, setFilter] = React.useState('')
@@ -279,13 +280,31 @@ export const LongStringWithTruncation = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         overlayProps={{width: 'medium'}}
-        sx={{
-          '[data-component="ActionList.Item--DividerContainer"] span': {
-            overflow: 'hidden',
-            whiteSpace: 'nowrap',
-            textOverflow: 'ellipsis',
-          },
-        }}
+        renderItem={item => (
+          <ActionList.Item
+            {...item}
+            text={undefined}
+            sx={{
+              mx: 2,
+              '&[data-is-active-descendant="activated-directly"]': {
+                backgroundColor: 'transparent',
+                outline: '2px solid var(--focus-outlineColor, var(--color-accent-emphasis))',
+                outlineOffset: '-2px',
+              },
+            }}
+          >
+            {' '}
+            <Box
+              sx={{
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              {item.text}
+            </Box>
+          </ActionList.Item>
+        )}
       />
     </>
   )

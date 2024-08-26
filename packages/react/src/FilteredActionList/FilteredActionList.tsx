@@ -19,6 +19,7 @@ import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import type {SxProp} from '../sx'
 
 import {isValidElementType} from 'react-is'
+import type {RenderItemFn} from '../deprecated/ActionList/List'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -52,11 +53,6 @@ export function FilteredActionList({
   showItemDividers,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
-  // deprecated/ActionList supported renderItem, new ActionList does not need to.
-  if (listProps.renderItem) {
-    throw new Error('SelectPanel does not support renderItem')
-  }
-
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
   const onInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -163,13 +159,13 @@ export function FilteredActionList({
                         {group.header?.title ? group.header.title : `Group ${group.groupId}`}
                       </ActionList.GroupHeading>
                       {getItemListForEachGroup(group.groupId).map((item, index) => {
-                        return <MappedActionListItem key={index} {...item} />
+                        return <MappedActionListItem key={index} {...item} renderItem={listProps.renderItem} />
                       })}
                     </ActionList.Group>
                   )
                 })
               : items.map((item, index) => {
-                  return <MappedActionListItem key={index} {...item} />
+                  return <MappedActionListItem key={index} {...item} renderItem={listProps.renderItem} />
                 })}
           </ActionList>
         )}
@@ -178,7 +174,11 @@ export function FilteredActionList({
   )
 }
 
-function MappedActionListItem(item: ItemInput) {
+function MappedActionListItem(item: ItemInput & {renderItem?: RenderItemFn}) {
+  // keep backward compatibility for renderItem
+  // escape hatch for custom Item rendering
+  if (typeof item.renderItem === 'function') return item.renderItem(item)
+
   const {
     id,
     description,
