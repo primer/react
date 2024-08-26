@@ -422,7 +422,7 @@ export type BannerSecondaryActionProps = Omit<React.ComponentPropsWithoutRef<typ
 
 export function BannerSecondaryAction({children, className, ...rest}: BannerSecondaryActionProps) {
   return (
-    <Button className={cx('BannerPrimaryAction', className)} variant="invisible" {...rest}>
+    <Button className={cx('BannerPrimaryAction', className)} variant="link" {...rest}>
       {children}
     </Button>
   )
