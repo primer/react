@@ -141,7 +141,6 @@ export function SelectPanel({
             return
           }
 
-          // TODO: There is a bug here that causes the whole list to reset
           if (isMultiSelectVariant(selected)) {
             const otherSelectedItems = selected.filter(selectedItem => selectedItem !== item)
             const newSelectedItems = selected.includes(item) ? otherSelectedItems : [...otherSelectedItems, item]
