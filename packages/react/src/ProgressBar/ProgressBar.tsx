@@ -101,6 +101,8 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
       barSize = 'default',
       children,
       'aria-label': ariaLabel,
+      'aria-valuenow': ariaValueNow,
+      'aria-valuetext': ariaValueText,
       ...rest
     }: ProgressBarProps,
     forwardRef,
@@ -112,7 +114,14 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
     return (
       <ProgressContainer ref={forwardRef} barSize={barSize} {...rest}>
         {children ?? (
-          <Item data-animated={animated} progress={progress} aria-label={ariaLabel} sx={{backgroundColor: bg}} />
+          <Item
+            data-animated={animated}
+            progress={progress}
+            aria-label={ariaLabel}
+            aria-valuenow={ariaValueNow}
+            aria-valuetext={ariaValueText}
+            sx={{backgroundColor: bg}}
+          />
         )}
       </ProgressContainer>
     )
