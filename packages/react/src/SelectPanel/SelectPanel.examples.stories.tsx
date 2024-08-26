@@ -242,3 +242,51 @@ export const HeightVariantionsAndScroll = () => {
     </>
   )
 }
+
+const longItems = [
+  {text: 'src/SelectPanel/SelectPanel.tsx', id: 3},
+  {text: 'src/SelectPanel/SelectPanel.stories.tsx', id: 4},
+  {text: 'src/SelectPanel/SelectPanel.features.stories.tsx', id: 5},
+  {text: 'src/SelectPanel/SelectPanel.examples.stories.tsx', id: 6},
+]
+
+export const LongStringWithTruncation = () => {
+  const items = longItems
+  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+
+  return (
+    <>
+      <h1>Long string with truncation (not reviewed for accessibility)</h1>
+      <SelectPanel
+        title="Select files"
+        renderAnchor={({'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <Button
+            trailingAction={TriangleDownIcon}
+            aria-labelledby={` ${ariaLabelledBy}`}
+            {...anchorProps}
+            aria-haspopup="dialog"
+          >
+            Select files
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        overlayProps={{width: 'medium'}}
+        sx={{
+          '[data-component="ActionList.Item--DividerContainer"] span': {
+            overflow: 'hidden',
+            whiteSpace: 'nowrap',
+            textOverflow: 'ellipsis',
+          },
+        }}
+      />
+    </>
+  )
+}
