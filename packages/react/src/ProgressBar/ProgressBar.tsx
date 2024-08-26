@@ -59,12 +59,6 @@ export type ProgressBarItems = React.HTMLAttributes<HTMLSpanElement> & {'aria-la
 
 export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
   ({progress, 'aria-label': ariaLabel, ...rest}, forwardRef) => {
-    warning(
-      typeof (rest as React.AriaAttributes)['aria-valuenow'] === 'undefined' &&
-        typeof (rest as React.AriaAttributes)['aria-valuetext'] === 'undefined',
-      'Expected `aria-valuenow` or `aria-valuetext` to be provided to <ProgressBar>. Provide one of these values so screen reader users can determine the current progress. This warning will become an error in the next major release.',
-    )
-
     const progressAsNumber = typeof progress === 'string' ? parseInt(progress, 10) : progress
 
     const ariaAttributes = {
@@ -72,6 +66,13 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
       'aria-valuemin': 0,
       'aria-valuemax': 100,
     }
+
+    warning(
+      !ariaAttributes['aria-valuenow'] &&
+        typeof (rest as React.AriaAttributes)['aria-valuenow'] === 'undefined' &&
+        typeof (rest as React.AriaAttributes)['aria-valuetext'] === 'undefined',
+      'Expected `aria-valuenow` or `aria-valuetext` to be provided to <ProgressBar>. Provide one of these values so screen reader users can determine the current progress. This warning will become an error in the next major release.',
+    )
 
     return (
       <ProgressItem
