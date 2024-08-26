@@ -52,6 +52,11 @@ export function FilteredActionList({
   showItemDividers,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
+  // deprecated/ActionList supported renderItem, new ActionList does not need to.
+  if (listProps.renderItem) {
+    throw new Error('SelectPanel does not support renderItem')
+  }
+
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
   const onInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
