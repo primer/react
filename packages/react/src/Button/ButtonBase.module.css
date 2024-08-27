@@ -20,7 +20,7 @@
   appearance: none;
   align-items: center;
   justify-content: space-between;
-  gap: var(--base-size-4);
+  gap: var(--base-size-8);
 
   &:hover {
     transition-duration: var(--duration-fast);
@@ -295,8 +295,9 @@
     background-color: var(--buttonCounter-primary-bgColor-rest);
   }
 
+  /* temporarily using the fgColor to match legacy and reduce visual changes- will eventually be iconColor */
   & .Visual > :not(.CounterLabel) {
-    color: var(--button-primary-iconColor-rest);
+    color: var(--button-primary-fgColor-rest);
   }
 }
 
