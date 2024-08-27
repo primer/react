@@ -5,7 +5,6 @@ import {matrix} from '../test-helpers/matrix'
 
 const scenarios = matrix({
   theme: themes,
-  modernActionList: [false],
   story: [
     {id: 'components-selectpanel--default', name: 'Default'},
     {id: 'components-selectpanel-features--single-select', name: 'Single Select'},
@@ -39,23 +38,21 @@ test.describe('SelectPanel', () => {
   for (const scenario of scenarios) {
     const name = scenario.story.name
     const theme = scenario.theme
-    const flag = scenario.modernActionList ? `.modern-action-list--${scenario.modernActionList}` : ''
 
     const globals = {
       colorScheme: scenario.theme,
-      featureFlags: {primer_react_select_panel_with_modern_action_list: scenario.modernActionList},
     }
 
-    test(`${name} @vrt ${theme} ${flag}`, async ({page}) => {
+    test(`${name} @vrt ${theme}`, async ({page}) => {
       await visit(page, {id: scenario.story.id, globals})
 
       // Open select panel
       await page.keyboard.press('Tab')
       await page.keyboard.press('Enter')
-      expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SelectPanel.${name}.${theme}${flag}.png`)
+      expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SelectPanel.${name}.${theme}.png`)
     })
 
-    test(`${name} axe @aat ${theme} ${flag}`, async ({page}) => {
+    test(`${name} axe @aat ${theme}`, async ({page}) => {
       await visit(page, {id: scenario.story.id, globals})
       await expect(page).toHaveNoViolations()
     })
