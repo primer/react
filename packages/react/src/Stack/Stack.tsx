@@ -413,13 +413,14 @@ type StackItemProps<As> = React.PropsWithChildren<{
 function StackItem<As extends ElementType>({
   as,
   children,
-  grow = false,
+  grow,
   ...rest
 }: StackItemProps<As> & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>) {
   const BaseComponent = as ?? 'div'
 
+  console.log(grow)
   return (
-    <StyledStackItem {...rest} as={BaseComponent} {...getResponsiveAttributes('grow', grow)}>
+    <StyledStackItem {...rest} as={BaseComponent} {...getResponsiveAttributes('grow', grow ? 'true' : 'false')}>
       {children}
     </StyledStackItem>
   )
