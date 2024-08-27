@@ -3,8 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "exports": "./src/index.js",
+  "exports": {
+    "types": "./dist/index.d.ts",
+    "default": "./dist/index.cjs"
+  },
   "scripts": {
+    "pretest": "npm run build",
+    "build": "rollup -c",
     "type-check": "tsc --noEmit"
   },
   "browserslist": "extends @github/browserslist-config",
@@ -22,6 +27,8 @@
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.3",
     "@babel/preset-typescript": "^7.24.7",
+    "@rollup/plugin-commonjs": "26.0.1",
+    "@rollup/plugin-node-resolve": "15.2.3",
     "@types/postcss-mixins": "9.0.5",
     "babel-jest": "^29.7.0",
     "babel-plugin-transform-import-meta": "^2.2.1",
