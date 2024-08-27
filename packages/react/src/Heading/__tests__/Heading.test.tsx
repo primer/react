@@ -142,12 +142,12 @@ describe('Heading', () => {
     ).toHaveStyleRule('font-style', 'italic')
   })
 
-  describe('with primer_react_css_modules enabled', () => {
+  describe('with primer_react_css_modules_team enabled', () => {
     it('should only include css modules class', () => {
       HTMLRender(
         <FeatureFlags
           flags={{
-            primer_react_css_modules: true,
+            primer_react_css_modules_team: true,
           }}
         >
           <Heading>test</Heading>
@@ -163,7 +163,7 @@ describe('Heading', () => {
       const {container} = HTMLRender(
         <FeatureFlags
           flags={{
-            primer_react_css_modules: true,
+            primer_react_css_modules_team: true,
           }}
         >
           <Heading className="test">test</Heading>
@@ -176,7 +176,7 @@ describe('Heading', () => {
       HTMLRender(
         <FeatureFlags
           flags={{
-            primer_react_css_modules: true,
+            primer_react_css_modules_team: true,
           }}
         >
           <Heading
