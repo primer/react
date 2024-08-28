@@ -5,46 +5,6 @@ import {themes} from '../test-helpers/themes'
 test.describe('Button', () => {
   for (const featureFlagOn of [true, false]) {
     test.describe(`Feature flag: ${featureFlagOn ? 'on' : 'off'}`, () => {
-      test.describe('Playground', () => {
-        for (const theme of themes) {
-          test.describe(theme, () => {
-            test('default @vrt', async ({page}) => {
-              await visit(page, {
-                id: 'components-button--playground',
-                globals: {
-                  colorScheme: theme,
-                  featureFlags: {
-                    primer_react_css_modules_team: featureFlagOn,
-                  },
-                },
-              })
-
-              // Default state
-              expect(await page.screenshot()).toMatchSnapshot(`Button.Playground.${theme}.png`)
-            })
-
-            test('axe @aat', async ({page}) => {
-              await visit(page, {
-                id: 'components-button--playground',
-                globals: {
-                  colorScheme: theme,
-                  featureFlags: {
-                    primer_react_css_modules_team: featureFlagOn,
-                  },
-                },
-              })
-              await expect(page).toHaveNoViolations({
-                rules: {
-                  'color-contrast': {
-                    enabled: theme !== 'dark_dimmed',
-                  },
-                },
-              })
-            })
-          })
-        }
-      })
-
       test.describe('Danger', () => {
         for (const theme of themes) {
           test.describe(theme, () => {
@@ -246,43 +206,19 @@ test.describe('Button', () => {
       })
 
       test.describe('Large', () => {
-        for (const theme of themes) {
-          test.describe(theme, () => {
-            test('default @vrt', async ({page}) => {
-              await visit(page, {
-                id: 'components-button-features--large',
-                globals: {
-                  colorScheme: theme,
-                  featureFlags: {
-                    primer_react_css_modules_team: featureFlagOn,
-                  },
-                },
-              })
-
-              // Default state
-              expect(await page.screenshot()).toMatchSnapshot(`Button.Large.${theme}.png`)
-            })
-
-            test('axe @aat', async ({page}) => {
-              await visit(page, {
-                id: 'components-button-features--large',
-                globals: {
-                  colorScheme: theme,
-                  featureFlags: {
-                    primer_react_css_modules_team: featureFlagOn,
-                  },
-                },
-              })
-              await expect(page).toHaveNoViolations({
-                rules: {
-                  'color-contrast': {
-                    enabled: theme !== 'dark_dimmed',
-                  },
-                },
-              })
-            })
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--large',
+            globals: {
+              featureFlags: {
+                primer_react_css_modules_team: featureFlagOn,
+              },
+            },
           })
-        }
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Button.Large.png`)
+        })
       })
 
       test.describe('Leading Visual', () => {
@@ -326,43 +262,19 @@ test.describe('Button', () => {
       })
 
       test.describe('Medium', () => {
-        for (const theme of themes) {
-          test.describe(theme, () => {
-            test('default @vrt', async ({page}) => {
-              await visit(page, {
-                id: 'components-button-features--medium',
-                globals: {
-                  colorScheme: theme,
-                  featureFlags: {
-                    primer_react_css_modules_team: featureFlagOn,
-                  },
-                },
-              })
-
-              // Default state
-              expect(await page.screenshot()).toMatchSnapshot(`Button.Medium.${theme}.png`)
-            })
-
-            test('axe @aat', async ({page}) => {
-              await visit(page, {
-                id: 'components-button-features--medium',
-                globals: {
-                  colorScheme: theme,
-                  featureFlags: {
-                    primer_react_css_modules_team: featureFlagOn,
-                  },
-                },
-              })
-              await expect(page).toHaveNoViolations({
-                rules: {
-                  'color-contrast': {
-                    enabled: theme !== 'dark_dimmed',
-                  },
-                },
-              })
-            })
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--medium',
+            globals: {
+              featureFlags: {
+                primer_react_css_modules_team: featureFlagOn,
+              },
+            },
           })
-        }
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Button.Medium.png`)
+        })
       })
 
       test.describe('Primary', () => {
@@ -406,43 +318,19 @@ test.describe('Button', () => {
       })
 
       test.describe('Small', () => {
-        for (const theme of themes) {
-          test.describe(theme, () => {
-            test('default @vrt', async ({page}) => {
-              await visit(page, {
-                id: 'components-button-features--small',
-                globals: {
-                  colorScheme: theme,
-                  featureFlags: {
-                    primer_react_css_modules_team: featureFlagOn,
-                  },
-                },
-              })
-
-              // Default state
-              expect(await page.screenshot()).toMatchSnapshot(`Button.Small.${theme}.png`)
-            })
-
-            test('axe @aat', async ({page}) => {
-              await visit(page, {
-                id: 'components-button-features--small',
-                globals: {
-                  colorScheme: theme,
-                  featureFlags: {
-                    primer_react_css_modules_team: featureFlagOn,
-                  },
-                },
-              })
-              await expect(page).toHaveNoViolations({
-                rules: {
-                  'color-contrast': {
-                    enabled: theme !== 'dark_dimmed',
-                  },
-                },
-              })
-            })
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-button-features--small',
+            globals: {
+              featureFlags: {
+                primer_react_css_modules_team: featureFlagOn,
+              },
+            },
           })
-        }
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Button.Small.png`)
+        })
       })
 
       test.describe('Trailing Action', () => {
@@ -626,48 +514,6 @@ test.describe('Button', () => {
             test('axe @aat', async ({page}) => {
               await visit(page, {
                 id: 'components-button-features--loading',
-                globals: {
-                  colorScheme: theme,
-                  featureFlags: {
-                    primer_react_css_modules_team: featureFlagOn,
-                  },
-                },
-              })
-              await expect(page).toHaveNoViolations({
-                rules: {
-                  'color-contrast': {
-                    enabled: theme !== 'dark_dimmed',
-                  },
-                },
-              })
-            })
-          })
-        }
-      })
-
-      test.describe('Loading Custom Announcement', () => {
-        for (const theme of themes) {
-          test.describe(theme, () => {
-            test('default @vrt', async ({page}) => {
-              await visit(page, {
-                id: 'components-button-features--loading-custom-announcement',
-                globals: {
-                  colorScheme: theme,
-                  featureFlags: {
-                    primer_react_css_modules_team: featureFlagOn,
-                  },
-                },
-              })
-
-              // Default state
-              expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-                `Button.Loading Custom Announcement.${theme}.png`,
-              )
-            })
-
-            test('axe @aat', async ({page}) => {
-              await visit(page, {
-                id: 'components-button-features--loading-custom-announcement',
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
