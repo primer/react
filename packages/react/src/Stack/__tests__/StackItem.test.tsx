@@ -19,8 +19,8 @@ describe('StackItem', () => {
         <StackItem data-testid="grow-false" />
       </Stack>,
     )
-    expect(screen.getByTestId('grow-true')).toHaveAttribute('data-grow', '')
-    expect(screen.getByTestId('grow-false')).not.toHaveAttribute('data-grow')
+    expect(screen.getByTestId('grow-true')).toHaveAttribute('data-grow="true"')
+    expect(screen.getByTestId('grow-false')).not.toHaveAttribute('data-grow="false"')
   })
 
   it('should support responsive `grow` values', () => {
@@ -29,9 +29,9 @@ describe('StackItem', () => {
         <StackItem data-testid="responsive-grow" grow={{narrow: true, regular: false, wide: true}} />
       </Stack>,
     )
-    expect(screen.getByTestId('responsive-grow')).toHaveAttribute('data-grow-narrow', '')
-    expect(screen.getByTestId('responsive-grow')).not.toHaveAttribute('data-grow-regular')
-    expect(screen.getByTestId('responsive-grow')).toHaveAttribute('data-grow-wide', '')
+    expect(screen.getByTestId('responsive-grow')).toHaveAttribute('data-grow-narrow="true"')
+    expect(screen.getByTestId('responsive-grow')).not.toHaveAttribute('data-grow-regular="false"')
+    expect(screen.getByTestId('responsive-grow')).toHaveAttribute('data-grow-wide="true"')
   })
 
   it('should render a custom component with the `as` prop', () => {
