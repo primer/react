@@ -235,7 +235,7 @@ jobs:
           cache: 'npm'
       - run: npm i -g npm@^10.5.1
       - name: install dependencies
-        run: npm ci
+        run: npm ci & npm run build -w postcss-preset-primer
       - name: download all reports
         uses: actions/download-artifact@v4
         with:
