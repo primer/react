@@ -377,22 +377,30 @@ const StyledStackItem = styled.div`
   flex: 0 1 auto;
   min-inline-size: 0;
 
-  &[data-grow],
-  &[data-grow-narrow] {
+  &[data-grow='true'],
+  &[data-grow-narrow='true'] {
     flex-grow: 1;
   }
 
   // @custom-media --veiwportRange-regular
   @media (min-width: 48rem) {
-    &[data-grow-regular] {
+    &[data-grow-regular='true'] {
       flex-grow: 1;
+    }
+
+    &[data-grow-regular='false'] {
+      flex-grow: 0;
     }
   }
 
   // @custom-media --viewportRange-wide
   @media (min-width: 87.5rem) {
-    &[data-grow-wide] {
+    &[data-grow-wide='true'] {
       flex-grow: 1;
+    }
+
+    &[data-grow-wide='false'] {
+      flex-grow: 0;
     }
   }
 `
@@ -418,9 +426,8 @@ function StackItem<As extends ElementType>({
 }: StackItemProps<As> & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>) {
   const BaseComponent = as ?? 'div'
 
-  console.log(grow)
   return (
-    <StyledStackItem {...rest} as={BaseComponent} {...getResponsiveAttributes('grow', grow ? 'true' : 'false')}>
+    <StyledStackItem {...rest} as={BaseComponent} {...getResponsiveAttributes('grow', grow)}>
       {children}
     </StyledStackItem>
   )
