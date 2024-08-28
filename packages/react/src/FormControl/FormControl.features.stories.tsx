@@ -80,12 +80,12 @@ export const WithComplexInputs = () => {
         <TextInputWithTokens onTokenRemove={onTokenRemove} tokens={tokens} />
       </FormControl>
       <FormControl>
-        <FormControl.Label>Autocomplete</FormControl.Label>
+        <FormControl.Label id="autocomplete-label">Autocomplete</FormControl.Label>
         <Autocomplete>
           <Autocomplete.Input block />
           <Autocomplete.Overlay>
             <Autocomplete.Menu
-              aria-labelledby="form-label"
+              aria-labelledby="autocomplete-label"
               items={[
                 {text: 'css', id: '0'},
                 {text: 'css-in-js', id: '1'},
@@ -172,12 +172,20 @@ export const FormControlWithCustomInput = () => {
       <CheckboxGroup>
         <CheckboxGroup.Label>Checkboxes</CheckboxGroup.Label>
         <FormControl layout="horizontal">
-          <CustomCheckboxInput id="custom-checkbox-one" value="checkOne" />
+          <CustomCheckboxInput
+            id="custom-checkbox-one"
+            aria-describedby="custom-checkbox-one-caption"
+            value="checkOne"
+          />
           <FormControl.Label htmlFor="custom-checkbox-one">Checkbox one</FormControl.Label>
           <FormControl.Caption id="custom-checkbox-one-caption">Hint text for checkbox one</FormControl.Caption>
         </FormControl>
         <FormControl layout="horizontal">
-          <CustomCheckboxInput id="custom-checkbox-two" value="checkTwo" />
+          <CustomCheckboxInput
+            id="custom-checkbox-two"
+            aria-describedby="custom-checkbox-two-caption"
+            value="checkTwo"
+          />
           <FormControl.Label htmlFor="custom-checkbox-two">Checkbox two</FormControl.Label>
           <FormControl.Caption id="custom-checkbox-two-caption">Hint text for checkbox two</FormControl.Caption>
         </FormControl>
