@@ -10,7 +10,7 @@
       "stories": [
         {
           "id": "components-dialog--default",
-          "code": "() => {\n  const [isOpen, setIsOpen] = useState(false)\n  const returnFocusRef = useRef(null)\n  return (\n    <div>\n      <Button\n        data-testid=\"trigger-button\"\n        ref={returnFocusRef}\n        onClick={() => setIsOpen(true)}\n      >\n        Show Dialog\n      </Button>\n      <Dialog\n        returnFocusRef={returnFocusRef}\n        isOpen={isOpen}\n        onDismiss={() => setIsOpen(false)}\n        aria-labelledby=\"header\"\n      >\n        <div data-testid=\"inner\">\n          <Dialog.Header id=\"header\">Title</Dialog.Header>\n          <Box p={3}>\n            <Text>Some content</Text>\n          </Box>\n        </div>\n      </Dialog>\n    </div>\n  )\n}"
+          "code": "() => {\n  const [isOpen, setIsOpen] = useState(false)\n  const returnFocusRef = useRef(null)\n  return (\n    <div>\n      <Box\n        sx={{\n          mb: 3,\n        }}\n      >\n        <Banner\n          title=\"Planned for deprecation\"\n          description={\n            <div data-a11y-link-underlines=\"true\">\n              There are plans to deprecate this component in a future release.\n              We recommend using{' '}\n              <Link\n                inline={true}\n                href=\"/?path=/story/components-dialog--default\"\n              >\n                Dialog\n              </Link>{' '}\n              instead.\n            </div>\n          }\n          variant=\"warning\"\n        />\n      </Box>\n      <Button\n        data-testid=\"trigger-button\"\n        ref={returnFocusRef}\n        onClick={() => setIsOpen(true)}\n      >\n        Show Dialog\n      </Button>\n      <Dialog\n        returnFocusRef={returnFocusRef}\n        isOpen={isOpen}\n        onDismiss={() => setIsOpen(false)}\n        aria-labelledby=\"header\"\n      >\n        <div data-testid=\"inner\">\n          <Dialog.Header id=\"header\">Title</Dialog.Header>\n          <Box p={3}>\n            <Text>Some content</Text>\n          </Box>\n        </div>\n      </Dialog>\n    </div>\n  )\n}"
         }
       ],
       "importPath": "@primer/react",
@@ -1099,6 +1099,46 @@
         {
           "id": "components-anchoredoverlay-features--portal-inside-scrolling-element",
           "code": "(args: Args) => {\n  const rows = 20\n  const columns = 10\n  return (\n    <HeaderAndLayout>\n      <table>\n        <tbody>\n          {Array(rows)\n            .fill(null)\n            .map((_, i) => (\n              <tr key={i}>\n                {Array(columns)\n                  .fill(null)\n                  .map((_1, j) => (\n                    <td key={`${i}${j}`}>\n                      <Box m={2}>\n                        <Playground\n                          {...{\n                            ...args,\n                            portalContainerName: 'scrollingPortal',\n                          }}\n                        />\n                      </Box>\n                    </td>\n                  ))}\n              </tr>\n            ))}\n        </tbody>\n      </table>\n    </HeaderAndLayout>\n  )\n}"
+        },
+        {
+          "id": "components-anchoredoverlay-features--custom-anchor-id",
+          "code": "() => {\n  const [open, setOpen] = useState(false)\n  return (\n    <AnchoredOverlay\n      open={open}\n      onOpen={() => setOpen(true)}\n      onClose={() => setOpen(false)}\n      renderAnchor={(props) => <Button {...props}>Button</Button>}\n      anchorId=\"my-custom-anchor-id\"\n    >\n      <Box\n        width=\"100%\"\n        height=\"100%\"\n        backgroundColor=\"thistle\"\n        display=\"flex\"\n        flexDirection=\"column\"\n      >\n        <img src={`//placekitten.com/200/300`} alt=\"kitten\" />\n      </Box>\n    </AnchoredOverlay>\n  )\n}"
+        },
+        {
+          "id": "components-anchoredoverlay-features--height",
+          "code": "() => {\n  const [open, setOpen] = useState(false)\n  return (\n    <AnchoredOverlay\n      open={open}\n      onOpen={() => setOpen(true)}\n      onClose={() => setOpen(false)}\n      renderAnchor={(props) => <Button {...props}>Button</Button>}\n      height=\"large\"\n    >\n      <Box\n        width=\"100%\"\n        height=\"100%\"\n        backgroundColor=\"thistle\"\n        display=\"flex\"\n        flexDirection=\"column\"\n      >\n        <img src={`//placekitten.com/200/300`} alt=\"kitten\" />\n      </Box>\n    </AnchoredOverlay>\n  )\n}"
+        },
+        {
+          "id": "components-anchoredoverlay-features--width",
+          "code": "() => {\n  const [open, setOpen] = useState(false)\n  return (\n    <AnchoredOverlay\n      open={open}\n      onOpen={() => setOpen(true)}\n      onClose={() => setOpen(false)}\n      renderAnchor={(props) => <Button {...props}>Button</Button>}\n      width=\"large\"\n    >\n      <Box\n        width=\"100%\"\n        height=\"100%\"\n        backgroundColor=\"thistle\"\n        display=\"flex\"\n        flexDirection=\"column\"\n      >\n        <img src={`//placekitten.com/200/300`} alt=\"kitten\" />\n      </Box>\n    </AnchoredOverlay>\n  )\n}"
+        },
+        {
+          "id": "components-anchoredoverlay-features--anchor-alignment",
+          "code": "() => {\n  const [open, setOpen] = useState(false)\n  return (\n    <AnchoredOverlay\n      open={open}\n      onOpen={() => setOpen(true)}\n      onClose={() => setOpen(false)}\n      renderAnchor={(props) => (\n        <Button {...props} block>\n          Button\n        </Button>\n      )}\n      align=\"center\"\n    >\n      <Box\n        width=\"100%\"\n        height=\"100%\"\n        backgroundColor=\"thistle\"\n        display=\"flex\"\n        flexDirection=\"column\"\n      >\n        <img src={`//placekitten.com/200/300`} alt=\"kitten\" />\n      </Box>\n    </AnchoredOverlay>\n  )\n}"
+        },
+        {
+          "id": "components-anchoredoverlay-features--anchor-side",
+          "code": "() => {\n  const [open, setOpen] = useState(false)\n  return (\n    <AnchoredOverlay\n      open={open}\n      onOpen={() => setOpen(true)}\n      onClose={() => setOpen(false)}\n      renderAnchor={(props) => <Button {...props}>Button</Button>}\n      side=\"outside-right\"\n    >\n      <Box\n        width=\"100%\"\n        height=\"100%\"\n        backgroundColor=\"thistle\"\n        display=\"flex\"\n        flexDirection=\"column\"\n      >\n        <img src={`//placekitten.com/200/300`} alt=\"kitten\" />\n      </Box>\n    </AnchoredOverlay>\n  )\n}"
+        },
+        {
+          "id": "components-anchoredoverlay-features--offset-position-from-anchor",
+          "code": "() => {\n  const [open, setOpen] = useState(false)\n  return (\n    <AnchoredOverlay\n      open={open}\n      onOpen={() => setOpen(true)}\n      onClose={() => setOpen(false)}\n      renderAnchor={(props) => <Button {...props}>Button</Button>}\n      anchorOffset={100}\n    >\n      <Box\n        width=\"100%\"\n        height=\"100%\"\n        backgroundColor=\"thistle\"\n        display=\"flex\"\n        flexDirection=\"column\"\n      >\n        <img src={`//placekitten.com/200/300`} alt=\"kitten\" />\n      </Box>\n    </AnchoredOverlay>\n  )\n}"
+        },
+        {
+          "id": "components-anchoredoverlay-features--offset-alignment-from-anchor",
+          "code": "() => {\n  const [open, setOpen] = useState(false)\n  return (\n    <AnchoredOverlay\n      open={open}\n      onOpen={() => setOpen(true)}\n      onClose={() => setOpen(false)}\n      renderAnchor={(props) => <Button {...props}>Button</Button>}\n      alignmentOffset={100}\n    >\n      <Box\n        width=\"100%\"\n        height=\"100%\"\n        backgroundColor=\"thistle\"\n        display=\"flex\"\n        flexDirection=\"column\"\n      >\n        <img src={`//placekitten.com/200/300`} alt=\"kitten\" />\n      </Box>\n    </AnchoredOverlay>\n  )\n}"
+        },
+        {
+          "id": "components-anchoredoverlay-features--focus-trap-overrides",
+          "code": "() => {\n  const initialFocusRef = useRef<HTMLButtonElement>(null)\n  const [open, setOpen] = useState(false)\n  return (\n    <AnchoredOverlay\n      open={open}\n      onOpen={() => setOpen(true)}\n      onClose={() => setOpen(false)}\n      renderAnchor={(props) => <Button {...props}>Button</Button>}\n      focusTrapSettings={{\n        initialFocusRef,\n      }}\n    >\n      <Button>First button</Button>\n      <Button ref={initialFocusRef}>Initial focus</Button>\n    </AnchoredOverlay>\n  )\n}"
+        },
+        {
+          "id": "components-anchoredoverlay-features--focus-zone-overrides",
+          "code": "() => {\n  const [open, setOpen] = useState(false)\n  return (\n    <AnchoredOverlay\n      open={open}\n      onOpen={() => setOpen(true)}\n      onClose={() => setOpen(false)}\n      renderAnchor={(props) => <Button {...props}>Button</Button>}\n      focusZoneSettings={{\n        bindKeys: FocusKeys.JK,\n      }}\n    >\n      <p>\n        Use <kbd>J</kbd> and <kbd>K</kbd> keys to move focus.\n      </p>\n      <Button>First</Button>\n      <Button>Second</Button>\n      <Button>Third</Button>\n    </AnchoredOverlay>\n  )\n}"
+        },
+        {
+          "id": "components-anchoredoverlay-features--overlay-props-overrides",
+          "code": "() => {\n  const [open, setOpen] = useState(false)\n  return (\n    <AnchoredOverlay\n      open={open}\n      onOpen={() => setOpen(true)}\n      onClose={() => setOpen(false)}\n      renderAnchor={(props) => <Button {...props}>Button</Button>}\n      overlayProps={{\n        overflow: 'auto',\n        maxHeight: 'xsmall',\n      }}\n    >\n      <div>Overlay props have been overridden to set: </div>\n      <pre>\n        <li>overflow: `auto`</li>\n        <li>maxHeight: `xsmall`</li>\n      </pre>\n      <Box\n        width=\"100%\"\n        height=\"100%\"\n        backgroundColor=\"thistle\"\n        display=\"flex\"\n        flexDirection=\"column\"\n      >\n        <img src={`//placekitten.com/200/300`} alt=\"kitten\" />\n      </Box>\n    </AnchoredOverlay>\n  )\n}"
         }
       ],
       "importPath": "@primer/react",
@@ -2167,6 +2207,13 @@
           "defaultValue": ""
         },
         {
+          "name": "className",
+          "type": "string",
+          "required": false,
+          "description": "",
+          "defaultValue": ""
+        },
+        {
           "name": "narrow",
           "type": "boolean",
           "required": false,
@@ -2275,7 +2322,15 @@
       "stories": [
         {
           "id": "components-branchname--default",
-          "code": "() => (\n  <Stack align=\"start\">\n    <BranchName href=\"#\">branch_name</BranchName>\n    <BranchName as=\"span\">branch_name as span</BranchName>\n  </Stack>\n)"
+          "code": "() => <BranchName href=\"#\">branch_name</BranchName>"
+        },
+        {
+          "id": "components-branchname-features--with-branch-icon",
+          "code": "() => (\n  <BranchName href=\"#\">\n    <Stack direction=\"horizontal\" gap=\"condensed\" align=\"center\">\n      <Octicon icon={GitBranchIcon} />\n      branch_name\n    </Stack>\n  </BranchName>\n)"
+        },
+        {
+          "id": "components-branchname-features--not-a-link",
+          "code": "() => <BranchName as=\"span\">branch_name_as_span</BranchName>"
         }
       ],
       "importPath": "@primer/react",
@@ -3090,6 +3145,10 @@
         {
           "id": "components-checkbox-features--with-caption",
           "code": "() => {\n  return (\n    <Box as=\"form\">\n      <FormControl>\n        <Checkbox value=\"default\" />\n        <FormControl.Label>Default label</FormControl.Label>\n        <FormControl.Caption>This is a caption</FormControl.Caption>\n      </FormControl>\n    </Box>\n  )\n}"
+        },
+        {
+          "id": "components-checkbox-features--indeterminate",
+          "code": "() => (\n  <Box as=\"form\">\n    <FormControl>\n      <Checkbox value=\"default\" indeterminate />\n      <FormControl.Label>Default label</FormControl.Label>\n    </FormControl>\n  </Box>\n)"
         }
       ],
       "importPath": "@primer/react",
@@ -3276,7 +3335,7 @@
       "stories": [
         {
           "id": "components-circlebadge--default",
-          "code": "() => (\n  <CircleBadge>\n    <CircleBadge.Icon icon={ZapIcon} />\n  </CircleBadge>\n)"
+          "code": "() => (\n  <CircleBadge>\n    <CircleBadge.Icon icon={ZapIcon} aria-label=\"User badge\" />\n  </CircleBadge>\n)"
         }
       ],
       "importPath": "@primer/react",
@@ -3347,7 +3406,7 @@
       "stories": [
         {
           "id": "components-circleocticon--default",
-          "code": "() => (\n  <CircleOcticon\n    icon={CheckIcon}\n    size={32}\n    sx={{\n      backgroundColor: 'success.emphasis',\n      color: 'fg.onEmphasis',\n    }}\n  />\n)"
+          "code": "() => (\n  <CircleOcticon\n    icon={CheckIcon}\n    size={32}\n    sx={{\n      backgroundColor: 'success.emphasis',\n      color: 'fg.onEmphasis',\n    }}\n    aria-label=\"Changes approved\"\n  />\n)"
         }
       ],
       "importPath": "@primer/react",
@@ -4154,11 +4213,11 @@
         },
         {
           "id": "components-formcontrol-features--with-complex-inputs",
-          "code": "() => {\n  const [tokens, setTokens] = useState([...mockTokens])\n  const onTokenRemove = (tokenId: string | number) => {\n    setTokens(\n      tokens.filter((token: { id: string | number }) => token.id !== tokenId),\n    )\n  }\n  return (\n    <Box display=\"grid\">\n      <FormControl>\n        <FormControl.Label id=\"form-label\">\n          TextInputWithTokens\n        </FormControl.Label>\n        <TextInputWithTokens onTokenRemove={onTokenRemove} tokens={tokens} />\n      </FormControl>\n      <FormControl>\n        <FormControl.Label>Autocomplete</FormControl.Label>\n        <Autocomplete>\n          <Autocomplete.Input block />\n          <Autocomplete.Overlay>\n            <Autocomplete.Menu\n              aria-labelledby=\"form-label\"\n              items={[\n                {\n                  text: 'css',\n                  id: '0',\n                },\n                {\n                  text: 'css-in-js',\n                  id: '1',\n                },\n                {\n                  text: 'styled-system',\n                  id: '2',\n                },\n                {\n                  text: 'javascript',\n                  id: '3',\n                },\n                {\n                  text: 'typescript',\n                  id: '4',\n                },\n                {\n                  text: 'react',\n                  id: '5',\n                },\n                {\n                  text: 'design-systems',\n                  id: '6',\n                },\n              ]}\n              selectedItemIds={[]}\n            />\n          </Autocomplete.Overlay>\n        </Autocomplete>\n      </FormControl>\n      <FormControl>\n        <FormControl.Label>Select</FormControl.Label>\n        <Select>\n          <Select.Option value=\"figma\">Figma</Select.Option>\n          <Select.Option value=\"css\">Primer CSS</Select.Option>\n          <Select.Option value=\"prc\">Primer React components</Select.Option>\n          <Select.Option value=\"pvc\">Primer ViewComponents</Select.Option>\n        </Select>\n      </FormControl>\n      <FormControl>\n        <FormControl.Label>Textarea</FormControl.Label>\n        <Textarea />\n      </FormControl>\n    </Box>\n  )\n}"
+          "code": "() => {\n  const [tokens, setTokens] = useState([...mockTokens])\n  const onTokenRemove = (tokenId: string | number) => {\n    setTokens(\n      tokens.filter((token: { id: string | number }) => token.id !== tokenId),\n    )\n  }\n  return (\n    <Box display=\"grid\">\n      <FormControl>\n        <FormControl.Label id=\"form-label\">\n          TextInputWithTokens\n        </FormControl.Label>\n        <TextInputWithTokens onTokenRemove={onTokenRemove} tokens={tokens} />\n      </FormControl>\n      <FormControl>\n        <FormControl.Label id=\"autocomplete-label\">\n          Autocomplete\n        </FormControl.Label>\n        <Autocomplete>\n          <Autocomplete.Input block />\n          <Autocomplete.Overlay>\n            <Autocomplete.Menu\n              aria-labelledby=\"autocomplete-label\"\n              items={[\n                {\n                  text: 'css',\n                  id: '0',\n                },\n                {\n                  text: 'css-in-js',\n                  id: '1',\n                },\n                {\n                  text: 'styled-system',\n                  id: '2',\n                },\n                {\n                  text: 'javascript',\n                  id: '3',\n                },\n                {\n                  text: 'typescript',\n                  id: '4',\n                },\n                {\n                  text: 'react',\n                  id: '5',\n                },\n                {\n                  text: 'design-systems',\n                  id: '6',\n                },\n              ]}\n              selectedItemIds={[]}\n            />\n          </Autocomplete.Overlay>\n        </Autocomplete>\n      </FormControl>\n      <FormControl>\n        <FormControl.Label>Select</FormControl.Label>\n        <Select>\n          <Select.Option value=\"figma\">Figma</Select.Option>\n          <Select.Option value=\"css\">Primer CSS</Select.Option>\n          <Select.Option value=\"prc\">Primer React components</Select.Option>\n          <Select.Option value=\"pvc\">Primer ViewComponents</Select.Option>\n        </Select>\n      </FormControl>\n      <FormControl>\n        <FormControl.Label>Textarea</FormControl.Label>\n        <Textarea />\n      </FormControl>\n    </Box>\n  )\n}"
         },
         {
           "id": "components-formcontrol-features--form-control-with-custom-input",
-          "code": "() => {\n  const [value, setValue] = React.useState('mona lisa')\n  const [validationResult, setValidationResult] = React.useState('')\n  const doesValueContainSpaces = (inputValue: string) => /\\s/g.test(inputValue)\n  const handleInputChange = (e: {\n    currentTarget: {\n      value: React.SetStateAction<string>\n    }\n  }) => {\n    setValue(e.currentTarget.value)\n  }\n  React.useEffect(() => {\n    if (doesValueContainSpaces(value)) {\n      setValidationResult('noSpaces')\n    } else if (value) {\n      setValidationResult('validName')\n    }\n  }, [value])\n  return (\n    <Box display=\"grid\">\n      <FormControl>\n        <FormControl.Label htmlFor=\"custom-input\">\n          GitHub handle\n        </FormControl.Label>\n        <CustomTextInput\n          id=\"custom-input\"\n          aria-describedby=\"custom-input-caption custom-input-validation\"\n          aria-invalid={validationResult === 'noSpaces'}\n          onChange={handleInputChange}\n        />\n        {validationResult === 'noSpaces' && (\n          <FormControl.Validation id=\"custom-input-validation\" variant=\"error\">\n            GitHub handles cannot contain spaces\n          </FormControl.Validation>\n        )}\n        {validationResult === 'validName' && (\n          <FormControl.Validation\n            id=\"custom-input-validation\"\n            variant=\"success\"\n          >\n            Valid name\n          </FormControl.Validation>\n        )}\n        <FormControl.Caption id=\"custom-input-caption\">\n          With or without &quot;@&quot;. For example &quot;monalisa&quot; or\n          &quot;@monalisa&quot;\n        </FormControl.Caption>\n      </FormControl>\n\n      <CheckboxGroup>\n        <CheckboxGroup.Label>Checkboxes</CheckboxGroup.Label>\n        <FormControl layout=\"horizontal\">\n          <CustomCheckboxInput id=\"custom-checkbox-one\" value=\"checkOne\" />\n          <FormControl.Label htmlFor=\"custom-checkbox-one\">\n            Checkbox one\n          </FormControl.Label>\n          <FormControl.Caption id=\"custom-checkbox-one-caption\">\n            Hint text for checkbox one\n          </FormControl.Caption>\n        </FormControl>\n        <FormControl layout=\"horizontal\">\n          <CustomCheckboxInput id=\"custom-checkbox-two\" value=\"checkTwo\" />\n          <FormControl.Label htmlFor=\"custom-checkbox-two\">\n            Checkbox two\n          </FormControl.Label>\n          <FormControl.Caption id=\"custom-checkbox-two-caption\">\n            Hint text for checkbox two\n          </FormControl.Caption>\n        </FormControl>\n      </CheckboxGroup>\n    </Box>\n  )\n}"
+          "code": "() => {\n  const [value, setValue] = React.useState('mona lisa')\n  const [validationResult, setValidationResult] = React.useState('')\n  const doesValueContainSpaces = (inputValue: string) => /\\s/g.test(inputValue)\n  const handleInputChange = (e: {\n    currentTarget: {\n      value: React.SetStateAction<string>\n    }\n  }) => {\n    setValue(e.currentTarget.value)\n  }\n  React.useEffect(() => {\n    if (doesValueContainSpaces(value)) {\n      setValidationResult('noSpaces')\n    } else if (value) {\n      setValidationResult('validName')\n    }\n  }, [value])\n  return (\n    <Box display=\"grid\">\n      <FormControl>\n        <FormControl.Label htmlFor=\"custom-input\">\n          GitHub handle\n        </FormControl.Label>\n        <CustomTextInput\n          id=\"custom-input\"\n          aria-describedby=\"custom-input-caption custom-input-validation\"\n          aria-invalid={validationResult === 'noSpaces'}\n          onChange={handleInputChange}\n        />\n        {validationResult === 'noSpaces' && (\n          <FormControl.Validation id=\"custom-input-validation\" variant=\"error\">\n            GitHub handles cannot contain spaces\n          </FormControl.Validation>\n        )}\n        {validationResult === 'validName' && (\n          <FormControl.Validation\n            id=\"custom-input-validation\"\n            variant=\"success\"\n          >\n            Valid name\n          </FormControl.Validation>\n        )}\n        <FormControl.Caption id=\"custom-input-caption\">\n          With or without &quot;@&quot;. For example &quot;monalisa&quot; or\n          &quot;@monalisa&quot;\n        </FormControl.Caption>\n      </FormControl>\n\n      <CheckboxGroup>\n        <CheckboxGroup.Label>Checkboxes</CheckboxGroup.Label>\n        <FormControl layout=\"horizontal\">\n          <CustomCheckboxInput\n            id=\"custom-checkbox-one\"\n            aria-describedby=\"custom-checkbox-one-caption\"\n            value=\"checkOne\"\n          />\n          <FormControl.Label htmlFor=\"custom-checkbox-one\">\n            Checkbox one\n          </FormControl.Label>\n          <FormControl.Caption id=\"custom-checkbox-one-caption\">\n            Hint text for checkbox one\n          </FormControl.Caption>\n        </FormControl>\n        <FormControl layout=\"horizontal\">\n          <CustomCheckboxInput\n            id=\"custom-checkbox-two\"\n            aria-describedby=\"custom-checkbox-two-caption\"\n            value=\"checkTwo\"\n          />\n          <FormControl.Label htmlFor=\"custom-checkbox-two\">\n            Checkbox two\n          </FormControl.Label>\n          <FormControl.Caption id=\"custom-checkbox-two-caption\">\n            Hint text for checkbox two\n          </FormControl.Caption>\n        </FormControl>\n      </CheckboxGroup>\n    </Box>\n  )\n}"
         },
         {
           "id": "components-formcontrol-features--with-checkbox-and-radio-inputs",
@@ -4502,6 +4561,38 @@
           "required": false,
           "description": "Specify the size of the InlineMessage",
           "defaultValue": "medium"
+        }
+      ],
+      "subcomponents": []
+    },
+    "keybinding_hint": {
+      "id": "keybinding_hint",
+      "name": "KeybindingHint",
+      "status": "draft",
+      "a11yReviewed": false,
+      "stories": [],
+      "importPath": "@primer/react/drafts",
+      "props": [
+        {
+          "name": "keys",
+          "type": "string",
+          "required": true,
+          "description": "The keys involved in this keybinding. These should be the full names of the keys as would\nbe returned by `KeyboardEvent.key` (e.g. \"Control\", \"Shift\", \"ArrowUp\", \"a\", etc.).\n\nCombine keys with the \"+\" character to form chords. To represent the \"+\" key, use \"Plus\".\n\nCombine chords/keys with \" \" to form sequences that should be pressed one after the other. For example, \"a b\"\nrepresents \"a then b\". To represent the \" \" key, use \"Space\".\n\nThe fake key name \"Mod\" can be used to represent \"Command\" on macOS and \"Control\" on other platforms.\n\nSee https://github.com/github/hotkey for format details.",
+          "defaultValue": ""
+        },
+        {
+          "name": "format",
+          "type": "\"condensed\" | \"full\"",
+          "required": false,
+          "description": "Control the display format. Condensed is most useful in menus and tooltips, while\nthe full form is better for prose.",
+          "defaultValue": "\"condensed\""
+        },
+        {
+          "name": "variant",
+          "type": "\"normal\" | \"onEmphasis\"",
+          "required": false,
+          "description": "Set to `onEmphasis` for display on emphasis colors.",
+          "defaultValue": ""
         }
       ],
       "subcomponents": []
@@ -4899,7 +4990,7 @@
       "stories": [
         {
           "id": "components-octicon--default",
-          "code": "() => <Octicon icon={HeartFillIcon} size={32} />"
+          "code": "() => <Octicon icon={HeartFillIcon} aria-label=\"Like\" size={32} />"
         }
       ],
       "importPath": "@primer/react",
@@ -8195,11 +8286,11 @@
         },
         {
           "id": "components-textinput-features--with-trailing-action",
-          "code": "() => {\n  const [value, setValue] = useState('')\n  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {\n    setValue(event.target.value)\n  }\n  return (\n    <Box as=\"form\">\n      <FormControl>\n        <FormControl.Label>Default label</FormControl.Label>\n        <TextInput\n          trailingAction={\n            <TextInput.Action\n              onClick={() => {\n                setValue('')\n              }}\n              icon={XCircleFillIcon}\n              aria-label=\"Clear input\"\n              sx={{\n                color: 'fg.subtle',\n              }}\n            />\n          }\n          value={value}\n          onChange={handleChange}\n        />\n      </FormControl>\n    </Box>\n  )\n}"
+          "code": "() => {\n  const [value, setValue] = useState('sample text')\n  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {\n    setValue(event.target.value)\n  }\n  return (\n    <Box as=\"form\">\n      <FormControl>\n        <FormControl.Label>Default label</FormControl.Label>\n        <TextInput\n          value={value}\n          onChange={handleChange}\n          trailingAction={\n            <Stack\n              justify=\"center\"\n              style={{\n                minWidth: '34px',\n              }}\n            >\n              {value.length ? (\n                <TextInput.Action\n                  onClick={() => setValue('')}\n                  icon={XCircleFillIcon}\n                  aria-label=\"Clear input\"\n                />\n              ) : undefined}\n            </Stack>\n          }\n        />\n      </FormControl>\n    </Box>\n  )\n}"
         },
         {
           "id": "components-textinput-features--with-tooltip-direction",
-          "code": "() => {\n  const [value, setValue] = useState('')\n  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {\n    setValue(event.target.value)\n  }\n  return (\n    <Box as=\"form\">\n      <FormControl>\n        <FormControl.Label>Default label</FormControl.Label>\n        <TextInput\n          trailingAction={\n            <TextInput.Action\n              onClick={() => {\n                setValue('')\n              }}\n              icon={XCircleFillIcon}\n              aria-label=\"Clear input\"\n              tooltipDirection=\"nw\"\n              sx={{\n                color: 'fg.subtle',\n              }}\n            />\n          }\n          value={value}\n          onChange={handleChange}\n        />\n      </FormControl>\n    </Box>\n  )\n}"
+          "code": "() => {\n  const [value, setValue] = useState('sample text')\n  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {\n    setValue(event.target.value)\n  }\n  return (\n    <Box as=\"form\">\n      <FormControl>\n        <FormControl.Label>Default label</FormControl.Label>\n        <TextInput\n          value={value}\n          onChange={handleChange}\n          trailingAction={\n            <Stack\n              justify=\"center\"\n              style={{\n                minWidth: '34px',\n              }}\n            >\n              {value.length ? (\n                <TextInput.Action\n                  onClick={() => setValue('')}\n                  icon={XCircleFillIcon}\n                  aria-label=\"Clear input\"\n                  tooltipDirection=\"nw\"\n                />\n              ) : undefined}\n            </Stack>\n          }\n        />\n      </FormControl>\n    </Box>\n  )\n}"
         },
         {
           "id": "components-textinput-features--with-loading-indicator",
@@ -8641,7 +8732,7 @@
         },
         {
           "id": "components-timeline-features--clip-sidebar",
-          "code": "() => (\n  <Timeline clipSidebar>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} aria-label=\"Commit\" />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n  </Timeline>\n)"
+          "code": "() => (\n  <Timeline clipSidebar>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} aria-label=\"Commit\" />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n    <Timeline.Item>\n      <Timeline.Badge>\n        <Octicon icon={GitCommitIcon} aria-label=\"Commit\" />\n      </Timeline.Badge>\n      <Timeline.Body>This is a message</Timeline.Body>\n    </Timeline.Item>\n  </Timeline>\n)"
         },
         {
           "id": "components-timeline-features--condensed-items",
@@ -9146,7 +9237,7 @@
       "stories": [
         {
           "id": "components-tooltip--default",
-          "code": "() => (\n  <Box\n    sx={{\n      p: 5,\n    }}\n  >\n    <Tooltip aria-label=\"Hello, Tooltip!\">\n      <Button>Hover me</Button>\n    </Tooltip>\n  </Box>\n)"
+          "code": "() => (\n  <>\n    <Box\n      sx={{\n        mb: 3,\n      }}\n    >\n      <Banner\n        title=\"Planned for deprecation\"\n        description={\n          <div data-a11y-link-underlines=\"true\">\n            There are plans to deprecate this component in a future release. We\n            recommend using{' '}\n            <Link\n              inline={true}\n              href=\"/?path=/story/components-tooltipv2--default\"\n            >\n              Tooltip\n            </Link>{' '}\n            instead.\n          </div>\n        }\n        variant=\"warning\"\n      />\n    </Box>\n    <Box\n      sx={{\n        p: 5,\n      }}\n    >\n      <Tooltip aria-label=\"Hello, Tooltip!\">\n        <Button>Hover me</Button>\n      </Tooltip>\n    </Box>\n  </>\n)"
         },
         {
           "id": "components-tooltip-features--all-directions",
@@ -9604,6 +9695,18 @@
         {
           "id": "components-truncate--default",
           "code": "() => <Truncate title=\"Some example text\">Some example text</Truncate>"
+        },
+        {
+          "id": "components-truncate-features--expandable",
+          "code": "() => (\n  <Truncate title=\"Hover this example text\" expandable>\n    Hover this example text\n  </Truncate>\n)"
+        },
+        {
+          "id": "components-truncate-features--inline",
+          "code": "() => (\n  <>\n    <ArrowRightIcon />\n    <Truncate title=\"Inline example text\" inline>\n      Inline example text\n    </Truncate>\n    <ArrowLeftIcon />\n  </>\n)"
+        },
+        {
+          "id": "components-truncate-features--max-width",
+          "code": "() => (\n  <Truncate title=\"Some example text with a max width\" maxWidth={200}>\n    Some example text with a max width\n  </Truncate>\n)"
         }
       ],
       "importPath": "@primer/react",
@@ -9833,63 +9936,6 @@
               "type": "string",
               "required": false,
               "description": "",
-              "defaultValue": ""
-            }
-          ]
-        }
-      ]
-    },
-    "filter_list": {
-      "id": "filter_list",
-      "name": "FilterList",
-      "status": "deprecated",
-      "a11yReviewed": false,
-      "stories": [
-        {
-          "id": "deprecated-components-filterlist--default",
-          "code": "() => {\n  const [selectedIndex, setSelectedIndex] = useState(0)\n  return (\n    <FilterList>\n      <FilterList.Item\n        selected={selectedIndex === 0}\n        onClick={() => setSelectedIndex(0)}\n        count={32}\n      >\n        First Filter\n      </FilterList.Item>\n      <FilterList.Item\n        selected={selectedIndex === 1}\n        onClick={() => setSelectedIndex(1)}\n        count={16}\n      >\n        Second Filter\n      </FilterList.Item>\n      <FilterList.Item\n        selected={selectedIndex === 2}\n        onClick={() => setSelectedIndex(2)}\n      >\n        Third Filter\n      </FilterList.Item>\n    </FilterList>\n  )\n}"
-        }
-      ],
-      "importPath": "@primer/react/deprecated",
-      "props": [
-        {
-          "name": "sx",
-          "type": "BetterSystemStyleObject",
-          "required": false,
-          "description": "A style object used to override styles using styled-components",
-          "defaultValue": ""
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "FilterList.Item",
-          "props": [
-            {
-              "name": "count",
-              "type": "number",
-              "required": false,
-              "description": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "selected",
-              "type": "boolean",
-              "required": false,
-              "description": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "small",
-              "type": "boolean",
-              "required": false,
-              "description": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "sx",
-              "type": "BetterSystemStyleObject",
-              "required": false,
-              "description": "A style object used to override styles using styled-components",
               "defaultValue": ""
             }
           ]
@@ -11718,141 +11764,6 @@
         }
       ],
       "subcomponents": []
-    },
-    "tab_panels": {
-      "id": "tab_panels",
-      "name": "TabPanels",
-      "status": "draft",
-      "a11yReviewed": false,
-      "stories": [
-        {
-          "id": "drafts-components-tabpanels--default",
-          "code": "() => (\n  <TabPanels aria-label=\"Select a tab\" id=\"tab-panels\" defaultTabIndex={0}>\n    <TabPanels.Tab>Tab 1</TabPanels.Tab>\n    <TabPanels.Tab>Tab 2</TabPanels.Tab>\n    <TabPanels.Tab>Tab 3</TabPanels.Tab>\n    <TabPanels.Panel>Panel 1</TabPanels.Panel>\n    <TabPanels.Panel>Panel 2</TabPanels.Panel>\n    <TabPanels.Panel>Panel 3</TabPanels.Panel>\n  </TabPanels>\n)"
-        },
-        {
-          "id": "drafts-components-tabpanels-features--default-tab",
-          "code": "() => (\n  <TabPanels aria-label=\"TabPanels example\" id=\"tab-panels\" defaultTabIndex={1}>\n    <TabPanels.Tab>One</TabPanels.Tab>\n    <TabPanels.Tab>Two</TabPanels.Tab>\n    <TabPanels.Tab>Three</TabPanels.Tab>\n    <TabPanels.Panel>One</TabPanels.Panel>\n    <TabPanels.Panel>Two</TabPanels.Panel>\n    <TabPanels.Panel>Three</TabPanels.Panel>\n  </TabPanels>\n)"
-        },
-        {
-          "id": "drafts-components-tabpanels-features--selected-tab",
-          "code": "() => (\n  <TabPanels\n    aria-label=\"TabPanels example\"\n    id=\"tab-panels\"\n    selectedTabIndex={1}\n  >\n    <TabPanels.Tab>One</TabPanels.Tab>\n    <TabPanels.Tab>Two</TabPanels.Tab>\n    <TabPanels.Tab>Three</TabPanels.Tab>\n    <TabPanels.Panel>One</TabPanels.Panel>\n    <TabPanels.Panel>Two</TabPanels.Panel>\n    <TabPanels.Panel>Three</TabPanels.Panel>\n  </TabPanels>\n)"
-        },
-        {
-          "id": "drafts-components-tabpanels-features--labelled-by",
-          "code": "() => (\n  <>\n    <h1 id=\"my-heading\">TabPanels example</h1>\n    <TabPanels aria-labelledby=\"my-heading\" id=\"tab-panels\">\n      <TabPanels.Tab>One</TabPanels.Tab>\n      <TabPanels.Tab>Two</TabPanels.Tab>\n      <TabPanels.Tab>Three</TabPanels.Tab>\n      <TabPanels.Panel>One</TabPanels.Panel>\n      <TabPanels.Panel>Two</TabPanels.Panel>\n      <TabPanels.Panel>Three</TabPanels.Panel>\n    </TabPanels>\n  </>\n)"
-        },
-        {
-          "id": "drafts-components-tabpanels-features--additional-content",
-          "code": "() => (\n  <TabPanels aria-label=\"TabPanels example\" id=\"tab-panels\">\n    <Button>Non-tab content (before tabs)</Button>\n    <TabPanels.Tab>One</TabPanels.Tab>\n    <TabPanels.Tab>Two</TabPanels.Tab>\n    <TabPanels.Tab>Three</TabPanels.Tab>\n    <Button>Non-tab content (after tabs)</Button>\n    <TabPanels.Panel>One</TabPanels.Panel>\n    <TabPanels.Panel>Two</TabPanels.Panel>\n    <TabPanels.Panel>Three</TabPanels.Panel>\n    <div>Additional content after the panels</div>\n  </TabPanels>\n)"
-        },
-        {
-          "id": "drafts-components-tabpanels-features--many-tabs",
-          "code": "() => (\n  <TabPanels\n    aria-label=\"TabPanels example\"\n    id=\"tab-panels\"\n    defaultTabIndex={10}\n  >\n    <TabPanels.Tab>One</TabPanels.Tab>\n    <TabPanels.Tab>Two</TabPanels.Tab>\n    <TabPanels.Tab>Three</TabPanels.Tab>\n    <TabPanels.Tab>Four</TabPanels.Tab>\n    <TabPanels.Tab>Five</TabPanels.Tab>\n    <TabPanels.Tab>Six</TabPanels.Tab>\n    <TabPanels.Tab>Seven</TabPanels.Tab>\n    <TabPanels.Tab>Eight</TabPanels.Tab>\n    <TabPanels.Tab>Nine</TabPanels.Tab>\n    <TabPanels.Tab>Ten</TabPanels.Tab>\n    <TabPanels.Tab>Eleven</TabPanels.Tab>\n    <TabPanels.Panel>One</TabPanels.Panel>\n    <TabPanels.Panel>Two</TabPanels.Panel>\n    <TabPanels.Panel>Three</TabPanels.Panel>\n    <TabPanels.Panel>Four</TabPanels.Panel>\n    <TabPanels.Panel>Five</TabPanels.Panel>\n    <TabPanels.Panel>Six</TabPanels.Panel>\n    <TabPanels.Panel>Seven</TabPanels.Panel>\n    <TabPanels.Panel>Eight</TabPanels.Panel>\n    <TabPanels.Panel>Nine</TabPanels.Panel>\n    <TabPanels.Panel>Ten</TabPanels.Panel>\n    <TabPanels.Panel>Eleven</TabPanels.Panel>\n  </TabPanels>\n)"
-        },
-        {
-          "id": "drafts-components-tabpanels-features--alternative-structure",
-          "code": "() => (\n  <TabPanels aria-label=\"TabPanels example\" id=\"tab-panels\">\n    <TabPanels.Tab>One</TabPanels.Tab>\n    <TabPanels.Panel>One</TabPanels.Panel>\n    <TabPanels.Tab>Two</TabPanels.Tab>\n    <TabPanels.Panel>Two</TabPanels.Panel>\n    <TabPanels.Tab>Three</TabPanels.Tab>\n    <TabPanels.Panel>Three</TabPanels.Panel>\n  </TabPanels>\n)"
-        }
-      ],
-      "importPath": "@primer/react/drafts",
-      "props": [
-        {
-          "name": "aria-label",
-          "type": "string",
-          "required": false,
-          "description": "Used to set the `aria-label` on the `role=\\\"tablist\\\"` element. Either aria-label or aria-labelledby must be provided.",
-          "defaultValue": ""
-        },
-        {
-          "name": "aria-labelledby",
-          "type": "string",
-          "required": false,
-          "description": "Used to set the `aria-labelledby` on the `role=\\\"tablist\\\"` element. Either aria-label or aria-labelledby must be provided.",
-          "defaultValue": ""
-        },
-        {
-          "name": "defaultTabIndex",
-          "type": "number",
-          "required": false,
-          "description": "The 0-based index of the tab that is selected by default when the component is loaded.",
-          "defaultValue": ""
-        },
-        {
-          "name": "id",
-          "type": "string",
-          "required": false,
-          "description": "The id of the tab container, used to generate child ids.",
-          "defaultValue": ""
-        },
-        {
-          "name": "onChange",
-          "type": "FormEventHandler<TabContainerElement>",
-          "required": false,
-          "description": "Callback fired when the tab container changes (bubbles, cancelable): fired on `<tab-container>` before a new tab is selected and visibility is updated. `event.tab` is the tab that will be focused and `tab.panel` is the panel that will be shown if the event isn't cancelled.",
-          "defaultValue": ""
-        },
-        {
-          "name": "onChanged",
-          "type": "null | (event: TabContainerChangeEvent) => void",
-          "required": false,
-          "description": "Callback fired when the tab container changes (bubbles): fired on `<tab-container>` after a new tab is selected and visibility is updated. `event.tab` is the tab that is now active (and will be focused right after this event) and `event.panel` is the newly visible tab panel.",
-          "defaultValue": ""
-        },
-        {
-          "name": "selectedTabIndex",
-          "type": "number",
-          "required": false,
-          "description": "The 0-based index of the tab that is selected.",
-          "defaultValue": ""
-        }
-      ],
-      "subcomponents": [
-        {
-          "name": "TabPanels.Panel",
-          "props": [
-            {
-              "name": "children",
-              "type": "ReactNode",
-              "required": false,
-              "description": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "sx",
-              "type": "BetterSystemStyleObject",
-              "required": false,
-              "description": "A style object used to override styles using styled-components",
-              "defaultValue": ""
-            }
-          ]
-        },
-        {
-          "name": "TabPanels.Tab",
-          "props": [
-            {
-              "name": "as",
-              "type": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | \"caption\" | \"center\" | \"cite\" | \"code\" | \"col\" | \"colgroup\" | \"data\" | \"datalist\" | \"dd\" | \"del\" | \"details\" | \"dfn\" | \"dialog\" | \"div\" | \"dl\" | \"dt\" | \"em\" | \"embed\" | \"fieldset\" | \"figcaption\" | \"figure\" | \"footer\" | \"form\" | \"h1\" | \"h2\" | \"h3\" | \"h4\" | \"h5\" | \"h6\" | \"head\" | \"header\" | \"hgroup\" | \"hr\" | \"html\" | \"i\" | \"iframe\" | \"img\" | \"input\" | \"ins\" | \"kbd\" | \"keygen\" | \"label\" | \"legend\" | \"li\" | \"link\" | \"main\" | \"map\" | \"mark\" | \"menu\" | \"menuitem\" | \"meta\" | \"meter\" | \"nav\" | \"noindex\" | \"noscript\" | \"ol\" | \"optgroup\" | \"option\" | \"output\" | \"p\" | \"param\" | \"picture\" | \"pre\" | \"progress\" | \"q\" | \"rp\" | \"rt\" | \"ruby\" | \"s\" | \"samp\" | \"search\" | \"slot\" | \"script\" | \"section\" | \"select\" | \"small\" | \"source\" | \"span\" | \"strong\" | \"style\" | \"sub\" | \"summary\" | \"sup\" | \"table\" | \"template\" | \"tbody\" | \"td\" | \"textarea\" | \"tfoot\" | \"th\" | \"thead\" | \"time\" | \"title\" | \"tr\" | \"track\" | \"u\" | \"ul\" | \"var\" | \"video\" | \"wbr\" | \"webview\" | \"svg\" | \"animate\" | \"animateMotion\" | \"animateTransform\" | \"circle\" | \"clipPath\" | \"defs\" | \"desc\" | \"ellipse\" | \"feBlend\" | \"feColorMatrix\" | \"feComponentTransfer\" | \"feComposite\" | \"feConvolveMatrix\" | \"feDiffuseLighting\" | \"feDisplacementMap\" | \"feDistantLight\" | \"feDropShadow\" | \"feFlood\" | \"feFuncA\" | \"feFuncB\" | \"feFuncG\" | \"feFuncR\" | \"feGaussianBlur\" | \"feImage\" | \"feMerge\" | \"feMergeNode\" | \"feMorphology\" | \"feOffset\" | \"fePointLight\" | \"feSpecularLighting\" | \"feSpotLight\" | \"feTile\" | \"feTurbulence\" | \"filter\" | \"foreignObject\" | \"g\" | \"image\" | \"line\" | \"linearGradient\" | \"marker\" | \"mask\" | \"metadata\" | \"mpath\" | \"path\" | \"pattern\" | \"polygon\" | \"polyline\" | \"radialGradient\" | \"rect\" | \"set\" | \"stop\" | \"switch\" | \"text\" | \"textPath\" | \"tspan\" | \"use\" | \"view\" | \"relative-time\" | \"tab-container\" | ComponentClass<unknown, any> | FunctionComponent<unknown>",
-              "required": true,
-              "description": "",
-              "defaultValue": ""
-            },
-            {
-              "name": "selected",
-              "type": "boolean",
-              "required": false,
-              "description": "Whether the tab is selected",
-              "defaultValue": ""
-            },
-            {
-              "name": "sx",
-              "type": "BetterSystemStyleObject",
-              "required": false,
-              "description": "A style object used to override styles using styled-components",
-              "defaultValue": ""
-            }
-          ]
-        }
-      ]
     },
     "underline_panels": {
       "id": "underline_panels",

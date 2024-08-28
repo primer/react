@@ -23038,6 +23038,27 @@
             }
           ]
         }
+      },
+      "className": {
+        "defaultValue": null,
+        "description": "",
+        "name": "className",
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/Blankslate/Blankslate.tsx",
+            "name": "TypeLiteral"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "string",
+          "value": [
+            {
+              "value": "string"
+            }
+          ]
+        }
       }
     }
   },
@@ -40662,6 +40683,96 @@
             },
             {
               "value": "\"unavailable\""
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "tags": {
+      "primerid": "keybinding_hint",
+      "primerstatus": "draft",
+      "primera11yreviewed": "false"
+    },
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/KeybindingHint/KeybindingHint.tsx",
+    "description": "Indicates the presence of an available keybinding.",
+    "displayName": "KeybindingHint",
+    "methods": [],
+    "props": {
+      "keys": {
+        "defaultValue": null,
+        "description": "The keys involved in this keybinding. These should be the full names of the keys as would\nbe returned by `KeyboardEvent.key` (e.g. \"Control\", \"Shift\", \"ArrowUp\", \"a\", etc.).\n\nCombine keys with the \"+\" character to form chords. To represent the \"+\" key, use \"Plus\".\n\nCombine chords/keys with \" \" to form sequences that should be pressed one after the other. For example, \"a b\"\nrepresents \"a then b\". To represent the \" \" key, use \"Space\".\n\nThe fake key name \"Mod\" can be used to represent \"Command\" on macOS and \"Control\" on other platforms.\n\nSee https://github.com/github/hotkey for format details.",
+        "name": "keys",
+        "parent": {
+          "fileName": "react/packages/react/src/KeybindingHint/props.ts",
+          "name": "KeybindingHintProps"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/KeybindingHint/props.ts",
+            "name": "KeybindingHintProps"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "format": {
+        "defaultValue": {
+          "value": "\"condensed\""
+        },
+        "description": "Control the display format. Condensed is most useful in menus and tooltips, while\nthe full form is better for prose.",
+        "name": "format",
+        "parent": {
+          "fileName": "react/packages/react/src/KeybindingHint/props.ts",
+          "name": "KeybindingHintProps"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/KeybindingHint/props.ts",
+            "name": "KeybindingHintProps"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "KeybindingHintFormat",
+          "value": [
+            {
+              "value": "\"condensed\""
+            },
+            {
+              "value": "\"full\""
+            }
+          ]
+        }
+      },
+      "variant": {
+        "defaultValue": null,
+        "description": "Set to `onEmphasis` for display on emphasis colors.",
+        "name": "variant",
+        "parent": {
+          "fileName": "react/packages/react/src/KeybindingHint/props.ts",
+          "name": "KeybindingHintProps"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/KeybindingHint/props.ts",
+            "name": "KeybindingHintProps"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "KeybindingHintVariant",
+          "value": [
+            {
+              "value": "\"normal\""
+            },
+            {
+              "value": "\"onEmphasis\""
             }
           ]
         }
@@ -81196,6 +81307,14 @@
   },
   {
     "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/hooks/useSyncedState.tsx",
+    "description": "When the value that initialized the state changes\nthis hook will update the state to the new value, immediately.\n\nThis uses an Object.is comparison to determine if the value has changed by default\n\nIf you use a non-primitive value as the initial value, you should provide a custom isEqual function\n\nThis is adapted almost directly from https://beta.reactjs.org/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes",
+    "displayName": "useSyncedState",
+    "methods": [],
+    "props": {}
+  },
+  {
+    "tags": {},
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/live-region/Announce.tsx",
     "description": "`Announce` is a component that will announce the text content of the\n`children` passed in to screen readers using the given politeness level. It\nwill also announce any changes to the text content of `children`",
     "displayName": "Announce",
@@ -83312,22 +83431,6 @@
   },
   {
     "tags": {},
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/utils/ssr.tsx",
-    "description": "",
-    "displayName": "SSRProvider",
-    "methods": [],
-    "props": {}
-  },
-  {
-    "tags": {},
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/utils/ssr.tsx",
-    "description": "",
-    "displayName": "useSSRSafeId",
-    "methods": [],
-    "props": {}
-  },
-  {
-    "tags": {},
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/utils/story-helpers.tsx",
     "description": "",
     "displayName": "getTextInputArgTypes",
@@ -84073,6 +84176,254 @@
         }
       }
     }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/KeybindingHint/components/Chord.tsx",
+    "description": "",
+    "displayName": "Chord",
+    "methods": [],
+    "props": {
+      "keys": {
+        "defaultValue": null,
+        "description": "The keys involved in this keybinding. These should be the full names of the keys as would\nbe returned by `KeyboardEvent.key` (e.g. \"Control\", \"Shift\", \"ArrowUp\", \"a\", etc.).\n\nCombine keys with the \"+\" character to form chords. To represent the \"+\" key, use \"Plus\".\n\nCombine chords/keys with \" \" to form sequences that should be pressed one after the other. For example, \"a b\"\nrepresents \"a then b\". To represent the \" \" key, use \"Space\".\n\nThe fake key name \"Mod\" can be used to represent \"Command\" on macOS and \"Control\" on other platforms.\n\nSee https://github.com/github/hotkey for format details.",
+        "name": "keys",
+        "parent": {
+          "fileName": "react/packages/react/src/KeybindingHint/props.ts",
+          "name": "KeybindingHintProps"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/KeybindingHint/props.ts",
+            "name": "KeybindingHintProps"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "format": {
+        "defaultValue": {
+          "value": "condensed"
+        },
+        "description": "Control the display format. Condensed is most useful in menus and tooltips, while\nthe full form is better for prose.",
+        "name": "format",
+        "parent": {
+          "fileName": "react/packages/react/src/KeybindingHint/props.ts",
+          "name": "KeybindingHintProps"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/KeybindingHint/props.ts",
+            "name": "KeybindingHintProps"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "KeybindingHintFormat",
+          "value": [
+            {
+              "value": "\"condensed\""
+            },
+            {
+              "value": "\"full\""
+            }
+          ]
+        }
+      },
+      "variant": {
+        "defaultValue": {
+          "value": "normal"
+        },
+        "description": "Set to `onEmphasis` for display on emphasis colors.",
+        "name": "variant",
+        "parent": {
+          "fileName": "react/packages/react/src/KeybindingHint/props.ts",
+          "name": "KeybindingHintProps"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/KeybindingHint/props.ts",
+            "name": "KeybindingHintProps"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "KeybindingHintVariant",
+          "value": [
+            {
+              "value": "\"normal\""
+            },
+            {
+              "value": "\"onEmphasis\""
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/KeybindingHint/components/Chord.tsx",
+    "description": "Plain string version of `Chord` for use in `aria` string attributes.",
+    "displayName": "accessibleChordString",
+    "methods": [],
+    "props": {}
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/KeybindingHint/components/Key.tsx",
+    "description": "Renders a single key with accessible alternative text.",
+    "displayName": "Key",
+    "methods": [],
+    "props": {
+      "name": {
+        "defaultValue": null,
+        "description": "",
+        "name": "name",
+        "parent": {
+          "fileName": "react/packages/react/src/KeybindingHint/components/Key.tsx",
+          "name": "KeyProps"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/KeybindingHint/components/Key.tsx",
+            "name": "KeyProps"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "format": {
+        "defaultValue": null,
+        "description": "",
+        "name": "format",
+        "parent": {
+          "fileName": "react/packages/react/src/KeybindingHint/components/Key.tsx",
+          "name": "KeyProps"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/KeybindingHint/components/Key.tsx",
+            "name": "KeyProps"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "enum",
+          "raw": "KeybindingHintFormat",
+          "value": [
+            {
+              "value": "\"condensed\""
+            },
+            {
+              "value": "\"full\""
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/KeybindingHint/components/Sequence.tsx",
+    "description": "",
+    "displayName": "Sequence",
+    "methods": [],
+    "props": {
+      "keys": {
+        "defaultValue": null,
+        "description": "The keys involved in this keybinding. These should be the full names of the keys as would\nbe returned by `KeyboardEvent.key` (e.g. \"Control\", \"Shift\", \"ArrowUp\", \"a\", etc.).\n\nCombine keys with the \"+\" character to form chords. To represent the \"+\" key, use \"Plus\".\n\nCombine chords/keys with \" \" to form sequences that should be pressed one after the other. For example, \"a b\"\nrepresents \"a then b\". To represent the \" \" key, use \"Space\".\n\nThe fake key name \"Mod\" can be used to represent \"Command\" on macOS and \"Control\" on other platforms.\n\nSee https://github.com/github/hotkey for format details.",
+        "name": "keys",
+        "parent": {
+          "fileName": "react/packages/react/src/KeybindingHint/props.ts",
+          "name": "KeybindingHintProps"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/KeybindingHint/props.ts",
+            "name": "KeybindingHintProps"
+          }
+        ],
+        "required": true,
+        "type": {
+          "name": "string"
+        }
+      },
+      "format": {
+        "defaultValue": {
+          "value": "condensed"
+        },
+        "description": "Control the display format. Condensed is most useful in menus and tooltips, while\nthe full form is better for prose.",
+        "name": "format",
+        "parent": {
+          "fileName": "react/packages/react/src/KeybindingHint/props.ts",
+          "name": "KeybindingHintProps"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/KeybindingHint/props.ts",
+            "name": "KeybindingHintProps"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "KeybindingHintFormat",
+          "value": [
+            {
+              "value": "\"condensed\""
+            },
+            {
+              "value": "\"full\""
+            }
+          ]
+        }
+      },
+      "variant": {
+        "defaultValue": {
+          "value": "normal"
+        },
+        "description": "Set to `onEmphasis` for display on emphasis colors.",
+        "name": "variant",
+        "parent": {
+          "fileName": "react/packages/react/src/KeybindingHint/props.ts",
+          "name": "KeybindingHintProps"
+        },
+        "declarations": [
+          {
+            "fileName": "react/packages/react/src/KeybindingHint/props.ts",
+            "name": "KeybindingHintProps"
+          }
+        ],
+        "required": false,
+        "type": {
+          "name": "enum",
+          "raw": "KeybindingHintVariant",
+          "value": [
+            {
+              "value": "\"normal\""
+            },
+            {
+              "value": "\"onEmphasis\""
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "tags": {},
+    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/KeybindingHint/components/Sequence.tsx",
+    "description": "Plain string version of `Sequence` for use in `aria` string attributes.",
+    "displayName": "accessibleSequenceString",
+    "methods": [],
+    "props": {}
   },
   {
     "tags": {},
@@ -88491,259 +88842,6 @@
     "displayName": "ButtonTableList",
     "methods": [],
     "props": {
-      "sx": {
-        "defaultValue": null,
-        "description": "A style object used to override styles using styled-components",
-        "name": "sx",
-        "parent": {
-          "fileName": "react/packages/react/src/sx.ts",
-          "name": "SxProp"
-        },
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/sx.ts",
-            "name": "SxProp"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "BetterSystemStyleObject",
-          "value": [
-            {
-              "value": "null"
-            },
-            {
-              "value": "SystemCssProperties",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSPseudoSelectorProps",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSSelectorObject",
-              "description": "Map all nested selectors",
-              "fullComment": "Map all nested selectors",
-              "tags": {}
-            },
-            {
-              "value": "VariantProperty",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "UseThemeFunction",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "EmotionLabel",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "BetterCssProperties",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSCustomProperties",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSSelectorObject",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            }
-          ]
-        }
-      }
-    }
-  },
-  {
-    "tags": {
-      "deprecated": "Use the ActionList component instead.\nThe FilterList component is a menu with filter options that filter the main content of the page.",
-      "primerid": "filter_list",
-      "primerstatus": "deprecated",
-      "primera11yreviewed": "false"
-    },
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/deprecated/FilterList/FilterList.tsx",
-    "description": "",
-    "displayName": "FilterList",
-    "methods": [],
-    "props": {
-      "sx": {
-        "defaultValue": null,
-        "description": "A style object used to override styles using styled-components",
-        "name": "sx",
-        "parent": {
-          "fileName": "react/packages/react/src/sx.ts",
-          "name": "SxProp"
-        },
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/sx.ts",
-            "name": "SxProp"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "BetterSystemStyleObject",
-          "value": [
-            {
-              "value": "null"
-            },
-            {
-              "value": "SystemCssProperties",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSPseudoSelectorProps",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSSelectorObject",
-              "description": "Map all nested selectors",
-              "fullComment": "Map all nested selectors",
-              "tags": {}
-            },
-            {
-              "value": "VariantProperty",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "UseThemeFunction",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "EmotionLabel",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "BetterCssProperties",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSCustomProperties",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSSelectorObject",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            }
-          ]
-        }
-      }
-    }
-  },
-  {
-    "tags": {
-      "alias": "FilterList.Item",
-      "primerparentid": "filter_list"
-    },
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/deprecated/FilterList/FilterList.tsx",
-    "description": "An item that activates a filter when activated.",
-    "displayName": "FilterList.Item",
-    "methods": [],
-    "props": {
-      "count": {
-        "defaultValue": null,
-        "description": "",
-        "name": "count",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/deprecated/FilterList/FilterList.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "number",
-          "value": [
-            {
-              "value": "number"
-            }
-          ]
-        }
-      },
-      "small": {
-        "defaultValue": null,
-        "description": "",
-        "name": "small",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/deprecated/FilterList/FilterList.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "boolean",
-          "value": [
-            {
-              "value": "false"
-            },
-            {
-              "value": "true"
-            }
-          ]
-        }
-      },
-      "selected": {
-        "defaultValue": null,
-        "description": "",
-        "name": "selected",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/deprecated/FilterList/FilterList.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "boolean",
-          "value": [
-            {
-              "value": "false"
-            },
-            {
-              "value": "true"
-            }
-          ]
-        }
-      },
       "sx": {
         "defaultValue": null,
         "description": "A style object used to override styles using styled-components",
@@ -107621,1039 +107719,6 @@
           "value": [
             {
               "value": "string"
-            }
-          ]
-        }
-      }
-    }
-  },
-  {
-    "tags": {
-      "primerid": "tab_panels",
-      "primerstatus": "draft",
-      "primera11yreviewed": "false"
-    },
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/TabPanels/TabPanels.tsx",
-    "description": "Tab panels let users switch between views in the same context.",
-    "displayName": "TabPanels",
-    "methods": [],
-    "props": {
-      "id": {
-        "defaultValue": null,
-        "description": "The id of the tab container, used to generate child ids.",
-        "name": "id",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/drafts/TabPanels/TabPanels.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "string",
-          "value": [
-            {
-              "value": "string"
-            }
-          ]
-        }
-      },
-      "defaultTabIndex": {
-        "defaultValue": null,
-        "description": "The 0-based index of the tab that is selected by default when the component is loaded.",
-        "name": "defaultTabIndex",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/drafts/TabPanels/TabPanels.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "number",
-          "value": [
-            {
-              "value": "number"
-            }
-          ]
-        }
-      },
-      "selectedTabIndex": {
-        "defaultValue": null,
-        "description": "The 0-based index of the tab that is selected.",
-        "name": "selectedTabIndex",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/drafts/TabPanels/TabPanels.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "number",
-          "value": [
-            {
-              "value": "number"
-            }
-          ]
-        }
-      },
-      "onChange": {
-        "defaultValue": null,
-        "description": "Callback fired when the tab container changes (bubbles, cancelable): fired on `<tab-container>` before a new tab is selected and visibility is updated. `event.tab` is the tab that will be focused and `tab.panel` is the panel that will be shown if the event isn't cancelled.",
-        "name": "onChange",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/drafts/TabPanels/TabPanels.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "FormEventHandler<TabContainerElement>",
-          "value": [
-            {
-              "value": "FormEventHandler<TabContainerElement>",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            }
-          ]
-        }
-      },
-      "onChanged": {
-        "defaultValue": null,
-        "description": "Callback fired when the tab container changes (bubbles): fired on `<tab-container>` after a new tab is selected and visibility is updated. `event.tab` is the tab that is now active (and will be focused right after this event) and `event.panel` is the newly visible tab panel.",
-        "name": "onChanged",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/drafts/TabPanels/TabPanels.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "((event: TabContainerChangeEvent) => void) | null",
-          "value": [
-            {
-              "value": "null"
-            },
-            {
-              "value": "(event: TabContainerChangeEvent) => void",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            }
-          ]
-        }
-      },
-      "aria-label": {
-        "defaultValue": null,
-        "description": "Used to set the `aria-label` on the `role=\\\"tablist\\\"` element. Either aria-label or aria-labelledby must be provided.",
-        "name": "aria-label",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/drafts/TabPanels/TabPanels.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/drafts/TabPanels/TabPanels.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "string",
-          "value": [
-            {
-              "value": "string"
-            }
-          ]
-        }
-      },
-      "aria-labelledby": {
-        "defaultValue": null,
-        "description": "Used to set the `aria-labelledby` on the `role=\\\"tablist\\\"` element. Either aria-label or aria-labelledby must be provided.",
-        "name": "aria-labelledby",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/drafts/TabPanels/TabPanels.tsx",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/drafts/TabPanels/TabPanels.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "string",
-          "value": [
-            {
-              "value": "string"
-            }
-          ]
-        }
-      }
-    }
-  },
-  {
-    "tags": {
-      "alias": "TabPanels.Tab",
-      "primerparentid": "tab_panels"
-    },
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/TabPanels/TabPanels.tsx",
-    "description": "A tab in the tablist of TabPanel",
-    "displayName": "TabPanels.Tab",
-    "methods": [],
-    "props": {
-      "as": {
-        "defaultValue": null,
-        "description": "",
-        "name": "as",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/utils/polymorphic.ts",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/utils/polymorphic.ts",
-            "name": "TypeLiteral"
-          },
-          {
-            "fileName": "react/packages/react/src/utils/polymorphic.ts",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": true,
-        "type": {
-          "name": "enum",
-          "raw": "\"symbol\" | \"object\" | \"a\" | \"abbr\" | \"address\" | \"area\" | \"article\" | \"aside\" | \"audio\" | \"b\" | \"base\" | \"bdi\" | \"bdo\" | \"big\" | \"blockquote\" | \"body\" | \"br\" | \"button\" | \"canvas\" | ... 162 more ... | FunctionComponent<...>",
-          "value": [
-            {
-              "value": "\"symbol\""
-            },
-            {
-              "value": "\"object\""
-            },
-            {
-              "value": "\"a\""
-            },
-            {
-              "value": "\"abbr\""
-            },
-            {
-              "value": "\"address\""
-            },
-            {
-              "value": "\"area\""
-            },
-            {
-              "value": "\"article\""
-            },
-            {
-              "value": "\"aside\""
-            },
-            {
-              "value": "\"audio\""
-            },
-            {
-              "value": "\"b\""
-            },
-            {
-              "value": "\"base\""
-            },
-            {
-              "value": "\"bdi\""
-            },
-            {
-              "value": "\"bdo\""
-            },
-            {
-              "value": "\"big\""
-            },
-            {
-              "value": "\"blockquote\""
-            },
-            {
-              "value": "\"body\""
-            },
-            {
-              "value": "\"br\""
-            },
-            {
-              "value": "\"button\""
-            },
-            {
-              "value": "\"canvas\""
-            },
-            {
-              "value": "\"caption\""
-            },
-            {
-              "value": "\"center\""
-            },
-            {
-              "value": "\"cite\""
-            },
-            {
-              "value": "\"code\""
-            },
-            {
-              "value": "\"col\""
-            },
-            {
-              "value": "\"colgroup\""
-            },
-            {
-              "value": "\"data\""
-            },
-            {
-              "value": "\"datalist\""
-            },
-            {
-              "value": "\"dd\""
-            },
-            {
-              "value": "\"del\""
-            },
-            {
-              "value": "\"details\""
-            },
-            {
-              "value": "\"dfn\""
-            },
-            {
-              "value": "\"dialog\""
-            },
-            {
-              "value": "\"div\""
-            },
-            {
-              "value": "\"dl\""
-            },
-            {
-              "value": "\"dt\""
-            },
-            {
-              "value": "\"em\""
-            },
-            {
-              "value": "\"embed\""
-            },
-            {
-              "value": "\"fieldset\""
-            },
-            {
-              "value": "\"figcaption\""
-            },
-            {
-              "value": "\"figure\""
-            },
-            {
-              "value": "\"footer\""
-            },
-            {
-              "value": "\"form\""
-            },
-            {
-              "value": "\"h1\""
-            },
-            {
-              "value": "\"h2\""
-            },
-            {
-              "value": "\"h3\""
-            },
-            {
-              "value": "\"h4\""
-            },
-            {
-              "value": "\"h5\""
-            },
-            {
-              "value": "\"h6\""
-            },
-            {
-              "value": "\"head\""
-            },
-            {
-              "value": "\"header\""
-            },
-            {
-              "value": "\"hgroup\""
-            },
-            {
-              "value": "\"hr\""
-            },
-            {
-              "value": "\"html\""
-            },
-            {
-              "value": "\"i\""
-            },
-            {
-              "value": "\"iframe\""
-            },
-            {
-              "value": "\"img\""
-            },
-            {
-              "value": "\"input\""
-            },
-            {
-              "value": "\"ins\""
-            },
-            {
-              "value": "\"kbd\""
-            },
-            {
-              "value": "\"keygen\""
-            },
-            {
-              "value": "\"label\""
-            },
-            {
-              "value": "\"legend\""
-            },
-            {
-              "value": "\"li\""
-            },
-            {
-              "value": "\"link\""
-            },
-            {
-              "value": "\"main\""
-            },
-            {
-              "value": "\"map\""
-            },
-            {
-              "value": "\"mark\""
-            },
-            {
-              "value": "\"menu\""
-            },
-            {
-              "value": "\"menuitem\""
-            },
-            {
-              "value": "\"meta\""
-            },
-            {
-              "value": "\"meter\""
-            },
-            {
-              "value": "\"nav\""
-            },
-            {
-              "value": "\"noindex\""
-            },
-            {
-              "value": "\"noscript\""
-            },
-            {
-              "value": "\"ol\""
-            },
-            {
-              "value": "\"optgroup\""
-            },
-            {
-              "value": "\"option\""
-            },
-            {
-              "value": "\"output\""
-            },
-            {
-              "value": "\"p\""
-            },
-            {
-              "value": "\"param\""
-            },
-            {
-              "value": "\"picture\""
-            },
-            {
-              "value": "\"pre\""
-            },
-            {
-              "value": "\"progress\""
-            },
-            {
-              "value": "\"q\""
-            },
-            {
-              "value": "\"rp\""
-            },
-            {
-              "value": "\"rt\""
-            },
-            {
-              "value": "\"ruby\""
-            },
-            {
-              "value": "\"s\""
-            },
-            {
-              "value": "\"samp\""
-            },
-            {
-              "value": "\"search\""
-            },
-            {
-              "value": "\"slot\""
-            },
-            {
-              "value": "\"script\""
-            },
-            {
-              "value": "\"section\""
-            },
-            {
-              "value": "\"select\""
-            },
-            {
-              "value": "\"small\""
-            },
-            {
-              "value": "\"source\""
-            },
-            {
-              "value": "\"span\""
-            },
-            {
-              "value": "\"strong\""
-            },
-            {
-              "value": "\"style\""
-            },
-            {
-              "value": "\"sub\""
-            },
-            {
-              "value": "\"summary\""
-            },
-            {
-              "value": "\"sup\""
-            },
-            {
-              "value": "\"table\""
-            },
-            {
-              "value": "\"template\""
-            },
-            {
-              "value": "\"tbody\""
-            },
-            {
-              "value": "\"td\""
-            },
-            {
-              "value": "\"textarea\""
-            },
-            {
-              "value": "\"tfoot\""
-            },
-            {
-              "value": "\"th\""
-            },
-            {
-              "value": "\"thead\""
-            },
-            {
-              "value": "\"time\""
-            },
-            {
-              "value": "\"title\""
-            },
-            {
-              "value": "\"tr\""
-            },
-            {
-              "value": "\"track\""
-            },
-            {
-              "value": "\"u\""
-            },
-            {
-              "value": "\"ul\""
-            },
-            {
-              "value": "\"var\""
-            },
-            {
-              "value": "\"video\""
-            },
-            {
-              "value": "\"wbr\""
-            },
-            {
-              "value": "\"webview\""
-            },
-            {
-              "value": "\"svg\""
-            },
-            {
-              "value": "\"animate\""
-            },
-            {
-              "value": "\"animateMotion\""
-            },
-            {
-              "value": "\"animateTransform\""
-            },
-            {
-              "value": "\"circle\""
-            },
-            {
-              "value": "\"clipPath\""
-            },
-            {
-              "value": "\"defs\""
-            },
-            {
-              "value": "\"desc\""
-            },
-            {
-              "value": "\"ellipse\""
-            },
-            {
-              "value": "\"feBlend\""
-            },
-            {
-              "value": "\"feColorMatrix\""
-            },
-            {
-              "value": "\"feComponentTransfer\""
-            },
-            {
-              "value": "\"feComposite\""
-            },
-            {
-              "value": "\"feConvolveMatrix\""
-            },
-            {
-              "value": "\"feDiffuseLighting\""
-            },
-            {
-              "value": "\"feDisplacementMap\""
-            },
-            {
-              "value": "\"feDistantLight\""
-            },
-            {
-              "value": "\"feDropShadow\""
-            },
-            {
-              "value": "\"feFlood\""
-            },
-            {
-              "value": "\"feFuncA\""
-            },
-            {
-              "value": "\"feFuncB\""
-            },
-            {
-              "value": "\"feFuncG\""
-            },
-            {
-              "value": "\"feFuncR\""
-            },
-            {
-              "value": "\"feGaussianBlur\""
-            },
-            {
-              "value": "\"feImage\""
-            },
-            {
-              "value": "\"feMerge\""
-            },
-            {
-              "value": "\"feMergeNode\""
-            },
-            {
-              "value": "\"feMorphology\""
-            },
-            {
-              "value": "\"feOffset\""
-            },
-            {
-              "value": "\"fePointLight\""
-            },
-            {
-              "value": "\"feSpecularLighting\""
-            },
-            {
-              "value": "\"feSpotLight\""
-            },
-            {
-              "value": "\"feTile\""
-            },
-            {
-              "value": "\"feTurbulence\""
-            },
-            {
-              "value": "\"filter\""
-            },
-            {
-              "value": "\"foreignObject\""
-            },
-            {
-              "value": "\"g\""
-            },
-            {
-              "value": "\"image\""
-            },
-            {
-              "value": "\"line\""
-            },
-            {
-              "value": "\"linearGradient\""
-            },
-            {
-              "value": "\"marker\""
-            },
-            {
-              "value": "\"mask\""
-            },
-            {
-              "value": "\"metadata\""
-            },
-            {
-              "value": "\"mpath\""
-            },
-            {
-              "value": "\"path\""
-            },
-            {
-              "value": "\"pattern\""
-            },
-            {
-              "value": "\"polygon\""
-            },
-            {
-              "value": "\"polyline\""
-            },
-            {
-              "value": "\"radialGradient\""
-            },
-            {
-              "value": "\"rect\""
-            },
-            {
-              "value": "\"set\""
-            },
-            {
-              "value": "\"stop\""
-            },
-            {
-              "value": "\"switch\""
-            },
-            {
-              "value": "\"text\""
-            },
-            {
-              "value": "\"textPath\""
-            },
-            {
-              "value": "\"tspan\""
-            },
-            {
-              "value": "\"use\""
-            },
-            {
-              "value": "\"view\""
-            },
-            {
-              "value": "\"relative-time\""
-            },
-            {
-              "value": "\"tab-container\""
-            },
-            {
-              "value": "ComponentClass<unknown, any>",
-              "description": "Represents a component class in React.",
-              "fullComment": "Represents a component class in React.\n@template P The props the component accepts.\n@template S The internal state of the component.",
-              "tags": {
-                "template": "P The props the component accepts.\nS The internal state of the component."
-              }
-            },
-            {
-              "value": "FunctionComponent<unknown>",
-              "description": "Represents the type of a function component. Can optionally\nreceive a type argument that represents the props the component\naccepts.",
-              "fullComment": "Represents the type of a function component. Can optionally\nreceive a type argument that represents the props the component\naccepts.\n@template P The props the component accepts.\n@see {@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components React TypeScript Cheatsheet}\n@example ```tsx\n// With props:\ntype Props = { name: string }\n\nconst MyComponent: FunctionComponent<Props> = (props) => {\n return <div>{props.name}</div>\n}\n```\n@example ```tsx\n// Without props:\nconst MyComponentWithoutProps: FunctionComponent = () => {\n  return <div>MyComponentWithoutProps</div>\n}\n```",
-              "tags": {
-                "template": "P The props the component accepts.",
-                "see": "{@link https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components React TypeScript Cheatsheet}",
-                "example": "```tsx\n// With props:\ntype Props = { name: string }\n\nconst MyComponent: FunctionComponent<Props> = (props) => {\n return <div>{props.name}</div>\n}\n```\n```tsx\n// Without props:\nconst MyComponentWithoutProps: FunctionComponent = () => {\n  return <div>MyComponentWithoutProps</div>\n}\n```"
-              }
-            }
-          ]
-        }
-      },
-      "selected": {
-        "defaultValue": null,
-        "description": "Whether the tab is selected",
-        "name": "selected",
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/drafts/TabPanels/TabPanels.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "boolean",
-          "value": [
-            {
-              "value": "false"
-            },
-            {
-              "value": "true"
-            }
-          ]
-        }
-      },
-      "sx": {
-        "defaultValue": null,
-        "description": "A style object used to override styles using styled-components",
-        "name": "sx",
-        "parent": {
-          "fileName": "react/packages/react/src/sx.ts",
-          "name": "SxProp"
-        },
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/sx.ts",
-            "name": "SxProp"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "BetterSystemStyleObject",
-          "value": [
-            {
-              "value": "null"
-            },
-            {
-              "value": "SystemCssProperties",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSPseudoSelectorProps",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSSelectorObject",
-              "description": "Map all nested selectors",
-              "fullComment": "Map all nested selectors",
-              "tags": {}
-            },
-            {
-              "value": "VariantProperty",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "UseThemeFunction",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "EmotionLabel",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "BetterCssProperties",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSCustomProperties",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSSelectorObject",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            }
-          ]
-        }
-      }
-    }
-  },
-  {
-    "tags": {
-      "alias": "TabPanels.Panel",
-      "primerparentid": "tab_panels"
-    },
-    "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/TabPanels/TabPanels.tsx",
-    "description": "A tabpanel associated with a TabPanels.Tab in TabPanels",
-    "displayName": "TabPanels.Panel",
-    "methods": [],
-    "props": {
-      "children": {
-        "defaultValue": null,
-        "description": "",
-        "name": "children",
-        "parent": {
-          "fileName": "react/node_modules/@types/react/index.d.ts",
-          "name": "DOMAttributes"
-        },
-        "declarations": [
-          {
-            "fileName": "react/node_modules/@types/react/index.d.ts",
-            "name": "DOMAttributes"
-          },
-          {
-            "fileName": "react/node_modules/@types/react/index.d.ts",
-            "name": "DOMAttributes"
-          },
-          {
-            "fileName": "react/packages/react/src/drafts/TabPanels/TabPanels.tsx",
-            "name": "TypeLiteral"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "ReactNode",
-          "value": [
-            {
-              "value": "null"
-            },
-            {
-              "value": "string"
-            },
-            {
-              "value": "number"
-            },
-            {
-              "value": "false"
-            },
-            {
-              "value": "true"
-            },
-            {
-              "value": "ReactElement<any, string | JSXElementConstructor<any>>",
-              "description": "Represents a JSX element.\n\nWhere {@link ReactNode} represents everything that can be rendered, `ReactElement`\nonly represents JSX.",
-              "fullComment": "Represents a JSX element.\n\nWhere {@link ReactNode} represents everything that can be rendered, `ReactElement`\nonly represents JSX.\n@template P The type of the props object\n@template T The type of the component or tag\n@example ```tsx\nconst element: ReactElement = <div />;\n```",
-              "tags": {
-                "template": "P The type of the props object\nT The type of the component or tag",
-                "example": "```tsx\nconst element: ReactElement = <div />;\n```"
-              }
-            },
-            {
-              "value": "Iterable<ReactNode>",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "ReactPortal",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            }
-          ]
-        }
-      },
-      "sx": {
-        "defaultValue": null,
-        "description": "A style object used to override styles using styled-components",
-        "name": "sx",
-        "parent": {
-          "fileName": "react/packages/react/src/sx.ts",
-          "name": "SxProp"
-        },
-        "declarations": [
-          {
-            "fileName": "react/packages/react/src/sx.ts",
-            "name": "SxProp"
-          }
-        ],
-        "required": false,
-        "type": {
-          "name": "enum",
-          "raw": "BetterSystemStyleObject",
-          "value": [
-            {
-              "value": "null"
-            },
-            {
-              "value": "SystemCssProperties",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSPseudoSelectorProps",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSSelectorObject",
-              "description": "Map all nested selectors",
-              "fullComment": "Map all nested selectors",
-              "tags": {}
-            },
-            {
-              "value": "VariantProperty",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "UseThemeFunction",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "EmotionLabel",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "BetterCssProperties",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSCustomProperties",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
-            },
-            {
-              "value": "CSSSelectorObject",
-              "description": "",
-              "fullComment": "",
-              "tags": {}
             }
           ]
         }
