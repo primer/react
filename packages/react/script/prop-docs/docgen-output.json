@@ -99429,6 +99429,7 @@
   },
   {
     "tags": {
+      "alias": "SelectPanel",
       "primerid": "select_panel_v2",
       "primerdocsid": "select_panel",
       "primerstatus": "draft",
@@ -99436,7 +99437,7 @@
     },
     "filePath": "/Users/mperrotti/work-dir/react/packages/react/src/drafts/SelectPanel2/SelectPanel.tsx",
     "description": "Select panel is a semantic dialog that allows for complex selection options within an overlay.",
-    "displayName": "Panel",
+    "displayName": "SelectPanel",
     "methods": [],
     "props": {
       "title": {

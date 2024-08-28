@@ -75,6 +75,7 @@ export type SelectPanelProps = {
 
 /**
  * Select panel is a semantic dialog that allows for complex selection options within an overlay.
+ * @alias SelectPanel
  * @primerid select_panel_v2
  * @primerdocsid select_panel
  * @primerstatus draft
