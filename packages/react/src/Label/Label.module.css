@@ -1,0 +1,68 @@
+:where(.Label) {
+  display: inline-flex;
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
+  line-height: 1;
+  color: var(--fgColor-default);
+  white-space: nowrap;
+  background-color: transparent;
+  border-style: solid;
+  border-width: var(--borderWidth-thin);
+  border-radius: var(--borderRadius-full);
+  align-items: center;
+
+  &:where([data-size='small']) {
+    height: var(--base-size-20);
+    padding: 0 var(--base-size-6);
+  }
+
+  &:where([data-size='large']) {
+    height: var(--base-size-24);
+    padding: 0 var(--base-size-8);
+  }
+
+  &:where([data-variant='default']),
+  &:where([data-variant='primary']) {
+    border-color: var(--borderColor-default);
+  }
+
+  &:where([data-variant='secondary']) {
+    color: var(--fgColor-muted);
+    border-color: var(--borderColor-muted);
+  }
+
+  &:where([data-variant='accent']) {
+    color: var(--fgColor-accent);
+    border-color: var(--borderColor-accent-emphasis);
+  }
+
+  &:where([data-variant='success']) {
+    color: var(--fgColor-success);
+    border-color: var(--borderColor-success-emphasis);
+  }
+
+  &:where([data-variant='attention']) {
+    color: var(--fgColor-attention);
+    border-color: var(--borderColor-attention-emphasis);
+  }
+
+  &:where([data-variant='severe']) {
+    color: var(--fgColor-severe);
+    border-color: var(--borderColor-severe-emphasis);
+  }
+
+  &:where([data-variant='danger']) {
+    color: var(--fgColor-danger);
+    border-color: var(--borderColor-danger-emphasis);
+  }
+
+  &:where([data-variant='done']) {
+    color: var(--fgColor-done);
+    border-color: var(--borderColor-done-emphasis);
+  }
+
+  &:where([data-variant='sponsors']) {
+    color: var(--fgColor-sponsors);
+    border-color: var(--borderColor-sponsors-emphasis);
+  }
+}

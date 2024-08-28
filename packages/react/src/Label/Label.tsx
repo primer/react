@@ -1,3 +1,7 @@
+import cx from 'clsx'
+import {useFeatureFlag} from '../FeatureFlags'
+import Box from '../Box'
+import classes from './Label.module.css'
 import React from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
@@ -95,8 +99,25 @@ const StyledLabel = styled.span<LabelProps>`
   ${sx};
 `
 
-const Label = React.forwardRef(function Label({as, size = 'small', variant = 'default', ...rest}, ref) {
-  return <StyledLabel as={as} size={size} variant={variant} ref={ref} {...rest} />
+const Label = React.forwardRef(function Label({as, size = 'small', variant = 'default', className, ...rest}, ref) {
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  if (enabled) {
+    const Component = as || 'span'
+    if (rest.sx) {
+      return (
+        <Box
+          as={Component}
+          className={cx(className, classes.Label)}
+          data-size={size}
+          data-variant={variant}
+          ref={ref}
+          {...rest}
+        />
+      )
+    }
+    return <Component className={cx(className, classes.Label)} data-size={size} data-variant={variant} {...rest} />
+  }
+  return <StyledLabel as={as} className={className} size={size} variant={variant} ref={ref} {...rest} />
 }) as PolymorphicForwardRefComponent<'span', LabelProps>
 
 export default Label
