@@ -151,7 +151,7 @@ export function FilteredActionList({
           </Box>
         ) : (
           <ActionList ref={listContainerRef} showDividers={showItemDividers} {...listProps} role="listbox" id={listId}>
-            {groupMetadata
+            {groupMetadata?.length
               ? groupMetadata.map((group, index) => {
                   return (
                     <ActionList.Group key={index}>
