@@ -25,6 +25,12 @@ export const ClipSidebar = () => (
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
+    <Timeline.Item>
+      <Timeline.Badge>
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
+      </Timeline.Badge>
+      <Timeline.Body>This is a message</Timeline.Body>
+    </Timeline.Item>
   </Timeline>
 )
 

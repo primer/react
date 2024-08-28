@@ -42,7 +42,6 @@ module.exports = {
     'types/**/*',
     'consumer-test/**/*',
     'contributor-docs/adrs/*',
-    'examples/nextjs/**',
     'examples/codesandbox/**',
     // Note: this file is inlined from an external dependency
     'packages/react/src/utils/polymorphic.ts',

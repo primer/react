@@ -1,3 +1,4 @@
+import cx from 'clsx'
 import React, {forwardRef, useEffect} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
@@ -6,6 +7,9 @@ import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import classes from './Heading.module.css'
+import {useFeatureFlag} from '../FeatureFlags'
+import Box from '../Box'
 
 type StyledHeadingProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
@@ -28,6 +32,7 @@ const StyledHeading = styled.h2<StyledHeadingProps>`
   &:where([data-variant='small']) {
     font: var(--text-title-shorthand-small, 600 16px / 1.5 ${get('fonts.normal')});
   }
+
   ${sx};
 `
 
@@ -36,7 +41,8 @@ const StyledHeading = styled.h2<StyledHeadingProps>`
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-export const Heading = forwardRef(({as: Component = 'h2', variant, ...props}, forwardedRef) => {
+export const Heading = forwardRef(({as: Component = 'h2', className, variant, ...props}, forwardedRef) => {
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
   const innerRef = React.useRef<HTMLHeadingElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
@@ -56,13 +62,31 @@ export const Heading = forwardRef(({as: Component = 'h2', variant, ...props}, fo
     }, [innerRef])
   }
 
+  if (enabled) {
+    if (props.sx) {
+      return (
+        <Box
+          as={Component}
+          className={cx(className, classes.Heading)}
+          data-variant={variant}
+          {...props}
+          // @ts-ignore shh
+          ref={innerRef}
+        />
+      )
+    }
+    return <Component className={cx(className, classes.Heading)} data-variant={variant} {...props} ref={innerRef} />
+  }
+
   return (
     <StyledHeading
       as={Component}
+      className={className}
+      data-variant={variant}
+      sx={sx}
       {...props}
       // @ts-ignore shh
       ref={innerRef}
-      data-variant={variant}
     />
   )
 }) as PolymorphicForwardRefComponent<'h2', StyledHeadingProps>

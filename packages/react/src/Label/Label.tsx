@@ -86,7 +86,7 @@ const StyledLabel = styled.span<LabelProps>`
   border-radius: 999px;
   border-style: solid;
   display: inline-flex;
-  font-weight: ${get('fontWeights.bold')};
+  font-weight: ${get('fontWeights.semibold')};
   font-size: ${get('fontSizes.0')};
   line-height: 1;
   white-space: nowrap;

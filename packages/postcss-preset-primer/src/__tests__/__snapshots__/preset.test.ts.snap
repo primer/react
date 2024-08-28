@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`postcss-preset-primer css nesting 1`] = `
+"
+        .selector[data-active] {
+          color: var(--fgColor-active);
+        }
+    "
+`;
+
+exports[`postcss-preset-primer mixins @mixin focusOutline 1`] = `
+"
+        .selector {
+          outline: 2px solid var(--focus-outlineColor);
+          outline-offset: -2px;
+          box-shadow: none;
+        }
+      "
+`;
+
+exports[`postcss-preset-primer mixins @mixin focusOutlineOnEmphasis 1`] = `
+"
+        .selector {
+          outline: 2px solid var(--focus-outlineColor);
+          outline-offset: -2px;
+          box-shadow: inset 0 0 0 3px var(--fgColor-onEmphasis);
+        }
+      "
+`;

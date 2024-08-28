@@ -274,6 +274,7 @@ export const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
             listLabelledBy: ariaLabelledby || anchorAriaLabelledby || anchorId,
             selectionAttribute: 'aria-checked', // Should this be here?
             afterSelect: () => onClose?.('item-select'),
+            enableFocusZone: false, // AnchoredOverlay takes care of focus zone
           }}
         >
           {children}

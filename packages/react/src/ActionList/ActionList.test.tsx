@@ -6,26 +6,24 @@ import theme from '../theme'
 import {ActionList} from '.'
 import {BookIcon} from '@primer/octicons-react'
 import {behavesAsComponent, checkExports} from '../utils/testing'
-import {BaseStyles, ThemeProvider, SSRProvider, ActionMenu} from '..'
+import {BaseStyles, ThemeProvider, ActionMenu} from '..'
 import {FeatureFlags} from '../FeatureFlags'
 
 function SimpleActionList(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
-      <SSRProvider>
-        <BaseStyles>
-          <ActionList>
-            <ActionList.Item>New file</ActionList.Item>
-            <ActionList.Divider />
-            <ActionList.Item>Copy link</ActionList.Item>
-            <ActionList.Item>Edit file</ActionList.Item>
-            <ActionList.Item variant="danger">Delete file</ActionList.Item>
-            <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="d">
-              Link Item
-            </ActionList.LinkItem>
-          </ActionList>
-        </BaseStyles>
-      </SSRProvider>
+      <BaseStyles>
+        <ActionList>
+          <ActionList.Item>New file</ActionList.Item>
+          <ActionList.Divider />
+          <ActionList.Item>Copy link</ActionList.Item>
+          <ActionList.Item>Edit file</ActionList.Item>
+          <ActionList.Item variant="danger">Delete file</ActionList.Item>
+          <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="d">
+            Link Item
+          </ActionList.LinkItem>
+        </ActionList>
+      </BaseStyles>
     </ThemeProvider>
   )
 }
@@ -205,23 +203,22 @@ describe('ActionList', () => {
   it('should focus the button around the leading visual when tabbing to an inactive item', async () => {
     const component = HTMLRender(<SingleSelectListStory />)
     const inactiveOptionButton = await waitFor(() => component.getByRole('button', {name: projects[3].inactiveText}))
-    const inactiveIndex = projects.findIndex(project => project.inactiveText === projects[3].inactiveText)
 
-    for (let i = 0; i < inactiveIndex; i++) {
-      await userEvent.tab()
-    }
-
+    await userEvent.tab() // get focus on first element
+    await userEvent.keyboard('{ArrowDown}')
+    await userEvent.keyboard('{ArrowDown}')
     expect(inactiveOptionButton).toHaveFocus()
   })
 
   it('should behave as inactive if both inactiveText and loading props are passed', async () => {
     const component = HTMLRender(<SingleSelectListStory />)
     const inactiveOptionButton = await waitFor(() => component.getByRole('button', {name: projects[5].inactiveText}))
-    const inactiveIndex = projects.findIndex(project => project.inactiveText === projects[5].inactiveText)
 
-    for (let i = 0; i < inactiveIndex; i++) {
-      await userEvent.tab()
-    }
+    await userEvent.tab() // get focus on first element
+    await userEvent.keyboard('{ArrowDown}')
+    await userEvent.keyboard('{ArrowDown}')
+    await userEvent.keyboard('{ArrowDown}')
+    await userEvent.keyboard('{ArrowDown}')
 
     expect(inactiveOptionButton).toHaveFocus()
   })
@@ -266,19 +263,17 @@ describe('ActionList', () => {
     expect(() =>
       HTMLRender(
         <ThemeProvider theme={theme}>
-          <SSRProvider>
-            <BaseStyles>
-              <ActionMenu open={true}>
-                <ActionMenu.Button>Trigger</ActionMenu.Button>
-                <ActionMenu.Overlay>
-                  <ActionList>
-                    <ActionList.Heading as="h1">Heading</ActionList.Heading>
-                    <ActionList.Item>Item</ActionList.Item>
-                  </ActionList>
-                </ActionMenu.Overlay>
-              </ActionMenu>
-            </BaseStyles>
-          </SSRProvider>
+          <BaseStyles>
+            <ActionMenu open={true}>
+              <ActionMenu.Button>Trigger</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Heading as="h1">Heading</ActionList.Heading>
+                  <ActionList.Item>Item</ActionList.Item>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
         </ThemeProvider>,
       ),
     ).toThrow(
@@ -293,20 +288,18 @@ describe('ActionList', () => {
     expect(() =>
       HTMLRender(
         <ThemeProvider theme={theme}>
-          <SSRProvider>
-            <BaseStyles>
-              <ActionMenu open={true}>
-                <ActionMenu.Button>Trigger</ActionMenu.Button>
-                <ActionMenu.Overlay>
-                  <ActionList>
-                    <ActionList.Group>
-                      <ActionList.GroupHeading as="h2">Group Heading</ActionList.GroupHeading>
-                    </ActionList.Group>
-                  </ActionList>
-                </ActionMenu.Overlay>
-              </ActionMenu>
-            </BaseStyles>
-          </SSRProvider>
+          <BaseStyles>
+            <ActionMenu open={true}>
+              <ActionMenu.Button>Trigger</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Group>
+                    <ActionList.GroupHeading as="h2">Group Heading</ActionList.GroupHeading>
+                  </ActionList.Group>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
         </ThemeProvider>,
       ),
     ).toThrow(
@@ -589,5 +582,37 @@ describe('ActionList', () => {
     await user.keyboard('{Enter}')
 
     expect(mockOnSelect).toHaveBeenCalledTimes(1)
+  })
+
+  it('should be navigatable with arrow keys for certain roles', async () => {
+    HTMLRender(
+      <ActionList role="listbox" aria-label="Select a project">
+        <ActionList.Item role="option">Option 1</ActionList.Item>
+        <ActionList.Item role="option">Option 2</ActionList.Item>
+        <ActionList.Item role="option" disabled>
+          Option 3
+        </ActionList.Item>
+        <ActionList.Item role="option">Option 4</ActionList.Item>
+        <ActionList.Item role="option" inactiveText="Unavailable due to an outage">
+          Option 5
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    await userEvent.tab() // tab into the story, this should focus on the first button
+    expect(document.activeElement).toHaveTextContent('Option 1')
+
+    await userEvent.keyboard('{ArrowDown}')
+    expect(document.activeElement).toHaveTextContent('Option 2')
+
+    await userEvent.keyboard('{ArrowDown}')
+    expect(document.activeElement).not.toHaveTextContent('Option 3') // option 3 is disabled
+    expect(document.activeElement).toHaveTextContent('Option 4')
+
+    await userEvent.keyboard('{ArrowDown}')
+    expect(document.activeElement).toHaveAccessibleName('Unavailable due to an outage')
+
+    await userEvent.keyboard('{ArrowUp}')
+    expect(document.activeElement).toHaveTextContent('Option 4')
   })
 })

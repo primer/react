@@ -1,3 +1,4 @@
+import cx from 'clsx'
 import React, {forwardRef, useEffect} from 'react'
 import styled from 'styled-components'
 import {system} from 'styled-system'
@@ -5,6 +6,9 @@ import {get} from '../constants'
 import {useRefObjectAsForwardedRef} from '../hooks'
 import type {SxProp} from '../sx'
 import sx from '../sx'
+import classes from './Link.module.css'
+import {useFeatureFlag} from '../FeatureFlags'
+import Box from '../Box'
 import type {ComponentProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
@@ -64,7 +68,8 @@ const StyledLink = styled.a<StyledLinkProps>`
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-export const Link = forwardRef(({as: Component = 'a', ...props}, forwardedRef) => {
+export const Link = forwardRef(({as: Component = 'a', className, ...props}, forwardedRef) => {
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
   const innerRef = React.useRef<HTMLAnchorElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
@@ -92,9 +97,39 @@ export const Link = forwardRef(({as: Component = 'a', ...props}, forwardedRef) =
     }, [innerRef])
   }
 
+  if (enabled) {
+    if (props.sx) {
+      return (
+        <Box
+          as={Component}
+          className={cx(className, classes.Link)}
+          data-muted={props.muted}
+          data-inline={props.inline}
+          data-underline={props.underline}
+          {...props}
+          // @ts-ignore shh
+          ref={innerRef}
+        />
+      )
+    }
+
+    return (
+      <Component
+        className={cx(className, classes.Link)}
+        data-muted={props.muted}
+        data-inline={props.inline}
+        data-underline={props.underline}
+        {...props}
+        // @ts-ignore shh
+        ref={innerRef}
+      />
+    )
+  }
+
   return (
     <StyledLink
       as={Component}
+      className={className}
       data-inline={props.inline}
       {...props}
       // @ts-ignore shh

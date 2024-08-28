@@ -1,6 +1,6 @@
 import React from 'react'
 import {render} from '@testing-library/react'
-import {Checkbox, CheckboxGroup, FormControl, SSRProvider} from '..'
+import {Checkbox, CheckboxGroup, FormControl} from '..'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import userEvent from '@testing-library/user-event'
 import {CheckboxGroupContext} from '../CheckboxGroup'
@@ -18,25 +18,23 @@ describe('CheckboxGroup', () => {
 
   behavesAsComponent({
     Component: CheckboxGroup,
-    options: {skipAs: true, skipSx: true}, // skipping sx check because we have to render this in a <SSRProvider> to keep snapshots consistent
+    options: {skipAs: true, skipSx: true},
     toRender: () => (
-      <SSRProvider>
-        <CheckboxGroup>
-          <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
-          <FormControl>
-            <Checkbox value="one" />
-            <FormControl.Label>Choice one</FormControl.Label>
-          </FormControl>
-          <FormControl>
-            <Checkbox value="two" />
-            <FormControl.Label>Choice two</FormControl.Label>
-          </FormControl>
-          <FormControl>
-            <Checkbox value="three" />
-            <FormControl.Label>Choice three</FormControl.Label>
-          </FormControl>
-        </CheckboxGroup>
-      </SSRProvider>
+      <CheckboxGroup>
+        <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
+        <FormControl>
+          <Checkbox value="one" />
+          <FormControl.Label>Choice one</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Checkbox value="two" />
+          <FormControl.Label>Choice two</FormControl.Label>
+        </FormControl>
+        <FormControl>
+          <Checkbox value="three" />
+          <FormControl.Label>Choice three</FormControl.Label>
+        </FormControl>
+      </CheckboxGroup>
     ),
   })
 

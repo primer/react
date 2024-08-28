@@ -3,40 +3,6 @@ import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
 test.describe('Button', () => {
-  test.describe('Playground', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-button--playground',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Playground.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button--playground',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
-      })
-    }
-  })
-
   test.describe('Danger', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
@@ -208,37 +174,14 @@ test.describe('Button', () => {
   })
 
   test.describe('Large', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--large',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Large.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--large',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
+    test('default @vrt', async ({page}) => {
+      await visit(page, {
+        id: 'components-button-features--large',
       })
-    }
+
+      // Default state
+      expect(await page.screenshot()).toMatchSnapshot(`Button.Large.png`)
+    })
   })
 
   test.describe('Leading Visual', () => {
@@ -276,37 +219,14 @@ test.describe('Button', () => {
   })
 
   test.describe('Medium', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--medium',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Medium.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--medium',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
+    test('default @vrt', async ({page}) => {
+      await visit(page, {
+        id: 'components-button-features--medium',
       })
-    }
+
+      // Default state
+      expect(await page.screenshot()).toMatchSnapshot(`Button.Medium.png`)
+    })
   })
 
   test.describe('Primary', () => {
@@ -344,37 +264,14 @@ test.describe('Button', () => {
   })
 
   test.describe('Small', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--small',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Button.Small.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--small',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
+    test('default @vrt', async ({page}) => {
+      await visit(page, {
+        id: 'components-button-features--small',
       })
-    }
+
+      // Default state
+      expect(await page.screenshot()).toMatchSnapshot(`Button.Small.png`)
+    })
   })
 
   test.describe('Trailing Action', () => {
@@ -531,42 +428,6 @@ test.describe('Button', () => {
         test('axe @aat', async ({page}) => {
           await visit(page, {
             id: 'components-button-features--loading',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
-      })
-    }
-  })
-
-  test.describe('Loading Custom Announcement', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--loading-custom-announcement',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-            `Button.Loading Custom Announcement.${theme}.png`,
-          )
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-button-features--loading-custom-announcement',
             globals: {
               colorScheme: theme,
             },

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Box, FormControl} from '..'
+import {Box, FormControl, Stack} from '..'
 import type {TextInputProps} from '../TextInput'
 import {TextInput} from './'
 import {CalendarIcon, CheckIcon, XCircleFillIcon} from '@primer/octicons-react'
@@ -121,7 +121,7 @@ export const WithTrailingIcon = () => (
 )
 
 export const WithTrailingAction = () => {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState('sample text')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
@@ -131,18 +131,15 @@ export const WithTrailingAction = () => {
       <FormControl>
         <FormControl.Label>Default label</FormControl.Label>
         <TextInput
-          trailingAction={
-            <TextInput.Action
-              onClick={() => {
-                setValue('')
-              }}
-              icon={XCircleFillIcon}
-              aria-label="Clear input"
-              sx={{color: 'fg.subtle'}}
-            />
-          }
           value={value}
           onChange={handleChange}
+          trailingAction={
+            <Stack justify="center" style={{minWidth: '34px'}}>
+              {value.length ? (
+                <TextInput.Action onClick={() => setValue('')} icon={XCircleFillIcon} aria-label="Clear input" />
+              ) : undefined}
+            </Stack>
+          }
         />
       </FormControl>
     </Box>
@@ -150,7 +147,7 @@ export const WithTrailingAction = () => {
 }
 
 export const WithTooltipDirection = () => {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState('sample text')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
@@ -160,19 +157,20 @@ export const WithTooltipDirection = () => {
       <FormControl>
         <FormControl.Label>Default label</FormControl.Label>
         <TextInput
-          trailingAction={
-            <TextInput.Action
-              onClick={() => {
-                setValue('')
-              }}
-              icon={XCircleFillIcon}
-              aria-label="Clear input"
-              tooltipDirection="nw"
-              sx={{color: 'fg.subtle'}}
-            />
-          }
           value={value}
           onChange={handleChange}
+          trailingAction={
+            <Stack justify="center" style={{minWidth: '34px'}}>
+              {value.length ? (
+                <TextInput.Action
+                  onClick={() => setValue('')}
+                  icon={XCircleFillIcon}
+                  aria-label="Clear input"
+                  tooltipDirection="nw"
+                />
+              ) : undefined}
+            </Stack>
+          }
         />
       </FormControl>
     </Box>

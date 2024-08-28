@@ -288,7 +288,7 @@ const StyledBanner = styled.div`
   /* BannerActions ---------------------------------------------------------- */
   .BannerActionsContainer {
     display: flex;
-    column-gap: var(--base-size-8, 0.5rem);
+    column-gap: var(--base-size-12, 0.5rem);
     align-items: center;
   }
 
@@ -307,7 +307,7 @@ const StyledBanner = styled.div`
   }
 
   &[data-dismissible] .BannerActions {
-    margin-block-end: var(--size-small, 0.375rem);
+    margin-block-end: var(--base-size-6, 0.375rem);
   }
 
   &[data-dismissible] .BannerActionsContainer[data-primary-action='trailing'] {
@@ -453,7 +453,7 @@ export type BannerSecondaryActionProps = Omit<React.ComponentPropsWithoutRef<typ
  */
 export function BannerSecondaryAction({children, className, ...rest}: BannerSecondaryActionProps) {
   return (
-    <Button className={cx('BannerPrimaryAction', className)} variant="invisible" {...rest}>
+    <Button className={cx('BannerPrimaryAction', className)} variant="link" {...rest}>
       {children}
     </Button>
   )

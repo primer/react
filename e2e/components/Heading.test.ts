@@ -1,74 +1,69 @@
 import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 
+const stories = [
+  {
+    title: 'Default',
+    id: 'components-heading--default',
+  },
+  {
+    title: 'Small',
+    id: 'components-heading-features--small',
+  },
+  {
+    title: 'Medium',
+    id: 'components-heading-features--medium',
+  },
+  {
+    title: 'Large',
+    id: 'components-heading-features--large',
+  },
+] as const
+
 test.describe('Heading', () => {
-  test.describe('Default', () => {
-    test('default @vrt', async ({page}) => {
-      await visit(page, {
-        id: 'components-heading--default',
+  for (const story of stories) {
+    test.describe(story.title, () => {
+      test('default @vrt', async ({page}) => {
+        await visit(page, {
+          id: story.id,
+          globals: {
+            featureFlags: {
+              primer_react_css_modules_team: true,
+            },
+          },
+        })
+
+        // Default state
+        expect(await page.screenshot()).toMatchSnapshot(`Heading.${story.title}.png`)
       })
 
-      // Default state
-      expect(await page.screenshot()).toMatchSnapshot(`Heading.Default.png`)
-    })
+      test('default (styled-components) @vrt', async ({page}) => {
+        await visit(page, {
+          id: story.id,
+        })
 
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-heading--default',
-      })
-      await expect(page).toHaveNoViolations()
-    })
-  })
-
-  test.describe('Small', () => {
-    test('default @vrt', async ({page}) => {
-      await visit(page, {
-        id: 'components-heading-features--small',
+        // Default state
+        expect(await page.screenshot()).toMatchSnapshot(`Heading.${story.title}.png`)
       })
 
-      expect(await page.screenshot()).toMatchSnapshot(`Heading.Small.png`)
-    })
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-heading-features--small',
-      })
-      await expect(page).toHaveNoViolations()
-    })
-  })
-
-  test.describe('Medium', () => {
-    test('default @vrt', async ({page}) => {
-      await visit(page, {
-        id: 'components-heading-features--medium',
+      test('axe @aat', async ({page}) => {
+        await visit(page, {
+          id: story.id,
+          globals: {
+            featureFlags: {
+              primer_react_css_modules_team: true,
+            },
+          },
+        })
+        await expect(page).toHaveNoViolations()
       })
 
-      expect(await page.screenshot()).toMatchSnapshot(`Heading.Medium.png`)
-    })
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-heading-features--medium',
+      test('axe (styled-components) @aat', async ({page}) => {
+        await visit(page, {
+          id: story.id,
+        })
+        await expect(page).toHaveNoViolations()
       })
-      await expect(page).toHaveNoViolations()
     })
-  })
-
-  test.describe('Large', () => {
-    test('default @vrt', async ({page}) => {
-      await visit(page, {
-        id: 'components-heading-features--large',
-      })
-
-      // Default state
-      expect(await page.screenshot()).toMatchSnapshot(`Heading.Large.png`)
-    })
-
-    test('axe @aat', async ({page}) => {
-      await visit(page, {
-        id: 'components-heading-features--large',
-      })
-      await expect(page).toHaveNoViolations()
-    })
-  })
+  }
 })

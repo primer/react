@@ -18,7 +18,7 @@ export type CircleOcticonProps = {
  * @prmera11yreviewed false
  */
 function CircleOcticon(props: CircleOcticonProps) {
-  const {size = 32, as, icon: IconComponent, bg, ...rest} = props
+  const {size = 32, as, icon: IconComponent, bg, 'aria-label': ariaLabel, ...rest} = props
   return (
     <Box
       as={as}
@@ -31,7 +31,7 @@ function CircleOcticon(props: CircleOcticonProps) {
       borderColor="border.default"
     >
       <Box display="flex" as={as} size={size} {...rest} alignItems="center" justifyContent="center">
-        <IconComponent size={size} />
+        <IconComponent size={size} aria-label={ariaLabel} />
       </Box>
     </Box>
   )

@@ -22,7 +22,7 @@ const StyledMessage = styled.div`
   column-gap: 0.5rem;
   grid-template-columns: auto 1fr;
   align-items: start;
-  color: var(--inline-message-fgColor, ${get('colors.neutral.emphasis')});
+  color: var(--inline-message-fgColor, ${get('colors.fg.muted')});
   line-height: var(--inline-message-lineHeight);
   font-size: var(--inline-message-fontSize, ${get('fontSizes.1')});
 
@@ -49,7 +49,7 @@ const StyledMessage = styled.div`
   }
 
   &[data-variant='unavailable'] {
-    --inline-message-fgColor: ${get('colors.neutral.emphasis')};
+    --inline-message-fgColor: ${get('colors.fg.muted')};
   }
 
   & .InlineMessageIcon {

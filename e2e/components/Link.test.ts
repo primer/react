@@ -31,6 +31,9 @@ test.describe('Link', () => {
               id: story.id,
               globals: {
                 colorScheme: theme,
+                featureFlags: {
+                  primer_react_css_modules_team: true,
+                },
               },
             })
 
@@ -47,6 +50,39 @@ test.describe('Link', () => {
           })
 
           test('axe @aat', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+                featureFlags: {
+                  primer_react_css_modules_team: true,
+                },
+              },
+            })
+            await expect(page).toHaveNoViolations()
+          })
+
+          test('default (styled-component) @vrt', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+              },
+            })
+
+            // Default state
+            expect(await page.screenshot()).toMatchSnapshot(`Link.${story.title}.${theme}.png`)
+
+            // Hover state
+            await page.getByRole('link').hover()
+            expect(await page.screenshot()).toMatchSnapshot(`Link.${story.title}.${theme}.hover.png`)
+
+            // Focus state
+            await page.keyboard.press('Tab')
+            expect(await page.screenshot()).toMatchSnapshot(`Link.${story.title}.${theme}.focus.png`)
+          })
+
+          test('axe (styled-component) @aat', async ({page}) => {
             await visit(page, {
               id: story.id,
               globals: {

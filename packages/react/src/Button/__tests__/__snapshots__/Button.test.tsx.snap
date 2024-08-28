@@ -1629,7 +1629,7 @@ exports[`Button styles invisible button appropriately 1`] = `
   transition: 80ms cubic-bezier(0.65,0,0.35,1);
   -webkit-transition-property: color,fill,background-color,border-color;
   transition-property: color,fill,background-color,border-color;
-  color: btn.text;
+  color: var(--button-invisible-fgColor-rest,undefined);
   background-color: transparent;
   box-shadow: none;
 }
@@ -1862,11 +1862,11 @@ exports[`Button styles invisible button appropriately 1`] = `
 }
 
 .c0[data-no-visuals] {
-  color: accent.fg;
+  color: var(--button-invisible-fgColor-rest,undefined);
 }
 
 .c0:has([data-component="ButtonCounter"]) {
-  color: btn.text;
+  color: var(--button-invisible-fgColor-rest,undefined);
 }
 
 .c0:disabled[data-no-visuals] {
