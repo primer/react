@@ -68,7 +68,7 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
     }
 
     warning(
-      !ariaAttributes['aria-valuenow'] &&
+      ariaAttributes['aria-valuenow'] === undefined &&
         typeof (rest as React.AriaAttributes)['aria-valuenow'] === 'undefined' &&
         typeof (rest as React.AriaAttributes)['aria-valuetext'] === 'undefined',
       'Expected `aria-valuenow` or `aria-valuetext` to be provided to <ProgressBar>. Provide one of these values so screen reader users can determine the current progress. This warning will become an error in the next major release.',
