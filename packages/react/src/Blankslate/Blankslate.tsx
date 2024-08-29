@@ -1,10 +1,10 @@
 import cx from 'clsx'
 import React from 'react'
+import styled from 'styled-components'
 import Box from '../Box'
 import {Button} from '../Button'
-import Link from '../Link'
+import {Link} from '../Link'
 import {get} from '../constants'
-import styled from 'styled-components'
 import classes from './Blankslate.module.css'
 import {useFeatureFlag} from '../FeatureFlags'
 
@@ -128,7 +128,13 @@ const BlankslateContainerQuery = `
   }
 `
 
-function Blankslate({border, children, narrow, spacious, className}: BlankslateProps) {
+/**
+ * Blankslate is used as placeholder to tell users why content is missing.
+ * @primerid blankslate
+ * @primerstatus draft
+ * @primera11yreviewed false
+ */
+export function Blankslate({border, children, narrow, spacious, className}: BlankslateProps) {
   const enabled = useFeatureFlag('primer_react_css_modules_staff')
 
   if (enabled) {
@@ -164,7 +170,12 @@ function Blankslate({border, children, narrow, spacious, className}: BlankslateP
 
 export type VisualProps = React.PropsWithChildren
 
-function Visual({children}: VisualProps) {
+/**
+ * Used to display an icon or image at the top of a Blankslate.
+ * @alias Blankslate.Visual
+ * @primerparentid blankslate
+ */
+export function Visual({children}: VisualProps) {
   const enabled = useFeatureFlag('primer_react_css_modules_staff')
   return (
     <span
@@ -181,7 +192,12 @@ export type HeadingProps = React.PropsWithChildren<{
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }>
 
-function Heading({as: Component = 'h2', children}: HeadingProps) {
+/**
+ * The title (heading) of the Blankslate.
+ * @alias Blankslate.Heading
+ * @primerparentid blankslate
+ */
+export function Heading({as = 'h2', children}: HeadingProps) {
   const enabled = useFeatureFlag('primer_react_css_modules_staff')
 
   if (enabled) {
@@ -197,7 +213,12 @@ function Heading({as: Component = 'h2', children}: HeadingProps) {
 
 export type DescriptionProps = React.PropsWithChildren
 
-function Description({children}: DescriptionProps) {
+/**
+ * An optional description for the Blankslate when the title needs supplemental information.
+ * @alias Blankslate.Description
+ * @primerparentid blankslate
+ */
+export function Description({children}: DescriptionProps) {
   const enabled = useFeatureFlag('primer_react_css_modules_staff')
   return (
     <p
@@ -211,10 +232,16 @@ function Description({children}: DescriptionProps) {
 }
 
 export type PrimaryActionProps = React.PropsWithChildren<{
+  /** Link to complete primary action */
   href: string
 }>
 
-function PrimaryAction({children, href}: PrimaryActionProps) {
+/**
+ * The primary action to take in response to the messaging in Blankslate.
+ * @alias Blankslate.PrimaryAction
+ * @primerparentid blankslate
+ */
+export function PrimaryAction({children, href}: PrimaryActionProps) {
   const enabled = useFeatureFlag('primer_react_css_modules_staff')
   return (
     <div
@@ -230,10 +257,16 @@ function PrimaryAction({children, href}: PrimaryActionProps) {
 }
 
 export type SecondaryActionProps = React.PropsWithChildren<{
+  /** Link to complete secondary action */
   href: string
 }>
 
-function SecondaryAction({children, href}: SecondaryActionProps) {
+/**
+ * The secondary action to take in response to the messaging in Blankslate.
+ * @alias Blankslate.SecondaryAction
+ * @primerparentid blankslate
+ */
+export function SecondaryAction({children, href}: SecondaryActionProps) {
   const enabled = useFeatureFlag('primer_react_css_modules_staff')
   return (
     <div
@@ -245,11 +278,3 @@ function SecondaryAction({children, href}: SecondaryActionProps) {
     </div>
   )
 }
-
-export default Object.assign(Blankslate, {
-  Visual,
-  Heading,
-  Description,
-  PrimaryAction,
-  SecondaryAction,
-})

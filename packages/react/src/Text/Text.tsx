@@ -12,6 +12,12 @@ type StyledTextProps = {
   SystemCommonProps &
   SxProp
 
+/**
+ * Text styles a string.
+ * @primerid text
+ * @primerstatus alpha
+ * @primera11yreviewed true
+ */
 const Text = styled.span.attrs<StyledTextProps>(({size, weight}) => ({
   'data-size': size,
   'data-weight': weight,

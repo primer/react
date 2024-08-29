@@ -9,8 +9,10 @@ export type ActionListDividerProps = SxProp
 
 /**
  * Visually separates `Item`s or `Group`s in an `ActionList`.
+ * @alias ActionList.Divider
+ * @primerparentid action_list
  */
-export const Divider: React.FC<React.PropsWithChildren<ActionListDividerProps>> = ({sx = {}}) => {
+export const Divider: React.FC<ActionListDividerProps> = ({sx = {}}) => {
   return (
     <Box
       as="li"

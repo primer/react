@@ -3,6 +3,12 @@ import {get} from '../constants'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
 
+/**
+ * Button group renders a series of buttons.
+ * @primerid button_group
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 const ButtonGroup = styled.div`
   display: inline-flex;
   vertical-align: middle;

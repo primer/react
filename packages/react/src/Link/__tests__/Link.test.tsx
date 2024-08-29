@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from '..'
+import {Link} from '..'
 import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
@@ -8,7 +8,8 @@ describe('Link', () => {
   behavesAsComponent({Component: Link})
 
   checkExports('Link', {
-    default: Link,
+    default: undefined,
+    Link,
   })
 
   it('should have no axe violations', async () => {

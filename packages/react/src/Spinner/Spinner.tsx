@@ -62,6 +62,12 @@ function Spinner({size: sizeKey = 'medium', srText = 'Loading', 'aria-label': ar
   )
 }
 
+/**
+ * Use Spinner to show users that an action is in progress.
+ * @primerid spinner
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 const StyledSpinner = styled(Spinner)`
   @keyframes rotate-keyframes {
     100% {

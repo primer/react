@@ -1,6 +1,6 @@
 import React from 'react'
 import type {PopoverProps} from '../Popover'
-import Popover from '../Popover'
+import {Popover} from '../Popover'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
@@ -15,7 +15,8 @@ describe('Popover', () => {
   behavesAsComponent({Component: Popover, toRender: () => comp})
 
   checkExports('Popover', {
-    default: Popover,
+    default: undefined,
+    Popover,
   })
 
   describe('Popover.Content', () => {

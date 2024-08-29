@@ -7,7 +7,18 @@ import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
 
-const Timeline = styled.div<{clipSidebar?: boolean} & SxProp>`
+/**
+ * The timeline component is used to display items on a vertical timeline, connected by timeline elements.
+ * @primerid timeline
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
+export const Timeline = styled.div<
+  {
+    /** Hides the sidebar above the first Timeline.Item and below the last Timeline.Item. */
+    clipSidebar?: boolean
+  } & SxProp
+>`
   display: flex;
   flex-direction: column;
   ${props =>
@@ -25,9 +36,17 @@ const Timeline = styled.div<{clipSidebar?: boolean} & SxProp>`
   ${sx};
 `
 
-type StyledTimelineItemProps = {condensed?: boolean} & SxProp
+type StyledTimelineItemProps = {
+  /** Reduces vertical padding and removes background from an item's badge. */
+  condensed?: boolean
+} & SxProp
 
-const TimelineItem = styled.div.attrs<StyledTimelineItemProps>(props => ({
+/**
+ * An individual item on a timeline.
+ * @alias Timeline.Item
+ * @primerparentid timeline
+ */
+export const TimelineItem = styled.div.attrs<StyledTimelineItemProps>(props => ({
   className: clsx('Timeline-Item', props.className),
 }))<StyledTimelineItemProps>`
   display: flex;
@@ -70,7 +89,12 @@ const TimelineItem = styled.div.attrs<StyledTimelineItemProps>(props => ({
 
 export type TimelineBadgeProps = {children?: React.ReactNode} & SxProp
 
-const TimelineBadge = (props: TimelineBadgeProps) => {
+/**
+ * The "badge" that prepends a timeline item's body content.
+ * @alias Timeline.Badge
+ * @primerparentid timeline
+ */
+export const TimelineBadge: React.FC<React.PropsWithChildren<TimelineBadgeProps>> = props => {
   return (
     <Box position="relative" zIndex={1}>
       <Box
@@ -98,7 +122,12 @@ const TimelineBadge = (props: TimelineBadgeProps) => {
   )
 }
 
-const TimelineBody = styled.div<SxProp>`
+/**
+ * A timeline item's body content.
+ * @alias Timeline.Body
+ * @primerparentid timeline
+ */
+export const TimelineBody = styled.div<SxProp>`
   min-width: 0;
   max-width: 100%;
   margin-top: ${get('space.1')};
@@ -108,7 +137,12 @@ const TimelineBody = styled.div<SxProp>`
   ${sx};
 `
 
-const TimelineBreak = styled.div<SxProp>`
+/**
+ * A visual break in the timeline.
+ * @alias Timeline.Break
+ * @primerparentid timeline
+ */
+export const TimelineBreak = styled.div<SxProp>`
   position: relative;
   z-index: 1;
   height: 24px;
@@ -133,9 +167,3 @@ export type TimelineProps = ComponentProps<typeof Timeline>
 export type TimelineItemsProps = ComponentProps<typeof TimelineItem>
 export type TimelineBodyProps = ComponentProps<typeof TimelineBody>
 export type TimelineBreakProps = ComponentProps<typeof TimelineBreak>
-export default Object.assign(Timeline, {
-  Item: TimelineItem,
-  Badge: TimelineBadge,
-  Body: TimelineBody,
-  Break: TimelineBreak,
-})

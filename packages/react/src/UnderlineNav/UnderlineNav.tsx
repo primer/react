@@ -29,11 +29,14 @@ import {invariant} from '../utils/invariant'
 
 export type UnderlineNavProps = {
   children: React.ReactNode
+  /**
+   * A unique name for the rendered 'nav' landmark. It will also be used to label the arrow\nbuttons that control the scroll behaviour on coarse pointer devices. (I.e.\n'Scroll ${aria-label} left/right')\n
+   */
   'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType
   sx?: SxProp['sx']
   /**
-   * loading state for all counters. It displays loading animation for individual counters (UnderlineNav.Item) until all are resolved. It is needed to prevent multiple layout shift.
+   * Whether the navigation items are in loading state. Component waits for all the counters to finish loading to prevent multiple layout shifts.
    */
   loadingCounters?: boolean
 }
@@ -138,6 +141,12 @@ const calculatePossibleItems = (childWidthArray: ChildWidthArray, navWidth: numb
   return breakpoint
 }
 
+/**
+ * The underline nav is used to display navigation in a horizontal tabbed format.
+ * @primerid underline_nav
+ * @primerstatus beta
+ * @primera11yreviewed true
+ */
 export const UnderlineNav = forwardRef(
   (
     {

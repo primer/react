@@ -4,6 +4,12 @@ import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
 
+/**
+ * Pagehead denotes the title and start of a given section.
+ * @primerid pagehead
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 const Pagehead = styled.div<SxProp>`
   position: relative;
   padding-top: ${get('space.4')};

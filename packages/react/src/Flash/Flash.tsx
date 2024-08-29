@@ -45,7 +45,9 @@ const variants = variant({
 })
 
 type StyledFlashProps = {
+  /** Sets the background color and border */
   variant?: 'default' | 'warning' | 'success' | 'danger'
+  /** Creates a full width Flash component */
   full?: boolean
 } & SxProp
 
@@ -72,12 +74,16 @@ const StyledFlash = styled.div<StyledFlashProps>`
 
 export type FlashProps = ComponentProps<typeof StyledFlash>
 
-const Flash = React.forwardRef(function Flash({as, variant = 'default', ...rest}, ref) {
+/**
+ * Flash alert informs users of successful or pending actions.
+ * @primerid flash
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
+export const Flash = React.forwardRef(function Flash({as, variant = 'default', ...rest}, ref) {
   return <StyledFlash ref={ref} as={as} variant={variant} {...rest} />
 }) as PolymorphicForwardRefComponent<'div', StyledFlashProps>
 
 if (__DEV__) {
   Flash.displayName = 'Flash'
 }
-
-export default Flash

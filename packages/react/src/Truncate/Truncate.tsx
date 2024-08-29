@@ -8,8 +8,17 @@ import type {ComponentProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 type StyledTruncateProps = {
+  /** @deprecated use children instead */
   title: string
+  /**
+   * Displays text as inline block and vertical aligns to the top.
+   * @default false
+   */
   inline?: boolean
+  /**
+   * Displays text as inline block and vertical aligns to the top.
+   * @default false
+   */
   expandable?: boolean
 } & MaxWidthProps &
   SxProp
@@ -27,7 +36,13 @@ const StyledTruncate = styled.div<StyledTruncateProps>`
 
 export type TruncateProps = ComponentProps<typeof StyledTruncate>
 
-const Truncate = React.forwardRef(function Truncate(
+/**
+ * Use Truncate to shorten overflowing text with an ellipsis.
+ * @primerid truncate
+ * @primerstatus alpha
+ * @a11yreviewed false
+ */
+export const Truncate = React.forwardRef(function Truncate(
   {as, expandable = false, inline = false, maxWidth = 125, ...rest},
   ref,
 ) {
@@ -37,5 +52,3 @@ const Truncate = React.forwardRef(function Truncate(
 if (__DEV__) {
   Truncate.displayName = 'Truncate'
 }
-
-export default Truncate

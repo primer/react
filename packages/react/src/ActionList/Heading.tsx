@@ -4,7 +4,7 @@ import {merge} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {useRefObjectAsForwardedRef} from '../hooks'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {default as HeadingComponent} from '../Heading'
+import {Heading as HeadingComponent} from '../Heading'
 import {ListContext} from './shared'
 import VisuallyHidden from '../_VisuallyHidden'
 import {ActionListContainerContext} from './ActionListContainerContext'
@@ -16,6 +16,12 @@ export type ActionListHeadingProps = {
   visuallyHidden?: boolean
 } & SxProp
 
+/**
+ * Heading for an `ActionList`
+ * @alias ActionList.Heading
+ * @primerparentid action_list
+ * @primersubcomponentorder 2
+ */
 export const Heading = forwardRef(
   ({as, children, sx = defaultSxProp, visuallyHidden = false, ...props}, forwardedRef) => {
     const innerRef = React.useRef<HTMLHeadingElement>(null)

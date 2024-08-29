@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import type {LabelGroupProps} from './LabelGroup'
 import LabelGroup from './LabelGroup'
 import type {Meta, StoryFn} from '@storybook/react'
-import Label from '../Label/Label'
+import {Label} from '../Label/Label'
 
 const meta: Meta = {
   title: 'Components/LabelGroup',

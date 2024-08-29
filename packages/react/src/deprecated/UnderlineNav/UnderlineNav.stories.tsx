@@ -1,7 +1,7 @@
 import React from 'react'
 import type {StoryFn, Meta} from '@storybook/react'
 import type {UnderlineNavProps} from './UnderlineNav'
-import UnderlineNav from './UnderlineNav'
+import {UnderlineNav} from './'
 
 export default {
   title: 'Deprecated/Components/UnderlineNav',

@@ -1,6 +1,6 @@
 import React from 'react'
 import RelativeTime from './RelativeTime'
-import Link from '../Link'
+import {Link} from '../Link'
 import {Tooltip} from '../TooltipV2'
 
 export default {

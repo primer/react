@@ -2,8 +2,8 @@
 
 import React from 'react'
 import {render, screen} from '@testing-library/react'
-import UnderlinePanels from './UnderlinePanels'
-import {behavesAsComponent} from '../../utils/testing'
+import {UnderlinePanels} from './'
+import {behavesAsComponent, checkExports} from '../../utils/testing'
 import TabContainerElement from '@github/tab-container-element'
 
 TabContainerElement.prototype.selectTab = jest.fn()
@@ -22,6 +22,11 @@ const UnderlinePanelsMockComponent = (props: {'aria-label'?: string; 'aria-label
 describe('UnderlinePanels', () => {
   afterEach(() => {
     jest.restoreAllMocks()
+  })
+
+  checkExports('drafts/UnderlinePanels', {
+    default: undefined,
+    UnderlinePanels,
   })
 
   behavesAsComponent({Component: UnderlinePanels, options: {skipAs: true}})

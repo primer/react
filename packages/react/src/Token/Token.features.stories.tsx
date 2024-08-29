@@ -4,9 +4,9 @@ import {action} from '@storybook/addon-actions'
 import {get} from '../constants'
 import {BaseStyles, ThemeProvider} from '..'
 import Box from '../Box'
-import Token from './Token'
+import {Token} from './Token'
 import {GitBranchIcon} from '@primer/octicons-react'
-import IssueLabelToken from './IssueLabelToken'
+import {IssueLabelToken} from './IssueLabelToken'
 
 export default {
   title: 'Components/Token/Features',

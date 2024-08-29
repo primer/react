@@ -1,5 +1,5 @@
 import React from 'react'
-import SubNav from '../SubNav'
+import {SubNav} from '../SubNav'
 
 export function shouldAcceptCallWithNoProps() {
   return (

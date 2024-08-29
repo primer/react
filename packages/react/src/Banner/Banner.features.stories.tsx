@@ -3,7 +3,7 @@ import {CopilotIcon} from '@primer/octicons-react'
 import {action} from '@storybook/addon-actions'
 import type {Meta} from '@storybook/react'
 import {Banner} from '../Banner'
-import Link from '../Link'
+import {Link} from '../Link'
 
 const meta = {
   title: 'Drafts/Components/Banner/Features',

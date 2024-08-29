@@ -18,6 +18,11 @@ export type ActionListTrailingActionProps = ElementProps & {
   label: string
 }
 
+/**
+ * A `TrailingAction` is a button or link that appears at the end of an `ActionList` item.
+ * @alias ActionList.TrailingAction
+ * @primerparentid action_list
+ */
 export const TrailingAction = forwardRef(({as = 'button', icon, label, href = null, ...props}, forwardedRef) => {
   if (!icon) {
     return (

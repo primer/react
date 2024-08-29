@@ -30,13 +30,20 @@ const getSubnavStyles = (depth: number) => {
 // NavList
 
 export type NavListProps = {
+  /** NavList items */
   children: React.ReactNode
 } & SxProp &
   React.ComponentProps<'nav'>
 
 const NavBox = styled.nav<SxProp>(sx)
 
-const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
+/**
+ * Nav list renders a vertical list of navigation links.
+ * @primerid nav_list
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
+export const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
   return (
     <NavBox {...props} ref={ref}>
       <ActionListContainerContext.Provider
@@ -57,13 +64,22 @@ Root.displayName = 'NavList'
 
 export type NavListItemProps = {
   children: React.ReactNode
+  /** Expanded to show children bty default if this is a NavList.Item with nested items. */
   defaultOpen?: boolean
+  /** URL that this NavList.Item links to */
   href?: string
+  /** Indicates that this item is the current item in the NavList. See https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-current for more info. */
   'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
+  /** Text to explain why this item is currently inactive and cannot be activated. */
   inactiveText?: string
 } & SxProp
 
-const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
+/**
+ * A navigation item in the NavList.
+ * @alias NavList.Item
+ * @primerparentid nav_list
+ */
+export const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
   ({'aria-current': ariaCurrent, children, defaultOpen, sx: sxProp = defaultSxProp, ...props}, ref) => {
     const {depth} = React.useContext(SubNavContext)
 
@@ -189,8 +205,16 @@ export type NavListSubNavProps = {
 const SubNavContext = React.createContext<{depth: number}>({depth: 0})
 
 // TODO: ref prop
-// NOTE: SubNav must be a direct child of an Item
-const SubNav = ({children, sx: sxProp = defaultSxProp}: NavListSubNavProps) => {
+/**
+ * A nested list of navigation items that appears when a NavList.Item is expanded.
+ * NavList.SubNav must be a direct child of an Item
+ * @alias NavList.SubNav
+ * @primerparentid nav_list
+ */
+export const SubNav: React.FC<React.PropsWithChildren<NavListSubNavProps>> = ({
+  children,
+  sx: sxProp = defaultSxProp,
+}) => {
   const {buttonId, subNavId, isOpen} = React.useContext(ItemWithSubNavContext)
   const {depth} = React.useContext(SubNavContext)
 
@@ -232,18 +256,28 @@ SubNav.displayName = 'NavList.SubNav'
 // ----------------------------------------------------------------------------
 // NavList.LeadingVisual
 
+/**
+ * An icon or some other visual that appears before the text in a NavList.Item
+ * @alias NavList.LeadingVisual
+ * @primerparentid nav_list
+ */
 export type NavListLeadingVisualProps = ActionListLeadingVisualProps
 
-const LeadingVisual = ActionList.LeadingVisual
+export const LeadingVisual = ActionList.LeadingVisual
 
 LeadingVisual.displayName = 'NavList.LeadingVisual'
 
 // ----------------------------------------------------------------------------
 // NavList.TrailingVisual
 
+/**
+ * An icon or some other visual that appears after the text in a NavList.Item
+ * @alias NavList.TrailingVisual
+ * @primerparentid nav_list
+ */
 export type NavListTrailingVisualProps = ActionListTrailingVisualProps
 
-const TrailingVisual = ActionList.TrailingVisual
+export const TrailingVisual = ActionList.TrailingVisual
 
 TrailingVisual.displayName = 'NavList.TrailingVisual'
 
@@ -252,7 +286,12 @@ TrailingVisual.displayName = 'NavList.TrailingVisual'
 
 export type NavListDividerProps = ActionListDividerProps
 
-const Divider = ActionList.Divider
+/**
+ * Used to visually separate group of related NavList.Items
+ * @alias NavList.Divider
+ * @primerparentid nav_list
+ */
+export const Divider = ActionList.Divider
 
 Divider.displayName = 'NavList.Divider'
 
@@ -260,21 +299,31 @@ Divider.displayName = 'NavList.Divider'
 
 export type NavListTrailingActionProps = ActionListTrailingActionProps
 
-const TrailingAction = ActionList.TrailingAction
-
-TrailingAction.displayName = 'NavList.TrailingAction'
+/**
+ * An action that appears after the text in a NavList.Item
+ * @alias NavList.TrailingAction
+ * @primerparentid nav_list
+ */
+export const TrailingAction = ActionList.TrailingAction
 
 // ----------------------------------------------------------------------------
 // NavList.Group
 
 export type NavListGroupProps = {
+  /** A related set of NavList.Items */
   children: React.ReactNode
+  /** Title of the group */
   title?: string
 } & SxProp
 
 const defaultSx = {}
 // TODO: ref prop
-const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defaultSx, ...props}) => {
+/**
+ * Used to group of related NavList.Items
+ * @alias NavList.Group
+ * @primerparentid nav_list
+ */
+export const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defaultSx, ...props}) => {
   return (
     <>
       {/* Hide divider if the group is the first item in the list */}
@@ -289,16 +338,3 @@ const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defau
 }
 
 Group.displayName = 'NavList.Group'
-
-// ----------------------------------------------------------------------------
-// Export
-
-export const NavList = Object.assign(Root, {
-  Item,
-  SubNav,
-  LeadingVisual,
-  TrailingVisual,
-  TrailingAction,
-  Divider,
-  Group,
-})

@@ -1,7 +1,7 @@
 import {render, fireEvent} from '@testing-library/react'
 import React from 'react'
 import {ThemeProvider} from '..'
-import {NavList} from './NavList'
+import {NavList} from './'
 import {FeatureFlags} from '../FeatureFlags'
 
 type ReactRouterLikeLinkProps = {to: string; children: React.ReactNode}

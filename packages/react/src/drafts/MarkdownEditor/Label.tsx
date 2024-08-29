@@ -5,7 +5,9 @@ import type {SxProp} from '../../sx'
 import {MarkdownEditorContext} from './_MarkdownEditorContext'
 
 type LabelProps = SxProp & {
+  /** Whether the label is visually hidden */
   visuallyHidden?: boolean
+  /** Label content */
   children?: React.ReactNode
 }
 
@@ -20,4 +22,8 @@ const Legend: FC<LabelProps> = ({sx, ...props}) => {
 }
 Legend.displayName = 'MarkdownEditor.Label'
 
+/**
+ * @alias MarkdownEditor.Label
+ * @primerparentid drafts_markdown_editor
+ */
 export const Label: FC<LabelProps> = props => <Legend {...props} />

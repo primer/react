@@ -78,6 +78,12 @@ const labels: Record<BannerVariant, string> = {
   warning: 'Warning',
 }
 
+/**
+ * Banner is used to highlight important information.
+ * @primerid banner
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner(
   {
     'aria-label': label,
@@ -369,6 +375,11 @@ export type BannerTitleProps<As extends HeadingElement> = {
   className?: string
 } & React.ComponentPropsWithoutRef<As extends 'h2' ? 'h2' : As>
 
+/**
+ * The title (heading) of the Banner. May be used instead of the `title` prop on Banner.
+ * @alias Banner.Title
+ * @primerparentid banner
+ */
 export function BannerTitle<As extends HeadingElement>(props: BannerTitleProps<As>) {
   const {as: Heading = 'h2', className, children, ...rest} = props
   return (
@@ -378,8 +389,18 @@ export function BannerTitle<As extends HeadingElement>(props: BannerTitleProps<A
   )
 }
 
-export type BannerDescriptionProps = React.ComponentPropsWithoutRef<'div'>
+// TODO: figure out how we can show available `div` props in the docs without
+// having to manually add them and then omit them from `ComponentPropsWithoutRef`
+export type BannerDescriptionProps = {
+  /** Class name(s) used for custom styling */
+  className?: string
+} & Omit<React.ComponentPropsWithoutRef<'div'>, 'className'>
 
+/**
+ * An optional description for the Banner when the title needs supplemental information. May be used instead of the `description` prop on Banner.
+ * @alias Banner.Description
+ * @primerparentid banner
+ */
 export function BannerDescription({children, className, ...rest}: BannerDescriptionProps) {
   return (
     <div {...rest} className={cx('BannerDescription', className)}>
@@ -410,6 +431,11 @@ export function BannerActions({primaryAction, secondaryAction}: BannerActionsPro
 
 export type BannerPrimaryActionProps = Omit<React.ComponentPropsWithoutRef<typeof Button>, 'variant'>
 
+/**
+ * The primary action to take in response to the messaging in Banner. May be used instead of the `primaryAction` prop on Banner.
+ * @alias Banner.PrimaryAction
+ * @primerparentid banner
+ */
 export function BannerPrimaryAction({children, className, ...rest}: BannerPrimaryActionProps) {
   return (
     <Button className={cx('BannerPrimaryAction', className)} variant="default" {...rest}>
@@ -420,6 +446,11 @@ export function BannerPrimaryAction({children, className, ...rest}: BannerPrimar
 
 export type BannerSecondaryActionProps = Omit<React.ComponentPropsWithoutRef<typeof Button>, 'variant'>
 
+/**
+ * The secondary action to take in response to the messaging in Banner. May be used instead of the `secondaryAction` prop on Banner.
+ * @alias Banner.SecondaryAction
+ * @primerparentid banner
+ */
 export function BannerSecondaryAction({children, className, ...rest}: BannerSecondaryActionProps) {
   return (
     <Button className={cx('BannerPrimaryAction', className)} variant="link" {...rest}>

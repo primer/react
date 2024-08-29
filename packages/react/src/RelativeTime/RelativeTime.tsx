@@ -6,6 +6,12 @@ import {createComponent} from '../utils/create-component'
 const RelativeTimeComponent = createComponent(RelativeTimeElement, 'relative-time')
 
 const localeOptions: Intl.DateTimeFormatOptions = {month: 'short', day: 'numeric', year: 'numeric'}
+/**
+ * Relative time displays time in a way that is clear, concise, and accessible.
+ * @primerid relative_time
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 function RelativeTime({date, datetime, children, noTitle, ...props}: RelativeTimeProps) {
   if (datetime) date = new Date(datetime)
   return (

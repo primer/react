@@ -28,6 +28,12 @@ type StyledBoxProps = SpaceProps &
   ShadowProps &
   SxProp
 
+/**
+ * Box is a basic wrapper component for most layout related needs.
+ * @primerid box
+ * @primerstatus beta
+ * @primera11yreviewed false
+ */
 const Box = styled.div<StyledBoxProps>(
   space,
   color,

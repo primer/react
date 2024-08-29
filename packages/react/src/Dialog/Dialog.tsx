@@ -352,7 +352,7 @@ const StyledDialog = styled.div<StyledDialogProps>`
   ${sx};
 `
 
-const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
+const DefaultHeader: React.FunctionComponent<React.PropsWithChildren<DialogHeaderProps>> = ({
   dialogLabelId,
   title,
   subtitle,
@@ -363,29 +363,29 @@ const DefaultHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> = ({
     onClose('close-button')
   }, [onClose])
   return (
-    <Dialog.Header>
+    <Header>
       <Box display="flex">
         <Box display="flex" px={2} py="6px" flexDirection="column" flexGrow={1}>
-          <Dialog.Title id={dialogLabelId}>{title ?? 'Dialog'}</Dialog.Title>
-          {subtitle && <Dialog.Subtitle id={dialogDescriptionId}>{subtitle}</Dialog.Subtitle>}
+          <Title id={dialogLabelId}>{title ?? 'Dialog'}</Title>
+          {subtitle && <Subtitle id={dialogDescriptionId}>{subtitle}</Subtitle>}
         </Box>
-        <Dialog.CloseButton onClose={onCloseClick} />
+        <CloseButton onClose={onCloseClick} />
       </Box>
-    </Dialog.Header>
+    </Header>
   )
 }
-const DefaultBody: React.FC<React.PropsWithChildren<DialogProps>> = ({children}) => {
-  return <Dialog.Body>{children}</Dialog.Body>
+const DefaultBody: React.FunctionComponent<React.PropsWithChildren<DialogProps>> = ({children}) => {
+  return <Body>{children}</Body>
 }
-const DefaultFooter: React.FC<React.PropsWithChildren<DialogProps>> = ({footerButtons}) => {
+const DefaultFooter: React.FunctionComponent<React.PropsWithChildren<DialogProps>> = ({footerButtons}) => {
   const {containerRef: footerRef} = useFocusZone({
     bindKeys: FocusKeys.ArrowHorizontal | FocusKeys.Tab,
     focusInStrategy: 'closest',
   })
   return footerButtons ? (
-    <Dialog.Footer ref={footerRef as React.RefObject<HTMLDivElement>}>
-      <Dialog.Buttons buttons={footerButtons} />
-    </Dialog.Footer>
+    <Footer ref={footerRef as React.RefObject<HTMLDivElement>}>
+      <Buttons buttons={footerButtons} />
+    </Footer>
   ) : null
 }
 
@@ -394,7 +394,32 @@ const defaultPosition = {
   regular: 'center',
 }
 
-const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
+/**
+ * A dialog is a type of overlay that can be used for confirming actions, asking
+ * for disambiguation, and presenting small forms. They generally allow the user
+ * to focus on a quick task without having to navigate to a different page.
+ *
+ * Dialogs appear in the page after a direct user interaction. Don't show dialogs
+ * on page load or as system alerts.
+ *
+ * Dialogs appear centered in the page, with a visible backdrop that dims the rest
+ * of the window for focus.
+ *
+ * All dialogs have a title and a close button.
+ *
+ * Dialogs are modal. Dialogs can be dismissed by clicking on the close button,
+ * pressing the escape key, or by interacting with another button in the dialog.
+ * To avoid losing information and missing important messages, clicking outside
+ * of the dialog will not close it.
+ *
+ * The sub components provided (e.g. Header, Title, etc.) are available for custom
+ * renderers only. They are not intended to be used otherwise.
+ * @primerid dialog_v2
+ * @primerdocsid dialog
+ * @primerstatus draft
+ * @primera11yreviewed false
+ */
+export const Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogProps>>((props, forwardedRef) => {
   const {
     title = 'Dialog',
     subtitle = '',
@@ -502,9 +527,15 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     </>
   )
 })
-_Dialog.displayName = 'Dialog'
 
-const Header = styled.div<SxProp>`
+Dialog.displayName = 'Dialog'
+
+/**
+ * The header area of a Dialog.
+ * @alias Dialog.Header
+ * @primerparentid dialog_v2
+ */
+export const Header = styled.div<SxProp>`
   box-shadow: 0 1px 0 ${get('colors.border.default')};
   padding: ${get('space.2')};
   z-index: 1;
@@ -512,14 +543,24 @@ const Header = styled.div<SxProp>`
   ${sx};
 `
 
-const Title = styled.h1<SxProp>`
+/**
+ * The title rendered in the header of the Dialog.
+ * @alias Dialog.Title
+ * @primerparentid dialog_v2
+ */
+export const Title = styled.h1<SxProp>`
   font-size: ${get('fontSizes.1')};
   font-weight: ${get('fontWeights.bold')};
   margin: 0; /* override default margin */
   ${sx};
 `
 
-const Subtitle = styled.h2<SxProp>`
+/**
+ * The subtitle rendered in the header of the Dialog.
+ * @alias Dialog.Subtitle
+ * @primerparentid dialog_v2
+ */
+export const Subtitle = styled.h2<SxProp>`
   font-size: ${get('fontSizes.0')};
   color: ${get('colors.fg.muted')};
   margin: 0; /* override default margin */
@@ -529,7 +570,12 @@ const Subtitle = styled.h2<SxProp>`
   ${sx};
 `
 
-const Body = styled.div<SxProp>`
+/**
+ * The main content of a Dialog.
+ * @alias Dialog.Body
+ * @primerparentid dialog_v2
+ */
+export const Body = styled.div<SxProp>`
   flex-grow: 1;
   overflow: auto;
   padding: ${get('space.3')};
@@ -537,7 +583,12 @@ const Body = styled.div<SxProp>`
   ${sx};
 `
 
-const Footer = styled.div<SxProp>`
+/**
+ * The footer area of a Dialog.
+ * @alias Dialog.Footer
+ * @primerparentid dialog_v2
+ */
+export const Footer = styled.div<SxProp>`
   box-shadow: 0 -1px 0 ${get('colors.border.default')};
   padding: ${get('space.3')};
   display: flex;
@@ -550,7 +601,14 @@ const Footer = styled.div<SxProp>`
   ${sx};
 `
 
-const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({buttons}) => {
+/**
+ * The buttons rendered in the footer area of a Dialog.
+ * @alias Dialog.Buttons
+ * @primerparentid dialog_v2
+ */
+export const Buttons: React.FunctionComponent<React.PropsWithChildren<{buttons: DialogButtonProps[]}>> = ({
+  buttons,
+}) => {
   const autoFocusRef = useProvidedRefOrCreate<HTMLButtonElement>(buttons.find(button => button.autoFocus)?.ref)
   let autoFocusCount = 0
   const [hasRendered, setHasRendered] = useState(0)
@@ -582,6 +640,7 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
     </>
   )
 }
+
 const DialogCloseButton = styled(Button)`
   border-radius: 4px;
   background: transparent;
@@ -593,41 +652,21 @@ const DialogCloseButton = styled(Button)`
   line-height: normal;
   box-shadow: none;
 `
-const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({onClose}) => {
+
+/**
+ * The close button rendered in the header area of a Dialog.
+ * @alias Dialog.CloseButton
+ * @primerparentid dialog_v2
+ */
+export const CloseButton: React.FunctionComponent<
+  React.PropsWithChildren<{
+    /** Callback for closing the Dialog */
+    onClose: () => void
+  }>
+> = ({onClose}) => {
   return (
     <DialogCloseButton aria-label="Close" onClick={onClose}>
       <Octicon icon={XIcon} />
     </DialogCloseButton>
   )
 }
-
-/**
- * A dialog is a type of overlay that can be used for confirming actions, asking
- * for disambiguation, and presenting small forms. They generally allow the user
- * to focus on a quick task without having to navigate to a different page.
- *
- * Dialogs appear in the page after a direct user interaction. Don't show dialogs
- * on page load or as system alerts.
- *
- * Dialogs appear centered in the page, with a visible backdrop that dims the rest
- * of the window for focus.
- *
- * All dialogs have a title and a close button.
- *
- * Dialogs are modal. Dialogs can be dismissed by clicking on the close button,
- * pressing the escape key, or by interacting with another button in the dialog.
- * To avoid losing information and missing important messages, clicking outside
- * of the dialog will not close it.
- *
- * The sub components provided (e.g. Header, Title, etc.) are available for custom
- * renderers only. They are not intended to be used otherwise.
- */
-export const Dialog = Object.assign(_Dialog, {
-  Header,
-  Title,
-  Subtitle,
-  Body,
-  Footer,
-  Buttons,
-  CloseButton,
-})

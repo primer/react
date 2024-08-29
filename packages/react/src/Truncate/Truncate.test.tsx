@@ -11,7 +11,8 @@ describe('Truncate', () => {
   })
 
   checkExports('Truncate', {
-    default: Truncate,
+    default: undefined,
+    Truncate,
   })
 
   it('renders a <div> by default', () => {

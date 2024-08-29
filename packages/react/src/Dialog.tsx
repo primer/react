@@ -56,6 +56,11 @@ const DialogHeaderBase = styled(Box)<SxProp>`
 `
 export type DialogHeaderProps = ComponentProps<typeof DialogHeaderBase>
 
+/**
+ * The Header area of the dialog
+ * @alias Dialog.Header
+ * @primerparentid dialog
+ */
 function DialogHeader({theme, children, backgroundColor = 'canvas.subtle', ...rest}: DialogHeaderProps) {
   if (React.Children.toArray(children).every(ch => typeof ch === 'string')) {
     children = (
@@ -141,8 +146,18 @@ DialogHeader.propTypes = {
   ...Box.propTypes,
 }
 
-DialogHeader.displayName = 'Dialog.Header'
+// TODO: make sure this isn't breaking anything
+// This was causing Docgen to document `Dialog` props on `Dialog.Header` and not documenting the parent `Dialog` at all
 Dialog.displayName = 'Dialog'
+DialogHeader.displayName = 'Dialog.Header'
 
 export type DialogProps = ComponentProps<typeof Dialog>
+
+/**
+ * Dialog is a floating surface used to display transient content such as confirmation actions, selection options, and more.
+ * @primerid dialog
+ * @primerdocsid dialog
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
 export default Object.assign(Dialog, {Header: DialogHeader})

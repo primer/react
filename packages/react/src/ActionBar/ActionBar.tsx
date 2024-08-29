@@ -1,5 +1,4 @@
-import type {RefObject, MutableRefObject} from 'react'
-import React, {useState, useCallback, useRef, forwardRef} from 'react'
+import React, {useState, useCallback, useRef, forwardRef, type MutableRefObject, type RefObject} from 'react'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 import {ActionList} from '../ActionList'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
@@ -37,11 +36,23 @@ small (28px), medium (32px), large (40px)
 type Size = 'small' | 'medium' | 'large'
 
 type A11yProps =
-  | {'aria-label': React.AriaAttributes['aria-label']; 'aria-labelledby'?: undefined}
-  | {'aria-label'?: undefined; 'aria-labelledby': React.AriaAttributes['aria-labelledby']}
+  | {
+      /** When provided, a label is added to the action bar */
+      'aria-label': React.AriaAttributes['aria-label']
+      /** When provided, uses the element with that ID as the accessible name for the ActionBar */
+      'aria-labelledby'?: undefined
+    }
+  | {
+      /** When provided, a label is added to the action bar */
+      'aria-label'?: undefined
+      /** When provided, uses the element with that ID as the accessible name for the ActionBar */
+      'aria-labelledby': React.AriaAttributes['aria-labelledby']
+    }
 
 export type ActionBarProps = {
+  /** Size of the action bar */
   size?: Size
+  /** Buttons in the action bar */
   children: React.ReactNode
 } & A11yProps
 
@@ -163,6 +174,12 @@ const overflowEffect = (
   }
 }
 
+/**
+ * Action bar contains a collection of horizontally aligned buttons.
+ * @primerid actionbar
+ * @primerstatus alpha
+ * @primera11yreviewed true
+ */
 export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = props => {
   const {size = 'medium', children, 'aria-label': ariaLabel} = props
   const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
@@ -290,7 +307,12 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
   )
 }
 
-export const ActionBarIconButton = forwardRef((props: ActionBarIconButtonProps, forwardedRef) => {
+/**
+ * Icon button to render in the action bar.
+ * @alias ActionBar.IconButton
+ * @primerparentid actionbar
+ */
+export const ActionBarIconButton = forwardRef<HTMLButtonElement, ActionBarIconButtonProps>((props, forwardedRef) => {
   const backupRef = useRef<HTMLElement>(null)
   const ref = (forwardedRef ?? backupRef) as RefObject<HTMLAnchorElement>
   const {size, setChildrenWidth} = React.useContext(ActionBarContext)
@@ -307,6 +329,12 @@ const sizeToHeight = {
   medium: '28px',
   large: '32px',
 }
+
+/**
+ * Divider to render between icon buttons in the action bar.
+ * @alias ActionBar.Divider
+ * @primerparentid actionbar
+ */
 export const VerticalDivider = () => {
   const ref = useRef<HTMLDivElement>(null)
   const {size, setChildrenWidth} = React.useContext(ActionBarContext)

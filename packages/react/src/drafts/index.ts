@@ -30,7 +30,7 @@ export type {
   Column,
 } from '../DataTable'
 
-export * from '../Dialog/Dialog'
+export * from '../Dialog/'
 
 export {default as InlineAutocomplete} from './InlineAutocomplete'
 export type {

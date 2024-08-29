@@ -1,5 +1,5 @@
 import React from 'react'
-import {SelectPanel} from './SelectPanel'
+import {SelectPanel} from './'
 import {ActionList, ActionMenu, Avatar, Box, Button, Text, Octicon, Flash, FormControl, TextInput} from '../../index'
 import {Dialog} from '../../drafts'
 import {

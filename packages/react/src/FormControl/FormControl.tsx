@@ -1,10 +1,10 @@
 import React, {useContext} from 'react'
-import Autocomplete from '../Autocomplete'
+import {Autocomplete} from '../Autocomplete'
 import Box from '../Box'
 import Checkbox from '../Checkbox'
 import Radio from '../Radio'
 import Select from '../Select'
-import TextInput from '../TextInput'
+import {TextInput} from '../TextInput'
 import TextInputWithTokens from '../TextInputWithTokens'
 import Textarea from '../Textarea'
 import {CheckboxOrRadioGroupContext} from '../internal/components/CheckboxOrRadioGroup'
@@ -41,7 +41,13 @@ export type FormControlProps = {
   className?: string
 } & SxProp
 
-const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
+/**
+ * Form control displays a labelled input and, optionally, associated validation text and/or hint text.
+ * @primerid form_control
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
+export const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
   ({children, disabled: disabledProp, layout = 'vertical', id: idProp, required, sx, className}, ref) => {
     const [slots, childrenWithoutSlots] = useSlots(children, {
       caption: FormControlCaption,
@@ -218,10 +224,3 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     )
   },
 )
-
-export default Object.assign(FormControl, {
-  Caption: FormControlCaption,
-  Label: FormControlLabel,
-  LeadingVisual: FormControlLeadingVisual,
-  Validation: FormControlValidation,
-})

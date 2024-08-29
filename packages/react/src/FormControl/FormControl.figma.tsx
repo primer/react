@@ -1,6 +1,6 @@
 import React from 'react'
 import figma from '@figma/code-connect'
-import FormControl from '../FormControl'
+import {FormControl} from './'
 
 /* eslint eslint-comments/no-use: off */
 /* eslint-disable primer-react/direct-slot-children */

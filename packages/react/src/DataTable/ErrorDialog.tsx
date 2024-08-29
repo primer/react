@@ -19,6 +19,11 @@ export type TableErrorDialogProps = React.PropsWithChildren<{
   onDismiss?: () => void
 }>
 
+/**
+ * A dialog for showing an error when rendering a DataTable
+ * @alias Table.ErrorDialog
+ * @primerparentid data_table
+ */
 export function ErrorDialog({title = 'Error', children, onRetry, onDismiss}: TableErrorDialogProps) {
   return (
     <ConfirmationDialog

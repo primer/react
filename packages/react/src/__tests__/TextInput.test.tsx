@@ -10,7 +10,8 @@ describe('TextInput', () => {
   behavesAsComponent({Component: TextInput, options: {skipAs: true}})
 
   checkExports('TextInput', {
-    default: TextInput,
+    default: undefined,
+    TextInput,
   })
 
   it('should have no axe violations', async () => {

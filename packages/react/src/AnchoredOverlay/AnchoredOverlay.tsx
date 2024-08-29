@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect} from 'react'
 import type {OverlayProps} from '../Overlay'
-import Overlay from '../Overlay'
+import {Overlay} from '../Overlay'
 import type {FocusTrapHookSettings} from '../hooks/useFocusTrap'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
@@ -93,6 +93,9 @@ export type AnchoredOverlayProps = AnchoredOverlayBaseProps &
 /**
  * An `AnchoredOverlay` provides an anchor that will open a floating overlay positioned relative to the anchor.
  * The overlay can be opened and navigated using keyboard or mouse.
+ * @primerid anchored_overlay
+ * @primerstatus alpha
+ * @primera11yreviewed false
  */
 export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayProps>> = ({
   renderAnchor,

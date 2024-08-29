@@ -1,7 +1,7 @@
 import React from 'react'
 import figma from '@figma/code-connect'
-import TextInput from './TextInput'
-import FormControl from '../FormControl'
+import {TextInput} from './'
+import {FormControl} from '../FormControl'
 
 figma.connect(
   TextInput,

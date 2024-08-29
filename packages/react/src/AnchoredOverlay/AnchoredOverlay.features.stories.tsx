@@ -4,7 +4,7 @@ import {FocusKeys} from '@primer/behaviors'
 
 import {Box, Button} from '..'
 import {AnchoredOverlay} from '../AnchoredOverlay'
-import Heading from '../Heading'
+import {Heading} from '../Heading'
 import {registerPortalRoot} from '../Portal'
 import {Playground} from './AnchoredOverlay.stories'
 

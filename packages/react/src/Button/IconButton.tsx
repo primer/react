@@ -7,7 +7,13 @@ import {generateCustomSxProp} from './Button'
 import {TooltipContext, Tooltip} from '../TooltipV2/Tooltip'
 import {TooltipContext as TooltipContextV1} from '../Tooltip/Tooltip'
 
-const IconButton = forwardRef(
+/**
+ * Icon button is used for buttons that show an icon in place of a text label.
+ * @primerid icon_button
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
+export const IconButton = forwardRef(
   (
     {
       sx: sxProp = defaultSxProp,
@@ -79,5 +85,3 @@ const IconButton = forwardRef(
     }
   },
 ) as PolymorphicForwardRefComponent<'button' | 'a', IconButtonProps>
-
-export {IconButton}

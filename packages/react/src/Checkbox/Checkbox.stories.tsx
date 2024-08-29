@@ -2,7 +2,7 @@ import React from 'react'
 import type {Meta} from '@storybook/react'
 import type {CheckboxProps} from '..'
 import {Box, Checkbox} from '..'
-import FormControl from '../FormControl'
+import {FormControl} from '../FormControl'
 import type {FormControlArgs} from '../utils/form-story-helpers'
 import {formControlArgTypesWithoutValidation, getFormControlArgsByChildComponent} from '../utils/form-story-helpers'
 

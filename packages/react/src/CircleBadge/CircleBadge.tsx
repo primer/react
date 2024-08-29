@@ -13,8 +13,11 @@ const variantSizes = {
 }
 
 type StyledCircleBadgeProps = {
+  /** Styles the badge to `display: inline` */
   inline?: boolean
+  /** Creates a smaller or larger badge. Has no effect if the `size` prop is set */
   variant?: keyof typeof variantSizes
+  /** Sets the size of the badge in pixels. Overrides the `variant` prop when set */
   size?: number
 } & SxProp
 
@@ -26,7 +29,13 @@ const sizeStyles = ({size, variant = 'medium'}: StyledCircleBadgeProps) => {
   }
 }
 
-const CircleBadge = styled.div<StyledCircleBadgeProps>`
+/**
+ * Circle badge visually connects logos of third-party services, eg. in the marketplace.
+ * @primerid circle_badge
+ * @primerstatus alpha
+ * @prmera11yreviewed false
+ */
+export const CircleBadge = styled.div<StyledCircleBadgeProps>`
   display: ${({inline = false}) => (inline ? 'inline-flex' : 'flex')};
   align-items: center;
   justify-content: center;
@@ -37,7 +46,12 @@ const CircleBadge = styled.div<StyledCircleBadgeProps>`
   ${sx};
 `
 
-const CircleBadgeIcon = styled(Octicon)`
+/**
+ * The icon that appears inside of CircleBadge
+ * @alias CircleBadge.Icon
+ * @primerparentid circle_badge
+ */
+export const CircleBadgeIcon = styled(Octicon)`
   height: auto;
   max-width: 60%;
   max-height: 55%;
@@ -47,4 +61,3 @@ CircleBadgeIcon.displayName = 'CircleBadge.Icon'
 
 export type CircleBadgeProps = ComponentProps<typeof CircleBadge>
 export type CircleBadgeIconProps = ComponentProps<typeof CircleBadgeIcon>
-export default Object.assign(CircleBadge, {Icon: CircleBadgeIcon})

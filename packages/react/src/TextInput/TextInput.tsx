@@ -9,7 +9,6 @@ import {useProvidedRefOrCreate} from '../hooks'
 import type {Merge} from '../utils/types'
 import type {StyledWrapperProps} from '../internal/components/TextInputWrapper'
 import TextInputWrapper from '../internal/components/TextInputWrapper'
-import TextInputAction from '../internal/components/TextInputInnerAction'
 import UnstyledTextInput from '../internal/components/UnstyledTextInput'
 
 export type TextInputNonPassthroughProps = {
@@ -54,7 +53,13 @@ export type TextInputNonPassthroughProps = {
 export type TextInputProps = Merge<React.ComponentPropsWithoutRef<'input'>, TextInputNonPassthroughProps>
 
 // using forwardRef is important so that other components can autofocus the input
-const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
+/**
+ * Text input is used to set a value that is a single line of text.
+ * @primerid text_input
+ * @primerstatus alpha
+ * @primera11yreviewed false
+ */
+export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
   (
     {
       icon: IconComponent,
@@ -169,7 +174,3 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
 ) as PolymorphicForwardRefComponent<'input', TextInputProps>
 
 TextInput.displayName = 'TextInput'
-
-export default Object.assign(TextInput, {
-  Action: TextInputAction,
-})

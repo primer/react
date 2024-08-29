@@ -5,7 +5,7 @@ import {ActionList} from '../../ActionList'
 import Box from '../../Box'
 import type {ComboboxCommitEvent} from '../hooks/useCombobox'
 import {useCombobox} from '../hooks/useCombobox'
-import Overlay from '../../Overlay'
+import {Overlay} from '../../Overlay'
 
 import type {Suggestion, Suggestions, SuggestionsPlacement, TextInputElement} from './types'
 import {getSuggestionKey, getSuggestionValue} from './utils'

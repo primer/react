@@ -26,6 +26,7 @@ type CSSSelectorObject = {
 export type BetterSystemStyleObject = BetterCssProperties | SystemStyleObject | CSSCustomProperties | CSSSelectorObject
 
 export interface SxProp {
+  /** A style object used to override styles using styled-components */
   sx?: BetterSystemStyleObject
 }
 

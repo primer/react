@@ -30,7 +30,7 @@ import {
   PaperclipIcon,
 } from '@primer/octicons-react'
 
-import {PageHeader} from './PageHeader'
+import {PageHeader} from './'
 import {Hidden} from '../Hidden'
 import {UnderlineNav} from '../UnderlineNav'
 import {ActionMenu} from '../ActionMenu'

@@ -38,7 +38,7 @@ export type {
 // Deprecated in v36.0.0
 export {default as FilteredSearch} from './FilteredSearch'
 export type {FilteredSearchProps} from './FilteredSearch'
-export {default as UnderlineNav} from './UnderlineNav'
+export {UnderlineNav} from './UnderlineNav'
 export type {UnderlineNavProps, UnderlineNavLinkProps} from './UnderlineNav'
 // end of v36.0.0
 
@@ -49,7 +49,7 @@ export {default as Octicon} from '../Octicon'
 export type {OcticonProps} from '../Octicon'
 export {default as Pagehead} from '../Pagehead'
 export type {PageheadProps} from '../Pagehead'
-export {default as TabNav} from '../TabNav'
+export {TabNav} from '../TabNav'
 export type {TabNavProps, TabNavLinkProps} from '../TabNav'
 export {default as Tooltip} from '../Tooltip/Tooltip'
 export type {TooltipProps} from '../Tooltip/Tooltip'

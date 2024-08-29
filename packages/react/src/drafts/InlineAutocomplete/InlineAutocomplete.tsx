@@ -102,6 +102,9 @@ const noop = () => {
 /**
  * Shows suggestions to complete the current word/phrase the user is actively typing.
  * @deprecated Will be removed in v37 (https://github.com/primer/react/issues/3604)
+ * @primerid drafts_inline_autocomplete
+ * @primerstatus deprecated
+ * @primera11yreviewed false
  */
 const InlineAutocomplete = ({
   triggers,
