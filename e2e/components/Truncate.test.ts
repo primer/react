@@ -58,4 +58,88 @@ test.describe('Truncate', () => {
       })
     }
   })
+
+  test.describe('Expandable', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-truncate-features--expandable',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Truncate.Expandable.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-truncate-features--expandable',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
+
+  test.describe('Inline', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-truncate-features--inline',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Truncate.Inline.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-truncate-features--inline',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
+
+  test.describe('Max Width', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-truncate-features--max-width',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Truncate.Max Width.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-truncate-features--max-width',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
 })
