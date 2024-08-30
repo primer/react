@@ -85,4 +85,18 @@ describe('ProgressBar', () => {
     expect(getByRole('progressbar')).toHaveAttribute('aria-valuenow', '50')
     expect(getByRole('progressbar')).toHaveAttribute('aria-label', 'Progress')
   })
+
+  it('provides `aria-valuenow` to the progress bar item if it is not already provided', () => {
+    const {getByRole} = HTMLRender(<ProgressBar progress={50} />)
+    expect(getByRole('progressbar')).toHaveAttribute('aria-valuenow', '50')
+  })
+
+  it('should warn users if they do not pass the correct props or ARIA attributes', async () => {
+    const spy = jest.spyOn(console, 'warn').mockImplementationOnce(() => {})
+
+    render(<ProgressBar />)
+
+    expect(spy).toHaveBeenCalledTimes(1)
+    spy.mockRestore()
+  })
 })

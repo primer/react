@@ -58,19 +58,22 @@ const ProgressContainer = styled.span<StyledProgressContainerProps>`
 export type ProgressBarItems = React.HTMLAttributes<HTMLSpanElement> & {'aria-label'?: string} & ProgressProp & SxProp
 
 export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
-  ({progress, 'aria-label': ariaLabel, ...rest}, forwardRef) => {
+  (
+    {progress, 'aria-label': ariaLabel, 'aria-valuenow': ariaValueNow, 'aria-valuetext': ariaValueText, ...rest},
+    forwardRef,
+  ) => {
     const progressAsNumber = typeof progress === 'string' ? parseInt(progress, 10) : progress
 
     const ariaAttributes = {
-      'aria-valuenow': progressAsNumber && progressAsNumber >= 0 ? Math.round(progressAsNumber) : undefined,
+      'aria-valuenow':
+        ariaValueNow || (progressAsNumber && progressAsNumber >= 0 ? Math.round(progressAsNumber) : undefined),
       'aria-valuemin': 0,
       'aria-valuemax': 100,
+      'aria-valuetext': ariaValueText,
     }
 
     warning(
-      ariaAttributes['aria-valuenow'] === undefined &&
-        typeof (rest as React.AriaAttributes)['aria-valuenow'] === 'undefined' &&
-        typeof (rest as React.AriaAttributes)['aria-valuetext'] === 'undefined',
+      ariaAttributes['aria-valuenow'] === undefined && ariaAttributes['aria-valuetext'] === undefined,
       'Expected `aria-valuenow` or `aria-valuetext` to be provided to <ProgressBar>. Provide one of these values so screen reader users can determine the current progress. This warning will become an error in the next major release.',
     )
 
