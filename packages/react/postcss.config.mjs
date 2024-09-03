@@ -1,4 +1,8 @@
-import postcssPresetPrimer from 'postcss-preset-primer'
+import presetPrimer from 'postcss-preset-primer'
 
 /** @type {import('postcss-load-config').Config} */
-export default postcssPresetPrimer
+const config = {
+  plugins: [presetPrimer()],
+}
+
+export default config
