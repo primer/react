@@ -1,4 +1,4 @@
-import cx from 'clsx'
+import {clsx} from 'clsx'
 import React, {useEffect} from 'react'
 import styled from 'styled-components'
 import {AlertIcon, InfoIcon, StopIcon, CheckCircleIcon, XIcon} from '@primer/octicons-react'
@@ -6,6 +6,9 @@ import {Button, IconButton} from '../Button'
 import {get} from '../constants'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import {useMergedRefs} from '../internal/hooks/useMergedRefs'
+import {useFeatureFlag} from '../FeatureFlags'
+import classes from './Banner.module.css'
+import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 
 type BannerVariant = 'critical' | 'info' | 'success' | 'upsell' | 'warning'
 
@@ -15,6 +18,12 @@ export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
    * landmark region
    */
   'aria-label'?: string
+
+  /**
+   * Provide an optional className to add to the outermost element rendered by
+   * the Banner
+   */
+  className?: string
 
   /**
    * Provide an optional description for the Banner. This should provide
@@ -78,10 +87,13 @@ const labels: Record<BannerVariant, string> = {
   warning: 'Warning',
 }
 
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+
 export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner(
   {
     'aria-label': label,
     children,
+    className,
     description,
     hideTitle,
     icon,
@@ -98,6 +110,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
   const hasActions = primaryAction || secondaryAction
   const bannerRef = React.useRef<HTMLElement>(null)
   const ref = useMergedRefs(forwardRef, bannerRef)
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   const supportsCustomIcon = variant === 'info' || variant === 'upsell'
 
   if (__DEV__) {
@@ -127,16 +140,36 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
       {...rest}
       aria-label={label ?? labels[variant]}
       as="section"
+      className={clsx(className, {
+        [classes.Banner]: enabled,
+      })}
       data-dismissible={onDismiss ? '' : undefined}
       data-title-hidden={hideTitle ? '' : undefined}
       data-variant={variant}
       tabIndex={-1}
       ref={ref}
     >
-      <style>{BannerContainerQuery}</style>
-      <div className="BannerIcon">{icon && supportsCustomIcon ? icon : iconForVariant[variant]}</div>
-      <div className="BannerContainer">
-        <div className="BannerContent">
+      {!enabled ? <style>{BannerContainerQuery}</style> : null}
+      <div
+        className={clsx({
+          BannerIcon: !enabled,
+          [classes.BannerIcon]: enabled,
+        })}
+      >
+        {icon && supportsCustomIcon ? icon : iconForVariant[variant]}
+      </div>
+      <div
+        className={clsx({
+          BannerContainer: !enabled,
+          [classes.BannerContainer]: enabled,
+        })}
+      >
+        <div
+          className={clsx({
+            BannerContent: !enabled,
+            [classes.BannerContent]: enabled,
+          })}
+        >
           {title ? (
             hideTitle ? (
               <VisuallyHidden>
@@ -155,7 +188,10 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
         <IconButton
           aria-label="Dismiss banner"
           onClick={onDismiss}
-          className="BannerDismiss"
+          className={clsx({
+            BannerDismiss: !enabled,
+            [classes.BannerDismiss]: enabled,
+          })}
           icon={XIcon}
           variant="invisible"
         />
@@ -164,167 +200,170 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
   )
 })
 
-/**
- * For styling, it's important that the icons and the text have the same height
- * for alignment to occur in multi-line scenarios. Currently, we use a
- * line-height of `20px` so that means that the height of icons should match
- * that value.
- */
-const StyledBanner = styled.div`
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: start;
-  background-color: var(--banner-bgColor);
-  border: var(--borderWidth-thin, 1px) solid var(--banner-borderColor);
-  padding: var(--base-size-8, 0.5rem);
-  border-radius: var(--borderRadius-medium, ${get('radii.2')});
-
-  @supports (container-type: inline-size) {
-    container: banner / inline-size;
-  }
-
-  &[data-variant='critical'] {
-    --banner-bgColor: ${get('colors.danger.subtle')};
-    --banner-borderColor: ${get('colors.danger.muted')};
-    --banner-icon-fgColor: ${get('colors.danger.fg')};
-  }
-
-  &[data-variant='info'] {
-    --banner-bgColor: ${get('colors.accent.subtle')};
-    --banner-borderColor: ${get('colors.accent.muted')};
-    --banner-icon-fgColor: ${get('colors.accent.fg')};
-  }
-
-  &[data-variant='success'] {
-    --banner-bgColor: ${get('colors.success.subtle')};
-    --banner-borderColor: ${get('colors.success.muted')};
-    --banner-icon-fgColor: ${get('colors.success.fg')};
-  }
-
-  &[data-variant='upsell'] {
-    --banner-bgColor: var(--bgColor-upsell-muted, ${get('colors.done.subtle')});
-    --banner-borderColor: var(--borderColor-upsell-muted, ${get('colors.done.muted')});
-    --banner-icon-fgColor: var(--fgColor-upsell-muted, ${get('colors.done.fg')});
-  }
-
-  &[data-variant='warning'] {
-    --banner-bgColor: ${get('colors.attention.subtle')};
-    --banner-borderColor: ${get('colors.attention.muted')};
-    --banner-icon-fgColor: ${get('colors.attention.fg')};
-  }
-
-  /* BannerIcon ------------------------------------------------------------- */
-
-  .BannerIcon {
+const StyledBanner = toggleStyledComponent(
+  CSS_MODULES_FEATURE_FLAG,
+  /**
+   * For styling, it's important that the icons and the text have the same height
+   * for alignment to occur in multi-line scenarios. Currently, we use a
+   * line-height of `20px` so that means that the height of icons should match
+   * that value.
+   */
+  styled.div`
     display: grid;
-    place-items: center;
-    padding: var(--base-size-8, 0.5rem);
-  }
-
-  .BannerIcon svg {
-    color: var(--banner-icon-fgColor);
-    fill: var(--banner-icon-fgColor);
-    /* 20px is the line box height of the trailing action buttons */
-    height: var(--base-size-20, 1.25rem);
-  }
-
-  &[data-title-hidden=''] .BannerIcon svg {
-    height: var(--base-size-16, 1rem);
-  }
-
-  /* BannerContainer -------------------------------------------------------- */
-
-  .BannerContainer {
-    font-size: var(--text-body-size-medium, 0.875rem);
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: start;
-    line-height: var(--text-body-lineHeight-medium, calc(20 / 14));
-    row-gap: var(--base-size-4, 0.25rem);
-    column-gap: var(--base-size-4, 0.25rem);
-  }
+    background-color: var(--banner-bgColor);
+    border: var(--borderWidth-thin, 1px) solid var(--banner-borderColor);
+    padding: var(--base-size-8, 0.5rem);
+    border-radius: var(--borderRadius-medium, ${get('radii.2')});
 
-  & :where(.BannerContainer) {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-
-  &[data-dismissible] .BannerContainer {
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
-  }
-
-  /* BannerContent ---------------------------------------------------------- */
-
-  .BannerContent {
-    display: grid;
-    row-gap: var(--base-size-4, 0.25rem);
-    grid-column-start: 1;
-    margin-block: var(--base-size-8, 0.5rem);
-  }
-
-  &[data-title-hidden=''] .BannerContent {
-    margin-block: var(--base-size-6, 0.375rem);
-  }
-
-  @media screen and (min-width: 544px) {
-    .BannerContent {
-      flex: 1 1 0%;
+    @supports (container-type: inline-size) {
+      container: banner / inline-size;
     }
-  }
 
-  .BannerTitle {
-    margin: 0;
-    font-size: inherit;
-    font-weight: var(--base-text-weight-semibold, 600);
-  }
+    &[data-variant='critical'] {
+      --banner-bgColor: ${get('colors.danger.subtle')};
+      --banner-borderColor: ${get('colors.danger.muted')};
+      --banner-icon-fgColor: ${get('colors.danger.fg')};
+    }
 
-  /* BannerActions ---------------------------------------------------------- */
-  .BannerActionsContainer {
-    display: flex;
-    column-gap: var(--base-size-12, 0.5rem);
-    align-items: center;
-  }
+    &[data-variant='info'] {
+      --banner-bgColor: ${get('colors.accent.subtle')};
+      --banner-borderColor: ${get('colors.accent.muted')};
+      --banner-icon-fgColor: ${get('colors.accent.fg')};
+    }
 
-  .BannerActions :where([data-primary-action='trailing']) {
-    display: none;
-  }
+    &[data-variant='success'] {
+      --banner-bgColor: ${get('colors.success.subtle')};
+      --banner-borderColor: ${get('colors.success.muted')};
+      --banner-icon-fgColor: ${get('colors.success.fg')};
+    }
 
-  @media screen and (min-width: 544px) {
+    &[data-variant='upsell'] {
+      --banner-bgColor: var(--bgColor-upsell-muted, ${get('colors.done.subtle')});
+      --banner-borderColor: var(--borderColor-upsell-muted, ${get('colors.done.muted')});
+      --banner-icon-fgColor: var(--fgColor-upsell-muted, ${get('colors.done.fg')});
+    }
+
+    &[data-variant='warning'] {
+      --banner-bgColor: ${get('colors.attention.subtle')};
+      --banner-borderColor: ${get('colors.attention.muted')};
+      --banner-icon-fgColor: ${get('colors.attention.fg')};
+    }
+
+    /* BannerIcon ------------------------------------------------------------- */
+
+    .BannerIcon {
+      display: grid;
+      place-items: center;
+      padding: var(--base-size-8, 0.5rem);
+    }
+
+    .BannerIcon svg {
+      color: var(--banner-icon-fgColor);
+      fill: var(--banner-icon-fgColor);
+      /* 20px is the line box height of the trailing action buttons */
+      height: var(--base-size-20, 1.25rem);
+    }
+
+    &[data-title-hidden=''] .BannerIcon svg {
+      height: var(--base-size-16, 1rem);
+    }
+
+    /* BannerContainer -------------------------------------------------------- */
+
+    .BannerContainer {
+      font-size: var(--text-body-size-medium, 0.875rem);
+      align-items: start;
+      line-height: var(--text-body-lineHeight-medium, calc(20 / 14));
+      row-gap: var(--base-size-4, 0.25rem);
+      column-gap: var(--base-size-4, 0.25rem);
+    }
+
+    & :where(.BannerContainer) {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    &[data-dismissible] .BannerContainer {
+      display: grid;
+      grid-template-columns: auto;
+      grid-template-rows: auto;
+    }
+
+    /* BannerContent ---------------------------------------------------------- */
+
+    .BannerContent {
+      display: grid;
+      row-gap: var(--base-size-4, 0.25rem);
+      grid-column-start: 1;
+      margin-block: var(--base-size-8, 0.5rem);
+    }
+
+    &[data-title-hidden=''] .BannerContent {
+      margin-block: var(--base-size-6, 0.375rem);
+    }
+
+    @media screen and (min-width: 544px) {
+      .BannerContent {
+        flex: 1 1 0%;
+      }
+    }
+
+    .BannerTitle {
+      margin: 0;
+      font-size: inherit;
+      font-weight: var(--base-text-weight-semibold, 600);
+    }
+
+    /* BannerActions ---------------------------------------------------------- */
+    .BannerActionsContainer {
+      display: flex;
+      column-gap: var(--base-size-12, 0.5rem);
+      align-items: center;
+    }
+
     .BannerActions :where([data-primary-action='trailing']) {
+      display: none;
+    }
+
+    @media screen and (min-width: 544px) {
+      .BannerActions :where([data-primary-action='trailing']) {
+        display: flex;
+      }
+
+      .BannerActions :where([data-primary-action='leading']) {
+        display: none;
+      }
+    }
+
+    &[data-dismissible] .BannerActions {
+      margin-block-end: var(--base-size-6, 0.375rem);
+    }
+
+    &[data-dismissible] .BannerActionsContainer[data-primary-action='trailing'] {
+      display: none;
+    }
+
+    &[data-dismissible] .BannerActionsContainer[data-primary-action='leading'] {
       display: flex;
     }
 
-    .BannerActions :where([data-primary-action='leading']) {
-      display: none;
+    /* BannerDismiss ---------------------------------------------------------- */
+
+    .BannerDismiss {
+      display: grid;
+      place-items: center;
+      padding: var(--base-size-8, 0.5rem);
+      margin-inline-start: var(--base-size-4, 0.25rem);
     }
-  }
 
-  &[data-dismissible] .BannerActions {
-    margin-block-end: var(--base-size-6, 0.375rem);
-  }
-
-  &[data-dismissible] .BannerActionsContainer[data-primary-action='trailing'] {
-    display: none;
-  }
-
-  &[data-dismissible] .BannerActionsContainer[data-primary-action='leading'] {
-    display: flex;
-  }
-
-  /* BannerDismiss ---------------------------------------------------------- */
-
-  .BannerDismiss {
-    display: grid;
-    place-items: center;
-    padding: var(--base-size-8, 0.5rem);
-    margin-inline-start: var(--base-size-4, 0.25rem);
-  }
-
-  .BannerDismiss svg {
-    color: var(--banner-icon-fgColor);
-  }
-`
+    .BannerDismiss svg {
+      color: var(--banner-icon-fgColor);
+    }
+  `,
+)
 
 const BannerContainerQuery = `
   @container banner (max-width: 500px) {
@@ -371,8 +410,16 @@ export type BannerTitleProps<As extends HeadingElement> = {
 
 export function BannerTitle<As extends HeadingElement>(props: BannerTitleProps<As>) {
   const {as: Heading = 'h2', className, children, ...rest} = props
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   return (
-    <Heading {...rest} className={cx('BannerTitle', className)} data-banner-title="">
+    <Heading
+      {...rest}
+      className={clsx(className, {
+        BannerTitle: !enabled,
+        [classes.BannerTitle]: enabled,
+      })}
+      data-banner-title=""
+    >
       {children}
     </Heading>
   )
@@ -382,7 +429,7 @@ export type BannerDescriptionProps = React.ComponentPropsWithoutRef<'div'>
 
 export function BannerDescription({children, className, ...rest}: BannerDescriptionProps) {
   return (
-    <div {...rest} className={cx('BannerDescription', className)}>
+    <div {...rest} className={clsx('BannerDescription', className)}>
       {children}
     </div>
   )
@@ -394,13 +441,31 @@ export type BannerActionsProps = {
 }
 
 export function BannerActions({primaryAction, secondaryAction}: BannerActionsProps) {
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   return (
-    <div className="BannerActions">
-      <div className="BannerActionsContainer" data-primary-action="trailing">
+    <div
+      className={clsx({
+        BannerActions: !enabled,
+        [classes.BannerActions]: enabled,
+      })}
+    >
+      <div
+        className={clsx({
+          BannerActionsContainer: !enabled,
+          [classes.BannerActionsContainer]: enabled,
+        })}
+        data-primary-action="trailing"
+      >
         {secondaryAction ?? null}
         {primaryAction ?? null}
       </div>
-      <div className="BannerActionsContainer" data-primary-action="leading">
+      <div
+        className={clsx({
+          BannerActionsContainer: !enabled,
+          [classes.BannerActionsContainer]: enabled,
+        })}
+        data-primary-action="leading"
+      >
         {primaryAction ?? null}
         {secondaryAction ?? null}
       </div>
@@ -412,7 +477,7 @@ export type BannerPrimaryActionProps = Omit<React.ComponentPropsWithoutRef<typeo
 
 export function BannerPrimaryAction({children, className, ...rest}: BannerPrimaryActionProps) {
   return (
-    <Button className={cx('BannerPrimaryAction', className)} variant="default" {...rest}>
+    <Button className={clsx('BannerPrimaryAction', className)} variant="default" {...rest}>
       {children}
     </Button>
   )
@@ -422,7 +487,7 @@ export type BannerSecondaryActionProps = Omit<React.ComponentPropsWithoutRef<typ
 
 export function BannerSecondaryAction({children, className, ...rest}: BannerSecondaryActionProps) {
   return (
-    <Button className={cx('BannerPrimaryAction', className)} variant="link" {...rest}>
+    <Button className={clsx('BannerPrimaryAction', className)} variant="link" {...rest}>
       {children}
     </Button>
   )
