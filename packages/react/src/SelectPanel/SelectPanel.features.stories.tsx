@@ -310,9 +310,9 @@ const listOfItems: Array<ItemInput> = [
 ]
 
 const groupMetadata: GroupedListProps['groupMetadata'] = [
-  {groupId: '0', header: {title: 'Repos'}},
-  {groupId: '1', header: {title: 'Live query'}},
-  {groupId: '2', header: {title: 'Layout'}},
+  {groupId: '0', header: {title: 'Repos', variant: 'filled'}},
+  {groupId: '1', header: {title: 'Live query', variant: 'filled'}},
+  {groupId: '2', header: {title: 'Layout', variant: 'filled'}},
 ]
 
 export const WithGroups = () => {
@@ -347,6 +347,7 @@ export const WithGroups = () => {
 
   return (
     <SelectPanel
+      variant="full"
       title="Attach files and symbols"
       subtitle="Choose which files and symbols you want to chat about. Use fewer references for more accurate responses."
       renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
