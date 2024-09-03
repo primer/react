@@ -1,4 +1,4 @@
-import cx from 'clsx'
+import {clsx} from 'clsx'
 import React, {forwardRef, useEffect} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
@@ -62,7 +62,7 @@ const Heading = forwardRef(({as: Component = 'h2', className, variant, ...props}
       return (
         <Box
           as={Component}
-          className={cx(className, classes.Heading)}
+          className={clsx(className, classes.Heading)}
           data-variant={variant}
           {...props}
           // @ts-ignore shh
@@ -70,7 +70,7 @@ const Heading = forwardRef(({as: Component = 'h2', className, variant, ...props}
         />
       )
     }
-    return <Component className={cx(className, classes.Heading)} data-variant={variant} {...props} ref={innerRef} />
+    return <Component className={clsx(className, classes.Heading)} data-variant={variant} {...props} ref={innerRef} />
   }
 
   return (
