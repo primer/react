@@ -218,6 +218,7 @@ export function SelectPanel({
             placeholderText={placeholderText}
             {...listProps}
             role="listbox"
+            aria-labelledby={titleId}
             aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
             selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
             items={itemsToRender}
