@@ -1,4 +1,4 @@
-import cx from 'clsx'
+import {clsx} from 'clsx'
 import React, {forwardRef, useEffect} from 'react'
 import styled from 'styled-components'
 import {system} from 'styled-system'
@@ -62,7 +62,7 @@ const StyledLink = styled.a<StyledLinkProps>`
 `
 
 const Link = forwardRef(({as: Component = 'a', className, inline, underline, ...props}, forwardedRef) => {
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  const enabled = useFeatureFlag('primer_react_css_modules_staff')
 
   const innerRef = React.useRef<HTMLAnchorElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, innerRef)
@@ -96,7 +96,7 @@ const Link = forwardRef(({as: Component = 'a', className, inline, underline, ...
       return (
         <Box
           as={Component}
-          className={cx(className, classes.Link)}
+          className={clsx(className, classes.Link)}
           data-muted={props.muted}
           data-inline={inline}
           data-underline={underline}
@@ -109,7 +109,7 @@ const Link = forwardRef(({as: Component = 'a', className, inline, underline, ...
 
     return (
       <Component
-        className={cx(className, classes.Link)}
+        className={clsx(className, classes.Link)}
         data-muted={props.muted}
         data-inline={inline}
         data-underline={underline}

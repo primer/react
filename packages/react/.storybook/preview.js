@@ -3,7 +3,7 @@ import React, {useEffect} from 'react'
 import {ThemeProvider, BaseStyles, theme} from '../src'
 import {FeatureFlags} from '../src/FeatureFlags'
 import {DefaultFeatureFlags} from '../src/FeatureFlags/DefaultFeatureFlags'
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 
 import './storybook.css'
 import './primitives-v8.css'
