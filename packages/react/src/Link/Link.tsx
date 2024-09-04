@@ -125,6 +125,7 @@ const Link = forwardRef(({as: Component = 'a', className, inline, underline, ...
       as={Component}
       className={className}
       data-inline={inline}
+      underline={underline}
       {...props}
       // @ts-ignore shh
       ref={innerRef}
