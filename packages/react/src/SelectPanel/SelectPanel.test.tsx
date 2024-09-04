@@ -288,6 +288,33 @@ for (const useModernActionList of [false, true]) {
             screen.getByRole('option', {name: 'item one'}).id,
           )
         })
+
+        it('should support navigating through items with PageDown and PageUp', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<BasicSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          // First item by default should be the active element
+          expect(document.activeElement!).toHaveAttribute(
+            'aria-activedescendant',
+            screen.getByRole('option', {name: 'item one'}).id,
+          )
+
+          await user.type(document.activeElement!, '{PageDown}')
+
+          expect(document.activeElement!).toHaveAttribute(
+            'aria-activedescendant',
+            screen.getByRole('option', {name: 'item three'}).id,
+          )
+
+          await user.type(document.activeElement!, '{PageUp}')
+          expect(document.activeElement!).toHaveAttribute(
+            'aria-activedescendant',
+            screen.getByRole('option', {name: 'item one'}).id,
+          )
+        })
       })
 
       describe('filtering', () => {
