@@ -81,7 +81,7 @@ export function FilteredActionList({
   useFocusZone(
     {
       containerRef: listContainerRef,
-      bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
+      bindKeys: FocusKeys.ArrowVertical | FocusKeys.PageUpDown,
       focusOutBehavior: 'wrap',
       focusableElementFilter: element => {
         return !(element instanceof HTMLInputElement)
