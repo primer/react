@@ -1,5 +1,5 @@
 import cx from 'clsx'
-import styled from 'styled-components'
+import styled, {type StyledComponent} from 'styled-components'
 import React, {forwardRef} from 'react'
 import type {SystemCommonProps, SystemTypographyProps} from '../constants'
 import {COMMON, TYPOGRAPHY} from '../constants'
@@ -10,7 +10,6 @@ import Box from '../Box'
 import {useRefObjectAsForwardedRef} from '../hooks'
 import classes from './Text.module.css'
 import type {ComponentProps} from '../utils/types'
-import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 type StyledTextProps = {
   size?: 'large' | 'medium' | 'small'
@@ -104,7 +103,7 @@ const Text = forwardRef(({as: Component = 'span', className, size, weight, ...pr
       ref={innerRef}
     />
   )
-}) as PolymorphicForwardRefComponent<'span', StyledTextProps>
+}) as StyledComponent<'span', any, StyledTextProps, never>
 
 Text.displayName = 'Text'
 
