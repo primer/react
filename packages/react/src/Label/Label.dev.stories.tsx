@@ -13,3 +13,9 @@ export const AccentSx = () => (
     Default
   </Label>
 )
+
+export const SizeSmallSx = () => (
+  <Label size="small" variant="sponsors" sx={{color: 'danger.fg'}}>
+    Default
+  </Label>
+)

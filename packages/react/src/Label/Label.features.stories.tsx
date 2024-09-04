@@ -29,9 +29,3 @@ export const Sponsors = () => <Label variant="sponsors">Sponsors</Label>
 export const SizeLarge = () => <Label size="large">Default</Label>
 
 export const SizeSmall = () => <Label size="small">Default</Label>
-
-export const SizeSmallSx = () => (
-  <Label size="small" variant="sponsors" sx={{color: 'danger.fg'}}>
-    Default
-  </Label>
-)
