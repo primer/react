@@ -23,7 +23,7 @@
 
   &:where([data-variant='default']),
   &:where([data-variant='primary']) {
-    border-color: var(--borderColor-default);
+    border-color: var(--fgColor-default);
   }
 
   &:where([data-variant='secondary']) {
