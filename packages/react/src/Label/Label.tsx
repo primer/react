@@ -1,4 +1,4 @@
-import cx from 'clsx'
+import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 import Box from '../Box'
 import classes from './Label.module.css'
@@ -107,7 +107,7 @@ const Label = React.forwardRef(function Label({as, size = 'small', variant = 'de
       return (
         <Box
           as={Component}
-          className={cx(className, classes.Label)}
+          className={clsx(className, classes.Label)}
           data-size={size}
           data-variant={variant}
           ref={ref}
@@ -115,7 +115,7 @@ const Label = React.forwardRef(function Label({as, size = 'small', variant = 'de
         />
       )
     }
-    return <Component className={cx(className, classes.Label)} data-size={size} data-variant={variant} {...rest} />
+    return <Component className={clsx(className, classes.Label)} data-size={size} data-variant={variant} {...rest} />
   }
   return <StyledLabel as={as} className={className} size={size} variant={variant} ref={ref} {...rest} />
 }) as PolymorphicForwardRefComponent<'span', LabelProps>
