@@ -1,7 +1,7 @@
 :where(.Label) {
   display: inline-flex;
   font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-semibold);
+  font-weight: var(--base-text-weight-medium);
   line-height: 1;
   color: var(--fgColor-default);
   white-space: nowrap;
