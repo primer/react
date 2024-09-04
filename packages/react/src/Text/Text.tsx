@@ -12,6 +12,8 @@ import classes from './Text.module.css'
 import type {ComponentProps} from '../utils/types'
 
 type StyledTextProps = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  as?: React.ComponentType<any> | keyof JSX.IntrinsicElements
   size?: 'large' | 'medium' | 'small'
   weight?: 'light' | 'normal' | 'medium' | 'semibold'
 } & SystemTypographyProps &
@@ -103,6 +105,7 @@ const Text = forwardRef(({as: Component = 'span', className, size, weight, ...pr
       ref={innerRef}
     />
   )
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 }) as StyledComponent<'span', any, StyledTextProps, never>
 
 Text.displayName = 'Text'
