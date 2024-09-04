@@ -1,4 +1,4 @@
-import cx from 'clsx'
+import {clsx} from 'clsx'
 import styled from 'styled-components'
 import React, {forwardRef} from 'react'
 import type {SystemCommonProps, SystemTypographyProps} from '../constants'
@@ -69,7 +69,7 @@ const Text = forwardRef(({as: Component = 'span', className, size, weight, ...pr
         // @ts-ignore shh
         <Box
           as={Component}
-          className={cx(className, classes.Text)}
+          className={clsx(className, classes.Text)}
           data-size={size}
           data-weight={weight}
           {...props}
@@ -82,7 +82,7 @@ const Text = forwardRef(({as: Component = 'span', className, size, weight, ...pr
     return (
       // @ts-ignore shh
       <Component
-        className={cx(className, classes.Text)}
+        className={clsx(className, classes.Text)}
         data-size={size}
         data-weight={weight}
         {...props}

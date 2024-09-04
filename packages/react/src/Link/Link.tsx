@@ -1,4 +1,4 @@
-import cx from 'clsx'
+import {clsx} from 'clsx'
 import React, {forwardRef, useEffect} from 'react'
 import styled from 'styled-components'
 import {system} from 'styled-system'
@@ -96,7 +96,7 @@ const Link = forwardRef(({as: Component = 'a', className, ...props}, forwardedRe
       return (
         <Box
           as={Component}
-          className={cx(className, classes.Link)}
+          className={clsx(className, classes.Link)}
           data-muted={props.muted}
           data-inline={props.inline}
           data-underline={props.underline}
@@ -109,7 +109,7 @@ const Link = forwardRef(({as: Component = 'a', className, ...props}, forwardedRe
 
     return (
       <Component
-        className={cx(className, classes.Link)}
+        className={clsx(className, classes.Link)}
         data-muted={props.muted}
         data-inline={props.inline}
         data-underline={props.underline}
