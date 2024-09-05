@@ -135,12 +135,12 @@ exports[`NavList renders a simple list 1`] = `
   border-radius: 6px;
 }
 
-.c2[data-is-active-descendant="activated-directly"] {
+.c2[data-is-active-descendant] {
   font-weight: 600;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c2[data-is-active-descendant="activated-directly"]::after {
+.c2[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -232,12 +232,12 @@ exports[`NavList renders a simple list 1`] = `
   --divider-color: transparent;
 }
 
-.c7[data-is-active-descendant="activated-directly"] {
+.c7[data-is-active-descendant] {
   font-weight: 600;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c7[data-is-active-descendant="activated-directly"]::after {
+.c7[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -625,12 +625,12 @@ exports[`NavList renders with groups 1`] = `
   border-radius: 6px;
 }
 
-.c6[data-is-active-descendant="activated-directly"] {
+.c6[data-is-active-descendant] {
   font-weight: 600;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c6[data-is-active-descendant="activated-directly"]::after {
+.c6[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -722,12 +722,12 @@ exports[`NavList renders with groups 1`] = `
   --divider-color: transparent;
 }
 
-.c11[data-is-active-descendant="activated-directly"] {
+.c11[data-is-active-descendant] {
   font-weight: 600;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c11[data-is-active-descendant="activated-directly"]::after {
+.c11[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -1134,12 +1134,12 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   border-radius: 6px;
 }
 
-.c11[data-is-active-descendant="activated-directly"] {
+.c11[data-is-active-descendant] {
   font-weight: 600;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c11[data-is-active-descendant="activated-directly"]::after {
+.c11[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -1231,12 +1231,12 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   --divider-color: transparent;
 }
 
-.c4[data-is-active-descendant="activated-directly"] {
+.c4[data-is-active-descendant] {
   font-weight: 600;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c4[data-is-active-descendant="activated-directly"]::after {
+.c4[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -1637,12 +1637,12 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   border-radius: 6px;
 }
 
-.c11[data-is-active-descendant="activated-directly"] {
+.c11[data-is-active-descendant] {
   font-weight: 600;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c11[data-is-active-descendant="activated-directly"]::after {
+.c11[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -1755,12 +1755,12 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   border-radius: 6px;
 }
 
-.c4[data-is-active-descendant="activated-directly"] {
+.c4[data-is-active-descendant] {
   font-weight: 600;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c4[data-is-active-descendant="activated-directly"]::after {
+.c4[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
