@@ -88,9 +88,6 @@ export const TestSxProp = () => {
       <Button size="small" block variant="invisible" sx={{width: 320}}>
         Overriden Block
       </Button>
-      <Button sx={{fontSize: 32}} count={count}>
-        Watch
-      </Button>
     </div>
   )
 }

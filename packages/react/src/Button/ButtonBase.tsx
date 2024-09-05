@@ -33,7 +33,7 @@ const renderVisual = (Visual: React.ElementType, loading: boolean, visualName: s
 )
 
 const renderModuleVisual = (Visual: React.ElementType, loading: boolean, visualName: string) => (
-  <span data-component={visualName} className={classes.Visual}>
+  <span data-component={visualName} className={clsx(classes.Visual, loading ? classes.loadingSpinner : '')}>
     {loading ? <Spinner size="small" /> : <Visual />}
   </span>
 )

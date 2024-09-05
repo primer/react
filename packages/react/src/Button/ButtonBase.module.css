@@ -214,6 +214,20 @@
   }
 }
 
+/* Loading */
+
+.ButtonBase:where([data-loading='true']) {
+  & .loadingSpinner {
+    grid-area: text;
+    margin-right: 0 !important;
+    place-self: center;
+  }
+
+  & .Label {
+    visibility: hidden;
+  }
+}
+
 /* Variants */
 
 /* Default Variant */
