@@ -6,6 +6,7 @@ import postcssGlobalData from '@csstools/postcss-global-data'
 import postcssPresetEnv from 'postcss-preset-env'
 import postcssMixins from 'postcss-mixins'
 import cssnano from 'cssnano'
+// @ts-ignore
 import customPropertiesFallback from 'postcss-custom-properties-fallback'
 // @ts-ignore
 import browsers from '@github/browserslist-config'
@@ -73,6 +74,7 @@ const postcssPresetPrimer = () => {
 
               if (filePath === 'dist/docs/functional/themes/light.json') {
                 for (const variable of Object.keys(jsonData)) {
+                  // @ts-ignore
                   result[`--${variable}`] = jsonData[variable].value
                 }
               } else {
