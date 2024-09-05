@@ -1,3 +1,4 @@
+import fs from 'node:fs'
 import {existsSync} from 'node:fs'
 import path from 'node:path'
 import {fileURLToPath} from 'node:url'
@@ -5,10 +6,12 @@ import {globSync} from 'glob'
 import postcssGlobalData from '@csstools/postcss-global-data'
 import postcssPresetEnv from 'postcss-preset-env'
 import postcssMixins from 'postcss-mixins'
+import customPropertiesFallback from 'postcss-custom-properties-fallback'
 // @ts-ignore
 import browsers from '@github/browserslist-config'
 
 const filepath = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(filepath)
 const {root: ROOT_DIR} = path.parse(filepath)
 
 /**
@@ -66,6 +69,39 @@ const postcssPresetPrimer = () => {
       }),
       postcssMixins({
         mixinsDir: path.join(path.dirname(filepath), 'mixins'),
+      }),
+      customPropertiesFallback({
+        importFrom: [
+          () => {
+            let customProperties = {}
+            const filePaths = globSync(['dist/fallbacks/**/*.json', 'dist/docs/functional/themes/light.json'], {
+              cwd: primitivesPath,
+              ignore: ['fallbacks/color-fallbacks.json'],
+            })
+
+            for (const filePath of filePaths) {
+              const fileData = fs.readFileSync(path.join(primitivesPath, filePath), 'utf8')
+
+              const jsonData = JSON.parse(fileData)
+              let result = {}
+
+              if (filePath === 'dist/docs/functional/themes/light.json') {
+                for (const variable of Object.keys(jsonData)) {
+                  result[`--${variable}`] = jsonData[variable].value
+                }
+              } else {
+                result = jsonData
+              }
+
+              customProperties = {
+                ...customProperties,
+                ...result,
+              }
+            }
+
+            return {customProperties}
+          },
+        ],
       }),
       ...plugins,
     ],
