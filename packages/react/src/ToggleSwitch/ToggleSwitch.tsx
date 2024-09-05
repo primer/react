@@ -38,8 +38,11 @@ export interface ToggleSwitchProps extends Omit<React.HTMLAttributes<HTMLDivElem
    * **This should only be changed when the switch's alignment needs to be adjusted.** For example: It needs to be left-aligned because the label appears above it and the caption appears below it.
    */
   statusLabelPosition?: CellAlignment
-  /** If the switch is in the loading state, this value controls the amount of delay in milliseconds before
-   * the `loadingLabel` is announced to screen readers. Default: 2000. */
+  /**
+   * If the switch is in the loading state, this value controls the amount of delay in milliseconds before
+   * the `loadingLabel` is announced to screen readers.
+   * @default 2000
+   */
   loadingLabelDelay?: number
   /** The text to describe what is loading. It should be descriptive and not verbose.
    * This is primarily used for AT (screen readers) to convey what is currently loading.
