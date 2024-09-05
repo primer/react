@@ -3,6 +3,7 @@ import path from 'node:path'
 import {createHash} from 'node:crypto'
 import postcss from 'postcss'
 import postcssModules from 'postcss-modules'
+import {identifier} from 'safe-identifier'
 
 interface ImportCSSOptions {
   /**
@@ -66,7 +67,7 @@ export function importCSS(options: ImportCSSOptions): Plugin {
       // the classes is used, then the associated styles for those classes is
       // also included
 
-      let cssModuleClasses = null
+      let cssModuleClasses: Record<string, string> | null = null
       const result = await postcss([
         ...postcssPlugins,
         postcssModules({
@@ -105,9 +106,19 @@ export function importCSS(options: ImportCSSOptions): Plugin {
         }
       }
 
+      const namedExports = []
+      if (cssModuleClasses) {
+        for (const [key, value] of Object.entries(cssModuleClasses)) {
+          const name = ensureClassName(key)
+          namedExports.push(`export const ${name} = ${JSON.stringify(value)};`)
+        }
+      }
+
+      console.log(namedExports)
       return {
         code: `
           import '${cssSource}';
+          ${namedExports.join('\n')}
           export default ${JSON.stringify(cssModuleClasses)}
         `,
       }
@@ -119,4 +130,14 @@ const DEFAULT_HASH_SIZE = 8
 
 function getSourceHash(source: string) {
   return createHash('sha256').update(source).digest('hex').slice(0, DEFAULT_HASH_SIZE)
+}
+
+function escapeClassNameDashes(string: string) {
+  return string.replace(/-+/g, match => {
+    return `$${match.replace(/-/g, '_')}$`
+  })
+}
+
+function ensureClassName(name: string) {
+  return identifier(escapeClassNameDashes(name), false)
 }

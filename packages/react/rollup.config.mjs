@@ -363,6 +363,7 @@ export default [
       postcss({
         extract: 'components.css',
         autoModules: false,
+        namedExports: true,
         modules: {
           generateScopedName: 'prc_[local]_[hash:base64:5]',
         },

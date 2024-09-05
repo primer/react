@@ -15,7 +15,8 @@
   },
   "peerDependencies": {
     "postcss": "^8.4.38",
-    "postcss-modules": "^6.0.0"
+    "postcss-modules": "^6.0.0",
+    "safe-identifier": "0.4.2"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.7",
