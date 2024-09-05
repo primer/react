@@ -17,6 +17,7 @@ import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import type {SxProp} from '../sx'
+import {CircleSlashIcon} from '@primer/octicons-react'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -134,7 +135,19 @@ export function FilteredActionList({
             <Spinner />
           </Box>
         ) : (
-          <ActionList ref={listContainerRef} items={items} {...listProps} role="listbox" id={listId} />
+          <>
+            {items.length > 0 ? (
+              <ActionList ref={listContainerRef} items={items} {...listProps} role="listbox" id={listId} />
+            ) : (
+              <ActionList
+                ref={listContainerRef}
+                items={[{text: 'No matches', leadingVisual: CircleSlashIcon, disabled: true}]}
+                {...listProps}
+                role="listbox"
+                id={listId}
+              />
+            )}
+          </>
         )}
       </Box>
     </Box>
