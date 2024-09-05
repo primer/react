@@ -135,19 +135,13 @@ export function FilteredActionList({
             <Spinner />
           </Box>
         ) : (
-          <>
-            {items.length > 0 ? (
-              <ActionList ref={listContainerRef} items={items} {...listProps} role="listbox" id={listId} />
-            ) : (
-              <ActionList
-                ref={listContainerRef}
-                items={[{text: 'No matches', leadingVisual: CircleSlashIcon, disabled: true}]}
-                {...listProps}
-                role="listbox"
-                id={listId}
-              />
-            )}
-          </>
+          <ActionList
+            ref={listContainerRef}
+            items={items.length > 0 ? items : [{text: 'No matches', leadingVisual: CircleSlashIcon, disabled: true}]}
+            {...listProps}
+            role="listbox"
+            id={listId}
+          />
         )}
       </Box>
     </Box>
