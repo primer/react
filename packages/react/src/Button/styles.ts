@@ -295,7 +295,7 @@ export const getBaseStyles = (theme?: Theme) => ({
     fontSize: '0',
 
     '[data-component="text"]': {
-      lineHeight: 'calc(20 / 12)',
+      lineHeight: 'var(--text-body-lineHeight-small, calc(20 / 12))',
     },
 
     '[data-component=ButtonCounter]': {
@@ -381,7 +381,7 @@ export const getButtonStyles = (theme?: Theme) => {
     },
     '[data-component="text"]': {
       gridArea: 'text',
-      lineHeight: 'calc(20/14)',
+      lineHeight: 'var(--text-body-lineHeight-medium, calc(20/14))',
       whiteSpace: 'nowrap',
     },
     '[data-component="trailingVisual"]': {
