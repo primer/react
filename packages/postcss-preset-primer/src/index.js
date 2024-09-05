@@ -6,6 +6,7 @@ import {globSync} from 'glob'
 import postcssGlobalData from '@csstools/postcss-global-data'
 import postcssPresetEnv from 'postcss-preset-env'
 import postcssMixins from 'postcss-mixins'
+import cssnano from 'cssnano'
 import customPropertiesFallback from 'postcss-custom-properties-fallback'
 // @ts-ignore
 import browsers from '@github/browserslist-config'
@@ -39,19 +40,6 @@ const postcssPresetPrimer = () => {
   }
 
   const [primitivesPath] = primitivesPaths
-  const preset = postcssPresetEnv({
-    stage: 2,
-    browsers,
-    // https://preset-env.cssdb.org/features/#stage-2
-    features: {
-      'nesting-rules': {
-        noIsPseudoSelector: true,
-      },
-      'focus-visible-pseudo-class': false,
-      'logical-properties-and-values': false,
-    },
-  })
-  const plugins = 'plugins' in preset ? preset.plugins : []
 
   return {
     postcssPlugin: 'postcss-preset-primer',
@@ -103,7 +91,21 @@ const postcssPresetPrimer = () => {
           },
         ],
       }),
-      ...plugins,
+      ...plugins(
+        postcssPresetEnv({
+          stage: 2,
+          browsers,
+          // https://preset-env.cssdb.org/features/#stage-2
+          features: {
+            'nesting-rules': {
+              noIsPseudoSelector: true,
+            },
+            'focus-visible-pseudo-class': false,
+            'logical-properties-and-values': false,
+          },
+        }),
+      ),
+      ...plugins(cssnano()),
     ],
   }
 }
@@ -130,6 +132,15 @@ function ancestors(directory) {
   }
 
   return result
+}
+
+/**
+ * Returns array of plugins from the given PostCSS preset
+ * @param {import('postcss').Processor | import('postcss').Plugin} preset
+ * @returns {Array<any>}
+ */
+function plugins(preset) {
+  return 'plugins' in preset ? preset.plugins : []
 }
 
 export default postcssPresetPrimer
