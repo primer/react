@@ -41,7 +41,7 @@ export interface ToggleSwitchProps extends Omit<React.HTMLAttributes<HTMLDivElem
   /** If the switch is in the loading state, this value controls the amount of delay in milliseconds before
    * the `loadingLabel` is announced to screen readers. Default: 2000. */
   loadingLabelDelay?: number
-  /** The text to describe what is loading. it should be descriptive and not too verbose.
+  /** The text to describe what is loading. It should be descriptive and not verbose.
    * This is primarily used for AT (screen readers) to convey what is currently loading.
    */
   loadingLabel?: string
