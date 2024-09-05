@@ -20,6 +20,7 @@ import type {SxProp} from '../sx'
 
 import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
+import {CircleSlashIcon} from '@primer/octicons-react'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -150,7 +151,14 @@ export function FilteredActionList({
             <Spinner />
           </Box>
         ) : (
-          <ActionList ref={listContainerRef} showDividers={showItemDividers} {...listProps} role="listbox" id={listId}>
+          <ActionList
+            ref={listContainerRef}
+            showDividers={showItemDividers}
+            {...listProps}
+            role="listbox"
+            id={listId}
+            selectionVariant={items.length === 0 ? undefined : listProps.selectionVariant}
+          >
             {groupMetadata?.length
               ? groupMetadata.map((group, index) => {
                   return (
@@ -167,6 +175,15 @@ export function FilteredActionList({
               : items.map((item, index) => {
                   return <MappedActionListItem key={index} {...item} renderItem={listProps.renderItem} />
                 })}
+
+            {items.length === 0 ? (
+              <ActionList.Item disabled={true}>
+                <ActionList.LeadingVisual>
+                  <CircleSlashIcon />
+                </ActionList.LeadingVisual>
+                No matches
+              </ActionList.Item>
+            ) : undefined}
           </ActionList>
         )}
       </Box>
