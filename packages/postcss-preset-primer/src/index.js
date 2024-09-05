@@ -12,7 +12,6 @@ import customPropertiesFallback from 'postcss-custom-properties-fallback'
 import browsers from '@github/browserslist-config'
 
 const filepath = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(filepath)
 const {root: ROOT_DIR} = path.parse(filepath)
 
 /**
