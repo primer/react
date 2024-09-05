@@ -114,7 +114,6 @@ export function importCSS(options: ImportCSSOptions): Plugin {
         }
       }
 
-      console.log(namedExports)
       return {
         code: `
           import '${cssSource}';
