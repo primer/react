@@ -16,7 +16,7 @@ import CounterLabel from '../CounterLabel'
 import {useId} from '../hooks'
 import {ConditionalWrapper} from '../internal/components/ConditionalWrapper'
 import {AriaStatus} from '../live-region'
-import cx from 'clsx'
+import {clsx} from 'clsx'
 import classes from './ButtonBase.module.css'
 import {useFeatureFlag} from '../FeatureFlags'
 import Text from '../Text'
@@ -114,7 +114,7 @@ const ButtonBase = forwardRef(
               aria-disabled={loading ? true : undefined}
               {...rest}
               ref={innerRef}
-              className={cx(classes.ButtonBase, className)}
+              className={clsx(classes.ButtonBase, className)}
               data-block={block ? 'block' : null}
               data-inactive={inactive ? true : undefined}
               data-loading={Boolean(loading)}
@@ -233,7 +233,7 @@ const ButtonBase = forwardRef(
             {...rest}
             // @ts-ignore temporary disable as we migrate to css modules, until we remove PolymorphicForwardRefComponent
             ref={innerRef}
-            className={cx(classes.ButtonBase, className)}
+            className={clsx(classes.ButtonBase, className)}
             data-block={block ? 'block' : null}
             data-inactive={inactive ? true : undefined}
             data-loading={Boolean(loading)}
