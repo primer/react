@@ -1,5 +1,4 @@
-import fs from 'node:fs'
-import {existsSync} from 'node:fs'
+import {readFileSync, existsSync} from 'node:fs'
 import path from 'node:path'
 import {fileURLToPath} from 'node:url'
 import {globSync} from 'glob'
@@ -67,7 +66,7 @@ const postcssPresetPrimer = () => {
             })
 
             for (const filePath of filePaths) {
-              const fileData = fs.readFileSync(path.join(primitivesPath, filePath), 'utf8')
+              const fileData = readFileSync(path.join(primitivesPath, filePath), 'utf8')
 
               const jsonData = JSON.parse(fileData)
               let result = {}
