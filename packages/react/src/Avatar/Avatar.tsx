@@ -1,4 +1,4 @@
-import cx from 'clsx'
+import {clsx} from 'clsx'
 import React from 'react'
 import Box from '../Box'
 import styled from 'styled-components'
@@ -79,7 +79,7 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
         <Box
           as="img"
           data-component="Avatar"
-          className={cx(className, classes.Avatar)}
+          className={clsx(className, classes.Avatar)}
           ref={ref}
           alt={alt}
           data-responsive={isResponsive ? 'true' : undefined}
@@ -97,7 +97,7 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
     return (
       <img
         data-component="Avatar"
-        className={cx(className, classes.Avatar)}
+        className={clsx(className, classes.Avatar)}
         alt={alt}
         data-responsive={isResponsive ? 'true' : undefined}
         data-square={square ? 'true' : undefined}
