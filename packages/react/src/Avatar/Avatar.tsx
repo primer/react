@@ -111,7 +111,16 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
   }
 
   return (
-    <StyledAvatar data-component="Avatar" ref={ref} alt={alt} size={size} square={square} sx={avatarSx} {...rest} />
+    <StyledAvatar
+      data-component="Avatar"
+      className={className}
+      ref={ref}
+      alt={alt}
+      size={size}
+      square={square}
+      sx={avatarSx}
+      {...rest}
+    />
   )
 })
 
