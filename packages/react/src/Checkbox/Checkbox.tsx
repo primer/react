@@ -1,3 +1,4 @@
+import {clsx} from 'clsx'
 import styled from 'styled-components'
 import {useProvidedRefOrCreate} from '../hooks'
 import React, {useContext, useEffect, type ChangeEventHandler, type InputHTMLAttributes, type ReactElement} from 'react'
@@ -8,28 +9,37 @@ import {CheckboxGroupContext} from '../CheckboxGroup/CheckboxGroupContext'
 import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import {get} from '../constants'
 import {sharedCheckboxAndRadioStyles} from '../internal/utils/sharedCheckboxAndRadioStyles'
+import {useFeatureFlag} from '../FeatureFlags'
+import Box from '../Box'
+import {focusTarget} from '../css/globalFocusStyles.module.css'
+import classes from './Checkbox.module.css'
 
 export type CheckboxProps = {
   /**
    * Apply indeterminate visual appearance to the checkbox
    */
   indeterminate?: boolean
+
   /**
    * Apply inactive visual appearance to the checkbox
    */
   disabled?: boolean
+
   /**
    * Forward a ref to the underlying input element
    */
   ref?: React.RefObject<HTMLInputElement>
+
   /**
    * Indicates whether the checkbox must be checked
    */
   required?: boolean
+
   /**
    * Only used to inform ARIA attributes. Individual checkboxes do not have validation styles.
    */
   validationStatus?: FormValidationStatus
+
   /**
    * A unique value that is never shown to the user.
    * Used during form submission and to identify which checkbox inputs are selected
@@ -145,6 +155,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (
     {
       checked,
+      className,
       defaultChecked,
       indeterminate,
       disabled,
@@ -159,9 +170,24 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   ): ReactElement => {
     const checkboxRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
     const checkboxGroupContext = useContext(CheckboxGroupContext)
+    const enabled = useFeatureFlag('primer_react_css_modules_team')
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
       checkboxGroupContext.onChange && checkboxGroupContext.onChange(e)
       onChange && onChange(e)
+    }
+    const inputProps = {
+      type: 'checkbox',
+      disabled,
+      ref: checkboxRef,
+      checked: indeterminate ? false : checked,
+      defaultChecked,
+      required,
+      ['aria-required']: required ? ('true' as const) : ('false' as const),
+      ['aria-invalid']: validationStatus === 'error' ? ('true' as const) : ('false' as const),
+      onChange: handleOnChange,
+      value,
+      name: value,
+      ...rest,
     }
 
     useLayoutEffect(() => {
@@ -183,23 +209,14 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       }
     })
 
-    return (
-      <StyledCheckbox
-        type="checkbox"
-        disabled={disabled}
-        ref={checkboxRef}
-        checked={indeterminate ? false : checked}
-        defaultChecked={defaultChecked}
-        sx={sxProp}
-        required={required}
-        aria-required={required ? 'true' : 'false'}
-        aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
-        onChange={handleOnChange}
-        value={value}
-        name={value}
-        {...rest}
-      />
-    )
+    if (enabled) {
+      if (sxProp) {
+        return <Box {...inputProps} sx={sxProp} />
+      }
+      return <input {...inputProps} className={clsx(focusTarget, classes.Checkbox, className)} />
+    }
+
+    return <StyledCheckbox {...inputProps} sx={sxProp} />
   },
 )
 

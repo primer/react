@@ -50,6 +50,12 @@ test.describe('Checkbox', () => {
             expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
               `Checkbox.${story.title}.${theme}.png`,
             )
+
+            // Focus state
+            await page.keyboard.press('Tab')
+            expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+              `Checkbox.${story.title}.focus.${theme}.png`,
+            )
           })
 
           test('axe @aat', async ({page}) => {
