@@ -309,3 +309,32 @@ export const CustomItemRenderer = () => {
     </>
   )
 }
+
+export const NoMatches = () => {
+  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
+  const [filter, setFilter] = React.useState('no-matches-for-this')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+
+  return (
+    <>
+      <h1>No matches</h1>
+      <SelectPanel
+        title="Select files"
+        renderAnchor={({...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} {...anchorProps}>
+            Select files
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        filterValue={filter}
+        onFilterChange={setFilter}
+        overlayProps={{width: 'medium'}}
+      />
+    </>
+  )
+}

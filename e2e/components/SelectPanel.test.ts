@@ -32,6 +32,10 @@ const scenarios = matrix({
       id: 'components-selectpanel-examples--height-initial-with-underflowing-items-after-fetch',
       name: 'Height Initial with Underflowing Items After Fetch',
     },
+    {
+      id: 'components-selectpanel-examples--no-matches',
+      name: 'No matches',
+    },
   ],
 })
 
