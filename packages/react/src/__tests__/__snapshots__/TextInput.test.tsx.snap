@@ -1761,6 +1761,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   cursor: not-allowed;
   box-shadow: none;
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--button-invisible-bgColor-disabled,transparent);
 }
 
 .c4:disabled [data-component=ButtonCounter],
@@ -2391,6 +2392,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   cursor: not-allowed;
   box-shadow: none;
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--button-invisible-bgColor-disabled,transparent);
 }
 
 .c4:disabled [data-component=ButtonCounter],
@@ -2882,6 +2884,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   cursor: not-allowed;
   box-shadow: none;
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--button-invisible-bgColor-disabled,transparent);
 }
 
 .c4:disabled [data-component=ButtonCounter],
