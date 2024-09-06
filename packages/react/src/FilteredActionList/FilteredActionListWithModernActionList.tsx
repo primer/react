@@ -21,7 +21,7 @@ import type {SxProp} from '../sx'
 import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
 import {CircleSlashIcon} from '@primer/octicons-react'
-import {announce} from '@primer/live-region-element'
+import {useAnnouncements} from './useAnnouncements'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -115,6 +115,7 @@ export function FilteredActionList({
   }, [items])
 
   useScrollFlash(scrollContainerRef)
+  useAnnouncements(items, listContainerRef, inputRef)
 
   function getItemListForEachGroup(groupId: string) {
     const itemsInGroup = []
@@ -126,40 +127,6 @@ export function FilteredActionList({
     }
     return itemsInGroup
   }
-
-  React.useEffect(
-    function announceInitialFocus() {
-      const focusHandler = () => {
-        const listElement = listContainerRef.current
-        const activeItemElement = listElement?.querySelector('[data-is-active-descendant]')
-
-        if (listElement && activeItemElement?.textContent) {
-          const activeItemIndex = Array.from(listElement.children).indexOf(activeItemElement)
-          const announcementText = `
-          Focus on filter text box and list of labels.
-          Focused item, ${activeItemElement.textContent.trim()}, ${activeItemIndex + 1} of ${items.length}
-        `
-          announce(announcementText, {delayMs: 500})
-        }
-      }
-
-      const inputElement = inputRef.current
-      inputElement?.addEventListener('focus', focusHandler)
-      return () => inputElement?.removeEventListener('focus', focusHandler)
-    },
-    [inputRef, items],
-  )
-
-  const isFirstRender = useFirstRender()
-  React.useEffect(
-    function announceListUpdates() {
-      if (isFirstRender) return // ignore on first render
-      const announcementText =
-        items.length > 0 ? `List updated. Focused item, ${items[0].text}, 1 of ${items.length}` : 'No items.'
-      announce(announcementText, {delayMs: 500})
-    },
-    [isFirstRender, items],
-  )
 
   return (
     <Box display="flex" flexDirection="column" overflow="hidden" sx={sx}>
@@ -283,11 +250,3 @@ function MappedActionListItem(item: ItemInput & {renderItem?: RenderItemFn}) {
 }
 
 FilteredActionList.displayName = 'FilteredActionList'
-
-const useFirstRender = () => {
-  const firstRender = useRef(true)
-  useEffect(() => {
-    firstRender.current = false
-  }, [])
-  return firstRender.current
-}

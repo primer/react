@@ -18,6 +18,7 @@ import useScrollFlash from '../hooks/useScrollFlash'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import type {SxProp} from '../sx'
 import {CircleSlashIcon} from '@primer/octicons-react'
+import {useAnnouncements} from './useAnnouncements'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -109,6 +110,7 @@ export function FilteredActionList({
   }, [items])
 
   useScrollFlash(scrollContainerRef)
+  useAnnouncements(items, listContainerRef, inputRef)
 
   return (
     <Box display="flex" flexDirection="column" overflow="hidden" sx={sx}>
