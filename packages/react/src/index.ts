@@ -206,3 +206,6 @@ export type {PageHeaderProps} from './PageHeader'
 
 export {default as sx, merge} from './sx'
 export type {SxProp, BetterCssProperties, BetterSystemStyleObject} from './sx'
+
+export {VisuallyHidden} from './VisuallyHidden'
+export type {VisuallyHiddenProps} from './VisuallyHidden'

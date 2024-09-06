@@ -1,6 +1,7 @@
+import React from 'react'
 import styled from 'styled-components'
-import type {SxProp} from '../../sx'
-import sx from '../../sx'
+import sx from '../sx'
+import type {SxProp} from '../sx'
 
 /**
  * Provides a component that implements the "visually hidden" technique. This is
@@ -12,7 +13,7 @@ import sx from '../../sx'
  *
  * @see https://www.scottohara.me/blog/2023/03/21/visually-hidden-hack.html
  */
-export const VisuallyHidden = styled.span<SxProp>`
+const StyledVisuallyHidden = styled.span<SxProp>`
   &:not(:focus):not(:active):not(:focus-within) {
     clip-path: inset(50%);
     height: 1px;
@@ -24,3 +25,12 @@ export const VisuallyHidden = styled.span<SxProp>`
 
   ${sx}
 `
+
+type VisuallyHiddenProps = React.PropsWithChildren<React.ComponentPropsWithoutRef<'span'> & SxProp>
+
+function VisuallyHidden(props: VisuallyHiddenProps) {
+  return <StyledVisuallyHidden {...props} />
+}
+
+export {VisuallyHidden}
+export type {VisuallyHiddenProps}
