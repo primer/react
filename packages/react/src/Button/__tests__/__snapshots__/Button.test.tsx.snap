@@ -221,7 +221,7 @@ exports[`Button respects block prop 1`] = `
 
 .c0 [data-component="text"] {
   grid-area: text;
-  line-height: calc(20/14);
+  line-height: calc(20 / 14);
   white-space: nowrap;
 }
 
@@ -537,7 +537,7 @@ exports[`Button respects the alignContent prop 1`] = `
 
 .c0 [data-component="text"] {
   grid-area: text;
-  line-height: calc(20/14);
+  line-height: calc(20 / 14);
   white-space: nowrap;
 }
 
@@ -852,7 +852,7 @@ exports[`Button respects the large size prop 1`] = `
 
 .c0 [data-component="text"] {
   grid-area: text;
-  line-height: calc(20/14);
+  line-height: calc(20 / 14);
   white-space: nowrap;
 }
 
@@ -1168,7 +1168,7 @@ exports[`Button respects the small size prop 1`] = `
 
 .c0 [data-component="text"] {
   grid-area: text;
-  line-height: calc(20/14);
+  line-height: calc(20 / 14);
   white-space: nowrap;
 }
 
@@ -1486,7 +1486,7 @@ exports[`Button styles danger button appropriately 1`] = `
 
 .c0 [data-component="text"] {
   grid-area: text;
-  line-height: calc(20/14);
+  line-height: calc(20 / 14);
   white-space: nowrap;
 }
 
@@ -1803,7 +1803,7 @@ exports[`Button styles invisible button appropriately 1`] = `
 
 .c0 [data-component="text"] {
   grid-area: text;
-  line-height: calc(20/14);
+  line-height: calc(20 / 14);
   white-space: nowrap;
 }
 
@@ -2127,7 +2127,7 @@ exports[`Button styles primary button appropriately 1`] = `
 
 .c0 [data-component="text"] {
   grid-area: text;
-  line-height: calc(20/14);
+  line-height: calc(20 / 14);
   white-space: nowrap;
 }
 

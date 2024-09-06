@@ -33,7 +33,6 @@ export const InvisibleVariants = () => {
 }
 
 export const TestSxProp = () => {
-  const count = 4
   return (
     <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
       <Button
