@@ -19,7 +19,6 @@ import {AriaStatus} from '../live-region'
 import {clsx} from 'clsx'
 import classes from './ButtonBase.module.css'
 import {useFeatureFlag} from '../FeatureFlags'
-import Text from '../Text'
 
 const iconWrapStyles = {
   display: 'flex',
@@ -165,15 +164,9 @@ const ButtonBase = forwardRef(
                       LeadingVisual && renderModuleVisual(LeadingVisual, Boolean(loading), 'leadingVisual')
                     }
                     {children && (
-                      <Text
-                        size={size}
-                        weight="medium"
-                        data-component="text"
-                        className={classes.Label}
-                        id={loading ? `${uuid}-label` : undefined}
-                      >
+                      <span data-component="text" className={classes.Label} id={loading ? `${uuid}-label` : undefined}>
                         {children}
-                      </Text>
+                      </span>
                     )}
                     {
                       /* If there is a count, render a counter label unless there is a trailing visual.
@@ -278,15 +271,9 @@ const ButtonBase = forwardRef(
                     LeadingVisual && renderModuleVisual(LeadingVisual, Boolean(loading), 'leadingVisual')
                   }
                   {children && (
-                    <Text
-                      size={size}
-                      weight="medium"
-                      className={classes.Label}
-                      data-component="text"
-                      id={loading ? `${uuid}-label` : undefined}
-                    >
+                    <span data-component="text" className={classes.Label} id={loading ? `${uuid}-label` : undefined}>
                       {children}
-                    </Text>
+                    </span>
                   )}
                   {
                     /* If there is a count, render a counter label unless there is a trailing visual.

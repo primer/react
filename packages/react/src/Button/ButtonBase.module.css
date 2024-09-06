@@ -6,6 +6,8 @@
   /* stylelint-disable-next-line primer/spacing */
   padding: 0 var(--control-medium-paddingInline-normal);
   font-family: inherit;
+  font-size: var(--text-body-size-medium);
+  font-weight: var(--base-text-weight-medium);
   color: var(--button-default-fgColor-rest);
   text-align: center;
   text-decoration: none;
@@ -112,8 +114,9 @@
 }
 
 .Label {
-  grid-area: text;
+  line-height: calc(20 / 14); /* temporary until we use Text component with --text-body-lineHeight-medium */
   white-space: nowrap;
+  grid-area: text;
 }
 
 .ButtonBase [data-component='trailingVisual'] {
@@ -147,10 +150,15 @@
   /* stylelint-disable-next-line primer/spacing */
   padding: 0 var(--control-small-paddingInline-condensed);
   gap: var(--control-small-gap);
+  font-size: var(--text-body-size-small);
 
-  .ButtonContent > :not(:last-child) {
+  & .ButtonContent > :not(:last-child) {
     /* stylelint-disable-next-line primer/spacing */
     margin-right: var(--control-small-gap);
+  }
+
+  & .Label {
+    line-height: calc(20 / 12); /* temporary until we use Text component with --text-body-lineHeight-small */
   }
 }
 
@@ -160,7 +168,7 @@
   padding: 0 var(--control-large-paddingInline-spacious);
   gap: var(--control-large-gap);
 
-  .ButtonContent > :not(:last-child) {
+  & .ButtonContent > :not(:last-child) {
     /* stylelint-disable-next-line primer/spacing */
     margin-right: var(--control-large-gap);
   }
