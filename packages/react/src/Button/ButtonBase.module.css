@@ -224,15 +224,24 @@
 
 /* Loading */
 
+/* only hide label if there's no leading/trailing visuals
+* move spinner to label spot if not leading/trailing visuals
+*/
+
 .ButtonBase:where([data-loading='true']) {
-  & .loadingSpinner {
+  &
+    .loadingSpinner:not(
+      [data-component='leadingVisual'],
+      [data-component='trailingVisual'],
+      [data-component='trailingAction']
+    ) {
     grid-area: text;
     margin-right: 0 !important;
     place-self: center;
-  }
 
-  & .Label {
-    visibility: hidden;
+    & + .Label {
+      visibility: hidden;
+    }
   }
 }
 
