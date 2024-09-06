@@ -5,6 +5,9 @@ import {announce} from '@primer/live-region-element'
 import {useEffect, useRef} from 'react'
 import type {FilteredActionListProps} from './FilteredActionListEntry'
 
+// we add a delay so that it does not interrupt default screen reader announcement and queues after it
+const delayMs = 500
+
 const useFirstRender = () => {
   const firstRender = useRef(true)
   useEffect(() => {
@@ -29,16 +32,15 @@ export const useAnnouncements = (
           if (listElement && activeItemElement?.textContent) {
             const activeItemIndex = Array.from(listElement.children).indexOf(activeItemElement)
             const activeItemText = items[activeItemIndex].text
-            const selected = items[activeItemIndex].selected
+            const activeItemSelected = items[activeItemIndex].selected
 
             const announcementText = `
-            Focus on filter text box and list of labels.
-            Focused item, ${activeItemText}, ${selected ? 'selected' : 'not selected'}, ${activeItemIndex + 1} of ${
-              items.length
-            }
-          `
-
-            announce(announcementText, {delayMs: 500 /* we add a delay so that it does not interrupt user action */})
+              Focus on filter text box and list of labels.
+              Focused item, ${activeItemText}, 
+              ${activeItemSelected ? 'selected' : 'not selected'},
+              ${activeItemIndex + 1} of ${items.length}
+            `
+            announce(announcementText, {delayMs})
           }
         })
       }
@@ -54,9 +56,23 @@ export const useAnnouncements = (
   useEffect(
     function announceListUpdates() {
       if (isFirstRender) return // ignore on first render as announceInitialFocus will also announce
-      const announcementText =
-        items.length > 0 ? `List updated. Focused item, ${items[0].text}, 1 of ${items.length}` : 'No matching items.'
-      announce(announcementText, {delayMs: 500 /* we add a delay so that it does not interrupt user action */})
+
+      if (items.length === 0) {
+        announce('No matching items.', {delayMs})
+        return
+      }
+
+      const activeItemIndex = 0
+      const activeItemText = items[activeItemIndex].text
+      const activeItemSelected = items[activeItemIndex].selected
+
+      const announcementText = `
+        List updated.
+        Focused item, ${activeItemText},
+        ${activeItemSelected ? 'selected' : 'not selected'},
+        ${1} of ${items.length}
+      `
+      announce(announcementText, {delayMs})
     },
     [isFirstRender, items],
   )
