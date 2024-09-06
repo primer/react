@@ -242,6 +242,7 @@ exports[`@primer/react/deprecated should not update exports without a semver cha
   "FilteredSearch",
   "type FilteredSearchProps",
   "type GroupProps",
+  "type ItemInput",
   "type ItemProps",
   "Octicon",
   "type OcticonProps",
