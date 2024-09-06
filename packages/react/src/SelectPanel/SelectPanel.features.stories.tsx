@@ -14,6 +14,7 @@ import {
   TypographyIcon,
   VersionsIcon,
 } from '@primer/octicons-react'
+import useSafeTimeout from '../hooks/useSafeTimeout'
 
 const meta = {
   title: 'Components/SelectPanel/Features',
@@ -366,6 +367,48 @@ export const WithGroups = () => {
       onFilterChange={setFilter}
       showItemDividers={true}
       overlayProps={{width: 'large', height: 'xlarge'}}
+    />
+  )
+}
+
+export const AsyncFetch = () => {
+  const [selected, setSelected] = React.useState<ItemInput[]>([])
+  const [filteredItems, setFilteredItems] = React.useState<ItemInput[]>([])
+  const [open, setOpen] = useState(false)
+  const filterTimerId = useRef<number | null>(null)
+  const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+  const onFilterChange = (value: string) => {
+    if (filterTimerId.current) {
+      safeClearTimeout(filterTimerId.current)
+    }
+
+    filterTimerId.current = safeSetTimeout(() => {
+      setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(value.toLowerCase())))
+    }, 2000) as unknown as number
+  }
+
+  return (
+    <SelectPanel
+      title="Select labels"
+      subtitle="Use labels to organize issues and pull requests"
+      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+        <Button
+          trailingAction={TriangleDownIcon}
+          aria-labelledby={` ${ariaLabelledBy}`}
+          {...anchorProps}
+          aria-haspopup="dialog"
+        >
+          {children ?? 'Select Labels'}
+        </Button>
+      )}
+      placeholderText="Filter labels"
+      open={open}
+      onOpenChange={setOpen}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onFilterChange={onFilterChange}
+      showItemDividers={true}
     />
   )
 }

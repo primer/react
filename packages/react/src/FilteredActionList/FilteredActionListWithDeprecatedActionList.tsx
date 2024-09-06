@@ -20,14 +20,17 @@ import type {SxProp} from '../sx'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
+export type LoadingType = 'input' | 'body'
+
 export interface FilteredActionListProps
   extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>,
     ListPropsBase,
     SxProp {
   loading?: boolean
+  loadingType?: LoadingType
   placeholderText?: string
   filterValue?: string
-  onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
+  onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement> | null) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
 }
@@ -39,6 +42,7 @@ const StyledHeader = styled.div`
 
 export function FilteredActionList({
   loading = false,
+  loadingType = 'body',
   placeholderText,
   filterValue: externalFilterValue,
   onFilterChange,
@@ -124,12 +128,14 @@ export function FilteredActionList({
           aria-label={placeholderText}
           aria-controls={listId}
           aria-describedby={inputDescriptionTextId}
+          loaderPosition={'leading'}
+          loading={loading && loadingType === 'input'}
           {...textInputProps}
         />
       </StyledHeader>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
       <Box ref={scrollContainerRef} overflow="auto">
-        {loading ? (
+        {loading && loadingType === 'body' ? (
           <Box width="100%" display="flex" flexDirection="row" justifyContent="center" pt={6} pb={7}>
             <Spinner />
           </Box>

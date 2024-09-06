@@ -1,5 +1,5 @@
 import {SearchIcon, TriangleDownIcon} from '@primer/octicons-react'
-import React, {useCallback, useMemo} from 'react'
+import React, {useCallback, useEffect, useMemo, useRef} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
@@ -17,6 +17,7 @@ import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
+import useSafeTimeout from '../hooks/useSafeTimeout'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -86,18 +87,67 @@ export function SelectPanel({
   textInputProps,
   overlayProps,
   sx,
+  loading,
   ...listProps
 }: SelectPanelProps): JSX.Element {
+  const inputRef = React.useRef<HTMLInputElement>(null)
   const titleId = useId()
   const subtitleId = useId()
+  const dataLoadedOnce = useRef(false)
+  const [isLoading, setIsLoading] = useProvidedStateOrCreate(loading, undefined, false)
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
+  const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+  const loadingDelayTimeoutId = useRef<number | null>(null)
   const onFilterChange: FilteredActionListProps['onFilterChange'] = useCallback(
     (value, e) => {
+      if (dataLoadedOnce.current) {
+        // If data has already been loaded once, delay the spinner a bit. This also helps
+        // not show and then immediately hide the spinner if items are loaded quickly, i.e.
+        // not async.
+
+        if (loadingDelayTimeoutId.current) {
+          safeClearTimeout(loadingDelayTimeoutId.current)
+        }
+
+        loadingDelayTimeoutId.current = safeSetTimeout(() => setIsLoading(true), 1000)
+      } else {
+        // If this is the first data load and there are no items, show the loading spinner
+        // immediately
+
+        if (items.length === 0) {
+          setIsLoading(true)
+        }
+      }
+
       externalOnFilterChange(value, e)
       setInternalFilterValue(value)
     },
-    [externalOnFilterChange, setInternalFilterValue],
+    [externalOnFilterChange, setInternalFilterValue, setIsLoading, safeSetTimeout, safeClearTimeout, items],
   )
+
+  useEffect(() => {
+    if (isLoading) {
+      setIsLoading(false)
+      dataLoadedOnce.current = true
+    }
+    // Only fire this effect if items have changed
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [items])
+
+  // Populate panel with items on first open
+  useEffect(() => {
+    // If data was already loaded once, do nothing
+    if (dataLoadedOnce.current) return
+
+    // Only load data when the panel is open
+    if (open) {
+      // Only trigger filter change event if there are no items
+      if (items.length === 0) {
+        // Trigger filter event to populate panel on first open
+        onFilterChange(filterValue, null)
+      }
+    }
+  }, [open, dataLoadedOnce, onFilterChange, filterValue, items])
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(
@@ -159,7 +209,6 @@ export function SelectPanel({
     })
   }, [onClose, onSelectedChange, items, selected])
 
-  const inputRef = React.useRef<HTMLInputElement>(null)
   const focusTrapSettings = {
     initialFocusRef: inputRef,
   }
@@ -223,6 +272,8 @@ export function SelectPanel({
             items={itemsToRender}
             textInputProps={extendedTextInputProps}
             inputRef={inputRef}
+            loading={isLoading}
+            loadingType={dataLoadedOnce.current ? 'input' : 'body'}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
             sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
