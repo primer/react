@@ -29,10 +29,13 @@ export const useAnnouncements = (
           if (listElement && activeItemElement?.textContent) {
             const activeItemIndex = Array.from(listElement.children).indexOf(activeItemElement)
             const activeItemText = items[activeItemIndex].text
+            const selected = items[activeItemIndex].selected
 
             const announcementText = `
             Focus on filter text box and list of labels.
-            Focused item, ${activeItemText}, ${activeItemIndex + 1} of ${items.length}
+            Focused item, ${activeItemText}, ${selected ? 'selected' : 'not selected'}, ${activeItemIndex + 1} of ${
+              items.length
+            }
           `
 
             announce(announcementText, {delayMs: 500 /* we add a delay so that it does not interrupt user action */})
