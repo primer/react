@@ -18,7 +18,7 @@ const useFirstRender = () => {
 
 export const useAnnouncements = (
   items: FilteredActionListProps['items'],
-  listContainerRef: React.RefObject<HTMLUListElement>,
+  listContainerRef: React.RefObject<HTMLUListElement | HTMLDivElement>, // compatible with new and old
   inputRef: React.RefObject<HTMLInputElement>,
 ) => {
   useEffect(
