@@ -66,12 +66,6 @@ Playground.argTypes = {
   leadingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
   trailingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
   trailingAction: OcticonArgType([TriangleDownIcon]),
-  as: {
-    control: {
-      type: 'radio',
-    },
-    options: ['button', 'a'],
-  },
 }
 Playground.args = {
   block: false,
@@ -85,8 +79,6 @@ Playground.args = {
   leadingVisual: null,
   trailingAction: null,
   labelWrap: false,
-  // as: 'a',
-  href: '/',
 }
 
 export const Default = () => <Button>Default</Button>
