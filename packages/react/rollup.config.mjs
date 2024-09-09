@@ -34,8 +34,8 @@ const input = new Set([
   // "./next"
   'src/next/index.ts',
 
-  // Make sure all members are exported
-  'src/constants.ts',
+  // "./test-helpers"
+  'src/utils/test-helpers.ts',
 ])
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx']

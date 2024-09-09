@@ -11,7 +11,12 @@
 // Deprecated in v35.0.0 on March 9, 2022
 // TODO: We can remove these 6 months after release: September 10, 2022
 export {ActionList} from './ActionList'
-export type {ActionListProps, GroupProps, ItemProps, ItemInput} from './ActionList'
+export type {
+  ActionListProps,
+  GroupProps as ActionListGroupProps,
+  ItemProps as ActionListItemProps,
+  ItemInput as ActionListItemInput,
+} from './ActionList'
 export {ActionMenu} from './ActionMenu'
 export type {ActionMenuProps} from './ActionMenu'
 // (copied over from src/index) not exporting new DropdownMenu types yet due to conflict with Dropdown types above

@@ -24,6 +24,10 @@
     "./next": {
       "import": "./lib-esm/next/index.js",
       "require": "./lib/next/index.js"
+    },
+    "./test-helpers": {
+      "import": "./lib-esm/test-helpers.js",
+      "require": "./lib/test-helpers.js"
     }
   },
   "typings": "lib/index.d.ts",
