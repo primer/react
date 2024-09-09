@@ -97,6 +97,16 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       inputRef.current?.focus()
     }
     const leadingVisualId = useId()
+    const trailingVisualId = useId()
+
+    const inputDescribedBy = [
+      inputProps['aria-describedby'],
+      LeadingVisual && leadingVisualId,
+      TrailingVisual && trailingVisualId,
+    ]
+      .filter(String)
+      .join('')
+
     const handleInputFocus = useCallback(
       (e: React.FocusEvent<HTMLInputElement>) => {
         setIsInputFocused(true)
@@ -138,7 +148,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           visualPosition="leading"
           showLoadingIndicator={showLeadingLoadingIndicator}
           hasLoadingIndicator={typeof loading === 'boolean'}
-          id={typeof LeadingVisual === 'string' ? leadingVisualId : undefined}
+          id={leadingVisualId}
         >
           {typeof LeadingVisual !== 'string' && isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
         </TextInputInnerVisualSlot>
@@ -151,17 +161,14 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           aria-required={required}
           aria-invalid={validationStatus === 'error' ? 'true' : undefined}
           {...inputProps}
-          aria-describedby={
-            typeof LeadingVisual === 'string'
-              ? `${leadingVisualId} ${inputProps['aria-describedby']}`
-              : inputProps['aria-describedby']
-          }
+          aria-describedby={inputDescribedBy}
           data-component="input"
         />
         <TextInputInnerVisualSlot
           visualPosition="trailing"
           showLoadingIndicator={showTrailingLoadingIndicator}
           hasLoadingIndicator={typeof loading === 'boolean'}
+          id={trailingVisualId}
         >
           {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
             <TrailingVisual />
