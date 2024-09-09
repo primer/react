@@ -13,6 +13,7 @@ import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import VisuallyHidden from '../_VisuallyHidden'
 import type {CellAlignment} from '../DataTable/column'
 import {AriaStatus} from '../live-region'
+import useSafeTimeout from '../hooks/useSafeTimeout'
 
 const TRANSITION_DURATION = '80ms'
 const EASE_OUT_QUAD_CURVE = 'cubic-bezier(0.5, 1, 0.89, 1)'
@@ -255,20 +256,16 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
     const [isOn, setIsOn] = useProvidedStateOrCreate<boolean>(checked, onChange, Boolean(defaultChecked))
     const acceptsInteraction = !disabled && !loading
 
-    const [loadingLabelTimeoutId, setLoadingLabelTimeoutId] = React.useState<number | null>(null)
     const [isLoadingLabelVisible, setIsLoadingLabelVisible] = React.useState(false)
     const loadingLabelId = useId('loadingLabel')
 
-    const resetLoadingLabel = useCallback(() => {
-      if (loadingLabelTimeoutId) {
-        clearTimeout(loadingLabelTimeoutId)
-        setLoadingLabelTimeoutId(null)
-      }
+    const {safeSetTimeout} = useSafeTimeout()
 
+    const resetLoadingLabel = useCallback(() => {
       if (isLoadingLabelVisible) {
         setIsLoadingLabelVisible(false)
       }
-    }, [loadingLabelTimeoutId, isLoadingLabelVisible])
+    }, [isLoadingLabelVisible])
 
     const handleToggleClick: MouseEventHandler = useCallback(
       e => {
@@ -290,15 +287,9 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
     }, [onChange, checked, isControlled, disabled])
 
     if (loading) {
-      if (!loadingLabelTimeoutId) {
-        setLoadingLabelTimeoutId(
-          setTimeout(() => {
-            setLoadingLabelTimeoutId(null)
-            setIsLoadingLabelVisible(true)
-          }, loadingLabelDelay) as unknown as number,
-        )
-      }
-    } else {
+      safeSetTimeout(() => {
+        setIsLoadingLabelVisible(true)
+      }, loadingLabelDelay)
       resetLoadingLabel()
     }
 

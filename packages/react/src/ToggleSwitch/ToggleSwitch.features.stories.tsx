@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import type {ToggleSwitchProps} from './ToggleSwitch'
 import ToggleSwitch from './ToggleSwitch'
-import {Box, Text} from '..'
+import {Box, Text, useSafeTimeout} from '..'
 import {action} from '@storybook/addon-actions'
 import ToggleSwitchStoryWrapper from './ToggleSwitchStoryWrapper'
 import type {StoryFn} from '@storybook/react'
@@ -79,15 +79,17 @@ export const LoadingWithDelay: StoryFn<ToggleSwitchProps & LoadingWithDelayProps
   const [isLoading, setIsLoading] = useState(false)
   const [timeoutId, setTimeoutId] = useState<number | null>(null)
 
+  const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+
   const handleToggleClick = () => {
     setIsLoading(true)
 
     if (timeoutId) {
-      clearTimeout(timeoutId)
+      safeClearTimeout(timeoutId)
       setTimeoutId(null)
     }
 
-    setTimeoutId(setTimeout(() => setIsLoading(false), loadingDelay) as unknown as number)
+    setTimeoutId(safeSetTimeout(() => setIsLoading(false), loadingDelay) as unknown as number)
   }
 
   return (
