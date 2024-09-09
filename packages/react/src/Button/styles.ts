@@ -382,7 +382,7 @@ export const getButtonStyles = (theme?: Theme) => {
     },
     '[data-component="text"]': {
       gridArea: 'text',
-      lineHeight: 'calc(20/14)',
+      lineHeight: 'calc(20 / 14)',
       whiteSpace: 'nowrap',
     },
     '[data-component="trailingVisual"]': {

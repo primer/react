@@ -1,0 +1,500 @@
+/* Base styles */
+.ButtonBase {
+  display: flex;
+  min-width: max-content;
+  height: var(--control-medium-size);
+  /* stylelint-disable-next-line primer/spacing */
+  padding: 0 var(--control-medium-paddingInline-normal);
+  font-family: inherit;
+  font-size: var(--text-body-size-medium);
+  font-weight: var(--base-text-weight-medium);
+  color: var(--button-default-fgColor-rest);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  background-color: transparent;
+  border: var(--borderWidth-thin) solid;
+  border-color: var(--button-default-borderColor-rest);
+  border-radius: var(--borderRadius-medium);
+  transition: var(--duration-fast) var(--easing-easeInOut);
+  transition-property: color, fill, background-color, border-color;
+  appearance: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--base-size-8);
+
+  &:hover {
+    transition-duration: var(--duration-fast);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--focus-outlineColor);
+    outline-offset: 0;
+    box-shadow: none;
+  }
+
+  &:active {
+    transition: none;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    box-shadow: none;
+
+    & .Visual > :not(.CounterLabel) {
+      color: inherit;
+    }
+
+    & .CounterLabel {
+      color: inherit;
+    }
+  }
+
+  @media (forced-colors: active) {
+    &:focus {
+      outline: solid 1px transparent;
+    }
+  }
+}
+
+/* LinkButton */
+
+.ButtonBase[href] {
+  display: inline-flex;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+/* IconButton */
+
+.ButtonBase:where(.IconButton) {
+  display: inline-grid;
+  width: var(--control-medium-size);
+  min-width: unset;
+  /* stylelint-disable-next-line primer/spacing */
+  padding: unset;
+  place-content: center;
+
+  &:where([data-size='small']) {
+    width: var(--control-small-size);
+  }
+
+  &:where([data-size='large']) {
+    width: var(--control-large-size);
+  }
+}
+
+/* Visuals */
+.Visual {
+  display: flex;
+  pointer-events: none;
+}
+
+.Visual:not(.loadingSpinner) {
+  color: var(--fgColor-muted);
+}
+
+.ConditionalWrapper {
+  display: block;
+}
+
+/* Button layout */
+
+.ButtonContent {
+  flex: 1 0 auto;
+  display: grid;
+  grid-template-areas: 'leadingVisual text trailingVisual';
+  grid-template-columns: min-content minmax(0, auto) min-content;
+  align-items: center;
+  align-content: center;
+}
+
+.ButtonBase [data-component='leadingVisual'] {
+  grid-area: leadingVisual;
+}
+
+.Label {
+  line-height: calc(20 / 14); /* temporary until we use Text component with --text-body-lineHeight-medium */
+  white-space: nowrap;
+  grid-area: text;
+}
+
+.ButtonBase [data-component='trailingVisual'] {
+  grid-area: trailingVisual;
+}
+
+.ButtonBase [data-component='trailingAction'] {
+  margin-right: calc(var(--base-size-4) * -1);
+}
+
+.ButtonBase [data-component='buttonContent'] > :not(:last-child) {
+  margin-right: var(--base-size-8);
+}
+
+/* Props */
+
+/* Content alignment */
+
+.ButtonContent:where([data-align='center']) {
+  justify-content: center;
+}
+
+.ButtonContent:where([data-align='start']) {
+  justify-content: flex-start;
+}
+
+/* Size */
+
+.ButtonBase:where([data-size='small']) {
+  height: var(--control-small-size);
+  /* stylelint-disable-next-line primer/spacing */
+  padding: 0 var(--control-small-paddingInline-condensed);
+  gap: var(--control-small-gap);
+  font-size: var(--text-body-size-small);
+
+  & .ButtonContent > :not(:last-child) {
+    /* stylelint-disable-next-line primer/spacing */
+    margin-right: var(--control-small-gap);
+  }
+
+  & .Label {
+    line-height: calc(20 / 12); /* temporary until we use Text component with --text-body-lineHeight-small */
+  }
+}
+
+.ButtonBase:where([data-size='large']) {
+  height: var(--control-large-size);
+  /* stylelint-disable-next-line primer/spacing */
+  padding: 0 var(--control-large-paddingInline-spacious);
+  gap: var(--control-large-gap);
+
+  & .ButtonContent > :not(:last-child) {
+    /* stylelint-disable-next-line primer/spacing */
+    margin-right: var(--control-large-gap);
+  }
+}
+
+/* Full width */
+
+.ButtonBase:where([data-block='block']) {
+  width: 100%;
+}
+
+/* Wrap label text */
+
+.ButtonBase:where([data-label-wrap='true']) {
+  min-width: fit-content;
+  height: unset;
+  min-height: var(--control-medium-size);
+
+  & .ButtonContent {
+    flex: 1 1 auto;
+    align-self: stretch;
+    /* stylelint-disable-next-line primer/spacing */
+    padding-block: calc(var(--control-medium-paddingBlock) - var(--base-size-2));
+  }
+
+  & .Label {
+    word-break: break-word;
+    white-space: unset;
+  }
+
+  &:where([data-size='small']) {
+    height: unset;
+    min-height: var(--control-small-size);
+
+    & .ButtonContent {
+      /* stylelint-disable-next-line primer/spacing */
+      padding-block: calc(var(--control-small-paddingBlock) - var(--base-size-2));
+    }
+  }
+
+  &:where([data-size='large']) {
+    height: unset;
+    min-height: var(--control-large-size);
+    /* stylelint-disable-next-line primer/spacing */
+    padding-inline: var(--control-large-paddingInline-spacious);
+
+    & .ButtonContent {
+      /* stylelint-disable-next-line primer/spacing */
+      padding-block: calc(var(--control-large-paddingBlock) - var(--base-size-2));
+    }
+  }
+}
+
+/* Loading */
+
+/* only hide label if there's no leading/trailing visuals
+* move spinner to label spot if not leading/trailing visuals
+*/
+
+.ButtonBase:where([data-loading='true']) {
+  &
+    .loadingSpinner:not(
+      [data-component='leadingVisual'],
+      [data-component='trailingVisual'],
+      [data-component='trailingAction']
+    ) {
+    grid-area: text;
+    margin-right: 0 !important;
+    place-self: center;
+
+    & + .Label {
+      visibility: hidden;
+    }
+  }
+}
+
+/* Variants */
+
+/* Default Variant */
+
+.ButtonBase:where([data-variant='default']) {
+  color: var(--button-default-fgColor-rest);
+  background-color: var(--button-default-bgColor-rest);
+  box-shadow: var(--button-default-shadow-resting);
+
+  &:hover {
+    background-color: var(--button-default-bgColor-hover);
+    border-color: var(--button-default-borderColor-hover);
+  }
+
+  &:active {
+    background-color: var(--button-default-bgColor-active);
+    border-color: var(--button-default-borderColor-active);
+  }
+
+  &:disabled {
+    color: var(--control-fgColor-disabled);
+    background-color: var(--button-default-bgColor-disabled);
+    border-color: var(--button-default-borderColor-disabled);
+    box-shadow: none;
+  }
+
+  &[aria-expanded='true'] {
+    background-color: var(--button-default-bgColor-active);
+    border-color: var(--button-default-borderColor-active);
+  }
+
+  & .CounterLabel {
+    background-color: var(--buttonCounter-default-bgColor-rest);
+  }
+
+  &:where(.IconButton) {
+    color: var(--fgColor-muted);
+  }
+}
+
+/* Primary Variant */
+
+.ButtonBase:where([data-variant='primary']) {
+  color: var(--button-primary-fgColor-rest);
+  background-color: var(--button-primary-bgColor-rest);
+  border-color: var(--button-primary-borderColor-rest);
+  box-shadow: var(--shadow-resting-small);
+
+  &:hover {
+    background-color: var(--button-primary-bgColor-hover);
+    border-color: var(--button-primary-borderColor-hover);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--focus-outlineColor);
+    outline-offset: -2px;
+    box-shadow: inset 0 0 0 3px var(--fgColor-onEmphasis);
+  }
+
+  &:active {
+    background-color: var(--button-primary-bgColor-active);
+    box-shadow: var(--button-primary-shadow-selected);
+  }
+
+  &:disabled {
+    color: var(--button-primary-fgColor-disabled);
+    background-color: var(--button-primary-bgColor-disabled);
+    border-color: var(--button-primary-borderColor-disabled);
+    box-shadow: none;
+  }
+
+  &[aria-expanded='true'] {
+    background-color: var(--button-primary-bgColor-active);
+    box-shadow: var(--button-primary-shadow-selected);
+  }
+
+  & .CounterLabel {
+    /* color: inherit; */
+    color: var(--button-primary-fgColor-rest);
+    background-color: var(--buttonCounter-primary-bgColor-rest);
+  }
+
+  /* temporarily using the fgColor to match legacy and reduce visual changes- will eventually be iconColor */
+  & .Visual > :not(.CounterLabel) {
+    color: var(--button-primary-fgColor-rest);
+  }
+}
+
+/* Danger Variant */
+
+.ButtonBase:where([data-variant='danger']) {
+  color: var(--button-danger-fgColor-rest);
+  background-color: var(--button-danger-bgColor-rest);
+  box-shadow: var(--button-default-shadow-resting);
+
+  &:hover {
+    color: var(--button-danger-fgColor-hover);
+    background-color: var(--button-danger-bgColor-hover);
+    border-color: var(--button-danger-borderColor-hover);
+    box-shadow: var(--shadow-resting-small);
+
+    & .CounterLabel {
+      color: var(--buttonCounter-danger-fgColor-hover);
+      background-color: var(--buttonCounter-danger-bgColor-hover);
+    }
+
+    & .Visual > :not(.CounterLabel) {
+      color: var(--button-danger-iconColor-hover);
+    }
+  }
+
+  &:active {
+    color: var(--button-danger-fgColor-active);
+    background-color: var(--button-danger-bgColor-active);
+    border-color: var(--button-danger-borderColor-active);
+    box-shadow: var(--button-danger-shadow-selected);
+
+    & .CounterLabel {
+      color: var(--buttonCounter-danger-fgColor-hover);
+      background-color: var(--buttonCounter-danger-bgColor-hover);
+    }
+  }
+
+  &:disabled {
+    color: var(--button-danger-fgColor-disabled);
+    background-color: var(--button-danger-bgColor-disabled);
+    border-color: var(--button-default-borderColor-disabled);
+    box-shadow: none;
+
+    .CounterLabel {
+      color: var(--buttonCounter-danger-fgColor-disabled);
+      background-color: var(--buttonCounter-danger-bgColor-disabled);
+    }
+  }
+
+  &[aria-expanded='true'] {
+    color: var(--button-danger-fgColor-active);
+    background-color: var(--button-danger-bgColor-active);
+    border-color: var(--button-danger-borderColor-active);
+    box-shadow: var(--button-danger-shadow-selected);
+  }
+
+  & .CounterLabel {
+    color: var(--buttonCounter-danger-fgColor-rest);
+    background-color: var(--buttonCounter-danger-bgColor-rest);
+  }
+
+  & .Visual > :not(.CounterLabel) {
+    color: var(--button-danger-iconColor-rest);
+  }
+}
+
+/* Invisible Variant */
+
+.ButtonBase:where([data-variant='invisible']) {
+  color: var(--button-default-fgColor-rest);
+  border-color: transparent;
+  box-shadow: none;
+
+  &:hover {
+    background-color: var(--button-invisible-bgColor-hover);
+
+    & .Visual > :not(.CounterLabel) {
+      color: var(--button-invisible-iconColor-hover);
+    }
+  }
+
+  &:active {
+    background-color: var(--button-invisible-bgColor-active);
+
+    & .Visual > :not(.CounterLabel) {
+      color: var(--button-invisible-iconColor-hover);
+    }
+  }
+
+  &:disabled {
+    color: var(--button-invisible-fgColor-disabled);
+    background-color: var(--button-invisible-bgColor-disabled);
+    border-color: var(--button-invisible-borderColor-disabled);
+    box-shadow: none;
+  }
+
+  &[aria-expanded='true'] {
+    background-color: var(--button-invisible-bgColor-active);
+  }
+
+  & .Visual > :not(.CounterLabel) {
+    color: var(--button-invisible-iconColor-rest);
+  }
+
+  & .CounterLabel {
+    /* color: inherit; */
+    background-color: var(--buttonCounter-invisible-bgColor-rest);
+  }
+}
+
+/* Link variant */
+
+.ButtonBase:where([data-variant='link']) {
+  display: inline-block;
+  min-width: fit-content;
+  height: unset;
+  padding: 0;
+  font-size: inherit;
+  color: var(--fgColor-link);
+  text-align: left;
+  border: unset;
+
+  &:hover:not(:disabled, [data-inactive]) {
+    text-decoration: underline;
+  }
+
+  &:focus-visible,
+  &:focus {
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    color: var(--control-fgColor-disabled);
+    background-color: transparent;
+    border-color: transparent;
+  }
+
+  & .Label {
+    white-space: unset;
+  }
+
+  &:where([data-inactive]) {
+    color: var(--button-inactive-fgColor);
+    background: transparent !important;
+  }
+}
+
+/* Inactive */
+
+.ButtonBase:where([data-inactive]),
+.ButtonBase:where([data-inactive]):hover {
+  color: var(--button-inactive-fgColor);
+  cursor: auto;
+  background-color: var(--button-inactive-bgColor);
+  border-color: var(--button-inactive-bgColor);
+
+  & .Visual > :not(.CounterLabel) {
+    color: inherit;
+  }
+
+  & .CounterLabel {
+    color: inherit;
+  }
+}
