@@ -362,11 +362,14 @@ for (const useModernActionList of [false, true]) {
           await user.type(document.activeElement!, 'o')
           expect(screen.getAllByRole('option')).toHaveLength(2)
 
-          await waitFor(async () => {
-            expect(getLiveRegion().getMessage('polite')).toBe(
-              'List updated, Focused item: item one, not selected, 1 of 2',
-            )
-          })
+          await waitFor(
+            async () => {
+              expect(getLiveRegion().getMessage('polite')).toBe(
+                'List updated, Focused item: item one, not selected, 1 of 2',
+              )
+            },
+            {timeout: 3000}, // increased timeout because we don't want the test to compare with previous announcement
+          )
 
           await user.type(document.activeElement!, 'ne') // now: one
           expect(screen.getAllByRole('option')).toHaveLength(1)
