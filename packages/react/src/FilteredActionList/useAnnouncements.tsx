@@ -39,7 +39,7 @@ export const useAnnouncements = (
 
             const announcementText = [
               `Focus on filter text box and list of labels`,
-              `Focused item, ${activeItemText}`,
+              `Focused item: ${activeItemText}`,
               `${activeItemSelected ? 'selected' : 'not selected'}`,
               `${activeItemIndex + 1} of ${items.length}`,
             ].join(', ')
@@ -71,7 +71,7 @@ export const useAnnouncements = (
 
       const announcementText = [
         `List updated`,
-        `Focused item, ${activeItemText}`,
+        `Focused item: ${activeItemText}`,
         `${activeItemSelected ? 'selected' : 'not selected'}`,
         `${1} of ${items.length}`,
       ].join(', ')
