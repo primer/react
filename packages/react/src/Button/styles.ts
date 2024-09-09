@@ -406,6 +406,7 @@ export const getButtonStyles = (theme?: Theme) => {
       gridArea: 'text',
       marginRight: '0px !important',
       placeSelf: 'center',
+      color: 'fg.muted',
     },
     '[data-component="loadingSpinner"] + [data-component="text"]': {
       visibility: 'hidden',

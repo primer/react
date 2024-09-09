@@ -1921,6 +1921,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   grid-area: text;
   margin-right: 0px !important;
   place-self: center;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
 .c4 [data-component="loadingSpinner"] + [data-component="text"] {
@@ -2552,6 +2553,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   grid-area: text;
   margin-right: 0px !important;
   place-self: center;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
 .c4 [data-component="loadingSpinner"] + [data-component="text"] {
@@ -3044,6 +3046,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   grid-area: text;
   margin-right: 0px !important;
   place-self: center;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
 .c4 [data-component="loadingSpinner"] + [data-component="text"] {
