@@ -31,8 +31,11 @@ const renderVisual = (Visual: React.ElementType, loading: boolean, visualName: s
   </Box>
 )
 
-const renderModuleVisual = (Visual: React.ElementType, loading: boolean, visualName: string) => (
-  <span data-component={visualName} className={clsx(classes.Visual, loading ? classes.loadingSpinner : '')}>
+const renderModuleVisual = (Visual: React.ElementType, loading: boolean, visualName: string, counterLabel: boolean) => (
+  <span
+    data-component={visualName}
+    className={clsx(!counterLabel && classes.Visual, loading ? classes.loadingSpinner : '')}
+  >
     {loading ? <Spinner size="small" /> : <Visual />}
   </span>
 )
@@ -156,12 +159,12 @@ const ButtonBase = forwardRef(
                         !LeadingVisual &&
                         !TrailingVisual &&
                         !TrailingAction &&
-                        renderModuleVisual(Spinner, loading, 'loadingSpinner')
+                        renderModuleVisual(Spinner, loading, 'loadingSpinner', false)
                     }
                     {
                       /* Render a leading visual unless the button is in a loading state.
                      Then replace the leading visual with a loading spinner. */
-                      LeadingVisual && renderModuleVisual(LeadingVisual, Boolean(loading), 'leadingVisual')
+                      LeadingVisual && renderModuleVisual(LeadingVisual, Boolean(loading), 'leadingVisual', false)
                     }
                     {children && (
                       <span data-component="text" className={classes.Label} id={loading ? `${uuid}-label` : undefined}>
@@ -184,9 +187,15 @@ const ButtonBase = forwardRef(
                             ),
                             Boolean(loading) && !LeadingVisual,
                             'trailingVisual',
+                            true,
                           )
                         : TrailingVisual
-                        ? renderModuleVisual(TrailingVisual, Boolean(loading) && !LeadingVisual, 'trailingVisual')
+                        ? renderModuleVisual(
+                            TrailingVisual,
+                            Boolean(loading) && !LeadingVisual,
+                            'trailingVisual',
+                            false,
+                          )
                         : null
                     }
                   </Box>
@@ -198,6 +207,7 @@ const ButtonBase = forwardRef(
                         TrailingAction,
                         Boolean(loading) && !LeadingVisual && !TrailingVisual,
                         'trailingAction',
+                        false,
                       )
                   }
                 </>
@@ -263,12 +273,12 @@ const ButtonBase = forwardRef(
                       !LeadingVisual &&
                       !TrailingVisual &&
                       !TrailingAction &&
-                      renderModuleVisual(Spinner, loading, 'loadingSpinner')
+                      renderModuleVisual(Spinner, loading, 'loadingSpinner', false)
                   }
                   {
                     /* Render a leading visual unless the button is in a loading state.
                      Then replace the leading visual with a loading spinner. */
-                    LeadingVisual && renderModuleVisual(LeadingVisual, Boolean(loading), 'leadingVisual')
+                    LeadingVisual && renderModuleVisual(LeadingVisual, Boolean(loading), 'leadingVisual', false)
                   }
                   {children && (
                     <span data-component="text" className={classes.Label} id={loading ? `${uuid}-label` : undefined}>
@@ -291,9 +301,10 @@ const ButtonBase = forwardRef(
                           ),
                           Boolean(loading) && !LeadingVisual,
                           'trailingVisual',
+                          true,
                         )
                       : TrailingVisual
-                      ? renderModuleVisual(TrailingVisual, Boolean(loading) && !LeadingVisual, 'trailingVisual')
+                      ? renderModuleVisual(TrailingVisual, Boolean(loading) && !LeadingVisual, 'trailingVisual', false)
                       : null
                   }
                 </span>
@@ -305,6 +316,7 @@ const ButtonBase = forwardRef(
                       TrailingAction,
                       Boolean(loading) && !LeadingVisual && !TrailingVisual,
                       'trailingAction',
+                      false,
                     )
                 }
               </>

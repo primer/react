@@ -88,10 +88,13 @@
 }
 
 /* Visuals */
-.Visual > :not(.CounterLabel) {
+.Visual {
   display: flex;
-  color: var(--fgColor-muted);
   pointer-events: none;
+}
+
+.Visual:not(.loadingSpinner) {
+  color: var(--fgColor-muted);
 }
 
 .ConditionalWrapper {
@@ -322,7 +325,8 @@
   }
 
   & .CounterLabel {
-    color: inherit;
+    /* color: inherit; */
+    color: var(--button-primary-fgColor-rest);
     background-color: var(--buttonCounter-primary-bgColor-rest);
   }
 
@@ -432,6 +436,11 @@
 
   & .Visual > :not(.CounterLabel) {
     color: var(--button-invisible-iconColor-rest);
+  }
+
+  & .CounterLabel {
+    /* color: inherit; */
+    background-color: var(--buttonCounter-invisible-bgColor-rest);
   }
 }
 
