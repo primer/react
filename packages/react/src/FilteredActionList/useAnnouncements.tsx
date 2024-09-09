@@ -29,17 +29,19 @@ export const useAnnouncements = (
         // give @primer/behaviors a moment to apply active-descendant
         window.requestAnimationFrame(() => {
           const activeItemElement = listElement?.querySelector('[data-is-active-descendant]')
+
           if (listElement && activeItemElement?.textContent) {
+            // TODO: This does not work with groups yet!
             const activeItemIndex = Array.from(listElement.children).indexOf(activeItemElement)
             const activeItemText = items[activeItemIndex].text
             const activeItemSelected = items[activeItemIndex].selected
 
-            const announcementText = `
-              Focus on filter text box and list of labels.
-              Focused item, ${activeItemText}, 
-              ${activeItemSelected ? 'selected' : 'not selected'},
-              ${activeItemIndex + 1} of ${items.length}
-            `
+            const announcementText = [
+              `Focus on filter text box and list of labels`,
+              `Focused item, ${activeItemText}`,
+              `${activeItemSelected ? 'selected' : 'not selected'}`,
+              `${activeItemIndex + 1} of ${items.length}`,
+            ].join(', ')
             announce(announcementText, {delayMs})
           }
         })
@@ -66,12 +68,12 @@ export const useAnnouncements = (
       const activeItemText = items[activeItemIndex].text
       const activeItemSelected = items[activeItemIndex].selected
 
-      const announcementText = `
-        List updated.
-        Focused item, ${activeItemText},
-        ${activeItemSelected ? 'selected' : 'not selected'},
-        ${1} of ${items.length}
-      `
+      const announcementText = [
+        `List updated`,
+        `Focused item, ${activeItemText}`,
+        `${activeItemSelected ? 'selected' : 'not selected'}`,
+        `${1} of ${items.length}`,
+      ].join(', ')
       announce(announcementText, {delayMs})
     },
     [isFirstRender, items],
