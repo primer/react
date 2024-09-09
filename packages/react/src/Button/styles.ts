@@ -33,7 +33,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '[data-component=ButtonCounter]': {
         backgroundColor: 'btn.counterBg',
       },
-      '&[data-component="IconButton"][data-no-visuals]': {
+      '&[data-component="IconButton"][data-no-visuals]:not(:disabled)': {
         color: 'fg.muted',
       },
     },
@@ -135,13 +135,16 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         backgroundColor: 'actionListItem.default.selectedBg',
       },
       '&[data-component="IconButton"][data-no-visuals]': {
-        color: 'fg.muted',
+        color: `var(--button-invisible-iconColor-rest, ${theme?.colors.fg.muted})`,
       },
       '[data-component="trailingAction"]': {
-        color: 'fg.muted',
+        color: `var(--button-invisible-iconColor-rest, ${theme?.colors.fg.muted})`,
       },
       '[data-component="leadingVisual"]': {
-        color: 'fg.muted',
+        color: `var(--button-invisible-iconColor-rest, ${theme?.colors.fg.muted})`,
+      },
+      '[data-component="trailingVisual"]': {
+        color: `var(--button-invisible-iconColor-rest, ${theme?.colors.fg.muted})`,
       },
       '&[data-no-visuals]': {
         color: `var(--button-invisible-fgColor-rest, ${theme?.colors.btn.text})`,

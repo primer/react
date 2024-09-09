@@ -1879,7 +1879,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c4 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4 [data-component="text"] {
@@ -1890,11 +1890,12 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c4 [data-component="trailingVisual"] {
   grid-area: trailingVisual;
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4 [data-component="trailingAction"] {
   margin-right: -4px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4 [data-component="buttonContent"] {
@@ -1941,7 +1942,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c4[data-component="IconButton"][data-no-visuals] {
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4[data-no-visuals] {
@@ -2511,7 +2512,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c4 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4 [data-component="text"] {
@@ -2522,11 +2523,12 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c4 [data-component="trailingVisual"] {
   grid-area: trailingVisual;
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4 [data-component="trailingAction"] {
   margin-right: -4px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4 [data-component="buttonContent"] {
@@ -2573,7 +2575,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c4[data-component="IconButton"][data-no-visuals] {
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4[data-no-visuals] {
@@ -3004,7 +3006,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c4 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4 [data-component="text"] {
@@ -3015,11 +3017,12 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c4 [data-component="trailingVisual"] {
   grid-area: trailingVisual;
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4 [data-component="trailingAction"] {
   margin-right: -4px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4 [data-component="buttonContent"] {
@@ -3066,7 +3069,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c4[data-component="IconButton"][data-no-visuals] {
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4[data-no-visuals] {
