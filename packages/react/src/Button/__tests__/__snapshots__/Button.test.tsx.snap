@@ -285,7 +285,7 @@ exports[`Button respects block prop 1`] = `
   color: var(--button-color,undefined);
 }
 
-.c0[data-component="IconButton"][data-no-visuals] {
+.c0[data-component="IconButton"][data-no-visuals]:not(:disabled) {
   color: fg.muted;
 }
 
@@ -602,7 +602,7 @@ exports[`Button respects the alignContent prop 1`] = `
   color: var(--button-color,undefined);
 }
 
-.c0[data-component="IconButton"][data-no-visuals] {
+.c0[data-component="IconButton"][data-no-visuals]:not(:disabled) {
   color: fg.muted;
 }
 
@@ -918,7 +918,7 @@ exports[`Button respects the large size prop 1`] = `
   color: var(--button-color,undefined);
 }
 
-.c0[data-component="IconButton"][data-no-visuals] {
+.c0[data-component="IconButton"][data-no-visuals]:not(:disabled) {
   color: fg.muted;
 }
 
@@ -1235,7 +1235,7 @@ exports[`Button respects the small size prop 1`] = `
   color: var(--button-color,undefined);
 }
 
-.c0[data-component="IconButton"][data-no-visuals] {
+.c0[data-component="IconButton"][data-no-visuals]:not(:disabled) {
   color: fg.muted;
 }
 
@@ -1803,7 +1803,7 @@ exports[`Button styles invisible button appropriately 1`] = `
 
 .c0 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
-  color: fg.muted;
+  color: var(--button-invisible-iconColor-rest,undefined);
 }
 
 .c0 [data-component="text"] {
@@ -1814,11 +1814,12 @@ exports[`Button styles invisible button appropriately 1`] = `
 
 .c0 [data-component="trailingVisual"] {
   grid-area: trailingVisual;
+  color: var(--button-invisible-iconColor-rest,undefined);
 }
 
 .c0 [data-component="trailingAction"] {
   margin-right: -4px;
-  color: fg.muted;
+  color: var(--button-invisible-iconColor-rest,undefined);
 }
 
 .c0 [data-component="buttonContent"] {
@@ -1865,7 +1866,7 @@ exports[`Button styles invisible button appropriately 1`] = `
 }
 
 .c0[data-component="IconButton"][data-no-visuals] {
-  color: fg.muted;
+  color: var(--button-invisible-iconColor-rest,undefined);
 }
 
 .c0[data-no-visuals] {
