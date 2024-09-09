@@ -13,7 +13,7 @@ module.exports = {
   testEnvironment: 'jsdom',
   collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/stories/**', '!**/*.stories.{js,jsx,ts,tsx}'],
   moduleNameMapper: {
-    '\\.css$': 'jest-css-modules',
+    '\\.module\\.css$': require.resolve('jest-config-primer/transformers/css-modules'),
     // We need to specify this package subpath because it does not provide a `require` conditional export path
     '@oddbird/popover-polyfill/fn': path.join(
       // Note: we use ROOT_DIR here since this dependency is hoisted

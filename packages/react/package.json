@@ -185,6 +185,7 @@
     "filesize": "10.1.2",
     "front-matter": "4.0.2",
     "gzip-size": "6.0.0",
+    "jest-config-primer": "^0.0.0",
     "jest-css-modules": "2.1.0",
     "jest-environment-jsdom": "29.7.0",
     "jest-fail-on-console": "3.2.0",
