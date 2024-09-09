@@ -5,6 +5,7 @@ import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
 import {userEvent} from '@testing-library/user-event'
 import ThemeProvider from '../ThemeProvider'
 import {FeatureFlags} from '../FeatureFlags'
+import {getLiveRegion} from '../utils/testing'
 
 const renderWithFlag = (children: React.ReactNode, flag: boolean) => {
   return render(
@@ -290,39 +291,39 @@ for (const useModernActionList of [false, true]) {
         })
       })
 
-      describe('filtering', () => {
-        function FilterableSelectPanel() {
-          const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
-          const [filter, setFilter] = React.useState('')
-          const [open, setOpen] = React.useState(false)
+      function FilterableSelectPanel() {
+        const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+        const [filter, setFilter] = React.useState('')
+        const [open, setOpen] = React.useState(false)
 
-          const onSelectedChange = (selected: SelectPanelProps['items']) => {
-            setSelected(selected)
-          }
-
-          return (
-            <ThemeProvider>
-              <SelectPanel
-                title="test title"
-                subtitle="test subtitle"
-                items={items.filter(item => item.text?.includes(filter))}
-                placeholder="Select items"
-                placeholderText="Filter items"
-                selected={selected}
-                onSelectedChange={onSelectedChange}
-                filterValue={filter}
-                onFilterChange={value => {
-                  setFilter(value)
-                }}
-                open={open}
-                onOpenChange={isOpen => {
-                  setOpen(isOpen)
-                }}
-              />
-            </ThemeProvider>
-          )
+        const onSelectedChange = (selected: SelectPanelProps['items']) => {
+          setSelected(selected)
         }
 
+        return (
+          <ThemeProvider>
+            <SelectPanel
+              title="test title"
+              subtitle="test subtitle"
+              items={items.filter(item => item.text?.includes(filter))}
+              placeholder="Select items"
+              placeholderText="Filter items"
+              selected={selected}
+              onSelectedChange={onSelectedChange}
+              filterValue={filter}
+              onFilterChange={value => {
+                setFilter(value)
+              }}
+              open={open}
+              onOpenChange={isOpen => {
+                setOpen(isOpen)
+              }}
+            />
+          </ThemeProvider>
+        )
+      }
+
+      describe('filtering', () => {
         it('should filter the list of items when the user types into the input', async () => {
           const user = userEvent.setup()
 
@@ -335,21 +336,51 @@ for (const useModernActionList of [false, true]) {
           await user.type(document.activeElement!, 'two')
           expect(screen.getAllByRole('option')).toHaveLength(1)
         })
+      })
 
-        it.todo('should announce the number of results')
+      describe.only('screen reader announcements', () => {
+        it('should announce initial focused item', async () => {
+          const user = userEvent.setup()
+          renderWithFlag(<FilterableSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+          expect(screen.getByLabelText('Filter items')).toHaveFocus()
+
+          // we wait because announcement is intentionally updated after a timeout to not interrupt user input
+          await waitFor(async () => {
+            expect(getLiveRegion().getMessage('polite')).toBe(
+              'Focus on filter text box and list of labels, Focused item, item one, not selected, 1 of 3',
+            )
+          })
+        })
+
+        it('should announce filtered results', async () => {
+          const user = userEvent.setup()
+          renderWithFlag(<FilterableSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+          await user.type(document.activeElement!, 'o')
+          expect(screen.getAllByRole('option')).toHaveLength(2)
+
+          await waitFor(async () => {
+            expect(getLiveRegion().getMessage('polite')).toBe(
+              'List updated, Focused item, item one, not selected, 1 of 2',
+            )
+          })
+        })
 
         it('should announce when no results are available', async () => {
           const user = userEvent.setup()
           renderWithFlag(<FilterableSelectPanel />, useModernActionList)
+
           await user.click(screen.getByText('Select items'))
-          expect(screen.getAllByRole('option')).toHaveLength(3)
 
           await user.type(document.activeElement!, 'zero')
           expect(screen.queryByRole('option')).toBeNull()
           expect(screen.getByText('No matches')).toBeVisible()
+
           await waitFor(async () => {
-            // we wait because status is intentionally updated after a timeout to not interrupt user input
-            expect(screen.getByRole('status')).toHaveTextContent('No matching items')
+            expect(getLiveRegion().getMessage('polite')).toBe('No matching items.')
           })
         })
       })
