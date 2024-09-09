@@ -1,5 +1,5 @@
 import type {MouseEventHandler} from 'react'
-import React, {useCallback, useState} from 'react'
+import React, {useCallback, useState, useId} from 'react'
 import {isValidElementType} from 'react-is'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {clsx} from 'clsx'
@@ -96,6 +96,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     const focusInput: MouseEventHandler = () => {
       inputRef.current?.focus()
     }
+    const leadingVisualId = useId()
     const handleInputFocus = useCallback(
       (e: React.FocusEvent<HTMLInputElement>) => {
         setIsInputFocused(true)
@@ -137,6 +138,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           visualPosition="leading"
           showLoadingIndicator={showLeadingLoadingIndicator}
           hasLoadingIndicator={typeof loading === 'boolean'}
+          id={typeof LeadingVisual === 'string' ? leadingVisualId : undefined}
         >
           {typeof LeadingVisual !== 'string' && isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
         </TextInputInnerVisualSlot>
@@ -149,6 +151,11 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           aria-required={required}
           aria-invalid={validationStatus === 'error' ? 'true' : undefined}
           {...inputProps}
+          aria-describedby={
+            typeof LeadingVisual === 'string'
+              ? `${leadingVisualId} ${inputProps['aria-describedby']}`
+              : inputProps['aria-describedby']
+          }
           data-component="input"
         />
         <TextInputInnerVisualSlot
