@@ -73,17 +73,19 @@
 .ButtonBase:where(.IconButton) {
   display: inline-grid;
   width: var(--control-medium-size);
-  min-width: unset;
+  min-width: var(--control-medium-size);
   /* stylelint-disable-next-line primer/spacing */
   padding: unset;
   place-content: center;
 
   &:where([data-size='small']) {
     width: var(--control-small-size);
+    min-width: var(--control-small-size);
   }
 
   &:where([data-size='large']) {
     width: var(--control-large-size);
+    min-width: var(--control-large-size);
   }
 }
 
@@ -438,6 +440,10 @@
   & .CounterLabel {
     /* color: inherit; */
     background-color: var(--buttonCounter-invisible-bgColor-rest);
+  }
+
+  &:where(.IconButton) {
+    color: var(--button-invisible-iconColor-rest);
   }
 }
 
