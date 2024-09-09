@@ -2,6 +2,7 @@ import React from 'react'
 import {useFeatureFlag} from '../../FeatureFlags'
 
 type CSSModulesProps = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   as?: string | React.ComponentType<any>
 }
 

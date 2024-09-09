@@ -1,6 +1,6 @@
 .Banner {
   display: grid;
-  padding: var(--base-size-8, var(--base-size-8));
+  padding: var(--base-size-8);
   background-color: var(--banner-bgColor);
   border: var(--borderWidth-thin, 1px) solid var(--banner-borderColor);
   border-radius: var(--borderRadius-medium);
@@ -45,11 +45,11 @@
 /* BannerContainer -------------------------------------------------------- */
 
 .BannerContainer {
-  font-size: var(--text-body-size-medium, 0.875rem);
+  font-size: var(--text-body-size-medium);
   align-items: start;
-  line-height: var(--text-body-lineHeight-medium, calc(20 / 14));
-  row-gap: var(--base-size-4, 0.25rem);
-  column-gap: var(--base-size-4, 0.25rem);
+  line-height: var(--text-body-lineHeight-medium));
+  row-gap: var(--base-size-4);
+  column-gap: var(--base-size-4);
 }
 
 .Banner :where(.BannerContainer) {
@@ -68,13 +68,13 @@
 
 .BannerContent {
   display: grid;
-  row-gap: var(--base-size-4, 0.25rem);
+  row-gap: var(--base-size-4);
   grid-column-start: 1;
-  margin-block: var(--base-size-8, var(--base-size-8));
+  margin-block: var(--base-size-8);
 }
 
 .Banner[data-title-hidden] .BannerContent {
-  margin-block: var(--base-size-6, var(--base-size-6));
+  margin-block: var(--base-size-6);
 }
 
 @media screen and (min-width: 544px) {
@@ -86,7 +86,7 @@
 .BannerTitle {
   margin: 0;
   font-size: inherit;
-  font-weight: var(--base-text-weight-semibold, 600);
+  font-weight: var(--base-text-weight-semibold);
 }
 
 /* BannerIcon ------------------------------------------------------------- */
@@ -94,18 +94,18 @@
 .BannerIcon {
   display: grid;
   place-items: center;
-  padding: var(--base-size-8, var(--base-size-8));
+  padding: var(--base-size-8);
 }
 
 .BannerIcon svg {
   /* 20px is the line box height of the trailing action buttons */
-  height: var(--base-size-20, 1.25rem);
+  height: var(--base-size-20);
   color: var(--banner-icon-fgColor);
   fill: var(--banner-icon-fgColor);
 }
 
 .Banner[data-title-hidden] .BannerIcon svg {
-  height: var(--base-size-16, 1rem);
+  height: var(--base-size-16);
 }
 
 /* BannerDismiss ---------------------------------------------------------- */
@@ -113,8 +113,8 @@
 .BannerDismiss {
   display: grid;
   place-items: center;
-  padding: var(--base-size-8, var(--base-size-8));
-  margin-inline-start: var(--base-size-4, var(--base-size-4));
+  padding: var(--base-size-8);
+  margin-inline-start: var(--base-size-4);
 }
 
 .BannerDismiss svg {
@@ -125,7 +125,7 @@
 
 .BannerActionsContainer {
   display: flex;
-  column-gap: var(--base-size-12, 0.5rem);
+  column-gap: var(--base-size-12);
   align-items: center;
 }
 
@@ -133,7 +133,7 @@
   display: none;
 }
 
-@media screen and (min-width: 544px) {
+@media screen and (--viewportRange-regular) {
   .BannerActions :where([data-primary-action='trailing']) {
     display: flex;
   }
@@ -144,7 +144,7 @@
 }
 
 .Banner[data-dismissible] .BannerActions {
-  margin-block-end: var(--base-size-6, var(--base-size-6));
+  margin-block-end: var(--base-size-6);
 }
 
 .Banner[data-dismissible] .BannerActionsContainer[data-primary-action='trailing'] {
