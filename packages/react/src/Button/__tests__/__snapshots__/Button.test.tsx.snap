@@ -257,6 +257,7 @@ exports[`Button respects block prop 1`] = `
   grid-area: text;
   margin-right: 0px !important;
   place-self: center;
+  color: fg.muted;
 }
 
 .c0 [data-component="loadingSpinner"] + [data-component="text"] {
@@ -573,6 +574,7 @@ exports[`Button respects the alignContent prop 1`] = `
   grid-area: text;
   margin-right: 0px !important;
   place-self: center;
+  color: fg.muted;
 }
 
 .c0 [data-component="loadingSpinner"] + [data-component="text"] {
@@ -888,6 +890,7 @@ exports[`Button respects the large size prop 1`] = `
   grid-area: text;
   margin-right: 0px !important;
   place-self: center;
+  color: fg.muted;
 }
 
 .c0 [data-component="loadingSpinner"] + [data-component="text"] {
@@ -1204,6 +1207,7 @@ exports[`Button respects the small size prop 1`] = `
   grid-area: text;
   margin-right: 0px !important;
   place-self: center;
+  color: fg.muted;
 }
 
 .c0 [data-component="loadingSpinner"] + [data-component="text"] {
@@ -1522,6 +1526,7 @@ exports[`Button styles danger button appropriately 1`] = `
   grid-area: text;
   margin-right: 0px !important;
   place-self: center;
+  color: fg.muted;
 }
 
 .c0 [data-component="loadingSpinner"] + [data-component="text"] {
@@ -1840,6 +1845,7 @@ exports[`Button styles invisible button appropriately 1`] = `
   grid-area: text;
   margin-right: 0px !important;
   place-self: center;
+  color: fg.muted;
 }
 
 .c0 [data-component="loadingSpinner"] + [data-component="text"] {
@@ -2163,6 +2169,7 @@ exports[`Button styles primary button appropriately 1`] = `
   grid-area: text;
   margin-right: 0px !important;
   place-self: center;
+  color: fg.muted;
 }
 
 .c0 [data-component="loadingSpinner"] + [data-component="text"] {
