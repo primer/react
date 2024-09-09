@@ -17,7 +17,7 @@
   border: var(--borderWidth-thin) solid;
   border-color: var(--button-default-borderColor-rest);
   border-radius: var(--borderRadius-medium);
-  transition: var(--duration-fast) var(--easing-easeInOut);
+  transition: 80ms cubic-bezier(0.65, 0, 0.35, 1);
   transition-property: color, fill, background-color, border-color;
   appearance: none;
   align-items: center;
@@ -25,7 +25,7 @@
   gap: var(--base-size-8);
 
   &:hover {
-    transition-duration: var(--duration-fast);
+    transition-duration: 80ms;
   }
 
   &:focus-visible {
@@ -42,10 +42,7 @@
     cursor: not-allowed;
     box-shadow: none;
 
-    & .Visual > :not(.CounterLabel) {
-      color: inherit;
-    }
-
+    & .Visual,
     & .CounterLabel {
       color: inherit;
     }
@@ -324,13 +321,12 @@
   }
 
   & .CounterLabel {
-    /* color: inherit; */
     color: var(--button-primary-fgColor-rest);
     background-color: var(--buttonCounter-primary-bgColor-rest);
   }
 
   /* temporarily using the fgColor to match legacy and reduce visual changes- will eventually be iconColor */
-  & .Visual > :not(.CounterLabel) {
+  & .Visual {
     color: var(--button-primary-fgColor-rest);
   }
 }
@@ -353,7 +349,7 @@
       background-color: var(--buttonCounter-danger-bgColor-hover);
     }
 
-    & .Visual > :not(.CounterLabel) {
+    & .Visual {
       color: var(--button-danger-iconColor-hover);
     }
   }
@@ -394,7 +390,7 @@
     background-color: var(--buttonCounter-danger-bgColor-rest);
   }
 
-  & .Visual > :not(.CounterLabel) {
+  & .Visual {
     color: var(--button-danger-iconColor-rest);
   }
 }
@@ -409,7 +405,7 @@
   &:hover {
     background-color: var(--button-invisible-bgColor-hover);
 
-    & .Visual > :not(.CounterLabel) {
+    & .Visual {
       color: var(--button-invisible-iconColor-hover);
     }
   }
@@ -417,7 +413,7 @@
   &:active {
     background-color: var(--button-invisible-bgColor-active);
 
-    & .Visual > :not(.CounterLabel) {
+    & .Visual {
       color: var(--button-invisible-iconColor-hover);
     }
   }
@@ -433,12 +429,11 @@
     background-color: var(--button-invisible-bgColor-active);
   }
 
-  & .Visual > :not(.CounterLabel) {
+  & .Visual {
     color: var(--button-invisible-iconColor-rest);
   }
 
   & .CounterLabel {
-    /* color: inherit; */
     background-color: var(--buttonCounter-invisible-bgColor-rest);
   }
 
@@ -493,10 +488,7 @@
   background-color: var(--button-inactive-bgColor);
   border-color: var(--button-inactive-bgColor);
 
-  & .Visual > :not(.CounterLabel) {
-    color: inherit;
-  }
-
+  & .Visual,
   & .CounterLabel {
     color: inherit;
   }
