@@ -795,6 +795,7 @@ exports[`TextInput renders leadingVisual 1`] = `
 >
   <span
     className="TextInput-icon"
+    id=":rs:"
   >
     <svg
       aria-hidden="true"
@@ -819,6 +820,7 @@ exports[`TextInput renders leadingVisual 1`] = `
     </svg>
   </span>
   <input
+    aria-describedby=":rs:"
     className="c2"
     data-component="input"
     name="search"
@@ -951,6 +953,7 @@ exports[`TextInput renders leadingVisual 2`] = `
 >
   <span
     className="TextInput-icon"
+    id=":rv:"
   >
     <svg
       aria-hidden="true"
@@ -975,6 +978,7 @@ exports[`TextInput renders leadingVisual 2`] = `
     </svg>
   </span>
   <input
+    aria-describedby=":rv:"
     className="c2"
     data-component="input"
     name="search"
@@ -1107,12 +1111,14 @@ exports[`TextInput renders leadingVisual 3`] = `
 >
   <span
     className="TextInput-icon"
+    id=":r12:"
   >
     <div>
       Trailing
     </div>
   </span>
   <input
+    aria-describedby=":r12:"
     className="c2"
     data-component="input"
     name="search"
@@ -1245,12 +1251,14 @@ exports[`TextInput renders leadingVisual 4`] = `
 >
   <span
     className="TextInput-icon"
+    id=":r15:"
   >
     <div>
       Trailing
     </div>
   </span>
   <input
+    aria-describedby=":r15:"
     className="c2"
     data-component="input"
     name="search"
@@ -2235,8 +2243,8 @@ exports[`TextInput renders trailingAction icon button 1`] = `
     className="c3 TextInput-action"
   >
     <button
-      aria-describedby=":ro:-loading-announcement"
-      aria-labelledby=":rn:"
+      aria-describedby=":r20:-loading-announcement"
+      aria-labelledby=":r1v:"
       className="c4"
       data-block={null}
       data-component="IconButton"
@@ -2276,7 +2284,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
       aria-hidden={true}
       className="c5"
       data-direction="s"
-      id=":rn:"
+      id=":r1v:"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
     >
@@ -2749,7 +2757,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
     className="c3 TextInput-action"
   >
     <button
-      aria-describedby=":ri:-loading-announcement"
+      aria-describedby=":r1m:-loading-announcement"
       className="c4"
       data-block={null}
       data-loading={false}
@@ -3353,7 +3361,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
     className="c3 TextInput-action"
   >
     <button
-      aria-describedby=":rl:-loading-announcement :rk:"
+      aria-describedby=":r1r:-loading-announcement :r1q:"
       className="c4"
       data-block={null}
       data-loading={false}
@@ -3384,7 +3392,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
     <span
       className="c6"
       data-direction="s"
-      id=":rk:"
+      id=":r1q:"
       onMouseEnter={[Function]}
       onMouseLeave={[Function]}
       role="tooltip"
@@ -3515,6 +3523,7 @@ exports[`TextInput renders trailingVisual 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-describedby=":r19:"
     className="c2"
     data-component="input"
     name="search"
@@ -3525,6 +3534,7 @@ exports[`TextInput renders trailingVisual 1`] = `
   />
   <span
     className="TextInput-icon"
+    id=":r19:"
   >
     <svg
       aria-hidden="true"
@@ -3671,6 +3681,7 @@ exports[`TextInput renders trailingVisual 2`] = `
   onClick={[Function]}
 >
   <input
+    aria-describedby=":r1c:"
     className="c2"
     data-component="input"
     name="search"
@@ -3681,6 +3692,7 @@ exports[`TextInput renders trailingVisual 2`] = `
   />
   <span
     className="TextInput-icon"
+    id=":r1c:"
   >
     <svg
       aria-hidden="true"
@@ -3827,6 +3839,7 @@ exports[`TextInput renders trailingVisual 3`] = `
   onClick={[Function]}
 >
   <input
+    aria-describedby=":r1f:"
     className="c2"
     data-component="input"
     name="search"
@@ -3837,6 +3850,7 @@ exports[`TextInput renders trailingVisual 3`] = `
   />
   <span
     className="TextInput-icon"
+    id=":r1f:"
   >
     <div>
       Trailing
@@ -3965,6 +3979,7 @@ exports[`TextInput renders trailingVisual 4`] = `
   onClick={[Function]}
 >
   <input
+    aria-describedby=":r1i:"
     className="c2"
     data-component="input"
     name="search"
@@ -3975,6 +3990,7 @@ exports[`TextInput renders trailingVisual 4`] = `
   />
   <span
     className="TextInput-icon"
+    id=":r1i:"
   >
     <div>
       Trailing
@@ -4161,7 +4177,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            aria-labelledby=":rq:"
+            aria-labelledby=":r24:"
             className="c5"
             fill="none"
             height="16px"
@@ -4192,7 +4208,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
           <span
             className="c6"
-            id=":rq:"
+            id=":r24:"
           >
             Loading
           </span>
@@ -4375,7 +4391,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            aria-labelledby=":rr:"
+            aria-labelledby=":r27:"
             className="c4"
             fill="none"
             height="16px"
@@ -4406,7 +4422,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
           <span
             className="c5"
-            id=":rr:"
+            id=":r27:"
           >
             Loading
           </span>
@@ -4432,7 +4448,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            aria-labelledby=":rs:"
+            aria-labelledby=":r28:"
             className="c7"
             fill="none"
             height="16px"
@@ -4463,7 +4479,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
           <span
             className="c5"
-            id=":rs:"
+            id=":r28:"
           >
             Loading
           </span>
@@ -4647,7 +4663,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            aria-labelledby=":rt:"
+            aria-labelledby=":r2b:"
             className="c5"
             fill="none"
             height="16px"
@@ -4678,7 +4694,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
           <span
             className="c6"
-            id=":rt:"
+            id=":r2b:"
           >
             Loading
           </span>
@@ -4895,7 +4911,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            aria-labelledby=":ru:"
+            aria-labelledby=":r2e:"
             className="c5"
             fill="none"
             height="32px"
@@ -4931,7 +4947,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
           <span
             className="c6"
-            id=":ru:"
+            id=":r2e:"
           >
             Loading
           </span>
@@ -4939,6 +4955,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
+      aria-describedby=":r2c:"
       className="c7"
       data-component="input"
       onBlur={[Function]}
@@ -4957,7 +4974,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            aria-labelledby=":rv:"
+            aria-labelledby=":r2f:"
             className="c8"
             fill="none"
             height="16px"
@@ -4988,7 +5005,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
           <span
             className="c6"
-            id=":rv:"
+            id=":r2f:"
           >
             Loading
           </span>
@@ -5205,7 +5222,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            aria-labelledby=":r10:"
+            aria-labelledby=":r2i:"
             className="c5"
             fill="none"
             height="32px"
@@ -5241,7 +5258,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
           <span
             className="c6"
-            id=":r10:"
+            id=":r2i:"
           >
             Loading
           </span>
@@ -5249,6 +5266,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
+      aria-describedby=":r2g:"
       className="c7"
       data-component="input"
       onBlur={[Function]}
@@ -5267,7 +5285,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            aria-labelledby=":r11:"
+            aria-labelledby=":r2j:"
             className="c8"
             fill="none"
             height="16px"
@@ -5298,7 +5316,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
           <span
             className="c6"
-            id=":r11:"
+            id=":r2j:"
           >
             Loading
           </span>
@@ -5515,7 +5533,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            aria-labelledby=":r12:"
+            aria-labelledby=":r2m:"
             className="c5"
             fill="none"
             height="32px"
@@ -5551,7 +5569,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
           <span
             className="c6"
-            id=":r12:"
+            id=":r2m:"
           >
             Loading
           </span>
@@ -5559,6 +5577,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
+      aria-describedby=":r2k:"
       className="c7"
       data-component="input"
       onBlur={[Function]}
@@ -5577,7 +5596,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            aria-labelledby=":r13:"
+            aria-labelledby=":r2n:"
             className="c8"
             fill="none"
             height="16px"
@@ -5608,7 +5627,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
           <span
             className="c6"
-            id=":r13:"
+            id=":r2n:"
           >
             Loading
           </span>
@@ -5783,6 +5802,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
     onClick={[Function]}
   >
     <input
+      aria-describedby=":r2p:"
       className="c2"
       data-component="input"
       onBlur={[Function]}
@@ -5826,7 +5846,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            aria-labelledby=":r14:"
+            aria-labelledby=":r2q:"
             className="c6"
             fill="none"
             height="32px"
@@ -5862,7 +5882,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
           <span
             className="c7"
-            id=":r14:"
+            id=":r2q:"
           >
             Loading
           </span>
@@ -6054,7 +6074,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            aria-labelledby=":r15:"
+            aria-labelledby=":r2t:"
             className="c4"
             fill="none"
             height="16px"
@@ -6085,7 +6105,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
           <span
             className="c5"
-            id=":r15:"
+            id=":r2t:"
           >
             Loading
           </span>
@@ -6093,6 +6113,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
+      aria-describedby=":r2s:"
       className="c6"
       data-component="input"
       onBlur={[Function]}
@@ -6136,7 +6157,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            aria-labelledby=":r16:"
+            aria-labelledby=":r2u:"
             className="c8"
             fill="none"
             height="32px"
@@ -6172,7 +6193,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
           <span
             className="c5"
-            id=":r16:"
+            id=":r2u:"
           >
             Loading
           </span>
@@ -6347,6 +6368,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
     onClick={[Function]}
   >
     <input
+      aria-describedby=":r30:"
       className="c2"
       data-component="input"
       onBlur={[Function]}
@@ -6390,7 +6412,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            aria-labelledby=":r17:"
+            aria-labelledby=":r31:"
             className="c6"
             fill="none"
             height="32px"
@@ -6426,7 +6448,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
           <span
             className="c7"
-            id=":r17:"
+            id=":r31:"
           >
             Loading
           </span>
@@ -6661,7 +6683,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            aria-labelledby=":r18:"
+            aria-labelledby=":r34:"
             className="c5"
             fill="none"
             height="32px"
@@ -6697,7 +6719,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
           <span
             className="c6"
-            id=":r18:"
+            id=":r34:"
           >
             Loading
           </span>
@@ -6705,6 +6727,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
+      aria-describedby=":r32: :r33:"
       className="c7"
       data-component="input"
       onBlur={[Function]}
@@ -6748,7 +6771,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            aria-labelledby=":r19:"
+            aria-labelledby=":r35:"
             className="c9"
             fill="none"
             height="32px"
@@ -6784,7 +6807,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
           <span
             className="c6"
-            id=":r19:"
+            id=":r35:"
           >
             Loading
           </span>
@@ -7010,7 +7033,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            aria-labelledby=":r1a:"
+            aria-labelledby=":r38:"
             className="c5"
             fill="none"
             height="32px"
@@ -7046,7 +7069,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
           <span
             className="c6"
-            id=":r1a:"
+            id=":r38:"
           >
             Loading
           </span>
@@ -7054,6 +7077,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
+      aria-describedby=":r36: :r37:"
       className="c7"
       data-component="input"
       onBlur={[Function]}
@@ -7097,7 +7121,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            aria-labelledby=":r1b:"
+            aria-labelledby=":r39:"
             className="c9"
             fill="none"
             height="32px"
@@ -7133,7 +7157,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
           <span
             className="c6"
-            id=":r1b:"
+            id=":r39:"
           >
             Loading
           </span>
@@ -7366,7 +7390,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            aria-labelledby=":r1c:"
+            aria-labelledby=":r3c:"
             className="c5"
             fill="none"
             height="32px"
@@ -7402,7 +7426,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
           <span
             className="c6"
-            id=":r1c:"
+            id=":r3c:"
           >
             Loading
           </span>
@@ -7410,6 +7434,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
+      aria-describedby=":r3a: :r3b:"
       className="c7"
       data-component="input"
       onBlur={[Function]}
@@ -7453,7 +7478,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         >
           <svg
             aria-hidden={true}
-            aria-labelledby=":r1d:"
+            aria-labelledby=":r3d:"
             className="c9"
             fill="none"
             height="32px"
@@ -7489,7 +7514,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
           <span
             className="c6"
-            id=":r1d:"
+            id=":r3d:"
           >
             Loading
           </span>

@@ -99,13 +99,11 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     const leadingVisualId = useId()
     const trailingVisualId = useId()
 
-    const inputDescribedBy = [
-      inputProps['aria-describedby'],
-      LeadingVisual && leadingVisualId,
-      TrailingVisual && trailingVisualId,
-    ]
-      .filter(String)
-      .join('')
+    const inputDescribedBy =
+      [inputProps['aria-describedby'], LeadingVisual && leadingVisualId, TrailingVisual && trailingVisualId]
+        .filter(String)
+        .join(' ')
+        .trim() || undefined
 
     const handleInputFocus = useCallback(
       (e: React.FocusEvent<HTMLInputElement>) => {

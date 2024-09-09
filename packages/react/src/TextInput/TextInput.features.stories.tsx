@@ -112,7 +112,7 @@ export const WithLeadingVisual = () => {
 }
 
 export const WithTrailingIcon = () => {
-  const Checkmark = () => <CheckIcon />
+  const Checkmark = () => <CheckIcon aria-label="Checkmark" />
 
   return (
     <Box>

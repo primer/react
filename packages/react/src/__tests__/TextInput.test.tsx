@@ -236,4 +236,50 @@ describe('TextInput', () => {
     const {getByRole} = HTMLRender(<TextInput onChange={onChange} aria-invalid="true" value="" />)
     expect(getByRole('textbox')).toHaveAttribute('aria-invalid', 'true')
   })
+
+  it('should include the leadingVisual as part of the input accessible description', () => {
+    const {getByRole} = HTMLRender(<TextInput leadingVisual="Search" />)
+    expect(getByRole('textbox')).toHaveAccessibleDescription('Search')
+  })
+
+  it('should include the leadingVisual icon as part of the input accessible description', () => {
+    const Icon = () => <SearchIcon aria-label="Search" />
+
+    const {getByRole} = HTMLRender(<TextInput leadingVisual={Icon} />)
+    const icon = getByRole('img')
+
+    expect(getByRole('textbox')).toHaveAttribute('aria-describedby', icon.parentElement?.id)
+    expect(icon).toHaveAccessibleName('Search')
+  })
+
+  it('should include the trailingVisual as part of the input accessible description', () => {
+    const {getByRole} = HTMLRender(<TextInput trailingVisual="Search" />)
+    expect(getByRole('textbox')).toHaveAccessibleDescription('Search')
+  })
+
+  it('should include the trailingVisual icon as part of the input accessible description', () => {
+    const Icon = () => <SearchIcon aria-label="Search" />
+
+    const {getByRole} = HTMLRender(<TextInput trailingVisual={Icon} />)
+    const icon = getByRole('img')
+
+    expect(getByRole('textbox')).toHaveAttribute('aria-describedby', icon.parentElement?.id)
+    expect(icon).toHaveAccessibleName('Search')
+  })
+
+  it('should include both the leadingVisual and trailingVisual as part of the input accessible description', () => {
+    const {getByRole} = HTMLRender(<TextInput leadingVisual="$" trailingVisual="Currency" />)
+    expect(getByRole('textbox')).toHaveAccessibleDescription('$ Currency')
+  })
+
+  it('should keep the passed aria-describedby value', () => {
+    const {getByRole} = HTMLRender(
+      <>
+        <span id="passedValue">value</span>
+        <TextInput leadingVisual="leading" trailingVisual="trailing" aria-describedby="passedValue" />
+      </>,
+    )
+    expect(getByRole('textbox').getAttribute('aria-describedby')).toContain('passedValue')
+    expect(getByRole('textbox')).toHaveAccessibleDescription('value leading trailing')
+  })
 })
