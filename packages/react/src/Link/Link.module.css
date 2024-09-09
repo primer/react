@@ -1,4 +1,4 @@
-.Link {
+:where(.Link) {
   color: var(--fgColor-accent);
   text-decoration: none;
 
@@ -20,16 +20,16 @@
   }
 
   /* Deprecated: but need to support backwards compatibility */
-  &[data-underline='true'],
+  &:where([data-underline='true']),
   /*
     Inline links (inside a text block), however, should have underline based on accessibility setting set in data-attribute
     Note: setting underline={false} does not override this
   */
-  [data-a11y-link-underlines='true'] &[data-inline='true'] {
+  [data-a11y-link-underlines='true'] &:where([data-inline='true']) {
     text-decoration: underline;
   }
 
-  &[data-muted='true'] {
+  &:where([data-muted='true']) {
     color: var(--fgColor-muted);
 
     &:hover {

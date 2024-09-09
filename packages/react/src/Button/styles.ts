@@ -114,7 +114,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
     },
     invisible: {
-      color: 'btn.text',
+      color: `var(--button-invisible-fgColor-rest, ${theme?.colors.btn.text})`,
       backgroundColor: 'transparent',
       borderColor: 'transparent',
       boxShadow: 'none',
@@ -126,6 +126,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       '&:disabled': {
         color: 'primer.fg.disabled',
+        backgroundColor: `var(--button-invisible-bgColor-disabled, transparent)`,
         '[data-component=ButtonCounter], [data-component="leadingVisual"], [data-component="trailingAction"]': {
           color: 'inherit',
         },
@@ -143,10 +144,10 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         color: 'fg.muted',
       },
       '&[data-no-visuals]': {
-        color: 'accent.fg',
+        color: `var(--button-invisible-fgColor-rest, ${theme?.colors.btn.text})`,
       },
       '&:has([data-component="ButtonCounter"])': {
-        color: 'btn.text',
+        color: `var(--button-invisible-fgColor-rest, ${theme?.colors.btn.text})`,
       },
       '&:disabled[data-no-visuals]': {
         color: 'primer.fg.disabled',

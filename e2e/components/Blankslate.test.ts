@@ -52,7 +52,7 @@ test.describe('Blankslate', () => {
               globals: {
                 colorScheme: theme,
                 featureFlags: {
-                  primer_react_css_modules: true,
+                  primer_react_css_modules_ga: true,
                 },
               },
             })
@@ -67,7 +67,7 @@ test.describe('Blankslate', () => {
               globals: {
                 colorScheme: theme,
                 featureFlags: {
-                  primer_react_css_modules: false,
+                  primer_react_css_modules_ga: false,
                 },
               },
             })
@@ -82,7 +82,7 @@ test.describe('Blankslate', () => {
               globals: {
                 colorScheme: theme,
                 featureFlags: {
-                  primer_react_css_modules: true,
+                  primer_react_css_modules_ga: true,
                 },
               },
             })
@@ -108,7 +108,7 @@ test.describe('Blankslate', () => {
               id: story.id,
               globals: {
                 featureFlags: {
-                  primer_react_css_modules: true,
+                  primer_react_css_modules_ga: true,
                 },
               },
             })
@@ -126,7 +126,7 @@ test.describe('Blankslate', () => {
               id: story.id,
               globals: {
                 featureFlags: {
-                  primer_react_css_modules: false,
+                  primer_react_css_modules_ga: false,
                 },
               },
             })
