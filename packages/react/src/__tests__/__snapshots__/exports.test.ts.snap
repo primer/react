@@ -401,6 +401,7 @@ exports[`@primer/react/experimental should not update exports without a semver c
   "default",
   "default",
   "default",
+  "DefaultFeatureFlags",
   "Dialog",
   "type DialogButtonProps",
   "type DialogHeaderProps",
