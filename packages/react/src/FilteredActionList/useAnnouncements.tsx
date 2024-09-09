@@ -31,8 +31,9 @@ export const useAnnouncements = (
           const activeItemElement = listElement?.querySelector('[data-is-active-descendant]')
 
           if (listElement && activeItemElement?.textContent) {
-            // TODO: This does not work with groups yet!
-            const activeItemIndex = Array.from(listElement.children).indexOf(activeItemElement)
+            const optionElements = listElement.querySelectorAll('[role="option"]')
+
+            const activeItemIndex = Array.from(optionElements).indexOf(activeItemElement)
             const activeItemText = items[activeItemIndex].text
             const activeItemSelected = items[activeItemIndex].selected
 
