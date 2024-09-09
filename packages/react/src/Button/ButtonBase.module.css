@@ -90,11 +90,8 @@
 /* Visuals */
 .Visual {
   display: flex;
-  pointer-events: none;
-}
-
-.Visual:not(.loadingSpinner) {
   color: var(--fgColor-muted);
+  pointer-events: none;
 }
 
 .ConditionalWrapper {
