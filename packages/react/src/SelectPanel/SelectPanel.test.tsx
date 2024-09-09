@@ -367,6 +367,15 @@ for (const useModernActionList of [false, true]) {
               'List updated, Focused item: item one, not selected, 1 of 2',
             )
           })
+
+          await user.type(document.activeElement!, 'ne') // now: one
+          expect(screen.getAllByRole('option')).toHaveLength(1)
+
+          await waitFor(async () => {
+            expect(getLiveRegion().getMessage('polite')).toBe(
+              'List updated, Focused item: item one, not selected, 1 of 1',
+            )
+          })
         })
 
         it('should announce when no results are available', async () => {
