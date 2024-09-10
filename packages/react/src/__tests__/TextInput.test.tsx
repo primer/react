@@ -282,4 +282,26 @@ describe('TextInput', () => {
     expect(getByRole('textbox').getAttribute('aria-describedby')).toContain('passedValue')
     expect(getByRole('textbox')).toHaveAccessibleDescription('value leading trailing')
   })
+
+  it('should include the loading indicator as part of the input accessible description', () => {
+    const {getByRole} = HTMLRender(<TextInput loading />)
+    expect(getByRole('textbox')).toHaveAccessibleDescription('Loading')
+  })
+
+  it('should include the leadingVisual and loading indicator as part of the input accessible description', () => {
+    const {getByRole} = HTMLRender(
+      <TextInput loading loaderText="Loading search items" loaderPosition="trailing" leadingVisual="Search" />,
+    )
+    expect(getByRole('textbox')).toHaveAccessibleDescription('Search Loading search items')
+  })
+
+  it('should include the trailingVisual and loading indicator as part of the input accessible description', () => {
+    const {getByRole} = HTMLRender(<TextInput loading loaderPosition="leading" trailingVisual="Search" />)
+    expect(getByRole('textbox')).toHaveAccessibleDescription('Search Loading')
+  })
+
+  it('should not have an aria-describedby if there is no leadingVisual, trailingVisual, or loading indicator', () => {
+    const {getByRole} = HTMLRender(<TextInput />)
+    expect(getByRole('textbox')).not.toHaveAttribute('aria-describedby')
+  })
 })

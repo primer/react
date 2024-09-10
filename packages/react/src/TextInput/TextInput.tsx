@@ -105,7 +105,12 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     const loadingId = useId()
 
     const inputDescribedBy =
-      [inputProps['aria-describedby'], LeadingVisual && leadingVisualId, TrailingVisual && trailingVisualId, loadingId]
+      [
+        inputProps['aria-describedby'],
+        LeadingVisual && leadingVisualId,
+        TrailingVisual && trailingVisualId,
+        loading && loadingId,
+      ]
         .filter(String)
         .join(' ')
         .trim() || undefined

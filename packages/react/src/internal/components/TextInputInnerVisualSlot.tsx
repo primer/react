@@ -29,9 +29,10 @@ const TextInputInnerVisualSlot: React.FC<
 
   return (
     <span className="TextInput-icon">
-      <Box display="flex" position="relative">
+      <Box display="flex" position="relative" id={id}>
         {children && <Box sx={{visibility: showLoadingIndicator ? 'hidden' : 'visible'}}>{children}</Box>}
         <Spinner
+          srText={null}
           sx={
             children
               ? {
