@@ -135,6 +135,22 @@ exports[`NavList renders a simple list 1`] = `
   border-radius: 6px;
 }
 
+.c2[data-is-active-descendant] {
+  font-weight: 600;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c2[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
+}
+
 .c7 {
   position: relative;
   display: -webkit-box;
@@ -214,6 +230,22 @@ exports[`NavList renders a simple list 1`] = `
 .c7:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c1,
 .c7[data-focus-visible-added] + li {
   --divider-color: transparent;
+}
+
+.c7[data-is-active-descendant] {
+  font-weight: 600;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c7[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
 }
 
 .c4 {
@@ -593,6 +625,22 @@ exports[`NavList renders with groups 1`] = `
   border-radius: 6px;
 }
 
+.c6[data-is-active-descendant] {
+  font-weight: 600;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c6[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
+}
+
 .c11 {
   position: relative;
   display: -webkit-box;
@@ -672,6 +720,22 @@ exports[`NavList renders with groups 1`] = `
 .c11:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c5,
 .c11[data-focus-visible-added] + li {
   --divider-color: transparent;
+}
+
+.c11[data-is-active-descendant] {
+  font-weight: 600;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c11[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
 }
 
 .c8 {
@@ -1070,6 +1134,22 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   border-radius: 6px;
 }
 
+.c11[data-is-active-descendant] {
+  font-weight: 600;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c11[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
+}
+
 .c4 {
   position: relative;
   display: -webkit-box;
@@ -1149,6 +1229,22 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 .c4:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c3,
 .c4[data-focus-visible-added] + li {
   --divider-color: transparent;
+}
+
+.c4[data-is-active-descendant] {
+  font-weight: 600;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c4[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
 }
 
 .c13 {
@@ -1541,6 +1637,22 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   border-radius: 6px;
 }
 
+.c11[data-is-active-descendant] {
+  font-weight: 600;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c11[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
+}
+
 [data-component="ActionList.Divider"] + .c3 {
   --divider-color: transparent !important;
 }
@@ -1633,6 +1745,22 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 .c4::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
+}
+
+.c4[data-is-active-descendant] {
+  font-weight: 600;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c4[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
