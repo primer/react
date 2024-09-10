@@ -2,7 +2,7 @@ import type {MouseEventHandler} from 'react'
 import React, {useCallback, useState} from 'react'
 import {isValidElementType} from 'react-is'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 
 import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
 import {useProvidedRefOrCreate} from '../hooks'

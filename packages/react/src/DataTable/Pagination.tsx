@@ -72,6 +72,7 @@ const StyledPagination = styled.nav`
     line-height: calc(20 / 14);
     user-select: none;
     border-radius: 6px;
+    padding: 0.5rem calc((2rem - 1.25rem) / 2); /* primer.control.medium.paddingInline.condensed primer.control.medium.paddingBlock */
   }
 
   .TablePaginationAction[data-has-page]:hover,
