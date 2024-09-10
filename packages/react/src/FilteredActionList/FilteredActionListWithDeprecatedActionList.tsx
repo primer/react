@@ -4,7 +4,6 @@ import type {KeyboardEventHandler} from 'react'
 import React, {useCallback, useEffect, useRef} from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
-import Spinner from '../Spinner'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {get} from '../constants'
@@ -17,17 +16,20 @@ import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import type {SxProp} from '../sx'
+import {
+  type FilteredActionListLoadingType,
+  FilteredActionListBodyLoader,
+  FilteredActionListLoadingTypes,
+} from './FilteredActionListLoaders'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
-
-export type LoadingType = 'input' | 'body'
 
 export interface FilteredActionListProps
   extends Partial<Omit<GroupedListProps, keyof ListPropsBase>>,
     ListPropsBase,
     SxProp {
   loading?: boolean
-  loadingType?: LoadingType
+  loadingType?: FilteredActionListLoadingType
   placeholderText?: string
   filterValue?: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement> | null) => void
@@ -42,7 +44,7 @@ const StyledHeader = styled.div`
 
 export function FilteredActionList({
   loading = false,
-  loadingType = 'body',
+  loadingType = FilteredActionListLoadingTypes.bodySpinner,
   placeholderText,
   filterValue: externalFilterValue,
   onFilterChange,
@@ -129,16 +131,14 @@ export function FilteredActionList({
           aria-controls={listId}
           aria-describedby={inputDescriptionTextId}
           loaderPosition={'leading'}
-          loading={loading && loadingType === 'input'}
+          loading={loading && !loadingType.appearsInBody}
           {...textInputProps}
         />
       </StyledHeader>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
       <Box ref={scrollContainerRef} overflow="auto">
-        {loading && loadingType === 'body' ? (
-          <Box width="100%" display="flex" flexDirection="row" justifyContent="center" pt={6} pb={7}>
-            <Spinner />
-          </Box>
+        {loading && loadingType.appearsInBody ? (
+          <FilteredActionListBodyLoader loadingType={loadingType} />
         ) : (
           <ActionList ref={listContainerRef} items={items} {...listProps} role="listbox" id={listId} />
         )}

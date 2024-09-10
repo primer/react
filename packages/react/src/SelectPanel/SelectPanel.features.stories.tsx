@@ -409,6 +409,7 @@ export const AsyncFetch = () => {
       onSelectedChange={setSelected}
       onFilterChange={onFilterChange}
       showItemDividers={true}
+      initialLoadingType="skeleton"
     />
   )
 }

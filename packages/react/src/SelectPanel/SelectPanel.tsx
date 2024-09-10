@@ -18,6 +18,8 @@ import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 import useSafeTimeout from '../hooks/useSafeTimeout'
+import type {FilteredActionListLoadingType} from '../FilteredActionList/FilteredActionListLoaders'
+import {FilteredActionListLoadingTypes} from '../FilteredActionList/FilteredActionListLoaders'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -28,6 +30,8 @@ interface SelectPanelMultiSelection {
   selected: ItemInput[]
   onSelectedChange: (selected: ItemInput[]) => void
 }
+
+export type InitialLoadingType = 'spinner' | 'skeleton'
 
 interface SelectPanelBaseProps {
   // TODO: Make `title` required in the next major version
@@ -42,6 +46,7 @@ interface SelectPanelBaseProps {
   inputLabel?: string
   overlayProps?: Partial<OverlayProps>
   footer?: string | React.ReactElement
+  initialLoadingType?: InitialLoadingType
 }
 
 export type SelectPanelProps = SelectPanelBaseProps &
@@ -88,6 +93,7 @@ export function SelectPanel({
   overlayProps,
   sx,
   loading,
+  initialLoadingType = 'spinner',
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const inputRef = React.useRef<HTMLInputElement>(null)
@@ -223,6 +229,18 @@ export function SelectPanel({
     }
   }, [inputLabel, textInputProps])
 
+  const loadingType = (): FilteredActionListLoadingType => {
+    if (dataLoadedOnce.current) {
+      return FilteredActionListLoadingTypes.input
+    } else {
+      if (initialLoadingType === 'spinner') {
+        return FilteredActionListLoadingTypes.bodySpinner
+      } else {
+        return FilteredActionListLoadingTypes.bodySkeleton
+      }
+    }
+  }
+
   return (
     <LiveRegion>
       <AnchoredOverlay
@@ -273,7 +291,7 @@ export function SelectPanel({
             textInputProps={extendedTextInputProps}
             inputRef={inputRef}
             loading={isLoading}
-            loadingType={dataLoadedOnce.current ? 'input' : 'body'}
+            loadingType={loadingType()}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
             sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}

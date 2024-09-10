@@ -5,6 +5,7 @@ import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
 import {userEvent} from '@testing-library/user-event'
 import ThemeProvider from '../ThemeProvider'
 import {FeatureFlags} from '../FeatureFlags'
+import type {InitialLoadingType} from './SelectPanel'
 
 const renderWithFlag = (children: React.ReactNode, flag: boolean) => {
   return render(
@@ -58,7 +59,7 @@ function BasicSelectPanel() {
 
 global.Element.prototype.scrollTo = jest.fn()
 
-for (const useModernActionList of [false, true]) {
+for (const useModernActionList of [true, false]) {
   describe('SelectPanel', () => {
     describe(`primer_react_select_panel_with_modern_action_list: ${useModernActionList}`, () => {
       it('should render an anchor to open the select panel using `placeholder`', () => {
@@ -323,6 +324,35 @@ for (const useModernActionList of [false, true]) {
           )
         }
 
+        function LoadingSelectPanel({
+          initialLoadingType = 'spinner',
+          items = [],
+        }: {
+          initialLoadingType?: InitialLoadingType
+          items?: SelectPanelProps['items']
+        }) {
+          const [open, setOpen] = React.useState(false)
+
+          return (
+            <ThemeProvider>
+              <SelectPanel
+                title="test title"
+                subtitle="test subtitle"
+                placeholder="Select items"
+                open={open}
+                items={items}
+                onFilterChange={() => {}}
+                selected={[]}
+                onSelectedChange={() => {}}
+                onOpenChange={isOpen => {
+                  setOpen(isOpen)
+                }}
+                initialLoadingType={initialLoadingType}
+              />
+            </ThemeProvider>
+          )
+        }
+
         it('should filter the list of items when the user types into the input', async () => {
           const user = userEvent.setup()
 
@@ -339,6 +369,42 @@ for (const useModernActionList of [false, true]) {
         it.todo('should announce the number of results')
 
         it.todo('should announce when no results are available')
+
+        it('displays a loading spinner on first open', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<LoadingSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.getByTestId('filtered-action-list-spinner')).toBeTruthy()
+        })
+
+        it('displays a loading skeleton on first open', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<LoadingSelectPanel initialLoadingType="skeleton" />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.getByTestId('filtered-action-list-skeleton')).toBeTruthy()
+        })
+
+        it('displays a loading spinner in the text input if items are already loaded', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<LoadingSelectPanel items={items} />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.getAllByRole('option')).toHaveLength(3)
+
+          // since the test never repopulates the panel's list of items, the panel will enter
+          // the loading state after the following line executes and stay there indefinitely
+          await user.type(document.activeElement!, 'two')
+
+          expect(screen.getByTestId('text-input-leading-visual')).toBeTruthy()
+        })
       })
 
       describe('with footer', () => {

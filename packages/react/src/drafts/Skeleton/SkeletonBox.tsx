@@ -2,13 +2,16 @@ import type React from 'react'
 import styled, {keyframes} from 'styled-components'
 import sx, {type SxProp} from '../../sx'
 import {get} from '../../constants'
+import type {StyledBoxProps} from '../../Box/Box'
+import {background, border, color, flexbox, grid, layout, position, shadow, space, typography} from 'styled-system'
 
 type SkeletonBoxProps = {
   /** Height of the skeleton "box". Accepts any valid CSS `height` value. */
   height?: React.CSSProperties['height']
   /** Width of the skeleton "box". Accepts any valid CSS `width` value. */
   width?: React.CSSProperties['width']
-} & SxProp
+} & StyledBoxProps &
+  SxProp
 
 const shimmer = keyframes`
   from { mask-position: 200%; }
@@ -36,5 +39,15 @@ export const SkeletonBox = styled.div<SkeletonBoxProps>`
     outline-offset: -1px;
   }
 
+  ${space};
+  ${color};
+  ${typography};
+  ${layout};
+  ${flexbox};
+  ${grid};
+  ${background};
+  ${border};
+  ${position};
+  ${shadow};
   ${sx};
 `
