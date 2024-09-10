@@ -1,17 +1,49 @@
 'use strict'
 
+const {spawnSync} = require('node:child_process')
 const {createHash} = require('node:crypto')
 const fs = require('fs')
 const path = require('path')
 const {default: postcss} = require('postcss')
 const postcssModules = require('postcss-modules')
 
-const THIS_FILE = fs.readFileSync(__filename)
+const THIS_FILE = fs.readFileSync(__filename, 'binary')
+
+const RUNNER_PATH = require.resolve('./postcss-runner.mjs')
 
 /**
  * @type {import('@jest/transform').Transformer}
  */
 module.exports = {
+  process(_file, sourcePath) {
+    const {stdout, stderr} = spawnSync('node', [
+      '-e',
+      `import("${RUNNER_PATH}").then((mod) => mod.process("${sourcePath}"))`,
+    ])
+
+    if (stderr.length > 0) {
+      throw new Error(stderr.toString())
+    }
+
+    const result = JSON.parse(stdout.toString())
+    if (result.error) {
+      throw new Error(result.error)
+    }
+
+    return {
+      code: `
+        if (typeof document !== 'undefined') {
+          const css = \`${result.css}\`;
+          const style = document.createElement('style')
+          style.type = 'text/css'
+
+          document.head.appendChild(style);
+          style.appendChild(document.createTextNode(css))
+        }
+        module.exports = ${JSON.stringify(result.cssModuleClasses)};
+      `,
+    }
+  },
   async processAsync(file, sourcePath) {
     let cssModuleClasses = null
 
@@ -29,21 +61,11 @@ module.exports = {
       code: `
         if (typeof document !== 'undefined') {
           const css = \`${result.css.toString()}\`;
+          const style = document.createElement('style')
+          style.type = 'text/css'
 
-          // List of features that are currently not parseable by the internal version of jsdom managed by
-          // jest-environment-jsdom
-          const unsupportedFeatures = ['@layer', '@container'];
-          const hasUnsupportedFeature = unsupportedFeatures.find((feature) => {
-            return css.includes(feature);
-          })
-
-          if (!hasUnsupportedFeature) {
-            const style = document.createElement('style')
-            style.type = 'text/css'
-
-            document.head.appendChild(style);
-            style.appendChild(document.createTextNode(css))
-          }
+          document.head.appendChild(style);
+          style.appendChild(document.createTextNode(css))
         }
 
         module.exports = ${JSON.stringify(cssModuleClasses)};

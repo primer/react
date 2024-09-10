@@ -4,18 +4,21 @@
   "version": "0.0.0",
   "type": "commonjs",
   "exports": {
+    ".": "./src/config.js",
+    "./environment/*": "./src/environment/*.js",
     "./transformers/*": "./src/transformers/*.js"
   },
   "scripts": {
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@jest/environment-jsdom-abstract": "30.0.0-alpha.3",
+    "postcss": "^8.4.45",
+    "postcss-modules": "^6.0.0",
     "postcss-preset-primer": "^0.0.0"
   },
   "devDependencies": {
-    "@jest/transform": "29.7.0",
-    "postcss": "8.4.45",
-    "postcss-modules": "6.0.0",
+    "@jest/transform": "^29.7.0",
     "typescript": "^5.5.3"
   }
 }
