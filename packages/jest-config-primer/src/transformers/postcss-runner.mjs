@@ -14,6 +14,7 @@ export async function process(filepath) {
     const result = await postcss([
       postcssPresetPrimer(),
       postcssModules({
+        generateScopedName: 'prc_[local]_[hash:base64:5]',
         getJSON(_filename, json) {
           cssModuleClasses = json
         },

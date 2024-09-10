@@ -49,6 +49,7 @@ module.exports = {
 
     const result = await postcss([
       postcssModules({
+        generateScopedName: 'prc_[local]_[hash:base64:5]',
         getJSON(_filename, json) {
           cssModuleClasses = json
         },

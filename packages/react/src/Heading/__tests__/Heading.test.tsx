@@ -153,7 +153,7 @@ describe('Heading', () => {
           <Heading>test</Heading>
         </FeatureFlags>,
       )
-      expect(screen.getByText('test')).toHaveClass('Heading')
+      expect(screen.getByText('test')).toHaveClass(/^prc_Heading/)
       // Note: this is the generated class name when styled-components is used
       // for this component
       expect(screen.getByText('test')).not.toHaveClass(/^Heading__StyledHeading/)
