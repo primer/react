@@ -12,7 +12,7 @@ import type {SystemCssProperties} from '@styled-system/css'
 import {hasActiveDescendantAttribute} from '@primer/behaviors'
 import type {Merge} from '../../utils/types/Merge'
 
-type RenderItemFn = (props: ItemProps) => React.ReactElement
+export type RenderItemFn = (props: ItemProps) => React.ReactElement
 
 export type ItemInput =
   | Merge<React.ComponentPropsWithoutRef<'div'>, ItemProps>
