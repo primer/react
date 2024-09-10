@@ -30,7 +30,7 @@
 
   &:focus-visible {
     outline: 2px solid var(--focus-outlineColor);
-    outline-offset: 0;
+    outline-offset: -2px;
     box-shadow: none;
   }
 
