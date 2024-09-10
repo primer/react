@@ -11,6 +11,7 @@ import type {StyledWrapperProps} from '../internal/components/TextInputWrapper'
 import TextInputWrapper from '../internal/components/TextInputWrapper'
 import TextInputAction from '../internal/components/TextInputInnerAction'
 import UnstyledTextInput from '../internal/components/UnstyledTextInput'
+import VisuallyHidden from '../_VisuallyHidden'
 
 export type TextInputNonPassthroughProps = {
   /** @deprecated Use `leadingVisual` or `trailingVisual` prop instead */
@@ -24,6 +25,8 @@ export type TextInputNonPassthroughProps = {
    * 'trailing': at the end of the input
    **/
   loaderPosition?: 'auto' | 'leading' | 'trailing'
+  /** Text for screen readers to convey the loading state */
+  loaderText?: string
   /**
    * A visual that renders inside the input before the typing area
    */
@@ -67,6 +70,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       disabled,
       loading,
       loaderPosition = 'auto',
+      loaderText = 'Loading',
       monospace,
       validationStatus,
       sx: sxProp,
@@ -98,9 +102,10 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     }
     const leadingVisualId = useId()
     const trailingVisualId = useId()
+    const loadingId = useId()
 
     const inputDescribedBy =
-      [inputProps['aria-describedby'], LeadingVisual && leadingVisualId, TrailingVisual && trailingVisualId]
+      [inputProps['aria-describedby'], LeadingVisual && leadingVisualId, TrailingVisual && trailingVisualId, loadingId]
         .filter(String)
         .join(' ')
         .trim() || undefined
@@ -175,6 +180,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           )}
         </TextInputInnerVisualSlot>
         {trailingAction}
+        {loading && <VisuallyHidden id={loadingId}>{loaderText}</VisuallyHidden>}
       </TextInputWrapper>
     )
   },
