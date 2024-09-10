@@ -261,23 +261,16 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
 
     const {safeSetTimeout} = useSafeTimeout()
 
-    const resetLoadingLabel = useCallback(() => {
-      if (isLoadingLabelVisible) {
-        setIsLoadingLabelVisible(false)
-      }
-    }, [isLoadingLabelVisible])
-
     const handleToggleClick: MouseEventHandler = useCallback(
       e => {
         if (disabled || loading) return
 
         if (!isControlled) {
           setIsOn(!isOn)
-          resetLoadingLabel()
         }
         onClick && onClick(e)
       },
-      [disabled, isControlled, loading, onClick, setIsOn, isOn, resetLoadingLabel],
+      [disabled, isControlled, loading, onClick, setIsOn, isOn],
     )
 
     useEffect(() => {
@@ -286,12 +279,15 @@ const ToggleSwitch = React.forwardRef<HTMLButtonElement, React.PropsWithChildren
       }
     }, [onChange, checked, isControlled, disabled])
 
-    if (loading) {
-      safeSetTimeout(() => {
-        setIsLoadingLabelVisible(true)
-      }, loadingLabelDelay)
-      resetLoadingLabel()
-    }
+    useEffect(() => {
+      if (!loading && isLoadingLabelVisible) {
+        setIsLoadingLabelVisible(false)
+      } else if (loading && !isLoadingLabelVisible) {
+        safeSetTimeout(() => {
+          setIsLoadingLabelVisible(true)
+        }, loadingLabelDelay)
+      }
+    }, [loading, isLoadingLabelVisible, loadingLabelDelay, safeSetTimeout])
 
     let switchButtonDescribedBy = loadingLabelId
     if (ariaDescribedby) switchButtonDescribedBy = `${switchButtonDescribedBy} ${ariaDescribedby}`
