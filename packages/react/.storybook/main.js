@@ -1,9 +1,11 @@
-import {dirname, join} from 'path'
+import {dirname, join, resolve} from 'path'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import presetPrimer from 'postcss-preset-primer'
 
 const {DEPLOY_ENV = 'development'} = process.env
 
 /**
- * @type {import('@storybook/core-common').StorybookConfig}
+ * @type {import('@storybook/react').StorybookConfig}
  */
 module.exports = {
   stories:
@@ -28,17 +30,33 @@ module.exports = {
         optimizationLevel: 2,
       },
     },
-    {
-      name: '@storybook/addon-styling',
-      options: {
-        cssModules: {
-          localIdentName: 'prc_[local]-[hash:base64:5]',
-        },
-        postCss: {
-          implementation: require('postcss'),
-        },
-      },
-    },
+    // {
+    // name: '@storybook/addon-styling-webpack',
+    // options: {
+    // rules: [
+    // {
+    // test: /\.css$/,
+    // use: [
+    // 'style-loader',
+    // {
+    // loader: 'css-loader',
+    // options: {
+    // importLoaders: 1,
+    // modules: {
+    // localIdentName: 'prc-[folder]-[local]-[hash:base64:5]',
+    // },
+    // },
+    // },
+    // {
+    // // Gets options from `postcss.config.js` in your project root
+    // loader: 'postcss-loader',
+    // options: {implementation: require.resolve('postcss')},
+    // },
+    // ],
+    // },
+    // ],
+    // },
+    // },
     '@storybook/addon-webpack5-compiler-babel',
   ],
   features: {
@@ -71,6 +89,50 @@ module.exports = {
       return body
     }
     return `${body}\n<script src="https://analytics.githubassets.com/hydro-marketing.min.js"></script>`
+  },
+  webpackFinal(config, {configType}) {
+    const cssRule = config.module.rules.findIndex(rule => {
+      return rule.test.toString() === '/\\.css$/'
+    })
+    if (cssRule !== -1) {
+      config.module.rules.splice(cssRule, 1)
+    }
+
+    config.module.rules.push({
+      test: /\.css$/,
+      use: [
+        MiniCssExtractPlugin.loader,
+        {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 1,
+            modules: {
+              localIdentName: 'prc-[folder]-[local]-[hash:base64:5]',
+              namedExport: false,
+              exportLocalsConvention: 'as-is',
+            },
+          },
+        },
+        {
+          loader: 'postcss-loader',
+          options: {
+            implementation: require.resolve('postcss'),
+            postcssOptions: {
+              plugins: [presetPrimer()],
+            },
+          },
+        },
+      ],
+    })
+
+    config.plugins.push(
+      new MiniCssExtractPlugin({
+        filename: configType === 'DEVELOPMENT' ? '[name].css' : '[name].[contenthash].css',
+        chunkFilename: configType === 'DEVELOPMENT' ? '[id].css' : '[id].[contenthash].css',
+      }),
+    )
+
+    return config
   },
 }
 
