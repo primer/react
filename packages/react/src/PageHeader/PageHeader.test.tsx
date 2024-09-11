@@ -198,12 +198,12 @@ describe('PageHeader', () => {
   })
   it('renders custom "aria-label" attribute when explicitly specified', () => {
     const {getByRole} = render(
-      <PageHeader aria-label="custom aria-label">
+      <PageHeader aria-label="Custom aria-label">
         <PageHeader.TitleArea>
           <PageHeader.Title>Title</PageHeader.Title>
         </PageHeader.TitleArea>
       </PageHeader>,
     )
-    expect(getByRole('banner')).toHaveAttribute('aria-label', 'custom aria-label')
+    expect(getByRole('banner')).toHaveAttribute('aria-label', 'Custom aria-label')
   })
 })
