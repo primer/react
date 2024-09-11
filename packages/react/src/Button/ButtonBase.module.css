@@ -1,5 +1,5 @@
 /* Base styles */
-.ButtonBase {
+&:where(.ButtonBase) {
   display: flex;
   min-width: max-content;
   height: var(--control-medium-size);
@@ -57,7 +57,7 @@
 
 /* LinkButton */
 
-.ButtonBase[href] {
+&:where(.ButtonBase[href]) {
   display: inline-flex;
 
   &:hover {
@@ -67,7 +67,7 @@
 
 /* IconButton */
 
-.ButtonBase:where(.IconButton) {
+:where(.ButtonBase:where(.IconButton)) {
   display: inline-grid;
   width: var(--control-medium-size);
   min-width: var(--control-medium-size);
@@ -99,7 +99,7 @@
 
 /* Button layout */
 
-.ButtonContent {
+&:where(.ButtonContent) {
   flex: 1 0 auto;
   display: grid;
   grid-template-areas: 'leadingVisual text trailingVisual';
@@ -108,7 +108,7 @@
   align-content: center;
 }
 
-.ButtonBase [data-component='leadingVisual'] {
+&:where(.ButtonBase [data-component='leadingVisual']) {
   grid-area: leadingVisual;
 }
 
@@ -118,15 +118,15 @@
   grid-area: text;
 }
 
-.ButtonBase [data-component='trailingVisual'] {
+&:where(.ButtonBase [data-component='trailingVisual']) {
   grid-area: trailingVisual;
 }
 
-.ButtonBase [data-component='trailingAction'] {
+&:where(.ButtonBase [data-component='trailingAction']) {
   margin-right: calc(var(--base-size-4) * -1);
 }
 
-.ButtonBase [data-component='buttonContent'] > :not(:last-child) {
+&:where(.ButtonBase [data-component='buttonContent'] > :not(:last-child)) {
   margin-right: var(--base-size-8);
 }
 
@@ -144,7 +144,7 @@
 
 /* Size */
 
-.ButtonBase:where([data-size='small']) {
+:where(.ButtonBase:where([data-size='small'])) {
   height: var(--control-small-size);
   /* stylelint-disable-next-line primer/spacing */
   padding: 0 var(--control-small-paddingInline-condensed);
@@ -161,7 +161,7 @@
   }
 }
 
-.ButtonBase:where([data-size='large']) {
+:where(.ButtonBase:where([data-size='large'])) {
   height: var(--control-large-size);
   /* stylelint-disable-next-line primer/spacing */
   padding: 0 var(--control-large-paddingInline-spacious);
@@ -175,13 +175,13 @@
 
 /* Full width */
 
-.ButtonBase:where([data-block='block']) {
+:where(.ButtonBase:where([data-block='block'])) {
   width: 100%;
 }
 
 /* Wrap label text */
 
-.ButtonBase:where([data-label-wrap='true']) {
+:where(.ButtonBase:where([data-label-wrap='true'])) {
   min-width: fit-content;
   height: unset;
   min-height: var(--control-medium-size);
@@ -227,7 +227,7 @@
 * move spinner to label spot if not leading/trailing visuals
 */
 
-.ButtonBase:where([data-loading='true']) {
+&:where(.ButtonBase:where([data-loading='true'])) {
   &
     .loadingSpinner:not(
       [data-component='leadingVisual'],
@@ -248,7 +248,7 @@
 
 /* Default Variant */
 
-.ButtonBase:where([data-variant='default']) {
+:where(.ButtonBase:where([data-variant='default'])) {
   color: var(--button-default-fgColor-rest);
   background-color: var(--button-default-bgColor-rest);
   box-shadow: var(--button-default-shadow-resting);
@@ -286,7 +286,7 @@
 
 /* Primary Variant */
 
-.ButtonBase:where([data-variant='primary']) {
+:where(.ButtonBase:where([data-variant='primary'])) {
   color: var(--button-primary-fgColor-rest);
   background-color: var(--button-primary-bgColor-rest);
   border-color: var(--button-primary-borderColor-rest);
@@ -333,7 +333,7 @@
 
 /* Danger Variant */
 
-.ButtonBase:where([data-variant='danger']) {
+:where(.ButtonBase:where([data-variant='danger'])) {
   color: var(--button-danger-fgColor-rest);
   background-color: var(--button-danger-bgColor-rest);
   box-shadow: var(--button-default-shadow-resting);
@@ -397,7 +397,7 @@
 
 /* Invisible Variant */
 
-.ButtonBase:where([data-variant='invisible']) {
+&:where(.ButtonBase:where([data-variant='invisible'])) {
   color: var(--button-default-fgColor-rest);
   border-color: transparent;
   box-shadow: none;
@@ -444,7 +444,7 @@
 
 /* Link variant */
 
-.ButtonBase:where([data-variant='link']) {
+&:where(.ButtonBase:where([data-variant='link'])) {
   display: inline-block;
   min-width: fit-content;
   height: unset;
@@ -481,8 +481,8 @@
 
 /* Inactive */
 
-.ButtonBase:where([data-inactive]),
-.ButtonBase:where([data-inactive]):hover {
+&:where(.ButtonBase:where([data-inactive])),
+&:where(.ButtonBase:where([data-inactive]):hover) {
   color: var(--button-inactive-fgColor);
   cursor: auto;
   background-color: var(--button-inactive-bgColor);
