@@ -146,6 +146,7 @@
     "@storybook/addon-styling-webpack": "^1.0.0",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.3",
     "@storybook/addons": "7.6.17",
+    "@storybook/api": "7.6.17",
     "@storybook/csf": "0.1.2",
     "@storybook/react": "^8.1.5",
     "@storybook/react-webpack5": "^8.1.5",
