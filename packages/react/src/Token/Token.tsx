@@ -18,10 +18,6 @@ export interface TokenProps extends TokenBaseProps, SxProp {
    * A component that renders before the token text
    */
   leadingVisual?: React.ElementType
-  /**
-   * Label to give to the remove button for assistive technologies, such as screen readers
-   */
-  removeButtonLabel?: string
 }
 
 const tokenBorderWidthPx = 1
@@ -44,7 +40,6 @@ const Token = forwardRef((props, forwardedRef) => {
     onRemove,
     id,
     leadingVisual: LeadingVisual,
-    removeButtonLabel = 'Remove token',
     text,
     size = defaultTokenSize,
     hideRemoveButton,
@@ -113,7 +108,6 @@ const Token = forwardRef((props, forwardedRef) => {
           size={size}
           isParentInteractive={isTokenInteractive(props)}
           aria-hidden={hasMultipleActionTargets ? 'true' : 'false'}
-          aria-label={removeButtonLabel}
         />
       ) : null}
     </TokenBase>
