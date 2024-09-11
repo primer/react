@@ -160,20 +160,20 @@ describe('Banner', () => {
     expect(container.firstChild).toHaveAttribute('data-testid', 'test')
   })
 
-  it('should support a custom icon only for info variants', () => {
+  it('should support a custom icon for info and upsell variants', () => {
     const CustomIcon = jest.fn(() => <svg data-testid="icon" aria-hidden="true" />)
     const {rerender} = render(
       <Banner title="test" description="test-description" variant="info" icon={<CustomIcon />} />,
     )
     expect(screen.getByTestId('icon')).toBeInTheDocument()
 
+    rerender(<Banner title="test" description="test-description" variant="upsell" icon={<CustomIcon />} />)
+    expect(screen.getByTestId('icon')).toBeInTheDocument()
+
     rerender(<Banner title="test" description="test-description" variant="critical" icon={<CustomIcon />} />)
     expect(screen.queryByTestId('icon')).toBe(null)
 
     rerender(<Banner title="test" description="test-description" variant="success" icon={<CustomIcon />} />)
-    expect(screen.queryByTestId('icon')).toBe(null)
-
-    rerender(<Banner title="test" description="test-description" variant="upsell" icon={<CustomIcon />} />)
     expect(screen.queryByTestId('icon')).toBe(null)
 
     rerender(<Banner title="test" description="test-description" variant="warning" icon={<CustomIcon />} />)

@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 import styled from 'styled-components'
 import {get} from '../constants'
 import type {SxProp} from '../sx'

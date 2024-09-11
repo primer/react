@@ -2,7 +2,8 @@ import {PrimerBreakpoints} from '../src/utils/layout'
 import React, {useEffect} from 'react'
 import {ThemeProvider, BaseStyles, theme} from '../src'
 import {FeatureFlags} from '../src/FeatureFlags'
-import clsx from 'clsx'
+import {DefaultFeatureFlags} from '../src/FeatureFlags/DefaultFeatureFlags'
+import {clsx} from 'clsx'
 
 import './storybook.css'
 import './primitives-v8.css'
@@ -183,9 +184,22 @@ export const globalTypes = {
     },
     showSurroundingElements: {},
   },
+  featureFlags: {
+    name: 'Feature flags',
+    description: 'Toggle feature flags',
+    defaultValue: Object.fromEntries(DefaultFeatureFlags.flags),
+  },
 }
 
 export const decorators = [
+  (Story, context) => {
+    const {featureFlags} = context.globals
+    return (
+      <FeatureFlags flags={featureFlags}>
+        <Story {...context} />
+      </FeatureFlags>
+    )
+  },
   (Story, context) => {
     const {colorScheme} = context.globals
 
