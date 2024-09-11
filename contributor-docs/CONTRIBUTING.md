@@ -96,7 +96,7 @@ primer-react/
 
 Please review the related docs and ADRs below for more information on how to structure your component and the best practices we follow:
 
-- [ADR 1: File structure](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-012-file-structure.md)
+- [ADR 1: File structure](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-013-file-structure.md)
 - [ADR 2: Snapshot tests](https://github.com/primer/react/blob/main/contributor-docs/adrs/adr-011-snapshot-tests.md)
 - [ADR 3: Storybook formatting](https://github.com/github/primer/blob/main/adrs/2022-10-07-storybook-lookbook-story-format.md)
 - [Testing docs](https://github.com/primer/react/blob/main/contributor-docs/testing.md)
@@ -258,9 +258,9 @@ After opening a pull request, you should be receiving a response from Primer tea
 - Is the component documented accurately?
 - Does the component have sufficient tests?
 - Does the pull request increase the bundle size significantly?
-- Does all the checks pass?
+- Do all the checks pass?
 
-If everything looks great, the reviewer will approve the pull request and and feel free to merge it afterwards. Minor and patch changes are released weekly, and we bundle up breaking changes and release a major version of `@primer/react` twice a year. If your pull request is time-sensitive, please let Primer team know.
+If everything looks great, the reviewer will approve the pull request and feel free to merge it afterwards. Minor and patch changes are released weekly, and we bundle up breaking changes and release a major version of `@primer/react` twice a year. If your pull request is time-sensitive, please let Primer team know.
 
 ### Previewing your changes
 
@@ -269,7 +269,7 @@ We have a GitHub Action that creates a preview of the docs site and the storyboo
 ## Deploying
 
 All of our documentation sites use GitHub Pages to deploy documentation changes whenever code is merged into main.
-Once you merge your branch into main, any changes to the docs and the storybook will automatically deploy. No further action is necessary.
+Once you merge your branch into main, any changes to the docs and the storybook will automatically deploy when a new release of `@primer/react` is published. No further action is necessary.
 
 ## Troubleshooting
 
