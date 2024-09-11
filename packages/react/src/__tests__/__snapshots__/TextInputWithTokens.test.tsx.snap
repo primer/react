@@ -367,7 +367,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -418,7 +417,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -469,7 +467,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -520,7 +517,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -571,7 +567,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -622,7 +617,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -673,7 +667,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -724,7 +717,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -1129,7 +1121,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -1180,7 +1171,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -1770,7 +1760,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -1821,7 +1810,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -1872,7 +1860,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -1923,7 +1910,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -1974,7 +1960,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -2025,7 +2010,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -2076,7 +2060,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -2127,7 +2110,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -2507,7 +2489,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="small"
@@ -2558,7 +2539,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="small"
@@ -2609,7 +2589,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="small"
@@ -2660,7 +2639,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="small"
@@ -2711,7 +2689,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="small"
@@ -2762,7 +2739,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="small"
@@ -2813,7 +2789,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="small"
@@ -2864,7 +2839,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="small"
@@ -3244,7 +3218,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="medium"
@@ -3295,7 +3268,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="medium"
@@ -3346,7 +3318,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="medium"
@@ -3397,7 +3368,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="medium"
@@ -3448,7 +3418,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="medium"
@@ -3499,7 +3468,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="medium"
@@ -3550,7 +3518,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="medium"
@@ -3601,7 +3568,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="medium"
@@ -3978,7 +3944,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="large"
@@ -4029,7 +3994,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="large"
@@ -4080,7 +4044,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="large"
@@ -4131,7 +4094,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="large"
@@ -4182,7 +4144,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="large"
@@ -4233,7 +4194,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="large"
@@ -4284,7 +4244,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="large"
@@ -4335,7 +4294,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="large"
@@ -4714,7 +4672,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -4765,7 +4722,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -4816,7 +4772,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -4867,7 +4822,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -4918,7 +4872,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -4969,7 +4922,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -5020,7 +4972,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -5071,7 +5022,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -5448,7 +5398,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -5499,7 +5448,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -5550,7 +5498,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -5601,7 +5548,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -5652,7 +5598,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -5703,7 +5648,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -5754,7 +5698,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -5805,7 +5748,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -6658,7 +6600,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -6709,7 +6650,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -6760,7 +6700,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -6811,7 +6750,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -6862,7 +6800,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -6913,7 +6850,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -6964,7 +6900,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -7015,7 +6950,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -7528,7 +7462,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c12"
           onClick={[Function]}
           size="xlarge"
@@ -7579,7 +7512,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c12"
           onClick={[Function]}
           size="xlarge"
@@ -7630,7 +7562,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c12"
           onClick={[Function]}
           size="xlarge"
@@ -7681,7 +7612,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c12"
           onClick={[Function]}
           size="xlarge"
@@ -7732,7 +7662,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c12"
           onClick={[Function]}
           size="xlarge"
@@ -7783,7 +7712,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c12"
           onClick={[Function]}
           size="xlarge"
@@ -7834,7 +7762,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c12"
           onClick={[Function]}
           size="xlarge"
@@ -7885,7 +7812,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c12"
           onClick={[Function]}
           size="xlarge"
@@ -8342,7 +8268,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -8393,7 +8318,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -8444,7 +8368,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -8495,7 +8418,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -8546,7 +8468,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -8597,7 +8518,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -8648,7 +8568,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -8699,7 +8618,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -9251,7 +9169,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -9302,7 +9219,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -9353,7 +9269,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -9404,7 +9319,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -9455,7 +9369,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -9506,7 +9419,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -9557,7 +9469,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -9608,7 +9519,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -10160,7 +10070,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -10211,7 +10120,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -10262,7 +10170,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -10313,7 +10220,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -10364,7 +10270,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -10415,7 +10320,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -10466,7 +10370,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -10517,7 +10420,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -11069,7 +10971,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -11120,7 +11021,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -11171,7 +11071,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -11222,7 +11121,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -11273,7 +11171,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -11324,7 +11221,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -11375,7 +11271,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -11426,7 +11321,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -11892,7 +11786,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -11943,7 +11836,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -11994,7 +11886,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -12045,7 +11936,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -12096,7 +11986,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -12147,7 +12036,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -12198,7 +12086,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -12249,7 +12136,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -12801,7 +12687,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c12"
           onClick={[Function]}
           size="xlarge"
@@ -12852,7 +12737,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c12"
           onClick={[Function]}
           size="xlarge"
@@ -12903,7 +12787,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c12"
           onClick={[Function]}
           size="xlarge"
@@ -12954,7 +12837,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c12"
           onClick={[Function]}
           size="xlarge"
@@ -13005,7 +12887,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c12"
           onClick={[Function]}
           size="xlarge"
@@ -13056,7 +12937,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c12"
           onClick={[Function]}
           size="xlarge"
@@ -13107,7 +12987,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c12"
           onClick={[Function]}
           size="xlarge"
@@ -13158,7 +13037,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c12"
           onClick={[Function]}
           size="xlarge"
@@ -13654,7 +13532,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -13705,7 +13582,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -13756,7 +13632,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -13807,7 +13682,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -13858,7 +13732,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -13909,7 +13782,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -13960,7 +13832,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -14011,7 +13882,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c8"
           onClick={[Function]}
           size="xlarge"
@@ -14607,7 +14477,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="small"
@@ -14658,7 +14527,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="small"
@@ -14709,7 +14577,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="small"
@@ -14760,7 +14627,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="small"
@@ -14811,7 +14677,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="small"
@@ -14862,7 +14727,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="small"
@@ -14913,7 +14777,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="small"
@@ -14964,7 +14827,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="small"
@@ -15555,7 +15417,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -15606,7 +15467,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -15657,7 +15517,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -15708,7 +15567,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -15759,7 +15617,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -15810,7 +15667,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -15861,7 +15717,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -15912,7 +15767,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="xlarge"
@@ -16501,7 +16355,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="large"
@@ -16552,7 +16405,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="large"
@@ -16603,7 +16455,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="large"
@@ -16654,7 +16505,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="large"
@@ -16705,7 +16555,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="large"
@@ -16756,7 +16605,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="large"
@@ -16807,7 +16655,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="large"
@@ -16858,7 +16705,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
         <span
           aria-hidden="true"
-          aria-label="Remove token"
           className="c13"
           onClick={[Function]}
           size="large"
@@ -17314,7 +17160,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -17365,7 +17210,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -17416,7 +17260,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -17467,7 +17310,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -17518,7 +17360,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -17569,7 +17410,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -17620,7 +17460,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
@@ -17671,7 +17510,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       </span>
       <span
         aria-hidden="true"
-        aria-label="Remove token"
         className="c8"
         onClick={[Function]}
         size="xlarge"
