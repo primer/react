@@ -30,33 +30,6 @@ module.exports = {
         optimizationLevel: 2,
       },
     },
-    // {
-    // name: '@storybook/addon-styling-webpack',
-    // options: {
-    // rules: [
-    // {
-    // test: /\.css$/,
-    // use: [
-    // 'style-loader',
-    // {
-    // loader: 'css-loader',
-    // options: {
-    // importLoaders: 1,
-    // modules: {
-    // localIdentName: 'prc-[folder]-[local]-[hash:base64:5]',
-    // },
-    // },
-    // },
-    // {
-    // // Gets options from `postcss.config.js` in your project root
-    // loader: 'postcss-loader',
-    // options: {implementation: require.resolve('postcss')},
-    // },
-    // ],
-    // },
-    // ],
-    // },
-    // },
     '@storybook/addon-webpack5-compiler-babel',
   ],
   features: {
