@@ -24,7 +24,7 @@ const items: SelectPanelProps['items'] = [
   },
 ]
 
-function BasicSelectPanel() {
+function BasicSelectPanel(passthroughProps: Record<string, unknown>) {
   const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
   const [filter, setFilter] = React.useState('')
   const [open, setOpen] = React.useState(false)
@@ -51,6 +51,7 @@ function BasicSelectPanel() {
         onOpenChange={isOpen => {
           setOpen(isOpen)
         }}
+        {...passthroughProps}
       />
     </ThemeProvider>
   )
@@ -198,6 +199,22 @@ for (const useModernActionList of [false, true]) {
         await user.click(screen.getByText('Select items'))
         await user.click(screen.getByText('Outside of select panel'))
         expect(onOpenChange).toHaveBeenLastCalledWith(false, 'click-outside')
+      })
+
+      it('should label the list by title unless a aria-label is explicitly passed', async () => {
+        const user = userEvent.setup()
+
+        renderWithFlag(<BasicSelectPanel />, useModernActionList)
+        await user.click(screen.getByText('Select items'))
+        expect(screen.getByRole('listbox', {name: 'test title'})).toBeInTheDocument()
+      })
+
+      it('should label the list by aria-label when explicitly passed', async () => {
+        const user = userEvent.setup()
+
+        renderWithFlag(<BasicSelectPanel aria-label="Custom label" />, useModernActionList)
+        await user.click(screen.getByText('Select items'))
+        expect(screen.getByRole('listbox', {name: 'Custom label'})).toBeInTheDocument()
       })
 
       describe('selection', () => {

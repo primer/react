@@ -38,6 +38,11 @@ export interface ListPropsBase {
   id?: string
 
   /**
+   * aria-label to attach to the base DOM node of the list
+   */
+  'aria-label'?: string
+
+  /**
    * A `List`-level custom `Item` renderer. Every `Item` within this `List`
    * without a `Group`-level or `Item`-level custom `Item` renderer will be
    * rendered using this function component.
