@@ -1,5 +1,5 @@
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
-import {FocusKeys, scrollIntoView} from '@primer/behaviors'
+import {scrollIntoView} from '@primer/behaviors'
 import type {KeyboardEventHandler} from 'react'
 import React, {useCallback, useEffect, useRef} from 'react'
 import styled from 'styled-components'
@@ -81,7 +81,6 @@ export function FilteredActionList({
   useFocusZone(
     {
       containerRef: listContainerRef,
-      bindKeys: FocusKeys.ArrowVertical | FocusKeys.PageUpDown,
       focusOutBehavior: 'wrap',
       focusableElementFilter: element => {
         return !(element instanceof HTMLInputElement)
@@ -122,9 +121,7 @@ export function FilteredActionList({
           onChange={onInputChange}
           onKeyPress={onInputKeyPress}
           placeholder={placeholderText}
-          role="combobox"
           aria-label={placeholderText}
-          aria-expanded="true"
           aria-controls={listId}
           aria-describedby={inputDescriptionTextId}
           {...textInputProps}
