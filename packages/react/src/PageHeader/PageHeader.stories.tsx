@@ -189,7 +189,7 @@ export default meta
 
 export const Playground: StoryFn = args => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader aria-label={args.Title}>
       <PageHeader.TitleArea
         variant={{
           narrow: args['Title.variant'],

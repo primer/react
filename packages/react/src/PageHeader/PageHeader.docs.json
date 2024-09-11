@@ -10,7 +10,7 @@
       "name": "aria-label",
       "type": "string | undefined",
       "defaultValue": "",
-      "description": "A unique label for the rendered main landmark"
+      "description": "A unique label for the rendered banner landmark"
     },
     {
       "name": "className",

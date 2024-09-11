@@ -161,7 +161,7 @@ describe('PageHeader', () => {
     expect(getByLabelText('Custom')).toBeInTheDocument()
     expect(getByText('Navigation')).toHaveAttribute('aria-label', 'Custom')
   })
-  it('does not renders "aria-label" prop when Navigation is rendered as "div"', () => {
+  it('does not render "aria-label" prop when Navigation is rendered as "div"', () => {
     const {getByText} = render(
       <PageHeader>
         <PageHeader.TitleArea>
@@ -185,5 +185,25 @@ describe('PageHeader', () => {
     expect(consoleSpy).toHaveBeenCalled()
 
     consoleSpy.mockRestore()
+  })
+  it('renders default "aria-label" attribute when not explicitly specified', () => {
+    const {getByRole} = render(
+      <PageHeader>
+        <PageHeader.TitleArea>
+          <PageHeader.Title>Title</PageHeader.Title>
+        </PageHeader.TitleArea>
+      </PageHeader>,
+    )
+    expect(getByRole('banner')).toHaveAttribute('aria-label', 'banner')
+  })
+  it('renders custom "aria-label" attribute when explicitly specified', () => {
+    const {getByRole} = render(
+      <PageHeader aria-label="custom aria-label">
+        <PageHeader.TitleArea>
+          <PageHeader.Title>Title</PageHeader.Title>
+        </PageHeader.TitleArea>
+      </PageHeader>,
+    )
+    expect(getByRole('banner')).toHaveAttribute('aria-label', 'custom aria-label')
   })
 })

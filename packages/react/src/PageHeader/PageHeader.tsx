@@ -66,7 +66,7 @@ export type PageHeaderProps = {
 } & SxProp
 
 const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
-  ({children, className, sx = {}, as = 'div'}, forwardedRef) => {
+  ({children, className, sx = {}, as = 'div', 'aria-label': ariaLabel}, forwardedRef) => {
     const rootStyles = {
       display: 'grid',
       // We have max 5 columns.
@@ -158,7 +158,14 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
       [children, rootRef],
     )
     return (
-      <Box ref={rootRef} as={as} className={className} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>
+      <Box
+        role="banner"
+        ref={rootRef}
+        as={as}
+        className={className}
+        sx={merge<BetterSystemStyleObject>(rootStyles, sx)}
+        aria-label={ariaLabel ?? 'banner'}
+      >
         {children}
       </Box>
     )
