@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 import React from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
@@ -150,7 +150,7 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
       margin-left: ${get('space.1')};
       opacity: 100%;
       visibility: visible;
-      ${props => (props.count === 1 ? '' : `box-shadow: 0 0 0 4px ${get('colors.canvas.default')};`)}
+      ${props => (props.count === 1 ? '' : `box-shadow: inset 0 0 0 4px ${get('colors.canvas.default')};`)}
       transition:
         margin 0.2s ease-in-out,
         opacity 0.2s ease-in-out,

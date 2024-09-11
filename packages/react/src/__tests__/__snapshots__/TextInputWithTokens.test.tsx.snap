@@ -831,6 +831,37 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
+.c9:where([data-size='small']) {
+  font-size: var(--text-body-size-small,0.75rem);
+  line-height: var(--text-body-lineHeight-small,1.6666);
+}
+
+.c9:where([data-size='medium']) {
+  font-size: var(--text-body-size-medium,0.875rem);
+  line-height: var(--text-body-lineHeight-medium,1.4285);
+}
+
+.c9:where([data-size='large']) {
+  font-size: var(--text-body-size-large,1rem);
+  line-height: var(--text-body-lineHeight-large,1.5);
+}
+
+.c9:where([data-weight='light']) {
+  font-weight: var(--base-text-weight-light,300);
+}
+
+.c9:where([data-weight='normal']) {
+  font-weight: var(--base-text-weight-normal,400);
+}
+
+.c9:where([data-weight='medium']) {
+  font-weight: var(--base-text-weight-medium,500);
+}
+
+.c9:where([data-weight='semibold']) {
+  font-weight: var(--base-text-weight-semibold,600);
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -6277,19 +6308,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   display: inline-flex;
 }
 
-.c7 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c12:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -6304,6 +6322,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
+}
+
+.c7 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
@@ -6986,7 +7017,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         className="c9"
         display="flex"
       >
-        <div
+        <span
           className="c10"
         >
           <svg
@@ -7020,13 +7051,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c12"
             id=":re:"
           >
             Loading
-          </div>
-        </div>
+          </span>
+        </span>
       </div>
     </span>
   </span>,
@@ -7083,19 +7114,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   display: inline-flex;
 }
 
-.c11 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c5:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -7116,6 +7134,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: hidden;
+}
+
+.c11 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
@@ -7381,7 +7412,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <div
+        <span
           className="c3"
         >
           <svg
@@ -7415,13 +7446,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c5"
             id=":rf:"
           >
             Loading
-          </div>
-        </div>
+          </span>
+        </span>
       </div>
     </span>
     <div
@@ -7848,7 +7879,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <div
+        <span
           className="c3"
         >
           <svg
@@ -7882,13 +7913,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c5"
             id=":rg:"
           >
             Loading
-          </div>
-        </div>
+          </span>
+        </span>
       </div>
     </span>
   </span>,
@@ -7945,19 +7976,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   display: inline-flex;
 }
 
-.c7 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c12:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -7972,6 +7990,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
+}
+
+.c7 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
@@ -8654,7 +8685,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         className="c9"
         display="flex"
       >
-        <div
+        <span
           className="c10"
         >
           <svg
@@ -8688,13 +8719,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c12"
             id=":rh:"
           >
             Loading
-          </div>
-        </div>
+          </span>
+        </span>
       </div>
     </span>
   </span>,
@@ -8755,19 +8786,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: hidden;
 }
 
-.c12 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c6:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -8793,6 +8811,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   max-width: 100%;
   visibility: visible;
   left: 0;
+}
+
+.c12 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
@@ -9083,7 +9114,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -9122,13 +9153,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":ri:"
           >
             Loading
-          </div>
-        </div>
+          </span>
+        </span>
       </div>
     </span>
     <div
@@ -9555,7 +9586,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -9589,13 +9620,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":rj:"
           >
             Loading
-          </div>
-        </div>
+          </span>
+        </span>
       </div>
     </span>
   </span>,
@@ -9656,19 +9687,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: hidden;
 }
 
-.c12 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c6:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -9694,6 +9712,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   max-width: 100%;
   visibility: visible;
   left: 0;
+}
+
+.c12 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
@@ -9984,7 +10015,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -10023,13 +10054,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":rk:"
           >
             Loading
-          </div>
-        </div>
+          </span>
+        </span>
       </div>
     </span>
     <div
@@ -10456,7 +10487,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -10490,13 +10521,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":rl:"
           >
             Loading
-          </div>
-        </div>
+          </span>
+        </span>
       </div>
     </span>
   </span>,
@@ -10557,19 +10588,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
-.c12 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c6:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -10595,6 +10613,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   max-width: 100%;
   visibility: hidden;
   left: 0;
+}
+
+.c12 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
@@ -10885,7 +10916,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -10924,13 +10955,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":rm:"
           >
             Loading
-          </div>
-        </div>
+          </span>
+        </span>
       </div>
     </span>
     <div
@@ -11357,7 +11388,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -11391,13 +11422,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":rn:"
           >
             Loading
-          </div>
-        </div>
+          </span>
+        </span>
       </div>
     </span>
   </span>,
@@ -11458,19 +11489,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: hidden;
 }
 
-.c7 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c13:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -11490,6 +11508,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   max-width: 100%;
   visibility: visible;
   right: 0;
+}
+
+.c7 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
@@ -12197,7 +12228,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c11"
         >
           <svg
@@ -12236,13 +12267,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c13"
             id=":ro:"
           >
             Loading
-          </div>
-        </div>
+          </span>
+        </span>
       </div>
     </span>
   </span>,
@@ -12303,19 +12334,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
-.c11 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c5:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -12341,6 +12359,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   max-width: 100%;
   visibility: hidden;
   right: 0;
+}
+
+.c11 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
@@ -12606,7 +12637,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         className="c2"
         display="flex"
       >
-        <div
+        <span
           className="c3"
         >
           <svg
@@ -12640,13 +12671,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c5"
             id=":rp:"
           >
             Loading
-          </div>
-        </div>
+          </span>
+        </span>
       </div>
     </span>
     <div
@@ -13098,7 +13129,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c3"
         >
           <svg
@@ -13137,13 +13168,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c5"
             id=":rq:"
           >
             Loading
-          </div>
-        </div>
+          </span>
+        </span>
       </div>
     </span>
   </span>,
@@ -13204,19 +13235,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: hidden;
 }
 
-.c7 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c13:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -13236,6 +13254,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   max-width: 100%;
   visibility: visible;
   right: 0;
+}
+
+.c7 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
@@ -13943,7 +13974,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c11"
         >
           <svg
@@ -13982,13 +14013,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c13"
             id=":rr:"
           >
             Loading
-          </div>
-        </div>
+          </span>
+        </span>
       </div>
     </span>
   </span>,
@@ -14053,19 +14084,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
-.c12 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c6:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -14096,6 +14114,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   max-width: 100%;
   visibility: hidden;
   right: 0;
+}
+
+.c12 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
@@ -14391,7 +14422,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -14430,13 +14461,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":rs:"
           >
             Loading
-          </div>
-        </div>
+          </span>
+        </span>
       </div>
     </span>
     <div
@@ -14888,7 +14919,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -14927,13 +14958,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":rt:"
           >
             Loading
-          </div>
-        </div>
+          </span>
+        </span>
       </div>
     </span>
   </span>,
@@ -14998,19 +15029,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
-.c12 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c6:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -15041,6 +15059,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   max-width: 100%;
   visibility: hidden;
   right: 0;
+}
+
+.c12 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
@@ -15331,7 +15362,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -15370,13 +15401,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":ru:"
           >
             Loading
-          </div>
-        </div>
+          </span>
+        </span>
       </div>
     </span>
     <div
@@ -15828,7 +15859,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -15867,13 +15898,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":rv:"
           >
             Loading
-          </div>
-        </div>
+          </span>
+        </span>
       </div>
     </span>
   </span>,
@@ -15938,19 +15969,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
-.c12 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c6:not(:focus):not(:active):not(:focus-within) {
   -webkit-clip-path: inset(50%);
   clip-path: inset(50%);
@@ -15981,6 +15999,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   max-width: 100%;
   visibility: visible;
   right: 0;
+}
+
+.c12 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
@@ -16269,7 +16300,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -16308,13 +16339,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":r10:"
           >
             Loading
-          </div>
-        </div>
+          </span>
+        </span>
       </div>
     </span>
     <div
@@ -16766,7 +16797,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
             />
           </svg>
         </div>
-        <div
+        <span
           className="c4"
         >
           <svg
@@ -16805,13 +16836,13 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <div
+          <span
             className="c6"
             id=":r11:"
           >
             Loading
-          </div>
-        </div>
+          </span>
+        </span>
       </div>
     </span>
   </span>,

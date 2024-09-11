@@ -37,7 +37,7 @@ import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
 
 const meta: Meta = {
-  title: 'Drafts/Components/PageHeader/Examples',
+  title: 'Components/PageHeader/Examples',
   parameters: {
     layout: 'fullscreen',
     controls: {expanded: true},
@@ -110,7 +110,7 @@ export const PullRequestPage = () => (
       </PageHeader.Actions>
       <PageHeader.Description>
         <StateLabel status="pullOpened">Open</StateLabel>
-        <Text sx={{fontSize: 1, color: 'fg.muted'}}>
+        <Text sx={{color: 'fg.muted'}}>
           <Link href="https://github.com/broccolinisoup" sx={{fontWeight: 'bold'}}>
             broccolinisoup
           </Link>{' '}
@@ -148,7 +148,7 @@ export const FilesPage = () => (
   <Box sx={{padding: 3}}>
     <PageHeader>
       <PageHeader.TitleArea sx={{alignItems: 'center'}}>
-        <Text sx={{color: 'rgb(101, 109, 118)', fontSize: '14px'}}>/</Text>
+        <Text sx={{color: 'rgb(101, 109, 118)', fontSize: '14px', fontWeight: 'normal'}}>/</Text>
         <PageHeader.Title as="h1" sx={{fontSize: '14px', height: '21px'}}>
           PageHeader.tsx
         </PageHeader.Title>
@@ -430,7 +430,6 @@ export const IssuesPage = () => {
                 aria-label="Copy permalink"
                 icon={CopyIcon}
                 variant="invisible"
-                unsafeDisableTooltip={false}
                 onClick={() => {
                   alert('This button copies the permalink to the clipboard')
                 }}
@@ -459,7 +458,6 @@ export const IssuesPage = () => {
                   aria-label="Copy permalink"
                   icon={CopyIcon}
                   variant="invisible"
-                  unsafeDisableTooltip={false}
                   onClick={() => {
                     alert('This button copies the permalink to the clipboard')
                   }}

@@ -10,8 +10,11 @@ import useSafeTimeout from '../hooks/useSafeTimeout'
 type InternalAutocompleteInputProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   as?: React.ComponentType<React.PropsWithChildren<any>>
-  // When false, the autocomplete menu will not render either on mouse click or
-  // keyboard focus.
+
+  /**
+   * @deprecated `openOnFocus` is deprecated and will be removed in v38.
+   * When `true`, autocomplete menu will show on focus or click.
+   */
   openOnFocus?: boolean
 }
 
@@ -28,7 +31,7 @@ const AutocompleteInput = React.forwardRef(
       onKeyUp,
       onKeyPress,
       value,
-      openOnFocus = true,
+      openOnFocus = false,
       ...props
     },
     forwardedRef,
@@ -52,15 +55,12 @@ const AutocompleteInput = React.forwardRef(
     const [highlightRemainingText, setHighlightRemainingText] = useState<boolean>(true)
     const {safeSetTimeout} = useSafeTimeout()
 
-    const handleInputFocus: FocusEventHandler<HTMLInputElement> = useCallback(
-      event => {
-        if (openOnFocus) {
-          onFocus?.(event)
-          setShowMenu(true)
-        }
-      },
-      [onFocus, setShowMenu, openOnFocus],
-    )
+    const handleInputFocus: FocusEventHandler<HTMLInputElement> = event => {
+      onFocus?.(event)
+      if (openOnFocus) {
+        setShowMenu(true)
+      }
+    }
 
     const handleInputBlur: FocusEventHandler<HTMLInputElement> = useCallback(
       event => {
@@ -78,16 +78,13 @@ const AutocompleteInput = React.forwardRef(
       [onBlur, setShowMenu, inputRef, safeSetTimeout],
     )
 
-    const handleInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
-      event => {
-        onChange && onChange(event)
-        setInputValue(event.currentTarget.value)
-        if (!showMenu) {
-          setShowMenu(true)
-        }
-      },
-      [onChange, setInputValue, setShowMenu, showMenu],
-    )
+    const handleInputChange: ChangeEventHandler<HTMLInputElement> = event => {
+      onChange && onChange(event)
+      setInputValue(event.currentTarget.value)
+      if (!showMenu) {
+        setShowMenu(true)
+      }
+    }
 
     const handleInputKeyDown: KeyboardEventHandler<HTMLInputElement> = useCallback(
       event => {
@@ -122,7 +119,6 @@ const AutocompleteInput = React.forwardRef(
     const onInputKeyPress: KeyboardEventHandler<HTMLInputElement> = useCallback(
       event => {
         onKeyPress && onKeyPress(event)
-
         if (showMenu && event.key === 'Enter' && activeDescendantRef.current) {
           event.preventDefault()
           event.nativeEvent.stopImmediatePropagation()

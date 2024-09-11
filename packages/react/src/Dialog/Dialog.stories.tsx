@@ -77,7 +77,7 @@ export const Default = () => {
           footerButtons={[
             {buttonType: 'default', content: 'Open Second Dialog', onClick: openSecondDialog},
             {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
-            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
+            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog},
           ]}
         >
           {lipsum}
@@ -119,7 +119,7 @@ export const Playground = (
           footerButtons={[
             {buttonType: 'default', content: 'Open Second Dialog', onClick: openSecondDialog},
             {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
-            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
+            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog},
           ]}
         >
           {lipsum}

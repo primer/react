@@ -1,9 +1,12 @@
+import {clsx} from 'clsx'
 import React from 'react'
 import Box from '../Box'
 import {Button} from '../Button'
 import Link from '../Link'
 import {get} from '../constants'
 import styled from 'styled-components'
+import classes from './Blankslate.module.css'
+import {useFeatureFlag} from '../FeatureFlags'
 
 export type BlankslateProps = React.PropsWithChildren<{
   /**
@@ -20,22 +23,25 @@ export type BlankslateProps = React.PropsWithChildren<{
    * Increase the padding of this component
    */
   spacious?: boolean
+
+  className?: string
 }>
 
 const StyledBlankslate = styled.div`
   container-type: inline-size;
 
   .Blankslate {
-    --blankslate-outer-padding-block: var(--base-size-32);
-    --blankslate-outer-padding-inline: var(--base-size-32);
+    --blankslate-outer-padding-block: var(--base-size-32, 2rem);
+    --blankslate-outer-padding-inline: var(--base-size-32, 2rem);
+
     display: grid;
     justify-items: center;
     padding: var(--blankslate-outer-padding-block) var(--blankslate-outer-padding-inline);
   }
 
   .Blankslate[data-spacious='true'] {
-    --blankslate-outer-padding-block: var(--base-size-80);
-    --blankslate-outer-padding-inline: var(--base-size-40);
+    --blankslate-outer-padding-block: var(--base-size-80, 5rem);
+    --blankslate-outer-padding-inline: var(--base-size-40, 2.5rem);
   }
 
   .Blankslate[data-border='true'] {
@@ -51,29 +57,30 @@ const StyledBlankslate = styled.div`
   .Blankslate-Heading,
   .Blankslate-Description {
     margin: 0;
-    margin-bottom: var(--stack-gap-condensed);
+    margin-bottom: var(--stack-gap-condensed, 0.5rem);
   }
 
   .Blankslate-Heading {
-    font-size: var(--text-title-size-medium);
-    font-weight: var(--text-title-weight-medium);
+    font-size: var(--text-title-size-medium, 1.25rem);
+    font-weight: var(--text-title-weight-medium, 600);
   }
 
   .Blankslate-Description {
     color: var(--fgColor-muted, ${get('colors.fg.muted')});
-    font-size: var(--text-body-size-large);
+    font-size: var(--text-body-size-large, 1rem);
+    line-height: var(--text-body-lineHeight-large, 1.5);
   }
 
   .Blankslate-Action {
-    margin-top: var(--stack-gap-normal);
+    margin-top: var(--stack-gap-normal, 1rem);
   }
 
   .Blankslate-Action:first-of-type {
-    margin-top: var(--stack-gap-spacious);
+    margin-top: var(--stack-gap-spacious, 1.5rem);
   }
 
   .Blankslate-Action:last-of-type {
-    margin-bottom: var(--stack-gap-condensed);
+    margin-bottom: var(--stack-gap-condensed, 0.5rem);
   }
 `
 
@@ -92,7 +99,7 @@ const BlankslateContainerQuery = `
   }
 
   ${StyledBlankslate} .Blankslate-Visual {
-    margin-bottom: var(--stack-gap-condensed);
+    margin-bottom: var(--stack-gap-condensed, 0.5rem);
     max-width: var(--base-size-24);
   }
 
@@ -109,28 +116,50 @@ const BlankslateContainerQuery = `
   }
 
   ${StyledBlankslate} .Blankslate-Action {
-    margin-top: var(--stack-gap-condensed);
+    margin-top: var(--stack-gap-condensed, 0.5rem);
   }
 
   ${StyledBlankslate} .Blankslate-Action:first-of-type {
-    margin-top: var(--stack-gap-normal);
+    margin-top: var(--stack-gap-normal, 1rem);
   }
 
   ${StyledBlankslate} .Blankslate-Action:last-of-type {
-    margin-bottom: calc(var(--stack-gap-condensed) / 2);
+    margin-bottom: calc(var(--stack-gap-condensed, 0.5rem) / 2);
   }
 `
 
-function Blankslate({border, children, narrow, spacious}: BlankslateProps) {
+function Blankslate({border, children, narrow, spacious, className}: BlankslateProps) {
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
+
+  if (enabled) {
+    return (
+      <div className={classes.Container}>
+        <div
+          className={clsx(classes.Blankslate, className)}
+          data-border={border}
+          data-narrow={narrow}
+          data-spacious={spacious}
+        >
+          {children}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <>
       {/*
         This is a workaround so we can use `@container` without upgrading `styled-components` to 6.x
         See [this comment](https://github.com/primer/react/pull/3869#discussion_r1392523030) for more info
       */}
-      <style type="text/css">{BlankslateContainerQuery}</style>
+      <style type="text/css" dangerouslySetInnerHTML={{__html: BlankslateContainerQuery}} />
       <StyledBlankslate>
-        <div className="Blankslate" data-border={border} data-narrow={narrow} data-spacious={spacious}>
+        <div
+          className={clsx('Blankslate', className)}
+          data-border={border}
+          data-narrow={narrow}
+          data-spacious={spacious}
+        >
           {children}
         </div>
       </StyledBlankslate>
@@ -141,16 +170,31 @@ function Blankslate({border, children, narrow, spacious}: BlankslateProps) {
 export type VisualProps = React.PropsWithChildren
 
 function Visual({children}: VisualProps) {
-  return <span className="Blankslate-Visual">{children}</span>
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
+  return (
+    <span
+      className={clsx('Blankslate-Visual', {
+        [classes.Visual]: enabled,
+      })}
+    >
+      {children}
+    </span>
+  )
 }
 
 export type HeadingProps = React.PropsWithChildren<{
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }>
 
-function Heading({as = 'h2', children}: HeadingProps) {
+function Heading({as: Component = 'h2', children}: HeadingProps) {
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
+
+  if (enabled) {
+    return <Component className={clsx('Blankslate-Heading', classes.Heading)}>{children}</Component>
+  }
+
   return (
-    <Box as={as} className="Blankslate-Heading">
+    <Box as={Component} className={clsx('Blankslate-Heading')}>
       {children}
     </Box>
   )
@@ -159,7 +203,16 @@ function Heading({as = 'h2', children}: HeadingProps) {
 export type DescriptionProps = React.PropsWithChildren
 
 function Description({children}: DescriptionProps) {
-  return <p className="Blankslate-Description">{children}</p>
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
+  return (
+    <p
+      className={clsx('Blankslate-Description', {
+        [classes.Description]: enabled,
+      })}
+    >
+      {children}
+    </p>
+  )
 }
 
 export type PrimaryActionProps = React.PropsWithChildren<{
@@ -167,8 +220,13 @@ export type PrimaryActionProps = React.PropsWithChildren<{
 }>
 
 function PrimaryAction({children, href}: PrimaryActionProps) {
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
   return (
-    <div className="Blankslate-Action">
+    <div
+      className={clsx('Blankslate-Action', {
+        [classes.Action]: enabled,
+      })}
+    >
       <Button as="a" href={href} variant="primary">
         {children}
       </Button>
@@ -181,8 +239,13 @@ export type SecondaryActionProps = React.PropsWithChildren<{
 }>
 
 function SecondaryAction({children, href}: SecondaryActionProps) {
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
   return (
-    <div className="Blankslate-Action">
+    <div
+      className={clsx('Blankslate-Action', {
+        [classes.Action]: enabled,
+      })}
+    >
       <Link href={href}>{children}</Link>
     </div>
   )

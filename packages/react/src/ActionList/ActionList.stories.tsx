@@ -34,7 +34,6 @@ Playground.args = {
   showDividers: false,
   selectionVariant: undefined,
   variant: 'inset',
-  role: 'listbox',
 }
 Playground.argTypes = {
   showDividers: {
@@ -142,6 +141,11 @@ ItemPlayground.argTypes = {
     },
     options: icons,
   },
+  loading: {
+    control: {
+      type: 'boolean',
+    },
+  },
   trailingVisual: {
     control: {
       type: 'select',
@@ -163,9 +167,9 @@ ItemPlayground.args = {
   disabled: false,
   inactiveText: '',
   variant: 'default',
-  role: 'listitem',
   id: 'item-1',
   leadingVisual: null,
+  loading: false,
   trailingVisual: null,
   selectionVariant: 'single',
 }
@@ -215,10 +219,10 @@ export const LinkItemPlayground = args => {
 LinkItemPlayground.args = {
   active: false,
   disabled: false,
-  role: 'listitem',
   id: 'item-1',
   inactiveText: '',
   leadingVisual: null,
+  loading: false,
   trailingVisual: null,
 }
 LinkItemPlayground.argTypes = {
@@ -243,6 +247,11 @@ LinkItemPlayground.argTypes = {
       type: 'select',
     },
     options: icons,
+  },
+  loading: {
+    control: {
+      type: 'boolean',
+    },
   },
   trailingVisual: {
     control: {
@@ -282,7 +291,6 @@ GroupPlayground.argTypes = {
 }
 GroupPlayground.args = {
   variant: 'subtle',
-  role: 'listbox',
   title: 'Group title',
   auxiliaryText: '',
 }

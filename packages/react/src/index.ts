@@ -196,7 +196,11 @@ export type {UnderlineNavProps, UnderlineNavItemProps} from './UnderlineNav'
 export {ActionBar} from './ActionBar'
 export type {ActionBarProps} from './ActionBar'
 
-// eslint-disable-next-line no-restricted-imports
-export {SSRProvider, useSSRSafeId} from './utils/ssr'
+export {Stack} from './Stack'
+export type {StackProps, StackItemProps} from './Stack'
+
+export {PageHeader} from './PageHeader'
+export type {PageHeaderProps} from './PageHeader'
+
 export {default as sx, merge} from './sx'
 export type {SxProp} from './sx'

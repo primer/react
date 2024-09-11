@@ -7,7 +7,6 @@ import {
   IconButton,
   Heading,
   Box,
-  Tooltip,
   TextInput,
   Spinner,
   Text,
@@ -23,7 +22,7 @@ import type {OverlayProps} from '../../Overlay/Overlay'
 import {StyledOverlay, heightMap} from '../../Overlay/Overlay'
 import InputLabel from '../../internal/components/InputLabel'
 import {invariant} from '../../utils/invariant'
-import {Status} from '../../internal/components/Status'
+import {AriaStatus} from '../../live-region'
 import {useResponsiveValue} from '../../hooks/useResponsiveValue'
 import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
 
@@ -250,6 +249,7 @@ const Panel: React.FC<SelectPanelProps> = ({
           // reset dialog default styles
           border: 'none',
           padding: 0,
+          color: 'fg.default',
           '&[open]': {display: 'flex'}, // to fit children
 
           '&[data-variant="anchored"], &[data-variant="full-screen"]': {
@@ -401,15 +401,13 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren & {onBack?: () => void
       >
         <Box sx={{display: 'flex'}}>
           {onBack ? (
-            <Tooltip text="Back" direction="s">
-              <IconButton
-                type="button"
-                variant="invisible"
-                icon={ArrowLeftIcon}
-                aria-label="Back"
-                onClick={() => onBack()}
-              />
-            </Tooltip>
+            <IconButton
+              type="button"
+              variant="invisible"
+              icon={ArrowLeftIcon}
+              aria-label="Back"
+              onClick={() => onBack()}
+            />
           ) : null}
 
           <Box sx={{marginLeft: onBack ? 1 : 2, marginTop: description ? '2px' : 0}}>
@@ -428,15 +426,16 @@ const SelectPanelHeader: React.FC<React.PropsWithChildren & {onBack?: () => void
         </Box>
 
         <Box>
-          {/* Will not need tooltip after https://github.com/primer/react/issues/2008 */}
           {onClearSelection ? (
-            <Tooltip text="Clear selection" direction="s" onClick={onClearSelection}>
-              <IconButton type="button" variant="invisible" icon={FilterRemoveIcon} aria-label="Clear selection" />
-            </Tooltip>
+            <IconButton
+              type="button"
+              variant="invisible"
+              icon={FilterRemoveIcon}
+              aria-label="Clear selection"
+              onClick={onClearSelection}
+            />
           ) : null}
-          <Tooltip text="Close" direction="s">
-            <IconButton type="button" variant="invisible" icon={XIcon} aria-label="Close" onClick={() => onCancel()} />
-          </Tooltip>
+          <IconButton type="button" variant="invisible" icon={XIcon} aria-label="Close" onClick={() => onCancel()} />
         </Box>
       </Box>
 
@@ -604,7 +603,8 @@ const SelectPanelSecondaryAction: React.FC<SelectPanelSecondaryActionProps> = ({
 
 const SelectPanelLoading = ({children = 'Fetching items...'}: React.PropsWithChildren) => {
   return (
-    <Status
+    <AriaStatus
+      announceOnShow
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -618,7 +618,7 @@ const SelectPanelLoading = ({children = 'Fetching items...'}: React.PropsWithChi
     >
       <Spinner size="medium" srText={null} />
       <Text sx={{fontSize: 1, color: 'fg.muted'}}>{children}</Text>
-    </Status>
+    </AriaStatus>
   )
 }
 

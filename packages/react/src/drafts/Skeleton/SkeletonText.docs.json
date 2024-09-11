@@ -1,0 +1,33 @@
+{
+  "id": "skeleton_text",
+  "name": "SkeletonText",
+  "status": "draft",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react/experimental",
+  "props": [
+    {
+      "name": "size",
+      "defaultValue": "'bodyMedium'",
+      "type": "'display' | 'titleLarge' | 'titleMedium' | 'titleSmall' | 'bodyLarge' | 'bodyMedium' | 'bodySmall' | 'subtitle'",
+      "description": "Size of the text that the skeleton is replacing."
+    },
+    {
+      "name": "lines",
+      "defaultValue": "1",
+      "type": "number",
+      "description": "Number of lines of skeleton text to render."
+    },
+    {
+      "name": "maxWidth",
+      "type": "string",
+      "description": "Maximum width that the line(s) of skeleton text can take up.  Accepts any valid CSS `max-width` value."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Class name for custom styling."
+    }
+  ],
+  "subcomponents": []
+}
