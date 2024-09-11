@@ -1,5 +1,5 @@
 /* Base styles */
-&:where(.ButtonBase) {
+:where(.ButtonBase) {
   display: flex;
   min-width: max-content;
   height: var(--control-medium-size);
@@ -53,36 +53,36 @@
       outline: solid 1px transparent;
     }
   }
+
+  /* IconButton */
+
+  &:where(.IconButton) {
+    display: inline-grid;
+    width: var(--control-medium-size);
+    min-width: var(--control-medium-size);
+    /* stylelint-disable-next-line primer/spacing */
+    padding: unset;
+    place-content: center;
+
+    &:where([data-size='small']) {
+      width: var(--control-small-size);
+      min-width: var(--control-small-size);
+    }
+
+    &:where([data-size='large']) {
+      width: var(--control-large-size);
+      min-width: var(--control-large-size);
+    }
+  }
 }
 
 /* LinkButton */
 
-&:where(.ButtonBase[href]) {
+:where(.ButtonBase[href]) {
   display: inline-flex;
 
   &:hover {
     text-decoration: none;
-  }
-}
-
-/* IconButton */
-
-:where(.ButtonBase:where(.IconButton)) {
-  display: inline-grid;
-  width: var(--control-medium-size);
-  min-width: var(--control-medium-size);
-  /* stylelint-disable-next-line primer/spacing */
-  padding: unset;
-  place-content: center;
-
-  &:where([data-size='small']) {
-    width: var(--control-small-size);
-    min-width: var(--control-small-size);
-  }
-
-  &:where([data-size='large']) {
-    width: var(--control-large-size);
-    min-width: var(--control-large-size);
   }
 }
 
@@ -99,16 +99,26 @@
 
 /* Button layout */
 
-&:where(.ButtonContent) {
+:where(.ButtonContent) {
   flex: 1 0 auto;
   display: grid;
   grid-template-areas: 'leadingVisual text trailingVisual';
   grid-template-columns: min-content minmax(0, auto) min-content;
   align-items: center;
   align-content: center;
+
+  /* Content alignment */
+
+  &:where([data-align='center']) {
+    justify-content: center;
+  }
+
+  &:where([data-align='start']) {
+    justify-content: flex-start;
+  }
 }
 
-&:where(.ButtonBase [data-component='leadingVisual']) {
+:where(.ButtonBase [data-component='leadingVisual']) {
   grid-area: leadingVisual;
 }
 
@@ -118,378 +128,407 @@
   grid-area: text;
 }
 
-&:where(.ButtonBase [data-component='trailingVisual']) {
+:where(.ButtonBase [data-component='trailingVisual']) {
   grid-area: trailingVisual;
 }
 
-&:where(.ButtonBase [data-component='trailingAction']) {
+:where(.ButtonBase [data-component='trailingAction']) {
   margin-right: calc(var(--base-size-4) * -1);
 }
 
-&:where(.ButtonBase [data-component='buttonContent'] > :not(:last-child)) {
+:where(.ButtonBase [data-component='buttonContent'] > :not(:last-child)) {
   margin-right: var(--base-size-8);
 }
 
 /* Props */
 
-/* Content alignment */
-
-.ButtonContent:where([data-align='center']) {
-  justify-content: center;
-}
-
-.ButtonContent:where([data-align='start']) {
-  justify-content: flex-start;
-}
-
 /* Size */
 
-:where(.ButtonBase:where([data-size='small'])) {
-  height: var(--control-small-size);
-  /* stylelint-disable-next-line primer/spacing */
-  padding: 0 var(--control-small-paddingInline-condensed);
-  gap: var(--control-small-gap);
-  font-size: var(--text-body-size-small);
-
-  & .ButtonContent > :not(:last-child) {
+/* stylelint-disable-next-line no-duplicate-selectors */
+:where(.ButtonBase) {
+  &:where([data-size='small']) {
+    height: var(--control-small-size);
     /* stylelint-disable-next-line primer/spacing */
-    margin-right: var(--control-small-gap);
-  }
+    padding: 0 var(--control-small-paddingInline-condensed);
+    gap: var(--control-small-gap);
+    font-size: var(--text-body-size-small);
 
-  & .Label {
-    line-height: calc(20 / 12); /* temporary until we use Text component with --text-body-lineHeight-small */
+    & .ButtonContent > :not(:last-child) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-right: var(--control-small-gap);
+    }
+
+    & .Label {
+      line-height: calc(20 / 12); /* temporary until we use Text component with --text-body-lineHeight-small */
+    }
   }
 }
 
-:where(.ButtonBase:where([data-size='large'])) {
-  height: var(--control-large-size);
-  /* stylelint-disable-next-line primer/spacing */
-  padding: 0 var(--control-large-paddingInline-spacious);
-  gap: var(--control-large-gap);
-
-  & .ButtonContent > :not(:last-child) {
+/* stylelint-disable-next-line no-duplicate-selectors */
+:where(.ButtonBase) {
+  &:where([data-size='large']) {
+    height: var(--control-large-size);
     /* stylelint-disable-next-line primer/spacing */
-    margin-right: var(--control-large-gap);
+    padding: 0 var(--control-large-paddingInline-spacious);
+    gap: var(--control-large-gap);
+
+    & .ButtonContent > :not(:last-child) {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-right: var(--control-large-gap);
+    }
   }
 }
 
 /* Full width */
 
-:where(.ButtonBase:where([data-block='block'])) {
-  width: 100%;
+/* stylelint-disable-next-line no-duplicate-selectors */
+:where(.ButtonBase) {
+  &:where([data-block='block']) {
+    width: 100%;
+  }
 }
 
 /* Wrap label text */
 
-:where(.ButtonBase:where([data-label-wrap='true'])) {
-  min-width: fit-content;
-  height: unset;
-  min-height: var(--control-medium-size);
-
-  & .ButtonContent {
-    flex: 1 1 auto;
-    align-self: stretch;
-    /* stylelint-disable-next-line primer/spacing */
-    padding-block: calc(var(--control-medium-paddingBlock) - var(--base-size-2));
-  }
-
-  & .Label {
-    word-break: break-word;
-    white-space: unset;
-  }
-
-  &:where([data-size='small']) {
+/* stylelint-disable-next-line no-duplicate-selectors */
+:where(.ButtonBase) {
+  &:where([data-label-wrap='true']) {
+    min-width: fit-content;
     height: unset;
-    min-height: var(--control-small-size);
+    min-height: var(--control-medium-size);
 
     & .ButtonContent {
+      flex: 1 1 auto;
+      align-self: stretch;
       /* stylelint-disable-next-line primer/spacing */
-      padding-block: calc(var(--control-small-paddingBlock) - var(--base-size-2));
+      padding-block: calc(var(--control-medium-paddingBlock) - var(--base-size-2));
+    }
+
+    & .Label {
+      word-break: break-word;
+      white-space: unset;
+    }
+
+    &:where([data-size='small']) {
+      height: unset;
+      min-height: var(--control-small-size);
+
+      & .ButtonContent {
+        /* stylelint-disable-next-line primer/spacing */
+        padding-block: calc(var(--control-small-paddingBlock) - var(--base-size-2));
+      }
+    }
+
+    &:where([data-size='large']) {
+      height: unset;
+      min-height: var(--control-large-size);
+      /* stylelint-disable-next-line primer/spacing */
+      padding-inline: var(--control-large-paddingInline-spacious);
+
+      & .ButtonContent {
+        /* stylelint-disable-next-line primer/spacing */
+        padding-block: calc(var(--control-large-paddingBlock) - var(--base-size-2));
+      }
     }
   }
 
-  &:where([data-size='large']) {
-    height: unset;
-    min-height: var(--control-large-size);
-    /* stylelint-disable-next-line primer/spacing */
-    padding-inline: var(--control-large-paddingInline-spacious);
+  /* Loading */
 
-    & .ButtonContent {
-      /* stylelint-disable-next-line primer/spacing */
-      padding-block: calc(var(--control-large-paddingBlock) - var(--base-size-2));
-    }
-  }
-}
-
-/* Loading */
-
-/* only hide label if there's no leading/trailing visuals
+  /* only hide label if there's no leading/trailing visuals
 * move spinner to label spot if not leading/trailing visuals
 */
 
-&:where(.ButtonBase:where([data-loading='true'])) {
-  &
-    .loadingSpinner:not(
-      [data-component='leadingVisual'],
-      [data-component='trailingVisual'],
-      [data-component='trailingAction']
-    ) {
-    grid-area: text;
-    margin-right: 0 !important;
-    place-self: center;
+  :where(.ButtonBase) {
+    &:where([data-loading='true']) {
+      &
+        .loadingSpinner:not(
+          [data-component='leadingVisual'],
+          [data-component='trailingVisual'],
+          [data-component='trailingAction']
+        ) {
+        grid-area: text;
+        margin-right: 0 !important;
+        place-self: center;
 
-    & + .Label {
-      visibility: hidden;
-    }
-  }
-}
-
-/* Variants */
-
-/* Default Variant */
-
-:where(.ButtonBase:where([data-variant='default'])) {
-  color: var(--button-default-fgColor-rest);
-  background-color: var(--button-default-bgColor-rest);
-  box-shadow: var(--button-default-shadow-resting);
-
-  &:hover {
-    background-color: var(--button-default-bgColor-hover);
-    border-color: var(--button-default-borderColor-hover);
-  }
-
-  &:active {
-    background-color: var(--button-default-bgColor-active);
-    border-color: var(--button-default-borderColor-active);
-  }
-
-  &:disabled {
-    color: var(--control-fgColor-disabled);
-    background-color: var(--button-default-bgColor-disabled);
-    border-color: var(--button-default-borderColor-disabled);
-    box-shadow: none;
-  }
-
-  &[aria-expanded='true'] {
-    background-color: var(--button-default-bgColor-active);
-    border-color: var(--button-default-borderColor-active);
-  }
-
-  & .CounterLabel {
-    background-color: var(--buttonCounter-default-bgColor-rest);
-  }
-
-  &:where(.IconButton) {
-    color: var(--fgColor-muted);
-  }
-}
-
-/* Primary Variant */
-
-:where(.ButtonBase:where([data-variant='primary'])) {
-  color: var(--button-primary-fgColor-rest);
-  background-color: var(--button-primary-bgColor-rest);
-  border-color: var(--button-primary-borderColor-rest);
-  box-shadow: var(--shadow-resting-small);
-
-  &:hover {
-    background-color: var(--button-primary-bgColor-hover);
-    border-color: var(--button-primary-borderColor-hover);
-  }
-
-  &:focus-visible {
-    outline: 2px solid var(--focus-outlineColor);
-    outline-offset: -2px;
-    box-shadow: inset 0 0 0 3px var(--fgColor-onEmphasis);
-  }
-
-  &:active {
-    background-color: var(--button-primary-bgColor-active);
-    box-shadow: var(--button-primary-shadow-selected);
-  }
-
-  &:disabled {
-    color: var(--button-primary-fgColor-disabled);
-    background-color: var(--button-primary-bgColor-disabled);
-    border-color: var(--button-primary-borderColor-disabled);
-    box-shadow: none;
-  }
-
-  &[aria-expanded='true'] {
-    background-color: var(--button-primary-bgColor-active);
-    box-shadow: var(--button-primary-shadow-selected);
-  }
-
-  & .CounterLabel {
-    color: var(--button-primary-fgColor-rest);
-    background-color: var(--buttonCounter-primary-bgColor-rest);
-  }
-
-  /* temporarily using the fgColor to match legacy and reduce visual changes- will eventually be iconColor */
-  & .Visual {
-    color: var(--button-primary-fgColor-rest);
-  }
-}
-
-/* Danger Variant */
-
-:where(.ButtonBase:where([data-variant='danger'])) {
-  color: var(--button-danger-fgColor-rest);
-  background-color: var(--button-danger-bgColor-rest);
-  box-shadow: var(--button-default-shadow-resting);
-
-  &:hover {
-    color: var(--button-danger-fgColor-hover);
-    background-color: var(--button-danger-bgColor-hover);
-    border-color: var(--button-danger-borderColor-hover);
-    box-shadow: var(--shadow-resting-small);
-
-    & .CounterLabel {
-      color: var(--buttonCounter-danger-fgColor-hover);
-      background-color: var(--buttonCounter-danger-bgColor-hover);
-    }
-
-    & .Visual {
-      color: var(--button-danger-iconColor-hover);
+        /* stylelint-disable-next-line max-nesting-depth, selector-max-compound-selectors */
+        & + .Label {
+          visibility: hidden;
+        }
+      }
     }
   }
 
-  &:active {
-    color: var(--button-danger-fgColor-active);
-    background-color: var(--button-danger-bgColor-active);
-    border-color: var(--button-danger-borderColor-active);
-    box-shadow: var(--button-danger-shadow-selected);
+  /* Variants */
 
-    & .CounterLabel {
-      color: var(--buttonCounter-danger-fgColor-hover);
-      background-color: var(--buttonCounter-danger-bgColor-hover);
+  /* Default Variant */
+
+  /* stylelint-disable-next-line no-duplicate-selectors */
+  :where(.ButtonBase) {
+    &:where([data-variant='default']) {
+      color: var(--button-default-fgColor-rest);
+      background-color: var(--button-default-bgColor-rest);
+      box-shadow: var(--button-default-shadow-resting);
+
+      &:hover {
+        background-color: var(--button-default-bgColor-hover);
+        border-color: var(--button-default-borderColor-hover);
+      }
+
+      &:active {
+        background-color: var(--button-default-bgColor-active);
+        border-color: var(--button-default-borderColor-active);
+      }
+
+      &:disabled {
+        color: var(--control-fgColor-disabled);
+        background-color: var(--button-default-bgColor-disabled);
+        border-color: var(--button-default-borderColor-disabled);
+        box-shadow: none;
+      }
+
+      &[aria-expanded='true'] {
+        background-color: var(--button-default-bgColor-active);
+        border-color: var(--button-default-borderColor-active);
+      }
+
+      & .CounterLabel {
+        background-color: var(--buttonCounter-default-bgColor-rest);
+      }
+
+      &:where(.IconButton) {
+        color: var(--fgColor-muted);
+      }
     }
   }
 
-  &:disabled {
-    color: var(--button-danger-fgColor-disabled);
-    background-color: var(--button-danger-bgColor-disabled);
-    border-color: var(--button-default-borderColor-disabled);
-    box-shadow: none;
+  /* Primary Variant */
 
-    .CounterLabel {
-      color: var(--buttonCounter-danger-fgColor-disabled);
-      background-color: var(--buttonCounter-danger-bgColor-disabled);
+  /* stylelint-disable-next-line no-duplicate-selectors */
+  :where(.ButtonBase) {
+    &:where([data-variant='primary']) {
+      color: var(--button-primary-fgColor-rest);
+      background-color: var(--button-primary-bgColor-rest);
+      border-color: var(--button-primary-borderColor-rest);
+      box-shadow: var(--shadow-resting-small);
+
+      &:hover {
+        background-color: var(--button-primary-bgColor-hover);
+        border-color: var(--button-primary-borderColor-hover);
+      }
+
+      &:focus-visible {
+        outline: 2px solid var(--focus-outlineColor);
+        outline-offset: -2px;
+        box-shadow: inset 0 0 0 3px var(--fgColor-onEmphasis);
+      }
+
+      &:active {
+        background-color: var(--button-primary-bgColor-active);
+        box-shadow: var(--button-primary-shadow-selected);
+      }
+
+      &:disabled {
+        color: var(--button-primary-fgColor-disabled);
+        background-color: var(--button-primary-bgColor-disabled);
+        border-color: var(--button-primary-borderColor-disabled);
+        box-shadow: none;
+      }
+
+      &[aria-expanded='true'] {
+        background-color: var(--button-primary-bgColor-active);
+        box-shadow: var(--button-primary-shadow-selected);
+      }
+
+      & .CounterLabel {
+        color: var(--button-primary-fgColor-rest);
+        background-color: var(--buttonCounter-primary-bgColor-rest);
+      }
+
+      /* temporarily using the fgColor to match legacy and reduce visual changes- will eventually be iconColor */
+      & .Visual {
+        color: var(--button-primary-fgColor-rest);
+      }
     }
   }
 
-  &[aria-expanded='true'] {
-    color: var(--button-danger-fgColor-active);
-    background-color: var(--button-danger-bgColor-active);
-    border-color: var(--button-danger-borderColor-active);
-    box-shadow: var(--button-danger-shadow-selected);
-  }
+  /* Danger Variant */
 
-  & .CounterLabel {
-    color: var(--buttonCounter-danger-fgColor-rest);
-    background-color: var(--buttonCounter-danger-bgColor-rest);
-  }
+  /* stylelint-disable-next-line no-duplicate-selectors */
+  :where(.ButtonBase) {
+    &:where([data-variant='danger']) {
+      color: var(--button-danger-fgColor-rest);
+      background-color: var(--button-danger-bgColor-rest);
+      box-shadow: var(--button-default-shadow-resting);
 
-  & .Visual {
-    color: var(--button-danger-iconColor-rest);
-  }
-}
+      &:hover {
+        color: var(--button-danger-fgColor-hover);
+        background-color: var(--button-danger-bgColor-hover);
+        border-color: var(--button-danger-borderColor-hover);
+        box-shadow: var(--shadow-resting-small);
 
-/* Invisible Variant */
+        /* stylelint-disable-next-line max-nesting-depth */
+        & .CounterLabel {
+          color: var(--buttonCounter-danger-fgColor-hover);
+          background-color: var(--buttonCounter-danger-bgColor-hover);
+        }
 
-&:where(.ButtonBase:where([data-variant='invisible'])) {
-  color: var(--button-default-fgColor-rest);
-  border-color: transparent;
-  box-shadow: none;
+        /* stylelint-disable-next-line max-nesting-depth */
+        & .Visual {
+          color: var(--button-danger-iconColor-hover);
+        }
+      }
 
-  &:hover {
-    background-color: var(--button-invisible-bgColor-hover);
+      &:active {
+        color: var(--button-danger-fgColor-active);
+        background-color: var(--button-danger-bgColor-active);
+        border-color: var(--button-danger-borderColor-active);
+        box-shadow: var(--button-danger-shadow-selected);
 
-    & .Visual {
-      color: var(--button-invisible-iconColor-hover);
+        /* stylelint-disable-next-line max-nesting-depth */
+        & .CounterLabel {
+          color: var(--buttonCounter-danger-fgColor-hover);
+          background-color: var(--buttonCounter-danger-bgColor-hover);
+        }
+      }
+
+      &:disabled {
+        color: var(--button-danger-fgColor-disabled);
+        background-color: var(--button-danger-bgColor-disabled);
+        border-color: var(--button-default-borderColor-disabled);
+        box-shadow: none;
+
+        /* stylelint-disable-next-line max-nesting-depth */
+        & .CounterLabel {
+          color: var(--buttonCounter-danger-fgColor-disabled);
+          background-color: var(--buttonCounter-danger-bgColor-disabled);
+        }
+      }
+
+      &[aria-expanded='true'] {
+        color: var(--button-danger-fgColor-active);
+        background-color: var(--button-danger-bgColor-active);
+        border-color: var(--button-danger-borderColor-active);
+        box-shadow: var(--button-danger-shadow-selected);
+      }
+
+      & .CounterLabel {
+        color: var(--buttonCounter-danger-fgColor-rest);
+        background-color: var(--buttonCounter-danger-bgColor-rest);
+      }
+
+      & .Visual {
+        color: var(--button-danger-iconColor-rest);
+      }
     }
   }
 
-  &:active {
-    background-color: var(--button-invisible-bgColor-active);
+  /* Invisible Variant */
 
-    & .Visual {
-      color: var(--button-invisible-iconColor-hover);
+  /* stylelint-disable-next-line no-duplicate-selectors */
+  :where(.ButtonBase) {
+    &:where([data-variant='invisible']) {
+      color: var(--button-default-fgColor-rest);
+      border-color: transparent;
+      box-shadow: none;
+
+      &:hover {
+        background-color: var(--button-invisible-bgColor-hover);
+
+        /* stylelint-disable-next-line max-nesting-depth */
+        & .Visual {
+          color: var(--button-invisible-iconColor-hover);
+        }
+      }
+
+      &:active {
+        background-color: var(--button-invisible-bgColor-active);
+
+        /* stylelint-disable-next-line max-nesting-depth */
+        & .Visual {
+          color: var(--button-invisible-iconColor-hover);
+        }
+      }
+
+      &:disabled {
+        color: var(--button-invisible-fgColor-disabled);
+        background-color: var(--button-invisible-bgColor-disabled);
+        border-color: var(--button-invisible-borderColor-disabled);
+        box-shadow: none;
+      }
+
+      &[aria-expanded='true'] {
+        background-color: var(--button-invisible-bgColor-active);
+      }
+
+      & .Visual {
+        color: var(--button-invisible-iconColor-rest);
+      }
+
+      & .CounterLabel {
+        background-color: var(--buttonCounter-invisible-bgColor-rest);
+      }
+
+      &:where(.IconButton) {
+        color: var(--button-invisible-iconColor-rest);
+      }
     }
   }
 
-  &:disabled {
-    color: var(--button-invisible-fgColor-disabled);
-    background-color: var(--button-invisible-bgColor-disabled);
-    border-color: var(--button-invisible-borderColor-disabled);
-    box-shadow: none;
+  /* Link variant */
+
+  /* stylelint-disable-next-line no-duplicate-selectors */
+  :where(.ButtonBase) {
+    &:where([data-variant='link']) {
+      display: inline-block;
+      min-width: fit-content;
+      height: unset;
+      padding: 0;
+      font-size: inherit;
+      color: var(--fgColor-link);
+      text-align: left;
+      border: unset;
+
+      &:hover:not(:disabled, [data-inactive]) {
+        text-decoration: underline;
+      }
+
+      &:focus-visible,
+      &:focus {
+        outline-offset: 2px;
+      }
+
+      &:disabled {
+        color: var(--control-fgColor-disabled);
+        background-color: transparent;
+        border-color: transparent;
+      }
+
+      & .Label {
+        white-space: unset;
+      }
+
+      &:where([data-inactive]) {
+        color: var(--button-inactive-fgColor);
+        background: transparent !important;
+      }
+    }
   }
 
-  &[aria-expanded='true'] {
-    background-color: var(--button-invisible-bgColor-active);
-  }
+  /* Inactive */
 
-  & .Visual {
-    color: var(--button-invisible-iconColor-rest);
-  }
+  /* stylelint-disable-next-line no-duplicate-selectors */
+  :where(.ButtonBase) {
+    &:where([data-inactive]),
+    &:where([data-inactive]):hover {
+      color: var(--button-inactive-fgColor);
+      cursor: auto;
+      background-color: var(--button-inactive-bgColor);
+      border-color: var(--button-inactive-bgColor);
 
-  & .CounterLabel {
-    background-color: var(--buttonCounter-invisible-bgColor-rest);
-  }
-
-  &:where(.IconButton) {
-    color: var(--button-invisible-iconColor-rest);
-  }
-}
-
-/* Link variant */
-
-&:where(.ButtonBase:where([data-variant='link'])) {
-  display: inline-block;
-  min-width: fit-content;
-  height: unset;
-  padding: 0;
-  font-size: inherit;
-  color: var(--fgColor-link);
-  text-align: left;
-  border: unset;
-
-  &:hover:not(:disabled, [data-inactive]) {
-    text-decoration: underline;
-  }
-
-  &:focus-visible,
-  &:focus {
-    outline-offset: 2px;
-  }
-
-  &:disabled {
-    color: var(--control-fgColor-disabled);
-    background-color: transparent;
-    border-color: transparent;
-  }
-
-  & .Label {
-    white-space: unset;
-  }
-
-  &:where([data-inactive]) {
-    color: var(--button-inactive-fgColor);
-    background: transparent !important;
-  }
-}
-
-/* Inactive */
-
-&:where(.ButtonBase:where([data-inactive])),
-&:where(.ButtonBase:where([data-inactive]):hover) {
-  color: var(--button-inactive-fgColor);
-  cursor: auto;
-  background-color: var(--button-inactive-bgColor);
-  border-color: var(--button-inactive-bgColor);
-
-  & .Visual,
-  & .CounterLabel {
-    color: inherit;
+      & .Visual,
+      & .CounterLabel {
+        color: inherit;
+      }
+    }
   }
 }
