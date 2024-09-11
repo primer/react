@@ -148,13 +148,14 @@ export function buildComponentData(
       key = 'page-prev'
       content = 'Previous'
       if (page.disabled) {
-        Object.assign(props, {as: 'button', 'aria-disabled': 'true'})
+        Object.assign(props, {'aria-disabled': 'true'})
       } else {
         Object.assign(props, {
           rel: 'prev',
           href: hrefBuilder(page.num),
           'aria-label': 'Previous Page',
           onClick,
+          role: 'link',
         })
       }
       break
@@ -163,13 +164,14 @@ export function buildComponentData(
       key = 'page-next'
       content = 'Next'
       if (page.disabled) {
-        Object.assign(props, {as: 'button', 'aria-disabled': 'true'})
+        Object.assign(props, {'aria-disabled': 'true'})
       } else {
         Object.assign(props, {
           rel: 'next',
           href: hrefBuilder(page.num),
           'aria-label': 'Next Page',
           onClick,
+          role: 'link',
         })
       }
       break
@@ -185,6 +187,7 @@ export function buildComponentData(
         'aria-label': `Page ${page.num}${page.precedesBreak ? '...' : ''}`,
         onClick,
         'aria-current': page.selected ? 'page' : undefined,
+        role: 'link',
       })
       break
     }
