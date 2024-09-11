@@ -290,6 +290,8 @@ for (const useModernActionList of [false, true]) {
         })
 
         it('should support navigating through items with PageDown and PageUp', async () => {
+          if (!useModernActionList) return // this feature is only enabled with feature flag on
+
           const user = userEvent.setup()
 
           renderWithFlag(<BasicSelectPanel />, useModernActionList)
