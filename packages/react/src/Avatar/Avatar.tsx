@@ -62,15 +62,13 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
     : merge({'--avatar-size': `${size}px`} as React.CSSProperties, sxProp as SxProp)
 
   if (enabled) {
-    const cssSizeVars = {} as React.CSSProperties
+    const cssSizeVars = {} as Record<string, string>
 
     if (isResponsive) {
       for (const [key, value] of Object.entries(size)) {
-        // @ts-ignore - css property
         cssSizeVars[`--avatarSize-${key}`] = `${value}px`
       }
     } else {
-      // @ts-ignore - css property
       cssSizeVars['--avatarSize-regular'] = `${size}px`
     }
 
@@ -87,7 +85,7 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
           width={isResponsive ? undefined : size}
           height={isResponsive ? undefined : size}
           // @ts-ignore - it's not allowing CSS properties here
-          style={cssSizeVars}
+          style={cssSizeVars as React.CSSProperties}
           sx={sxProp}
           {...rest}
         />
@@ -104,7 +102,7 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
         width={isResponsive ? undefined : size}
         height={isResponsive ? undefined : size}
         // @ts-ignore - it's not allowing CSS properties here
-        style={cssSizeVars}
+        style={cssSizeVars as React.CSSProperties}
         {...rest}
       />
     )
