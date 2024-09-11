@@ -8,11 +8,11 @@
   border-radius: 50%;
   box-shadow: 0 0 0 1px var(--avatar-borderColor);
 
-  &:where([data-square='true']) {
+  &:where([data-square]) {
     border-radius: var(--borderRadius-medium);
   }
 
-  &:where([data-responsive='true']) {
+  &:where([data-responsive]) {
     @media screen and (--viewportRange-narrow) {
       width: var(--avatarSize-narrow);
       height: var(--avatarSize-narrow);

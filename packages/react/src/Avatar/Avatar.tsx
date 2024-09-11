@@ -82,8 +82,8 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
           className={clsx(className, classes.Avatar)}
           ref={ref}
           alt={alt}
-          data-responsive={isResponsive ? 'true' : undefined}
-          data-square={square ? 'true' : undefined}
+          data-responsive={isResponsive ? '' : undefined}
+          data-square={square ? '' : undefined}
           width={isResponsive ? undefined : size}
           height={isResponsive ? undefined : size}
           // @ts-ignore - it's not allowing CSS properties here
