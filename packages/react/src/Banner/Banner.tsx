@@ -248,7 +248,7 @@ const StyledBanner = styled.div`
     justify-content: space-between;
   }
 
-  &[data-dismissible] .BannerContainer {
+  &[data-dismissible]:not([data-title-hidden='']) .BannerContainer {
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto;
