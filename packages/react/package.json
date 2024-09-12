@@ -87,9 +87,6 @@
     "npm": ">=7"
   },
   "dependencies": {
-    "@github/combobox-nav": "^2.1.5",
-    "@github/markdown-toolbar-element": "^2.1.0",
-    "@github/paste-markdown": "^1.4.0",
     "@github/relative-time-element": "^4.4.2",
     "@github/tab-container-element": "^4.8.0",
     "@lit-labs/react": "1.2.1",
@@ -115,7 +112,6 @@
     "lodash.isobject": "^3.0.2",
     "react-intersection-observer": "^9.4.3",
     "react-is": "^18.2.0",
-    "react-markdown": "8.0.7",
     "styled-system": "^5.1.5"
   },
   "devDependencies": {
