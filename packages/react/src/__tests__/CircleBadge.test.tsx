@@ -5,7 +5,7 @@ import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
 
-const imgInput = <img alt="" src="primer.jpg" />
+const imgInput = <img alt="Example" src="primer.jpg" />
 
 describe('CircleBadge', () => {
   behavesAsComponent({
@@ -55,7 +55,7 @@ describe('CircleBadge', () => {
   it('preserves child class names', () => {
     const {getByRole} = HTMLRender(
       <CircleBadge>
-        <img className="primer" alt="" src="primer.jpg" />
+        <img className="primer" alt="Example" src="primer.jpg" />
       </CircleBadge>,
     )
     expect(getByRole('img')).toHaveClass('primer')
