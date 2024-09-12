@@ -1,5 +1,6 @@
 import {createRequire} from 'node:module'
 import path from 'node:path'
+import postcssPresetPrimer from 'postcss-preset-primer'
 import type {StorybookConfig} from '@storybook/react-vite'
 
 const require = createRequire(import.meta.url)
@@ -34,6 +35,19 @@ const config: StorybookConfig = {
       ...config.define,
       __DEV__: JSON.stringify(true),
     }
+
+    config.css = {
+      ...config.css,
+      modules: {
+        ...config.css?.modules,
+        generateScopedName: 'prc_[local]_[hash:base64:5]',
+      },
+      postcss: {
+        ...config.css?.postcss,
+        plugins: [postcssPresetPrimer()],
+      },
+    }
+
     return config
   },
 }
