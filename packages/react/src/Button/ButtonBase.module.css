@@ -61,6 +61,12 @@
     pointer-events: none;
   }
 
+  /* mostly for CounterLabel */
+  & .VisualWrap {
+    display: flex;
+    pointer-events: none;
+  }
+
   /* IconButton */
 
   &:where(.IconButton) {

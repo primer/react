@@ -1884,7 +1884,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c4 [data-component="text"] {
   grid-area: text;
-  line-height: calc(20 / 14);
+  line-height: calc(20/14);
   white-space: nowrap;
 }
 
@@ -2517,7 +2517,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c4 [data-component="text"] {
   grid-area: text;
-  line-height: calc(20 / 14);
+  line-height: calc(20/14);
   white-space: nowrap;
 }
 
@@ -3011,7 +3011,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c4 [data-component="text"] {
   grid-area: text;
-  line-height: calc(20 / 14);
+  line-height: calc(20/14);
   white-space: nowrap;
 }
 

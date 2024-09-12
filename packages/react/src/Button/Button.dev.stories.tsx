@@ -33,6 +33,7 @@ export const InvisibleVariants = () => {
 }
 
 export const TestSxProp = () => {
+  const count = 4
   return (
     <div style={{display: 'flex', flexDirection: 'row', gap: '1rem'}}>
       <Button
@@ -86,6 +87,9 @@ export const TestSxProp = () => {
       </Button>
       <Button size="small" block variant="invisible" sx={{width: 320}}>
         Overriden Block
+      </Button>
+      <Button sx={{fontSize: 32}} count={count}>
+        Watch
       </Button>
     </div>
   )
