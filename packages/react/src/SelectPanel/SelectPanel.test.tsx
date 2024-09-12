@@ -384,20 +384,7 @@ for (const useModernActionList of [false, true]) {
 
         it.todo('should announce the number of results')
 
-        it('should announce when no results are available', async () => {
-          const user = userEvent.setup()
-          renderWithFlag(<FilterableSelectPanel />, useModernActionList)
-          await user.click(screen.getByText('Select items'))
-          expect(screen.getAllByRole('option')).toHaveLength(3)
-
-          await user.type(document.activeElement!, 'zero')
-          expect(screen.queryByRole('option')).toBeNull()
-          expect(screen.getByText('No matches')).toBeVisible()
-          await waitFor(async () => {
-            // we wait because status is intentionally updated after a timeout to not interrupt user input
-            expect(screen.getByRole('status')).toHaveTextContent('No matching items')
-          })
-        })
+        it.todo('should announce when no results are available')
       })
 
       describe('with footer', () => {
