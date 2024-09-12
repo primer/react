@@ -52,7 +52,7 @@ const setViewportParamToNarrow = {
 }
 export const Webhooks = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner">
       <PageHeader.TitleArea>
         <PageHeader.Title as="h2">Webhooks</PageHeader.Title>
       </PageHeader.TitleArea>
@@ -78,7 +78,7 @@ WebhooksOnNarrowViewport.parameters = setViewportParamToNarrow
 
 export const PullRequestPage = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner">
       <PageHeader.TitleArea>
         <PageHeader.Title as="h1">
           PageHeader component initial layout explorations extra long pull request title
@@ -146,7 +146,7 @@ PullRequestPageOnNarrowViewport.parameters = setViewportParamToNarrow
 
 export const FilesPage = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner">
       <PageHeader.TitleArea sx={{alignItems: 'center'}}>
         <Text sx={{color: 'rgb(101, 109, 118)', fontSize: '14px', fontWeight: 'normal'}}>/</Text>
         <PageHeader.Title as="h1" sx={{fontSize: '14px', height: '21px'}}>

@@ -18,7 +18,7 @@ export default meta
 
 export const LargeVariantWithMultilineTitle = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner">
       <PageHeader.LeadingAction>
         <IconButton aria-label="Edit" icon={PencilIcon} variant="invisible" />
       </PageHeader.LeadingAction>
@@ -46,7 +46,7 @@ export const LargeVariantWithMultilineTitle = () => (
 
 export const ArrayTypeFontSizeOnTitle = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner">
       <PageHeader.TitleArea>
         <PageHeader.Title
           sx={{
@@ -64,7 +64,7 @@ export const ArrayTypeFontSizeOnTitle = () => (
 
 export const ThemeBaseFontSizeOnTitle = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner">
       <PageHeader.TitleArea>
         <PageHeader.Title
           sx={{
@@ -80,7 +80,7 @@ export const ThemeBaseFontSizeOnTitle = () => (
 
 export const StringTypeFontSizeOnTitle = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner">
       <PageHeader.TitleArea>
         <PageHeader.Title
           sx={{
