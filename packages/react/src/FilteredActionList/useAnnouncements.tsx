@@ -65,18 +65,28 @@ export const useAnnouncements = (
         return
       }
 
-      const activeItemIndex = 0
-      const activeItemText = items[activeItemIndex].text
-      const activeItemSelected = items[activeItemIndex].selected
+      // give @primer/behaviors a moment to update active-descendant
+      window.requestAnimationFrame(() => {
+        const listElement = listContainerRef.current
+        const activeItemElement = listElement?.querySelector('[data-is-active-descendant]')
 
-      const announcementText = [
-        `List updated`,
-        `Focused item: ${activeItemText}`,
-        `${activeItemSelected ? 'selected' : 'not selected'}`,
-        `${1} of ${items.length}`,
-      ].join(', ')
-      announce(announcementText, {delayMs})
+        if (!listElement || !activeItemElement?.textContent) return
+
+        const optionElements = listElement.querySelectorAll('[role="option"]')
+
+        const activeItemIndex = Array.from(optionElements).indexOf(activeItemElement)
+        const activeItemText = items[activeItemIndex].text
+        const activeItemSelected = items[activeItemIndex].selected
+
+        const announcementText = [
+          `List updated`,
+          `Focused item: ${activeItemText}`,
+          `${activeItemSelected ? 'selected' : 'not selected'}`,
+          `${1} of ${items.length}`,
+        ].join(', ')
+        announce(announcementText, {delayMs})
+      })
     },
-    [isFirstRender, items],
+    [listContainerRef, inputRef, items, isFirstRender],
   )
 }
