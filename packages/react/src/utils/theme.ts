@@ -1,8 +1,10 @@
-// Utility functions used in theme-preval.js
-// This file needs to be a JavaScript file using CommonJS to be compatible with preval
+// Temporarily disabling since this is originally a JavaScript that needed to be
+// migrated to TypeScript for exports to work as correctly in Vite.
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 
-const isEmpty = require('lodash.isempty')
-const isObject = require('lodash.isobject')
+import isEmpty from 'lodash.isempty'
+import isObject from 'lodash.isobject'
 
 function fontStack(fonts) {
   return fonts.map(font => (font.includes(' ') ? `"${font}"` : font)).join(', ')
@@ -54,11 +56,13 @@ function partitionColors(colors) {
 }
 
 function omitScale(obj) {
+  // This is intentionally removing `scale` from the provided object
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const {scale, ...rest} = obj
   return rest
 }
 
-module.exports = {
+const themeUtils = {
   fontStack,
   isShadowValue,
   isColorValue,
@@ -66,3 +70,7 @@ module.exports = {
   partitionColors,
   omitScale,
 }
+
+export {fontStack, isShadowValue, isColorValue, filterObject, partitionColors, omitScale}
+
+export default themeUtils
