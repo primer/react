@@ -1,4 +1,4 @@
-import {addons, types} from '@storybook/addons'
+import {addons, types} from '@storybook/manager-api'
 import {useGlobals} from '@storybook/manager-api'
 import {IconButton, WithTooltip, TooltipLinkList} from '@storybook/components'
 import {BeakerIcon} from '@primer/octicons-react'

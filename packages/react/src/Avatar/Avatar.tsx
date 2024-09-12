@@ -1,4 +1,6 @@
+import {clsx} from 'clsx'
 import React from 'react'
+import Box from '../Box'
 import styled from 'styled-components'
 import {get} from '../constants'
 import type {BetterCssProperties, BetterSystemStyleObject, SxProp} from '../sx'
@@ -8,6 +10,8 @@ import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isResponsiveValue} from '../hooks/useResponsiveValue'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import classes from './Avatar.module.css'
+import {useFeatureFlag} from '../FeatureFlags'
 
 export const DEFAULT_AVATAR_SIZE = 20
 
@@ -41,10 +45,12 @@ const StyledAvatar = styled.img.attrs<StyledAvatarProps>(props => ({
 export type AvatarProps = ComponentProps<typeof StyledAvatar>
 
 const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
-  {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, sx: sxProp = defaultSxProp, ...rest},
+  {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, sx: sxProp = defaultSxProp, className, ...rest},
   ref,
 ) {
-  const avatarSx = isResponsiveValue(size)
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  const isResponsive = isResponsiveValue(size)
+  const avatarSx = isResponsive
     ? merge<BetterCssProperties | BetterSystemStyleObject>(
         getBreakpointDeclarations(
           size,
@@ -54,8 +60,65 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
         sxProp as SxProp,
       )
     : merge({'--avatar-size': `${size}px`} as React.CSSProperties, sxProp as SxProp)
+
+  if (enabled) {
+    const cssSizeVars = {} as Record<string, string>
+
+    if (isResponsive) {
+      for (const [key, value] of Object.entries(size)) {
+        cssSizeVars[`--avatarSize-${key}`] = `${value}px`
+      }
+    } else {
+      cssSizeVars['--avatarSize-regular'] = `${size}px`
+    }
+
+    if (sxProp !== defaultSxProp) {
+      return (
+        <Box
+          as="img"
+          data-component="Avatar"
+          className={clsx(className, classes.Avatar)}
+          ref={ref}
+          alt={alt}
+          data-responsive={isResponsive ? '' : undefined}
+          data-square={square ? '' : undefined}
+          width={isResponsive ? undefined : size}
+          height={isResponsive ? undefined : size}
+          // @ts-ignore - it's not allowing CSS properties here
+          style={cssSizeVars as React.CSSProperties}
+          sx={sxProp}
+          {...rest}
+        />
+      )
+    }
+
+    return (
+      <img
+        data-component="Avatar"
+        className={clsx(className, classes.Avatar)}
+        alt={alt}
+        data-responsive={isResponsive ? 'true' : undefined}
+        data-square={square ? 'true' : undefined}
+        width={isResponsive ? undefined : size}
+        height={isResponsive ? undefined : size}
+        // @ts-ignore - it's not allowing CSS properties here
+        style={cssSizeVars as React.CSSProperties}
+        {...rest}
+      />
+    )
+  }
+
   return (
-    <StyledAvatar data-component="Avatar" ref={ref} alt={alt} size={size} square={square} sx={avatarSx} {...rest} />
+    <StyledAvatar
+      data-component="Avatar"
+      className={className}
+      ref={ref}
+      alt={alt}
+      size={size}
+      square={square}
+      sx={avatarSx}
+      {...rest}
+    />
   )
 })
 
