@@ -94,13 +94,17 @@
 
   /* Button layout */
 
-  & :where(.ButtonContent) {
+  & .ButtonContent {
     flex: 1 0 auto;
     display: grid;
     grid-template-areas: 'leadingVisual text trailingVisual';
     grid-template-columns: min-content minmax(0, auto) min-content;
     align-items: center;
     align-content: center;
+
+    & > :not(:last-child) {
+      margin-right: var(--base-size-8);
+    }
 
     /* Content alignment */
 
@@ -129,10 +133,6 @@
 
   & :where([data-component='trailingAction']) {
     margin-right: calc(var(--base-size-4) * -1);
-  }
-
-  & :where([data-component='buttonContent'] > :not(:last-child)) {
-    margin-right: var(--base-size-8);
   }
 
   /* Size */
