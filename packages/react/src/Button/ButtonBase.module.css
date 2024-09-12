@@ -267,7 +267,7 @@
     }
 
     & .CounterLabel {
-      background-color: var(--buttonCounter-default-bgColor-rest);
+      background-color: var(--buttonCounter-default-bgColor-rest) !important; /* temporarily override our own sx prop */
     }
 
     &:where(.IconButton) {
@@ -312,8 +312,8 @@
     }
 
     & .CounterLabel {
-      color: var(--button-primary-fgColor-rest);
-      background-color: var(--buttonCounter-primary-bgColor-rest);
+      color: var(--button-primary-fgColor-rest) !important; /* temporarily override our own sx prop */
+      background-color: var(--buttonCounter-primary-bgColor-rest) !important; /* temporarily override our own sx prop */
     }
 
     /* temporarily using the fgColor to match legacy and reduce visual changes- will eventually be iconColor */
@@ -336,8 +336,8 @@
       box-shadow: var(--shadow-resting-small);
 
       & .CounterLabel {
-        color: var(--buttonCounter-danger-fgColor-hover);
-        background-color: var(--buttonCounter-danger-bgColor-hover);
+        color: var(--buttonCounter-danger-fgColor-hover) !important; /* temporarily override our own sx prop */
+        background-color: var(--buttonCounter-danger-bgColor-hover) !important;
       }
 
       & .Visual {
@@ -352,8 +352,8 @@
       box-shadow: var(--button-danger-shadow-selected);
 
       & .CounterLabel {
-        color: var(--buttonCounter-danger-fgColor-hover);
-        background-color: var(--buttonCounter-danger-bgColor-hover);
+        color: var(--buttonCounter-danger-fgColor-hover) !important; /* temporarily override our own sx prop */
+        background-color: var(--buttonCounter-danger-bgColor-hover) !important;
       }
     }
 
@@ -364,8 +364,8 @@
       box-shadow: none;
 
       & .CounterLabel {
-        color: var(--buttonCounter-danger-fgColor-disabled);
-        background-color: var(--buttonCounter-danger-bgColor-disabled);
+        color: var(--buttonCounter-danger-fgColor-disabled) !important; /* temporarily override our own sx prop */
+        background-color: var(--buttonCounter-danger-bgColor-disabled) !important;
       }
     }
 
@@ -377,8 +377,8 @@
     }
 
     & .CounterLabel {
-      color: var(--buttonCounter-danger-fgColor-rest);
-      background-color: var(--buttonCounter-danger-bgColor-rest);
+      color: var(--buttonCounter-danger-fgColor-rest) !important; /* temporarily override our own sx prop */
+      background-color: var(--buttonCounter-danger-bgColor-rest) !important;
     }
 
     & .Visual {
@@ -425,7 +425,7 @@
     }
 
     & .CounterLabel {
-      background-color: var(--buttonCounter-invisible-bgColor-rest);
+      background-color: var(--buttonCounter-invisible-bgColor-rest) !important;
     }
 
     &:where(.IconButton) {
@@ -485,7 +485,7 @@
 
     & .Visual,
     & .CounterLabel {
-      color: inherit;
+      color: inherit !important;
     }
   }
 }
