@@ -46,10 +46,10 @@ const preview = {
               ],
             ],
           ],
+          'Experimental',
           'Behaviors',
           'Hooks',
           'Deprecated',
-          'Drafts',
           'Private',
           '*',
         ]
