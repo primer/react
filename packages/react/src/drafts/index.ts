@@ -68,3 +68,4 @@ export type {UnderlinePanelsProps, UnderlinePanelsTabProps, UnderlinePanelsPanel
 export {SkeletonBox, SkeletonText, SkeletonAvatar} from './Skeleton'
 
 export * from '../KeybindingHint'
+export {useSlots} from '../hooks/useSlots'
