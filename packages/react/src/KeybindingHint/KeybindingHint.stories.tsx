@@ -2,7 +2,7 @@ import type {Meta} from '@storybook/react'
 import {KeybindingHint} from './KeybindingHint'
 
 export default {
-  title: 'Drafts/Components/KeybindingHint',
+  title: 'Experimental/Components/KeybindingHint',
   component: KeybindingHint,
 } satisfies Meta<typeof KeybindingHint>
 
