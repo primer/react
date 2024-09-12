@@ -1,4 +1,4 @@
-import cx from 'clsx'
+import {clsx} from 'clsx'
 import React, {useEffect} from 'react'
 import styled from 'styled-components'
 import {AlertIcon, InfoIcon, StopIcon, CheckCircleIcon, XIcon} from '@primer/octicons-react'
@@ -372,7 +372,7 @@ export type BannerTitleProps<As extends HeadingElement> = {
 export function BannerTitle<As extends HeadingElement>(props: BannerTitleProps<As>) {
   const {as: Heading = 'h2', className, children, ...rest} = props
   return (
-    <Heading {...rest} className={cx('BannerTitle', className)} data-banner-title="">
+    <Heading {...rest} className={clsx('BannerTitle', className)} data-banner-title="">
       {children}
     </Heading>
   )
@@ -382,7 +382,7 @@ export type BannerDescriptionProps = React.ComponentPropsWithoutRef<'div'>
 
 export function BannerDescription({children, className, ...rest}: BannerDescriptionProps) {
   return (
-    <div {...rest} className={cx('BannerDescription', className)}>
+    <div {...rest} className={clsx('BannerDescription', className)}>
       {children}
     </div>
   )
@@ -412,7 +412,7 @@ export type BannerPrimaryActionProps = Omit<React.ComponentPropsWithoutRef<typeo
 
 export function BannerPrimaryAction({children, className, ...rest}: BannerPrimaryActionProps) {
   return (
-    <Button className={cx('BannerPrimaryAction', className)} variant="default" {...rest}>
+    <Button className={clsx('BannerPrimaryAction', className)} variant="default" {...rest}>
       {children}
     </Button>
   )
@@ -422,7 +422,7 @@ export type BannerSecondaryActionProps = Omit<React.ComponentPropsWithoutRef<typ
 
 export function BannerSecondaryAction({children, className, ...rest}: BannerSecondaryActionProps) {
   return (
-    <Button className={cx('BannerPrimaryAction', className)} variant="link" {...rest}>
+    <Button className={clsx('BannerPrimaryAction', className)} variant="link" {...rest}>
       {children}
     </Button>
   )

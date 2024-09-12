@@ -149,6 +149,11 @@ module.exports = {
                 message:
                   'Please use the `useIsomorphicLayoutEffect` hook from `src/hooks/useIsomorphicLayoutEffect.ts` instead',
               },
+              {
+                name: 'clsx',
+                importNames: ['default'],
+                message: 'Use the named import instead: `import {clsx} from "clsx"`',
+              },
             ],
             patterns: [
               {

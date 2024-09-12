@@ -320,6 +320,21 @@ describe('SegmentedControl', () => {
     expect(spy).toHaveBeenCalledTimes(2)
     spy.mockRestore()
   })
+
+  it('should include the visual text if the user specifies an aria-label', () => {
+    const {getByLabelText} = render(
+      <SegmentedControl aria-label="File view" variant={{narrow: 'dropdown'}}>
+        {segmentData.map(({label}, index) => (
+          <SegmentedControl.Button selected={index === 2} key={label}>
+            {label}
+          </SegmentedControl.Button>
+        ))}
+      </SegmentedControl>,
+    )
+
+    const menuButton = getByLabelText('Blame, File view')
+    expect(menuButton).toBeInTheDocument()
+  })
 })
 
 // TODO: uncomment these tests after we fix a11y for the Tooltip component
