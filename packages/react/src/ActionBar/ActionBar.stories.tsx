@@ -110,7 +110,7 @@ export const CommentBox = (props: CommentBoxProps) => {
           </ActionBar>
         </Box>
       </Box>
-      <Textarea value={value} onChange={e => setValue(e.target.value)} id="markdowninput" />
+      <Textarea value={value} onChange={e => setValue(e.target.value)} id="markdowninput" aria-label="Markdown value" />
       <Dialog aria-labelledby="header" returnFocusRef={buttonRef} isOpen={isOpen} onDismiss={() => setIsOpen(false)}>
         <Dialog.Header id="header">Select a reply</Dialog.Header>
         <Box p={3}>Show saved replies</Box>
