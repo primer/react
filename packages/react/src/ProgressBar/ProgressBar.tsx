@@ -82,7 +82,6 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
       'aria-valuenow': progressAsNumber ? Math.round(progressAsNumber) : undefined,
       'aria-valuemin': 0,
       'aria-valuemax': 100,
-      'aria-busy': progressAsNumber ? progressAsNumber !== 100 : false,
     }
 
     return (

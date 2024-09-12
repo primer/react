@@ -1,4 +1,4 @@
-import cx from 'clsx'
+import {clsx} from 'clsx'
 import React, {useEffect} from 'react'
 import styled from 'styled-components'
 import {AlertIcon, InfoIcon, StopIcon, CheckCircleIcon, XIcon} from '@primer/octicons-react'
@@ -28,8 +28,7 @@ export type BannerProps = React.ComponentPropsWithoutRef<'section'> & {
   hideTitle?: boolean
 
   /**
-   * Provide an icon for the banner.
-   * Note: Only `variant="info"` banners should use custom icons
+   * Provide a custom icon for the Banner. This is only available when `variant` is `info` or `upsell`
    */
   icon?: React.ReactNode
 
@@ -99,6 +98,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
   const hasActions = primaryAction || secondaryAction
   const bannerRef = React.useRef<HTMLElement>(null)
   const ref = useMergedRefs(forwardRef, bannerRef)
+  const supportsCustomIcon = variant === 'info' || variant === 'upsell'
 
   if (__DEV__) {
     // This hook is called consistently depending on the environment
@@ -134,7 +134,7 @@ export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner
       ref={ref}
     >
       <style>{BannerContainerQuery}</style>
-      <div className="BannerIcon">{icon && variant === 'info' ? icon : iconForVariant[variant]}</div>
+      <div className="BannerIcon">{icon && supportsCustomIcon ? icon : iconForVariant[variant]}</div>
       <div className="BannerContainer">
         <div className="BannerContent">
           {title ? (
@@ -282,7 +282,7 @@ const StyledBanner = styled.div`
   /* BannerActions ---------------------------------------------------------- */
   .BannerActionsContainer {
     display: flex;
-    column-gap: var(--base-size-8, 0.5rem);
+    column-gap: var(--base-size-12, 0.5rem);
     align-items: center;
   }
 
@@ -301,7 +301,7 @@ const StyledBanner = styled.div`
   }
 
   &[data-dismissible] .BannerActions {
-    margin-block-end: var(--size-small, 0.375rem);
+    margin-block-end: var(--base-size-6, 0.375rem);
   }
 
   &[data-dismissible] .BannerActionsContainer[data-primary-action='trailing'] {
@@ -372,7 +372,7 @@ export type BannerTitleProps<As extends HeadingElement> = {
 export function BannerTitle<As extends HeadingElement>(props: BannerTitleProps<As>) {
   const {as: Heading = 'h2', className, children, ...rest} = props
   return (
-    <Heading {...rest} className={cx('BannerTitle', className)} data-banner-title="">
+    <Heading {...rest} className={clsx('BannerTitle', className)} data-banner-title="">
       {children}
     </Heading>
   )
@@ -382,7 +382,7 @@ export type BannerDescriptionProps = React.ComponentPropsWithoutRef<'div'>
 
 export function BannerDescription({children, className, ...rest}: BannerDescriptionProps) {
   return (
-    <div {...rest} className={cx('BannerDescription', className)}>
+    <div {...rest} className={clsx('BannerDescription', className)}>
       {children}
     </div>
   )
@@ -412,7 +412,7 @@ export type BannerPrimaryActionProps = Omit<React.ComponentPropsWithoutRef<typeo
 
 export function BannerPrimaryAction({children, className, ...rest}: BannerPrimaryActionProps) {
   return (
-    <Button className={cx('BannerPrimaryAction', className)} variant="default" {...rest}>
+    <Button className={clsx('BannerPrimaryAction', className)} variant="default" {...rest}>
       {children}
     </Button>
   )
@@ -422,7 +422,7 @@ export type BannerSecondaryActionProps = Omit<React.ComponentPropsWithoutRef<typ
 
 export function BannerSecondaryAction({children, className, ...rest}: BannerSecondaryActionProps) {
   return (
-    <Button className={cx('BannerPrimaryAction', className)} variant="invisible" {...rest}>
+    <Button className={clsx('BannerPrimaryAction', className)} variant="link" {...rest}>
       {children}
     </Button>
   )

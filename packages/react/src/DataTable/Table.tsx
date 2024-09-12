@@ -1,5 +1,5 @@
 import {SortAscIcon, SortDescIcon} from '@primer/octicons-react'
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'

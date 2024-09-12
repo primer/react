@@ -181,7 +181,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         cursor: 'not-allowed',
         '[data-component="ActionList.Checkbox"]': {
           cursor: 'not-allowed',
-          bg: selected ? 'fg.muted' : 'var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2))',
+          bg: selected ? 'fg.muted' : 'var(--control-bgColor-disabled, rgba(175, 184, 193, 0.2))',
           borderColor: selected ? 'fg.muted' : 'var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2))',
         },
       },
@@ -229,7 +229,11 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       '&:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + &, &[data-focus-visible-added] + li': {
         '--divider-color': 'transparent',
       },
-      ...(active ? activeStyles : {}),
+
+      /** Active styles */
+      ...(active ? activeStyles : {}), // NavList
+      '&[data-is-active-descendant]': activeStyles, // SelectPanel
+
       ...(!buttonSemantics ? hoverStyles : {}),
     }
 

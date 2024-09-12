@@ -9,27 +9,19 @@ export default {
 
 export const Default = () => <Text>Default Text</Text>
 
-export const Playground: StoryFn<typeof Text> = args => <Text {...args}>{args.text}</Text>
+export const Playground: StoryFn<typeof Text> = args => <Text {...args}>Playground</Text>
 
 Playground.args = {
-  text: 'Playground',
   as: 'span',
+  size: 'medium',
+  weight: 'normal',
 }
 
 Playground.argTypes = {
-  text: {
-    type: 'string',
-  },
   as: {
     type: 'string',
   },
   sx: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
-  theme: {
     controls: false,
     table: {
       disable: true,
@@ -41,10 +33,16 @@ Playground.argTypes = {
       disable: true,
     },
   },
-  forwardedAs: {
-    controls: false,
-    table: {
-      disable: true,
+  size: {
+    control: {
+      type: 'radio',
     },
+    options: ['small', 'medium', 'large'],
+  },
+  weight: {
+    control: {
+      type: 'radio',
+    },
+    options: ['light', 'normal', 'medium', 'semibold'],
   },
 }

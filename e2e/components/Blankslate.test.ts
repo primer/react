@@ -51,6 +51,24 @@ test.describe('Blankslate', () => {
               id: story.id,
               globals: {
                 colorScheme: theme,
+                featureFlags: {
+                  primer_react_css_modules_ga: true,
+                },
+              },
+            })
+
+            // Default state
+            expect(await page.screenshot()).toMatchSnapshot(`Blankslate.${story.title}.${theme}.png`)
+          })
+
+          test('default (styled-components) @vrt', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+                featureFlags: {
+                  primer_react_css_modules_ga: false,
+                },
               },
             })
 
@@ -59,6 +77,19 @@ test.describe('Blankslate', () => {
           })
 
           test('axe @aat', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+                featureFlags: {
+                  primer_react_css_modules_ga: true,
+                },
+              },
+            })
+            await expect(page).toHaveNoViolations()
+          })
+
+          test('axe (styled-components) @aat', async ({page}) => {
             await visit(page, {
               id: story.id,
               globals: {
@@ -75,7 +106,29 @@ test.describe('Blankslate', () => {
           test(`${name} @vrt`, async ({page}) => {
             await visit(page, {
               id: story.id,
-              globals: {},
+              globals: {
+                featureFlags: {
+                  primer_react_css_modules_ga: true,
+                },
+              },
+            })
+            const width = viewports[name]
+
+            await page.setViewportSize({
+              width,
+              height: 667,
+            })
+            expect(await page.screenshot()).toMatchSnapshot(`Blankslate.${story.title}.${name}.png`)
+          })
+
+          test(`${name} (styled-components) @vrt`, async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                featureFlags: {
+                  primer_react_css_modules_ga: false,
+                },
+              },
             })
             const width = viewports[name]
 

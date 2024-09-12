@@ -359,11 +359,11 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         onClick={[Function]}
       >
         zero
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -409,11 +409,11 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         onClick={[Function]}
       >
         one
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -459,11 +459,11 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         onClick={[Function]}
       >
         two
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -509,11 +509,11 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         onClick={[Function]}
       >
         three
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -559,11 +559,11 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         onClick={[Function]}
       >
         four
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -609,11 +609,11 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         onClick={[Function]}
       >
         five
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -659,11 +659,11 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         onClick={[Function]}
       >
         six
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -709,11 +709,11 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
         onClick={[Function]}
       >
         seven
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -829,6 +829,37 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 .c9 {
   font-size: 16px;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+}
+
+.c9:where([data-size='small']) {
+  font-size: var(--text-body-size-small,0.75rem);
+  line-height: var(--text-body-lineHeight-small,1.6666);
+}
+
+.c9:where([data-size='medium']) {
+  font-size: var(--text-body-size-medium,0.875rem);
+  line-height: var(--text-body-lineHeight-medium,1.4285);
+}
+
+.c9:where([data-size='large']) {
+  font-size: var(--text-body-size-large,1rem);
+  line-height: var(--text-body-lineHeight-large,1.5);
+}
+
+.c9:where([data-weight='light']) {
+  font-weight: var(--base-text-weight-light,300);
+}
+
+.c9:where([data-weight='normal']) {
+  font-weight: var(--base-text-weight-normal,400);
+}
+
+.c9:where([data-weight='medium']) {
+  font-weight: var(--base-text-weight-medium,500);
+}
+
+.c9:where([data-weight='semibold']) {
+  font-weight: var(--base-text-weight-semibold,600);
 }
 
 .c0 {
@@ -1113,11 +1144,11 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
         onClick={[Function]}
       >
         zero
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -1163,11 +1194,11 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
         onClick={[Function]}
       >
         one
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -1752,11 +1783,11 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         onClick={[Function]}
       >
         zero
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -1802,11 +1833,11 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         onClick={[Function]}
       >
         one
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -1852,11 +1883,11 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         onClick={[Function]}
       >
         two
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -1902,11 +1933,11 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         onClick={[Function]}
       >
         three
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -1952,11 +1983,11 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         onClick={[Function]}
       >
         four
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -2002,11 +2033,11 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         onClick={[Function]}
       >
         five
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -2052,11 +2083,11 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         onClick={[Function]}
       >
         six
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -2102,11 +2133,11 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
         onClick={[Function]}
       >
         seven
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -2481,11 +2512,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
         onClick={[Function]}
       >
         zero
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -2531,11 +2562,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
         onClick={[Function]}
       >
         one
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -2581,11 +2612,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
         onClick={[Function]}
       >
         two
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -2631,11 +2662,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
         onClick={[Function]}
       >
         three
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -2681,11 +2712,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
         onClick={[Function]}
       >
         four
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -2731,11 +2762,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
         onClick={[Function]}
       >
         five
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -2781,11 +2812,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
         onClick={[Function]}
       >
         six
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -2831,11 +2862,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
         onClick={[Function]}
       >
         seven
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -3210,11 +3241,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
         onClick={[Function]}
       >
         zero
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -3260,11 +3291,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
         onClick={[Function]}
       >
         one
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -3310,11 +3341,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
         onClick={[Function]}
       >
         two
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -3360,11 +3391,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
         onClick={[Function]}
       >
         three
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -3410,11 +3441,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
         onClick={[Function]}
       >
         four
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -3460,11 +3491,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
         onClick={[Function]}
       >
         five
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -3510,11 +3541,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
         onClick={[Function]}
       >
         six
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -3560,11 +3591,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
         onClick={[Function]}
       >
         seven
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -3936,11 +3967,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
         onClick={[Function]}
       >
         zero
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -3986,11 +4017,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
         onClick={[Function]}
       >
         one
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -4036,11 +4067,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
         onClick={[Function]}
       >
         two
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -4086,11 +4117,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
         onClick={[Function]}
       >
         three
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -4136,11 +4167,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
         onClick={[Function]}
       >
         four
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -4186,11 +4217,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
         onClick={[Function]}
       >
         five
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -4236,11 +4267,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
         onClick={[Function]}
       >
         six
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -4286,11 +4317,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
         onClick={[Function]}
       >
         seven
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -4664,11 +4695,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
         onClick={[Function]}
       >
         zero
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -4714,11 +4745,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
         onClick={[Function]}
       >
         one
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -4764,11 +4795,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
         onClick={[Function]}
       >
         two
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -4814,11 +4845,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
         onClick={[Function]}
       >
         three
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -4864,11 +4895,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
         onClick={[Function]}
       >
         four
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -4914,11 +4945,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
         onClick={[Function]}
       >
         five
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -4964,11 +4995,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
         onClick={[Function]}
       >
         six
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -5014,11 +5045,11 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
         onClick={[Function]}
       >
         seven
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -5390,11 +5421,11 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         onClick={[Function]}
       >
         zero
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -5440,11 +5471,11 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         onClick={[Function]}
       >
         one
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -5490,11 +5521,11 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         onClick={[Function]}
       >
         two
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -5540,11 +5571,11 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         onClick={[Function]}
       >
         three
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -5590,11 +5621,11 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         onClick={[Function]}
       >
         four
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -5640,11 +5671,11 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         onClick={[Function]}
       >
         five
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -5690,11 +5721,11 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         onClick={[Function]}
       >
         six
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -5740,11 +5771,11 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
         onClick={[Function]}
       >
         seven
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -6064,11 +6095,11 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
         className="c6"
       >
         zero
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
     </span>
     <span
@@ -6085,11 +6116,11 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
         className="c6"
       >
         one
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
     </span>
     <span
@@ -6106,11 +6137,11 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
         className="c6"
       >
         two
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
     </span>
     <span
@@ -6127,11 +6158,11 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
         className="c6"
       >
         three
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
     </span>
     <span
@@ -6148,11 +6179,11 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
         className="c6"
       >
         four
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
     </span>
     <span
@@ -6169,11 +6200,11 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
         className="c6"
       >
         five
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
     </span>
     <span
@@ -6190,11 +6221,11 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
         className="c6"
       >
         six
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
     </span>
     <span
@@ -6211,11 +6242,11 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
         className="c6"
       >
         seven
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
     </span>
   </div>
@@ -6592,11 +6623,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           zero
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -6642,11 +6673,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           one
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -6692,11 +6723,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           two
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -6742,11 +6773,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           three
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -6792,11 +6823,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           four
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -6842,11 +6873,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           five
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -6892,11 +6923,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           six
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -6942,11 +6973,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           seven
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -7454,11 +7485,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           zero
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -7504,11 +7535,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           one
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -7554,11 +7585,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           two
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -7604,11 +7635,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           three
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -7654,11 +7685,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           four
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -7704,11 +7735,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           five
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -7754,11 +7785,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           six
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -7804,11 +7835,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           seven
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -8260,11 +8291,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           zero
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -8310,11 +8341,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           one
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -8360,11 +8391,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           two
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -8410,11 +8441,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           three
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -8460,11 +8491,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           four
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -8510,11 +8541,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           five
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -8560,11 +8591,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           six
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -8610,11 +8641,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           seven
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -9161,11 +9192,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           zero
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -9211,11 +9242,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           one
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -9261,11 +9292,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           two
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -9311,11 +9342,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           three
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -9361,11 +9392,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           four
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -9411,11 +9442,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           five
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -9461,11 +9492,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           six
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -9511,11 +9542,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           seven
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -10062,11 +10093,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           zero
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -10112,11 +10143,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           one
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -10162,11 +10193,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           two
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -10212,11 +10243,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           three
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -10262,11 +10293,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           four
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -10312,11 +10343,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           five
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -10362,11 +10393,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           six
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -10412,11 +10443,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           seven
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -10963,11 +10994,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           zero
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -11013,11 +11044,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           one
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -11063,11 +11094,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           two
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -11113,11 +11144,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           three
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -11163,11 +11194,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           four
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -11213,11 +11244,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           five
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -11263,11 +11294,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           six
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -11313,11 +11344,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           seven
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -11778,11 +11809,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           zero
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -11828,11 +11859,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           one
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -11878,11 +11909,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           two
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -11928,11 +11959,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           three
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -11978,11 +12009,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           four
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -12028,11 +12059,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           five
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -12078,11 +12109,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           six
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -12128,11 +12159,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           seven
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -12679,11 +12710,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           zero
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -12729,11 +12760,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           one
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -12779,11 +12810,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           two
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -12829,11 +12860,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           three
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -12879,11 +12910,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           four
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -12929,11 +12960,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           five
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -12979,11 +13010,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           six
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -13029,11 +13060,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           seven
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -13524,11 +13555,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           zero
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -13574,11 +13605,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           one
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -13624,11 +13655,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           two
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -13674,11 +13705,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           three
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -13724,11 +13755,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           four
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -13774,11 +13805,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           five
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -13824,11 +13855,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           six
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -13874,11 +13905,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           seven
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -14469,11 +14500,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           zero
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -14519,11 +14550,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           one
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -14569,11 +14600,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           two
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -14619,11 +14650,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           three
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -14669,11 +14700,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           four
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -14719,11 +14750,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           five
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -14769,11 +14800,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           six
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -14819,11 +14850,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           seven
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -15409,11 +15440,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           zero
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -15459,11 +15490,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           one
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -15509,11 +15540,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           two
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -15559,11 +15590,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           three
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -15609,11 +15640,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           four
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -15659,11 +15690,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           five
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -15709,11 +15740,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           six
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -15759,11 +15790,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           seven
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -16347,11 +16378,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           zero
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -16397,11 +16428,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           one
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -16447,11 +16478,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           two
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -16497,11 +16528,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           three
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -16547,11 +16578,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           four
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -16597,11 +16628,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           five
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -16647,11 +16678,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           six
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -16697,11 +16728,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           seven
-        </span>
-        <span
-          className="c12"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c12"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -17152,11 +17183,11 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         onClick={[Function]}
       >
         zero
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -17202,11 +17233,11 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         onClick={[Function]}
       >
         one
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -17252,11 +17283,11 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         onClick={[Function]}
       >
         two
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -17302,11 +17333,11 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         onClick={[Function]}
       >
         three
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -17352,11 +17383,11 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         onClick={[Function]}
       >
         four
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -17402,11 +17433,11 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         onClick={[Function]}
       >
         five
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -17452,11 +17483,11 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         onClick={[Function]}
       >
         six
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"
@@ -17502,11 +17533,11 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
         onClick={[Function]}
       >
         seven
-      </span>
-      <span
-        className="c7"
-      >
-         (press backspace or delete to remove)
+        <span
+          className="c7"
+        >
+           (press backspace or delete to remove)
+        </span>
       </span>
       <span
         aria-hidden="true"

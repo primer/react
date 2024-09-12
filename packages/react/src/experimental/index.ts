@@ -67,8 +67,6 @@ export type {
   NavListDividerProps,
 } from '../NavList'
 export * from './SelectPanel2'
-export {default as TabPanels} from './TabPanels'
-export type {TabPanelsProps, TabPanelsTabProps, TabPanelsPanelProps} from './TabPanels'
 export * from '../TooltipV2'
 export * from '../ActionBar'
 
@@ -87,3 +85,6 @@ export type {UnderlinePanelsProps, UnderlinePanelsTabProps, UnderlinePanelsPanel
 export {SkeletonBox, SkeletonText, SkeletonAvatar} from './Skeleton'
 export {FeatureFlags} from '../FeatureFlags'
 export type {FeatureFlagsProps} from '../FeatureFlags'
+
+export {FilteredActionList} from '../FilteredActionList'
+export type {FilteredActionListProps} from '../FilteredActionList'

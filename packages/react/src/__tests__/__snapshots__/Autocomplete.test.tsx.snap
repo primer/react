@@ -750,7 +750,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 .c3[aria-disabled] [data-component="ActionList.Checkbox"],
 .c3[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -785,6 +785,22 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 .c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
 .c3[data-focus-visible-added] + li {
   --divider-color: transparent;
+}
+
+.c3[data-is-active-descendant] {
+  font-weight: 600;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c3[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
 }
 
 [data-component="ActionList.Divider"] + .c2 {
@@ -1526,7 +1542,7 @@ exports[`snapshots renders a multiselect input 1`] = `
 .c3[aria-disabled] [data-component="ActionList.Checkbox"],
 .c3[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -1561,6 +1577,22 @@ exports[`snapshots renders a multiselect input 1`] = `
 .c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
 .c3[data-focus-visible-added] + li {
   --divider-color: transparent;
+}
+
+.c3[data-is-active-descendant] {
+  font-weight: 600;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c3[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
 }
 
 @media (forced-colors:active) {
@@ -2311,6 +2343,22 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   --divider-color: transparent;
 }
 
+.c3[data-is-active-descendant] {
+  font-weight: 600;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c3[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
+}
+
 .c8 {
   position: relative;
   display: -webkit-box;
@@ -2355,7 +2403,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 .c8[aria-disabled] [data-component="ActionList.Checkbox"],
 .c8[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -2390,6 +2438,22 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 .c8:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
 .c8[data-focus-visible-added] + li {
   --divider-color: transparent;
+}
+
+.c8[data-is-active-descendant] {
+  font-weight: 600;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c8[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
 }
 
 @media (forced-colors:active) {
@@ -3048,7 +3112,7 @@ exports[`snapshots renders a single select input 1`] = `
 .c3[aria-disabled] [data-component="ActionList.Checkbox"],
 .c3[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -3083,6 +3147,22 @@ exports[`snapshots renders a single select input 1`] = `
 .c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
 .c3[data-focus-visible-added] + li {
   --divider-color: transparent;
+}
+
+.c3[data-is-active-descendant] {
+  font-weight: 600;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c3[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
 }
 
 @media (forced-colors:active) {
@@ -3518,7 +3598,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
 .c3[aria-disabled] [data-component="ActionList.Checkbox"],
 .c3[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -3553,6 +3633,22 @@ exports[`snapshots renders with a custom text input component 1`] = `
 .c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
 .c3[data-focus-visible-added] + li {
   --divider-color: transparent;
+}
+
+.c3[data-is-active-descendant] {
+  font-weight: 600;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c3[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
 }
 
 @media (forced-colors:active) {

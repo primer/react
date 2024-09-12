@@ -4,7 +4,7 @@ import {
   FileDirectoryFillIcon,
   FileDirectoryOpenFillIcon,
 } from '@primer/octicons-react'
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 import React, {useCallback, useEffect} from 'react'
 import styled from 'styled-components'
 import {ConfirmationDialog} from '../ConfirmationDialog/ConfirmationDialog'
