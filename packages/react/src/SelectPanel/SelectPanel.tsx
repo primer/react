@@ -16,7 +16,8 @@ import {useProvidedRefOrCreate} from '../hooks'
 import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
-import {LiveRegion, LiveRegionOutlet} from '../internal/components/LiveRegion'
+import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
+import {useFeatureFlag} from '../FeatureFlags'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -174,6 +175,8 @@ export function SelectPanel({
     }
   }, [inputLabel, textInputProps])
 
+  const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
+
   return (
     <LiveRegion>
       <AnchoredOverlay
@@ -192,6 +195,17 @@ export function SelectPanel({
         focusZoneSettings={focusZoneSettings}
       >
         <LiveRegionOutlet />
+        {usingModernActionList ? null : (
+          <Message
+            value={
+              filterValue === ''
+                ? 'Showing all items'
+                : items.length <= 0
+                ? 'No matching items'
+                : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
+            }
+          />
+        )}
 
         <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}>
           <Box sx={{pt: 2, px: 3}}>

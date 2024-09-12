@@ -385,6 +385,9 @@ for (const useModernActionList of [false, true]) {
       })
 
       describe('screen reader announcements', () => {
+        // this is only implemented with the feature flag
+        if (!useModernActionList) return
+
         it('should announce initial focused item', async () => {
           const user = userEvent.setup()
           renderWithFlag(<FilterableSelectPanel />, useModernActionList)
