@@ -2,4 +2,5 @@
 '@primer/react': major
 ---
 
-Remove the drafts entry point. Use experimental instead
+The drafts entrypoint has been removed from @primer/react. Use
+@primer/react/experimental instead.
