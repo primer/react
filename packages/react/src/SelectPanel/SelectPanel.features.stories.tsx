@@ -382,9 +382,9 @@ export const AsyncFetch = () => {
       safeClearTimeout(filterTimerId.current)
     }
 
-    filterTimerId.current = safeSetTimeout(() => {
-      setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(value.toLowerCase())))
-    }, 2000) as unknown as number
+    // filterTimerId.current = safeSetTimeout(() => {
+    //   setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(value.toLowerCase())))
+    // }, 2000) as unknown as number
   }
 
   return (

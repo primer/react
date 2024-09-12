@@ -1,7 +1,8 @@
 import React from 'react'
 import Box from '../Box'
 import Spinner from '../Spinner'
-import {SkeletonBox} from '../drafts'
+import {SkeletonBox, Stack} from '../drafts'
+import {StackItem} from '../Stack/Stack'
 
 export class FilteredActionListLoadingType {
   public name: string
@@ -20,35 +21,37 @@ export const FilteredActionListLoadingTypes = {
 }
 
 export function FilteredActionListBodyLoader({loadingType}: {loadingType: FilteredActionListLoadingType}): JSX.Element {
-  let loader: JSX.Element
-
   switch (loadingType) {
     case FilteredActionListLoadingTypes.bodySpinner:
-      loader = <Spinner data-testid="filtered-action-list-spinner" />
-      break
+      return <LoadingSpinner data-testid="filtered-action-list-spinner" />
     case FilteredActionListLoadingTypes.bodySkeleton:
-      loader = <LoadingSkeleton data-testid="filtered-action-list-skeleton" rows={10} />
-      break
+      return <LoadingSkeleton data-testid="filtered-action-list-skeleton" rows={10} />
     default:
       return <></>
   }
+}
 
+function LoadingSpinner({...props}): JSX.Element {
   return (
-    <Box width="100%" display="flex" flexDirection="column" justifyContent="center" p={2} sx={{gap: 2}}>
-      {loader}
+    <Box p={3}>
+      <Stack direction="horizontal" justify="center">
+        <Spinner {...props} />
+      </Stack>
     </Box>
   )
 }
 
 function LoadingSkeleton({rows = 10, ...props}: {rows: number}): JSX.Element {
   return (
-    <Box {...props}>
-      {Array.from({length: rows}, (_, i) => (
-        <Box key={i} display="flex" sx={{gap: 2}} alignItems="center">
-          <SkeletonBox width="16px" height="16px" />
-          <SkeletonBox height="10px" width={`${Math.random() * 70 + 10}%`} borderRadius={2} />
-        </Box>
-      ))}
+    <Box p={2}>
+      <Stack direction="vertical" justify="center" gap="condensed" {...props}>
+        {Array.from({length: rows}, (_, i) => (
+          <Stack key={i} direction="horizontal" gap="condensed" align="center">
+            <StackItem as={SkeletonBox} width="16px" height="16px" />
+            <StackItem as={SkeletonBox} height="10px" width={`${Math.random() * 70 + 10}%`} borderRadius={2} />
+          </Stack>
+        ))}
+      </Stack>
     </Box>
   )
 }
