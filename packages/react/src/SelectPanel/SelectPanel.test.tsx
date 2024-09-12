@@ -25,7 +25,7 @@ const items: SelectPanelProps['items'] = [
   },
 ]
 
-function BasicSelectPanel() {
+function BasicSelectPanel(passthroughProps: Record<string, unknown>) {
   const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
   const [filter, setFilter] = React.useState('')
   const [open, setOpen] = React.useState(false)
@@ -52,6 +52,7 @@ function BasicSelectPanel() {
         onOpenChange={isOpen => {
           setOpen(isOpen)
         }}
+        {...passthroughProps}
       />
     </ThemeProvider>
   )
@@ -201,6 +202,22 @@ for (const useModernActionList of [true, false]) {
         expect(onOpenChange).toHaveBeenLastCalledWith(false, 'click-outside')
       })
 
+      it('should label the list by title unless a aria-label is explicitly passed', async () => {
+        const user = userEvent.setup()
+
+        renderWithFlag(<BasicSelectPanel />, useModernActionList)
+        await user.click(screen.getByText('Select items'))
+        expect(screen.getByRole('listbox', {name: 'test title'})).toBeInTheDocument()
+      })
+
+      it('should label the list by aria-label when explicitly passed', async () => {
+        const user = userEvent.setup()
+
+        renderWithFlag(<BasicSelectPanel aria-label="Custom label" />, useModernActionList)
+        await user.click(screen.getByText('Select items'))
+        expect(screen.getByRole('listbox', {name: 'Custom label'})).toBeInTheDocument()
+      })
+
       describe('selection', () => {
         it('should select an active option when activated', async () => {
           const user = userEvent.setup()
@@ -284,6 +301,35 @@ for (const useModernActionList of [true, false]) {
           )
 
           await user.type(document.activeElement!, '{ArrowUp}')
+          expect(document.activeElement!).toHaveAttribute(
+            'aria-activedescendant',
+            screen.getByRole('option', {name: 'item one'}).id,
+          )
+        })
+
+        it('should support navigating through items with PageDown and PageUp', async () => {
+          if (!useModernActionList) return // this feature is only enabled with feature flag on
+
+          const user = userEvent.setup()
+
+          renderWithFlag(<BasicSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          // First item by default should be the active element
+          expect(document.activeElement!).toHaveAttribute(
+            'aria-activedescendant',
+            screen.getByRole('option', {name: 'item one'}).id,
+          )
+
+          await user.type(document.activeElement!, '{PageDown}')
+
+          expect(document.activeElement!).toHaveAttribute(
+            'aria-activedescendant',
+            screen.getByRole('option', {name: 'item three'}).id,
+          )
+
+          await user.type(document.activeElement!, '{PageUp}')
           expect(document.activeElement!).toHaveAttribute(
             'aria-activedescendant',
             screen.getByRole('option', {name: 'item one'}).id,

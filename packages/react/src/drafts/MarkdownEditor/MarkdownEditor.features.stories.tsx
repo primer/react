@@ -1,7 +1,6 @@
 import {DiffIcon, PlusIcon} from '@primer/octicons-react'
 import type {Meta} from '@storybook/react'
-import React from '@storybook/react'
-import {useRef, useState} from 'react'
+import React, {useRef, useState} from 'react'
 import Box from '../../Box'
 import type {Emoji, Mentionable, Reference, SavedReply} from '.'
 import MarkdownEditor from '.'
