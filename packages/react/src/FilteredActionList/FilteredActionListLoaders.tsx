@@ -47,8 +47,8 @@ function LoadingSkeleton({rows = 10, ...props}: {rows: number}): JSX.Element {
       <Stack direction="vertical" justify="center" gap="condensed" {...props}>
         {Array.from({length: rows}, (_, i) => (
           <Stack key={i} direction="horizontal" gap="condensed" align="center">
-            <StackItem as={SkeletonBox} width="16px" height="16px" />
-            <StackItem as={SkeletonBox} height="10px" width={`${Math.random() * 60 + 20}%`} borderRadius={2} />
+            <SkeletonBox width="16px" height="16px" />
+            <SkeletonBox height="10px" width={`${Math.random() * 60 + 20}%`} borderRadius={2} />
           </Stack>
         ))}
       </Stack>
