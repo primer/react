@@ -64,46 +64,77 @@ module.exports = {
     return `${body}\n<script src="https://analytics.githubassets.com/hydro-marketing.min.js"></script>`
   },
   webpackFinal(config, {configType}) {
-    const cssRule = config.module.rules.findIndex(rule => {
-      return rule.test.toString() === '/\\.css$/'
-    })
-    if (cssRule !== -1) {
-      config.module.rules.splice(cssRule, 1)
+    const loaders = [
+      {
+        test: /\.css$/,
+        exclude: /\.module\.css$/,
+        use: [
+          configType === 'DEVELOPMENT' ? 'style-loader' : MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              import: true,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              implementation: require.resolve('postcss'),
+              postcssOptions: {
+                plugins: [presetPrimer()],
+              },
+            },
+          },
+        ],
+      },
+      {
+        test: /\.module\.css$/,
+        use: [
+          configType === 'DEVELOPMENT' ? 'style-loader' : MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: {
+                localIdentName: 'prc-[folder]-[local]-[hash:base64:5]',
+                namedExport: false,
+                exportLocalsConvention: 'as-is',
+              },
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              implementation: require.resolve('postcss'),
+              postcssOptions: {
+                plugins: [presetPrimer()],
+              },
+            },
+          },
+        ],
+      },
+    ]
+
+    config.module.rules = Array.isArray(config.module.rules)
+      ? config.module.rules
+          .filter(rule => {
+            if (rule.test) {
+              return rule.test.toString() !== '/\\.css$/'
+            }
+            return true
+          })
+          .concat(loaders)
+      : [loaders]
+
+    if (configType !== 'DEVELOPMENT') {
+      config.plugins.push(
+        new MiniCssExtractPlugin({
+          filename: configType === 'DEVELOPMENT' ? '[name].css' : '[name].[contenthash].css',
+          chunkFilename: configType === 'DEVELOPMENT' ? '[id].css' : '[id].[contenthash].css',
+        }),
+      )
     }
-
-    config.module.rules.push({
-      test: /\.css$/,
-      use: [
-        MiniCssExtractPlugin.loader,
-        {
-          loader: 'css-loader',
-          options: {
-            importLoaders: 1,
-            modules: {
-              localIdentName: 'prc-[folder]-[local]-[hash:base64:5]',
-              namedExport: false,
-              exportLocalsConvention: 'as-is',
-            },
-          },
-        },
-        {
-          loader: 'postcss-loader',
-          options: {
-            implementation: require.resolve('postcss'),
-            postcssOptions: {
-              plugins: [presetPrimer()],
-            },
-          },
-        },
-      ],
-    })
-
-    config.plugins.push(
-      new MiniCssExtractPlugin({
-        filename: configType === 'DEVELOPMENT' ? '[name].css' : '[name].[contenthash].css',
-        chunkFilename: configType === 'DEVELOPMENT' ? '[id].css' : '[id].[contenthash].css',
-      }),
-    )
 
     return config
   },

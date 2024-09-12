@@ -215,6 +215,7 @@
     "semver": "7.6.2",
     "storybook": "^8.3.0",
     "storybook-addon-turbo-build": "2.0.1",
+    "style-loader": "4.0.0",
     "styled-components": "5.3.11",
     "terser": "5.31.0",
     "ts-toolbelt": "9.6.0",
