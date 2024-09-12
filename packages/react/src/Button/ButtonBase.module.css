@@ -54,6 +54,13 @@
     }
   }
 
+  /* Visuals */
+  & .Visual {
+    display: flex;
+    color: var(--fgColor-muted);
+    pointer-events: none;
+  }
+
   /* IconButton */
 
   &:where(.IconButton) {
@@ -74,78 +81,62 @@
       min-width: var(--control-large-size);
     }
   }
-}
 
-/* LinkButton */
+  /* LinkButton */
 
-:where(.ButtonBase[href]) {
-  display: inline-flex;
+  &[href] {
+    display: inline-flex;
 
-  &:hover {
-    text-decoration: none;
-  }
-}
-
-/* Visuals */
-.Visual {
-  display: flex;
-  color: var(--fgColor-muted);
-  pointer-events: none;
-}
-
-.ConditionalWrapper {
-  display: block;
-}
-
-/* Button layout */
-
-:where(.ButtonContent) {
-  flex: 1 0 auto;
-  display: grid;
-  grid-template-areas: 'leadingVisual text trailingVisual';
-  grid-template-columns: min-content minmax(0, auto) min-content;
-  align-items: center;
-  align-content: center;
-
-  /* Content alignment */
-
-  &:where([data-align='center']) {
-    justify-content: center;
+    &:hover {
+      text-decoration: none;
+    }
   }
 
-  &:where([data-align='start']) {
-    justify-content: flex-start;
+  /* Button layout */
+
+  & :where(.ButtonContent) {
+    flex: 1 0 auto;
+    display: grid;
+    grid-template-areas: 'leadingVisual text trailingVisual';
+    grid-template-columns: min-content minmax(0, auto) min-content;
+    align-items: center;
+    align-content: center;
+
+    /* Content alignment */
+
+    &:where([data-align='center']) {
+      justify-content: center;
+    }
+
+    &:where([data-align='start']) {
+      justify-content: flex-start;
+    }
   }
-}
 
-:where(.ButtonBase [data-component='leadingVisual']) {
-  grid-area: leadingVisual;
-}
+  & :where([data-component='leadingVisual']) {
+    grid-area: leadingVisual;
+  }
 
-.Label {
-  line-height: calc(20 / 14); /* temporary until we use Text component with --text-body-lineHeight-medium */
-  white-space: nowrap;
-  grid-area: text;
-}
+  & .Label {
+    line-height: calc(20 / 14); /* temporary until we use Text component with --text-body-lineHeight-medium */
+    white-space: nowrap;
+    grid-area: text;
+  }
 
-:where(.ButtonBase [data-component='trailingVisual']) {
-  grid-area: trailingVisual;
-}
+  & :where([data-component='trailingVisual']) {
+    grid-area: trailingVisual;
+  }
 
-:where(.ButtonBase [data-component='trailingAction']) {
-  margin-right: calc(var(--base-size-4) * -1);
-}
+  & :where([data-component='trailingAction']) {
+    margin-right: calc(var(--base-size-4) * -1);
+  }
 
-:where(.ButtonBase [data-component='buttonContent'] > :not(:last-child)) {
-  margin-right: var(--base-size-8);
-}
+  & :where([data-component='buttonContent'] > :not(:last-child)) {
+    margin-right: var(--base-size-8);
+  }
 
-/* Props */
+  /* Size */
 
-/* Size */
-
-/* stylelint-disable-next-line no-duplicate-selectors */
-:where(.ButtonBase) {
   &:where([data-size='small']) {
     height: var(--control-small-size);
     /* stylelint-disable-next-line primer/spacing */
@@ -162,10 +153,7 @@
       line-height: calc(20 / 12); /* temporary until we use Text component with --text-body-lineHeight-small */
     }
   }
-}
 
-/* stylelint-disable-next-line no-duplicate-selectors */
-:where(.ButtonBase) {
   &:where([data-size='large']) {
     height: var(--control-large-size);
     /* stylelint-disable-next-line primer/spacing */
@@ -177,21 +165,15 @@
       margin-right: var(--control-large-gap);
     }
   }
-}
 
-/* Full width */
+  /* Full width */
 
-/* stylelint-disable-next-line no-duplicate-selectors */
-:where(.ButtonBase) {
   &:where([data-block='block']) {
     width: 100%;
   }
-}
 
-/* Wrap label text */
+  /* Wrap label text */
 
-/* stylelint-disable-next-line no-duplicate-selectors */
-:where(.ButtonBase) {
   &:where([data-label-wrap='true']) {
     min-width: fit-content;
     height: unset;
@@ -231,16 +213,13 @@
       }
     }
   }
-}
 
-/* Loading */
+  /* Loading */
 
-/* only hide label if there's no leading/trailing visuals
-* move spinner to label spot if not leading/trailing visuals
-*/
+  /* only hide label if there's no leading/trailing visuals
+  * move spinner to label spot if not leading/trailing visuals
+  */
 
-/* stylelint-disable-next-line no-duplicate-selectors */
-:where(.ButtonBase) {
   &:where([data-loading='true']) {
     &
       .loadingSpinner:not(
@@ -257,14 +236,9 @@
       }
     }
   }
-}
 
-/* Variants */
+  /* Default Variant */
 
-/* Default Variant */
-
-/* stylelint-disable-next-line no-duplicate-selectors */
-:where(.ButtonBase) {
   &:where([data-variant='default']) {
     color: var(--button-default-fgColor-rest);
     background-color: var(--button-default-bgColor-rest);
@@ -300,12 +274,9 @@
       color: var(--fgColor-muted);
     }
   }
-}
 
-/* Primary Variant */
+  /* Primary variant */
 
-/* stylelint-disable-next-line no-duplicate-selectors */
-:where(.ButtonBase) {
   &:where([data-variant='primary']) {
     color: var(--button-primary-fgColor-rest);
     background-color: var(--button-primary-bgColor-rest);
@@ -350,12 +321,9 @@
       color: var(--button-primary-fgColor-rest);
     }
   }
-}
 
-/* Danger Variant */
+  /* Danger variant */
 
-/* stylelint-disable-next-line no-duplicate-selectors */
-:where(.ButtonBase) {
   &:where([data-variant='danger']) {
     color: var(--button-danger-fgColor-rest);
     background-color: var(--button-danger-bgColor-rest);
@@ -417,12 +385,9 @@
       color: var(--button-danger-iconColor-rest);
     }
   }
-}
 
-/* Invisible Variant */
+  /* Invisible variant */
 
-/* stylelint-disable-next-line no-duplicate-selectors */
-:where(.ButtonBase) {
   &:where([data-variant='invisible']) {
     color: var(--button-default-fgColor-rest);
     border-color: transparent;
@@ -467,14 +432,11 @@
       color: var(--button-invisible-iconColor-rest);
     }
   }
-}
 
-/* Link variant */
+  /* Link variant */
 
-/* stylelint-disable-next-line no-duplicate-selectors */
-:where(.ButtonBase) {
   &:where([data-variant='link']) {
-    display: inline-block;
+    display: inline-flex;
     min-width: fit-content;
     height: unset;
     padding: 0;
@@ -506,13 +468,14 @@
       color: var(--button-inactive-fgColor);
       background: transparent !important;
     }
+
+    & .Visual {
+      color: var(--fgColor-link);
+    }
   }
-}
 
-/* Inactive */
+  /* Inactive */
 
-/* stylelint-disable-next-line no-duplicate-selectors */
-:where(.ButtonBase) {
   &:where([data-inactive]),
   &:where([data-inactive]):hover {
     color: var(--button-inactive-fgColor);
@@ -525,4 +488,8 @@
       color: inherit;
     }
   }
+}
+
+.ConditionalWrapper {
+  display: block;
 }
