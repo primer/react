@@ -16,7 +16,10 @@ const useFirstRender = () => {
   return firstRender.current
 }
 
-const getItemWithActiveDescendant = (listRef, items) => {
+const getItemWithActiveDescendant = (
+  listRef: React.RefObject<HTMLUListElement>,
+  items: FilteredActionListProps['items'],
+) => {
   const listElement = listRef.current
   const activeItemElement = listElement?.querySelector('[data-is-active-descendant]')
 
@@ -35,7 +38,7 @@ const getItemWithActiveDescendant = (listRef, items) => {
 
 export const useAnnouncements = (
   items: FilteredActionListProps['items'],
-  listContainerRef: React.RefObject<HTMLUListElement | HTMLDivElement>, // compatible with new and old
+  listContainerRef: React.RefObject<HTMLUListElement>,
   inputRef: React.RefObject<HTMLInputElement>,
 ) => {
   useEffect(
@@ -43,7 +46,9 @@ export const useAnnouncements = (
       const focusHandler = () => {
         // give @primer/behaviors a moment to apply active-descendant
         window.requestAnimationFrame(() => {
-          const {index, text, selected} = getItemWithActiveDescendant(listContainerRef, items)
+          const activeItem = getItemWithActiveDescendant(listContainerRef, items)
+          if (!activeItem) return
+          const {index, text, selected} = activeItem
 
           const announcementText = [
             `Focus on filter text box and list of labels`,
@@ -74,7 +79,9 @@ export const useAnnouncements = (
 
       // give @primer/behaviors a moment to update active-descendant
       window.requestAnimationFrame(() => {
-        const {index, text, selected} = getItemWithActiveDescendant(listContainerRef, items)
+        const activeItem = getItemWithActiveDescendant(listContainerRef, items)
+        if (!activeItem) return
+        const {index, text, selected} = activeItem
 
         const announcementText = [
           `List updated`,
