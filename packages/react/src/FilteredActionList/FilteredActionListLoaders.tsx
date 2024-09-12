@@ -1,7 +1,7 @@
 import React from 'react'
 import Box from '../Box'
 import Spinner from '../Spinner'
-import {SkeletonBox} from '../drafts'
+import {SkeletonBox} from '../drafts/Skeleton'
 import {Stack, StackItem} from '../Stack/Stack'
 
 export class FilteredActionListLoadingType {
