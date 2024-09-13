@@ -3,9 +3,9 @@
   "name": "Overlay",
   "status": "alpha",
   "a11yReviewed": false,
-   "stories": [
-    {"id": "private-components-overlay--dialog-overlay"},
-    {"id": "private-components-overlay--positioned-overlays"},
+  "stories": [
+    {"id": "private-components-overlay-features--dialog-overlay"},
+    {"id": "private-components-overlay-features--positioned-overlays"}
   ],
   "importPath": "@primer/react",
   "props": [
