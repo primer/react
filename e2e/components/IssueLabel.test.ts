@@ -1,98 +1,98 @@
 import {test, expect} from '@playwright/test'
-import {visit} from '../../test-helpers/storybook'
-import {themes} from '../../test-helpers/themes'
+import {visit} from '../test-helpers/storybook'
+import {themes} from '../test-helpers/themes'
 
 const variants = [
   {
     title: 'Default',
-    id: 'drafts-components-issuelabel--default',
+    id: 'experimental-components-issuelabel--default',
   },
   {
     title: 'Auburn',
-    id: 'drafts-components-issuelabel-features--auburn',
+    id: 'experimental-components-issuelabel-features--auburn',
   },
   {
     title: 'Blue',
-    id: 'drafts-components-issuelabel-features--blue',
+    id: 'experimental-components-issuelabel-features--blue',
   },
   {
     title: 'Brown',
-    id: 'drafts-components-issuelabel-features--brown',
+    id: 'experimental-components-issuelabel-features--brown',
   },
   {
     title: 'Coral',
-    id: 'drafts-components-issuelabel-features--coral',
+    id: 'experimental-components-issuelabel-features--coral',
   },
   {
     title: 'Cyan',
-    id: 'drafts-components-issuelabel-features--cyan',
+    id: 'experimental-components-issuelabel-features--cyan',
   },
   {
     title: 'Gray',
-    id: 'drafts-components-issuelabel-features--gray',
+    id: 'experimental-components-issuelabel-features--gray',
   },
   {
     title: 'Green',
-    id: 'drafts-components-issuelabel-features--green',
+    id: 'experimental-components-issuelabel-features--green',
   },
   {
     title: 'Indigo',
-    id: 'drafts-components-issuelabel-features--indigo',
+    id: 'experimental-components-issuelabel-features--indigo',
   },
   {
     title: 'Lemon',
-    id: 'drafts-components-issuelabel-features--lemon',
+    id: 'experimental-components-issuelabel-features--lemon',
   },
   {
     title: 'Lime',
-    id: 'drafts-components-issuelabel-features--lime',
+    id: 'experimental-components-issuelabel-features--lime',
   },
   {
     title: 'Olive',
-    id: 'drafts-components-issuelabel-features--olive',
+    id: 'experimental-components-issuelabel-features--olive',
   },
   {
     title: 'Orange',
-    id: 'drafts-components-issuelabel-features--orange',
+    id: 'experimental-components-issuelabel-features--orange',
   },
   {
     title: 'Pine',
-    id: 'drafts-components-issuelabel-features--pine',
+    id: 'experimental-components-issuelabel-features--pine',
   },
   {
     title: 'Pink',
-    id: 'drafts-components-issuelabel-features--pink',
+    id: 'experimental-components-issuelabel-features--pink',
   },
   {
     title: 'Plum',
-    id: 'drafts-components-issuelabel-features--plum',
+    id: 'experimental-components-issuelabel-features--plum',
   },
   {
     title: 'Purple',
-    id: 'drafts-components-issuelabel-features--purple',
+    id: 'experimental-components-issuelabel-features--purple',
   },
   {
     title: 'Red',
-    id: 'drafts-components-issuelabel-features--red',
+    id: 'experimental-components-issuelabel-features--red',
   },
   {
     title: 'Teal',
-    id: 'drafts-components-issuelabel-features--teal',
+    id: 'experimental-components-issuelabel-features--teal',
   },
   {
     title: 'Yellow',
-    id: 'drafts-components-issuelabel-features--yellow',
+    id: 'experimental-components-issuelabel-features--yellow',
   },
 ] as const
 
 const sizes = [
   {
     title: 'Size: Large',
-    id: 'drafts-components-issuelabel-features--size-large',
+    id: 'experimental-components-issuelabel-features--size-large',
   },
   {
     title: 'Size: Small',
-    id: 'drafts-components-issuelabel-features--size-small',
+    id: 'experimental-components-issuelabel-features--size-small',
   },
 ] as const
 

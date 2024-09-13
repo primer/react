@@ -292,8 +292,6 @@ exports[`@primer/react/drafts should not update exports without a semver change 
   "InlineMessage",
   "type InlineMessageProps",
   "type InteractiveMarkdownViewerProps",
-  "IssueLabel",
-  "type IssueLabelProps",
   "KeybindingHint",
   "type KeybindingHintProps",
   "MarkdownEditor",

@@ -3,7 +3,7 @@ import {IssueLabel} from '../IssueLabel'
 import type {Meta, StoryObj} from '@storybook/react'
 
 const meta = {
-  title: 'Drafts/Components/IssueLabel',
+  title: 'Experimental/Components/IssueLabel',
   component: IssueLabel,
 } satisfies Meta<typeof IssueLabel>
 
