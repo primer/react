@@ -4,7 +4,7 @@ import type {Meta} from '@storybook/react'
 import type {Hex} from './IssueLabel'
 
 const meta = {
-  title: 'Drafts/Components/IssueLabel/Features',
+  title: 'Experimental/Components/IssueLabel/Features',
   component: IssueLabel,
 } satisfies Meta<typeof IssueLabel>
 
