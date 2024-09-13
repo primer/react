@@ -1,6 +1,6 @@
 import {SearchIcon, TriangleDownIcon, EyeIcon, IssueClosedIcon} from '@primer/octicons-react'
 import React from 'react'
-import {Button, IconButton, LinkButton} from '.'
+import {Button, IconButton} from '.'
 import {default as Text} from '../Text'
 
 export default {
