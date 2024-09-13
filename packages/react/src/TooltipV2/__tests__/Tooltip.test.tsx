@@ -109,4 +109,17 @@ describe('Tooltip', () => {
     const triggerEL = getByRole('button')
     expect(triggerEL.getAttribute('aria-describedby')).toContain('custom-tooltip-id')
   })
+  it('should not throw an error when the trigger element is a button', () => {
+    const {getByRole} = HTMLRender(
+      <fieldset>
+        <legend>Legend</legend>
+        <Tooltip text="Tooltip text">
+          <button>Button Text</button>
+        </Tooltip>
+      </fieldset>,
+    )
+
+    const triggerEL = getByRole('button')
+    expect(triggerEL).toBeInTheDocument()
+  })
 })
