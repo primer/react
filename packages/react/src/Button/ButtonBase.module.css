@@ -128,7 +128,7 @@
   }
 
   & .Label {
-    line-height: 1.42857; /* temporary until we use Text component with --text-body-lineHeight-medium */
+    line-height: 1.4285714; /* temporary until we use Text component with --text-body-lineHeight-medium */
     white-space: nowrap;
     grid-area: text;
   }
@@ -156,7 +156,7 @@
     }
 
     & .Label {
-      line-height: 1.66667; /* temporary until we use Text component with --text-body-lineHeight-small */
+      line-height: 1.6666667; /* temporary until we use Text component with --text-body-lineHeight-small */
     }
   }
 
