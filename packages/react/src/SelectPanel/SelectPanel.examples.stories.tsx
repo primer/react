@@ -6,6 +6,7 @@ import type {ItemInput} from '../deprecated/ActionList/List'
 import {SelectPanel} from './SelectPanel'
 import type {OverlayProps} from '../Overlay'
 import {TriangleDownIcon} from '@primer/octicons-react'
+import {ActionList} from '../deprecated/ActionList'
 
 const meta = {
   title: 'Components/SelectPanel/Examples',
@@ -238,6 +239,72 @@ export const HeightVariantionsAndScroll = () => {
           height: 'auto',
           maxHeight: 'medium',
         }}
+      />
+    </>
+  )
+}
+
+const longItems = [
+  {text: 'src/SelectPanel/SelectPanel.tsx', id: 3},
+  {text: 'src/SelectPanel/SelectPanel.stories.tsx', id: 4},
+  {text: 'src/SelectPanel/SelectPanel.features.stories.tsx', id: 5},
+  {text: 'src/SelectPanel/SelectPanel.examples.stories.tsx', id: 6},
+]
+
+export const CustomItemRenderer = () => {
+  const items = longItems
+  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+
+  return (
+    <>
+      <h1>Long string with truncation (not reviewed for accessibility)</h1>
+      <SelectPanel
+        title="Select files"
+        renderAnchor={({'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <Button
+            trailingAction={TriangleDownIcon}
+            aria-labelledby={` ${ariaLabelledBy}`}
+            {...anchorProps}
+            aria-haspopup="dialog"
+          >
+            Select files
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        overlayProps={{width: 'medium'}}
+        renderItem={item => (
+          <ActionList.Item
+            {...item}
+            text={undefined}
+            sx={{
+              mx: 2,
+              '&[data-is-active-descendant="activated-directly"]': {
+                backgroundColor: 'transparent',
+                outline: '2px solid var(--focus-outlineColor, var(--color-accent-emphasis))',
+                outlineOffset: '-2px',
+              },
+            }}
+          >
+            {' '}
+            <Box
+              sx={{
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
+                textOverflow: 'ellipsis',
+              }}
+            >
+              {item.text}
+            </Box>
+          </ActionList.Item>
+        )}
       />
     </>
   )

@@ -1,4 +1,4 @@
-import cx from 'clsx'
+import {clsx} from 'clsx'
 import React from 'react'
 import Box from '../Box'
 import {Button} from '../Button'
@@ -129,13 +129,13 @@ const BlankslateContainerQuery = `
 `
 
 function Blankslate({border, children, narrow, spacious, className}: BlankslateProps) {
-  const enabled = useFeatureFlag('primer_react_css_modules')
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
 
   if (enabled) {
     return (
       <div className={classes.Container}>
         <div
-          className={cx(classes.Blankslate, className)}
+          className={clsx(classes.Blankslate, className)}
           data-border={border}
           data-narrow={narrow}
           data-spacious={spacious}
@@ -154,7 +154,12 @@ function Blankslate({border, children, narrow, spacious, className}: BlankslateP
       */}
       <style type="text/css" dangerouslySetInnerHTML={{__html: BlankslateContainerQuery}} />
       <StyledBlankslate>
-        <div className={cx('Blankslate', className)} data-border={border} data-narrow={narrow} data-spacious={spacious}>
+        <div
+          className={clsx('Blankslate', className)}
+          data-border={border}
+          data-narrow={narrow}
+          data-spacious={spacious}
+        >
           {children}
         </div>
       </StyledBlankslate>
@@ -165,10 +170,10 @@ function Blankslate({border, children, narrow, spacious, className}: BlankslateP
 export type VisualProps = React.PropsWithChildren
 
 function Visual({children}: VisualProps) {
-  const enabled = useFeatureFlag('primer_react_css_modules')
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
   return (
     <span
-      className={cx('Blankslate-Visual', {
+      className={clsx('Blankslate-Visual', {
         [classes.Visual]: enabled,
       })}
     >
@@ -182,14 +187,14 @@ export type HeadingProps = React.PropsWithChildren<{
 }>
 
 function Heading({as: Component = 'h2', children}: HeadingProps) {
-  const enabled = useFeatureFlag('primer_react_css_modules')
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
 
   if (enabled) {
-    return <Component className={cx('Blankslate-Heading', classes.Heading)}>{children}</Component>
+    return <Component className={clsx('Blankslate-Heading', classes.Heading)}>{children}</Component>
   }
 
   return (
-    <Box as={Component} className={cx('Blankslate-Heading')}>
+    <Box as={Component} className={clsx('Blankslate-Heading')}>
       {children}
     </Box>
   )
@@ -198,10 +203,10 @@ function Heading({as: Component = 'h2', children}: HeadingProps) {
 export type DescriptionProps = React.PropsWithChildren
 
 function Description({children}: DescriptionProps) {
-  const enabled = useFeatureFlag('primer_react_css_modules')
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
   return (
     <p
-      className={cx('Blankslate-Description', {
+      className={clsx('Blankslate-Description', {
         [classes.Description]: enabled,
       })}
     >
@@ -215,10 +220,10 @@ export type PrimaryActionProps = React.PropsWithChildren<{
 }>
 
 function PrimaryAction({children, href}: PrimaryActionProps) {
-  const enabled = useFeatureFlag('primer_react_css_modules')
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
   return (
     <div
-      className={cx('Blankslate-Action', {
+      className={clsx('Blankslate-Action', {
         [classes.Action]: enabled,
       })}
     >
@@ -234,10 +239,10 @@ export type SecondaryActionProps = React.PropsWithChildren<{
 }>
 
 function SecondaryAction({children, href}: SecondaryActionProps) {
-  const enabled = useFeatureFlag('primer_react_css_modules')
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
   return (
     <div
-      className={cx('Blankslate-Action', {
+      className={clsx('Blankslate-Action', {
         [classes.Action]: enabled,
       })}
     >

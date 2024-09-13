@@ -1710,7 +1710,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   transition: 80ms cubic-bezier(0.65,0,0.35,1);
   -webkit-transition-property: color,fill,background-color,border-color;
   transition-property: color,fill,background-color,border-color;
-  color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
+  color: var(--button-invisible-fgColor-rest,var(--button-default-fgColor-rest,var(--color-btn-text,#24292f)));
   background-color: transparent;
   box-shadow: none;
 }
@@ -1761,6 +1761,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   cursor: not-allowed;
   box-shadow: none;
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--button-invisible-bgColor-disabled,transparent);
 }
 
 .c4:disabled [data-component=ButtonCounter],
@@ -1878,7 +1879,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c4 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4 [data-component="text"] {
@@ -1889,11 +1890,12 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c4 [data-component="trailingVisual"] {
   grid-area: trailingVisual;
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4 [data-component="trailingAction"] {
   margin-right: -4px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4 [data-component="buttonContent"] {
@@ -1920,6 +1922,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   grid-area: text;
   margin-right: 0px !important;
   place-self: center;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
 .c4 [data-component="loadingSpinner"] + [data-component="text"] {
@@ -1939,15 +1942,15 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c4[data-component="IconButton"][data-no-visuals] {
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4[data-no-visuals] {
-  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  color: var(--button-invisible-fgColor-rest,var(--button-default-fgColor-rest,var(--color-btn-text,#24292f)));
 }
 
 .c4:has([data-component="ButtonCounter"]) {
-  color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
+  color: var(--button-invisible-fgColor-rest,var(--button-default-fgColor-rest,var(--color-btn-text,#24292f)));
 }
 
 .c4:disabled[data-no-visuals] {
@@ -2340,7 +2343,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   transition: 80ms cubic-bezier(0.65,0,0.35,1);
   -webkit-transition-property: color,fill,background-color,border-color;
   transition-property: color,fill,background-color,border-color;
-  color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
+  color: var(--button-invisible-fgColor-rest,var(--button-default-fgColor-rest,var(--color-btn-text,#24292f)));
   background-color: transparent;
   box-shadow: none;
 }
@@ -2391,6 +2394,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   cursor: not-allowed;
   box-shadow: none;
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--button-invisible-bgColor-disabled,transparent);
 }
 
 .c4:disabled [data-component=ButtonCounter],
@@ -2508,7 +2512,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c4 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4 [data-component="text"] {
@@ -2519,11 +2523,12 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c4 [data-component="trailingVisual"] {
   grid-area: trailingVisual;
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4 [data-component="trailingAction"] {
   margin-right: -4px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4 [data-component="buttonContent"] {
@@ -2550,6 +2555,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   grid-area: text;
   margin-right: 0px !important;
   place-self: center;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
 .c4 [data-component="loadingSpinner"] + [data-component="text"] {
@@ -2569,7 +2575,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c4[data-component="IconButton"][data-no-visuals] {
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4[data-no-visuals] {
@@ -2593,7 +2599,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c4:has([data-component="ButtonCounter"]) {
-  color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
+  color: var(--button-invisible-fgColor-rest,var(--button-default-fgColor-rest,var(--color-btn-text,#24292f)));
 }
 
 .c4:disabled[data-no-visuals] {
@@ -2831,7 +2837,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   transition: 80ms cubic-bezier(0.65,0,0.35,1);
   -webkit-transition-property: color,fill,background-color,border-color;
   transition-property: color,fill,background-color,border-color;
-  color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
+  color: var(--button-invisible-fgColor-rest,var(--button-default-fgColor-rest,var(--color-btn-text,#24292f)));
   background-color: transparent;
   box-shadow: none;
 }
@@ -2882,6 +2888,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   cursor: not-allowed;
   box-shadow: none;
   color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--button-invisible-bgColor-disabled,transparent);
 }
 
 .c4:disabled [data-component=ButtonCounter],
@@ -2999,7 +3006,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c4 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4 [data-component="text"] {
@@ -3010,11 +3017,12 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c4 [data-component="trailingVisual"] {
   grid-area: trailingVisual;
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4 [data-component="trailingAction"] {
   margin-right: -4px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4 [data-component="buttonContent"] {
@@ -3041,6 +3049,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   grid-area: text;
   margin-right: 0px !important;
   place-self: center;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
 .c4 [data-component="loadingSpinner"] + [data-component="text"] {
@@ -3060,7 +3069,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c4[data-component="IconButton"][data-no-visuals] {
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  color: var(--button-invisible-iconColor-rest,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
 .c4[data-no-visuals] {
@@ -3084,7 +3093,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c4:has([data-component="ButtonCounter"]) {
-  color: var(--button-default-fgColor-rest,var(--color-btn-text,#24292f));
+  color: var(--button-invisible-fgColor-rest,var(--button-default-fgColor-rest,var(--color-btn-text,#24292f)));
 }
 
 .c4:disabled[data-no-visuals] {

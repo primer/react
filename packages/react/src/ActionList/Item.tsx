@@ -229,7 +229,11 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       '&:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + &, &[data-focus-visible-added] + li': {
         '--divider-color': 'transparent',
       },
-      ...(active ? activeStyles : {}),
+
+      /** Active styles */
+      ...(active ? activeStyles : {}), // NavList
+      '&[data-is-active-descendant]': activeStyles, // SelectPanel
+
       ...(!buttonSemantics ? hoverStyles : {}),
     }
 
