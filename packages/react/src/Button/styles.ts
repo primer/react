@@ -299,7 +299,7 @@ export const getBaseStyles = (theme?: Theme) => ({
     fontSize: '0',
 
     '[data-component="text"]': {
-      lineHeight: 'calc(20 / 12)',
+      lineHeight: '1.66667',
     },
 
     '[data-component=ButtonCounter]': {
@@ -385,7 +385,7 @@ export const getButtonStyles = (theme?: Theme) => {
     },
     '[data-component="text"]': {
       gridArea: 'text',
-      lineHeight: 'calc(20/14)',
+      lineHeight: '1.42857',
       whiteSpace: 'nowrap',
     },
     '[data-component="trailingVisual"]': {
