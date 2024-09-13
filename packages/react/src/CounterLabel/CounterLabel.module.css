@@ -1,0 +1,23 @@
+.CounterLabel {
+  display: inline-block;
+  padding: var(--base-size-2) var(--base-size-4);
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1;
+  border: var(--borderWidth-thin, max(1px, 0.0625rem)) solid var(--counter-borderColor);
+  border-radius: 20px;
+
+  &[data-scheme='primary'] {
+    color: var(--fgColor-onEmphasis);
+    background-color: var(--bgColor-neutral-emphasis);
+  }
+
+  &[data-scheme='secondary'] {
+    color: var(--fgColor-default);
+    background-color: var(--bgColor-neutral-muted);
+  }
+
+  &:empty {
+    display: none;
+  }
+}
