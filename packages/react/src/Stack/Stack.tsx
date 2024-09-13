@@ -4,15 +4,11 @@ import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
 
 const StyledStack = styled.div`
-  --Stack-gap-whenRegular: var(--stack-gap-normal, 16px);
-  --Stack-gap-whenNarrow: var(--stack-gap-normal, 16px);
-  --Stack-gap-whenWide: var(--Stack-gap-whenRegular);
-
   display: flex;
   flex-flow: column;
   align-items: stretch;
   align-content: flex-start;
-  gap: var(--Stack-gap-whenNarrow);
+  gap: var(--stack-gap, var(--stack-gap-normal, 1rem));
 
   // non-responsive values
 
@@ -48,17 +44,22 @@ const StyledStack = styled.div`
 
   &[data-gap='none'],
   &[data-gap-narrow='none'] {
-    --Stack-gap-whenNarrow: 0;
+    --stack-gap: var(--stack-gap-none, 0);
   }
 
   &[data-gap='condensed'],
   &[data-gap-narrow='condensed'] {
-    --Stack-gap-whenNarrow: var(--stack-gap-condensed, 8px);
+    --stack-gap: var(--stack-gap-condensed, 0.5rem);
   }
 
   &[data-gap='normal'],
   &[data-gap-narrow='normal'] {
-    --Stack-gap-whenNarrow: var(--stack-gap-normal, 16px);
+    --stack-gap: var(--stack-gap-normal, 1rem);
+  }
+
+  &[data-gap='spacious'],
+  &[data-gap-narrow='spacious'] {
+    --stack-gap: var(--stack-gap-spacious, 1.5rem);
   }
 
   &[data-align='start'],
@@ -81,28 +82,28 @@ const StyledStack = styled.div`
     align-items: baseline;
   }
 
-  &[data-spread='start'],
-  &[data-spread-narrow='start'] {
+  &[data-justify='start'],
+  &[data-justify-narrow='start'] {
     justify-content: flex-start;
   }
 
-  &[data-spread='center'],
-  &[data-spread-narrow='center'] {
+  &[data-justify='center'],
+  &[data-justify-narrow='center'] {
     justify-content: center;
   }
 
-  &[data-spread='end'],
-  &[data-spread-narrow='end'] {
+  &[data-justify='end'],
+  &[data-justify-narrow='end'] {
     justify-content: flex-end;
   }
 
-  &[data-spread='space-between'],
-  &[data-spread-narrow='space-between'] {
+  &[data-justify='space-between'],
+  &[data-justify-narrow='space-between'] {
     justify-content: space-between;
   }
 
-  &[data-spread='space-evenly'],
-  &[data-spread-narrow='space-evenly'] {
+  &[data-justify='space-evenly'],
+  &[data-justify-narrow='space-evenly'] {
     justify-content: space-evenly;
   }
 
@@ -143,19 +144,19 @@ const StyledStack = styled.div`
     }
 
     &[data-gap-regular='none'] {
-      --Stack-gap-whenRegular: 0;
+      --stack-gap: var(--stack-gap-none, 0);
     }
 
     &[data-gap-regular='condensed'] {
-      --Stack-gap-whenRegular: var(--stack-gap-condensed, 8px);
+      --stack-gap: var(--stack-gap-condensed, 0.5rem);
     }
 
     &[data-gap-regular='normal'] {
-      --Stack-gap-whenRegular: var(--stack-gap-normal, 16px);
+      --stack-gap: var(--stack-gap-normal, 1rem);
     }
 
     &[data-gap-regular='spacious'] {
-      --Stack-gap-whenRegular: var(--stack-gap-spacious, 24px);
+      --stack-gap: var(--stack-gap-spacious, 1.5rem);
     }
 
     &[data-align-regular='start'] {
@@ -174,23 +175,23 @@ const StyledStack = styled.div`
       align-items: baseline;
     }
 
-    &[data-spread-regular='start'] {
+    &[data-justify-regular='start'] {
       justify-content: flex-start;
     }
 
-    &[data-spread-regular='center'] {
+    &[data-justify-regular='center'] {
       justify-content: center;
     }
 
-    &[data-spread-regular='end'] {
+    &[data-justify-regular='end'] {
       justify-content: flex-end;
     }
 
-    &[data-spread-regular='space-between'] {
+    &[data-justify-regular='space-between'] {
       justify-content: space-between;
     }
 
-    &[data-spread-regular='space-evenly'] {
+    &[data-justify-regular='space-evenly'] {
       justify-content: space-evenly;
     }
 
@@ -205,8 +206,6 @@ const StyledStack = styled.div`
 
   // @custom-media --viewportRange-wide
   @media (min-width: 87.5rem) {
-    gap: var(--Stack-gap-whenWide);
-
     &[data-padding-wide='none'] {
       padding: 0;
     }
@@ -232,19 +231,19 @@ const StyledStack = styled.div`
     }
 
     &[data-gap-wide='none'] {
-      --Stack-gap-whenWide: 0;
+      --stack-gap: var(--stack-gap-none, 0);
     }
 
     &[data-gap-wide='condensed'] {
-      --Stack-gap-whenWide: var(--stack-gap-condensed, 8px);
+      --stack-gap: var(--stack-gap-condensed, 0.5rem);
     }
 
     &[data-gap-wide='normal'] {
-      --Stack-gap-whenWide: var(--stack-gap-normal, 16px);
+      --stack-gap: var(--stack-gap-normal, 1rem);
     }
 
     &[data-gap-wide='spacious'] {
-      --Stack-gap-whenWide: var(--stack-gap-spacious, 24px);
+      --stack-gap: var(--stack-gap-spacious, 1.5rem);
     }
 
     &[data-align-wide='start'] {
@@ -263,23 +262,23 @@ const StyledStack = styled.div`
       align-items: baseline;
     }
 
-    &[data-spread-wide='start'] {
+    &[data-justify-wide='start'] {
       justify-content: flex-start;
     }
 
-    &[data-spread-wide='center'] {
+    &[data-justify-wide='center'] {
       justify-content: center;
     }
 
-    &[data-spread-wide='end'] {
+    &[data-justify-wide='end'] {
       justify-content: flex-end;
     }
 
-    &[data-spread-wide='space-between'] {
+    &[data-justify-wide='space-between'] {
       justify-content: space-between;
     }
 
-    &[data-spread-wide='space-evenly'] {
+    &[data-justify-wide='space-evenly'] {
       justify-content: space-evenly;
     }
   }
@@ -378,22 +377,30 @@ const StyledStackItem = styled.div`
   flex: 0 1 auto;
   min-inline-size: 0;
 
-  &[data-grow],
-  &[data-grow-narrow] {
+  &[data-grow='true'],
+  &[data-grow-narrow='true'] {
     flex-grow: 1;
   }
 
   // @custom-media --veiwportRange-regular
   @media (min-width: 48rem) {
-    &[data-grow-regular] {
+    &[data-grow-regular='true'] {
       flex-grow: 1;
+    }
+
+    &[data-grow-regular='false'] {
+      flex-grow: 0;
     }
   }
 
   // @custom-media --viewportRange-wide
   @media (min-width: 87.5rem) {
-    &[data-grow-wide] {
+    &[data-grow-wide='true'] {
       flex-grow: 1;
+    }
+
+    &[data-grow-wide='false'] {
+      flex-grow: 0;
     }
   }
 `
@@ -414,7 +421,7 @@ type StackItemProps<As> = React.PropsWithChildren<{
 function StackItem<As extends ElementType>({
   as,
   children,
-  grow = false,
+  grow,
   ...rest
 }: StackItemProps<As> & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>) {
   const BaseComponent = as ?? 'div'

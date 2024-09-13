@@ -179,6 +179,38 @@ describe('SelectPanel', () => {
     expect(mockOnSubmit).toHaveBeenCalledTimes(0)
   })
 
+  it('should not call addEventListener on each render for Escape key handling when onCancel has not changed', async () => {
+    const onCancel = jest.fn()
+    const container = render(
+      <SelectPanel title="title" onCancel={onCancel}>
+        child
+      </SelectPanel>,
+    )
+    const addEventListenerSpy = jest.spyOn(globalThis.EventTarget.prototype, 'addEventListener')
+    const removeEventListenerSpy = jest.spyOn(globalThis.EventTarget.prototype, 'removeEventListener')
+
+    container.rerender(
+      <SelectPanel title="title" onCancel={onCancel}>
+        child
+      </SelectPanel>,
+    )
+    expect(addEventListenerSpy).not.toHaveBeenCalled()
+    expect(removeEventListenerSpy).not.toHaveBeenCalled()
+  })
+
+  it('Escape key closes the dialog and calls onCancel', async () => {
+    const mockOnSubmit = jest.fn()
+    const mockOnCancel = jest.fn()
+    const {container, user} = await getFixtureWithOpenContainer({mockOnSubmit, mockOnCancel})
+    selectUnselectedOption(container, user)
+
+    await user.keyboard('{Escape}')
+
+    expect(container.queryByRole('dialog')).toBeNull()
+    expect(mockOnCancel).toHaveBeenCalledTimes(1)
+    expect(mockOnSubmit).toHaveBeenCalledTimes(0)
+  })
+
   it('SelectPanel within FormControl should be labelled by FormControl.Label', async () => {
     const component = render(<SelectPanelWithinForm />)
     const buttonByRole = component.getByRole('button')

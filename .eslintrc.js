@@ -42,7 +42,6 @@ module.exports = {
     'types/**/*',
     'consumer-test/**/*',
     'contributor-docs/adrs/*',
-    'examples/nextjs/**',
     'examples/codesandbox/**',
     // Note: this file is inlined from an external dependency
     'packages/react/src/utils/polymorphic.ts',
@@ -68,10 +67,13 @@ module.exports = {
     camelcase: [
       'error',
       {
-        allow: ['dark_dimmed'],
+        allow: [
+          'dark_dimmed',
+          // Allow feature flag names that start with `primer_react_`
+          '^primer_react_',
+        ],
       },
     ],
-    'primer-react/no-deprecated-colors': ['warn', {checkAllStrings: true}],
 
     // Overrides from updating plugin:github
     'filenames/match-regex': 'off',
@@ -85,6 +87,7 @@ module.exports = {
     'github/no-inner-html': 'off',
     'github/role-supports-aria-props': 'off',
     'no-restricted-syntax': 'off',
+    'primer-react/a11y-use-next-tooltip': 'off',
   },
   overrides: [
     // rules which apply only to JS
@@ -145,6 +148,11 @@ module.exports = {
                 importNames: ['useLayoutEffect'],
                 message:
                   'Please use the `useIsomorphicLayoutEffect` hook from `src/hooks/useIsomorphicLayoutEffect.ts` instead',
+              },
+              {
+                name: 'clsx',
+                importNames: ['default'],
+                message: 'Use the named import instead: `import {clsx} from "clsx"`',
               },
             ],
             patterns: [
@@ -237,7 +245,6 @@ module.exports = {
         'jsx-a11y/label-has-for': 'off',
         '@typescript-eslint/no-unnecessary-condition': 'off',
         '@typescript-eslint/no-unused-vars': 'off',
-        'primer-react/no-deprecated-colors': ['error', {skipImportCheck: true}],
         'no-redeclare': 'off',
         'ssr-friendly/no-dom-globals-in-module-scope': 'off',
         'ssr-friendly/no-dom-globals-in-react-fc': 'off',

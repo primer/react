@@ -2,7 +2,7 @@ import React from 'react'
 import StateLabel from '../StateLabel'
 import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 
 describe('StateLabel', () => {
   behavesAsComponent({
@@ -23,7 +23,7 @@ describe('StateLabel', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<StateLabel status="issueOpened" />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 
@@ -42,5 +42,15 @@ describe('StateLabel', () => {
 
   it('renders children', () => {
     expect(render(<StateLabel status="issueOpened">hi</StateLabel>)).toMatchSnapshot()
+  })
+
+  it('adds label to icon', () => {
+    const screen1 = HTMLRender(<StateLabel status="issueOpened">Open</StateLabel>)
+    expect(screen1.getByLabelText('Issue')).toBeInTheDocument() // svg
+    expect(screen1.getByText('Open')).toBeInTheDocument() // text
+
+    const screen2 = HTMLRender(<StateLabel status="pullMerged">Merged</StateLabel>)
+    expect(screen2.getByLabelText('Pull request')).toBeInTheDocument() // svg
+    expect(screen2.getByText('Merged')).toBeInTheDocument() // text
   })
 })

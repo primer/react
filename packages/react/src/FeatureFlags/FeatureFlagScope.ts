@@ -1,5 +1,5 @@
 export type FeatureFlags = {
-  [key: string]: boolean
+  [key: string]: boolean | undefined
 }
 
 export class FeatureFlagScope {
@@ -24,7 +24,10 @@ export class FeatureFlagScope {
   flags: Map<string, boolean>
 
   constructor(flags: FeatureFlags = {}) {
-    this.flags = new Map(Object.entries(flags))
+    this.flags = new Map()
+    for (const [key, value] of Object.entries(flags)) {
+      this.flags.set(key, value ?? false)
+    }
   }
 
   /**

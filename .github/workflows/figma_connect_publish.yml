@@ -1,0 +1,36 @@
+name: Figma Connect Publish on Change
+
+on:
+  push:
+    paths:
+      - packages/react/src/**/*.figma.tsx
+    branches:
+      - main
+
+jobs:
+  code-connect:
+    name: Code Connect
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Cache dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        run: npm i --legacy-peer-deps
+
+      - run: cd packages/react/ && npx figma connect publish
+        env:
+          FIGMA_ACCESS_TOKEN: ${{ secrets.FIGMA_ACCESS_TOKEN }}

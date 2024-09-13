@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react'
-import {TriangleDownIcon} from '@primer/octicons-react'
+import React, {useCallback, useContext, useMemo, useEffect, useState} from 'react'
+import {TriangleDownIcon, ChevronRightIcon} from '@primer/octicons-react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {OverlayProps} from '../Overlay'
@@ -13,11 +13,16 @@ import type {MandateProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {Tooltip} from '../TooltipV2/Tooltip'
 
+export type MenuCloseHandler = (
+  gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab' | 'item-select' | 'arrow-left',
+) => void
+
 export type MenuContextProps = Pick<
   AnchoredOverlayProps,
   'anchorRef' | 'renderAnchor' | 'open' | 'onOpen' | 'anchorId'
 > & {
-  onClose?: (gesture: 'anchor-click' | 'click-outside' | 'escape' | 'tab') => void
+  onClose?: MenuCloseHandler
+  isSubmenu?: boolean
 }
 const MenuContext = React.createContext<MenuContextProps>({renderAnchor: null, open: false})
 
@@ -38,15 +43,54 @@ export type ActionMenuProps = {
   onOpenChange?: (s: boolean) => void
 } & Pick<AnchoredOverlayProps, 'anchorRef'>
 
+// anchorProps adds onClick and onKeyDown, so we need to merge them with buttonProps
+const mergeAnchorHandlers = (anchorProps: React.HTMLAttributes<HTMLElement>, buttonProps: ButtonProps) => {
+  const mergedAnchorProps = {...anchorProps}
+
+  if (typeof buttonProps.onClick === 'function') {
+    const anchorOnClick = anchorProps.onClick
+    const mergedOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+      buttonProps.onClick?.(event)
+      anchorOnClick?.(event)
+    }
+    mergedAnchorProps.onClick = mergedOnClick
+  }
+
+  if (typeof buttonProps.onKeyDown === 'function') {
+    const anchorOnKeyDown = anchorProps.onKeyDown
+    const mergedOnAnchorKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+      buttonProps.onKeyDown?.(event)
+      anchorOnKeyDown?.(event)
+    }
+    mergedAnchorProps.onKeyDown = mergedOnAnchorKeyDown
+  }
+
+  return mergedAnchorProps
+}
+
 const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   anchorRef: externalAnchorRef,
   open,
   onOpenChange,
   children,
 }: ActionMenuProps) => {
+  const parentMenuContext = useContext(MenuContext)
+
   const [combinedOpenState, setCombinedOpenState] = useProvidedStateOrCreate(open, onOpenChange, false)
   const onOpen = React.useCallback(() => setCombinedOpenState(true), [setCombinedOpenState])
-  const onClose = React.useCallback(() => setCombinedOpenState(false), [setCombinedOpenState])
+  const onClose: MenuCloseHandler = React.useCallback(
+    gesture => {
+      setCombinedOpenState(false)
+
+      // Close the parent stack when an item is selected or the user tabs out of the menu entirely
+      switch (gesture) {
+        case 'tab':
+        case 'item-select':
+          parentMenuContext.onClose?.(gesture)
+      }
+    },
+    [setCombinedOpenState, parentMenuContext],
+  )
 
   const menuButtonChild = React.Children.toArray(children).find(
     child => React.isValidElement<ActionMenuButtonProps>(child) && (child.type === MenuButton || child.type === Anchor),
@@ -68,7 +112,10 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
       if (anchorChildren.type === MenuButton) {
         renderAnchor = anchorProps => {
           // We need to attach the anchor props to the tooltip trigger (ActionMenu.Button's grandchild) not the tooltip itself.
-          const triggerButton = React.cloneElement(anchorChildren, {...anchorProps})
+          const triggerButton = React.cloneElement(
+            anchorChildren,
+            mergeAnchorHandlers({...anchorProps}, anchorChildren.props),
+          )
           return React.cloneElement(child, {children: triggerButton, ref: anchorRef})
         }
       }
@@ -82,7 +129,10 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
             // ActionMenu.Anchor's children can be wrapped with Tooltip. If this is the case, our anchor is the tooltip's trigger
             const tooltipTrigger = anchorChildren.props.children
             // We need to attach the anchor props to the tooltip trigger not the tooltip itself.
-            const tooltipTriggerEl = React.cloneElement(tooltipTrigger, {...anchorProps})
+            const tooltipTriggerEl = React.cloneElement(
+              tooltipTrigger,
+              mergeAnchorHandlers({...anchorProps}, tooltipTrigger.props),
+            )
             const tooltip = React.cloneElement(anchorChildren, {children: tooltipTriggerEl})
             return React.cloneElement(child, {children: tooltip, ref: anchorRef})
           }
@@ -92,7 +142,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
       }
       return null
     } else if (child.type === MenuButton) {
-      renderAnchor = anchorProps => React.cloneElement(child, anchorProps)
+      renderAnchor = anchorProps => React.cloneElement(child, mergeAnchorHandlers(anchorProps, child.props))
       return null
     } else {
       return child
@@ -100,15 +150,70 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   })
 
   return (
-    <MenuContext.Provider value={{anchorRef, renderAnchor, anchorId, open: combinedOpenState, onOpen, onClose}}>
+    <MenuContext.Provider
+      value={{
+        anchorRef,
+        renderAnchor,
+        anchorId,
+        open: combinedOpenState,
+        onOpen,
+        onClose,
+        // will be undefined for the outermost level, then false for the top menu, then true inside that
+        isSubmenu: parentMenuContext.isSubmenu !== undefined,
+      }}
+    >
       {contents}
     </MenuContext.Provider>
   )
 }
 
-export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string}
-const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children, ...anchorProps}, anchorRef) => {
-  return React.cloneElement(children, {...anchorProps, ref: anchorRef})
+export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string} & React.HTMLAttributes<HTMLElement>
+const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children: child, ...anchorProps}, anchorRef) => {
+  const {onOpen, isSubmenu} = React.useContext(MenuContext)
+
+  const openSubmenuOnRightArrow: React.KeyboardEventHandler<HTMLElement> = useCallback(
+    event => {
+      if (isSubmenu && event.key === 'ArrowRight' && !event.defaultPrevented) onOpen?.('anchor-key-press')
+    },
+    [isSubmenu, onOpen],
+  )
+
+  const onButtonClick = (event: React.MouseEvent<HTMLElement>) => {
+    child.props.onClick?.(event)
+    anchorProps.onClick?.(event) // onClick is passed from AnchoredOverlay
+  }
+
+  const onButtonKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+    child.props.onKeyDown?.(event)
+    openSubmenuOnRightArrow(event)
+    anchorProps.onKeyDown?.(event) // onKeyDown is passed from AnchoredOverlay
+  }
+
+  // Add right chevron icon to submenu anchors rendered using `ActionList.Item`
+  const parentActionListContext = useContext(ActionListContainerContext)
+  const thisActionListContext = useMemo(
+    () =>
+      isSubmenu
+        ? {
+            ...parentActionListContext,
+            defaultTrailingVisual: <ChevronRightIcon />,
+            // Default behavior is to close after selecting; we want to open the submenu instead
+            afterSelect: () => onOpen?.('anchor-click'),
+          }
+        : parentActionListContext,
+    [isSubmenu, onOpen, parentActionListContext],
+  )
+
+  return (
+    <ActionListContainerContext.Provider value={thisActionListContext}>
+      {React.cloneElement(child, {
+        ...anchorProps,
+        ref: anchorRef,
+        onClick: onButtonClick,
+        onKeyDown: onButtonKeyDown,
+      })}
+    </ActionListContainerContext.Provider>
+  )
 })
 
 /** this component is syntactical sugar 🍭 */
@@ -133,19 +238,24 @@ type MenuOverlayProps = Partial<OverlayProps> &
 const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
   children,
   align = 'start',
-  side = 'outside-bottom',
+  side,
   'aria-labelledby': ariaLabelledby,
   ...overlayProps
 }) => {
   // we typecast anchorRef as required instead of optional
   // because we know that we're setting it in context in Menu
-  const {anchorRef, renderAnchor, anchorId, open, onOpen, onClose} = React.useContext(MenuContext) as MandateProps<
-    MenuContextProps,
-    'anchorRef'
-  >
+  const {
+    anchorRef,
+    renderAnchor,
+    anchorId,
+    open,
+    onOpen,
+    onClose,
+    isSubmenu = false,
+  } = React.useContext(MenuContext) as MandateProps<MenuContextProps, 'anchorRef'>
 
   const containerRef = React.useRef<HTMLDivElement>(null)
-  useMenuKeyboardNavigation(open, onClose, containerRef, anchorRef)
+  useMenuKeyboardNavigation(open, onClose, containerRef, anchorRef, isSubmenu)
 
   // If the menu anchor is an icon button, we need to label the menu by tooltip that also labelled the anchor.
   const [anchorAriaLabelledby, setAnchorAriaLabelledby] = useState<null | string>(null)
@@ -167,7 +277,7 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
       onOpen={onOpen}
       onClose={onClose}
       align={align}
-      side={side}
+      side={side ?? (isSubmenu ? 'outside-right' : 'outside-bottom')}
       overlayProps={overlayProps}
       focusZoneSettings={{focusOutBehavior: 'wrap'}}
     >
@@ -179,7 +289,8 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
             // If there is a custom aria-labelledby, use that. Otherwise, if exists, use the id that labels the anchor such as tooltip. If none of them exist, use anchor id.
             listLabelledBy: ariaLabelledby || anchorAriaLabelledby || anchorId,
             selectionAttribute: 'aria-checked', // Should this be here?
-            afterSelect: onClose,
+            afterSelect: () => onClose?.('item-select'),
+            enableFocusZone: false, // AnchoredOverlay takes care of focus zone
           }}
         >
           {children}

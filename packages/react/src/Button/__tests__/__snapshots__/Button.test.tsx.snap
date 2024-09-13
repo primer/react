@@ -163,6 +163,48 @@ exports[`Button respects block prop 1`] = `
   width: 100%;
 }
 
+.c0[data-label-wrap="true"] {
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  height: unset;
+  min-height: var(--control-medium-size,2rem);
+}
+
+.c0[data-label-wrap="true"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
+}
+
+.c0[data-label-wrap="true"] [data-component="text"] {
+  white-space: unset;
+  word-break: break-word;
+}
+
+.c0[data-label-wrap="true"][data-size="small"] {
+  height: unset;
+  min-height: var(--control-small-size,1.75rem);
+}
+
+.c0[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
+}
+
+.c0[data-label-wrap="true"][data-size="large"] {
+  height: unset;
+  min-height: var(--control-large-size,2.5rem);
+  padding-inline: var(--control-large-paddingInline-spacious,1rem);
+}
+
+.c0[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
+}
+
 .c0[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,undefined);
   border-color: var(--button-inactive-bgColor,undefined);
@@ -211,6 +253,17 @@ exports[`Button respects block prop 1`] = `
   margin-right: 8px;
 }
 
+.c0 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+  color: fg.muted;
+}
+
+.c0 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
 .c0:hover:not([disabled]):not([data-inactive]) {
   background-color: btn.hoverBg;
   border-color: var(--button-default-borderColor-hover,undefined);
@@ -232,7 +285,7 @@ exports[`Button respects block prop 1`] = `
   color: var(--button-color,undefined);
 }
 
-.c0[data-component="IconButton"][data-no-visuals] {
+.c0[data-component="IconButton"][data-no-visuals]:not(:disabled) {
   color: fg.muted;
 }
 
@@ -243,9 +296,12 @@ exports[`Button respects block prop 1`] = `
 }
 
 <button
+  aria-describedby="test-button-loading-announcement"
   class="c0"
   data-block="block"
+  data-loading="false"
   data-no-visuals="true"
+  id="test-button"
   type="button"
 >
   <span
@@ -424,6 +480,48 @@ exports[`Button respects the alignContent prop 1`] = `
   width: 100%;
 }
 
+.c0[data-label-wrap="true"] {
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  height: unset;
+  min-height: var(--control-medium-size,2rem);
+}
+
+.c0[data-label-wrap="true"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
+}
+
+.c0[data-label-wrap="true"] [data-component="text"] {
+  white-space: unset;
+  word-break: break-word;
+}
+
+.c0[data-label-wrap="true"][data-size="small"] {
+  height: unset;
+  min-height: var(--control-small-size,1.75rem);
+}
+
+.c0[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
+}
+
+.c0[data-label-wrap="true"][data-size="large"] {
+  height: unset;
+  min-height: var(--control-large-size,2.5rem);
+  padding-inline: var(--control-large-paddingInline-spacious,1rem);
+}
+
+.c0[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
+}
+
 .c0[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,undefined);
   border-color: var(--button-inactive-bgColor,undefined);
@@ -472,6 +570,17 @@ exports[`Button respects the alignContent prop 1`] = `
   margin-right: 8px;
 }
 
+.c0 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+  color: fg.muted;
+}
+
+.c0 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
 .c0:hover:not([disabled]):not([data-inactive]) {
   background-color: btn.hoverBg;
   border-color: var(--button-default-borderColor-hover,undefined);
@@ -493,7 +602,7 @@ exports[`Button respects the alignContent prop 1`] = `
   color: var(--button-color,undefined);
 }
 
-.c0[data-component="IconButton"][data-no-visuals] {
+.c0[data-component="IconButton"][data-no-visuals]:not(:disabled) {
   color: fg.muted;
 }
 
@@ -504,8 +613,11 @@ exports[`Button respects the alignContent prop 1`] = `
 }
 
 <button
+  aria-describedby="test-button-loading-announcement"
   class="c0"
+  data-loading="false"
   data-no-visuals="true"
+  id="test-button"
   type="button"
 >
   <span
@@ -684,6 +796,48 @@ exports[`Button respects the large size prop 1`] = `
   width: 100%;
 }
 
+.c0[data-label-wrap="true"] {
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  height: unset;
+  min-height: var(--control-medium-size,2rem);
+}
+
+.c0[data-label-wrap="true"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
+}
+
+.c0[data-label-wrap="true"] [data-component="text"] {
+  white-space: unset;
+  word-break: break-word;
+}
+
+.c0[data-label-wrap="true"][data-size="small"] {
+  height: unset;
+  min-height: var(--control-small-size,1.75rem);
+}
+
+.c0[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
+}
+
+.c0[data-label-wrap="true"][data-size="large"] {
+  height: unset;
+  min-height: var(--control-large-size,2.5rem);
+  padding-inline: var(--control-large-paddingInline-spacious,1rem);
+}
+
+.c0[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
+}
+
 .c0[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,undefined);
   border-color: var(--button-inactive-bgColor,undefined);
@@ -732,6 +886,17 @@ exports[`Button respects the large size prop 1`] = `
   margin-right: 8px;
 }
 
+.c0 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+  color: fg.muted;
+}
+
+.c0 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
 .c0:hover:not([disabled]):not([data-inactive]) {
   background-color: btn.hoverBg;
   border-color: var(--button-default-borderColor-hover,undefined);
@@ -753,7 +918,7 @@ exports[`Button respects the large size prop 1`] = `
   color: var(--button-color,undefined);
 }
 
-.c0[data-component="IconButton"][data-no-visuals] {
+.c0[data-component="IconButton"][data-no-visuals]:not(:disabled) {
   color: fg.muted;
 }
 
@@ -764,9 +929,12 @@ exports[`Button respects the large size prop 1`] = `
 }
 
 <button
+  aria-describedby="test-button-loading-announcement"
   class="c0"
+  data-loading="false"
   data-no-visuals="true"
   data-size="large"
+  id="test-button"
   type="button"
 >
   <span
@@ -945,6 +1113,48 @@ exports[`Button respects the small size prop 1`] = `
   width: 100%;
 }
 
+.c0[data-label-wrap="true"] {
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  height: unset;
+  min-height: var(--control-medium-size,2rem);
+}
+
+.c0[data-label-wrap="true"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
+}
+
+.c0[data-label-wrap="true"] [data-component="text"] {
+  white-space: unset;
+  word-break: break-word;
+}
+
+.c0[data-label-wrap="true"][data-size="small"] {
+  height: unset;
+  min-height: var(--control-small-size,1.75rem);
+}
+
+.c0[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
+}
+
+.c0[data-label-wrap="true"][data-size="large"] {
+  height: unset;
+  min-height: var(--control-large-size,2.5rem);
+  padding-inline: var(--control-large-paddingInline-spacious,1rem);
+}
+
+.c0[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
+}
+
 .c0[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,undefined);
   border-color: var(--button-inactive-bgColor,undefined);
@@ -993,6 +1203,17 @@ exports[`Button respects the small size prop 1`] = `
   margin-right: 8px;
 }
 
+.c0 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+  color: fg.muted;
+}
+
+.c0 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
 .c0:hover:not([disabled]):not([data-inactive]) {
   background-color: btn.hoverBg;
   border-color: var(--button-default-borderColor-hover,undefined);
@@ -1014,7 +1235,7 @@ exports[`Button respects the small size prop 1`] = `
   color: var(--button-color,undefined);
 }
 
-.c0[data-component="IconButton"][data-no-visuals] {
+.c0[data-component="IconButton"][data-no-visuals]:not(:disabled) {
   color: fg.muted;
 }
 
@@ -1025,9 +1246,12 @@ exports[`Button respects the small size prop 1`] = `
 }
 
 <button
+  aria-describedby="test-button-loading-announcement"
   class="c0"
+  data-loading="false"
   data-no-visuals="true"
   data-size="small"
+  id="test-button"
   type="button"
 >
   <span
@@ -1208,6 +1432,48 @@ exports[`Button styles danger button appropriately 1`] = `
   width: 100%;
 }
 
+.c0[data-label-wrap="true"] {
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  height: unset;
+  min-height: var(--control-medium-size,2rem);
+}
+
+.c0[data-label-wrap="true"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
+}
+
+.c0[data-label-wrap="true"] [data-component="text"] {
+  white-space: unset;
+  word-break: break-word;
+}
+
+.c0[data-label-wrap="true"][data-size="small"] {
+  height: unset;
+  min-height: var(--control-small-size,1.75rem);
+}
+
+.c0[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
+}
+
+.c0[data-label-wrap="true"][data-size="large"] {
+  height: unset;
+  min-height: var(--control-large-size,2.5rem);
+  padding-inline: var(--control-large-paddingInline-spacious,1rem);
+}
+
+.c0[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
+}
+
 .c0[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,undefined);
   border-color: var(--button-inactive-bgColor,undefined);
@@ -1256,6 +1522,17 @@ exports[`Button styles danger button appropriately 1`] = `
   margin-right: 8px;
 }
 
+.c0 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+  color: fg.muted;
+}
+
+.c0 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
 .c0:hover:not([disabled]):not([data-inactive]) {
   color: btn.danger.hoverText;
   background-color: btn.danger.hoverBg;
@@ -1289,8 +1566,11 @@ exports[`Button styles danger button appropriately 1`] = `
 }
 
 <button
+  aria-describedby="test-button-loading-announcement"
   class="c0"
+  data-loading="false"
   data-no-visuals="true"
+  id="test-button"
   type="button"
 >
   <span
@@ -1354,7 +1634,7 @@ exports[`Button styles invisible button appropriately 1`] = `
   transition: 80ms cubic-bezier(0.65,0,0.35,1);
   -webkit-transition-property: color,fill,background-color,border-color;
   transition-property: color,fill,background-color,border-color;
-  color: btn.text;
+  color: var(--button-invisible-fgColor-rest,undefined);
   background-color: transparent;
   box-shadow: none;
 }
@@ -1405,6 +1685,7 @@ exports[`Button styles invisible button appropriately 1`] = `
   cursor: not-allowed;
   box-shadow: none;
   color: primer.fg.disabled;
+  background-color: var(--button-invisible-bgColor-disabled,transparent);
 }
 
 .c0:disabled [data-component=ButtonCounter],
@@ -1468,6 +1749,48 @@ exports[`Button styles invisible button appropriately 1`] = `
   width: 100%;
 }
 
+.c0[data-label-wrap="true"] {
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  height: unset;
+  min-height: var(--control-medium-size,2rem);
+}
+
+.c0[data-label-wrap="true"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
+}
+
+.c0[data-label-wrap="true"] [data-component="text"] {
+  white-space: unset;
+  word-break: break-word;
+}
+
+.c0[data-label-wrap="true"][data-size="small"] {
+  height: unset;
+  min-height: var(--control-small-size,1.75rem);
+}
+
+.c0[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
+}
+
+.c0[data-label-wrap="true"][data-size="large"] {
+  height: unset;
+  min-height: var(--control-large-size,2.5rem);
+  padding-inline: var(--control-large-paddingInline-spacious,1rem);
+}
+
+.c0[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
+}
+
 .c0[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,undefined);
   border-color: var(--button-inactive-bgColor,undefined);
@@ -1480,7 +1803,7 @@ exports[`Button styles invisible button appropriately 1`] = `
 
 .c0 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
-  color: fg.muted;
+  color: var(--button-invisible-iconColor-rest,undefined);
 }
 
 .c0 [data-component="text"] {
@@ -1491,11 +1814,12 @@ exports[`Button styles invisible button appropriately 1`] = `
 
 .c0 [data-component="trailingVisual"] {
   grid-area: trailingVisual;
+  color: var(--button-invisible-iconColor-rest,undefined);
 }
 
 .c0 [data-component="trailingAction"] {
   margin-right: -4px;
-  color: fg.muted;
+  color: var(--button-invisible-iconColor-rest,undefined);
 }
 
 .c0 [data-component="buttonContent"] {
@@ -1518,6 +1842,17 @@ exports[`Button styles invisible button appropriately 1`] = `
   margin-right: 8px;
 }
 
+.c0 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+  color: fg.muted;
+}
+
+.c0 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
 .c0:hover:not([disabled]) {
   background-color: actionListItem.default.hoverBg;
 }
@@ -1531,15 +1866,15 @@ exports[`Button styles invisible button appropriately 1`] = `
 }
 
 .c0[data-component="IconButton"][data-no-visuals] {
-  color: fg.muted;
+  color: var(--button-invisible-iconColor-rest,undefined);
 }
 
 .c0[data-no-visuals] {
-  color: accent.fg;
+  color: var(--button-invisible-fgColor-rest,undefined);
 }
 
 .c0:has([data-component="ButtonCounter"]) {
-  color: btn.text;
+  color: var(--button-invisible-fgColor-rest,undefined);
 }
 
 .c0:disabled[data-no-visuals] {
@@ -1557,8 +1892,11 @@ exports[`Button styles invisible button appropriately 1`] = `
 }
 
 <button
+  aria-describedby="test-button-loading-announcement"
   class="c0"
+  data-loading="false"
   data-no-visuals="true"
+  id="test-button"
   type="button"
 >
   <span
@@ -1738,6 +2076,48 @@ exports[`Button styles primary button appropriately 1`] = `
   width: 100%;
 }
 
+.c0[data-label-wrap="true"] {
+  min-width: -webkit-fit-content;
+  min-width: -moz-fit-content;
+  min-width: fit-content;
+  height: unset;
+  min-height: var(--control-medium-size,2rem);
+}
+
+.c0[data-label-wrap="true"] [data-component="buttonContent"] {
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+  padding-block: calc(var(--control-medium-paddingBlock,0.375rem) - 2px);
+}
+
+.c0[data-label-wrap="true"] [data-component="text"] {
+  white-space: unset;
+  word-break: break-word;
+}
+
+.c0[data-label-wrap="true"][data-size="small"] {
+  height: unset;
+  min-height: var(--control-small-size,1.75rem);
+}
+
+.c0[data-label-wrap="true"][data-size="small"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-small-paddingBlock,0.25rem) - 2px);
+}
+
+.c0[data-label-wrap="true"][data-size="large"] {
+  height: unset;
+  min-height: var(--control-large-size,2.5rem);
+  padding-inline: var(--control-large-paddingInline-spacious,1rem);
+}
+
+.c0[data-label-wrap="true"][data-size="large"] [data-component="buttonContent"] {
+  padding-block: calc(var(--control-large-paddingBlock,0.625rem) - 2px);
+}
+
 .c0[data-inactive]:not([disabled]) {
   background-color: var(--button-inactive-bgColor,undefined);
   border-color: var(--button-inactive-bgColor,undefined);
@@ -1786,6 +2166,17 @@ exports[`Button styles primary button appropriately 1`] = `
   margin-right: 8px;
 }
 
+.c0 [data-component="loadingSpinner"] {
+  grid-area: text;
+  margin-right: 0px !important;
+  place-self: center;
+  color: fg.muted;
+}
+
+.c0 [data-component="loadingSpinner"] + [data-component="text"] {
+  visibility: hidden;
+}
+
 .c0:hover:not([disabled]):not([data-inactive]) {
   color: btn.primary.hoverText;
   background-color: btn.primary.hoverBg;
@@ -1816,8 +2207,11 @@ exports[`Button styles primary button appropriately 1`] = `
 }
 
 <button
+  aria-describedby="test-button-loading-announcement"
   class="c0"
+  data-loading="false"
   data-no-visuals="true"
+  id="test-button"
   type="button"
 >
   <span

@@ -1,6 +1,6 @@
 import React from 'react'
 import {render} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 import type {LabelColorOptions} from '../Label'
 import Label, {variants} from '../Label'
 import {renderStyles} from '../utils/testing'
@@ -13,8 +13,8 @@ describe('Label', () => {
   })
   it('default size is rendered as "small"', () => {
     const expectedStyles = {
-      height: '20px',
-      padding: '0 7px',
+      height: 'var(--base-size-20,20px)',
+      padding: '0 var(--base-size-6,6px)',
     }
     const defaultStyles = renderStyles(<Label />)
 
@@ -31,7 +31,7 @@ describe('Label', () => {
   it('should have no axe violations', async () => {
     for (const variant in variants) {
       const {container} = render(<Label variant={variant as LabelColorOptions}>Default</Label>)
-      const results = await axe(container)
+      const results = await axe.run(container)
       expect(results).toHaveNoViolations()
     }
   })

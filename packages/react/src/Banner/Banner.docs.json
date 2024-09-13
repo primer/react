@@ -1,20 +1,30 @@
 {
   "id": "banner",
   "name": "Banner",
-  "status": "alpha",
-  "a11yReviewed": false,
+  "status": "draft",
+  "a11yReviewed": true,
   "importPath": "@primer/react/experimental",
   "stories": [],
   "props": [
+    {
+      "name": "aria-label",
+      "type": "string",
+      "description": "Provide an optional label to override the default name for the Banner landmark region"
+    },
     {
       "name": "description",
       "type": "React.ReactNode",
       "description": "Provide an optional description for the Banner. This should provide supplemental information about the Banner"
     },
     {
+      "name": "hideTitle",
+      "type": "boolean",
+      "description": "Whether to hide the title visually."
+    },
+    {
       "name": "icon",
       "type": "React.ReactNode",
-      "description": "Provide an icon for the banner"
+      "description": "Provide a custom icon for the Banner. This is only available when `variant` is `info` or `upsell`"
     },
     {
       "name": "onDismiss",

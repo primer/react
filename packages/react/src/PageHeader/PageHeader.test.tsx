@@ -4,13 +4,23 @@ import {PageHeader} from '.'
 import MatchMediaMock from 'jest-matchmedia-mock'
 import {behavesAsComponent, checkExports, renderStyles} from '../utils/testing'
 import {IconButton} from '../Button'
-import {ChevronLeftIcon, GitBranchIcon, PencilIcon, SidebarExpandIcon} from '@primer/octicons-react'
+import {SidebarExpandIcon} from '@primer/octicons-react'
 import {mediaQueries} from '../utils/layout'
 
 let matchmedia: MatchMediaMock
 describe('PageHeader', () => {
   beforeAll(() => {
     matchmedia = new MatchMediaMock()
+    const observe = jest.fn()
+    window.IntersectionObserver = jest.fn(() => ({
+      observe,
+      unobserve: jest.fn(),
+      takeRecords: jest.fn(),
+      disconnect: jest.fn(),
+      root: null,
+      rootMargin: '',
+      thresholds: [],
+    })) as jest.Mock<IntersectionObserver>
   })
   afterAll(() => {
     matchmedia.clear()
@@ -20,8 +30,8 @@ describe('PageHeader', () => {
     options: {skipAs: true, skipSx: true},
     toRender: () => (
       <PageHeader>
-        <PageHeader.ContextArea></PageHeader.ContextArea>
         <PageHeader.TitleArea></PageHeader.TitleArea>
+        <PageHeader.ContextArea></PageHeader.ContextArea>
         <PageHeader.Description></PageHeader.Description>
         <PageHeader.Navigation></PageHeader.Navigation>
       </PageHeader>
@@ -31,17 +41,6 @@ describe('PageHeader', () => {
     default: undefined,
     PageHeader,
   })
-  it('renders default layout', () => {
-    const {container} = render(
-      <PageHeader>
-        <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
-        <PageHeader.TitleArea>TitleArea</PageHeader.TitleArea>
-        <PageHeader.Description>Description</PageHeader.Description>
-        <PageHeader.Navigation>Navigation</PageHeader.Navigation>
-      </PageHeader>,
-    )
-    expect(container).toMatchSnapshot()
-  })
   /** These 3 tests below are not following the user behavioural pattern testing paradigm.
    * They are testing the internal implementation of the component and checking if the component
    * is rendering the correct styles.This approach was necessary due to the impracticality of CSS media queries testing with Jest.
@@ -50,11 +49,9 @@ describe('PageHeader', () => {
     const expectedStyles = {
       '-ms-flex-align': 'center',
       '-ms-flex-direction': 'row',
-      '-ms-flex-order': '0',
       '-webkit-align-items': 'center',
       '-webkit-box-align': 'center',
       '-webkit-flex-direction': 'row',
-      '-webkit-order': '0',
       [`@media screen and (max-width:calc(768px - 0.02px))`]: {
         display: 'flex',
       },
@@ -65,7 +62,9 @@ describe('PageHeader', () => {
       display: 'flex',
       'flex-direction': 'row',
       gap: '0.5rem',
-      order: '0',
+      'grid-area': 'context-area',
+      'padding-bottom': '0.5rem',
+      'grid-row': '1',
     }
 
     expect(renderStyles(<PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>)).toEqual(
@@ -76,11 +75,9 @@ describe('PageHeader', () => {
     const expectedStyles = {
       '-ms-flex-align': 'center',
       '-ms-flex-direction': 'row',
-      '-ms-flex-order': '0',
       '-webkit-align-items': 'center',
       '-webkit-box-align': 'center',
       '-webkit-flex-direction': 'row',
-      '-webkit-order': '0',
       [`@media screen and (max-width:calc(768px - 0.02px))`]: {
         display: 'flex',
       },
@@ -94,7 +91,9 @@ describe('PageHeader', () => {
       display: 'flex',
       'flex-direction': 'row',
       gap: '0.5rem',
-      order: '0',
+      'grid-area': 'context-area',
+      'grid-row': '1',
+      'padding-bottom': '0.5rem',
     }
 
     expect(
@@ -123,7 +122,10 @@ describe('PageHeader', () => {
         display: 'flex',
       },
       'align-items': 'center',
-      height: '2rem',
+      display: 'flex',
+      'grid-area': 'leading-action',
+      'grid-row': '2',
+      'padding-right': '0.5rem',
     }
 
     expect(
@@ -137,49 +139,20 @@ describe('PageHeader', () => {
   it('respects the title variant prop', () => {
     const {getByText} = render(
       <PageHeader>
-        <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
         <PageHeader.TitleArea variant="large">
           <PageHeader.Title>Title</PageHeader.Title>
         </PageHeader.TitleArea>
-      </PageHeader>,
-    )
-    expect(getByText('Title')).toHaveStyle('font-size: 2rem')
-  })
-  it("respects the title variant prop and updates the children components' container height accordingly", () => {
-    const {getByText} = render(
-      <PageHeader>
         <PageHeader.ContextArea>ContextArea</PageHeader.ContextArea>
-        <PageHeader.TitleArea variant="large">
-          <PageHeader.LeadingAction>
-            Leading Action
-            <IconButton aria-label="Expand" icon={SidebarExpandIcon} variant="invisible" />
-          </PageHeader.LeadingAction>
-          <PageHeader.LeadingVisual>
-            Leading Visual
-            <GitBranchIcon />
-          </PageHeader.LeadingVisual>
-          <PageHeader.Title>Title</PageHeader.Title>
-          <PageHeader.TrailingAction>
-            Trailing Action
-            <IconButton aria-label="Edit" icon={PencilIcon} variant="invisible" />
-          </PageHeader.TrailingAction>
-          <PageHeader.TrailingVisual>
-            Trailing Visual
-            <ChevronLeftIcon />
-          </PageHeader.TrailingVisual>
-        </PageHeader.TitleArea>
       </PageHeader>,
     )
-
-    expect(getByText('Leading Visual')).toHaveStyle('height: 3rem')
-    expect(getByText('Trailing Visual')).toHaveStyle('height: 3rem')
-    expect(getByText('Leading Action')).toHaveStyle('height: 3rem')
-    expect(getByText('Trailing Action')).toHaveStyle('height: 3rem')
-    // add actions here
+    expect(getByText('Title')).toHaveStyle('font-size: 1.5em')
   })
   it('renders "aria-label" prop when Navigation is rendered as "nav" landmark', () => {
     const {getByLabelText, getByText} = render(
       <PageHeader>
+        <PageHeader.TitleArea>
+          <PageHeader.Title>Title</PageHeader.Title>
+        </PageHeader.TitleArea>
         <PageHeader.Navigation as="nav" aria-label="Custom">
           Navigation
         </PageHeader.Navigation>
@@ -191,6 +164,9 @@ describe('PageHeader', () => {
   it('does not renders "aria-label" prop when Navigation is rendered as "div"', () => {
     const {getByText} = render(
       <PageHeader>
+        <PageHeader.TitleArea>
+          <PageHeader.Title>Title</PageHeader.Title>
+        </PageHeader.TitleArea>
         <PageHeader.Navigation aria-label="Custom">Navigation</PageHeader.Navigation>
       </PageHeader>,
     )
@@ -200,6 +176,9 @@ describe('PageHeader', () => {
     const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
     render(
       <PageHeader>
+        <PageHeader.TitleArea>
+          <PageHeader.Title>Title</PageHeader.Title>
+        </PageHeader.TitleArea>
         <PageHeader.Navigation as="nav">Navigation</PageHeader.Navigation>
       </PageHeader>,
     )

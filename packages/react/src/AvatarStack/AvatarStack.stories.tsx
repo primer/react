@@ -1,5 +1,5 @@
 import React from 'react'
-import type {ComponentMeta, Story} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import type {AvatarStackProps} from './AvatarStack'
 import AvatarStack from './AvatarStack'
 import Avatar from '../Avatar'
@@ -8,7 +8,7 @@ import {parseSizeFromArgs} from '../Avatar/storyHelpers'
 export default {
   title: 'Components/AvatarStack',
   component: AvatarStack,
-} as ComponentMeta<typeof AvatarStack>
+} as Meta<typeof AvatarStack>
 
 type Args = {
   size?: number
@@ -26,7 +26,7 @@ export const Default = () => (
   </AvatarStack>
 )
 
-export const Playground: Story<Args> = args => (
+export const Playground: StoryFn<Args> = args => (
   <AvatarStack size={parseSizeFromArgs(args)} alignRight={args.alignRight} disableExpand={args.disableExpand}>
     <Avatar alt="Primer logo" src="https://avatars.githubusercontent.com/primer" />
     <Avatar alt="GitHub logo" src="https://avatars.githubusercontent.com/github" />

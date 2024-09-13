@@ -2,7 +2,7 @@ import React from 'react'
 import BranchName from '../BranchName'
 import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 
 describe('BranchName', () => {
   behavesAsComponent({Component: BranchName})
@@ -13,7 +13,7 @@ describe('BranchName', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<BranchName />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 

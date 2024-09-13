@@ -3,9 +3,9 @@ import {CircleBadge} from '..'
 import {CheckIcon} from '@primer/octicons-react'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 
-const imgInput = <img alt="" src="primer.jpg" />
+const imgInput = <img alt="Example" src="primer.jpg" />
 
 describe('CircleBadge', () => {
   behavesAsComponent({
@@ -26,7 +26,7 @@ describe('CircleBadge', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<CircleBadge variant="large" size={20} />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 
@@ -55,7 +55,7 @@ describe('CircleBadge', () => {
   it('preserves child class names', () => {
     const {getByRole} = HTMLRender(
       <CircleBadge>
-        <img className="primer" alt="" src="primer.jpg" />
+        <img className="primer" alt="Example" src="primer.jpg" />
       </CircleBadge>,
     )
     expect(getByRole('img')).toHaveClass('primer')

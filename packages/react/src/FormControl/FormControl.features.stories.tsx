@@ -10,6 +10,7 @@ import {
   Radio,
   RadioGroup,
   Select,
+  Text,
   TextInput,
   TextInputWithTokens,
   Textarea,
@@ -79,12 +80,12 @@ export const WithComplexInputs = () => {
         <TextInputWithTokens onTokenRemove={onTokenRemove} tokens={tokens} />
       </FormControl>
       <FormControl>
-        <FormControl.Label>Autocomplete</FormControl.Label>
+        <FormControl.Label id="autocomplete-label">Autocomplete</FormControl.Label>
         <Autocomplete>
           <Autocomplete.Input block />
           <Autocomplete.Overlay>
             <Autocomplete.Menu
-              aria-labelledby="form-label"
+              aria-labelledby="autocomplete-label"
               items={[
                 {text: 'css', id: '0'},
                 {text: 'css-in-js', id: '1'},
@@ -171,12 +172,20 @@ export const FormControlWithCustomInput = () => {
       <CheckboxGroup>
         <CheckboxGroup.Label>Checkboxes</CheckboxGroup.Label>
         <FormControl layout="horizontal">
-          <CustomCheckboxInput id="custom-checkbox-one" value="checkOne" />
+          <CustomCheckboxInput
+            id="custom-checkbox-one"
+            aria-describedby="custom-checkbox-one-caption"
+            value="checkOne"
+          />
           <FormControl.Label htmlFor="custom-checkbox-one">Checkbox one</FormControl.Label>
           <FormControl.Caption id="custom-checkbox-one-caption">Hint text for checkbox one</FormControl.Caption>
         </FormControl>
         <FormControl layout="horizontal">
-          <CustomCheckboxInput id="custom-checkbox-two" value="checkTwo" />
+          <CustomCheckboxInput
+            id="custom-checkbox-two"
+            aria-describedby="custom-checkbox-two-caption"
+            value="checkTwo"
+          />
           <FormControl.Label htmlFor="custom-checkbox-two">Checkbox two</FormControl.Label>
           <FormControl.Caption id="custom-checkbox-two-caption">Hint text for checkbox two</FormControl.Caption>
         </FormControl>
@@ -303,6 +312,33 @@ export const DisabledInputs = () => (
         <Select.Option value="prc">Primer React components</Select.Option>
         <Select.Option value="pvc">Primer ViewComponents</Select.Option>
       </Select>
+    </FormControl>
+  </Box>
+)
+
+export const CustomRequired = () => (
+  <Box sx={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
+    <FormControl required={true}>
+      <FormControl.Label requiredText="(required)">Form Input Label</FormControl.Label>
+      <FormControl.Caption>This is a form field with a custom required indicator</FormControl.Caption>
+      <TextInput />
+    </FormControl>
+
+    <Text sx={{fontSize: 1}}>Required fields are marked with an asterisk (*)</Text>
+    <FormControl required={true}>
+      <FormControl.Label requiredIndicator={false}>Form Input Label</FormControl.Label>
+      <FormControl.Caption>
+        This is a form field with a required indicator that is hidden in the accessibility tree
+      </FormControl.Caption>
+      <TextInput />
+    </FormControl>
+
+    <FormControl required={false}>
+      <FormControl.Label requiredText="(optional)" requiredIndicator={false}>
+        Form Input Label
+      </FormControl.Label>
+      <FormControl.Caption>This is a form field that is marked as optional, it is not required</FormControl.Caption>
+      <TextInput />
     </FormControl>
   </Box>
 )

@@ -1,0 +1,13 @@
+{
+  "codeConnect": {
+    "parser": "react",
+    "importPaths": {
+      "src/*": "@primer/react",
+      "src/drafts/*": "@primer/react/drafts",
+      "src/experimental/*": "@primer/react/experimental",
+      "src/deprecated/*": "@primer/react/deprecated"
+    },
+    "include": ["src/**/*.figma.tsx", "src/**/*.tsx"],
+    "exclude": ["test/**", "docs/**", "build/**"]
+  }
+}

@@ -9,8 +9,8 @@ import {FilteredActionList} from '../FilteredActionList'
 import Heading from '../Heading'
 import type {OverlayProps} from '../Overlay'
 import type {TextInputProps} from '../TextInput'
-import type {ItemProps} from '../deprecated/ActionList'
-import type {ItemInput} from '../deprecated/ActionList/List'
+import type {ItemProps, ItemInput} from './types'
+
 import {Button} from '../Button'
 import {useProvidedRefOrCreate} from '../hooks'
 import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
@@ -218,6 +218,9 @@ export function SelectPanel({
             placeholderText={placeholderText}
             {...listProps}
             role="listbox"
+            // browsers give aria-labelledby precedence over aria-label so we need to make sure
+            // we don't accidentally override props.aria-label
+            aria-labelledby={listProps['aria-label'] ? undefined : titleId}
             aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
             selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
             items={itemsToRender}

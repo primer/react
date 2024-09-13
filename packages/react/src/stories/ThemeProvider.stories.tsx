@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta, Story} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 
 import {ThemeProvider, BaseStyles, Box, themeGet, useTheme} from '..'
 import type {ThemeProviderProps} from '../ThemeProvider'
@@ -29,7 +29,7 @@ function ActiveColorScheme() {
   return <span>Active color scheme: {colorScheme}</span>
 }
 
-export const Default: Story<ThemeProviderProps> = args => {
+export const Default: StoryFn<ThemeProviderProps> = args => {
   return (
     <ThemeProvider {...args}>
       <GlobalStyle />
@@ -85,7 +85,7 @@ function InverseMode() {
   )
 }
 
-export const Nested: Story<ThemeProviderProps> = args => {
+export const Nested: StoryFn<ThemeProviderProps> = args => {
   return (
     <ThemeProvider {...args}>
       <GlobalStyle />

@@ -36,6 +36,8 @@ type SegmentedControlProps = {
 const getSegmentedControlStyles = (props: {isFullWidth?: boolean; size?: SegmentedControlProps['size']}) => ({
   backgroundColor: 'segmentedControl.bg',
   borderRadius: 2,
+  border: '1px solid',
+  borderColor: 'var(--controlTrack-borderColor-rest, transparent)',
   display: props.isFullWidth ? 'flex' : 'inline-flex',
   fontSize: props.size === 'small' ? 0 : 1,
   height: props.size === 'small' ? '28px' : '32px', // TODO: use primitive `control.{small|medium}.size` when it is available
@@ -113,7 +115,10 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
           The aria-label is only provided as a backup when the designer or engineer neglects to show a label for the SegmentedControl.
           The best thing to do is to have a visual label who's id is referenced using the `aria-labelledby` prop.
         */}
-        <ActionMenu.Button aria-label={ariaLabel} leadingVisual={getChildIcon(selectedChild)}>
+        <ActionMenu.Button
+          aria-label={ariaLabel && `${getChildText(selectedChild)}, ${ariaLabel}`}
+          leadingVisual={getChildIcon(selectedChild)}
+        >
           {getChildText(selectedChild)}
         </ActionMenu.Button>
         <ActionMenu.Overlay aria-labelledby={ariaLabelledby}>
@@ -129,7 +134,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
                 <ActionList.Item
                   key={`segmented-control-action-btn-${index}`}
                   selected={index === selectedIndex}
-                  onSelect={(event: React.MouseEvent<HTMLLIElement> | React.KeyboardEvent<HTMLLIElement>) => {
+                  onSelect={(event: React.MouseEvent | React.KeyboardEvent) => {
                     isUncontrolled && setSelectedIndexInternalState(index)
                     onChange && onChange(index)
                     child.props.onClick && child.props.onClick(event as React.MouseEvent<HTMLLIElement>)

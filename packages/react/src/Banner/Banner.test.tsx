@@ -25,12 +25,43 @@ describe('Banner', () => {
 
   it('should render as a region element', () => {
     render(<Banner title="test" />)
-    expect(screen.getByRole('region', {name: 'test'})).toBeInTheDocument()
+    expect(screen.getByRole('region', {name: 'Information'})).toBeInTheDocument()
+    expect(screen.getByRole('heading', {name: 'test'})).toBeInTheDocument()
   })
 
-  it('should label the landmark element with the title prop', () => {
+  it('should label the landmark element with the corresponding variant label text', () => {
     render(<Banner title="test" />)
-    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('test'))
+    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Information'))
+  })
+
+  it('should label the landmark element with the label for the critical variant', () => {
+    render(<Banner title="test" variant="critical" />)
+    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Critical'))
+  })
+
+  it('should label the landmark element with the label for the info variant', () => {
+    render(<Banner title="test" variant="info" />)
+    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Information'))
+  })
+
+  it('should label the landmark element with the label for the success variant', () => {
+    render(<Banner title="test" variant="success" />)
+    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Success'))
+  })
+
+  it('should label the landmark element with the label for the upsell variant', () => {
+    render(<Banner title="test" variant="upsell" />)
+    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Recommendation'))
+  })
+
+  it('should label the landmark element with the label for the warning variant', () => {
+    render(<Banner title="test" variant="warning" />)
+    expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Warning'))
+  })
+
+  it('should support the `aria-label` prop to override the default label for the landmark', () => {
+    render(<Banner aria-label="Test" title="test" variant="warning" />)
+    expect(screen.getByRole('region')).toHaveAttribute('aria-label', 'Test')
   })
 
   it('should default the title to a h2', () => {
@@ -50,7 +81,7 @@ describe('Banner', () => {
   it('should rendering a description with the `description` prop', () => {
     render(<Banner title="test" description="test-description" />)
     expect(screen.getByText('test-description')).toBeInTheDocument()
-    expect(screen.getByRole('region', {name: 'test'})).toContainElement(screen.getByText('test-description'))
+    expect(screen.getByRole('region', {name: 'Information'})).toContainElement(screen.getByText('test-description'))
   })
 
   it('should support a primary action', async () => {
@@ -129,20 +160,20 @@ describe('Banner', () => {
     expect(container.firstChild).toHaveAttribute('data-testid', 'test')
   })
 
-  it('should support a custom icon only for info variants', () => {
+  it('should support a custom icon for info and upsell variants', () => {
     const CustomIcon = jest.fn(() => <svg data-testid="icon" aria-hidden="true" />)
     const {rerender} = render(
       <Banner title="test" description="test-description" variant="info" icon={<CustomIcon />} />,
     )
     expect(screen.getByTestId('icon')).toBeInTheDocument()
 
+    rerender(<Banner title="test" description="test-description" variant="upsell" icon={<CustomIcon />} />)
+    expect(screen.getByTestId('icon')).toBeInTheDocument()
+
     rerender(<Banner title="test" description="test-description" variant="critical" icon={<CustomIcon />} />)
     expect(screen.queryByTestId('icon')).toBe(null)
 
     rerender(<Banner title="test" description="test-description" variant="success" icon={<CustomIcon />} />)
-    expect(screen.queryByTestId('icon')).toBe(null)
-
-    rerender(<Banner title="test" description="test-description" variant="upsell" icon={<CustomIcon />} />)
     expect(screen.queryByTestId('icon')).toBe(null)
 
     rerender(<Banner title="test" description="test-description" variant="warning" icon={<CustomIcon />} />)

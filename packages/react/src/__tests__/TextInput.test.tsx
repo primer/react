@@ -1,7 +1,7 @@
 import {SearchIcon} from '@primer/octicons-react'
 import userEvent from '@testing-library/user-event'
 import {render as HTMLRender, fireEvent, screen} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 import React from 'react'
 import {TextInput} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
@@ -15,7 +15,7 @@ describe('TextInput', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<TextInput aria-label="Zipcode" name="zipcode" variant="small" />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 

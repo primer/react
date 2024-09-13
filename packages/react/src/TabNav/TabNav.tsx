@@ -1,5 +1,5 @@
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 import type {To} from 'history'
 import React, {useRef, useState} from 'react'
 import styled from 'styled-components'

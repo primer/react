@@ -231,7 +231,7 @@ const formControlArgTypeKeys = Object.keys(formControlArgTypes) as Array<keyof t
 export const formControlArgTypesWithoutValidation = formControlArgTypeKeys.reduce<
   Partial<Record<keyof typeof formControlArgTypes, InputType>>
 >((acc, key) => {
-  if (formControlArgTypes[key].table.category !== 'FormControl.Validation') {
+  if (formControlArgTypes[key].table?.category !== 'FormControl.Validation') {
     acc[key] = formControlArgTypes[key]
   }
   return acc

@@ -2,7 +2,7 @@ import React from 'react'
 import {ProgressBar} from '..'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 
 describe('ProgressBar', () => {
   behavesAsComponent({Component: ProgressBar})
@@ -14,7 +14,7 @@ describe('ProgressBar', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<ProgressBar progress={80} barSize="small" aria-label="Upload test.png" />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 

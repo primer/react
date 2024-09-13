@@ -4,11 +4,11 @@ import {matrix, serialize} from '../test-helpers/matrix'
 
 const scenarios = matrix({
   align: ['stretch', 'start', 'center', 'end', 'baseline'],
-  spread: ['start', 'center', 'end', 'space-around', 'space-evenly'],
   direction: ['horizontal', 'vertical'],
-  wrap: ['wrap', 'nowrap'],
-  padding: ['none', 'normal'],
   gap: ['none', 'normal'],
+  justify: ['start', 'center', 'end', 'space-around', 'space-evenly'],
+  padding: ['none', 'normal'],
+  wrap: ['wrap', 'nowrap'],
 })
 
 test.describe('Stack', () => {
@@ -17,7 +17,7 @@ test.describe('Stack', () => {
 
     test(`${id} @vrt`, async ({page}) => {
       await visit(page, {
-        id: 'drafts-components-stack--playground',
+        id: 'components-stack--playground',
         args: scenario,
       })
       expect(await page.screenshot()).toMatchSnapshot(`Stack.${id}.png`)

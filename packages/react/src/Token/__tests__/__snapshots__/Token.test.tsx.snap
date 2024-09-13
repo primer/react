@@ -176,6 +176,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
       <img
         alt=""
         className="c3"
+        data-component="Avatar"
         height={16}
         size={16}
         src="https://avatars.githubusercontent.com/mperrotti"
@@ -187,11 +188,11 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
     className="c4"
   >
     token
-  </span>
-  <span
-    className="c5"
-  >
-     (press backspace or delete to remove)
+    <span
+      className="c5"
+    >
+       (press backspace or delete to remove)
+    </span>
   </span>
   <button
     aria-hidden="false"
@@ -401,6 +402,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
       <img
         alt=""
         className="c3"
+        data-component="Avatar"
         height={20}
         size={20}
         src="https://avatars.githubusercontent.com/mperrotti"
@@ -412,11 +414,11 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
     className="c4"
   >
     token
-  </span>
-  <span
-    className="c5"
-  >
-     (press backspace or delete to remove)
+    <span
+      className="c5"
+    >
+       (press backspace or delete to remove)
+    </span>
   </span>
   <button
     aria-hidden="false"
@@ -626,6 +628,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
       <img
         alt=""
         className="c3"
+        data-component="Avatar"
         height={24}
         size={24}
         src="https://avatars.githubusercontent.com/mperrotti"
@@ -637,11 +640,11 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
     className="c4"
   >
     token
-  </span>
-  <span
-    className="c5"
-  >
-     (press backspace or delete to remove)
+    <span
+      className="c5"
+    >
+       (press backspace or delete to remove)
+    </span>
   </span>
   <button
     aria-hidden="false"
@@ -853,6 +856,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
       <img
         alt=""
         className="c3"
+        data-component="Avatar"
         height={32}
         size={32}
         src="https://avatars.githubusercontent.com/mperrotti"
@@ -864,11 +868,11 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
     className="c4"
   >
     token
-  </span>
-  <span
-    className="c5"
-  >
-     (press backspace or delete to remove)
+    <span
+      className="c5"
+    >
+       (press backspace or delete to remove)
+    </span>
   </span>
   <button
     aria-hidden="false"
@@ -1015,6 +1019,7 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
       <img
         alt=""
         className="c3"
+        data-component="Avatar"
         height={20}
         size={20}
         src="https://avatars.githubusercontent.com/mperrotti"
@@ -1206,6 +1211,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
       <img
         alt=""
         className="c3"
+        data-component="Avatar"
         height={20}
         size={20}
         src="https://avatars.githubusercontent.com/mperrotti"
@@ -1217,11 +1223,11 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
     className="c4"
   >
     token
-  </span>
-  <span
-    className="c5"
-  >
-     (press backspace or delete to remove)
+    <span
+      className="c5"
+    >
+       (press backspace or delete to remove)
+    </span>
   </span>
   <button
     aria-hidden="false"
@@ -2713,11 +2719,11 @@ exports[`Token components Token renders all sizes 1`] = `
     className="c1"
   >
     token
-  </span>
-  <span
-    className="c2"
-  >
-     (press backspace or delete to remove)
+    <span
+      className="c2"
+    >
+       (press backspace or delete to remove)
+    </span>
   </span>
   <button
     aria-hidden="false"
@@ -2892,11 +2898,11 @@ exports[`Token components Token renders all sizes 2`] = `
     className="c1"
   >
     token
-  </span>
-  <span
-    className="c2"
-  >
-     (press backspace or delete to remove)
+    <span
+      className="c2"
+    >
+       (press backspace or delete to remove)
+    </span>
   </span>
   <button
     aria-hidden="false"
@@ -3071,11 +3077,11 @@ exports[`Token components Token renders all sizes 3`] = `
     className="c1"
   >
     token
-  </span>
-  <span
-    className="c2"
-  >
-     (press backspace or delete to remove)
+    <span
+      className="c2"
+    >
+       (press backspace or delete to remove)
+    </span>
   </span>
   <button
     aria-hidden="false"
@@ -3252,11 +3258,11 @@ exports[`Token components Token renders all sizes 4`] = `
     className="c1"
   >
     token
-  </span>
-  <span
-    className="c2"
-  >
-     (press backspace or delete to remove)
+    <span
+      className="c2"
+    >
+       (press backspace or delete to remove)
+    </span>
   </span>
   <button
     aria-hidden="false"
@@ -3614,11 +3620,11 @@ exports[`Token components Token renders with a remove button 1`] = `
     className="c1"
   >
     token
-  </span>
-  <span
-    className="c2"
-  >
-     (press backspace or delete to remove)
+    <span
+      className="c2"
+    >
+       (press backspace or delete to remove)
+    </span>
   </span>
   <button
     aria-hidden="false"

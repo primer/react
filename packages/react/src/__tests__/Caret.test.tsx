@@ -3,7 +3,7 @@ import type {CaretProps} from '../Caret'
 import Caret from '../Caret'
 import {render, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 
 describe('Caret', () => {
   it('renders <svg>', () => {
@@ -16,7 +16,7 @@ describe('Caret', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Caret />)
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 

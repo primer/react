@@ -38,6 +38,7 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
       <SegmentedControlButtonStyled
         aria-current={selected}
         sx={getSegmentedControlButtonStyles({selected, children})}
+        type="button"
         {...rest}
       >
         <span className="segmentedControl-content">

@@ -1,5 +1,5 @@
 import {TriangleDownIcon} from '@primer/octicons-react'
-import type {ComponentMeta} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import React, {useState} from 'react'
 
 import Box from '../Box'
@@ -7,10 +7,12 @@ import {Button} from '../Button'
 import {SelectPanel} from '../SelectPanel'
 import type {ItemInput} from '../deprecated/ActionList/List'
 
-export default {
+const meta = {
   title: 'Components/SelectPanel',
   component: SelectPanel,
-} as ComponentMeta<typeof SelectPanel>
+} satisfies Meta<typeof SelectPanel>
+
+export default meta
 
 function getColorCircle(color: string) {
   return function () {
@@ -63,15 +65,12 @@ export const Default = () => {
             {children ?? 'Select Labels'}
           </Button>
         )}
-        placeholderText="Filter labels"
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        showItemDividers={true}
-        overlayProps={{width: 'small', height: 'xsmall'}}
       />
     </>
   )

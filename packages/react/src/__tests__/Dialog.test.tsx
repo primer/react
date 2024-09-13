@@ -1,11 +1,10 @@
 import React, {useState, useRef} from 'react'
-import {Dialog, Box, Text} from '..'
-import {Button} from '../deprecated'
+import {Dialog, Box, Text, Button} from '..'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
-import {axe} from 'jest-axe'
+import axe from 'axe-core'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 
-/* Dialog Version 2 */
+/* Dialog Version 1*/
 
 const comp = (
   <Dialog isOpen onDismiss={() => null} aria-labelledby="header">
@@ -71,6 +70,36 @@ const DialogWithCustomFocusRef = () => {
   )
 }
 
+const DialogWithCustomFocusRefAndReturnFocusRef = () => {
+  const [isOpen, setIsOpen] = useState(true)
+  const returnFocusRef = useRef(null)
+  const buttonRef = useRef(null)
+  return (
+    <div>
+      <Button data-testid="trigger-button" ref={returnFocusRef} onClick={() => setIsOpen(true)}>
+        Show Dialog
+      </Button>
+      <Dialog
+        returnFocusRef={returnFocusRef}
+        isOpen={isOpen}
+        initialFocusRef={buttonRef}
+        onDismiss={() => setIsOpen(false)}
+        aria-labelledby="header"
+      >
+        <div data-testid="inner">
+          <Dialog.Header id="header">Title</Dialog.Header>
+          <Box p={3}>
+            <Text fontFamily="sans-serif">Some content</Text>
+            <button data-testid="inner-button" ref={buttonRef}>
+              hi
+            </button>
+          </Box>
+        </div>
+      </Dialog>
+    </div>
+  )
+}
+
 describe('Dialog', () => {
   // because Dialog returns a React fragment the as and sx tests fail always, so they are skipped
   behavesAsComponent({
@@ -91,7 +120,7 @@ describe('Dialog', () => {
     const spy = jest.spyOn(console, 'warn').mockImplementation()
     const {container} = HTMLRender(comp)
     spy.mockRestore()
-    const results = await axe(container)
+    const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
 
@@ -140,7 +169,9 @@ describe('Dialog', () => {
   })
 
   it('Returns focus to returnFocusRef on escape', async () => {
-    const {getByTestId, queryByTestId} = HTMLRender(<Component />)
+    const {getByTestId, queryByTestId} = HTMLRender(<DialogWithCustomFocusRefAndReturnFocusRef />)
+    const innerButton = getByTestId('inner-button')
+    expect(document.activeElement).toEqual(innerButton)
 
     expect(getByTestId('inner')).toBeTruthy()
     fireEvent.keyDown(document.body, {key: 'Escape'})

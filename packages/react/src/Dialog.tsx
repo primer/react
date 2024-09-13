@@ -11,6 +11,7 @@ import type {ComponentProps} from './utils/types'
 import {useRefObjectAsForwardedRef} from './hooks/useRefObjectAsForwardedRef'
 import {XIcon} from '@primer/octicons-react'
 
+// Dialog v1
 const noop = () => null
 
 type StyledDialogBaseProps = {
@@ -33,10 +34,10 @@ const DialogBase = styled.div<StyledDialogBaseProps>`
   outline: none;
 
   @media screen and (max-width: 750px) {
-    width: 100vw;
+    width: 100dvw;
     margin: 0;
     border-radius: 0;
-    height: 100vh;
+    height: 100dvh;
   }
 
   ${sx};

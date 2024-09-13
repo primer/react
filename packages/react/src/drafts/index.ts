@@ -41,6 +41,9 @@ export type {
   Trigger,
 } from './InlineAutocomplete'
 
+export {InlineMessage} from '../InlineMessage'
+export type {InlineMessageProps} from '../InlineMessage'
+
 export {default as MarkdownViewer} from './MarkdownViewer'
 export type {MarkdownViewerProps, InteractiveMarkdownViewerProps} from './MarkdownViewer'
 
@@ -64,11 +67,21 @@ export type {
   NavListDividerProps,
 } from '../NavList'
 export * from './SelectPanel2'
-export {default as TabPanels} from './TabPanels'
-export type {TabPanelsProps, TabPanelsTabProps, TabPanelsPanelProps} from './TabPanels'
 export * from '../TooltipV2'
-export {default as ActionBar} from './ActionBar'
-export * from './ActionBar'
+export * from '../ActionBar'
+
+export {ScrollableRegion} from '../ScrollableRegion'
+export type {ScrollableRegionProps} from '../ScrollableRegion'
 
 export {Stack} from '../Stack'
 export type {StackProps, StackItemProps} from '../Stack'
+
+export {Announce, AriaStatus, AriaAlert} from '../live-region'
+export type {AnnounceProps, AriaStatusProps, AriaAlertProps} from '../live-region'
+
+export {UnderlinePanels} from './UnderlinePanels'
+export type {UnderlinePanelsProps, UnderlinePanelsTabProps, UnderlinePanelsPanelProps} from './UnderlinePanels'
+
+export {SkeletonBox, SkeletonText, SkeletonAvatar} from './Skeleton'
+
+export * from '../KeybindingHint'

@@ -1,5 +1,5 @@
 import React from 'react'
-import type {Meta, Story} from '@storybook/react'
+import type {Meta, StoryFn} from '@storybook/react'
 import type {ComponentProps} from '../utils/types'
 import Timeline from './Timeline'
 import Octicon from '../Octicon'
@@ -20,42 +20,42 @@ export const Default = () => (
   <Timeline>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} />
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} />
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} />
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
   </Timeline>
 )
 
-export const Playground: Story<ComponentProps<typeof Timeline>> = args => (
+export const Playground: StoryFn<ComponentProps<typeof Timeline>> = args => (
   <Timeline {...args}>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} />
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} />
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
     <Timeline.Item>
       <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} />
+        <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>This is a message</Timeline.Body>
     </Timeline.Item>
