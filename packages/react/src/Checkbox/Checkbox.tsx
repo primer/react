@@ -172,15 +172,15 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     }
     const inputProps = {
       type: 'checkbox',
-      disabled: disabled,
+      disabled,
       ref: checkboxRef,
       checked: indeterminate ? false : checked,
-      defaultChecked: defaultChecked,
-      required: required,
+      defaultChecked,
+      required,
       ['aria-required']: required ? ('true' as const) : ('false' as const),
       ['aria-invalid']: validationStatus === 'error' ? ('true' as const) : ('false' as const),
       onChange: handleOnChange,
-      value: value,
+      value,
       name: value,
       ...rest,
     }
