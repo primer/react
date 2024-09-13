@@ -58,7 +58,7 @@
   justify-content: space-between;
 }
 
-.Banner[data-dismissible] .BannerContainer {
+.Banner[data-dismissible]:not([data-title-hidden='']) .BannerContainer {
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: auto;
@@ -147,11 +147,11 @@
   margin-block-end: var(--base-size-6);
 }
 
-.Banner[data-dismissible] .BannerActionsContainer[data-primary-action='trailing'] {
+.Banner[data-dismissible]:not([data-title-hidden]) .BannerActionsContainer[data-primary-action='trailing'] {
   display: none;
 }
 
-.Banner[data-dismissible] .BannerActionsContainer[data-primary-action='leading'] {
+.Banner[data-dismissible]:not([data-title-hidden]) .BannerActionsContainer[data-primary-action='leading'] {
   display: flex;
 }
 

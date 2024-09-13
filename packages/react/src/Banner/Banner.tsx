@@ -415,8 +415,8 @@ export function BannerTitle<As extends HeadingElement>(props: BannerTitleProps<A
     <Heading
       {...rest}
       className={clsx(className, {
-        BannerTitle: !enabled,
         [classes.BannerTitle]: enabled,
+        BannerTitle: !enabled,
       })}
       data-banner-title=""
     >
@@ -445,14 +445,14 @@ export function BannerActions({primaryAction, secondaryAction}: BannerActionsPro
   return (
     <div
       className={clsx({
-        BannerActions: !enabled,
         [classes.BannerActions]: enabled,
+        BannerActions: !enabled,
       })}
     >
       <div
         className={clsx({
-          BannerActionsContainer: !enabled,
           [classes.BannerActionsContainer]: enabled,
+          BannerActionsContainer: !enabled,
         })}
         data-primary-action="trailing"
       >
@@ -461,8 +461,8 @@ export function BannerActions({primaryAction, secondaryAction}: BannerActionsPro
       </div>
       <div
         className={clsx({
-          BannerActionsContainer: !enabled,
           [classes.BannerActionsContainer]: enabled,
+          BannerActionsContainer: !enabled,
         })}
         data-primary-action="leading"
       >
