@@ -91,9 +91,6 @@ export const TestSxProp = () => {
       <Button sx={{fontSize: 32}} count={count}>
         Watch
       </Button>
-      <IconButton icon={TriangleDownIcon} aria-label="Classname test" className="testCustomClassname" />
-      <Button className="testCustomClassname">Custom classname</Button>
-      <LinkButton className="testCustomClassname">Custom classname</LinkButton>
     </div>
   )
 }
