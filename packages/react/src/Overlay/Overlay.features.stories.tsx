@@ -21,7 +21,7 @@ import type {AnchorSide} from '@primer/behaviors'
 import {Tooltip} from '../TooltipV2'
 
 export default {
-  title: 'Private/Components/Overlay',
+  title: 'Private/Components/Overlay/Features',
   component: Overlay,
   args: {
     anchorSide: 'inside-top',

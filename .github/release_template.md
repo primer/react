@@ -12,7 +12,7 @@ Please ensure these items are checked before merging.
 
 ### 🌏 Integration tests
 
-- [ ] Successful integration test with github/github as a primary consumer of Primer React ([automated pull request](https://github.com/github/github/pulls?q=is%3Apr+is%3Aopen+Integration+tests+for+%40primer%2Freact+label%3Adependencies))
+- [ ] Successful integration test with github/github as a primary consumer of Primer React ([automated pull request](https://github.com/github/github/pulls?q=is%3Apr+is%3Aopen+Integration+tests+for+%40primer%2Freact+release+label%3Adependencies))
   - [ ] Verify all CI checks have passed on automated pull request
   - [ ] Manually test critical paths in the review-lab
   - [ ] Manually test release-specific bugfixes and/or features work as described in the review-lab
