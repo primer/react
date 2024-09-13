@@ -5,7 +5,7 @@ import {Button} from '../Button'
 import Link from '../Link'
 import {get} from '../constants'
 import styled from 'styled-components'
-import classes from './Blankslate.module.css'
+import * as classes from './Blankslate.module.css'
 import {useFeatureFlag} from '../FeatureFlags'
 
 export type BlankslateProps = React.PropsWithChildren<{

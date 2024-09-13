@@ -7,7 +7,7 @@ import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import classes from './Heading.module.css'
+import * as classes from './Heading.module.css'
 import {useFeatureFlag} from '../FeatureFlags'
 import Box from '../Box'
 

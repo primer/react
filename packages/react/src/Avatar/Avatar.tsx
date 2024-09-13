@@ -10,7 +10,7 @@ import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isResponsiveValue} from '../hooks/useResponsiveValue'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
 import {defaultSxProp} from '../utils/defaultSxProp'
-import classes from './Avatar.module.css'
+import * as classes from './Avatar.module.css'
 import {useFeatureFlag} from '../FeatureFlags'
 
 export const DEFAULT_AVATAR_SIZE = 20

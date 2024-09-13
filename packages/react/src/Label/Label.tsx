@@ -1,7 +1,7 @@
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 import Box from '../Box'
-import classes from './Label.module.css'
+import * as classes from './Label.module.css'
 import React from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'

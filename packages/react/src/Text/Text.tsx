@@ -8,7 +8,7 @@ import sx from '../sx'
 import {useFeatureFlag} from '../FeatureFlags'
 import Box from '../Box'
 import {useRefObjectAsForwardedRef} from '../hooks'
-import classes from './Text.module.css'
+import * as classes from './Text.module.css'
 import type {ComponentProps} from '../utils/types'
 
 type StyledTextProps = {
