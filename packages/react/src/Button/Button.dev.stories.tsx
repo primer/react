@@ -1,6 +1,6 @@
 import {SearchIcon, TriangleDownIcon, EyeIcon, IssueClosedIcon} from '@primer/octicons-react'
 import React from 'react'
-import {Button, IconButton} from '.'
+import {Button, IconButton, LinkButton} from '.'
 import {default as Text} from '../Text'
 
 export default {
@@ -91,6 +91,9 @@ export const TestSxProp = () => {
       <Button sx={{fontSize: 32}} count={count}>
         Watch
       </Button>
+      <IconButton icon={TriangleDownIcon} aria-label="Classname test" className="testCustomClassname" />
+      <Button className="testCustomClassname">Custom classname</Button>
+      <LinkButton className="testCustomClassname">Custom classname</LinkButton>
     </div>
   )
 }
