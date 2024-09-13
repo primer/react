@@ -1,5 +1,6 @@
 import {createRequire} from 'node:module'
 import path from 'node:path'
+import react from '@vitejs/plugin-react'
 import postcssPresetPrimer from 'postcss-preset-primer'
 import type {StorybookConfig} from '@storybook/react-vite'
 
@@ -47,6 +48,8 @@ const config: StorybookConfig = {
         plugins: [postcssPresetPrimer()],
       },
     }
+
+    config.plugins = [...(config.plugins ?? []), react()]
 
     return config
   },
