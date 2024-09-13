@@ -138,7 +138,7 @@ describe('PageHeader', () => {
   })
   it('respects the title variant prop', () => {
     const {getByText} = render(
-      <PageHeader role="banner">
+      <PageHeader role="banner" aria-label="Title">
         <PageHeader.TitleArea variant="large">
           <PageHeader.Title>Title</PageHeader.Title>
         </PageHeader.TitleArea>
@@ -149,7 +149,7 @@ describe('PageHeader', () => {
   })
   it('renders "aria-label" prop when Navigation is rendered as "nav" landmark', () => {
     const {getByLabelText, getByText} = render(
-      <PageHeader role="banner">
+      <PageHeader role="banner" aria-label="Title">
         <PageHeader.TitleArea>
           <PageHeader.Title>Title</PageHeader.Title>
         </PageHeader.TitleArea>
@@ -163,7 +163,7 @@ describe('PageHeader', () => {
   })
   it('does not render "aria-label" prop when Navigation is rendered as "div"', () => {
     const {getByText} = render(
-      <PageHeader role="banner">
+      <PageHeader role="banner" aria-label="Title">
         <PageHeader.TitleArea>
           <PageHeader.Title>Title</PageHeader.Title>
         </PageHeader.TitleArea>
@@ -175,7 +175,7 @@ describe('PageHeader', () => {
   it('logs a warning when the Navigation component is rendered as "nav" but no "aria-label" or "aria-labelledby" prop is provided', () => {
     const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
     render(
-      <PageHeader role="banner">
+      <PageHeader role="banner" aria-label="Title">
         <PageHeader.TitleArea>
           <PageHeader.Title>Title</PageHeader.Title>
         </PageHeader.TitleArea>

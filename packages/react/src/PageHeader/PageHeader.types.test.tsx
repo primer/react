@@ -17,7 +17,7 @@ export function acceptsAriaLabelProp() {
 
 export function childrenShouldAcceptHiddenProp() {
   return (
-    <PageHeader role="banner">
+    <PageHeader role="banner" aria-label="Context Area">
       <PageHeader.ContextArea
         hidden={{
           narrow: true,
@@ -31,7 +31,7 @@ export function childrenShouldAcceptHiddenProp() {
 
 export function hiddenPropAcceptsBooleanValues() {
   return (
-    <PageHeader role="banner">
+    <PageHeader role="banner" aria-label="Banner">
       <PageHeader.ContextArea hidden={true}>Context Area</PageHeader.ContextArea>
     </PageHeader>
   )

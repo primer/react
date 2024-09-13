@@ -22,7 +22,7 @@ const setViewportParamToNarrow = {
 }
 export const Webhooks = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader role="banner">
+    <PageHeader role="banner" aria-label="Webhooks">
       <PageHeader.ContextArea>
         <PageHeader.ParentLink href="http://github.com">Repository settings</PageHeader.ParentLink>
       </PageHeader.ContextArea>
@@ -51,7 +51,7 @@ WebhooksOnNarrowViewport.parameters = setViewportParamToNarrow
 
 export const PullRequestPage = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader role="banner">
+    <PageHeader role="banner" aria-label="Add Hidden utility component">
       <PageHeader.ContextArea>
         <PageHeader.ParentLink href="http://github.com">Pull requests</PageHeader.ParentLink>
       </PageHeader.ContextArea>

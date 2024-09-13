@@ -287,7 +287,7 @@ export const Playground: StoryFn = args => (
 
 export const Default = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader role="banner">
+    <PageHeader role="banner" aria-label="Title">
       <PageHeader.TitleArea>
         <PageHeader.Title>Title</PageHeader.Title>
       </PageHeader.TitleArea>
