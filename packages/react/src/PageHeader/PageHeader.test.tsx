@@ -29,7 +29,7 @@ describe('PageHeader', () => {
     Component: PageHeader,
     options: {skipAs: true, skipSx: true},
     toRender: () => (
-      <PageHeader role="banner">
+      <PageHeader role="banner" aria-label="Banner">
         <PageHeader.TitleArea></PageHeader.TitleArea>
         <PageHeader.ContextArea></PageHeader.ContextArea>
         <PageHeader.Description></PageHeader.Description>
