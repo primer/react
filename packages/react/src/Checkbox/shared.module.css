@@ -1,0 +1,21 @@
+.input {
+  appearance: none;
+  border-color: var(--control-borderColor-emphasis);
+  border-style: solid;
+  border-width: var(--borderWidth-thin);
+  cursor: pointer;
+  display: grid;
+  height: var(--base-size-16);
+  margin: 0;
+  /* 2px to center align with label (20px line-height) */
+  margin-top: 0.125rem;
+  place-content: center;
+  position: relative;
+  width: var(--base-size-16);
+  background-color: var(--bgColor-default);
+
+  &:disabled {
+    background-color: var(--control-bgColor-disabled);
+    border-color: var(--control-borderColor-disabled);
+  }
+}

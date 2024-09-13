@@ -1,3 +1,4 @@
+import {clsx} from 'clsx'
 import styled from 'styled-components'
 import {useProvidedRefOrCreate} from '../hooks'
 import React, {useContext, useEffect, type ChangeEventHandler, type InputHTMLAttributes, type ReactElement} from 'react'
@@ -8,6 +9,10 @@ import {CheckboxGroupContext} from '../CheckboxGroup/CheckboxGroupContext'
 import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import {get} from '../constants'
 import {sharedCheckboxAndRadioStyles} from '../internal/utils/sharedCheckboxAndRadioStyles'
+import classes from './Checkbox.module.css'
+import sharedClasses from './shared.module.css'
+import {useFeatureFlag} from '../FeatureFlags'
+import Box from '../Box'
 
 export type CheckboxProps = {
   /**
@@ -145,6 +150,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (
     {
       checked,
+      className,
       defaultChecked,
       indeterminate,
       disabled,
@@ -157,11 +163,26 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     },
     ref,
   ): ReactElement => {
+    const enabled = useFeatureFlag('primer_react_css_modules_team')
     const checkboxRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
     const checkboxGroupContext = useContext(CheckboxGroupContext)
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
       checkboxGroupContext.onChange && checkboxGroupContext.onChange(e)
       onChange && onChange(e)
+    }
+    const inputProps = {
+      type: 'checkbox',
+      disabled: disabled,
+      ref: checkboxRef,
+      checked: indeterminate ? false : checked,
+      defaultChecked: defaultChecked,
+      required: required,
+      ['aria-required']: required ? ('true' as const) : ('false' as const),
+      ['aria-invalid']: validationStatus === 'error' ? ('true' as const) : ('false' as const),
+      onChange: handleOnChange,
+      value: value,
+      name: value,
+      ...rest,
     }
 
     useLayoutEffect(() => {
@@ -183,23 +204,21 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       }
     })
 
-    return (
-      <StyledCheckbox
-        type="checkbox"
-        disabled={disabled}
-        ref={checkboxRef}
-        checked={indeterminate ? false : checked}
-        defaultChecked={defaultChecked}
-        sx={sxProp}
-        required={required}
-        aria-required={required ? 'true' : 'false'}
-        aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
-        onChange={handleOnChange}
-        value={value}
-        name={value}
-        {...rest}
-      />
-    )
+    if (enabled) {
+      if (sxProp) {
+        return (
+          <Box
+            as="input"
+            {...inputProps}
+            className={clsx(className, sharedClasses.input, classes.Checkbox)}
+            sx={sxProp}
+          />
+        )
+      }
+      return <input {...inputProps} className={clsx(className, sharedClasses.input, classes.Checkbox)} />
+    }
+
+    return <StyledCheckbox {...inputProps} className={className} sx={sxProp} />
   },
 )
 

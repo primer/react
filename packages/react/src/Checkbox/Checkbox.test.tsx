@@ -1,8 +1,8 @@
-import React from 'react'
-import {Checkbox} from '..'
-import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import React from 'react'
+import Checkbox from '../Checkbox'
+import {behavesAsComponent, checkExports} from '../utils/testing'
 
 describe('Checkbox', () => {
   beforeEach(() => {
