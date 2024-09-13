@@ -68,7 +68,7 @@ export const ArrayTypeFontSizeOnTitle = () => (
 
 export const ThemeBaseFontSizeOnTitle = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader role="banner">
+    <PageHeader role="banner" aria-label="Issue Title">
       <PageHeader.TitleArea>
         <PageHeader.Title
           sx={{
