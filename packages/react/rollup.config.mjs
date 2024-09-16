@@ -23,9 +23,6 @@ const input = new Set([
   // "./experimental"
   'src/experimental/index.ts',
 
-  // "./drafts"
-  'src/drafts/index.ts',
-
   // "./deprecated"
   'src/deprecated/index.ts',
 

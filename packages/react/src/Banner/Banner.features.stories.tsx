@@ -6,7 +6,7 @@ import {Banner} from '../Banner'
 import Link from '../Link'
 
 const meta = {
-  title: 'Drafts/Components/Banner/Features',
+  title: 'Experimental/Components/Banner/Features',
   component: Banner,
 } satisfies Meta<typeof Banner>
 
@@ -177,6 +177,28 @@ export const WithHiddenTitleAndActions = () => {
           to enable two-factor authentication as an additional security measure.
         </>
       }
+      variant="warning"
+      primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
+      secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
+    />
+  )
+}
+
+export const DismissibleWithHiddenTitleAndActions = () => {
+  return (
+    <Banner
+      title="Warning"
+      hideTitle
+      description={
+        <>
+          GitHub users are{' '}
+          <Link inline underline href="#">
+            now required
+          </Link>{' '}
+          to enable two-factor authentication as an additional security measure.
+        </>
+      }
+      onDismiss={action('onDismiss')}
       variant="warning"
       primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
       secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}

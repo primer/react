@@ -55,7 +55,7 @@ We also have extra set of functions to test common functionalities of components
 - checkExports
 - checkStoriesForAxeViolations
 
-We make sure that every component has [these fundamental unit tests](https://github.com/primer/react/blob/main/src/utils/testing.tsx).
+We make sure that every component has [these fundamental unit tests](https://github.com/primer/react/blob/main/packages/react/src/utils/testing.tsx).
 
 ## Unit Tests
 

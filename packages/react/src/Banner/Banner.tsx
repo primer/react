@@ -248,7 +248,7 @@ const StyledBanner = styled.div`
     justify-content: space-between;
   }
 
-  &[data-dismissible] .BannerContainer {
+  &[data-dismissible]:not([data-title-hidden='']) .BannerContainer {
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto;
@@ -304,11 +304,11 @@ const StyledBanner = styled.div`
     margin-block-end: var(--base-size-6, 0.375rem);
   }
 
-  &[data-dismissible] .BannerActionsContainer[data-primary-action='trailing'] {
+  &[data-dismissible]:not([data-title-hidden]) .BannerActionsContainer[data-primary-action='trailing'] {
     display: none;
   }
 
-  &[data-dismissible] .BannerActionsContainer[data-primary-action='leading'] {
+  &[data-dismissible]:not([data-title-hidden]) .BannerActionsContainer[data-primary-action='leading'] {
     display: flex;
   }
 

@@ -2,7 +2,6 @@
   "mode": "pre",
   "tag": "rc",
   "initialVersions": {
-    "docs": "1.0.0",
     "codesandbox": "0.0.0",
     "example-app-router": "0.0.0",
     "example-consumer-test": "0.0.0",
