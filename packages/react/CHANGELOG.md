@@ -1,5 +1,42 @@
 # @primer/react
 
+## 37.0.0-rc.5
+
+### Major Changes
+
+- [#4785](https://github.com/primer/react/pull/4785) [`b74c47f`](https://github.com/primer/react/commit/b74c47f37628f67960343cec083dd60cd1ebc817) Thanks [@joshblack](https://github.com/joshblack)! - The drafts entrypoint has been removed from @primer/react. Use
+  @primer/react/experimental instead.
+
+- [#4940](https://github.com/primer/react/pull/4940) [`4d3b504`](https://github.com/primer/react/commit/4d3b50421f0823b3509a048987b15c59cb827176) Thanks [@langermank](https://github.com/langermank)! - Refactor ButtonBase component to use CSS modules behine flag
+
+### Minor Changes
+
+- [#4951](https://github.com/primer/react/pull/4951) [`c9009de`](https://github.com/primer/react/commit/c9009decbdac1f6cbc9253556942762c227fd69d) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(Pagination): Use anchor instead of button for disabled prev/next controls
+
+- [#4885](https://github.com/primer/react/pull/4885) [`373ce95`](https://github.com/primer/react/commit/373ce95042a4e2244a220378dccfc03fa001e7cf) Thanks [@jonrohan](https://github.com/jonrohan)! - Refactor Avatar component to use CSS modules behind feature flag
+
+- [#4906](https://github.com/primer/react/pull/4906) [`dbf82f4`](https://github.com/primer/react/commit/dbf82f4576e8d071dc2d41b50396fa68ab5505c2) Thanks [@siddharthkp](https://github.com/siddharthkp)! - SelectPanel: Support <kbd>PageDown</kbd> and <kbd>PageUp</kbd> for keyboard navigation
+
+  SelectPanel: Label `listbox` by the title of the panel
+
+### Patch Changes
+
+- [#4910](https://github.com/primer/react/pull/4910) [`c2e4d5e`](https://github.com/primer/react/commit/c2e4d5eadb1a0bca3de81b6e2571585777f00a5d) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Changes the accessible name of the "toggle" button in `LabelGroup` to contain the visual label
+
+- [#4941](https://github.com/primer/react/pull/4941) [`80fe025`](https://github.com/primer/react/commit/80fe025aeea23ec4fa15c50075736df4934659b5) Thanks [@langermank](https://github.com/langermank)! - Bug fix: Button loading spinner color
+
+- [#4957](https://github.com/primer/react/pull/4957) [`6874b89`](https://github.com/primer/react/commit/6874b89026eef5c46fb4d27e1c0fa0f08807a6bc) Thanks [@langermank](https://github.com/langermank)! - Add missing `wide` CSS + className to Stack
+
+- [#4648](https://github.com/primer/react/pull/4648) [`c6931d2`](https://github.com/primer/react/commit/c6931d20ea37888f0416429d068cc495d6cb804d) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionMenu: Make sure event handlers on ActionMenu.Button and ActionMenu.Anchor are called
+
+- [#4972](https://github.com/primer/react/pull/4972) [`082b4e7`](https://github.com/primer/react/commit/082b4e7eae0ebe40ba197ec1582519a9a9046dd8) Thanks [@joshblack](https://github.com/joshblack)! - Update issue where FormControl.Caption was rendering incorrectly when CSS Modules flags were enabled
+
+- [#4794](https://github.com/primer/react/pull/4794) [`5f996c6`](https://github.com/primer/react/commit/5f996c641b44303c9b466a3d28f208300eb4f36d) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - SelectPanel: Update SelectPanel to use modern ActionList behind a feature flag `primer_react_select_panel_with_modern_action_list`
+
+- [#4954](https://github.com/primer/react/pull/4954) [`af7f589`](https://github.com/primer/react/commit/af7f58911338f542525ce650f3aa34e85f9bf811) Thanks [@joshblack](https://github.com/joshblack)! - Banner: Update alignment of actions when it is dismissible and has a hidden title
+
+- [#4943](https://github.com/primer/react/pull/4943) [`c282642`](https://github.com/primer/react/commit/c282642d0f525eca371aa1142b98482f19b366cb) Thanks [@langermank](https://github.com/langermank)! - Button bug fixes: `invisible` variant icon colors missing variables + icon button disabled state
+
 ## 37.0.0-rc.4
 
 ### Minor Changes
