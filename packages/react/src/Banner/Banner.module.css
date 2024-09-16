@@ -147,10 +147,12 @@
   margin-block-end: var(--base-size-6);
 }
 
+/* stylelint-disable-next-line selector-max-specificity */
 .Banner[data-dismissible]:not([data-title-hidden]) .BannerActionsContainer[data-primary-action='trailing'] {
   display: none;
 }
 
+/* stylelint-disable-next-line selector-max-specificity */
 .Banner[data-dismissible]:not([data-title-hidden]) .BannerActionsContainer[data-primary-action='leading'] {
   display: flex;
 }
