@@ -105,15 +105,12 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     const loadingId = useId()
 
     const inputDescribedBy =
-      [
+      clsx(
         inputProps['aria-describedby'],
         LeadingVisual && leadingVisualId,
         TrailingVisual && trailingVisualId,
         loading && loadingId,
-      ]
-        .filter(String)
-        .join(' ')
-        .trim() || undefined
+      )
 
     const handleInputFocus = useCallback(
       (e: React.FocusEvent<HTMLInputElement>) => {
