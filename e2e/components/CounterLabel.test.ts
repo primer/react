@@ -12,10 +12,6 @@ const stories = [
     id: 'components-counterlabel--primary-theme',
   },
   {
-    title: 'Primary Theme',
-    id: 'components-counterlabel--primary-theme',
-  },
-  {
     title: 'Secondary Theme',
     id: 'components-counterlabel--secondary-theme',
   },
