@@ -76,14 +76,11 @@ const Page = styled.a`
 
   &[aria-disabled],
   &[aria-disabled]:hover {
-    color: ${get('colors.primer.fg.disabled')}; // check
-    cursor: default;
-    background-color: transparent;
-    border-color: transparent;
-    font-size: inherit;
-    font-family: inherit;
-    padding-top: inherit;
-    padding-bottom: inherit;
+    margin: 0 2px;
+
+    &:first-child {
+      margin-right: 6px;
+    }
   }
 
   &[aria-disabled],

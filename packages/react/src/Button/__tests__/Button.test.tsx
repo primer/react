@@ -2,9 +2,10 @@ import {SearchIcon, HeartIcon} from '@primer/octicons-react'
 import {render, screen, fireEvent} from '@testing-library/react'
 import axe from 'axe-core'
 import React from 'react'
-import {IconButton, Button} from '../../Button'
+import {IconButton, Button, LinkButton} from '../../Button'
 import type {ButtonProps} from '../../Button'
 import {behavesAsComponent} from '../../utils/testing'
+import {FeatureFlags} from '../../FeatureFlags'
 
 type StatefulLoadingButtonProps = {
   children?: React.ReactNode
@@ -299,5 +300,46 @@ describe('Button', () => {
     const tooltipEl = getByText('Love is all around, Command+H')
     expect(tooltipEl).toBeInTheDocument()
     expect(triggerEl.getAttribute('aria-describedby')).toEqual(expect.stringContaining(tooltipEl.id))
+  })
+
+  describe('with primer_react_css_modules_staff enabled', () => {
+    it('iconbutton should support custom `className` along with default classnames', () => {
+      const {container} = render(
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+          }}
+        >
+          <IconButton className="test" aria-label="Test" icon={HeartIcon} />
+        </FeatureFlags>,
+      )
+      expect(container.firstChild).toHaveClass('IconButton')
+    })
+
+    it('button should support custom `className` along with default classnames', () => {
+      const {container} = render(
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+          }}
+        >
+          <Button className="test">Hello</Button>
+        </FeatureFlags>,
+      )
+      expect(container.firstChild).toHaveClass('ButtonBase')
+    })
+
+    it('linkbutton should support custom `className` along with default classnames', () => {
+      const {container} = render(
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+          }}
+        >
+          <LinkButton className="test">Hello</LinkButton>
+        </FeatureFlags>,
+      )
+      expect(container.firstChild).toHaveClass('ButtonBase')
+    })
   })
 })

@@ -7,7 +7,7 @@ import {PageHeader} from '../PageHeader'
 import {Hidden} from '.'
 
 export default {
-  title: 'Drafts/Components/Hidden/Examples',
+  title: 'Experimental/Components/Hidden/Examples',
   parameters: {
     layout: 'fullscreen',
     controls: {expanded: true},

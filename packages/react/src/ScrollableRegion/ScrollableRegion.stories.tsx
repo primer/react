@@ -3,7 +3,7 @@ import type {Meta, StoryObj} from '@storybook/react'
 import {ScrollableRegion} from '../ScrollableRegion'
 
 const meta = {
-  title: 'Drafts/Components/ScrollableRegion',
+  title: 'Experimental/Components/ScrollableRegion',
   component: ScrollableRegion,
 } satisfies Meta<typeof ScrollableRegion>
 
