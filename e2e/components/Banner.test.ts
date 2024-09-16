@@ -53,7 +53,7 @@ const stories: Array<{title: string; id: string; viewports?: Array<keyof typeof 
   },
   {
     title: 'DismissibleWithHiddenTitleAndActions',
-    id: 'drafts-components-banner-features--dismissible-with-hidden-title-and-actions',
+    id: 'experimental-components-banner-features--dismissible-with-hidden-title-and-actions',
     viewports: ['primer.breakpoint.xs', 'primer.breakpoint.sm'],
   },
   {
