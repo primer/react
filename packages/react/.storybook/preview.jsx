@@ -171,6 +171,19 @@ const primerThemes = [
   {value: 'dark_high_contrast', left: '🌗', title: 'Dark High Contrast'},
 ]
 
+const defaultFeatureFlags = new Map(DefaultFeatureFlags.flags)
+const featureFlagEnvList = new Set([
+  'PRIMER_REACT_CSS_MODULES_TEAM',
+  'PRIMER_REACT_CSS_MODULES_STAFF',
+  'PRIMER_REACT_CSS_MODULES_GA',
+])
+
+for (const flag of featureFlagEnvList) {
+  if (process.env[flag] === '1') {
+    defaultFeatureFlags.set(flag, true)
+  }
+}
+
 export const globalTypes = {
   colorScheme: {
     name: 'Theme',
@@ -187,7 +200,7 @@ export const globalTypes = {
   featureFlags: {
     name: 'Feature flags',
     description: 'Toggle feature flags',
-    defaultValue: Object.fromEntries(DefaultFeatureFlags.flags),
+    defaultValue: Object.fromEntries(defaultFeatureFlags),
   },
 }
 
