@@ -87,7 +87,7 @@ export const useAnnouncements = (
           `List updated`,
           `Focused item: ${text}`,
           `${selected ? 'selected' : 'not selected'}`,
-          `${index} of ${items.length}`,
+          `${index + 1} of ${items.length}`,
         ].join(', ')
         announce(announcementText, {delayMs})
       })
