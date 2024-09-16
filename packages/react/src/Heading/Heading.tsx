@@ -65,7 +65,7 @@ const Heading = forwardRef(({as: Component = 'h2', className, variant, ...props}
           className={clsx(className, classes.Heading)}
           data-variant={variant}
           {...props}
-          // @ts-ignore shh
+          // @ts-ignore temporary disable as we migrate to css modules, until we remove PolymorphicForwardRefComponent
           ref={innerRef}
         />
       )
@@ -80,7 +80,7 @@ const Heading = forwardRef(({as: Component = 'h2', className, variant, ...props}
       data-variant={variant}
       sx={sx}
       {...props}
-      // @ts-ignore shh
+      // @ts-ignore temporary disable as we migrate to css modules, until we remove PolymorphicForwardRefComponent
       ref={innerRef}
     />
   )

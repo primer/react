@@ -184,6 +184,28 @@ export const WithHiddenTitleAndActions = () => {
   )
 }
 
+export const DismissibleWithHiddenTitleAndActions = () => {
+  return (
+    <Banner
+      title="Warning"
+      hideTitle
+      description={
+        <>
+          GitHub users are{' '}
+          <Link inline underline href="#">
+            now required
+          </Link>{' '}
+          to enable two-factor authentication as an additional security measure.
+        </>
+      }
+      onDismiss={action('onDismiss')}
+      variant="warning"
+      primaryAction={<Banner.PrimaryAction>Button</Banner.PrimaryAction>}
+      secondaryAction={<Banner.SecondaryAction>Button</Banner.SecondaryAction>}
+    />
+  )
+}
+
 export const WithActions = () => {
   return (
     <Banner
