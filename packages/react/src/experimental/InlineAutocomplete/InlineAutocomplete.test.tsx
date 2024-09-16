@@ -109,7 +109,7 @@ const UncontrolledInlineAutocomplete = ({
           <Textarea />
         </InlineAutocomplete>
       </FormControl>
-      <button>Button</button> {/* gives us another focuseable element to tab to */}
+      <button type="button">Button</button> {/* gives us another focuseable element to tab to */}
       <div id="__primerPortalRoot__" />
     </ThemeProvider>
   )

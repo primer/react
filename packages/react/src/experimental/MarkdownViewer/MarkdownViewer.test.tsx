@@ -194,6 +194,7 @@ text after list`
         return (
           <>
             <button
+              type="button"
               onClick={() => {
                 setMarkdown(`${markdown}
 - [ ] item 3
