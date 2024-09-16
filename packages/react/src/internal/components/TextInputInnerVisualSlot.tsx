@@ -21,14 +21,14 @@ const TextInputInnerVisualSlot: React.FC<
 
   if (!hasLoadingIndicator) {
     return (
-      <span className="TextInput-icon" id={id}>
+      <span className="TextInput-icon" id={id} aria-hidden="true">
         {children}
       </span>
     )
   }
 
   return (
-    <span className="TextInput-icon">
+    <span className="TextInput-icon" aria-hidden="true">
       <Box display="flex" position="relative" id={id}>
         {children && <Box sx={{visibility: showLoadingIndicator ? 'hidden' : 'visible'}}>{children}</Box>}
         <Spinner
