@@ -11,14 +11,14 @@ export function ThemePreference() {
     <Button
       aria-label="Toggle theme preference"
       type="button"
-      onClick={() => {
-        const {colorMode} = document.documentElement.dataset
+      onClick={async () => {
+        const colorMode = document.documentElement.getAttribute('data-color-mode')
         const nextColorMode = colorMode === 'light' ? 'dark' : 'light'
-        document.documentElement.dataset.colorMode = nextColorMode
+        document.documentElement.setAttribute('data-color-mode', nextColorMode)
 
         setColorMode(nextColorMode)
 
-        fetch('http://localhost:3000/api/color-preference', {
+        await fetch('http://localhost:3000/api/color-preference', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -27,8 +27,6 @@ export function ThemePreference() {
           body: JSON.stringify({
             colorMode: nextColorMode,
           }),
-        }).catch(error => {
-          console.log(error)
         })
       }}
     >
