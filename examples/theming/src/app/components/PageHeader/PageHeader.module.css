@@ -3,10 +3,10 @@
   justify-content: space-between;
   align-items: center;
   min-height: 4rem;
-  padding: 1rem;
+  padding: var(--base-size-16);
 }
 
 .logo {
-  text-decoration: none;
   color: inherit;
+  text-decoration: none;
 }
