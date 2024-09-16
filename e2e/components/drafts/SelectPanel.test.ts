@@ -8,7 +8,7 @@ test.describe('SelectPanel', () => {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-selectpanel--default',
+            id: 'experimental-components-selectpanel--default',
             globals: {
               colorScheme: theme,
             },
@@ -23,7 +23,7 @@ test.describe('SelectPanel', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'drafts-components-selectpanel--default',
+            id: 'experimental-components-selectpanel--default',
             globals: {
               colorScheme: theme,
             },

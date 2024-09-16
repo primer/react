@@ -20,10 +20,10 @@ import {
 } from '@primer/octicons-react'
 import {Box, Dialog, Button, Avatar, ActionMenu, IconButton, ActionList, Textarea} from '../'
 import {Divider} from '../deprecated/ActionList/Divider'
-import mockData from '../drafts/SelectPanel2/mock-story-data'
+import mockData from '../experimental/SelectPanel2/mock-story-data'
 
 export default {
-  title: 'Drafts/Components/ActionBar',
+  title: 'Experimental/Components/ActionBar',
 } as Meta<typeof ActionBar>
 
 export const Default = () => (
