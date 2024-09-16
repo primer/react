@@ -13,10 +13,6 @@
       "import": "./lib-esm/experimental/index.js",
       "require": "./lib/experimental/index.js"
     },
-    "./drafts": {
-      "import": "./lib-esm/drafts/index.js",
-      "require": "./lib/drafts/index.js"
-    },
     "./deprecated": {
       "import": "./lib-esm/deprecated/index.js",
       "require": "./lib/deprecated/index.js"
@@ -71,7 +67,6 @@
     "css",
     "index.d.ts",
     "deprecated/package.json",
-    "drafts/package.json",
     "experimental/package.json",
     "!lib/__tests__",
     "!lib/stories",

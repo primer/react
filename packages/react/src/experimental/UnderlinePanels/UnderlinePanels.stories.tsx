@@ -4,7 +4,7 @@ import UnderlinePanels from './UnderlinePanels'
 import type {ComponentProps} from '../../utils/types'
 
 export default {
-  title: 'Drafts/Components/UnderlinePanels',
+  title: 'Experimental/Components/UnderlinePanels',
   component: UnderlinePanels,
 } as Meta<ComponentProps<typeof UnderlinePanels>>
 

@@ -6,7 +6,7 @@ import {ActionList, Box} from '../../index'
 import data from './mock-story-data'
 
 export default {
-  title: 'Drafts/Components/SelectPanel/Playground',
+  title: 'Experimental/Components/SelectPanel/Playground',
   component: SelectPanel,
 
   args: {
