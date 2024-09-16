@@ -11,7 +11,7 @@ export const metadata = {
 export default function RootLayout({children}: {children: React.ReactNode}) {
   const cookieStore = cookies()
   const colorPreferenceCookie = cookieStore.get('color-preference')
-  const preference = colorPreferenceCookie ? colorPreferenceCookie.value : 'auto'
+  const colorMode = getColorMode(colorPreferenceCookie?.value)
 
   return (
     // Note: the focus-visible polyfill adds additional attributes to `html`
@@ -19,17 +19,24 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
     <html
       lang="en"
       suppressHydrationWarning
-      data-color-mode={preference}
+      data-color-mode={colorMode}
       data-light-theme="light"
       data-dark-theme="dark"
     >
       <body>
         <StyledComponentsRegistry>
-          <ThemeProvider colorMode="night">
+          <ThemeProvider colorMode={colorMode}>
             <BaseStyles>{children}</BaseStyles>
           </ThemeProvider>
         </StyledComponentsRegistry>
       </body>
     </html>
   )
+}
+
+function getColorMode(preference?: string): 'light' | 'dark' | 'auto' {
+  if (preference === 'light' || preference === 'dark') {
+    return preference
+  }
+  return 'auto'
 }
