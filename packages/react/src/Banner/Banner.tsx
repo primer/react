@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import {AlertIcon, InfoIcon, StopIcon, CheckCircleIcon, XIcon} from '@primer/octicons-react'
 import {Button, IconButton} from '../Button'
 import {get} from '../constants'
-import {VisuallyHidden} from '../internal/components/VisuallyHidden'
+import {VisuallyHidden} from '../VisuallyHidden'
 import {useMergedRefs} from '../internal/hooks/useMergedRefs'
 
 type BannerVariant = 'critical' | 'info' | 'success' | 'upsell' | 'warning'

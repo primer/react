@@ -192,6 +192,9 @@ export type {
   TreeViewErrorDialogProps,
 } from './TreeView'
 
+export {VisuallyHidden} from './VisuallyHidden'
+export type {VisuallyHiddenProps} from './VisuallyHidden'
+
 export {UnderlineNav} from './UnderlineNav'
 export type {UnderlineNavProps, UnderlineNavItemProps} from './UnderlineNav'
 

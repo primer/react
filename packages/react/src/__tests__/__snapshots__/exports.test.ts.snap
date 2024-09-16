@@ -213,6 +213,8 @@ exports[`@primer/react should not update exports without a semver change 1`] = `
   "useResponsiveValue",
   "useSafeTimeout",
   "useTheme",
+  "VisuallyHidden",
+  "type VisuallyHiddenProps",
 ]
 `;
 
