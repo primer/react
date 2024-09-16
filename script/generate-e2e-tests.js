@@ -578,7 +578,7 @@ const components = new Map([
     {
       stories: [
         {
-          id: 'drafts-components-hidden--default',
+          id: 'experimental-components-hidden--default',
           name: 'Default',
         },
       ],

@@ -5,25 +5,25 @@
   "a11yReviewed": false,
   "stories": [
     {
-      "id": "drafts-components-underlinepanels--default"
+      "id": "experimental-components-underlinepanels--default"
     },
     {
-      "id": "'drafts-components-underlinepanels-features--labelled-by-external-element"
+      "id": "experimental-components-underlinepanels-features--labelled-by-external-element"
     },
     {
-      "id": "drafts-components-underlinepanels-features--selected-tab"
+      "id": "experimental-components-underlinepanels-features--selected-tab"
     },
     {
-      "id": "drafts-components-underlinepanels-features--with-counters"
+      "id": "experimental-components-underlinepanels-features--with-counters"
     },
     {
-      "id": "drafts-components-underlinepanels-features--with-counters-in-loading-state"
+      "id": "experimental-components-underlinepanels-features--with-counters-in-loading-state"
     },
     {
-      "id": "drafts-components-underlinepanels-features--with-icons"
+      "id": "experimental-components-underlinepanels-features--with-icons"
     },
     {
-      "id": "drafts-components-underlinepanels-features--with-icons-hidden-on-narrow-screen"
+      "id": "experimental-components-underlinepanels-features--with-icons-hidden-on-narrow-screen"
     }
   ],
   "importPath": "@primer/react/experimental",

@@ -54,3 +54,7 @@
   font: var(--text-caption-shorthand);
   margin: 0;
 }
+
+.testCustomClassname {
+  color: var(--fgColor-sponsors);
+}

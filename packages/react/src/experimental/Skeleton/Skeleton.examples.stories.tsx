@@ -8,7 +8,7 @@ import {VisuallyHidden} from '../../internal/components/VisuallyHidden'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 
 export default {
-  title: 'Drafts/Components/Skeleton/Examples',
+  title: 'Experimental/Components/Skeleton/Examples',
 } as Meta<ComponentProps<typeof SkeletonText>>
 
 const COMMENT_LIST_LENGTH = 3

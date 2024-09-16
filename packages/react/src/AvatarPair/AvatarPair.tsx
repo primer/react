@@ -4,7 +4,7 @@ import type {AvatarProps} from '../Avatar'
 import Avatar from '../Avatar'
 import {get} from '../constants'
 import Box, {type BoxProps} from '../Box'
-import {SkeletonAvatar} from '../drafts/Skeleton/SkeletonAvatar'
+import {SkeletonAvatar} from '../experimental/Skeleton/SkeletonAvatar'
 
 const StyledAvatarPair = styled(Box)`
   position: relative;
