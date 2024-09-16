@@ -123,7 +123,7 @@ describe('Tooltip', () => {
     expect(spy).toHaveBeenCalled()
     spy.mockRestore()
   })
-  it('should not throw an error when the trigger element is a button', () => {
+  it('should not throw an error when the trigger element is a button in a fieldset', () => {
     const {getByRole} = HTMLRender(
       <fieldset>
         <legend>Legend</legend>
