@@ -4,7 +4,7 @@ import {AriaStatus} from './AriaStatus'
 import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 
 export default {
-  title: 'Drafts/Components/AriaStatus/Features',
+  title: 'Experimental/Components/AriaStatus/Features',
   component: AriaStatus,
 }
 
