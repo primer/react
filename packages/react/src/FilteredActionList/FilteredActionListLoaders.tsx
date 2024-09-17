@@ -1,8 +1,8 @@
 import React from 'react'
 import Box from '../Box'
 import Spinner from '../Spinner'
-import {SkeletonBox} from '../drafts/Skeleton'
 import {Stack} from '../Stack/Stack'
+import {SkeletonBox} from '../experimental/Skeleton/SkeletonBox'
 
 export class FilteredActionListLoadingType {
   public name: string
