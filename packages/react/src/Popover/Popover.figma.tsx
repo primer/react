@@ -15,23 +15,9 @@ figma.connect(Popover, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Prim
     body: figma.string('body'),
     heading: figma.string('heading'),
     action: figma.children('Action'),
-    caret: figma.enum('caret', {
-      top: 'top',
-      'top-left': 'top-left',
-      'top-right': 'top-right',
-      bottom: 'bottom',
-      'bottom-left': 'bottom-left',
-      'bottom-right': 'bottom-right',
-      left: 'left',
-      'left-top': 'left-top',
-      'left-bottom': 'left-bottom',
-      right: 'right',
-      'right-top': 'right-top',
-      'right-bottom': 'right-bottom',
-    }),
   },
-  example: ({caret, heading, body, action}) => (
-    <Popover caret={caret}>
+  example: ({heading, body, action}) => (
+    <Popover>
       <Popover.Content>
         <Heading
           sx={{
