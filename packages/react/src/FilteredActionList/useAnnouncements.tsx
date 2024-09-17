@@ -1,7 +1,7 @@
 // Announcements for FilteredActionList (and SelectPanel) based
 // on https://github.com/github/multi-select-user-testing
 
-import {announce} from '@primer/live-region-element'
+import {LiveRegionElement, announce} from '@primer/live-region-element'
 import {useEffect, useRef} from 'react'
 import type {FilteredActionListProps} from './FilteredActionListEntry'
 
@@ -41,6 +41,8 @@ export const useAnnouncements = (
   listContainerRef: React.RefObject<HTMLUListElement>,
   inputRef: React.RefObject<HTMLInputElement>,
 ) => {
+  const liveRegion = document.querySelector('live-region') as LiveRegionElement
+
   useEffect(
     function announceInitialFocus() {
       const focusHandler = () => {
@@ -56,7 +58,7 @@ export const useAnnouncements = (
             `${selected ? 'selected' : 'not selected'}`,
             `${index + 1} of ${items.length}`,
           ].join(', ')
-          announce(announcementText, {delayMs})
+          announce(announcementText, {delayMs, from: liveRegion})
         })
       }
 
@@ -64,13 +66,15 @@ export const useAnnouncements = (
       inputElement?.addEventListener('focus', focusHandler)
       return () => inputElement?.removeEventListener('focus', focusHandler)
     },
-    [listContainerRef, inputRef, items],
+    [listContainerRef, inputRef, items, liveRegion],
   )
 
   const isFirstRender = useFirstRender()
   useEffect(
     function announceListUpdates() {
       if (isFirstRender) return // ignore on first render as announceInitialFocus will also announce
+
+      liveRegion.clear() // clear previous announcements
 
       if (items.length === 0) {
         announce('No matching items.', {delayMs})
@@ -89,9 +93,9 @@ export const useAnnouncements = (
           `${selected ? 'selected' : 'not selected'}`,
           `${index + 1} of ${items.length}`,
         ].join(', ')
-        announce(announcementText, {delayMs})
+        announce(announcementText, {delayMs, from: liveRegion})
       })
     },
-    [listContainerRef, inputRef, items, isFirstRender],
+    [listContainerRef, inputRef, items, isFirstRender, liveRegion],
   )
 }
