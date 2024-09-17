@@ -24,7 +24,7 @@ const REGION_ORDER = {
 
 const SPACING_MAP = {
   none: 0,
-  condensed: 3,
+  condensed: 2,
   normal: [3, null, null, 4],
 }
 
