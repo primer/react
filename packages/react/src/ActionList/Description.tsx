@@ -1,9 +1,12 @@
+import {clsx} from 'clsx'
 import React from 'react'
 import Box from '../Box'
 import Truncate from '../Truncate'
 import type {SxProp} from '../sx'
 import {merge} from '../sx'
 import {ItemContext} from './shared'
+import {useFeatureFlag} from '../FeatureFlags'
+import classes from './ActionList.module.css'
 
 export type ActionListDescriptionProps = {
   /**
@@ -35,6 +38,27 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
 
   const {blockDescriptionId, inlineDescriptionId} = React.useContext(ItemContext)
 
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
+
+  if (enabled) {
+    if (SxProp) {
+      return (
+        <span
+          className={clsx(classes.Description)}
+          sx={SxProp}
+          id={blockDescriptionId}
+          data-component="ActionList.Description"
+        >
+          {props.children}
+        </span>
+      )
+    }
+    return (
+      <span className={clsx(classes.Description)} id={blockDescriptionId} data-component="ActionList.Description">
+        {props.children}
+      </span>
+    )
+  }
   return variant === 'block' ? (
     <Box as="span" sx={merge(styles, sx as SxProp)} id={blockDescriptionId} data-component="ActionList.Description">
       {props.children}
