@@ -1,7 +1,8 @@
 // Announcements for FilteredActionList (and SelectPanel) based
 // on https://github.com/github/multi-select-user-testing
 
-import {LiveRegionElement, announce} from '@primer/live-region-element'
+import {announce} from '@primer/live-region-element'
+import type {LiveRegionElement} from '@primer/live-region-element'
 import {useEffect, useRef} from 'react'
 import type {FilteredActionListProps} from './FilteredActionListEntry'
 
