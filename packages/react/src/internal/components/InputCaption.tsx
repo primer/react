@@ -14,7 +14,18 @@ type Props = {
 } & SxProp
 
 const InputCaption: React.FC<React.PropsWithChildren<Props>> = ({children, disabled, id, sx}) => (
-  <Text color={disabled ? 'fg.subtle' : 'fg.muted'} display="block" fontSize={0} id={id} sx={sx}>
+  <Text
+    color={disabled ? 'fg.subtle' : 'fg.muted'}
+    display="block"
+    fontSize={0}
+    id={id}
+    sx={{
+      color: disabled ? 'fg.subtle' : 'fg.muted',
+      display: 'block',
+      fontSize: 0,
+      ...sx,
+    }}
+  >
     {children}
   </Text>
 )
