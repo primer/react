@@ -73,7 +73,6 @@ const InlineToggle: React.FC<{
   hiddenItemIds,
   isOverflowShown,
   showAllTokensInline,
-  totalLength,
 }) =>
   isOverflowShown ? (
     <Button ref={collapseButtonRef} onClick={collapseInlineExpandedChildren} size="small" variant="invisible">
@@ -81,7 +80,7 @@ const InlineToggle: React.FC<{
     </Button>
   ) : hiddenItemIds.length ? (
     <Button ref={expandButtonRef} variant="invisible" size="small" onClick={showAllTokensInline}>
-      <VisuallyHidden>Show all {totalLength}</VisuallyHidden>
+      <VisuallyHidden>Show +{hiddenItemIds.length} more</VisuallyHidden>
       <span aria-hidden="true">+{hiddenItemIds.length}</span>
     </Button>
   ) : null
@@ -106,7 +105,6 @@ const OverlayToggle: React.FC<
   openOverflowOverlay,
   overlayPaddingPx,
   overlayWidth,
-  totalLength,
 }) =>
   hiddenItemIds.length ? (
     <AnchoredOverlay
@@ -123,7 +121,7 @@ const OverlayToggle: React.FC<
       alignmentOffset={overlayPaddingPx * -1}
       renderAnchor={props => (
         <Button variant="invisible" size="small" {...props} ref={expandButtonRef}>
-          <VisuallyHidden>Show all {totalLength}</VisuallyHidden>
+          <VisuallyHidden>Show +{hiddenItemIds.length} more</VisuallyHidden>
           <span aria-hidden="true">+{hiddenItemIds.length}</span>
         </Button>
       )}

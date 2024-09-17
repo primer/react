@@ -61,7 +61,7 @@ const StyledLink = styled.a<StyledLinkProps>`
   ${sx};
 `
 
-const Link = forwardRef(({as: Component = 'a', className, ...props}, forwardedRef) => {
+const Link = forwardRef(({as: Component = 'a', className, inline, underline, ...props}, forwardedRef) => {
   const enabled = useFeatureFlag('primer_react_css_modules_staff')
 
   const innerRef = React.useRef<HTMLAnchorElement>(null)
@@ -98,8 +98,8 @@ const Link = forwardRef(({as: Component = 'a', className, ...props}, forwardedRe
           as={Component}
           className={clsx(className, classes.Link)}
           data-muted={props.muted}
-          data-inline={props.inline}
-          data-underline={props.underline}
+          data-inline={inline}
+          data-underline={underline}
           {...props}
           // @ts-ignore shh
           ref={innerRef}
@@ -111,8 +111,8 @@ const Link = forwardRef(({as: Component = 'a', className, ...props}, forwardedRe
       <Component
         className={clsx(className, classes.Link)}
         data-muted={props.muted}
-        data-inline={props.inline}
-        data-underline={props.underline}
+        data-inline={inline}
+        data-underline={underline}
         {...props}
         // @ts-ignore shh
         ref={innerRef}
@@ -124,7 +124,8 @@ const Link = forwardRef(({as: Component = 'a', className, ...props}, forwardedRe
     <StyledLink
       as={Component}
       className={className}
-      data-inline={props.inline}
+      data-inline={inline}
+      underline={underline}
       {...props}
       // @ts-ignore shh
       ref={innerRef}
