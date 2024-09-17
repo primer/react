@@ -138,8 +138,11 @@ export function FilteredActionList({
           onChange={onInputChange}
           onKeyPress={onInputKeyPress}
           placeholder={placeholderText}
-          aria-label={placeholderText}
+          role="combobox"
+          aria-expanded="true"
+          aria-autocomplete="list"
           aria-controls={listId}
+          aria-label={placeholderText}
           aria-describedby={inputDescriptionTextId}
           {...textInputProps}
         />
