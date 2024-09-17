@@ -39,7 +39,7 @@ export * from '../PageHeader'
 
 export * from '../Hidden'
 
-export * from '../hooks'
+export * from './hooks'
 
 export {NavList} from '../NavList'
 export type {
