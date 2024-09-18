@@ -406,6 +406,17 @@ export const Default: StoryFn = args => (
         <Placeholder height={args['Pane placeholder height']} label="Pane" />
       </PageLayout.Pane>
     ) : null}
+    <PageLayout.Pane
+      position="end"
+      resizable
+      divider={{
+        narrow: args['Pane.divider.narrow'],
+        regular: args['Pane.divider.regular'],
+        wide: args['Pane.divider.wide'],
+      }}
+    >
+      <Placeholder height={args['Pane placeholder height']} label="Pane" />
+    </PageLayout.Pane>
     {args['Render footer?'] ? (
       <PageLayout.Footer
         padding={args['Footer.padding']}

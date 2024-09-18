@@ -7,10 +7,20 @@ import type {SxProp} from '../sx'
 import {merge} from '../sx'
 import {ItemContext, TEXT_ROW_HEIGHT, getVariantStyles} from './shared'
 import {Tooltip, type TooltipProps} from '../TooltipV2'
+import {clsx} from 'clsx'
+import {useFeatureFlag} from '../FeatureFlags'
+import classes from './ActionList.module.css'
 
 export type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
 
 export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  if (enabled) {
+    if (sx) {
+      return <Box as="span" sx={sx} {...props} />
+    }
+    return <span {...props} />
+  }
   return (
     <Box
       as="span"
@@ -24,6 +34,7 @@ export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProp
           alignItems: 'center',
           flexShrink: 0,
           marginRight: 2,
+          border: 'solid 1px red',
         },
         sx as SxProp,
       )}
@@ -35,6 +46,12 @@ export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProp
 export type ActionListLeadingVisualProps = VisualProps
 export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
   const {variant, disabled, inactive} = React.useContext(ItemContext)
+
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  if (enabled) {
+    if (sx) {
+    }
+  }
   return (
     <LeadingVisualContainer
       sx={merge(

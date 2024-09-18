@@ -41,16 +41,17 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
   const enabled = useFeatureFlag('primer_react_css_modules_team')
 
   if (enabled) {
-    if (SxProp) {
+    if (sx) {
       return (
-        <span
+        <Box
           className={clsx(classes.Description)}
-          sx={SxProp}
+          as="span"
+          sx={sx}
           id={blockDescriptionId}
           data-component="ActionList.Description"
         >
           {props.children}
-        </span>
+        </Box>
       )
     }
     return (
