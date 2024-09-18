@@ -32,23 +32,8 @@ export type {
 
 export * from '../Dialog/Dialog'
 
-export {default as InlineAutocomplete} from './InlineAutocomplete'
-export type {
-  InlineAutocompleteProps,
-  ShowSuggestionsEvent,
-  Suggestion,
-  Suggestions,
-  Trigger,
-} from './InlineAutocomplete'
-
 export {InlineMessage} from '../InlineMessage'
 export type {InlineMessageProps} from '../InlineMessage'
-
-export {default as MarkdownViewer} from './MarkdownViewer'
-export type {MarkdownViewerProps, InteractiveMarkdownViewerProps} from './MarkdownViewer'
-
-export {default as MarkdownEditor} from './MarkdownEditor'
-export * from './MarkdownEditor'
 
 export * from '../PageHeader'
 
@@ -88,3 +73,5 @@ export type {FeatureFlagsProps} from '../FeatureFlags'
 
 export {FilteredActionList} from '../FilteredActionList'
 export type {FilteredActionListProps} from '../FilteredActionList'
+
+export * from '../KeybindingHint'
