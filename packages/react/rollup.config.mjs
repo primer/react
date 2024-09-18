@@ -29,6 +29,9 @@ const input = new Set([
   // "./next"
   'src/next/index.ts',
 
+  // "./test-helpers"
+  'src/utils/test-helpers.tsx',
+
   // Make sure all members are exported
   'src/constants.ts',
 
