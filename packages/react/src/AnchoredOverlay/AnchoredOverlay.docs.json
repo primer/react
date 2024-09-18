@@ -83,6 +83,12 @@
       "type": "Partial<FocusZoneHookSettings>",
       "defaultValue": "",
       "description": "Settings to apply to the focus zone on the internal `Overlay` component."
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "defaultValue": "",
+      "description": "Class name for custom styling."
     }
   ]
 }

@@ -11,7 +11,7 @@ import type {ColWidthArgTypes} from './storyHelpers'
 import {getColumnWidthArgTypes} from './storyHelpers'
 
 export default {
-  title: 'Drafts/Components/DataTable',
+  title: 'Experimental/Components/DataTable',
   component: DataTable,
 } as Meta<typeof DataTable>
 

@@ -35,7 +35,7 @@ Playground.argTypes = {
     control: {
       type: 'radio',
     },
-    options: ['default', 'primary', 'danger', 'invisible'],
+    options: ['default', 'primary', 'danger', 'invisible', 'link'],
   },
   alignContent: {
     control: {
@@ -48,9 +48,19 @@ Playground.argTypes = {
       type: 'boolean',
     },
   },
+  loading: {
+    control: {
+      type: 'boolean',
+    },
+  },
   labelWrap: {
     control: {
       type: 'boolean',
+    },
+  },
+  count: {
+    control: {
+      type: 'number',
     },
   },
   leadingVisual: OcticonArgType([EyeClosedIcon, EyeIcon, SearchIcon, XIcon, HeartIcon]),
@@ -64,6 +74,7 @@ Playground.args = {
   inactive: false,
   variant: 'default',
   alignContent: 'center',
+  loading: false,
   trailingVisual: null,
   leadingVisual: null,
   trailingAction: null,

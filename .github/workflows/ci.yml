@@ -48,6 +48,8 @@ jobs:
         run: npm ci
       - name: Lint JavaScript
         run: npm run lint
+      - name: Lint CSS
+        run: npm run lint:css
       - name: Lint markdown
         run: npm run lint:md
 
@@ -182,7 +184,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        shard: [1, 2]
+        shard: [1, 2, 3, 4]
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js 20.x

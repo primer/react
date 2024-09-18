@@ -12,7 +12,7 @@ import type {SystemCssProperties} from '@styled-system/css'
 import {hasActiveDescendantAttribute} from '@primer/behaviors'
 import type {Merge} from '../../utils/types/Merge'
 
-type RenderItemFn = (props: ItemProps) => React.ReactElement
+export type RenderItemFn = (props: ItemProps) => React.ReactElement
 
 export type ItemInput =
   | Merge<React.ComponentPropsWithoutRef<'div'>, ItemProps>
@@ -36,6 +36,11 @@ export interface ListPropsBase {
    * id to attach to the base DOM node of the list
    */
   id?: string
+
+  /**
+   * aria-label to attach to the base DOM node of the list
+   */
+  'aria-label'?: string
 
   /**
    * A `List`-level custom `Item` renderer. Every `Item` within this `List`

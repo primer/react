@@ -1,0 +1,8 @@
+.component {
+  width: fit-content;
+  /* stylelint-disable-next-line primer/spacing */
+  padding: var(--control-xsmall-paddingBlock) var(--control-xsmall-paddingInline-normal);
+  color: var(--fgColor-muted);
+  background-color: var(--bgColor-default);
+  border: 1px solid var(--borderColor-default);
+}

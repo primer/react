@@ -135,7 +135,7 @@ const SwitchButton = styled.button<SwitchButtonProps>`
     }
   }
 
-  &:hover,
+  &:hover:not(:disabled),
   &:focus:focus-visible {
     background-color: ${get('colors.switchTrack.hoverBg')};
   }
@@ -162,9 +162,9 @@ const SwitchButton = styled.button<SwitchButtonProps>`
     if (props.checked) {
       return css`
         background-color: ${get('colors.switchTrack.checked.bg')};
-        border-color: transparent;
+        border-color: var(--control-checked-borderColor-rest, transparent);
 
-        &:hover,
+        &:hover:not(:disabled),
         &:focus:focus-visible {
           background-color: ${get('colors.switchTrack.checked.hoverBg')};
         }
@@ -177,7 +177,7 @@ const SwitchButton = styled.button<SwitchButtonProps>`
     } else {
       return css`
         background-color: ${get('colors.switchTrack.bg')};
-        border-color: transparent;
+        border-color: var(--controlTrack-borderColor-rest, transparent);
 
         &:active {
           background-color: ${get('colors.switchTrack.activeBg')};

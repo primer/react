@@ -21,6 +21,7 @@ exports[`StateLabel renders children 1`] = `
   border-radius: 100px;
   background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
   color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
+  box-shadow: var(--boxShadow-thin,inset 0 0 0 1px) var(--borderColor-open-emphasis,transparent);
   padding-left: 12px;
   padding-right: 12px;
   padding-top: 8px;
@@ -32,11 +33,12 @@ exports[`StateLabel renders children 1`] = `
   className="c0"
 >
   <svg
-    aria-hidden="true"
+    aria-label="Issue"
     className="c1"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
@@ -80,6 +82,7 @@ exports[`StateLabel respects the status prop 1`] = `
   border-radius: 100px;
   background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
   color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
+  box-shadow: var(--boxShadow-thin,inset 0 0 0 1px) var(--borderColor-open-emphasis,transparent);
   padding-left: 12px;
   padding-right: 12px;
   padding-top: 8px;
@@ -91,11 +94,12 @@ exports[`StateLabel respects the status prop 1`] = `
   className="c0"
 >
   <svg
-    aria-hidden="true"
+    aria-label="Issue"
     className="c1"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
@@ -138,6 +142,7 @@ exports[`StateLabel respects the status prop 2`] = `
   border-radius: 100px;
   background-color: var(--bgColor-done-emphasis,var(--color-done-emphasis,#8250df));
   color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
+  box-shadow: var(--boxShadow-thin,inset 0 0 0 1px) var(--borderColor-done-emphasis,transparent);
   padding-left: 12px;
   padding-right: 12px;
   padding-top: 8px;
@@ -149,11 +154,12 @@ exports[`StateLabel respects the status prop 2`] = `
   className="c0"
 >
   <svg
-    aria-hidden="true"
+    aria-label="Issue"
     className="c1"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
@@ -196,6 +202,7 @@ exports[`StateLabel respects the status prop 3`] = `
   border-radius: 100px;
   background-color: var(--bgColor-neutral-emphasis,var(--color-neutral-emphasis,#6e7781));
   color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
+  box-shadow: var(--boxShadow-thin,inset 0 0 0 1px) var(--borderColor-neutral-emphasis,transparent);
   padding-left: 12px;
   padding-right: 12px;
   padding-top: 8px;
@@ -207,11 +214,12 @@ exports[`StateLabel respects the status prop 3`] = `
   className="c0"
 >
   <svg
-    aria-hidden="true"
+    aria-label="Issue, not planned"
     className="c1"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
@@ -251,6 +259,7 @@ exports[`StateLabel respects the status prop 4`] = `
   border-radius: 100px;
   background-color: var(--bgColor-done-emphasis,var(--color-done-emphasis,#8250df));
   color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
+  box-shadow: var(--boxShadow-thin,inset 0 0 0 1px) var(--borderColor-done-emphasis,transparent);
   padding-left: 12px;
   padding-right: 12px;
   padding-top: 8px;
@@ -262,11 +271,12 @@ exports[`StateLabel respects the status prop 4`] = `
   className="c0"
 >
   <svg
-    aria-hidden="true"
+    aria-label="Pull request"
     className="c1"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
@@ -306,6 +316,7 @@ exports[`StateLabel respects the status prop 5`] = `
   border-radius: 100px;
   background-color: var(--bgColor-attention-emphasis,var(--color-attention-emphasis,#9a6700));
   color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
+  box-shadow: var(--boxShadow-thin,inset 0 0 0 1px) var(--borderColor-attention-emphasis,transparent);
   padding-left: 12px;
   padding-right: 12px;
   padding-top: 8px;
@@ -317,11 +328,12 @@ exports[`StateLabel respects the status prop 5`] = `
   className="c0"
 >
   <svg
-    aria-hidden="true"
+    aria-label="Pull request"
     className="c1"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
@@ -361,6 +373,7 @@ exports[`StateLabel respects the variant prop 1`] = `
   border-radius: 100px;
   background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
   color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
+  box-shadow: var(--boxShadow-thin,inset 0 0 0 1px) var(--borderColor-open-emphasis,transparent);
   padding-left: 8px;
   padding-right: 8px;
   padding-top: 4px;
@@ -372,11 +385,12 @@ exports[`StateLabel respects the variant prop 1`] = `
   className="c0"
 >
   <svg
-    aria-hidden="true"
+    aria-label="Issue"
     className="c1"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
@@ -419,6 +433,7 @@ exports[`StateLabel respects the variant prop 2`] = `
   border-radius: 100px;
   background-color: var(--bgColor-open-emphasis,var(--color-open-emphasis,#1f883d));
   color: var(--fgColor-onEmphasis,var(--color-fg-on-emphasis,#ffffff));
+  box-shadow: var(--boxShadow-thin,inset 0 0 0 1px) var(--borderColor-open-emphasis,transparent);
   padding-left: 12px;
   padding-right: 12px;
   padding-top: 8px;
@@ -430,11 +445,12 @@ exports[`StateLabel respects the variant prop 2`] = `
   className="c0"
 >
   <svg
-    aria-hidden="true"
+    aria-label="Issue"
     className="c1"
     fill="currentColor"
     focusable="false"
     height={16}
+    role="img"
     style={
       {
         "display": "inline-block",
