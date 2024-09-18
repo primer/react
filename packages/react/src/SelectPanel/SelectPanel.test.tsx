@@ -398,7 +398,7 @@ for (const useModernActionList of [false, true]) {
           // we wait because announcement is intentionally updated after a timeout to not interrupt user input
           await waitFor(async () => {
             expect(getLiveRegion().getMessage('polite')).toBe(
-              'Focus on filter text box and list of labels, Focused item: item one, not selected, 1 of 3',
+              'Focus on filter text box and list of items, Focused item: item one, not selected, 1 of 3',
             )
           })
         })

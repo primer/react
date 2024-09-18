@@ -54,7 +54,7 @@ export const useAnnouncements = (
           const {index, text, selected} = activeItem
 
           const announcementText = [
-            `Focus on filter text box and list of labels`,
+            `Focus on filter text box and list of items`,
             `Focused item: ${text}`,
             `${selected ? 'selected' : 'not selected'}`,
             `${index + 1} of ${items.length}`,
