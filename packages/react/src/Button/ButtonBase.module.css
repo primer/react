@@ -30,7 +30,7 @@
 
   /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
   &:focus-visible {
-    @mixin focusOutline 2px;
+    @mixin focusOutline;
   }
 
   &:active {
@@ -297,7 +297,7 @@
 
     /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
     &:focus-visible {
-      @mixin focusOutlineOnEmphasis 2px;
+      @mixin focusOutlineOnEmphasis;
     }
 
     &:active {
