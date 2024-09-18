@@ -33,6 +33,7 @@ export const VisuallyHiddenLabel = () => (
     <FormControl>
       <FormControl.Label visuallyHidden>Primer form label</FormControl.Label>
       <Textarea />
+      <FormControl.Caption>Label is visually hidden; the title describes the purpose visually</FormControl.Caption>
     </FormControl>
   </Box>
 )
