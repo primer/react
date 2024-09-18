@@ -77,6 +77,24 @@ test.describe('Banner', () => {
               id: story.id,
               globals: {
                 colorScheme: theme,
+                featureFlags: {
+                  primer_react_css_modules_team: true,
+                },
+              },
+            })
+
+            // Default state
+            expect(await page.screenshot()).toMatchSnapshot(`Banner.${story.title}.${theme}.png`)
+          })
+
+          test('default (styled-components) @vrt', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+                featureFlags: {
+                  primer_react_css_modules_team: false,
+                },
               },
             })
 
@@ -89,6 +107,22 @@ test.describe('Banner', () => {
               id: story.id,
               globals: {
                 colorScheme: theme,
+                featureFlags: {
+                  primer_react_css_modules_team: true,
+                },
+              },
+            })
+            await expect(page).toHaveNoViolations()
+          })
+
+          test('axe (styled-components) @aat', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+                featureFlags: {
+                  primer_react_css_modules_team: false,
+                },
               },
             })
             await expect(page).toHaveNoViolations()
@@ -101,6 +135,29 @@ test.describe('Banner', () => {
           test(`${name} @vrt`, async ({page}) => {
             await visit(page, {
               id: story.id,
+              globals: {
+                featureFlags: {
+                  primer_react_css_modules_team: true,
+                },
+              },
+            })
+            const width = viewports[name]
+
+            await page.setViewportSize({
+              width,
+              height: 667,
+            })
+            expect(await page.screenshot()).toMatchSnapshot(`Banner.${story.title}.${name}.png`)
+          })
+
+          test(`${name} (styled-components) @vrt`, async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                featureFlags: {
+                  primer_react_css_modules_team: false,
+                },
+              },
             })
             const width = viewports[name]
 

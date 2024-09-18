@@ -9,10 +9,14 @@ const Component = () => {
   useOpenAndCloseFocus({containerRef, initialFocusRef: noButtonRef, returnFocusRef})
   return (
     <>
-      <button ref={returnFocusRef}>trigger</button>
+      <button type="button" ref={returnFocusRef}>
+        trigger
+      </button>
       <div ref={containerRef}>
-        <button>yes</button>
-        <button ref={noButtonRef}>no</button>
+        <button type="button">yes</button>
+        <button ref={noButtonRef} type="button">
+          no
+        </button>
       </div>
     </>
   )
@@ -24,10 +28,12 @@ const ComponentTwo = () => {
   useOpenAndCloseFocus({containerRef, returnFocusRef: buttonRef})
   return (
     <>
-      <button ref={buttonRef}>button trigger</button>
+      <button ref={buttonRef} type="button">
+        button trigger
+      </button>
       <div ref={containerRef}>
-        <button>yes</button>
-        <button>no</button>
+        <button type="button">yes</button>
+        <button type="button">no</button>
       </div>
     </>
   )

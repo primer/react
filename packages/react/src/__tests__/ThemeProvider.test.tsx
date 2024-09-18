@@ -203,7 +203,9 @@ it('updates when colorMode prop changes', async () => {
     return (
       <ThemeProvider theme={exampleTheme} colorMode={colorMode}>
         <Text color="text">{colorMode}</Text>
-        <button onClick={() => setColorMode(colorMode === 'day' ? 'night' : 'day')}>Toggle</button>
+        <button type="button" onClick={() => setColorMode(colorMode === 'day' ? 'night' : 'day')}>
+          Toggle
+        </button>
       </ThemeProvider>
     )
   }
@@ -229,7 +231,9 @@ it('updates when dayScheme prop changes', async () => {
     return (
       <ThemeProvider theme={exampleTheme} dayScheme={dayScheme}>
         <Text color="text">{dayScheme}</Text>
-        <button onClick={() => setDayScheme(dayScheme === 'light' ? 'dark_dimmed' : 'light')}>Toggle</button>
+        <button type="button" onClick={() => setDayScheme(dayScheme === 'light' ? 'dark_dimmed' : 'light')}>
+          Toggle
+        </button>
       </ThemeProvider>
     )
   }
@@ -255,7 +259,9 @@ it('updates when nightScheme prop changes', async () => {
     return (
       <ThemeProvider theme={exampleTheme} colorMode="night" nightScheme={nightScheme}>
         <Text color="text">{nightScheme}</Text>
-        <button onClick={() => setNightScheme(nightScheme === 'dark' ? 'dark_dimmed' : 'dark')}>Toggle</button>
+        <button type="button" onClick={() => setNightScheme(nightScheme === 'dark' ? 'dark_dimmed' : 'dark')}>
+          Toggle
+        </button>
       </ThemeProvider>
     )
   }
@@ -280,7 +286,9 @@ it('inherits colorMode from parent', async () => {
     const [colorMode, setcolorMode] = React.useState<'day' | 'night'>('day')
     return (
       <ThemeProvider theme={exampleTheme} colorMode={colorMode}>
-        <button onClick={() => setcolorMode(colorMode === 'day' ? 'night' : 'day')}>Toggle</button>
+        <button type="button" onClick={() => setcolorMode(colorMode === 'day' ? 'night' : 'day')}>
+          Toggle
+        </button>
         <ThemeProvider>
           <Text color="text">{colorMode}</Text>
         </ThemeProvider>
@@ -304,7 +312,9 @@ it('inherits dayScheme from parent', async () => {
     const [dayScheme, setDayScheme] = React.useState('light')
     return (
       <ThemeProvider theme={exampleTheme} colorMode="night" dayScheme={dayScheme}>
-        <button onClick={() => setDayScheme(dayScheme === 'light' ? 'dark_dimmed' : 'light')}>Toggle</button>
+        <button type="button" onClick={() => setDayScheme(dayScheme === 'light' ? 'dark_dimmed' : 'light')}>
+          Toggle
+        </button>
         <ThemeProvider colorMode="day">
           <Text color="text">{dayScheme}</Text>
         </ThemeProvider>
@@ -328,7 +338,9 @@ it('inherits nightScheme from parent', async () => {
     const [nightScheme, setNightScheme] = React.useState('dark')
     return (
       <ThemeProvider theme={exampleTheme} colorMode="day" nightScheme={nightScheme}>
-        <button onClick={() => setNightScheme(nightScheme === 'dark' ? 'dark_dimmed' : 'dark')}>Toggle</button>
+        <button type="button" onClick={() => setNightScheme(nightScheme === 'dark' ? 'dark_dimmed' : 'dark')}>
+          Toggle
+        </button>
         <ThemeProvider colorMode="night">
           <Text color="text">{nightScheme}</Text>
         </ThemeProvider>
@@ -351,7 +363,11 @@ describe('setColorMode', () => {
 
     function ToggleMode() {
       const {colorMode, setColorMode} = useTheme()
-      return <button onClick={() => setColorMode(colorMode === 'day' ? 'night' : 'day')}>Toggle</button>
+      return (
+        <button type="button" onClick={() => setColorMode(colorMode === 'day' ? 'night' : 'day')}>
+          Toggle
+        </button>
+      )
     }
 
     render(
@@ -377,7 +393,11 @@ describe('setDayScheme', () => {
 
     function ToggleDayScheme() {
       const {dayScheme, setDayScheme} = useTheme()
-      return <button onClick={() => setDayScheme(dayScheme === 'light' ? 'dark' : 'light')}>Toggle</button>
+      return (
+        <button type="button" onClick={() => setDayScheme(dayScheme === 'light' ? 'dark' : 'light')}>
+          Toggle
+        </button>
+      )
     }
 
     render(
@@ -403,7 +423,11 @@ describe('setNightScheme', () => {
 
     function ToggleNightScheme() {
       const {nightScheme, setNightScheme} = useTheme()
-      return <button onClick={() => setNightScheme(nightScheme === 'dark' ? 'dark_dimmed' : 'dark')}>Toggle</button>
+      return (
+        <button type="button" onClick={() => setNightScheme(nightScheme === 'dark' ? 'dark_dimmed' : 'dark')}>
+          Toggle
+        </button>
+      )
     }
 
     render(
@@ -429,7 +453,11 @@ describe('useColorSchemeVar', () => {
 
     function ToggleMode() {
       const {colorMode, setColorMode} = useTheme()
-      return <button onClick={() => setColorMode(colorMode === 'day' ? 'night' : 'day')}>Toggle</button>
+      return (
+        <button type="button" onClick={() => setColorMode(colorMode === 'day' ? 'night' : 'day')}>
+          Toggle
+        </button>
+      )
     }
 
     function CustomBg() {
@@ -464,7 +492,11 @@ describe('useColorSchemeVar', () => {
 
     function ToggleMode() {
       const {colorMode, setColorMode} = useTheme()
-      return <button onClick={() => setColorMode(colorMode === 'day' ? 'night' : 'day')}>Toggle</button>
+      return (
+        <button type="button" onClick={() => setColorMode(colorMode === 'day' ? 'night' : 'day')}>
+          Toggle
+        </button>
+      )
     }
 
     function CustomBg() {
