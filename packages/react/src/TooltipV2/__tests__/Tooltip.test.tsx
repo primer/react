@@ -128,7 +128,7 @@ describe('Tooltip', () => {
       <fieldset>
         <legend>Legend</legend>
         <Tooltip text="Tooltip text">
-          <button>Button Text</button>
+          <button type="button">Button Text</button>
         </Tooltip>
       </fieldset>,
     )
