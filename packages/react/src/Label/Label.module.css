@@ -2,6 +2,7 @@
   display: inline-flex;
   font-size: var(--text-body-size-small);
   font-weight: var(--base-text-weight-medium);
+  /* stylelint-disable-next-line primer/typography */
   line-height: 1;
   color: var(--fgColor-default);
   white-space: nowrap;
