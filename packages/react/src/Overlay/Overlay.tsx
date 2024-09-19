@@ -13,6 +13,7 @@ import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import type {AnchorSide} from '@primer/behaviors'
 import {useTheme} from '../ThemeProvider'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {useFocusTrap} from '../hooks/useFocusTrap'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -138,7 +139,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
   (
     {
       onClickOutside,
-      role = 'none',
+      role,
       initialFocusRef,
       returnFocusRef,
       ignoreClickRefs,
@@ -200,12 +201,16 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
     // To be backwards compatible with the old Overlay, we need to set the left prop if x-position is not specified
     const leftPosition: React.CSSProperties = left === undefined && right === undefined ? {left: 0} : {left}
 
+    const {containerRef} = useFocusTrap({
+      containerRef: overlayRef, // only if `role="dialog"`, `aria-modal="true"` is true
+    })
+
     return (
       <Portal containerName={portalContainerName}>
         <StyledOverlay
           height={height}
           width={width}
-          role={role}
+          role={role || 'dialog'}
           {...rest}
           ref={overlayRef}
           style={
