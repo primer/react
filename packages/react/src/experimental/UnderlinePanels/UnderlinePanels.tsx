@@ -177,6 +177,7 @@ const Tab: FC<TabProps> = ({'aria-selected': ariaSelected, sx: sxProp = defaultS
     tabIndex={ariaSelected ? 0 : -1}
     aria-selected={ariaSelected}
     sx={sxProp}
+    type="button"
     {...props}
   />
 )
