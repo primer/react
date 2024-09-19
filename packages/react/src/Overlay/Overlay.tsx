@@ -110,6 +110,7 @@ type BaseOverlayProps = {
   portalContainerName?: string
   preventFocusOnOpen?: boolean
   role?: AriaRole
+  focusTrap?: boolean
   children?: React.ReactNode
 }
 
@@ -134,6 +135,7 @@ type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
  * @param bottom Optional. Vertical bottom position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
  * @param position Optional. Sets how an element is positioned in a document. Defaults to `absolute` positioning.
  * @param portalContainerName Optional. The name of the portal container to render the Overlay into.
+ * @param focusTrap Optional. Determines if the `Overlay` recieves a focus trap or not. Defaults to `true`.
  */
 const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
   (
@@ -156,6 +158,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
       preventFocusOnOpen,
       position,
       style: styleFromProps = {},
+      focusTrap = true,
       ...rest
     },
     forwardedRef,
@@ -201,8 +204,11 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
     // To be backwards compatible with the old Overlay, we need to set the left prop if x-position is not specified
     const leftPosition: React.CSSProperties = left === undefined && right === undefined ? {left: 0} : {left}
 
-    const {containerRef} = useFocusTrap({
+    const dialog = role && role !== 'dialog' ? true : false
+
+    useFocusTrap({
       containerRef: overlayRef, // only if `role="dialog"`, `aria-modal="true"` is true
+      disabled: !focusTrap || dialog,
     })
 
     return (
@@ -211,6 +217,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
           height={height}
           width={width}
           role={role || 'dialog'}
+          aria-modal={dialog ? undefined : 'true'}
           {...rest}
           ref={overlayRef}
           style={
