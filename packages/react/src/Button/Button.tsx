@@ -6,7 +6,7 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 import type {BetterSystemStyleObject, CSSCustomProperties} from '../sx'
 
 const ButtonComponent = forwardRef(({children, sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
-  const {block, size, leadingVisual, trailingVisual, trailingAction} = props
+  const {block, size = 'medium', leadingVisual, trailingVisual, trailingAction} = props
   let sxStyles = sxProp
   const style: CSSCustomProperties = {}
 
