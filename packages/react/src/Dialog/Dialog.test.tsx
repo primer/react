@@ -86,7 +86,6 @@ describe('Dialog', () => {
   })
 
   it('does not call `onClose` when click was not originated from backdrop', async () => {
-    const user = userEvent.setup()
     const onClose = jest.fn()
 
     const {getByRole} = render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
