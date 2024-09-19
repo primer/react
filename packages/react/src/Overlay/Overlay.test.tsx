@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react'
+import React, {useRef, useState, type AriaRole} from 'react'
 import {Overlay, Box, Text} from '..'
 import {ButtonDanger, Button} from '../deprecated'
 import {render, waitFor, fireEvent} from '@testing-library/react'
@@ -12,8 +12,9 @@ import {NestedOverlays, MemexNestedOverlays, MemexIssueOverlay, PositionedOverla
 type TestComponentSettings = {
   initialFocus?: 'button'
   callback?: () => void
+  role?: AriaRole
 }
-const TestComponent = ({initialFocus, callback}: TestComponentSettings) => {
+const TestComponent = ({initialFocus, callback, role}: TestComponentSettings) => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const confirmButtonRef = useRef<HTMLButtonElement>(null)
@@ -39,6 +40,7 @@ const TestComponent = ({initialFocus, callback}: TestComponentSettings) => {
               ignoreClickRefs={[buttonRef]}
               onEscape={closeOverlay}
               onClickOutside={closeOverlay}
+              role={role}
               width="small"
             >
               <Box display="flex" flexDirection="column" p={2}>
@@ -280,5 +282,24 @@ describe('Overlay', () => {
 
     // if stopPropagation worked, mockHandler would not have been called
     expect(mockHandler).toHaveBeenCalledTimes(0)
+  })
+
+  it('should provide `role="dialog"` and `aria-modal="true"`, if role is not provided', async () => {
+    const user = userEvent.setup()
+    const {getByText, getByRole} = render(<TestComponent />)
+
+    await user.click(getByText('open overlay'))
+
+    expect(getByRole('dialog')).toBeInTheDocument()
+  })
+
+  it('should not provide `dialog` roles if role is already provided', async () => {
+    const user = userEvent.setup()
+    const {getByText, queryByRole} = render(<TestComponent role="none" />)
+
+    await user.click(getByText('open overlay'))
+
+    expect(queryByRole('dialog')).not.toBeInTheDocument()
+    expect(queryByRole('none')).toBeInTheDocument()
   })
 })
