@@ -42,7 +42,7 @@ export const useAnnouncements = (
   listContainerRef: React.RefObject<HTMLUListElement>,
   inputRef: React.RefObject<HTMLInputElement>,
 ) => {
-  const liveRegion = document.querySelector('live-region') as LiveRegionElement
+  const liveRegion = document.querySelector('live-region')
 
   useEffect(
     function announceInitialFocus() {
@@ -59,7 +59,10 @@ export const useAnnouncements = (
             `${selected ? 'selected' : 'not selected'}`,
             `${index + 1} of ${items.length}`,
           ].join(', ')
-          announce(announcementText, {delayMs, from: liveRegion})
+          announce(announcementText, {
+            delayMs,
+            from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+          })
         })
       }
 
@@ -75,7 +78,7 @@ export const useAnnouncements = (
     function announceListUpdates() {
       if (isFirstRender) return // ignore on first render as announceInitialFocus will also announce
 
-      liveRegion.clear() // clear previous announcements
+      liveRegion?.clear() // clear previous announcements
 
       if (items.length === 0) {
         announce('No matching items.', {delayMs})
@@ -94,9 +97,13 @@ export const useAnnouncements = (
           `${selected ? 'selected' : 'not selected'}`,
           `${index + 1} of ${items.length}`,
         ].join(', ')
-        announce(announcementText, {delayMs, from: liveRegion})
+
+        announce(announcementText, {
+          delayMs,
+          from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+        })
       })
     },
-    [listContainerRef, inputRef, items, isFirstRender, liveRegion],
+    [isFirstRender, items, listContainerRef, liveRegion],
   )
 }
