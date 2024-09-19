@@ -95,7 +95,10 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
       }
     }
 
-    if (React.isValidElement<SegmentedControlIconButtonProps>(childArg)) {
+    if (
+      React.isValidElement<SegmentedControlIconButtonProps>(childArg) &&
+      childArg.type === SegmentedControlIconButton
+    ) {
       if (isElement(childArg.props.icon)) {
         childArg.props.icon
       } else {
