@@ -18,11 +18,9 @@ import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 import type {SxProp} from '../sx'
 import type {FilteredActionListLoadingType} from './FilteredActionListLoaders'
 import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './FilteredActionListLoaders'
-import Text from '../Text'
 
 import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
-import {SelectPanelMessage} from '../SelectPanel/SelectPanel'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -37,7 +35,6 @@ export interface FilteredActionListProps
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
-  emptyState?: boolean
 }
 
 const StyledHeader = styled.div`
@@ -57,7 +54,6 @@ export function FilteredActionList({
   sx,
   groupMetadata,
   showItemDividers,
-  emptyState,
   message,
   ...listProps
 }: FilteredActionListProps): JSX.Element {

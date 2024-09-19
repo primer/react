@@ -16,7 +16,6 @@ import {
 } from '@primer/octicons-react'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import Link from '../Link'
-import Text from '../Text'
 
 const meta = {
   title: 'Components/SelectPanel/Features',

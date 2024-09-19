@@ -35,8 +35,6 @@ export interface FilteredActionListProps
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement> | null) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
-  emptyState?: boolean
-  children?: React.ReactNode
 }
 
 const StyledHeader = styled.div`

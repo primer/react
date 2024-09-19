@@ -74,6 +74,8 @@ export type SelectPanelMessageProps = {
   title: string
   variant: 'noitems' | 'nomatches'
 }
+// we will have more variants in the future like error / warning etc
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({variant = 'noitems', title, children}) => {
   return (
     <Box
@@ -346,7 +348,6 @@ function Panel({
             inputRef={inputRef}
             loading={isLoading}
             loadingType={loadingType()}
-            emptyState={isNoItemsState}
             message={message}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
