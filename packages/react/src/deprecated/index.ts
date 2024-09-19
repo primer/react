@@ -16,6 +16,7 @@ export type {
   ItemProps as ActionListItemProps,
   GroupProps as ActionListGroupProps,
   GroupedListProps as ActionListGroupedListProps,
+  ItemInput as ActionListItemInput,
 } from './ActionList'
 export {ActionMenu} from './ActionMenu'
 export type {ActionMenuProps} from './ActionMenu'

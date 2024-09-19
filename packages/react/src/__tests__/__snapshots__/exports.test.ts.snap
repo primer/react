@@ -223,6 +223,7 @@ exports[`@primer/react/deprecated should not update exports without a semver cha
   "ActionList",
   "type ActionListGroupedListProps",
   "type ActionListGroupProps",
+  "type ActionListItemInput",
   "type ActionListItemProps",
   "type ActionListProps",
   "ActionMenu",
