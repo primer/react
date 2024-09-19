@@ -6,7 +6,7 @@ import {PageLayout} from '../PageLayout'
 import {action} from '@storybook/addon-actions'
 
 const meta = {
-  title: 'Drafts/Components/Banner',
+  title: 'Experimental/Components/Banner',
   component: Banner,
 } satisfies Meta<typeof Banner>
 

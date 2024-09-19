@@ -578,7 +578,7 @@ const components = new Map([
     {
       stories: [
         {
-          id: 'drafts-components-hidden--default',
+          id: 'experimental-components-hidden--default',
           name: 'Default',
         },
       ],
@@ -631,29 +631,6 @@ const components = new Map([
         {
           id: 'components-iconbutton-features--keyshortcuts-on-description',
           name: 'Keyshortcuts on Description',
-        },
-      ],
-    },
-  ],
-  [
-    'InlineAutocomplete',
-    {
-      stories: [
-        {
-          id: 'components-forms-inlineautocomplete--default',
-          name: 'Default',
-        },
-        {
-          id: 'components-forms-inlineautocomplete--playground',
-          name: 'Playground',
-        },
-        {
-          id: 'components-forms-inlineautocomplete-features--custom-rendering',
-          name: 'Custom Rendering',
-        },
-        {
-          id: 'components-forms-inlineautocomplete-features--single-line',
-          name: 'Single Line',
         },
       ],
     },

@@ -4,7 +4,7 @@ import {KeybindingHint, type KeybindingHintProps} from '.'
 import Box from '../Box'
 
 export default {
-  title: 'Drafts/Components/KeybindingHint/Features',
+  title: 'Experimental/Components/KeybindingHint/Features',
   component: KeybindingHint,
 } satisfies Meta<typeof KeybindingHint>
 
