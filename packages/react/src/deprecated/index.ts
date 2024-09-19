@@ -43,8 +43,8 @@ export type {UnderlineNavProps, UnderlineNavLinkProps} from './UnderlineNav'
 // end of v36.0.0
 
 // Deprecated in v37.0.0
-export {default as Dialog} from '../Dialog'
-export type {DialogProps, DialogHeaderProps} from '../Dialog'
+export {Dialog} from '../DialogV1'
+export type {DialogProps, DialogHeaderProps} from '../DialogV1'
 export {default as Octicon} from '../Octicon'
 export type {OcticonProps} from '../Octicon'
 export {default as Pagehead} from '../Pagehead'
