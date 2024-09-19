@@ -15,6 +15,8 @@ import {
   VersionsIcon,
 } from '@primer/octicons-react'
 import useSafeTimeout from '../hooks/useSafeTimeout'
+import Link from '../Link'
+import Text from '../Text'
 
 const meta = {
   title: 'Components/SelectPanel/Features',
@@ -421,4 +423,72 @@ export const AsyncFetch: StoryObj<typeof SelectPanel> = {
       defaultValue: 'spinner',
     },
   },
+}
+
+export const NoItems = () => {
+  const [selected, setSelected] = React.useState<ItemInput[]>([])
+  const [filteredItems, setFilteredItems] = React.useState<ItemInput[]>([])
+  const [open, setOpen] = useState(true)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const onFilterChange = (value: string = '') => {
+    setTimeout(() => {
+      // fetch the items
+      setFilteredItems([])
+    }, 0)
+  }
+  return (
+    <SelectPanel
+      title="Set projects"
+      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          {children ?? 'Select Labels'}
+        </Button>
+      )}
+      open={open}
+      onOpenChange={setOpen}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onFilterChange={onFilterChange}
+      overlayProps={{width: 'medium', height: 'large'}}
+    >
+      <SelectPanel.Message variant="noitems" title="You haven't created any projects yet">
+        <Link href="https://github.com/projects">Start your first project </Link> to organise your issues.
+      </SelectPanel.Message>
+      <SelectPanel.Message variant="nomatches" title={`No language found for `}>
+        Adjust your search term to find other languages
+      </SelectPanel.Message>
+    </SelectPanel>
+  )
+}
+export const NoMatches = () => {
+  const [selected, setSelected] = React.useState<ItemInput[]>([])
+  const [filter, setFilter] = React.useState<string>('')
+  const [open, setOpen] = useState(true)
+
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  return (
+    <SelectPanel
+      title="Set projects"
+      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          {children ?? 'Select Labels'}
+        </Button>
+      )}
+      open={open}
+      onOpenChange={setOpen}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onFilterChange={setFilter}
+      overlayProps={{width: 'medium', height: 'small'}}
+    >
+      <SelectPanel.Message variant="noitems" title="You haven't created any projects yet">
+        <Link href="https://github.com/projects">Start your first project </Link> to organise your issues.
+      </SelectPanel.Message>
+      <SelectPanel.Message variant="nomatches" title={`No language found for ${filter}`}>
+        Adjust your search term to find other languages
+      </SelectPanel.Message>
+    </SelectPanel>
+  )
 }
