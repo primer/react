@@ -354,7 +354,7 @@ function Panel({
             sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
           />
 
-          {footer && !isNoItemsState ? (
+          {footer ? (
             <Box
               sx={{
                 display: 'flex',
