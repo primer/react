@@ -4,6 +4,7 @@
   isolation: isolate;
 
   & > *:not([data-loading-wrapper]) {
+    /* stylelint-disable-next-line primer/spacing */
     margin-inline-end: -1px;
     position: relative;
     border-radius: 0;
@@ -45,6 +46,7 @@
   }
 
   [data-loading-wrapper] > * {
+    /* stylelint-disable-next-line primer/spacing */
     margin-inline-end: -1px;
     position: relative;
     border-radius: 0;
