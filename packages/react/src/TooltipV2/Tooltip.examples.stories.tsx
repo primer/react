@@ -1,19 +1,9 @@
 import React, {useState, useCallback, useRef} from 'react'
-import {Button, IconButton, Breadcrumbs, ActionMenu, ActionList, NavList} from '..'
+import {Button, IconButton, Breadcrumbs, ActionMenu, ActionList} from '..'
 import {PageHeader} from '../PageHeader'
 import {Tooltip} from './Tooltip'
 import {Dialog} from '../experimental'
-import {
-  GitBranchIcon,
-  KebabHorizontalIcon,
-  TriangleDownIcon,
-  CheckIcon,
-  PeopleIcon,
-  SmileyIcon,
-  EyeIcon,
-  CommentIcon,
-  XIcon,
-} from '@primer/octicons-react'
+import {GitBranchIcon, KebabHorizontalIcon, TriangleDownIcon, CheckIcon, XIcon} from '@primer/octicons-react'
 import {default as VisuallyHidden} from '../_VisuallyHidden'
 
 export default {
