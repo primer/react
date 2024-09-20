@@ -161,37 +161,6 @@ FilesPage.parameters = {
   },
 }
 
-export const Hyperlist = () => (
-  <NavList>
-    <NavList.Item href="/assigned" aria-current="page">
-      <NavList.LeadingVisual>
-        <PeopleIcon />
-      </NavList.LeadingVisual>
-      Assigned to me
-    </NavList.Item>
-    <Tooltip text="Created by me ⌥ ⇧ 2" direction="n">
-      <NavList.Item href="/created">
-        <NavList.LeadingVisual>
-          <SmileyIcon />
-        </NavList.LeadingVisual>
-        Created by me
-      </NavList.Item>
-    </Tooltip>
-    <NavList.Item href="/mentioned">
-      <NavList.LeadingVisual>
-        <CommentIcon />
-      </NavList.LeadingVisual>
-      Mentioned
-    </NavList.Item>
-    <NavList.Item href="/recent-activity">
-      <NavList.LeadingVisual>
-        <EyeIcon />
-      </NavList.LeadingVisual>
-      Recent activity
-    </NavList.Item>
-  </NavList>
-)
-
 export const DialogTrigger = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [secondOpen, setSecondOpen] = useState(false)
