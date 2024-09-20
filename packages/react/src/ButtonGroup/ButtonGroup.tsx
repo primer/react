@@ -90,4 +90,7 @@ const ButtonGroup = React.forwardRef<HTMLElement, ButtonGroupProps>(function But
     </StyledButtonGroup>
   )
 })
+
+ButtonGroup.displayName = 'ButtonGroup'
+
 export default ButtonGroup
