@@ -204,11 +204,11 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
     // To be backwards compatible with the old Overlay, we need to set the left prop if x-position is not specified
     const leftPosition: React.CSSProperties = left === undefined && right === undefined ? {left: 0} : {left}
 
-    const dialog = role && role !== 'dialog' ? true : false
+    const nonDialog = role && role !== 'dialog' ? true : false
 
     useFocusTrap({
       containerRef: overlayRef,
-      disabled: !focusTrap || dialog,
+      disabled: !focusTrap || nonDialog,
     })
 
     return (
@@ -217,7 +217,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
           height={height}
           width={width}
           role={role || 'dialog'}
-          aria-modal={dialog ? undefined : 'true'}
+          aria-modal={nonDialog ? undefined : 'true'}
           {...rest}
           ref={overlayRef}
           style={
