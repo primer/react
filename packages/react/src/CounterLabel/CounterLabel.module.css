@@ -3,6 +3,7 @@
   padding: var(--base-size-2) var(--base-size-4);
   font-size: var(--text-body-size-small);
   font-weight: var(--base-text-weight-semibold);
+  /* stylelint-disable-next-line primer/typography */
   line-height: 1;
   border: var(--borderWidth-thin, max(var(--borderWidth-thin), 0.0625rem)) solid var(--counter-borderColor);
   /* stylelint-disable-next-line primer/borders */
