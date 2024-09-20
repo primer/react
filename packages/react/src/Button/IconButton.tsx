@@ -28,7 +28,7 @@ const IconButton = forwardRef(
   ): JSX.Element => {
     let sxStyles = sxProp
     // grap the button props that have associated data attributes in the styles
-    const {size} = props
+    const {size = 'medium'} = props
 
     if (sxProp !== null && Object.keys(sxProp).length > 0) {
       sxStyles = generateCustomSxProp({size}, sxProp)

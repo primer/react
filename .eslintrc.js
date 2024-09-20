@@ -61,6 +61,7 @@ module.exports = {
   // rules which apply to JS, TS, etc.
   rules: {
     'no-shadow': 'off',
+    'react/button-has-type': 'error',
     'react/prop-types': 'off',
     'react/display-name': 'off',
     'react-hooks/exhaustive-deps': 'error',
