@@ -1,10 +1,11 @@
 .CounterLabel {
   display: inline-block;
   padding: var(--base-size-2) var(--base-size-4);
-  font-size: 12px;
-  font-weight: bold;
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
   line-height: 1;
-  border: var(--borderWidth-thin, max(1px, 0.0625rem)) solid var(--counter-borderColor);
+  border: var(--borderWidth-thin, max(var(--borderWidth-thin), 0.0625rem)) solid var(--counter-borderColor);
+  /* stylelint-disable-next-line primer/borders */
   border-radius: 20px;
 
   &[data-scheme='primary'] {
