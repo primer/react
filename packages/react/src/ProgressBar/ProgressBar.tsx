@@ -52,7 +52,7 @@ const ProgressContainer = styled.span<StyledProgressContainerProps>`
   background-color: ${get('colors.border.default')};
   border-radius: ${get('radii.1')};
   height: ${props => sizeMap[props.barSize || 'default']};
-
+  gap: '2px';
   ${width}
   ${sx};
 `

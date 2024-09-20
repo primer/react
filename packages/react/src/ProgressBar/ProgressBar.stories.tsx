@@ -1,6 +1,8 @@
 import React from 'react'
-import type {Meta, StoryFn} from '@storybook/react'
-import {ProgressBar} from '..'
+import type {Meta} from '@storybook/react'
+import {ProgressBar, type ProgressBarProps} from '..'
+
+const sectionColors = ['success.emphasis', 'done.emphasis', 'severe.emphasis', 'danger.emphasis', 'attention.emphasis']
 
 export default {
   title: 'Components/ProgressBar',
@@ -9,15 +11,26 @@ export default {
 
 export const Default = () => <ProgressBar aria-label="Upload test.png" />
 
-export const Playground: StoryFn<typeof ProgressBar> = args => (
-  <ProgressBar {...args} sx={args.inline ? {width: '100px'} : {}} aria-label="Upload test.png" />
-)
+export const Playground = ({sections, ...args}: ProgressBarProps & {sections: number}) => {
+  if (sections === 1) {
+    return <ProgressBar {...args} sx={args.inline ? {width: '100px'} : {}} aria-label="Upload test.png" />
+  } else {
+    return (
+      <ProgressBar aria-label="Upload test.png">
+        {[...Array(sections).keys()].map(i => (
+          <ProgressBar.Item key={i} progress={100 / sections} sx={{bg: sectionColors[i]}} />
+        ))}
+      </ProgressBar>
+    )
+  }
+}
 
 Playground.args = {
   progress: 66,
   barSize: 'default',
   inline: false,
   bg: 'success.emphasis',
+  sections: 1,
 }
 
 Playground.argTypes = {
@@ -35,6 +48,14 @@ Playground.argTypes = {
   inline: {
     control: {
       type: 'boolean',
+    },
+  },
+  sections: {
+    control: {
+      type: 'number',
+      min: 1,
+      max: 5,
+      step: 1,
     },
   },
 }
