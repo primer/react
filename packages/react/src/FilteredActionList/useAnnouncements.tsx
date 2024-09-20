@@ -2,7 +2,6 @@
 // on https://github.com/github/multi-select-user-testing
 
 import {announce} from '@primer/live-region-element'
-import type {LiveRegionElement} from '@primer/live-region-element'
 import {useEffect, useRef} from 'react'
 import type {FilteredActionListProps} from './FilteredActionListEntry'
 
