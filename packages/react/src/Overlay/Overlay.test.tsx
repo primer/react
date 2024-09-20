@@ -1,4 +1,5 @@
-import React, {useRef, useState, type AriaRole} from 'react'
+import React, {useRef, useState} from 'react'
+import type {AriaRole} from '../utils/types'
 import {Overlay, Box, Text} from '..'
 import {ButtonDanger, Button} from '../deprecated'
 import {render, waitFor, fireEvent} from '@testing-library/react'
