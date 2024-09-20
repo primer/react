@@ -16,6 +16,7 @@ exports[`ProgressBar respects the "progress" prop 1`] = `
   background-color: var(--borderColor-default,var(--color-border-default,#d0d7de));
   border-radius: 3px;
   height: 8px;
+  gap: 2px;
 }
 
 @media (prefers-reduced-motion:no-preference) {

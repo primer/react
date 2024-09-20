@@ -317,7 +317,9 @@ describe('TextInputWithTokens', () => {
           onTokenRemove={onRemoveMock}
           visibleTokenCount={visibleTokenCount}
         />
-        <button id="focusableOutsideComponent">Focus me</button>
+        <button type="button" id="focusableOutsideComponent">
+          Focus me
+        </button>
       </>,
     )
     const inputNode = getByLabelText('Tokens')
@@ -373,7 +375,9 @@ describe('TextInputWithTokens', () => {
           onTokenRemove={onRemoveMock}
           visibleTokenCount={visibleTokenCount}
         />
-        <button id="focusableOutsideComponent">Focus me</button>
+        <button type="button" id="focusableOutsideComponent">
+          Focus me
+        </button>
       </>,
     )
     const inputNode = getByLabelText('Tokens')

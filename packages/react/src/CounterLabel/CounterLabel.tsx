@@ -14,6 +14,7 @@ import classes from './CounterLabel.module.css'
 export type CounterLabelProps = React.PropsWithChildren<
   HTMLAttributes<HTMLSpanElement> & {
     scheme?: 'primary' | 'secondary'
+    className?: string
   } & SxProp
 >
 
