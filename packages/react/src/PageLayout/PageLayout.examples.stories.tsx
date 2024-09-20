@@ -4,7 +4,7 @@ import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
 import {ActionList, Box, Breadcrumbs, Button, Flash, LinkButton, NavList} from '..'
 import {ArrowLeftIcon, FilterIcon} from '@primer/octicons-react'
-import {Dialog} from '../drafts'
+import {Dialog} from '../experimental'
 
 export default {
   title: 'Components/PageLayout/Examples',

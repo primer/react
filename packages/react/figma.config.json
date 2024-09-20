@@ -3,7 +3,6 @@
     "parser": "react",
     "importPaths": {
       "src/*": "@primer/react",
-      "src/drafts/*": "@primer/react/drafts",
       "src/experimental/*": "@primer/react/experimental",
       "src/deprecated/*": "@primer/react/deprecated"
     },
@@ -11,3 +10,4 @@
     "exclude": ["test/**", "docs/**", "build/**"]
   }
 }
+

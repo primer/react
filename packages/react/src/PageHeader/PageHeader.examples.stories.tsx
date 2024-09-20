@@ -430,7 +430,6 @@ export const IssuesPage = () => {
                 aria-label="Copy permalink"
                 icon={CopyIcon}
                 variant="invisible"
-                unsafeDisableTooltip={false}
                 onClick={() => {
                   alert('This button copies the permalink to the clipboard')
                 }}
@@ -459,7 +458,6 @@ export const IssuesPage = () => {
                   aria-label="Copy permalink"
                   icon={CopyIcon}
                   variant="invisible"
-                  unsafeDisableTooltip={false}
                   onClick={() => {
                     alert('This button copies the permalink to the clipboard')
                   }}

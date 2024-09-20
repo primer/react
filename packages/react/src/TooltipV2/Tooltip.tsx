@@ -31,10 +31,10 @@ const StyledTooltip = styled.span`
     white-space: normal;
     font: normal normal 11px/1.5 ${get('fonts.normal')};
     -webkit-font-smoothing: subpixel-antialiased;
-    color: ${get('colors.fg.onEmphasis')};
+    color: var(--tooltip-fgColor, ${get('colors.fg.onEmphasis')});
     text-align: center;
     word-wrap: break-word;
-    background: ${get('colors.neutral.emphasisPlus')};
+    background: var(--tooltip-bgColor, ${get('colors.neutral.emphasisPlus')});
     border-radius: ${get('radii.2')};
     border: 0;
     opacity: 0;
@@ -171,7 +171,7 @@ const positionToDirection: Record<string, TooltipDirection> = {
 // The list is from GitHub's custom-axe-rules https://github.com/github/github/blob/master/app/assets/modules/github/axe-custom-rules.ts#L3
 const interactiveElements = [
   'a[href]',
-  'button:not(:disabled)',
+  'button:not([disabled])',
   'summary',
   'select',
   'input:not([type=hidden])',

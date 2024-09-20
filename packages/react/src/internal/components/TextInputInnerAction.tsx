@@ -32,6 +32,9 @@ const invisibleButtonStyleOverrides = {
   paddingBottom: '2px',
   paddingLeft: '4px',
   position: 'relative',
+  backgroundColor: 'transparent',
+  color: 'fg.subtle',
+  '&:hover, &:focus': {color: 'fg.default'},
 
   '&[data-component="IconButton"]': {
     width: 'var(--inner-action-size)',
@@ -79,7 +82,16 @@ const ConditionalTooltip: React.FC<
 
 const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
   (
-    {'aria-label': ariaLabel, tooltipDirection, children, icon, sx: sxProp, variant = 'invisible', ...rest},
+    {
+      'aria-label': ariaLabel,
+      'aria-labelledby': ariaLabelledBy,
+      tooltipDirection,
+      children,
+      icon,
+      sx: sxProp,
+      variant = 'invisible',
+      ...rest
+    },
     forwardedRef,
   ) => {
     const sx =
@@ -92,13 +104,28 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
       console.warn('Use the `aria-label` prop to provide an accessible label for assistive technology')
     }
 
+    const accessibleLabel = ariaLabel
+      ? {'aria-label': ariaLabel}
+      : ariaLabelledBy
+      ? {'aria-labelledby': ariaLabelledBy}
+      : {
+          'aria-label': '',
+        }
+
     return (
       <Box as="span" className="TextInput-action" marginLeft={1} marginRight={1} lineHeight="0">
-        {icon && !children ? (
-          <Tooltip direction={tooltipDirection ?? 's'} text={ariaLabel ?? ''} type="label">
-            {/* @ts-ignore we intentionally do add aria-label to IconButton because Tooltip v2 adds an aria-labelledby instead. */}
-            <IconButton variant={variant} type="button" icon={icon} size="small" sx={sx} {...rest} ref={forwardedRef} />
-          </Tooltip>
+        {icon && !children && ariaLabel ? (
+          <IconButton
+            {...accessibleLabel}
+            tooltipDirection={tooltipDirection ?? 's'}
+            variant={variant}
+            type="button"
+            icon={icon}
+            size="small"
+            sx={sx}
+            {...rest}
+            ref={forwardedRef}
+          />
         ) : (
           <ConditionalTooltip aria-label={ariaLabel}>
             <Button variant={variant} type="button" sx={sx} {...rest} ref={forwardedRef}>

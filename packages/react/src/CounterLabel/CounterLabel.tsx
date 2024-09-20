@@ -9,15 +9,17 @@ import {defaultSxProp} from '../utils/defaultSxProp'
 export type CounterLabelProps = React.PropsWithChildren<
   HTMLAttributes<HTMLSpanElement> & {
     scheme?: 'primary' | 'secondary'
+    className?: string
   } & SxProp
 >
 
 const CounterLabel = forwardRef<HTMLSpanElement, CounterLabelProps>(
-  ({scheme = 'secondary', sx = defaultSxProp, children, ...props}, forwardedRef) => {
+  ({scheme = 'secondary', sx = defaultSxProp, children, className, ...props}, forwardedRef) => {
     return (
       <>
         <Box
           aria-hidden="true"
+          className={className}
           sx={merge<BetterSystemStyleObject>(
             {
               display: 'inline-block',

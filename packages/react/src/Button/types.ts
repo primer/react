@@ -10,7 +10,7 @@ export const StyledButton = styled.button<SxProp>`
   ${sx};
 `
 
-export type VariantType = 'default' | 'primary' | 'invisible' | 'danger'
+export type VariantType = 'default' | 'primary' | 'invisible' | 'danger' | 'link'
 
 export type Size = 'small' | 'medium' | 'large'
 
@@ -38,6 +38,14 @@ export type ButtonBaseProps = {
    */
   block?: boolean
   /**
+   * When true, the button is in a loading state.
+   */
+  loading?: boolean
+  /**
+   * The content to announce to screen readers when loading.
+   */
+  loadingAnnouncement?: string
+  /*
    * Whether the button looks visually disabled, but can still accept all the same
    * interactions as an enabled button.
    */

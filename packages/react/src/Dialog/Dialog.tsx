@@ -15,7 +15,7 @@ import {FocusKeys} from '@primer/behaviors'
 import Portal from '../Portal'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {useId} from '../hooks/useId'
-import {ScrollableRegion} from '../internal/components/ScrollableRegion'
+import {ScrollableRegion} from '../ScrollableRegion'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 
 /* Dialog Version 2 */
@@ -419,14 +419,15 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
       footerButton.ref = autoFocusedFooterButtonRef
     }
   }
+  const [lastMouseDownIsBackdrop, setLastMouseDownIsBackdrop] = useState<boolean>(false)
   const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
   const onBackdropClick = useCallback(
     (e: SyntheticEvent) => {
-      if (e.target === e.currentTarget) {
+      if (e.target === e.currentTarget && lastMouseDownIsBackdrop) {
         onClose('escape')
       }
     },
-    [onClose],
+    [onClose, lastMouseDownIsBackdrop],
   )
 
   const dialogRef = useRef<HTMLDivElement>(null)
@@ -479,7 +480,14 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
   return (
     <>
       <Portal>
-        <Backdrop ref={backdropRef} {...positionDataAttributes} onClick={onBackdropClick}>
+        <Backdrop
+          ref={backdropRef}
+          {...positionDataAttributes}
+          onClick={onBackdropClick}
+          onMouseDown={e => {
+            setLastMouseDownIsBackdrop(e.target === e.currentTarget)
+          }}
+        >
           <StyledDialog
             width={width}
             height={height}
