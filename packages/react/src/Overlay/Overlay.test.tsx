@@ -303,4 +303,13 @@ describe('Overlay', () => {
     expect(queryByRole('dialog')).not.toBeInTheDocument()
     expect(queryByRole('none')).toBeInTheDocument()
   })
+
+  it('should add `aria-modal` if `role="dialog"` is present', async () => {
+    const user = userEvent.setup()
+    const {getByText, queryByRole} = render(<TestComponent role="dialog" />)
+
+    await user.click(getByText('open overlay'))
+
+    expect(queryByRole('dialog')).toHaveAttribute('aria-modal')
+  })
 })

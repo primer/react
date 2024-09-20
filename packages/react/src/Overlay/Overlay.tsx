@@ -207,7 +207,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
     const dialog = role && role !== 'dialog' ? true : false
 
     useFocusTrap({
-      containerRef: overlayRef, // only if `role="dialog"`, `aria-modal="true"` is true
+      containerRef: overlayRef,
       disabled: !focusTrap || dialog,
     })
 
