@@ -171,7 +171,7 @@ const positionToDirection: Record<string, TooltipDirection> = {
 // The list is from GitHub's custom-axe-rules https://github.com/github/github/blob/master/app/assets/modules/github/axe-custom-rules.ts#L3
 const interactiveElements = [
   'a[href]',
-  'button:not(:disabled)',
+  'button:not([disabled])',
   'summary',
   'select',
   'input:not([type=hidden])',

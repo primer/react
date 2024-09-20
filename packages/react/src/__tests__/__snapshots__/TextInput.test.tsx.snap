@@ -2579,23 +2579,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c4[data-no-visuals] {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-  padding-top: 2px;
-  padding-right: 4px;
-  padding-bottom: 2px;
-  padding-left: 4px;
-  position: relative;
-  background-color: transparent;
-}
-
-.c4[data-no-visuals]:hover,
-.c4[data-no-visuals]:focus {
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-}
-
-.c4[data-no-visuals][data-component="IconButton"] {
-  width: var(--inner-action-size);
-  height: var(--inner-action-size);
+  color: var(--button-invisible-fgColor-rest,var(--button-default-fgColor-rest,var(--color-btn-text,#24292f)));
 }
 
 .c4:has([data-component="ButtonCounter"]) {
@@ -2608,6 +2592,26 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c4:disabled[data-no-visuals] [data-component=ButtonCounter] {
   color: inherit;
+}
+
+.c4[data-size="medium"][data-no-visuals] {
+  padding-top: 2px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  position: relative;
+  background-color: transparent;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+}
+
+.c4[data-size="medium"][data-no-visuals]:hover,
+.c4[data-size="medium"][data-no-visuals]:focus {
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+}
+
+.c4[data-size="medium"][data-no-visuals][data-component="IconButton"] {
+  width: var(--inner-action-size);
+  height: var(--inner-action-size);
 }
 
 .c0 {
@@ -2718,7 +2722,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 @media (pointer:coarse) {
-  .c4[data-no-visuals]:after {
+  .c4[data-size="medium"][data-no-visuals]:after {
     content: "";
     position: absolute;
     left: 0;
@@ -2760,6 +2764,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
       data-block={null}
       data-loading={false}
       data-no-visuals={true}
+      data-size="medium"
       onClick={[MockFunction]}
       style={
         {
@@ -3073,23 +3078,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c4[data-no-visuals] {
-  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
-  padding-top: 2px;
-  padding-right: 4px;
-  padding-bottom: 2px;
-  padding-left: 4px;
-  position: relative;
-  background-color: transparent;
-}
-
-.c4[data-no-visuals]:hover,
-.c4[data-no-visuals]:focus {
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-}
-
-.c4[data-no-visuals][data-component="IconButton"] {
-  width: var(--inner-action-size);
-  height: var(--inner-action-size);
+  color: var(--button-invisible-fgColor-rest,var(--button-default-fgColor-rest,var(--color-btn-text,#24292f)));
 }
 
 .c4:has([data-component="ButtonCounter"]) {
@@ -3102,6 +3091,26 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c4:disabled[data-no-visuals] [data-component=ButtonCounter] {
   color: inherit;
+}
+
+.c4[data-size="medium"][data-no-visuals] {
+  padding-top: 2px;
+  padding-right: 4px;
+  padding-bottom: 2px;
+  padding-left: 4px;
+  position: relative;
+  background-color: transparent;
+  color: var(--fgColor-muted,var(--color-fg-subtle,#6e7781));
+}
+
+.c4[data-size="medium"][data-no-visuals]:hover,
+.c4[data-size="medium"][data-no-visuals]:focus {
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+}
+
+.c4[data-size="medium"][data-no-visuals][data-component="IconButton"] {
+  width: var(--inner-action-size);
+  height: var(--inner-action-size);
 }
 
 .c6 {
@@ -3319,7 +3328,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 @media (pointer:coarse) {
-  .c4[data-no-visuals]:after {
+  .c4[data-size="medium"][data-no-visuals]:after {
     content: "";
     position: absolute;
     left: 0;
@@ -3367,6 +3376,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
       data-block={null}
       data-loading={false}
       data-no-visuals={true}
+      data-size="medium"
       onBlur={[Function]}
       onClick={[MockFunction]}
       onFocus={[Function]}
