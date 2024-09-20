@@ -5,7 +5,7 @@
   font-weight: var(--base-text-weight-semibold);
   /* stylelint-disable-next-line primer/typography */
   line-height: 1;
-  border: var(--borderWidth-thin, max(var(--borderWidth-thin), 0.0625rem)) solid var(--counter-borderColor);
+  border: var(--borderWidth-thin) solid var(--counter-borderColor);
   /* stylelint-disable-next-line primer/borders */
   border-radius: 20px;
 
