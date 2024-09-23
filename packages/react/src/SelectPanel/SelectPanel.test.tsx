@@ -61,7 +61,7 @@ function BasicSelectPanel(passthroughProps: Record<string, unknown>) {
 
 global.Element.prototype.scrollTo = jest.fn()
 
-for (const useModernActionList of [true, false]) {
+for (const useModernActionList of [false, true]) {
   describe('SelectPanel', () => {
     describe(`primer_react_select_panel_with_modern_action_list: ${useModernActionList}`, () => {
       it('should render an anchor to open the select panel using `placeholder`', () => {
@@ -389,16 +389,6 @@ for (const useModernActionList of [true, false]) {
         // this is only implemented with the feature flag
         if (!useModernActionList) return
 
-        it('displays a loading spinner on first open', async () => {
-          const user = userEvent.setup()
-
-          renderWithFlag(<LoadingSelectPanel />, useModernActionList)
-
-          await user.click(screen.getByText('Select items'))
-
-          expect(screen.getByTestId('filtered-action-list-spinner')).toBeTruthy()
-        })
-
         function LoadingSelectPanel({
           initialLoadingType = 'spinner',
           items = [],
@@ -427,6 +417,16 @@ for (const useModernActionList of [true, false]) {
             </ThemeProvider>
           )
         }
+
+        it('displays a loading spinner on first open', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<LoadingSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.getByTestId('filtered-action-list-spinner')).toBeTruthy()
+        })
 
         it('displays a loading skeleton on first open', async () => {
           const user = userEvent.setup()
