@@ -30,8 +30,6 @@ export type {
   Column,
 } from '../DataTable'
 
-export * from '../Dialog/Dialog'
-
 export {InlineMessage} from '../InlineMessage'
 export type {InlineMessageProps} from '../InlineMessage'
 
@@ -52,14 +50,10 @@ export type {
   NavListDividerProps,
 } from '../NavList'
 export * from './SelectPanel2'
-export * from '../TooltipV2'
 export * from '../ActionBar'
 
 export {ScrollableRegion} from '../ScrollableRegion'
 export type {ScrollableRegionProps} from '../ScrollableRegion'
-
-export {Stack} from '../Stack'
-export type {StackProps, StackItemProps} from '../Stack'
 
 export {Announce, AriaStatus, AriaAlert} from '../live-region'
 export type {AnnounceProps, AriaStatusProps, AriaAlertProps} from '../live-region'
