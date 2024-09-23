@@ -77,7 +77,7 @@
     "markdownlint-cli2-formatter-pretty": "0.0.3",
     "prettier": "3.0.3",
     "rimraf": "5.0.5",
-    "size-limit": "11.0.2",
+    "size-limit": "11.1.5",
     "stylelint": "^16.8.1",
     "typescript": "5.4.5"
   },
