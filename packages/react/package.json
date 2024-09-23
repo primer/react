@@ -1,6 +1,6 @@
 {
   "name": "@primer/react",
-  "version": "37.0.0-rc.5",
+  "version": "37.0.0-rc.6",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
