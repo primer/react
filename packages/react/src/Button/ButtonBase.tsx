@@ -352,7 +352,7 @@ const ButtonBase = forwardRef(
           data-inactive={inactive ? true : undefined}
           data-loading={Boolean(loading)}
           data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
-          data-size={size === 'small' || size === 'large' ? size : undefined}
+          data-size={size}
           data-label-wrap={labelWrap}
           aria-describedby={[loadingAnnouncementID, ariaDescribedBy]
             .filter(descriptionID => Boolean(descriptionID))
