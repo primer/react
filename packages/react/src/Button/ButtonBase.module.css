@@ -372,6 +372,10 @@
         color: var(--buttonCounter-danger-fgColor-hover) !important; /* temporarily override our own sx prop */
         background-color: var(--buttonCounter-danger-bgColor-hover) !important;
       }
+
+      & .Visual {
+        color: var(--button-danger-iconColor-hover);
+      }
     }
 
     &:disabled {
