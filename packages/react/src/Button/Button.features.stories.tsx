@@ -210,3 +210,20 @@ export const InactiveButtonWithTooltip = () => (
     <Button inactive>Review changes</Button>
   </Tooltip>
 )
+
+export const ExpandedButton = () => (
+  <Stack align="start">
+    <Button aria-expanded trailingAction={TriangleDownIcon}>
+      Review changes
+    </Button>
+    <Button aria-expanded trailingAction={TriangleDownIcon} variant="primary">
+      Review changes
+    </Button>
+    <Button aria-expanded trailingAction={TriangleDownIcon} variant="invisible">
+      Review changes
+    </Button>
+    <Button aria-expanded trailingAction={TriangleDownIcon} variant="danger">
+      Review changes
+    </Button>
+  </Stack>
+)
