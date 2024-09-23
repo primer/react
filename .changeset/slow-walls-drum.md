@@ -2,4 +2,4 @@
 '@primer/react': minor
 ---
 
-add bg prop to ProgressBar.Item
+ProgressBar: Add `bg` prop to `ProgressBar.Item`
