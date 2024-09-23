@@ -29,6 +29,11 @@ describe('Banner', () => {
     expect(screen.getByRole('heading', {name: 'test'})).toBeInTheDocument()
   })
 
+  it('should support a custom `className` on the outermost element', () => {
+    const {container} = render(<Banner title="test" className="test" />)
+    expect(container.firstChild).toHaveClass('test')
+  })
+
   it('should label the landmark element with the corresponding variant label text', () => {
     render(<Banner title="test" />)
     expect(screen.getByRole('region')).toEqual(screen.getByLabelText('Information'))

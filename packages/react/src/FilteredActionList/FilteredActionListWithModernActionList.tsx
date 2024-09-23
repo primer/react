@@ -1,5 +1,5 @@
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
-import {scrollIntoView} from '@primer/behaviors'
+import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 import type {KeyboardEventHandler} from 'react'
 import React, {useCallback, useEffect, useRef} from 'react'
 import styled from 'styled-components'
@@ -20,6 +20,7 @@ import type {SxProp} from '../sx'
 
 import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
+import {useAnnouncements} from './useAnnouncements'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -86,6 +87,7 @@ export function FilteredActionList({
   useFocusZone(
     {
       containerRef: listContainerRef,
+      bindKeys: FocusKeys.ArrowVertical | FocusKeys.PageUpDown,
       focusOutBehavior: 'wrap',
       focusableElementFilter: element => {
         return !(element instanceof HTMLInputElement)
@@ -113,6 +115,7 @@ export function FilteredActionList({
   }, [items])
 
   useScrollFlash(scrollContainerRef)
+  useAnnouncements(items, listContainerRef, inputRef)
 
   function getItemListForEachGroup(groupId: string) {
     const itemsInGroup = []
@@ -137,8 +140,11 @@ export function FilteredActionList({
           onChange={onInputChange}
           onKeyPress={onInputKeyPress}
           placeholder={placeholderText}
-          aria-label={placeholderText}
+          role="combobox"
+          aria-expanded="true"
+          aria-autocomplete="list"
           aria-controls={listId}
+          aria-label={placeholderText}
           aria-describedby={inputDescriptionTextId}
           {...textInputProps}
         />

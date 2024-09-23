@@ -12,6 +12,11 @@
       "description": "Provide an optional label to override the default name for the Banner landmark region"
     },
     {
+      "name": "className",
+      "type": "string",
+      "description": "Provide an optional className to add to the outermost element rendered by the Banner"
+    },
+    {
       "name": "description",
       "type": "React.ReactNode",
       "description": "Provide an optional description for the Banner. This should provide supplemental information about the Banner"

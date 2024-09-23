@@ -465,7 +465,9 @@ describe('ActionList', () => {
 
       return (
         <FeatureFlags flags={{primer_react_action_list_item_as_button: false}}>
-          <button onClick={focusRef}>Prompt</button>
+          <button type="button" onClick={focusRef}>
+            Prompt
+          </button>
           <ActionList>
             <ActionList.Item ref={ref}>Item 1</ActionList.Item>
             <ActionList.Item>Item 2</ActionList.Item>
