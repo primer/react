@@ -9,11 +9,13 @@ const meta = {
 
 export default meta
 
-export const Default = () => <IssueLabel>Issue label</IssueLabel>
+export const Default = () => <IssueLabel text="Issue label" />
 
 export const Playground: StoryObj<typeof IssueLabel> = {
-  render: args => <IssueLabel {...args}>Issue label</IssueLabel>,
-  args: {},
+  render: args => <IssueLabel {...args} />,
+  args: {
+    text: 'Issue label',
+  },
   argTypes: {
     fillColor: {
       hex: undefined,
@@ -46,6 +48,9 @@ export const Playground: StoryObj<typeof IssueLabel> = {
         'brown',
         'auburn',
       ],
+    },
+    text: {
+      control: 'text',
     },
   },
 }
