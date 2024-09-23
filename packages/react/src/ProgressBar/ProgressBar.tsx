@@ -7,16 +7,18 @@ import type {SxProp} from '../sx'
 import sx from '../sx'
 import {warning} from '../utils/warning'
 
-type ProgressProp = {progress?: string | number}
+type ProgressProp = {
+  progress?: string | number
+}
 
 const shimmer = keyframes`
   from { mask-position: 200%; }
   to { mask-position: 0%; }
 `
 
-export const Item = styled.span<ProgressProp & SxProp>`
+export const Item = styled.span<ProgressProp & {bg: string} & SxProp>`
   width: ${props => (props.progress ? `${props.progress}%` : 0)};
-  background-color: ${get('colors.success.emphasis')};
+  background-color: ${props => get(`colors.${props.bg || 'success.emphasis'}`)};
 
   @media (prefers-reduced-motion: no-preference) {
     &[data-animated='true'] {
@@ -86,7 +88,7 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
 
     return (
       <ProgressContainer ref={forwardRef} role="progressbar" barSize={barSize} {...ariaAttributes} {...rest}>
-        {children ?? <Item data-animated={animated} progress={progress} sx={{backgroundColor: bg}} />}
+        {children ?? <Item data-animated={animated} progress={progress} bg={bg} />}
       </ProgressContainer>
     )
   },
