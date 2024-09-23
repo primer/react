@@ -20,6 +20,7 @@ import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/Live
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import type {FilteredActionListLoadingType} from '../FilteredActionList/FilteredActionListLoaders'
 import {FilteredActionListLoadingTypes} from '../FilteredActionList/FilteredActionListLoaders'
+import {useFeatureFlag} from '../FeatureFlags'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -240,6 +241,7 @@ export function SelectPanel({
       }
     }
   }
+  const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
 
   return (
     <LiveRegion>
@@ -259,15 +261,17 @@ export function SelectPanel({
         focusZoneSettings={focusZoneSettings}
       >
         <LiveRegionOutlet />
-        <Message
-          value={
-            filterValue === ''
-              ? 'Showing all items'
-              : items.length <= 0
-              ? 'No matching items'
-              : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
-          }
-        />
+        {usingModernActionList ? null : (
+          <Message
+            value={
+              filterValue === ''
+                ? 'Showing all items'
+                : items.length <= 0
+                ? 'No matching items'
+                : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
+            }
+          />
+        )}
         <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}>
           <Box sx={{pt: 2, px: 3}}>
             <Heading as="h1" id={titleId} sx={{fontSize: 1}}>

@@ -527,6 +527,14 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 
 }
 
+@media (forced-colors:active) {
+
+}
+
+@media (forced-colors:active) {
+
+}
+
 @media (hover:hover) and (pointer:fine) {
 
 }
@@ -813,9 +821,20 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 }
 
 @media (forced-colors:active) {
+  .c6 {
+    border-width: 1px;
+  }
+}
+
+@media (forced-colors:active) {
+
+}
+
+@media (forced-colors:active) {
   .c3:focus,
   .c3:focus-visible,
-  .c3 > a.focus-visible {
+  .c3 > a.focus-visible,
+  .c3[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -1359,6 +1378,10 @@ exports[`snapshots renders a multiselect input 1`] = `
 
 }
 
+@media (forced-colors:active) {
+
+}
+
 @media (hover:hover) and (pointer:fine) {
 
 }
@@ -1596,9 +1619,16 @@ exports[`snapshots renders a multiselect input 1`] = `
 }
 
 @media (forced-colors:active) {
+  .c5 {
+    border-width: 1px;
+  }
+}
+
+@media (forced-colors:active) {
   .c3:focus,
   .c3:focus-visible,
-  .c3 > a.focus-visible {
+  .c3 > a.focus-visible,
+  .c3[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -2077,6 +2107,14 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 
 }
 
+@media (forced-colors:active) {
+
+}
+
+@media (forced-colors:active) {
+
+}
+
 @media (hover:hover) and (pointer:fine) {
 
 }
@@ -2457,9 +2495,22 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 }
 
 @media (forced-colors:active) {
+  .c5 {
+    border-width: 8px;
+  }
+}
+
+@media (forced-colors:active) {
+  .c9 {
+    border-width: 1px;
+  }
+}
+
+@media (forced-colors:active) {
   .c3:focus,
   .c3:focus-visible,
-  .c3 > a.focus-visible {
+  .c3 > a.focus-visible,
+  .c3[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -2488,7 +2539,8 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 @media (forced-colors:active) {
   .c8:focus,
   .c8:focus-visible,
-  .c8 > a.focus-visible {
+  .c8 > a.focus-visible,
+  .c8[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -3168,7 +3220,8 @@ exports[`snapshots renders a single select input 1`] = `
 @media (forced-colors:active) {
   .c3:focus,
   .c3:focus-visible,
-  .c3 > a.focus-visible {
+  .c3 > a.focus-visible,
+  .c3[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -3654,7 +3707,8 @@ exports[`snapshots renders with a custom text input component 1`] = `
 @media (forced-colors:active) {
   .c3:focus,
   .c3:focus-visible,
-  .c3 > a.focus-visible {
+  .c3 > a.focus-visible,
+  .c3[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }

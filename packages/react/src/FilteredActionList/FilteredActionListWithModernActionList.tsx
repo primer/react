@@ -21,6 +21,7 @@ import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './Fi
 
 import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
+import {useAnnouncements} from './useAnnouncements'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -117,6 +118,7 @@ export function FilteredActionList({
   }, [items])
 
   useScrollFlash(scrollContainerRef)
+  useAnnouncements(items, listContainerRef, inputRef)
 
   function getItemListForEachGroup(groupId: string) {
     const itemsInGroup = []
@@ -141,8 +143,11 @@ export function FilteredActionList({
           onChange={onInputChange}
           onKeyPress={onInputKeyPress}
           placeholder={placeholderText}
-          aria-label={placeholderText}
+          role="combobox"
+          aria-expanded="true"
+          aria-autocomplete="list"
           aria-controls={listId}
+          aria-label={placeholderText}
           aria-describedby={inputDescriptionTextId}
           loaderPosition={'leading'}
           loading={loading && !loadingType.appearsInBody}

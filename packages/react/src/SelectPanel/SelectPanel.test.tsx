@@ -1,4 +1,4 @@
-import {render, screen} from '@testing-library/react'
+import {render, screen, waitFor} from '@testing-library/react'
 import React from 'react'
 import {SelectPanel, type SelectPanelProps} from '../SelectPanel'
 import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
@@ -6,6 +6,7 @@ import {userEvent} from '@testing-library/user-event'
 import ThemeProvider from '../ThemeProvider'
 import {FeatureFlags} from '../FeatureFlags'
 import type {InitialLoadingType} from './SelectPanel'
+import {getLiveRegion} from '../utils/testing'
 
 const renderWithFlag = (children: React.ReactNode, flag: boolean) => {
   return render(
@@ -337,38 +338,66 @@ for (const useModernActionList of [true, false]) {
         })
       })
 
-      describe('filtering', () => {
-        function FilterableSelectPanel() {
-          const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
-          const [filter, setFilter] = React.useState('')
-          const [open, setOpen] = React.useState(false)
+      function FilterableSelectPanel() {
+        const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+        const [filter, setFilter] = React.useState('')
+        const [open, setOpen] = React.useState(false)
 
-          const onSelectedChange = (selected: SelectPanelProps['items']) => {
-            setSelected(selected)
-          }
-
-          return (
-            <ThemeProvider>
-              <SelectPanel
-                title="test title"
-                subtitle="test subtitle"
-                items={items.filter(item => item.text?.includes(filter))}
-                placeholder="Select items"
-                placeholderText="Filter items"
-                selected={selected}
-                onSelectedChange={onSelectedChange}
-                filterValue={filter}
-                onFilterChange={value => {
-                  setFilter(value)
-                }}
-                open={open}
-                onOpenChange={isOpen => {
-                  setOpen(isOpen)
-                }}
-              />
-            </ThemeProvider>
-          )
+        const onSelectedChange = (selected: SelectPanelProps['items']) => {
+          setSelected(selected)
         }
+
+        return (
+          <ThemeProvider>
+            <SelectPanel
+              title="test title"
+              subtitle="test subtitle"
+              items={items.filter(item => item.text?.includes(filter))}
+              placeholder="Select items"
+              placeholderText="Filter items"
+              selected={selected}
+              onSelectedChange={onSelectedChange}
+              filterValue={filter}
+              onFilterChange={value => {
+                setFilter(value)
+              }}
+              open={open}
+              onOpenChange={isOpen => {
+                setOpen(isOpen)
+              }}
+            />
+          </ThemeProvider>
+        )
+      }
+
+      describe('filtering', () => {
+        it('should filter the list of items when the user types into the input', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<FilterableSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.getAllByRole('option')).toHaveLength(3)
+
+          await user.type(document.activeElement!, 'two')
+          expect(screen.getAllByRole('option')).toHaveLength(1)
+        })
+      })
+
+      describe('screen reader announcements', () => {
+        // this is only implemented with the feature flag
+        if (!useModernActionList) return
+
+        it('displays a loading spinner on first open', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<LoadingSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.getByTestId('filtered-action-list-spinner')).toBeTruthy()
+        })
 
         function LoadingSelectPanel({
           initialLoadingType = 'spinner',
@@ -399,33 +428,6 @@ for (const useModernActionList of [true, false]) {
           )
         }
 
-        it('should filter the list of items when the user types into the input', async () => {
-          const user = userEvent.setup()
-
-          renderWithFlag(<FilterableSelectPanel />, useModernActionList)
-
-          await user.click(screen.getByText('Select items'))
-
-          expect(screen.getAllByRole('option')).toHaveLength(3)
-
-          await user.type(document.activeElement!, 'two')
-          expect(screen.getAllByRole('option')).toHaveLength(1)
-        })
-
-        it.todo('should announce the number of results')
-
-        it.todo('should announce when no results are available')
-
-        it('displays a loading spinner on first open', async () => {
-          const user = userEvent.setup()
-
-          renderWithFlag(<LoadingSelectPanel />, useModernActionList)
-
-          await user.click(screen.getByText('Select items'))
-
-          expect(screen.getByTestId('filtered-action-list-spinner')).toBeTruthy()
-        })
-
         it('displays a loading skeleton on first open', async () => {
           const user = userEvent.setup()
 
@@ -450,6 +452,62 @@ for (const useModernActionList of [true, false]) {
           await user.type(document.activeElement!, 'two')
 
           expect(screen.getByTestId('text-input-leading-visual')).toBeTruthy()
+        })
+
+        it('should announce initial focused item', async () => {
+          const user = userEvent.setup()
+          renderWithFlag(<FilterableSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+          expect(screen.getByLabelText('Filter items')).toHaveFocus()
+
+          // we wait because announcement is intentionally updated after a timeout to not interrupt user input
+          await waitFor(async () => {
+            expect(getLiveRegion().getMessage('polite')).toBe(
+              'Focus on filter text box and list of items, Focused item: item one, not selected, 1 of 3',
+            )
+          })
+        })
+
+        it('should announce filtered results', async () => {
+          const user = userEvent.setup()
+          renderWithFlag(<FilterableSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+          await user.type(document.activeElement!, 'o')
+          expect(screen.getAllByRole('option')).toHaveLength(2)
+
+          await waitFor(
+            async () => {
+              expect(getLiveRegion().getMessage('polite')).toBe(
+                'List updated, Focused item: item one, not selected, 1 of 2',
+              )
+            },
+            {timeout: 3000}, // increased timeout because we don't want the test to compare with previous announcement
+          )
+
+          await user.type(document.activeElement!, 'ne') // now: one
+          expect(screen.getAllByRole('option')).toHaveLength(1)
+
+          await waitFor(async () => {
+            expect(getLiveRegion().getMessage('polite')).toBe(
+              'List updated, Focused item: item one, not selected, 1 of 1',
+            )
+          })
+        })
+
+        it('should announce when no results are available', async () => {
+          const user = userEvent.setup()
+          renderWithFlag(<FilterableSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          await user.type(document.activeElement!, 'zero')
+          expect(screen.queryByRole('option')).toBeNull()
+
+          await waitFor(async () => {
+            expect(getLiveRegion().getMessage('polite')).toBe('No matching items.')
+          })
         })
       })
 

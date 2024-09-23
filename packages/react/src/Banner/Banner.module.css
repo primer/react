@@ -2,7 +2,7 @@
   display: grid;
   padding: var(--base-size-8);
   background-color: var(--banner-bgColor);
-  border: var(--borderWidth-thin, 1px) solid var(--banner-borderColor);
+  border: var(--borderWidth-thin) solid var(--banner-borderColor);
   border-radius: var(--borderRadius-medium);
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: start;
