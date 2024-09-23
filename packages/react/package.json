@@ -134,7 +134,7 @@
     "@storybook/addon-links": "^8.3.0",
     "@storybook/addon-storysource": "^8.3.0",
     "@storybook/preview-api": "^8.3.0",
-    "@storybook/react": "^8.3.0",
+    "@storybook/react": "^8.3.2",
     "@storybook/react-vite": "^8.3.0",
     "@storybook/source-loader": "^8.3.0",
     "@storybook/theming": "^8.3.0",
