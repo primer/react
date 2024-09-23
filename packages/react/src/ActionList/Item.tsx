@@ -295,9 +295,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option']
     const includeSelectionAttribute = itemSelectionAttribute && itemRole && selectableRoles.includes(itemRole)
 
-    const menuItemProps = {
+    const itemEventProps = {
       onClick: clickHandler,
       onKeyPress: !buttonSemantics ? keyPressHandler : undefined,
+    }
+
+    const menuItemProps = {
       'aria-disabled': disabled ? true : undefined,
       'data-inactive': inactive ? true : undefined,
       'data-loading': loading && !inactive ? true : undefined,
@@ -311,6 +314,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           .join(' ')
           .trim() || undefined,
       ...(includeSelectionAttribute && {[itemSelectionAttribute]: selected}),
+      ...(buttonSemanticsFeatureFlag ? {} : itemEventProps),
       role: itemRole,
       id: itemId,
     }
@@ -322,10 +326,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       containerProps = _PrivateItemWrapper
         ? {role: itemRole ? 'none' : undefined, ...props}
         : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          (listSemantics && {...menuItemProps, ...props, ref: forwardedRef}) || {}
+          (listSemantics && {...menuItemProps, ...itemEventProps, ...props, ref: forwardedRef}) || {...itemEventProps}
 
       wrapperProps = _PrivateItemWrapper
-        ? menuItemProps
+        ? {...menuItemProps, ...itemEventProps}
         : !listSemantics && {
             ...menuItemProps,
             ...props,
