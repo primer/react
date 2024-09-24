@@ -247,6 +247,7 @@ exports[`@primer/react/deprecated should not update exports without a semver cha
   "type DialogProps",
   "FilteredSearch",
   "type FilteredSearchProps",
+  "type ForwardRefComponent",
   "Octicon",
   "type OcticonProps",
   "Pagehead",

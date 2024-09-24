@@ -59,4 +59,5 @@ export {default as TabNav} from '../TabNav'
 export type {TabNavProps, TabNavLinkProps} from '../TabNav'
 export {default as Tooltip} from '../Tooltip/Tooltip'
 export type {TooltipProps} from '../Tooltip/Tooltip'
+export type {ForwardRefComponent} from '../utils/polymorphic'
 // end of v37.0.0
