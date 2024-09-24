@@ -1,6 +1,6 @@
 import React from 'react'
 import type {StoryFn, Meta} from '@storybook/react'
-import Details, {StyledDetails} from './Details'
+import Details from './Details'
 import {Button} from '../Button'
 import useDetails from '../hooks/useDetails'
 
@@ -11,9 +11,9 @@ export default {
 export const Default: StoryFn<typeof Details> = () => {
   const {getDetailsProps} = useDetails({closeOnOutsideClick: true})
   return (
-    <StyledDetails {...getDetailsProps()}>
+    <Details {...getDetailsProps()}>
       <Details.Summary as={Button}>See Details</Details.Summary>
       This is some content
-    </StyledDetails>
+    </Details>
   )
 }
