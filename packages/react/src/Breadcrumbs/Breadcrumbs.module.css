@@ -40,9 +40,6 @@
 
 .Item {
   display: inline-block;
-  font-size: var(--text-body-size-small);
-  color: var(--fgColor-accent);
-  text-decoration: none;
 
   &:hover,
   &:focus {

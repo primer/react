@@ -116,18 +116,18 @@ const StyledBreadcrumbsItem = toggleStyledComponent(
 )
 const BreadcrumbsItem = ({
   selected,
-  ...rest
+  ...props
 }: StyledBreadcrumbsItemProps & React.ComponentPropsWithoutRef<typeof Link>) => {
   const enabled = useFeatureFlag('primer_react_css_modules_team')
   if (enabled) {
     return (
       // Remove this when the feature flag is removed from Link
       <FeatureFlags flags={{primer_react_css_modules_ga: true}}>
-        <Link className={clsx({[classes.ItemSelected]: selected})} {...rest} />
+        <Link className={clsx(classes.Item, {[classes.ItemSelected]: selected})} {...props} />
       </FeatureFlags>
     )
   }
-  return <StyledBreadcrumbsItem selected={selected} {...rest} />
+  return <StyledBreadcrumbsItem selected={selected} {...props} />
 }
 
 Breadcrumbs.displayName = 'Breadcrumbs'
