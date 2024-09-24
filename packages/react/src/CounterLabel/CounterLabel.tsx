@@ -63,7 +63,7 @@ const CounterLabel = forwardRef<HTMLSpanElement, CounterLabelProps>(
 
 const StyledCounterLabel = styled.span`
   display: inline-block;
-  padding: var(--base-size-2) var(--base-size-6);
+  padding: var(--base-size-2, 0.125rem) var(--base-size-6, 0.375rem);
   font-size: 12px;
   font-weight: bold;
   line-height: 1;
