@@ -24,6 +24,16 @@
       cursor: pointer;
       background-color: var(--label-bgColor-hover);
     }
+
+    &:active {
+      color: var(--label-fgColor-active);
+      background-color: var(--label-bgColor-active);
+    }
+
+    /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+    &:focus-visible {
+      @mixin focusOutline 2px;
+    }
   }
 
   &:where([data-variant='pink']) {

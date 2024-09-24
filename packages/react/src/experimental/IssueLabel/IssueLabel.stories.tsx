@@ -14,7 +14,7 @@ export const Default = () => <IssueLabel text="Issue label" />
 export const Playground: StoryObj<typeof IssueLabel> = {
   render: args => <IssueLabel {...args} />,
   args: {
-    text: 'Issue label Issue label Issue label Issue label Issue label Issue label',
+    text: 'Issue label',
     as: 'span',
   },
   argTypes: {

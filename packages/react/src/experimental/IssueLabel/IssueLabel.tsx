@@ -31,29 +31,11 @@ export interface IssueLabelProps {
   variant?: LabelColorVariant
   href?: string
   as?: 'button' | 'a' | 'span'
-
-  /**
-   * The function that gets called when a user clicks the remove button, or keys "Backspace" or "Delete" when focused on the token
-   */
-  onRemove?: () => void
-  /**
-   * Whether the token is selected
-   */
-  isSelected?: boolean
-  /**
-   * The text label inside the token
-   */
   text: React.ReactNode
-  /**
-   * A unique identifier that can be associated with the token
-   */
   id?: number | string
-
   className?: string
   onClick?: React.MouseEventHandler<HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement>
   onFocus?: React.FocusEventHandler<HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement>
-  // onClick?: (event: MouseEvent<HTMLButtonElement>) => void
-  // onFocus?: (event: FocusEvent<HTMLElement>) => void
 }
 
 export function IssueLabel({
@@ -85,17 +67,13 @@ export function IssueLabel({
   let Component: 'a' | 'button' | 'span' = 'span' // Default to <span>
 
   if (as) {
-    Component = as // If `as` prop is provided, use it explicitly
+    Component = as // use 'as' prop if provided
   } else if (href) {
-    Component = 'a' // If `href` is provided and `as` is not set, render as <a>
+    Component = 'a' // render as <a> if `href` is provided
   } else if (onClick) {
-    Component = 'button' // If `onClick` is provided and `href` is not set, render as <button>
+    Component = 'button' // render as <button> if `onClick` is provided
   }
 
-  // Set tabIndex to -1 if either onClick, onFocus, or onRemove is provided
-  const tabIndex = onClick || onFocus ? -1 : undefined
-
-  // Prepare anchor props if the component is an <a> element
   const anchorProps = href ? {href} : {}
 
   return (
@@ -104,7 +82,6 @@ export function IssueLabel({
       {...anchorProps}
       onClick={onClick}
       onFocus={onFocus}
-      tabIndex={tabIndex}
       id={id?.toString()}
       className={clsx(classes.IssueLabel, className)}
       data-variant={fillColor ? undefined : variant}
