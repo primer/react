@@ -3,7 +3,7 @@ import {Box, Text, Button} from '..'
 import {Dialog} from '../DialogV1'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import axe from 'axe-core'
-import {behavesAsComponent, checkExports} from '../utils/testing'
+import {behavesAsComponent} from '../utils/testing'
 
 /* Dialog Version 1*/
 
