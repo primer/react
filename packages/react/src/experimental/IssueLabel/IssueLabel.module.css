@@ -1,25 +1,31 @@
 .IssueLabel {
-  background-color: var(--label-bgColor-rest);
-  color: var(--label-fgColor);
-  border: none;
   display: inline-flex;
+  min-height: var(--base-size-20);
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
+  line-height: var(--text-body-lineHeight-small);
+  color: var(--label-fgColor);
+  background-color: var(--label-bgColor-rest);
+  border: 0;
+  border-radius: var(--borderRadius-full);
   align-items: center;
-  border-radius: 999px;
-  font-size: 12px;
-  line-height: calc(20 / 12);
-  font-weight: var(--base-text-weight-semibold, 600);
+  padding-inline: var(--base-size-8);
+  padding-block: 0;
 
-  &[data-size='small'] {
-    min-height: var(--base-size-20, 1.25rem);
-    padding-inline: var(--base-size-8, 0.5rem);
+  /* use color var for box-shadow (border) in future for high contrast themes */
+  box-shadow: var(--boxShadow-thin) transparent;
+
+  &:where(button, a) {
+    text-decoration: none;
+
+    &:hover {
+      color: var(--label-fgColor-hover);
+      cursor: pointer;
+      background-color: var(--label-bgColor-hover);
+    }
   }
 
-  &[data-size='large'] {
-    min-height: var(--base-size-24, 1.5rem);
-    padding-inline: var(--base-size-12, 0.75rem);
-  }
-
-  &[data-variant='pink'] {
+  &:where([data-variant='pink']) {
     --label-bgColor-rest: var(--label-pink-bgColor-rest);
     --label-bgColor-hover: var(--label-pink-bgColor-hover);
     --label-bgColor-active: var(--label-pink-bgColor-active);
@@ -28,7 +34,7 @@
     --label-fgColor-active: var(--label-pink-fgColor-active);
   }
 
-  &[data-variant='plum'] {
+  &:where([data-variant='plum']) {
     --label-bgColor-rest: var(--label-plum-bgColor-rest);
     --label-bgColor-hover: var(--label-plum-bgColor-hover);
     --label-bgColor-active: var(--label-plum-bgColor-active);
@@ -37,7 +43,7 @@
     --label-fgColor-active: var(--label-plum-fgColor-active);
   }
 
-  &[data-variant='purple'] {
+  &:where([data-variant='purple']) {
     --label-bgColor-rest: var(--label-purple-bgColor-rest);
     --label-bgColor-hover: var(--label-purple-bgColor-hover);
     --label-bgColor-active: var(--label-purple-bgColor-active);
@@ -46,7 +52,7 @@
     --label-fgColor-active: var(--label-purple-fgColor-active);
   }
 
-  &[data-variant='indigo'] {
+  &:where([data-variant='indigo']) {
     --label-bgColor-rest: var(--label-indigo-bgColor-rest);
     --label-bgColor-hover: var(--label-indigo-bgColor-hover);
     --label-bgColor-active: var(--label-indigo-bgColor-active);
@@ -55,7 +61,7 @@
     --label-fgColor-active: var(--label-indigo-fgColor-active);
   }
 
-  &[data-variant='blue'] {
+  &:where([data-variant='blue']) {
     --label-bgColor-rest: var(--label-blue-bgColor-rest);
     --label-bgColor-hover: var(--label-blue-bgColor-hover);
     --label-bgColor-active: var(--label-blue-bgColor-active);
@@ -64,7 +70,7 @@
     --label-fgColor-active: var(--label-blue-fgColor-active);
   }
 
-  &[data-variant='cyan'] {
+  &:where([data-variant='cyan']) {
     --label-bgColor-rest: var(--label-cyan-bgColor-rest);
     --label-bgColor-hover: var(--label-cyan-bgColor-hover);
     --label-bgColor-active: var(--label-cyan-bgColor-active);
@@ -73,7 +79,7 @@
     --label-fgColor-active: var(--label-cyan-fgColor-active);
   }
 
-  &[data-variant='teal'] {
+  &:where([data-variant='teal']) {
     --label-bgColor-rest: var(--label-teal-bgColor-rest);
     --label-bgColor-hover: var(--label-teal-bgColor-hover);
     --label-bgColor-active: var(--label-teal-bgColor-active);
@@ -82,7 +88,7 @@
     --label-fgColor-active: var(--label-teal-fgColor-active);
   }
 
-  &[data-variant='pine'] {
+  &:where([data-variant='pine']) {
     --label-bgColor-rest: var(--label-pine-bgColor-rest);
     --label-bgColor-hover: var(--label-pine-bgColor-hover);
     --label-bgColor-active: var(--label-pine-bgColor-active);
@@ -91,7 +97,7 @@
     --label-fgColor-active: var(--label-pine-fgColor-active);
   }
 
-  &[data-variant='green'] {
+  &:where([data-variant='green']) {
     --label-bgColor-rest: var(--label-green-bgColor-rest);
     --label-bgColor-hover: var(--label-green-bgColor-hover);
     --label-bgColor-active: var(--label-green-bgColor-active);
@@ -100,7 +106,7 @@
     --label-fgColor-active: var(--label-green-fgColor-active);
   }
 
-  &[data-variant='lime'] {
+  &:where([data-variant='lime']) {
     --label-bgColor-rest: var(--label-lime-bgColor-rest);
     --label-bgColor-hover: var(--label-lime-bgColor-hover);
     --label-bgColor-active: var(--label-lime-bgColor-active);
@@ -109,7 +115,7 @@
     --label-fgColor-active: var(--label-lime-fgColor-active);
   }
 
-  &[data-variant='olive'] {
+  &:where([data-variant='olive']) {
     --label-bgColor-rest: var(--label-olive-bgColor-rest);
     --label-bgColor-hover: var(--label-olive-bgColor-hover);
     --label-bgColor-active: var(--label-olive-bgColor-active);
@@ -118,7 +124,7 @@
     --label-fgColor-active: var(--label-olive-fgColor-active);
   }
 
-  &[data-variant='lemon'] {
+  &:where([data-variant='lemon']) {
     --label-bgColor-rest: var(--label-lemon-bgColor-rest);
     --label-bgColor-hover: var(--label-lemon-bgColor-hover);
     --label-bgColor-active: var(--label-lemon-bgColor-active);
@@ -127,7 +133,7 @@
     --label-fgColor-active: var(--label-lemon-fgColor-active);
   }
 
-  &[data-variant='yellow'] {
+  &:where([data-variant='yellow']) {
     --label-bgColor-rest: var(--label-yellow-bgColor-rest);
     --label-bgColor-hover: var(--label-yellow-bgColor-hover);
     --label-bgColor-active: var(--label-yellow-bgColor-active);
@@ -136,7 +142,7 @@
     --label-fgColor-active: var(--label-yellow-fgColor-active);
   }
 
-  &[data-variant='orange'] {
+  &:where([data-variant='orange']) {
     --label-bgColor-rest: var(--label-orange-bgColor-rest);
     --label-bgColor-hover: var(--label-orange-bgColor-hover);
     --label-bgColor-active: var(--label-orange-bgColor-active);
@@ -145,7 +151,7 @@
     --label-fgColor-active: var(--label-orange-fgColor-active);
   }
 
-  &[data-variant='red'] {
+  &:where([data-variant='red']) {
     --label-bgColor-rest: var(--label-red-bgColor-rest);
     --label-bgColor-hover: var(--label-red-bgColor-hover);
     --label-bgColor-active: var(--label-red-bgColor-active);
@@ -154,7 +160,7 @@
     --label-fgColor-active: var(--label-red-fgColor-active);
   }
 
-  &[data-variant='coral'] {
+  &:where([data-variant='coral']) {
     --label-bgColor-rest: var(--label-coral-bgColor-rest);
     --label-bgColor-hover: var(--label-coral-bgColor-hover);
     --label-bgColor-active: var(--label-coral-bgColor-active);
@@ -163,7 +169,7 @@
     --label-fgColor-active: var(--label-coral-fgColor-active);
   }
 
-  &[data-variant='gray'] {
+  &:where([data-variant='gray']) {
     --label-bgColor-rest: var(--label-gray-bgColor-rest);
     --label-bgColor-hover: var(--label-gray-bgColor-hover);
     --label-bgColor-active: var(--label-gray-bgColor-active);
@@ -172,7 +178,7 @@
     --label-fgColor-active: var(--label-gray-fgColor-active);
   }
 
-  &[data-variant='brown'] {
+  &:where([data-variant='brown']) {
     --label-bgColor-rest: var(--label-brown-bgColor-rest);
     --label-bgColor-hover: var(--label-brown-bgColor-hover);
     --label-bgColor-active: var(--label-brown-bgColor-active);
@@ -181,7 +187,7 @@
     --label-fgColor-active: var(--label-brown-fgColor-active);
   }
 
-  &[data-variant='auburn'] {
+  &:where([data-variant='auburn']) {
     --label-bgColor-rest: var(--label-auburn-bgColor-rest);
     --label-bgColor-hover: var(--label-auburn-bgColor-hover);
     --label-bgColor-active: var(--label-auburn-bgColor-active);

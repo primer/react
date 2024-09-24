@@ -15,18 +15,15 @@ export const Playground: StoryObj<typeof IssueLabel> = {
   render: args => <IssueLabel {...args} />,
   args: {
     text: 'Issue label',
+    as: 'span',
   },
   argTypes: {
     fillColor: {
       hex: undefined,
       control: {type: 'color', presetColors: ['red', 'green', 'blue', 'brown', 'black', 'white', 'salmon', 'orange']},
     },
-    size: {
-      control: 'select',
-      option: ['small', 'large'],
-    },
     variant: {
-      control: 'select',
+      control: 'inline-radio',
       options: [
         'pink',
         'plum',
@@ -51,6 +48,11 @@ export const Playground: StoryObj<typeof IssueLabel> = {
     },
     text: {
       control: 'text',
+    },
+    as: {
+      control: 'inline-radio',
+      options: ['span', 'button', 'a'],
+      if: {arg: 'href', exists: false},
     },
   },
 }

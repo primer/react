@@ -26,13 +26,10 @@ type LabelColorVariant =
   | 'brown'
   | 'auburn'
 
-// These colors should overlap with label
-
 // extends Omit<React.HTMLAttributes<HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement>, 'size' | 'id'>
 
 export interface IssueLabelProps {
   fillColor?: Hex
-  size?: 'small' | 'large'
   variant?: LabelColorVariant
   href?: string
   as?: 'button' | 'a' | 'span'
@@ -64,7 +61,6 @@ export interface IssueLabelProps {
 export function IssueLabel({
   className,
   fillColor,
-  size = 'small',
   variant = 'gray',
   href,
   onClick,
@@ -113,7 +109,6 @@ export function IssueLabel({
       tabIndex={tabIndex}
       id={id?.toString()}
       className={clsx(classes.IssueLabel, className)}
-      data-size={size}
       data-variant={fillColor ? undefined : variant}
       style={fillColor ? getColorsFromHex(fillColor, resolvedColorScheme, bgColors[mode]) : undefined}
     >
