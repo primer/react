@@ -1,5 +1,47 @@
 # @primer/react
 
+## 37.0.0-rc.6
+
+### Major Changes
+
+- [#4953](https://github.com/primer/react/pull/4953) [`04e8c9c`](https://github.com/primer/react/commit/04e8c9c4daf6b2e39f0a13f16e4f2f3399902347) Thanks [@iansan5653](https://github.com/iansan5653)! - Delete deprecated draft components `MarkdownEditor`, `MarkdownInput`, and `InlineAutocomplete`
+
+### Minor Changes
+
+- [#4913](https://github.com/primer/react/pull/4913) [`6c9121e`](https://github.com/primer/react/commit/6c9121e217e4815c7c6ab3c03474b2ca632f05e9) Thanks [@joshblack](https://github.com/joshblack)! - Update Banner to use CSS Modules behind feature flag
+
+### Patch Changes
+
+- [#5000](https://github.com/primer/react/pull/5000) [`b8f6888`](https://github.com/primer/react/commit/b8f68888d2488d310b57a89ddab0f1562d4c6b0e) Thanks [@jonrohan](https://github.com/jonrohan)! - `Text` component CSS module feature flag changed to `primer_react_css_modules_staff`
+
+- [#4975](https://github.com/primer/react/pull/4975) [`0b89fc0`](https://github.com/primer/react/commit/0b89fc040e05a61de4a686d3054f4cb6d9f32f6d) Thanks [@jonrohan](https://github.com/jonrohan)! - Change the Link component feature flag from primer_react_css_modules_staff to primer_react_css_modules_ga
+
+- [#4981](https://github.com/primer/react/pull/4981) [`c8fe1c6`](https://github.com/primer/react/commit/c8fe1c6005a7d8d8fe25e10d4ef107b75ab21db3) Thanks [@jonrohan](https://github.com/jonrohan)! - Removes the feature flag from the `Blankslate` component to always render with CSS modules.
+
+- [#4986](https://github.com/primer/react/pull/4986) [`d6471aa`](https://github.com/primer/react/commit/d6471aad819709efbaf049fd2c66600f454e635e) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(Dialog): track mousedown event to prevent accidental closing
+
+- [#4967](https://github.com/primer/react/pull/4967) [`98d3d13`](https://github.com/primer/react/commit/98d3d13196ed918b8a4171062d9965d59b9073ed) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Utilizes `[disabled]` selector instead of `:disabled` in `TooltipV2` to address a false positive
+
+- [#4977](https://github.com/primer/react/pull/4977) [`1adea12`](https://github.com/primer/react/commit/1adea12b9c53b4de0f6b34c37617c45fa724f10b) Thanks [@siddharthkp](https://github.com/siddharthkp)! - SelectPanel: Add `role=combobox` to filter input (behind feature flag `primer_react_select_panel_with_modern_action_list`)
+
+- [#4971](https://github.com/primer/react/pull/4971) [`ff56b04`](https://github.com/primer/react/commit/ff56b0476e59249db0d46a2c163a61ea75d06750) Thanks [@jonrohan](https://github.com/jonrohan)! - Changed Heading feature flag from `primer_react_css_modules_staff` to `primer_react_css_modules_ga`
+
+- [#4989](https://github.com/primer/react/pull/4989) [`dc80aa6`](https://github.com/primer/react/commit/dc80aa6352238c26ef31ae3dceb4ffbff6a148b7) Thanks [@camertron](https://github.com/camertron)! - Allow color to be customized for medium-sized IconButtons
+
+- [#4968](https://github.com/primer/react/pull/4968) [`da0f48b`](https://github.com/primer/react/commit/da0f48bcae27965f78fba8f2ba3e61254bae0529) Thanks [@siddharthkp](https://github.com/siddharthkp)! - SelectPanel: Add announcements for screen readers (behind feature flag `primer_react_select_panel_with_modern_action_list`)
+
+- [#4970](https://github.com/primer/react/pull/4970) [`44a3dc9`](https://github.com/primer/react/commit/44a3dc94f38e8056200155ea19bfd19904d8cba2) Thanks [@joshblack](https://github.com/joshblack)! - Update tab in UnderlinePanels to set explicit type
+
+- [#5000](https://github.com/primer/react/pull/5000) [`b8f6888`](https://github.com/primer/react/commit/b8f68888d2488d310b57a89ddab0f1562d4c6b0e) Thanks [@jonrohan](https://github.com/jonrohan)! - `Label` component CSS module feature flag changed to `primer_react_css_modules_staff`
+
+- [#4995](https://github.com/primer/react/pull/4995) [`8a1ee22`](https://github.com/primer/react/commit/8a1ee22b287e8303105fab4d24f904b4b112a5d0) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - ProgressBar: Adding default gap between sections for progressbars with more than one section
+
+- [#4966](https://github.com/primer/react/pull/4966) [`c097e96`](https://github.com/primer/react/commit/c097e9624cecb6506fcc38abcdc6605e033178f5) Thanks [@siddharthkp](https://github.com/siddharthkp)! - SelectPanel: Fix focus and selection styles for Windows high contrast themes (behind feature flag `primer_react_select_panel_with_modern_action_list`)
+
+- [#4997](https://github.com/primer/react/pull/4997) [`dc2d1f3`](https://github.com/primer/react/commit/dc2d1f3e71afa75757fccd83e0e82acd770d5055) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Popover: Add note on deprecation of `caret` in v38
+
+- [#4987](https://github.com/primer/react/pull/4987) [`b82286d`](https://github.com/primer/react/commit/b82286d78588ab4364da6e0666f41aaff3318389) Thanks [@langermank](https://github.com/langermank)! - Bump stylelint + fixes
+
 ## 37.0.0-rc.5
 
 ### Major Changes
