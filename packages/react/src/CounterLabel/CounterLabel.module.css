@@ -1,6 +1,7 @@
 .CounterLabel {
   display: inline-block;
-  padding: var(--base-size-2) var(--base-size-4);
+  /* stylelint-disable-next-line primer/spacing */
+  padding: var(--base-size-2) 5px;
   font-size: var(--text-body-size-small);
   font-weight: var(--base-text-weight-semibold);
   /* stylelint-disable-next-line primer/typography */
