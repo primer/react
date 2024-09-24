@@ -9,7 +9,7 @@ import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
 import classes from './Breadcrumbs.module.css'
 import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
-import {useFeatureFlag} from '../FeatureFlags'
+import {FeatureFlags, useFeatureFlag} from '../FeatureFlags'
 import Link from '../Link'
 
 const SELECTED_CLASS = 'selected'
@@ -120,7 +120,12 @@ const BreadcrumbsItem = ({
 }: StyledBreadcrumbsItemProps & React.ComponentPropsWithoutRef<typeof Link>) => {
   const enabled = useFeatureFlag('primer_react_css_modules_team')
   if (enabled) {
-    return <Link className={clsx({[classes.ItemSelected]: selected})} {...rest} />
+    return (
+      // Remove this when the feature flag is removed from Link
+      <FeatureFlags flags={{primer_react_css_modules_ga: true}}>
+        <Link className={clsx({[classes.ItemSelected]: selected})} {...rest} />
+      </FeatureFlags>
+    )
   }
   return <StyledBreadcrumbsItem selected={selected} {...rest} />
 }
