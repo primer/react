@@ -1,4 +1,4 @@
-:where(.Link) {
+.Link {
   color: var(--fgColor-accent);
   text-decoration: none;
 
