@@ -9,11 +9,11 @@ const stories = [
   },
   {
     title: 'Primary Theme',
-    id: 'components-counterlabel--primary-theme',
+    id: 'components-counterlabel-features--primary-theme',
   },
   {
     title: 'Secondary Theme',
-    id: 'components-counterlabel--secondary-theme',
+    id: 'components-counterlabel-features--secondary-theme',
   },
 ] as const
 
