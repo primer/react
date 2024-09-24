@@ -48,6 +48,7 @@ export type SummaryProps = {
   /**
    * HTML element to summary render as.
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   as?: React.ElementType<React.PropsWithChildren<any>>
   children?: React.ReactNode
 } & SxProp &
