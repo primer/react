@@ -26,6 +26,7 @@
 
   &:where([data-avatar-count='1']) {
     .AvatarItem {
+      /* stylelint-disable-next-line primer/box-shadow */
       box-shadow: 0 0 0 var(--avatar-border-width) var(--avatar-borderColor);
     }
   }
@@ -82,10 +83,12 @@
       }
 
       &:nth-child(n + 2) {
+        /* stylelint-disable-next-line primer/spacing */
         margin-right: var(--avatar-two-margin);
       }
 
       &:nth-child(n + 3) {
+        /* stylelint-disable-next-line primer/spacing */
         margin-right: var(--avatar-three-margin);
       }
     }
@@ -124,6 +127,7 @@
   height: var(--avatar-stack-size);
   overflow: hidden;
   flex-shrink: 0;
+  /* stylelint-disable-next-line primer/box-shadow */
   box-shadow: 0 0 0 var(--avatar-border-width) var(--bgColor-default);
 
   &:first-child {
@@ -133,11 +137,13 @@
 
   &:nth-child(n + 2) {
     z-index: 9;
+    /* stylelint-disable-next-line primer/spacing */
     margin-left: var(--avatar-two-margin);
   }
 
   &:nth-child(n + 3) {
     z-index: 8;
+    /* stylelint-disable-next-line primer/spacing */
     margin-left: var(--avatar-three-margin);
     opacity: 0.55;
   }
