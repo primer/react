@@ -142,54 +142,30 @@ describe('Heading', () => {
     ).toHaveStyleRule('font-style', 'italic')
   })
 
-  describe('with primer_react_css_modules_ga enabled', () => {
-    it('should only include css modules class', () => {
-      HTMLRender(
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Heading>test</Heading>
-        </FeatureFlags>,
-      )
-      expect(screen.getByText('test')).toHaveClass('Heading')
-      // Note: this is the generated class name when styled-components is used
-      // for this component
-      expect(screen.getByText('test')).not.toHaveClass(/^Heading__StyledHeading/)
-    })
+  it('should only include css modules class', () => {
+    HTMLRender(<Heading>test</Heading>)
+    expect(screen.getByText('test')).toHaveClass('Heading')
+    // Note: this is the generated class name when styled-components is used
+    // for this component
+    expect(screen.getByText('test')).not.toHaveClass(/^Heading__StyledHeading/)
+  })
 
-    it('should support `className` on the outermost element', () => {
-      const {container} = HTMLRender(
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Heading className="test">test</Heading>
-        </FeatureFlags>,
-      )
-      expect(container.firstChild).toHaveClass('test')
-    })
+  it('should support `className` on the outermost element', () => {
+    const {container} = HTMLRender(<Heading className="test">test</Heading>)
+    expect(container.firstChild).toHaveClass('test')
+  })
 
-    it('should support overrides with sx if provided', () => {
-      HTMLRender(
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Heading
-            sx={{
-              fontWeight: '900',
-            }}
-          >
-            test
-          </Heading>
-        </FeatureFlags>,
-      )
+  it('should support overrides with sx if provided', () => {
+    HTMLRender(
+      <Heading
+        sx={{
+          fontWeight: '900',
+        }}
+      >
+        test
+      </Heading>,
+    )
 
-      expect(screen.getByText('test')).toHaveStyle('font-weight: 900')
-    })
+    expect(screen.getByText('test')).toHaveStyle('font-weight: 900')
   })
 })
