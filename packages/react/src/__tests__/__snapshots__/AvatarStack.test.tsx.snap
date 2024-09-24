@@ -140,13 +140,12 @@ exports[`Avatar respects alignRight props 1`] = `
   position: relative;
 }
 
-<span
+<div
   className="c0 pc-AvatarStack--three-plus pc-AvatarStack--right"
 >
   <div
     className="pc-AvatarStackBody"
   >
-     
     <img
       alt=""
       className="pc-AvatarItem"
@@ -168,5 +167,5 @@ exports[`Avatar respects alignRight props 1`] = `
       src="https://avatars.githubusercontent.com/github"
     />
   </div>
-</span>
+</div>
 `;
