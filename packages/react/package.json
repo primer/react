@@ -1,6 +1,6 @@
 {
   "name": "@primer/react",
-  "version": "37.0.0-rc.5",
+  "version": "37.0.0-rc.6",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -21,6 +21,10 @@
       "import": "./lib-esm/next/index.js",
       "require": "./lib/next/index.js"
     },
+    "./test-helpers": {
+      "import": "./lib-esm/test-helpers.js",
+      "require": "./lib/test-helpers.js"
+    },
     "./lib-esm/*": {
       "import": [
         "./lib-esm/*.js",
@@ -36,7 +40,10 @@
   "typings": "lib/index.d.ts",
   "sideEffects": [
     "lib-esm/**/*.css",
-    "lib/**/*.css"
+    "lib/**/*.css",
+    "src/**/test-helpers.tsx",
+    "lib-esm/**/test-helpers.js",
+    "lib/**/test-helpers.js"
   ],
   "scripts": {
     "build": "./script/build",
@@ -87,7 +94,7 @@
     "@lit-labs/react": "1.2.1",
     "@oddbird/popover-polyfill": "^0.3.1",
     "@primer/behaviors": "^1.7.2",
-    "@primer/live-region-element": "^0.7.0",
+    "@primer/live-region-element": "^0.7.1",
     "@primer/octicons-react": "^19.9.0",
     "@primer/primitives": "^9.0.3",
     "@styled-system/css": "^5.1.5",
@@ -135,7 +142,7 @@
     "@storybook/addon-links": "^8.3.0",
     "@storybook/addon-storysource": "^8.3.0",
     "@storybook/preview-api": "^8.3.0",
-    "@storybook/react": "^8.3.0",
+    "@storybook/react": "^8.3.2",
     "@storybook/react-vite": "^8.3.0",
     "@storybook/source-loader": "^8.3.0",
     "@storybook/theming": "^8.3.0",
@@ -195,7 +202,7 @@
     "react-test-renderer": "18.2.0",
     "recast": "0.23.7",
     "rimraf": "5.0.5",
-    "rollup": "4.9.6",
+    "rollup": "4.22.4",
     "rollup-plugin-import-css": "^0.0.0",
     "rollup-plugin-postcss": "4.0.2",
     "rollup-plugin-visualizer": "5.9.2",

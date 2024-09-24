@@ -2,7 +2,7 @@
   display: grid;
   padding: var(--base-size-8);
   background-color: var(--banner-bgColor);
-  border: var(--borderWidth-thin, 1px) solid var(--banner-borderColor);
+  border: var(--borderWidth-thin) solid var(--banner-borderColor);
   border-radius: var(--borderRadius-medium);
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: start;
@@ -159,7 +159,6 @@
 
 /* Layout ------------------------------------------------------------------- */
 
-/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 @container banner (max-width: 500px) {
   .BannerContainer {
     display: grid;
@@ -179,7 +178,6 @@
   }
 }
 
-/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 @container banner (min-width: 500px) {
   .BannerContainer {
     display: grid;
