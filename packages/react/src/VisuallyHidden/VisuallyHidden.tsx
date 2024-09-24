@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import type {SxProp} from '../../sx'
-import sx from '../../sx'
+import type {SxProp} from '../sx'
+import sx from '../sx'
 
 /**
  * Provides a component that implements the "visually hidden" technique. This is
@@ -24,3 +24,5 @@ export const VisuallyHidden = styled.span<SxProp>`
 
   ${sx}
 `
+
+export type VisuallyHiddenProps = React.ComponentPropsWithoutRef<typeof VisuallyHidden>

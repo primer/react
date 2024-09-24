@@ -21,6 +21,10 @@
       "import": "./lib-esm/next/index.js",
       "require": "./lib/next/index.js"
     },
+    "./test-helpers": {
+      "import": "./lib-esm/test-helpers.js",
+      "require": "./lib/test-helpers.js"
+    },
     "./lib-esm/*": {
       "import": [
         "./lib-esm/*.js",
@@ -36,7 +40,10 @@
   "typings": "lib/index.d.ts",
   "sideEffects": [
     "lib-esm/**/*.css",
-    "lib/**/*.css"
+    "lib/**/*.css",
+    "src/**/test-helpers.tsx",
+    "lib-esm/**/test-helpers.js",
+    "lib/**/test-helpers.js"
   ],
   "scripts": {
     "build": "./script/build",
