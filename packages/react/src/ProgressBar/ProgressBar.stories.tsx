@@ -3,12 +3,12 @@ import type {Meta} from '@storybook/react'
 import {ProgressBar, type ProgressBarProps} from '..'
 
 const sectionColorsDefault = [
-  'success.emphasis',
   'accent.emphasis',
   'done.emphasis',
   'severe.emphasis',
   'danger.emphasis',
   'attention.emphasis',
+  'success.emphasis',
 ]
 
 export default {
