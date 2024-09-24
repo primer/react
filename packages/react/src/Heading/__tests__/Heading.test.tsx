@@ -4,7 +4,6 @@ import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender, screen} from '@testing-library/react'
 import axe from 'axe-core'
 import ThemeProvider from '../../ThemeProvider'
-import {FeatureFlags} from '../../FeatureFlags'
 
 const theme = {
   breakpoints: ['400px', '640px', '960px', '1280px'],
