@@ -26,8 +26,6 @@ type LabelColorVariant =
   | 'brown'
   | 'auburn'
 
-// extends Omit<React.HTMLAttributes<HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement>, 'size' | 'id'>
-
 export interface IssueLabelProps {
   fillColor?: Hex
   variant?: LabelColorVariant

@@ -5,15 +5,16 @@
   font-weight: var(--base-text-weight-semibold);
   line-height: var(--text-body-lineHeight-small);
   color: var(--label-fgColor);
+  white-space: nowrap;
   background-color: var(--label-bgColor-rest);
   border: 0;
   border-radius: var(--borderRadius-full);
-  align-items: center;
-  padding-inline: var(--base-size-8);
-  padding-block: 0;
 
   /* use color var for box-shadow (border) in future for high contrast themes */
   box-shadow: var(--boxShadow-thin) transparent;
+  align-items: center;
+  padding-inline: var(--base-size-8);
+  padding-block: 0;
 
   &:where(button, a) {
     text-decoration: none;

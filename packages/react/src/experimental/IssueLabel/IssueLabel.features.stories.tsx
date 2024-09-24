@@ -10,49 +10,45 @@ const meta = {
 
 export default meta
 
-export const Pink = () => <IssueLabel variant="pink">Issue label</IssueLabel>
+export const VariantPink = () => <IssueLabel variant="pink" text="Issue label" />
 
-export const Plum = () => <IssueLabel variant="plum">Issue label</IssueLabel>
+export const VariantPlum = () => <IssueLabel variant="plum" text="Issue label" />
 
-export const Purple = () => <IssueLabel variant="purple">Issue label</IssueLabel>
+export const VariantPurple = () => <IssueLabel variant="purple" text="Issue label" />
 
-export const Indigo = () => <IssueLabel variant="indigo">Issue label</IssueLabel>
+export const VariantIndigo = () => <IssueLabel variant="indigo" text="Issue label" />
 
-export const Blue = () => <IssueLabel variant="blue">Issue label</IssueLabel>
+export const VariantBlue = () => <IssueLabel variant="blue" text="Issue label" />
 
-export const Cyan = () => <IssueLabel variant="cyan">Issue label</IssueLabel>
+export const VariantCyan = () => <IssueLabel variant="cyan" text="Issue label" />
 
-export const Teal = () => <IssueLabel variant="teal">Issue label</IssueLabel>
+export const VariantTeal = () => <IssueLabel variant="teal" text="Issue label" />
 
-export const Pine = () => <IssueLabel variant="pine">Issue label</IssueLabel>
+export const VariantPine = () => <IssueLabel variant="pine" text="Issue label" />
 
-export const Green = () => <IssueLabel variant="green">Issue label</IssueLabel>
+export const VariantGreen = () => <IssueLabel variant="green" text="Issue label" />
 
-export const Lime = () => <IssueLabel variant="lime">Issue label</IssueLabel>
+export const VariantLime = () => <IssueLabel variant="lime" text="Issue label" />
 
-export const Olive = () => <IssueLabel variant="olive">Issue label</IssueLabel>
+export const VariantOlive = () => <IssueLabel variant="olive" text="Issue label" />
 
-export const Lemon = () => <IssueLabel variant="lemon">Issue label</IssueLabel>
+export const VariantLemon = () => <IssueLabel variant="lemon" text="Issue label" />
 
-export const Yellow = () => <IssueLabel variant="yellow">Issue label</IssueLabel>
+export const VariantYellow = () => <IssueLabel variant="yellow" text="Issue label" />
 
-export const Orange = () => <IssueLabel variant="orange">Issue label</IssueLabel>
+export const VariantOrange = () => <IssueLabel variant="orange" text="Issue label" />
 
-export const Red = () => <IssueLabel variant="red">Issue label</IssueLabel>
+export const VariantRed = () => <IssueLabel variant="red" text="Issue label" />
 
-export const Coral = () => <IssueLabel variant="coral">Issue label</IssueLabel>
+export const VariantCoral = () => <IssueLabel variant="coral" text="Issue label" />
 
-export const Gray = () => <IssueLabel variant="gray">Issue label</IssueLabel>
+export const VariantGray = () => <IssueLabel variant="gray" text="Issue label" />
 
-export const Brown = () => <IssueLabel variant="brown">Issue label</IssueLabel>
+export const VariantBrown = () => <IssueLabel variant="brown" text="Issue label" />
 
-export const Auburn = () => <IssueLabel variant="auburn">Issue label</IssueLabel>
+export const VariantAuburn = () => <IssueLabel variant="auburn" text="Issue label" />
 
-export const SizeLarge = () => <IssueLabel size="large">Issue label</IssueLabel>
-
-export const SizeSmall = () => <IssueLabel size="small">Issue label</IssueLabel>
-
-export const HexColor = (hex: Hex) => <IssueLabel fillColor={hex}>Issue label</IssueLabel>
+export const HexColor = (hex: Hex) => <IssueLabel fillColor={hex} text="Issue label" />
 HexColor.args = {
   hex: '#59B200',
   variant: undefined,
@@ -61,3 +57,9 @@ HexColor.argTypes = {
   hex: {control: {type: 'color'}},
   variant: {control: {disable: true}},
 }
+
+export const Link = () => <IssueLabel href="/" text="Issue label" />
+
+export const AsButton = () => <IssueLabel text="Issue label" as="button" />
+
+export const OnClick = () => <IssueLabel text="Issue label" onClick={() => alert('clicked')} />
