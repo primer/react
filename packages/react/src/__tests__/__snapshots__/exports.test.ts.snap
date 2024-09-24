@@ -300,7 +300,6 @@ exports[`@primer/react/experimental should not update exports without a semver c
   "type HiddenProps",
   "InlineMessage",
   "type InlineMessageProps",
-  "type InteractiveMarkdownViewerProps",
   "IssueLabel",
   "type IssueLabelProps",
   "KeybindingHint",
