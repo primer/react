@@ -21,60 +21,62 @@ test.describe('CounterLabel', () => {
   for (const story of stories) {
     test.describe(story.title, () => {
       for (const theme of themes) {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: story.id,
-            globals: {
-              colorScheme: theme,
-              featureFlags: {
-                primer_react_css_modules_team: true,
+        test.describe(theme, () => {
+          test('default @vrt', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+                featureFlags: {
+                  primer_react_css_modules_team: true,
+                },
               },
-            },
+            })
+
+            // Default state
+            expect(await page.screenshot()).toMatchSnapshot(`CounterLabel.${story.title}.${theme}.png`)
           })
 
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`CounterLabel.${story.title}.${theme}.png`)
-        })
-
-        test('default (styled-components) @vrt', async ({page}) => {
-          await visit(page, {
-            id: story.id,
-            globals: {
-              colorScheme: theme,
-              featureFlags: {
-                primer_react_css_modules_team: false,
+          test('default (styled-components) @vrt', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+                featureFlags: {
+                  primer_react_css_modules_team: false,
+                },
               },
-            },
+            })
+
+            // Default state
+            expect(await page.screenshot()).toMatchSnapshot(`CounterLabel.${story.title}.${theme}.png`)
           })
 
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`CounterLabel.${story.title}.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: story.id,
-            globals: {
-              colorScheme: theme,
-              featureFlags: {
-                primer_react_css_modules_team: true,
+          test('axe @aat', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+                featureFlags: {
+                  primer_react_css_modules_team: true,
+                },
               },
-            },
+            })
+            await expect(page).toHaveNoViolations()
           })
-          await expect(page).toHaveNoViolations()
-        })
 
-        test('axe (styled-components) @aat', async ({page}) => {
-          await visit(page, {
-            id: story.id,
-            globals: {
-              colorScheme: theme,
-              featureFlags: {
-                primer_react_css_modules_team: false,
+          test('axe (styled-components) @aat', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+                featureFlags: {
+                  primer_react_css_modules_team: false,
+                },
               },
-            },
+            })
+            await expect(page).toHaveNoViolations()
           })
-          await expect(page).toHaveNoViolations()
         })
       }
     })
