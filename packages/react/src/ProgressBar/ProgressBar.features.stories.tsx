@@ -20,7 +20,7 @@ export const Color = () => <ProgressBar progress="66" bg="done.emphasis" aria-la
 
 export const MultipleItems = () => (
   <ProgressBar aria-valuenow={70} aria-label="Upload test.png">
-    <ProgressBar.Item progress={33} bg={'accent.emphasis'} />
+    <ProgressBar.Item progress={33} sx={{bg: 'accent.emphasis'}} />
     <ProgressBar.Item progress={23} bg={'danger.emphasis'} />
     <ProgressBar.Item progress={14} bg={'severe.emphasis'} />
   </ProgressBar>

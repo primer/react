@@ -9,6 +9,7 @@ import {warning} from '../utils/warning'
 
 type ProgressProp = {
   progress?: string | number
+  bg?: string
 }
 
 const shimmer = keyframes`
@@ -16,7 +17,7 @@ const shimmer = keyframes`
   to { mask-position: 0%; }
 `
 
-export const Item = styled.span<ProgressProp & {bg: string} & SxProp>`
+export const Item = styled.span<ProgressProp & SxProp>`
   width: ${props => (props.progress ? `${props.progress}%` : 0)};
   background-color: ${props => get(`colors.${props.bg || 'success.emphasis'}`)};
 
