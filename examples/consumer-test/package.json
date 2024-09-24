@@ -9,7 +9,7 @@
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.19",
     "@types/styled-components": "^5.1.11",
-    "@primer/react": "37.0.0-rc.5",
+    "@primer/react": "37.0.0-rc.6",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "styled-components": "^5.3.11",
