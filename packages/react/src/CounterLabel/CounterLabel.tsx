@@ -65,7 +65,7 @@ const StyledCounterLabel = styled.span`
   display: inline-block;
   padding: var(--base-size-2, 0.125rem) var(--base-size-6, 0.375rem);
   font-size: 12px;
-  font-weight: bold;
+  font-weight: var(--base-text-weight-semibold, bold);
   line-height: 1;
   border-radius: 20px;
   border: var(--borderWidth-thin, max(1px, 0.0625rem)) solid var(--counter-borderColor, var(--color-counter-border));
