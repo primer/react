@@ -1,4 +1,4 @@
-import {render} from '@testing-library/react'
+import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {Details, useDetails, Box} from '../..'
@@ -25,7 +25,7 @@ describe('Details', () => {
       const {getDetailsProps} = useDetails({closeOnOutsideClick: true})
       return (
         <Details data-testid="details" {...getDetailsProps()}>
-          <summary>hi</summary>
+          <Details.Summary>hi</Details.Summary>
         </Details>
       )
     }
@@ -42,9 +42,9 @@ describe('Details', () => {
       const {getDetailsProps, open} = useDetails({closeOnOutsideClick: true})
       return (
         <Details {...getDetailsProps()} data-testid="details">
-          <Button as="summary" data-testid="summary">
+          <Details.Summary as={Button} data-testid="summary">
             {open ? 'Open' : 'Closed'}
-          </Button>
+          </Details.Summary>
         </Details>
       )
     }
@@ -101,5 +101,66 @@ describe('Details', () => {
     await user.click(getByRole('button', {name: 'test'}))
 
     expect(getByTestId('summary')).toHaveTextContent('Open')
+  })
+
+  it('Adds default summary if no summary supplied', async () => {
+    const {getByText} = render(<Details data-testid="details">content</Details>)
+
+    expect(getByText('See Details')).toBeInTheDocument()
+    expect(getByText('See Details').tagName).toBe('SUMMARY')
+  })
+
+  it('Adds summary element when supplied as prop', async () => {
+    const {getByText} = render(
+      <Details summary="test summary" data-testid="details">
+        content
+      </Details>,
+    )
+
+    expect(getByText('test summary')).toBeInTheDocument()
+    expect(getByText('test summary').tagName).toBe('SUMMARY')
+  })
+
+  it('Ignores summary prop when child exists', async () => {
+    const {queryByText, getByText} = render(
+      <Details summary="test summary" data-testid="details">
+        <Details.Summary>custom summary</Details.Summary>
+        content
+      </Details>,
+    )
+
+    expect(queryByText('test summary')).toBeNull()
+    expect(queryByText('See Details')).toBeNull()
+    expect(getByText('custom summary')).toBeInTheDocument()
+    expect(getByText('custom summary').tagName).toBe('SUMMARY')
+  })
+
+  it('Does not add summary if supplied as different element', async () => {
+    const {getByTestId, queryByText} = render(
+      <Details data-testid="details">
+        <Button as="summary" data-testid="summary">
+          custom summary
+        </Button>
+        content
+      </Details>,
+    )
+
+    expect(queryByText('See Details')).toBeNull()
+    expect(getByTestId('summary')).toBeInTheDocument()
+    expect(getByTestId('summary').tagName).toBe('SUMMARY')
+  })
+
+  describe('Details.Summary', () => {
+    behavesAsComponent({Component: Details.Summary})
+
+    it('should support a custom `className` on the container element', () => {
+      render(<Details.Summary className="custom-class">test summary</Details.Summary>)
+      expect(screen.getByText('test summary')).toHaveClass('custom-class')
+    })
+
+    it('should pass extra props onto the container element', () => {
+      render(<Details.Summary data-testid="test">test summary</Details.Summary>)
+      expect(screen.getByText('test summary')).toHaveAttribute('data-testid', 'test')
+    })
   })
 })
