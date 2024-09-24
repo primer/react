@@ -44,6 +44,25 @@ test.describe('Text', () => {
       test('default @vrt', async ({page}) => {
         await visit(page, {
           id: story.id,
+          globals: {
+            featureFlags: {
+              primer_react_css_modules_staff: true,
+            },
+          },
+        })
+
+        // Default state
+        expect(await page.screenshot()).toMatchSnapshot(`Text.${story.title}.png`)
+      })
+
+      test('default (styled-system) @vrt', async ({page}) => {
+        await visit(page, {
+          id: story.id,
+          globals: {
+            featureFlags: {
+              primer_react_css_modules_staff: false,
+            },
+          },
         })
 
         // Default state
@@ -53,6 +72,23 @@ test.describe('Text', () => {
       test('axe @aat', async ({page}) => {
         await visit(page, {
           id: story.id,
+          globals: {
+            featureFlags: {
+              primer_react_css_modules_staff: true,
+            },
+          },
+        })
+        await expect(page).toHaveNoViolations()
+      })
+
+      test('axe (styled-system) @aat', async ({page}) => {
+        await visit(page, {
+          id: story.id,
+          globals: {
+            featureFlags: {
+              primer_react_css_modules_staff: false,
+            },
+          },
         })
         await expect(page).toHaveNoViolations()
       })

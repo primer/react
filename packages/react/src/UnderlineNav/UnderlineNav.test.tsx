@@ -67,7 +67,7 @@ const ResponsiveUnderlineNav = ({
           </UnderlineNav.Item>
         ))}
       </UnderlineNav>
-      {displayExtraEl && <button>Custom button</button>}
+      {displayExtraEl && <button type="button">Custom button</button>}
     </div>
   )
 }

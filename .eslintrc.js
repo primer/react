@@ -61,6 +61,7 @@ module.exports = {
   // rules which apply to JS, TS, etc.
   rules: {
     'no-shadow': 'off',
+    'react/button-has-type': 'error',
     'react/prop-types': 'off',
     'react/display-name': 'off',
     'react-hooks/exhaustive-deps': 'error',
@@ -148,6 +149,11 @@ module.exports = {
                 importNames: ['useLayoutEffect'],
                 message:
                   'Please use the `useIsomorphicLayoutEffect` hook from `src/hooks/useIsomorphicLayoutEffect.ts` instead',
+              },
+              {
+                name: 'clsx',
+                importNames: ['default'],
+                message: 'Use the named import instead: `import {clsx} from "clsx"`',
               },
             ],
             patterns: [
