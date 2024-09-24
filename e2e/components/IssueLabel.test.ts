@@ -83,16 +83,21 @@ const variants = [
     title: 'Yellow',
     id: 'experimental-components-issuelabel-features--yellow',
   },
-] as const
-
-const sizes = [
   {
-    title: 'Size: Large',
-    id: 'experimental-components-issuelabel-features--size-large',
+    title: 'Button',
+    id: 'experimental-components-issuelabel-features--as-button',
   },
   {
-    title: 'Size: Small',
-    id: 'experimental-components-issuelabel-features--size-small',
+    title: 'Link',
+    id: 'experimental-components-issuelabel-features--as-link',
+  },
+  {
+    title: 'Group Of Labels',
+    id: 'experimental-components-issuelabel-features--group-of-labels',
+  },
+  {
+    title: 'Hex',
+    id: 'experimental-components-issuelabel-features--hex-color',
   },
 ] as const
 
@@ -129,31 +134,6 @@ test.describe('IssueLabel', () => {
           })
         })
       }
-    })
-  }
-
-  for (const story of sizes) {
-    test.describe(story.title, () => {
-      test('default @vrt', async ({page}) => {
-        await visit(page, {
-          id: story.id,
-        })
-
-        await page.setViewportSize({
-          width: 320,
-          height: 320,
-        })
-
-        // Default state
-        expect(await page.screenshot()).toMatchSnapshot(`IssueLabel.${story.title}.png`)
-      })
-
-      test('axe @aat', async ({page}) => {
-        await visit(page, {
-          id: story.id,
-        })
-        await expect(page).toHaveNoViolations()
-      })
     })
   }
 })
