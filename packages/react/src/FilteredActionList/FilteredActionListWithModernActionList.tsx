@@ -55,6 +55,7 @@ export function FilteredActionList({
   sx,
   groupMetadata,
   showItemDividers,
+  message,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -155,7 +156,7 @@ export function FilteredActionList({
         />
       </StyledHeader>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
-      <Box ref={scrollContainerRef} overflow="auto">
+      <Box ref={scrollContainerRef} sx={{overflow: 'auto', height: '100%'}}>
         {loading && loadingType.appearsInBody ? (
           <FilteredActionListBodyLoader loadingType={loadingType} />
         ) : (
@@ -178,6 +179,7 @@ export function FilteredActionList({
                 })}
           </ActionList>
         )}
+        {message}
       </Box>
     </Box>
   )

@@ -4,6 +4,7 @@ import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 import Box from '../Box'
+import Text from '../Text'
 import type {FilteredActionListProps} from '../FilteredActionList'
 import {FilteredActionList} from '../FilteredActionList'
 import Heading from '../Heading'
@@ -50,11 +51,13 @@ interface SelectPanelBaseProps {
   initialLoadingType?: InitialLoadingType
 }
 
-export type SelectPanelProps = SelectPanelBaseProps &
-  Omit<FilteredActionListProps, 'selectionVariant'> &
-  Pick<AnchoredOverlayProps, 'open'> &
-  AnchoredOverlayWrapperAnchorProps &
-  (SelectPanelSingleSelection | SelectPanelMultiSelection)
+export type SelectPanelProps = React.PropsWithChildren<
+  SelectPanelBaseProps &
+    Omit<FilteredActionListProps, 'selectionVariant'> &
+    Pick<AnchoredOverlayProps, 'open'> &
+    AnchoredOverlayWrapperAnchorProps &
+    (SelectPanelSingleSelection | SelectPanelMultiSelection)
+>
 
 function isMultiSelectVariant(
   selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
@@ -67,7 +70,42 @@ const focusZoneSettings: Partial<FocusZoneHookSettings> = {
   disabled: true,
 }
 
-export function SelectPanel({
+export type SelectPanelMessageProps = {
+  children: React.ReactNode
+  title: string
+  variant: 'noitems' | 'nomatches'
+}
+// we will have more variants in the future like error / warning etc
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({variant = 'noitems', title, children}) => {
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexGrow: 1,
+        height: '100%',
+        gap: 1,
+        paddingX: 4,
+        textAlign: 'center',
+        a: {color: 'inherit', textDecoration: 'underline'},
+        minHeight: 'min(calc(var(--max-height) - 150px), 324px)',
+        //                 maxHeight of dialog - (header & footer)
+      }}
+    >
+      <Text sx={{fontSize: 1, fontWeight: 'semibold'}}>{title}</Text>
+      <Text
+        sx={{fontSize: 1, color: 'fg.muted', display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center'}}
+      >
+        {children}
+      </Text>
+    </Box>
+  )
+}
+
+function Panel({
   open,
   onOpenChange,
   renderAnchor = props => {
@@ -95,6 +133,7 @@ export function SelectPanel({
   sx,
   loading,
   initialLoadingType = 'spinner',
+  children,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const inputRef = React.useRef<HTMLInputElement>(null)
@@ -243,6 +282,19 @@ export function SelectPanel({
   }
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
 
+  const isNoItemsState = items.length === 0 && dataLoadedOnce.current && !loading
+  const isNoMatchState = items.length === 0 && filterValue !== '' && dataLoadedOnce.current && !loading
+
+  const deconstructChildren = (children: React.ReactNode) => {
+    return React.Children.toArray(children).find(child => {
+      if (isNoMatchState) return child.props.variant === 'nomatches' && React.isValidElement(child)
+      else if (isNoItemsState) return child.props.variant === 'noitems' && React.isValidElement(child)
+      else return []
+    })
+  }
+
+  const message = deconstructChildren(children)
+
   return (
     <LiveRegion>
       <AnchoredOverlay
@@ -283,6 +335,7 @@ export function SelectPanel({
               </Box>
             ) : null}
           </Box>
+
           <FilteredActionList
             filterValue={filterValue}
             onFilterChange={onFilterChange}
@@ -299,11 +352,13 @@ export function SelectPanel({
             inputRef={inputRef}
             loading={isLoading}
             loadingType={loadingType()}
+            message={message}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
             sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
           />
-          {footer && (
+
+          {footer ? (
             <Box
               sx={{
                 display: 'flex',
@@ -314,11 +369,15 @@ export function SelectPanel({
             >
               {footer}
             </Box>
-          )}
+          ) : null}
         </Box>
       </AnchoredOverlay>
     </LiveRegion>
   )
 }
 
-SelectPanel.displayName = 'SelectPanel'
+Panel.displayName = 'SelectPanel'
+
+export const SelectPanel = Object.assign(Panel, {
+  Message: SelectPanelMessage,
+})
