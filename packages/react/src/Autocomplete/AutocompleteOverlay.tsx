@@ -53,6 +53,7 @@ function AutocompleteOverlay({
 
   return showMenu ? (
     <Overlay
+      role="none"
       returnFocusRef={inputRef}
       preventFocusOnOpen={true}
       onClickOutside={closeOptionList}
