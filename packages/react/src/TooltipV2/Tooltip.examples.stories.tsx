@@ -18,7 +18,7 @@ export const CustomId = () => (
 )
 
 export const FilesPage = () => (
-  <PageHeader>
+  <PageHeader role="banner" aria-label="Banner">
     <PageHeader.ContextArea>
       <PageHeader.ParentLink>Files</PageHeader.ParentLink>
       <PageHeader.ContextAreaActions>
