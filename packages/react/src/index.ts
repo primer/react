@@ -44,6 +44,8 @@ export type {FocusZoneHookSettings} from './hooks/useFocusZone'
 export {useRefObjectAsForwardedRef} from './hooks/useRefObjectAsForwardedRef'
 export {useResizeObserver} from './hooks/useResizeObserver'
 export {useResponsiveValue} from './hooks/useResponsiveValue'
+export {default as useIsomorphicLayoutEffect} from './utils/useIsomorphicLayoutEffect'
+export {useProvidedRefOrCreate} from './hooks/useProvidedRefOrCreate'
 
 // Utils
 export {createComponent} from './utils/create-component'
@@ -104,7 +106,7 @@ export type {HeaderProps, HeaderItemProps, HeaderLinkProps} from './Header'
 export {default as Heading} from './Heading'
 export type {HeadingProps} from './Heading'
 export {default as Label} from './Label'
-export type {LabelProps} from './Label'
+export type {LabelProps, LabelColorOptions} from './Label'
 export {default as LabelGroup} from './LabelGroup'
 export type {LabelGroupProps} from './LabelGroup'
 export {default as Link} from './Link'
@@ -169,7 +171,7 @@ export type {
   TimelineItemsProps,
 } from './Timeline'
 export {default as Token, IssueLabelToken, AvatarToken} from './Token'
-export type {TokenProps} from './Token'
+export type {TokenProps, IssueLabelTokenProps} from './Token'
 export {default as Tooltip} from './Tooltip/Tooltip'
 export type {TooltipProps} from './Tooltip/Tooltip'
 export {default as Truncate} from './Truncate'
@@ -190,6 +192,9 @@ export type {
   TreeViewErrorDialogProps,
 } from './TreeView'
 
+export {VisuallyHidden} from './VisuallyHidden'
+export type {VisuallyHiddenProps} from './VisuallyHidden'
+
 export {UnderlineNav} from './UnderlineNav'
 export type {UnderlineNavProps, UnderlineNavItemProps} from './UnderlineNav'
 
@@ -202,7 +207,5 @@ export type {StackProps, StackItemProps} from './Stack'
 export {PageHeader} from './PageHeader'
 export type {PageHeaderProps} from './PageHeader'
 
-// eslint-disable-next-line no-restricted-imports
-export {SSRProvider, useSSRSafeId} from './utils/ssr'
 export {default as sx, merge} from './sx'
-export type {SxProp} from './sx'
+export type {BetterCssProperties, BetterSystemStyleObject, SxProp} from './sx'

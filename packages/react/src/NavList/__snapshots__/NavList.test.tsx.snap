@@ -87,7 +87,7 @@ exports[`NavList renders a simple list 1`] = `
 .c2[aria-disabled] [data-component="ActionList.Checkbox"],
 .c2[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -125,6 +125,22 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 .c2::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
+}
+
+.c2[data-is-active-descendant] {
+  font-weight: 600;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c2[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -179,7 +195,7 @@ exports[`NavList renders a simple list 1`] = `
 .c7[aria-disabled] [data-component="ActionList.Checkbox"],
 .c7[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -214,6 +230,22 @@ exports[`NavList renders a simple list 1`] = `
 .c7:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c1,
 .c7[data-focus-visible-added] + li {
   --divider-color: transparent;
+}
+
+.c7[data-is-active-descendant] {
+  font-weight: 600;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c7[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
 }
 
 .c4 {
@@ -272,7 +304,8 @@ exports[`NavList renders a simple list 1`] = `
 @media (forced-colors:active) {
   .c2:focus,
   .c2:focus-visible,
-  .c2 > a.focus-visible {
+  .c2 > a.focus-visible,
+  .c2[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -301,7 +334,8 @@ exports[`NavList renders a simple list 1`] = `
 @media (forced-colors:active) {
   .c7:focus,
   .c7:focus-visible,
-  .c7 > a.focus-visible {
+  .c7 > a.focus-visible,
+  .c7[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -430,6 +464,16 @@ exports[`NavList renders with groups 1`] = `
   margin-top: 8px;
 }
 
+.c3 {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+}
+
 .c4 {
   padding-inline-start: 0;
 }
@@ -465,19 +509,6 @@ exports[`NavList renders with groups 1`] = `
   flex-grow: 1;
   font-weight: 400;
   word-break: break-word;
-}
-
-.c3 {
-  font-weight: 600;
-  font-size: 32px;
-  margin: 0;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-left: 16px;
-  padding-right: 16px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
 .c0 {
@@ -533,7 +564,7 @@ exports[`NavList renders with groups 1`] = `
 .c6[aria-disabled] [data-component="ActionList.Checkbox"],
 .c6[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -571,6 +602,22 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c6::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
+}
+
+.c6[data-is-active-descendant] {
+  font-weight: 600;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c6[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -625,7 +672,7 @@ exports[`NavList renders with groups 1`] = `
 .c11[aria-disabled] [data-component="ActionList.Checkbox"],
 .c11[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -660,6 +707,22 @@ exports[`NavList renders with groups 1`] = `
 .c11:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c5,
 .c11[data-focus-visible-added] + li {
   --divider-color: transparent;
+}
+
+.c11[data-is-active-descendant] {
+  font-weight: 600;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c11[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
 }
 
 .c8 {
@@ -718,7 +781,8 @@ exports[`NavList renders with groups 1`] = `
 @media (forced-colors:active) {
   .c6:focus,
   .c6:focus-visible,
-  .c6 > a.focus-visible {
+  .c6 > a.focus-visible,
+  .c6[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -747,7 +811,8 @@ exports[`NavList renders with groups 1`] = `
 @media (forced-colors:active) {
   .c11:focus,
   .c11:focus-visible,
-  .c11 > a.focus-visible {
+  .c11 > a.focus-visible,
+  .c11[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -789,7 +854,7 @@ exports[`NavList renders with groups 1`] = `
         class="c2"
       >
         <h3
-          class="c3"
+          class="c3 Heading"
           id=":r7:"
         >
           Overview
@@ -833,7 +898,7 @@ exports[`NavList renders with groups 1`] = `
         class="c2"
       >
         <h3
-          class="c3"
+          class="c3 Heading"
           id=":r9:"
         >
           Components
@@ -1010,7 +1075,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 .c11[aria-disabled] [data-component="ActionList.Checkbox"],
 .c11[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -1048,6 +1113,22 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 .c11::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
+}
+
+.c11[data-is-active-descendant] {
+  font-weight: 600;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c11[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -1102,7 +1183,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 .c4[aria-disabled] [data-component="ActionList.Checkbox"],
 .c4[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -1137,6 +1218,22 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 .c4:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c3,
 .c4[data-focus-visible-added] + li {
   --divider-color: transparent;
+}
+
+.c4[data-is-active-descendant] {
+  font-weight: 600;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c4[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
 }
 
 .c13 {
@@ -1205,7 +1302,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 @media (forced-colors:active) {
   .c11:focus,
   .c11:focus-visible,
-  .c11 > a.focus-visible {
+  .c11 > a.focus-visible,
+  .c11[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -1234,7 +1332,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 @media (forced-colors:active) {
   .c4:focus,
   .c4:focus-visible,
-  .c4 > a.focus-visible {
+  .c4 > a.focus-visible,
+  .c4[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -1481,7 +1580,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 .c11[aria-disabled] [data-component="ActionList.Checkbox"],
 .c11[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -1519,6 +1618,22 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 .c11::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
+}
+
+.c11[data-is-active-descendant] {
+  font-weight: 600;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c11[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -1583,7 +1698,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 .c4[aria-disabled] [data-component="ActionList.Checkbox"],
 .c4[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -1621,6 +1736,22 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 .c4::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
+}
+
+.c4[data-is-active-descendant] {
+  font-weight: 600;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c4[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -1697,7 +1828,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 @media (forced-colors:active) {
   .c11:focus,
   .c11:focus-visible,
-  .c11 > a.focus-visible {
+  .c11 > a.focus-visible,
+  .c11[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -1734,7 +1866,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 @media (forced-colors:active) {
   .c4:focus,
   .c4:focus-visible,
-  .c4 > a.focus-visible {
+  .c4 > a.focus-visible,
+  .c4[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }

@@ -38,10 +38,11 @@ export type FormControlProps = {
    * Vertical layout is used by default, and horizontal layout is used for checkbox and radio inputs.
    */
   layout?: 'horizontal' | 'vertical'
+  className?: string
 } & SxProp
 
 const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
-  ({children, disabled: disabledProp, layout = 'vertical', id: idProp, required, sx}, ref) => {
+  ({children, disabled: disabledProp, layout = 'vertical', id: idProp, required, sx, className}, ref) => {
     const [slots, childrenWithoutSlots] = useSlots(children, {
       caption: FormControlCaption,
       label: FormControlLabel,
@@ -124,7 +125,13 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
         }}
       >
         {isChoiceInput || layout === 'horizontal' ? (
-          <Box ref={ref} display="flex" alignItems={slots.leadingVisual ? 'center' : undefined} sx={sx}>
+          <Box
+            ref={ref}
+            display="flex"
+            alignItems={slots.leadingVisual ? 'center' : undefined}
+            sx={sx}
+            className={className}
+          >
             <Box sx={{'> input': {marginLeft: 0, marginRight: 0}}}>
               {React.isValidElement(InputComponent) &&
                 React.cloneElement(
@@ -179,6 +186,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
             flexDirection="column"
             alignItems="flex-start"
             sx={{...(isLabelHidden ? {'> *:not(label) + *': {marginTop: 1}} : {'> * + *': {marginTop: 1}}), ...sx}}
+            className={className}
           >
             {slots.label}
             {React.isValidElement(InputComponent) &&

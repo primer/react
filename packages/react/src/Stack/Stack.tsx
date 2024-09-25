@@ -281,6 +281,14 @@ const StyledStack = styled.div`
     &[data-justify-wide='space-evenly'] {
       justify-content: space-evenly;
     }
+
+    &[data-wrap-wide='wrap'] {
+      flex-wrap: wrap;
+    }
+
+    &[data-wrap-wide='nowrap'] {
+      flex-wrap: nowrap;
+    }
   }
 `
 
@@ -342,6 +350,7 @@ type StackProps<As> = React.PropsWithChildren<{
    * @default none
    */
   padding?: Padding
+  className?: string
 }>
 
 function Stack<As extends ElementType>({
@@ -353,6 +362,7 @@ function Stack<As extends ElementType>({
   justify = 'start',
   padding = 'none',
   wrap = 'nowrap',
+  className,
   ...rest
 }: StackProps<As> & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>) {
   const BaseComponent = as ?? 'div'
@@ -361,6 +371,7 @@ function Stack<As extends ElementType>({
     <StyledStack
       {...rest}
       as={BaseComponent}
+      className={className}
       {...getResponsiveAttributes('gap', gap)}
       {...getResponsiveAttributes('direction', direction)}
       {...getResponsiveAttributes('align', align)}
@@ -377,22 +388,30 @@ const StyledStackItem = styled.div`
   flex: 0 1 auto;
   min-inline-size: 0;
 
-  &[data-grow],
-  &[data-grow-narrow] {
+  &[data-grow='true'],
+  &[data-grow-narrow='true'] {
     flex-grow: 1;
   }
 
   // @custom-media --veiwportRange-regular
   @media (min-width: 48rem) {
-    &[data-grow-regular] {
+    &[data-grow-regular='true'] {
       flex-grow: 1;
+    }
+
+    &[data-grow-regular='false'] {
+      flex-grow: 0;
     }
   }
 
   // @custom-media --viewportRange-wide
   @media (min-width: 87.5rem) {
-    &[data-grow-wide] {
+    &[data-grow-wide='true'] {
       flex-grow: 1;
+    }
+
+    &[data-grow-wide='false'] {
+      flex-grow: 0;
     }
   }
 `
@@ -408,18 +427,20 @@ type StackItemProps<As> = React.PropsWithChildren<{
    * @default false
    */
   grow?: boolean | ResponsiveValue<boolean>
+  className?: string
 }>
 
 function StackItem<As extends ElementType>({
   as,
   children,
-  grow = false,
+  grow,
+  className,
   ...rest
 }: StackItemProps<As> & React.ComponentPropsWithoutRef<ElementType extends As ? As : 'div'>) {
   const BaseComponent = as ?? 'div'
 
   return (
-    <StyledStackItem {...rest} as={BaseComponent} {...getResponsiveAttributes('grow', grow)}>
+    <StyledStackItem {...rest} as={BaseComponent} className={className} {...getResponsiveAttributes('grow', grow)}>
       {children}
     </StyledStackItem>
   )

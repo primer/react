@@ -1,0 +1,9 @@
+/* stylelint-disable selector-no-qualifying-type */
+html[data-color-mode='dark'] .light {
+  display: none !important;
+}
+
+html[data-color-mode='light'] .dark,
+html[data-color-mode='auto'] .dark {
+  display: none !important;
+}

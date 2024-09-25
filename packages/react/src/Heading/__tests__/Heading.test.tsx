@@ -1,7 +1,7 @@
 import React from 'react'
 import {Heading} from '../..'
 import {render, behavesAsComponent, checkExports} from '../../utils/testing'
-import {render as HTMLRender} from '@testing-library/react'
+import {render as HTMLRender, screen} from '@testing-library/react'
 import axe from 'axe-core'
 import ThemeProvider from '../../ThemeProvider'
 
@@ -139,5 +139,32 @@ describe('Heading', () => {
         </ThemeProvider>,
       ),
     ).toHaveStyleRule('font-style', 'italic')
+  })
+
+  it('should only include css modules class', () => {
+    HTMLRender(<Heading>test</Heading>)
+    expect(screen.getByText('test')).toHaveClass('Heading')
+    // Note: this is the generated class name when styled-components is used
+    // for this component
+    expect(screen.getByText('test')).not.toHaveClass(/^Heading__StyledHeading/)
+  })
+
+  it('should support `className` on the outermost element', () => {
+    const {container} = HTMLRender(<Heading className="test">test</Heading>)
+    expect(container.firstChild).toHaveClass('test')
+  })
+
+  it('should support overrides with sx if provided', () => {
+    HTMLRender(
+      <Heading
+        sx={{
+          fontWeight: '900',
+        }}
+      >
+        test
+      </Heading>,
+    )
+
+    expect(screen.getByText('test')).toHaveStyle('font-weight: 900')
   })
 })

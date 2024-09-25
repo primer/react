@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import sx, {type SxProp} from '../sx'
-import {VisuallyHidden} from '../internal/components/VisuallyHidden'
+import {VisuallyHidden} from '../VisuallyHidden'
 import type {HTMLDataAttributes} from '../internal/internal-types'
 import Box from '../Box'
 import {useId} from '../hooks'

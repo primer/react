@@ -15,6 +15,25 @@ Playground.args = {
   size: 'small',
 }
 Playground.argTypes = {
+  variant: {
+    options: [
+      'default',
+      'primary',
+      'secondary',
+      'accent',
+      'success',
+      'attention',
+      'severe',
+      'danger',
+      'done',
+      'sponsors',
+    ],
+    control: {type: 'inline-radio'},
+  },
+  size: {
+    options: ['small', 'large'],
+    control: {type: 'inline-radio'},
+  },
   ref: {
     control: false,
     table: {

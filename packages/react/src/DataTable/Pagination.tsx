@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import {get} from '../constants'
 import {Button} from '../internal/components/ButtonReset'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
-import {VisuallyHidden} from '../internal/components/VisuallyHidden'
+import {VisuallyHidden} from '../VisuallyHidden'
 import {warning} from '../utils/warning'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {viewportRanges} from '../hooks/useResponsiveValue'
@@ -72,6 +72,7 @@ const StyledPagination = styled.nav`
     line-height: calc(20 / 14);
     user-select: none;
     border-radius: 6px;
+    padding: 0.5rem calc((2rem - 1.25rem) / 2); /* primer.control.medium.paddingInline.condensed primer.control.medium.paddingBlock */
   }
 
   .TablePaginationAction[data-has-page]:hover,

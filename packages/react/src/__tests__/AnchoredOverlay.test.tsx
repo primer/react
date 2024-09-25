@@ -3,7 +3,6 @@ import {AnchoredOverlay} from '../AnchoredOverlay'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import axe from 'axe-core'
-import {SSRProvider} from '../index'
 import {Button} from '../deprecated'
 import theme from '../theme'
 import BaseStyles from '../BaseStyles'
@@ -37,18 +36,16 @@ const AnchoredOverlayTestComponent = ({
   )
   return (
     <ThemeProvider theme={theme}>
-      <SSRProvider>
-        <BaseStyles>
-          <AnchoredOverlay
-            open={open}
-            onOpen={onOpen}
-            onClose={onClose}
-            renderAnchor={props => <Button {...props}>Anchor Button</Button>}
-          >
-            <button type="button">Focusable Child</button>
-          </AnchoredOverlay>
-        </BaseStyles>
-      </SSRProvider>
+      <BaseStyles>
+        <AnchoredOverlay
+          open={open}
+          onOpen={onOpen}
+          onClose={onClose}
+          renderAnchor={props => <Button {...props}>Anchor Button</Button>}
+        >
+          <button type="button">Focusable Child</button>
+        </AnchoredOverlay>
+      </BaseStyles>
     </ThemeProvider>
   )
 }
