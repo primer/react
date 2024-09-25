@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, FormControl} from '..'
+import {Box, FormControl, Heading} from '..'
 import Textarea from '../Textarea'
 
 export default {
@@ -27,9 +27,13 @@ export const WithCaption = () => (
 
 export const VisuallyHiddenLabel = () => (
   <Box as="form">
+    <Heading as="h2" variant="small">
+      Primer form title
+    </Heading>
     <FormControl>
-      <FormControl.Label visuallyHidden>Default label</FormControl.Label>
+      <FormControl.Label visuallyHidden>Primer form label</FormControl.Label>
       <Textarea />
+      <FormControl.Caption>Label is visually hidden; the title describes the purpose visually</FormControl.Caption>
     </FormControl>
   </Box>
 )

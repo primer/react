@@ -33,7 +33,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       '[data-component=ButtonCounter]': {
         backgroundColor: 'btn.counterBg',
       },
-      '&[data-component="IconButton"][data-no-visuals]': {
+      '&[data-component="IconButton"][data-no-visuals]:not(:disabled)': {
         color: 'fg.muted',
       },
     },
@@ -114,7 +114,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
     },
     invisible: {
-      color: 'btn.text',
+      color: `var(--button-invisible-fgColor-rest, ${theme?.colors.btn.text})`,
       backgroundColor: 'transparent',
       borderColor: 'transparent',
       boxShadow: 'none',
@@ -126,6 +126,7 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
       },
       '&:disabled': {
         color: 'primer.fg.disabled',
+        backgroundColor: `var(--button-invisible-bgColor-disabled, transparent)`,
         '[data-component=ButtonCounter], [data-component="leadingVisual"], [data-component="trailingAction"]': {
           color: 'inherit',
         },
@@ -134,19 +135,22 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         backgroundColor: 'actionListItem.default.selectedBg',
       },
       '&[data-component="IconButton"][data-no-visuals]': {
-        color: 'fg.muted',
+        color: `var(--button-invisible-iconColor-rest, ${theme?.colors.fg.muted})`,
       },
       '[data-component="trailingAction"]': {
-        color: 'fg.muted',
+        color: `var(--button-invisible-iconColor-rest, ${theme?.colors.fg.muted})`,
       },
       '[data-component="leadingVisual"]': {
-        color: 'fg.muted',
+        color: `var(--button-invisible-iconColor-rest, ${theme?.colors.fg.muted})`,
+      },
+      '[data-component="trailingVisual"]': {
+        color: `var(--button-invisible-iconColor-rest, ${theme?.colors.fg.muted})`,
       },
       '&[data-no-visuals]': {
-        color: 'accent.fg',
+        color: `var(--button-invisible-fgColor-rest, ${theme?.colors.btn.text})`,
       },
       '&:has([data-component="ButtonCounter"])': {
-        color: 'btn.text',
+        color: `var(--button-invisible-fgColor-rest, ${theme?.colors.btn.text})`,
       },
       '&:disabled[data-no-visuals]': {
         color: 'primer.fg.disabled',
@@ -295,7 +299,7 @@ export const getBaseStyles = (theme?: Theme) => ({
     fontSize: '0',
 
     '[data-component="text"]': {
-      lineHeight: 'calc(20 / 12)',
+      lineHeight: '1.6666667',
     },
 
     '[data-component=ButtonCounter]': {
@@ -381,7 +385,7 @@ export const getButtonStyles = (theme?: Theme) => {
     },
     '[data-component="text"]': {
       gridArea: 'text',
-      lineHeight: 'calc(20/14)',
+      lineHeight: '1.4285714',
       whiteSpace: 'nowrap',
     },
     '[data-component="trailingVisual"]': {
@@ -405,6 +409,7 @@ export const getButtonStyles = (theme?: Theme) => {
       gridArea: 'text',
       marginRight: '0px !important',
       placeSelf: 'center',
+      color: 'fg.muted',
     },
     '[data-component="loadingSpinner"] + [data-component="text"]': {
       visibility: 'hidden',

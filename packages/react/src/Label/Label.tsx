@@ -1,3 +1,7 @@
+import {clsx} from 'clsx'
+import {useFeatureFlag} from '../FeatureFlags'
+import Box from '../Box'
+import classes from './Label.module.css'
 import React from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
@@ -70,12 +74,12 @@ export const variants: Record<LabelColorOptions, BetterSystemStyleObject> = {
 
 const sizes: Record<LabelSizeKeys, BetterSystemStyleObject> = {
   small: {
-    height: '20px',
-    padding: '0 7px', // hard-coded to align with Primer ViewComponents and Primer CSS
+    height: 'var(--base-size-20, 20px)',
+    padding: '0 var(--base-size-6, 6px)',
   },
   large: {
-    height: '24px',
-    padding: '0 10px', // hard-coded to align with Primer ViewComponents and Primer CSS
+    height: 'var(--base-size-24, 24px)',
+    padding: '0 var(--base-size-8, 8px)',
   },
 }
 
@@ -86,7 +90,7 @@ const StyledLabel = styled.span<LabelProps>`
   border-radius: 999px;
   border-style: solid;
   display: inline-flex;
-  font-weight: ${get('fontWeights.bold')};
+  font-weight: ${get('fontWeights.semibold')};
   font-size: ${get('fontSizes.0')};
   line-height: 1;
   white-space: nowrap;
@@ -95,8 +99,25 @@ const StyledLabel = styled.span<LabelProps>`
   ${sx};
 `
 
-const Label = React.forwardRef(function Label({as, size = 'small', variant = 'default', ...rest}, ref) {
-  return <StyledLabel as={as} size={size} variant={variant} ref={ref} {...rest} />
+const Label = React.forwardRef(function Label({as, size = 'small', variant = 'default', className, ...rest}, ref) {
+  const enabled = useFeatureFlag('primer_react_css_modules_staff')
+  if (enabled) {
+    const Component = as || 'span'
+    if (rest.sx) {
+      return (
+        <Box
+          as={Component}
+          className={clsx(className, classes.Label)}
+          data-size={size}
+          data-variant={variant}
+          ref={ref}
+          {...rest}
+        />
+      )
+    }
+    return <Component className={clsx(className, classes.Label)} data-size={size} data-variant={variant} {...rest} />
+  }
+  return <StyledLabel as={as} className={className} size={size} variant={variant} ref={ref} {...rest} />
 }) as PolymorphicForwardRefComponent<'span', LabelProps>
 
 export default Label

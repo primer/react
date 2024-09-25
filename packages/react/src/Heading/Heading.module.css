@@ -1,17 +1,17 @@
-.Heading {
+:where(.Heading) {
   margin: 0;
   font-size: var(--text-title-size-large);
   font-weight: var(--base-text-weight-semibold);
 
-  &[data-variant='large'] {
+  &:where([data-variant='large']) {
     font: var(--text-title-shorthand-large);
   }
 
-  &[data-variant='medium'] {
+  &:where([data-variant='medium']) {
     font: var(--text-title-shorthand-medium);
   }
 
-  &[data-variant='small'] {
+  &:where([data-variant='small']) {
     font: var(--text-title-shorthand-small);
   }
 }

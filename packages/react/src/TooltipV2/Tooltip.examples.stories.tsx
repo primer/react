@@ -1,19 +1,9 @@
 import React, {useState, useCallback, useRef} from 'react'
-import {Button, IconButton, Breadcrumbs, ActionMenu, ActionList, NavList} from '..'
+import {Button, IconButton, Breadcrumbs, ActionMenu, ActionList} from '..'
 import {PageHeader} from '../PageHeader'
 import {Tooltip} from './Tooltip'
-import {Dialog} from '../drafts'
-import {
-  GitBranchIcon,
-  KebabHorizontalIcon,
-  TriangleDownIcon,
-  CheckIcon,
-  PeopleIcon,
-  SmileyIcon,
-  EyeIcon,
-  CommentIcon,
-  XIcon,
-} from '@primer/octicons-react'
+import {Dialog} from '../experimental'
+import {GitBranchIcon, KebabHorizontalIcon, TriangleDownIcon, CheckIcon, XIcon} from '@primer/octicons-react'
 import {default as VisuallyHidden} from '../_VisuallyHidden'
 
 export default {
@@ -160,37 +150,6 @@ FilesPage.parameters = {
     defaultViewport: 'small',
   },
 }
-
-export const Hyperlist = () => (
-  <NavList>
-    <NavList.Item href="/assigned" aria-current="page">
-      <NavList.LeadingVisual>
-        <PeopleIcon />
-      </NavList.LeadingVisual>
-      Assigned to me
-    </NavList.Item>
-    <Tooltip text="Created by me ⌥ ⇧ 2" direction="n">
-      <NavList.Item href="/created">
-        <NavList.LeadingVisual>
-          <SmileyIcon />
-        </NavList.LeadingVisual>
-        Created by me
-      </NavList.Item>
-    </Tooltip>
-    <NavList.Item href="/mentioned">
-      <NavList.LeadingVisual>
-        <CommentIcon />
-      </NavList.LeadingVisual>
-      Mentioned
-    </NavList.Item>
-    <NavList.Item href="/recent-activity">
-      <NavList.LeadingVisual>
-        <EyeIcon />
-      </NavList.LeadingVisual>
-      Recent activity
-    </NavList.Item>
-  </NavList>
-)
 
 export const DialogTrigger = () => {
   const [isOpen, setIsOpen] = useState(false)

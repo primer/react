@@ -249,7 +249,7 @@ describe('Markup', () => {
     const user = userEvent.setup({delay: null})
     const {getByRole} = renderWithTheme(
       <div>
-        <button>Focusable element</button>
+        <button type="button">Focusable element</button>
         <TreeView aria-label="Test tree">
           <TreeView.Item id="item-1">Item 1</TreeView.Item>
           <TreeView.Item id="item-2" current>
@@ -277,7 +277,7 @@ describe('Markup', () => {
     const user = userEvent.setup({delay: null})
     const {getByRole} = renderWithTheme(
       <div>
-        <button>Focusable element</button>
+        <button type="button">Focusable element</button>
         <TreeView aria-label="Test tree">
           <TreeView.Item id="item-1">
             Item 1
@@ -318,13 +318,13 @@ describe('Markup', () => {
           <TreeView.Item id="item-1">Item 1</TreeView.Item>
           <TreeView.Item id="item-2">
             Item 2
-            <button id="item-2-button" tabIndex={-1} aria-hidden>
+            <button id="item-2-button" tabIndex={-1} aria-hidden type="button">
               Link in Item 2
             </button>
           </TreeView.Item>
           <TreeView.Item id="item-3">Item 3</TreeView.Item>
         </TreeView>
-        <button>Focusable element</button>
+        <button type="button">Focusable element</button>
       </div>,
     )
 
@@ -1359,7 +1359,9 @@ describe('Asyncronous loading', () => {
       return (
         <div>
           {/* Mimic the completion of async loading by clicking the button */}
-          <button onClick={() => setState('done')}>Done</button>
+          <button type="button" onClick={() => setState('done')}>
+            Done
+          </button>
           <TreeView aria-label="Test tree">
             <TreeView.Item id="parent" defaultExpanded>
               Parent
