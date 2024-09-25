@@ -5,7 +5,6 @@ import {get} from '../constants'
 import type {SxProp} from '../sx'
 import sx from '../sx'
 import {useFeatureFlag} from '../FeatureFlags'
-import {defaultSxProp} from '../utils/defaultSxProp'
 import Box from '../Box'
 import classes from './BranchName.module.css'
 
@@ -30,7 +29,7 @@ type BranchNameProps<As extends React.ElementType> = {
   SxProp
 
 function BranchName<As extends React.ElementType>(props: BranchNameProps<As>) {
-  const {as: BaseComponent = 'a', className, children, sx = defaultSxProp, ...rest} = props
+  const {as: BaseComponent = 'a', className, children, sx, ...rest} = props
   const enabled = useFeatureFlag('primer_react_css_modules_team')
   if (enabled) {
     if (sx) {
