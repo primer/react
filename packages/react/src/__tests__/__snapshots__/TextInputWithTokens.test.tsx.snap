@@ -813,19 +813,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   flex-grow: 1;
 }
 
-.c7 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
 .c9 {
   font-size: 16px;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
@@ -860,6 +847,19 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 
 .c9:where([data-weight='semibold']) {
   font-weight: var(--base-text-weight-semibold,600);
+}
+
+.c7 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 .c0 {
