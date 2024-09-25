@@ -41,9 +41,7 @@ describe('Details', () => {
       const {getDetailsProps, open} = useDetails({closeOnOutsideClick: true})
       return (
         <Details {...getDetailsProps()} data-testid="details">
-          <Button as="summary" data-testid="summary">
-            {open ? 'Open' : 'Closed'}
-          </Button>
+          <summary data-testid="summary">{open ? 'Open' : 'Closed'}</summary>
         </Details>
       )
     }
@@ -63,9 +61,7 @@ describe('Details', () => {
       const {getDetailsProps, setOpen, open} = useDetails({closeOnOutsideClick: true, defaultOpen: true})
       return (
         <Details {...getDetailsProps()} data-testid="details">
-          <Button as="summary" data-testid="summary">
-            {open ? 'Open' : 'Closed'}
-          </Button>
+          <summary data-testid="summary">{open ? 'Open' : 'Closed'}</summary>
           <CloseButton onClick={() => setOpen(false)}>Close</CloseButton>
         </Details>
       )
@@ -85,9 +81,7 @@ describe('Details', () => {
       const {getDetailsProps, open} = useDetails({closeOnOutsideClick: true, defaultOpen: true})
       return (
         <Details {...getDetailsProps()}>
-          <Button as="summary" data-testid="summary">
-            {open ? 'Open' : 'Closed'}
-          </Button>
+          <summary data-testid="summary">{open ? 'Open' : 'Closed'}</summary>
           <Box>
             <Button variant="primary">test</Button>
           </Box>
