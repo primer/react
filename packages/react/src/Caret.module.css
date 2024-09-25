@@ -3,7 +3,7 @@
   pointer-events: none;
 }
 
-:where(.Border) {
+.Border {
   stroke: var(--borderColor-default);
   stroke-width: var(--borderWidth-thin);
 }
