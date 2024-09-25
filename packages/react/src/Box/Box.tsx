@@ -16,7 +16,7 @@ import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
 
-export type StyledBoxProps = SpaceProps &
+type StyledBoxProps = SpaceProps &
   ColorProps &
   TypographyProps &
   LayoutProps &
