@@ -1,0 +1,13 @@
+.Caret {
+  position: absolute;
+  pointer-events: none;
+}
+
+:where(.Border) {
+  stroke: var(--borderColor-default);
+  stroke-width: var(--borderWidth-thin);
+}
+
+.Background {
+  fill: var(--bgColor-default);
+}
