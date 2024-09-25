@@ -99,4 +99,10 @@ describe('ProgressBar', () => {
     expect(spy).toHaveBeenCalledTimes(1)
     spy.mockRestore()
   })
+
+  it('applies `0` as a value for `aria-valuenow`', () => {
+    const {getByRole} = HTMLRender(<ProgressBar progress={0} aria-valuenow={0} aria-label="Upload text.png" />)
+
+    expect(getByRole('progressbar')).toHaveAttribute('aria-valuenow', '0')
+  })
 })
