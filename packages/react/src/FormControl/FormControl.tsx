@@ -62,6 +62,10 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     const inputProps = React.isValidElement(InputComponent) && InputComponent.props
     const isChoiceInput =
       React.isValidElement(InputComponent) && (InputComponent.type === Checkbox || InputComponent.type === Radio)
+    const isPartOfCheckboxGroup =
+      React.isValidElement(InputComponent) &&
+      InputComponent.type === Checkbox &&
+      Object.keys(choiceGroupContext).length > 0
 
     if (InputComponent) {
       if (inputProps?.id) {
@@ -138,11 +142,14 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
                   InputComponent as React.ReactElement<{
                     id: string
                     disabled: boolean
+                    required: boolean
                     ['aria-describedby']: string
                   }>,
                   {
                     id,
                     disabled,
+                    // allow individual checkboxes that are part of a checkbox group to be required
+                    required: required && isPartOfCheckboxGroup,
                     ['aria-describedby']: captionId as string,
                   },
                 )}

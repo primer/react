@@ -5,6 +5,7 @@ import axe from 'axe-core'
 import {
   Autocomplete,
   Checkbox,
+  CheckboxGroup,
   FormControl,
   Select,
   Textarea,
@@ -389,6 +390,41 @@ describe('FormControl', () => {
 
         expect(consoleSpy).toHaveBeenCalled()
         consoleSpy.mockRestore()
+      })
+
+      it('should not add required prop to individual checkbox', async () => {
+        const {getByRole} = render(
+          <FormControl required>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <Checkbox />
+            <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
+          </FormControl>,
+        )
+
+        expect(getByRole('checkbox')).not.toBeRequired()
+      })
+
+      it('should allow required prop on checkbox if part of CheckboxGroup', async () => {
+        const {getByTestId} = render(
+          <CheckboxGroup>
+            <CheckboxGroup.Label>Checkboxes</CheckboxGroup.Label>
+            <FormControl required>
+              <Checkbox value="checkOne" data-testid="checkbox-1" />
+              <FormControl.Label>Checkbox one</FormControl.Label>
+            </FormControl>
+            <FormControl>
+              <Checkbox value="checkTwo" data-testid="checkbox-2" />
+              <FormControl.Label>Checkbox two</FormControl.Label>
+            </FormControl>
+            <FormControl>
+              <Checkbox value="checkThree" />
+              <FormControl.Label>Checkbox three</FormControl.Label>
+            </FormControl>
+          </CheckboxGroup>,
+        )
+
+        expect(getByTestId('checkbox-1')).toBeRequired()
+        expect(getByTestId('checkbox-2')).not.toBeRequired()
       })
     })
 
