@@ -1,3 +1,4 @@
+import React from 'react'
 import {clsx} from 'clsx'
 import styled from 'styled-components'
 import {get} from '../constants'
@@ -46,7 +47,7 @@ function BranchName<As extends React.ElementType>(props: BranchNameProps<As>) {
     )
   }
   return (
-    <StyledBranchName {...rest} as={BaseComponent} className={className} sx={defaultSxProp}>
+    <StyledBranchName {...rest} as={BaseComponent} className={className} sx={sx}>
       {children}
     </StyledBranchName>
   )
