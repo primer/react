@@ -165,6 +165,13 @@ export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> 
       borderBottom: '1px solid',
       borderColor: 'neutral.muted',
     }),
+
+    [`.ActionListItemDescription`]: {
+      fontSize: 'var(--text-body-size-small)';
+  fontWeight: 'var(--base-text-weight-normal)';
+  lineHeight: 'var(--text-body-lineHeight-small)';
+  color: 'var(--fgColor-muted)'
+    },
   }
 
   return (
@@ -173,7 +180,7 @@ export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> 
       {listRole && listRole !== 'list' ? (
         <Box sx={styles} role="presentation" aria-hidden="true" {...props}>
           <span id={groupHeadingId}>{_internalBackwardCompatibleTitle ?? children}</span>
-          {auxiliaryText && <span>{auxiliaryText}</span>}
+          {auxiliaryText && <div className="ActionListItemDescription">{auxiliaryText}</div>}
         </Box>
       ) : (
         // for explicit (role="list" is passed as prop) and implicit list roles (ActionList ins rendered as list by default), group titles are proper heading tags.
