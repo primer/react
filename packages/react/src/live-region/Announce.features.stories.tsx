@@ -1,7 +1,7 @@
 import type {StoryObj} from '@storybook/react'
 import React, {useEffect, useState} from 'react'
 import {Announce} from './Announce'
-import {VisuallyHidden} from '../VisuallyHidden'
+import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 
 export default {
   title: 'Experimental/Components/Announce/Features',

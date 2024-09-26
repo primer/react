@@ -63,15 +63,6 @@ const input = new Set([
   ),
 ])
 
-function getEntrypointsFromInput(input) {
-  return Object.fromEntries(
-    Array.from(input).map(value => {
-      const relativePath = path.relative('src', value)
-      return [path.join(path.dirname(relativePath), path.basename(relativePath, path.extname(relativePath))), value]
-    }),
-  )
-}
-
 const extensions = ['.js', '.jsx', '.ts', '.tsx']
 const ESM_ONLY = new Set([
   '@github/combobox-nav',
@@ -97,11 +88,7 @@ const postcssModulesOptions = {
 }
 
 const baseConfig = {
-  input: {
-    ...getEntrypointsFromInput(input),
-    // "./test-helpers"
-    'test-helpers': 'src/utils/test-helpers.tsx',
-  },
+  input: Array.from(input),
   plugins: [
     babel({
       extensions,

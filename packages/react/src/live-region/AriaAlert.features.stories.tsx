@@ -1,7 +1,7 @@
 import type {StoryObj} from '@storybook/react'
 import React from 'react'
 import {AriaAlert} from './AriaAlert'
-import {VisuallyHidden} from '../VisuallyHidden'
+import {VisuallyHidden} from '../internal/components/VisuallyHidden'
 
 export default {
   title: 'Experimental/Components/AriaAlert/Features',

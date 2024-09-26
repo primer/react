@@ -4,7 +4,7 @@ import type {ComponentProps} from '../../utils/types'
 import {SkeletonText} from './SkeletonText'
 import {Avatar, Box, Button, IconButton, Text} from '../../'
 import {SkeletonAvatar} from './SkeletonAvatar'
-import {VisuallyHidden} from '../../VisuallyHidden'
+import {VisuallyHidden} from '../../internal/components/VisuallyHidden'
 import {KebabHorizontalIcon} from '@primer/octicons-react'
 
 export default {
