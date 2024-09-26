@@ -168,26 +168,19 @@ export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> 
     }),
 
     [`.ActionListGroupHeading`]: {
-      fontSize: 'var(--text-body-size-small)',
-      fontWeight: 'var(--base-text-weight-semibold)',
-      lineHeight: 'var(--text-body-lineHeight-small)',
+      fontSize: 'var(--text-body-size-small), 12px',
+      fontWeight: 'var(--base-text-weight-semibold, 600)',
+      lineHeight: 'var(--text-body-lineHeight-small, 1.6666)',
       color: 'var(--fgColor-muted)',
     },
 
     [`.ActionListGroupHeadingDescription`]: {
-      fontSize: 'var(--text-body-size-small)',
-      fontWeight: 'var(--base-text-weight-normal)',
-      lineHeight: 'var(--text-body-lineHeight-small)',
+      fontSize: 'var(--text-body-size-small, 12px)',
+      fontWeight: 'var(--base-text-weight-normal, 400)',
+      lineHeight: 'var(--text-body-lineHeight-small, 1.6666)',
       color: 'var(--fgColor-muted)',
     },
   }
-
-  const ActionListItemDescription = styled.div`
-    font-size: var(--text-body-size-small);
-    font-weight: var(--base-text-weight-normal);
-    line-height: var(--text-body-lineHeight-small);
-    color: var(--fgColor-muted);
-  `
 
   return (
     <>
