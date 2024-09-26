@@ -265,7 +265,7 @@ LinkItemPlayground.argTypes = {
 }
 
 export const GroupPlayground: StoryFn<ActionListGroupProps> = args => (
-  <ActionList>
+  <ActionList role="menu">
     <ActionList.Group {...args}>
       <ActionList.Item>Item 1</ActionList.Item>
       <ActionList.Item>Item 2</ActionList.Item>
