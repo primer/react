@@ -116,7 +116,7 @@ export function FilteredActionList({
   useScrollFlash(scrollContainerRef)
 
   return (
-    <Box display="flex" flexDirection="column" overflow="hidden" sx={sx}>
+    <Box display="flex" flexDirection="column" overflow="hidden" flexGrow={1} sx={sx}>
       <StyledHeader>
         <TextInput
           ref={inputRef}
@@ -136,9 +136,9 @@ export function FilteredActionList({
         />
       </StyledHeader>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
-      <Box ref={scrollContainerRef} overflow="auto">
-        {loading && loadingType.appearsInBody ? (
-          <FilteredActionListBodyLoader loadingType={loadingType} />
+      <Box ref={scrollContainerRef} overflow="auto" display="flex" flexGrow={1}>
+        {loading && scrollContainerRef.current && loadingType.appearsInBody ? (
+          <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerRef.current.clientHeight} />
         ) : (
           <ActionList ref={listContainerRef} items={items} {...listProps} role="listbox" id={listId} />
         )}

@@ -20,12 +20,23 @@ export const FilteredActionListLoadingTypes = {
   input: new FilteredActionListLoadingType('input', false),
 }
 
-export function FilteredActionListBodyLoader({loadingType}: {loadingType: FilteredActionListLoadingType}): JSX.Element {
+const SKELETON_ROW_HEIGHT = 24
+const SKELETON_MIN_ROWS = 3
+
+export function FilteredActionListBodyLoader({
+  loadingType,
+  height,
+}: {
+  loadingType: FilteredActionListLoadingType
+  height: number
+}): JSX.Element {
   switch (loadingType) {
     case FilteredActionListLoadingTypes.bodySpinner:
       return <LoadingSpinner data-testid="filtered-action-list-spinner" />
-    case FilteredActionListLoadingTypes.bodySkeleton:
-      return <LoadingSkeleton data-testid="filtered-action-list-skeleton" rows={10} />
+    case FilteredActionListLoadingTypes.bodySkeleton: {
+      const rows = height < SKELETON_ROW_HEIGHT ? SKELETON_MIN_ROWS : height / SKELETON_ROW_HEIGHT
+      return <LoadingSkeleton data-testid="filtered-action-list-skeleton" rows={rows} />
+    }
     default:
       return <></>
   }
@@ -33,18 +44,16 @@ export function FilteredActionListBodyLoader({loadingType}: {loadingType: Filter
 
 function LoadingSpinner({...props}): JSX.Element {
   return (
-    <Box p={3}>
-      <Stack direction="horizontal" justify="center">
-        <Spinner {...props} />
-      </Stack>
+    <Box p={3} flexGrow={1} sx={{alignContent: 'center', textAlign: 'center'}}>
+      <Spinner {...props} />
     </Box>
   )
 }
 
 function LoadingSkeleton({rows = 10, ...props}: {rows: number}): JSX.Element {
   return (
-    <Box p={2}>
-      <Stack direction="vertical" justify="center" gap="condensed" {...props}>
+    <Box p={2} display="flex" flexGrow={1} flexDirection="column">
+      <Stack id="foobarbaz" direction="vertical" justify="center" gap="condensed" {...props}>
         {Array.from({length: rows}, (_, i) => (
           <Stack key={i} direction="horizontal" gap="condensed" align="center">
             <SkeletonBox width="16px" height="16px" />

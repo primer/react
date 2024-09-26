@@ -372,7 +372,7 @@ export const WithGroups = () => {
 }
 
 export const AsyncFetch: StoryObj<typeof SelectPanel> = {
-  render: ({initialLoadingType}) => {
+  render: ({initialLoadingType, height}) => {
     const [selected, setSelected] = React.useState<ItemInput[]>([])
     const [filteredItems, setFilteredItems] = React.useState<ItemInput[]>([])
     const [open, setOpen] = useState(false)
@@ -411,14 +411,22 @@ export const AsyncFetch: StoryObj<typeof SelectPanel> = {
         onFilterChange={onFilterChange}
         showItemDividers={true}
         initialLoadingType={initialLoadingType}
+        height={height}
       />
     )
+  },
+  args: {
+    initialLoadingType: 'spinner',
+    height: 'medium',
   },
   argTypes: {
     initialLoadingType: {
       control: 'select',
       options: ['spinner', 'skeleton'],
-      defaultValue: 'spinner',
+    },
+    height: {
+      control: 'select',
+      options: ['xsmall', 'small', 'medium', 'large', 'xlarge'],
     },
   },
 }
