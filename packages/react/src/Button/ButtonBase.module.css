@@ -28,6 +28,7 @@
     transition-duration: 80ms;
   }
 
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
   &:focus-visible {
     @mixin focusOutline;
   }
@@ -299,6 +300,7 @@
       border-color: var(--button-primary-borderColor-hover);
     }
 
+    /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
     &:focus-visible {
       @mixin focusOutlineOnEmphasis;
     }
@@ -461,6 +463,7 @@
       text-decoration: underline;
     }
 
+    /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
     &:focus-visible,
     &:focus {
       outline-offset: 2px;
