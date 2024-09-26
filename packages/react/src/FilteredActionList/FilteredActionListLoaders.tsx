@@ -44,7 +44,7 @@ export function FilteredActionListBodyLoader({
 
 function LoadingSpinner({...props}): JSX.Element {
   return (
-    <Box p={3} flexGrow={1} sx={{alignContent: 'center', textAlign: 'center'}}>
+    <Box p={3} flexGrow={1} sx={{alignContent: 'center', textAlign: 'center', height: '100%'}}>
       <Spinner {...props} />
     </Box>
   )

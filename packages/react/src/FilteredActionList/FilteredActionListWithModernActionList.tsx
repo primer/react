@@ -159,7 +159,14 @@ export function FilteredActionList({
         {loading && scrollContainerRef.current && loadingType.appearsInBody ? (
           <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerRef.current.clientHeight} />
         ) : (
-          <ActionList ref={listContainerRef} showDividers={showItemDividers} {...listProps} role="listbox" id={listId}>
+          <ActionList
+            ref={listContainerRef}
+            showDividers={showItemDividers}
+            {...listProps}
+            role="listbox"
+            id={listId}
+            sx={{flexGrow: 1}}
+          >
             {groupMetadata?.length
               ? groupMetadata.map((group, index) => {
                   return (
