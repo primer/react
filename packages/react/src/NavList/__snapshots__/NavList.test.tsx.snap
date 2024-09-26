@@ -464,6 +464,16 @@ exports[`NavList renders with groups 1`] = `
   margin-top: 8px;
 }
 
+.c3 {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+}
+
 .c4 {
   padding-inline-start: 0;
 }
@@ -499,31 +509,6 @@ exports[`NavList renders with groups 1`] = `
   flex-grow: 1;
   font-weight: 400;
   word-break: break-word;
-}
-
-.c3 {
-  font-weight: 600;
-  font-size: 32px;
-  margin: 0;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-left: 16px;
-  padding-right: 16px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-}
-
-.c3:where([data-variant='large']) {
-  font: var(--text-title-shorthand-large,600 32px / 1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji");
-}
-
-.c3:where([data-variant='medium']) {
-  font: var(--text-title-shorthand-medium,600 20px / 1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji");
-}
-
-.c3:where([data-variant='small']) {
-  font: var(--text-title-shorthand-small,600 16px / 1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji");
 }
 
 .c0 {
@@ -869,7 +854,7 @@ exports[`NavList renders with groups 1`] = `
         class="c2"
       >
         <h3
-          class="c3"
+          class="c3 Heading"
           id=":r7:"
         >
           Overview
@@ -913,7 +898,7 @@ exports[`NavList renders with groups 1`] = `
         class="c2"
       >
         <h3
-          class="c3"
+          class="c3 Heading"
           id=":r9:"
         >
           Components
