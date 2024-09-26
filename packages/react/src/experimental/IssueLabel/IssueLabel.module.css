@@ -30,6 +30,7 @@
       background-color: var(--label-bgColor-active);
     }
 
+    /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
     &:focus-visible {
       @mixin focusOutline 2px;
     }
