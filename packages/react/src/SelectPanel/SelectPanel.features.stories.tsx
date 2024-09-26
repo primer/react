@@ -426,7 +426,7 @@ export const AsyncFetch: StoryObj<typeof SelectPanel> = {
     },
     height: {
       control: 'select',
-      options: ['xsmall', 'small', 'medium', 'large', 'xlarge'],
+      options: ['auto', 'xsmall', 'small', 'medium', 'large', 'xlarge'],
     },
   },
 }

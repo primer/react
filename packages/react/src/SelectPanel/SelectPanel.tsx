@@ -1,5 +1,5 @@
 import {SearchIcon, TriangleDownIcon} from '@primer/octicons-react'
-import React, {useCallback, useEffect, useMemo, useRef} from 'react'
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
@@ -101,14 +101,14 @@ export function SelectPanel({
   const inputRef = React.useRef<HTMLInputElement>(null)
   const titleId = useId()
   const subtitleId = useId()
-  const dataLoadedOnce = useRef(false)
+  const [dataLoadedOnce, setDataLoadedOnce] = useState(false)
   const [isLoading, setIsLoading] = useProvidedStateOrCreate(loading, undefined, false)
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
   const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
   const loadingDelayTimeoutId = useRef<number | null>(null)
   const onFilterChange: FilteredActionListProps['onFilterChange'] = useCallback(
     (value, e) => {
-      if (dataLoadedOnce.current) {
+      if (dataLoadedOnce) {
         // If data has already been loaded once, delay the spinner a bit. This also helps
         // not show and then immediately hide the spinner if items are loaded quickly, i.e.
         // not async.
@@ -130,13 +130,21 @@ export function SelectPanel({
       externalOnFilterChange(value, e)
       setInternalFilterValue(value)
     },
-    [externalOnFilterChange, setInternalFilterValue, setIsLoading, safeSetTimeout, safeClearTimeout, items],
+    [
+      dataLoadedOnce,
+      externalOnFilterChange,
+      setInternalFilterValue,
+      safeSetTimeout,
+      safeClearTimeout,
+      setIsLoading,
+      items.length,
+    ],
   )
 
   useEffect(() => {
     if (isLoading) {
       setIsLoading(false)
-      dataLoadedOnce.current = true
+      setDataLoadedOnce(true)
     }
     // Only fire this effect if items have changed
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -145,7 +153,7 @@ export function SelectPanel({
   // Populate panel with items on first open
   useEffect(() => {
     // If data was already loaded once, do nothing
-    if (dataLoadedOnce.current) return
+    if (dataLoadedOnce) return
 
     // Only load data when the panel is open
     if (open) {
@@ -232,7 +240,7 @@ export function SelectPanel({
   }, [inputLabel, textInputProps])
 
   const loadingType = (): FilteredActionListLoadingType => {
-    if (dataLoadedOnce.current) {
+    if (dataLoadedOnce) {
       return FilteredActionListLoadingTypes.input
     } else {
       if (initialLoadingType === 'spinner') {
