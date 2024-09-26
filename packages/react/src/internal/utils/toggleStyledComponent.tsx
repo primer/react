@@ -22,8 +22,7 @@ type CSSModulesProps = {
  */
 export function toggleStyledComponent<T, P extends CSSModulesProps>(flag: string, Component: React.ComponentType<P>) {
   const Wrapper = React.forwardRef<T, P>(function Wrapper(
-    // @ts-ignore - this uses the styledcomponent type
-    {as: BaseComponent = Component.target ?? 'div', sx: sxProp = defaultSxProp, ...rest},
+    {as: BaseComponent = 'div', sx: sxProp = defaultSxProp, ...rest},
     ref,
   ) {
     const enabled = useFeatureFlag(flag)
