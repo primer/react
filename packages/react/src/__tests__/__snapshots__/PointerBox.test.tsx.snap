@@ -16,14 +16,13 @@ exports[`PointerBox applies the background color via "bg" prop for backwards com
   className="c0"
 >
   <svg
+    className="Caret"
     height={16}
     role="presentation"
     style={
       {
         "left": "50%",
         "marginLeft": -8,
-        "pointerEvents": "none",
-        "position": "absolute",
         "top": "100%",
       }
     }
@@ -33,18 +32,28 @@ exports[`PointerBox applies the background color via "bg" prop for backwards com
       transform="translate(8,0)"
     >
       <path
+        className="Background"
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
       />
       <path
+        className="Background"
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="var(--borderColor-danger-emphasis, var(--color-danger-emphasis, #cf222e))"
+        style={
+          {
+            "fill": "danger.emphasis",
+          }
+        }
       />
       <path
+        className="Border"
         d="M-8,0L0,8L8,0"
         fill="none"
-        stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-        strokeWidth="1px"
+        style={
+          {
+            "stroke": undefined,
+            "strokeWidth": undefined,
+          }
+        }
       />
     </g>
   </svg>
@@ -66,14 +75,13 @@ exports[`PointerBox applies the background color via sx prop 1`] = `
   className="c0"
 >
   <svg
+    className="Caret"
     height={16}
     role="presentation"
     style={
       {
         "left": "50%",
         "marginLeft": -8,
-        "pointerEvents": "none",
-        "position": "absolute",
         "top": "100%",
       }
     }
@@ -83,18 +91,28 @@ exports[`PointerBox applies the background color via sx prop 1`] = `
       transform="translate(8,0)"
     >
       <path
+        className="Background"
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
       />
       <path
+        className="Background"
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="var(--borderColor-danger-emphasis, var(--color-danger-emphasis, #cf222e))"
+        style={
+          {
+            "fill": "danger.emphasis",
+          }
+        }
       />
       <path
+        className="Border"
         d="M-8,0L0,8L8,0"
         fill="none"
-        stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-        strokeWidth="1px"
+        style={
+          {
+            "stroke": undefined,
+            "strokeWidth": undefined,
+          }
+        }
       />
     </g>
   </svg>
@@ -114,14 +132,13 @@ exports[`PointerBox applies the border color via "borderColor" prop for backward
   className="c0"
 >
   <svg
+    className="Caret"
     height={16}
     role="presentation"
     style={
       {
         "left": "50%",
         "marginLeft": -8,
-        "pointerEvents": "none",
-        "position": "absolute",
         "top": "100%",
       }
     }
@@ -131,18 +148,28 @@ exports[`PointerBox applies the border color via "borderColor" prop for backward
       transform="translate(8,0)"
     >
       <path
+        className="Background"
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
       />
       <path
+        className="Background"
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
+        style={
+          {
+            "fill": undefined,
+          }
+        }
       />
       <path
+        className="Border"
         d="M-8,0L0,8L8,0"
         fill="none"
-        stroke="var(--borderColor-danger-emphasis, var(--color-danger-emphasis, #cf222e))"
-        strokeWidth="1px"
+        style={
+          {
+            "stroke": "danger.emphasis",
+            "strokeWidth": undefined,
+          }
+        }
       />
     </g>
   </svg>
@@ -163,14 +190,13 @@ exports[`PointerBox applies the border color via sx prop 1`] = `
   className="c0"
 >
   <svg
+    className="Caret"
     height={16}
     role="presentation"
     style={
       {
         "left": "50%",
         "marginLeft": -8,
-        "pointerEvents": "none",
-        "position": "absolute",
         "top": "100%",
       }
     }
@@ -180,18 +206,28 @@ exports[`PointerBox applies the border color via sx prop 1`] = `
       transform="translate(8,0)"
     >
       <path
+        className="Background"
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
       />
       <path
+        className="Background"
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
+        style={
+          {
+            "fill": undefined,
+          }
+        }
       />
       <path
+        className="Border"
         d="M-8,0L0,8L8,0"
         fill="none"
-        stroke="var(--borderColor-danger-emphasis, var(--color-danger-emphasis, #cf222e))"
-        strokeWidth="1px"
+        style={
+          {
+            "stroke": "danger.emphasis",
+            "strokeWidth": undefined,
+          }
+        }
       />
     </g>
   </svg>
@@ -211,14 +247,13 @@ exports[`PointerBox renders a <Caret> in <Box> with relative positioning 1`] = `
   className="c0"
 >
   <svg
+    className="Caret"
     height={16}
     role="presentation"
     style={
       {
         "left": "50%",
         "marginLeft": -8,
-        "pointerEvents": "none",
-        "position": "absolute",
         "top": "100%",
       }
     }
@@ -228,18 +263,28 @@ exports[`PointerBox renders a <Caret> in <Box> with relative positioning 1`] = `
       transform="translate(8,0)"
     >
       <path
+        className="Background"
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
       />
       <path
+        className="Background"
         d="M-8,0L0,8L8,0L-8,0Z"
-        fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
+        style={
+          {
+            "fill": undefined,
+          }
+        }
       />
       <path
+        className="Border"
         d="M-8,0L0,8L8,0"
         fill="none"
-        stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-        strokeWidth="1px"
+        style={
+          {
+            "stroke": undefined,
+            "strokeWidth": undefined,
+          }
+        }
       />
     </g>
   </svg>

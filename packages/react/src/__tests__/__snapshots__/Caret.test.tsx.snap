@@ -2,6 +2,7 @@
 
 exports[`Caret renders cardinal directions 1`] = `
 <svg
+  className="Caret"
   height={16}
   role="presentation"
   style={
@@ -9,8 +10,6 @@ exports[`Caret renders cardinal directions 1`] = `
       "bottom": "100%",
       "left": "50%",
       "marginLeft": -8,
-      "pointerEvents": "none",
-      "position": "absolute",
     }
   }
   width={16}
@@ -19,18 +18,28 @@ exports[`Caret renders cardinal directions 1`] = `
     transform="translate(8,16) rotate(180)"
   >
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
+      style={
+        {
+          "fill": undefined,
+        }
+      }
     />
     <path
+      className="Border"
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
+      style={
+        {
+          "stroke": undefined,
+          "strokeWidth": undefined,
+        }
+      }
     />
   </g>
 </svg>
@@ -38,14 +47,13 @@ exports[`Caret renders cardinal directions 1`] = `
 
 exports[`Caret renders cardinal directions 2`] = `
 <svg
+  className="Caret"
   height={16}
   role="presentation"
   style={
     {
       "left": "100%",
       "marginTop": -8,
-      "pointerEvents": "none",
-      "position": "absolute",
       "top": "50%",
     }
   }
@@ -55,18 +63,28 @@ exports[`Caret renders cardinal directions 2`] = `
     transform="translate(0,8) rotate(-90)"
   >
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
+      style={
+        {
+          "fill": undefined,
+        }
+      }
     />
     <path
+      className="Border"
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
+      style={
+        {
+          "stroke": undefined,
+          "strokeWidth": undefined,
+        }
+      }
     />
   </g>
 </svg>
@@ -74,14 +92,13 @@ exports[`Caret renders cardinal directions 2`] = `
 
 exports[`Caret renders cardinal directions 3`] = `
 <svg
+  className="Caret"
   height={16}
   role="presentation"
   style={
     {
       "left": "50%",
       "marginLeft": -8,
-      "pointerEvents": "none",
-      "position": "absolute",
       "top": "100%",
     }
   }
@@ -91,18 +108,28 @@ exports[`Caret renders cardinal directions 3`] = `
     transform="translate(8,0)"
   >
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
+      style={
+        {
+          "fill": undefined,
+        }
+      }
     />
     <path
+      className="Border"
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
+      style={
+        {
+          "stroke": undefined,
+          "strokeWidth": undefined,
+        }
+      }
     />
   </g>
 </svg>
@@ -110,13 +137,12 @@ exports[`Caret renders cardinal directions 3`] = `
 
 exports[`Caret renders cardinal directions 4`] = `
 <svg
+  className="Caret"
   height={16}
   role="presentation"
   style={
     {
       "marginTop": -8,
-      "pointerEvents": "none",
-      "position": "absolute",
       "right": "100%",
       "top": "50%",
     }
@@ -127,18 +153,28 @@ exports[`Caret renders cardinal directions 4`] = `
     transform="translate(16,8) rotate(90)"
   >
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
+      style={
+        {
+          "fill": undefined,
+        }
+      }
     />
     <path
+      className="Border"
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
+      style={
+        {
+          "stroke": undefined,
+          "strokeWidth": undefined,
+        }
+      }
     />
   </g>
 </svg>
@@ -146,6 +182,7 @@ exports[`Caret renders cardinal directions 4`] = `
 
 exports[`Caret renders cardinal directions 5`] = `
 <svg
+  className="Caret"
   height={16}
   role="presentation"
   style={
@@ -153,8 +190,6 @@ exports[`Caret renders cardinal directions 5`] = `
       "bottom": "100%",
       "left": 8,
       "marginLeft": null,
-      "pointerEvents": "none",
-      "position": "absolute",
     }
   }
   width={16}
@@ -163,18 +198,28 @@ exports[`Caret renders cardinal directions 5`] = `
     transform="translate(8,16) rotate(180)"
   >
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
+      style={
+        {
+          "fill": undefined,
+        }
+      }
     />
     <path
+      className="Border"
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
+      style={
+        {
+          "stroke": undefined,
+          "strokeWidth": undefined,
+        }
+      }
     />
   </g>
 </svg>
@@ -182,14 +227,13 @@ exports[`Caret renders cardinal directions 5`] = `
 
 exports[`Caret renders cardinal directions 6`] = `
 <svg
+  className="Caret"
   height={16}
   role="presentation"
   style={
     {
       "bottom": "100%",
       "marginLeft": null,
-      "pointerEvents": "none",
-      "position": "absolute",
       "right": 8,
     }
   }
@@ -199,18 +243,28 @@ exports[`Caret renders cardinal directions 6`] = `
     transform="translate(8,16) rotate(180)"
   >
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
+      style={
+        {
+          "fill": undefined,
+        }
+      }
     />
     <path
+      className="Border"
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
+      style={
+        {
+          "stroke": undefined,
+          "strokeWidth": undefined,
+        }
+      }
     />
   </g>
 </svg>
@@ -218,14 +272,13 @@ exports[`Caret renders cardinal directions 6`] = `
 
 exports[`Caret renders cardinal directions 7`] = `
 <svg
+  className="Caret"
   height={16}
   role="presentation"
   style={
     {
       "left": 8,
       "marginLeft": null,
-      "pointerEvents": "none",
-      "position": "absolute",
       "top": "100%",
     }
   }
@@ -235,18 +288,28 @@ exports[`Caret renders cardinal directions 7`] = `
     transform="translate(8,0)"
   >
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
+      style={
+        {
+          "fill": undefined,
+        }
+      }
     />
     <path
+      className="Border"
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
+      style={
+        {
+          "stroke": undefined,
+          "strokeWidth": undefined,
+        }
+      }
     />
   </g>
 </svg>
@@ -254,13 +317,12 @@ exports[`Caret renders cardinal directions 7`] = `
 
 exports[`Caret renders cardinal directions 8`] = `
 <svg
+  className="Caret"
   height={16}
   role="presentation"
   style={
     {
       "marginLeft": null,
-      "pointerEvents": "none",
-      "position": "absolute",
       "right": 8,
       "top": "100%",
     }
@@ -271,18 +333,28 @@ exports[`Caret renders cardinal directions 8`] = `
     transform="translate(8,0)"
   >
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
+      style={
+        {
+          "fill": undefined,
+        }
+      }
     />
     <path
+      className="Border"
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
+      style={
+        {
+          "stroke": undefined,
+          "strokeWidth": undefined,
+        }
+      }
     />
   </g>
 </svg>
@@ -290,13 +362,12 @@ exports[`Caret renders cardinal directions 8`] = `
 
 exports[`Caret renders cardinal directions 9`] = `
 <svg
+  className="Caret"
   height={16}
   role="presentation"
   style={
     {
       "marginTop": null,
-      "pointerEvents": "none",
-      "position": "absolute",
       "right": "100%",
       "top": 8,
     }
@@ -307,18 +378,28 @@ exports[`Caret renders cardinal directions 9`] = `
     transform="translate(16,8) rotate(90)"
   >
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
+      style={
+        {
+          "fill": undefined,
+        }
+      }
     />
     <path
+      className="Border"
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
+      style={
+        {
+          "stroke": undefined,
+          "strokeWidth": undefined,
+        }
+      }
     />
   </g>
 </svg>
@@ -326,14 +407,13 @@ exports[`Caret renders cardinal directions 9`] = `
 
 exports[`Caret renders cardinal directions 10`] = `
 <svg
+  className="Caret"
   height={16}
   role="presentation"
   style={
     {
       "bottom": 8,
       "marginTop": null,
-      "pointerEvents": "none",
-      "position": "absolute",
       "right": "100%",
     }
   }
@@ -343,18 +423,28 @@ exports[`Caret renders cardinal directions 10`] = `
     transform="translate(16,8) rotate(90)"
   >
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
+      style={
+        {
+          "fill": undefined,
+        }
+      }
     />
     <path
+      className="Border"
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
+      style={
+        {
+          "stroke": undefined,
+          "strokeWidth": undefined,
+        }
+      }
     />
   </g>
 </svg>
@@ -362,14 +452,13 @@ exports[`Caret renders cardinal directions 10`] = `
 
 exports[`Caret renders cardinal directions 11`] = `
 <svg
+  className="Caret"
   height={16}
   role="presentation"
   style={
     {
       "left": "100%",
       "marginTop": null,
-      "pointerEvents": "none",
-      "position": "absolute",
       "top": 8,
     }
   }
@@ -379,18 +468,28 @@ exports[`Caret renders cardinal directions 11`] = `
     transform="translate(0,8) rotate(-90)"
   >
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
+      style={
+        {
+          "fill": undefined,
+        }
+      }
     />
     <path
+      className="Border"
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
+      style={
+        {
+          "stroke": undefined,
+          "strokeWidth": undefined,
+        }
+      }
     />
   </g>
 </svg>
@@ -398,6 +497,7 @@ exports[`Caret renders cardinal directions 11`] = `
 
 exports[`Caret renders cardinal directions 12`] = `
 <svg
+  className="Caret"
   height={16}
   role="presentation"
   style={
@@ -405,8 +505,6 @@ exports[`Caret renders cardinal directions 12`] = `
       "bottom": 8,
       "left": "100%",
       "marginTop": null,
-      "pointerEvents": "none",
-      "position": "absolute",
     }
   }
   width={16}
@@ -415,18 +513,28 @@ exports[`Caret renders cardinal directions 12`] = `
     transform="translate(0,8) rotate(-90)"
   >
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
     />
     <path
+      className="Background"
       d="M-8,0L0,8L8,0L-8,0Z"
-      fill="var(--bgColor-default, var(--color-canvas-default, #ffffff))"
+      style={
+        {
+          "fill": undefined,
+        }
+      }
     />
     <path
+      className="Border"
       d="M-8,0L0,8L8,0"
       fill="none"
-      stroke="var(--borderColor-default, var(--color-border-default, #d0d7de))"
-      strokeWidth="1px"
+      style={
+        {
+          "stroke": undefined,
+          "strokeWidth": undefined,
+        }
+      }
     />
   </g>
 </svg>
