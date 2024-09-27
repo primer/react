@@ -305,6 +305,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   size="medium"
 >
   <span
+    aria-hidden="true"
     className="TextInput-icon"
   >
     <svg
@@ -747,6 +748,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
     </span>
   </div>
   <span
+    aria-hidden="true"
     className="TextInput-icon"
   >
     <svg
@@ -6613,11 +6615,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           zero
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -6663,11 +6665,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           one
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -6713,11 +6715,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           two
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -6763,11 +6765,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           three
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -6813,11 +6815,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           four
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -6863,11 +6865,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           five
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -6913,11 +6915,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           six
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -6963,11 +6965,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           seven
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -7001,6 +7003,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -7379,6 +7382,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     size="medium"
   >
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -7451,11 +7455,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           zero
-        </span>
-        <span
-          className="c10"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c10"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -7501,11 +7505,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           one
-        </span>
-        <span
-          className="c10"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c10"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -7551,11 +7555,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           two
-        </span>
-        <span
-          className="c10"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c10"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -7601,11 +7605,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           three
-        </span>
-        <span
-          className="c10"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c10"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -7651,11 +7655,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           four
-        </span>
-        <span
-          className="c10"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c10"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -7701,11 +7705,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           five
-        </span>
-        <span
-          className="c10"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c10"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -7751,11 +7755,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           six
-        </span>
-        <span
-          className="c10"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c10"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -7801,11 +7805,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           seven
-        </span>
-        <span
-          className="c10"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c10"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -7839,6 +7843,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -8628,6 +8633,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -9015,6 +9021,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     size="medium"
   >
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -9505,6 +9512,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -9544,4366 +9552,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
               vectorEffect="non-scaling-stroke"
             />
           </svg>
-          <span
-            className="c5"
-            id=":rg:"
-          >
-            Loading
-          </span>
-        </span>
-      </div>
-    </span>
-  </span>,
-  .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin-left: -0.25rem;
-  margin-bottom: -0.25rem;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c2 > * {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  margin-left: 0.25rem;
-  margin-bottom: 0.25rem;
-}
-
-.c3 {
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c9 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c10 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c12:not(:focus):not(:active):not(:focus-within) {
-  -webkit-clip-path: inset(50%);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-.c11 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
-.c7 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0 input::-webkit-input-placeholder,
-.c0 textarea::-webkit-input-placeholder,
-.c0 select::-webkit-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::-moz-placeholder,
-.c0 textarea::-moz-placeholder,
-.c0 select::-moz-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input:-ms-input-placeholder,
-.c0 textarea:-ms-input-placeholder,
-.c0 select:-ms-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::placeholder,
-.c0 textarea::placeholder,
-.c0 select::placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0:focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 12px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
-}
-
-.c5 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c5:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-}
-
-.c8 {
-  background-color: transparent;
-  font-family: inherit;
-  color: currentColor;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
-  -webkit-align-self: baseline;
-  -ms-flex-item-align: baseline;
-  align-self: baseline;
-  border: 0;
-  border-radius: 999px;
-  margin-left: 8px;
-  height: 32px;
-  width: 32px;
-}
-
-.c8:hover,
-.c8:focus {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-}
-
-.c8:active {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-}
-
-.c6 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c6:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c6:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-@media (min-width:768px) {
-
-}
-
-<span
-    className="c0 c1"
-    onClick={[Function]}
-    size="medium"
-  >
-    <div
-      className="c2"
-      display="flex"
-    >
-      <div
-        className="c3"
-      >
-        <input
-          aria-invalid="false"
-          className="c4"
-          onBlur={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          type="text"
-        />
-      </div>
-      <span
-        className="c5"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c6"
-          onClick={[Function]}
-        >
-          zero
-          <span
-            className="c7"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c8"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c5"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c6"
-          onClick={[Function]}
-        >
-          one
-          <span
-            className="c7"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c8"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c5"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c6"
-          onClick={[Function]}
-        >
-          two
-          <span
-            className="c7"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c8"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c5"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c6"
-          onClick={[Function]}
-        >
-          three
-          <span
-            className="c7"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c8"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c5"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c6"
-          onClick={[Function]}
-        >
-          four
-          <span
-            className="c7"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c8"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c5"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c6"
-          onClick={[Function]}
-        >
-          five
-          <span
-            className="c7"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c8"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c5"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c6"
-          onClick={[Function]}
-        >
-          six
-          <span
-            className="c7"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c8"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c5"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c6"
-          onClick={[Function]}
-        >
-          seven
-          <span
-            className="c7"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c8"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-    </div>
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c9"
-        display="flex"
-      >
-        <span
-          className="c10"
-        >
-          <svg
-            aria-hidden={true}
-            aria-labelledby=":rh:"
-            className="c11"
-            fill="none"
-            height="16px"
-            sx={
-              {
-                "visibility": "visible",
-              }
-            }
-            viewBox="0 0 16 16"
-            width="16px"
-          >
-            <circle
-              cx="8"
-              cy="8"
-              r="7"
-              stroke="currentColor"
-              strokeOpacity="0.25"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M15 8a7.002 7.002 0 00-7-7"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-          <span
-            className="c12"
-            id=":rh:"
-          >
-            Loading
-          </span>
-        </span>
-      </div>
-    </span>
-  </span>,
-  .c7 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin-left: -0.25rem;
-  margin-bottom: -0.25rem;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c7 > * {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  margin-left: 0.25rem;
-  margin-bottom: 0.25rem;
-}
-
-.c8 {
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c4 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c3 {
-  visibility: hidden;
-}
-
-.c6:not(:focus):not(:active):not(:focus-within) {
-  -webkit-clip-path: inset(50%);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-.c14 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: hidden;
-}
-
-.c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  left: 0;
-}
-
-.c12 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0 input::-webkit-input-placeholder,
-.c0 textarea::-webkit-input-placeholder,
-.c0 select::-webkit-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::-moz-placeholder,
-.c0 textarea::-moz-placeholder,
-.c0 select::-moz-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input:-ms-input-placeholder,
-.c0 textarea:-ms-input-placeholder,
-.c0 select:-ms-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::placeholder,
-.c0 textarea::placeholder,
-.c0 select::placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0:focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 0;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 0;
-  padding-right: 12px;
-}
-
-.c9 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c9:focus {
-  outline: 0;
-}
-
-.c10 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c10:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-}
-
-.c13 {
-  background-color: transparent;
-  font-family: inherit;
-  color: currentColor;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
-  -webkit-align-self: baseline;
-  -ms-flex-item-align: baseline;
-  align-self: baseline;
-  border: 0;
-  border-radius: 999px;
-  margin-left: 8px;
-  height: 32px;
-  width: 32px;
-}
-
-.c13:hover,
-.c13:focus {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-}
-
-.c13:active {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-}
-
-.c11 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c11:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c11:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-@media (min-width:768px) {
-
-}
-
-<span
-    className="c0 c1"
-    onClick={[Function]}
-    size="medium"
-  >
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <div
-          className="c3"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-mark-github"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
-            />
-          </svg>
-        </div>
-        <span
-          className="c4"
-        >
-          <svg
-            aria-hidden={true}
-            aria-labelledby=":ri:"
-            className="c5"
-            fill="none"
-            height="32px"
-            sx={
-              {
-                "height": "100%",
-                "left": 0,
-                "maxWidth": "100%",
-                "position": "absolute",
-                "top": 0,
-                "visibility": "visible",
-              }
-            }
-            viewBox="0 0 16 16"
-            width="32px"
-          >
-            <circle
-              cx="8"
-              cy="8"
-              r="7"
-              stroke="currentColor"
-              strokeOpacity="0.25"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M15 8a7.002 7.002 0 00-7-7"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-          <span
-            className="c6"
-            id=":ri:"
-          >
-            Loading
-          </span>
-        </span>
-      </div>
-    </span>
-    <div
-      className="c7"
-      display="flex"
-    >
-      <div
-        className="c8"
-      >
-        <input
-          aria-invalid="false"
-          className="c9"
-          onBlur={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          type="text"
-        />
-      </div>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          zero
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          one
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          two
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          three
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          four
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          five
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          six
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          seven
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-    </div>
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <span
-          className="c4"
-        >
-          <svg
-            aria-hidden={true}
-            aria-labelledby=":rj:"
-            className="c14"
-            fill="none"
-            height="16px"
-            sx={
-              {
-                "visibility": "hidden",
-              }
-            }
-            viewBox="0 0 16 16"
-            width="16px"
-          >
-            <circle
-              cx="8"
-              cy="8"
-              r="7"
-              stroke="currentColor"
-              strokeOpacity="0.25"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M15 8a7.002 7.002 0 00-7-7"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-          <span
-            className="c6"
-            id=":rj:"
-          >
-            Loading
-          </span>
-        </span>
-      </div>
-    </span>
-  </span>,
-  .c7 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin-left: -0.25rem;
-  margin-bottom: -0.25rem;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c7 > * {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  margin-left: 0.25rem;
-  margin-bottom: 0.25rem;
-}
-
-.c8 {
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c4 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c3 {
-  visibility: hidden;
-}
-
-.c6:not(:focus):not(:active):not(:focus-within) {
-  -webkit-clip-path: inset(50%);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-.c14 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: hidden;
-}
-
-.c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  left: 0;
-}
-
-.c12 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0 input::-webkit-input-placeholder,
-.c0 textarea::-webkit-input-placeholder,
-.c0 select::-webkit-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::-moz-placeholder,
-.c0 textarea::-moz-placeholder,
-.c0 select::-moz-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input:-ms-input-placeholder,
-.c0 textarea:-ms-input-placeholder,
-.c0 select:-ms-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::placeholder,
-.c0 textarea::placeholder,
-.c0 select::placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0:focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 0;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 0;
-  padding-right: 12px;
-}
-
-.c9 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c9:focus {
-  outline: 0;
-}
-
-.c10 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c10:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-}
-
-.c13 {
-  background-color: transparent;
-  font-family: inherit;
-  color: currentColor;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
-  -webkit-align-self: baseline;
-  -ms-flex-item-align: baseline;
-  align-self: baseline;
-  border: 0;
-  border-radius: 999px;
-  margin-left: 8px;
-  height: 32px;
-  width: 32px;
-}
-
-.c13:hover,
-.c13:focus {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-}
-
-.c13:active {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-}
-
-.c11 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c11:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c11:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-@media (min-width:768px) {
-
-}
-
-<span
-    className="c0 c1"
-    onClick={[Function]}
-    size="medium"
-  >
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <div
-          className="c3"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-mark-github"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
-            />
-          </svg>
-        </div>
-        <span
-          className="c4"
-        >
-          <svg
-            aria-hidden={true}
-            aria-labelledby=":rk:"
-            className="c5"
-            fill="none"
-            height="32px"
-            sx={
-              {
-                "height": "100%",
-                "left": 0,
-                "maxWidth": "100%",
-                "position": "absolute",
-                "top": 0,
-                "visibility": "visible",
-              }
-            }
-            viewBox="0 0 16 16"
-            width="32px"
-          >
-            <circle
-              cx="8"
-              cy="8"
-              r="7"
-              stroke="currentColor"
-              strokeOpacity="0.25"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M15 8a7.002 7.002 0 00-7-7"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-          <span
-            className="c6"
-            id=":rk:"
-          >
-            Loading
-          </span>
-        </span>
-      </div>
-    </span>
-    <div
-      className="c7"
-      display="flex"
-    >
-      <div
-        className="c8"
-      >
-        <input
-          aria-invalid="false"
-          className="c9"
-          onBlur={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          type="text"
-        />
-      </div>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          zero
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          one
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          two
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          three
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          four
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          five
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          six
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          seven
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-    </div>
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <span
-          className="c4"
-        >
-          <svg
-            aria-hidden={true}
-            aria-labelledby=":rl:"
-            className="c14"
-            fill="none"
-            height="16px"
-            sx={
-              {
-                "visibility": "hidden",
-              }
-            }
-            viewBox="0 0 16 16"
-            width="16px"
-          >
-            <circle
-              cx="8"
-              cy="8"
-              r="7"
-              stroke="currentColor"
-              strokeOpacity="0.25"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M15 8a7.002 7.002 0 00-7-7"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-          <span
-            className="c6"
-            id=":rl:"
-          >
-            Loading
-          </span>
-        </span>
-      </div>
-    </span>
-  </span>,
-  .c7 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin-left: -0.25rem;
-  margin-bottom: -0.25rem;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c7 > * {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  margin-left: 0.25rem;
-  margin-bottom: 0.25rem;
-}
-
-.c8 {
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c4 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c3 {
-  visibility: visible;
-}
-
-.c6:not(:focus):not(:active):not(:focus-within) {
-  -webkit-clip-path: inset(50%);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-.c14 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
-.c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: hidden;
-  left: 0;
-}
-
-.c12 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0 input::-webkit-input-placeholder,
-.c0 textarea::-webkit-input-placeholder,
-.c0 select::-webkit-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::-moz-placeholder,
-.c0 textarea::-moz-placeholder,
-.c0 select::-moz-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input:-ms-input-placeholder,
-.c0 textarea:-ms-input-placeholder,
-.c0 select:-ms-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::placeholder,
-.c0 textarea::placeholder,
-.c0 select::placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0:focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.c9 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c9:focus {
-  outline: 0;
-}
-
-.c10 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c10:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-}
-
-.c13 {
-  background-color: transparent;
-  font-family: inherit;
-  color: currentColor;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
-  -webkit-align-self: baseline;
-  -ms-flex-item-align: baseline;
-  align-self: baseline;
-  border: 0;
-  border-radius: 999px;
-  margin-left: 8px;
-  height: 32px;
-  width: 32px;
-}
-
-.c13:hover,
-.c13:focus {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-}
-
-.c13:active {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-}
-
-.c11 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c11:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c11:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-@media (min-width:768px) {
-
-}
-
-<span
-    className="c0 c1"
-    onClick={[Function]}
-    size="medium"
-  >
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <div
-          className="c3"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-mark-github"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
-            />
-          </svg>
-        </div>
-        <span
-          className="c4"
-        >
-          <svg
-            aria-hidden={true}
-            aria-labelledby=":rm:"
-            className="c5"
-            fill="none"
-            height="32px"
-            sx={
-              {
-                "height": "100%",
-                "left": 0,
-                "maxWidth": "100%",
-                "position": "absolute",
-                "top": 0,
-                "visibility": "hidden",
-              }
-            }
-            viewBox="0 0 16 16"
-            width="32px"
-          >
-            <circle
-              cx="8"
-              cy="8"
-              r="7"
-              stroke="currentColor"
-              strokeOpacity="0.25"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M15 8a7.002 7.002 0 00-7-7"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-          <span
-            className="c6"
-            id=":rm:"
-          >
-            Loading
-          </span>
-        </span>
-      </div>
-    </span>
-    <div
-      className="c7"
-      display="flex"
-    >
-      <div
-        className="c8"
-      >
-        <input
-          aria-invalid="false"
-          className="c9"
-          onBlur={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          type="text"
-        />
-      </div>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          zero
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          one
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          two
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          three
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          four
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          five
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          six
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c10"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c11"
-          onClick={[Function]}
-        >
-          seven
-          <span
-            className="c12"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c13"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-    </div>
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-      >
-        <span
-          className="c4"
-        >
-          <svg
-            aria-hidden={true}
-            aria-labelledby=":rn:"
-            className="c14"
-            fill="none"
-            height="16px"
-            sx={
-              {
-                "visibility": "visible",
-              }
-            }
-            viewBox="0 0 16 16"
-            width="16px"
-          >
-            <circle
-              cx="8"
-              cy="8"
-              r="7"
-              stroke="currentColor"
-              strokeOpacity="0.25"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M15 8a7.002 7.002 0 00-7-7"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-          <span
-            className="c6"
-            id=":rn:"
-          >
-            Loading
-          </span>
-        </span>
-      </div>
-    </span>
-  </span>,
-  .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin-left: -0.25rem;
-  margin-bottom: -0.25rem;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c2 > * {
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  margin-left: 0.25rem;
-  margin-bottom: 0.25rem;
-}
-
-.c3 {
-  -webkit-order: 1;
-  -ms-flex-order: 1;
-  order: 1;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-}
-
-.c9 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c11 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c10 {
-  visibility: hidden;
-}
-
-.c13:not(:focus):not(:active):not(:focus-within) {
-  -webkit-clip-path: inset(50%);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-.c12 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  right: 0;
-}
-
-.c7 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0 input::-webkit-input-placeholder,
-.c0 textarea::-webkit-input-placeholder,
-.c0 select::-webkit-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::-moz-placeholder,
-.c0 textarea::-moz-placeholder,
-.c0 select::-moz-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input:-ms-input-placeholder,
-.c0 textarea:-ms-input-placeholder,
-.c0 select:-ms-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::placeholder,
-.c0 textarea::placeholder,
-.c0 select::placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0:focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 12px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
-}
-
-.c5 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  border-radius: 999px;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  font-weight: 600;
-  font-family: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  position: relative;
-  white-space: nowrap;
-  font-size: 14px;
-  height: 32px;
-  line-height: 32px;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c5:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-}
-
-.c8 {
-  background-color: transparent;
-  font-family: inherit;
-  color: currentColor;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  padding: 0;
-  -webkit-transform: translate(1px,-1px);
-  -ms-transform: translate(1px,-1px);
-  transform: translate(1px,-1px);
-  -webkit-align-self: baseline;
-  -ms-flex-item-align: baseline;
-  align-self: baseline;
-  border: 0;
-  border-radius: 999px;
-  margin-left: 8px;
-  height: 32px;
-  width: 32px;
-}
-
-.c8:hover,
-.c8:focus {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-}
-
-.c8:active {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-}
-
-.c6 {
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  background: transparent;
-  border: none;
-  color: inherit;
-  font: inherit;
-  margin: 0;
-  padding: 0;
-  width: auto;
-  -webkit-font-smoothing: inherit;
-  -moz-osx-font-smoothing: inherit;
-  -webkit-appearance: none;
-  line-height: normal;
-  color: currentColor;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c6:is(a,button,[tabIndex='0']) {
-  cursor: pointer;
-}
-
-.c6:is(a,button,[tabIndex='0']):after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-@media (min-width:768px) {
-
-}
-
-<span
-    className="c0 c1"
-    onClick={[Function]}
-    size="medium"
-  >
-    <div
-      className="c2"
-      display="flex"
-    >
-      <div
-        className="c3"
-      >
-        <input
-          aria-invalid="false"
-          className="c4"
-          onBlur={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          type="text"
-        />
-      </div>
-      <span
-        className="c5"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c6"
-          onClick={[Function]}
-        >
-          zero
-          <span
-            className="c7"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c8"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c5"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c6"
-          onClick={[Function]}
-        >
-          one
-          <span
-            className="c7"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c8"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c5"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c6"
-          onClick={[Function]}
-        >
-          two
-          <span
-            className="c7"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c8"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c5"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c6"
-          onClick={[Function]}
-        >
-          three
-          <span
-            className="c7"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c8"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c5"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c6"
-          onClick={[Function]}
-        >
-          four
-          <span
-            className="c7"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c8"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c5"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c6"
-          onClick={[Function]}
-        >
-          five
-          <span
-            className="c7"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c8"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c5"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c6"
-          onClick={[Function]}
-        >
-          six
-          <span
-            className="c7"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c8"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-      <span
-        className="c5"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        onKeyUp={[Function]}
-        size="xlarge"
-        tabIndex={0}
-      >
-        <span
-          className="c6"
-          onClick={[Function]}
-        >
-          seven
-          <span
-            className="c7"
-          >
-             (press backspace or delete to remove)
-          </span>
-        </span>
-        <span
-          aria-hidden="true"
-          className="c8"
-          onClick={[Function]}
-          size="xlarge"
-          tabIndex={-1}
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-x"
-            fill="currentColor"
-            focusable="false"
-            height={24}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 24 24"
-            width={24}
-          >
-            <path
-              d="M5.72 5.72a.75.75 0 0 1 1.06 0L12 10.94l5.22-5.22a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L13.06 12l5.22 5.22a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L12 13.06l-5.22 5.22a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L10.94 12 5.72 6.78a.75.75 0 0 1 0-1.06Z"
-            />
-          </svg>
-        </span>
-      </span>
-    </div>
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c9"
-        display="flex"
-      >
-        <div
-          className="c10"
-        >
-          <svg
-            aria-hidden="true"
-            className="octicon octicon-mark-github"
-            fill="currentColor"
-            focusable="false"
-            height={16}
-            style={
-              {
-                "display": "inline-block",
-                "overflow": "visible",
-                "userSelect": "none",
-                "verticalAlign": "text-bottom",
-              }
-            }
-            viewBox="0 0 16 16"
-            width={16}
-          >
-            <path
-              d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"
-            />
-          </svg>
-        </div>
-        <span
-          className="c11"
-        >
-          <svg
-            aria-hidden={true}
-            aria-labelledby=":ro:"
-            className="c12"
-            fill="none"
-            height="32px"
-            sx={
-              {
-                "height": "100%",
-                "maxWidth": "100%",
-                "position": "absolute",
-                "right": 0,
-                "top": 0,
-                "visibility": "visible",
-              }
-            }
-            viewBox="0 0 16 16"
-            width="32px"
-          >
-            <circle
-              cx="8"
-              cy="8"
-              r="7"
-              stroke="currentColor"
-              strokeOpacity="0.25"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M15 8a7.002 7.002 0 00-7-7"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-          <span
-            className="c13"
-            id=":ro:"
-          >
-            Loading
-          </span>
         </span>
       </div>
     </span>
@@ -14252,6 +9900,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     size="medium"
   >
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -14742,6 +10391,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -15129,6 +10779,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     size="medium"
   >
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -15231,11 +10882,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           zero
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -15281,11 +10932,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           one
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -15331,11 +10982,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           two
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -15381,11 +11032,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           three
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -15431,11 +11082,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           four
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -15481,11 +11132,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           five
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -15531,11 +11182,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           six
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -15581,11 +11232,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           seven
-        </span>
-        <span
-          className="c11"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c11"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -15619,6 +11270,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -16417,6 +12069,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -16834,6 +12487,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     size="medium"
   >
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -16906,11 +12560,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           zero
-        </span>
-        <span
-          className="c10"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c10"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -16956,11 +12610,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           one
-        </span>
-        <span
-          className="c10"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c10"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -17006,11 +12660,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           two
-        </span>
-        <span
-          className="c10"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c10"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -17056,11 +12710,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           three
-        </span>
-        <span
-          className="c10"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c10"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -17106,11 +12760,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           four
-        </span>
-        <span
-          className="c10"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c10"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -17156,11 +12810,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           five
-        </span>
-        <span
-          className="c10"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c10"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -17206,11 +12860,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           six
-        </span>
-        <span
-          className="c10"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c10"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -17256,11 +12910,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           seven
-        </span>
-        <span
-          className="c10"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c10"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -17294,6 +12948,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -17734,11 +13389,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           zero
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -17784,11 +13439,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           one
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -17834,11 +13489,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           two
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -17884,11 +13539,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           three
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -17934,11 +13589,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           four
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -17984,11 +13639,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           five
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -18034,11 +13689,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           six
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -18084,11 +13739,11 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
           onClick={[Function]}
         >
           seven
-        </span>
-        <span
-          className="c7"
-        >
-           (press backspace or delete to remove)
+          <span
+            className="c7"
+          >
+             (press backspace or delete to remove)
+          </span>
         </span>
         <span
           aria-hidden="true"
@@ -18122,6 +13777,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -18553,6 +14209,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     size="small"
   >
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -18656,7 +14313,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           zero
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -18706,7 +14363,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           one
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -18756,7 +14413,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           two
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -18806,7 +14463,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           three
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -18856,7 +14513,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           four
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -18906,7 +14563,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           five
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -18956,7 +14613,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           six
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -19006,7 +14663,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           seven
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -19043,6 +14700,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -19469,6 +15127,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     size="medium"
   >
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -19572,7 +15231,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           zero
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -19622,7 +15281,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           one
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -19672,7 +15331,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           two
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -19722,7 +15381,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           three
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -19772,7 +15431,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           four
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -19822,7 +15481,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           five
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -19872,7 +15531,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           six
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -19922,7 +15581,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           seven
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -19959,6 +15618,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -20383,6 +16043,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     size="medium"
   >
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -20486,7 +16147,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           zero
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -20536,7 +16197,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           one
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -20586,7 +16247,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           two
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -20636,7 +16297,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           three
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -20686,7 +16347,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           four
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -20736,7 +16397,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           five
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -20786,7 +16447,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           six
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -20836,7 +16497,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         >
           seven
           <span
-            className="c12"
+            className="c11"
           >
              (press backspace or delete to remove)
           </span>
@@ -20873,6 +16534,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div

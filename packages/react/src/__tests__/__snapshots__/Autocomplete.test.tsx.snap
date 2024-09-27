@@ -123,6 +123,7 @@ exports[`snapshots renders a custom empty state message 1`] = `
     <input
       aria-autocomplete="both"
       aria-controls="autocompleteId-listbox"
+      aria-describedby=""
       aria-expanded={false}
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
@@ -298,6 +299,7 @@ exports[`snapshots renders a loading state 1`] = `
     <input
       aria-autocomplete="both"
       aria-controls="autocompleteId-listbox"
+      aria-describedby=""
       aria-expanded={false}
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
@@ -561,6 +563,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
     <input
       aria-autocomplete="both"
       aria-controls="autocompleteId-listbox"
+      aria-describedby=""
       aria-expanded={false}
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
@@ -1400,6 +1403,7 @@ exports[`snapshots renders a multiselect input 1`] = `
     <input
       aria-autocomplete="both"
       aria-controls="autocompleteId-listbox"
+      aria-describedby=""
       aria-expanded={false}
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
@@ -2141,6 +2145,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
     <input
       aria-autocomplete="both"
       aria-controls="autocompleteId-listbox"
+      aria-describedby=""
       aria-expanded={false}
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
@@ -3037,6 +3042,7 @@ exports[`snapshots renders a single select input 1`] = `
     <input
       aria-autocomplete="both"
       aria-controls="autocompleteId-listbox"
+      aria-describedby=""
       aria-expanded={false}
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"
@@ -4141,6 +4147,7 @@ exports[`snapshots renders with an input value 1`] = `
     <input
       aria-autocomplete="both"
       aria-controls="autocompleteId-listbox"
+      aria-describedby=""
       aria-expanded={false}
       aria-haspopup="listbox"
       aria-owns="autocompleteId-listbox"

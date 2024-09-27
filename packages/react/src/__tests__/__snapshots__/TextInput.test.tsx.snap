@@ -120,6 +120,7 @@ exports[`TextInput renders 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-describedby=""
     className="c2"
     data-component="input"
     name="zipcode"
@@ -258,6 +259,7 @@ exports[`TextInput renders block 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-describedby=""
     className="c2"
     data-component="input"
     name="zipcode"
@@ -389,6 +391,7 @@ exports[`TextInput renders contrast 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-describedby=""
     className="c2"
     data-component="input"
     name="zipcode"
@@ -526,6 +529,7 @@ exports[`TextInput renders error 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-describedby=""
     aria-invalid="true"
     className="c2"
     data-component="input"
@@ -664,6 +668,7 @@ exports[`TextInput renders large 1`] = `
   size="large"
 >
   <input
+    aria-describedby=""
     className="c2"
     data-component="input"
     name="zipcode"
@@ -794,6 +799,7 @@ exports[`TextInput renders leadingVisual 1`] = `
   onClick={[Function]}
 >
   <span
+    aria-hidden="true"
     className="TextInput-icon"
     id=":r15:"
   >
@@ -952,6 +958,7 @@ exports[`TextInput renders leadingVisual 2`] = `
   onClick={[Function]}
 >
   <span
+    aria-hidden="true"
     className="TextInput-icon"
     id=":r19:"
   >
@@ -1110,6 +1117,7 @@ exports[`TextInput renders leadingVisual 3`] = `
   onClick={[Function]}
 >
   <span
+    aria-hidden="true"
     className="TextInput-icon"
     id=":r1d:"
   >
@@ -1250,6 +1258,7 @@ exports[`TextInput renders leadingVisual 4`] = `
   onClick={[Function]}
 >
   <span
+    aria-hidden="true"
     className="TextInput-icon"
     id=":r1h:"
   >
@@ -1391,6 +1400,7 @@ exports[`TextInput renders monospace 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-describedby=""
     className="c2"
     data-component="input"
     name="zipcode"
@@ -1521,6 +1531,7 @@ exports[`TextInput renders placeholder 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-describedby=""
     className="c2"
     data-component="input"
     name="zipcode"
@@ -1661,6 +1672,7 @@ exports[`TextInput renders small 1`] = `
   size="small"
 >
   <input
+    aria-describedby=""
     className="c2"
     data-component="input"
     name="zipcode"
@@ -2234,6 +2246,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-describedby=""
     className="c2"
     data-component="input"
     name="search"
@@ -2246,8 +2259,8 @@ exports[`TextInput renders trailingAction icon button 1`] = `
     className="c3 TextInput-action"
   >
     <button
-      aria-describedby=":ro:-loading-announcement"
-      aria-labelledby=":rn:"
+      aria-describedby=":r2k:-loading-announcement"
+      aria-labelledby=":r2j:"
       className="c4 IconButton"
       data-block={null}
       data-component="IconButton"
@@ -2755,6 +2768,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-describedby=""
     className="c2"
     data-component="input"
     name="search"
@@ -3367,6 +3381,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-describedby=""
     className="c2"
     data-component="input"
     name="search"
@@ -3552,6 +3567,7 @@ exports[`TextInput renders trailingVisual 1`] = `
     type="text"
   />
   <span
+    aria-hidden="true"
     className="TextInput-icon"
     id=":r1m:"
   >
@@ -3710,6 +3726,7 @@ exports[`TextInput renders trailingVisual 2`] = `
     type="text"
   />
   <span
+    aria-hidden="true"
     className="TextInput-icon"
     id=":r1q:"
   >
@@ -3868,6 +3885,7 @@ exports[`TextInput renders trailingVisual 3`] = `
     type="text"
   />
   <span
+    aria-hidden="true"
     className="TextInput-icon"
     id=":r1u:"
   >
@@ -4008,6 +4026,7 @@ exports[`TextInput renders trailingVisual 4`] = `
     type="text"
   />
   <span
+    aria-hidden="true"
     className="TextInput-icon"
     id=":r22:"
   >
@@ -4189,6 +4208,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -4406,6 +4426,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
     onClick={[Function]}
   >
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -4458,6 +4479,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -4677,6 +4699,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -4903,6 +4926,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
     onClick={[Function]}
   >
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -4977,7 +5001,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
-      aria-describedby=":r33:  :r35:"
+      aria-describedby=":r33: :r35:"
       className="c6"
       data-component="input"
       onBlur={[Function]}
@@ -4985,6 +5009,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -5211,6 +5236,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
     onClick={[Function]}
   >
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -5285,7 +5311,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
-      aria-describedby=":r38:  :r3a:"
+      aria-describedby=":r38: :r3a:"
       className="c6"
       data-component="input"
       onBlur={[Function]}
@@ -5293,6 +5319,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -5519,6 +5546,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
     onClick={[Function]}
   >
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -5593,7 +5621,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       </div>
     </span>
     <input
-      aria-describedby=":r3d:  :r3f:"
+      aria-describedby=":r3d: :r3f:"
       className="c6"
       data-component="input"
       onBlur={[Function]}
@@ -5601,6 +5629,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -5829,6 +5858,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -6085,6 +6115,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
     onClick={[Function]}
   >
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -6137,6 +6168,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -6395,6 +6427,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -6669,6 +6702,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
     size="small"
   >
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -6751,6 +6785,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -7016,6 +7051,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
     onClick={[Function]}
   >
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -7098,6 +7134,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -7370,6 +7407,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
     size="large"
   >
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -7452,6 +7490,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
       type="text"
     />
     <span
+      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -7655,6 +7694,7 @@ exports[`TextInput should render a password input 1`] = `
   onClick={[Function]}
 >
   <input
+    aria-describedby=""
     className="c2"
     data-component="input"
     name="password"
