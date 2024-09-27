@@ -48,7 +48,7 @@ const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
   {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, sx: sxProp = defaultSxProp, className, ...rest},
   ref,
 ) {
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  const enabled = useFeatureFlag('primer_react_css_modules_staff')
   const isResponsive = isResponsiveValue(size)
   const avatarSx = isResponsive
     ? merge<BetterCssProperties | BetterSystemStyleObject>(
