@@ -61,7 +61,7 @@ const DialogWithCustomFocusRef = () => {
         <Dialog.Header id="header">Title</Dialog.Header>
         <Box p={3}>
           <Text fontFamily="sans-serif">Some content</Text>
-          <button data-testid="inner-button" ref={buttonRef}>
+          <button type="button" data-testid="inner-button" ref={buttonRef}>
             hi
           </button>
         </Box>
@@ -90,7 +90,7 @@ const DialogWithCustomFocusRefAndReturnFocusRef = () => {
           <Dialog.Header id="header">Title</Dialog.Header>
           <Box p={3}>
             <Text fontFamily="sans-serif">Some content</Text>
-            <button data-testid="inner-button" ref={buttonRef}>
+            <button type="button" data-testid="inner-button" ref={buttonRef}>
               hi
             </button>
           </Box>

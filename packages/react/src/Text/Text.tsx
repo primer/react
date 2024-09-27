@@ -59,7 +59,7 @@ const StyledText = styled.span<StyledTextProps>`
 `
 
 const Text = forwardRef(({as: Component = 'span', className, size, weight, ...props}, forwardedRef) => {
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
 
   const innerRef = React.useRef<HTMLElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, innerRef)

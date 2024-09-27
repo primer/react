@@ -1,5 +1,5 @@
 import React from 'react'
-import {Blankslate} from '../../src/drafts'
+import {Blankslate} from '../Blankslate'
 import figma from '@figma/code-connect'
 
 figma.connect(Blankslate, 'https://www.figma.com/design/GCvY3Qv8czRgZgvl1dG6lp/Primer-Web?node-id=4398-2383&m=dev', {

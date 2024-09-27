@@ -301,6 +301,7 @@ exports[`Button respects block prop 1`] = `
   data-block="block"
   data-loading="false"
   data-no-visuals="true"
+  data-size="medium"
   id="test-button"
   type="button"
 >
@@ -617,6 +618,7 @@ exports[`Button respects the alignContent prop 1`] = `
   class="c0"
   data-loading="false"
   data-no-visuals="true"
+  data-size="medium"
   id="test-button"
   type="button"
 >
@@ -1570,6 +1572,7 @@ exports[`Button styles danger button appropriately 1`] = `
   class="c0"
   data-loading="false"
   data-no-visuals="true"
+  data-size="medium"
   id="test-button"
   type="button"
 >
@@ -1896,6 +1899,7 @@ exports[`Button styles invisible button appropriately 1`] = `
   class="c0"
   data-loading="false"
   data-no-visuals="true"
+  data-size="medium"
   id="test-button"
   type="button"
 >
@@ -2211,6 +2215,7 @@ exports[`Button styles primary button appropriately 1`] = `
   class="c0"
   data-loading="false"
   data-no-visuals="true"
+  data-size="medium"
   id="test-button"
   type="button"
 >

@@ -7,6 +7,7 @@ import axe from 'axe-core'
 import customRules from '@github/axe-github'
 import {ThemeProvider} from '..'
 import {default as defaultTheme} from '../theme'
+import type {LiveRegionElement} from '@primer/live-region-element'
 
 type ComputedStyles = Record<string, string | Record<string, string>>
 
@@ -269,4 +270,12 @@ export function checkStoriesForAxeViolations(name: string, storyDir?: string) {
       expect(results).toHaveNoViolations()
     })
   })
+}
+
+export function getLiveRegion(): LiveRegionElement {
+  const liveRegion = document.querySelector('live-region')
+  if (liveRegion) {
+    return liveRegion as LiveRegionElement
+  }
+  throw new Error('No live-region found')
 }

@@ -1,11 +1,15 @@
+/* stylelint-disable csstools/value-no-unknown-custom-properties */
+
 :where(.Avatar) {
   display: inline-block;
   width: var(--avatarSize-regular);
   height: var(--avatarSize-regular);
   overflow: hidden; /* Ensure page layout in Firefox should images fail to load */
+  /* stylelint-disable-next-line primer/typography */
   line-height: 1;
   vertical-align: middle;
   border-radius: 50%;
+  /* stylelint-disable-next-line primer/box-shadow */
   box-shadow: 0 0 0 1px var(--avatar-borderColor);
 
   &:where([data-square]) {

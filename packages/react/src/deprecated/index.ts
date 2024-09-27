@@ -11,28 +11,16 @@
 // Deprecated in v35.0.0 on March 9, 2022
 // TODO: We can remove these 6 months after release: September 10, 2022
 export {ActionList} from './ActionList'
-export type {ActionListProps} from './ActionList'
+export type {
+  ActionListProps,
+  ItemProps as ActionListItemProps,
+  GroupProps as ActionListGroupProps,
+  GroupedListProps as ActionListGroupedListProps,
+  ItemInput as ActionListItemInput,
+} from './ActionList'
 export {ActionMenu} from './ActionMenu'
 export type {ActionMenuProps} from './ActionMenu'
 // (copied over from src/index) not exporting new DropdownMenu types yet due to conflict with Dropdown types above
-export {
-  default as Button,
-  ButtonDanger,
-  ButtonOutline,
-  ButtonPrimary,
-  ButtonInvisible,
-  ButtonTableList,
-  ButtonClose,
-} from './Button'
-export type {
-  ButtonProps,
-  ButtonDangerProps,
-  ButtonOutlineProps,
-  ButtonPrimaryProps,
-  ButtonInvisibleProps,
-  ButtonTableListProps,
-  ButtonCloseProps,
-} from './Button'
 // end of v35.0.0
 
 // Deprecated in v36.0.0
@@ -53,4 +41,5 @@ export {default as TabNav} from '../TabNav'
 export type {TabNavProps, TabNavLinkProps} from '../TabNav'
 export {default as Tooltip} from '../Tooltip/Tooltip'
 export type {TooltipProps} from '../Tooltip/Tooltip'
+export type {ForwardRefComponent} from '../utils/polymorphic'
 // end of v37.0.0
