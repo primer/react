@@ -120,7 +120,6 @@ exports[`TextInput renders 1`] = `
   onClick={[Function]}
 >
   <input
-    aria-describedby=""
     className="c2"
     data-component="input"
     name="zipcode"
@@ -259,7 +258,6 @@ exports[`TextInput renders block 1`] = `
   onClick={[Function]}
 >
   <input
-    aria-describedby=""
     className="c2"
     data-component="input"
     name="zipcode"
@@ -391,7 +389,6 @@ exports[`TextInput renders contrast 1`] = `
   onClick={[Function]}
 >
   <input
-    aria-describedby=""
     className="c2"
     data-component="input"
     name="zipcode"
@@ -529,7 +526,6 @@ exports[`TextInput renders error 1`] = `
   onClick={[Function]}
 >
   <input
-    aria-describedby=""
     aria-invalid="true"
     className="c2"
     data-component="input"
@@ -668,7 +664,6 @@ exports[`TextInput renders large 1`] = `
   size="large"
 >
   <input
-    aria-describedby=""
     className="c2"
     data-component="input"
     name="zipcode"
@@ -1400,7 +1395,6 @@ exports[`TextInput renders monospace 1`] = `
   onClick={[Function]}
 >
   <input
-    aria-describedby=""
     className="c2"
     data-component="input"
     name="zipcode"
@@ -1531,7 +1525,6 @@ exports[`TextInput renders placeholder 1`] = `
   onClick={[Function]}
 >
   <input
-    aria-describedby=""
     className="c2"
     data-component="input"
     name="zipcode"
@@ -1672,7 +1665,6 @@ exports[`TextInput renders small 1`] = `
   size="small"
 >
   <input
-    aria-describedby=""
     className="c2"
     data-component="input"
     name="zipcode"
@@ -2246,7 +2238,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   onClick={[Function]}
 >
   <input
-    aria-describedby=""
     className="c2"
     data-component="input"
     name="search"
@@ -2768,7 +2759,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
   onClick={[Function]}
 >
   <input
-    aria-describedby=""
     className="c2"
     data-component="input"
     name="search"
@@ -3381,7 +3371,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   onClick={[Function]}
 >
   <input
-    aria-describedby=""
     className="c2"
     data-component="input"
     name="search"
@@ -7694,7 +7683,6 @@ exports[`TextInput should render a password input 1`] = `
   onClick={[Function]}
 >
   <input
-    aria-describedby=""
     className="c2"
     data-component="input"
     name="password"

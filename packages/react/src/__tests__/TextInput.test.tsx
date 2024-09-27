@@ -246,7 +246,7 @@ describe('TextInput', () => {
     const Icon = () => <SearchIcon aria-label="Search" />
 
     const {getByRole} = HTMLRender(<TextInput leadingVisual={Icon} />)
-    const icon = getByRole('img')
+    const icon = getByRole('img', {hidden: true})
 
     expect(getByRole('textbox')).toHaveAttribute('aria-describedby', icon.parentElement?.id)
     expect(icon).toHaveAccessibleName('Search')
@@ -261,7 +261,7 @@ describe('TextInput', () => {
     const Icon = () => <SearchIcon aria-label="Search" />
 
     const {getByRole} = HTMLRender(<TextInput trailingVisual={Icon} />)
-    const icon = getByRole('img')
+    const icon = getByRole('img', {hidden: true})
 
     expect(getByRole('textbox')).toHaveAttribute('aria-describedby', icon.parentElement?.id)
     expect(icon).toHaveAccessibleName('Search')
