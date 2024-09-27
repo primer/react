@@ -401,7 +401,7 @@ describe('ActionMenu', () => {
       button.focus()
     })
 
-    expect(component.getByRole('tooltip')).toBeInTheDocument()
+    expect(component.getByRole('tooltip', {hidden: true})).toBeInTheDocument()
   })
 
   it('should open menu on menu anchor click and it is wrapped with tooltip v2', async () => {
@@ -437,7 +437,7 @@ describe('ActionMenu', () => {
       button.focus()
     })
 
-    expect(component.getByRole('tooltip')).toBeInTheDocument()
+    expect(component.getByRole('tooltip', {hidden: true})).toBeInTheDocument()
   })
 
   it('should pass the "id" prop from ActionMenu.Button to the HTML button', async () => {
