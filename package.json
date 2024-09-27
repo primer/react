@@ -20,7 +20,8 @@
     "build:docs:preview": "NODE_OPTIONS=--openssl-legacy-provider script/build-docs preview",
     "build:components.json": "npm run build:components.json -w @primer/react",
     "lint": "eslint '**/*.{js,ts,tsx,md,mdx}' --max-warnings=0",
-    "lint:css": "stylelint '**/*.css'",
+    "lint:css": "stylelint '**/*.css' --max-warnings=0",
+    "lint:css:fix": "stylelint --fix '**/*.css'",
     "lint:fix": "npm run lint -- --fix",
     "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!.github\" \"!.changeset\" \"!**/node_modules/**\" \"!**/CHANGELOG.md\"",
     "test": "jest",
@@ -49,7 +50,7 @@
     "@mdx-js/react": "1.6.22",
     "@playwright/test": "1.43.0",
     "@prettier/sync": "0.5.1",
-    "@primer/stylelint-config": "^13.0.0-rc.21ca0f0",
+    "@primer/stylelint-config": "^13.0.1-rc.5358628",
     "@size-limit/preset-big-lib": "11.0.2",
     "@types/jest": "29.5.12",
     "@typescript-eslint/eslint-plugin": "^7.11.0",
@@ -57,7 +58,7 @@
     "eslint": "8.56.0",
     "eslint-import-resolver-typescript": "3.6.1",
     "eslint-plugin-github": "5.0.1",
-    "eslint-plugin-jest": "27.2.1",
+    "eslint-plugin-jest": "28.8.3",
     "eslint-plugin-jsx-a11y": "6.7.1",
     "eslint-plugin-mdx": "3.0.0",
     "eslint-plugin-playwright": "0.15.1",
@@ -76,7 +77,7 @@
     "markdownlint-cli2-formatter-pretty": "0.0.3",
     "prettier": "3.0.3",
     "rimraf": "5.0.5",
-    "size-limit": "11.0.2",
+    "size-limit": "11.1.5",
     "stylelint": "^16.8.1",
     "typescript": "5.4.5"
   },
@@ -98,5 +99,6 @@
   ],
   "lint-staged": {
     "**/*.{js,ts,tsx,md,mdx}": "npm run lint"
-  }
+  },
+  "packageManager": "pnpm@9.10.0+sha512.73a29afa36a0d092ece5271de5177ecbf8318d454ecd701343131b8ebc0c1a91c487da46ab77c8e596d6acf1461e3594ced4becedf8921b074fbd8653ed7051c"
 }

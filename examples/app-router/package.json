@@ -10,8 +10,8 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@primer/react": "37.0.0-rc.4",
-    "next": "^14.2.8",
+    "@primer/react": "37.0.0-rc.7",
+    "next": "^14.2.10",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "styled-components": "5.x",

@@ -14,7 +14,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -29,7 +29,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -54,7 +54,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -69,7 +69,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -94,7 +94,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -109,7 +109,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -134,7 +134,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -149,7 +149,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -174,7 +174,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -189,7 +189,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -214,7 +214,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -229,7 +229,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -254,7 +254,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -269,7 +269,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -294,7 +294,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -309,7 +309,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -334,7 +334,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -349,7 +349,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -374,7 +374,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -389,7 +389,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -414,7 +414,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -429,7 +429,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -454,7 +454,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -469,7 +469,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -494,7 +494,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })
@@ -509,7 +509,7 @@ test.describe('Label', () => {
                 globals: {
                   colorScheme: theme,
                   featureFlags: {
-                    primer_react_css_modules_team: enabled,
+                    primer_react_css_modules_ga: enabled,
                   },
                 },
               })

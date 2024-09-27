@@ -32,23 +32,8 @@ export type {
 
 export * from '../Dialog/Dialog'
 
-export {default as InlineAutocomplete} from './InlineAutocomplete'
-export type {
-  InlineAutocompleteProps,
-  ShowSuggestionsEvent,
-  Suggestion,
-  Suggestions,
-  Trigger,
-} from './InlineAutocomplete'
-
 export {InlineMessage} from '../InlineMessage'
 export type {InlineMessageProps} from '../InlineMessage'
-
-export {default as MarkdownViewer} from './MarkdownViewer'
-export type {MarkdownViewerProps, InteractiveMarkdownViewerProps} from './MarkdownViewer'
-
-export {default as MarkdownEditor} from './MarkdownEditor'
-export * from './MarkdownEditor'
 
 export * from '../PageHeader'
 
@@ -83,10 +68,12 @@ export {UnderlinePanels} from './UnderlinePanels'
 export type {UnderlinePanelsProps, UnderlinePanelsTabProps, UnderlinePanelsPanelProps} from './UnderlinePanels'
 
 export {SkeletonBox, SkeletonText, SkeletonAvatar} from './Skeleton'
-export {FeatureFlags} from '../FeatureFlags'
+export {FeatureFlags, DefaultFeatureFlags} from '../FeatureFlags'
 export type {FeatureFlagsProps} from '../FeatureFlags'
 
 export {FilteredActionList} from '../FilteredActionList'
 export type {FilteredActionListProps} from '../FilteredActionList'
+export {IssueLabel} from './IssueLabel'
+export type {IssueLabelProps} from './IssueLabel'
 
 export * from '../KeybindingHint'
