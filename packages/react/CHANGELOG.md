@@ -1,5 +1,49 @@
 # @primer/react
 
+## 37.0.0-rc.7
+
+### Major Changes
+
+- [#4784](https://github.com/primer/react/pull/4784) [`b518005`](https://github.com/primer/react/commit/b51800530e84520057b7517044ca611b409eaa57) Thanks [@joshblack](https://github.com/joshblack)! - Remove temporary folders for TypeScript resolution of sub-paths
+
+- [#4807](https://github.com/primer/react/pull/4807) [`055c9a7`](https://github.com/primer/react/commit/055c9a7150ac2761ee82998a45448d04129f781b) Thanks [@langermank](https://github.com/langermank)! - Remove deprecated `Button` component
+
+### Minor Changes
+
+- [#4965](https://github.com/primer/react/pull/4965) [`5426a9a`](https://github.com/primer/react/commit/5426a9a0b46d4f0a93bba985e248f8b1f775b6e7) Thanks [@joshblack](https://github.com/joshblack)! - Update CounterLabel to use CSS Modules behind feature flag
+
+- [#4956](https://github.com/primer/react/pull/4956) [`15cb90f`](https://github.com/primer/react/commit/15cb90fde3e59f41475b19daef0851a969885248) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(PageHeader): add role prop and aria-label in top-level element
+
+- [#4962](https://github.com/primer/react/pull/4962) [`1977a68`](https://github.com/primer/react/commit/1977a682841267dc22ca49b5b05f56511f73764c) Thanks [@joshblack](https://github.com/joshblack)! - Update Checkbox component to use CSS Modules behind feature flag
+
+- [#4976](https://github.com/primer/react/pull/4976) [`f448b1b`](https://github.com/primer/react/commit/f448b1b3debd72a3a372f4083d656a4e235cbfc9) Thanks [@joshblack](https://github.com/joshblack)! - Add certain wildcard exports to named entry points
+
+- [#5007](https://github.com/primer/react/pull/5007) [`c909285`](https://github.com/primer/react/commit/c90928570c416f226f9bfdba25062131d406f687) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - ProgressBar: Add `bg` prop to `ProgressBar.Item`
+
+- [#4960](https://github.com/primer/react/pull/4960) [`21c3fce`](https://github.com/primer/react/commit/21c3fcea267c2a0f181310934ad34e548a1d605a) Thanks [@joshblack](https://github.com/joshblack)! - Add support for experimental IssueLabel component
+
+- [#5002](https://github.com/primer/react/pull/5002) [`9bd5c89`](https://github.com/primer/react/commit/9bd5c8936fa316c1216fb8fd22034b3355097431) Thanks [@jonrohan](https://github.com/jonrohan)! - chore(AvatarPair): Convert AvatarPair to CSS modules
+
+### Patch Changes
+
+- [#5026](https://github.com/primer/react/pull/5026) [`3302440`](https://github.com/primer/react/commit/33024402ccc9f739ebf358cea6e90f409e4e1188) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Banner: Fix alignment of secondary action without primary action
+
+- [#5018](https://github.com/primer/react/pull/5018) [`8e4beae`](https://github.com/primer/react/commit/8e4beae98592c38a172aa0c2be604d7c06e941c7) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from `Heading`
+
+- [#5023](https://github.com/primer/react/pull/5023) [`1691e46`](https://github.com/primer/react/commit/1691e466a2749393af87ced37f4f72694582e0bb) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Button component feature flag from primer_react_css_modules_team to primer_react_css_modules_staff
+
+- [#5020](https://github.com/primer/react/pull/5020) [`31f03fb`](https://github.com/primer/react/commit/31f03fbdcdcd1bfca6fee15443b0c0bd241a42df) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Text component feature flag from primer_react_css_modules_staff to primer_react_css_modules_ga
+
+- [#5001](https://github.com/primer/react/pull/5001) [`597d285`](https://github.com/primer/react/commit/597d285a9cd876f52e7be56ba2dde1aed2c473f2) Thanks [@jonrohan](https://github.com/jonrohan)! - Migrate `ButtonGroup` component to use CSS modules behind the `primer_react_css_modules_team` feature flag
+
+- [#5022](https://github.com/primer/react/pull/5022) [`4395d16`](https://github.com/primer/react/commit/4395d162be1a80233bada149966b36a27f91ba51) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Label component feature flag from primer_react_css_modules_staff to primer_react_css_modules_ga
+
+- [#4969](https://github.com/primer/react/pull/4969) [`0cd6151`](https://github.com/primer/react/commit/0cd6151c2b620f10a06921a88edf6d64e0a1bc1a) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Add initial loading state to live region announcement in `TreeView`
+
+- [#5024](https://github.com/primer/react/pull/5024) [`45f3597`](https://github.com/primer/react/commit/45f359770ae830073f49aa23297aa9788809b46d) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Avatar component feature flag from primer_react_css_modules_team to primer_react_css_modules_staff
+
+- [#5011](https://github.com/primer/react/pull/5011) [`7a5205d`](https://github.com/primer/react/commit/7a5205d88e6c1600e83232a102378d97639b4223) Thanks [@langermank](https://github.com/langermank)! - Bug fix: `Button` aria-expanded state (CSS Modules)
+
 ## 37.0.0-rc.6
 
 ### Major Changes
