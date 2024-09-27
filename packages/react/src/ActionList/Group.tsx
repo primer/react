@@ -1,8 +1,7 @@
 import React from 'react'
 import {useId} from '../hooks/useId'
 import Box from '../Box'
-import type {SxProp, BetterSystemStyleObject} from '../sx'
-import {merge} from '../sx'
+import type {SxProp} from '../sx'
 import {ListContext, type ActionListProps} from './shared'
 import type {AriaRole} from '../utils/types'
 import {default as Heading} from '../Heading'
@@ -10,7 +9,6 @@ import type {ActionListHeadingProps} from './Heading'
 import {useSlots} from '../hooks/useSlots'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {invariant} from '../utils/invariant'
-import styled from 'styled-components'
 
 export type ActionListGroupProps = {
   /**
