@@ -1364,7 +1364,7 @@ describe('Asyncronous loading', () => {
         <div>
           {/* Mimic the completion of async loading by clicking the button */}
           <button type="button" onClick={setLoadingState}>
-            Done
+            Load
           </button>
           <TreeView aria-label="Test tree">
             <TreeView.Item id="parent" defaultExpanded>
