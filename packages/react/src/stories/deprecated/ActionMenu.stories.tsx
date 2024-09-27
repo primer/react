@@ -18,11 +18,10 @@ import {ThemeProvider} from '../..'
 import type {LinkProps} from '../../Link'
 import Link from '../../Link'
 import type {ActionMenuProps} from '../../deprecated'
-import {ActionMenu, ActionList, Button} from '../../deprecated'
+import {ActionMenu, ActionList} from '../../deprecated'
 import type {ItemProps} from '../../deprecated/ActionList'
 import BaseStyles from '../../BaseStyles'
-// We can remove the as as DropdownButton, after updating the deprecated Button usages
-import {Button as DropdownButton} from '../../Button'
+import {Button} from '../../Button'
 
 const meta: Meta = {
   title: 'Deprecated/Components/ActionMenu',
@@ -301,9 +300,9 @@ const DoubleClickableAnchor: Exclude<ActionMenuProps['renderAnchor'], null | und
     [callback],
   )
   return (
-    <DropdownButton trailingAction={TriangleDownIcon} onClick={onClick} {...rest}>
+    <Button trailingAction={TriangleDownIcon} onClick={onClick} {...rest}>
       {children}
-    </DropdownButton>
+    </Button>
   )
 }
 export function ActionMenuWithDoubleClickStory(): JSX.Element {
