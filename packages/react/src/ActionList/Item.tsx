@@ -24,6 +24,14 @@ import VisuallyHidden from '../_VisuallyHidden'
 
 const LiBox = styled.li<SxProp>(sx)
 
+const ButtonItemWrapper = React.forwardRef(({as: Component = 'button', children, styles, ...props}, forwardedRef) => {
+  return (
+    <Box as={Component as React.ElementType} ref={forwardedRef} sx={styles} {...props}>
+      {children}
+    </Box>
+  )
+}) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>
+
 export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
   (
     {
@@ -53,7 +61,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const {container, afterSelect, selectionAttribute, defaultTrailingVisual} =
       React.useContext(ActionListContainerContext)
 
-    const buttonSemanticsFeatureFlag = true // useFeatureFlag('primer_react_action_list_item_as_button')
+    const buttonSemanticsFeatureFlag = useFeatureFlag('primer_react_action_list_item_as_button')
 
     // Be sure to avoid rendering the container unless there is a default
     const wrappedDefaultTrailingVisual = defaultTrailingVisual ? (
@@ -272,19 +280,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const blockDescriptionId = `${itemId}--block-description`
     const trailingVisualId = `${itemId}--trailing-visual`
     const inactiveWarningId = inactive && !showInactiveIndicator ? `${itemId}--warning-message` : undefined
-
-    const ButtonItemWrapper = React.forwardRef(({as: Component = 'button', children, ...props}, forwardedRef) => {
-      return (
-        <Box
-          as={Component as React.ElementType}
-          sx={merge<BetterSystemStyleObject>(styles, sxProp)}
-          ref={forwardedRef}
-          {...props}
-        >
-          {children}
-        </Box>
-      )
-    }) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>
 
     let DefaultItemWrapper = React.Fragment
     if (buttonSemanticsFeatureFlag) {
