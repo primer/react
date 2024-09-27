@@ -13,7 +13,7 @@ test.describe('Avatar', () => {
                 id: 'components-avatar--default',
                 globals: {
                   colorScheme: theme,
-                  primer_react_css_modules_team: enabled,
+                  primer_react_css_modules_staff: enabled,
                 },
               })
 
@@ -26,7 +26,7 @@ test.describe('Avatar', () => {
                 id: 'components-avatar--default',
                 globals: {
                   colorScheme: theme,
-                  primer_react_css_modules_team: enabled,
+                  primer_react_css_modules_staff: enabled,
                 },
               })
               await expect(page).toHaveNoViolations({
@@ -49,7 +49,7 @@ test.describe('Avatar', () => {
                 id: 'components-avatar-features--size',
                 globals: {
                   colorScheme: theme,
-                  primer_react_css_modules_team: enabled,
+                  primer_react_css_modules_staff: enabled,
                 },
               })
 
@@ -62,7 +62,7 @@ test.describe('Avatar', () => {
                 id: 'components-avatar-features--size',
                 globals: {
                   colorScheme: theme,
-                  primer_react_css_modules_team: enabled,
+                  primer_react_css_modules_staff: enabled,
                 },
               })
               await expect(page).toHaveNoViolations({
@@ -85,7 +85,7 @@ test.describe('Avatar', () => {
                 id: 'components-avatar-features--size-responsive',
                 globals: {
                   colorScheme: theme,
-                  primer_react_css_modules_team: enabled,
+                  primer_react_css_modules_staff: enabled,
                 },
               })
 
@@ -98,7 +98,7 @@ test.describe('Avatar', () => {
                 id: 'components-avatar-features--size-responsive',
                 globals: {
                   colorScheme: theme,
-                  primer_react_css_modules_team: enabled,
+                  primer_react_css_modules_staff: enabled,
                 },
               })
               await expect(page).toHaveNoViolations({
@@ -121,7 +121,7 @@ test.describe('Avatar', () => {
                 id: 'components-avatar-features--square',
                 globals: {
                   colorScheme: theme,
-                  primer_react_css_modules_team: enabled,
+                  primer_react_css_modules_staff: enabled,
                 },
               })
 
@@ -134,7 +134,7 @@ test.describe('Avatar', () => {
                 id: 'components-avatar-features--square',
                 globals: {
                   colorScheme: theme,
-                  primer_react_css_modules_team: enabled,
+                  primer_react_css_modules_staff: enabled,
                 },
               })
               await expect(page).toHaveNoViolations({
