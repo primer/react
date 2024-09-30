@@ -136,7 +136,7 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 .c2[data-is-active-descendant] {
-  font-weight: 600;
+  font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
@@ -233,7 +233,7 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 .c7[data-is-active-descendant] {
-  font-weight: 600;
+  font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
@@ -627,7 +627,7 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c6[data-is-active-descendant] {
-  font-weight: 600;
+  font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
@@ -724,7 +724,7 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c11[data-is-active-descendant] {
-  font-weight: 600;
+  font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
@@ -1146,7 +1146,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 .c11[data-is-active-descendant] {
-  font-weight: 600;
+  font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
@@ -1243,7 +1243,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 .c4[data-is-active-descendant] {
-  font-weight: 600;
+  font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
@@ -1651,7 +1651,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 .c11[data-is-active-descendant] {
-  font-weight: 600;
+  font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
@@ -1769,7 +1769,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 .c4[data-is-active-descendant] {
-  font-weight: 600;
+  font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
