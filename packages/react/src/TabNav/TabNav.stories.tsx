@@ -4,7 +4,7 @@ import TabNav from './TabNav'
 import type {ComponentProps} from '../utils/types'
 
 export default {
-  title: 'Components/TabNav',
+  title: 'Deprecated/Components/TabNav',
   component: TabNav,
   subcomponents: {
     'TabNav.Link': TabNav.Link,
