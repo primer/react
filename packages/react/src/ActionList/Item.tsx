@@ -24,7 +24,7 @@ import VisuallyHidden from '../_VisuallyHidden'
 
 const LiBox = styled.li<SxProp>(sx)
 
-const ButtonItemWrapper = React.forwardRef(({as: Component = 'button', children, styles, ...props}, forwardedRef) => {
+const ButtonItemContainer = React.forwardRef(({as: Component = 'button', children, styles, ...props}, forwardedRef) => {
   return (
     <Box as={Component as React.ElementType} ref={forwardedRef} sx={styles} {...props}>
       {children}
@@ -283,7 +283,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     let DefaultItemWrapper = React.Fragment
     if (buttonSemanticsFeatureFlag) {
-      DefaultItemWrapper = listSemantics ? React.Fragment : ButtonItemWrapper
+      DefaultItemWrapper = listSemantics ? React.Fragment : ButtonItemContainer
     }
 
     const ItemWrapper = _PrivateItemWrapper || DefaultItemWrapper
@@ -292,12 +292,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option']
     const includeSelectionAttribute = itemSelectionAttribute && itemRole && selectableRoles.includes(itemRole)
 
-    const itemEventProps = {
+    const menuItemProps = {
       onClick: clickHandler,
       onKeyPress: !buttonSemantics ? keyPressHandler : undefined,
-    }
-
-    const menuItemProps = {
       'aria-disabled': disabled ? true : undefined,
       'data-inactive': inactive ? true : undefined,
       'data-loading': loading && !inactive ? true : undefined,
@@ -311,7 +308,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           .join(' ')
           .trim() || undefined,
       ...(includeSelectionAttribute && {[itemSelectionAttribute]: selected}),
-      ...(buttonSemanticsFeatureFlag ? {} : itemEventProps),
       role: itemRole,
       id: itemId,
     }
@@ -323,10 +319,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       containerProps = _PrivateItemWrapper
         ? {role: itemRole ? 'none' : undefined, ...props}
         : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          (listSemantics && {...menuItemProps, ...itemEventProps, ...props, ref: forwardedRef}) || {...itemEventProps}
+          (listSemantics && {...menuItemProps, ...props, ref: forwardedRef}) || {}
 
       wrapperProps = _PrivateItemWrapper
-        ? {...menuItemProps, ...itemEventProps}
+        ? {...menuItemProps}
         : !listSemantics && {
             ...menuItemProps,
             ...props,
