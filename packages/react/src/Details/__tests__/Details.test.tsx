@@ -1,9 +1,8 @@
 import {render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
-import {Details, useDetails, Box} from '../..'
-import {Button, ButtonPrimary} from '../../deprecated'
-import type {ButtonProps} from '../../deprecated/Button/Button'
+import {Details, useDetails, Box, Button} from '../..'
+import type {ButtonProps} from '../../Button'
 import {behavesAsComponent, checkExports} from '../../utils/testing'
 import axe from 'axe-core'
 
@@ -42,9 +41,7 @@ describe('Details', () => {
       const {getDetailsProps, open} = useDetails({closeOnOutsideClick: true})
       return (
         <Details {...getDetailsProps()} data-testid="details">
-          <Button as="summary" data-testid="summary">
-            {open ? 'Open' : 'Closed'}
-          </Button>
+          <summary data-testid="summary">{open ? 'Open' : 'Closed'}</summary>
         </Details>
       )
     }
@@ -64,9 +61,7 @@ describe('Details', () => {
       const {getDetailsProps, setOpen, open} = useDetails({closeOnOutsideClick: true, defaultOpen: true})
       return (
         <Details {...getDetailsProps()} data-testid="details">
-          <Button as="summary" data-testid="summary">
-            {open ? 'Open' : 'Closed'}
-          </Button>
+          <summary data-testid="summary">{open ? 'Open' : 'Closed'}</summary>
           <CloseButton onClick={() => setOpen(false)}>Close</CloseButton>
         </Details>
       )
@@ -86,11 +81,9 @@ describe('Details', () => {
       const {getDetailsProps, open} = useDetails({closeOnOutsideClick: true, defaultOpen: true})
       return (
         <Details {...getDetailsProps()}>
-          <Button as="summary" data-testid="summary">
-            {open ? 'Open' : 'Closed'}
-          </Button>
+          <summary data-testid="summary">{open ? 'Open' : 'Closed'}</summary>
           <Box>
-            <ButtonPrimary>test</ButtonPrimary>
+            <Button variant="primary">test</Button>
           </Box>
         </Details>
       )
