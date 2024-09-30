@@ -17,7 +17,7 @@
       "type": "string",
       "defaultValue": "",
       "description": "Allows input to autofill based on value given."
-    }
+    },
     {
       "name": "block",
       "type": "boolean",
