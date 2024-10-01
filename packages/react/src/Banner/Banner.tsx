@@ -338,7 +338,7 @@ const StyledBanner = toggleStyledComponent(
       }
     }
 
-    &[data-dismissible] .BannerActions {
+    &[data-dismissible]:not([data-title-hidden]) .BannerActions {
       margin-block-end: var(--base-size-6, 0.375rem);
     }
 
@@ -393,6 +393,7 @@ const BannerContainerQuery = `
 
     .BannerActions [data-primary-action="trailing"] {
       display: flex;
+      min-height: var(--base-size-32, 2rem);
     }
 
     .BannerActions [data-primary-action="leading"] {

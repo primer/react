@@ -232,7 +232,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
       /** Active styles */
       ...(active ? activeStyles : {}), // NavList
-      '&[data-is-active-descendant]': activeStyles, // SelectPanel
+      '&[data-is-active-descendant]': {...activeStyles, fontWeight: 'normal'}, // SelectPanel
 
       ...(!buttonSemantics ? hoverStyles : {}),
     }
