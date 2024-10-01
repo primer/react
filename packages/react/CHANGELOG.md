@@ -8,7 +8,7 @@
 
 ### Patch Changes
 
-- [#5036](https://github.com/primer/react/pull/5036) [`6671a20`](https://github.com/primer/react/commit/6671a207066bebdd54939d0806fca89c7ab55137) Thanks [@langermank](https://github.com/langermank)! - ActionListGroup description style bug fix
+- [#5036](https://github.com/primer/react/pull/5036) [`6671a20`](https://github.com/primer/react/commit/6671a207066bebdd54939d0806fca89c7ab55137) Thanks [@langermank](https://github.com/langermank)! - ActionList.Group: Fix styles for description
 
 - [#5033](https://github.com/primer/react/pull/5033) [`0b83fe9`](https://github.com/primer/react/commit/0b83fe9772a8c2e71a2d2eb375a11849a6eabb9c) Thanks [@siddharthkp](https://github.com/siddharthkp)! - SelectPanel: Fix font weight from active styles for modern ActionList (behind feature flag)
 
