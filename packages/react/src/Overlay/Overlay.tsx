@@ -74,6 +74,13 @@ export const StyledOverlay = styled.div<StyledOverlayProps>`
   overflow: ${props => (props.overflow ? props.overflow : 'hidden')};
   animation: overlay-appear ${animationDuration}ms ${get('animation.easeOutCubic')};
 
+  inset: 0;
+  position: static;
+  margin: auto;
+  padding: 0;
+  border: 0;
+  opacity: 1;
+
   @keyframes overlay-appear {
     0% {
       opacity: 0;
@@ -90,6 +97,10 @@ export const StyledOverlay = styled.div<StyledOverlayProps>`
   @media (forced-colors: active) {
     /* Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips */
     outline: solid 1px transparent;
+  }
+
+  ::backdrop {
+    background: none;
   }
 
   ${sx};
@@ -137,7 +148,7 @@ type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
  * @param portalContainerName Optional. The name of the portal container to render the Overlay into.
  * @param focusTrap Optional. Determines if the `Overlay` recieves a focus trap or not. Defaults to `true`.
  */
-const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
+const Overlay = React.forwardRef<HTMLDialogElement, OwnOverlayProps>(
   (
     {
       onClickOutside,
@@ -206,18 +217,23 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
 
     const nonDialog = role && role !== 'dialog' ? true : false
 
-    useFocusTrap({
-      containerRef: overlayRef,
-      disabled: !focusTrap || nonDialog,
-    })
+    if (!nonDialog) {
+      overlayRef.current?.showModal()
+    }
+
+    useEffect(() => {
+      if (!nonDialog) {
+        overlayRef.current?.showModal()
+      }
+    }, [overlayRef, nonDialog])
 
     return (
       <Portal containerName={portalContainerName}>
         <StyledOverlay
           height={height}
           width={width}
-          role={role || 'dialog'}
-          aria-modal={nonDialog ? undefined : 'true'}
+          role={role}
+          as={nonDialog ? undefined : 'dialog'}
           {...rest}
           ref={overlayRef}
           style={
