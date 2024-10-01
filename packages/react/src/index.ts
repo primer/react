@@ -43,7 +43,7 @@ export {useFocusZone} from './hooks/useFocusZone'
 export type {FocusZoneHookSettings} from './hooks/useFocusZone'
 export {useRefObjectAsForwardedRef} from './hooks/useRefObjectAsForwardedRef'
 export {useResizeObserver} from './hooks/useResizeObserver'
-export {useResponsiveValue} from './hooks/useResponsiveValue'
+export {useResponsiveValue, type ResponsiveValue} from './hooks/useResponsiveValue'
 export {default as useIsomorphicLayoutEffect} from './utils/useIsomorphicLayoutEffect'
 export {useProvidedRefOrCreate} from './hooks/useProvidedRefOrCreate'
 
