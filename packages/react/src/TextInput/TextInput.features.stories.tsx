@@ -294,3 +294,16 @@ WithLoadingIndicator.parameters = {
     exclude: [...textInputExcludedControlKeys, 'loaderPosition', ...Object.keys(formControlArgTypes), 'children'],
   },
 }
+
+export const WithAutocompleteAttribute = () => (
+  <Box as="form">
+    <FormControl>
+      <FormControl.Label>First name</FormControl.Label>
+      <TextInput autoComplete="given-name" />
+    </FormControl>
+    <FormControl>
+      <FormControl.Label>Last name</FormControl.Label>
+      <TextInput autoComplete="family-name" />
+    </FormControl>
+  </Box>
+)

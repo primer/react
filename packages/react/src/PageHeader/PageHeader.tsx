@@ -13,6 +13,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
 import {warning} from '../utils/warning'
 import {useProvidedRefOrCreate} from '../hooks'
+import type {AriaRole} from '../utils/types'
 
 const GRID_ROW_ORDER = {
   ContextArea: 1,
@@ -63,10 +64,11 @@ export type PageHeaderProps = {
   'aria-label'?: React.AriaAttributes['aria-label']
   as?: React.ElementType | 'header' | 'div'
   className?: string
+  role?: AriaRole
 } & SxProp
 
 const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
-  ({children, className, sx = {}, as = 'div'}, forwardedRef) => {
+  ({children, className, sx = {}, as = 'div', 'aria-label': ariaLabel, role}, forwardedRef) => {
     const rootStyles = {
       display: 'grid',
       // We have max 5 columns.
@@ -158,7 +160,14 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
       [children, rootRef],
     )
     return (
-      <Box ref={rootRef} as={as} className={className} sx={merge<BetterSystemStyleObject>(rootStyles, sx)}>
+      <Box
+        ref={rootRef}
+        as={as}
+        className={className}
+        sx={merge<BetterSystemStyleObject>(rootStyles, sx)}
+        aria-label={ariaLabel}
+        role={role}
+      >
         {children}
       </Box>
     )
