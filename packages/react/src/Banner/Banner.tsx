@@ -338,7 +338,7 @@ const StyledBanner = toggleStyledComponent(
       }
     }
 
-    &[data-dismissible] .BannerActions {
+    &[data-dismissible]:not([data-title-hidden]) .BannerActions {
       margin-block-end: var(--base-size-6, 0.375rem);
     }
 
