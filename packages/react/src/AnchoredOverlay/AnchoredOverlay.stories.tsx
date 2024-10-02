@@ -2,9 +2,10 @@ import React, {useState} from 'react'
 import type {Args, Meta} from '@storybook/react'
 import {LocationIcon, RepoIcon} from '@primer/octicons-react'
 
-import {Avatar, Box, Octicon, Text} from '..'
+import {Avatar, Box, Text} from '..'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
+import Octicon from '../Octicon'
 import {action} from '@storybook/addon-actions'
 
 export default {
