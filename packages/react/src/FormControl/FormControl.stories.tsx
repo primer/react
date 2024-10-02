@@ -64,7 +64,7 @@ export const Default = () => (
   <FormControl required={true}>
     <FormControl.Label>Form Input Label</FormControl.Label>
     <FormControl.Caption>This is a caption</FormControl.Caption>
-    <Checkbox />
+    <TextInput />
   </FormControl>
 )
 
