@@ -159,7 +159,7 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 .c2[data-is-active-descendant] {
-  font-weight: 600;
+  font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
@@ -255,7 +255,7 @@ exports[`NavList renders a simple list 1`] = `
   --divider-color: transparent;
 }
 
-.c6[data-is-active-descendant] {
+.c7[data-is-active-descendant] {
   font-weight: 600;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
@@ -444,6 +444,20 @@ exports[`NavList renders with groups 1`] = `
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
+.c3 .ActionListGroupHeading {
+  font-size: var(--text-body-size-small),12px;
+  font-weight: var(--base-text-weight-semibold,600);
+  line-height: var(--text-body-lineHeight-small,1.6666);
+  color: var(--fgColor-muted);
+}
+
+.c3 .ActionListGroupHeadingDescription {
+  font-size: var(--text-body-size-small,12px);
+  font-weight: var(--base-text-weight-normal,400);
+  line-height: var(--text-body-lineHeight-small,1.6666);
+  color: var(--fgColor-muted);
+}
+
 .c4 {
   padding-inline-start: 0;
 }
@@ -606,7 +620,7 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c6[data-is-active-descendant] {
-  font-weight: 600;
+  font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
@@ -702,7 +716,7 @@ exports[`NavList renders with groups 1`] = `
   --divider-color: transparent;
 }
 
-.c10[data-is-active-descendant] {
+.c11[data-is-active-descendant] {
   font-weight: 600;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
@@ -793,12 +807,16 @@ exports[`NavList renders with groups 1`] = `
       <li
         class="c2"
       >
-        <h3
-          class="c3 Heading"
-          id=":r7:"
+        <div
+          class="c3"
         >
-          Overview
-        </h3>
+          <h3
+            class="ActionListGroupHeading Heading"
+            id=":r7:"
+          >
+            Overview
+          </h3>
+        </div>
         <ul
           aria-labelledby=":r7:"
           class="c4"
@@ -837,12 +855,16 @@ exports[`NavList renders with groups 1`] = `
       <li
         class="c2"
       >
-        <h3
-          class="c3 Heading"
-          id=":r9:"
+        <div
+          class="c3"
         >
-          Components
-        </h3>
+          <h3
+            class="ActionListGroupHeading Heading"
+            id=":r9:"
+          >
+            Components
+          </h3>
+        </div>
         <ul
           aria-labelledby=":r9:"
           class="c4"
@@ -1089,7 +1111,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 .c11[data-is-active-descendant] {
-  font-weight: 600;
+  font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
@@ -1186,7 +1208,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 .c4[data-is-active-descendant] {
-  font-weight: 600;
+  font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
@@ -1564,7 +1586,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 .c11[data-is-active-descendant] {
-  font-weight: 600;
+  font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
@@ -1682,7 +1704,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 .c4[data-is-active-descendant] {
-  font-weight: 600;
+  font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 

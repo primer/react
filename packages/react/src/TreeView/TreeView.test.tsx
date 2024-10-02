@@ -1354,13 +1354,17 @@ describe('State', () => {
 describe('Asyncronous loading', () => {
   it('updates aria live region when loading is done', () => {
     function TestTree() {
-      const [state, setState] = React.useState<SubTreeState>('loading')
+      const [state, setState] = React.useState<SubTreeState>('initial')
+
+      const setLoadingState = () => {
+        setState(state === 'initial' ? 'loading' : 'done')
+      }
 
       return (
         <div>
           {/* Mimic the completion of async loading by clicking the button */}
-          <button type="button" onClick={() => setState('done')}>
-            Done
+          <button type="button" onClick={setLoadingState}>
+            Load
           </button>
           <TreeView aria-label="Test tree">
             <TreeView.Item id="parent" defaultExpanded>
@@ -1382,11 +1386,16 @@ describe('Asyncronous loading', () => {
     }
     const {getByRole} = renderWithTheme(<TestTree />)
 
-    const doneButton = getByRole('button', {name: 'Done'})
+    const doneButton = getByRole('button', {name: 'Load'})
     const liveRegion = getByRole('status')
 
     // Live region should be empty
     expect(liveRegion).toHaveTextContent('')
+
+    // Click load button to mimic async loading
+    fireEvent.click(doneButton)
+
+    expect(liveRegion).toHaveTextContent('Parent content loading')
 
     // Click done button to mimic the completion of async loading
     fireEvent.click(doneButton)
@@ -1565,9 +1574,9 @@ describe('Asyncronous loading', () => {
       advanceTimers: jest.advanceTimersByTime,
     })
 
-    const treeitem = getByLabelText(/Item 1/)
+    const treeitem = getByLabelText('Item 1')
     expect(treeitem).toHaveAttribute('aria-expanded', 'false')
-    await user.click(getByText(/Item 1/))
+    await user.click(getByText('Item 1'))
 
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
 
