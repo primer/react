@@ -86,17 +86,24 @@ describe('Table.Pagination', () => {
     })
 
     it('should rerender many pages correctly', async () => {
+      const onChange = jest.fn()
+
       const {rerender} = render(
-        <Pagination aria-label="Test label" defaultPageIndex={0} pageSize={25} totalCount={25} />,
+        <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={0} pageSize={25} totalCount={25} />,
       )
       expect(getPages()).toHaveLength(1)
       expect(getCurrentPage()).toEqual(getPage(0))
       expect(getPageRange()).toEqual('1 through 25 of 25')
 
-      rerender(<Pagination aria-label="Test label" defaultPageIndex={2} pageSize={5} totalCount={300} />)
+      rerender(
+        <Pagination onChange={onChange} aria-label="Test label" defaultPageIndex={2} pageSize={5} totalCount={300} />,
+      )
       expect(getPageRange()).toEqual('11 through 15 of 300')
       expect(getCurrentPage()).toEqual(getPage(2))
       expect(getInvalidPages()).toHaveLength(0)
+      expect(onChange).toHaveBeenCalledWith({
+        pageIndex: 2,
+      })
     })
   })
 
@@ -264,17 +271,24 @@ describe('Table.Pagination', () => {
     })
 
     it('should rerender many pages correctly', async () => {
+      const onChange = jest.fn()
+
       const {rerender} = render(
-        <Pagination aria-label="Test label" defaultPageIndex={1} pageSize={25} totalCount={50} />,
+        <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={1} pageSize={25} totalCount={50} />,
       )
       expect(getPages()).toHaveLength(2)
       expect(getCurrentPage()).toEqual(getPage(1))
       expect(getPageRange()).toEqual('26 through 50 of 50')
 
-      rerender(<Pagination aria-label="Test label" defaultPageIndex={0} pageSize={5} totalCount={300} />)
+      rerender(
+        <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={0} pageSize={5} totalCount={300} />,
+      )
       expect(getPageRange()).toEqual('1 through 5 of 300')
       expect(getCurrentPage()).toEqual(getPage(0))
       expect(getInvalidPages()).toHaveLength(0)
+      expect(onChange).toHaveBeenCalledWith({
+        pageIndex: 0,
+      })
     })
   })
 
@@ -323,17 +337,23 @@ describe('Table.Pagination', () => {
   })
 
   it('should rerender many pages correctly', async () => {
+    const onChange = jest.fn()
     const {rerender} = render(
-      <Pagination aria-label="Test label" defaultPageIndex={1} pageSize={10} totalCount={1000} />,
+      <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={1} pageSize={10} totalCount={1000} />,
     )
     expect(getPages()).toHaveLength(8)
     expect(getCurrentPage()).toEqual(getPage(1))
     expect(getPageRange()).toEqual('11 through 20 of 1000')
 
-    rerender(<Pagination aria-label="Test label" defaultPageIndex={0} pageSize={5} totalCount={300} />)
+    rerender(
+      <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={0} pageSize={5} totalCount={300} />,
+    )
     expect(getPageRange()).toEqual('1 through 5 of 300')
     expect(getFirstPage()).toEqual(getCurrentPage())
     expect(getInvalidPages()).toHaveLength(0)
+    expect(onChange).toHaveBeenCalledWith({
+      pageIndex: 0,
+    })
   })
 })
 
