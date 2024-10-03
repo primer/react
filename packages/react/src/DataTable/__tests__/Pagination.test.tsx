@@ -84,6 +84,21 @@ describe('Table.Pagination', () => {
       await user.click(getPreviousPage())
       expect(onChange).not.toHaveBeenCalled()
     })
+
+    it('should rerender many pages correctly', async () => {
+      const {rerender} = render(
+        <Pagination aria-label="Test label" defaultPageIndex={0} pageSize={25} totalCount={25} />,
+      )
+      expect(getPages()).toHaveLength(1)
+      expect(getCurrentPage()).toEqual(getPage(0))
+      expect(getPageRange()).toEqual('1 through 25 of 25')
+
+      rerender(<Pagination aria-label="Test label" defaultPageIndex={2} pageSize={5} totalCount={300} />)
+      expect(getPageRange()).toEqual('16 through 20 of 300')
+      expect(getCurrentPage()).toEqual(getPage(2))
+      const negativePages = getPages().filter(p => p.textContent?.includes('-'))
+      expect(negativePages).toHaveLength(0)
+    })
   })
 
   describe('with two pages', () => {
@@ -197,6 +212,20 @@ describe('Table.Pagination', () => {
         pageIndex: 0,
       })
     })
+
+    it('should rerender many pages correctly', async () => {
+      const {rerender} = render(
+        <Pagination aria-label="Test label" defaultPageIndex={1} pageSize={25} totalCount={50} />,
+      )
+      expect(getPages()).toHaveLength(2)
+      expect(getCurrentPage()).toEqual(getPage(1))
+      expect(getPageRange()).toEqual('26 through 50 of 50')
+
+      rerender(<Pagination aria-label="Test label" defaultPageIndex={0} pageSize={5} totalCount={300} />)
+      expect(getPageRange()).toEqual('1 through 5 of 300')
+      expect(getFirstPage()).toEqual(getCurrentPage())
+      expect(getInvalidPages()).toHaveLength(0)
+    })
   })
 
   describe('with three or more pages', () => {
@@ -242,6 +271,20 @@ describe('Table.Pagination', () => {
       expect(pages).toHaveLength(7)
     })
   })
+
+  it('should rerender many pages correctly', async () => {
+    const {rerender} = render(
+      <Pagination aria-label="Test label" defaultPageIndex={1} pageSize={10} totalCount={1000} />,
+    )
+    expect(getPages()).toHaveLength(8)
+    expect(getCurrentPage()).toEqual(getPage(1))
+    expect(getPageRange()).toEqual('11 through 20 of 1000')
+
+    rerender(<Pagination aria-label="Test label" defaultPageIndex={0} pageSize={5} totalCount={300} />)
+    expect(getPageRange()).toEqual('1 through 5 of 300')
+    expect(getFirstPage()).toEqual(getCurrentPage())
+    expect(getInvalidPages()).toHaveLength(0)
+  })
 })
 
 function getPages() {
@@ -286,6 +329,10 @@ function getFirstPage() {
 function getLastPage() {
   const pages = getPages()
   return pages[pages.length - 1]
+}
+
+function getInvalidPages() {
+  getPages().filter(p => p.textContent?.match(/Page\s-/g) || p.textContent?.match(/Page\s0$/g))
 }
 
 function getPageRange() {
