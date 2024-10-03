@@ -296,6 +296,7 @@ export const Playground = (args: DataTableProps<UniqueRow> & ColWidthArgTypes) =
 
 Playground.args = {
   cellPadding: 'normal',
+  pageSize: 5,
 }
 
 Playground.argTypes = {
