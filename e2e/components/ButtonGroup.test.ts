@@ -12,7 +12,7 @@ test.describe('ButtonGroup', () => {
             globals: {
               colorScheme: theme,
               featureFlags: {
-                primer_react_css_modules_team: true,
+                primer_react_css_modules_staff: true,
               },
             },
           })
@@ -27,7 +27,7 @@ test.describe('ButtonGroup', () => {
             globals: {
               colorScheme: theme,
               featureFlags: {
-                primer_react_css_modules_team: false,
+                primer_react_css_modules_staff: false,
               },
             },
           })
@@ -42,7 +42,7 @@ test.describe('ButtonGroup', () => {
             globals: {
               colorScheme: theme,
               featureFlags: {
-                primer_react_css_modules_team: true,
+                primer_react_css_modules_staff: true,
               },
             },
           })
@@ -55,7 +55,7 @@ test.describe('ButtonGroup', () => {
             globals: {
               colorScheme: theme,
               featureFlags: {
-                primer_react_css_modules_team: false,
+                primer_react_css_modules_staff: false,
               },
             },
           })
@@ -74,7 +74,7 @@ test.describe('ButtonGroup', () => {
             globals: {
               colorScheme: theme,
               featureFlags: {
-                primer_react_css_modules_team: true,
+                primer_react_css_modules_staff: true,
               },
             },
           })
@@ -89,7 +89,7 @@ test.describe('ButtonGroup', () => {
             globals: {
               colorScheme: theme,
               featureFlags: {
-                primer_react_css_modules_team: false,
+                primer_react_css_modules_staff: false,
               },
             },
           })
@@ -104,7 +104,7 @@ test.describe('ButtonGroup', () => {
             globals: {
               colorScheme: theme,
               featureFlags: {
-                primer_react_css_modules_team: true,
+                primer_react_css_modules_staff: true,
               },
             },
           })
@@ -117,7 +117,7 @@ test.describe('ButtonGroup', () => {
             globals: {
               colorScheme: theme,
               featureFlags: {
-                primer_react_css_modules_team: false,
+                primer_react_css_modules_staff: false,
               },
             },
           })
@@ -136,7 +136,7 @@ test.describe('ButtonGroup', () => {
             globals: {
               colorScheme: theme,
               featureFlags: {
-                primer_react_css_modules_team: true,
+                primer_react_css_modules_staff: true,
               },
             },
           })
@@ -151,7 +151,7 @@ test.describe('ButtonGroup', () => {
             globals: {
               colorScheme: theme,
               featureFlags: {
-                primer_react_css_modules_team: false,
+                primer_react_css_modules_staff: false,
               },
             },
           })
@@ -166,7 +166,7 @@ test.describe('ButtonGroup', () => {
             globals: {
               colorScheme: theme,
               featureFlags: {
-                primer_react_css_modules_team: true,
+                primer_react_css_modules_staff: true,
               },
             },
           })
@@ -179,7 +179,7 @@ test.describe('ButtonGroup', () => {
             globals: {
               colorScheme: theme,
               featureFlags: {
-                primer_react_css_modules_team: false,
+                primer_react_css_modules_staff: false,
               },
             },
           })

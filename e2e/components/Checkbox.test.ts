@@ -43,7 +43,7 @@ test.describe('Checkbox', () => {
               globals: {
                 colorScheme: theme,
                 featureFlags: {
-                  primer_react_css_modules_team: true,
+                  primer_react_css_modules_staff: true,
                 },
               },
               args: 'args' in story ? story.args : {},
@@ -67,7 +67,7 @@ test.describe('Checkbox', () => {
               globals: {
                 colorScheme: theme,
                 featureFlags: {
-                  primer_react_css_modules_team: false,
+                  primer_react_css_modules_staff: false,
                 },
               },
               args: 'args' in story ? story.args : {},
@@ -91,7 +91,7 @@ test.describe('Checkbox', () => {
               globals: {
                 colorScheme: theme,
                 featureFlags: {
-                  primer_react_css_modules_team: true,
+                  primer_react_css_modules_staff: true,
                 },
               },
               args: 'args' in story ? story.args : {},
@@ -104,7 +104,7 @@ test.describe('Checkbox', () => {
               id: story.id,
               globals: {
                 colorScheme: theme,
-                primer_react_css_modules_team: false,
+                primer_react_css_modules_staff: false,
               },
               args: 'args' in story ? story.args : {},
             })
