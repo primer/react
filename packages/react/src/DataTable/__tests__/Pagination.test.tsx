@@ -128,6 +128,32 @@ describe('Table.Pagination', () => {
       expect(getPageRange()).toEqual('1 through 25 of 50')
     })
 
+    it('should rerender pager with correct page highlighted when clicking on pages and defaultPageIndex set', async () => {
+      const user = userEvent.setup()
+      const onChange = jest.fn()
+
+      render(
+        <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={3} pageSize={25} totalCount={200} />,
+      )
+
+      expect(getPageRange()).toEqual('76 through 100 of 200')
+      expect(getCurrentPage()).toEqual(getPage(3))
+
+      await user.click(getPage(1))
+      expect(onChange).toHaveBeenCalledWith({
+        pageIndex: 1,
+      })
+      expect(getPageRange()).toEqual('26 through 50 of 200')
+      expect(getCurrentPage()).toEqual(getPage(1))
+
+      await user.click(getPage(0))
+      expect(onChange).toHaveBeenCalledWith({
+        pageIndex: 0,
+      })
+      expect(getPageRange()).toEqual('1 through 25 of 200')
+      expect(getCurrentPage()).toEqual(getPage(0))
+    })
+
     it('should call `onChange` when using the keyboard to interact with pages', async () => {
       const user = userEvent.setup()
       const onChange = jest.fn()
@@ -177,6 +203,31 @@ describe('Table.Pagination', () => {
       expect(onChange).toHaveBeenCalledWith({
         pageIndex: 0,
       })
+    })
+
+    it('should rerender pager with correct page highlighted when clicking on previous or next and defaultPageIndex set', async () => {
+      const user = userEvent.setup()
+      const onChange = jest.fn()
+
+      render(
+        <Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={3} pageSize={25} totalCount={200} />,
+      )
+
+      expect(getPageRange()).toEqual('76 through 100 of 200')
+
+      await user.click(getNextPage())
+      expect(onChange).toHaveBeenCalledWith({
+        pageIndex: 4,
+      })
+      expect(getPageRange()).toEqual('101 through 125 of 200')
+      expect(getCurrentPage()).toEqual(getPage(4))
+
+      await user.click(getPreviousPage())
+      expect(onChange).toHaveBeenCalledWith({
+        pageIndex: 3,
+      })
+      expect(getPageRange()).toEqual('76 through 100 of 200')
+      expect(getCurrentPage()).toEqual(getPage(3))
     })
 
     it('should call `onChange` when using the keyboard to interact with previous or next', async () => {
