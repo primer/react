@@ -165,12 +165,8 @@ export type {
   TimelineItemsProps,
 } from './Timeline'
 export {default as Token, IssueLabelToken, AvatarToken} from './Token'
-<<<<<<< HEAD
-export type {TokenProps} from './Token'
-export * from './TooltipV2'
-=======
 export type {TokenProps, IssueLabelTokenProps} from './Token'
->>>>>>> b00874c31a9bfc569fa78f5d246bc552834f52c0
+export * from './TooltipV2'
 export {default as Truncate} from './Truncate'
 export type {TruncateProps} from './Truncate'
 
