@@ -1,5 +1,5 @@
 import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
-import React, {useCallback, useState, useEffect} from 'react'
+import React, {useCallback, useState} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {Button} from '../internal/components/ButtonReset'
@@ -192,15 +192,13 @@ export function Pagination({
     totalCount,
   })
   const truncatedPageCount = pageCount > 2 ? Math.min(pageCount - 2, MAX_TRUNCATED_STEP_COUNT) : 0
+  const defaultOffsetStartIndex = getDefaultOffsetStartIndex(pageIndex, pageCount, truncatedPageCount)
   const [offsetStartIndex, setOffsetStartIndex] = useState(() => {
-    return getDefaultOffsetStartIndex(pageIndex, pageCount, truncatedPageCount)
+    return defaultOffsetStartIndex
   })
-  useEffect(() => {
-    const startIndex = getDefaultOffsetStartIndex(pageIndex, pageCount, truncatedPageCount)
-    if (offsetStartIndex !== startIndex) {
-      setOffsetStartIndex(startIndex)
-    }
-  }, [pageIndex, pageCount, truncatedPageCount, offsetStartIndex])
+  if (offsetStartIndex !== defaultOffsetStartIndex) {
+    setOffsetStartIndex(defaultOffsetStartIndex)
+  }
 
   const offsetEndIndex = offsetStartIndex + truncatedPageCount - 1
   const hasLeadingTruncation = offsetStartIndex >= 2
@@ -517,13 +515,10 @@ function usePagination(config: PaginationConfig): PaginationResult {
 
     return 0
   })
-  useEffect(() => {
-    const validDefaultPageCount =
-      defaultPageIndex !== undefined && defaultPageIndex >= 0 && defaultPageIndex < pageCount
-    if (validDefaultPageCount && pageIndex !== defaultPageIndex) {
-      setPageIndex(defaultPageIndex)
-    }
-  }, [defaultPageIndex, pageCount, pageIndex])
+  const validDefaultPageCount = defaultPageIndex !== undefined && defaultPageIndex >= 0 && defaultPageIndex < pageCount
+  if (validDefaultPageCount && pageIndex !== defaultPageIndex) {
+    setPageIndex(defaultPageIndex)
+  }
   const pageStart = pageIndex * pageSize
   const pageEnd = Math.min(pageIndex * pageSize + pageSize, totalCount - 1)
   const hasNextPage = pageIndex + 1 < pageCount
