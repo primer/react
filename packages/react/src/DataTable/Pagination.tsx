@@ -521,6 +521,7 @@ function usePagination(config: PaginationConfig): PaginationResult {
   if (validDefaultPageCount && defaultIndex !== defaultPageIndex) {
     setDefaultIndex(defaultPageIndex)
     setPageIndex(defaultPageIndex)
+    onChange?.({pageIndex: defaultPageIndex})
   }
   const pageStart = pageIndex * pageSize
   const pageEnd = Math.min(pageIndex * pageSize + pageSize, totalCount - 1)

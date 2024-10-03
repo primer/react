@@ -195,6 +195,11 @@ export const Playground = (args: DataTableProps<UniqueRow> & ColWidthArgTypes) =
 
   const align = args.align as CellAlignment
 
+  const [pageIndex, setPageIndex] = React.useState(0)
+  const start = pageIndex * args.pageSize
+  const end = start + args.pageSize
+  const rows = data.slice(start, end)
+
   return (
     <Table.Container>
       <Table.Title as="h2" id="repositories">
@@ -207,7 +212,7 @@ export const Playground = (args: DataTableProps<UniqueRow> & ColWidthArgTypes) =
         {...args}
         aria-labelledby="repositories"
         aria-describedby="repositories-subtitle"
-        data={data}
+        data={rows}
         columns={[
           {
             header: 'Repository',
@@ -276,6 +281,15 @@ export const Playground = (args: DataTableProps<UniqueRow> & ColWidthArgTypes) =
           },
         ]}
       />
+      <Table.Pagination
+        aria-label="Pagination for Repositories"
+        pageSize={parseInt(args.pageSize, 10)}
+        totalCount={data.length}
+        onChange={({pageIndex}) => {
+          setPageIndex(pageIndex)
+        }}
+        defaultPageIndex={parseInt(args.defaultPageIndex, 10)}
+      />
     </Table.Container>
   )
 }
@@ -316,6 +330,18 @@ Playground.argTypes = {
     control: false,
     table: {
       disable: true,
+    },
+  },
+  pageSize: {
+    control: {
+      defaultValue: 5,
+      type: 'number',
+      min: 1,
+    },
+  },
+  defaultPageIndex: {
+    control: {
+      type: 'number',
     },
   },
   cellPadding: {
