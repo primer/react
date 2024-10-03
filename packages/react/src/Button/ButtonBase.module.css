@@ -251,6 +251,11 @@
     background-color: var(--button-default-bgColor-rest);
     box-shadow: var(--button-default-shadow-resting);
 
+    &[aria-expanded='true'] {
+      background-color: var(--button-default-bgColor-active);
+      border-color: var(--button-default-borderColor-active);
+    }
+
     &:hover {
       background-color: var(--button-default-bgColor-hover);
       border-color: var(--button-default-borderColor-hover);
@@ -266,11 +271,6 @@
       background-color: var(--button-default-bgColor-disabled);
       border-color: var(--button-default-borderColor-disabled);
       box-shadow: none;
-    }
-
-    &[aria-expanded='true'] {
-      background-color: var(--button-default-bgColor-active);
-      border-color: var(--button-default-borderColor-active);
     }
 
     & .CounterLabel {
@@ -289,6 +289,11 @@
     background-color: var(--button-primary-bgColor-rest);
     border-color: var(--button-primary-borderColor-rest);
     box-shadow: var(--shadow-resting-small);
+
+    &[aria-expanded='true'] {
+      background-color: var(--button-primary-bgColor-active);
+      box-shadow: var(--button-primary-shadow-selected);
+    }
 
     &:hover {
       background-color: var(--button-primary-bgColor-hover);
@@ -312,11 +317,6 @@
       box-shadow: none;
     }
 
-    &[aria-expanded='true'] {
-      background-color: var(--button-primary-bgColor-active);
-      box-shadow: var(--button-primary-shadow-selected);
-    }
-
     & .CounterLabel {
       color: var(--button-primary-fgColor-rest) !important; /* temporarily override our own sx prop */
       background-color: var(--buttonCounter-primary-bgColor-rest) !important; /* temporarily override our own sx prop */
@@ -334,6 +334,17 @@
     color: var(--button-danger-fgColor-rest);
     background-color: var(--button-danger-bgColor-rest);
     box-shadow: var(--button-default-shadow-resting);
+
+    &[aria-expanded='true'] {
+      color: var(--button-danger-fgColor-active);
+      background-color: var(--button-danger-bgColor-active);
+      border-color: var(--button-danger-borderColor-active);
+      box-shadow: var(--button-danger-shadow-selected);
+
+      & .Visual {
+        color: var(--button-danger-iconColor-hover);
+      }
+    }
 
     &:hover {
       color: var(--button-danger-fgColor-hover);
@@ -361,6 +372,10 @@
         color: var(--buttonCounter-danger-fgColor-hover) !important; /* temporarily override our own sx prop */
         background-color: var(--buttonCounter-danger-bgColor-hover) !important;
       }
+
+      & .Visual {
+        color: var(--button-danger-iconColor-hover);
+      }
     }
 
     &:disabled {
@@ -373,13 +388,6 @@
         color: var(--buttonCounter-danger-fgColor-disabled) !important; /* temporarily override our own sx prop */
         background-color: var(--buttonCounter-danger-bgColor-disabled) !important;
       }
-    }
-
-    &[aria-expanded='true'] {
-      color: var(--button-danger-fgColor-active);
-      background-color: var(--button-danger-bgColor-active);
-      border-color: var(--button-danger-borderColor-active);
-      box-shadow: var(--button-danger-shadow-selected);
     }
 
     & .CounterLabel {
@@ -398,6 +406,10 @@
     color: var(--button-default-fgColor-rest);
     border-color: transparent;
     box-shadow: none;
+
+    &[aria-expanded='true'] {
+      background-color: var(--button-invisible-bgColor-active);
+    }
 
     &:hover {
       background-color: var(--button-invisible-bgColor-hover);
@@ -420,10 +432,6 @@
       background-color: var(--button-invisible-bgColor-disabled);
       border-color: var(--button-invisible-borderColor-disabled);
       box-shadow: none;
-    }
-
-    &[aria-expanded='true'] {
-      background-color: var(--button-invisible-bgColor-active);
     }
 
     & .Visual {

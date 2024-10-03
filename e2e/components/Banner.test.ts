@@ -57,6 +57,11 @@ const stories: Array<{title: string; id: string; viewports?: Array<keyof typeof 
     viewports: ['primer.breakpoint.xs', 'primer.breakpoint.sm'],
   },
   {
+    title: 'DismissibleWithHiddenTitleAndSecondaryAction',
+    id: 'experimental-components-banner-features--dismissible-with-hidden-title-and-secondary-action',
+    viewports: ['primer.breakpoint.xs', 'primer.breakpoint.sm'],
+  },
+  {
     title: 'InSidebar',
     id: 'experimental-components-banner-examples--in-sidebar',
   },

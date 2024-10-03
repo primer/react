@@ -1,8 +1,15 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import type {Meta} from '@storybook/react'
 import {ProgressBar, type ProgressBarProps} from '..'
 
-const sectionColors = ['success.emphasis', 'done.emphasis', 'severe.emphasis', 'danger.emphasis', 'attention.emphasis']
+const sectionColorsDefault = [
+  'success.emphasis',
+  'accent.emphasis',
+  'done.emphasis',
+  'severe.emphasis',
+  'danger.emphasis',
+  'attention.emphasis',
+]
 
 export default {
   title: 'Components/ProgressBar',
@@ -12,13 +19,21 @@ export default {
 export const Default = () => <ProgressBar aria-label="Upload test.png" />
 
 export const Playground = ({sections, ...args}: ProgressBarProps & {sections: number}) => {
+  const [sectionColors, setSectionColors] = React.useState(sectionColorsDefault)
+
+  useEffect(() => {
+    if (args.bg && args.bg !== '') {
+      setSectionColors([args.bg, ...sectionColorsDefault])
+    }
+  }, [args.bg])
+
   if (sections === 1) {
     return <ProgressBar {...args} sx={args.inline ? {width: '100px'} : {}} aria-label="Upload test.png" />
   } else {
     return (
       <ProgressBar aria-label="Upload test.png">
         {[...Array(sections).keys()].map(i => (
-          <ProgressBar.Item key={i} progress={100 / sections} sx={{bg: sectionColors[i]}} />
+          <ProgressBar.Item key={i} progress={100 / sections} bg={sectionColors[i]} />
         ))}
       </ProgressBar>
     )

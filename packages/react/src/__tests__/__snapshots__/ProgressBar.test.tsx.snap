@@ -4,7 +4,6 @@ exports[`ProgressBar respects the "progress" prop 1`] = `
 .c1 {
   width: 80%;
   background-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
-  background-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
 }
 
 .c0 {
