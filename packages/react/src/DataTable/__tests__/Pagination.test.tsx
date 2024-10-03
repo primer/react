@@ -94,10 +94,9 @@ describe('Table.Pagination', () => {
       expect(getPageRange()).toEqual('1 through 25 of 25')
 
       rerender(<Pagination aria-label="Test label" defaultPageIndex={2} pageSize={5} totalCount={300} />)
-      expect(getPageRange()).toEqual('16 through 20 of 300')
+      expect(getPageRange()).toEqual('11 through 15 of 300')
       expect(getCurrentPage()).toEqual(getPage(2))
-      const negativePages = getPages().filter(p => p.textContent?.includes('-'))
-      expect(negativePages).toHaveLength(0)
+      expect(getInvalidPages()).toHaveLength(0)
     })
   })
 
@@ -223,7 +222,7 @@ describe('Table.Pagination', () => {
 
       rerender(<Pagination aria-label="Test label" defaultPageIndex={0} pageSize={5} totalCount={300} />)
       expect(getPageRange()).toEqual('1 through 5 of 300')
-      expect(getFirstPage()).toEqual(getCurrentPage())
+      expect(getCurrentPage()).toEqual(getPage(0))
       expect(getInvalidPages()).toHaveLength(0)
     })
   })
@@ -332,7 +331,7 @@ function getLastPage() {
 }
 
 function getInvalidPages() {
-  getPages().filter(p => p.textContent?.match(/Page\s-/g) || p.textContent?.match(/Page\s0$/g))
+  return getPages().filter(p => p.textContent?.match(/Page\s-/g) || p.textContent?.match(/Page\s0$/g))
 }
 
 function getPageRange() {

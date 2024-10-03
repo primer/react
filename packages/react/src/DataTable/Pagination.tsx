@@ -1,5 +1,5 @@
 import {ChevronLeftIcon, ChevronRightIcon} from '@primer/octicons-react'
-import React, {useCallback, useState} from 'react'
+import React, {useCallback, useState, useEffect} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import {Button} from '../internal/components/ButtonReset'
@@ -195,6 +195,13 @@ export function Pagination({
   const [offsetStartIndex, setOffsetStartIndex] = useState(() => {
     return getDefaultOffsetStartIndex(pageIndex, pageCount, truncatedPageCount)
   })
+  useEffect(() => {
+    const startIndex = getDefaultOffsetStartIndex(pageIndex, pageCount, truncatedPageCount)
+    if (offsetStartIndex !== startIndex) {
+      setOffsetStartIndex(startIndex)
+    }
+  }, [pageIndex, pageCount, truncatedPageCount, offsetStartIndex])
+
   const offsetEndIndex = offsetStartIndex + truncatedPageCount - 1
   const hasLeadingTruncation = offsetStartIndex >= 2
   const hasTrailingTruncation = pageCount - 1 - offsetEndIndex > 1
@@ -510,6 +517,13 @@ function usePagination(config: PaginationConfig): PaginationResult {
 
     return 0
   })
+  useEffect(() => {
+    const validDefaultPageCount =
+      defaultPageIndex !== undefined && defaultPageIndex >= 0 && defaultPageIndex < pageCount
+    if (validDefaultPageCount && pageIndex !== defaultPageIndex) {
+      setPageIndex(defaultPageIndex)
+    }
+  }, [defaultPageIndex, pageCount, pageIndex])
   const pageStart = pageIndex * pageSize
   const pageEnd = Math.min(pageIndex * pageSize + pageSize, totalCount - 1)
   const hasNextPage = pageIndex + 1 < pageCount
