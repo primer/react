@@ -192,12 +192,13 @@ export function Pagination({
     totalCount,
   })
   const truncatedPageCount = pageCount > 2 ? Math.min(pageCount - 2, MAX_TRUNCATED_STEP_COUNT) : 0
-  const defaultOffsetStartIndex = getDefaultOffsetStartIndex(pageIndex, pageCount, truncatedPageCount)
-  const [offsetStartIndex, setOffsetStartIndex] = useState(() => {
-    return defaultOffsetStartIndex
-  })
-  if (offsetStartIndex !== defaultOffsetStartIndex) {
-    setOffsetStartIndex(defaultOffsetStartIndex)
+  const defaultOffset = getDefaultOffsetStartIndex(pageIndex, pageCount, truncatedPageCount)
+  const [defaultOffsetStartIndex, setDefaultOffsetStartIndex] = useState(defaultOffset)
+  const [offsetStartIndex, setOffsetStartIndex] = useState(defaultOffsetStartIndex)
+
+  if (defaultOffsetStartIndex !== defaultOffset) {
+    setOffsetStartIndex(defaultOffset)
+    setDefaultOffsetStartIndex(defaultOffset)
   }
 
   const offsetEndIndex = offsetStartIndex + truncatedPageCount - 1
@@ -496,7 +497,7 @@ type PaginationResult = {
 function usePagination(config: PaginationConfig): PaginationResult {
   const {defaultPageIndex, onChange, pageSize, totalCount} = config
   const pageCount = Math.ceil(totalCount / pageSize)
-  const [pageIndex, setPageIndex] = useState(() => {
+  const [defaultIndex, setDefaultIndex] = useState(() => {
     if (defaultPageIndex !== undefined) {
       if (defaultPageIndex >= 0 && defaultPageIndex < pageCount) {
         return defaultPageIndex
@@ -515,8 +516,10 @@ function usePagination(config: PaginationConfig): PaginationResult {
 
     return 0
   })
+  const [pageIndex, setPageIndex] = useState(defaultIndex)
   const validDefaultPageCount = defaultPageIndex !== undefined && defaultPageIndex >= 0 && defaultPageIndex < pageCount
-  if (validDefaultPageCount && pageIndex !== defaultPageIndex) {
+  if (validDefaultPageCount && defaultIndex !== defaultPageIndex) {
+    setDefaultIndex(defaultPageIndex)
     setPageIndex(defaultPageIndex)
   }
   const pageStart = pageIndex * pageSize
