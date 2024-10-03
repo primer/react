@@ -196,8 +196,8 @@ export const Playground = (args: DataTableProps<UniqueRow> & ColWidthArgTypes) =
   const align = args.align as CellAlignment
 
   const [pageIndex, setPageIndex] = React.useState(0)
-  const start = pageIndex * args.pageSize
-  const end = start + args.pageSize
+  const start = pageIndex * parseInt(args.pageSize, 10)
+  const end = start + parseInt(args.pageSize, 10)
   const rows = data.slice(start, end)
 
   return (
