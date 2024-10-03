@@ -10,6 +10,7 @@ import {Button} from '../Button'
 import {registerPortalRoot} from '../Portal'
 import {Playground} from './AnchoredOverlay.stories'
 import {LocationIcon, RepoIcon} from '@primer/octicons-react'
+import {Stack} from '../Stack/Stack'
 
 export default {
   title: 'Components/AnchoredOverlay/Features',
@@ -17,40 +18,31 @@ export default {
 } as Meta
 
 const hoverCard = (
-  <Box p={3} minWidth={320}>
-    <Box display="flex" flexDirection="column" sx={{position: 'relative'}}>
+  <Stack gap="condensed" style={{minWidth: '320px', padding: '16px'}}>
+    <Stack direction="horizontal" gap="condensed" justify="space-between">
       <Avatar src="https://avatars.githubusercontent.com/u/92997159?v=4" size={48} />
-      <Box display="flex">
-        <Text weight="medium">monalisa</Text>
-        <Text color={'var(--fgColor-muted)'} ml={1}>
-          Monalisa Octocat
-        </Text>
-      </Box>
-      <Text fontSize={14}>Former beach cat and champion swimmer. Now your friendly octapus with a normal face.</Text>
-      <Box display="flex" mt={1}>
-        <Octicon color={'var(--fgColor-muted)'} icon={LocationIcon} />
-        <Text fontSize={12} ml={1} color={'var(--fgColor-muted)'}>
-          Interwebs
-        </Text>
-      </Box>
-      <Box display="flex" mt={1}>
-        <Octicon color={'var(--fgColor-muted)'} icon={RepoIcon} />
-        <Text fontSize={12} ml={1} color={'var(--fgColor-muted)'}>
-          Owns this repository
-        </Text>
-      </Box>
-      <Button
-        size="small"
-        sx={{
-          position: 'absolute',
-          right: 0,
-          top: 0,
-        }}
-      >
-        Follow
-      </Button>
-    </Box>
-  </Box>
+      <Button size="small">Follow</Button>
+    </Stack>
+    <Stack direction="horizontal" gap="none">
+      <Text weight="medium">monalisa</Text>
+      <Text color={'var(--fgColor-muted)'} ml={1}>
+        Monalisa Octocat
+      </Text>
+    </Stack>
+    <Text fontSize={14}>Former beach cat and champion swimmer. Now your friendly octapus with a normal face.</Text>
+    <Stack direction="horizontal" gap="none">
+      <Octicon color={'var(--fgColor-muted)'} icon={LocationIcon} />
+      <Text fontSize={12} color={'var(--fgColor-muted)'} ml={1}>
+        Interwebs
+      </Text>
+    </Stack>
+    <Stack direction="horizontal" gap="none">
+      <Octicon color={'var(--fgColor-muted)'} icon={RepoIcon} />
+      <Text fontSize={12} color={'var(--fgColor-muted)'} ml={1}>
+        Owns this repository
+      </Text>
+    </Stack>
+  </Stack>
 )
 
 const HeaderAndLayout = ({children}: {children: JSX.Element}) => {
