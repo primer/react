@@ -16,11 +16,10 @@ jobs:
         with:
           node-version: 22
 
-      # | grep packages/react | grep -v 'stories.tsx'
       - name: Get source files changes
         id: source-files
         run: |
-          DIFF=$(git diff --name-only origin/main)
+          DIFF=$(git diff --name-only origin/main | grep packages/react | grep -v 'stories.tsx')
           echo "diff=$DIFF" >> $GITHUB_OUTPUT
 
       - name: Debug
