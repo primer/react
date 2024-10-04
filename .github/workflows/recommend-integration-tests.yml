@@ -18,13 +18,15 @@ jobs:
       
       - name: Get source files changes
         id: source-files
-        run: git diff --name-only origin/main # | grep packages/react | grep -v 'stories.tsx'
+        run: |
+          DIFF=$(git diff --name-only origin/main) # | grep packages/react | grep -v 'stories.tsx'
+          echo "::set-output name=diff::$DIFF"
 
       - name: Debug
-        run: echo ${{ steps.source-files.outputs.result }}
+        run: echo ${{ steps.source-files.outputs.diff }}
 
       - name: Get or Create Comment
-        if: ${{ steps.source-files.outputs.result != '' }}
+        if: ${{ steps.source-files.outputs.diff != '' }}
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
