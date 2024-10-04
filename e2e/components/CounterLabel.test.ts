@@ -27,24 +27,6 @@ test.describe('CounterLabel', () => {
               id: story.id,
               globals: {
                 colorScheme: theme,
-                featureFlags: {
-                  primer_react_css_modules_team: true,
-                },
-              },
-            })
-
-            // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`CounterLabel.${story.title}.${theme}.png`)
-          })
-
-          test('default (styled-components) @vrt', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-                featureFlags: {
-                  primer_react_css_modules_team: false,
-                },
               },
             })
 
@@ -57,22 +39,6 @@ test.describe('CounterLabel', () => {
               id: story.id,
               globals: {
                 colorScheme: theme,
-                featureFlags: {
-                  primer_react_css_modules_team: true,
-                },
-              },
-            })
-            await expect(page).toHaveNoViolations()
-          })
-
-          test('axe (styled-components) @aat', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-                featureFlags: {
-                  primer_react_css_modules_team: false,
-                },
               },
             })
             await expect(page).toHaveNoViolations()
