@@ -316,8 +316,6 @@ exports[`@primer/react/experimental should not update exports without a semver c
   "type TableTitleProps",
   "type TitleProps",
   "Tooltip",
-  "TooltipContext",
-  "type TooltipDirection",
   "type TooltipProps",
   "type TriggerPropsType",
   "UnderlinePanels",

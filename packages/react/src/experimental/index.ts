@@ -52,7 +52,8 @@ export type {
   NavListDividerProps,
 } from '../NavList'
 export * from './SelectPanel2'
-export * from '../TooltipV2'
+export {Tooltip} from '../TooltipV2'
+export type {TooltipProps} from '../TooltipV2'
 export * from '../ActionBar'
 
 export {ScrollableRegion} from '../ScrollableRegion'

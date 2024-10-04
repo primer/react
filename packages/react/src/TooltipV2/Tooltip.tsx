@@ -123,7 +123,7 @@ const StyledTooltip = styled.span`
   ${sx};
 `
 
-export type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
+type TooltipDirection = 'nw' | 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w'
 export type TooltipProps = React.PropsWithChildren<
   {
     direction?: TooltipDirection
@@ -133,7 +133,7 @@ export type TooltipProps = React.PropsWithChildren<
     ComponentProps<typeof StyledTooltip>
 >
 
-export type TriggerPropsType = {
+type TriggerPropsType = {
   'aria-describedby'?: string
   'aria-labelledby'?: string
   'aria-label'?: string
