@@ -26,16 +26,16 @@ const hoverCard = (
         Monalisa Octocat
       </Text>
     </Stack>
-    <Text fontSize={14}>Former beach cat and champion swimmer. Now your friendly octapus with a normal face.</Text>
+    <Text size="medium">Former beach cat and champion swimmer. Now your friendly octapus with a normal face.</Text>
     <Stack direction="horizontal" gap="none">
       <Octicon color={'var(--fgColor-muted)'} icon={LocationIcon} />
-      <Text fontSize={12} color={'var(--fgColor-muted)'} ml={1}>
+      <Text size="small" color={'var(--fgColor-muted)'} ml={1}>
         Interwebs
       </Text>
     </Stack>
     <Stack direction="horizontal" gap="none">
       <Octicon color={'var(--fgColor-muted)'} icon={RepoIcon} />
-      <Text fontSize={12} color={'var(--fgColor-muted)'} ml={1}>
+      <Text size="small" color={'var(--fgColor-muted)'} ml={1}>
         Owns this repository
       </Text>
     </Stack>
