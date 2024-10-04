@@ -189,6 +189,7 @@ jobs:
       VITE_PRIMER_REACT_CSS_MODULES_TEAM: 1
       VITE_PRIMER_REACT_CSS_MODULES_STAFF: 1
       VITE_PRIMER_REACT_CSS_MODULES_GA: 1
+      PLAYWRIGHT_BLOB_OUTPUT_FILE: 'blob-report-all-flags'
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js 20.x
@@ -223,13 +224,15 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: vrt-all-flags-${{ matrix.shard }}
-          path: blob-report
+          path: blob-report-all-flags
           retention-days: 1
 
   vrt-all-flags:
     if: ${{ always() }}
     runs-on: ubuntu-latest
     needs: vrt-runner-all-flags
+    env:
+      PLAYWRIGHT_BLOB_OUTPUT_FILE: 'blob-report-all-flags'
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js 20.x
@@ -243,11 +246,11 @@ jobs:
       - name: download all reports
         uses: actions/download-artifact@v4
         with:
-          path: all-blob-reports
+          path: all-blob-reports-all-flags
           pattern: vrt-all-flags-*
           merge-multiple: true
       - name: merge all reports
-        run: npx playwright merge-reports --reporter html ./all-blob-reports
+        run: npx playwright merge-reports --reporter html ./all-blob-reports-all-flags
       - name: Upload report
         uses: actions/upload-artifact@v4
         with:
