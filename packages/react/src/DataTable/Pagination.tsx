@@ -339,15 +339,15 @@ function getDefaultOffsetStartIndex(pageIndex: number, pageCount: number, trunca
   // When the current page is closer to the end of the list than the beginning
   if (pageIndex > pageCount - 1 - pageIndex) {
     if (pageCount - 1 - pageIndex >= truncatedPageCount) {
-      return pageIndex - 3
+      return Math.max(pageIndex - 3, 1)
     }
-    return pageCount - 1 - truncatedPageCount
+    return Math.max(pageCount - 1 - truncatedPageCount, 1)
   }
 
   // When the current page is closer to the beginning of the list than the end
   if (pageIndex < pageCount - 1 - pageIndex) {
     if (pageIndex >= truncatedPageCount) {
-      return pageIndex - 3
+      return Math.max(pageIndex - 3, 1)
     }
     return 1
   }
@@ -356,7 +356,7 @@ function getDefaultOffsetStartIndex(pageIndex: number, pageCount: number, trunca
   if (pageIndex < truncatedPageCount) {
     return pageIndex
   }
-  return pageIndex - 3
+  return Math.max(pageIndex - 3, 1)
 }
 
 type RangeProps = {

@@ -355,6 +355,14 @@ describe('Table.Pagination', () => {
       pageIndex: 0,
     })
   })
+
+  it('when rendering 3 pages and the second page is selected we should render a page number not ...', async () => {
+    const onChange = jest.fn()
+    render(<Pagination aria-label="Test label" onChange={onChange} defaultPageIndex={1} pageSize={2} totalCount={6} />)
+    expect(getPageRange()).toEqual('3 through 4 of 6')
+    expect(getCurrentPage()).toEqual(getPage(1))
+    expect(getInvalidPages()).toHaveLength(0)
+  })
 })
 
 function getPages() {
