@@ -26,7 +26,7 @@ jobs:
 
       - name: debug 3
         run: |
-          DIFF=$(git diff --name-only origin/main | grep 'packages/react' | grep -v 'stories.tsx')
+          DIFF=$(git diff --name-only origin/main | grep 'packages/react' | grep -v 'stories.tsx' || true)
 
       - name: debug 4
         run: |
@@ -41,7 +41,7 @@ jobs:
       - name: Get source files changes
         id: source-files
         run: |
-          DIFF=$(git diff --name-only origin/main | grep 'packages/react' | grep -v 'stories.tsx')
+          DIFF=$(git diff --name-only origin/main | grep 'packages/react' | grep -v 'stories.tsx' || true)
           if [ -z "$DIFF" ]; then
             echo "diff=$DIFF" >> $GITHUB_OUTPUT
           else
