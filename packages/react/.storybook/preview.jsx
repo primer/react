@@ -180,7 +180,7 @@ const featureFlagEnvList = new Set([
 
 for (const flag of featureFlagEnvList) {
   if (process.env[flag] === '1') {
-    defaultFeatureFlags.set(flag, true)
+    defaultFeatureFlags.set(flag.toLocaleLowerCase(), true)
   }
 }
 
