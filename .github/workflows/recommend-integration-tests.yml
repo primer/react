@@ -37,6 +37,13 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo
             });
-            const previousComment = result.data.filter(c => c.user.login == 'github-actions[bot]')
+            const previousComment = result.data.filter(c => c.user.login == 'github-actions[bot]' && c.body.startsWith('<!-- recommend-integration-tests.yml -->'))
             console.log(previousComment)
-            if (!previousComment.length) {}
+            if (!previousComment.length) {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: '<!-- recommend-integration-tests.yml --> :wave: Hi, this pull request contains changes to source code. We recommend testing these changes with github/github using the [integration workflow](https://github.com/github/primer-engineering/blob/main/how-we-work/testing-primer-react-pr-at-dotcom.md)'
+              })
+            }
