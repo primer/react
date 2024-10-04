@@ -20,7 +20,7 @@ jobs:
       - name: Get source files changes
         id: source-files
         run: |
-          DIFF=$(git diff main --name-only)
+          DIFF=$(git diff --name-only origin/main)
           echo "diff=$DIFF" >> $GITHUB_OUTPUT
 
       - name: Debug
