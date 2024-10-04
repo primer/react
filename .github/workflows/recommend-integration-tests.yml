@@ -16,7 +16,7 @@ jobs:
 
       - name: Get source files changes
         id: source-files
-        run: git diff --name-only main | grep packages/react | grep -v 'stories.tsx'
+        run: git diff --name-only origin/main | grep packages/react | grep -v 'stories.tsx'
 
       - name: Get or Create Comment
         if: ${{ steps.source-files.outputs.result != '' }}
