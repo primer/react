@@ -29,10 +29,11 @@ describe('toggleStyledComponent', () => {
     const TestComponent = toggleStyledComponent('testFeatureFlag', () => styled.div``)
     const {container} = render(
       <FeatureFlags flags={{testFeatureFlag: true}}>
-        <TestComponent sx={{color: 'red'}} />
+        <TestComponent as="button" sx={{color: 'red'}} />
       </FeatureFlags>,
     )
 
+    expect(container.firstChild).toBeInstanceOf(HTMLButtonElement)
     expect(container.firstChild).toHaveStyle('color: red')
   })
 
