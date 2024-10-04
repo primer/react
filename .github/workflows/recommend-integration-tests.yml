@@ -51,4 +51,4 @@ jobs:
         if: ${{ steps.source-files.outputs.diff != '' }}
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh pr edit ${{github.event.issue.number}} --add-label 'integration-tests-recommended'
+        run: gh pr edit ${{github.event.pull_request.html_url}} --add-label 'integration-tests-recommended'
