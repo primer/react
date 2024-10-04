@@ -19,28 +19,23 @@ export const StyledSummary = styled.summary<SxProp>`
   ${sx};
 `
 
-type RootProps = {
-  /**
-   * The summary to use for the Details. Can also be passed in as a `Details.Summary` child
-   */
-  summary?: React.ReactNode
-} & ComponentProps<typeof StyledDetails>
-
-const Root = React.forwardRef<HTMLDetailsElement, RootProps>(({children, summary, ...props}: RootProps, ref) => {
-  const hasSummary = React.Children.toArray(children).some(child => {
+const Root = React.forwardRef<HTMLDetailsElement, ComponentProps<typeof StyledDetails>>(
+  ({children, ...props}: ComponentProps<typeof StyledDetails>, ref) => {
+    const hasSummary = React.Children.toArray(children).some(child => {
+      return (
+        React.isValidElement(child) &&
+        (child.type === Details.Summary || child.type === 'summary' || child.props?.as === 'summary')
+      )
+    })
     return (
-      React.isValidElement(child) &&
-      (child.type === Details.Summary || child.type === 'summary' || child.props?.as === 'summary')
+      <StyledDetails {...props} ref={ref}>
+        {/* Include default summary if summary is not provided */}
+        {!hasSummary && <Details.Summary>{'See Details'}</Details.Summary>}
+        {children}
+      </StyledDetails>
     )
-  })
-  return (
-    <StyledDetails {...props} ref={ref}>
-      {/* Include default summary if summary is not provided */}
-      {!hasSummary && <Details.Summary>{summary ?? 'See Details'}</Details.Summary>}
-      {children}
-    </StyledDetails>
-  )
-})
+  },
+)
 
 Root.displayName = 'Details'
 
