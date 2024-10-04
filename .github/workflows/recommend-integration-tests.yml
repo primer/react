@@ -19,8 +19,12 @@ jobs:
       - name: Get source files changes
         id: source-files
         run: |
-          DIFF=$(git diff --name-only origin/main | grep packages/react | grep -v 'stories.tsx' || false)
-          echo "diff=$DIFF" >> $GITHUB_OUTPUT
+          DIFF=$(git diff --name-only origin/main | grep packages/react | grep -v 'stories.tsx')
+          if [ -z "$DIFF" ]; then
+            echo "diff=$DIFF" >> $GITHUB_OUTPUT
+          else
+            echo "diff=''" >> $GITHUB_OUTPUT
+          fi
 
       - name: Debug
         run: echo ${{ steps.source-files.outputs.diff }}
