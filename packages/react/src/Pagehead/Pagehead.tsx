@@ -4,6 +4,9 @@ import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
 
+/**
+ * @deprecated
+ */
 const Pagehead = styled.div<SxProp>`
   position: relative;
   padding-top: ${get('space.4')};
@@ -13,5 +16,8 @@ const Pagehead = styled.div<SxProp>`
   ${sx};
 `
 
+/**
+ * @deprecated
+ */
 export type PageheadProps = ComponentProps<typeof Pagehead>
 export default Pagehead
