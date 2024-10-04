@@ -46,3 +46,7 @@ jobs:
                 body: '<!-- recommend-integration-tests.yml -->\n\n :wave: Hi, this pull request contains changes to the source code that github/github depends on. We recommend testing these changes with github/github using the [integration workflow](https://github.com/github/primer-engineering/blob/main/how-we-work/testing-primer-react-pr-at-dotcom.md). Thanks!'
               })
             }
+
+      - name: Add label
+        if: ${{ steps.source-files.outputs.diff != '' }}
+        run: gh pr edit ${{github.event.issue.number}} --add-label 'integration-tests-recommended'
