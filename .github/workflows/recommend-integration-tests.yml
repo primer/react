@@ -21,7 +21,7 @@ jobs:
         run: |
           DIFF=$(git diff --name-only origin/main | grep 'packages/react' | grep -Ev '.stories.tsx|.docs.json' || true)
           if [ -z "$DIFF" ]; then
-            echo "diff=''" >> $GITHUB_OUTPUT
+            echo "diff=" >> $GITHUB_OUTPUT
           else
             echo "diff=$DIFF" >> $GITHUB_OUTPUT
           fi
