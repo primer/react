@@ -14,7 +14,7 @@
 
   &:where([data-square]) {
     /* stylelint-disable-next-line primer/borders */
-    border-radius: clamp(4px, var(--avatarSize-regular) - 24px, var(--borderRadius-medium));
+    border-radius: clamp(4px, calc(var(--avatarSize-regular) - 24px), var(--borderRadius-medium));
   }
 
   &:where([data-responsive]) {
