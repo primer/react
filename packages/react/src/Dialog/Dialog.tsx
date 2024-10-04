@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useRef, useState, type SyntheticEvent} from 'react'
 import styled from 'styled-components'
 import type {ButtonProps} from '../Button'
-import {Button} from '../Button'
+import {Button, IconButton} from '../Button'
 import Box from '../Box'
 import {get} from '../constants'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
@@ -590,22 +590,11 @@ const Buttons: React.FC<React.PropsWithChildren<{buttons: DialogButtonProps[]}>>
     </>
   )
 }
-const DialogCloseButton = styled(Button)`
-  border-radius: 4px;
-  background: transparent;
-  border: 0;
-  vertical-align: middle;
-  color: ${get('colors.fg.muted')};
-  padding: ${get('space.2')};
-  align-self: flex-start;
-  line-height: normal;
-  box-shadow: none;
-`
+
 const CloseButton: React.FC<React.PropsWithChildren<{onClose: () => void}>> = ({onClose}) => {
   return (
-    <DialogCloseButton aria-label="Close" onClick={onClose}>
-      <Octicon icon={XIcon} />
-    </DialogCloseButton>
+    // eslint-disable-next-line primer-react/a11y-remove-disable-tooltip
+    <IconButton unsafeDisableTooltip={true} icon={XIcon} aria-label="Close" onClick={onClose} variant="invisible" />
   )
 }
 
