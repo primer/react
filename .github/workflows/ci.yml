@@ -189,7 +189,7 @@ jobs:
       VITE_PRIMER_REACT_CSS_MODULES_TEAM: 1
       VITE_PRIMER_REACT_CSS_MODULES_STAFF: 1
       VITE_PRIMER_REACT_CSS_MODULES_GA: 1
-      PLAYWRIGHT_BLOB_OUTPUT_FILE: 'blob-report-all-flags'
+      PLAYWRIGHT_BLOB_OUTPUT_DIR: 'blob-report-all-flags'
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js 20.x
@@ -232,7 +232,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: vrt-runner-all-flags
     env:
-      PLAYWRIGHT_BLOB_OUTPUT_FILE: 'blob-report-all-flags'
+      PLAYWRIGHT_BLOB_OUTPUT_DIR: 'blob-report-all-flags'
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js 20.x
