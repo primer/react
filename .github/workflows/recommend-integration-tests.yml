@@ -16,36 +16,14 @@ jobs:
         with:
           node-version: 22
 
-      - name: debug 1
-        run: |
-          DIFF=$(git diff --name-only origin/main)
-
-      - name: debug 2
-        run: |
-          DIFF=$(git diff --name-only origin/main | grep 'packages/react' || true)
-
-      - name: debug 3
-        run: |
-          DIFF=$(git diff --name-only origin/main | grep 'packages/react' | grep -v 'stories.tsx' || true)
-
-      - name: debug 4
-        run: |
-          TEST1='something'
-          echo "TEST1=$TEST1" >> $GITHUB_OUTPUT
-
-      - name: debug 5
-        run: |
-          TEST2=''
-          echo "TEST2=$TEST2" >> $GITHUB_OUTPUT
-
       - name: Get source files changes
         id: source-files
         run: |
           DIFF=$(git diff --name-only origin/main | grep 'packages/react' | grep -v 'stories.tsx' || true)
           if [ -z "$DIFF" ]; then
-            echo "diff=$DIFF" >> $GITHUB_OUTPUT
-          else
             echo "diff=''" >> $GITHUB_OUTPUT
+          else
+            echo "diff=$DIFF" >> $GITHUB_OUTPUT
           fi
 
       - name: Debug
