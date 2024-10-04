@@ -20,7 +20,7 @@ jobs:
         id: source-files
         run: |
           DIFF=$(git diff --name-only origin/main) # | grep packages/react | grep -v 'stories.tsx'
-          echo "::set-output name=diff::$DIFF"
+          echo "{diff}={DIFF}" >> $GITHUB_OUTPUT
 
       - name: Debug
         run: echo ${{ steps.source-files.outputs.diff }}
