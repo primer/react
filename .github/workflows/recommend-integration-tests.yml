@@ -13,6 +13,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+      
+      - name: Fetch origin/main
+        run: git fetch origin main:refs/remotes/origin/main
 
       - name: Get source files changes
         id: source-files
