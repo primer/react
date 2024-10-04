@@ -58,14 +58,21 @@ const StyledText = styled.span<StyledTextProps>`
   ${sx};
 `
 
+const includesSystemProps = (props: StyledTextProps) => {
+  return (
+    props.sx ||
+    Object.keys(props).some(prop => Object.keys(TYPOGRAPHY).includes(prop) || Object.keys(COMMON).includes(prop))
+  )
+}
+
 const Text = forwardRef(({as: Component = 'span', className, size, weight, ...props}, forwardedRef) => {
   const enabled = useFeatureFlag('primer_react_css_modules_ga')
 
   const innerRef = React.useRef<HTMLElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, innerRef)
-
   if (enabled) {
-    if (props.sx) {
+    // If props includes TYPOGRAPHY or COMMON props, pass them to the Box component
+    if (includesSystemProps(props)) {
       return (
         // @ts-ignore shh
         <Box
@@ -81,7 +88,6 @@ const Text = forwardRef(({as: Component = 'span', className, size, weight, ...pr
     }
 
     return (
-      // @ts-ignore shh
       <Component
         className={clsx(className, classes.Text)}
         data-size={size}
@@ -94,7 +100,6 @@ const Text = forwardRef(({as: Component = 'span', className, size, weight, ...pr
   }
 
   return (
-    // @ts-ignore shh
     <StyledText
       as={Component}
       className={className}
