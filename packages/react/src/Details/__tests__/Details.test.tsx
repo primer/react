@@ -103,37 +103,12 @@ describe('Details', () => {
     expect(getByText('See Details').tagName).toBe('SUMMARY')
   })
 
-  it('Adds summary element when supplied as prop', async () => {
-    const {getByText} = render(
-      <Details summary="test summary" data-testid="details">
-        content
-      </Details>,
-    )
-
-    expect(getByText('test summary')).toBeInTheDocument()
-    expect(getByText('test summary').tagName).toBe('SUMMARY')
-  })
-
-  it('Ignores summary prop when child exists', async () => {
-    const {queryByText, getByText} = render(
-      <Details summary="test summary" data-testid="details">
-        <Details.Summary>custom summary</Details.Summary>
-        content
-      </Details>,
-    )
-
-    expect(queryByText('test summary')).toBeNull()
-    expect(queryByText('See Details')).toBeNull()
-    expect(getByText('custom summary')).toBeInTheDocument()
-    expect(getByText('custom summary').tagName).toBe('SUMMARY')
-  })
-
-  it('Does not add summary if supplied as different element', async () => {
+  it('Does not add default summary if supplied as different element', async () => {
     const {getByTestId, queryByText} = render(
       <Details data-testid="details">
-        <Button as="summary" data-testid="summary">
+        <Box as="summary" data-testid="summary">
           custom summary
-        </Button>
+        </Box>
         content
       </Details>,
     )
