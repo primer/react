@@ -8,7 +8,7 @@
   font-family: inherit;
   font-size: var(--text-body-size-medium);
   font-weight: var(--base-text-weight-medium);
-  color: var(--button-default-fgColor-rest);
+  color: red;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
