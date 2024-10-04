@@ -1,0 +1,34 @@
+name: Recommend integration tests
+on:
+  pull_request:
+
+jobs:
+  recommend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Get source files changes
+        id: source-files
+        run: git diff --name-only main | grep packages/react | grep -v 'stories.tsx'
+
+      - name: Get or Create Comment
+        if: ${{ steps.source-files.outputs.result != '' }}
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const result = await github.rest.issues.listComments({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            console.log(result)
+            const previousComment = result.data.filter(c => c.user.login == 'github-actions[bot]')
+            if (!previousComment.length) {}
