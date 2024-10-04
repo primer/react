@@ -22,7 +22,7 @@ jobs:
 
       - name: debug 2
         run: |
-          DIFF=$(git diff --name-only origin/main | grep 'packages/react')
+          DIFF=$(git diff --name-only origin/main | grep 'packages/react' || true)
 
       - name: debug 3
         run: |
