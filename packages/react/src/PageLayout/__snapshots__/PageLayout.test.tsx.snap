@@ -2,7 +2,7 @@
 
 exports[`PageLayout renders condensed layout 1`] = `
 .c0 {
-  padding: 16px;
+  padding: 8px;
 }
 
 .c1 {
@@ -20,7 +20,7 @@ exports[`PageLayout renders condensed layout 1`] = `
 
 .c2 {
   width: 100%;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 .c3 {
@@ -28,10 +28,10 @@ exports[`PageLayout renders condensed layout 1`] = `
 }
 
 .c4 {
-  margin-left: -16px;
-  margin-right: -16px;
+  margin-left: -8px;
+  margin-right: -8px;
   display: none;
-  margin-top: 16px;
+  margin-top: 8px;
 }
 
 .c5 {
@@ -98,14 +98,14 @@ exports[`PageLayout renders condensed layout 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  margin-top: 16px;
+  margin-top: 8px;
 }
 
 .c9 {
-  margin-left: -16px;
-  margin-right: -16px;
+  margin-left: -8px;
+  margin-right: -8px;
   display: none;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 .c10 {
@@ -120,7 +120,7 @@ exports[`PageLayout renders condensed layout 1`] = `
   height: 100%;
   position: relative;
   display: none;
-  margin-right: 16px;
+  margin-right: 8px;
 }
 
 .c12 {
@@ -128,7 +128,7 @@ exports[`PageLayout renders condensed layout 1`] = `
   -ms-flex-order: 4;
   order: 4;
   width: 100%;
-  margin-top: 16px;
+  margin-top: 8px;
 }
 
 @media screen and (min-width:768px) {
@@ -146,7 +146,7 @@ exports[`PageLayout renders condensed layout 1`] = `
     -webkit-flex-direction: row-reverse;
     -ms-flex-direction: row-reverse;
     flex-direction: row-reverse;
-    margin-left: 16px;
+    margin-left: 8px;
   }
 }
 
