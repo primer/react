@@ -11,7 +11,7 @@ export default {
 } as Meta<typeof Popover>
 
 export const Default = () => (
-  <Popover relative open={true} caret="top">
+  <Popover relative open={true}>
     <Popover.Content sx={{marginTop: 2}}>
       <Heading sx={{fontSize: 2}}>Popover heading</Heading>
       <Text as="p">Message about popovers</Text>
@@ -31,31 +31,11 @@ export const Playground: StoryFn<typeof Popover> = args => (
 )
 
 Playground.args = {
-  caret: 'top',
   open: true,
   relative: true,
 }
 
 Playground.argTypes = {
-  caret: {
-    control: {
-      type: 'radio',
-    },
-    options: [
-      'top',
-      'bottom',
-      'left',
-      'right',
-      'bottom-left',
-      'bottom-right',
-      'top-left',
-      'top-right',
-      'left-bottom',
-      'left-top',
-      'right-bottom',
-      'right-top',
-    ],
-  },
   open: {
     control: {
       type: 'boolean',
