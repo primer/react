@@ -42,33 +42,6 @@ test.describe('Checkbox', () => {
               id: story.id,
               globals: {
                 colorScheme: theme,
-                featureFlags: {
-                  primer_react_css_modules_team: true,
-                },
-              },
-              args: 'args' in story ? story.args : {},
-            })
-
-            // Default state
-            expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-              `Checkbox.${story.title}.${theme}.png`,
-            )
-
-            // Focus state
-            await page.keyboard.press('Tab')
-            expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-              `Checkbox.${story.title}.focus.${theme}.png`,
-            )
-          })
-
-          test('default (styled-components) @vrt', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-                featureFlags: {
-                  primer_react_css_modules_team: false,
-                },
               },
               args: 'args' in story ? story.args : {},
             })
@@ -90,21 +63,6 @@ test.describe('Checkbox', () => {
               id: story.id,
               globals: {
                 colorScheme: theme,
-                featureFlags: {
-                  primer_react_css_modules_team: true,
-                },
-              },
-              args: 'args' in story ? story.args : {},
-            })
-            await expect(page).toHaveNoViolations()
-          })
-
-          test('axe (styled-components) @aat', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-                primer_react_css_modules_team: false,
               },
               args: 'args' in story ? story.args : {},
             })
