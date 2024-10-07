@@ -335,6 +335,48 @@ for (const useModernActionList of [false, true]) {
             screen.getByRole('option', {name: 'item one'}).id,
           )
         })
+
+        it('should select an item (by item.id) even when items are defined in the component', async () => {
+          const user = userEvent.setup()
+
+          function Fixture() {
+            // items are defined in the same scope as selection, so they could rerender and create new object references
+            const items: SelectPanelProps['items'] = [{text: 'item one'}, {text: 'item two'}, {text: 'item three'}]
+
+            const [open, setOpen] = React.useState(false)
+            const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+            const [filter, setFilter] = React.useState('')
+
+            return (
+              <ThemeProvider>
+                <SelectPanel
+                  title="test title"
+                  items={items}
+                  placeholder="Select items"
+                  selected={selected}
+                  onSelectedChange={setSelected}
+                  filterValue={filter}
+                  onFilterChange={setFilter}
+                  open={open}
+                  onOpenChange={setOpen}
+                />
+              </ThemeProvider>
+            )
+          }
+
+          renderWithFlag(<Fixture />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          await user.click(screen.getByText('item one'))
+          expect(screen.getByRole('option', {name: 'item one'})).toHaveAttribute('aria-selected', 'true')
+
+          await user.click(screen.getByText('item two'))
+          expect(screen.getByRole('option', {name: 'item two'})).toHaveAttribute('aria-selected', 'true')
+
+          await user.click(screen.getByRole('option', {name: 'item one'}))
+          expect(screen.getByRole('option', {name: 'item one'})).toHaveAttribute('aria-selected', 'false')
+        })
       })
 
       function FilterableSelectPanel() {
