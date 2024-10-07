@@ -58,11 +58,17 @@ const StyledText = styled.span<StyledTextProps>`
   ${sx};
 `
 
+const COMMON_PROP_NAMES = new Set(Object.keys(COMMON))
+const TYPOGRAPHY_PROP_NAMES = new Set(Object.keys(TYPOGRAPHY))
+
 const includesSystemProps = (props: StyledTextProps) => {
-  return (
-    props.sx ||
-    Object.keys(props).some(prop => Object.keys(TYPOGRAPHY).includes(prop) || Object.keys(COMMON).includes(prop))
-  )
+  if (props.sx) {
+    return true
+  }
+
+  return Object.keys(props).some(prop => {
+    return TYPOGRAPHY_PROP_NAMES.has(prop) || COMMON_PROP_NAMES.has(prop)
+  })
 }
 
 const Text = forwardRef(({as: Component = 'span', className, size, weight, ...props}, forwardedRef) => {
