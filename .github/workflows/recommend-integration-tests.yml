@@ -61,7 +61,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
             })
-          
+
             const integrationLabels = result.data.filter(label => label.name.startsWith('integration-tests'))
             if (!integrationLabels.length) {
               await github.rest.issues.addLabels({
