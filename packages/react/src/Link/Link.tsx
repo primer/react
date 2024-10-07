@@ -1,4 +1,4 @@
-import cx from 'clsx'
+import {clsx} from 'clsx'
 import React, {forwardRef, useEffect} from 'react'
 import styled from 'styled-components'
 import {system} from 'styled-system'
@@ -61,8 +61,8 @@ const StyledLink = styled.a<StyledLinkProps>`
   ${sx};
 `
 
-const Link = forwardRef(({as: Component = 'a', className, ...props}, forwardedRef) => {
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
+const Link = forwardRef(({as: Component = 'a', className, inline, underline, ...props}, forwardedRef) => {
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
 
   const innerRef = React.useRef<HTMLAnchorElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, innerRef)
@@ -96,10 +96,10 @@ const Link = forwardRef(({as: Component = 'a', className, ...props}, forwardedRe
       return (
         <Box
           as={Component}
-          className={cx(className, classes.Link)}
+          className={clsx(className, classes.Link)}
           data-muted={props.muted}
-          data-inline={props.inline}
-          data-underline={props.underline}
+          data-inline={inline}
+          data-underline={underline}
           {...props}
           // @ts-ignore shh
           ref={innerRef}
@@ -109,10 +109,10 @@ const Link = forwardRef(({as: Component = 'a', className, ...props}, forwardedRe
 
     return (
       <Component
-        className={cx(className, classes.Link)}
+        className={clsx(className, classes.Link)}
         data-muted={props.muted}
-        data-inline={props.inline}
-        data-underline={props.underline}
+        data-inline={inline}
+        data-underline={underline}
         {...props}
         // @ts-ignore shh
         ref={innerRef}
@@ -124,7 +124,8 @@ const Link = forwardRef(({as: Component = 'a', className, ...props}, forwardedRe
     <StyledLink
       as={Component}
       className={className}
-      data-inline={props.inline}
+      data-inline={inline}
+      underline={underline}
       {...props}
       // @ts-ignore shh
       ref={innerRef}

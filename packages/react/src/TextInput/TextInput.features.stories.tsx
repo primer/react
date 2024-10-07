@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Box, FormControl, Stack} from '..'
+import {Box, FormControl, Heading, Stack} from '..'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {CalendarIcon, CheckIcon, XCircleFillIcon} from '@primer/octicons-react'
@@ -31,9 +31,13 @@ export const WithCaption = () => (
 
 export const VisuallyHiddenLabel = () => (
   <Box as="form">
+    <Heading as="h2" variant="small">
+      Primer form title
+    </Heading>
     <FormControl>
-      <FormControl.Label visuallyHidden>Default label</FormControl.Label>
+      <FormControl.Label visuallyHidden>Primer form label</FormControl.Label>
       <TextInput />
+      <FormControl.Caption>Label is visually hidden; the title describes the purpose visually</FormControl.Caption>
     </FormControl>
   </Box>
 )
@@ -290,3 +294,16 @@ WithLoadingIndicator.parameters = {
     exclude: [...textInputExcludedControlKeys, 'loaderPosition', ...Object.keys(formControlArgTypes), 'children'],
   },
 }
+
+export const WithAutocompleteAttribute = () => (
+  <Box as="form">
+    <FormControl>
+      <FormControl.Label>First name</FormControl.Label>
+      <TextInput autoComplete="given-name" />
+    </FormControl>
+    <FormControl>
+      <FormControl.Label>Last name</FormControl.Label>
+      <TextInput autoComplete="family-name" />
+    </FormControl>
+  </Box>
+)

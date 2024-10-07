@@ -4,7 +4,7 @@ import Octicon from './Octicon'
 import {HeartFillIcon} from '@primer/octicons-react'
 
 const meta: Meta<typeof Octicon> = {
-  title: 'Components/Octicon',
+  title: 'Deprecated/Components/Octicon',
   component: Octicon,
 }
 export default meta

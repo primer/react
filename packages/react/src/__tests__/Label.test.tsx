@@ -13,8 +13,8 @@ describe('Label', () => {
   })
   it('default size is rendered as "small"', () => {
     const expectedStyles = {
-      height: '20px',
-      padding: '0 7px',
+      height: 'var(--base-size-20,20px)',
+      padding: '0 var(--base-size-6,6px)',
     }
     const defaultStyles = renderStyles(<Label />)
 

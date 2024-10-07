@@ -1,5 +1,5 @@
-import cx from 'clsx'
-import styled from 'styled-components'
+import {clsx} from 'clsx'
+import styled, {type StyledComponent} from 'styled-components'
 import React, {forwardRef} from 'react'
 import type {SystemCommonProps, SystemTypographyProps} from '../constants'
 import {COMMON, TYPOGRAPHY} from '../constants'
@@ -10,9 +10,10 @@ import Box from '../Box'
 import {useRefObjectAsForwardedRef} from '../hooks'
 import classes from './Text.module.css'
 import type {ComponentProps} from '../utils/types'
-import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 type StyledTextProps = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  as?: React.ComponentType<any> | keyof JSX.IntrinsicElements
   size?: 'large' | 'medium' | 'small'
   weight?: 'light' | 'normal' | 'medium' | 'semibold'
 } & SystemTypographyProps &
@@ -58,7 +59,7 @@ const StyledText = styled.span<StyledTextProps>`
 `
 
 const Text = forwardRef(({as: Component = 'span', className, size, weight, ...props}, forwardedRef) => {
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
 
   const innerRef = React.useRef<HTMLElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, innerRef)
@@ -69,7 +70,7 @@ const Text = forwardRef(({as: Component = 'span', className, size, weight, ...pr
         // @ts-ignore shh
         <Box
           as={Component}
-          className={cx(className, classes.Text)}
+          className={clsx(className, classes.Text)}
           data-size={size}
           data-weight={weight}
           {...props}
@@ -82,7 +83,7 @@ const Text = forwardRef(({as: Component = 'span', className, size, weight, ...pr
     return (
       // @ts-ignore shh
       <Component
-        className={cx(className, classes.Text)}
+        className={clsx(className, classes.Text)}
         data-size={size}
         data-weight={weight}
         {...props}
@@ -104,7 +105,8 @@ const Text = forwardRef(({as: Component = 'span', className, size, weight, ...pr
       ref={innerRef}
     />
   )
-}) as PolymorphicForwardRefComponent<'span', StyledTextProps>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+}) as StyledComponent<'span', any, StyledTextProps, never>
 
 Text.displayName = 'Text'
 

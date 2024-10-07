@@ -135,6 +135,22 @@ exports[`NavList renders a simple list 1`] = `
   border-radius: 6px;
 }
 
+.c2[data-is-active-descendant] {
+  font-weight: 400;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c2[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
+}
+
 .c7 {
   position: relative;
   display: -webkit-box;
@@ -216,6 +232,22 @@ exports[`NavList renders a simple list 1`] = `
   --divider-color: transparent;
 }
 
+.c7[data-is-active-descendant] {
+  font-weight: 400;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c7[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
+}
+
 .c4 {
   color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   -webkit-text-decoration: none;
@@ -272,7 +304,8 @@ exports[`NavList renders a simple list 1`] = `
 @media (forced-colors:active) {
   .c2:focus,
   .c2:focus-visible,
-  .c2 > a.focus-visible {
+  .c2 > a.focus-visible,
+  .c2[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -301,7 +334,8 @@ exports[`NavList renders a simple list 1`] = `
 @media (forced-colors:active) {
   .c7:focus,
   .c7:focus-visible,
-  .c7 > a.focus-visible {
+  .c7 > a.focus-visible,
+  .c7[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -430,6 +464,30 @@ exports[`NavList renders with groups 1`] = `
   margin-top: 8px;
 }
 
+.c3 {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+}
+
+.c3 .ActionListGroupHeading {
+  font-size: var(--text-body-size-small),12px;
+  font-weight: var(--base-text-weight-semibold,600);
+  line-height: var(--text-body-lineHeight-small,1.6666);
+  color: var(--fgColor-muted);
+}
+
+.c3 .ActionListGroupHeadingDescription {
+  font-size: var(--text-body-size-small,12px);
+  font-weight: var(--base-text-weight-normal,400);
+  line-height: var(--text-body-lineHeight-small,1.6666);
+  color: var(--fgColor-muted);
+}
+
 .c4 {
   padding-inline-start: 0;
 }
@@ -465,31 +523,6 @@ exports[`NavList renders with groups 1`] = `
   flex-grow: 1;
   font-weight: 400;
   word-break: break-word;
-}
-
-.c3 {
-  font-weight: 600;
-  font-size: 32px;
-  margin: 0;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-left: 16px;
-  padding-right: 16px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-}
-
-.c3:where([data-variant='large']) {
-  font: var(--text-title-shorthand-large,600 32px / 1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji");
-}
-
-.c3:where([data-variant='medium']) {
-  font: var(--text-title-shorthand-medium,600 20px / 1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji");
-}
-
-.c3:where([data-variant='small']) {
-  font: var(--text-title-shorthand-small,600 16px / 1.5 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji");
 }
 
 .c0 {
@@ -593,6 +626,22 @@ exports[`NavList renders with groups 1`] = `
   border-radius: 6px;
 }
 
+.c6[data-is-active-descendant] {
+  font-weight: 400;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c6[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
+}
+
 .c11 {
   position: relative;
   display: -webkit-box;
@@ -674,6 +723,22 @@ exports[`NavList renders with groups 1`] = `
   --divider-color: transparent;
 }
 
+.c11[data-is-active-descendant] {
+  font-weight: 400;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c11[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
+}
+
 .c8 {
   color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   -webkit-text-decoration: none;
@@ -730,7 +795,8 @@ exports[`NavList renders with groups 1`] = `
 @media (forced-colors:active) {
   .c6:focus,
   .c6:focus-visible,
-  .c6 > a.focus-visible {
+  .c6 > a.focus-visible,
+  .c6[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -759,7 +825,8 @@ exports[`NavList renders with groups 1`] = `
 @media (forced-colors:active) {
   .c11:focus,
   .c11:focus-visible,
-  .c11 > a.focus-visible {
+  .c11 > a.focus-visible,
+  .c11[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -800,12 +867,16 @@ exports[`NavList renders with groups 1`] = `
       <li
         class="c2"
       >
-        <h3
+        <div
           class="c3"
-          id=":r7:"
         >
-          Overview
-        </h3>
+          <h3
+            class="ActionListGroupHeading Heading"
+            id=":r7:"
+          >
+            Overview
+          </h3>
+        </div>
         <ul
           aria-labelledby=":r7:"
           class="c4"
@@ -844,12 +915,16 @@ exports[`NavList renders with groups 1`] = `
       <li
         class="c2"
       >
-        <h3
+        <div
           class="c3"
-          id=":r9:"
         >
-          Components
-        </h3>
+          <h3
+            class="ActionListGroupHeading Heading"
+            id=":r9:"
+          >
+            Components
+          </h3>
+        </div>
         <ul
           aria-labelledby=":r9:"
           class="c4"
@@ -952,12 +1027,6 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   padding: 0;
   margin: 0;
   display: block;
-}
-
-.c9 {
-  -webkit-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  transform: rotate(180deg);
 }
 
 .c0 {
@@ -1070,6 +1139,22 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   border-radius: 6px;
 }
 
+.c11[data-is-active-descendant] {
+  font-weight: 400;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c11[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
+}
+
 .c4 {
   position: relative;
   display: -webkit-box;
@@ -1151,6 +1236,22 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   --divider-color: transparent;
 }
 
+.c4[data-is-active-descendant] {
+  font-weight: 400;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c4[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
+}
+
 .c13 {
   color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   -webkit-text-decoration: none;
@@ -1206,6 +1307,12 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   text-decoration: none;
 }
 
+.c9 {
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
 @media (forced-colors:active) {
 
 }
@@ -1217,7 +1324,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 @media (forced-colors:active) {
   .c11:focus,
   .c11:focus-visible,
-  .c11 > a.focus-visible {
+  .c11 > a.focus-visible,
+  .c11[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -1246,7 +1354,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 @media (forced-colors:active) {
   .c4:focus,
   .c4:focus-visible,
-  .c4 > a.focus-visible {
+  .c4 > a.focus-visible,
+  .c4[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -1425,12 +1534,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   word-break: break-word;
 }
 
-.c9 {
-  -webkit-transform: rotate(0deg);
-  -ms-transform: rotate(0deg);
-  transform: rotate(0deg);
-}
-
 .c0 {
   margin: 0;
   padding-inline-start: 0;
@@ -1531,6 +1634,22 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 .c11::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
+}
+
+.c11[data-is-active-descendant] {
+  font-weight: 400;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c11[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -1643,6 +1762,22 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   border-radius: 6px;
 }
 
+.c4[data-is-active-descendant] {
+  font-weight: 400;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c4[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
+}
+
 .c13 {
   color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   -webkit-text-decoration: none;
@@ -1698,6 +1833,12 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   text-decoration: none;
 }
 
+.c9 {
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg);
+}
+
 @media (forced-colors:active) {
 
 }
@@ -1709,7 +1850,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 @media (forced-colors:active) {
   .c11:focus,
   .c11:focus-visible,
-  .c11 > a.focus-visible {
+  .c11 > a.focus-visible,
+  .c11[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -1746,7 +1888,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 @media (forced-colors:active) {
   .c4:focus,
   .c4:focus-visible,
-  .c4 > a.focus-visible {
+  .c4 > a.focus-visible,
+  .c4[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }

@@ -4,7 +4,7 @@ import {
   FileDirectoryFillIcon,
   FileDirectoryOpenFillIcon,
 } from '@primer/octicons-react'
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 import React, {useCallback, useEffect} from 'react'
 import styled from 'styled-components'
 import {ConfirmationDialog} from '../ConfirmationDialog/ConfirmationDialog'
@@ -21,8 +21,8 @@ import sx from '../sx'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
-import {SkeletonAvatar} from '../drafts/Skeleton/SkeletonAvatar'
-import {SkeletonText} from '../drafts/Skeleton/SkeletonText'
+import {SkeletonAvatar} from '../experimental/Skeleton/SkeletonAvatar'
+import {SkeletonText} from '../experimental/Skeleton/SkeletonText'
 
 // ----------------------------------------------------------------------------
 // Context
@@ -616,10 +616,9 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
 
   // Handle transition from loading to done state
   React.useEffect(() => {
+    const parentElement = document.getElementById(itemId)
+    if (!parentElement) return
     if (previousState === 'loading' && state === 'done') {
-      const parentElement = document.getElementById(itemId)
-      if (!parentElement) return
-
       // Announce update to screen readers
       const parentName = getAccessibleName(parentElement)
 
@@ -646,6 +645,9 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
 
         setLoadingFocused(false)
       }
+    } else if (state === 'loading') {
+      const parentName = getAccessibleName(parentElement)
+      announceUpdate(`${parentName} content loading`)
     }
   }, [loadingFocused, previousState, state, itemId, announceUpdate, ref, safeSetTimeout])
 

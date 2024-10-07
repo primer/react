@@ -128,7 +128,7 @@ exports[`Button respects block prop 1`] = `
 }
 
 .c0[data-size="small"] [data-component="text"] {
-  line-height: calc(20 / 12);
+  line-height: 1.6666667;
 }
 
 .c0[data-size="small"] [data-component=ButtonCounter] {
@@ -221,7 +221,7 @@ exports[`Button respects block prop 1`] = `
 
 .c0 [data-component="text"] {
   grid-area: text;
-  line-height: calc(20/14);
+  line-height: 1.4285714;
   white-space: nowrap;
 }
 
@@ -257,6 +257,7 @@ exports[`Button respects block prop 1`] = `
   grid-area: text;
   margin-right: 0px !important;
   place-self: center;
+  color: fg.muted;
 }
 
 .c0 [data-component="loadingSpinner"] + [data-component="text"] {
@@ -284,7 +285,7 @@ exports[`Button respects block prop 1`] = `
   color: var(--button-color,undefined);
 }
 
-.c0[data-component="IconButton"][data-no-visuals] {
+.c0[data-component="IconButton"][data-no-visuals]:not(:disabled) {
   color: fg.muted;
 }
 
@@ -300,6 +301,7 @@ exports[`Button respects block prop 1`] = `
   data-block="block"
   data-loading="false"
   data-no-visuals="true"
+  data-size="medium"
   id="test-button"
   type="button"
 >
@@ -444,7 +446,7 @@ exports[`Button respects the alignContent prop 1`] = `
 }
 
 .c0[data-size="small"] [data-component="text"] {
-  line-height: calc(20 / 12);
+  line-height: 1.6666667;
 }
 
 .c0[data-size="small"] [data-component=ButtonCounter] {
@@ -537,7 +539,7 @@ exports[`Button respects the alignContent prop 1`] = `
 
 .c0 [data-component="text"] {
   grid-area: text;
-  line-height: calc(20/14);
+  line-height: 1.4285714;
   white-space: nowrap;
 }
 
@@ -573,6 +575,7 @@ exports[`Button respects the alignContent prop 1`] = `
   grid-area: text;
   margin-right: 0px !important;
   place-self: center;
+  color: fg.muted;
 }
 
 .c0 [data-component="loadingSpinner"] + [data-component="text"] {
@@ -600,7 +603,7 @@ exports[`Button respects the alignContent prop 1`] = `
   color: var(--button-color,undefined);
 }
 
-.c0[data-component="IconButton"][data-no-visuals] {
+.c0[data-component="IconButton"][data-no-visuals]:not(:disabled) {
   color: fg.muted;
 }
 
@@ -615,6 +618,7 @@ exports[`Button respects the alignContent prop 1`] = `
   class="c0"
   data-loading="false"
   data-no-visuals="true"
+  data-size="medium"
   id="test-button"
   type="button"
 >
@@ -759,7 +763,7 @@ exports[`Button respects the large size prop 1`] = `
 }
 
 .c0[data-size="small"] [data-component="text"] {
-  line-height: calc(20 / 12);
+  line-height: 1.6666667;
 }
 
 .c0[data-size="small"] [data-component=ButtonCounter] {
@@ -852,7 +856,7 @@ exports[`Button respects the large size prop 1`] = `
 
 .c0 [data-component="text"] {
   grid-area: text;
-  line-height: calc(20/14);
+  line-height: 1.4285714;
   white-space: nowrap;
 }
 
@@ -888,6 +892,7 @@ exports[`Button respects the large size prop 1`] = `
   grid-area: text;
   margin-right: 0px !important;
   place-self: center;
+  color: fg.muted;
 }
 
 .c0 [data-component="loadingSpinner"] + [data-component="text"] {
@@ -915,7 +920,7 @@ exports[`Button respects the large size prop 1`] = `
   color: var(--button-color,undefined);
 }
 
-.c0[data-component="IconButton"][data-no-visuals] {
+.c0[data-component="IconButton"][data-no-visuals]:not(:disabled) {
   color: fg.muted;
 }
 
@@ -1075,7 +1080,7 @@ exports[`Button respects the small size prop 1`] = `
 }
 
 .c0[data-size="small"] [data-component="text"] {
-  line-height: calc(20 / 12);
+  line-height: 1.6666667;
 }
 
 .c0[data-size="small"] [data-component=ButtonCounter] {
@@ -1168,7 +1173,7 @@ exports[`Button respects the small size prop 1`] = `
 
 .c0 [data-component="text"] {
   grid-area: text;
-  line-height: calc(20/14);
+  line-height: 1.4285714;
   white-space: nowrap;
 }
 
@@ -1204,6 +1209,7 @@ exports[`Button respects the small size prop 1`] = `
   grid-area: text;
   margin-right: 0px !important;
   place-self: center;
+  color: fg.muted;
 }
 
 .c0 [data-component="loadingSpinner"] + [data-component="text"] {
@@ -1231,7 +1237,7 @@ exports[`Button respects the small size prop 1`] = `
   color: var(--button-color,undefined);
 }
 
-.c0[data-component="IconButton"][data-no-visuals] {
+.c0[data-component="IconButton"][data-no-visuals]:not(:disabled) {
   color: fg.muted;
 }
 
@@ -1393,7 +1399,7 @@ exports[`Button styles danger button appropriately 1`] = `
 }
 
 .c0[data-size="small"] [data-component="text"] {
-  line-height: calc(20 / 12);
+  line-height: 1.6666667;
 }
 
 .c0[data-size="small"] [data-component=ButtonCounter] {
@@ -1486,7 +1492,7 @@ exports[`Button styles danger button appropriately 1`] = `
 
 .c0 [data-component="text"] {
   grid-area: text;
-  line-height: calc(20/14);
+  line-height: 1.4285714;
   white-space: nowrap;
 }
 
@@ -1522,6 +1528,7 @@ exports[`Button styles danger button appropriately 1`] = `
   grid-area: text;
   margin-right: 0px !important;
   place-self: center;
+  color: fg.muted;
 }
 
 .c0 [data-component="loadingSpinner"] + [data-component="text"] {
@@ -1565,6 +1572,7 @@ exports[`Button styles danger button appropriately 1`] = `
   class="c0"
   data-loading="false"
   data-no-visuals="true"
+  data-size="medium"
   id="test-button"
   type="button"
 >
@@ -1680,6 +1688,7 @@ exports[`Button styles invisible button appropriately 1`] = `
   cursor: not-allowed;
   box-shadow: none;
   color: primer.fg.disabled;
+  background-color: var(--button-invisible-bgColor-disabled,transparent);
 }
 
 .c0:disabled [data-component=ButtonCounter],
@@ -1708,7 +1717,7 @@ exports[`Button styles invisible button appropriately 1`] = `
 }
 
 .c0[data-size="small"] [data-component="text"] {
-  line-height: calc(20 / 12);
+  line-height: 1.6666667;
 }
 
 .c0[data-size="small"] [data-component=ButtonCounter] {
@@ -1797,22 +1806,23 @@ exports[`Button styles invisible button appropriately 1`] = `
 
 .c0 [data-component="leadingVisual"] {
   grid-area: leadingVisual;
-  color: fg.muted;
+  color: var(--button-invisible-iconColor-rest,undefined);
 }
 
 .c0 [data-component="text"] {
   grid-area: text;
-  line-height: calc(20/14);
+  line-height: 1.4285714;
   white-space: nowrap;
 }
 
 .c0 [data-component="trailingVisual"] {
   grid-area: trailingVisual;
+  color: var(--button-invisible-iconColor-rest,undefined);
 }
 
 .c0 [data-component="trailingAction"] {
   margin-right: -4px;
-  color: fg.muted;
+  color: var(--button-invisible-iconColor-rest,undefined);
 }
 
 .c0 [data-component="buttonContent"] {
@@ -1839,6 +1849,7 @@ exports[`Button styles invisible button appropriately 1`] = `
   grid-area: text;
   margin-right: 0px !important;
   place-self: center;
+  color: fg.muted;
 }
 
 .c0 [data-component="loadingSpinner"] + [data-component="text"] {
@@ -1858,7 +1869,7 @@ exports[`Button styles invisible button appropriately 1`] = `
 }
 
 .c0[data-component="IconButton"][data-no-visuals] {
-  color: fg.muted;
+  color: var(--button-invisible-iconColor-rest,undefined);
 }
 
 .c0[data-no-visuals] {
@@ -1888,6 +1899,7 @@ exports[`Button styles invisible button appropriately 1`] = `
   class="c0"
   data-loading="false"
   data-no-visuals="true"
+  data-size="medium"
   id="test-button"
   type="button"
 >
@@ -2033,7 +2045,7 @@ exports[`Button styles primary button appropriately 1`] = `
 }
 
 .c0[data-size="small"] [data-component="text"] {
-  line-height: calc(20 / 12);
+  line-height: 1.6666667;
 }
 
 .c0[data-size="small"] [data-component=ButtonCounter] {
@@ -2126,7 +2138,7 @@ exports[`Button styles primary button appropriately 1`] = `
 
 .c0 [data-component="text"] {
   grid-area: text;
-  line-height: calc(20/14);
+  line-height: 1.4285714;
   white-space: nowrap;
 }
 
@@ -2162,6 +2174,7 @@ exports[`Button styles primary button appropriately 1`] = `
   grid-area: text;
   margin-right: 0px !important;
   place-self: center;
+  color: fg.muted;
 }
 
 .c0 [data-component="loadingSpinner"] + [data-component="text"] {
@@ -2202,6 +2215,7 @@ exports[`Button styles primary button appropriately 1`] = `
   class="c0"
   data-loading="false"
   data-no-visuals="true"
+  data-size="medium"
   id="test-button"
   type="button"
 >

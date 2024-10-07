@@ -32,7 +32,7 @@ test.describe('Link', () => {
               globals: {
                 colorScheme: theme,
                 featureFlags: {
-                  primer_react_css_modules_team: true,
+                  primer_react_css_modules_ga: true,
                 },
               },
             })
@@ -55,7 +55,7 @@ test.describe('Link', () => {
               globals: {
                 colorScheme: theme,
                 featureFlags: {
-                  primer_react_css_modules_team: true,
+                  primer_react_css_modules_ga: true,
                 },
               },
             })

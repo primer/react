@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 import React, {useMemo} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
@@ -186,6 +186,9 @@ const TooltipBase = styled.span<SxProp>`
   ${sx};
 `
 
+/**
+ * @deprecated
+ */
 export type TooltipProps = {
   direction?: 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'
   text?: string
@@ -195,6 +198,10 @@ export type TooltipProps = {
 } & ComponentProps<typeof TooltipBase>
 
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
+
+/**
+ * @deprecated
+ */
 function Tooltip({direction = 'n', children, className, text, noDelay, align, wrap, id, ...rest}: TooltipProps) {
   const tooltipId = useId(id)
   const classes = clsx(
