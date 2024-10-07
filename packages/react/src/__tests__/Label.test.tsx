@@ -12,21 +12,15 @@ describe('Label', () => {
     expect(label.textContent).toEqual('Default')
   })
   it('default size is rendered as "small"', () => {
-    const expectedStyles = {
-      height: 'var(--base-size-20,20px)',
-      padding: '0 var(--base-size-6,6px)',
-    }
-    const defaultStyles = renderStyles(<Label />)
+    const {getByText} = render(<Label>Default</Label>)
 
-    expect(defaultStyles).toEqual(expect.objectContaining(expectedStyles))
+    // Expect the label to have the default size
+    expect(getByText('Default')).toHaveAttribute('data-size', 'small')
   })
   it('default variant is rendered as "default"', () => {
-    const expectedStyles = {
-      ['border-color']: 'var(--borderColor-default,var(--color-border-default,#d0d7de))',
-    }
-    const defaultStyles = renderStyles(<Label />)
+    const {getByText} = render(<Label>Default</Label>)
 
-    expect(defaultStyles).toEqual(expect.objectContaining(expectedStyles))
+    expect(getByText('Default')).toHaveAttribute('data-variant', 'default')
   })
   it('should have no axe violations', async () => {
     for (const variant in variants) {
