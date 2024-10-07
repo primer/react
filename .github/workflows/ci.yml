@@ -144,7 +144,7 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
-          name: vrt-${{ matrix.shard }}
+          name: vrt-no-flag-${{ matrix.shard }}
           path: blob-report
           retention-days: 1
 
@@ -166,14 +166,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: all-blob-reports
-          pattern: vrt-*
+          pattern: vrt-no-flag-*
           merge-multiple: true
       - name: merge all reports
         run: npx playwright merge-reports --reporter html ./all-blob-reports
       - name: Upload report
         uses: actions/upload-artifact@v4
         with:
-          name: vrt
+          name: vrt-no-flag
           path: playwright-report
       - name: check vrt-runner job status
         if: ${{ needs.vrt-runner.result == 'failure' }}
@@ -296,7 +296,7 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
-          name: axe-${{ matrix.shard }}
+          name: axe-no-flag-${{ matrix.shard }}
           path: blob-report
           retention-days: 1
 
@@ -318,7 +318,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: all-blob-reports
-          pattern: axe-*
+          pattern: axe-no-flag-*
           merge-multiple: true
       - name: merge all reports
         run: npx playwright merge-reports --reporter html ./all-blob-reports
