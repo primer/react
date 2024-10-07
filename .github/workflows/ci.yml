@@ -106,7 +106,7 @@ jobs:
         run: npm run build -ws --if-present
 
   vrt-runner:
-    runs-on: ubuntu-latest-8-cores
+    runs-on: ubuntu-latest-16-cores
     strategy:
       fail-fast: false
       matrix:
@@ -180,7 +180,7 @@ jobs:
         run: exit 1
 
   vrt-runner-all-flags:
-    runs-on: ubuntu-latest-8-cores
+    runs-on: ubuntu-latest-16-cores
     strategy:
       fail-fast: false
       matrix:
@@ -258,7 +258,7 @@ jobs:
         run: exit 1
 
   aat-runner:
-    runs-on: ubuntu-latest-8-cores
+    runs-on: ubuntu-latest-16-cores
     strategy:
       fail-fast: false
       matrix:
@@ -332,7 +332,7 @@ jobs:
         run: exit 1
 
   aat-runner-all-flags:
-    runs-on: ubuntu-latest-8-cores
+    runs-on: ubuntu-latest-16-cores
     strategy:
       fail-fast: false
       matrix:
