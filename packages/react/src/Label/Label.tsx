@@ -2,7 +2,7 @@ import {clsx} from 'clsx'
 import Box from '../Box'
 import classes from './Label.module.css'
 import React from 'react'
-import type {SxProp} from '../sx'
+import type {BetterSystemStyleObject, SxProp} from '../sx'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 export type LabelProps = {
@@ -25,6 +25,47 @@ export type LabelColorOptions =
   | 'sponsors'
 
 type LabelSizeKeys = 'small' | 'large'
+
+export const variants: Record<LabelColorOptions, BetterSystemStyleObject> = {
+  default: {
+    borderColor: 'border.default',
+  },
+  primary: {
+    borderColor: 'fg.default',
+  },
+  secondary: {
+    borderColor: 'border.muted',
+    color: 'fg.muted',
+  },
+  accent: {
+    borderColor: 'accent.emphasis',
+    color: 'accent.fg',
+  },
+  success: {
+    borderColor: 'success.emphasis',
+    color: 'success.fg',
+  },
+  attention: {
+    borderColor: 'attention.emphasis',
+    color: 'attention.fg',
+  },
+  severe: {
+    borderColor: 'severe.emphasis',
+    color: 'severe.fg',
+  },
+  danger: {
+    borderColor: 'danger.emphasis',
+    color: 'danger.fg',
+  },
+  done: {
+    borderColor: 'done.emphasis',
+    color: 'done.fg',
+  },
+  sponsors: {
+    borderColor: 'sponsors.emphasis',
+    color: 'sponsors.fg',
+  },
+}
 
 const Label = React.forwardRef(function Label({as, size = 'small', variant = 'default', className, ...rest}, ref) {
   const Component = as || 'span'
