@@ -3,7 +3,6 @@ import {render} from '@testing-library/react'
 import axe from 'axe-core'
 import type {LabelColorOptions} from '../Label'
 import Label, {variants} from '../Label'
-import {renderStyles} from '../utils/testing'
 
 describe('Label', () => {
   it('renders text node child', () => {
