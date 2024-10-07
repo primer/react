@@ -26,8 +26,8 @@ jobs:
             echo "diff=$DIFF" >> $GITHUB_OUTPUT
           fi
 
-      - name: Debug
-        run: echo ${{ steps.source-files.outputs.diff }}
+      - name: Has diff?
+        run: echo ${{ steps.source-files.outputs.diff != '' }}
 
       - name: Get or Create Comment
         if: ${{ steps.source-files.outputs.diff != '' }}
