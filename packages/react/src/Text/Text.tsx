@@ -20,7 +20,7 @@ export type TextProps = {
 const COMMON_PROP_NAMES = new Set(Object.keys(COMMON))
 const TYPOGRAPHY_PROP_NAMES = new Set(Object.keys(TYPOGRAPHY))
 
-const includesSystemProps = (props: StyledTextProps) => {
+const includesSystemProps = (props: TextProps) => {
   if (props.sx) {
     return true
   }
