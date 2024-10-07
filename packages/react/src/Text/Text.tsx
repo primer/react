@@ -63,7 +63,7 @@ const TYPOGRAPHY_PROP_NAMES = new Set(Object.keys(TYPOGRAPHY))
 
 const includesSystemProps = (props: StyledTextProps) => {
   if (props.sx) {
-    return true;
+    return true
   }
 
   return Object.keys(props).some(prop => {
