@@ -381,7 +381,7 @@ jobs:
   aat-all-flags:
     if: ${{ always() }}
     runs-on: ubuntu-latest
-    needs: aat-runner
+    needs: aat-runner-all-flags
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js 20.x
