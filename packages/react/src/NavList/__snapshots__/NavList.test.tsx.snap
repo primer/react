@@ -1029,12 +1029,6 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   display: block;
 }
 
-.c9 {
-  -webkit-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  transform: rotate(180deg);
-}
-
 .c0 {
   margin: 0;
   padding-inline-start: 0;
@@ -1313,6 +1307,12 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   text-decoration: none;
 }
 
+.c9 {
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
 @media (forced-colors:active) {
 
 }
@@ -1532,12 +1532,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   flex-grow: 1;
   font-weight: 600;
   word-break: break-word;
-}
-
-.c9 {
-  -webkit-transform: rotate(0deg);
-  -ms-transform: rotate(0deg);
-  transform: rotate(0deg);
 }
 
 .c0 {
@@ -1837,6 +1831,12 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   color: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
+}
+
+.c9 {
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg);
 }
 
 @media (forced-colors:active) {
