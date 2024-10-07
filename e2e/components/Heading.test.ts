@@ -26,20 +26,6 @@ test.describe('Heading', () => {
       test('default @vrt', async ({page}) => {
         await visit(page, {
           id: story.id,
-          globals: {
-            featureFlags: {
-              primer_react_css_modules_ga: true,
-            },
-          },
-        })
-
-        // Default state
-        expect(await page.screenshot()).toMatchSnapshot(`Heading.${story.title}.png`)
-      })
-
-      test('default (styled-components) @vrt', async ({page}) => {
-        await visit(page, {
-          id: story.id,
         })
 
         // Default state
@@ -47,18 +33,6 @@ test.describe('Heading', () => {
       })
 
       test('axe @aat', async ({page}) => {
-        await visit(page, {
-          id: story.id,
-          globals: {
-            featureFlags: {
-              primer_react_css_modules_ga: true,
-            },
-          },
-        })
-        await expect(page).toHaveNoViolations()
-      })
-
-      test('axe (styled-components) @aat', async ({page}) => {
         await visit(page, {
           id: story.id,
         })

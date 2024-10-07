@@ -1,3 +1,5 @@
+/* stylelint-disable csstools/value-no-unknown-custom-properties */
+
 :where(.Avatar) {
   display: inline-block;
   width: var(--avatarSize-regular);
@@ -11,7 +13,8 @@
   box-shadow: 0 0 0 1px var(--avatar-borderColor);
 
   &:where([data-square]) {
-    border-radius: var(--borderRadius-medium);
+    /* stylelint-disable-next-line primer/borders */
+    border-radius: clamp(4px, calc(var(--avatarSize-regular) - 24px), var(--borderRadius-medium));
   }
 
   &:where([data-responsive]) {

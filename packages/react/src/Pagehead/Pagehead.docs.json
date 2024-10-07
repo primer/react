@@ -1,10 +1,10 @@
 {
   "id": "pagehead",
   "name": "Pagehead",
-  "status": "alpha",
+  "status": "deprecated",
   "a11yReviewed": false,
   "stories": [],
-  "importPath": "@primer/react",
+  "importPath": "@primer/react/deprecated",
   "props": [
     {
       "name": "as",
