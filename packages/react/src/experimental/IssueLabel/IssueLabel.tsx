@@ -30,7 +30,7 @@ export interface IssueLabelProps {
   fillColor?: Hex
   variant?: LabelColorVariant
   href?: string
-  as?: 'button' | 'a' | 'span'
+  // as?: 'button' | 'a' | 'span'
   text: React.ReactNode
   id?: number | string
   className?: string
@@ -38,7 +38,10 @@ export interface IssueLabelProps {
   onFocus?: React.FocusEventHandler<HTMLSpanElement | HTMLButtonElement | HTMLAnchorElement>
 }
 
-export function IssueLabel({
+type IssueLabelLinkProps = React.ComponentPropsWithoutRef<'a'>
+type IssueLabelButtonProps = React.ComponentPropsWithoutRef<'button'>
+
+export function IssueLabel(props: IssueLabelLinkProps | IssueLabelButtonProps | IssueLabelProps) {
   className,
   fillColor,
   variant = 'gray',
@@ -46,7 +49,7 @@ export function IssueLabel({
   onClick,
   onFocus,
   text,
-  as,
+  // as,
   id,
   ...rest
 }: IssueLabelProps) {
@@ -64,20 +67,23 @@ export function IssueLabel({
   }
 
   // Determine the component type: Prioritize `as`, then fallback to `href` or `onClick` logic
-  let Component: 'a' | 'button' | 'span' = 'span' // Default to <span>
+  // let Component: 'a' | 'button' | 'span' = 'span' // Default to <span>
 
-  if (as) {
-    Component = as // use 'as' prop if provided
-  } else if (href) {
-    Component = 'a' // render as <a> if `href` is provided
-  } else if (onClick) {
-    Component = 'button' // render as <button> if `onClick` is provided
-  }
+  // if (as) {
+  //   Component = as // use 'as' prop if provided
+  // } else if (href) {
+  //   Component = 'a' // render as <a> if `href` is provided
+  // } else if (onClick) {
+  //   Component = 'button' // render as <button> if `onClick` is provided
+  // }
 
-  const anchorProps = href ? {href} : {}
+  // const anchorProps = href ? { href } : {}
+
+  const BaseComponent = 'href' in props ? 'a' : 'button';
+  const allProps = BaseComponent === 'a' ? props as IssueLabelLinkProps : props as IssueLabelButtonProps;
 
   return (
-    <Component
+    <BaseComponent
       {...rest}
       {...anchorProps}
       onClick={onClick}
@@ -88,6 +94,6 @@ export function IssueLabel({
       style={fillColor ? getColorsFromHex(fillColor, resolvedColorScheme, bgColors[mode]) : undefined}
     >
       {text}
-    </Component>
+    </BaseComponent>
   )
 }
