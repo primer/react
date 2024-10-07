@@ -100,7 +100,7 @@ const StyledLabel = styled.span<LabelProps>`
 `
 
 const Label = React.forwardRef(function Label({as, size = 'small', variant = 'default', className, ...rest}, ref) {
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
   if (enabled) {
     const Component = as || 'span'
     if (rest.sx) {

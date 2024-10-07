@@ -20,6 +20,9 @@ type CaretPosition =
   | 'right-top'
 
 type StyledPopoverProps = {
+  /**
+   * @deprecated `caret` is deprecated and will be removed in v38.
+   */
   caret?: CaretPosition
   relative?: boolean
   open?: boolean

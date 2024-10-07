@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import {AlertIcon, InfoIcon, StopIcon, CheckCircleIcon, XIcon} from '@primer/octicons-react'
 import {Button, IconButton} from '../Button'
 import {get} from '../constants'
-import {VisuallyHidden} from '../internal/components/VisuallyHidden'
+import {VisuallyHidden} from '../VisuallyHidden'
 import {useMergedRefs} from '../internal/hooks/useMergedRefs'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './Banner.module.css'
@@ -338,7 +338,7 @@ const StyledBanner = toggleStyledComponent(
       }
     }
 
-    &[data-dismissible] .BannerActions {
+    &[data-dismissible]:not([data-title-hidden]) .BannerActions {
       margin-block-end: var(--base-size-6, 0.375rem);
     }
 
@@ -393,6 +393,7 @@ const BannerContainerQuery = `
 
     .BannerActions [data-primary-action="trailing"] {
       display: flex;
+      min-height: var(--base-size-32, 2rem);
     }
 
     .BannerActions [data-primary-action="leading"] {
