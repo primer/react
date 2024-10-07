@@ -616,10 +616,9 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
 
   // Handle transition from loading to done state
   React.useEffect(() => {
+    const parentElement = document.getElementById(itemId)
+    if (!parentElement) return
     if (previousState === 'loading' && state === 'done') {
-      const parentElement = document.getElementById(itemId)
-      if (!parentElement) return
-
       // Announce update to screen readers
       const parentName = getAccessibleName(parentElement)
 
@@ -646,6 +645,9 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
 
         setLoadingFocused(false)
       }
+    } else if (state === 'loading') {
+      const parentName = getAccessibleName(parentElement)
+      announceUpdate(`${parentName} content loading`)
     }
   }, [loadingFocused, previousState, state, itemId, announceUpdate, ref, safeSetTimeout])
 
