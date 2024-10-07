@@ -341,7 +341,12 @@ for (const useModernActionList of [false, true]) {
 
           function Fixture() {
             // items are defined in the same scope as selection, so they could rerender and create new object references
-            const items: SelectPanelProps['items'] = [{text: 'item one'}, {text: 'item two'}, {text: 'item three'}]
+            // We use item.id to track selection
+            const items: SelectPanelProps['items'] = [
+              {id: 'one', text: 'item one'},
+              {id: 'two', text: 'item two'},
+              {id: 'three', text: 'item three'},
+            ]
 
             const [open, setOpen] = React.useState(false)
             const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
