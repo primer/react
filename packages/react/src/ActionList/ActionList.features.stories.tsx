@@ -643,21 +643,21 @@ export const InsideOverlay = () => {
         </button>
       )}
     >
-      <ActionList>
-        <ActionList.Item>
+      <ActionList role="menu">
+        <ActionList.Item role="menuitem">
           Use your arrow keys
           <ActionList.TrailingVisual>↓</ActionList.TrailingVisual>
         </ActionList.Item>
-        <ActionList.Item>
+        <ActionList.Item role="menuitem">
           keep going
           <ActionList.TrailingVisual>↓</ActionList.TrailingVisual>
         </ActionList.Item>
-        <ActionList.Item>
+        <ActionList.Item role="menuitem">
           more more
           <ActionList.TrailingVisual>↓</ActionList.TrailingVisual>
         </ActionList.Item>
         <ActionList.Divider />
-        <ActionList.Item variant="danger">
+        <ActionList.Item variant="danger" role="menuitem">
           now go up!
           <ActionList.TrailingVisual>↑</ActionList.TrailingVisual>
         </ActionList.Item>

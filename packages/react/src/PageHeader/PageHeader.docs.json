@@ -10,7 +10,7 @@
       "name": "aria-label",
       "type": "string | undefined",
       "defaultValue": "",
-      "description": "A unique label for the rendered main landmark"
+      "description": "A unique label for the rendered landmark"
     },
     {
       "name": "className",
@@ -23,6 +23,11 @@
       "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
       "defaultValue": "false",
       "description": "Whether the content is hidden."
+    },
+    {
+      "name": "role",
+      "type": "AriaRole",
+      "description": "The ARIA role to assign to the top-level node of this component."
     },
     {
       "name": "sx",

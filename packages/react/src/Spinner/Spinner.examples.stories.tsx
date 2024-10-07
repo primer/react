@@ -2,7 +2,7 @@ import React from 'react'
 import type {Meta} from '@storybook/react'
 import Spinner from './Spinner'
 import {Box, Button} from '..'
-import {VisuallyHidden} from '../internal/components/VisuallyHidden'
+import {VisuallyHidden} from '../VisuallyHidden'
 import {AriaStatus} from '../live-region'
 
 export default {
