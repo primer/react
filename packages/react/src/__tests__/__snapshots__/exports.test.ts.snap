@@ -329,6 +329,7 @@ exports[`@primer/react/experimental should not update exports without a semver c
   "type UnderlinePanelsPanelProps",
   "type UnderlinePanelsProps",
   "type UnderlinePanelsTabProps",
+  "useFeatureFlag",
   "useOverflow",
   "useSlots",
 ]
