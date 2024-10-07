@@ -994,12 +994,6 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   display: block;
 }
 
-.c9 {
-  -webkit-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  transform: rotate(180deg);
-}
-
 .c0 {
   margin: 0;
   padding-inline-start: 0;
@@ -1221,6 +1215,67 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   content: "";
   background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   border-radius: 6px;
+}
+
+.c13 {
+  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-left: 16px;
+  padding-right: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  border-radius: 6px;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+[data-a11y-link-underlines='true'] .c12[data-inline='true'] {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c13:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c13:is(button) {
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.c13:hover {
+  color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c9 {
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 @media (forced-colors:active) {
@@ -1469,12 +1524,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   word-break: break-word;
 }
 
-.c9 {
-  -webkit-transform: rotate(0deg);
-  -ms-transform: rotate(0deg);
-  transform: rotate(0deg);
-}
-
 .c0 {
   margin: 0;
   padding-inline-start: 0;
@@ -1717,6 +1766,67 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   content: "";
   background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   border-radius: 6px;
+}
+
+.c13 {
+  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-left: 16px;
+  padding-right: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  border-radius: 6px;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+[data-a11y-link-underlines='true'] .c12[data-inline='true'] {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c13:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c13:is(button) {
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.c13:hover {
+  color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c9 {
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg);
 }
 
 @media (forced-colors:active) {
