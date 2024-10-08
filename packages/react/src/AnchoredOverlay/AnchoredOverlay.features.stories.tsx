@@ -102,9 +102,7 @@ export const CustomAnchorId = () => {
       renderAnchor={props => <Button {...props}>Button</Button>}
       anchorId="my-custom-anchor-id"
     >
-      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
-        {hoverCard}
-      </Box>
+      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
     </AnchoredOverlay>
   )
 }
@@ -120,9 +118,7 @@ export const Height = () => {
       renderAnchor={props => <Button {...props}>Button</Button>}
       height="large"
     >
-      <Box width="100%" height="100%" display="flex" flexDirection="column">
-        {hoverCard}
-      </Box>
+      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
     </AnchoredOverlay>
   )
 }
@@ -138,9 +134,7 @@ export const Width = () => {
       renderAnchor={props => <Button {...props}>Button</Button>}
       width="large"
     >
-      <Box width="100%" height="100%" display="flex" flexDirection="column">
-        {hoverCard}
-      </Box>
+      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
     </AnchoredOverlay>
   )
 }
@@ -160,9 +154,7 @@ export const AnchorAlignment = () => {
       )}
       align="center"
     >
-      <Box width="100%" height="100%" display="flex" flexDirection="column">
-        {hoverCard}
-      </Box>
+      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
     </AnchoredOverlay>
   )
 }
@@ -178,9 +170,7 @@ export const AnchorSide = () => {
       renderAnchor={props => <Button {...props}>Button</Button>}
       side="outside-right"
     >
-      <Box width="100%" height="100%" display="flex" flexDirection="column">
-        {hoverCard}
-      </Box>
+      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
     </AnchoredOverlay>
   )
 }
@@ -196,9 +186,7 @@ export const OffsetPositionFromAnchor = () => {
       renderAnchor={props => <Button {...props}>Button</Button>}
       anchorOffset={100}
     >
-      <Box width="100%" height="100%" backgroundColor="thistle" display="flex" flexDirection="column">
-        {hoverCard}
-      </Box>
+      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
     </AnchoredOverlay>
   )
 }
@@ -214,9 +202,7 @@ export const OffsetAlignmentFromAnchor = () => {
       renderAnchor={props => <Button {...props}>Button</Button>}
       alignmentOffset={100}
     >
-      <Box width="100%" height="100%" display="flex" flexDirection="column">
-        {hoverCard}
-      </Box>
+      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
     </AnchoredOverlay>
   )
 }
@@ -279,9 +265,7 @@ export const OverlayPropsOverrides = () => {
         <li>overflow: `auto`</li>
         <li>maxHeight: `xsmall`</li>
       </pre>
-      <Box width="100%" height="100%" display="flex" flexDirection="column">
-        {hoverCard}
-      </Box>
+      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
     </AnchoredOverlay>
   )
 }
