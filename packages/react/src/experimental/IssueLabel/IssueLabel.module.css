@@ -4,8 +4,10 @@
   font-size: var(--text-body-size-small);
   font-weight: var(--base-text-weight-semibold);
   line-height: var(--text-body-lineHeight-small);
+  /* stylelint-disable-next-line primer/colors */
   color: var(--label-fgColor);
   white-space: nowrap;
+  /* stylelint-disable-next-line primer/colors */
   background-color: var(--label-bgColor-rest);
   border: 0;
   border-radius: var(--borderRadius-full);
@@ -20,13 +22,17 @@
     text-decoration: none;
 
     &:hover {
+      /* stylelint-disable-next-line primer/colors */
       color: var(--label-fgColor-hover);
       cursor: pointer;
+      /* stylelint-disable-next-line primer/colors */
       background-color: var(--label-bgColor-hover);
     }
 
     &:active {
+      /* stylelint-disable-next-line primer/colors */
       color: var(--label-fgColor-active);
+      /* stylelint-disable-next-line primer/colors */
       background-color: var(--label-bgColor-active);
     }
 

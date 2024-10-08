@@ -11,6 +11,7 @@
     height: var(--base-size-16);
     visibility: hidden;
     content: '';
+    /* stylelint-disable-next-line primer/colors */
     background-color: var(--fgColor-onEmphasis);
     transition: visibility 0s linear 230ms;
     clip-path: inset(var(--base-size-16) 0 0 0);
@@ -26,6 +27,7 @@
     background: var(--control-checked-bgColor-rest);
 
     /* using bgColor here to avoid a border change in dark high contrast */
+    /* stylelint-disable-next-line primer/colors */
     border-color: var(--control-checked-bgColor-rest);
 
     &::before {
@@ -53,6 +55,7 @@
       opacity: 1;
 
       &::before {
+        /* stylelint-disable-next-line primer/colors */
         background-color: var(--control-checked-fgColor-disabled);
       }
     }
