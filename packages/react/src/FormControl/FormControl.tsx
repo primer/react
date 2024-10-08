@@ -62,10 +62,7 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     const inputProps = React.isValidElement(InputComponent) && InputComponent.props
     const isChoiceInput =
       React.isValidElement(InputComponent) && (InputComponent.type === Checkbox || InputComponent.type === Radio)
-    const isPartOfCheckboxGroup =
-      React.isValidElement(InputComponent) &&
-      InputComponent.type === Checkbox &&
-      Object.keys(choiceGroupContext).length > 0
+    const isRadioInput = React.isValidElement(InputComponent) && InputComponent.type === Radio
 
     if (InputComponent) {
       if (inputProps?.id) {
@@ -103,9 +100,9 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
         )
       }
 
-      if (childrenWithoutSlots.find(child => React.isValidElement(child) && child.props?.required)) {
+      if (isRadioInput && childrenWithoutSlots.find(child => React.isValidElement(child) && child.props?.required)) {
         // eslint-disable-next-line no-console
-        console.warn('An individual checkbox or radio cannot be a required field.')
+        console.warn('An individual radio cannot be a required field.')
       }
     } else {
       if (slots.leadingVisual) {
@@ -148,8 +145,8 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
                   {
                     id,
                     disabled,
-                    // allow individual checkboxes that are part of a checkbox group to be required
-                    required: required && isPartOfCheckboxGroup,
+                    // allow checkboxes to be required
+                    required: required && !isRadioInput,
                     ['aria-describedby']: captionId as string,
                   },
                 )}

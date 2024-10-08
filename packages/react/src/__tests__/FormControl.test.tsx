@@ -7,6 +7,7 @@ import {
   Checkbox,
   CheckboxGroup,
   FormControl,
+  Radio,
   Select,
   Textarea,
   TextInput,
@@ -377,13 +378,13 @@ describe('FormControl', () => {
         consoleSpy.mockRestore()
       })
 
-      it('should warn users if they pass `required` to a checkbox or radio', async () => {
+      it('should warn users if they pass `required` to a radio', async () => {
         const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
 
         render(
           <FormControl required>
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-            <Checkbox required />
+            <Radio value="radio" name="radio" required />
             <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
           </FormControl>,
         )
@@ -392,7 +393,7 @@ describe('FormControl', () => {
         consoleSpy.mockRestore()
       })
 
-      it('should not add required prop to individual checkbox', async () => {
+      it('should allow required prop to individual checkbox', async () => {
         const {getByRole} = render(
           <FormControl required>
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
@@ -401,7 +402,19 @@ describe('FormControl', () => {
           </FormControl>,
         )
 
-        expect(getByRole('checkbox')).not.toBeRequired()
+        expect(getByRole('checkbox')).toBeRequired()
+      })
+
+      it('should not add required prop to individual radio', async () => {
+        const {getByRole} = render(
+          <FormControl required>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <Radio value="radio" name="radio" />
+            <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
+          </FormControl>,
+        )
+
+        expect(getByRole('radio')).not.toBeRequired()
       })
 
       it('should allow required prop on checkbox if part of CheckboxGroup', async () => {
