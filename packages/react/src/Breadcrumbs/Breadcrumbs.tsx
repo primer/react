@@ -16,6 +16,7 @@ const SELECTED_CLASS = 'selected'
 
 const Wrapper = toggleStyledComponent(
   'primer_react_css_modules_team',
+  'li',
   styled.li`
     display: inline-block;
     white-space: nowrap;
@@ -43,6 +44,7 @@ const Wrapper = toggleStyledComponent(
 
 const BreadcrumbsBase = toggleStyledComponent(
   'primer_react_css_modules_team',
+  'nav',
   styled.nav<SxProp>`
     display: flex;
     justify-content: space-between;
@@ -92,6 +94,7 @@ type StyledBreadcrumbsItemProps = {
 
 const StyledBreadcrumbsItem = toggleStyledComponent(
   'primer_react_css_modules_team',
+  'a',
   styled.a.attrs<StyledBreadcrumbsItemProps>(props => ({
     className: clsx(props.selected && SELECTED_CLASS, props.className),
     'aria-current': props.selected ? 'page' : null,
