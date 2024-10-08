@@ -123,6 +123,7 @@ const filterSlowly = async (query: string) => {
 
 export function MixedSelection(): JSX.Element {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
+  const listRef = React.useRef<HTMLUListElement>(null)
 
   const options = [
     {text: 'Status', icon: <IssueOpenedIcon />},
@@ -133,6 +134,11 @@ export function MixedSelection(): JSX.Element {
     {text: 'Due Date', icon: <CalendarIcon />},
   ]
 
+  const clearGroup = () => {
+    ;(listRef.current?.querySelector('li[aria-selected="true"]') as HTMLLIElement | undefined)?.focus()
+    setSelectedIndex(null)
+  }
+
   return (
     <>
       <h1>List with mixed selection</h1>
@@ -142,9 +148,9 @@ export function MixedSelection(): JSX.Element {
         is an action. This pattern appears inside a menu for selection view options in Memex
       </p>
 
-      <ActionList>
+      <ActionList ref={listRef}>
         <ActionList.Group selectionVariant="single" role="listbox">
-          <ActionList.GroupHeading>Group by</ActionList.GroupHeading>
+          <ActionList.GroupHeading as="h2">Group by</ActionList.GroupHeading>
           {options.map((option, index) => (
             <ActionList.Item
               key={index}
@@ -160,7 +166,7 @@ export function MixedSelection(): JSX.Element {
         {typeof selectedIndex === 'number' && (
           <>
             <ActionList.Divider />
-            <ActionList.Item onSelect={() => setSelectedIndex(null)}>
+            <ActionList.Item onSelect={clearGroup}>
               <ActionList.LeadingVisual>
                 <XIcon />
               </ActionList.LeadingVisual>
