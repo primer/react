@@ -22,6 +22,7 @@ type StyledAvatarStackWrapperProps = {
 
 const AvatarStackWrapper = toggleStyledComponent(
   'primer_react_css_modules_team',
+  'span',
   styled.span<StyledAvatarStackWrapperProps>`
     --avatar-border-width: 1px;
     --avatar-two-margin: calc(var(--avatar-stack-size) * -0.55);
