@@ -102,7 +102,7 @@ export const CustomAnchorId = () => {
       renderAnchor={props => <Button {...props}>Button</Button>}
       anchorId="my-custom-anchor-id"
     >
-      <Box width="100%" height="100%" display="flex" flexDirection="column">
+      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column' }}>
         {hoverCard}
       </Box>
     </AnchoredOverlay>
