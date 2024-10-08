@@ -52,7 +52,8 @@ export type {
   NavListDividerProps,
 } from '../NavList'
 export * from './SelectPanel2'
-export * from '../TooltipV2'
+export {Tooltip} from '../TooltipV2'
+export type {TooltipProps} from '../TooltipV2'
 export * from '../ActionBar'
 
 export {ScrollableRegion} from '../ScrollableRegion'
@@ -68,7 +69,7 @@ export {UnderlinePanels} from './UnderlinePanels'
 export type {UnderlinePanelsProps, UnderlinePanelsTabProps, UnderlinePanelsPanelProps} from './UnderlinePanels'
 
 export {SkeletonBox, SkeletonText, SkeletonAvatar} from './Skeleton'
-export {FeatureFlags, DefaultFeatureFlags} from '../FeatureFlags'
+export {FeatureFlags, DefaultFeatureFlags, useFeatureFlag} from '../FeatureFlags'
 export type {FeatureFlagsProps} from '../FeatureFlags'
 
 export {FilteredActionList} from '../FilteredActionList'

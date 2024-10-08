@@ -61,6 +61,16 @@ const focusZoneSettings: Partial<FocusZoneHookSettings> = {
   disabled: true,
 }
 
+const areItemsEqual = (itemA: ItemInput, itemB: ItemInput) => {
+  // prefer checking equivality by item.id
+  if (typeof itemA.id !== 'undefined') return itemA.id === itemB.id
+  else return itemA === itemB
+}
+
+const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
+  return items.some(i => areItemsEqual(i, item))
+}
+
 export function SelectPanel({
   open,
   onOpenChange,
@@ -129,7 +139,7 @@ export function SelectPanel({
 
   const itemsToRender = useMemo(() => {
     return items.map(item => {
-      const isItemSelected = isMultiSelectVariant(selected) ? selected.includes(item) : selected === item
+      const isItemSelected = isMultiSelectVariant(selected) ? doesItemsIncludeItem(selected, item) : selected === item
 
       return {
         ...item,
@@ -143,8 +153,10 @@ export function SelectPanel({
           }
 
           if (isMultiSelectVariant(selected)) {
-            const otherSelectedItems = selected.filter(selectedItem => selectedItem !== item)
-            const newSelectedItems = selected.includes(item) ? otherSelectedItems : [...otherSelectedItems, item]
+            const otherSelectedItems = selected.filter(selectedItem => !areItemsEqual(selectedItem, item))
+            const newSelectedItems = doesItemsIncludeItem(selected, item)
+              ? otherSelectedItems
+              : [...otherSelectedItems, item]
 
             const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
             multiSelectOnChange(newSelectedItems)
