@@ -2,7 +2,8 @@ import styled from 'styled-components'
 import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
-import React from 'react'
+import React, {forwardRef} from 'react'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 export const StyledDetails = styled.details<SxProp>`
   & > summary {
@@ -49,15 +50,17 @@ export type SummaryProps = {
 } & SxProp &
   ComponentProps<typeof StyledSummary>
 
-export function Summary({as: Component = StyledSummary, children, ...props}: SummaryProps) {
+const Summary = forwardRef(({as: Component = StyledSummary, children, ...props}: SummaryProps, forwardedRef) => {
   return (
-    <Component as={Component === StyledSummary ? null : 'summary'} {...props}>
+    <Component ref={forwardedRef} as={Component === StyledSummary ? null : 'summary'} {...props}>
       {children}
     </Component>
   )
-}
+}) as PolymorphicForwardRefComponent<'summary', SummaryProps>
 
 Summary.displayName = 'Summary'
+
+export {Summary}
 
 const Details = Object.assign(Root, {
   Summary,
