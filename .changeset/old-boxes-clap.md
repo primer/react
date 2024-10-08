@@ -2,4 +2,4 @@
 "@primer/react": patch
 ---
 
-feat(Details): Add summary prop and subcomponent
+feat(Details): Add summary subcomponent
