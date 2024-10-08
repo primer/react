@@ -11,24 +11,6 @@ test.describe('ButtonGroup', () => {
             id: 'components-buttongroup--default',
             globals: {
               colorScheme: theme,
-              featureFlags: {
-                primer_react_css_modules_team: true,
-              },
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.Default.${theme}.png`)
-        })
-
-        test('default @vrt (styled-components)', async ({page}) => {
-          await visit(page, {
-            id: 'components-buttongroup--default',
-            globals: {
-              colorScheme: theme,
-              featureFlags: {
-                primer_react_css_modules_team: false,
-              },
             },
           })
 
@@ -41,22 +23,6 @@ test.describe('ButtonGroup', () => {
             id: 'components-buttongroup--default',
             globals: {
               colorScheme: theme,
-              featureFlags: {
-                primer_react_css_modules_team: true,
-              },
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-
-        test('axe @aat (styled-components)', async ({page}) => {
-          await visit(page, {
-            id: 'components-buttongroup--default',
-            globals: {
-              colorScheme: theme,
-              featureFlags: {
-                primer_react_css_modules_team: false,
-              },
             },
           })
           await expect(page).toHaveNoViolations()
@@ -73,24 +39,6 @@ test.describe('ButtonGroup', () => {
             id: 'components-buttongroup--playground',
             globals: {
               colorScheme: theme,
-              featureFlags: {
-                primer_react_css_modules_team: true,
-              },
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.Playground.${theme}.png`)
-        })
-
-        test('default @vrt (styled-components)', async ({page}) => {
-          await visit(page, {
-            id: 'components-buttongroup--playground',
-            globals: {
-              colorScheme: theme,
-              featureFlags: {
-                primer_react_css_modules_team: false,
-              },
             },
           })
 
@@ -103,22 +51,6 @@ test.describe('ButtonGroup', () => {
             id: 'components-buttongroup--playground',
             globals: {
               colorScheme: theme,
-              featureFlags: {
-                primer_react_css_modules_team: true,
-              },
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-
-        test('axe @aat (styled-components)', async ({page}) => {
-          await visit(page, {
-            id: 'components-buttongroup--playground',
-            globals: {
-              colorScheme: theme,
-              featureFlags: {
-                primer_react_css_modules_team: false,
-              },
             },
           })
           await expect(page).toHaveNoViolations()
@@ -135,24 +67,6 @@ test.describe('ButtonGroup', () => {
             id: 'components-buttongroup-features--icon-buttons',
             globals: {
               colorScheme: theme,
-              featureFlags: {
-                primer_react_css_modules_team: true,
-              },
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`ButtonGroup.Icon Buttons.${theme}.png`)
-        })
-
-        test('default @vrt (styled-components)', async ({page}) => {
-          await visit(page, {
-            id: 'components-buttongroup-features--icon-buttons',
-            globals: {
-              colorScheme: theme,
-              featureFlags: {
-                primer_react_css_modules_team: false,
-              },
             },
           })
 
@@ -165,22 +79,6 @@ test.describe('ButtonGroup', () => {
             id: 'components-buttongroup-features--icon-buttons',
             globals: {
               colorScheme: theme,
-              featureFlags: {
-                primer_react_css_modules_team: true,
-              },
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-
-        test('axe @aat (styled-components)', async ({page}) => {
-          await visit(page, {
-            id: 'components-buttongroup-features--icon-buttons',
-            globals: {
-              colorScheme: theme,
-              featureFlags: {
-                primer_react_css_modules_team: false,
-              },
             },
           })
           await expect(page).toHaveNoViolations()

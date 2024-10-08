@@ -2,10 +2,10 @@
   "id": "dialog",
   "docsId": "dialog",
   "name": "Dialog",
-  "status": "alpha",
+  "status": "deprecated",
   "a11yReviewed": false,
   "stories": [],
-  "importPath": "@primer/react",
+  "importPath": "@primer/react/deprecated",
   "props": [
     {
       "name": "isOpen",

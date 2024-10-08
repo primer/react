@@ -1,6 +1,7 @@
 import React from 'react'
 import {SelectPanel} from './SelectPanel'
-import {ActionList, ActionMenu, Avatar, Box, Button, Text, Octicon, Flash, FormControl, TextInput} from '../../index'
+import {ActionList, ActionMenu, Avatar, Box, Button, Text, Flash, FormControl, TextInput} from '../../index'
+import Octicon from '../../Octicon'
 import {Dialog} from '../../experimental'
 import {
   ArrowRightIcon,

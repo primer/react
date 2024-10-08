@@ -87,7 +87,7 @@ const labels: Record<BannerVariant, string> = {
   warning: 'Warning',
 }
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
 
 export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner(
   {
@@ -338,7 +338,7 @@ const StyledBanner = toggleStyledComponent(
       }
     }
 
-    &[data-dismissible] .BannerActions {
+    &[data-dismissible]:not([data-title-hidden]) .BannerActions {
       margin-block-end: var(--base-size-6, 0.375rem);
     }
 
