@@ -1,9 +1,12 @@
 import React from 'react'
 import {useFeatureFlag} from '../../FeatureFlags'
+import Box from '../../Box'
+import {defaultSxProp} from '../../utils/defaultSxProp'
 
 type CSSModulesProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   as?: string | React.ComponentType<any>
+  sx?: React.CSSProperties
 }
 
 /**
@@ -14,16 +17,28 @@ type CSSModulesProps = {
  *
  * @param flag - the feature flag that will control whether or not the provided
  * styled component is used
+ * @param defautlAs - the default component to use when `as` is not provided
  * @param Component - the styled component that will be used if the feature flag
  * is disabled
  */
-export function toggleStyledComponent<T, P extends CSSModulesProps>(flag: string, Component: React.ComponentType<P>) {
-  const Wrapper = React.forwardRef<T, P>(function Wrapper({as: BaseComponent = 'div', ...rest}, ref) {
+export function toggleStyledComponent<T, P extends CSSModulesProps>(
+  flag: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  defaultAs: string | React.ComponentType<any>,
+  Component: React.ComponentType<P>,
+) {
+  const Wrapper = React.forwardRef<T, P>(function Wrapper(
+    {as: BaseComponent = defaultAs, sx: sxProp = defaultSxProp, ...rest},
+    ref,
+  ) {
     const enabled = useFeatureFlag(flag)
     if (enabled) {
+      if (sxProp !== defaultSxProp) {
+        return <Box as={BaseComponent} {...rest} sx={sxProp} ref={ref} />
+      }
       return <BaseComponent {...rest} ref={ref} />
     }
-    return <Component as={BaseComponent} {...(rest as P)} ref={ref} />
+    return <Component as={BaseComponent} {...(rest as P)} sx={sxProp} ref={ref} />
   })
 
   return Wrapper

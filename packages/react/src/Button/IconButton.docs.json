@@ -50,6 +50,13 @@
       "description": "Keyboard shortcuts that trigger the button. Keyboard shortcut will be appended to the accessible name or description (depending on the tooltip type) of the button with a comma (i.e. Bold, Command+B) and it will be displayed in the tooltip."
     },
     {
+      "name": "tooltipDirection",
+      "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
+      "defaultValue": "'s'",
+      "description": "The direction of the tooltip. ",
+      "required": false
+    },
+    {
       "name": "sx",
       "type": "SystemStyleObject"
     }
