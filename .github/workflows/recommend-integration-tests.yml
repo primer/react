@@ -40,8 +40,8 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo
             });
-            console.log(result)
-            const previousComment = result.data.filter(c => c.user.login == 'github-actions[bot]' && c.body.startsWith('<!-- recommend-integration-tests.yml -->'))
+
+            const previousComment = result.filter(c => c.user.login == 'github-actions[bot]' && c.body.startsWith('<!-- recommend-integration-tests.yml -->'))
             if (!previousComment.length) {
               await github.rest.issues.createComment({
                 issue_number: context.issue.number,
