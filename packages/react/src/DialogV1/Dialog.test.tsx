@@ -1,8 +1,9 @@
 import React, {useState, useRef} from 'react'
-import {Dialog, Box, Text, Button} from '..'
+import {Box, Text, Button} from '..'
+import {Dialog} from '../DialogV1'
 import {render as HTMLRender, fireEvent} from '@testing-library/react'
 import axe from 'axe-core'
-import {behavesAsComponent, checkExports} from '../utils/testing'
+import {behavesAsComponent} from '../utils/testing'
 
 /* Dialog Version 1*/
 
@@ -106,10 +107,6 @@ describe('Dialog', () => {
     Component: Dialog,
     toRender: () => comp,
     options: {skipAs: true, skipSx: true},
-  })
-
-  checkExports('Dialog', {
-    default: Dialog,
   })
 
   describe('Dialog.Header', () => {
