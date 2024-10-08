@@ -1,0 +1,46 @@
+{
+  "id": "issue_label",
+  "name": "IssueLabel",
+  "status": "draft",
+  "a11yReviewed": false,
+  "stories": [],
+  "importPath": "@primer/react/experimental",
+  "props": [
+    {
+      "name": "fillColor",
+      "type": "string",
+      "description": "The hex code for a custom background color"
+    },
+    {
+      "name": "variant",
+      "type": "'pink'\n| 'plum'\n| 'purple'\n| 'indigo'\n| 'blue'\n| 'cyan'\n| 'teal'\n| 'pine'\n| 'green'\n| 'lime'\n| 'olive'\n| 'lemon'\n| 'yellow'\n| 'orange'\n| 'red'\n| 'coral'\n| 'gray'\n| 'brown'\n| 'auburn'",
+      "defaultValue": "'gray'",
+      "description": "Color variant for the background and text color"
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Class name for custom styling."
+    },
+    {
+      "name": "href",
+      "type": "string"
+    },
+    {
+      "name": "as",
+      "type": "React.ElementType",
+      "defaultValue": "'span'"
+    },
+    {
+      "name": "text",
+      "type": "string",
+      "description": "Label text."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "A unique identifier that can be associated with the label."
+    }
+  ],
+  "subcomponents": []
+}
