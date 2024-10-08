@@ -1,5 +1,27 @@
 # @primer/react
 
+## 37.0.0-rc.9
+
+### Minor Changes
+
+- [#5021](https://github.com/primer/react/pull/5021) [`cff067a`](https://github.com/primer/react/commit/cff067afd997988fea9cec4ce9167c07a5d7acbc) Thanks [@joshblack](https://github.com/joshblack)! - Add ResponsiveValue type to `@primer/react` entrypoint
+
+### Patch Changes
+
+- [#5053](https://github.com/primer/react/pull/5053) [`2703d0c`](https://github.com/primer/react/commit/2703d0c659a71d3d0c6e307cb4d6dc2606c070d0) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Banner: Fix margin for inline actions
+
+## 37.0.0-rc.8
+
+### Major Changes
+
+- [#4992](https://github.com/primer/react/pull/4992) [`d1d911a`](https://github.com/primer/react/commit/d1d911ad739f4f766234e99afca4ced0ad966da2) Thanks [@joshblack](https://github.com/joshblack)! - Move Octicon, Pagehead, Dialog (v1), and Tooltip (v1) to `@primer/react/deprecated`
+
+### Patch Changes
+
+- [#5036](https://github.com/primer/react/pull/5036) [`6671a20`](https://github.com/primer/react/commit/6671a207066bebdd54939d0806fca89c7ab55137) Thanks [@langermank](https://github.com/langermank)! - ActionList.Group: Fix styles for description
+
+- [#5033](https://github.com/primer/react/pull/5033) [`0b83fe9`](https://github.com/primer/react/commit/0b83fe9772a8c2e71a2d2eb375a11849a6eabb9c) Thanks [@siddharthkp](https://github.com/siddharthkp)! - SelectPanel: Fix font weight from active styles for modern ActionList (behind feature flag)
+
 ## 37.0.0-rc.7
 
 ### Major Changes

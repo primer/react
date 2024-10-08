@@ -11,6 +11,7 @@
     "example-theming": "0.0.0"
   },
   "changesets": [
+    "angry-tigers-jump",
     "beige-schools-kneel",
     "big-pumas-sit",
     "blue-stingrays-decide",
@@ -25,6 +26,7 @@
     "dirty-pianos-wash",
     "dry-trainers-protect",
     "dull-dolphins-bake",
+    "dull-mirrors-dream",
     "dull-turkeys-cheer",
     "early-lions-vanish",
     "eighty-houses-beg",
@@ -78,6 +80,7 @@
     "slow-walls-drum",
     "soft-tips-chew",
     "sour-cooks-dress",
+    "sour-cycles-warn",
     "spicy-eggs-melt",
     "spicy-flies-sniff",
     "spotty-melons-sit",
@@ -88,6 +91,7 @@
     "tame-boats-hide",
     "ten-gifts-own",
     "ten-masks-smoke",
+    "thin-planes-grow",
     "thirty-pets-impress",
     "thirty-tips-bow",
     "three-coins-tell",
@@ -99,6 +103,7 @@
     "twenty-spoons-give",
     "weak-hats-type",
     "weak-ravens-greet",
+    "wet-otters-pull",
     "wicked-books-occur",
     "yellow-tools-call",
     "young-meals-worry"

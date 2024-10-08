@@ -133,7 +133,7 @@ export type TooltipProps = React.PropsWithChildren<
     ComponentProps<typeof StyledTooltip>
 >
 
-export type TriggerPropsType = {
+type TriggerPropsType = {
   'aria-describedby'?: string
   'aria-labelledby'?: string
   'aria-label'?: string
