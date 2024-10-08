@@ -307,7 +307,7 @@ describe('Button', () => {
       const {container} = render(
         <FeatureFlags
           flags={{
-            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
           }}
         >
           <IconButton className="test" aria-label="Test" icon={HeartIcon} />
@@ -320,7 +320,7 @@ describe('Button', () => {
       const {container} = render(
         <FeatureFlags
           flags={{
-            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
           }}
         >
           <Button className="test">Hello</Button>
@@ -333,7 +333,7 @@ describe('Button', () => {
       const {container} = render(
         <FeatureFlags
           flags={{
-            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
           }}
         >
           <LinkButton className="test">Hello</LinkButton>

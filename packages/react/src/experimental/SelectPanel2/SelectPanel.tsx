@@ -10,11 +10,11 @@ import {
   TextInput,
   Spinner,
   Text,
-  Octicon,
   Link,
   Checkbox,
   useFormControlForwardedProps,
 } from '../../index'
+import Octicon from '../../Octicon'
 import {ActionListContainerContext} from '../../ActionList/ActionListContainerContext'
 import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
