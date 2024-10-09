@@ -183,10 +183,18 @@ export type AvatarStackProps = {
   alignRight?: boolean
   disableExpand?: boolean
   size?: number | ResponsiveValue<number>
+  className?: string
   children: React.ReactNode
 } & SxProp
 
-const AvatarStack = ({children, alignRight, disableExpand, size, sx: sxProp = defaultSxProp}: AvatarStackProps) => {
+const AvatarStack = ({
+  children,
+  alignRight,
+  disableExpand,
+  size,
+  className,
+  sx: sxProp = defaultSxProp,
+}: AvatarStackProps) => {
   const count = React.Children.count(children)
   const wrapperClassNames = clsx({
     'pc-AvatarStack--two': count === 2,
@@ -194,9 +202,13 @@ const AvatarStack = ({children, alignRight, disableExpand, size, sx: sxProp = de
     'pc-AvatarStack--three-plus': count > 3,
     'pc-AvatarStack--right': alignRight,
   })
-  const bodyClassNames = clsx('pc-AvatarStackBody', {
-    'pc-AvatarStack--disableExpand': disableExpand,
-  })
+  const bodyClassNames = clsx(
+    'pc-AvatarStackBody',
+    {
+      'pc-AvatarStack--disableExpand': disableExpand,
+    },
+    className,
+  )
 
   const getAvatarChildSizes = () => {
     const avatarSizeMap: Record<WidthOnlyViewportRangeKeys, number[]> = {
