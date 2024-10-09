@@ -49,6 +49,12 @@
       "description": "<div>Which position to render the loading indicator</div> <ul> <li> 'auto' (default): at the end of the input, unless a `leadingVisual` is passed. Then, it will render at the beginning </li> <li>'leading': at the beginning of the input</li> <li>'trailing': at the end of the input</li> </ul>"
     },
     {
+      "name": "loaderText",
+      "type": "string",
+      "defaultValue": "Loading",
+      "description": "Text for screen readers to convey the loading state, should be descriptive and explain what is loading. This prop should only be used if there is visible context explaining what is loading, to ensure that context is provided to all users."
+    },
+    {
       "name": "leadingVisual",
       "type": "string | React.ComponentType",
       "defaultValue": "",

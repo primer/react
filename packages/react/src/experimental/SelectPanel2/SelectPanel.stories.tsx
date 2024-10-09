@@ -69,7 +69,7 @@ export const Default = () => {
         <SelectPanel.Button>Assign label</SelectPanel.Button>
 
         <SelectPanel.Header>
-          <SelectPanel.SearchInput onChange={onSearchInputChange} />
+          <SelectPanel.SearchInput aria-label="Search" onChange={onSearchInputChange} />
         </SelectPanel.Header>
 
         {itemsToShow.length === 0 ? (
