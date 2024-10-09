@@ -20,7 +20,8 @@ import Spinner from '../Spinner'
 import Box from '../Box'
 import Text from '../Text'
 import FormControl from '../FormControl'
-import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
+import {AriaStatus} from '../live-region'
+import {VisuallyHidden} from '../VisuallyHidden'
 
 const meta: Meta = {
   title: 'Components/ActionList/Examples',
@@ -203,30 +204,29 @@ export function AsyncListWithSpinner(): JSX.Element {
         filter. This pattern can be found in branch selection menus via the SelectPanel component.
       </p>
 
-      <LiveRegion>
-        <FormControl sx={{m: 2, mb: 0, width: 'calc(100% - 16px)'}}>
-          <FormControl.Label>Search branches</FormControl.Label>
-          <TextInput onChange={filter} block />
-        </FormControl>
-        {results.length === 0 && <Text sx={{display: 'block', fontSize: 1, m: 2}}>No branches match that query</Text>}
+      <FormControl sx={{m: 2, mb: 0, width: 'calc(100% - 16px)'}}>
+        <FormControl.Label>Search branches</FormControl.Label>
+        <TextInput onChange={filter} block />
+      </FormControl>
+      {results.length === 0 && <Text sx={{display: 'block', fontSize: 1, m: 2}}>No branches match that query</Text>}
 
-        <LiveRegionOutlet />
-        <Message value={getStatusMessage()} />
+      <VisuallyHidden>
+        <AriaStatus>{getStatusMessage()}</AriaStatus>
+      </VisuallyHidden>
 
-        <ActionList selectionVariant="single" role="listbox" aria-label="Branch" sx={{height: 208, overflow: 'auto'}}>
-          {loading ? (
-            <Box sx={{display: 'flex', justifyContent: 'center', pt: 2}}>
-              <Spinner />
-            </Box>
-          ) : (
-            results.map(name => (
-              <ActionList.Item key={name} role="option" selected={selected === name} onSelect={() => setSelected(name)}>
-                {name}
-              </ActionList.Item>
-            ))
-          )}
-        </ActionList>
-      </LiveRegion>
+      <ActionList selectionVariant="single" role="listbox" aria-label="Branch" sx={{height: 208, overflow: 'auto'}}>
+        {loading ? (
+          <Box sx={{display: 'flex', justifyContent: 'center', pt: 2}}>
+            <Spinner />
+          </Box>
+        ) : (
+          results.map(name => (
+            <ActionList.Item key={name} role="option" selected={selected === name} onSelect={() => setSelected(name)}>
+              {name}
+            </ActionList.Item>
+          ))
+        )}
+      </ActionList>
     </>
   )
 }
