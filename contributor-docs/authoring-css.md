@@ -91,6 +91,10 @@ Prefer using pseudo elements over classnames for state.
 }
 ```
 
+### `clsx` and className
+
+only at top level (once)
+
 ### Component prop variants as data-attributes
 
 When a component has a variant, prefer using a data-attribute over a modifier class.
@@ -103,19 +107,20 @@ Some common variants include:
 
 ```css
 /* Do */
-.Button {
-  &:where([data-size='small']) {
-    height: var(--control-small-size);
-  }
+.Button:where([data-size='small']) {
+  height: var(--control-small-size);
 }
 
 /* Don't */
-.Button {
-  &--small {
-    height: var(--control-small-size);
-  }
+.ButtonSmall {
+  height: var(--control-small-size);
 }
 ```
+
+TODO add responsive data-variants
+
+data-variant as string
+data-variant as boolean
 
 ### Specificity and nesting
 
@@ -182,3 +187,6 @@ Tip: when needing to style or target child components, consider using CSS
 Prefer one CSS Module file per component
 Caveat: it is okay to have multiple components in a file and it is okay to have one CSS Module file for this scenario
 Over time, breakout as-needed
+
+side-effect properties
+stylelint rule to check proper flex usage
