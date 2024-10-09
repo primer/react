@@ -196,19 +196,18 @@ const AvatarStack = ({
   sx: sxProp = defaultSxProp,
 }: AvatarStackProps) => {
   const count = React.Children.count(children)
-  const wrapperClassNames = clsx({
-    'pc-AvatarStack--two': count === 2,
-    'pc-AvatarStack--three': count === 3,
-    'pc-AvatarStack--three-plus': count > 3,
-    'pc-AvatarStack--right': alignRight,
-  })
-  const bodyClassNames = clsx(
-    'pc-AvatarStackBody',
+  const wrapperClassNames = clsx(
     {
-      'pc-AvatarStack--disableExpand': disableExpand,
+      'pc-AvatarStack--two': count === 2,
+      'pc-AvatarStack--three': count === 3,
+      'pc-AvatarStack--three-plus': count > 3,
+      'pc-AvatarStack--right': alignRight,
     },
     className,
   )
+  const bodyClassNames = clsx('pc-AvatarStackBody', {
+    'pc-AvatarStack--disableExpand': disableExpand,
+  })
 
   const getAvatarChildSizes = () => {
     const avatarSizeMap: Record<WidthOnlyViewportRangeKeys, number[]> = {
