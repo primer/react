@@ -19,8 +19,8 @@ import TextInput from '../TextInput'
 import Spinner from '../Spinner'
 import Box from '../Box'
 import Text from '../Text'
-import VisuallyHidden from '../_VisuallyHidden'
 import FormControl from '../FormControl'
+import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 
 const meta: Meta = {
   title: 'Components/ActionList/Examples',
@@ -177,13 +177,22 @@ export function AsyncListWithSpinner(): JSX.Element {
   const [results, setResults] = React.useState(branches.slice(0, 6))
   const [loading, setLoading] = React.useState(false)
   const [selected, setSelected] = React.useState('main')
+  const [filterVal, setFilterVal] = React.useState('')
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const filter = async (event: any) => {
     setLoading(true)
     const filteredResults = await filterSlowly(event.target.value)
     setResults(filteredResults.slice(0, 6))
+    setFilterVal(event.target.value)
     setLoading(false)
+  }
+
+  const getStatusMessage = () => {
+    if (loading) return 'Loading results'
+    if (!filterVal) return 'Showing top 6 branches'
+    if (results.length === 0) return 'No branches match that query'
+    return `Branches filtered, showing ${results.length} branches`
   }
 
   return (
@@ -194,31 +203,30 @@ export function AsyncListWithSpinner(): JSX.Element {
         filter. This pattern can be found in branch selection menus via the SelectPanel component.
       </p>
 
-      <FormControl sx={{m: 2, mb: 0, width: 'calc(100% - 16px)'}}>
-        <FormControl.Label>Search branches</FormControl.Label>
-        <TextInput onChange={filter} block />
-      </FormControl>
-      <div role="status">
-        {results.length === 0 ? (
-          <Text sx={{display: 'block', fontSize: 1, m: 2}}>No branches match that query</Text>
-        ) : (
-          <VisuallyHidden>{results.length} branches match that query</VisuallyHidden>
-        )}
-      </div>
+      <LiveRegion>
+        <FormControl sx={{m: 2, mb: 0, width: 'calc(100% - 16px)'}}>
+          <FormControl.Label>Search branches</FormControl.Label>
+          <TextInput onChange={filter} block />
+        </FormControl>
+        {results.length === 0 && <Text sx={{display: 'block', fontSize: 1, m: 2}}>No branches match that query</Text>}
 
-      <ActionList selectionVariant="single" role="listbox" aria-label="Branch" sx={{height: 208, overflow: 'auto'}}>
-        {loading ? (
-          <Box sx={{display: 'flex', justifyContent: 'center', pt: 2}}>
-            <Spinner />
-          </Box>
-        ) : (
-          results.map(name => (
-            <ActionList.Item key={name} role="option" selected={selected === name} onSelect={() => setSelected(name)}>
-              {name}
-            </ActionList.Item>
-          ))
-        )}
-      </ActionList>
+        <LiveRegionOutlet />
+        <Message value={getStatusMessage()} />
+
+        <ActionList selectionVariant="single" role="listbox" aria-label="Branch" sx={{height: 208, overflow: 'auto'}}>
+          {loading ? (
+            <Box sx={{display: 'flex', justifyContent: 'center', pt: 2}}>
+              <Spinner />
+            </Box>
+          ) : (
+            results.map(name => (
+              <ActionList.Item key={name} role="option" selected={selected === name} onSelect={() => setSelected(name)}>
+                {name}
+              </ActionList.Item>
+            ))
+          )}
+        </ActionList>
+      </LiveRegion>
     </>
   )
 }
