@@ -76,7 +76,7 @@ export const WithInlineLinks = () => (
         <Octicon icon={GitCommitIcon} aria-label="Commit" />
       </Timeline.Badge>
       <Timeline.Body>
-        <Link href="#" sx={{fontWeight: 'bold', mr: 1}} muted>
+        <Link href="#" sx={{fontWeight: 'bold', color: 'fg.default', mr: 1}} muted>
           Monalisa
         </Link>
         enabled auto-merge (squash)
