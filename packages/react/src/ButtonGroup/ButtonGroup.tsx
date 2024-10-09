@@ -10,7 +10,6 @@ import {useFeatureFlag} from '../FeatureFlags'
 
 const StyledButtonGroup = toggleStyledComponent(
   'primer_react_css_modules_staff',
-  'div',
   styled.div`
     display: inline-flex;
     vertical-align: middle;

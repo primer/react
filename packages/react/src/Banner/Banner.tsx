@@ -209,7 +209,6 @@ const StyledBanner = toggleStyledComponent(
    * line-height of `20px` so that means that the height of icons should match
    * that value.
    */
-  'div',
   styled.div`
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
