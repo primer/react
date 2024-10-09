@@ -5,7 +5,6 @@ import Timeline from './Timeline'
 import Octicon from '../Octicon'
 import {GitBranchIcon, GitCommitIcon, GitMergeIcon} from '@primer/octicons-react'
 import Link from '../Link'
-import {get} from '../constants'
 
 export default {
   title: 'Components/Timeline/Features',
