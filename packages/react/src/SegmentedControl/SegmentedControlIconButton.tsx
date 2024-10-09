@@ -7,6 +7,7 @@ import sx, {merge} from '../sx'
 import {getSegmentedControlButtonStyles, getSegmentedControlListItemStyles} from './getSegmentedControlStyles'
 import Box from '../Box'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 
 export type SegmentedControlIconButtonProps = {
   'aria-label': string
@@ -20,6 +21,7 @@ export type SegmentedControlIconButtonProps = {
   ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
 const SegmentedControlIconButtonStyled = styled.button`
+  ${getGlobalFocusStyles()};
   ${sx};
 `
 

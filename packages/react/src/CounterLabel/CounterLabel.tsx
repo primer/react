@@ -20,7 +20,7 @@ export type CounterLabelProps = React.PropsWithChildren<
 
 const CounterLabel = forwardRef<HTMLSpanElement, CounterLabelProps>(
   ({scheme = 'secondary', sx = defaultSxProp, className, children, ...rest}, forwardedRef) => {
-    const enabled = useFeatureFlag('primer_react_css_modules_staff')
+    const enabled = useFeatureFlag('primer_react_css_modules_team')
     const label = <VisuallyHidden>&nbsp;({children})</VisuallyHidden>
     const counterProps = {
       ref: forwardedRef,

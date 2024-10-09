@@ -163,7 +163,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     },
     ref,
   ): ReactElement => {
-    const enabled = useFeatureFlag('primer_react_css_modules_staff')
+    const enabled = useFeatureFlag('primer_react_css_modules_team')
     const checkboxRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
     const checkboxGroupContext = useContext(CheckboxGroupContext)
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
