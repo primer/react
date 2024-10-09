@@ -1,5 +1,39 @@
 # @primer/react
 
+## 37.0.0-rc.10
+
+### Minor Changes
+
+- [#5064](https://github.com/primer/react/pull/5064) [`29f33ce`](https://github.com/primer/react/commit/29f33ce93c6b7e573cca9f2c0a10bb12ec5245c3) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Tooltip: Do not export all types publicly in the experimental bundle
+
+- [#5010](https://github.com/primer/react/pull/5010) [`8385c33`](https://github.com/primer/react/commit/8385c334df1f31aa810a8e6575986ca420a683f9) Thanks [@joshblack](https://github.com/joshblack)! - Promote Dialog, Tooltip, and Stack from `@primer/react/experimental` to `@primer/react`
+
+- [#5074](https://github.com/primer/react/pull/5074) [`e4965ed`](https://github.com/primer/react/commit/e4965ed773e32abc6fc49bff623dd79127047c93) Thanks [@joshblack](https://github.com/joshblack)! - Add the `useFeatureFlag` hook to `@primer/react/experimental`
+
+### Patch Changes
+
+- [#5059](https://github.com/primer/react/pull/5059) [`682e787`](https://github.com/primer/react/commit/682e787071d9bed26801202cf6823a96c1b39462) Thanks [@gwwar](https://github.com/gwwar)! - Fixes negative and invalid pages in data table pagination on re-render.
+
+- [#5078](https://github.com/primer/react/pull/5078) [`3b7bf41`](https://github.com/primer/react/commit/3b7bf411c60d5283eb2fba78e7ab1a26b707af5b) Thanks [@jonrohan](https://github.com/jonrohan)! - Set the `min-width` of `IconButton` to `unset` to resolve layout issues.
+
+- [#5062](https://github.com/primer/react/pull/5062) [`0f5d5e0`](https://github.com/primer/react/commit/0f5d5e05096b1b1599a92c90619cde6e11cb5808) Thanks [@jonrohan](https://github.com/jonrohan)! - Move CSS modules feature flag from staff to ga for Avatar component
+
+- [#5082](https://github.com/primer/react/pull/5082) [`212714c`](https://github.com/primer/react/commit/212714ccc005eb57e272b3f64e3736e198c555e8) Thanks [@langermank](https://github.com/langermank)! - Add focus styles to Pagination component
+
+- [#5077](https://github.com/primer/react/pull/5077) [`6490b27`](https://github.com/primer/react/commit/6490b27bde15e7687dcda48c444eb909dec2d5a7) Thanks [@jonrohan](https://github.com/jonrohan)! - Bug fix(Avatar): Changed rounded border calculation for the "square" Avatar to better align with existing border styles
+
+- [#5055](https://github.com/primer/react/pull/5055) [`73135c1`](https://github.com/primer/react/commit/73135c1c57a02e35d33ae6ffba16784043dcabb8) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(Banner): rewrite PrimaryAction & SecondaryAction types
+
+- [#5068](https://github.com/primer/react/pull/5068) [`5f7bd0b`](https://github.com/primer/react/commit/5f7bd0b399073b2f22b8eaec548c37ff19a5ea86) Thanks [@jonrohan](https://github.com/jonrohan)! - fix for `toggleStyledComponent` utility, When the feature flag is enabled and sx prop is passed in use, Box
+
+- [#5091](https://github.com/primer/react/pull/5091) [`4218bef`](https://github.com/primer/react/commit/4218bef879ae70aab3cc30492bacfc9c506be8f7) Thanks [@jonrohan](https://github.com/jonrohan)! - Bug fix for `IconButton` to respect the `style` prop width when the feature flag is on.
+
+- [#5073](https://github.com/primer/react/pull/5073) [`472967a`](https://github.com/primer/react/commit/472967a712e9b81856b3b37088142b0ffbda5b15) Thanks [@siddharthkp](https://github.com/siddharthkp)! - SelectPanel: Fix items not being selected when defined within scope (track selection by item.id)
+
+- [#5066](https://github.com/primer/react/pull/5066) [`702ba5c`](https://github.com/primer/react/commit/702ba5ca59d42abc57a1d6da539935534edcd2ab) Thanks [@jonrohan](https://github.com/jonrohan)! - Use the IconButton for the close button on Dialog
+
+- [#5079](https://github.com/primer/react/pull/5079) [`a2e5671`](https://github.com/primer/react/commit/a2e5671e720e4d78a3f5a9b503fc841db100dc1d) Thanks [@jonrohan](https://github.com/jonrohan)! - Correctly pass styled system typography and common props to the `Box` component in the `Text` component when the CSS modules feature flag is enabled.
+
 ## 37.0.0-rc.9
 
 ### Minor Changes
