@@ -3401,6 +3401,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
       </span>
     </button>
     <span
+      aria-hidden={true}
       className="c6"
       data-direction="s"
       id=":rk:"
