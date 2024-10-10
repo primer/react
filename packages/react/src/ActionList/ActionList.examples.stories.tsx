@@ -208,7 +208,7 @@ export function AsyncListWithSpinner(): JSX.Element {
         <FormControl.Label>Search branches</FormControl.Label>
         <TextInput onChange={filter} block />
       </FormControl>
-      {results.length === 0 && <Text sx={{display: 'block', fontSize: 1, m: 2}}>No branches match that query</Text>}
+      {results.length === 0 ? <Text sx={{display: 'block', fontSize: 1, m: 2}}>No branches match that query</Text> : null}
 
       <VisuallyHidden>
         <AriaStatus>{getStatusMessage()}</AriaStatus>
