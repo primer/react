@@ -1,5 +1,21 @@
 # @primer/react
 
+## 37.0.0-rc.11
+
+### Minor Changes
+
+- [#5097](https://github.com/primer/react/pull/5097) [`2a3c473`](https://github.com/primer/react/commit/2a3c473db4ee5e76903a82c150e09ad75868b15d) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Added className prop to the AvatarStack component
+
+- [#5099](https://github.com/primer/react/pull/5099) [`cb21a38`](https://github.com/primer/react/commit/cb21a384d63473295480a0905c4ca1ba59faf068) Thanks [@joshblack](https://github.com/joshblack)! - Add ButtonBase to `@primer/react/experimental` to help with wildcard import interop
+
+- [#4994](https://github.com/primer/react/pull/4994) [`be58fff`](https://github.com/primer/react/commit/be58fffd14453e977ab4fe3930829d1d67fcc1a8) Thanks [@camertron](https://github.com/camertron)! - [SegmentedControl, Autocomplete] Support passing React.ReactElements for icons.
+
+### Patch Changes
+
+- [#5029](https://github.com/primer/react/pull/5029) [`0d444d7`](https://github.com/primer/react/commit/0d444d75812aa453e6aff11e4befae259bf9deb5) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(SegmentedControl): set global focus styles
+
+- [#5041](https://github.com/primer/react/pull/5041) [`4da550e`](https://github.com/primer/react/commit/4da550ee52bcc8874ddae86e01e26ace64f48bf8) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(TooltipV2): always add aria-hidden
+
 ## 37.0.0-rc.10
 
 ### Minor Changes
