@@ -253,8 +253,8 @@ jobs:
         with:
           name: vrt-all-flags
           path: playwright-report
-      - name: check vrt-runner job status
-        if: ${{ needs.vrt-runner.result == 'failure' }}
+      - name: check vrt-runner-all-flags job status
+        if: ${{ needs.vrt-runner-all-flags.result == 'failure' }}
         run: exit 1
 
   aat-runner:
@@ -405,8 +405,8 @@ jobs:
         with:
           name: axe-all-flags
           path: playwright-report
-      - name: Check aat-runner job status
-        if: ${{ needs.aat-runner.result == 'failure' }}
+      - name: Check aat-runner-all-flags job status
+        if: ${{ needs.aat-runner-all-flags.result == 'failure' }}
         run: exit 1
 
   build-components-json:
