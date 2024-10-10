@@ -128,13 +128,6 @@
           "description": ""
         },
         {
-          "name": "dividerWhenNarrow",
-          "type": "| 'inherit' | 'none' | 'line' | 'filled'",
-          "defaultValue": "'inherit'",
-          "deprecated": true,
-          "description": "Use the divider prop with a responsive value instead."
-        },
-        {
           "name": "hidden",
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
