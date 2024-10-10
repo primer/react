@@ -1,6 +1,8 @@
 import {Box} from '.'
 import React from 'react'
 
+import styles from './Placeholder.module.css'
+
 /** Private component used to render placeholders in storybook and documentation examples  */
 export const Placeholder: React.FC<
   React.PropsWithChildren<{
@@ -16,13 +18,8 @@ export const Placeholder: React.FC<
       sx={{
         width: width ?? '100%',
         height,
-        display: 'grid',
-        placeItems: 'center',
-        bg: 'canvas.inset',
-        borderRadius: 2,
-        border: '1px solid',
-        borderColor: 'border.subtle',
       }}
+      className={styles.Box_0}
     >
       {label}
     </Box>
