@@ -1,14 +1,15 @@
 import {clsx} from 'clsx'
-import React, {useEffect} from 'react'
+import React, {forwardRef, useEffect} from 'react'
 import styled from 'styled-components'
 import {AlertIcon, InfoIcon, StopIcon, CheckCircleIcon, XIcon} from '@primer/octicons-react'
-import {Button, IconButton} from '../Button'
+import {Button, IconButton, type ButtonProps} from '../Button'
 import {get} from '../constants'
 import {VisuallyHidden} from '../VisuallyHidden'
 import {useMergedRefs} from '../internal/hooks/useMergedRefs'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './Banner.module.css'
 import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 type BannerVariant = 'critical' | 'info' | 'success' | 'upsell' | 'warning'
 
@@ -87,7 +88,7 @@ const labels: Record<BannerVariant, string> = {
   warning: 'Warning',
 }
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
 
 export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner(
   {
@@ -474,22 +475,28 @@ export function BannerActions({primaryAction, secondaryAction}: BannerActionsPro
   )
 }
 
-export type BannerPrimaryActionProps = Omit<React.ComponentPropsWithoutRef<typeof Button>, 'variant'>
+export type BannerPrimaryActionProps = Omit<ButtonProps, 'variant'>
 
-export function BannerPrimaryAction({children, className, ...rest}: BannerPrimaryActionProps) {
+const BannerPrimaryAction = forwardRef(({children, className, ...rest}, forwardedRef) => {
   return (
-    <Button className={clsx('BannerPrimaryAction', className)} variant="default" {...rest}>
+    <Button ref={forwardedRef} className={clsx('BannerPrimaryAction', className)} variant="default" {...rest}>
       {children}
     </Button>
   )
-}
+}) as PolymorphicForwardRefComponent<'button', BannerPrimaryActionProps>
 
-export type BannerSecondaryActionProps = Omit<React.ComponentPropsWithoutRef<typeof Button>, 'variant'>
+BannerPrimaryAction.displayName = 'BannerPrimaryAction'
 
-export function BannerSecondaryAction({children, className, ...rest}: BannerSecondaryActionProps) {
+export type BannerSecondaryActionProps = Omit<ButtonProps, 'variant'>
+
+const BannerSecondaryAction = forwardRef(({children, className, ...rest}, forwardedRef) => {
   return (
-    <Button className={clsx('BannerPrimaryAction', className)} variant="link" {...rest}>
+    <Button ref={forwardedRef} className={clsx('BannerPrimaryAction', className)} variant="link" {...rest}>
       {children}
     </Button>
   )
-}
+}) as PolymorphicForwardRefComponent<'button', BannerSecondaryActionProps>
+
+BannerSecondaryAction.displayName = 'BannerSecondaryAction'
+
+export {BannerPrimaryAction, BannerSecondaryAction}

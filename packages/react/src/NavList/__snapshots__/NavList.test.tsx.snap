@@ -1,30 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NavList renders a simple list 1`] = `
-.c3 {
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  border-radius: 6px;
-  color: inherit;
-}
-
-.c3:hover {
-  color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c4 {
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -39,7 +16,7 @@ exports[`NavList renders a simple list 1`] = `
   min-width: 0;
 }
 
-.c5 {
+.c6 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -48,7 +25,7 @@ exports[`NavList renders a simple list 1`] = `
   word-break: break-word;
 }
 
-.c7 {
+.c8 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -174,7 +151,7 @@ exports[`NavList renders a simple list 1`] = `
   border-radius: 6px;
 }
 
-.c6 {
+.c7 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -206,27 +183,27 @@ exports[`NavList renders a simple list 1`] = `
   margin-bottom: unset;
 }
 
-.c6[data-loading] {
+.c7[data-loading] {
   cursor: default;
 }
 
-.c6[aria-disabled],
-.c6[data-inactive] {
+.c7[aria-disabled],
+.c7[data-inactive] {
   cursor: not-allowed;
 }
 
-.c6[aria-disabled] [data-component="ActionList.Checkbox"],
-.c6[data-inactive] [data-component="ActionList.Checkbox"] {
+.c7[aria-disabled] [data-component="ActionList.Checkbox"],
+.c7[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
-.c6 [data-component="ActionList.Item--DividerContainer"] {
+.c7 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c6 [data-component="ActionList.Item--DividerContainer"]::before {
+.c7 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -237,7 +214,7 @@ exports[`NavList renders a simple list 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
-.c6:not(:first-of-type) {
+.c7:not(:first-of-type) {
   --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
 }
 
@@ -245,22 +222,22 @@ exports[`NavList renders a simple list 1`] = `
   --divider-color: transparent !important;
 }
 
-.c6:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c6[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
+.c7:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c7[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c6:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c1,
-.c6[data-focus-visible-added] + li {
+.c7:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c1,
+.c7[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c6[data-is-active-descendant] {
+.c7[data-is-active-descendant] {
   font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c6[data-is-active-descendant]::after {
+.c7[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -269,6 +246,59 @@ exports[`NavList renders a simple list 1`] = `
   content: "";
   background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   border-radius: 6px;
+}
+
+.c4 {
+  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  border-radius: 6px;
+  color: inherit;
+}
+
+[data-a11y-link-underlines='true'] .c3[data-inline='true'] {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c4:is(button) {
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.c4:hover {
+  color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 @media (forced-colors:active) {
@@ -302,30 +332,30 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c6:focus,
-  .c6:focus-visible,
-  .c6 > a.focus-visible,
-  .c6[data-is-active-descendant] {
+  .c7:focus,
+  .c7:focus-visible,
+  .c7 > a.focus-visible,
+  .c7[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c6:hover:not([aria-disabled]):not([data-inactive]) {
+  .c7:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
     box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
   }
 
-  .c6:focus-visible,
-  .c6 > a.focus-visible,
-  .c6:focus.focus-visible {
+  .c7:focus-visible,
+  .c7 > a.focus-visible,
+  .c7:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
   }
 
-  .c6:active:not([aria-disabled]):not([data-inactive]) {
+  .c7:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   }
@@ -344,17 +374,17 @@ exports[`NavList renders a simple list 1`] = `
         <a
           aria-current="page"
           aria-labelledby=":r2:--label  "
-          class="c3 Link"
+          class="c3 c4"
           href="/"
           id=":r2:"
           tabindex="0"
         >
           <div
-            class="c4"
+            class="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              class="c5"
+              class="c6"
               id=":r2:--label"
             >
               Home
@@ -363,21 +393,21 @@ exports[`NavList renders a simple list 1`] = `
         </a>
       </li>
       <li
-        class="c1 c6"
+        class="c1 c7"
       >
         <a
           aria-labelledby=":r3:--label  "
-          class="c3 Link"
+          class="c3 c4"
           href="/about"
           id=":r3:"
           tabindex="0"
         >
           <div
-            class="c4"
+            class="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              class="c7"
+              class="c8"
               id=":r3:--label"
             >
               About
@@ -386,21 +416,21 @@ exports[`NavList renders a simple list 1`] = `
         </a>
       </li>
       <li
-        class="c1 c6"
+        class="c1 c7"
       >
         <a
           aria-labelledby=":r4:--label  "
-          class="c3 Link"
+          class="c3 c4"
           href="/contact"
           id=":r4:"
           tabindex="0"
         >
           <div
-            class="c4"
+            class="c5"
             data-component="ActionList.Item--DividerContainer"
           >
             <span
-              class="c7"
+              class="c8"
               id=":r4:--label"
             >
               Contact
@@ -462,30 +492,7 @@ exports[`NavList renders with groups 1`] = `
   padding-inline-start: 0;
 }
 
-.c7 {
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  border-radius: 6px;
-  color: inherit;
-}
-
-.c7:hover {
-  color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c8 {
+.c9 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -500,7 +507,7 @@ exports[`NavList renders with groups 1`] = `
   min-width: 0;
 }
 
-.c9 {
+.c10 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -509,7 +516,7 @@ exports[`NavList renders with groups 1`] = `
   word-break: break-word;
 }
 
-.c11 {
+.c12 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -635,7 +642,7 @@ exports[`NavList renders with groups 1`] = `
   border-radius: 6px;
 }
 
-.c10 {
+.c11 {
   position: relative;
   display: -webkit-box;
   display: -webkit-flex;
@@ -667,27 +674,27 @@ exports[`NavList renders with groups 1`] = `
   margin-bottom: unset;
 }
 
-.c10[data-loading] {
+.c11[data-loading] {
   cursor: default;
 }
 
-.c10[aria-disabled],
-.c10[data-inactive] {
+.c11[aria-disabled],
+.c11[data-inactive] {
   cursor: not-allowed;
 }
 
-.c10[aria-disabled] [data-component="ActionList.Checkbox"],
-.c10[data-inactive] [data-component="ActionList.Checkbox"] {
+.c11[aria-disabled] [data-component="ActionList.Checkbox"],
+.c11[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
-.c10 [data-component="ActionList.Item--DividerContainer"] {
+.c11 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
 
-.c10 [data-component="ActionList.Item--DividerContainer"]::before {
+.c11 [data-component="ActionList.Item--DividerContainer"]::before {
   content: " ";
   display: block;
   position: absolute;
@@ -698,7 +705,7 @@ exports[`NavList renders with groups 1`] = `
   border-color: var(--divider-color,transparent);
 }
 
-.c10:not(:first-of-type) {
+.c11:not(:first-of-type) {
   --divider-color: var(--borderColor-muted,var(--color-action-list-item-inline-divider,rgba(208,215,222,0.48)));
 }
 
@@ -706,22 +713,22 @@ exports[`NavList renders with groups 1`] = `
   --divider-color: transparent !important;
 }
 
-.c10:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c10[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
+.c11:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
+.c11[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
 
-.c10:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c5,
-.c10[data-focus-visible-added] + li {
+.c11:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c5,
+.c11[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
-.c10[data-is-active-descendant] {
+.c11[data-is-active-descendant] {
   font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
-.c10[data-is-active-descendant]::after {
+.c11[data-is-active-descendant]::after {
   position: absolute;
   top: calc(50% - 12px);
   left: -8px;
@@ -730,6 +737,59 @@ exports[`NavList renders with groups 1`] = `
   content: "";
   background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   border-radius: 6px;
+}
+
+.c8 {
+  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  border-radius: 6px;
+  color: inherit;
+}
+
+[data-a11y-link-underlines='true'] .c7[data-inline='true'] {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c8:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c8:is(button) {
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.c8:hover {
+  color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 @media (forced-colors:active) {
@@ -763,30 +823,30 @@ exports[`NavList renders with groups 1`] = `
 }
 
 @media (forced-colors:active) {
-  .c10:focus,
-  .c10:focus-visible,
-  .c10 > a.focus-visible,
-  .c10[data-is-active-descendant] {
+  .c11:focus,
+  .c11:focus-visible,
+  .c11 > a.focus-visible,
+  .c11[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
 
 @media (hover:hover) and (pointer:fine) {
-  .c10:hover:not([aria-disabled]):not([data-inactive]) {
+  .c11:hover:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-hover,var(--color-action-list-item-default-hover-bg,rgba(208,215,222,0.32)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
     box-shadow: inset 0 0 0 max(1px,0.0625rem) var(--control-transparent-borderColor-active,var(--color-action-list-item-default-active-border,transparent));
   }
 
-  .c10:focus-visible,
-  .c10 > a.focus-visible,
-  .c10:focus.focus-visible {
+  .c11:focus-visible,
+  .c11 > a.focus-visible,
+  .c11:focus.focus-visible {
     outline: none;
     border: 2 solid;
     box-shadow: 0 0 0 2px var(--bgColor-accent-emphasis,var(--color-accent-emphasis,#0969da));
   }
 
-  .c10:active:not([aria-disabled]):not([data-inactive]) {
+  .c11:active:not([aria-disabled]):not([data-inactive]) {
     background-color: var(--control-transparent-bgColor-active,var(--color-action-list-item-default-active-bg,rgba(208,215,222,0.48)));
     color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   }
@@ -827,17 +887,17 @@ exports[`NavList renders with groups 1`] = `
             <a
               aria-current="page"
               aria-labelledby=":r8:--label  "
-              class="c7 Link"
+              class="c7 c8"
               href="/getting-started"
               id=":r8:"
               tabindex="0"
             >
               <div
-                class="c8"
+                class="c9"
                 data-component="ActionList.Item--DividerContainer"
               >
                 <span
-                  class="c9"
+                  class="c10"
                   id=":r8:--label"
                 >
                   Getting started
@@ -870,21 +930,21 @@ exports[`NavList renders with groups 1`] = `
           class="c4"
         >
           <li
-            class="c5 c10"
+            class="c5 c11"
           >
             <a
               aria-labelledby=":ra:--label  "
-              class="c7 Link"
+              class="c7 c8"
               href="/Avatar"
               id=":ra:"
               tabindex="0"
             >
               <div
-                class="c8"
+                class="c9"
                 data-component="ActionList.Item--DividerContainer"
               >
                 <span
-                  class="c11"
+                  class="c12"
                   id=":ra:--label"
                 >
                   Avatar
@@ -954,32 +1014,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
-.c12 {
-  padding-left: 16px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  border-radius: 6px;
-  color: inherit;
-  font-size: 12px;
-  font-weight: 400;
-}
-
-.c12:hover {
-  color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.c13 {
+.c14 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -1005,8 +1040,8 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   --divider-color: transparent !important;
 }
 
-.c14:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c3,
-.c14[data-focus-visible-added] + li {
+.c15:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c3,
+.c15[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
@@ -1215,6 +1250,61 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   content: "";
   background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   border-radius: 6px;
+}
+
+.c13 {
+  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-left: 16px;
+  padding-right: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  border-radius: 6px;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+[data-a11y-link-underlines='true'] .c12[data-inline='true'] {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c13:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c13:is(button) {
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.c13:hover {
+  color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c9 {
@@ -1357,7 +1447,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
               <a
                 aria-current="page"
                 aria-labelledby=":r29:--label  "
-                class="c1 c12 Link"
+                class="c12 c13"
                 href="#"
                 id=":r29:"
                 tabindex="0"
@@ -1367,7 +1457,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
                   data-component="ActionList.Item--DividerContainer"
                 >
                   <span
-                    class="c1 c13"
+                    class="c1 c14"
                     id=":r29:--label"
                   >
                     Sub Item
@@ -1435,31 +1525,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   display: none;
 }
 
-.c12 {
-  padding-left: 16px;
-  padding-right: 8px;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  border-radius: 6px;
-  color: inherit;
-  font-size: 12px;
-  font-weight: 400;
-}
-
-.c12:hover {
-  color: inherit;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
 .c7 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
@@ -1480,8 +1545,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   --divider-color: transparent !important;
 }
 
-.c13:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c3,
-.c13[data-focus-visible-added] + li {
+.c14:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c3,
+.c14[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
@@ -1599,8 +1664,8 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   --divider-color: transparent !important;
 }
 
-.c14:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c3,
-.c14[data-focus-visible-added] + li {
+.c15:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c3,
+.c15[data-focus-visible-added] + li {
   --divider-color: transparent;
 }
 
@@ -1711,6 +1776,61 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   content: "";
   background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   border-radius: 6px;
+}
+
+.c13 {
+  color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  padding-left: 16px;
+  padding-right: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  border-radius: 6px;
+  color: inherit;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+[data-a11y-link-underlines='true'] .c12[data-inline='true'] {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c13:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.c13:is(button) {
+  display: inline-block;
+  padding: 0;
+  font-size: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.c13:hover {
+  color: inherit;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c9 {
@@ -1861,7 +1981,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
               <a
                 aria-current="page"
                 aria-labelledby=":r23:--label  "
-                class="c1 c12 Link"
+                class="c12 c13"
                 href="#"
                 id=":r23:"
                 tabindex="0"
