@@ -27,6 +27,7 @@
   }
 
   &:where([data-variant='primary']) {
+    /* stylelint-disable-next-line primer/colors */
     border-color: var(--fgColor-default);
   }
 
@@ -37,21 +38,25 @@
 
   &:where([data-variant='accent']) {
     color: var(--fgColor-accent);
+    /* stylelint-disable-next-line primer/colors */
     border-color: var(--bgColor-accent-emphasis);
   }
 
   &:where([data-variant='success']) {
     color: var(--fgColor-success);
+    /* stylelint-disable-next-line primer/colors */
     border-color: var(--bgColor-success-emphasis);
   }
 
   &:where([data-variant='attention']) {
     color: var(--fgColor-attention);
+    /* stylelint-disable-next-line primer/colors */
     border-color: var(--bgColor-attention-emphasis);
   }
 
   &:where([data-variant='severe']) {
     color: var(--fgColor-severe);
+    /* stylelint-disable-next-line primer/colors */
     border-color: var(--bgColor-severe-emphasis);
   }
 
@@ -62,11 +67,13 @@
 
   &:where([data-variant='done']) {
     color: var(--fgColor-done);
+    /* stylelint-disable-next-line primer/colors */
     border-color: var(--bgColor-done-emphasis);
   }
 
   &:where([data-variant='sponsors']) {
     color: var(--fgColor-sponsors);
+    /* stylelint-disable-next-line primer/colors */
     border-color: var(--bgColor-sponsors-emphasis);
   }
 }
