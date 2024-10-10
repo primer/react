@@ -2,7 +2,7 @@
   display: grid;
   place-items: center;
   background: var(--bgColor-inset);
-  border-radius: var(--borderRadius-medium);
   border: var(--borderWidth-thin) solid;
   border-color: var(--borderColor-muted);
+  border-radius: var(--borderRadius-medium);
 }

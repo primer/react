@@ -13,14 +13,7 @@ export const Placeholder: React.FC<
   }>
 > = ({width, height, id, label}) => {
   return (
-    <Box
-      id={id}
-      sx={{
-        width: width ?? '100%',
-        height,
-      }}
-      className={styles.Box_0}
-    >
+    <Box id={id} className={styles.Box_0} style={{width: width ?? '100%', height}}>
       {label}
     </Box>
   )
