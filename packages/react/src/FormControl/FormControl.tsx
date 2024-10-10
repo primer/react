@@ -18,6 +18,7 @@ import FormControlLabel from './_FormControlLabel'
 import FormControlLeadingVisual from './_FormControlLeadingVisual'
 import FormControlValidation from './_FormControlValidation'
 import {FormControlContextProvider} from './_FormControlContext'
+import {warning} from '../utils/warning'
 
 export type FormControlProps = {
   children?: React.ReactNode
@@ -65,52 +66,40 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
     const isRadioInput = React.isValidElement(InputComponent) && InputComponent.type === Radio
 
     if (InputComponent) {
-      if (inputProps?.id) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          `instead of passing the 'id' prop directly to the input component, it should be passed to the parent component, <FormControl>`,
-        )
-      }
-      if (inputProps?.disabled) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          `instead of passing the 'disabled' prop directly to the input component, it should be passed to the parent component, <FormControl>`,
-        )
-      }
-      if (inputProps?.required) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          `instead of passing the 'required' prop directly to the input component, it should be passed to the parent component, <FormControl>`,
-        )
-      }
-    }
-
-    if (!slots.label) {
-      // eslint-disable-next-line no-console
-      console.error(
-        `The input field with the id ${id} MUST have a FormControl.Label child.\n\nIf you want to hide the label, pass the 'visuallyHidden' prop to the FormControl.Label component.`,
+      warning(
+        inputProps?.id,
+        `instead of passing the 'id' prop directly to the input component, it should be passed to the parent component, <FormControl>`,
+      )
+      warning(
+        inputProps?.disabled,
+        `instead of passing the 'disabled' prop directly to the input component, it should be passed to the parent component, <FormControl>`,
+      )
+      warning(
+        inputProps?.required,
+        `instead of passing the 'required' prop directly to the input component, it should be passed to the parent component, <FormControl>`,
       )
     }
 
-    if (isChoiceInput) {
-      if (slots.validation) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          'Validation messages are not rendered for an individual checkbox or radio. The validation message should be shown for all options.',
-        )
-      }
+    warning(
+      !slots.label,
+      `The input field with the id ${id} MUST have a FormControl.Label child.\n\nIf you want to hide the label, pass the 'visuallyHidden' prop to the FormControl.Label component.`,
+    )
 
-      if (isRadioInput && childrenWithoutSlots.find(child => React.isValidElement(child) && child.props?.required)) {
-        // eslint-disable-next-line no-console
-        console.warn('An individual radio cannot be a required field.')
-      }
+    if (isChoiceInput) {
+      warning(
+        !!slots.validation,
+        'Validation messages are not rendered for an individual checkbox or radio. The validation message should be shown for all options.',
+      )
+
+      warning(
+        isRadioInput && childrenWithoutSlots.find(child => React.isValidElement(child) && child.props?.required),
+        'An individual radio cannot be a required field.',
+      )
     } else {
-      if (slots.leadingVisual) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          'A leading visual is only rendered for a checkbox or radio form control. If you want to render a leading visual inside of your input, check if your input supports a leading visual.',
-        )
-      }
+      warning(
+        !!slots.leadingVisual,
+        'A leading visual is only rendered for a checkbox or radio form control. If you want to render a leading visual inside of your input, check if your input supports a leading visual.',
+      )
     }
 
     const isLabelHidden = slots.label?.props.visuallyHidden
