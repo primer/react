@@ -80,10 +80,12 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
       )
     }
 
-    warning(
-      !slots.label,
-      `The input field with the id ${id} MUST have a FormControl.Label child.\n\nIf you want to hide the label, pass the 'visuallyHidden' prop to the FormControl.Label component.`,
-    )
+    if (!slots.label) {
+      // eslint-disable-next-line no-console
+      console.error(
+        `The input field with the id ${id} MUST have a FormControl.Label child.\n\nIf you want to hide the label, pass the 'visuallyHidden' prop to the FormControl.Label component.`,
+      )
+    }
 
     if (isChoiceInput) {
       warning(
