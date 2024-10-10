@@ -50,12 +50,12 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
   ) : (
     <Truncate
       id={inlineDescriptionId}
+      className={className}
       sx={merge(styles, sx as SxProp)}
       title={props.children as string}
       inline={true}
       maxWidth="100%"
       data-component="ActionList.Description"
-      className={className}
     >
       {props.children}
     </Truncate>
