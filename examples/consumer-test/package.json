@@ -6,7 +6,7 @@
     "check": "tsc --noEmit"
   },
   "dependencies": {
-    "@types/react": "^18.2.14",
+    "@types/react": "^18.3.11",
     "@types/react-dom": "^18.2.19",
     "@types/styled-components": "^5.1.11",
     "@primer/react": "37.0.0-rc.10",
