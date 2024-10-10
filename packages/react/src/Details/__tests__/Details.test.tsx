@@ -1,4 +1,4 @@
-import {render} from '@testing-library/react'
+import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {Details, useDetails, Box, Button} from '../..'
@@ -24,7 +24,7 @@ describe('Details', () => {
       const {getDetailsProps} = useDetails({closeOnOutsideClick: true})
       return (
         <Details data-testid="details" {...getDetailsProps()}>
-          <summary>hi</summary>
+          <Details.Summary>hi</Details.Summary>
         </Details>
       )
     }
@@ -94,5 +94,41 @@ describe('Details', () => {
     await user.click(getByRole('button', {name: 'test'}))
 
     expect(getByTestId('summary')).toHaveTextContent('Open')
+  })
+
+  it('Adds default summary if no summary supplied', async () => {
+    const {getByText} = render(<Details data-testid="details">content</Details>)
+
+    expect(getByText('See Details')).toBeInTheDocument()
+    expect(getByText('See Details').tagName).toBe('SUMMARY')
+  })
+
+  it('Does not add default summary if supplied as different element', async () => {
+    const {getByTestId, queryByText} = render(
+      <Details data-testid="details">
+        <Box as="summary" data-testid="summary">
+          custom summary
+        </Box>
+        content
+      </Details>,
+    )
+
+    expect(queryByText('See Details')).toBeNull()
+    expect(getByTestId('summary')).toBeInTheDocument()
+    expect(getByTestId('summary').tagName).toBe('SUMMARY')
+  })
+
+  describe('Details.Summary', () => {
+    behavesAsComponent({Component: Details.Summary})
+
+    it('should support a custom `className` on the container element', () => {
+      render(<Details.Summary className="custom-class">test summary</Details.Summary>)
+      expect(screen.getByText('test summary')).toHaveClass('custom-class')
+    })
+
+    it('should pass extra props onto the container element', () => {
+      render(<Details.Summary data-testid="test">test summary</Details.Summary>)
+      expect(screen.getByText('test summary')).toHaveAttribute('data-testid', 'test')
+    })
   })
 })
