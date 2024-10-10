@@ -70,10 +70,20 @@
       "name": "SplitPageLayout.Pane",
       "props": [
         {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "description": "Label for the pane. Required if the pane overflows and doesn't have aria-labelledby."
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string | undefined",
+          "description": "Id of an element that acts as a label for the pane. Required if the pane overflows and doesn't have aria-label."
+        },
+        {
           "name": "width",
-          "type": "| 'small' | 'medium' | 'large'",
+          "type": "| 'small' | 'medium' | 'large' | { min: string max: string default: string }",
           "defaultValue": "'medium'",
-          "description": "The width of the pane."
+          "description": "The width of the pane. If using custom widths, provide an object with keys 'min', 'max' and 'default'."
         },
         {
           "name": "minWidth",
@@ -116,6 +126,13 @@
           "type": "| 'none' | 'line' | { narrow?: | 'none' | 'line' | 'filled' regular?: | 'none' | 'line' wide?: | 'none' | 'line' }",
           "defaultValue": "'line'",
           "description": ""
+        },
+        {
+          "name": "dividerWhenNarrow",
+          "type": "| 'inherit' | 'none' | 'line' | 'filled'",
+          "defaultValue": "'inherit'",
+          "deprecated": true,
+          "description": "Use the divider prop with a responsive value instead."
         },
         {
           "name": "hidden",
