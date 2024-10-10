@@ -5,7 +5,9 @@ import axe from 'axe-core'
 import {
   Autocomplete,
   Checkbox,
+  CheckboxGroup,
   FormControl,
+  Radio,
   Select,
   Textarea,
   TextInput,
@@ -376,19 +378,66 @@ describe('FormControl', () => {
         consoleSpy.mockRestore()
       })
 
-      it('should warn users if they pass `required` to a checkbox or radio', async () => {
+      it('should warn users if they pass `required` to a radio', async () => {
         const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
 
         render(
           <FormControl required>
             <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
-            <Checkbox required />
+            <Radio value="radio" name="radio" required />
             <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
           </FormControl>,
         )
 
         expect(consoleSpy).toHaveBeenCalled()
         consoleSpy.mockRestore()
+      })
+
+      it('should allow required prop to individual checkbox', async () => {
+        const {getByRole} = render(
+          <FormControl required>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <Checkbox />
+            <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
+          </FormControl>,
+        )
+
+        expect(getByRole('checkbox')).toBeRequired()
+      })
+
+      it('should not add required prop to individual radio', async () => {
+        const {getByRole} = render(
+          <FormControl required>
+            <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+            <Radio value="radio" name="radio" />
+            <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
+          </FormControl>,
+        )
+
+        expect(getByRole('radio')).not.toBeRequired()
+      })
+
+      it('should allow required prop on checkbox if part of CheckboxGroup', async () => {
+        const {getByTestId} = render(
+          <CheckboxGroup>
+            <CheckboxGroup.Label>Checkboxes</CheckboxGroup.Label>
+            <FormControl required>
+              <Checkbox value="checkOne" data-testid="checkbox-1" />
+              <FormControl.Label>Checkbox one</FormControl.Label>
+            </FormControl>
+            <FormControl>
+              <Checkbox value="checkTwo" data-testid="checkbox-2" />
+              <FormControl.Label>Checkbox two</FormControl.Label>
+            </FormControl>
+            <FormControl>
+              <Checkbox value="checkThree" />
+              <FormControl.Label>Checkbox three</FormControl.Label>
+            </FormControl>
+          </CheckboxGroup>,
+        )
+
+        expect(getByTestId('checkbox-1')).toBeRequired()
+        expect(getByTestId('checkbox-2')).not.toBeRequired()
       })
     })
 
