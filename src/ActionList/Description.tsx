@@ -12,11 +12,13 @@ export type ActionListDescriptionProps = {
    * - `"block"` - Secondary text is positioned below primary text.
    */
   variant?: 'inline' | 'block'
+  className?: string
 } & SxProp
 
 export const Description: React.FC<React.PropsWithChildren<ActionListDescriptionProps>> = ({
   variant = 'inline',
   sx = {},
+  className,
   ...props
 }) => {
   const styles = {
@@ -35,6 +37,7 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
       as="span"
       sx={merge({...styles, color: disabled ? 'fg.disabled' : 'fg.muted'}, sx as SxProp)}
       id={blockDescriptionId}
+      className={className}
     >
       {props.children}
     </Box>
@@ -45,6 +48,7 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
       title={props.children as string}
       inline={true}
       maxWidth="100%"
+      className={className}
     >
       {props.children}
     </Truncate>
