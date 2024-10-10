@@ -302,12 +302,12 @@ describe('Button', () => {
     expect(triggerEl.getAttribute('aria-describedby')).toEqual(expect.stringContaining(tooltipEl.id))
   })
 
-  describe('with primer_react_css_modules_staff enabled', () => {
+  describe('with primer_react_css_modules_ga enabled', () => {
     it('iconbutton should support custom `className` along with default classnames', () => {
       const {container} = render(
         <FeatureFlags
           flags={{
-            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
           }}
         >
           <IconButton className="test" aria-label="Test" icon={HeartIcon} />
@@ -320,7 +320,7 @@ describe('Button', () => {
       const {container} = render(
         <FeatureFlags
           flags={{
-            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
           }}
         >
           <Button className="test">Hello</Button>
@@ -333,7 +333,7 @@ describe('Button', () => {
       const {container} = render(
         <FeatureFlags
           flags={{
-            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
           }}
         >
           <LinkButton className="test">Hello</LinkButton>
