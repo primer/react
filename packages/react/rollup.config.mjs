@@ -11,7 +11,7 @@ import {importCSS} from 'rollup-plugin-import-css'
 import postcss from 'rollup-plugin-postcss'
 import postcssPresetPrimer from 'postcss-preset-primer'
 import MagicString from 'magic-string'
-import packageJson from './package.json' assert {type: 'json'}
+import packageJson from './package.json' with {type: 'json'}
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 

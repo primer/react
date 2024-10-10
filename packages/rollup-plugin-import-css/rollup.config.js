@@ -2,7 +2,7 @@ import {nodeResolve} from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import typescript from 'rollup-plugin-typescript2'
 import esbuild from 'rollup-plugin-esbuild'
-import packageJson from './package.json' assert {type: 'json'}
+import packageJson from './package.json' with {type: 'json'}
 
 const dependencyTypes = ['dependencies', 'devDependencies', 'peerDependencies', 'optionalDependencies']
 const dependencies = new Set(

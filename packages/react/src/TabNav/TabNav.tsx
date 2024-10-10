@@ -28,8 +28,14 @@ const TabNavNav = styled.nav`
   border-bottom: 1px solid ${get('colors.border.default')};
 `
 
+/**
+ * @deprecated
+ */
 export type TabNavProps = ComponentProps<typeof TabNavBase>
 
+/**
+ * @deprecated
+ */
 function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
   const customContainerRef = useRef<HTMLElement>(null)
 
@@ -75,12 +81,18 @@ function TabNav({children, 'aria-label': ariaLabel, ...rest}: TabNavProps) {
   )
 }
 
+/**
+ * @deprecated
+ */
 export type TabNavLinkProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> & {
   to?: To
   selected?: boolean
   href?: string
 } & SxProp
 
+/**
+ * @deprecated
+ */
 const TabNavLink = styled.a.attrs<TabNavLinkProps>(props => ({
   className: clsx(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),
   role: 'tab',

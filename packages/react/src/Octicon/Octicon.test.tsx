@@ -1,19 +1,22 @@
 import React from 'react'
-import {Pagehead} from '..'
-import theme from '../theme'
+import {XIcon} from '@primer/octicons-react'
+import Octicon from '../Octicon'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
 
-describe('Pagehead', () => {
-  behavesAsComponent({Component: Pagehead})
+describe('Octicon', () => {
+  behavesAsComponent({
+    Component: Octicon,
+    toRender: () => <Octicon icon={XIcon} />,
+  })
 
-  checkExports('Pagehead', {
-    default: Pagehead,
+  checkExports('Octicon', {
+    default: Octicon,
   })
 
   it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<Pagehead theme={theme}>Pagehead</Pagehead>)
+    const {container} = HTMLRender(<Octicon icon={XIcon} />)
     const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })

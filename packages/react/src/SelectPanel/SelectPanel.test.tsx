@@ -5,6 +5,7 @@ import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
 import {userEvent} from '@testing-library/user-event'
 import ThemeProvider from '../ThemeProvider'
 import {FeatureFlags} from '../FeatureFlags'
+import type {InitialLoadingType} from './SelectPanel'
 import {getLiveRegion} from '../utils/testing'
 
 const renderWithFlag = (children: React.ReactNode, flag: boolean) => {
@@ -335,6 +336,53 @@ for (const useModernActionList of [false, true]) {
             screen.getByRole('option', {name: 'item one'}).id,
           )
         })
+
+        it('should select an item (by item.id) even when items are defined in the component', async () => {
+          const user = userEvent.setup()
+
+          function Fixture() {
+            // items are defined in the same scope as selection, so they could rerender and create new object references
+            // We use item.id to track selection
+            const items: SelectPanelProps['items'] = [
+              {id: 'one', text: 'item one'},
+              {id: 'two', text: 'item two'},
+              {id: 'three', text: 'item three'},
+            ]
+
+            const [open, setOpen] = React.useState(false)
+            const [selected, setSelected] = React.useState<SelectPanelProps['items']>([])
+            const [filter, setFilter] = React.useState('')
+
+            return (
+              <ThemeProvider>
+                <SelectPanel
+                  title="test title"
+                  items={items}
+                  placeholder="Select items"
+                  selected={selected}
+                  onSelectedChange={setSelected}
+                  filterValue={filter}
+                  onFilterChange={setFilter}
+                  open={open}
+                  onOpenChange={setOpen}
+                />
+              </ThemeProvider>
+            )
+          }
+
+          renderWithFlag(<Fixture />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          await user.click(screen.getByText('item one'))
+          expect(screen.getByRole('option', {name: 'item one'})).toHaveAttribute('aria-selected', 'true')
+
+          await user.click(screen.getByText('item two'))
+          expect(screen.getByRole('option', {name: 'item two'})).toHaveAttribute('aria-selected', 'true')
+
+          await user.click(screen.getByRole('option', {name: 'item one'}))
+          expect(screen.getByRole('option', {name: 'item one'})).toHaveAttribute('aria-selected', 'false')
+        })
       })
 
       function FilterableSelectPanel() {
@@ -387,6 +435,71 @@ for (const useModernActionList of [false, true]) {
       describe('screen reader announcements', () => {
         // this is only implemented with the feature flag
         if (!useModernActionList) return
+
+        function LoadingSelectPanel({
+          initialLoadingType = 'spinner',
+          items = [],
+        }: {
+          initialLoadingType?: InitialLoadingType
+          items?: SelectPanelProps['items']
+        }) {
+          const [open, setOpen] = React.useState(false)
+
+          return (
+            <ThemeProvider>
+              <SelectPanel
+                title="test title"
+                subtitle="test subtitle"
+                placeholder="Select items"
+                open={open}
+                items={items}
+                onFilterChange={() => {}}
+                selected={[]}
+                onSelectedChange={() => {}}
+                onOpenChange={isOpen => {
+                  setOpen(isOpen)
+                }}
+                initialLoadingType={initialLoadingType}
+              />
+            </ThemeProvider>
+          )
+        }
+
+        it('displays a loading spinner on first open', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<LoadingSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.getByTestId('filtered-action-list-spinner')).toBeTruthy()
+        })
+
+        it('displays a loading skeleton on first open', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<LoadingSelectPanel initialLoadingType="skeleton" />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.getByTestId('filtered-action-list-skeleton')).toBeTruthy()
+        })
+
+        it('displays a loading spinner in the text input if items are already loaded', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<LoadingSelectPanel items={items} />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.getAllByRole('option')).toHaveLength(3)
+
+          // since the test never repopulates the panel's list of items, the panel will enter
+          // the loading state after the following line executes and stay there indefinitely
+          await user.type(document.activeElement!, 'two')
+
+          expect(screen.getByTestId('text-input-leading-visual')).toBeTruthy()
+        })
 
         it('should announce initial focused item', async () => {
           const user = userEvent.setup()
