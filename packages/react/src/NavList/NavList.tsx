@@ -7,6 +7,7 @@ import type {
   ActionListDividerProps,
   ActionListLeadingVisualProps,
   ActionListTrailingVisualProps,
+  ActionListGroupHeadingProps,
 } from '../ActionList'
 import {ActionList} from '../ActionList'
 import {ActionListContainerContext} from '../ActionList/ActionListContainerContext'
@@ -290,6 +291,27 @@ const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defau
 
 Group.displayName = 'NavList.Group'
 
+export type NavListGroupHeadingProps = ActionListGroupHeadingProps
+
+/**
+ * This is an alternative to the `title` prop on `NavList.Group`.
+ * It was primarily added to allow links in group headings.
+ */
+const GroupHeading: React.FC<NavListGroupHeadingProps> = ({sx: sxProp = defaultSxProp, ...rest}) => {
+  return (
+    <ActionList.GroupHeading
+      as="h3"
+      sx={merge<SxProp['sx']>(
+        {
+          '> a {': {color: 'inherit', textDecoration: 'inherit', ':hover': {textDecoration: 'underline'}},
+        },
+        sxProp,
+      )}
+      {...rest}
+    />
+  )
+}
+
 // ----------------------------------------------------------------------------
 // Export
 
@@ -301,4 +323,5 @@ export const NavList = Object.assign(Root, {
   TrailingAction,
   Divider,
   Group,
+  GroupHeading,
 })
