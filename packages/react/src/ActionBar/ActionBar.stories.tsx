@@ -18,7 +18,8 @@ import {
   ReplyIcon,
   ThreeBarsIcon,
 } from '@primer/octicons-react'
-import {Box, Dialog, Button, Avatar, ActionMenu, IconButton, ActionList, Textarea} from '../'
+import {Box, Button, Avatar, ActionMenu, IconButton, ActionList, Textarea} from '../'
+import {Dialog} from '../DialogV1'
 import {Divider} from '../deprecated/ActionList/Divider'
 import mockData from '../experimental/SelectPanel2/mock-story-data'
 

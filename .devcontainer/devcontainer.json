@@ -1,6 +1,6 @@
 {
   "name": "Primer React",
-  "image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:18",
+  "image": "mcr.microsoft.com/vscode/devcontainers/typescript-node:22",
   "extensions": ["esbenp.prettier-vscode", "dbaeumer.vscode-eslint", "DavidAnson.vscode-markdownlint"],
   "forwardPorts": [8000],
   "onCreateCommand": ["/bin/bash", "-c", "npm run setup"],

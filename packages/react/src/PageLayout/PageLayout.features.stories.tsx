@@ -2,7 +2,8 @@ import React from 'react'
 import type {Meta, StoryFn} from '@storybook/react'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
-import {Box, BranchName, Heading, Link, StateLabel, TabNav, Text} from '..'
+import {Box, BranchName, Heading, Link, StateLabel, Text} from '..'
+import TabNav from '../TabNav'
 
 export default {
   title: 'Components/PageLayout/Features',
