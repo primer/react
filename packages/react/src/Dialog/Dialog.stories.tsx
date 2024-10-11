@@ -3,7 +3,6 @@ import type {Meta} from '@storybook/react'
 import {Button, Text} from '..'
 import type {DialogProps} from './Dialog'
 import {Dialog} from './Dialog'
-import styles from './dialog.module.css'
 
 /* Dialog Version 2 */
 
@@ -117,7 +116,6 @@ export const Playground = (
           {...args}
           position={{narrow: args.positionNarrow, regular: args.positionRegular}}
           onClose={onDialogClose}
-          className={styles.dialogStyle}
           footerButtons={[
             {buttonType: 'default', content: 'Open Second Dialog', onClick: openSecondDialog},
             {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
@@ -126,7 +124,7 @@ export const Playground = (
         >
           {lipsum}
           {secondOpen && (
-            <Dialog title="Inner dialog!" className={styles.dialogStyle} onClose={onSecondDialogClose} width="small">
+            <Dialog title="Inner dialog!" onClose={onSecondDialogClose} width="small">
               Hello world
             </Dialog>
           )}
