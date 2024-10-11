@@ -104,7 +104,7 @@
     ],
     "**/*.css": [
       "prettier --cache --write",
-      "stylelint --report-needless-disables --report-invalid-scope-disables --allow-empty-input"
+      "stylelint --report-needless-disables --report-invalid-scope-disables --allow-empty-input --fix"
     ]
   }
 }
