@@ -1,4 +1,4 @@
-import {Box} from '.'
+import Box from '../Box'
 import React from 'react'
 
 import styles from './Placeholder.module.css'
