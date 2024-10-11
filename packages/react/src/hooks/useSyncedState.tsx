@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import type React from 'react'
 
 /**
  * When the value that initialized the state changes
@@ -9,20 +10,28 @@ import {useState} from 'react'
  * If you use a non-primitive value as the initial value, you should provide a custom isEqual function
  *
  * This is adapted almost directly from https://beta.reactjs.org/learn/you-might-not-need-an-effect#adjusting-some-state-when-a-prop-changes
+ *
+ * @param initialValue The initial value, mirroring `useState` this accepts either a value or a memoized function that returns an initial value
+ * @param opts.isPropUpdateDisabled Whether to skip the update, this is uncommon, but might happen while a form is dirty or something like that
+ * @param opts.isEqual The comparison function to use, by default `Object.is` is used
  */
-
-export const useSyncedState = <T,>(
+export function useSyncedState<T>(
   initialValue: T | (() => T),
   {isPropUpdateDisabled = false, isEqual = Object.is} = {},
-) => {
-  const [state, setState] = useState(initialValue)
-  const [previous, setPrevious] = useState(initialValue)
-
-  const nextInitialValue = initialValue instanceof Function ? initialValue() : initialValue
-  if (!isPropUpdateDisabled && !isEqual(previous, nextInitialValue)) {
-    setPrevious(nextInitialValue)
-    setState(nextInitialValue)
+): [T, React.Dispatch<React.SetStateAction<T>>] {
+  const [value, setValue] = useState(initialValue)
+  const [previousValue, setPreviousValue] = useState(() => initialValue)
+  /**
+   * This is _not_ done in effect, but instead during render.
+   *
+   * This is safe because it's in the same component. React will immediately queue an update, and
+   * avoid the work in the render pass, which saves a potentially large render cycle that would
+   * get thrown away immediately
+   */
+  if (!isPropUpdateDisabled && !isEqual(previousValue, initialValue)) {
+    setPreviousValue(() => initialValue)
+    setValue(initialValue)
   }
 
-  return [state, setState] as const
+  return [value, setValue] as const
 }
