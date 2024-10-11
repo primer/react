@@ -16,6 +16,8 @@ import Box from '../Box'
 import {ActionMenu} from '../ActionMenu'
 import {useFocusZone, FocusKeys} from '../hooks/useFocusZone'
 
+import styles from './ActionBar.module.css'
+
 type ChildSize = {
   text: string
   width: number
@@ -54,43 +56,10 @@ const NavigationList = styled.div`
 const GAP = 8
 
 const listStyles = {
-  display: 'flex',
-  minWidth: 0,
-  listStyle: 'none',
-  whiteSpace: 'nowrap',
-  paddingY: 0,
-  paddingX: 0,
-  margin: 0,
-  marginBottom: '-1px',
-  alignItems: 'center',
   gap: `${GAP}px`,
-  position: 'relative',
 }
 
 const MORE_BTN_WIDTH = 86
-const navStyles = {
-  display: 'flex',
-  paddingX: 3,
-  justifyContent: 'flex-end',
-  align: 'row',
-  alignItems: 'center',
-  maxHeight: '32px',
-}
-
-const menuItemStyles = {
-  textDecoration: 'none',
-}
-
-const moreBtnStyles = {
-  //set margin 0 here because safari puts extra margin around the button, rest is to reset style to make it look like a list element
-  margin: 0,
-  border: 0,
-  background: 'transparent',
-  fontWeight: 'normal',
-  boxShadow: 'none',
-  paddingY: 1,
-  paddingX: 2,
-}
 
 const getValidChildren = (children: React.ReactNode) => {
   return React.Children.toArray(children).filter(child => {
@@ -237,13 +206,17 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
 
   return (
     <ActionBarContext.Provider value={{size, setChildrenWidth}}>
-      <Box ref={navRef} sx={navStyles}>
-        <NavigationList sx={listStyles} ref={listRef} role="toolbar">
+      <Box ref={navRef} className={styles.NavStyles}>
+        <NavigationList sx={listStyles} ref={listRef} role="toolbar" className={styles.NavigationList_0}>
           {listItems}
           {menuItems.length > 0 && (
             <ActionMenu>
               <ActionMenu.Anchor>
-                <IconButton sx={moreBtnStyles} aria-label={`More ${ariaLabel} items`} icon={KebabHorizontalIcon} />
+                <IconButton
+                  aria-label={`More ${ariaLabel} items`}
+                  icon={KebabHorizontalIcon}
+                  className={styles.IconButton}
+                />
               </ActionMenu.Anchor>
               <ActionMenu.Overlay>
                 <ActionList>
@@ -261,7 +234,6 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                       return (
                         <ActionList.LinkItem
                           key={menuItemChildren}
-                          sx={menuItemStyles}
                           onClick={(
                             event: React.MouseEvent<HTMLAnchorElement> | React.KeyboardEvent<HTMLAnchorElement>,
                           ) => {
@@ -269,6 +241,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
                             focusOnMoreMenuBtn()
                             typeof onClick === 'function' && onClick(event)
                           }}
+                          className={styles.ActionList_LinkItem}
                         >
                           {Icon ? (
                             <ActionList.LeadingVisual>
@@ -321,12 +294,9 @@ export const VerticalDivider = () => {
       data-component="ActionBar.VerticalDivider"
       aria-hidden="true"
       sx={{
-        display: 'inline-block',
-        borderLeft: '1px solid',
-        borderColor: 'actionListItem.inlineDivider',
         height: sizeToHeight[size],
-        mx: 2,
       }}
+      className={styles.Box_1}
     />
   )
 }

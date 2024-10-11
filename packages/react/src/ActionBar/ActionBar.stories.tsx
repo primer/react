@@ -23,6 +23,8 @@ import {Dialog} from '../DialogV1'
 import {Divider} from '../deprecated/ActionList/Divider'
 import mockData from '../experimental/SelectPanel2/mock-story-data'
 
+import styles from './ActionBar.stories.module.css'
+
 export default {
   title: 'Experimental/Components/ActionBar',
 } as Meta<typeof ActionBar>
@@ -64,33 +66,9 @@ export const CommentBox = (props: CommentBoxProps) => {
   const buttonRef = React.useRef(null)
   const toolBarLabel = `${ariaLabel ? ariaLabel : 'Comment box'} toolbar`
   return (
-    <Box
-      sx={{
-        maxWidth: 800,
-        display: 'flex',
-        flexDirection: 'column',
-        width: '100%',
-        borderColor: 'border.default',
-        borderWidth: 1,
-        borderStyle: 'solid',
-        borderRadius: 2,
-        minInlineSize: 'auto',
-        bg: 'canvas.default',
-        color: 'fg.default',
-      }}
-    >
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          backgroundColor: 'canvas.subtle',
-          borderTopLeftRadius: 2,
-          borderTopRightRadius: 2,
-          justifyContent: 'space-between',
-        }}
-        as="header"
-      >
-        <Box sx={{width: '50%'}}>
+    <Box className={styles.Box_0}>
+      <Box as="header" className={styles.Box_1}>
+        <Box className={styles.Box_2}>
           <ActionBar aria-label={toolBarLabel}>
             <ActionBar.IconButton icon={HeadingIcon} aria-label="Heading"></ActionBar.IconButton>
             <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
@@ -151,35 +129,16 @@ export const ActionBarWithMenuTrigger = () => {
 }
 
 export const ActionbarToggle = () => {
-  const descriptionStyles = {
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: 'border.default',
-    p: 3,
-  }
-  const topSectionStyles = {
-    bg: 'canvas.subtle',
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderBottomWidth: 1,
-    borderStyle: 'solid',
-    borderColor: 'border.default',
-    p: 3,
-  }
-  const bottomSectionStyles = {
-    p: 3,
-  }
   const loginName = mockData.collaborators[1].login
   const [showEditView, setEditView] = React.useState(false)
   const [description /*, setDescription*/] = React.useState('')
   const anchorRef = React.useRef(null)
   return (
-    <Box sx={descriptionStyles}>
-      <Box sx={topSectionStyles}>
+    <Box className={styles.Box_3}>
+      <Box className={styles.Box_4}>
         <Box>
           <Avatar src={`https://github.com/${loginName}.png`} size={30} />
-          <Text as="strong" sx={{marginLeft: 2, marginRight: 2}}>
+          <Text as="strong" className={styles.Text_0}>
             {loginName}
           </Text>
           <Text>opened this issue 2 hours ago</Text>
@@ -215,11 +174,11 @@ export const ActionbarToggle = () => {
           </ActionMenu>
         </Box>
       </Box>
-      <Box sx={bottomSectionStyles}>
+      <Box className={styles.Box_5}>
         {showEditView ? (
           <Box>
             <CommentBox aria-label="Comment box" />
-            <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', p: 2, gap: 2}}>
+            <Box className={styles.Box_6}>
               <Button
                 variant="primary"
                 onClick={() => {
@@ -246,11 +205,11 @@ export const MultipleActionBars = () => {
   const [showSecondCommentBox, setShowSecondCommentBox] = React.useState(false)
   return (
     <Box>
-      <Box sx={{p: 3}}>
+      <Box className={styles.Box_5}>
         {showFirstCommentBox ? (
           <Box>
             <CommentBox aria-label="First Comment Box" />
-            <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', p: 2, gap: 2}}>
+            <Box className={styles.Box_6}>
               <Button
                 variant="primary"
                 onClick={() => {
@@ -268,11 +227,11 @@ export const MultipleActionBars = () => {
           <Button onClick={() => setShowFirstCommentBox(true)}>Show first commentBox</Button>
         )}
       </Box>
-      <Box sx={{p: 3}}>
+      <Box className={styles.Box_5}>
         {showSecondCommentBox ? (
           <Box>
             <CommentBox aria-label="Second Comment Box" />
-            <Box sx={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', p: 2, gap: 2}}>
+            <Box className={styles.Box_6}>
               <Button
                 variant="primary"
                 onClick={() => {

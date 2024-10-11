@@ -1,0 +1,42 @@
+.NavStyles {
+  display: flex;
+  max-height: 32px;
+  padding-right: var(--base-size-16);
+  padding-left: var(--base-size-16);
+  justify-content: flex-end;
+  align: row;
+  align-items: center;
+}
+
+.NavigationList_0 {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  margin-bottom: -1px;
+  white-space: nowrap;
+  list-style: none;
+  align-items: center;
+}
+
+.IconButton {
+  padding: var(--base-size-4) var(--base-size-8);
+  margin: 0;
+  font-weight: var(--base-text-weight-normal);
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.ActionList_LinkItem {
+  text-decoration: none;
+}
+
+.Box_1 {
+  display: inline-block;
+  margin-right: var(--base-size-8);
+  margin-left: var(--base-size-8);
+  border-color: actionListItem.inlineDivider;
+  border-left: var(--borderWidth-thin) solid;
+}
