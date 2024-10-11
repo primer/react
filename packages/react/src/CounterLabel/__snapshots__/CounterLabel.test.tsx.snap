@@ -21,7 +21,7 @@ exports[`CounterLabel renders with secondary scheme when no "scheme" prop is pro
   border: var(--borderWidth-thin,max(1px,0.0625rem)) solid var(--counter-borderColor,var(--color-counter-border));
 }
 
-.c0:empty {
+.c0:where(:empty) {
   display: none;
 }
 
@@ -64,7 +64,7 @@ exports[`CounterLabel respects the primary "scheme" prop 1`] = `
   border: var(--borderWidth-thin,max(1px,0.0625rem)) solid var(--counter-borderColor,var(--color-counter-border));
 }
 
-.c0:empty {
+.c0:where(:empty) {
   display: none;
 }
 
