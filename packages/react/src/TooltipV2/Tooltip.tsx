@@ -328,8 +328,8 @@ export const Tooltip = React.forwardRef(
             {...rest}
             // Only need tooltip role if the tooltip is a description for supplementary information
             role={type === 'description' ? 'tooltip' : undefined}
-            // stop AT from announcing the tooltip twice when it is a label type because it will be announced with "aria-labelledby"
-            aria-hidden={type === 'label' ? true : undefined}
+            // stop AT from announcing the tooltip twice: when it is a label type it will be announced with "aria-labelledby",when it is a description type it will be announced with "aria-describedby"
+            aria-hidden={true}
             id={tooltipId}
             // mouse leave and enter on the tooltip itself is needed to keep the tooltip open when the mouse is over the tooltip
             onMouseEnter={openTooltip}
