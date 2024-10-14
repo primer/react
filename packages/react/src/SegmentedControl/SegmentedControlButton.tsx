@@ -7,7 +7,7 @@ import type {SxProp} from '../sx'
 import sx, {merge} from '../sx'
 import {getSegmentedControlButtonStyles, getSegmentedControlListItemStyles} from './getSegmentedControlStyles'
 import {defaultSxProp} from '../utils/defaultSxProp'
-import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
+import {isElement} from 'react-is'
 
 export type SegmentedControlButtonProps = {
   /** The visible label rendered in the button */
@@ -17,12 +17,11 @@ export type SegmentedControlButtonProps = {
   /** Whether the segment is selected. This is used for uncontrolled `SegmentedControls` to pick one `SegmentedControlButton` that is selected on the initial render. */
   defaultSelected?: boolean
   /** The leading icon comes before item label */
-  leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
+  leadingIcon?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement
 } & SxProp &
   ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
 const SegmentedControlButtonStyled = styled.button`
-  ${getGlobalFocusStyles()};
   ${sx};
 `
 
@@ -44,11 +43,7 @@ const SegmentedControlButton: React.FC<React.PropsWithChildren<SegmentedControlB
         {...rest}
       >
         <span className="segmentedControl-content">
-          {LeadingIcon && (
-            <Box mr={1}>
-              <LeadingIcon />
-            </Box>
-          )}
+          {LeadingIcon && <Box mr={1}>{isElement(LeadingIcon) ? LeadingIcon : <LeadingIcon />}</Box>}
           <Box className="segmentedControl-text">{children}</Box>
         </span>
       </SegmentedControlButtonStyled>
