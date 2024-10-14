@@ -10,7 +10,13 @@
       "name": "aria-label",
       "type": "string",
       "defaultValue": "",
-      "description": "Allows input to be accessible."
+      "description": "Gives the input an accessible name."
+    },
+    {
+      "name": "autoComplete",
+      "type": "string",
+      "defaultValue": "",
+      "description": "Allows input to autofill based on value given."
     },
     {
       "name": "block",

@@ -12,9 +12,15 @@ const Icon = React.forwardRef((props: StyledOcticonProps, ref: React.Ref<SVGSVGE
   return <IconComponent {...rest} ref={ref} />
 })
 
+/**
+ * @deprecated
+ */
 const Octicon = styled(Icon)<SxProp>`
   ${({color, sx: sxProp}) => sx({sx: {color, ...sxProp}})}
 `
 
+/**
+ * @deprecated
+ */
 export type OcticonProps = ComponentProps<typeof Octicon>
 export default Octicon

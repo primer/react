@@ -154,6 +154,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           showLoadingIndicator={showLeadingLoadingIndicator}
           hasLoadingIndicator={typeof loading === 'boolean'}
           id={leadingVisualId}
+          data-testid="text-input-leading-visual"
         >
           {typeof LeadingVisual !== 'string' && isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
         </TextInputInnerVisualSlot>
@@ -174,6 +175,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           showLoadingIndicator={showTrailingLoadingIndicator}
           hasLoadingIndicator={typeof loading === 'boolean'}
           id={trailingVisualId}
+          data-testid="text-input-trailing-visual"
         >
           {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
             <TrailingVisual />
