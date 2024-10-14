@@ -7003,7 +7003,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
-      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -7382,7 +7381,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     size="medium"
   >
     <span
-      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -7843,7 +7841,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
-      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -8633,7 +8630,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
-      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -9021,7 +9017,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     size="medium"
   >
     <span
-      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -9512,7 +9507,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
-      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -9900,7 +9894,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     size="medium"
   >
     <span
-      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -10391,7 +10384,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
-      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -10779,7 +10771,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     size="medium"
   >
     <span
-      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -11270,7 +11261,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
-      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -12069,7 +12059,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
-      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -12487,7 +12476,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     size="medium"
   >
     <span
-      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -12948,7 +12936,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
-      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -13777,7 +13764,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
-      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -14209,7 +14195,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     size="small"
   >
     <span
-      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -14700,7 +14685,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
-      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -15127,7 +15111,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     size="medium"
   >
     <span
-      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -15618,7 +15601,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
-      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -16043,7 +16025,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
     size="medium"
   >
     <span
-      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
@@ -16534,7 +16515,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
     </div>
     <span
-      aria-hidden="true"
       className="TextInput-icon"
     >
       <div
