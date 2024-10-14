@@ -1,4 +1,4 @@
-import {StopIcon} from '@primer/octicons-react'
+import {LogoGithubIcon, StopIcon} from '@primer/octicons-react'
 import React, {useRef} from 'react'
 import {Button, IconButton} from '../../Button'
 
@@ -79,4 +79,12 @@ export function supportsLeadingVisual() {
 
 export function supportsTrailingVisual() {
   return <Button trailingVisual={() => <span />}>child</Button>
+}
+
+export function supportsLeadingVisualElement() {
+  return <Button leadingVisual={<LogoGithubIcon />}>child</Button>
+}
+
+export function supportsTrailingVisualElement() {
+  return <Button trailingVisual={<LogoGithubIcon />}>child</Button>
 }

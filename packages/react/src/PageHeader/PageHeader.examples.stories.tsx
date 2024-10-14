@@ -11,10 +11,10 @@ import {
   Box,
   PageLayout,
   Timeline,
-  Octicon,
   Heading,
   Token,
 } from '..'
+import Octicon from '../Octicon'
 import {
   KebabHorizontalIcon,
   GitBranchIcon,
