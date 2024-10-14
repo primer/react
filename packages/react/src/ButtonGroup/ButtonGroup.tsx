@@ -15,55 +15,68 @@ const StyledButtonGroup = toggleStyledComponent(
     vertical-align: middle;
     isolation: isolate;
 
-    && > *:not([data-loading-wrapper]) {
+    & > *:not([data-loading-wrapper]) {
+      /* stylelint-disable-next-line primer/spacing */
       margin-inline-end: -1px;
       position: relative;
-      border-radius: 0;
 
-      :first-child {
-        border-top-left-radius: ${get('radii.2')};
-        border-bottom-left-radius: ${get('radii.2')};
+      /* reset border-radius */
+      button,
+      a {
+        border-radius: 0;
       }
 
-      :last-child {
-        border-top-right-radius: ${get('radii.2')};
-        border-bottom-right-radius: ${get('radii.2')};
+      &:first-child {
+        button,
+        a {
+          border-top-left-radius: var(--borderRadius-medium);
+          border-bottom-left-radius: var(--borderRadius-medium);
+        }
       }
 
-      :focus,
-      :active,
-      :hover {
+      &:last-child {
+        button,
+        a {
+          border-top-right-radius: var(--borderRadius-medium);
+          border-bottom-right-radius: var(--borderRadius-medium);
+        }
+      }
+
+      &:focus,
+      &:active,
+      &:hover {
         z-index: 1;
       }
     }
 
-    // if child is loading button
+    /* if child is loading button */
     [data-loading-wrapper] {
-      :first-child {
+      &:first-child {
         button,
         a {
-          border-top-left-radius: ${get('radii.2')};
-          border-bottom-left-radius: ${get('radii.2')};
+          border-top-left-radius: var(--borderRadius-medium);
+          border-bottom-left-radius: var(--borderRadius-medium);
         }
       }
 
-      :last-child {
+      &:last-child {
         button,
         a {
-          border-top-right-radius: ${get('radii.2')};
-          border-bottom-right-radius: ${get('radii.2')};
+          border-top-right-radius: var(--borderRadius-medium);
+          border-bottom-right-radius: var(--borderRadius-medium);
         }
       }
     }
 
     [data-loading-wrapper] > * {
+      /* stylelint-disable-next-line primer/spacing */
       margin-inline-end: -1px;
       position: relative;
       border-radius: 0;
 
-      :focus,
-      :active,
-      :hover {
+      &:focus,
+      &:active,
+      &:hover {
         z-index: 1;
       }
     }
@@ -78,6 +91,7 @@ const ButtonGroup = React.forwardRef<HTMLElement, ButtonGroupProps>(function But
   forwardRef,
 ) {
   const enabled = useFeatureFlag('primer_react_css_modules_team')
+  const buttons = React.Children.map(children, (child, index) => <div key={index}>{child}</div>)
   return (
     <StyledButtonGroup
       ref={forwardRef}
@@ -86,10 +100,23 @@ const ButtonGroup = React.forwardRef<HTMLElement, ButtonGroupProps>(function But
       })}
       {...rest}
     >
-      {children}
+      {buttons}
     </StyledButtonGroup>
   )
 })
+
+// const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
+//   ({children, sx = defaultSxProp, ...rest}: ButtonGroupProps, forwardedRef) => {
+//     const ref = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLDivElement>)
+//     const buttons = React.Children.map(children, (child, index) => <Box key={index}>{child}</Box>)
+
+//     return (
+//       <StyledButtonGroup ref={ref} sx={sx} {...rest}>
+//         {buttons}
+//       </StyledButtonGroup>
+//     )
+//   },
+// )
 
 ButtonGroup.displayName = 'ButtonGroup'
 

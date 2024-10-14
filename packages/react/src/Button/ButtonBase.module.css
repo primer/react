@@ -1,5 +1,5 @@
 /* Base styles */
-:where(.ButtonBase) {
+.ButtonBase {
   display: flex;
   min-width: max-content;
   height: var(--control-medium-size);
@@ -41,7 +41,7 @@
     box-shadow: none;
 
     & .Visual,
-    & .CounterLabel {
+    & .ButtonCounterLabel {
       color: inherit;
     }
   }
@@ -270,7 +270,7 @@
       box-shadow: none;
     }
 
-    & .CounterLabel {
+    & .ButtonCounterLabel {
       background-color: var(--buttonCounter-default-bgColor-rest) !important; /* temporarily override our own sx prop */
     }
 
@@ -313,7 +313,7 @@
       box-shadow: none;
     }
 
-    & .CounterLabel {
+    & .ButtonCounterLabel {
       color: var(--button-primary-fgColor-rest) !important; /* temporarily override our own sx prop */
       background-color: var(--buttonCounter-primary-bgColor-rest) !important; /* temporarily override our own sx prop */
     }
@@ -348,7 +348,7 @@
       border-color: var(--button-danger-borderColor-hover);
       box-shadow: var(--shadow-resting-small);
 
-      & .CounterLabel {
+      & .ButtonCounterLabel {
         color: var(--buttonCounter-danger-fgColor-hover) !important; /* temporarily override our own sx prop */
         background-color: var(--buttonCounter-danger-bgColor-hover) !important;
       }
@@ -364,7 +364,7 @@
       border-color: var(--button-danger-borderColor-active);
       box-shadow: var(--button-danger-shadow-selected);
 
-      & .CounterLabel {
+      & .ButtonCounterLabel {
         color: var(--buttonCounter-danger-fgColor-hover) !important; /* temporarily override our own sx prop */
         background-color: var(--buttonCounter-danger-bgColor-hover) !important;
       }
@@ -380,13 +380,13 @@
       border-color: var(--button-default-borderColor-disabled);
       box-shadow: none;
 
-      & .CounterLabel {
+      & .ButtonCounterLabel {
         color: var(--buttonCounter-danger-fgColor-disabled) !important; /* temporarily override our own sx prop */
         background-color: var(--buttonCounter-danger-bgColor-disabled) !important;
       }
     }
 
-    & .CounterLabel {
+    & .ButtonCounterLabel {
       color: var(--buttonCounter-danger-fgColor-rest) !important; /* temporarily override our own sx prop */
       background-color: var(--buttonCounter-danger-bgColor-rest) !important;
     }
@@ -434,7 +434,7 @@
       color: var(--button-invisible-iconColor-rest);
     }
 
-    & .CounterLabel {
+    & .ButtonCounterLabel {
       background-color: var(--buttonCounter-invisible-bgColor-rest) !important;
     }
 
@@ -491,11 +491,10 @@
     color: var(--button-inactive-fgColor);
     cursor: auto;
     background-color: var(--button-inactive-bgColor);
-    /* stylelint-disable-next-line primer/colors */
     border-color: var(--button-inactive-bgColor);
 
     & .Visual,
-    & .CounterLabel {
+    & .ButtonCounterLabel {
       color: inherit !important;
     }
   }
