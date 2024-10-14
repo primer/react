@@ -1,5 +1,5 @@
 import {SearchIcon, TriangleDownIcon} from '@primer/octicons-react'
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
+import React, {useCallback, useEffect, useMemo, useRef, useState, type ReactNode} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
@@ -10,6 +10,7 @@ import Heading from '../Heading'
 import type {OverlayProps} from '../Overlay'
 import type {TextInputProps} from '../TextInput'
 import type {ItemProps, ItemInput} from './types'
+import {SelectPanelMessage} from './SelectPanelMessage'
 
 import {Button} from '../Button'
 import {useProvidedRefOrCreate} from '../hooks'
@@ -50,11 +51,13 @@ interface SelectPanelBaseProps {
   initialLoadingType?: InitialLoadingType
 }
 
-export type SelectPanelProps = SelectPanelBaseProps &
-  Omit<FilteredActionListProps, 'selectionVariant'> &
-  Pick<AnchoredOverlayProps, 'open' | 'height'> &
-  AnchoredOverlayWrapperAnchorProps &
-  (SelectPanelSingleSelection | SelectPanelMultiSelection)
+export type SelectPanelProps = React.PropsWithChildren<
+  SelectPanelBaseProps &
+    Omit<FilteredActionListProps, 'selectionVariant'> &
+    Pick<AnchoredOverlayProps, 'open' | 'height'> &
+    AnchoredOverlayWrapperAnchorProps &
+    (SelectPanelSingleSelection | SelectPanelMultiSelection)
+>
 
 function isMultiSelectVariant(
   selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
@@ -77,7 +80,7 @@ const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
   return items.some(i => areItemsEqual(i, item))
 }
 
-export function SelectPanel({
+function Panel({
   open,
   onOpenChange,
   renderAnchor = props => {
@@ -106,6 +109,7 @@ export function SelectPanel({
   loading,
   initialLoadingType = 'spinner',
   height,
+  children,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const inputRef = React.useRef<HTMLInputElement>(null)
@@ -264,6 +268,49 @@ export function SelectPanel({
   }
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
 
+  const isNoItemsState = items.length === 0 && dataLoadedOnce && !loading && filterValue === ''
+  const isNoMatchState = items.length === 0 && dataLoadedOnce && !loading && filterValue !== ''
+  const emptyState = isNoItemsState || isNoMatchState ? true : false
+  // I don't know anything about error or warning here. They manage their visibility.
+
+  // const deconstructChildren = (children: React.ReactNode) => {
+  //   const childrenObject = {}
+  //   // eslint-disable-next-line github/array-foreach
+  //   React.Children.toArray(children).forEach(child => {
+  //     if (!React.isValidElement(child)) return
+  //     if (child.props.variant === 'noInitialItems') childrenObject.noInitialItems = child
+  //     if (child.props.variant === 'noFilteredItems') childrenObject.noFilteredItems = child
+  //     if (child.props.variant === 'error') childrenObject.error = child
+  //     if (child.props.variant === 'warning') childrenObject.warning = child
+  //   })
+  //   return childrenObject
+  // }
+
+  type DeconstructedChild = {
+    type: React.ElementType
+    props: Record<string, any>
+  }
+
+  function getChildrenToBeRendered(children: ReactNode): (DeconstructedChild | null)[] {
+    return React.Children.map(children, child => {
+      if (React.isValidElement(child)) {
+        const {type, props} = child
+        const variant = props.variant ?? null
+        if (variant === 'noInitialItems') return isNoItemsState ? child : null
+        else if (variant === 'noFilteredItems') return isNoMatchState ? child : null
+        return child
+      }
+      return null
+    })
+  }
+
+  // const childrenObject =
+  const childrenToBeRendered = getChildrenToBeRendered(children)
+  // The expected return is
+  console.log(childrenToBeRendered)
+  // { noInitialItems: child1, noFilteredItems: child2, error: child3, warning: child4 }
+  // }
+
   return (
     <LiveRegion>
       <AnchoredOverlay
@@ -321,6 +368,8 @@ export function SelectPanel({
             inputRef={inputRef}
             loading={isLoading}
             loadingType={loadingType()}
+            {...(usingModernActionList ? {childrenToBeRendered: childrenToBeRendered} : {})}
+            {...(usingModernActionList ? {emptyState} : {})}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
             sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
@@ -343,4 +392,8 @@ export function SelectPanel({
   )
 }
 
-SelectPanel.displayName = 'SelectPanel'
+Panel.displayName = 'SelectPanel'
+
+export const SelectPanel = Object.assign(Panel, {
+  Message: SelectPanelMessage,
+})

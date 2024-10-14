@@ -18,6 +18,7 @@ import {VisuallyHidden} from '../VisuallyHidden'
 import type {SxProp} from '../sx'
 import type {FilteredActionListLoadingType} from './FilteredActionListLoaders'
 import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './FilteredActionListLoaders'
+// import {SelectPanelMessage} from '../SelectPanel/SelectPanelMessage'
 
 import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
@@ -36,6 +37,8 @@ export interface FilteredActionListProps
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
+  childrenToBeRendered?: React.ReactNode[]
+  emptyState?: boolean
 }
 
 const StyledHeader = styled.div`
@@ -55,6 +58,8 @@ export function FilteredActionList({
   sx,
   groupMetadata,
   showItemDividers,
+  emptyState,
+  childrenToBeRendered,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -155,9 +160,11 @@ export function FilteredActionList({
         />
       </StyledHeader>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
-      <Box ref={scrollContainerRef} overflow="auto" display="flex" flexGrow={1}>
+      <Box ref={scrollContainerRef} sx={{overflow: 'auto', height: '100%', display: 'flex', flexGrow: '1'}}>
         {loading && scrollContainerRef.current && loadingType.appearsInBody ? (
           <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerRef.current.clientHeight} />
+        ) : emptyState ? (
+          childrenToBeRendered
         ) : (
           <ActionList
             ref={listContainerRef}
