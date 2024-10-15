@@ -1090,10 +1090,6 @@ const components = new Map([
           id: 'components-select-features--with-option-groups',
           name: 'With Option Groups',
         },
-        {
-          id: 'components-select-features--with-placeholder-option',
-          name: 'With Placeholder Option',
-        },
       ],
     },
   ],
@@ -1242,18 +1238,6 @@ const components = new Map([
           name: 'Block',
         },
         {
-          id: 'components-textarea-features--custom-height',
-          name: 'Custom Height',
-        },
-        {
-          id: 'components-textarea-features--custom-resize-behavior',
-          name: 'Custom Resize Behavior',
-        },
-        {
-          id: 'components-textarea-features--custom-width',
-          name: 'Custom Width',
-        },
-        {
           id: 'components-textarea-features--disabled',
           name: 'Disabled',
         },
@@ -1339,22 +1323,6 @@ const components = new Map([
         {
           id: 'components-textinputwithtokens--default',
           name: 'Default',
-        },
-        {
-          id: 'components-textinputwithtokens-features--max-height',
-          name: 'Max Height',
-        },
-        {
-          id: 'components-textinputwithtokens-features--prevent-tokens-from-wrapping',
-          name: 'Prevent Tokens From Wrapping',
-        },
-        {
-          id: 'components-textinputwithtokens-features--size',
-          name: 'Size',
-        },
-        {
-          id: 'components-textinputwithtokens-features--truncated',
-          name: 'Truncated',
         },
         {
           id: 'components-textinputwithtokens-features--with-leading-visual',
