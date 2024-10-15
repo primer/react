@@ -64,7 +64,6 @@
     {
       "name": "className",
       "type": "string | undefined",
-      "defaultValue": "",
       "description": "The className to apply to the wrapper element"
     }
   ],
