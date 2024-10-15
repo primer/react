@@ -142,6 +142,11 @@ export interface DialogProps extends SxProp {
    * The element to focus when the Dialog opens
    */
   initialFocusRef?: React.RefObject<HTMLElement>
+
+  /**
+   * Additional class names to apply to the dialog
+   */
+  className?: string
 }
 
 /**
@@ -409,6 +414,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
     returnFocusRef,
     initialFocusRef,
     sx,
+    className,
   } = props
   const dialogLabelId = useId()
   const dialogDescriptionId = useId()
@@ -497,6 +503,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             aria-modal
             {...positionDataAttributes}
             sx={sx}
+            className={className}
           >
             {header}
             <ScrollableRegion aria-labelledby={dialogLabelId} className="DialogOverflowWrapper">
