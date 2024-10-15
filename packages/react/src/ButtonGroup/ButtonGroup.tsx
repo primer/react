@@ -9,8 +9,7 @@ import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 
 const StyledButtonGroup = toggleStyledComponent(
-  'primer_react_css_modules_staff',
-  'div',
+  'primer_react_css_modules_team',
   styled.div`
     display: inline-flex;
     vertical-align: middle;
@@ -78,7 +77,7 @@ const ButtonGroup = React.forwardRef<HTMLElement, ButtonGroupProps>(function But
   {children, className, ...rest},
   forwardRef,
 ) {
-  const enabled = useFeatureFlag('primer_react_css_modules_staff')
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
   return (
     <StyledButtonGroup
       ref={forwardRef}
