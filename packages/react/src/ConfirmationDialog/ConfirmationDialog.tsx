@@ -69,7 +69,7 @@ const ConfirmationHeader: React.FC<React.PropsWithChildren<DialogHeaderProps>> =
 const StyledConfirmationBody = styled(Box)`
   font-size: ${get('fontSizes.1')};
   padding: 0 ${get('space.3')} ${get('space.3')} ${get('space.3')};
-  color: ${get('colors.fg.muted')};
+  color: ${get('colors.fg.default')};
   flex-grow: 1;
 `
 const ConfirmationBody: React.FC<React.PropsWithChildren<DialogProps>> = ({children}) => {
