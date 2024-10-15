@@ -142,7 +142,7 @@ type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
  * @param bottom Optional. Vertical bottom position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
  * @param position Optional. Sets how an element is positioned in a document. Defaults to `absolute` positioning.
  * @param portalContainerName Optional. The name of the portal container to render the Overlay into.
- * @param reflow Optional. If true, the Overlay width will be adjusted responsively if there is not enough space to display the Overlay in the requested position.
+ * @param reflow Optional. If true, the Overlay width will be adjusted responsively at `320px` if there is not enough space to display the Overlay in the requested position.
  */
 const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
   (
