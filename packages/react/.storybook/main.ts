@@ -41,7 +41,7 @@ const config: StorybookConfig = {
       ...config.css,
       modules: {
         ...config.css?.modules,
-        generateScopedName: 'prc_[local]_[hash:base64:5]',
+        generateScopedName: 'prc-[folder]-[local]-[hash:base64:5]',
       },
       postcss: {
         ...config.css?.postcss,
