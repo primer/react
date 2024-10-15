@@ -1,5 +1,3 @@
-/* stylelint-disable csstools/value-no-unknown-custom-properties */
-
 :where(.Avatar) {
   display: inline-block;
   width: var(--avatarSize-regular);

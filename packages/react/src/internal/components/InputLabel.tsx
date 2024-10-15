@@ -10,6 +10,7 @@ type BaseProps = SxProp & {
   requiredIndicator?: boolean
   visuallyHidden?: boolean
   id?: string
+  className?: string
 }
 
 export type LabelProps = BaseProps & {
@@ -35,6 +36,7 @@ const InputLabel: React.FC<React.PropsWithChildren<Props>> = ({
   visuallyHidden,
   sx,
   as = 'label',
+  className,
   ...props
 }) => {
   return (
@@ -45,6 +47,7 @@ const InputLabel: React.FC<React.PropsWithChildren<Props>> = ({
       }
       htmlFor={htmlFor}
       id={id}
+      className={className}
       sx={{
         fontWeight: 'bold',
         fontSize: 1,

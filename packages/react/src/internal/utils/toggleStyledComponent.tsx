@@ -32,7 +32,7 @@ export function toggleStyledComponent<T, P extends CSSModulesProps>(flag: string
       }
       return <BaseComponent {...rest} ref={ref} />
     }
-    return <Component as={BaseComponent} {...(rest as P)} sx={sxProp} ref={ref} />
+    return <Component as={BaseComponent} {...(rest as unknown as P)} sx={sxProp} ref={ref} />
   })
 
   return Wrapper
