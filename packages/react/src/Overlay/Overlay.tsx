@@ -23,6 +23,7 @@ type StyledOverlayProps = {
   overflow?: 'auto' | 'hidden' | 'scroll' | 'visible'
   anchorSide?: AnchorSide
   style?: React.CSSProperties
+  reflow?: boolean
 } & SxProp
 
 export const heightMap = {
@@ -91,6 +92,14 @@ export const StyledOverlay = styled.div<StyledOverlayProps>`
     outline: solid 1px transparent;
   }
 
+  @media (max-width: 320px) {
+    &[data-overlay-reflow] {
+      width: 100%;
+      max-width: 320px;
+      flex-grow: 1;
+      position: fixed;
+    }
+  }
   ${sx};
 `
 type BaseOverlayProps = {
@@ -110,6 +119,7 @@ type BaseOverlayProps = {
   preventFocusOnOpen?: boolean
   role?: AriaRole
   children?: React.ReactNode
+  reflow?: boolean
 }
 
 type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
@@ -133,6 +143,7 @@ type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
  * @param bottom Optional. Vertical bottom position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
  * @param position Optional. Sets how an element is positioned in a document. Defaults to `absolute` positioning.
  * @param portalContainerName Optional. The name of the portal container to render the Overlay into.
+ * @param reflow Optional. If true, the Overlay width will be adjusted responsively if there is not enough space to display the Overlay in the requested position.
  */
 const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
   (
@@ -155,6 +166,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
       preventFocusOnOpen,
       position,
       style: styleFromProps = {},
+      reflow,
       ...rest
     },
     forwardedRef,
@@ -199,7 +211,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
 
     // To be backwards compatible with the old Overlay, we need to set the left prop if x-position is not specified
     const leftPosition: React.CSSProperties = left === undefined && right === undefined ? {left: 0} : {left}
-
+    console.log(reflow)
     return (
       <Portal containerName={portalContainerName}>
         <StyledOverlay
@@ -219,6 +231,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
               ...styleFromProps,
             } as React.CSSProperties
           }
+          data-overlay-reflow={reflow}
         />
       </Portal>
     )
