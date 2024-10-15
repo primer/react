@@ -106,7 +106,7 @@ jobs:
         run: npm run build -ws --if-present
 
   vrt-runner:
-    runs-on: ubuntu-latest-8-cores
+    runs-on: ubuntu-latest-16-cores
     strategy:
       fail-fast: false
       matrix:
@@ -133,7 +133,7 @@ jobs:
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run VRT
-        uses: docker://mcr.microsoft.com/playwright:v1.43.0-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:
@@ -180,7 +180,7 @@ jobs:
         run: exit 1
 
   vrt-runner-all-flags:
-    runs-on: ubuntu-latest-8-cores
+    runs-on: ubuntu-latest-16-cores
     strategy:
       fail-fast: false
       matrix:
@@ -211,7 +211,7 @@ jobs:
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run VRT
-        uses: docker://mcr.microsoft.com/playwright:v1.43.0-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:
@@ -253,12 +253,12 @@ jobs:
         with:
           name: vrt-all-flags
           path: playwright-report
-      - name: check vrt-runner job status
-        if: ${{ needs.vrt-runner.result == 'failure' }}
+      - name: check vrt-runner-all-flags job status
+        if: ${{ needs.vrt-runner-all-flags.result == 'failure' }}
         run: exit 1
 
   aat-runner:
-    runs-on: ubuntu-latest-8-cores
+    runs-on: ubuntu-latest-16-cores
     strategy:
       fail-fast: false
       matrix:
@@ -285,7 +285,7 @@ jobs:
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run AAT
-        uses: docker://mcr.microsoft.com/playwright:v1.43.0-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:
@@ -332,7 +332,7 @@ jobs:
         run: exit 1
 
   aat-runner-all-flags:
-    runs-on: ubuntu-latest-8-cores
+    runs-on: ubuntu-latest-16-cores
     strategy:
       fail-fast: false
       matrix:
@@ -363,7 +363,7 @@ jobs:
           echo "pid=$pid" >> $GITHUB_OUTPUT
           sleep 5
       - name: Run AAT
-        uses: docker://mcr.microsoft.com/playwright:v1.43.0-jammy
+        uses: docker://mcr.microsoft.com/playwright:v1.47.2-jammy
         env:
           STORYBOOK_URL: 'http://172.17.0.1:6006'
         with:
@@ -405,8 +405,8 @@ jobs:
         with:
           name: axe-all-flags
           path: playwright-report
-      - name: Check aat-runner job status
-        if: ${{ needs.aat-runner.result == 'failure' }}
+      - name: Check aat-runner-all-flags job status
+        if: ${{ needs.aat-runner-all-flags.result == 'failure' }}
         run: exit 1
 
   build-components-json:

@@ -28,7 +28,6 @@
     transition-duration: 80ms;
   }
 
-  /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
   &:focus-visible {
     @mixin focusOutline;
   }
@@ -68,7 +67,7 @@
 
   /* IconButton */
 
-  &:where(.IconButton) {
+  &.IconButton {
     display: inline-grid;
     width: var(--control-medium-size);
     min-width: unset;
@@ -78,12 +77,10 @@
 
     &:where([data-size='small']) {
       width: var(--control-small-size);
-      min-width: var(--control-small-size);
     }
 
     &:where([data-size='large']) {
       width: var(--control-large-size);
-      min-width: var(--control-large-size);
     }
   }
 
@@ -300,7 +297,6 @@
       border-color: var(--button-primary-borderColor-hover);
     }
 
-    /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
     &:focus-visible {
       @mixin focusOutlineOnEmphasis;
     }
@@ -463,7 +459,6 @@
       text-decoration: underline;
     }
 
-    /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
     &:focus-visible,
     &:focus {
       outline-offset: 2px;
@@ -496,6 +491,7 @@
     color: var(--button-inactive-fgColor);
     cursor: auto;
     background-color: var(--button-inactive-bgColor);
+    /* stylelint-disable-next-line primer/colors */
     border-color: var(--button-inactive-bgColor);
 
     & .Visual,
