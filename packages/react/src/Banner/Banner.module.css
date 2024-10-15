@@ -1,7 +1,9 @@
 .Banner {
   display: grid;
   padding: var(--base-size-8);
+  /* stylelint-disable-next-line primer/colors */
   background-color: var(--banner-bgColor);
+  /* stylelint-disable-next-line primer/colors */
   border: var(--borderWidth-thin) solid var(--banner-borderColor);
   border-radius: var(--borderRadius-medium);
   grid-template-columns: auto minmax(0, 1fr) auto;
@@ -100,7 +102,9 @@
 .BannerIcon svg {
   /* 20px is the line box height of the trailing action buttons */
   height: var(--base-size-20);
+  /* stylelint-disable-next-line primer/colors */
   color: var(--banner-icon-fgColor);
+  /* stylelint-disable-next-line primer/colors */
   fill: var(--banner-icon-fgColor);
 }
 
@@ -118,6 +122,7 @@
 }
 
 .BannerDismiss svg {
+  /* stylelint-disable-next-line primer/colors */
   color: var(--banner-icon-fgColor);
 }
 
@@ -159,7 +164,6 @@
 
 /* Layout ------------------------------------------------------------------- */
 
-/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 @container banner (max-width: 500px) {
   .BannerContainer {
     display: grid;
@@ -179,7 +183,6 @@
   }
 }
 
-/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 @container banner (min-width: 500px) {
   .BannerContainer {
     display: grid;
