@@ -95,7 +95,6 @@ export const StyledOverlay = styled.div<StyledOverlayProps>`
   @media (max-width: 320px) {
     &[data-overlay-reflow] {
       width: 100%;
-      max-width: 320px;
       flex-grow: 1;
       position: fixed;
     }
@@ -211,7 +210,6 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
 
     // To be backwards compatible with the old Overlay, we need to set the left prop if x-position is not specified
     const leftPosition: React.CSSProperties = left === undefined && right === undefined ? {left: 0} : {left}
-    console.log(reflow)
     return (
       <Portal containerName={portalContainerName}>
         <StyledOverlay
