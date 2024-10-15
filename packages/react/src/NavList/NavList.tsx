@@ -303,7 +303,11 @@ const GroupHeading: React.FC<NavListGroupHeadingProps> = ({sx: sxProp = defaultS
       as="h3"
       sx={merge<SxProp['sx']>(
         {
-          '> a {': {color: 'inherit', textDecoration: 'inherit', ':hover': {textDecoration: 'underline'}},
+          '> a {': {
+            color: 'var(--fgColor-default)',
+            textDecoration: 'inherit',
+            ':hover': {textDecoration: 'underline'},
+          },
         },
         sxProp,
       )}
