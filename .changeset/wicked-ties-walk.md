@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-Add `className` prop support to `<Textarea>` component
+Add `className` prop support to `Textarea` component
