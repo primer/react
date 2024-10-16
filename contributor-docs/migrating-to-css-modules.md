@@ -91,7 +91,21 @@ This guide outlines the steps to follow when refactoring Primer React components
 ### Testing the Migration
 
 - **Support for `className`:**
-  - Ensure the component works properly with the `className` prop.
+  - Ensure the component works properly with the `className` prop. This will need a feature flag turned on when testing like this.
+    ```js
+    it('should support `className` on the outermost element', () => {
+      const {container} = HTMLRender(
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Component className="test">test</Component>
+        </FeatureFlags>,
+      )
+      expect(container.firstChild).toHaveClass('test')
+    })
+    ```
 - **Regression Testing:**
   - Validate that no regressions occur when the feature flag is enabled.
 - **Handling `sx` Prop:**
