@@ -224,6 +224,11 @@ export function behavesAsComponent({Component, toRender, options}: BehavesAsComp
   it('sets a valid displayName', () => {
     expect(Component.displayName).toMatch(COMPONENT_DISPLAY_NAME_REGEX)
   })
+
+  it('should support `className` on the outermost element', () => {
+    const elem = React.cloneElement(getElement(), {className: 'test-class-name'})
+    expect(rendersClass(elem, 'test-class-name')).toBe(true)
+  })
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
