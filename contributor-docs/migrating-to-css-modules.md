@@ -20,8 +20,8 @@ This guide outlines the steps to follow when refactoring Primer React components
 ## Before Refactoring a Component
 
 - **Verify VRT (Visual Regression Testing) Coverage:**
-  - Check for missing VRT coverage. We utilize the VRT tests to make sure we're matching styling in production with current expectations.
-  - Make sure there are `dev` stories for any edge cases spotted in production for the component (ie. sx prop, custom className, styled system attributes).
+  - Check for missing VRT coverage. We utilize the VRT tests to make sure we're matching styling in production with current expectations. Components should have a Storybook story for every "feature" or option available that impacts the UI for VRT to capture in a screenshot.
+  - Make sure there are `dev` stories for any edge cases spotted in production for the component (ie. sx prop, custom className, styled system attributes). `dev` stories may include things that we wouldn't normally recommend for the purpose of stress testing what happens when PRC components are overridden with custom styles. 
 - **Ensure All Visual Changes Are Completed:**
   - Make necessary visual changes **before** creating the CSS Modules refactor PR.
 
@@ -38,7 +38,7 @@ This guide outlines the steps to follow when refactoring Primer React components
 ### When Refactoring a Component
 
 1. **Check for `className` and `style` Prop:**
-   - Ensure the component accepts a `className` for styling from outside of primer/react.
+   - Ensure the component accepts a `className` *on the top dom level only* for styling from outside of primer/react.
    - Ensure the component accepts a `style` prop for more dynamic styling like positioning.
 2. **Feature Flagging:**
    - Add a feature flag to toggle the `sx` prop for controlled rollout (staff shipping).
