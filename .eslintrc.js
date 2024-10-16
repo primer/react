@@ -216,6 +216,7 @@ module.exports = {
         'prettier/prettier': 'off',
         'react/jsx-no-undef': 'off',
         'react/no-unescaped-entities': 'off',
+        'react-hooks/rules-of-hooks': 'off',
         'primer-react/direct-slot-children': 'off',
       },
     },
