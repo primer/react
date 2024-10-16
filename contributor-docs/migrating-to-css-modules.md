@@ -37,8 +37,9 @@ This guide outlines the steps to follow when refactoring Primer React components
 
 ### When Refactoring a Component
 
-1. **Check for `className` Prop:**
-   - Ensure the component accepts a `className`.
+1. **Check for `className` and `style` Prop:**
+   - Ensure the component accepts a `className` for styling from outside of primer/react.
+   - Ensure the component accepts a `style` prop for more dynamic styling like positioning.
 2. **Feature Flagging:**
    - Add a feature flag to toggle the `sx` prop for controlled rollout (staff shipping).
 3. **Create CSS Module:**
