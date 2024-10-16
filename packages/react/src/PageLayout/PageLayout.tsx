@@ -83,6 +83,8 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
 
   const [slots, rest] = useSlots(children, slotsConfig ?? {header: Header, footer: Footer})
 
+  console.log(SPACING_MAP[columnGap])
+
   return (
     <PageLayoutContext.Provider
       value={{
@@ -98,10 +100,11 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
     >
       <Box
         ref={rootRef}
-        style={{
+        style={theme => ({
           // @ts-ignore TypeScript doesn't know about CSS custom properties
           '--sticky-pane-height': stickyPaneHeight,
-        }}
+          '--pageLayout-columnGap': theme.space[SPACING_MAP[columnGap]],
+        })}
         sx={merge<BetterSystemStyleObject>({padding: SPACING_MAP[padding]}, sx)}
       >
         <Box
@@ -217,6 +220,10 @@ const DraggingGlobalStyles = createGlobalStyle`
   /* Disable text selection while dragging */
   body[data-page-layout-dragging="true"] * {
     user-select: none;
+  }
+
+  :root {
+   --pageLayout-columnGap: 5px;
   }
 `
 
@@ -762,8 +769,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
                     }
                   : {}),
                 ...(position === 'end'
-                  ? {flexDirection: 'row-reverse', marginLeft: SPACING_MAP[columnGap]}
-                  : {flexDirection: 'row', marginRight: SPACING_MAP[columnGap]}),
+                  ? {flexDirection: 'row-reverse', marginLeft: 'var(--pageLayout-columnGap)'}
+                  : {flexDirection: 'row', marginRight: 'var(--pageLayout-columnGap)'}),
               },
             },
             sx,
@@ -812,7 +819,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           }}
           // If pane is resizable, the divider should be draggable
           draggable={resizable}
-          sx={{[position === 'end' ? 'marginRight' : 'marginLeft']: SPACING_MAP[columnGap]}}
+          sx={{[position === 'end' ? 'marginRight' : 'marginLeft']: 'var(--pageLayout-columnGap)'}}
           onDrag={(delta, isKeyboard = false) => {
             // Get the number of pixels the divider was dragged
             let deltaWithDirection
