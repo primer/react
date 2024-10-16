@@ -712,4 +712,32 @@ test.describe('ActionList', () => {
       })
     }
   })
+
+  test.describe('Group Heading with Classname', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionlist-dev--group-heading-custom-classname',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`ActionList.Group With Subtle Title Old Api.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionlist-dev--group-heading-custom-classname',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
 })
