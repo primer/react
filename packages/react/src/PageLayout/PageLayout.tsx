@@ -23,9 +23,9 @@ const REGION_ORDER = {
 }
 
 const SPACING_MAP = {
-  none: 0,
-  condensed: 3,
-  normal: [3, null, null, 4],
+  none: '0',
+  condensed: '16px',
+  normal: ['16px', null, null, '24px'],
 }
 
 const PageLayoutContext = React.createContext<{
@@ -83,8 +83,6 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
 
   const [slots, rest] = useSlots(children, slotsConfig ?? {header: Header, footer: Footer})
 
-  console.log(SPACING_MAP[columnGap])
-
   return (
     <PageLayoutContext.Provider
       value={{
@@ -100,11 +98,11 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
     >
       <Box
         ref={rootRef}
-        style={theme => ({
+        style={{
           // @ts-ignore TypeScript doesn't know about CSS custom properties
           '--sticky-pane-height': stickyPaneHeight,
-          '--pageLayout-columnGap': theme.space[SPACING_MAP[columnGap]],
-        })}
+          '--pageLayout-columnGap': [SPACING_MAP[columnGap]],
+        }}
         sx={merge<BetterSystemStyleObject>({padding: SPACING_MAP[padding]}, sx)}
       >
         <Box
@@ -220,10 +218,6 @@ const DraggingGlobalStyles = createGlobalStyle`
   /* Disable text selection while dragging */
   body[data-page-layout-dragging="true"] * {
     user-select: none;
-  }
-
-  :root {
-   --pageLayout-columnGap: 5px;
   }
 `
 
