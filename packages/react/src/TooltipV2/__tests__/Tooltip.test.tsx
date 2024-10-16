@@ -51,6 +51,10 @@ describe('Tooltip', () => {
     const {getByText} = HTMLRender(<TooltipComponent type="label" />)
     expect(getByText('Tooltip text')).toHaveAttribute('aria-hidden', 'true')
   })
+  it('should render aria-hidden on the tooltip element when the tooltip is description type', () => {
+    const {getByText} = HTMLRender(<TooltipComponent type="description" />)
+    expect(getByText('Tooltip text')).toHaveAttribute('aria-hidden', 'true')
+  })
   it('should describe the trigger element by its tooltip when the tooltip type is description (by default)', () => {
     const {getByRole, getByText} = HTMLRender(<TooltipComponent />)
     const triggerEL = getByRole('button')

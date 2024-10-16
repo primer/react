@@ -1,15 +1,46 @@
 import React, {useState} from 'react'
 import type {Args, Meta} from '@storybook/react'
+import {LocationIcon, RepoIcon} from '@primer/octicons-react'
 
-import {Box} from '..'
+import {Avatar, Text} from '..'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
+import Octicon from '../Octicon'
 import {action} from '@storybook/addon-actions'
+import {Stack} from '../Stack/Stack'
 
 export default {
   title: 'Components/AnchoredOverlay',
   component: AnchoredOverlay,
 } as Meta
+
+const hoverCard = (
+  <Stack gap="condensed" style={{minWidth: '320px', padding: '16px'}}>
+    <Stack direction="horizontal" gap="condensed" justify="space-between">
+      <Avatar src="https://avatars.githubusercontent.com/u/92997159?v=4" size={48} />
+      <Button size="small">Follow</Button>
+    </Stack>
+    <Stack direction="horizontal" gap="none">
+      <Text weight="medium">monalisa</Text>
+      <Text color={'var(--fgColor-muted)'} ml={1}>
+        Monalisa Octocat
+      </Text>
+    </Stack>
+    <Text size="medium">Former beach cat and champion swimmer. Now your friendly octapus with a normal face.</Text>
+    <Stack direction="horizontal" gap="none">
+      <Octicon color={'var(--fgColor-muted)'} icon={LocationIcon} />
+      <Text size="small" color={'var(--fgColor-muted)'} ml={1}>
+        Interwebs
+      </Text>
+    </Stack>
+    <Stack direction="horizontal" gap="none">
+      <Octicon color={'var(--fgColor-muted)'} icon={RepoIcon} />
+      <Text size="small" color={'var(--fgColor-muted)'} ml={1}>
+        Owns this repository
+      </Text>
+    </Stack>
+  </Stack>
+)
 
 export const Default = () => {
   const [open, setOpen] = useState(false)
@@ -21,9 +52,7 @@ export const Default = () => {
       onClose={() => setOpen(false)}
       renderAnchor={props => <Button {...props}>Button</Button>}
     >
-      <Box width="100%" height="100%" backgroundColor="thistle" display="flex" flexDirection="column">
-        <img src={`//placekitten.com/200/300`} alt="kitten" />
-      </Box>
+      {hoverCard}
     </AnchoredOverlay>
   )
 }
@@ -48,14 +77,12 @@ export const Playground = (args: Args) => {
       overlayProps={args.portalContainerName}
       side={args.side}
     >
-      <Box width="100%" height="100%" backgroundColor="thistle" display="flex" flexDirection="column">
-        <img src={`//placekitten.com/200/300`} alt="kitten" />
-      </Box>
+      {hoverCard}
     </AnchoredOverlay>
   )
 }
 Playground.args = {
-  width: 'small',
+  width: 'auto',
   height: 'auto',
   portalContainerName: 'Portal name',
   side: 'outside-bottom',

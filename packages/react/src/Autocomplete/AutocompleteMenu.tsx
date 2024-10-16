@@ -12,12 +12,13 @@ import {AutocompleteContext} from './AutocompleteContext'
 import type {IconProps} from '@primer/octicons-react'
 import {PlusIcon} from '@primer/octicons-react'
 import VisuallyHidden from '../_VisuallyHidden'
+import {isElement} from 'react-is'
 
 type OnSelectedChange<T> = (item: T | T[]) => void
 export type AutocompleteMenuItem = MandateProps<ActionListItemProps, 'id'> & {
-  leadingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
+  leadingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement
   text?: string
-  trailingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>>
+  trailingVisual?: React.FunctionComponent<React.PropsWithChildren<IconProps>> | React.ReactElement
 }
 
 const getDefaultSortFn = (isItemSelectedFn: (itemId: string) => boolean) => (itemIdA: string, itemIdB: string) =>
@@ -352,13 +353,13 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
                   <ActionList.Item key={id} onSelect={() => onAction(item)} {...itemProps} id={id} data-id={id}>
                     {LeadingVisual && (
                       <ActionList.LeadingVisual>
-                        <LeadingVisual />
+                        {isElement(LeadingVisual) ? LeadingVisual : <LeadingVisual />}
                       </ActionList.LeadingVisual>
                     )}
                     {children ?? text}
                     {TrailingVisual && (
                       <ActionList.TrailingVisual>
-                        <TrailingVisual />
+                        {isElement(TrailingVisual) ? TrailingVisual : <TrailingVisual />}
                       </ActionList.TrailingVisual>
                     )}
                   </ActionList.Item>

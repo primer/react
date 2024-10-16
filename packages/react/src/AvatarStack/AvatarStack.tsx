@@ -189,20 +189,31 @@ export type AvatarStackProps = {
   alignRight?: boolean
   disableExpand?: boolean
   size?: number | ResponsiveValue<number>
+  className?: string
   children: React.ReactNode
 } & SxProp
 
-const AvatarStack = ({children, alignRight, disableExpand, size, sx: sxProp = defaultSxProp}: AvatarStackProps) => {
+const AvatarStack = ({
+  children,
+  alignRight,
+  disableExpand,
+  size,
+  className,
+  sx: sxProp = defaultSxProp,
+}: AvatarStackProps) => {
   const [hasInteractiveChildren, setHasInteractiveChildren] = useState<boolean | undefined>(false)
   const AvatarStackContainer = useRef(null)
 
   const count = React.Children.count(children)
-  const wrapperClassNames = clsx({
-    'pc-AvatarStack--two': count === 2,
-    'pc-AvatarStack--three': count === 3,
-    'pc-AvatarStack--three-plus': count > 3,
-    'pc-AvatarStack--right': alignRight,
-  })
+  const wrapperClassNames = clsx(
+    {
+      'pc-AvatarStack--two': count === 2,
+      'pc-AvatarStack--three': count === 3,
+      'pc-AvatarStack--three-plus': count > 3,
+      'pc-AvatarStack--right': alignRight,
+    },
+    className,
+  )
   const bodyClassNames = clsx('pc-AvatarStackBody', {
     'pc-AvatarStack--disableExpand': disableExpand,
   })
