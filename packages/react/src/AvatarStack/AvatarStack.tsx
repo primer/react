@@ -248,7 +248,7 @@ const AvatarStack = ({children, alignRight, disableExpand, size, sx: sxProp = de
   }
 
   useEffect(() => {
-    const hasInteractive = getInteractiveNodes(AvatarStackContainer.current)
+    const hasInteractive = getInteractiveNodes(AvatarStackContainer.current, '[tabindex]')
     setHasInteractiveChildren(hasInteractive)
   }, [children])
 
@@ -282,7 +282,7 @@ const AvatarStack = ({children, alignRight, disableExpand, size, sx: sxProp = de
 
   return (
     <AvatarStackWrapper count={count} className={wrapperClassNames} sx={avatarStackSx} ref={AvatarStackContainer}>
-      <Box className={bodyClassNames} tabIndex={!hasInteractiveChildren ? 0 : undefined}>
+      <Box className={bodyClassNames} tabIndex={!hasInteractiveChildren && !disableExpand ? 0 : undefined}>
         {transformChildren(children)}
       </Box>
     </AvatarStackWrapper>

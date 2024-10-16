@@ -8,10 +8,14 @@ const interactiveElements = [
   '[tabindex="0"]',
 ]
 
-export function getInteractiveNodes(node: HTMLElement | null) {
+export function getInteractiveNodes(node: HTMLElement | null, ignoreSelectors?: string) {
   if (!node) return
 
-  const interactiveNodes = node.querySelectorAll(interactiveElements.join(', '))
+  let interactiveNodes = Array.from(node.querySelectorAll(interactiveElements.join(', ')))
+
+  if (ignoreSelectors) {
+    interactiveNodes = interactiveNodes.filter(node => !node.matches(ignoreSelectors))
+  }
 
   if (interactiveNodes.length || node.matches(interactiveElements.join(', '))) {
     return true
