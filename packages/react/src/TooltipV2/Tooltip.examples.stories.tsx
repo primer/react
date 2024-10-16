@@ -161,7 +161,7 @@ export const DialogTrigger = () => {
   return (
     <>
       <Tooltip text="Ready to merge">
-        <IconButton ref={buttonRef} onClick={() => setIsOpen(!isOpen)} icon={CheckIcon} aria-label="Ready to merge" />
+        <IconButton ref={buttonRef} onClick={() => setIsOpen(!isOpen)} icon={CheckIcon} aria-label="Merge" />
       </Tooltip>
       {isOpen && (
         <Dialog
