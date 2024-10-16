@@ -3,7 +3,7 @@
   vertical-align: middle;
   isolation: isolate;
 
-  & * {
+  & > *:not([data-loading-wrapper]) {
     /* stylelint-disable-next-line primer/spacing */
     margin-inline-end: -1px;
     position: relative;
@@ -37,27 +37,29 @@
     }
   }
 
-  &:has([data-loading-wrapper]) {
-    outline: solid 1px deeppink;
-
-    /* &:first-child {
-      button,
-      a {
-        border-top-left-radius: var(--borderRadius-medium);
-        border-bottom-left-radius: var(--borderRadius-medium);
-      }
-    } */
-  }
-
   /* if child is loading button */
+  & > *[data-loading-wrapper] {
+    /* stylelint-disable-next-line primer/spacing */
+    margin-inline-end: -1px;
+    position: relative;
 
-  /* [data-loading-wrapper] {
+    /* reset border-radius */
+    button,
+    a {
+      border-radius: 0;
+    }
+
+    &:focus,
+    &:active,
+    &:hover {
+      z-index: 1;
+    }
+
     &:first-child {
       button,
       a {
         border-top-left-radius: var(--borderRadius-medium);
         border-bottom-left-radius: var(--borderRadius-medium);
-        outline: solid 1px red;
       }
     }
 
@@ -68,19 +70,5 @@
         border-bottom-right-radius: var(--borderRadius-medium);
       }
     }
-  } */
-
-  [data-loading-wrapper] > * {
-    /* stylelint-disable-next-line primer/spacing */
-
-    /* margin-inline-end: -1px;
-    position: relative;
-    border-radius: 0;
-
-    &:focus,
-    &:active,
-    &:hover {
-      z-index: 1;
-    } */
   }
 }

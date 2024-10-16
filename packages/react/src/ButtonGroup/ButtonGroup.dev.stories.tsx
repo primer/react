@@ -2,7 +2,7 @@ import React from 'react'
 import type {Meta} from '@storybook/react'
 import ButtonGroup from './ButtonGroup'
 import {Button, IconButton} from '../Button'
-import {PlusIcon, DashIcon, CopilotIcon} from '@primer/octicons-react'
+import {CopilotIcon} from '@primer/octicons-react'
 import {Box, Tooltip, ThemeProvider, BaseStyles} from '..'
 
 const meta: Meta<typeof ButtonGroup> = {

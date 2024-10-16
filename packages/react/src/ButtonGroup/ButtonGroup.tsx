@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import React from 'react'
-import {get} from '../constants'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
 import classes from './ButtonGroup.module.css'
@@ -50,7 +49,21 @@ const StyledButtonGroup = toggleStyledComponent(
     }
 
     /* if child is loading button */
-    [data-loading-wrapper] {
+    & > *[data-loading-wrapper] {
+      /* stylelint-disable-next-line primer/spacing */
+      margin-inline-end: -1px;
+      position: relative;
+      /* reset border-radius */
+      button,
+      a {
+        border-radius: 0;
+      }
+
+      &:focus,
+      &:active,
+      &:hover {
+        z-index: 1;
+      }
       &:first-child {
         button,
         a {
@@ -65,19 +78,6 @@ const StyledButtonGroup = toggleStyledComponent(
           border-top-right-radius: var(--borderRadius-medium);
           border-bottom-right-radius: var(--borderRadius-medium);
         }
-      }
-    }
-
-    [data-loading-wrapper] > * {
-      /* stylelint-disable-next-line primer/spacing */
-      margin-inline-end: -1px;
-      position: relative;
-      border-radius: 0;
-
-      &:focus,
-      &:active,
-      &:hover {
-        z-index: 1;
       }
     }
 

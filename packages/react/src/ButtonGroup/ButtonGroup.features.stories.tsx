@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import type {Meta} from '@storybook/react'
 import ButtonGroup from './ButtonGroup'
 import {IconButton, Button} from '../Button'
@@ -21,18 +21,16 @@ export const IconButtons = () => (
 )
 
 export const LoadingButtons = () => {
-  const [isLoading, setIsLoading] = useState(false)
-
-  const handleClick = () => {
-    setIsLoading(true)
-  }
+  const handleClick = () => {}
   return (
     <ButtonGroup>
-      <Button loading={isLoading} onClick={handleClick}>
+      <Button loading={true} onClick={handleClick}>
         Button 1
       </Button>
       <Button onClick={handleClick}>Button 2</Button>
-      <Button onClick={handleClick}>Button 3</Button>
+      <Tooltip text="Additional info about the button">
+        <Button onClick={handleClick}>Button 3</Button>
+      </Tooltip>
     </ButtonGroup>
   )
 }
