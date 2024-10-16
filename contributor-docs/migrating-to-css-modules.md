@@ -48,7 +48,22 @@ This guide outlines the steps to follow when refactoring Primer React components
    - Ensure the component accepts a `className` *on the top dom level only* for styling from outside of primer/react.
    - Ensure the component accepts a `style` prop for more dynamic styling like positioning.
 2. **Feature Flagging:**
-   - Add a feature flag to toggle the `sx` prop for controlled rollout (staff shipping).
+   - Add a feature flag to toggle the `sx` prop for controlled rollout (staff shipping). How it's used will be based on the implementation of the component. For most you'll be able to `useFeatureFlag` and toggle between components. For more complex styled components, you can use the utility `toggleStyledComponent` which will render based on the feature flag string provided.
+
+       ```jsx
+       /* When there is an exisiting styled component, use the `toggleStyledComponent` utility. */
+       const StyledDiv = toggleStyledComponent(
+        'primer_react_css_modules_team',
+        'div',
+        styled.div`
+         display: flex;
+
+         ${sx};
+        `
+       )
+       const enabled = useFeatureFlag('primer_react_css_modules_team')
+       return <StyledDiv className={clsx({[classes.DivStyle]: enabled})} {...props} />
+       ```
 3. **Create CSS Module:**
    - Add a corresponding `{Component}.module.css` file.
 4. **Import CSS Modules:**
