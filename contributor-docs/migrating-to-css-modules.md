@@ -49,6 +49,7 @@ This guide outlines the steps to follow when refactoring Primer React components
    - Add CSS classes behind the `primer_react_css_modules_team` feature flag.
 5. **Ensure Component still accepts sx styling**
    - Until we migrate all uses of sx, we need to ensure the component will accept sx props inside the feature flag. This will often default to using the `Box` component if an sx prop is passed in.
+6. **Ensure Component accepts `className` along with our CSS Module class name**
 
 ### Testing the Migration
 
