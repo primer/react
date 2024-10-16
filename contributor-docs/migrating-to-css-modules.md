@@ -21,7 +21,7 @@ This guide outlines the steps to follow when refactoring Primer React components
 
 - **Verify VRT (Visual Regression Testing) Coverage:**
   - Check for missing VRT coverage. We utilize the VRT tests to make sure we're matching styling in production with current expectations. Components should have a Storybook story for every "feature" or option available that impacts the UI for VRT to capture in a screenshot.
-  - Make sure there are `dev` stories for any edge cases spotted in production for the component (ie. sx prop, custom className, styled system attributes). `dev` stories may include things that we wouldn't normally recommend for the purpose of stress testing what happens when PRC components are overridden with custom styles. 
+  - Make sure there are `dev` stories for any edge cases spotted in production for the component (ie. sx prop, custom className, styled system attributes). `dev` stories may include things that we wouldn't normally recommend for the purpose of stress testing what happens when PRC components are overridden with custom styles.
 - **Ensure All Visual Changes Are Completed:**
   - Make necessary visual changes **before** creating the CSS Modules refactor PR.
 
@@ -32,7 +32,14 @@ This guide outlines the steps to follow when refactoring Primer React components
 ### Refactoring Styled-Components to CSS Modules
 
 - **Replace `${get('...')}` Syntax:**
-  - Migrate these to CSS Modules classes.
+  - Migrate these to CSS variables find the appropriate variable in [our primitives docs](https://primer.style/foundations/primitives/color).
+
+  ```diff
+    {
+  -   color: `${get('colors.fg.default')}`
+  +   color: var(--fgColor-default)
+    }
+  ```
   - No need for fallbacks in CSS Modules.
 
 ### When Refactoring a Component
