@@ -32,6 +32,8 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
   .pc-AvatarStackBody {
     display: flex;
     position: absolute;
+
+    ${getGlobalFocusStyles('1px')}
   }
 
   .pc-AvatarItem {
