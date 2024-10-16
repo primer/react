@@ -56,6 +56,14 @@
   background-color: var(--bgColor-muted);
 }
 
-.testCustomClassname {
+.testCustomClassnameColor {
   color: var(--fgColor-sponsors);
+}
+
+.testCustomClassnameBgColor {
+  background-color: var(--bgColor-sponsors-emphasis);
+}
+
+.testCustomClassnameBorderColor {
+  border-color: var(--borderColor-sponsors-emphasis);
 }
