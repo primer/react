@@ -11,11 +11,12 @@ export type Props = {
   requiredText?: string
   requiredIndicator?: boolean
   id?: string
+  className?: string
 } & SxProp
 
 const FormControlLabel: React.FC<
   React.PropsWithChildren<{htmlFor?: string} & React.ComponentProps<typeof InputLabel> & Props>
-> = ({as, children, htmlFor, id, visuallyHidden, requiredIndicator = true, requiredText, sx, ...props}) => {
+> = ({as, children, htmlFor, id, visuallyHidden, requiredIndicator = true, requiredText, sx, className, ...props}) => {
   const {disabled, id: formControlId, required} = useFormControlContext()
 
   /**
@@ -26,6 +27,7 @@ const FormControlLabel: React.FC<
       ? {
           as,
           id,
+          className,
           visuallyHidden,
           required,
           requiredText,
@@ -37,6 +39,7 @@ const FormControlLabel: React.FC<
       : {
           as,
           id,
+          className,
           visuallyHidden,
           htmlFor: htmlFor || formControlId,
           required,
