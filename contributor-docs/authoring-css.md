@@ -35,10 +35,10 @@ Reference CSS classes in the component TSX file using the `classes` object.
 
 import classes from './Button.module.css'
 
-<div className={classes.Banner}>Banner</div>
+;<div className={classes.Banner}>Banner</div>
 ```
 
-## Code styles 
+## Code styles
 
 ### CSS classnames
 
@@ -63,7 +63,6 @@ Since classes are prefixed and hashed, the class names themselves can be named g
 Use PascalCase for classnames. Additional characters like `-` dashes or `_` underscores must be escaped with a `\` backslash in TSX for the class name to be recognized, which can be cumbersome.
 
 ```css
-
 /* Do */
 .ButtonContent {
   display: inline-block;
@@ -77,7 +76,7 @@ Use PascalCase for classnames. Additional characters like `-` dashes or `_` unde
 
 #### Pseudo elements
 
-Prefer using pseudo classes over classnames for state. 
+Prefer using pseudo classes over classnames for state.
 
 ```css
 /* Do */
@@ -155,7 +154,6 @@ Some common variants include:
 Data attributes can be used as a boolean to represent a true or false state, or as a string to represent a specific value.
 
 ```css
-
 /* boolean */
 
 .Button:where([data-loading]) {
@@ -167,7 +165,6 @@ Data attributes can be used as a boolean to represent a true or false state, or 
 .Button:where([data-size='small']) {
   height: var(--control-small-size);
 }
-
 ```
 
 #### Responsive data attributes
@@ -193,10 +190,10 @@ export function Stack({padding = 'normal'}: StackProps) {
 }
 
 // usage
-<Stack padding={{narrow: 'none', regular: 'normal'}} />
+;<Stack padding={{narrow: 'none', regular: 'normal'}} />
 ```
 
-By default, we may offer a `padding` prop. The data attribute for `padding` might look like `data-padding="normal"`. To make the `padding` prop responsive, utilize the [ResponsiveValue](https://github.com/primer/packages/react/src/hooks/useResponsiveValue.ts) hook alongside the [getResponsiveAttributes](https://github.com/primer/react/src/internal/utils/getResponsiveAttributes.ts) utility. 
+By default, we may offer a `padding` prop. The data attribute for `padding` might look like `data-padding="normal"`. To make the `padding` prop responsive, utilize the [ResponsiveValue](https://github.com/primer/packages/react/src/hooks/useResponsiveValue.ts) hook alongside the [getResponsiveAttributes](https://github.com/primer/react/src/internal/utils/getResponsiveAttributes.ts) utility.
 
 ```tsx
 // apply the responsive data-attributes using getResponsiveAttributes
@@ -240,7 +237,7 @@ CSS variables may also be used contextually to set component variants. These CSS
   background-color: var(--banner-bgColor);
 
   &:where([data-variant='critical']) {
-    --banner-bgColor: var(--bgColor-danger-muted); 
+    --banner-bgColor: var(--bgColor-danger-muted);
   }
 }
 ```
