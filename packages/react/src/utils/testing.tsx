@@ -8,7 +8,6 @@ import customRules from '@github/axe-github'
 import {ThemeProvider} from '..'
 import {default as defaultTheme} from '../theme'
 import type {LiveRegionElement} from '@primer/live-region-element'
-import {FeatureFlags} from '../FeatureFlags'
 
 type ComputedStyles = Record<string, string | Record<string, string>>
 
