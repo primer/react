@@ -204,7 +204,7 @@ const AvatarStack = ({
   sx: sxProp = defaultSxProp,
 }: AvatarStackProps) => {
   const [hasInteractiveChildren, setHasInteractiveChildren] = useState<boolean | undefined>(false)
-  const AvatarStackContainer = useRef(null)
+  const AvatarStackContainer = useRef<HTMLDivElement>(null)
 
   const count = React.Children.count(children)
   const wrapperClassNames = clsx(
@@ -261,7 +261,7 @@ const AvatarStack = ({
   }
 
   useEffect(() => {
-    const hasInteractive = getInteractiveNodes(AvatarStackContainer.current, '[tabindex]')
+    const hasInteractive = getInteractiveNodes(AvatarStackContainer.current, 'div[tabindex]')
     setHasInteractiveChildren(hasInteractive)
   }, [children])
 
@@ -294,8 +294,12 @@ const AvatarStack = ({
   )
 
   return (
-    <AvatarStackWrapper count={count} className={wrapperClassNames} sx={avatarStackSx} ref={AvatarStackContainer}>
-      <Box className={bodyClassNames} tabIndex={!hasInteractiveChildren && !disableExpand ? 0 : undefined}>
+    <AvatarStackWrapper count={count} className={wrapperClassNames} sx={avatarStackSx}>
+      <Box
+        className={bodyClassNames}
+        tabIndex={!hasInteractiveChildren && !disableExpand ? 0 : undefined}
+        ref={AvatarStackContainer}
+      >
         {transformChildren(children)}
       </Box>
     </AvatarStackWrapper>

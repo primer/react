@@ -23,6 +23,22 @@ exports[`Avatar respects alignRight props 1`] = `
   position: absolute;
 }
 
+.c0 .pc-AvatarStackBody:focus:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: 1px;
+}
+
+.c0 .pc-AvatarStackBody:focus:not(:disabled):not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.c0 .pc-AvatarStackBody:focus-visible:not(:disabled) {
+  box-shadow: none;
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: 1px;
+}
+
 .c0 .pc-AvatarItem {
   --avatar-size: var(--avatar-stack-size);
   -webkit-flex-shrink: 0;
