@@ -18,7 +18,7 @@ export const CustomId = () => (
 )
 
 export const FilesPage = () => (
-  <PageHeader>
+  <PageHeader role="banner" aria-label="Banner">
     <PageHeader.ContextArea>
       <PageHeader.ParentLink>Files</PageHeader.ParentLink>
       <PageHeader.ContextAreaActions>
@@ -161,7 +161,7 @@ export const DialogTrigger = () => {
   return (
     <>
       <Tooltip text="Ready to merge">
-        <IconButton ref={buttonRef} onClick={() => setIsOpen(!isOpen)} icon={CheckIcon} aria-label="Check mark" />
+        <IconButton ref={buttonRef} onClick={() => setIsOpen(!isOpen)} icon={CheckIcon} aria-label="Merge" />
       </Tooltip>
       {isOpen && (
         <Dialog
@@ -170,7 +170,7 @@ export const DialogTrigger = () => {
           footerButtons={[
             {buttonType: 'default', content: 'Open Second Dialog', onClick: openSecondDialog},
             {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
-            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
+            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog},
           ]}
         >
           The icon button that triggers the dialog, takes the focus back when the dialog is closed however the the

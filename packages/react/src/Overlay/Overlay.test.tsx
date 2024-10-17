@@ -1,6 +1,5 @@
 import React, {useRef, useState} from 'react'
-import {Overlay, Box, Text} from '..'
-import {ButtonDanger, Button} from '../deprecated'
+import {Overlay, Box, Text, Button} from '..'
 import {render, waitFor, fireEvent} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import axe from 'axe-core'
@@ -43,7 +42,9 @@ const TestComponent = ({initialFocus, callback}: TestComponentSettings) => {
             >
               <Box display="flex" flexDirection="column" p={2}>
                 <Text>Are you sure?</Text>
-                <ButtonDanger onClick={closeOverlay}>Cancel</ButtonDanger>
+                <Button variant="danger" onClick={closeOverlay}>
+                  Cancel
+                </Button>
                 <Button onClick={closeOverlay} ref={confirmButtonRef}>
                   Confirm
                 </Button>
@@ -65,19 +66,19 @@ describe('Overlay', () => {
 
   it('should focus element passed into function', async () => {
     const user = userEvent.setup()
-    const {getByText} = render(<TestComponent initialFocus="button" />)
-    await user.click(getByText('open overlay'))
-    await waitFor(() => getByText('Confirm'))
-    const confirmButton = getByText('Confirm')
+    const {getByRole} = render(<TestComponent initialFocus="button" />)
+    await user.click(getByRole('button', {name: 'open overlay'}))
+    await waitFor(() => getByRole('button', {name: 'Confirm'}))
+    const confirmButton = getByRole('button', {name: 'Confirm'})
     expect(document.activeElement).toEqual(confirmButton)
   })
 
   it('should focus first element when nothing is passed', async () => {
     const user = userEvent.setup()
-    const {getByText} = render(<TestComponent />)
-    await user.click(getByText('open overlay'))
-    await waitFor(() => getByText('Cancel'))
-    const cancelButton = getByText('Cancel')
+    const {getByRole} = render(<TestComponent />)
+    await user.click(getByRole('button', {name: 'open overlay'}))
+    await waitFor(() => getByRole('button', {name: 'Cancel'}))
+    const cancelButton = getByRole('button', {name: 'Cancel'})
     expect(document.activeElement).toEqual(cancelButton)
   })
 

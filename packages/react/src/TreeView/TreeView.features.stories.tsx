@@ -407,7 +407,7 @@ export const AsyncSuccess: StoryFn = args => {
 }
 
 AsyncSuccess.args = {
-  responseTime: 2000,
+  responseTime: 4000,
 }
 
 export const AsyncWithCount: StoryFn = args => {

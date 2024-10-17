@@ -28,18 +28,16 @@ figma.connect(
   {
     props: {
       color: figma.enum('color', {
-        green: 'var(--data-green-color)',
-        teal: 'var(--data-teal-color)',
-        blue: 'var(--data-blue-color)',
-        purple: 'var(--data-purple-color)',
-        orange: 'var(--data-orange-color)',
-        red: 'var(--data-red-color)',
-        pink: 'var(--data-pink-color)',
-        yellow: 'var(--data-yellow-color)',
-        auburn: 'var(--data-auburn-color)',
-        gray: 'var(--data-gray-color)',
+        green: 'success.empahsis',
+        blue: 'accent.emphasis',
+        purple: 'done.emphasis',
+        orange: 'severe.empahsis',
+        red: 'danger.emphasis',
+        pink: 'sponsors.emphasis',
+        yellow: 'attention.emphasis',
+        gray: 'neutral.epmhasis',
       }),
     },
-    example: ({color}) => <ProgressBarItem sx={{background: color}} />,
+    example: ({color}) => <ProgressBarItem bg={color} />,
   },
 )
