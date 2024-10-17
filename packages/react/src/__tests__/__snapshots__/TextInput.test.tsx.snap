@@ -4171,7 +4171,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
     />
     <span
       className="TextInput-icon"
-      data-testid="text-input-trailing-visual"
     >
       <div
         className="c3"
@@ -4386,7 +4385,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   >
     <span
       className="TextInput-icon"
-      data-testid="text-input-leading-visual"
     >
       <div
         className="c2"
@@ -4444,7 +4442,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
     />
     <span
       className="TextInput-icon"
-      data-testid="text-input-trailing-visual"
     >
       <div
         className="c2"
@@ -4660,7 +4657,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
     />
     <span
       className="TextInput-icon"
-      data-testid="text-input-trailing-visual"
     >
       <div
         className="c3"
@@ -4884,7 +4880,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   >
     <span
       className="TextInput-icon"
-      data-testid="text-input-leading-visual"
     >
       <div
         className="c2"
@@ -4972,7 +4967,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
     />
     <span
       className="TextInput-icon"
-      data-testid="text-input-trailing-visual"
     >
       <div
         className="c2"
@@ -5196,7 +5190,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   >
     <span
       className="TextInput-icon"
-      data-testid="text-input-leading-visual"
     >
       <div
         className="c2"
@@ -5284,7 +5277,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
     />
     <span
       className="TextInput-icon"
-      data-testid="text-input-trailing-visual"
     >
       <div
         className="c2"
@@ -5508,7 +5500,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   >
     <span
       className="TextInput-icon"
-      data-testid="text-input-leading-visual"
     >
       <div
         className="c2"
@@ -5596,7 +5587,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
     />
     <span
       className="TextInput-icon"
-      data-testid="text-input-trailing-visual"
     >
       <div
         className="c2"
@@ -5821,7 +5811,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
     />
     <span
       className="TextInput-icon"
-      data-testid="text-input-trailing-visual"
     >
       <div
         className="c3"
@@ -6075,7 +6064,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   >
     <span
       className="TextInput-icon"
-      data-testid="text-input-leading-visual"
     >
       <div
         className="c2"
@@ -6133,7 +6121,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
     />
     <span
       className="TextInput-icon"
-      data-testid="text-input-trailing-visual"
     >
       <div
         className="c2"
@@ -6388,7 +6375,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
     />
     <span
       className="TextInput-icon"
-      data-testid="text-input-trailing-visual"
     >
       <div
         className="c3"
@@ -6660,7 +6646,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   >
     <span
       className="TextInput-icon"
-      data-testid="text-input-leading-visual"
     >
       <div
         className="c2"
@@ -6748,7 +6733,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
     />
     <span
       className="TextInput-icon"
-      data-testid="text-input-trailing-visual"
     >
       <div
         className="c2"
@@ -7011,7 +6995,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   >
     <span
       className="TextInput-icon"
-      data-testid="text-input-leading-visual"
     >
       <div
         className="c2"
@@ -7099,7 +7082,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
     />
     <span
       className="TextInput-icon"
-      data-testid="text-input-trailing-visual"
     >
       <div
         className="c2"
@@ -7369,7 +7351,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
   >
     <span
       className="TextInput-icon"
-      data-testid="text-input-leading-visual"
     >
       <div
         className="c2"
@@ -7457,7 +7438,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
     />
     <span
       className="TextInput-icon"
-      data-testid="text-input-trailing-visual"
     >
       <div
         className="c2"
