@@ -35,7 +35,7 @@ Reference CSS classes in the component TSX file using the `classes` object.
 
 import classes from './Button.module.css'
 
-;<div className={classes.Banner}>Banner</div>
+<div className={classes.Banner}>Banner</div>
 ```
 
 ## Code styles
@@ -190,7 +190,7 @@ export function Stack({padding = 'normal'}: StackProps) {
 }
 
 // usage
-;<Stack padding={{narrow: 'none', regular: 'normal'}} />
+<Stack padding={{narrow: 'none', regular: 'normal'}} />
 ```
 
 By default, we may offer a `padding` prop. The data attribute for `padding` might look like `data-padding="normal"`. To make the `padding` prop responsive, utilize the [ResponsiveValue](https://github.com/primer/packages/react/src/hooks/useResponsiveValue.ts) hook alongside the [getResponsiveAttributes](https://github.com/primer/react/src/internal/utils/getResponsiveAttributes.ts) utility.
