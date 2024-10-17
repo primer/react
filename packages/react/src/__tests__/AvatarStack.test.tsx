@@ -1,6 +1,6 @@
 import React from 'react'
 import {AvatarStack} from '..'
-import {render, behavesAsComponent, checkExports} from '../utils/testing'
+import {render, behavesAsComponent, checkExports, expectRendersWithClassname} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
 
@@ -31,6 +31,18 @@ describe('Avatar', () => {
 
   checkExports('AvatarStack', {
     default: AvatarStack,
+  })
+
+  it('should support `className` on the outermost element', () => {
+    const element = (
+      <AvatarStack className={'test-class-name'}>
+        <img src="https://avatars.githubusercontent.com/primer" alt="" />
+        <img src="https://avatars.githubusercontent.com/github" alt="" />
+        <img src="https://avatars.githubusercontent.com/primer" alt="" />
+        <img src="https://avatars.githubusercontent.com/github" alt="" />
+      </AvatarStack>
+    )
+    expectRendersWithClassname(element, 'test-class-name')
   })
 
   it('should have no axe violations', async () => {
