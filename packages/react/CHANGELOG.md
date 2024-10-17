@@ -1,5 +1,37 @@
 # @primer/react
 
+## 37.0.0-rc.11
+
+### Minor Changes
+
+- [#5097](https://github.com/primer/react/pull/5097) [`2a3c473`](https://github.com/primer/react/commit/2a3c473db4ee5e76903a82c150e09ad75868b15d) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Added className prop to the AvatarStack component
+
+- [#5113](https://github.com/primer/react/pull/5113) [`c28378e`](https://github.com/primer/react/commit/c28378eeca2658e23c84ed7047bb300be2ed9ce0) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Add `className` prop to `FormControl.Label` component
+
+- [#5102](https://github.com/primer/react/pull/5102) [`2742ee5`](https://github.com/primer/react/commit/2742ee5dbc6c2b98b13249de7dd0f25252caacad) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Add `classname` prop support to `ActionList.Description` component
+
+- [#5099](https://github.com/primer/react/pull/5099) [`cb21a38`](https://github.com/primer/react/commit/cb21a384d63473295480a0905c4ca1ba59faf068) Thanks [@joshblack](https://github.com/joshblack)! - Add ButtonBase to `@primer/react/experimental` to help with wildcard import interop
+
+- [#4994](https://github.com/primer/react/pull/4994) [`be58fff`](https://github.com/primer/react/commit/be58fffd14453e977ab4fe3930829d1d67fcc1a8) Thanks [@camertron](https://github.com/camertron)! - [SegmentedControl, Autocomplete] Support passing React.ReactElements for icons.
+
+- [#5100](https://github.com/primer/react/pull/5100) [`b0d858a`](https://github.com/primer/react/commit/b0d858a55cf92c131005dfda8dca484793c1af41) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(ProgressBar): add aria-valuetext attribute
+
+- [#5115](https://github.com/primer/react/pull/5115) [`e94f0a1`](https://github.com/primer/react/commit/e94f0a1771ab148108c290bf92cb794289c2173d) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Add 'className' prop to `Dialog` component
+
+- [#5130](https://github.com/primer/react/pull/5130) [`661e94c`](https://github.com/primer/react/commit/661e94c449e8e9feb0c35a1dd62122801a55c6a6) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Add `className` prop support to `Textarea` component
+
+### Patch Changes
+
+- [#5126](https://github.com/primer/react/pull/5126) [`f574372`](https://github.com/primer/react/commit/f57437209df3f35901cbb33045f9143285e39268) Thanks [@langermank](https://github.com/langermank)! - Add support for `aria-disabled` in `Button`
+
+- [#5128](https://github.com/primer/react/pull/5128) [`adf8c4f`](https://github.com/primer/react/commit/adf8c4fc2fdaa0ed4bafc2a358f2207d127f3d15) Thanks [@stephaniegiang](https://github.com/stephaniegiang)! - Update confirmation dialog body to default color. Removing the muted color override.
+
+- [#5041](https://github.com/primer/react/pull/5041) [`4da550e`](https://github.com/primer/react/commit/4da550ee52bcc8874ddae86e01e26ace64f48bf8) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(TooltipV2): always add aria-hidden
+
+- [#5132](https://github.com/primer/react/pull/5132) [`623a411`](https://github.com/primer/react/commit/623a411182d5b150ac39e69204b7eba6e0e935bc) Thanks [@langermank](https://github.com/langermank)! - Bug fix: ActionList Group className prop
+
+- [#5111](https://github.com/primer/react/pull/5111) [`802568a`](https://github.com/primer/react/commit/802568ae1298c6f3eddf74962d5b8227f264ae2e) Thanks [@joshblack](https://github.com/joshblack)! - Update CSS styles for CounterLabel to allow overrides for color, background color
+
 ## 37.0.0-rc.10
 
 ### Minor Changes

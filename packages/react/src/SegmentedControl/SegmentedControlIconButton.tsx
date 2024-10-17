@@ -8,7 +8,6 @@ import {getSegmentedControlButtonStyles, getSegmentedControlListItemStyles} from
 import Box from '../Box'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {isElement} from 'react-is'
-import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 
 export type SegmentedControlIconButtonProps = {
   'aria-label': string
@@ -22,7 +21,6 @@ export type SegmentedControlIconButtonProps = {
   ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
 const SegmentedControlIconButtonStyled = styled.button`
-  ${getGlobalFocusStyles()};
   ${sx};
 `
 
