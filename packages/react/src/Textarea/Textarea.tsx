@@ -106,7 +106,6 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           disabled={disabled}
           rows={rows}
           cols={cols}
-          className={className}
           {...rest}
         />
       </TextInputBaseWrapper>

@@ -37,8 +37,8 @@ describe('Textarea', () => {
         </FeatureFlags>
       )
     }
-    expect(render(<Element />).container.firstChild?.firstChild).toHaveClass('test-class-name')
-    expect(render(<FeatureFlagElement />).container.firstChild?.firstChild).toHaveClass('test-class-name')
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('renders a valid textarea input', () => {
