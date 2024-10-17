@@ -1,6 +1,8 @@
 import React from 'react'
 import Text from '../Text'
 import Box from '../Box'
+import Octicon from '../Octicon'
+import {AlertIcon} from '@primer/octicons-react'
 
 export type SelectPanelMessageProps = {
   children: React.ReactNode
@@ -8,11 +10,8 @@ export type SelectPanelMessageProps = {
   variant: 'noInitialItems' | 'noFilteredItems' | 'error' | 'warning'
 }
 
-export const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
-  variant = 'noInitialItems',
-  title,
-  children,
-}) => {
+export const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({variant, title, children}) => {
+  // console.log({variant})
   return (
     <Box
       sx={{
@@ -30,6 +29,9 @@ export const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
         //                 maxHeight of dialog - (header & footer)
       }}
     >
+      {variant !== 'noInitialItems' && variant !== 'noFilteredItems' ? (
+        <Octicon icon={AlertIcon} sx={{color: variant === 'error' ? 'danger.fg' : 'attention.fg', marginBottom: 2}} />
+      ) : null}
       <Text sx={{fontSize: 1, fontWeight: 'semibold'}}>{title}</Text>
       <Text
         sx={{fontSize: 1, color: 'fg.muted', display: 'flex', flexDirection: 'column', gap: 2, alignItems: 'center'}}

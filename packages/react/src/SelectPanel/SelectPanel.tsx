@@ -271,45 +271,23 @@ function Panel({
   const isNoItemsState = items.length === 0 && dataLoadedOnce && !loading && filterValue === ''
   const isNoMatchState = items.length === 0 && dataLoadedOnce && !loading && filterValue !== ''
   const emptyState = isNoItemsState || isNoMatchState ? true : false
-  // I don't know anything about error or warning here. They manage their visibility.
 
-  // const deconstructChildren = (children: React.ReactNode) => {
-  //   const childrenObject = {}
-  //   // eslint-disable-next-line github/array-foreach
-  //   React.Children.toArray(children).forEach(child => {
-  //     if (!React.isValidElement(child)) return
-  //     if (child.props.variant === 'noInitialItems') childrenObject.noInitialItems = child
-  //     if (child.props.variant === 'noFilteredItems') childrenObject.noFilteredItems = child
-  //     if (child.props.variant === 'error') childrenObject.error = child
-  //     if (child.props.variant === 'warning') childrenObject.warning = child
-  //   })
-  //   return childrenObject
-  // }
+  function maybeMutateChildren(children: ReactNode): ReactNode[] {
+    const newChildren = new Set()
 
-  type DeconstructedChild = {
-    type: React.ElementType
-    props: Record<string, any>
-  }
-
-  function getChildrenToBeRendered(children: ReactNode): (DeconstructedChild | null)[] {
-    return React.Children.map(children, child => {
+    for (const child of React.Children.toArray(children)) {
       if (React.isValidElement(child)) {
-        const {type, props} = child
-        const variant = props.variant ?? null
-        if (variant === 'noInitialItems') return isNoItemsState ? child : null
-        else if (variant === 'noFilteredItems') return isNoMatchState ? child : null
-        return child
+        const variant = child.props.variant ?? null
+        if (variant === 'noInitialItems' && isNoItemsState) newChildren.add(child)
+        else if (variant === 'noFilteredItems' && isNoMatchState) newChildren.add(child)
+        else if (variant === 'error' || variant === 'warning') newChildren.add(child)
+        else () => {}
       }
-      return null
-    })
+    }
+    // @ts-ignore shh
+    return Array.from(newChildren)
   }
-
-  // const childrenObject =
-  const childrenToBeRendered = getChildrenToBeRendered(children)
-  // The expected return is
-  console.log(childrenToBeRendered)
-  // { noInitialItems: child1, noFilteredItems: child2, error: child3, warning: child4 }
-  // }
+  const maybeMutatedChildren = maybeMutateChildren(children)
 
   return (
     <LiveRegion>
@@ -368,8 +346,7 @@ function Panel({
             inputRef={inputRef}
             loading={isLoading}
             loadingType={loadingType()}
-            {...(usingModernActionList ? {childrenToBeRendered: childrenToBeRendered} : {})}
-            {...(usingModernActionList ? {emptyState} : {})}
+            {...(usingModernActionList ? {maybeMutatedChildren} : {})}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
             sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}

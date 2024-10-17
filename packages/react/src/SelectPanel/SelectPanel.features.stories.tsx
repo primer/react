@@ -445,17 +445,17 @@ export const CustomisedNoInitialItems = () => {
       setFilteredItems([])
     }, 0)
   }
-  const [isOn, setIsOn] = React.useState(false)
+  const [isError, setIsError] = React.useState(true)
 
   const onClick = React.useCallback(() => {
-    setIsOn(!isOn)
-  }, [setIsOn, isOn])
+    setIsError(!isError)
+  }, [setIsError, isError])
   return (
     <>
       <Text id="toggle" fontWeight={'bold'} fontSize={2}>
-        Enable Error State :{isOn ? 'On' : 'Off'}
+        Enable Error State :{isError ? 'On' : 'Off'}
       </Text>
-      <ToggleSwitch onClick={onClick} checked={isOn} aria-labelledby="switchLabel" />
+      <ToggleSwitch onClick={onClick} checked={isError} aria-labelledby="switchLabel" />
       <SelectPanel
         title="Set projects"
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
@@ -471,13 +471,17 @@ export const CustomisedNoInitialItems = () => {
         onFilterChange={onFilterChange}
         overlayProps={{width: 'medium', height: 'large'}}
       >
-        <SelectPanel.Message variant="noInitialItems" title="You haven't created any projects yet">
-          <Link href="https://github.com/projects">Start your first project </Link> to organise your issues.
-        </SelectPanel.Message>
-        <SelectPanel.Message variant="noFilteredItems" title={`No language found for `}>
-          Adjust your search term to find other languages
-        </SelectPanel.Message>
-        {isOn ? (
+        {!isError ? (
+          <SelectPanel.Message variant="noInitialItems" title="You haven't created any projects yet">
+            <Link href="https://github.com/projects">Start your first project </Link> to organise your issues.
+          </SelectPanel.Message>
+        ) : null}
+        {!isError ? (
+          <SelectPanel.Message variant="noFilteredItems" title={`No language found for `}>
+            Adjust your search term to find other languages
+          </SelectPanel.Message>
+        ) : null}
+        {isError ? (
           <SelectPanel.Message variant="error" title={`Ooops`}>
             Something is wrong.
           </SelectPanel.Message>
@@ -493,28 +497,49 @@ export const CustomisedNoFilteredItems = () => {
   const [open, setOpen] = useState(true)
 
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [isError, setIsError] = React.useState(true)
+
+  const onClick = React.useCallback(() => {
+    setIsError(!isError)
+  }, [setIsError, isError])
+
   return (
-    <SelectPanel
-      title="Set projects"
-      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-        <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
-          {children ?? 'Select Labels'}
-        </Button>
-      )}
-      open={open}
-      onOpenChange={setOpen}
-      items={filteredItems}
-      selected={selected}
-      onSelectedChange={setSelected}
-      onFilterChange={setFilter}
-      overlayProps={{width: 'medium', height: 'small'}}
-    >
-      <SelectPanel.Message variant="noInitialItems" title="You haven't created any projects yet">
-        <Link href="https://github.com/projects">Start your first project </Link> to organise your issues.
-      </SelectPanel.Message>
-      <SelectPanel.Message variant="noFilteredItems" title={`No language found for ${filter}`}>
-        Adjust your search term to find other languages
-      </SelectPanel.Message>
-    </SelectPanel>
+    <>
+      <Text id="toggle" fontWeight={'bold'} fontSize={2}>
+        Enable Error State :{isError ? 'On' : 'Off'}
+      </Text>
+      <ToggleSwitch onClick={onClick} checked={isError} aria-labelledby="switchLabel" />
+      <SelectPanel
+        title="Set projects"
+        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+            {children ?? 'Select Labels'}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+        overlayProps={{width: 'medium', height: 'small'}}
+      >
+        {!isError ? (
+          <SelectPanel.Message variant="noInitialItems" title="You haven't created any projects yet">
+            <Link href="https://github.com/projects">Start your first project </Link> to organise your issues.
+          </SelectPanel.Message>
+        ) : null}
+        {!isError ? (
+          <SelectPanel.Message variant="noFilteredItems" title={`No language found for `}>
+            Adjust your search term to find other languages
+          </SelectPanel.Message>
+        ) : null}
+        {isError ? (
+          <SelectPanel.Message variant="error" title={`Ooops`}>
+            Something is wrong.
+          </SelectPanel.Message>
+        ) : null}
+      </SelectPanel>
+    </>
   )
 }
