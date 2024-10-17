@@ -40,7 +40,7 @@ import classes from './Button.module.css'
 
 ## Code styles 
 
-### CSS class names
+### CSS classnames
 
 When component classnames are compiled, they receive a prefix of the component name `prc-{component}-` and a suffix of a random hash.
 
@@ -56,11 +56,11 @@ When component classnames are compiled, they receive a prefix of the component n
 }
 ```
 
-Since classes are prefixed and hashed, the class names themselves can be named generically to represent their intention.
+Since classes are prefixed and hashed, the classnames themselves can be named generically to represent their intention.
 
 #### PascalCase
 
-Use PascalCase for class names. Additional characters like `-` dashes or `_` underscores must be escaped with a `\` backslash in TSX for the class name to be recognized, which can be cumbersome.
+Use PascalCase for classnames. Additional characters like `-` dashes or `_` underscores must be escaped with a `\` backslash in TSX for the class name to be recognized, which can be cumbersome.
 
 ```css
 
@@ -93,11 +93,45 @@ Prefer using pseudo elements over classnames for state.
 
 ### `clsx` and className
 
-only at top level (once)
+Multiple classnames can be referenced on a single node using the `clsx` utility. This is also useful for providing a `className` prop alongside the default class name.
+
+The `className` prop should only be offered on the top-level element of a component. Avoid offering multiple layers of `className` props to child elements. Consider offering a CSS variable for properties that a consumer may need to customize at the lower levels.
+
+Ensure that other `...props` are spread before the `className` prop to avoid being overridden.
+
+```tsx
+import clsx from 'clsx'
+
+export function Button({className, ...props}) {
+  return <button {...props} className={clsx(classes.Button, className)}  />
+}
+```
+
+```tsx
+// don't offer multiple classNames
+export function Button({className, labelClassName}) {
+  return 
+  <button className={className}>
+    <div className={labelClassName}>{label}</div>
+  </button>
+}
+```
+
+### Responsive design
+
+We utilize PostCSS to allow for CSS variables to be used within media queries. The list of available media queries can be found in the [@primer/primitives viewport documentation](https://primer.style/foundations/primitives/size#viewport).
+
+To use a viewport variable, write the `@media` rule as normal and place the variable in between the parentheses.
+
+```css
+@media screen and (--viewportRange-regular) {
+  /* styles */
+}
+```
 
 ### Component prop variants as data-attributes
 
-When a component has a variant, prefer using a data-attribute over a modifier class.
+When a component has a variant, prefer using a data attribute over a modifier class.
 
 Some common variants include:
 
@@ -117,10 +151,70 @@ Some common variants include:
 }
 ```
 
-TODO add responsive data-variants
+Data attributes can be used as a boolean to represent a true or false state, or as a string to represent a specific value.
 
-data-variant as string
-data-variant as boolean
+```css
+
+/* boolean */
+
+.Button:where([data-loading]) {
+  cursor: not-allowed;
+}
+
+/* string */
+
+.Button:where([data-size='small']) {
+  height: var(--control-small-size);
+}
+
+```
+
+#### Responsive data attributes
+
+It is common to offer responsive props that allow the consumer to set styling based on the viewport size. This functionality can be extended via data attributes.
+
+```tsx
+import type {ResponsiveValue} from '../hooks/useResponsiveValue'
+import {getResponsiveAttributes} from '../internal/utils/getResponsiveAttributes'
+
+// types
+type PaddingScale = 'none' | 'condensed' | 'normal' | 'spacious'
+type Padding = PaddingScale | ResponsiveValue<PaddingScale>
+
+// prop
+type StackProps = {
+  padding?: Padding
+}
+
+// component
+export function Stack({padding = 'normal'}: StackProps) {
+  return <div {...getResponsiveAttributes('padding', padding)} />
+}
+
+// usage
+<Stack padding={{narrow: 'none', regular: 'normal'}} />
+```
+
+By default, we may offer a `padding` prop. The data attribute for `padding` might look like `data-padding="normal"`. To make the `padding` prop responsive, utilize the [ResponsiveValue](https://github.com/primer/packages/react/src/hooks/useResponsiveValue.ts) hook alongside the [getResponsiveAttributes](https://github.com/primer/react/src/internal/utils/getResponsiveAttributes.ts) utility. 
+
+```tsx
+// apply the responsive data-attributes using getResponsiveAttributes
+export function Stack({padding = 'normal'}: StackProps) {
+  return <div {...getResponsiveAttributes('padding', padding)} />
+}
+```
+
+By using `getResponsiveAttributes`, we can reference data attributes in the CSS file based on the prop type offerings.
+
+```css
+/* Stack.module.css */
+.Stack {
+  &:where([data-padding='none']),
+  &:where([data-padding-narrow='none']) {
+    padding: 0;
+  }
+}
+```
 
 ### Specificity and nesting
 
@@ -154,14 +248,6 @@ CSS variables may also be used contextually to set component variants. These CSS
 
 Avoid adding fallback values to CSS variables from `@primer/primitives`. These are added automatically and will be compiled to CSS variables with a fallback value.
 
-
-- classname at the top level of a component
-
-- baseline 2022
-- supports
-- one file per component
-- linting
-
 ### Support
 
 Prefer CSS features no newer than Baseline 2022. When using CSS features from Baseline 2023 or newer, provide an appropriate fallback for when the feature is unavailable.
@@ -178,15 +264,3 @@ Use `@supports` to target when a specific piece of functionality is not availabl
 
 Import CSS modules after JS imports to avoid certain CSS ordering issues
 When allowing className to be passed as a prop, prefer supporting a className only on the top-level element that is rendered instead of supporting multiple className’s
-
-
-
-[Primer] Write selectors that target components that the current component owns
-For example, don’t put all the styles for several components across different files in one single CSS Module file
-Tip: when needing to style or target child components, consider using CSS 
-Prefer one CSS Module file per component
-Caveat: it is okay to have multiple components in a file and it is okay to have one CSS Module file for this scenario
-Over time, breakout as-needed
-
-side-effect properties
-stylelint rule to check proper flex usage
