@@ -293,6 +293,7 @@ export const getBaseStyles = (theme?: Theme) => ({
     minWidth: 'unset',
   },
   '&[data-size="small"]': {
+    minWidth: '28px',
     padding: '0 8px',
     height: '28px',
     gap: '4px',
