@@ -18,45 +18,49 @@ export type ActionListTrailingActionProps = ElementProps & {
   label: string
 }
 
-export const TrailingAction = forwardRef(({as = 'button', icon, label, href = null, ...props}, forwardedRef) => {
-  if (!icon) {
-    return (
-      <Box
-        data-component="ActionList.TrailingAction"
-        as="span"
-        sx={{
-          flexShrink: 0,
-        }}
-      >
-        {/* @ts-expect-error TODO: Fix this */}
-        <Button variant="invisible" as={as} href={href} ref={forwardedRef} {...props}>
-          {label}
-        </Button>
-      </Box>
-    )
-  } else {
-    return (
-      <Box
-        as="span"
-        data-component="ActionList.TrailingAction"
-        sx={{
-          flexShrink: 0,
-        }}
-      >
-        <IconButton
-          as={as}
-          aria-label={label}
-          icon={icon}
-          variant="invisible"
-          tooltipDirection="w"
-          href={href}
-          // @ts-expect-error StyledButton wants both Anchor and Button refs
-          ref={forwardedRef}
-          {...props}
-        />
-      </Box>
-    )
-  }
-}) as PolymorphicForwardRefComponent<'button' | 'a', ActionListTrailingActionProps>
+export const TrailingAction = forwardRef(
+  ({as = 'button', icon, label, href = null, className, ...props}, forwardedRef) => {
+    if (!icon) {
+      return (
+        <Box
+          data-component="ActionList.TrailingAction"
+          as="span"
+          className={className}
+          sx={{
+            flexShrink: 0,
+          }}
+        >
+          {/* @ts-expect-error TODO: Fix this */}
+          <Button variant="invisible" as={as} href={href} ref={forwardedRef} {...props}>
+            {label}
+          </Button>
+        </Box>
+      )
+    } else {
+      return (
+        <Box
+          as="span"
+          className={className}
+          data-component="ActionList.TrailingAction"
+          sx={{
+            flexShrink: 0,
+          }}
+        >
+          <IconButton
+            as={as}
+            aria-label={label}
+            icon={icon}
+            variant="invisible"
+            tooltipDirection="w"
+            href={href}
+            // @ts-expect-error StyledButton wants both Anchor and Button refs
+            ref={forwardedRef}
+            {...props}
+          />
+        </Box>
+      )
+    }
+  },
+) as PolymorphicForwardRefComponent<'button' | 'a', ActionListTrailingActionProps>
 
 TrailingAction.displayName = 'ActionList.TrailingAction'

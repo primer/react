@@ -38,6 +38,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       role,
       loading,
       _PrivateItemWrapper,
+      className,
       ...props
     },
     forwardedRef,
@@ -347,6 +348,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       >
         <LiBox
           ref={!buttonSemanticsFeatureFlag || listSemantics ? forwardedRef : null}
+          className={className}
           sx={
             buttonSemanticsFeatureFlag
               ? merge<BetterSystemStyleObject>(

@@ -14,6 +14,7 @@ type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 export type ActionListHeadingProps = {
   as: HeadingLevels
   visuallyHidden?: boolean
+  className?: string
 } & SxProp
 
 export const Heading = forwardRef(
@@ -42,6 +43,7 @@ export const Heading = forwardRef(
           ref={innerRef}
           // use custom id if it is provided. Otherwise, use the id from the context
           id={props.id ?? headingId}
+          className={props.className}
           sx={merge<BetterSystemStyleObject>(styles, sx)}
           {...props}
         >

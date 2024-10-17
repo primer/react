@@ -1,10 +1,15 @@
-import {render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
+import {render as HTMLRender, waitFor, fireEvent, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import axe from 'axe-core'
 import React from 'react'
 import theme from '../theme'
 import {ActionList} from '.'
-import {BookIcon} from '@primer/octicons-react'
+import {Item} from './Item'
+import {LinkItem} from './LinkItem'
+import {Group} from './Group'
+import {Divider} from './Divider'
+import {Description} from './Description'
+import {ArrowLeftIcon, BookIcon, FileDirectoryIcon} from '@primer/octicons-react'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, ThemeProvider, ActionMenu} from '..'
 import {FeatureFlags} from '../FeatureFlags'
@@ -616,5 +621,142 @@ describe('ActionList', () => {
 
     await userEvent.keyboard('{ArrowUp}')
     expect(document.activeElement).toHaveTextContent('Option 4')
+  })
+})
+
+describe('ActionList.Description', () => {
+  it('should support a custom `className` on the container element', () => {
+    HTMLRender(
+      <ActionList>
+        <ActionList.Item>
+          <ActionList.Description className="custom-class">test description</ActionList.Description>
+        </ActionList.Item>
+      </ActionList>,
+    )
+    expect(screen.getByText('test description')).toHaveClass('custom-class')
+  })
+})
+
+describe('ActionList.Divider', () => {
+  it('should support a custom `className` on the container element', () => {
+    HTMLRender(
+      <ActionList>
+        <ActionList.Item>Test item</ActionList.Item>
+        <ActionList.Divider className="custom-class" />
+      </ActionList>,
+    )
+    const listItem = screen.getByRole('listitem', {name: 'Test item'})
+    const nextSibling = listItem.nextElementSibling
+    expect(nextSibling).toHaveClass('custom-class')
+  })
+})
+
+describe('ActionList.GroupHeading', () => {
+  it('should support a custom `className` on the container element', () => {
+    HTMLRender(
+      <ActionList>
+        <ActionList.Group>
+          <ActionList.GroupHeading className="custom-class" as="h3">
+            Group heading
+          </ActionList.GroupHeading>
+          <ActionList.Item onClick={() => {}}>Item</ActionList.Item>
+        </ActionList.Group>
+      </ActionList>,
+    )
+    expect(screen.getByText('Group heading')).toHaveClass('custom-class')
+  })
+})
+
+describe('ActionList.Heading', () => {
+  it('should support a custom `className` on the container element', () => {
+    HTMLRender(
+      <ActionList>
+        <ActionList.Heading className="custom-class" as="h2">
+          Heading
+        </ActionList.Heading>
+        <ActionList.Item onClick={() => {}}>Item</ActionList.Item>
+      </ActionList>,
+    )
+    expect(screen.getByText('Heading')).toHaveClass('custom-class')
+  })
+})
+
+describe('ActionList.Item', () => {
+  it('should support a custom `className` on the container element', () => {
+    HTMLRender(
+      <ActionList>
+        <ActionList.Item className="custom-class" onClick={() => {}}>
+          Item
+        </ActionList.Item>
+      </ActionList>,
+    )
+    const listItem = screen.getByRole('listitem')
+    expect(listItem).toHaveClass('custom-class')
+  })
+})
+
+describe('ActionList.LinkItem', () => {
+  it('should support a custom `className` on the container element', () => {
+    HTMLRender(
+      <ActionList>
+        <ActionList.LinkItem className="custom-class" onClick={() => {}}>
+          Item
+        </ActionList.LinkItem>
+      </ActionList>,
+    )
+    const listItem = screen.getByRole('listitem')
+    expect(listItem).toHaveClass('custom-class')
+  })
+})
+
+describe('ActionList.TrailingAction', () => {
+  it('should support a custom `className` on the container element', () => {
+    const {container} = HTMLRender(
+      <ActionList>
+        <ActionList.Item>
+          Trailing action
+          <ActionList.TrailingAction className="custom-class" label="Expand sidebar" icon={ArrowLeftIcon} />
+        </ActionList.Item>
+      </ActionList>,
+    )
+    const svgElement = container.querySelector('.octicon')
+    const parentElement = svgElement?.closest('span')
+    expect(parentElement).toHaveClass('custom-class')
+  })
+})
+
+describe('ActionList.LeadingVisual', () => {
+  it('should support a custom `className` on the container element', () => {
+    const {container} = HTMLRender(
+      <ActionList>
+        <ActionList.Item>
+          Leading visual
+          <ActionList.LeadingVisual className="custom-class">
+            <FileDirectoryIcon />
+          </ActionList.LeadingVisual>
+        </ActionList.Item>
+      </ActionList>,
+    )
+    const svgElement = container.querySelector('.octicon')
+    const parentElement = svgElement?.closest('span')
+    expect(parentElement).toHaveClass('custom-class')
+  })
+})
+
+describe('ActionList.TrailingVisual', () => {
+  it('should support a custom `className` on the container element', () => {
+    const {container} = HTMLRender(
+      <ActionList>
+        <ActionList.Item>
+          Leading visual
+          <ActionList.TrailingVisual className="custom-class">
+            <FileDirectoryIcon />
+          </ActionList.TrailingVisual>
+        </ActionList.Item>
+      </ActionList>,
+    )
+    const svgElement = container.querySelector('.octicon')
+    const parentElement = svgElement?.closest('span')
+    expect(parentElement).toHaveClass('custom-class')
   })
 })
