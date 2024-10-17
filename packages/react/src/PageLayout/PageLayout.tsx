@@ -24,8 +24,8 @@ const REGION_ORDER = {
 
 const SPACING_MAP = {
   none: '0',
-  condensed: '16px',
-  normal: ['16px', null, null, '24px'],
+  condensed: '5px',
+  normal: ['16px', '16px', '16px', '24px'],
 }
 
 const PageLayoutContext = React.createContext<{
@@ -82,7 +82,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   const paneRef = useRef<HTMLDivElement>(null)
 
   const [slots, rest] = useSlots(children, slotsConfig ?? {header: Header, footer: Footer})
-
+  console.log([SPACING_MAP[columnGap]])
   return (
     <PageLayoutContext.Provider
       value={{
