@@ -4,6 +4,7 @@ import Popover from '../Popover'
 import {render, behavesAsComponent, checkExports} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
+import {FeatureFlags} from '../FeatureFlags'
 
 const comp = (
   <Popover caret="top" open>
@@ -20,6 +21,25 @@ describe('Popover', () => {
 
   describe('Popover.Content', () => {
     behavesAsComponent({Component: Popover.Content, toRender: () => comp})
+  })
+
+  it('should support `className` on the outermost element', () => {
+    const Element = () => <Popover className={'test-class-name'}></Popover>
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(HTMLRender(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('should have no axe violations', async () => {
