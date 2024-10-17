@@ -1,5 +1,5 @@
 import {SearchIcon, TriangleDownIcon} from '@primer/octicons-react'
-import React, {useCallback, useMemo} from 'react'
+import React, {useCallback, useEffect, useMemo, useRef, useState, type ReactNode} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
@@ -10,6 +10,7 @@ import Heading from '../Heading'
 import type {OverlayProps} from '../Overlay'
 import type {TextInputProps} from '../TextInput'
 import type {ItemProps, ItemInput} from './types'
+import {SelectPanelMessage} from './SelectPanelMessage'
 
 import {Button} from '../Button'
 import {useProvidedRefOrCreate} from '../hooks'
@@ -17,6 +18,9 @@ import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
+import useSafeTimeout from '../hooks/useSafeTimeout'
+import type {FilteredActionListLoadingType} from '../FilteredActionList/FilteredActionListLoaders'
+import {FilteredActionListLoadingTypes} from '../FilteredActionList/FilteredActionListLoaders'
 import {useFeatureFlag} from '../FeatureFlags'
 
 interface SelectPanelSingleSelection {
@@ -28,6 +32,8 @@ interface SelectPanelMultiSelection {
   selected: ItemInput[]
   onSelectedChange: (selected: ItemInput[]) => void
 }
+
+export type InitialLoadingType = 'spinner' | 'skeleton'
 
 interface SelectPanelBaseProps {
   // TODO: Make `title` required in the next major version
@@ -42,13 +48,16 @@ interface SelectPanelBaseProps {
   inputLabel?: string
   overlayProps?: Partial<OverlayProps>
   footer?: string | React.ReactElement
+  initialLoadingType?: InitialLoadingType
 }
 
-export type SelectPanelProps = SelectPanelBaseProps &
-  Omit<FilteredActionListProps, 'selectionVariant'> &
-  Pick<AnchoredOverlayProps, 'open'> &
-  AnchoredOverlayWrapperAnchorProps &
-  (SelectPanelSingleSelection | SelectPanelMultiSelection)
+export type SelectPanelProps = React.PropsWithChildren<
+  SelectPanelBaseProps &
+    Omit<FilteredActionListProps, 'selectionVariant'> &
+    Pick<AnchoredOverlayProps, 'open' | 'height'> &
+    AnchoredOverlayWrapperAnchorProps &
+    (SelectPanelSingleSelection | SelectPanelMultiSelection)
+>
 
 function isMultiSelectVariant(
   selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
@@ -71,7 +80,7 @@ const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
   return items.some(i => areItemsEqual(i, item))
 }
 
-export function SelectPanel({
+function Panel({
   open,
   onOpenChange,
   renderAnchor = props => {
@@ -97,18 +106,78 @@ export function SelectPanel({
   textInputProps,
   overlayProps,
   sx,
+  loading,
+  initialLoadingType = 'spinner',
+  height,
+  children,
   ...listProps
 }: SelectPanelProps): JSX.Element {
+  const inputRef = React.useRef<HTMLInputElement>(null)
   const titleId = useId()
   const subtitleId = useId()
+  const [dataLoadedOnce, setDataLoadedOnce] = useState(false)
+  const [isLoading, setIsLoading] = useProvidedStateOrCreate(loading, undefined, false)
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
+  const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+  const loadingDelayTimeoutId = useRef<number | null>(null)
   const onFilterChange: FilteredActionListProps['onFilterChange'] = useCallback(
     (value, e) => {
+      if (dataLoadedOnce) {
+        // If data has already been loaded once, delay the spinner a bit. This also helps
+        // not show and then immediately hide the spinner if items are loaded quickly, i.e.
+        // not async.
+
+        if (loadingDelayTimeoutId.current) {
+          safeClearTimeout(loadingDelayTimeoutId.current)
+        }
+
+        loadingDelayTimeoutId.current = safeSetTimeout(() => setIsLoading(true), 1000)
+      } else {
+        // If this is the first data load and there are no items, show the loading spinner
+        // immediately
+
+        if (items.length === 0) {
+          setIsLoading(true)
+        }
+      }
+
       externalOnFilterChange(value, e)
       setInternalFilterValue(value)
     },
-    [externalOnFilterChange, setInternalFilterValue],
+    [
+      dataLoadedOnce,
+      externalOnFilterChange,
+      setInternalFilterValue,
+      safeSetTimeout,
+      safeClearTimeout,
+      setIsLoading,
+      items.length,
+    ],
   )
+
+  useEffect(() => {
+    if (isLoading) {
+      setIsLoading(false)
+      setDataLoadedOnce(true)
+    }
+    // Only fire this effect if items have changed
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [items])
+
+  // Populate panel with items on first open
+  useEffect(() => {
+    // If data was already loaded once, do nothing
+    if (dataLoadedOnce) return
+
+    // Only load data when the panel is open
+    if (open) {
+      // Only trigger filter change event if there are no items
+      if (items.length === 0) {
+        // Trigger filter event to populate panel on first open
+        onFilterChange(filterValue, null)
+      }
+    }
+  }, [open, dataLoadedOnce, onFilterChange, filterValue, items])
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(
@@ -172,7 +241,6 @@ export function SelectPanel({
     })
   }, [onClose, onSelectedChange, items, selected])
 
-  const inputRef = React.useRef<HTMLInputElement>(null)
   const focusTrapSettings = {
     initialFocusRef: inputRef,
   }
@@ -187,7 +255,39 @@ export function SelectPanel({
     }
   }, [inputLabel, textInputProps])
 
+  const loadingType = (): FilteredActionListLoadingType => {
+    if (dataLoadedOnce) {
+      return FilteredActionListLoadingTypes.input
+    } else {
+      if (initialLoadingType === 'spinner') {
+        return FilteredActionListLoadingTypes.bodySpinner
+      } else {
+        return FilteredActionListLoadingTypes.bodySkeleton
+      }
+    }
+  }
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
+
+  const isNoItemsState = items.length === 0 && dataLoadedOnce && !loading && filterValue === ''
+  const isNoMatchState = items.length === 0 && dataLoadedOnce && !loading && filterValue !== ''
+  const emptyState = isNoItemsState || isNoMatchState ? true : false
+
+  function maybeMutateChildren(children: ReactNode): ReactNode[] {
+    const newChildren = new Set()
+
+    for (const child of React.Children.toArray(children)) {
+      if (React.isValidElement(child)) {
+        const variant = child.props.variant ?? null
+        if (variant === 'noInitialItems' && isNoItemsState) newChildren.add(child)
+        else if (variant === 'noFilteredItems' && isNoMatchState) newChildren.add(child)
+        else if (variant === 'error' || variant === 'warning') newChildren.add(child)
+        else () => {}
+      }
+    }
+    // @ts-ignore shh
+    return Array.from(newChildren)
+  }
+  const maybeMutatedChildren = maybeMutateChildren(children)
 
   return (
     <LiveRegion>
@@ -205,6 +305,7 @@ export function SelectPanel({
         }}
         focusTrapSettings={focusTrapSettings}
         focusZoneSettings={focusZoneSettings}
+        height={height}
       >
         <LiveRegionOutlet />
         {usingModernActionList ? null : (
@@ -243,6 +344,9 @@ export function SelectPanel({
             items={itemsToRender}
             textInputProps={extendedTextInputProps}
             inputRef={inputRef}
+            loading={isLoading}
+            loadingType={loadingType()}
+            {...(usingModernActionList ? {maybeMutatedChildren} : {})}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
             sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
@@ -265,4 +369,8 @@ export function SelectPanel({
   )
 }
 
-SelectPanel.displayName = 'SelectPanel'
+Panel.displayName = 'SelectPanel'
+
+export const SelectPanel = Object.assign(Panel, {
+  Message: SelectPanelMessage,
+})

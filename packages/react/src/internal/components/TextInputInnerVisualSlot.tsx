@@ -12,7 +12,7 @@ const TextInputInnerVisualSlot: React.FC<
     /** Which side of this visual is being rendered */
     visualPosition: 'leading' | 'trailing'
   }>
-> = ({children, hasLoadingIndicator, showLoadingIndicator, visualPosition}) => {
+> = ({children, hasLoadingIndicator, showLoadingIndicator, visualPosition, ...props}) => {
   if ((!children && !hasLoadingIndicator) || (visualPosition === 'leading' && !children && !showLoadingIndicator)) {
     return null
   }
@@ -22,7 +22,7 @@ const TextInputInnerVisualSlot: React.FC<
   }
 
   return (
-    <span className="TextInput-icon">
+    <span className="TextInput-icon" {...props}>
       <Box display="flex" position="relative">
         {children && <Box sx={{visibility: showLoadingIndicator ? 'hidden' : 'visible'}}>{children}</Box>}
         <Spinner
