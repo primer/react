@@ -1,5 +1,15 @@
 # @primer/react
 
+## 37.0.0-rc.12
+
+### Minor Changes
+
+- [#4939](https://github.com/primer/react/pull/4939) [`9936add`](https://github.com/primer/react/commit/9936add13e5dd9e2a46103ef88c030a6ef330e6f) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Adds `aria-describedby` for `LeadingVisual` and `TrailingVisual` in `TextInput`; adds new prop `loaderText` to convey loading state to screen readers
+
+### Patch Changes
+
+- [#5137](https://github.com/primer/react/pull/5137) [`bd1f1c2`](https://github.com/primer/react/commit/bd1f1c2fbb303facb36bcd449f4a8d911cf7546c) Thanks [@jonrohan](https://github.com/jonrohan)! - Make sure all components accept `className` as a prop on outermost component element.
+
 ## 37.0.0-rc.11
 
 ### Minor Changes
