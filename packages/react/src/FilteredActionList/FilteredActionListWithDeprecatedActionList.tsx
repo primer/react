@@ -4,7 +4,6 @@ import type {KeyboardEventHandler} from 'react'
 import React, {useCallback, useEffect, useRef} from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
-import Spinner from '../Spinner'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {get} from '../constants'
@@ -17,6 +16,11 @@ import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
 import {VisuallyHidden} from '../VisuallyHidden'
 import type {SxProp} from '../sx'
+import {
+  type FilteredActionListLoadingType,
+  FilteredActionListBodyLoader,
+  FilteredActionListLoadingTypes,
+} from './FilteredActionListLoaders'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -25,9 +29,10 @@ export interface FilteredActionListProps
     ListPropsBase,
     SxProp {
   loading?: boolean
+  loadingType?: FilteredActionListLoadingType
   placeholderText?: string
   filterValue?: string
-  onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
+  onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement> | null) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
 }
@@ -39,6 +44,7 @@ const StyledHeader = styled.div`
 
 export function FilteredActionList({
   loading = false,
+  loadingType = FilteredActionListLoadingTypes.bodySpinner,
   placeholderText,
   filterValue: externalFilterValue,
   onFilterChange,
@@ -110,7 +116,7 @@ export function FilteredActionList({
   useScrollFlash(scrollContainerRef)
 
   return (
-    <Box display="flex" flexDirection="column" overflow="hidden" sx={sx}>
+    <Box display="flex" flexDirection="column" overflow="hidden" flexGrow={1} sx={sx}>
       <StyledHeader>
         <TextInput
           ref={inputRef}
@@ -124,15 +130,15 @@ export function FilteredActionList({
           aria-label={placeholderText}
           aria-controls={listId}
           aria-describedby={inputDescriptionTextId}
+          loaderPosition={'leading'}
+          loading={loading && !loadingType.appearsInBody}
           {...textInputProps}
         />
       </StyledHeader>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
-      <Box ref={scrollContainerRef} overflow="auto">
-        {loading ? (
-          <Box width="100%" display="flex" flexDirection="row" justifyContent="center" pt={6} pb={7}>
-            <Spinner />
-          </Box>
+      <Box ref={scrollContainerRef} overflow="auto" flexGrow={1}>
+        {loading && scrollContainerRef.current && loadingType.appearsInBody ? (
+          <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerRef.current.clientHeight} />
         ) : (
           <ActionList ref={listContainerRef} items={items} {...listProps} role="listbox" id={listId} />
         )}
