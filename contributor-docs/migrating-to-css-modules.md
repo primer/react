@@ -125,4 +125,4 @@ This guide outlines the steps to follow when refactoring Primer React components
   - Once merged into Dotcom, the component will be part of the `primer_react_css_modules_team` rollout.
   - We progress components through levels of feature flags as we roll them out to make sure we address any bugs with the minimum amount of audience.
 - **Monitor Team Ship:**
-  - Watch for any issues or regressions during the team ship phase. If anything is spotted, [create an issue in github/primer](https://github.com/github/primer/issues/new?template=04-bug-report.yml) and let us know in the [#primer slack channel](https://github-grid.enterprise.slack.com/archives/CSGAVNZ19).
+  - Watch for any issues or regressions during the team ship phase. If anything is spotted, [create an issue in `github/primer`](https://github.com/github/primer/issues/new?template=04-bug-report.yml) and let us know in the [#primer slack channel](https://github-grid.enterprise.slack.com/archives/CSGAVNZ19).
