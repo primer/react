@@ -142,6 +142,7 @@
   /* Size */
 
   &:where([data-size='small']) {
+    min-width: var(--control-small-size);
     height: var(--control-small-size);
     /* stylelint-disable-next-line primer/spacing */
     padding: 0 var(--control-small-paddingInline-condensed);

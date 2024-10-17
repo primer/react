@@ -127,6 +127,7 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
 }
 
 .c1[data-size="small"] {
+  min-width: 28px;
   padding: 0 8px;
   height: 28px;
   gap: 4px;
