@@ -23,7 +23,7 @@ export type SegmentedControlButtonProps = {
   ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
 const SegmentedControlButtonStyled = styled.button`
-  ${getGlobalFocusStyles()};
+  ${getGlobalFocusStyles('-1px')};
   ${sx};
 `
 
