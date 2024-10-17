@@ -2,7 +2,7 @@ import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {Banner} from '../Banner'
-import {expectRendersWithClassname} from '../utils/testing'
+import {FeatureFlags} from '../FeatureFlags'
 
 describe('Banner', () => {
   let spy: jest.SpyInstance
@@ -31,8 +31,22 @@ describe('Banner', () => {
   })
 
   it('should support a custom `className` on the outermost element', () => {
-    const element = <Banner title="test" className="test-class-name" />
-    expectRendersWithClassname(element, 'test-class-name')
+    const Element = () => <Banner title="test" className="test-class-name" />
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('should label the landmark element with the corresponding variant label text', () => {

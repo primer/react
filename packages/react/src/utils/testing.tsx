@@ -236,25 +236,6 @@ export function checkExports(path: string, exports: Record<any, any>): void {
   })
 }
 
-export function expectRendersWithClassname(element: React.ReactElement, className: string) {
-  const Element = () => element
-  const FeatureFlagElement = () => {
-    return (
-      <FeatureFlags
-        flags={{
-          primer_react_css_modules_team: true,
-          primer_react_css_modules_staff: true,
-          primer_react_css_modules_ga: true,
-        }}
-      >
-        <Element />
-      </FeatureFlags>
-    )
-  }
-  expect(HTMLRender(<Element />).container.firstChild).toHaveClass(className)
-  expect(HTMLRender(<FeatureFlagElement />).container.firstChild).toHaveClass(className)
-}
-
 axe.configure(customRules)
 
 export function checkStoriesForAxeViolations(name: string, storyDir?: string) {

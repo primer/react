@@ -4,7 +4,7 @@ import axe from 'axe-core'
 import React from 'react'
 import {IconButton, Button, LinkButton} from '../../Button'
 import type {ButtonProps} from '../../Button'
-import {behavesAsComponent, expectRendersWithClassname} from '../../utils/testing'
+import {behavesAsComponent} from '../../utils/testing'
 import {FeatureFlags} from '../../FeatureFlags'
 
 type StatefulLoadingButtonProps = {
@@ -32,8 +32,22 @@ describe('Button', () => {
   })
 
   it('should support `className` on the outermost element', () => {
-    const element = <Button className={'test-class-name'} />
-    expectRendersWithClassname(element, 'test-class-name')
+    const Element = () => <Button className={'test-class-name'} />
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('renders a <button>', () => {

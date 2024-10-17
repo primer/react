@@ -3,7 +3,8 @@ import axe from 'axe-core'
 import React from 'react'
 import {Box} from '..'
 import theme from '../theme'
-import {behavesAsComponent, checkExports, expectRendersWithClassname, render} from '../utils/testing'
+import {behavesAsComponent, checkExports, render} from '../utils/testing'
+import {FeatureFlags} from '../FeatureFlags'
 
 describe('Box', () => {
   behavesAsComponent({Component: Box})
@@ -13,8 +14,22 @@ describe('Box', () => {
   })
 
   it('should support `className` on the outermost element', () => {
-    const element = <Box className={'test-class-name'} />
-    expectRendersWithClassname(element, 'test-class-name')
+    const Element = () => <Box className={'test-class-name'} />
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(HTMLRender(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('should have no axe violations', async () => {

@@ -1,5 +1,5 @@
 import React from 'react'
-import {expectRendersWithClassname, render} from '../utils/testing'
+import {render} from '../utils/testing'
 import {render as HTMLRender, fireEvent, act} from '@testing-library/react'
 import axe from 'axe-core'
 import type {TokenSizeKeys} from '../Token/TokenBase'
@@ -8,6 +8,7 @@ import {IssueLabelToken} from '../Token'
 import type {TextInputWithTokensProps} from '../TextInputWithTokens'
 import TextInputWithTokens from '../TextInputWithTokens'
 import {MarkGithubIcon} from '@primer/octicons-react'
+import {FeatureFlags} from '../FeatureFlags'
 
 const mockTokens = [
   {text: 'zero', id: 0},
@@ -38,8 +39,22 @@ jest.useFakeTimers()
 describe('TextInputWithTokens', () => {
   it('should support `className` on the outermost element', () => {
     const onRemoveMock = jest.fn()
-    const elem = <TextInputWithTokens className={'test-class-name'} tokens={[]} onTokenRemove={onRemoveMock} />
-    expectRendersWithClassname(elem, 'test-class-name')
+    const Element = () => <TextInputWithTokens className={'test-class-name'} tokens={[]} onTokenRemove={onRemoveMock} />
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(HTMLRender(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('renders without tokens', () => {

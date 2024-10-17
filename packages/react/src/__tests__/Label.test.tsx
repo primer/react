@@ -3,12 +3,27 @@ import {render} from '@testing-library/react'
 import axe from 'axe-core'
 import type {LabelColorOptions} from '../Label'
 import Label, {variants} from '../Label'
-import {expectRendersWithClassname, renderStyles} from '../utils/testing'
+import {renderStyles} from '../utils/testing'
+import {FeatureFlags} from '../FeatureFlags'
 
 describe('Label', () => {
   it('should support `className` on the outermost element', () => {
-    const element = <Label className={'test-class-name'} />
-    expectRendersWithClassname(element, 'test-class-name')
+    const Element = () => <Label className={'test-class-name'} />
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
   it('renders text node child', () => {
     const container = render(<Label>Default</Label>)
