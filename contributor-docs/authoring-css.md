@@ -32,7 +32,6 @@ Reference CSS classes in the component TSX file using the `classes` object.
 
 ```tsx
 // Banner.tsx
-
 import classes from './Button.module.css'
 
 <div className={classes.Banner}>Banner</div>
@@ -188,7 +187,9 @@ type StackProps = {
 export function Stack({padding = 'normal'}: StackProps) {
   return <div {...getResponsiveAttributes('padding', padding)} />
 }
+```
 
+```tsx
 // usage
 <Stack padding={{narrow: 'none', regular: 'normal'}} />
 ```
