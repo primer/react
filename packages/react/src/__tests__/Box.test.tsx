@@ -3,13 +3,18 @@ import axe from 'axe-core'
 import React from 'react'
 import {Box} from '..'
 import theme from '../theme'
-import {behavesAsComponent, checkExports, render} from '../utils/testing'
+import {behavesAsComponent, checkExports, expectRendersWithClassname, render} from '../utils/testing'
 
 describe('Box', () => {
   behavesAsComponent({Component: Box})
 
   checkExports('Box', {
     default: Box,
+  })
+
+  it('should support `className` on the outermost element', () => {
+    const element = <Box className={'test-class-name'} />
+    expectRendersWithClassname(element, 'test-class-name')
   })
 
   it('should have no axe violations', async () => {

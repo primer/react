@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from '..'
-import {render, behavesAsComponent, checkExports} from '../../utils/testing'
+import {render, behavesAsComponent, checkExports, expectRendersWithClassname} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
 
@@ -9,6 +9,11 @@ describe('Link', () => {
 
   checkExports('Link', {
     default: Link,
+  })
+
+  it('should support `className` on the outermost element', () => {
+    const element = <Link href="#" className={'test-class-name'} />
+    expectRendersWithClassname(element, 'test-class-name')
   })
 
   it('should have no axe violations', async () => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import Breadcrumbs, {Breadcrumb} from '..'
-import {render, behavesAsComponent, checkExports} from '../../utils/testing'
+import {render, behavesAsComponent, checkExports, expectRendersWithClassname} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
 
@@ -10,6 +10,11 @@ describe('Breadcrumbs', () => {
   checkExports('Breadcrumbs', {
     default: Breadcrumbs,
     Breadcrumb,
+  })
+
+  it('should support `className` on the outermost element', () => {
+    const element = <Breadcrumbs className={'test-class-name'} />
+    expectRendersWithClassname(element, 'test-class-name')
   })
 
   it('should have no axe violations', async () => {

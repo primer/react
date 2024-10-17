@@ -3,9 +3,13 @@ import {render} from '@testing-library/react'
 import axe from 'axe-core'
 import type {LabelColorOptions} from '../Label'
 import Label, {variants} from '../Label'
-import {renderStyles} from '../utils/testing'
+import {expectRendersWithClassname, renderStyles} from '../utils/testing'
 
 describe('Label', () => {
+  it('should support `className` on the outermost element', () => {
+    const element = <Label className={'test-class-name'} />
+    expectRendersWithClassname(element, 'test-class-name')
+  })
   it('renders text node child', () => {
     const container = render(<Label>Default</Label>)
     const label = container.baseElement

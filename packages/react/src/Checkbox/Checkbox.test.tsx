@@ -2,7 +2,7 @@ import {render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import Checkbox from '../Checkbox'
-import {behavesAsComponent, checkExports} from '../utils/testing'
+import {behavesAsComponent, checkExports, expectRendersWithClassname} from '../utils/testing'
 
 describe('Checkbox', () => {
   beforeEach(() => {
@@ -12,6 +12,11 @@ describe('Checkbox', () => {
 
   checkExports('Checkbox', {
     default: Checkbox,
+  })
+
+  it('should support `className` on the outermost element', () => {
+    const element = <Checkbox className={'test-class-name'} />
+    expectRendersWithClassname(element, 'test-class-name')
   })
 
   it('renders a valid checkbox input', () => {

@@ -1,7 +1,7 @@
 import React from 'react'
 import type {PopoverProps} from '../Popover'
 import Popover from '../Popover'
-import {render, behavesAsComponent, checkExports} from '../utils/testing'
+import {render, behavesAsComponent, checkExports, expectRendersWithClassname} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
 
@@ -20,6 +20,11 @@ describe('Popover', () => {
 
   describe('Popover.Content', () => {
     behavesAsComponent({Component: Popover.Content, toRender: () => comp})
+  })
+
+  it('should support `className` on the outermost element', () => {
+    const element = <Popover className={'test-class-name'}></Popover>
+    expectRendersWithClassname(element, 'test-class-name')
   })
 
   it('should have no axe violations', async () => {

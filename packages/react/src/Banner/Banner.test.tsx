@@ -2,6 +2,7 @@ import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {Banner} from '../Banner'
+import {expectRendersWithClassname} from '../utils/testing'
 
 describe('Banner', () => {
   let spy: jest.SpyInstance
@@ -30,8 +31,8 @@ describe('Banner', () => {
   })
 
   it('should support a custom `className` on the outermost element', () => {
-    const {container} = render(<Banner title="test" className="test" />)
-    expect(container.firstChild).toHaveClass('test')
+    const element = <Banner title="test" className="test-class-name" />
+    expectRendersWithClassname(element, 'test-class-name')
   })
 
   it('should label the landmark element with the corresponding variant label text', () => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import {CounterLabel} from '..'
-import {behavesAsComponent, checkExports} from '../utils/testing'
+import {behavesAsComponent, checkExports, expectRendersWithClassname} from '../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import axe from 'axe-core'
 
@@ -9,6 +9,11 @@ describe('CounterLabel', () => {
 
   checkExports('CounterLabel', {
     default: CounterLabel,
+  })
+
+  it('should support `className` on the outermost element', () => {
+    const element = <CounterLabel className={'test-class-name'} />
+    expectRendersWithClassname(element, 'test-class-name')
   })
 
   it('renders a <span>', () => {

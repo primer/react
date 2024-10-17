@@ -4,7 +4,7 @@ import axe from 'axe-core'
 import React from 'react'
 import {IconButton, Button, LinkButton} from '../../Button'
 import type {ButtonProps} from '../../Button'
-import {behavesAsComponent} from '../../utils/testing'
+import {behavesAsComponent, expectRendersWithClassname} from '../../utils/testing'
 import {FeatureFlags} from '../../FeatureFlags'
 
 type StatefulLoadingButtonProps = {
@@ -29,6 +29,11 @@ describe('Button', () => {
   behavesAsComponent({
     Component: TestButton,
     options: {skipSx: true, skipAs: true},
+  })
+
+  it('should support `className` on the outermost element', () => {
+    const element = <Button className={'test-class-name'} />
+    expectRendersWithClassname(element, 'test-class-name')
   })
 
   it('renders a <button>', () => {

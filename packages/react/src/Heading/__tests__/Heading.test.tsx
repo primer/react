@@ -1,6 +1,6 @@
 import React from 'react'
 import {Heading} from '../..'
-import {render, behavesAsComponent, checkExports} from '../../utils/testing'
+import {render, behavesAsComponent, checkExports, expectRendersWithClassname} from '../../utils/testing'
 import {render as HTMLRender, screen} from '@testing-library/react'
 import axe from 'axe-core'
 import ThemeProvider from '../../ThemeProvider'
@@ -33,6 +33,11 @@ describe('Heading', () => {
 
   checkExports('Heading', {
     default: Heading,
+  })
+
+  it('should support `className` on the outermost element', () => {
+    const element = <Heading className={'test-class-name'} />
+    expectRendersWithClassname(element, 'test-class-name')
   })
 
   it('renders <h2> by default', () => {
