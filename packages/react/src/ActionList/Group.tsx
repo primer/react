@@ -9,6 +9,7 @@ import type {ActionListHeadingProps} from './Heading'
 import {useSlots} from '../hooks/useSlots'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {invariant} from '../utils/invariant'
+import {clsx} from 'clsx'
 
 export type ActionListGroupProps = {
   /**
@@ -129,6 +130,7 @@ export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> 
   _internalBackwardCompatibleTitle,
   auxiliaryText,
   children,
+  className,
   sx = defaultSxProp,
   ...props
 }) => {
@@ -191,7 +193,13 @@ export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> 
       ) : (
         // for explicit (role="list" is passed as prop) and implicit list roles (ActionList ins rendered as list by default), group titles are proper heading tags.
         <Box sx={styles}>
-          <Heading className="ActionListGroupHeading" as={as || 'h3'} id={groupHeadingId} sx={sx} {...props}>
+          <Heading
+            className={clsx(className, 'ActionListGroupHeading')}
+            as={as || 'h3'}
+            id={groupHeadingId}
+            sx={sx}
+            {...props}
+          >
             {_internalBackwardCompatibleTitle ?? children}
           </Heading>
           {auxiliaryText && <div className="ActionListGroupHeadingDescription">{auxiliaryText}</div>}

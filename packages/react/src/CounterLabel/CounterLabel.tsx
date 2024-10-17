@@ -70,21 +70,24 @@ const StyledCounterLabel = styled.span`
   border-radius: 20px;
   border: var(--borderWidth-thin, max(1px, 0.0625rem)) solid var(--counter-borderColor, var(--color-counter-border));
 
-  &[data-scheme='primary'] {
+  &:where([data-scheme='primary']) {
     background-color: ${get('colors.neutral.emphasis')};
     color: ${get('colors.fg.onEmphasis')};
   }
 
-  &[data-scheme='secondary'] {
+  &:where([data-scheme='secondary']) {
     background-color: ${get('colors.neutral.muted')};
     color: ${get('colors.fg.default')};
   }
 
-  &:empty {
+  &:where(:empty) {
     display: none;
   }
 
-  ${sx}
+  /* Place the sx prop styles after previously inserted styles so that it will win out in specificity */
+  & {
+    ${sx}
+  }
 `
 
 CounterLabel.displayName = 'CounterLabel'

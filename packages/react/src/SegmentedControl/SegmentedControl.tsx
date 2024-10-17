@@ -13,6 +13,7 @@ import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import type {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
 import styled from 'styled-components'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import {isElement} from 'react-is'
 
 // Needed because passing a ref to `Box` causes a type error
 const SegmentedControlList = styled.ul`
@@ -80,16 +81,33 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   )
     ? React.Children.toArray(children)[selectedIndex]
     : undefined
-  const getChildIcon = (childArg: React.ReactNode) => {
+  const getChildIcon = (childArg: React.ReactNode): React.ReactElement | null => {
     if (
       React.isValidElement<SegmentedControlButtonProps>(childArg) &&
       childArg.type === Button &&
       childArg.props.leadingIcon
     ) {
-      return childArg.props.leadingIcon
+      if (isElement(childArg.props.leadingIcon)) {
+        return childArg.props.leadingIcon
+      } else {
+        const LeadingIcon = childArg.props.leadingIcon
+        return <LeadingIcon />
+      }
     }
 
-    return React.isValidElement<SegmentedControlIconButtonProps>(childArg) ? childArg.props.icon : null
+    if (
+      React.isValidElement<SegmentedControlIconButtonProps>(childArg) &&
+      childArg.type === SegmentedControlIconButton
+    ) {
+      if (isElement(childArg.props.icon)) {
+        childArg.props.icon
+      } else {
+        const Icon = childArg.props.icon
+        return <Icon />
+      }
+    }
+
+    return null
   }
   const getChildText = (childArg: React.ReactNode) => {
     if (React.isValidElement<SegmentedControlButtonProps>(childArg) && childArg.type === Button) {
@@ -140,7 +158,7 @@ const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
                     child.props.onClick && child.props.onClick(event as React.MouseEvent<HTMLLIElement>)
                   }}
                 >
-                  {ChildIcon && <ChildIcon />} {getChildText(child)}
+                  {ChildIcon} {getChildText(child)}
                 </ActionList.Item>
               )
             })}
