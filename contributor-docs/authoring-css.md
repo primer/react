@@ -110,10 +110,11 @@ export function Button({className, ...props}) {
 ```tsx
 // don't offer multiple classNames
 export function Button({className, labelClassName}) {
-  return 
-  <button className={className}>
-    <div className={labelClassName}>{label}</div>
-  </button>
+  return (
+    <button className={className}>
+      <div className={labelClassName}>{label}</div>
+    </button>
+  )
 }
 ```
 
