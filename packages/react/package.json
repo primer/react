@@ -24,18 +24,7 @@
     "./test-helpers": {
       "import": "./lib-esm/test-helpers.js",
       "require": "./lib/test-helpers.js"
-    },
-    "./lib-esm/*": {
-      "import": [
-        "./lib-esm/*.js",
-        "./lib-esm/*/index.js"
-      ],
-      "require": [
-        "./lib/*.js",
-        "./lib/*/index.js"
-      ]
-    },
-    "./lib-esm/internal/*": null
+    }
   },
   "typings": "lib/index.d.ts",
   "sideEffects": [
