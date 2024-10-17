@@ -1,9 +1,9 @@
-import {getInteractiveNodes} from '../getInteractiveNodes'
+import {hasInteractiveNodes} from '../hasInteractiveNodes'
 
-describe('getInteractiveNodes', () => {
+describe('hasInteractiveNodes', () => {
   test('if there are no interactive nodes', () => {
     const node = document.createElement('div')
-    expect(getInteractiveNodes(node)).toBeUndefined()
+    expect(hasInteractiveNodes(node)).toBeUndefined()
   })
 
   test('if there are interactive nodes', () => {
@@ -11,13 +11,13 @@ describe('getInteractiveNodes', () => {
     const button = document.createElement('button')
     node.appendChild(button)
 
-    expect(getInteractiveNodes(node)).toBe(true)
+    expect(hasInteractiveNodes(node)).toBe(true)
   })
 
   test('if the node itself is interactive', () => {
     const node = document.createElement('button')
 
-    expect(getInteractiveNodes(node)).toBe(true)
+    expect(hasInteractiveNodes(node)).toBe(true)
   })
 
   test('if there are nested interactive nodes', () => {
@@ -29,14 +29,14 @@ describe('getInteractiveNodes', () => {
     button.appendChild(span)
     node.appendChild(wrapper)
 
-    expect(getInteractiveNodes(node)).toBe(true)
+    expect(hasInteractiveNodes(node)).toBe(true)
   })
 
   test('if the node is disabled', () => {
     const node = document.createElement('button')
     node.disabled = true
 
-    expect(getInteractiveNodes(node)).toBeUndefined()
+    expect(hasInteractiveNodes(node)).toBeUndefined()
   })
 
   test('if the child node is disabled', () => {
@@ -45,7 +45,7 @@ describe('getInteractiveNodes', () => {
     button.disabled = true
     node.appendChild(button)
 
-    expect(getInteractiveNodes(node)).toBeUndefined()
+    expect(hasInteractiveNodes(node)).toBeUndefined()
   })
 
   test('if child node has tabindex', () => {
@@ -54,6 +54,6 @@ describe('getInteractiveNodes', () => {
     span.setAttribute('tabindex', '0')
     node.appendChild(span)
 
-    expect(getInteractiveNodes(node)).toBe(true)
+    expect(hasInteractiveNodes(node)).toBe(true)
   })
 })

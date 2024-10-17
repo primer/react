@@ -12,7 +12,7 @@ import {isResponsiveValue} from '../hooks/useResponsiveValue'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import type {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
-import {getInteractiveNodes} from '../internal/utils/getInteractiveNodes'
+import {hasInteractiveNodes} from '../internal/utils/hasInteractiveNodes'
 import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 
 type StyledAvatarStackWrapperProps = {
@@ -261,7 +261,7 @@ const AvatarStack = ({
   }
 
   useEffect(() => {
-    const hasInteractive = getInteractiveNodes(AvatarStackContainer.current, 'div[tabindex]')
+    const hasInteractive = hasInteractiveNodes(AvatarStackContainer.current, 'div[tabindex]')
     setHasInteractiveChildren(hasInteractive)
   }, [children])
 

@@ -31,7 +31,7 @@ const interactiveElements = interactiveElementsSelectors.map(
  * ignoring nodes that are conditionally interactive based on the return value of the function.
  * @returns {boolean | undefined}
  */
-export function getInteractiveNodes(node: HTMLElement | null, ignoreSelectors?: string) {
+export function hasInteractiveNodes(node: HTMLElement | null, ignoreSelectors?: string) {
   if (!node || isNonValidInteractiveNode(node)) return
 
   // We only need to confirm if at least one interactive node exists.
