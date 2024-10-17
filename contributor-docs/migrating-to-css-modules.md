@@ -32,6 +32,7 @@ This guide outlines the steps to follow when refactoring Primer React components
 ### Refactoring Styled-Components to CSS Modules
 
 - **Replace `${get('...')}` Syntax:**
+
   - Migrate these to CSS variables find the appropriate variable in [our primitives docs](https://primer.style/foundations/primitives/color).
 
   ```diff
@@ -40,52 +41,60 @@ This guide outlines the steps to follow when refactoring Primer React components
   +   color: var(--fgColor-default)
     }
   ```
+
   - No need for fallbacks in CSS Modules.
 
 ### When Refactoring a Component
 
 1. **Check for `className` and `style` Prop:**
-   - Ensure the component accepts a `className` *on the top DOM level only* for styling from outside of primer/react.
+   - Ensure the component accepts a `className` _on the top DOM level only_ for styling from outside of primer/react.
    - Ensure the component accepts a `style` prop for more dynamic styling like positioning.
 2. **Feature Flagging:**
+
    - Add a feature flag to toggle the `sx` prop for controlled rollout (staff shipping). How it's used will be based on the implementation of the component. For most you'll be able to `useFeatureFlag` and toggle between components. For more complex styled components, you can use the utility `toggleStyledComponent` which will render based on the feature flag string provided.
 
-       ```jsx
-       /* When there is an exisiting styled component, use the `toggleStyledComponent` utility. */
-       const StyledDiv = toggleStyledComponent(
-        'primer_react_css_modules_team',
-        'div',
-        styled.div`
+     ```jsx
+     /* When there is an exisiting styled component, use the `toggleStyledComponent` utility. */
+     const StyledDiv = toggleStyledComponent(
+       'primer_react_css_modules_team',
+       'div',
+       styled.div`
          display: flex;
 
          ${sx};
-        `
-       )
-       const enabled = useFeatureFlag('primer_react_css_modules_team')
-       return <StyledDiv className={clsx({[classes.DivStyle]: enabled})} {...props} />
-       ```
+       `,
+     )
+     const enabled = useFeatureFlag('primer_react_css_modules_team')
+     return <StyledDiv className={clsx({[classes.DivStyle]: enabled})} {...props} />
+     ```
+
 3. **Create CSS Module:**
    - Add a corresponding `{Component}.module.css` file.
 4. **Import CSS Modules:**
+
    - Use the CSS module in the component.
 
-      ```js
-        import classes from './{Component}.module.css'
-      ```
+     ```js
+     import classes from './{Component}.module.css'
+     ```
+
    - Add CSS classes behind the `primer_react_css_modules_team` feature flag. For guidelines on how to write styles, see our [CSS authoring guide](./authoring-css.md)
+
 5. **Ensure Component still accepts `sx` styling**
+
    - Until we migrate all uses of `sx`, we need to ensure the component will accept `sx` props inside the feature flag. This will often default to using the `Box` component if an `sx` prop is passed in.
 
      ```jsx
-      const enabled = useFeatureFlag('primer_react_css_modules_team')
-      if (enabled) {
-        if (sxProp !== defaultSxProp) {
-          /* Use of Box here to support sx props */
-          return <Box as='div' sx={sxProp} {...props} />
-        }
-        return <div {...props} />
-      }
+     const enabled = useFeatureFlag('primer_react_css_modules_team')
+     if (enabled) {
+       if (sxProp !== defaultSxProp) {
+         /* Use of Box here to support sx props */
+         return <Box as="div" sx={sxProp} {...props} />
+       }
+       return <div {...props} />
+     }
      ```
+
 6. **Ensure Component accepts `className` along with our CSS Module class name**
 
 ### Testing the Migration
