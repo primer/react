@@ -1,5 +1,5 @@
 import React from 'react'
-import {render} from '../utils/testing'
+import {expectRendersWithClassname, render} from '../utils/testing'
 import {render as HTMLRender, fireEvent, act} from '@testing-library/react'
 import axe from 'axe-core'
 import type {TokenSizeKeys} from '../Token/TokenBase'
@@ -36,6 +36,12 @@ const LabelledTextInputWithTokens: React.FC<React.PropsWithChildren<TextInputWit
 jest.useFakeTimers()
 
 describe('TextInputWithTokens', () => {
+  it('should support `className` on the outermost element', () => {
+    const onRemoveMock = jest.fn()
+    const elem = <TextInputWithTokens className={'test-class-name'} tokens={[]} onTokenRemove={onRemoveMock} />
+    expectRendersWithClassname(elem, 'test-class-name')
+  })
+
   it('renders without tokens', () => {
     const onRemoveMock = jest.fn()
     expect(render(<TextInputWithTokens tokens={[]} onTokenRemove={onRemoveMock} />)).toMatchSnapshot()

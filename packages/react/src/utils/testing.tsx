@@ -8,6 +8,7 @@ import customRules from '@github/axe-github'
 import {ThemeProvider} from '..'
 import {default as defaultTheme} from '../theme'
 import type {LiveRegionElement} from '@primer/live-region-element'
+import {FeatureFlags} from '../FeatureFlags'
 
 type ComputedStyles = Record<string, string | Record<string, string>>
 
@@ -224,11 +225,6 @@ export function behavesAsComponent({Component, toRender, options}: BehavesAsComp
   it('sets a valid displayName', () => {
     expect(Component.displayName).toMatch(COMPONENT_DISPLAY_NAME_REGEX)
   })
-
-  it('should support `className` on the outermost element', () => {
-    const elem = React.cloneElement(getElement(), {className: 'test-class-name'})
-    expect(rendersClass(elem, 'test-class-name')).toBe(true)
-  })
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -238,6 +234,25 @@ export function checkExports(path: string, exports: Record<any, any>): void {
     const mod = require(`../${path}`)
     expect(mod).toSetExports(exports)
   })
+}
+
+export function expectRendersWithClassname(element: React.ReactElement, className: string) {
+  const Element = () => element
+  const FeatureFlagElement = () => {
+    return (
+      <FeatureFlags
+        flags={{
+          primer_react_css_modules_team: true,
+          primer_react_css_modules_staff: true,
+          primer_react_css_modules_ga: true,
+        }}
+      >
+        <Element />
+      </FeatureFlags>
+    )
+  }
+  expect(HTMLRender(<Element />).container.firstChild).toHaveClass(className)
+  expect(HTMLRender(<FeatureFlagElement />).container.firstChild).toHaveClass(className)
 }
 
 axe.configure(customRules)
