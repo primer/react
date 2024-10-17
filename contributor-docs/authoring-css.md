@@ -35,7 +35,7 @@ Reference CSS classes in the component TSX file using the `classes` object.
 
 import classes from './Button.module.css'
 
-<div className={classes.Banner}>Banner</>
+<div className={classes.Banner}>Banner</div>
 ```
 
 ## Code styles 
@@ -100,10 +100,10 @@ The `className` prop should only be offered on the top-level element of a compon
 Ensure that other `...props` are spread before the `className` prop to avoid being overridden.
 
 ```tsx
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 
 export function Button({className, ...props}) {
-  return <button {...props} className={clsx(classes.Button, className)}  />
+  return <button {...props} className={clsx(classes.Button, className)} type="button" />
 }
 ```
 
@@ -111,7 +111,7 @@ export function Button({className, ...props}) {
 // don't offer multiple classNames
 export function Button({className, labelClassName}) {
   return (
-    <button className={className}>
+    <button className={className} type="button">
       <div className={labelClassName}>{label}</div>
     </button>
   )
