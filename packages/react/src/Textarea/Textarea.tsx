@@ -31,6 +31,7 @@ export type TextareaProps = {
    * apply a high contrast color to background
    */
   contrast?: boolean
+  className?: string
 } & TextareaHTMLAttributes<HTMLTextAreaElement> &
   SxProp
 
@@ -79,6 +80,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
       resize = DEFAULT_TEXTAREA_RESIZE,
       block,
       contrast,
+      className,
       ...rest
     }: TextareaProps,
     ref,
@@ -100,6 +102,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           disabled={disabled}
           rows={rows}
           cols={cols}
+          className={className}
           {...rest}
         />
       </TextInputBaseWrapper>
