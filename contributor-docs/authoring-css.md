@@ -1,6 +1,6 @@
 # Authoring CSS
 
-Primer React uses CSS Modules(link) for styling. CSS Modules allow us to write component scoped CSS while still authoring in a traditional `.css` file. This guide covers best practices for writing CSS in Primer React.
+Primer React uses [CSS Modules](https://github.com/css-modules/css-modules) for styling. CSS Modules allow us to write component scoped CSS while still authoring in a traditional `.css` file. This guide covers best practices for writing CSS in Primer React.
 
 ## Getting started
 
