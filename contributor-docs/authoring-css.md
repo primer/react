@@ -216,7 +216,7 @@ By using `getResponsiveAttributes`, we can reference data attributes in the CSS 
 
 ### Specificity and nesting
 
-Whenever possible, avoid deep nesting as it creates higher specificity selectors. Rely on stylelint to guide how many levels of nesting are acceptable.
+Whenever possible, avoid deep nesting as it creates higher specificity selectors. Rely on `stylelint` to guide how many levels of nesting are acceptable.
 
 #### Using `:where` to reduce specificity
 
