@@ -170,6 +170,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           aria-describedby={inputDescribedBy}
           data-component="input"
         />
+        {loading && <VisuallyHidden id={loadingId}>{loaderText}</VisuallyHidden>}
         <TextInputInnerVisualSlot
           visualPosition="trailing"
           showLoadingIndicator={showTrailingLoadingIndicator}
@@ -184,7 +185,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           )}
         </TextInputInnerVisualSlot>
         {trailingAction}
-        {loading && <VisuallyHidden id={loadingId}>{loaderText}</VisuallyHidden>}
       </TextInputWrapper>
     )
   },
