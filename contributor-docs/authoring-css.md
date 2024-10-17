@@ -259,8 +259,3 @@ Use `@supports` to target when a specific piece of functionality is not availabl
   container: banner / inline-size;
 }
 ```
-
-### Extra notes below
-
-Import CSS modules after JS imports to avoid certain CSS ordering issues
-When allowing className to be passed as a prop, prefer supporting a className only on the top-level element that is rendered instead of supporting multiple className’s
