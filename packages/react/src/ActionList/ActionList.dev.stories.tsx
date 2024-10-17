@@ -103,3 +103,16 @@ export const GroupWithFilledTitleOldAPI = () => {
     </>
   )
 }
+
+export const GroupHeadingCustomClassname = () => (
+  <ActionList>
+    <ActionList.Heading as="h2">Filter by</ActionList.Heading>
+    <ActionList.Group>
+      <ActionList.GroupHeading className="testCustomClassnameColor" as="h3">
+        Repositories
+      </ActionList.GroupHeading>
+      <ActionList.Item onClick={() => {}}>app/assets/modules</ActionList.Item>
+      <ActionList.Item onClick={() => {}}>src/react/components</ActionList.Item>
+    </ActionList.Group>
+  </ActionList>
+)
