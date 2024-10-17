@@ -4,6 +4,7 @@ import {behavesAsComponent, checkExports, renderStyles} from '../utils/testing'
 import {render} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {DEFAULT_TEXTAREA_ROWS, DEFAULT_TEXTAREA_COLS, DEFAULT_TEXTAREA_RESIZE} from '../Textarea'
+import {FeatureFlags} from '../FeatureFlags'
 
 describe('Textarea', () => {
   beforeEach(() => {
@@ -19,6 +20,25 @@ describe('Textarea', () => {
     DEFAULT_TEXTAREA_ROWS,
     DEFAULT_TEXTAREA_COLS,
     DEFAULT_TEXTAREA_RESIZE,
+  })
+
+  it('should support `className` on the outermost element', () => {
+    const Element = () => <Textarea className={'test-class-name'} />
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(render(<Element />).container.firstChild?.firstChild).toHaveClass('test-class-name')
+    expect(render(<FeatureFlagElement />).container.firstChild?.firstChild).toHaveClass('test-class-name')
   })
 
   it('renders a valid textarea input', () => {
