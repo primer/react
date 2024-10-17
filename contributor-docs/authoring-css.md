@@ -42,7 +42,7 @@ import classes from './Button.module.css'
 
 ### CSS classnames
 
-When component classnames are compiled, they receive a prefix of the component name `prc-{component}-` and a suffix of a random hash.
+When component classnames are compiled, they receive a prefix of the component name `prc-{folder}-{local}-` and a suffix of a random hash.
 
 ```css
 /* Before compilation */
@@ -56,7 +56,7 @@ When component classnames are compiled, they receive a prefix of the component n
 }
 ```
 
-Since classes are prefixed and hashed, the classnames themselves can be named generically to represent their intention.
+Since classes are prefixed and hashed, the class names themselves can be named generically to represent their intention.
 
 #### PascalCase
 
@@ -77,7 +77,7 @@ Use PascalCase for classnames. Additional characters like `-` dashes or `_` unde
 
 #### Pseudo elements
 
-Prefer using pseudo elements over classnames for state. 
+Prefer using pseudo classes over classnames for state. 
 
 ```css
 /* Do */
