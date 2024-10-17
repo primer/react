@@ -43,6 +43,7 @@ type A11yProps =
 export type ActionBarProps = {
   size?: Size
   children: React.ReactNode
+  className?: string
 } & A11yProps
 
 export type ActionBarIconButtonProps = IconButtonProps
@@ -164,7 +165,7 @@ const overflowEffect = (
 }
 
 export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = props => {
-  const {size = 'medium', children, 'aria-label': ariaLabel} = props
+  const {size = 'medium', children, 'aria-label': ariaLabel, className} = props
   const [childWidthArray, setChildWidthArray] = useState<ChildWidthArray>([])
   const setChildrenWidth = useCallback((size: ChildSize) => {
     setChildWidthArray(arr => {
@@ -237,7 +238,7 @@ export const ActionBar: React.FC<React.PropsWithChildren<ActionBarProps>> = prop
 
   return (
     <ActionBarContext.Provider value={{size, setChildrenWidth}}>
-      <Box ref={navRef} sx={navStyles}>
+      <Box ref={navRef} sx={navStyles} className={className}>
         <NavigationList sx={listStyles} ref={listRef} role="toolbar">
           {listItems}
           {menuItems.length > 0 && (
