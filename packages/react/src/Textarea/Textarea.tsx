@@ -31,6 +31,9 @@ export type TextareaProps = {
    * apply a high contrast color to background
    */
   contrast?: boolean
+  /**
+   * The className to apply to the wrapper element
+   */
   className?: string
 } & TextareaHTMLAttributes<HTMLTextAreaElement> &
   SxProp
@@ -92,6 +95,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         disabled={disabled}
         block={block}
         contrast={contrast}
+        className={className}
       >
         <StyledTextarea
           value={value}
