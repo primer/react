@@ -25,6 +25,48 @@ const StatefulLoadingButton = (props: StatefulLoadingButtonProps) => {
   return <Button loading={isLoading} onClick={handleClick} {...props} />
 }
 
+describe('IconButton', () => {
+  it('should support `className` on the outermost element', () => {
+    const Element = () => <IconButton className={'test-class-name'} icon={SearchIcon} aria-label="Search button" />
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
+  })
+})
+
+describe('LinkButton', () => {
+  it('should support `className` on the outermost element', () => {
+    const Element = () => <LinkButton className={'test-class-name'} />
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
+  })
+})
+
 describe('Button', () => {
   behavesAsComponent({
     Component: TestButton,
@@ -319,46 +361,5 @@ describe('Button', () => {
     const tooltipEl = getByText('Love is all around, Command+H')
     expect(tooltipEl).toBeInTheDocument()
     expect(triggerEl.getAttribute('aria-describedby')).toEqual(expect.stringContaining(tooltipEl.id))
-  })
-
-  describe('with primer_react_css_modules_ga enabled', () => {
-    it('iconbutton should support custom `className` along with default classnames', () => {
-      const {container} = render(
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <IconButton className="test" aria-label="Test" icon={HeartIcon} />
-        </FeatureFlags>,
-      )
-      expect(container.firstChild).toHaveClass('IconButton')
-    })
-
-    it('button should support custom `className` along with default classnames', () => {
-      const {container} = render(
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Button className="test">Hello</Button>
-        </FeatureFlags>,
-      )
-      expect(container.firstChild).toHaveClass('ButtonBase')
-    })
-
-    it('linkbutton should support custom `className` along with default classnames', () => {
-      const {container} = render(
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <LinkButton className="test">Hello</LinkButton>
-        </FeatureFlags>,
-      )
-      expect(container.firstChild).toHaveClass('ButtonBase')
-    })
   })
 })
