@@ -73,8 +73,8 @@ This guide outlines the steps to follow when refactoring Primer React components
         import classes from './{Component}.module.css'
       ```
    - Add CSS classes behind the `primer_react_css_modules_team` feature flag.
-5. **Ensure Component still accepts sx styling**
-   - Until we migrate all uses of sx, we need to ensure the component will accept sx props inside the feature flag. This will often default to using the `Box` component if an sx prop is passed in.
+5. **Ensure Component still accepts `sx` styling**
+   - Until we migrate all uses of `sx`, we need to ensure the component will accept `sx` props inside the feature flag. This will often default to using the `Box` component if an `sx` prop is passed in.
 
      ```jsx
       const enabled = useFeatureFlag('primer_react_css_modules_team')
@@ -122,7 +122,7 @@ This guide outlines the steps to follow when refactoring Primer React components
 ## Releasing a Component
 
 - **Merge Process:**
-  - Once merged into dotcom, the component will be part of the `primer_react_css_modules_team` rollout.
+  - Once merged into Dotcom, the component will be part of the `primer_react_css_modules_team` rollout.
   - We progress components through levels of feature flags as we roll them out to make sure we address any bugs with the minimum amount of audience.
 - **Monitor Team Ship:**
-  - Watch for any issues or regressions during the team ship phase.
+  - Watch for any issues or regressions during the team ship phase. If anything is spotted, [create an issue in github/primer](https://github.com/github/primer/issues/new?template=04-bug-report.yml) and let us know in the [#primer slack channel](https://github-grid.enterprise.slack.com/archives/CSGAVNZ19).
