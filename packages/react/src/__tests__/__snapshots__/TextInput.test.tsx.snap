@@ -1783,6 +1783,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c4[data-size="small"] {
+  min-width: 28px;
   padding: 0 8px;
   height: 28px;
   gap: 4px;
@@ -2416,6 +2417,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c4[data-size="small"] {
+  min-width: 28px;
   padding: 0 8px;
   height: 28px;
   gap: 4px;
@@ -2915,6 +2917,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c4[data-size="small"] {
+  min-width: 28px;
   padding: 0 8px;
   height: 28px;
   gap: 4px;
