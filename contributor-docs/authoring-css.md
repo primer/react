@@ -34,7 +34,7 @@ Reference CSS classes in the component TSX file using the `classes` object.
 // Banner.tsx
 import classes from './Button.module.css'
 
-<div className={classes.Banner}>Banner</div>
+;<div className={classes.Banner}>Banner</div>
 ```
 
 ## Code styles
