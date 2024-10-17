@@ -38,6 +38,7 @@ exports[`ProgressBar respects the "progress" prop 1`] = `
   aria-valuemax={100}
   aria-valuemin={0}
   aria-valuenow={80}
+  aria-valuetext="80%"
   className="c0"
   role="progressbar"
 >
