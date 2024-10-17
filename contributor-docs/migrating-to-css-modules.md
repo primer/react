@@ -21,7 +21,7 @@ This guide outlines the steps to follow when refactoring Primer React components
 
 - **Verify VRT (Visual Regression Testing) Coverage:**
   - Check for missing VRT coverage. We utilize the VRT tests to make sure we're matching styling in production with current expectations. Components should have a Storybook story for every "feature" or option available that impacts the UI for VRT to capture in a screenshot.
-  - Make sure there are `dev` stories for any edge cases spotted in production for the component (ie. sx prop, custom className, styled system attributes). `dev` stories may include things that we wouldn't normally recommend for the purpose of stress testing what happens when PRC components are overridden with custom styles.
+  - Make sure there are `dev` stories for any edge cases spotted in production for the component (ie. `sx` prop, custom className, styled system attributes). `dev` stories may include things that we wouldn't normally recommend for the purpose of stress testing what happens when PRC components are overridden with custom styles.
 - **Ensure All Visual Changes Are Completed:**
   - Make necessary visual changes **before** creating the CSS Modules refactor PR.
 
@@ -45,7 +45,7 @@ This guide outlines the steps to follow when refactoring Primer React components
 ### When Refactoring a Component
 
 1. **Check for `className` and `style` Prop:**
-   - Ensure the component accepts a `className` *on the top dom level only* for styling from outside of primer/react.
+   - Ensure the component accepts a `className` *on the top DOM level only* for styling from outside of primer/react.
    - Ensure the component accepts a `style` prop for more dynamic styling like positioning.
 2. **Feature Flagging:**
    - Add a feature flag to toggle the `sx` prop for controlled rollout (staff shipping). How it's used will be based on the implementation of the component. For most you'll be able to `useFeatureFlag` and toggle between components. For more complex styled components, you can use the utility `toggleStyledComponent` which will render based on the feature flag string provided.
@@ -94,20 +94,26 @@ This guide outlines the steps to follow when refactoring Primer React components
   - Ensure the component works properly with the `className` prop. This will need a feature flag turned on when testing like this.
     ```js
     it('should support `className` on the outermost element', () => {
-      const {container} = HTMLRender(
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_ga: true,
-          }}
-        >
-          <Component className="test">test</Component>
-        </FeatureFlags>,
-      )
-      expect(container.firstChild).toHaveClass('test')
+      const Element = () => <Component className={'test-class-name'} />
+      const FeatureFlagElement = () => {
+        return (
+          <FeatureFlags
+            flags={{
+              primer_react_css_modules_team: true,
+              primer_react_css_modules_staff: true,
+              primer_react_css_modules_ga: true,
+            }}
+          >
+            <Element />
+          </FeatureFlags>
+        )
+      }
+      expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
+      expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
     })
     ```
 - **Regression Testing:**
-  - Validate that no regressions occur when the feature flag is enabled.
+  - Validate that no visual regressions occur when the feature flag is enabled. The `vrt*` tests are setup to compare the feature flagged component with the original component and will fail if there is a mismatch.
 - **Handling `sx` Prop:**
   - Confirm the `sx` prop behaves correctly with the feature flag enabled.
 
