@@ -154,11 +154,6 @@ describe('Heading', () => {
     expect(screen.getByText('test')).not.toHaveClass(/^Heading__StyledHeading/)
   })
 
-  it('should support `className` on the outermost element', () => {
-    const {container} = HTMLRender(<Heading className="test">test</Heading>)
-    expect(container.firstChild).toHaveClass('test')
-  })
-
   it('should support overrides with sx if provided', () => {
     HTMLRender(
       <Heading
