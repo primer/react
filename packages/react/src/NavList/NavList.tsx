@@ -1,4 +1,4 @@
-import {ChevronDownIcon} from '@primer/octicons-react'
+import {ChevronDownIcon, PlusIcon} from '@primer/octicons-react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import React, {isValidElement} from 'react'
 import styled from 'styled-components'
@@ -66,6 +66,7 @@ export type NavListItemProps = {
 const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
   ({'aria-current': ariaCurrent, children, defaultOpen, sx: sxProp = defaultSxProp, ...props}, ref) => {
     const {depth} = React.useContext(SubNavContext)
+    const expandGroupContext = React.useContext(ItemWithinGroup)
 
     // Get SubNav from children
     const subNav = React.Children.toArray(children).find(child => isValidElement(child) && child.type === SubNav)
@@ -94,6 +95,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
         aria-current={ariaCurrent}
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
         sx={merge<SxProp['sx']>(getSubnavStyles(depth), sxProp)}
+        data-show-more-group-id={expandGroupContext?.id}
         {...props}
       >
         {children}
@@ -288,6 +290,57 @@ const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defau
   )
 }
 
+export type NavListShowMoreItemProps = {
+  children: React.ReactNode
+  label?: string
+} & SxProp
+
+const ItemWithinGroup = React.createContext<{id: string} | null>(null)
+
+const ShowMoreItem = React.forwardRef<HTMLButtonElement, NavListShowMoreItemProps>(
+  ({label = 'Show more', children, ...props}, forwardedRef) => {
+    const [expanded, setExpanded] = React.useState(false)
+    const targetFocused = React.useRef(false)
+
+    const id = useId()
+    const groupId = React.useMemo(() => ({id}), [id])
+
+    React.useEffect(() => {
+      if (expanded && !targetFocused.current) {
+        const focusTarget: HTMLAnchorElement | null = document.querySelector(
+          `[data-show-more-group-id="${groupId.id}"]`,
+        )
+
+        if (focusTarget) {
+          focusTarget.focus()
+          targetFocused.current = true
+        }
+      }
+    }, [expanded, groupId])
+
+    return !expanded ? (
+      <Box as="li" sx={{listStyle: 'none'}}>
+        <ActionList.Item
+          as="button"
+          aria-expanded="false"
+          ref={forwardedRef}
+          onClick={() => {
+            setExpanded(true)
+          }}
+          {...props}
+        >
+          {label}
+          <ActionList.TrailingVisual>
+            <PlusIcon />
+          </ActionList.TrailingVisual>
+        </ActionList.Item>
+      </Box>
+    ) : (
+      <ItemWithinGroup.Provider value={groupId}>{children}</ItemWithinGroup.Provider>
+    )
+  },
+)
+
 Group.displayName = 'NavList.Group'
 
 // ----------------------------------------------------------------------------
@@ -301,4 +354,5 @@ export const NavList = Object.assign(Root, {
   TrailingAction,
   Divider,
   Group,
+  ShowMoreItem,
 })

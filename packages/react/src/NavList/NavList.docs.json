@@ -167,6 +167,22 @@
           "description": "href when the TrailingAction is rendered as a link."
         }
       ]
+    },
+    {
+      "name": "NavList.ShowMoreItem",
+      "props": [
+        {
+          "name": "label",
+          "type": "string",
+          "defaultValue": "",
+          "required": true,
+          "description": "Acccessible name for the control."
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLButtonElement>"
+        }
+      ]
     }
   ]
 }
