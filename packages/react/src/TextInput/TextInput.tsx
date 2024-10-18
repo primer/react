@@ -66,7 +66,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       trailingAction,
       block,
       className,
-      contrast,
       disabled,
       loading,
       loaderPosition = 'auto',
@@ -82,6 +81,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       minWidth: minWidthProp,
       maxWidth: maxWidthProp,
       variant: variantProp,
+      contrast,
       // end deprecated props
       type = 'text',
       required,
