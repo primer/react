@@ -1,6 +1,7 @@
 import {render, screen} from '@testing-library/react'
 import React from 'react'
 import {InlineMessage} from '../InlineMessage'
+import {FeatureFlags} from '../FeatureFlags'
 
 describe('InlineMessage', () => {
   it('should render content passed as `children`', () => {
@@ -78,5 +79,28 @@ describe('InlineMessage', () => {
       </InlineMessage>,
     )
     expect(screen.getByTestId('container')).toHaveAttribute('data-variant', 'warning')
+  })
+
+  it('should support a custom `className` on the outermost element', () => {
+    const Element = () => (
+      <InlineMessage variant="warning" className="test-class-name">
+        test
+      </InlineMessage>
+    )
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 })
