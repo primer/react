@@ -268,3 +268,21 @@ export const OcticonArgType = (iconList: Icon[]) => {
     mapping: icons,
   }
 }
+
+export const sxOverrideTestStyles = {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '100vh',
+  width: '100vw',
+  bg: 'canvas.default',
+  color: 'fg.default',
+  p: 3,
+  fontSize: 1,
+  fontWeight: 'bold',
+  textAlign: 'center',
+  border: '1px solid',
+  borderColor: 'border.default',
+  borderRadius: 2,
+}
