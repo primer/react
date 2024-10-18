@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, FormControl, Heading} from '..'
+import {Box, FormControl, Heading, Stack} from '..'
 import Textarea from '../Textarea'
 
 export default {
@@ -65,4 +65,43 @@ export const Block = () => (
       <Textarea block />
     </FormControl>
   </Box>
+)
+
+export const CustomHeight = () => (
+  <Box as="form">
+    <FormControl>
+      <FormControl.Label>Default label</FormControl.Label>
+      <Textarea rows={3} />
+    </FormControl>
+  </Box>
+)
+
+export const CustomWidth = () => (
+  <Box as="form">
+    <FormControl>
+      <FormControl.Label>Default label</FormControl.Label>
+      <Textarea cols={60} />
+    </FormControl>
+  </Box>
+)
+
+export const CustomResizeBehavior = () => (
+  <Stack as="form">
+    <FormControl>
+      <FormControl.Label>Resize in either direction (default)</FormControl.Label>
+      <Textarea resize="both" />
+    </FormControl>
+    <FormControl>
+      <FormControl.Label>No resize</FormControl.Label>
+      <Textarea resize="none" />
+    </FormControl>
+    <FormControl>
+      <FormControl.Label>Horizontal resize</FormControl.Label>
+      <Textarea resize="horizontal" />
+    </FormControl>
+    <FormControl>
+      <FormControl.Label>Vertical resize</FormControl.Label>
+      <Textarea resize="vertical" />
+    </FormControl>
+  </Stack>
 )
