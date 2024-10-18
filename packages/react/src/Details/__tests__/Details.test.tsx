@@ -1,4 +1,4 @@
-import {render, screen} from '@testing-library/react'
+import {render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import {Details, useDetails, Box, Button} from '../..'
@@ -14,7 +14,11 @@ describe('Details', () => {
   })
 
   it('should have no axe violations', async () => {
-    const {container} = render(<Details />)
+    const {container} = render(
+      <Details>
+        <Details.Summary>Summary</Details.Summary>Content
+      </Details>,
+    )
     const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
@@ -97,10 +101,28 @@ describe('Details', () => {
   })
 
   it('Adds default summary if no summary supplied', async () => {
+    const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
     const {getByText} = render(<Details data-testid="details">content</Details>)
 
     expect(getByText('See Details')).toBeInTheDocument()
     expect(getByText('See Details').tagName).toBe('SUMMARY')
+
+    expect(consoleSpy).toHaveBeenCalled()
+
+    consoleSpy.mockRestore()
+  })
+
+  it('Does not add default summary if summary supplied', async () => {
+    const {getByTestId, queryByText} = render(
+      <Details data-testid="details">
+        <Details.Summary data-testid="summary">summary</Details.Summary>
+        content
+      </Details>,
+    )
+
+    expect(queryByText('See Details')).toBeNull()
+    expect(getByTestId('summary')).toBeInTheDocument()
+    expect(getByTestId('summary').tagName).toBe('SUMMARY')
   })
 
   it('Does not add default summary if supplied as different element', async () => {

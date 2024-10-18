@@ -2,8 +2,10 @@ import styled from 'styled-components'
 import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
-import React, {forwardRef} from 'react'
+import React, {forwardRef, useEffect, useState} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {useMergedRefs} from '../internal/hooks/useMergedRefs'
+import {warning} from '../utils/warning'
 
 export const StyledDetails = styled.details<SxProp>`
   & > summary {
@@ -21,17 +23,27 @@ export const StyledSummary = styled.summary<SxProp>`
 `
 
 const Root = React.forwardRef<HTMLDetailsElement, ComponentProps<typeof StyledDetails>>(
-  ({children, ...props}: ComponentProps<typeof StyledDetails>, ref) => {
-    const hasSummary = React.Children.toArray(children).some(child => {
-      return (
-        React.isValidElement(child) &&
-        (child.type === Details.Summary || child.type === 'summary' || child.props?.as === 'summary')
-      )
-    })
+  ({children, ...props}: ComponentProps<typeof StyledDetails>, forwardRef) => {
+    const detailsRef = React.useRef<HTMLDetailsElement>(null)
+    const ref = useMergedRefs(forwardRef, detailsRef)
+    const [hasSummary, setHasSummary] = useState(false)
+
+    useEffect(() => {
+      const {current: details} = detailsRef
+      if (!details) {
+        return
+      }
+      const summary = details.querySelector('summary:not([data-default-summary])')
+      setHasSummary(!!summary)
+      warning(!summary, 'No summary found, a default summary will be rendered instead.')
+    }, [children])
+
+    console.log('rendering', hasSummary)
+
     return (
       <StyledDetails {...props} ref={ref}>
         {/* Include default summary if summary is not provided */}
-        {!hasSummary && <Details.Summary>{'See Details'}</Details.Summary>}
+        {!hasSummary && <Details.Summary data-default-summary>{'See Details'}</Details.Summary>}
         {children}
       </StyledDetails>
     )
