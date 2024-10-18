@@ -6,8 +6,11 @@ import {type ActionListProps, type ActionListItemProps, ListContext} from './sha
 import {LeadingVisualContainer} from './Visuals'
 import Box from '../Box'
 
-type SelectionProps = Pick<ActionListItemProps, 'selected'>
-export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({selected}) => {
+type SelectionProps = Pick<ActionListItemProps, 'selected'> & {
+  className?: string
+}
+
+export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({selected, className}) => {
   const {selectionVariant: listSelectionVariant, role: listRole} = React.useContext(ListContext)
   const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
 
@@ -31,7 +34,9 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
 
   if (selectionVariant === 'single' || listRole === 'menu') {
     return (
-      <LeadingVisualContainer data-component="ActionList.Selection">{selected && <CheckIcon />}</LeadingVisualContainer>
+      <LeadingVisualContainer data-component="ActionList.Selection" className={className}>
+        {selected && <CheckIcon />}
+      </LeadingVisualContainer>
     )
   }
 
@@ -61,7 +66,7 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
   }
 
   return (
-    <LeadingVisualContainer data-component="ActionList.Selection">
+    <LeadingVisualContainer data-component="ActionList.Selection" className={className}>
       <Box
         sx={{
           borderColor: selected ? 'accent.fg' : 'neutral.emphasis',

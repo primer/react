@@ -8,9 +8,11 @@ import {merge} from '../sx'
 import {ItemContext, TEXT_ROW_HEIGHT, getVariantStyles} from './shared'
 import {Tooltip, type TooltipProps} from '../TooltipV2'
 
-export type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
+export type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement> & {
+  className?: string
+}
 
-export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
+export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, className, ...props}) => {
   return (
     <Box
       as="span"
@@ -27,13 +29,14 @@ export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProp
         },
         sx as SxProp,
       )}
+      className={className}
       {...props}
     />
   )
 }
 
 export type ActionListLeadingVisualProps = VisualProps
-export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
+export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, className, ...props}) => {
   const {variant, disabled, inactive} = React.useContext(ItemContext)
   return (
     <LeadingVisualContainer
@@ -48,6 +51,7 @@ export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({s
         },
         sx as SxProp,
       )}
+      className={className}
       {...props}
     >
       {props.children}
@@ -56,7 +60,7 @@ export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({s
 }
 
 export type ActionListTrailingVisualProps = VisualProps
-export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
+export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, className, ...props}) => {
   const {variant, disabled, inactive, trailingVisualId} = React.useContext(ItemContext)
   return (
     <Box
@@ -75,6 +79,7 @@ export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
         },
         sx as SxProp,
       )}
+      className={className}
       {...props}
     >
       {props.children}

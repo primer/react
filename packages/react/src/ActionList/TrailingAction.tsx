@@ -16,9 +16,10 @@ type ElementProps =
 export type ActionListTrailingActionProps = ElementProps & {
   icon?: React.ElementType
   label: string
+  className?: string
 }
 
-export const TrailingAction = forwardRef(({as = 'button', icon, label, href = null, ...props}, forwardedRef) => {
+export const TrailingAction = forwardRef(({as = 'button', icon, label, href = null, className, ...props}, forwardedRef) => {
   if (!icon) {
     return (
       <Box
@@ -27,6 +28,7 @@ export const TrailingAction = forwardRef(({as = 'button', icon, label, href = nu
         sx={{
           flexShrink: 0,
         }}
+        className={className}
       >
         {/* @ts-expect-error TODO: Fix this */}
         <Button variant="invisible" as={as} href={href} ref={forwardedRef} {...props}>
@@ -42,6 +44,7 @@ export const TrailingAction = forwardRef(({as = 'button', icon, label, href = nu
         sx={{
           flexShrink: 0,
         }}
+        className={className}
       >
         <IconButton
           as={as}

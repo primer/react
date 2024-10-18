@@ -16,6 +16,7 @@ type InternalAutocompleteInputProps = {
    * When `true`, autocomplete menu will show on focus or click.
    */
   openOnFocus?: boolean
+  className?: string
 }
 
 const ARROW_KEYS_NAV = new Set(['ArrowUp', 'ArrowDown'])
@@ -32,6 +33,7 @@ const AutocompleteInput = React.forwardRef(
       onKeyPress,
       value,
       openOnFocus = false,
+      className,
       ...props
     },
     forwardedRef,
@@ -177,6 +179,7 @@ const AutocompleteInput = React.forwardRef(
         aria-owns={`${id}-listbox`}
         autoComplete="off"
         id={id}
+        className={className}
         {...props}
       />
     )

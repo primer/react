@@ -16,4 +16,5 @@ export const AutocompleteContext = createContext<{
   setSelectedItemLength: (value: number) => void
   setShowMenu: (value: boolean) => void
   showMenu: boolean
+  className?: string
 } | null>(null)

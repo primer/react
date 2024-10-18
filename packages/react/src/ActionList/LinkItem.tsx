@@ -21,10 +21,10 @@ type LinkProps = {
 }
 
 // LinkItem does not support selected, loading, variants, etc.
-export type ActionListLinkItemProps = Pick<ActionListItemProps, 'active' | 'children' | 'sx' | 'inactiveText'> &
+export type ActionListLinkItemProps = Pick<ActionListItemProps, 'active' | 'children' | 'sx' | 'inactiveText' | 'className'> &
   LinkProps
 
-export const LinkItem = React.forwardRef(({sx = {}, active, inactiveText, as: Component, ...props}, forwardedRef) => {
+export const LinkItem = React.forwardRef(({sx = {}, active, inactiveText, as: Component, className, ...props}, forwardedRef) => {
   const styles = {
     // occupy full size of Item
     paddingX: 2,
@@ -44,6 +44,7 @@ export const LinkItem = React.forwardRef(({sx = {}, active, inactiveText, as: Co
       sx={{paddingY: 0, paddingX: 0}}
       inactiveText={inactiveText}
       data-inactive={inactiveText ? true : undefined}
+      className={className}
       _PrivateItemWrapper={({children, onClick, ...rest}) => {
         const clickHandler = (event: React.MouseEvent<HTMLElement>) => {
           onClick && onClick(event)

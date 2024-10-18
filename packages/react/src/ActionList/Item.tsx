@@ -38,6 +38,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       role,
       loading,
       _PrivateItemWrapper,
+      className,
       ...props
     },
     forwardedRef,
@@ -357,6 +358,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           }
           data-variant={variant === 'danger' ? variant : undefined}
           {...containerProps}
+          className={className}
         >
           <ItemWrapper {...wrapperProps}>
             <Selection selected={selected} />

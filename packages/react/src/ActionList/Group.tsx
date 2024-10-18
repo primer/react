@@ -31,6 +31,7 @@ export type ActionListGroupProps = {
    * The ARIA role describing the function of the list inside `Group` component. `listbox` or `menu` are a common values.
    */
   role?: AriaRole
+  className?: string
 } & SxProp & {
     /**
      * Whether multiple Items or a single Item can be selected in the Group. Overrides value on ActionList root.
@@ -51,6 +52,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   selectionVariant,
   role,
   sx = {},
+  className,
   ...props
 }) => {
   const id = useId()
@@ -81,6 +83,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
         listStyle: 'none', // hide the ::marker inserted by browser's stylesheet
         ...sx,
       }}
+      className={className}
       {...props}
     >
       <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>

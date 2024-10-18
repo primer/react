@@ -41,6 +41,8 @@ export type ActionMenuProps = {
    * If defined, will control the open/closed state of the overlay. Must be used in conjunction with `open`.
    */
   onOpenChange?: (s: boolean) => void
+
+  className?: string
 } & Pick<AnchoredOverlayProps, 'anchorRef'>
 
 // anchorProps adds onClick and onKeyDown, so we need to merge them with buttonProps
@@ -72,6 +74,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
   anchorRef: externalAnchorRef,
   open,
   onOpenChange,
+  className,
   children,
 }: ActionMenuProps) => {
   const parentMenuContext = useContext(MenuContext)

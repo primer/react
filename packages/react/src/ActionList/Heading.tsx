@@ -14,10 +14,11 @@ type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 export type ActionListHeadingProps = {
   as: HeadingLevels
   visuallyHidden?: boolean
+  className?: string
 } & SxProp
 
 export const Heading = forwardRef(
-  ({as, children, sx = defaultSxProp, visuallyHidden = false, ...props}, forwardedRef) => {
+  ({as, children, sx = defaultSxProp, visuallyHidden = false, className, ...props}, forwardedRef) => {
     const innerRef = React.useRef<HTMLHeadingElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
@@ -43,6 +44,7 @@ export const Heading = forwardRef(
           // use custom id if it is provided. Otherwise, use the id from the context
           id={props.id ?? headingId}
           sx={merge<BetterSystemStyleObject>(styles, sx)}
+          className={className}
           {...props}
         >
           {children}
