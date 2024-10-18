@@ -66,6 +66,7 @@ export type TreeViewProps = {
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
   children: React.ReactNode
   flat?: boolean
+  truncate?: boolean
   className?: string
 }
 
@@ -205,9 +206,11 @@ const UlBox = styled.ul<SxProp>`
   }
 
   .PRIVATE_TreeView-item-content-text {
-    /* Truncate text label */
     flex: 1 1 auto;
     width: 0;
+  }
+
+  &[data-truncate-text='true'] .PRIVATE_TreeView-item-content-text {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -282,6 +285,7 @@ const Root: React.FC<TreeViewProps> = ({
   'aria-labelledby': ariaLabelledby,
   children,
   flat,
+  truncate,
   className,
 }) => {
   const containerRef = React.useRef<HTMLUListElement>(null)
@@ -338,6 +342,7 @@ const Root: React.FC<TreeViewProps> = ({
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledby}
           data-omit-spacer={flat}
+          data-truncate-text={truncate || false}
           onMouseDown={onMouseDown}
           className={className}
         >
