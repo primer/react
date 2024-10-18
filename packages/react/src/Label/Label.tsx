@@ -2,13 +2,14 @@ import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 import Box from '../Box'
 import classes from './Label.module.css'
-import React from 'react'
+import React, {useContext} from 'react'
 import styled from 'styled-components'
 import {variant} from 'styled-system'
 import {get} from '../constants'
 import type {BetterSystemStyleObject, SxProp} from '../sx'
 import sx from '../sx'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {LabelGroupContext} from '../LabelGroup/LabelGroupContext'
 
 export type LabelProps = {
   /** The color of the label */
@@ -101,8 +102,9 @@ const StyledLabel = styled.span<LabelProps>`
 
 const Label = React.forwardRef(function Label({as, size = 'small', variant = 'default', className, ...rest}, ref) {
   const enabled = useFeatureFlag('primer_react_css_modules_ga')
+  const {isList} = useContext(LabelGroupContext)
   if (enabled) {
-    const Component = as || 'span'
+    const Component = as || (isList ? 'li' : 'span')
     if (rest.sx) {
       return (
         <Box
@@ -117,7 +119,16 @@ const Label = React.forwardRef(function Label({as, size = 'small', variant = 'de
     }
     return <Component className={clsx(className, classes.Label)} data-size={size} data-variant={variant} {...rest} />
   }
-  return <StyledLabel as={as} className={className} size={size} variant={variant} ref={ref} {...rest} />
+  return (
+    <StyledLabel
+      as={as || (isList ? 'li' : 'span')}
+      className={className}
+      size={size}
+      variant={variant}
+      ref={ref}
+      {...rest}
+    />
+  )
 }) as PolymorphicForwardRefComponent<'span', LabelProps>
 
 export default Label
