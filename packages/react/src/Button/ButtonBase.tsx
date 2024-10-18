@@ -40,7 +40,7 @@ const renderModuleVisual = (
 ) => (
   <span
     data-component={visualName}
-    className={clsx(!counterLabel && classes.Visual, loading ? classes.loadingSpinner : classes.VisualWrap)}
+    className={clsx(!counterLabel && classes.Visual, loading ? classes.LoadingSpinner : classes.VisualWrap)}
   >
     {loading ? <Spinner size="small" /> : isElement(Visual) ? Visual : <Visual />}
   </span>
