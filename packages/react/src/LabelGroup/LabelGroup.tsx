@@ -37,6 +37,7 @@ const StyledLabelGroupContainer = styled.div<SxProp>`
     padding-inline-start: 0;
     margin-block-start: 0;
     margin-block-end: 0;
+    list-style-type: none;
   }
 
   ${sx};
@@ -350,30 +351,32 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
               <LabelGroupContext.Provider value={{isList: false}}>{child}</LabelGroupContext.Provider>
             </ItemWrapper>
           ))}
-          {overflowStyle === 'inline' ? (
-            <InlineToggle
-              collapseButtonRef={collapseButtonRef}
-              collapseInlineExpandedChildren={collapseInlineExpandedChildren}
-              expandButtonRef={expandButtonRef}
-              hiddenItemIds={hiddenItemIds}
-              isOverflowShown={isOverflowShown}
-              showAllTokensInline={showAllTokensInline}
-              totalLength={React.Children.toArray(children).length}
-            />
-          ) : (
-            <OverlayToggle
-              closeOverflowOverlay={closeOverflowOverlay}
-              expandButtonRef={expandButtonRef}
-              hiddenItemIds={hiddenItemIds}
-              isOverflowShown={isOverflowShown}
-              openOverflowOverlay={openOverflowOverlay}
-              overlayPaddingPx={overlayPaddingPx}
-              overlayWidth={overlayWidth}
-              totalLength={React.Children.toArray(children).length}
-            >
-              {children}
-            </OverlayToggle>
-          )}
+          <li>
+            {overflowStyle === 'inline' ? (
+              <InlineToggle
+                collapseButtonRef={collapseButtonRef}
+                collapseInlineExpandedChildren={collapseInlineExpandedChildren}
+                expandButtonRef={expandButtonRef}
+                hiddenItemIds={hiddenItemIds}
+                isOverflowShown={isOverflowShown}
+                showAllTokensInline={showAllTokensInline}
+                totalLength={React.Children.toArray(children).length}
+              />
+            ) : (
+              <OverlayToggle
+                closeOverflowOverlay={closeOverflowOverlay}
+                expandButtonRef={expandButtonRef}
+                hiddenItemIds={hiddenItemIds}
+                isOverflowShown={isOverflowShown}
+                openOverflowOverlay={openOverflowOverlay}
+                overlayPaddingPx={overlayPaddingPx}
+                overlayWidth={overlayWidth}
+                totalLength={React.Children.toArray(children).length}
+              >
+                {children}
+              </OverlayToggle>
+            )}
+          </li>
         </StyledLabelGroupContainer>
       ) : (
         <StyledLabelGroupContainer data-overflow="inline" data-list={isList || undefined} sx={sxProp} as={as}>
