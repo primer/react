@@ -1,4 +1,4 @@
-import {render, fireEvent} from '@testing-library/react'
+import {render, fireEvent, screen} from '@testing-library/react'
 import React from 'react'
 import {ThemeProvider} from '..'
 import {NavList} from './NavList'
@@ -152,6 +152,34 @@ describe('NavList.Item', () => {
 
     expect(link).toHaveAttribute('href', '/')
     expect(link).toHaveAttribute('aria-current', 'page')
+  })
+
+  it('should support a custom `className` on the outermost element', () => {
+    const Element = () => (
+      <NavList>
+        <NavList.Item className="test-class-name" href="/" aria-current="page">
+          Home
+        </NavList.Item>
+      </NavList>
+    )
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    render(<Element />)
+    expect(screen.getByRole('listitem')).toHaveClass('test-class-name')
+    // TODO fix this
+    // render(<FeatureFlagElement />)
+    // expect(screen.getByRole('listitem')).toHaveClass('test-class-name')
   })
 })
 

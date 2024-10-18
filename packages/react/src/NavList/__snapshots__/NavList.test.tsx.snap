@@ -1389,15 +1389,15 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
       class="c0"
     >
       <li
-        aria-labelledby=":r2e:"
+        aria-labelledby=":r2i:"
         class="c1 c2"
       >
         <button
-          aria-controls=":r2f:"
+          aria-controls=":r2j:"
           aria-expanded="true"
-          aria-labelledby=":r2e:--label :r2e:--trailing-visual "
+          aria-labelledby=":r2i:--label :r2i:--trailing-visual "
           class="c3 c4"
-          id=":r2e:"
+          id=":r2i:"
           tabindex="0"
         >
           <div
@@ -1409,13 +1409,13 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
             >
               <span
                 class="c1 c7"
-                id=":r2e:--label"
+                id=":r2i:--label"
               >
                 Item
               </span>
               <span
                 class="c1 c8"
-                id=":r2e:--trailing-visual"
+                id=":r2i:--trailing-visual"
               >
                 <svg
                   aria-hidden="true"
@@ -1437,19 +1437,19 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
         </button>
         <div>
           <ul
-            aria-labelledby=":r2e:"
+            aria-labelledby=":r2i:"
             class="c1 c10"
-            id=":r2f:"
+            id=":r2j:"
           >
             <li
               class="c3 c11"
             >
               <a
                 aria-current="page"
-                aria-labelledby=":r2h:--label  "
+                aria-labelledby=":r2l:--label  "
                 class="c12 c13"
                 href="#"
-                id=":r2h:"
+                id=":r2l:"
                 tabindex="0"
               >
                 <div
@@ -1458,7 +1458,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
                 >
                   <span
                     class="c1 c14"
-                    id=":r2h:--label"
+                    id=":r2l:--label"
                   >
                     Sub Item
                   </span>
@@ -1923,15 +1923,15 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
       class="c0"
     >
       <li
-        aria-labelledby=":r28:"
+        aria-labelledby=":r2c:"
         class="c1 c2"
       >
         <button
-          aria-controls=":r29:"
+          aria-controls=":r2d:"
           aria-expanded="false"
-          aria-labelledby=":r28:--label :r28:--trailing-visual "
+          aria-labelledby=":r2c:--label :r2c:--trailing-visual "
           class="c3 c4"
-          id=":r28:"
+          id=":r2c:"
           tabindex="0"
         >
           <div
@@ -1943,13 +1943,13 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
             >
               <span
                 class="c1 c7"
-                id=":r28:--label"
+                id=":r2c:--label"
               >
                 Item
               </span>
               <span
                 class="c1 c8"
-                id=":r28:--trailing-visual"
+                id=":r2c:--trailing-visual"
               >
                 <svg
                   aria-hidden="true"
@@ -1971,19 +1971,19 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
         </button>
         <div>
           <ul
-            aria-labelledby=":r28:"
+            aria-labelledby=":r2c:"
             class="c1 c10"
-            id=":r29:"
+            id=":r2d:"
           >
             <li
               class="c3 c11"
             >
               <a
                 aria-current="page"
-                aria-labelledby=":r2b:--label  "
+                aria-labelledby=":r2f:--label  "
                 class="c12 c13"
                 href="#"
-                id=":r2b:"
+                id=":r2f:"
                 tabindex="0"
               >
                 <div
@@ -1992,7 +1992,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
                 >
                   <span
                     class="c1 c7"
-                    id=":r2b:--label"
+                    id=":r2f:--label"
                   >
                     Sub Item
                   </span>

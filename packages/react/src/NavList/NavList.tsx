@@ -62,6 +62,7 @@ export type NavListItemProps = {
   href?: string
   'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
   inactiveText?: string
+  className?: string
 } & SxProp
 
 const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
@@ -96,6 +97,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
         sx={merge<SxProp['sx']>(getSubnavStyles(depth), sxProp)}
         {...props}
+        className={props.className}
       >
         {children}
       </ActionList.LinkItem>
