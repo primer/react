@@ -31,14 +31,15 @@ const getSubnavStyles = (depth: number) => {
 
 export type NavListProps = {
   children: React.ReactNode
+  className?: string
 } & SxProp &
   React.ComponentProps<'nav'>
 
 const NavBox = styled.nav<SxProp>(sx)
 
-const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
+const Root = React.forwardRef<HTMLElement, NavListProps>(({children, className, ...props}, ref) => {
   return (
-    <NavBox {...props} ref={ref}>
+    <NavBox {...props} className={className} ref={ref}>
       <ActionListContainerContext.Provider
         value={{
           container: 'NavList',

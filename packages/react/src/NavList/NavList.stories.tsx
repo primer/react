@@ -15,7 +15,7 @@ const meta: Meta = {
 export const Simple: StoryFn = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
-      <NavList>
+      <NavList className="hi">
         <NavList.Item href="#" aria-current="page">
           Item 1
         </NavList.Item>

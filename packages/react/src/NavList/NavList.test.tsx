@@ -76,6 +76,33 @@ describe('NavList', () => {
     const trailingAction = getByRole('button', {name: 'Some trailing action'})
     expect(trailingAction).toBeInTheDocument()
   })
+
+  it('should support a custom `className` on the outermost element', () => {
+    const Element = () => (
+      <NavList className="test-class-name">
+        <NavList.Item href="/" aria-current="page">
+          Home
+        </NavList.Item>
+        <NavList.Item href="/about">About</NavList.Item>
+        <NavList.Item href="/contact">Contact</NavList.Item>
+      </NavList>
+    )
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
+  })
 })
 
 describe('NavList.Item', () => {
