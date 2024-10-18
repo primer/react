@@ -38,8 +38,6 @@ const Root = React.forwardRef<HTMLDetailsElement, ComponentProps<typeof StyledDe
       warning(!summary, 'No summary found, a default summary will be rendered instead.')
     }, [children])
 
-    console.log('rendering', hasSummary)
-
     return (
       <StyledDetails {...props} ref={ref}>
         {/* Include default summary if summary is not provided */}
