@@ -18,6 +18,7 @@ type LinkProps = {
   target?: string
   type?: string
   referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
+  className?: string
 }
 
 // LinkItem does not support selected, loading, variants, etc.
@@ -44,6 +45,7 @@ export const LinkItem = React.forwardRef(({sx = {}, active, inactiveText, as: Co
       sx={{paddingY: 0, paddingX: 0}}
       inactiveText={inactiveText}
       data-inactive={inactiveText ? true : undefined}
+      className={props.className}
       _PrivateItemWrapper={({children, onClick, ...rest}) => {
         const clickHandler = (event: React.MouseEvent<HTMLElement>) => {
           onClick && onClick(event)

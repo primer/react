@@ -31,14 +31,15 @@ const getSubnavStyles = (depth: number) => {
 
 export type NavListProps = {
   children: React.ReactNode
+  className?: string
 } & SxProp &
   React.ComponentProps<'nav'>
 
 const NavBox = styled.nav<SxProp>(sx)
 
-const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
+const Root = React.forwardRef<HTMLElement, NavListProps>(({children, className, ...props}, ref) => {
   return (
-    <NavBox {...props} ref={ref}>
+    <NavBox {...props} className={className} ref={ref}>
       <ActionListContainerContext.Provider
         value={{
           container: 'NavList',
@@ -61,6 +62,7 @@ export type NavListItemProps = {
   href?: string
   'aria-current'?: 'page' | 'step' | 'location' | 'date' | 'time' | 'true' | 'false' | boolean
   inactiveText?: string
+  className?: string
 } & SxProp
 
 const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
@@ -95,6 +97,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
         sx={merge<SxProp['sx']>(getSubnavStyles(depth), sxProp)}
         {...props}
+        className={props.className}
       >
         {children}
       </ActionList.LinkItem>

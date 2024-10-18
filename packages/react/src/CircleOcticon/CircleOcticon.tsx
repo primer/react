@@ -7,6 +7,7 @@ export type CircleOcticonProps = {
   as?: React.ElementType
   size?: number
   icon: React.ComponentType<React.PropsWithChildren<{size?: IconProps['size']}>>
+  className?: string
 } & BoxProps
 
 function CircleOcticon(props: CircleOcticonProps) {
@@ -21,6 +22,7 @@ function CircleOcticon(props: CircleOcticonProps) {
       borderRadius="50%"
       borderStyle="solid"
       borderColor="border.default"
+      className={props.className}
     >
       <Box display="flex" as={as} size={size} {...rest} alignItems="center" justifyContent="center">
         <IconComponent size={size} aria-label={ariaLabel} />
