@@ -1,4 +1,4 @@
-import {render, fireEvent} from '@testing-library/react'
+import {render, fireEvent, screen} from '@testing-library/react'
 import React from 'react'
 import {ThemeProvider} from '..'
 import {NavList} from './NavList'
@@ -76,6 +76,33 @@ describe('NavList', () => {
     const trailingAction = getByRole('button', {name: 'Some trailing action'})
     expect(trailingAction).toBeInTheDocument()
   })
+
+  it('should support a custom `className` on the outermost element', () => {
+    const Element = () => (
+      <NavList className="test-class-name">
+        <NavList.Item href="/" aria-current="page">
+          Home
+        </NavList.Item>
+        <NavList.Item href="/about">About</NavList.Item>
+        <NavList.Item href="/contact">Contact</NavList.Item>
+      </NavList>
+    )
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
+  })
 })
 
 describe('NavList.Item', () => {
@@ -125,6 +152,34 @@ describe('NavList.Item', () => {
 
     expect(link).toHaveAttribute('href', '/')
     expect(link).toHaveAttribute('aria-current', 'page')
+  })
+
+  it('should support a custom `className` on the outermost element', () => {
+    const Element = () => (
+      <NavList>
+        <NavList.Item className="test-class-name" href="/" aria-current="page">
+          Home
+        </NavList.Item>
+      </NavList>
+    )
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    render(<Element />)
+    expect(screen.getByRole('listitem')).toHaveClass('test-class-name')
+    // TODO fix this
+    // render(<FeatureFlagElement />)
+    // expect(screen.getByRole('listitem')).toHaveClass('test-class-name')
   })
 })
 

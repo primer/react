@@ -16,7 +16,7 @@ const ListBox = styled.ul<SxProp>(sx)
 
 export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
   (
-    {variant = 'inset', selectionVariant, showDividers = false, role, sx: sxProp = defaultSxProp, ...props},
+    {variant = 'inset', selectionVariant, showDividers = false, role, sx: sxProp = defaultSxProp, className, ...props},
     forwardedRef,
   ): JSX.Element => {
     const styles = {
@@ -67,6 +67,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
         {slots.heading}
         <ListBox
           sx={merge(styles, sxProp as SxProp)}
+          className={className}
           role={listRole}
           aria-labelledby={ariaLabelledBy}
           {...props}

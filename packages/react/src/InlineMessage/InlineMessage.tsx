@@ -15,6 +15,8 @@ export type InlineMessageProps = React.ComponentPropsWithoutRef<'div'> & {
    * Specify the type of the InlineMessage
    */
   variant: MessageVariant
+
+  className?: string
 }
 
 const StyledMessage = styled.div`
@@ -71,10 +73,10 @@ const variantToSmallIcon: Record<MessageVariant, React.ReactNode> = {
   unavailable: <AlertFillIcon className="InlineMessageIcon" size={12} />,
 }
 
-export function InlineMessage({children, size = 'medium', variant, ...rest}: InlineMessageProps) {
+export function InlineMessage({children, size = 'medium', variant, className, ...rest}: InlineMessageProps) {
   const icon = size === 'small' ? variantToSmallIcon[variant] : variantToIcon[variant]
   return (
-    <StyledMessage {...rest} data-size={size} data-variant={variant}>
+    <StyledMessage {...rest} data-size={size} data-variant={variant} className={className}>
       {icon}
       {children}
     </StyledMessage>

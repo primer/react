@@ -5,6 +5,7 @@ import axe from 'axe-core'
 
 import ActionBar from './'
 import {BoldIcon, CodeIcon, ItalicIcon, LinkIcon} from '@primer/octicons-react'
+import {FeatureFlags} from '../FeatureFlags'
 
 const SimpleActionBar = () => (
   <ActionBar aria-label="Toolbar">
@@ -31,5 +32,28 @@ describe('ActionBar', () => {
     const {container} = HTMLRender(<SimpleActionBar />)
     const results = await axe.run(container)
     expect(results).toHaveNoViolations()
+  })
+
+  it('should support a custom `className` on the outermost element', () => {
+    const Element = () => (
+      <ActionBar aria-label="Toolbar" className="test-class-name">
+        <ActionBar.IconButton icon={BoldIcon} aria-label="Default"></ActionBar.IconButton>
+      </ActionBar>
+    )
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(HTMLRender(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 })
