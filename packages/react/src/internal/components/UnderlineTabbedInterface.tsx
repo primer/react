@@ -220,17 +220,17 @@ export const UnderlineItem = forwardRef(
             {children}
           </span>
         )}
-        {loadingCounters ? (
-          <span data-component="counter">
-            <LoadingCounter />
-          </span>
-        ) : (
-          counter !== undefined && (
+        {counter !== undefined ? (
+          loadingCounters ? (
+            <span data-component="counter">
+              <LoadingCounter />
+            </span>
+          ) : (
             <span data-component="counter">
               <CounterLabel>{counter}</CounterLabel>
             </span>
           )
-        )}
+        ) : null}
       </StyledUnderlineItem>
     )
   },
