@@ -146,7 +146,6 @@ exports[`Avatar respects alignRight props 1`] = `
   <div
     className="pc-AvatarStackBody"
   >
-     
     <img
       alt=""
       className="pc-AvatarItem"
