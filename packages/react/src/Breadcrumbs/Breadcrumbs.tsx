@@ -7,38 +7,50 @@ import {get} from '../constants'
 import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
+import classes from './Breadcrumbs.module.css'
+import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
+import {FeatureFlags, useFeatureFlag} from '../FeatureFlags'
+import Link from '../Link'
 
 const SELECTED_CLASS = 'selected'
 
-const Wrapper = styled.li`
-  display: inline-block;
-  white-space: nowrap;
-  list-style: none;
-  &::after {
-    font-size: ${get('fontSizes.1')};
-    content: '';
+const Wrapper = toggleStyledComponent(
+  'primer_react_css_modules_team',
+  'li',
+  styled.li`
     display: inline-block;
-    height: 0.8em;
-    margin: 0 0.5em;
-    border-right: 0.1em solid;
-    border-color: ${get('colors.fg.muted')};
-    transform: rotate(15deg) translateY(0.0625em);
-  }
-  &:first-child {
-    margin-left: 0;
-  }
-  &:last-child {
+    white-space: nowrap;
+    list-style: none;
     &::after {
-      content: none;
+      font-size: ${get('fontSizes.1')};
+      content: '';
+      display: inline-block;
+      height: 0.8em;
+      margin: 0 0.5em;
+      border-right: 0.1em solid;
+      border-color: ${get('colors.fg.muted')};
+      transform: rotate(15deg) translateY(0.0625em);
     }
-  }
-`
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      &::after {
+        content: none;
+      }
+    }
+  `,
+)
 
-const BreadcrumbsBase = styled.nav<SxProp>`
-  display: flex;
-  justify-content: space-between;
-  ${sx};
-`
+const BreadcrumbsBase = toggleStyledComponent(
+  'primer_react_css_modules_team',
+  'nav',
+  styled.nav<SxProp>`
+    display: flex;
+    justify-content: space-between;
+    ${sx};
+  `,
+)
 
 export type BreadcrumbsProps = React.PropsWithChildren<
   {
@@ -46,13 +58,31 @@ export type BreadcrumbsProps = React.PropsWithChildren<
   } & SxProp
 >
 
-function Breadcrumbs({className, children, sx: sxProp}: React.PropsWithChildren<BreadcrumbsProps>) {
-  const wrappedChildren = React.Children.map(children, child => <Wrapper>{child}</Wrapper>)
+const BreadcrumbsList = ({children}: React.PropsWithChildren) => {
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  if (enabled) {
+    return <ol className={classes.BreadcrumbsList}>{children}</ol>
+  }
+
   return (
-    <BreadcrumbsBase className={className} aria-label="Breadcrumbs" sx={sxProp}>
-      <Box as="ol" my={0} pl={0}>
-        {wrappedChildren}
-      </Box>
+    <Box as="ol" my={0} pl={0}>
+      {children}
+    </Box>
+  )
+}
+
+function Breadcrumbs({className, children, sx: sxProp}: React.PropsWithChildren<BreadcrumbsProps>) {
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  const wrappedChildren = React.Children.map(children, child => (
+    <Wrapper className={clsx({[classes.ItemWrapper]: enabled})}>{child}</Wrapper>
+  ))
+  return (
+    <BreadcrumbsBase
+      className={clsx(className, {[classes.BreadcrumbsBase]: enabled})}
+      aria-label="Breadcrumbs"
+      sx={sxProp}
+    >
+      <BreadcrumbsList>{wrappedChildren}</BreadcrumbsList>
     </BreadcrumbsBase>
   )
 }
@@ -62,27 +92,46 @@ type StyledBreadcrumbsItemProps = {
   selected?: boolean
 } & SxProp
 
-const BreadcrumbsItem = styled.a.attrs<StyledBreadcrumbsItemProps>(props => ({
-  className: clsx(props.selected && SELECTED_CLASS, props.className),
-  'aria-current': props.selected ? 'page' : null,
-}))<StyledBreadcrumbsItemProps>`
-  color: ${get('colors.accent.fg')};
-  display: inline-block;
-  font-size: ${get('fontSizes.1')};
-  text-decoration: none;
-  &:hover,
-  &:focus {
-    text-decoration: underline;
-  }
-  &.selected {
-    color: ${get('colors.fg.default')};
-    pointer-events: none;
-  }
-  &.selected:focus {
+const StyledBreadcrumbsItem = toggleStyledComponent(
+  'primer_react_css_modules_team',
+  'a',
+  styled.a.attrs<StyledBreadcrumbsItemProps>(props => ({
+    className: clsx(props.selected && SELECTED_CLASS, props.className),
+    'aria-current': props.selected ? 'page' : null,
+  }))<StyledBreadcrumbsItemProps>`
+    color: ${get('colors.accent.fg')};
+    display: inline-block;
+    font-size: ${get('fontSizes.1')};
     text-decoration: none;
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+    &.selected {
+      color: ${get('colors.fg.default')};
+      pointer-events: none;
+    }
+    &.selected:focus {
+      text-decoration: none;
+    }
+    ${sx};
+  `,
+)
+const BreadcrumbsItem = ({
+  selected,
+  ...props
+}: StyledBreadcrumbsItemProps & React.ComponentPropsWithoutRef<typeof Link>) => {
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  if (enabled) {
+    return (
+      // Remove this when the feature flag is removed from Link
+      <FeatureFlags flags={{primer_react_css_modules_ga: true}}>
+        <Link className={clsx(classes.Item, {[classes.ItemSelected]: selected})} {...props} />
+      </FeatureFlags>
+    )
   }
-  ${sx};
-`
+  return <StyledBreadcrumbsItem selected={selected} {...props} />
+}
 
 Breadcrumbs.displayName = 'Breadcrumbs'
 
