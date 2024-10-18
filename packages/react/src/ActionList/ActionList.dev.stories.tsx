@@ -7,6 +7,7 @@ import {Group} from './Group'
 import {Divider} from './Divider'
 import {Description} from './Description'
 import Avatar from '../Avatar'
+import {sxOverrideTestStyles} from '../utils/story-helpers'
 
 export default {
   title: 'Components/ActionList/Dev',
@@ -114,5 +115,13 @@ export const GroupHeadingCustomClassname = () => (
       <ActionList.Item onClick={() => {}}>app/assets/modules</ActionList.Item>
       <ActionList.Item onClick={() => {}}>src/react/components</ActionList.Item>
     </ActionList.Group>
+  </ActionList>
+)
+
+export const SxPropStressTest = () => (
+  <ActionList sx={sxOverrideTestStyles}>
+    <ActionList.Item sx={sxOverrideTestStyles}>Copy link</ActionList.Item>
+    <ActionList.Item sx={sxOverrideTestStyles}>Quote reply</ActionList.Item>
+    <ActionList.Item sx={sxOverrideTestStyles}>Edit comment</ActionList.Item>
   </ActionList>
 )
