@@ -1,8 +1,7 @@
 import React from 'react'
 import {useId} from '../hooks/useId'
 import Box from '../Box'
-import type {SxProp, BetterSystemStyleObject} from '../sx'
-import {merge} from '../sx'
+import type {SxProp} from '../sx'
 import {ListContext, type ActionListProps} from './shared'
 import type {AriaRole} from '../utils/types'
 import {default as Heading} from '../Heading'
@@ -10,6 +9,7 @@ import type {ActionListHeadingProps} from './Heading'
 import {useSlots} from '../hooks/useSlots'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {invariant} from '../utils/invariant'
+import {clsx} from 'clsx'
 
 export type ActionListGroupProps = {
   /**
@@ -130,6 +130,7 @@ export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> 
   _internalBackwardCompatibleTitle,
   auxiliaryText,
   children,
+  className,
   sx = defaultSxProp,
   ...props
 }) => {
@@ -165,6 +166,20 @@ export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> 
       borderBottom: '1px solid',
       borderColor: 'neutral.muted',
     }),
+
+    [`.ActionListGroupHeading`]: {
+      fontSize: 'var(--text-body-size-small), 12px',
+      fontWeight: 'var(--base-text-weight-semibold, 600)',
+      lineHeight: 'var(--text-body-lineHeight-small, 1.6666)',
+      color: 'var(--fgColor-muted)',
+    },
+
+    [`.ActionListGroupHeadingDescription`]: {
+      fontSize: 'var(--text-body-size-small, 12px)',
+      fontWeight: 'var(--base-text-weight-normal, 400)',
+      lineHeight: 'var(--text-body-lineHeight-small, 1.6666)',
+      color: 'var(--fgColor-muted)',
+    },
   }
 
   return (
@@ -173,16 +188,22 @@ export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> 
       {listRole && listRole !== 'list' ? (
         <Box sx={styles} role="presentation" aria-hidden="true" {...props}>
           <span id={groupHeadingId}>{_internalBackwardCompatibleTitle ?? children}</span>
-          {auxiliaryText && <span>{auxiliaryText}</span>}
+          {auxiliaryText && <div className="ActionListGroupHeadingDescription">{auxiliaryText}</div>}
         </Box>
       ) : (
         // for explicit (role="list" is passed as prop) and implicit list roles (ActionList ins rendered as list by default), group titles are proper heading tags.
-        <>
-          <Heading as={as || 'h3'} id={groupHeadingId} sx={merge<BetterSystemStyleObject>(styles, sx)} {...props}>
+        <Box sx={styles}>
+          <Heading
+            className={clsx(className, 'ActionListGroupHeading')}
+            as={as || 'h3'}
+            id={groupHeadingId}
+            sx={sx}
+            {...props}
+          >
             {_internalBackwardCompatibleTitle ?? children}
           </Heading>
-          {auxiliaryText && <span>{auxiliaryText}</span>}
-        </>
+          {auxiliaryText && <div className="ActionListGroupHeadingDescription">{auxiliaryText}</div>}
+        </Box>
       )}
     </>
   )

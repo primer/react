@@ -2,16 +2,48 @@ import React, {useEffect, useRef, useState} from 'react'
 import type {Args, Meta} from '@storybook/react'
 import {FocusKeys} from '@primer/behaviors'
 
-import {Box, Button} from '..'
+import {Avatar, Box, Text} from '..'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import Heading from '../Heading'
+import Octicon from '../Octicon'
+import {Button} from '../Button'
 import {registerPortalRoot} from '../Portal'
 import {Playground} from './AnchoredOverlay.stories'
+import {LocationIcon, RepoIcon} from '@primer/octicons-react'
+import {Stack} from '../Stack/Stack'
 
 export default {
   title: 'Components/AnchoredOverlay/Features',
   component: AnchoredOverlay,
 } as Meta
+
+const hoverCard = (
+  <Stack gap="condensed" style={{minWidth: '320px', padding: '16px'}}>
+    <Stack direction="horizontal" gap="condensed" justify="space-between">
+      <Avatar src="https://avatars.githubusercontent.com/u/92997159?v=4" size={48} />
+      <Button size="small">Follow</Button>
+    </Stack>
+    <Stack direction="horizontal" gap="none">
+      <Text weight="medium">monalisa</Text>
+      <Text color={'var(--fgColor-muted)'} ml={1}>
+        Monalisa Octocat
+      </Text>
+    </Stack>
+    <Text size="medium">Former beach cat and champion swimmer. Now your friendly octapus with a normal face.</Text>
+    <Stack direction="horizontal" gap="none">
+      <Octicon color={'var(--fgColor-muted)'} icon={LocationIcon} />
+      <Text size="small" color={'var(--fgColor-muted)'} ml={1}>
+        Interwebs
+      </Text>
+    </Stack>
+    <Stack direction="horizontal" gap="none">
+      <Octicon color={'var(--fgColor-muted)'} icon={RepoIcon} />
+      <Text size="small" color={'var(--fgColor-muted)'} ml={1}>
+        Owns this repository
+      </Text>
+    </Stack>
+  </Stack>
+)
 
 const HeaderAndLayout = ({children}: {children: JSX.Element}) => {
   const scrollingElementRef = useRef<HTMLDivElement>(null)
@@ -70,9 +102,7 @@ export const CustomAnchorId = () => {
       renderAnchor={props => <Button {...props}>Button</Button>}
       anchorId="my-custom-anchor-id"
     >
-      <Box width="100%" height="100%" backgroundColor="thistle" display="flex" flexDirection="column">
-        <img src={`//placekitten.com/200/300`} alt="kitten" />
-      </Box>
+      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
     </AnchoredOverlay>
   )
 }
@@ -88,9 +118,7 @@ export const Height = () => {
       renderAnchor={props => <Button {...props}>Button</Button>}
       height="large"
     >
-      <Box width="100%" height="100%" backgroundColor="thistle" display="flex" flexDirection="column">
-        <img src={`//placekitten.com/200/300`} alt="kitten" />
-      </Box>
+      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
     </AnchoredOverlay>
   )
 }
@@ -106,9 +134,7 @@ export const Width = () => {
       renderAnchor={props => <Button {...props}>Button</Button>}
       width="large"
     >
-      <Box width="100%" height="100%" backgroundColor="thistle" display="flex" flexDirection="column">
-        <img src={`//placekitten.com/200/300`} alt="kitten" />
-      </Box>
+      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
     </AnchoredOverlay>
   )
 }
@@ -128,9 +154,7 @@ export const AnchorAlignment = () => {
       )}
       align="center"
     >
-      <Box width="100%" height="100%" backgroundColor="thistle" display="flex" flexDirection="column">
-        <img src={`//placekitten.com/200/300`} alt="kitten" />
-      </Box>
+      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
     </AnchoredOverlay>
   )
 }
@@ -146,9 +170,7 @@ export const AnchorSide = () => {
       renderAnchor={props => <Button {...props}>Button</Button>}
       side="outside-right"
     >
-      <Box width="100%" height="100%" backgroundColor="thistle" display="flex" flexDirection="column">
-        <img src={`//placekitten.com/200/300`} alt="kitten" />
-      </Box>
+      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
     </AnchoredOverlay>
   )
 }
@@ -164,9 +186,7 @@ export const OffsetPositionFromAnchor = () => {
       renderAnchor={props => <Button {...props}>Button</Button>}
       anchorOffset={100}
     >
-      <Box width="100%" height="100%" backgroundColor="thistle" display="flex" flexDirection="column">
-        <img src={`//placekitten.com/200/300`} alt="kitten" />
-      </Box>
+      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
     </AnchoredOverlay>
   )
 }
@@ -182,9 +202,7 @@ export const OffsetAlignmentFromAnchor = () => {
       renderAnchor={props => <Button {...props}>Button</Button>}
       alignmentOffset={100}
     >
-      <Box width="100%" height="100%" backgroundColor="thistle" display="flex" flexDirection="column">
-        <img src={`//placekitten.com/200/300`} alt="kitten" />
-      </Box>
+      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
     </AnchoredOverlay>
   )
 }
@@ -247,9 +265,7 @@ export const OverlayPropsOverrides = () => {
         <li>overflow: `auto`</li>
         <li>maxHeight: `xsmall`</li>
       </pre>
-      <Box width="100%" height="100%" backgroundColor="thistle" display="flex" flexDirection="column">
-        <img src={`//placekitten.com/200/300`} alt="kitten" />
-      </Box>
+      <Box sx={{width: '100%', height: '100%', display: 'flex', flexDirection: 'column'}}>{hoverCard}</Box>
     </AnchoredOverlay>
   )
 }

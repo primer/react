@@ -31,6 +31,25 @@ describe('Button', () => {
     options: {skipSx: true, skipAs: true},
   })
 
+  it('should support `className` on the outermost element', () => {
+    const Element = () => <Button className={'test-class-name'} />
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
+  })
+
   it('renders a <button>', () => {
     const container = render(<Button id="test-button">Default</Button>)
     const button = container.getByRole('button')
@@ -307,7 +326,7 @@ describe('Button', () => {
       const {container} = render(
         <FeatureFlags
           flags={{
-            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
           }}
         >
           <IconButton className="test" aria-label="Test" icon={HeartIcon} />
@@ -320,7 +339,7 @@ describe('Button', () => {
       const {container} = render(
         <FeatureFlags
           flags={{
-            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
           }}
         >
           <Button className="test">Hello</Button>
@@ -333,7 +352,7 @@ describe('Button', () => {
       const {container} = render(
         <FeatureFlags
           flags={{
-            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
           }}
         >
           <LinkButton className="test">Hello</LinkButton>
