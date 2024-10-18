@@ -327,7 +327,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
     }
   }, [overflowStyle, isOverflowShown])
 
-  const isList = as == 'ul' || as === 'ol'
+  const isList = as === 'ul' || as === 'ol'
 
   // If truncation is enabled, we need to render based on truncation logic.
   return (
