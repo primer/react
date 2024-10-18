@@ -100,7 +100,7 @@ Playground.argTypes = {
 export const Default = () => (
   <CheckboxGroup>
     <CheckboxGroup.Label>Choices</CheckboxGroup.Label>
-    <FormControl>
+    <FormControl required>
       <Checkbox value="one" defaultChecked />
       <FormControl.Label>Choice one</FormControl.Label>
     </FormControl>
