@@ -19,10 +19,17 @@ export type SpinnerProps = {
   srText?: string | null
   /** @deprecated Use `srText` instead. */
   'aria-label'?: string
+  className?: string
 } & HTMLDataAttributes &
   SxProp
 
-function Spinner({size: sizeKey = 'medium', srText = 'Loading', 'aria-label': ariaLabel, ...props}: SpinnerProps) {
+function Spinner({
+  size: sizeKey = 'medium',
+  srText = 'Loading',
+  'aria-label': ariaLabel,
+  className,
+  ...props
+}: SpinnerProps) {
   const size = sizeMap[sizeKey]
   const hasHiddenLabel = srText !== null && ariaLabel === undefined
   const labelId = useId()
@@ -38,6 +45,7 @@ function Spinner({size: sizeKey = 'medium', srText = 'Loading', 'aria-label': ar
         aria-hidden
         aria-label={ariaLabel ?? undefined}
         aria-labelledby={hasHiddenLabel ? labelId : undefined}
+        className={className}
         {...props}
       >
         <circle
