@@ -194,37 +194,15 @@ export function SelectPanel({
   const responsiveVariants = Object.assign({regular: 'anchored', narrow: 'full-screen'}) // defaults
 
   const currentVariant = useResponsiveValue(responsiveVariants, 'anchored')
-  console.log('currentVariant', currentVariant)
 
-  const ConditionalOverlay: React.FC<React.PropsWithChildren<{anchored: boolean & Partial<OverlayProps>}>> = props => {
-    const {anchored, ...overlayProps} = props
-    const commonOverlayProps = {
-      overlayProps: {
-        role: 'dialog',
-        'aria-labelledby': titleId,
-        'aria-describedby': subtitle ? subtitleId : undefined,
-        ...overlayProps,
-      },
-      focusTrapSettings: {focusTrapSettings},
-      focusZoneSettings: {focusZoneSettings},
-    }
+  const ConditionalOverlay: React.FC<React.PropsWithChildren<{isAnchored: boolean}>> = props => {
+    const {isAnchored, ...rest} = props
 
-    if (anchored)
+    if (isAnchored)
       return (
         <AnchoredOverlay
           renderAnchor={renderMenuAnchor}
           anchorRef={anchorRef}
-          open={open}
-          onOpen={onOpen}
-          onClose={onClose}
-          {...commonOverlayProps}
-        >
-          {props.children}
-        </AnchoredOverlay>
-      )
-    else
-      return (
-        <StyledOverlay
           open={open}
           onOpen={onOpen}
           onClose={onClose}
@@ -236,15 +214,53 @@ export function SelectPanel({
           }}
           focusTrapSettings={focusTrapSettings}
           focusZoneSettings={focusZoneSettings}
+          {...rest}
+        >
+          {props.children}
+        </AnchoredOverlay>
+      )
+    // This variant can be used for full-screen, bottom-sheet, modal, etc.
+    else {
+      return (
+        // maybe we could use the normal overlay not styled one.
+        <StyledOverlay
+          // as="dialog"
+          aria-labelledby={titleId}
+          aria-describedby={subtitle ? subtitleId : undefined}
+          data-variant={currentVariant}
+          sx={{
+            // '--max-height': heightMap[maxHeight],
+            // reset dialog default styles
+            border: 'none',
+            padding: 0,
+            color: 'fg.default',
+            '&[open]': {display: 'flex'}, // to fit children
+            '&[data-variant="full-screen"]': {
+              margin: 0,
+              // top: position?.top,
+              // left: position?.left,
+              '::backdrop': {backgroundColor: 'transparent'},
+              top: 0,
+              left: 0,
+              width: '100%',
+              maxWidth: '100vw',
+              height: '100%',
+              maxHeight: '100vh',
+              '--max-height': '100vh',
+              borderRadius: 'unset',
+            },
+          }}
+          {...rest}
         >
           {props.children}
         </StyledOverlay>
       )
+    }
   }
 
   return (
     <LiveRegion>
-      <ConditionalOverlay anchored={currentVariant === 'anchored'} {...overlayProps}>
+      <ConditionalOverlay isAnchored={currentVariant === 'anchored'}>
         <LiveRegionOutlet />
         {usingModernActionList ? null : (
           <Message
