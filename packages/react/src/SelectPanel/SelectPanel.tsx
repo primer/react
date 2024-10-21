@@ -18,6 +18,8 @@ import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 import {useFeatureFlag} from '../FeatureFlags'
+import {useResponsiveValue} from '../hooks/useResponsiveValue'
+import {StyledOverlay} from '../Overlay/Overlay'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -189,23 +191,60 @@ export function SelectPanel({
 
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
 
+  const responsiveVariants = Object.assign({regular: 'anchored', narrow: 'full-screen'}) // defaults
+
+  const currentVariant = useResponsiveValue(responsiveVariants, 'anchored')
+  console.log('currentVariant', currentVariant)
+
+  const ConditionalOverlay: React.FC<React.PropsWithChildren<{anchored: boolean & Partial<OverlayProps>}>> = props => {
+    const {anchored, ...overlayProps} = props
+    const commonOverlayProps = {
+      overlayProps: {
+        role: 'dialog',
+        'aria-labelledby': titleId,
+        'aria-describedby': subtitle ? subtitleId : undefined,
+        ...overlayProps,
+      },
+      focusTrapSettings: {focusTrapSettings},
+      focusZoneSettings: {focusZoneSettings},
+    }
+
+    if (anchored)
+      return (
+        <AnchoredOverlay
+          renderAnchor={renderMenuAnchor}
+          anchorRef={anchorRef}
+          open={open}
+          onOpen={onOpen}
+          onClose={onClose}
+          {...commonOverlayProps}
+        >
+          {props.children}
+        </AnchoredOverlay>
+      )
+    else
+      return (
+        <StyledOverlay
+          open={open}
+          onOpen={onOpen}
+          onClose={onClose}
+          overlayProps={{
+            role: 'dialog',
+            'aria-labelledby': titleId,
+            'aria-describedby': subtitle ? subtitleId : undefined,
+            ...overlayProps,
+          }}
+          focusTrapSettings={focusTrapSettings}
+          focusZoneSettings={focusZoneSettings}
+        >
+          {props.children}
+        </StyledOverlay>
+      )
+  }
+
   return (
     <LiveRegion>
-      <AnchoredOverlay
-        renderAnchor={renderMenuAnchor}
-        anchorRef={anchorRef}
-        open={open}
-        onOpen={onOpen}
-        onClose={onClose}
-        overlayProps={{
-          role: 'dialog',
-          'aria-labelledby': titleId,
-          'aria-describedby': subtitle ? subtitleId : undefined,
-          ...overlayProps,
-        }}
-        focusTrapSettings={focusTrapSettings}
-        focusZoneSettings={focusZoneSettings}
-      >
+      <ConditionalOverlay anchored={currentVariant === 'anchored'} {...overlayProps}>
         <LiveRegionOutlet />
         {usingModernActionList ? null : (
           <Message
@@ -260,7 +299,7 @@ export function SelectPanel({
             </Box>
           )}
         </Box>
-      </AnchoredOverlay>
+      </ConditionalOverlay>
     </LiveRegion>
   )
 }
