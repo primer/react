@@ -378,7 +378,7 @@ exports[`snapshots renders a loading state 1`] = `
       >
         <svg
           aria-hidden={true}
-          aria-labelledby=":r1v:"
+          aria-labelledby=":r2h:"
           className="c3"
           fill="none"
           height="32px"
@@ -404,7 +404,7 @@ exports[`snapshots renders a loading state 1`] = `
         </svg>
         <span
           className="c4"
-          id=":r1v:"
+          id=":r2h:"
         >
           Loading
         </span>
