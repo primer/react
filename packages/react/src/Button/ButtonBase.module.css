@@ -227,7 +227,7 @@
 
   &:where([data-loading='true']) {
     &
-      .loadingSpinner:not(
+      .LoadingSpinner:not(
         [data-component='leadingVisual'],
         [data-component='trailingVisual'],
         [data-component='trailingAction']
