@@ -88,7 +88,7 @@ const labels: Record<BannerVariant, string> = {
   warning: 'Warning',
 }
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
 
 export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner(
   {
@@ -209,6 +209,7 @@ const StyledBanner = toggleStyledComponent(
    * line-height of `20px` so that means that the height of icons should match
    * that value.
    */
+  'div',
   styled.div`
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
