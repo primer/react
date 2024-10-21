@@ -214,7 +214,8 @@ describe('LabelGroup', () => {
       expect(list).not.toBeNull()
       expect(list.tagName).toBe('UL')
       expect(list).toHaveAttribute('data-list', 'true')
-      expect(list.querySelectorAll('li')).toHaveLength(5)
+      // account for "show more" button
+      expect(list.querySelectorAll('li')).toHaveLength(6)
     })
   })
 
@@ -295,7 +296,8 @@ describe('LabelGroup', () => {
       expect(list).not.toBeNull()
       expect(list.tagName).toBe('OL')
       expect(list).toHaveAttribute('data-list', 'true')
-      expect(list.querySelectorAll('li')).toHaveLength(5)
+      // account for "show more" button
+      expect(list.querySelectorAll('li')).toHaveLength(6)
     })
   })
 })

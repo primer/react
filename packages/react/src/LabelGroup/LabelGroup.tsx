@@ -329,6 +329,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   }, [overflowStyle, isOverflowShown])
 
   const isList = as === 'ul' || as === 'ol'
+  const ToggleWrapper = isList ? 'li' : React.Fragment
 
   // If truncation is enabled, we need to render based on truncation logic.
   return (
@@ -351,7 +352,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
               <LabelGroupContext.Provider value={{isList: false}}>{child}</LabelGroupContext.Provider>
             </ItemWrapper>
           ))}
-          <li>
+          <ToggleWrapper>
             {overflowStyle === 'inline' ? (
               <InlineToggle
                 collapseButtonRef={collapseButtonRef}
@@ -376,7 +377,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
                 {children}
               </OverlayToggle>
             )}
-          </li>
+          </ToggleWrapper>
         </StyledLabelGroupContainer>
       ) : (
         <StyledLabelGroupContainer data-overflow="inline" data-list={isList || undefined} sx={sxProp} as={as}>
