@@ -210,12 +210,12 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           <Box
             as="input"
             {...inputProps}
-            className={clsx(className, sharedClasses.input, classes.Checkbox)}
+            className={clsx(className, sharedClasses.Input, classes.Checkbox)}
             sx={sxProp}
           />
         )
       }
-      return <input {...inputProps} className={clsx(className, sharedClasses.input, classes.Checkbox)} />
+      return <input {...inputProps} className={clsx(className, sharedClasses.Input, classes.Checkbox)} />
     }
 
     return <StyledCheckbox {...inputProps} className={className} sx={sxProp} />
