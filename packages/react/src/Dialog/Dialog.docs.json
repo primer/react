@@ -2,7 +2,7 @@
   "id": "dialog_v2",
   "docsId": "dialog",
   "name": "Dialog",
-  "status": "draft",
+  "status": "experimental",
   "a11yReviewed": false,
   "stories": [],
   "importPath": "@primer/react/experimental",

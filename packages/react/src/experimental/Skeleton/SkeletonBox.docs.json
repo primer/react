@@ -1,7 +1,7 @@
 {
   "id": "skeleton_box",
   "name": "SkeletonBox",
-  "status": "draft",
+  "status": "experimental",
   "a11yReviewed": false,
   "stories": [],
   "importPath": "@primer/react/experimental",
