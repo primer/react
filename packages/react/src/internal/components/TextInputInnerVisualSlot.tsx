@@ -14,7 +14,7 @@ const TextInputInnerVisualSlot: React.FC<
     /** Used to provide a reference for usage with `aria-describedby` */
     id?: string
   }>
-> = ({children, hasLoadingIndicator, showLoadingIndicator, visualPosition, id, ...props}) => {
+> = ({children, hasLoadingIndicator, showLoadingIndicator, visualPosition, id}) => {
   if ((!children && !hasLoadingIndicator) || (visualPosition === 'leading' && !children && !showLoadingIndicator)) {
     return null
   }
@@ -28,7 +28,7 @@ const TextInputInnerVisualSlot: React.FC<
   }
 
   return (
-    <span className="TextInput-icon" {...props}>
+    <span className="TextInput-icon">
       <Box display="flex" position="relative" id={id}>
         {children && <Box sx={{visibility: showLoadingIndicator ? 'hidden' : 'visible'}}>{children}</Box>}
         <Spinner

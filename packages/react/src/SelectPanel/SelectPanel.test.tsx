@@ -494,11 +494,13 @@ for (const useModernActionList of [false, true]) {
 
           expect(screen.getAllByRole('option')).toHaveLength(3)
 
-          // since the test never repopulates the panel's list of items, the panel will enter
-          // the loading state after the following line executes and stay there indefinitely
+          // since the test component never repopulates the panel's list of items, the panel will
+          // enter the loading state after the following line executes and stay there indefinitely
           await user.type(document.activeElement!, 'two')
 
-          expect(screen.getByTestId('text-input-leading-visual')).toBeTruthy()
+          // The aria-describedby attribute is only available if the icon is present. The input
+          // field has a role of combobox.
+          expect(screen.getByRole('combobox').hasAttribute('aria-describedby')).toBeTruthy()
         })
 
         it('should announce initial focused item', async () => {
