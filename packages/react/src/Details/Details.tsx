@@ -33,10 +33,29 @@ const Root = React.forwardRef<HTMLDetailsElement, ComponentProps<typeof StyledDe
       if (!details) {
         return
       }
-      const summary = details.querySelector('summary:not([data-default-summary])')
-      setHasSummary(!!summary)
-      warning(!summary, 'No summary found, a default summary will be rendered instead.')
-    }, [children])
+
+      const updateSummary = () => {
+        const summary = details.querySelector('summary:not([data-default-summary])')
+        setHasSummary(!!summary)
+        warning(!summary, 'No summary found, a default summary will be rendered instead.')
+      }
+
+      // Update summary on mount
+      updateSummary()
+
+      const observer = new MutationObserver(() => {
+        updateSummary()
+      })
+
+      observer.observe(details, {
+        childList: true,
+        subtree: true,
+      })
+
+      return () => {
+        observer.disconnect()
+      }
+    }, [])
 
     return (
       <StyledDetails {...props} ref={ref}>
