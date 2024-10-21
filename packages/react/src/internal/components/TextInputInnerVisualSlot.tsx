@@ -11,21 +11,29 @@ const TextInputInnerVisualSlot: React.FC<
     showLoadingIndicator: TextInputNonPassthroughProps['loading']
     /** Which side of this visual is being rendered */
     visualPosition: 'leading' | 'trailing'
+    /** Used to provide a reference for usage with `aria-describedby` */
+    id?: string
   }>
-> = ({children, hasLoadingIndicator, showLoadingIndicator, visualPosition, ...props}) => {
+> = ({children, hasLoadingIndicator, showLoadingIndicator, visualPosition, id, ...props}) => {
   if ((!children && !hasLoadingIndicator) || (visualPosition === 'leading' && !children && !showLoadingIndicator)) {
     return null
   }
 
   if (!hasLoadingIndicator) {
-    return <span className="TextInput-icon">{children}</span>
+    return (
+      <span className="TextInput-icon" id={id} aria-hidden="true">
+        {children}
+      </span>
+    )
   }
 
   return (
+
     <span className="TextInput-icon" {...props}>
-      <Box display="flex" position="relative">
+      <Box display="flex" position="relative" id={id}>
         {children && <Box sx={{visibility: showLoadingIndicator ? 'hidden' : 'visible'}}>{children}</Box>}
         <Spinner
+          srText={null}
           sx={
             children
               ? {
