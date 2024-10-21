@@ -61,18 +61,6 @@ test.describe('SegmentedControl', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Playground.${theme}.png`)
-
-          // Focus state
-          await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Playground.${theme}.focus.png`)
-
-          // Middle Button Focus state
-          await page.keyboard.press('Tab')
-          await page.keyboard.press('Enter')
-          await page.keyboard.press('Shift+Tab')
-          expect(await page.screenshot()).toMatchSnapshot(
-            `SegmentedControl.Playground.${theme}.middle.selected.focus.png`,
-          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -109,12 +97,6 @@ test.describe('SegmentedControl', () => {
           expect(await page.screenshot()).toMatchSnapshot(
             `SegmentedControl.SegmentedControlButton Playground.${theme}.png`,
           )
-
-          // Focus state
-          await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(
-            `SegmentedControl.SegmentedControlButton Playground.${theme}.focus.png`,
-          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -150,12 +132,6 @@ test.describe('SegmentedControl', () => {
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(
             `SegmentedControl.SegmentedControlIconButton Playground.${theme}.png`,
-          )
-
-          // Focus state
-          await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(
-            `SegmentedControl.SegmentedControlIconButton Playground.${theme}.focus.png`,
           )
         })
 
@@ -197,20 +173,6 @@ test.describe('SegmentedControl', () => {
           expect(await page.screenshot()).toMatchSnapshot(
             `SegmentedControl.Associated with a Label and Caption.${theme}.png`,
           )
-
-          // Focus state
-          await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(
-            `SegmentedControl.Associated with a Label and Caption.${theme}.focus.png`,
-          )
-
-          // Middle Button Focus state
-          await page.keyboard.press('Tab')
-          await page.keyboard.press('Enter')
-          await page.keyboard.press('Shift+Tab')
-          expect(await page.screenshot()).toMatchSnapshot(
-            `SegmentedControl.Associated with a Label and Caption.${theme}.middle.selected.focus.png`,
-          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -247,18 +209,6 @@ test.describe('SegmentedControl', () => {
           await page.setViewportSize({width: viewports['primer.breakpoint.sm'], height: 768})
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Fullwidth Narrow.${theme}.png`)
-
-          // Focus state
-          await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Fullwidth Narrow.${theme}.focus.png`)
-
-          // Middle Button Focus state
-          await page.keyboard.press('Tab')
-          await page.keyboard.press('Enter')
-          await page.keyboard.press('Shift+Tab')
-          expect(await page.screenshot()).toMatchSnapshot(
-            `SegmentedControl.Fullwidth Narrow.${theme}.middle.selected.focus.png`,
-          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -293,18 +243,6 @@ test.describe('SegmentedControl', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Fullwidth Regular.${theme}.png`)
-
-          // Focus state
-          await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Fullwidth Regular.${theme}.focus.png`)
-
-          // Middle Button Focus state
-          await page.keyboard.press('Tab')
-          await page.keyboard.press('Enter')
-          await page.keyboard.press('Shift+Tab')
-          expect(await page.screenshot()).toMatchSnapshot(
-            `SegmentedControl.Fullwidth Regular.${theme}.middle.selected.focus.png`,
-          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -341,12 +279,6 @@ test.describe('SegmentedControl', () => {
           await page.setViewportSize({width: viewports['primer.breakpoint.sm'], height: 768})
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Variant Narrow Action Menu.${theme}.png`)
-
-          // Focus state
-          await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(
-            `SegmentedControl.Variant Narrow Action Menu.${theme}.focus.png`,
-          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -383,20 +315,6 @@ test.describe('SegmentedControl', () => {
           await page.setViewportSize({width: viewports['primer.breakpoint.sm'], height: 768})
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Variant Narrow Hide Labels.${theme}.png`)
-
-          // Focus state
-          await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(
-            `SegmentedControl.Variant Narrow Hide Labels.${theme}.focus.png`,
-          )
-
-          // Middle Button Focus state
-          await page.keyboard.press('Tab')
-          await page.keyboard.press('Enter')
-          await page.keyboard.press('Shift+Tab')
-          expect(await page.screenshot()).toMatchSnapshot(
-            `SegmentedControl.Variant Narrow Hide Labels.${theme}.middle.selected.focus.png`,
-          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -431,18 +349,6 @@ test.describe('SegmentedControl', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Controlled.${theme}.png`)
-
-          // Focus state
-          await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Controlled.${theme}.focus.png`)
-
-          // Middle Button Focus state
-          await page.keyboard.press('Tab')
-          await page.keyboard.press('Enter')
-          await page.keyboard.press('Shift+Tab')
-          expect(await page.screenshot()).toMatchSnapshot(
-            `SegmentedControl.Controlled.${theme}.middle.selected.focus.png`,
-          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -477,18 +383,6 @@ test.describe('SegmentedControl', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Fullwidth.${theme}.png`)
-
-          // Focus state
-          await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Fullwidth.${theme}.focus.png`)
-
-          // Middle Button Focus state
-          await page.keyboard.press('Tab')
-          await page.keyboard.press('Enter')
-          await page.keyboard.press('Shift+Tab')
-          expect(await page.screenshot()).toMatchSnapshot(
-            `SegmentedControl.Fullwidth.${theme}.middle.selected.focus.png`,
-          )
         })
 
         test('axe @aat', async ({page}) => {
