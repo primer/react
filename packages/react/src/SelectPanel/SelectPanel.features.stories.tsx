@@ -471,16 +471,12 @@ export const CustomisedNoInitialItems = () => {
         onFilterChange={onFilterChange}
         overlayProps={{width: 'medium', height: 'large'}}
       >
-        {!isError ? (
-          <SelectPanel.Message variant="noInitialItems" title="You haven't created any projects yet">
-            <Link href="https://github.com/projects">Start your first project </Link> to organise your issues.
-          </SelectPanel.Message>
-        ) : null}
-        {!isError ? (
-          <SelectPanel.Message variant="noFilteredItems" title={`No language found for `}>
-            Adjust your search term to find other languages
-          </SelectPanel.Message>
-        ) : null}
+        <SelectPanel.Message variant="noInitialItems" title="You haven't created any projects yet">
+          <Link href="https://github.com/projects">Start your first project </Link> to organise your issues.
+        </SelectPanel.Message>
+        <SelectPanel.Message variant="noFilteredItems" title={`No language found for `}>
+          Adjust your search term to find other languages
+        </SelectPanel.Message>
         {isError ? (
           <SelectPanel.Message variant="error" title={`Ooops`}>
             Something is wrong.
@@ -497,18 +493,30 @@ export const CustomisedNoFilteredItems = () => {
   const [open, setOpen] = useState(true)
 
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
-  const [isError, setIsError] = React.useState(true)
+  const [isError, setIsError] = React.useState(false)
 
-  const onClick = React.useCallback(() => {
-    setIsError(!isError)
-  }, [setIsError, isError])
+  const onFilterChange = (value: string) => {
+    // return a random number between 0 to 10
+    const random = Math.floor(Math.random() * 10)
+    if (random < 5) {
+      setIsError(true)
+    } else {
+      setIsError(false)
+    }
+    // fetch the items
+    setFilter(value)
+  }
+
+  // const onClick = React.useCallback(() => {
+  //   setIsError(!isError)
+  // }, [setIsError, isError])
 
   return (
     <>
-      <Text id="toggle" fontWeight={'bold'} fontSize={2}>
+      {/* <Text id="toggle" fontWeight={'bold'} fontSize={2}>
         Enable Error State :{isError ? 'On' : 'Off'}
       </Text>
-      <ToggleSwitch onClick={onClick} checked={isError} aria-labelledby="switchLabel" />
+      <ToggleSwitch onClick={onClick} checked={isError} aria-labelledby="switchLabel" /> */}
       <SelectPanel
         title="Set projects"
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
@@ -521,19 +529,17 @@ export const CustomisedNoFilteredItems = () => {
         items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
-        onFilterChange={setFilter}
+        onFilterChange={onFilterChange}
         overlayProps={{width: 'medium', height: 'small'}}
       >
-        {!isError ? (
-          <SelectPanel.Message variant="noInitialItems" title="You haven't created any projects yet">
-            <Link href="https://github.com/projects">Start your first project </Link> to organise your issues.
-          </SelectPanel.Message>
-        ) : null}
-        {!isError ? (
-          <SelectPanel.Message variant="noFilteredItems" title={`No language found for `}>
-            Adjust your search term to find other languages
-          </SelectPanel.Message>
-        ) : null}
+        <SelectPanel.Message variant="noInitialItems" title="You haven't created any projects yet">
+          <Link href="https://github.com/projects">Start your first project </Link> to organise your issues.
+        </SelectPanel.Message>
+
+        <SelectPanel.Message variant="noFilteredItems" title={`No language found for `}>
+          Adjust your search term to find other languages
+        </SelectPanel.Message>
+
         {isError ? (
           <SelectPanel.Message variant="error" title={`Ooops`}>
             Something is wrong.

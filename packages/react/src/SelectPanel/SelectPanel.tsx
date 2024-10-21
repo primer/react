@@ -270,7 +270,7 @@ function Panel({
 
   const isNoItemsState = items.length === 0 && dataLoadedOnce && !loading && filterValue === ''
   const isNoMatchState = items.length === 0 && dataLoadedOnce && !loading && filterValue !== ''
-  const emptyState = isNoItemsState || isNoMatchState ? true : false
+  const emptyState = isNoItemsState || isNoMatchState
 
   function maybeMutateChildren(children: ReactNode): ReactNode[] {
     const newChildren = new Set()
@@ -278,9 +278,13 @@ function Panel({
     for (const child of React.Children.toArray(children)) {
       if (React.isValidElement(child)) {
         const variant = child.props.variant ?? null
+        // Only render noInitialItems variant SelectPanel.Message if there are no items
         if (variant === 'noInitialItems' && isNoItemsState) newChildren.add(child)
+        // Only render noFilteredItems variant SelectPanel.Message if there are no filtered items
         else if (variant === 'noFilteredItems' && isNoMatchState) newChildren.add(child)
-        else if (variant === 'error' || variant === 'warning') newChildren.add(child)
+        // Only render error or warning variant SelectPanel.Message if the UI is not in an empty state
+        else if ((variant === 'error' || variant === 'warning') && !emptyState) newChildren.add(child)
+        // If the child is not a variant of SelectPanel.Message, render all.
         else () => {}
       }
     }
