@@ -1,7 +1,7 @@
 {
   "id": "blankslate",
   "name": "Blankslate",
-  "status": "experimental",
+  "status": "draft",
   "a11yReviewed": false,
   "stories": [],
   "importPath": "@primer/react/experimental",

@@ -1,7 +1,7 @@
 {
   "id": "KeybindingHint",
   "name": "KeybindingHint",
-  "status": "experimental",
+  "status": "draft",
   "a11yReviewed": false,
   "stories": [],
   "importPath": "@primer/react",

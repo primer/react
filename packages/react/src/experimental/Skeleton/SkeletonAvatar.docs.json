@@ -1,7 +1,7 @@
 {
   "id": "skeleton_avatar",
   "name": "SkeletonAvatar",
-  "status": "experimental",
+  "status": "draft",
   "a11yReviewed": false,
   "stories": [],
   "importPath": "@primer/react/experimental",
