@@ -59,7 +59,9 @@ test.describe('Textarea', () => {
             })
 
             // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`Textarea.${story.title}.${theme}.png`)
+            expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+              `Textarea.${story.title}.${theme}.png`,
+            )
           })
 
           test('axe @aat', async ({page}) => {
