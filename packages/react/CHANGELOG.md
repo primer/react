@@ -1,5 +1,277 @@
 # @primer/react
 
+## 37.0.0
+
+### Major Changes
+
+- [#4953](https://github.com/primer/react/pull/4953) [`04e8c9c`](https://github.com/primer/react/commit/04e8c9c4daf6b2e39f0a13f16e4f2f3399902347) Thanks [@iansan5653](https://github.com/iansan5653)! - Delete deprecated draft components `MarkdownEditor`, `MarkdownInput`, and `InlineAutocomplete`
+
+- [#4800](https://github.com/primer/react/pull/4800) [`482b4d6`](https://github.com/primer/react/commit/482b4d6ab815350d5f5b71d686bf76cb3d234686) Thanks [@joshblack](https://github.com/joshblack)! - Update Primer React to emit _.css files that are imported by emitted _.js files for styling
+
+- [#4992](https://github.com/primer/react/pull/4992) [`d1d911a`](https://github.com/primer/react/commit/d1d911ad739f4f766234e99afca4ced0ad966da2) Thanks [@joshblack](https://github.com/joshblack)! - Move Octicon, Pagehead, Dialog (v1), and Tooltip (v1) to `@primer/react/deprecated`
+
+- [#4783](https://github.com/primer/react/pull/4783) [`7c57f40`](https://github.com/primer/react/commit/7c57f40d55ba2f10c6255e5273d5ae8021a919e5) Thanks [@joshblack](https://github.com/joshblack)! - Remove the SSRProvider component and useSSRSafeId hook
+
+- [#5075](https://github.com/primer/react/pull/5075) [`de7dbde`](https://github.com/primer/react/commit/de7dbde21cb7dcbf2d3cee588d751f2f2a7a70a9) Thanks [@joshblack](https://github.com/joshblack)! - Remove wildcard exports from `@primer/react`
+
+- [#4784](https://github.com/primer/react/pull/4784) [`b518005`](https://github.com/primer/react/commit/b51800530e84520057b7517044ca611b409eaa57) Thanks [@joshblack](https://github.com/joshblack)! - Remove temporary folders for TypeScript resolution of sub-paths
+
+- [#4785](https://github.com/primer/react/pull/4785) [`b74c47f`](https://github.com/primer/react/commit/b74c47f37628f67960343cec083dd60cd1ebc817) Thanks [@joshblack](https://github.com/joshblack)! - The drafts entrypoint has been removed from @primer/react. Use
+  @primer/react/experimental instead.
+
+- [#4940](https://github.com/primer/react/pull/4940) [`4d3b504`](https://github.com/primer/react/commit/4d3b50421f0823b3509a048987b15c59cb827176) Thanks [@langermank](https://github.com/langermank)! - Refactor ButtonBase component to use CSS modules behine flag
+
+- [#4781](https://github.com/primer/react/pull/4781) [`2d7307a`](https://github.com/primer/react/commit/2d7307ae575e0a5e17e602bab860e538e2bc148a) Thanks [@joshblack](https://github.com/joshblack)! - Remove the deprecated FilterList component from Primer React
+
+- [#4807](https://github.com/primer/react/pull/4807) [`055c9a7`](https://github.com/primer/react/commit/055c9a7150ac2761ee82998a45448d04129f781b) Thanks [@langermank](https://github.com/langermank)! - Remove deprecated `Button` component
+
+### Minor Changes
+
+- [#5097](https://github.com/primer/react/pull/5097) [`2a3c473`](https://github.com/primer/react/commit/2a3c473db4ee5e76903a82c150e09ad75868b15d) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Added className prop to the AvatarStack component
+
+- [#5113](https://github.com/primer/react/pull/5113) [`c28378e`](https://github.com/primer/react/commit/c28378eeca2658e23c84ed7047bb300be2ed9ce0) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Add `className` prop to `FormControl.Label` component
+
+- [#4814](https://github.com/primer/react/pull/4814) [`1cda89c`](https://github.com/primer/react/commit/1cda89c2d92719e0fa85e3945a53bd5bd6b301de) Thanks [@langermank](https://github.com/langermank)! - Add `link` variant to Button
+
+- [#4965](https://github.com/primer/react/pull/4965) [`5426a9a`](https://github.com/primer/react/commit/5426a9a0b46d4f0a93bba985e248f8b1f775b6e7) Thanks [@joshblack](https://github.com/joshblack)! - Update CounterLabel to use CSS Modules behind feature flag
+
+- [#5064](https://github.com/primer/react/pull/5064) [`29f33ce`](https://github.com/primer/react/commit/29f33ce93c6b7e573cca9f2c0a10bb12ec5245c3) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - Tooltip: Do not export all types publicly in the experimental bundle
+
+- [#4956](https://github.com/primer/react/pull/4956) [`15cb90f`](https://github.com/primer/react/commit/15cb90fde3e59f41475b19daef0851a969885248) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(PageHeader): add role prop and aria-label in top-level element
+
+- [#4939](https://github.com/primer/react/pull/4939) [`9936add`](https://github.com/primer/react/commit/9936add13e5dd9e2a46103ef88c030a6ef330e6f) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Adds `aria-describedby` for `LeadingVisual` and `TrailingVisual` in `TextInput`; adds new prop `loaderText` to convey loading state to screen readers
+
+- [#4804](https://github.com/primer/react/pull/4804) [`fd2c705`](https://github.com/primer/react/commit/fd2c7052be423150648d30f4baca0857b0644318) Thanks [@joshblack](https://github.com/joshblack)! - Remove experimental TabPanels component in preference of UnderlinePanels
+
+- [#4771](https://github.com/primer/react/pull/4771) [`92e05f7`](https://github.com/primer/react/commit/92e05f7c51d23778ead897f935f2cc14ed8ceff1) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Set `openOnFocus` default to `false`, making the menu closed initially rather than opening on focus of input
+
+- [#4798](https://github.com/primer/react/pull/4798) [`0fa60a4`](https://github.com/primer/react/commit/0fa60a49177cf6bf60cdb5d4714d5e55708461f9) Thanks [@joshblack](https://github.com/joshblack)! - Add the deprecated Dialog, Octicon, Pagehead, TabNav, and Tooltip components to @primer/react/deprecated
+
+- [#4951](https://github.com/primer/react/pull/4951) [`c9009de`](https://github.com/primer/react/commit/c9009decbdac1f6cbc9253556942762c227fd69d) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(Pagination): Use anchor instead of button for disabled prev/next controls
+
+- [#4834](https://github.com/primer/react/pull/4834) [`7ce1fda`](https://github.com/primer/react/commit/7ce1fda3174b8f707c784a8ffdf576e6ffbfac9d) Thanks [@langermank](https://github.com/langermank)! - Add `size` and `weight` props to `Text`
+
+- [#5010](https://github.com/primer/react/pull/5010) [`8385c33`](https://github.com/primer/react/commit/8385c334df1f31aa810a8e6575986ca420a683f9) Thanks [@joshblack](https://github.com/joshblack)! - Promote Dialog, Tooltip, and Stack from `@primer/react/experimental` to `@primer/react`
+
+- [#4962](https://github.com/primer/react/pull/4962) [`1977a68`](https://github.com/primer/react/commit/1977a682841267dc22ca49b5b05f56511f73764c) Thanks [@joshblack](https://github.com/joshblack)! - Update Checkbox component to use CSS Modules behind feature flag
+
+- [#5102](https://github.com/primer/react/pull/5102) [`2742ee5`](https://github.com/primer/react/commit/2742ee5dbc6c2b98b13249de7dd0f25252caacad) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Add `classname` prop support to `ActionList.Description` component
+
+- [#4976](https://github.com/primer/react/pull/4976) [`f448b1b`](https://github.com/primer/react/commit/f448b1b3debd72a3a372f4083d656a4e235cbfc9) Thanks [@joshblack](https://github.com/joshblack)! - Add certain wildcard exports to named entry points
+
+- [#4819](https://github.com/primer/react/pull/4819) [`0112347`](https://github.com/primer/react/commit/0112347b23d1aebf9a5dfea5cb01591b700dd653) Thanks [@joshblack](https://github.com/joshblack)! - Update Heading component to use CSS Modules behind feature flag
+
+- [#4913](https://github.com/primer/react/pull/4913) [`6c9121e`](https://github.com/primer/react/commit/6c9121e217e4815c7c6ab3c03474b2ca632f05e9) Thanks [@joshblack](https://github.com/joshblack)! - Update Banner to use CSS Modules behind feature flag
+
+- [#4893](https://github.com/primer/react/pull/4893) [`1b098ed`](https://github.com/primer/react/commit/1b098ed246211ed25944984a7cf02348858970af) Thanks [@jonrohan](https://github.com/jonrohan)! - Refactor Label to use CSS modules behind the primer_react_css_modules_team feature flag
+
+- [#4884](https://github.com/primer/react/pull/4884) [`46dc2f3`](https://github.com/primer/react/commit/46dc2f36190edf38f96020443014f8024177ae50) Thanks [@langermank](https://github.com/langermank)! - Bump `primer/primitives` v9
+
+- [#5099](https://github.com/primer/react/pull/5099) [`cb21a38`](https://github.com/primer/react/commit/cb21a384d63473295480a0905c4ca1ba59faf068) Thanks [@joshblack](https://github.com/joshblack)! - Add ButtonBase to `@primer/react/experimental` to help with wildcard import interop
+
+- [#4994](https://github.com/primer/react/pull/4994) [`be58fff`](https://github.com/primer/react/commit/be58fffd14453e977ab4fe3930829d1d67fcc1a8) Thanks [@camertron](https://github.com/camertron)! - [SegmentedControl, Autocomplete] Support passing React.ReactElements for icons.
+
+- [#4750](https://github.com/primer/react/pull/4750) [`414c140`](https://github.com/primer/react/commit/414c140cf86b37cd0104cdc8b027636a57cc0127) Thanks [@iansan5653](https://github.com/iansan5653)! - Add `KeybindingHint` component for indicating an available keyboard shortcut
+
+- [#5074](https://github.com/primer/react/pull/5074) [`e4965ed`](https://github.com/primer/react/commit/e4965ed773e32abc6fc49bff623dd79127047c93) Thanks [@joshblack](https://github.com/joshblack)! - Add the `useFeatureFlag` hook to `@primer/react/experimental`
+
+- [#4923](https://github.com/primer/react/pull/4923) [`1dded73`](https://github.com/primer/react/commit/1dded73ea13dca380cf201e9789bb0338689acc8) Thanks [@jonrohan](https://github.com/jonrohan)! - Move the Blankslate css modules feature flag to primer_react_css_modules_ga
+
+- [#5100](https://github.com/primer/react/pull/5100) [`b0d858a`](https://github.com/primer/react/commit/b0d858a55cf92c131005dfda8dca484793c1af41) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(ProgressBar): add aria-valuetext attribute
+
+- [#5007](https://github.com/primer/react/pull/5007) [`c909285`](https://github.com/primer/react/commit/c90928570c416f226f9bfdba25062131d406f687) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - ProgressBar: Add `bg` prop to `ProgressBar.Item`
+
+- [#5021](https://github.com/primer/react/pull/5021) [`cff067a`](https://github.com/primer/react/commit/cff067afd997988fea9cec4ce9167c07a5d7acbc) Thanks [@joshblack](https://github.com/joshblack)! - Add ResponsiveValue type to `@primer/react` entrypoint
+
+- [#4824](https://github.com/primer/react/pull/4824) [`b85d505`](https://github.com/primer/react/commit/b85d5057d2576a4bad37469daeb8ef66d34091cd) Thanks [@iansan5653](https://github.com/iansan5653)! - Adds new `className` prop to `FormControl` component
+
+- [#4885](https://github.com/primer/react/pull/4885) [`373ce95`](https://github.com/primer/react/commit/373ce95042a4e2244a220378dccfc03fa001e7cf) Thanks [@jonrohan](https://github.com/jonrohan)! - Refactor Avatar component to use CSS modules behind feature flag
+
+- [#5115](https://github.com/primer/react/pull/5115) [`e94f0a1`](https://github.com/primer/react/commit/e94f0a1771ab148108c290bf92cb794289c2173d) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Add 'className' prop to `Dialog` component
+
+- [#4779](https://github.com/primer/react/pull/4779) [`551aff3`](https://github.com/primer/react/commit/551aff34af3e9afbf114b612163a22a2098b2d76) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Adds dependencies to `Dialog` focus trap to ensure focus trap is reset when content within changes
+
+- [#4852](https://github.com/primer/react/pull/4852) [`1cb1470`](https://github.com/primer/react/commit/1cb1470d587087d9927abd2b2991c5068b79cdf4) Thanks [@joshblack](https://github.com/joshblack)! - Add support for sourcemaps for emitted CSS files
+
+- [#4960](https://github.com/primer/react/pull/4960) [`21c3fce`](https://github.com/primer/react/commit/21c3fcea267c2a0f181310934ad34e548a1d605a) Thanks [@joshblack](https://github.com/joshblack)! - Add support for experimental IssueLabel component
+
+- [#4874](https://github.com/primer/react/pull/4874) [`4c69b38`](https://github.com/primer/react/commit/4c69b38937ad0daa7bf4e9e71f28fd8e7e10a026) Thanks [@jonrohan](https://github.com/jonrohan)! - Refactor `Text` to CSS modules behind primer_react_css_modules_team feature flag
+
+- [#4810](https://github.com/primer/react/pull/4810) [`c0425ff`](https://github.com/primer/react/commit/c0425ff7d0b9572f7551f114133fd0302980815f) Thanks [@joshblack](https://github.com/joshblack)! - Update Blankslate component to use CSS Modules behind a feature flag
+
+- [#4838](https://github.com/primer/react/pull/4838) [`7a3b55d`](https://github.com/primer/react/commit/7a3b55d1374217b3cd2a33f048c7d60929fca5b5) Thanks [@joshblack](https://github.com/joshblack)! - Add support for custom icons when a Banner is variant="upsell"
+
+- [#5002](https://github.com/primer/react/pull/5002) [`9bd5c89`](https://github.com/primer/react/commit/9bd5c8936fa316c1216fb8fd22034b3355097431) Thanks [@jonrohan](https://github.com/jonrohan)! - chore(AvatarPair): Convert AvatarPair to CSS modules
+
+- [#4906](https://github.com/primer/react/pull/4906) [`dbf82f4`](https://github.com/primer/react/commit/dbf82f4576e8d071dc2d41b50396fa68ab5505c2) Thanks [@siddharthkp](https://github.com/siddharthkp)! - SelectPanel: Support <kbd>PageDown</kbd> and <kbd>PageUp</kbd> for keyboard navigation
+
+  SelectPanel: Label `listbox` by the title of the panel
+
+- [#5130](https://github.com/primer/react/pull/5130) [`661e94c`](https://github.com/primer/react/commit/661e94c449e8e9feb0c35a1dd62122801a55c6a6) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Add `className` prop support to `Textarea` component
+
+### Patch Changes
+
+- [#5036](https://github.com/primer/react/pull/5036) [`6671a20`](https://github.com/primer/react/commit/6671a207066bebdd54939d0806fca89c7ab55137) Thanks [@langermank](https://github.com/langermank)! - ActionListGroup description style bug fix
+
+- [#5000](https://github.com/primer/react/pull/5000) [`b8f6888`](https://github.com/primer/react/commit/b8f68888d2488d310b57a89ddab0f1562d4c6b0e) Thanks [@jonrohan](https://github.com/jonrohan)! - `Text` component CSS module feature flag changed to `primer_react_css_modules_staff`
+
+- [#4870](https://github.com/primer/react/pull/4870) [`3ca513c`](https://github.com/primer/react/commit/3ca513c824fc50b49a88320ec98dd3f1a15d25b9) Thanks [@jonrohan](https://github.com/jonrohan)! - Add `:where()` selector to classes that land on nodes that have a `sx` prop.
+
+- [#4910](https://github.com/primer/react/pull/4910) [`c2e4d5e`](https://github.com/primer/react/commit/c2e4d5eadb1a0bca3de81b6e2571585777f00a5d) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Changes the accessible name of the "toggle" button in `LabelGroup` to contain the visual label
+
+- [#4941](https://github.com/primer/react/pull/4941) [`80fe025`](https://github.com/primer/react/commit/80fe025aeea23ec4fa15c50075736df4934659b5) Thanks [@langermank](https://github.com/langermank)! - Bug fix: Button loading spinner color
+
+- [#4806](https://github.com/primer/react/pull/4806) [`84d1604`](https://github.com/primer/react/commit/84d1604ecf2c07b5584f7c5db2cd078c18847cbf) Thanks [@langermank](https://github.com/langermank)! - Add `variant` prop to Heading for small, medium and large styles
+
+- [#4916](https://github.com/primer/react/pull/4916) [`7a24a01`](https://github.com/primer/react/commit/7a24a0153b0cbdd80d3a281b44a79b7852c1cf8e) Thanks [@jonrohan](https://github.com/jonrohan)! - Moving Link CSS modules to staff feature flag
+
+- [#4811](https://github.com/primer/react/pull/4811) [`5ee8704`](https://github.com/primer/react/commit/5ee8704ff5b85ec2b848dcfc10c3a8ae40a3a892) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Octicon: Add aria-label to the Icon instead of it's container
+
+- [#4911](https://github.com/primer/react/pull/4911) [`9846375`](https://github.com/primer/react/commit/9846375ebc12444936ebec8911b8006f22b1234c) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Include current selected menu item in accessible name when using an `aria-label` in `SegmentedControl`
+
+- [#4975](https://github.com/primer/react/pull/4975) [`0b89fc0`](https://github.com/primer/react/commit/0b89fc040e05a61de4a686d3054f4cb6d9f32f6d) Thanks [@jonrohan](https://github.com/jonrohan)! - Change the Link component feature flag from primer_react_css_modules_staff to primer_react_css_modules_ga
+
+- [#5059](https://github.com/primer/react/pull/5059) [`682e787`](https://github.com/primer/react/commit/682e787071d9bed26801202cf6823a96c1b39462) Thanks [@gwwar](https://github.com/gwwar)! - Fixes negative and invalid pages in data table pagination on re-render.
+
+- [#5078](https://github.com/primer/react/pull/5078) [`3b7bf41`](https://github.com/primer/react/commit/3b7bf411c60d5283eb2fba78e7ab1a26b707af5b) Thanks [@jonrohan](https://github.com/jonrohan)! - Set the `min-width` of `IconButton` to `unset` to resolve layout issues.
+
+- [#4915](https://github.com/primer/react/pull/4915) [`69922d1`](https://github.com/primer/react/commit/69922d1ddde2cb06586a796b3d06fd0af636fb55) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Heading component to staff feature flag
+
+- [#4876](https://github.com/primer/react/pull/4876) [`9dd95a8`](https://github.com/primer/react/commit/9dd95a86274fc0358966aded932526f88c9d505a) Thanks [@TylerJDev](https://github.com/TylerJDev)! - ActionList: Add more guards for `ActionList.Item` before utilizing button semantics (behind feature flag `primer_react_action_list_item_as_button`)
+
+- [#4981](https://github.com/primer/react/pull/4981) [`c8fe1c6`](https://github.com/primer/react/commit/c8fe1c6005a7d8d8fe25e10d4ef107b75ab21db3) Thanks [@jonrohan](https://github.com/jonrohan)! - Removes the feature flag from the `Blankslate` component to always render with CSS modules.
+
+- [#4858](https://github.com/primer/react/pull/4858) [`6c69bff`](https://github.com/primer/react/commit/6c69bffb288caf8006cc3316afe86396d9987e49) Thanks [@jonrohan](https://github.com/jonrohan)! - Refactor Link, Blankslate, Heading to use :where css
+
+- [#4986](https://github.com/primer/react/pull/4986) [`d6471aa`](https://github.com/primer/react/commit/d6471aad819709efbaf049fd2c66600f454e635e) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(Dialog): track mousedown event to prevent accidental closing
+
+- [#4866](https://github.com/primer/react/pull/4866) [`587603b`](https://github.com/primer/react/commit/587603bcd750e558f443b071deb3dac90d004a90) Thanks [@langermank](https://github.com/langermank)! - Add `className` to Blankslate
+
+- [#5062](https://github.com/primer/react/pull/5062) [`0f5d5e0`](https://github.com/primer/react/commit/0f5d5e05096b1b1599a92c90619cde6e11cb5808) Thanks [@jonrohan](https://github.com/jonrohan)! - Move CSS modules feature flag from staff to ga for Avatar component
+
+- [#4967](https://github.com/primer/react/pull/4967) [`98d3d13`](https://github.com/primer/react/commit/98d3d13196ed918b8a4171062d9965d59b9073ed) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Utilizes `[disabled]` selector instead of `:disabled` in `TooltipV2` to address a false positive
+
+- [#5026](https://github.com/primer/react/pull/5026) [`3302440`](https://github.com/primer/react/commit/33024402ccc9f739ebf358cea6e90f409e4e1188) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Banner: Fix alignment of secondary action without primary action
+
+- [#4774](https://github.com/primer/react/pull/4774) [`11e7aef`](https://github.com/primer/react/commit/11e7aef33f124e84b4cf5c9e62c766834c6d1c31) Thanks [@langermank](https://github.com/langermank)! - - Adjust checkbox and radio border color values for high contrast themes
+
+  - Add default border to SegmentedControl
+  - Add inset box-shadow to StatusLabel to prep for new border-color in dark high contrast
+
+- [#4957](https://github.com/primer/react/pull/4957) [`6874b89`](https://github.com/primer/react/commit/6874b89026eef5c46fb4d27e1c0fa0f08807a6bc) Thanks [@langermank](https://github.com/langermank)! - Add missing `wide` CSS + className to Stack
+
+- [#5018](https://github.com/primer/react/pull/5018) [`8e4beae`](https://github.com/primer/react/commit/8e4beae98592c38a172aa0c2be604d7c06e941c7) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from `Heading`
+
+- [#4977](https://github.com/primer/react/pull/4977) [`1adea12`](https://github.com/primer/react/commit/1adea12b9c53b4de0f6b34c37617c45fa724f10b) Thanks [@siddharthkp](https://github.com/siddharthkp)! - SelectPanel: Add `role=combobox` to filter input (behind feature flag `primer_react_select_panel_with_modern_action_list`)
+
+- [#4648](https://github.com/primer/react/pull/4648) [`c6931d2`](https://github.com/primer/react/commit/c6931d20ea37888f0416429d068cc495d6cb804d) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionMenu: Make sure event handlers on ActionMenu.Button and ActionMenu.Anchor are called
+
+- [#5126](https://github.com/primer/react/pull/5126) [`f574372`](https://github.com/primer/react/commit/f57437209df3f35901cbb33045f9143285e39268) Thanks [@langermank](https://github.com/langermank)! - Add support for `aria-disabled` in `Button`
+
+- [#4766](https://github.com/primer/react/pull/4766) [`e74e581`](https://github.com/primer/react/commit/e74e5810590ea389a8594153a60b45e6b37f69b3) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - chore(deps): Update eslint-plugin-primer-react to latest
+
+- [#5082](https://github.com/primer/react/pull/5082) [`212714c`](https://github.com/primer/react/commit/212714ccc005eb57e272b3f64e3736e198c555e8) Thanks [@langermank](https://github.com/langermank)! - Add focus styles to Pagination component
+
+- [#5077](https://github.com/primer/react/pull/5077) [`6490b27`](https://github.com/primer/react/commit/6490b27bde15e7687dcda48c444eb909dec2d5a7) Thanks [@jonrohan](https://github.com/jonrohan)! - Bug fix(Avatar): Changed rounded border calculation for the "square" Avatar to better align with existing border styles
+
+- [#4795](https://github.com/primer/react/pull/4795) [`ca6b4b1`](https://github.com/primer/react/commit/ca6b4b1b6db2e867212689417503fcf3f29a7bce) Thanks [@siddharthkp](https://github.com/siddharthkp)! - ActionList: Enable focusZone for roles listbox and menu
+
+- [#5023](https://github.com/primer/react/pull/5023) [`1691e46`](https://github.com/primer/react/commit/1691e466a2749393af87ced37f4f72694582e0bb) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Button component feature flag from primer_react_css_modules_team to primer_react_css_modules_staff
+
+- [#5020](https://github.com/primer/react/pull/5020) [`31f03fb`](https://github.com/primer/react/commit/31f03fbdcdcd1bfca6fee15443b0c0bd241a42df) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Text component feature flag from primer_react_css_modules_staff to primer_react_css_modules_ga
+
+- [#4666](https://github.com/primer/react/pull/4666) [`04eac62`](https://github.com/primer/react/commit/04eac6280224d365f0496d927a87b32150006f9e) Thanks [@TylerJDev](https://github.com/TylerJDev)! - ActionList: Adds `aria-labelledby` to `ActionList.TrailingVisual`, making it part of the accessible name of `ActionList.Item`
+
+- [#4891](https://github.com/primer/react/pull/4891) [`ae00350`](https://github.com/primer/react/commit/ae00350e62f6251afe95591bf60cdb8280739b43) Thanks [@langermank](https://github.com/langermank)! - `StackItem` responsive grow bug fix
+
+- [#5055](https://github.com/primer/react/pull/5055) [`73135c1`](https://github.com/primer/react/commit/73135c1c57a02e35d33ae6ffba16784043dcabb8) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(Banner): rewrite PrimaryAction & SecondaryAction types
+
+- [#4768](https://github.com/primer/react/pull/4768) [`b7c90ea`](https://github.com/primer/react/commit/b7c90ea44be4abfb00a451567115cda6d9bc864d) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Header: Add overflow when there are a lot of items
+
+- [#4816](https://github.com/primer/react/pull/4816) [`f9bc73c`](https://github.com/primer/react/commit/f9bc73c167f4453cfb7a0636e72d216c6bd0d039) Thanks [@siddharthkp](https://github.com/siddharthkp)! - FilteredActionList: export `FilteredActionList` from '@primer/react/experimental'
+
+- [#4971](https://github.com/primer/react/pull/4971) [`ff56b04`](https://github.com/primer/react/commit/ff56b0476e59249db0d46a2c163a61ea75d06750) Thanks [@jonrohan](https://github.com/jonrohan)! - Changed Heading feature flag from `primer_react_css_modules_staff` to `primer_react_css_modules_ga`
+
+- [#5128](https://github.com/primer/react/pull/5128) [`adf8c4f`](https://github.com/primer/react/commit/adf8c4fc2fdaa0ed4bafc2a358f2207d127f3d15) Thanks [@stephaniegiang](https://github.com/stephaniegiang)! - Update confirmation dialog body to default color. Removing the muted color override.
+
+- [#5001](https://github.com/primer/react/pull/5001) [`597d285`](https://github.com/primer/react/commit/597d285a9cd876f52e7be56ba2dde1aed2c473f2) Thanks [@jonrohan](https://github.com/jonrohan)! - Migrate `ButtonGroup` component to use CSS modules behind the `primer_react_css_modules_team` feature flag
+
+- [#5041](https://github.com/primer/react/pull/5041) [`4da550e`](https://github.com/primer/react/commit/4da550ee52bcc8874ddae86e01e26ace64f48bf8) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(TooltipV2): always add aria-hidden
+
+- [#5086](https://github.com/primer/react/pull/5086) [`96ce586`](https://github.com/primer/react/commit/96ce586a6fd831fe6dff8fc4ec770d4904e1e587) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Button CSS module feature flag from staff to ga
+
+- [#5068](https://github.com/primer/react/pull/5068) [`5f7bd0b`](https://github.com/primer/react/commit/5f7bd0b399073b2f22b8eaec548c37ff19a5ea86) Thanks [@jonrohan](https://github.com/jonrohan)! - fix for `toggleStyledComponent` utility, When the feature flag is enabled and sx prop is passed in use, Box
+
+- [#4828](https://github.com/primer/react/pull/4828) [`1a674f7`](https://github.com/primer/react/commit/1a674f7ad18eb51bfc3ea63ec53b14880ebfd25a) Thanks [@jonrohan](https://github.com/jonrohan)! - Refactor Link component to use CSS modules using the feature flag `primer_react_css_modules`
+
+- [#4989](https://github.com/primer/react/pull/4989) [`dc80aa6`](https://github.com/primer/react/commit/dc80aa6352238c26ef31ae3dceb4ffbff6a148b7) Thanks [@camertron](https://github.com/camertron)! - Allow color to be customized for medium-sized IconButtons
+
+- [#4968](https://github.com/primer/react/pull/4968) [`da0f48b`](https://github.com/primer/react/commit/da0f48bcae27965f78fba8f2ba3e61254bae0529) Thanks [@siddharthkp](https://github.com/siddharthkp)! - SelectPanel: Add announcements for screen readers (behind feature flag `primer_react_select_panel_with_modern_action_list`)
+
+- [#4970](https://github.com/primer/react/pull/4970) [`44a3dc9`](https://github.com/primer/react/commit/44a3dc94f38e8056200155ea19bfd19904d8cba2) Thanks [@joshblack](https://github.com/joshblack)! - Update tab in UnderlinePanels to set explicit type
+
+- [#5000](https://github.com/primer/react/pull/5000) [`b8f6888`](https://github.com/primer/react/commit/b8f68888d2488d310b57a89ddab0f1562d4c6b0e) Thanks [@jonrohan](https://github.com/jonrohan)! - `Label` component CSS module feature flag changed to `primer_react_css_modules_staff`
+
+- [#4928](https://github.com/primer/react/pull/4928) [`caf4bcf`](https://github.com/primer/react/commit/caf4bcfc3e731c56e701cbeaf71d2b79e2a05a22) Thanks [@langermank](https://github.com/langermank)! - Bug fix: `invisible` Button variant missing background color when disabled
+
+- [#4831](https://github.com/primer/react/pull/4831) [`0d7a02a`](https://github.com/primer/react/commit/0d7a02a062d19b8909124b0756a41bec6455a39e) Thanks [@siddharthkp](https://github.com/siddharthkp)! - TextInput: Update trailing action styles for hover state
+
+- [#5132](https://github.com/primer/react/pull/5132) [`623a411`](https://github.com/primer/react/commit/623a411182d5b150ac39e69204b7eba6e0e935bc) Thanks [@langermank](https://github.com/langermank)! - Bug fix: ActionList Group className prop
+
+- [#5022](https://github.com/primer/react/pull/5022) [`4395d16`](https://github.com/primer/react/commit/4395d162be1a80233bada149966b36a27f91ba51) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Label component feature flag from primer_react_css_modules_staff to primer_react_css_modules_ga
+
+- [#4972](https://github.com/primer/react/pull/4972) [`082b4e7`](https://github.com/primer/react/commit/082b4e7eae0ebe40ba197ec1582519a9a9046dd8) Thanks [@joshblack](https://github.com/joshblack)! - Update issue where FormControl.Caption was rendering incorrectly when CSS Modules flags were enabled
+
+- [#5091](https://github.com/primer/react/pull/5091) [`4218bef`](https://github.com/primer/react/commit/4218bef879ae70aab3cc30492bacfc9c506be8f7) Thanks [@jonrohan](https://github.com/jonrohan)! - Bug fix for `IconButton` to respect the `style` prop width when the feature flag is on.
+
+- [#4841](https://github.com/primer/react/pull/4841) [`f3b08df`](https://github.com/primer/react/commit/f3b08dfd20681b04c5812a5ff66ea65d0e090db9) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Remove `aria-busy` from `ProgressBar` component
+
+- [#4857](https://github.com/primer/react/pull/4857) [`16c31e6`](https://github.com/primer/react/commit/16c31e6933d4f98db15baa880110fdf8aa2409e5) Thanks [@jonrohan](https://github.com/jonrohan)! - fix(Blankslate): Don't use Box to render heading when flag is enabled
+
+- [#4794](https://github.com/primer/react/pull/4794) [`5f996c6`](https://github.com/primer/react/commit/5f996c641b44303c9b466a3d28f208300eb4f36d) Thanks [@broccolinisoup](https://github.com/broccolinisoup)! - SelectPanel: Update SelectPanel to use modern ActionList behind a feature flag `primer_react_select_panel_with_modern_action_list`
+
+- [#4954](https://github.com/primer/react/pull/4954) [`af7f589`](https://github.com/primer/react/commit/af7f58911338f542525ce650f3aa34e85f9bf811) Thanks [@joshblack](https://github.com/joshblack)! - Banner: Update alignment of actions when it is dismissible and has a hidden title
+
+- [#4865](https://github.com/primer/react/pull/4865) [`ce2c674`](https://github.com/primer/react/commit/ce2c6749922a97a258147382bdc31e410f6b76eb) Thanks [@camertron](https://github.com/camertron)! - Update `Label` font weight to match Rails component
+
+- [#5111](https://github.com/primer/react/pull/5111) [`802568a`](https://github.com/primer/react/commit/802568ae1298c6f3eddf74962d5b8227f264ae2e) Thanks [@joshblack](https://github.com/joshblack)! - Update CSS styles for CounterLabel to allow overrides for color, background color
+
+- [#4969](https://github.com/primer/react/pull/4969) [`0cd6151`](https://github.com/primer/react/commit/0cd6151c2b620f10a06921a88edf6d64e0a1bc1a) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Add initial loading state to live region announcement in `TreeView`
+
+- [#4895](https://github.com/primer/react/pull/4895) [`0208e9e`](https://github.com/primer/react/commit/0208e9e50a58c0d44b89f9165b2d55f9b465841b) Thanks [@langermank](https://github.com/langermank)! - Bump `primer/primitives` v9.0.3
+
+- [#4995](https://github.com/primer/react/pull/4995) [`8a1ee22`](https://github.com/primer/react/commit/8a1ee22b287e8303105fab4d24f904b4b112a5d0) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - ProgressBar: Adding default gap between sections for progressbars with more than one section
+
+- [#5073](https://github.com/primer/react/pull/5073) [`472967a`](https://github.com/primer/react/commit/472967a712e9b81856b3b37088142b0ffbda5b15) Thanks [@siddharthkp](https://github.com/siddharthkp)! - SelectPanel: Fix items not being selected when defined within scope (track selection by item.id)
+
+- [#5145](https://github.com/primer/react/pull/5145) [`ccf7cbe`](https://github.com/primer/react/commit/ccf7cbeb060b50afb30072b666de020ddc1c46c8) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Banner css modules feature flag from team to staff
+
+- [#4966](https://github.com/primer/react/pull/4966) [`c097e96`](https://github.com/primer/react/commit/c097e9624cecb6506fcc38abcdc6605e033178f5) Thanks [@siddharthkp](https://github.com/siddharthkp)! - SelectPanel: Fix focus and selection styles for Windows high contrast themes (behind feature flag `primer_react_select_panel_with_modern_action_list`)
+
+- [#4943](https://github.com/primer/react/pull/4943) [`c282642`](https://github.com/primer/react/commit/c282642d0f525eca371aa1142b98482f19b366cb) Thanks [@langermank](https://github.com/langermank)! - Button bug fixes: `invisible` variant icon colors missing variables + icon button disabled state
+
+- [#5033](https://github.com/primer/react/pull/5033) [`0b83fe9`](https://github.com/primer/react/commit/0b83fe9772a8c2e71a2d2eb375a11849a6eabb9c) Thanks [@siddharthkp](https://github.com/siddharthkp)! - SelectPanel: Fix font weight from active styles for modern ActionList (behind feature flag)
+
+- [#5137](https://github.com/primer/react/pull/5137) [`bd1f1c2`](https://github.com/primer/react/commit/bd1f1c2fbb303facb36bcd449f4a8d911cf7546c) Thanks [@jonrohan](https://github.com/jonrohan)! - Make sure all components accept `className` as a prop on outermost component element.
+
+- [#5024](https://github.com/primer/react/pull/5024) [`45f3597`](https://github.com/primer/react/commit/45f359770ae830073f49aa23297aa9788809b46d) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Avatar component feature flag from primer_react_css_modules_team to primer_react_css_modules_staff
+
+- [#4997](https://github.com/primer/react/pull/4997) [`dc2d1f3`](https://github.com/primer/react/commit/dc2d1f3e71afa75757fccd83e0e82acd770d5055) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Popover: Add note on deprecation of `caret` in v38
+
+- [#5066](https://github.com/primer/react/pull/5066) [`702ba5c`](https://github.com/primer/react/commit/702ba5ca59d42abc57a1d6da539935534edcd2ab) Thanks [@jonrohan](https://github.com/jonrohan)! - Use the IconButton for the close button on Dialog
+
+- [#4987](https://github.com/primer/react/pull/4987) [`b82286d`](https://github.com/primer/react/commit/b82286d78588ab4364da6e0666f41aaff3318389) Thanks [@langermank](https://github.com/langermank)! - Bump stylelint + fixes
+
+- [#5011](https://github.com/primer/react/pull/5011) [`7a5205d`](https://github.com/primer/react/commit/7a5205d88e6c1600e83232a102378d97639b4223) Thanks [@langermank](https://github.com/langermank)! - Bug fix: `Button` aria-expanded state (CSS Modules)
+
+- [#5079](https://github.com/primer/react/pull/5079) [`a2e5671`](https://github.com/primer/react/commit/a2e5671e720e4d78a3f5a9b503fc841db100dc1d) Thanks [@jonrohan](https://github.com/jonrohan)! - Correctly pass styled system typography and common props to the `Box` component in the `Text` component when the CSS modules feature flag is enabled.
+
+- [#5053](https://github.com/primer/react/pull/5053) [`2703d0c`](https://github.com/primer/react/commit/2703d0c659a71d3d0c6e307cb4d6dc2606c070d0) Thanks [@siddharthkp](https://github.com/siddharthkp)! - Banner: Fix margin for inline actions
+
+- [#4855](https://github.com/primer/react/pull/4855) [`873249a`](https://github.com/primer/react/commit/873249a1e31d74e1d94399f495558ce9574f22c5) Thanks [@mattcosta7](https://github.com/mattcosta7)! - avoid useeffect when syncing theme config
+
+- [#4803](https://github.com/primer/react/pull/4803) [`527f9a9`](https://github.com/primer/react/commit/527f9a9320c51b9b1a0884b388d5ff53af7c11b1) Thanks [@aprendendofelipe](https://github.com/aprendendofelipe)! - Bumps @github/relative-time-element to v4.4.2
+
 ## 37.0.0-rc.11
 
 ### Minor Changes
