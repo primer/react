@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import React from 'react'
+import React, {act} from 'react'
 import {Details, useDetails, Box, Button} from '../..'
 import type {ButtonProps} from '../../Button'
 import {behavesAsComponent, checkExports} from '../../utils/testing'
@@ -19,11 +19,14 @@ describe('Details', () => {
         <Details.Summary>Summary</Details.Summary>Content
       </Details>,
     )
-    const results = await axe.run(container)
+    let results
+    await act(async () => {
+      results = await axe.run(container)
+    })
     expect(results).toHaveNoViolations()
   })
 
-  it('Toggles when you click outside', () => {
+  it('Toggles when you click outside', async () => {
     const Component = () => {
       const {getDetailsProps} = useDetails({closeOnOutsideClick: true})
       return (
@@ -33,14 +36,14 @@ describe('Details', () => {
       )
     }
 
-    const {getByTestId} = render(<Component />)
+    const {findByTestId} = render(<Component />)
 
     document.body.click()
 
-    expect(getByTestId('details')).not.toHaveAttribute('open')
+    expect(await findByTestId('details')).not.toHaveAttribute('open')
   })
 
-  it('Accurately passes down open state', () => {
+  it('Accurately passes down open state', async () => {
     const Component = () => {
       const {getDetailsProps, open} = useDetails({closeOnOutsideClick: true})
       return (
@@ -50,12 +53,12 @@ describe('Details', () => {
       )
     }
 
-    const {getByTestId} = render(<Component />)
+    const {findByTestId} = render(<Component />)
 
     document.body.click()
 
-    expect(getByTestId('summary')).toHaveTextContent('Closed')
-    expect(getByTestId('details')).not.toHaveAttribute('open')
+    expect(await findByTestId('summary')).toHaveTextContent('Closed')
+    expect(await findByTestId('details')).not.toHaveAttribute('open')
   })
 
   it('Can manipulate state with setOpen', async () => {
@@ -113,20 +116,20 @@ describe('Details', () => {
   })
 
   it('Does not add default summary if summary supplied', async () => {
-    const {getByTestId, queryByText} = render(
+    const {findByTestId, findByText} = render(
       <Details data-testid="details">
         <Details.Summary data-testid="summary">summary</Details.Summary>
         content
       </Details>,
     )
 
-    expect(queryByText('See Details')).toBeNull()
-    expect(getByTestId('summary')).toBeInTheDocument()
-    expect(getByTestId('summary').tagName).toBe('SUMMARY')
+    await expect(findByText('See Details')).rejects.toThrow()
+    expect(await findByTestId('summary')).toBeInTheDocument()
+    expect((await findByTestId('summary')).tagName).toBe('SUMMARY')
   })
 
   it('Does not add default summary if supplied as different element', async () => {
-    const {getByTestId, queryByText} = render(
+    const {findByTestId, findByText} = render(
       <Details data-testid="details">
         <Box as="summary" data-testid="summary">
           custom summary
@@ -135,9 +138,9 @@ describe('Details', () => {
       </Details>,
     )
 
-    expect(queryByText('See Details')).toBeNull()
-    expect(getByTestId('summary')).toBeInTheDocument()
-    expect(getByTestId('summary').tagName).toBe('SUMMARY')
+    await expect(findByText('See Details')).rejects.toThrow()
+    expect(await findByTestId('summary')).toBeInTheDocument()
+    expect((await findByTestId('summary')).tagName).toBe('SUMMARY')
   })
 
   describe('Details.Summary', () => {
