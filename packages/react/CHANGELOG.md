@@ -1,5 +1,11 @@
 # @primer/react
 
+## 37.0.1
+
+### Patch Changes
+
+- [#5162](https://github.com/primer/react/pull/5162) [`a5feea7`](https://github.com/primer/react/commit/a5feea7e8425a9f32fd23eb69aaad8126b8e0216) Thanks [@joshblack](https://github.com/joshblack)! - Update generated docs for draft components to use experimental instead
+
 ## 37.0.0
 
 ### Major Changes
