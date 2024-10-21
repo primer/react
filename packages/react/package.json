@@ -188,7 +188,7 @@
     "react-dnd": "14.0.4",
     "react-dnd-html5-backend": "14.0.2",
     "react-dom": "18.3.1",
-    "react-test-renderer": "18.2.0",
+    "react-test-renderer": "18.3.1",
     "recast": "0.23.7",
     "rimraf": "5.0.5",
     "rollup": "4.24.0",
