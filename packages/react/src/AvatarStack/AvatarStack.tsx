@@ -263,7 +263,7 @@ const AvatarStack = ({
   useEffect(() => {
     const hasInteractive = hasInteractiveNodes(avatarStackContainer.current, 'div[tabindex]')
     setHasInteractiveChildren(hasInteractive)
-  }, [children])
+  }, [])
 
   const getResponsiveAvatarSizeStyles = () => {
     // if there is no size set on the AvatarStack, use the `size` props of the Avatar children to set the `--avatar-stack-size` CSS variable
