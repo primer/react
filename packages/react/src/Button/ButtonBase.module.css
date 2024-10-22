@@ -491,6 +491,7 @@
     color: var(--button-inactive-fgColor);
     cursor: auto;
     background-color: var(--button-inactive-bgColor);
+    /* stylelint-disable-next-line primer/colors */
     border-color: var(--button-inactive-bgColor);
 
     & .Visual,
