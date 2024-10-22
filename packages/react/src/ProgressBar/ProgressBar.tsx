@@ -118,9 +118,13 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
       throw new Error('You should pass `progress` or children, not both.')
     }
 
+    const validChildren = React.Children.toArray(children).length
+
     return (
       <ProgressContainer ref={forwardRef} barSize={barSize} {...rest}>
-        {children ?? (
+        {validChildren ? (
+          children
+        ) : (
           <Item
             data-animated={animated}
             progress={progress}
