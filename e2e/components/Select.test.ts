@@ -63,7 +63,9 @@ test.describe('Select', () => {
             })
 
             // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`Select.${story.title}.${theme}.png`)
+            expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+              `Select.${story.title}.${theme}.png`,
+            )
           })
 
           test('axe @aat', async ({page}) => {
