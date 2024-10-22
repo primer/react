@@ -17,6 +17,16 @@ test.describe('SegmentedControl', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Default.${theme}.png`)
+
+          // Focus state
+          await page.keyboard.press('Tab')
+          expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Default.${theme}.focus.png`)
+
+          // Middle Button Focus state
+          await page.keyboard.press('Tab')
+          await page.keyboard.press('Enter')
+          await page.keyboard.press('Shift+Tab')
+          expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Default.${theme}.middle.selected.focus.png`)
         })
 
         test('axe @aat', async ({page}) => {
@@ -407,6 +417,18 @@ test.describe('SegmentedControl', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Icon Only.${theme}.png`)
+
+          // Focus state
+          await page.keyboard.press('Tab')
+          expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.Icon Only.${theme}.focus.png`)
+
+          // Middle Button Focus state
+          await page.keyboard.press('Tab')
+          await page.keyboard.press('Enter')
+          await page.keyboard.press('Shift+Tab')
+          expect(await page.screenshot()).toMatchSnapshot(
+            `SegmentedControl.Icon Only.${theme}.middle.selected.focus.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
@@ -445,6 +467,18 @@ test.describe('SegmentedControl', () => {
 
           // Default state
           expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.With Icons.${theme}.png`)
+
+          // Focus state
+          await page.keyboard.press('Tab')
+          expect(await page.screenshot()).toMatchSnapshot(`SegmentedControl.With Icons.${theme}.focus.png`)
+
+          // Middle Button Focus state
+          await page.keyboard.press('Tab')
+          await page.keyboard.press('Enter')
+          await page.keyboard.press('Shift+Tab')
+          expect(await page.screenshot()).toMatchSnapshot(
+            `SegmentedControl.With Icons.${theme}.middle.selected.focus.png`,
+          )
         })
 
         test('axe @aat', async ({page}) => {
