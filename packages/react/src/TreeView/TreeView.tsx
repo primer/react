@@ -625,7 +625,6 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
       if (ref.current?.childElementCount) {
         announceUpdate(`${parentName} content loaded`)
       } else {
-        console.log(`${parentName} is empty`)
         announceUpdate(`${parentName} is empty`)
       }
 
