@@ -1,8 +1,7 @@
-import React, {type ReactElement} from 'react'
+import React, {type ComponentPropsWithoutRef, type ReactElement} from 'react'
 import styled from 'styled-components'
 import type {SxProp} from '../sx'
 import sx from '../sx'
-import type {ComponentProps} from '../utils/types'
 import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import {useFeatureFlag} from '../FeatureFlags'
 import {clsx} from 'clsx'
@@ -25,7 +24,7 @@ const StyledDetails = toggleStyledComponent(
   `,
 )
 
-const Details = React.forwardRef<HTMLDetailsElement, ComponentProps<typeof StyledDetails>>(
+const Details = React.forwardRef<HTMLDetailsElement, DetailsProps>(
   ({className, children, ...rest}, ref): ReactElement => {
     const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
     return (
@@ -38,5 +37,5 @@ const Details = React.forwardRef<HTMLDetailsElement, ComponentProps<typeof Style
 
 Details.displayName = 'Details'
 
-export type DetailsProps = ComponentProps<typeof StyledDetails>
+export type DetailsProps = ComponentPropsWithoutRef<'details'>
 export default Details
