@@ -18,7 +18,7 @@ const shimmer = keyframes`
 export const SkeletonBox = styled.div<SkeletonBoxProps>`
   animation: ${shimmer};
   display: block;
-  background-color: var(--skeletonLoader-bgColor, ${get('colors.canvas.subtle')});
+  background-color: var(--bgColor-muted, ${get('colors.canvas.subtle')});
   border-radius: 3px;
   height: ${props => props.height || '1rem'};
   width: ${props => props.width};

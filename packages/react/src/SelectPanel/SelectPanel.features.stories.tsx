@@ -1,5 +1,5 @@
 import React, {useState, useRef, useMemo} from 'react'
-import type {Meta, StoryObj} from '@storybook/react'
+import type {Meta} from '@storybook/react'
 import Box from '../Box'
 import {Button} from '../Button'
 import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
@@ -14,7 +14,6 @@ import {
   TypographyIcon,
   VersionsIcon,
 } from '@primer/octicons-react'
-import useSafeTimeout from '../hooks/useSafeTimeout'
 
 const meta = {
   title: 'Components/SelectPanel/Features',
@@ -369,64 +368,4 @@ export const WithGroups = () => {
       overlayProps={{width: 'large', height: 'xlarge'}}
     />
   )
-}
-
-export const AsyncFetch: StoryObj<typeof SelectPanel> = {
-  render: ({initialLoadingType, height}) => {
-    const [selected, setSelected] = React.useState<ItemInput[]>([])
-    const [filteredItems, setFilteredItems] = React.useState<ItemInput[]>([])
-    const [open, setOpen] = useState(false)
-    const filterTimerId = useRef<number | null>(null)
-    const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
-    const onFilterChange = (value: string) => {
-      if (filterTimerId.current) {
-        safeClearTimeout(filterTimerId.current)
-      }
-
-      filterTimerId.current = safeSetTimeout(() => {
-        setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(value.toLowerCase())))
-      }, 2000) as unknown as number
-    }
-
-    return (
-      <SelectPanel
-        title="Select labels"
-        subtitle="Use labels to organize issues and pull requests"
-        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
-          <Button
-            trailingAction={TriangleDownIcon}
-            aria-labelledby={` ${ariaLabelledBy}`}
-            {...anchorProps}
-            aria-haspopup="dialog"
-          >
-            {children ?? 'Select Labels'}
-          </Button>
-        )}
-        placeholderText="Filter labels"
-        open={open}
-        onOpenChange={setOpen}
-        items={filteredItems}
-        selected={selected}
-        onSelectedChange={setSelected}
-        onFilterChange={onFilterChange}
-        showItemDividers={true}
-        initialLoadingType={initialLoadingType}
-        height={height}
-      />
-    )
-  },
-  args: {
-    initialLoadingType: 'spinner',
-    height: 'medium',
-  },
-  argTypes: {
-    initialLoadingType: {
-      control: 'select',
-      options: ['spinner', 'skeleton'],
-    },
-    height: {
-      control: 'select',
-      options: ['auto', 'xsmall', 'small', 'medium', 'large', 'xlarge'],
-    },
-  },
 }
