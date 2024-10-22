@@ -41,6 +41,8 @@ export interface ConfirmationDialogProps {
    * The type of button to use for the confirm button. Default: Button.
    */
   confirmButtonType?: 'normal' | 'primary' | 'danger'
+
+  className?: string
 }
 
 const StyledConfirmationHeader = styled.div`
@@ -110,6 +112,7 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
     confirmButtonContent = 'OK',
     confirmButtonType = 'normal',
     children,
+    className,
   } = props
 
   const onCancelButtonClick = useCallback(() => {
@@ -141,6 +144,7 @@ export const ConfirmationDialog: React.FC<React.PropsWithChildren<ConfirmationDi
       renderHeader={ConfirmationHeader}
       renderBody={ConfirmationBody}
       renderFooter={ConfirmationFooter}
+      className={className}
     >
       {children}
     </Dialog>

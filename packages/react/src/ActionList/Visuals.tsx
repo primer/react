@@ -33,10 +33,11 @@ export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProp
 }
 
 export type ActionListLeadingVisualProps = VisualProps
-export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
+export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, className, ...props}) => {
   const {variant, disabled, inactive} = React.useContext(ItemContext)
   return (
     <LeadingVisualContainer
+      className={className}
       sx={merge(
         {
           color: getVariantStyles(variant, disabled, inactive).iconColor,
@@ -56,12 +57,13 @@ export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({s
 }
 
 export type ActionListTrailingVisualProps = VisualProps
-export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
+export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, className, ...props}) => {
   const {variant, disabled, inactive, trailingVisualId} = React.useContext(ItemContext)
   return (
     <Box
       id={trailingVisualId}
       as="span"
+      className={className}
       sx={merge(
         {
           height: '20px', // match height of text row
