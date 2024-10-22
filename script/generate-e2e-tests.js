@@ -790,6 +790,18 @@ const components = new Map([
     {
       stories: [
         {
+          id: 'components-navlist--simple',
+          name: 'Simple',
+        },
+        {
+          id: 'components-navlist--with-group',
+          name: 'With group',
+        },
+        {
+          id: 'components-navlist--with-group-expand',
+          name: 'With group expand',
+        },
+        {
           id: 'components-navlist--with-trailing-action',
           name: 'With TrailingAction',
         },
