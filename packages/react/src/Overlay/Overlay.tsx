@@ -238,7 +238,7 @@ const Overlay = React.forwardRef<HTMLElement, OwnOverlayProps>(
             {
               ...leftPosition,
               right,
-              top,
+              top: top || !isDialog ? top : 0,
               bottom,
               position,
               '--styled-overlay-visibility': visibility,
