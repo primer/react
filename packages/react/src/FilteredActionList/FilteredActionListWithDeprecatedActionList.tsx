@@ -102,7 +102,7 @@ export function FilteredActionList({
     },
     [
       // List ref isn't set while loading.  Need to re-bind focus zone when it changes
-      loading,
+      listContainerRef,
     ],
   )
 
