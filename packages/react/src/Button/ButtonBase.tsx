@@ -40,7 +40,7 @@ const renderModuleVisual = (
 ) => (
   <span
     data-component={visualName}
-    className={clsx(!counterLabel && classes.Visual, loading ? classes.loadingSpinner : classes.VisualWrap)}
+    className={clsx(!counterLabel && classes.Visual, loading ? classes.LoadingSpinner : classes.VisualWrap)}
   >
     {loading ? <Spinner size="small" /> : isElement(Visual) ? Visual : <Visual />}
   </span>
@@ -70,7 +70,7 @@ const ButtonBase = forwardRef(
       ...rest
     } = props
 
-    const enabled = useFeatureFlag('primer_react_css_modules_staff')
+    const enabled = useFeatureFlag('primer_react_css_modules_ga')
     const innerRef = React.useRef<HTMLButtonElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, innerRef)
 

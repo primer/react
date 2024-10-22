@@ -2,10 +2,10 @@ import React from 'react'
 import type {Meta} from '@storybook/react'
 import ButtonGroup from './ButtonGroup'
 import {IconButton, Button} from '../Button'
+import {PlusIcon, DashIcon, TriangleDownIcon} from '@primer/octicons-react'
 import {ActionMenu} from '../ActionMenu'
 import {ActionList} from '../ActionList'
 import {Tooltip} from '../next'
-import {PlusIcon, DashIcon} from '@primer/octicons-react'
 
 export default {
   title: 'Components/ButtonGroup/Features',
@@ -91,6 +91,42 @@ export const InactiveButtonsGroup = () => {
         <ActionMenu.Overlay align="end">
           <ActionList.Item>Item 1</ActionList.Item>
           <ActionList.Item>Item 2</ActionList.Item>
+        </ActionMenu.Overlay>
+      </ActionMenu>
+    </ButtonGroup>
+  )
+}
+
+export const DropdownSplit = () => {
+  const actions = ['Action one', 'Action two', 'Action three']
+  const [selectedActionIndex, setSelectedActionIndex] = React.useState<number>(0)
+  const selectedAction = actions[selectedActionIndex]
+  return (
+    <ButtonGroup>
+      <Button
+        onClick={() => {
+          alert(`Activated ${selectedAction}`)
+        }}
+      >
+        {selectedAction}
+      </Button>
+      <ActionMenu>
+        <ActionMenu.Button icon={TriangleDownIcon}>More options</ActionMenu.Button>
+        <ActionMenu.Overlay>
+          <ActionList>
+            {actions.map((action, index) => {
+              return (
+                <ActionList.Item
+                  key={action}
+                  onSelect={() => {
+                    setSelectedActionIndex(index)
+                  }}
+                >
+                  {action}
+                </ActionList.Item>
+              )
+            })}
+          </ActionList>
         </ActionMenu.Overlay>
       </ActionMenu>
     </ButtonGroup>

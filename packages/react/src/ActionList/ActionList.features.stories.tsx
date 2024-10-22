@@ -358,6 +358,24 @@ export const ListBoxMultiSelect = () => {
   )
 }
 
+export const WithDynamicContent = () => {
+  const [isTrue, setIsTrue] = React.useState(false)
+
+  return (
+    <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+      <ActionList>
+        <ActionList.Item
+          onSelect={() => {
+            setIsTrue(!isTrue)
+          }}
+        >
+          Activated? {isTrue ? 'Yes' : 'No'}
+        </ActionList.Item>
+      </ActionList>
+    </FeatureFlags>
+  )
+}
+
 export const DisabledSelectedMultiselect = () => (
   <ActionList selectionVariant="multiple" role="menu" aria-label="Project">
     <ActionList.Item role="menuitemcheckbox" selected aria-checked disabled>
