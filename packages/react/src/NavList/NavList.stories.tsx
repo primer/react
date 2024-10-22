@@ -251,7 +251,7 @@ export const WithGroupHeadingLinks: StoryFn = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
       <NavList>
-        <NavList.Group>
+        <NavList.Group title="Group one">
           <NavList.GroupHeading>
             <a href="#group-1">Group 1</a>
           </NavList.GroupHeading>

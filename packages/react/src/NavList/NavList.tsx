@@ -280,9 +280,21 @@ const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defau
     <>
       {/* Hide divider if the group is the first item in the list */}
       <ActionList.Divider sx={{'&:first-child': {display: 'none'}}} />
-      <ActionList.Group {...props} sx={sxProp}>
+      <ActionList.Group
+        {...props}
+        // If somebody tries to pass the `title` prop AND a `NavList.GroupHeading` as a child, hide the `ActionList.GroupHeading`
+        sx={merge<SxProp['sx']>(sxProp, {
+          ':has([data-component="NavList.GroupHeading"]):has([data-component="ActionList.GroupHeading"])': {
+            '[data-component="ActionList.GroupHeading"]': {display: 'none'},
+          },
+        })}
+      >
         {/* Setting up the default value for the heading level. TODO: API update to give flexibility to NavList.Group title's heading level */}
-        {title ? <ActionList.GroupHeading as="h3">{title}</ActionList.GroupHeading> : null}
+        {title ? (
+          <ActionList.GroupHeading as="h3" data-component="ActionList.GroupHeading">
+            {title}
+          </ActionList.GroupHeading>
+        ) : null}
         {children}
       </ActionList.Group>
     </>
@@ -297,10 +309,10 @@ export type NavListGroupHeadingProps = ActionListGroupHeadingProps
  * This is an alternative to the `title` prop on `NavList.Group`.
  * It was primarily added to allow links in group headings.
  */
-const GroupHeading: React.FC<NavListGroupHeadingProps> = ({sx: sxProp = defaultSxProp, ...rest}) => {
+const GroupHeading: React.FC<NavListGroupHeadingProps> = ({as = 'h3', sx: sxProp = defaultSxProp, ...rest}) => {
   return (
     <ActionList.GroupHeading
-      as="h3"
+      as={as}
       sx={merge<SxProp['sx']>(
         {
           '> a {': {
@@ -311,6 +323,7 @@ const GroupHeading: React.FC<NavListGroupHeadingProps> = ({sx: sxProp = defaultS
         },
         sxProp,
       )}
+      data-component="NavList.GroupHeading"
       {...rest}
     />
   )
