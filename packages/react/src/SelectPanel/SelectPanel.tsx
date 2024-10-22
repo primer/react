@@ -270,28 +270,32 @@ function Panel({
 
   const isNoItemsState = items.length === 0 && dataLoadedOnce && !loading && filterValue === ''
   const isNoMatchState = items.length === 0 && dataLoadedOnce && !loading && filterValue !== ''
-  const emptyState = isNoItemsState || isNoMatchState
 
-  function maybeMutateChildren(children: ReactNode): ReactNode[] {
-    const newChildren = new Set()
+  function getCurrentMessage(children: ReactNode): ReactNode[] {
+    const variantMap = new Map<string, React.ReactElement>()
 
     for (const child of React.Children.toArray(children)) {
       if (React.isValidElement(child)) {
         const variant = child.props.variant ?? null
-        // Only render noInitialItems variant SelectPanel.Message if there are no items
-        if (variant === 'noInitialItems' && isNoItemsState) newChildren.add(child)
-        // Only render noFilteredItems variant SelectPanel.Message if there are no filtered items
-        else if (variant === 'noFilteredItems' && isNoMatchState) newChildren.add(child)
-        // Only render error or warning variant SelectPanel.Message if the UI is not in an empty state
-        else if ((variant === 'error' || variant === 'warning') && !emptyState) newChildren.add(child)
-        // If the child is not a variant of SelectPanel.Message, render all.
-        else () => {}
+        if (variant === 'noInitialItems' && isNoItemsState) {
+          variantMap.set('noInitialItems', child)
+        } else if (variant === 'noFilteredItems' && isNoMatchState) {
+          variantMap.set('noFilteredItems', child)
+        } else if (variant === 'error' || variant === 'warning') {
+          variantMap.set(variant, child)
+        }
       }
     }
-    // @ts-ignore shh
-    return Array.from(newChildren)
+
+    const priorityOrder = ['error', 'warning', 'noInitialItems', 'noFilteredItems']
+
+    for (const key of priorityOrder) {
+      if (variantMap.has(key)) {
+        return [variantMap.get(key)!]
+      }
+    }
   }
-  const maybeMutatedChildren = maybeMutateChildren(children)
+  const currentMessage = getCurrentMessage(children)
 
   return (
     <LiveRegion>
@@ -350,7 +354,8 @@ function Panel({
             inputRef={inputRef}
             loading={isLoading}
             loadingType={loadingType()}
-            {...(usingModernActionList ? {maybeMutatedChildren} : {})}
+            // message={currentMessage}
+            {...(usingModernActionList ? {message: currentMessage} : {})}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
             sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}

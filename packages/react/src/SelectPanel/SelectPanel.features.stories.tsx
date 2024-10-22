@@ -437,7 +437,7 @@ export const AsyncFetch: StoryObj<typeof SelectPanel> = {
 export const CustomisedNoInitialItems = () => {
   const [selected, setSelected] = React.useState<ItemInput[]>([])
   const [filteredItems, setFilteredItems] = React.useState<ItemInput[]>([])
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onFilterChange = (value: string = '') => {
     setTimeout(() => {
@@ -445,7 +445,7 @@ export const CustomisedNoInitialItems = () => {
       setFilteredItems([])
     }, 0)
   }
-  const [isError, setIsError] = React.useState(true)
+  const [isError, setIsError] = React.useState(false)
 
   const onClick = React.useCallback(() => {
     setIsError(!isError)
@@ -494,29 +494,30 @@ export const CustomisedNoFilteredItems = () => {
 
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   const [isError, setIsError] = React.useState(false)
+  const [enableError, setEnableError] = React.useState(false)
 
   const onFilterChange = (value: string) => {
-    // return a random number between 0 to 10
-    const random = Math.floor(Math.random() * 10)
-    if (random < 5) {
-      setIsError(true)
-    } else {
-      setIsError(false)
+    if (enableError) {
+      const random = Math.floor(Math.random() * 20)
+      if (random < 5) {
+        setIsError(true)
+      } else {
+        setIsError(false)
+      }
     }
-    // fetch the items
     setFilter(value)
   }
 
-  // const onClick = React.useCallback(() => {
-  //   setIsError(!isError)
-  // }, [setIsError, isError])
+  const onClick = React.useCallback(() => {
+    setEnableError(!enableError)
+  }, [setEnableError, enableError])
 
   return (
     <>
-      {/* <Text id="toggle" fontWeight={'bold'} fontSize={2}>
-        Enable Error State :{isError ? 'On' : 'Off'}
+      <Text id="toggle" fontWeight={'bold'} fontSize={2}>
+        Randomly throw error when searching :{enableError ? 'Yes' : 'No'}
       </Text>
-      <ToggleSwitch onClick={onClick} checked={isError} aria-labelledby="switchLabel" /> */}
+      <ToggleSwitch onClick={onClick} checked={enableError} aria-labelledby="switchLabel" />
       <SelectPanel
         title="Set projects"
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
