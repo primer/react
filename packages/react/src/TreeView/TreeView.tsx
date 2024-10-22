@@ -482,7 +482,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           aria-labelledby={ariaLabel ? undefined : ariaLabelledby || labelId}
           aria-describedby={`${leadingVisualId} ${trailingVisualId}`}
           aria-level={level}
-          aria-expanded={isSubTreeEmpty ? undefined : isExpanded}
+          aria-expanded={isExpanded}
           aria-current={isCurrentItem ? 'true' : undefined}
           aria-selected={isFocused ? 'true' : 'false'}
           data-has-leading-action={slots.leadingAction ? true : undefined}
@@ -625,6 +625,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
       if (ref.current?.childElementCount) {
         announceUpdate(`${parentName} content loaded`)
       } else {
+        console.log(`${parentName} is empty`)
         announceUpdate(`${parentName} is empty`)
       }
 
@@ -697,6 +698,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
       ref={ref}
     >
       {state === 'loading' ? <LoadingItem ref={loadingItemRef} count={count} /> : children}
+      {isSubTreeEmpty && state !== 'loading' ? <EmptyItem /> : null}
     </ul>
   )
 }
@@ -781,6 +783,14 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, re
         <Spinner size="small" />
       </LeadingVisual>
       <Text sx={{color: 'fg.muted'}}>Loading...</Text>
+    </Item>
+  )
+})
+
+const EmptyItem = React.forwardRef<HTMLElement>((props, ref) => {
+  return (
+    <Item id={useId()} ref={ref}>
+      <Text sx={{color: 'fg.muted'}}>No items found</Text>
     </Item>
   )
 })
