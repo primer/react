@@ -11,7 +11,6 @@ export type SelectPanelMessageProps = {
 }
 
 export const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({variant, title, children}) => {
-  // console.log({variant})
   return (
     <Box
       sx={{

@@ -294,7 +294,22 @@ function Panel({
         return [variantMap.get(key)!]
       }
     }
+
+    if (isNoItemsState)
+      return [
+        <SelectPanel.Message title="Default title" variant="noInitialItems" key="default-noInitialItems">
+          No items found
+        </SelectPanel.Message>,
+      ]
+    else if (isNoMatchState)
+      return [
+        <SelectPanel.Message title="Default title" variant="noFilteredItems" key="default-noFilteredItems">
+          No items found
+        </SelectPanel.Message>,
+      ]
+    else return []
   }
+
   const currentMessage = getCurrentMessage(children)
 
   return (
@@ -354,7 +369,6 @@ function Panel({
             inputRef={inputRef}
             loading={isLoading}
             loadingType={loadingType()}
-            // message={currentMessage}
             {...(usingModernActionList ? {message: currentMessage} : {})}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
