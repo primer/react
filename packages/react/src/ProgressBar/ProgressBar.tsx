@@ -69,17 +69,11 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
 
     const ariaAttributes = {
       'aria-valuenow':
-        ariaValueNow ||
-        (progressAsNumber !== undefined && progressAsNumber >= 0 ? Math.round(progressAsNumber) : undefined),
+        ariaValueNow || (progressAsNumber !== undefined && progressAsNumber >= 0 ? Math.round(progressAsNumber) : 0),
       'aria-valuemin': 0,
       'aria-valuemax': 100,
       'aria-valuetext': ariaValueText,
     }
-
-    warning(
-      ariaAttributes['aria-valuenow'] === undefined && ariaAttributes['aria-valuetext'] === undefined,
-      'Expected `aria-valuenow` or `aria-valuetext` to be provided to <ProgressBar>. Provide one of these values so screen reader users can determine the current progress. This warning will become an error in the next major release.',
-    )
 
     return (
       <ProgressItem
