@@ -10,7 +10,6 @@ import {Button, IconButton} from '../Button'
 import {useTheme} from '../ThemeProvider'
 import type {SxProp} from '../sx'
 import sx from '../sx'
-import {LabelGroupContext} from './LabelGroupContext'
 
 export type LabelGroupProps = {
   /** Customize the element type of the rendered container */
@@ -332,59 +331,59 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   const ToggleWrapper = isList ? 'li' : React.Fragment
 
   // If truncation is enabled, we need to render based on truncation logic.
-  return (
-    <LabelGroupContext.Provider value={{isList}}>
-      {visibleChildCount ? (
-        <StyledLabelGroupContainer
-          ref={containerRef}
-          data-overflow={overflowStyle === 'inline' && isOverflowShown ? 'inline' : undefined}
-          data-list={isList || undefined}
-          sx={sxProp}
-          as={as}
+  return visibleChildCount ? (
+    <StyledLabelGroupContainer
+      ref={containerRef}
+      data-overflow={overflowStyle === 'inline' && isOverflowShown ? 'inline' : undefined}
+      data-list={isList || undefined}
+      sx={sxProp}
+      as={as}
+    >
+      {React.Children.map(children, (child, index) => (
+        <ItemWrapper
+          // data-index is used as an identifier we can use in the IntersectionObserver
+          data-index={index}
+          className={hiddenItemIds.includes(index.toString()) ? 'ItemWrapper--hidden' : undefined}
+          as={isList ? 'li' : 'span'}
         >
-          {React.Children.map(children, (child, index) => (
-            <ItemWrapper
-              // data-index is used as an identifier we can use in the IntersectionObserver
-              data-index={index}
-              className={hiddenItemIds.includes(index.toString()) ? 'ItemWrapper--hidden' : undefined}
-              as={isList ? 'li' : 'span'}
-            >
-              <LabelGroupContext.Provider value={{isList: false}}>{child}</LabelGroupContext.Provider>
-            </ItemWrapper>
-          ))}
-          <ToggleWrapper>
-            {overflowStyle === 'inline' ? (
-              <InlineToggle
-                collapseButtonRef={collapseButtonRef}
-                collapseInlineExpandedChildren={collapseInlineExpandedChildren}
-                expandButtonRef={expandButtonRef}
-                hiddenItemIds={hiddenItemIds}
-                isOverflowShown={isOverflowShown}
-                showAllTokensInline={showAllTokensInline}
-                totalLength={React.Children.toArray(children).length}
-              />
-            ) : (
-              <OverlayToggle
-                closeOverflowOverlay={closeOverflowOverlay}
-                expandButtonRef={expandButtonRef}
-                hiddenItemIds={hiddenItemIds}
-                isOverflowShown={isOverflowShown}
-                openOverflowOverlay={openOverflowOverlay}
-                overlayPaddingPx={overlayPaddingPx}
-                overlayWidth={overlayWidth}
-                totalLength={React.Children.toArray(children).length}
-              >
-                {children}
-              </OverlayToggle>
-            )}
-          </ToggleWrapper>
-        </StyledLabelGroupContainer>
-      ) : (
-        <StyledLabelGroupContainer data-overflow="inline" data-list={isList || undefined} sx={sxProp} as={as}>
-          {children}
-        </StyledLabelGroupContainer>
-      )}
-    </LabelGroupContext.Provider>
+          {child}
+        </ItemWrapper>
+      ))}
+      <ToggleWrapper>
+        {overflowStyle === 'inline' ? (
+          <InlineToggle
+            collapseButtonRef={collapseButtonRef}
+            collapseInlineExpandedChildren={collapseInlineExpandedChildren}
+            expandButtonRef={expandButtonRef}
+            hiddenItemIds={hiddenItemIds}
+            isOverflowShown={isOverflowShown}
+            showAllTokensInline={showAllTokensInline}
+            totalLength={React.Children.toArray(children).length}
+          />
+        ) : (
+          <OverlayToggle
+            closeOverflowOverlay={closeOverflowOverlay}
+            expandButtonRef={expandButtonRef}
+            hiddenItemIds={hiddenItemIds}
+            isOverflowShown={isOverflowShown}
+            openOverflowOverlay={openOverflowOverlay}
+            overlayPaddingPx={overlayPaddingPx}
+            overlayWidth={overlayWidth}
+            totalLength={React.Children.toArray(children).length}
+          >
+            {children}
+          </OverlayToggle>
+        )}
+      </ToggleWrapper>
+    </StyledLabelGroupContainer>
+  ) : (
+    <StyledLabelGroupContainer data-overflow="inline" data-list={isList || undefined} sx={sxProp} as={as}>
+      {isList
+        ? React.Children.map(children, child => {
+            return <li>{child}</li>
+          })
+        : children}
+    </StyledLabelGroupContainer>
   )
 }
 
