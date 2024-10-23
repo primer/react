@@ -222,31 +222,26 @@ export function SelectPanel({
     // This variant can be used for full-screen, bottom-sheet, modal, etc.
     else {
       return (
-        // maybe we could use the normal overlay not styled one.
         <StyledOverlay
-          // as="dialog"
+          open={open}
+          as="dialog"
           aria-labelledby={titleId}
           aria-describedby={subtitle ? subtitleId : undefined}
           data-variant={currentVariant}
           sx={{
-            // '--max-height': heightMap[maxHeight],
             // reset dialog default styles
             border: 'none',
             padding: 0,
             color: 'fg.default',
-            '&[open]': {display: 'flex'}, // to fit children
+            '&[open]': {display: 'flex'},
             '&[data-variant="full-screen"]': {
               margin: 0,
-              // top: position?.top,
-              // left: position?.left,
-              '::backdrop': {backgroundColor: 'transparent'},
               top: 0,
               left: 0,
               width: '100%',
               maxWidth: '100vw',
               height: '100%',
               maxHeight: '100vh',
-              '--max-height': '100vh',
               borderRadius: 'unset',
             },
           }}
@@ -273,7 +268,7 @@ export function SelectPanel({
             }
           />
         )}
-        <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}>
+        <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit', width: '100%'}}>
           <Box sx={{pt: 2, px: 3}}>
             <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
               {title}
