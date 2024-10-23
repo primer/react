@@ -3,7 +3,8 @@ import userEvent from '@testing-library/user-event'
 import axe from 'axe-core'
 import React from 'react'
 import theme from '../theme'
-import {ActionMenu, ActionList, BaseStyles, ThemeProvider, Tooltip, Button, IconButton} from '..'
+import {ActionMenu, ActionList, BaseStyles, ThemeProvider, Button, IconButton} from '..'
+import Tooltip from '../Tooltip'
 import {Tooltip as TooltipV2} from '../TooltipV2/Tooltip'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
@@ -401,7 +402,7 @@ describe('ActionMenu', () => {
       button.focus()
     })
 
-    expect(component.getByRole('tooltip')).toBeInTheDocument()
+    expect(component.getByRole('tooltip', {hidden: true})).toBeInTheDocument()
   })
 
   it('should open menu on menu anchor click and it is wrapped with tooltip v2', async () => {
@@ -437,7 +438,7 @@ describe('ActionMenu', () => {
       button.focus()
     })
 
-    expect(component.getByRole('tooltip')).toBeInTheDocument()
+    expect(component.getByRole('tooltip', {hidden: true})).toBeInTheDocument()
   })
 
   it('should pass the "id" prop from ActionMenu.Button to the HTML button', async () => {

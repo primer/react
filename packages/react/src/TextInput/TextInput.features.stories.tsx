@@ -98,31 +98,39 @@ export const Required = () => (
   </Box>
 )
 
-export const WithLeadingVisual = () => (
-  <Box as="form">
-    <FormControl>
-      <FormControl.Label>Default label</FormControl.Label>
-      <TextInput leadingVisual={CheckIcon} />
-    </FormControl>
-    <FormControl>
-      <FormControl.Label>Enter monies</FormControl.Label>
-      <TextInput leadingVisual="$" />
-    </FormControl>
-  </Box>
-)
+export const WithLeadingVisual = () => {
+  const Checkmark = () => <CheckIcon aria-label="Checkmark" />
 
-export const WithTrailingIcon = () => (
-  <Box>
-    <FormControl>
-      <FormControl.Label>Default label</FormControl.Label>
-      <TextInput trailingVisual={CheckIcon} />
-    </FormControl>
-    <FormControl>
-      <FormControl.Label>Enter monies</FormControl.Label>
-      <TextInput trailingVisual="minutes" placeholder="200" />
-    </FormControl>
-  </Box>
-)
+  return (
+    <Box as="form">
+      <FormControl>
+        <FormControl.Label>Default label</FormControl.Label>
+        <TextInput leadingVisual={Checkmark} />
+      </FormControl>
+      <FormControl>
+        <FormControl.Label>Enter monies</FormControl.Label>
+        <TextInput leadingVisual="$" />
+      </FormControl>
+    </Box>
+  )
+}
+
+export const WithTrailingIcon = () => {
+  const Checkmark = () => <CheckIcon aria-label="Checkmark" />
+
+  return (
+    <Box>
+      <FormControl>
+        <FormControl.Label>Default label</FormControl.Label>
+        <TextInput trailingVisual={Checkmark} />
+      </FormControl>
+      <FormControl>
+        <FormControl.Label>Enter monies</FormControl.Label>
+        <TextInput trailingVisual="minutes" placeholder="200" />
+      </FormControl>
+    </Box>
+  )
+}
 
 export const WithTrailingAction = () => {
   const [value, setValue] = useState('sample text')
@@ -294,3 +302,16 @@ WithLoadingIndicator.parameters = {
     exclude: [...textInputExcludedControlKeys, 'loaderPosition', ...Object.keys(formControlArgTypes), 'children'],
   },
 }
+
+export const WithAutocompleteAttribute = () => (
+  <Box as="form">
+    <FormControl>
+      <FormControl.Label>First name</FormControl.Label>
+      <TextInput autoComplete="given-name" />
+    </FormControl>
+    <FormControl>
+      <FormControl.Label>Last name</FormControl.Label>
+      <TextInput autoComplete="family-name" />
+    </FormControl>
+  </Box>
+)
