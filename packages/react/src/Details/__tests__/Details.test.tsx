@@ -104,15 +104,10 @@ describe('Details', () => {
   })
 
   it('Adds default summary if no summary supplied', async () => {
-    const consoleSpy = jest.spyOn(global.console, 'warn').mockImplementation()
     const {getByText} = render(<Details data-testid="details">content</Details>)
 
     expect(getByText('See Details')).toBeInTheDocument()
     expect(getByText('See Details').tagName).toBe('SUMMARY')
-
-    expect(consoleSpy).toHaveBeenCalled()
-
-    consoleSpy.mockRestore()
   })
 
   it('Does not add default summary if summary supplied', async () => {

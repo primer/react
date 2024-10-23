@@ -5,7 +5,6 @@ import type {ComponentProps} from '../utils/types'
 import React, {forwardRef, useEffect, useState} from 'react'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {useMergedRefs} from '../internal/hooks/useMergedRefs'
-import {warning} from '../utils/warning'
 
 export const StyledDetails = styled.details<SxProp>`
   & > summary {
@@ -37,7 +36,6 @@ const Root = React.forwardRef<HTMLDetailsElement, ComponentProps<typeof StyledDe
       const updateSummary = () => {
         const summary = details.querySelector('summary:not([data-default-summary])')
         setHasSummary(!!summary)
-        warning(!summary, 'No summary found, a default summary will be rendered instead.')
       }
 
       // Update summary on mount
