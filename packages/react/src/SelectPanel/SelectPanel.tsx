@@ -268,7 +268,9 @@ function Panel({
   }
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
 
+  // If there is no items after the first load, show the no items state
   const isNoItemsState = items.length === 0 && dataLoadedOnce && !loading && filterValue === ''
+  // If there is no items after the first load and the user is filtering, show the no match state
   const isNoMatchState = items.length === 0 && dataLoadedOnce && !loading && filterValue !== ''
 
   function getCurrentMessage(children: ReactNode): ReactNode[] {
@@ -295,16 +297,25 @@ function Panel({
       }
     }
 
+    // Return a default message if there is no custom message is provided.
     if (isNoItemsState)
       return [
-        <SelectPanel.Message title="Default title" variant="noInitialItems" key="default-noInitialItems">
-          No items found
+        <SelectPanel.Message
+          title="You haven't created any items yet"
+          variant="noInitialItems"
+          key="default-noInitialItems"
+        >
+          Please add or create new items to populate the list.
         </SelectPanel.Message>,
       ]
     else if (isNoMatchState)
       return [
-        <SelectPanel.Message title="Default title" variant="noFilteredItems" key="default-noFilteredItems">
-          No items found
+        <SelectPanel.Message
+          title={`No items found for ${filterValue}`}
+          variant="noFilteredItems"
+          key="default-noFilteredItems"
+        >
+          Adjust your search term to find other items.
         </SelectPanel.Message>,
       ]
     else return []
@@ -369,6 +380,7 @@ function Panel({
             inputRef={inputRef}
             loading={isLoading}
             loadingType={loadingType()}
+            // TODO: We will remove the flag in the follow up PR and make sure that the messages are properly implemented for the deprecated SelectPanel as well.
             {...(usingModernActionList ? {message: currentMessage} : {})}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)

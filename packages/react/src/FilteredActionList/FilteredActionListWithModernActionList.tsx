@@ -18,7 +18,6 @@ import {VisuallyHidden} from '../VisuallyHidden'
 import type {SxProp} from '../sx'
 import type {FilteredActionListLoadingType} from './FilteredActionListLoaders'
 import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './FilteredActionListLoaders'
-// import {SelectPanelMessage} from '../SelectPanel/SelectPanelMessage'
 
 import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
