@@ -14,6 +14,9 @@ export type ActionListDescriptionProps = {
    */
   variant?: 'inline' | 'block'
   className?: string
+  /**
+   * Whether the inline description should truncate the text on overflow.
+   */
   truncate?: boolean
 } & SxProp
 
