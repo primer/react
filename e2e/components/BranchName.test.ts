@@ -30,26 +30,6 @@ test.describe('BranchName', () => {
               id: story.id,
               globals: {
                 colorScheme: theme,
-                primer_react_css_modules_team: true,
-              },
-            })
-
-            // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`BranchName.${story.title}.${theme}.png`)
-
-            // Focus state
-            if (story.focus) {
-              await page.keyboard.press('Tab')
-              expect(await page.screenshot()).toMatchSnapshot(`BranchName.${story.title}.${theme}.focus.png`)
-            }
-          })
-
-          test('default (styled-components) @vrt', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-                primer_react_css_modules_team: false,
               },
             })
 
@@ -68,18 +48,6 @@ test.describe('BranchName', () => {
               id: story.id,
               globals: {
                 colorScheme: theme,
-                primer_react_css_modules_team: true,
-              },
-            })
-            await expect(page).toHaveNoViolations()
-          })
-
-          test('axe (styled-components) @aat', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-                primer_react_css_modules_team: false,
               },
             })
             await expect(page).toHaveNoViolations()
