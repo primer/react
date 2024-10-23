@@ -3,7 +3,7 @@ import {hasInteractiveNodes} from '../hasInteractiveNodes'
 describe('hasInteractiveNodes', () => {
   test('if there are no interactive nodes', () => {
     const node = document.createElement('div')
-    expect(hasInteractiveNodes(node)).toBeUndefined()
+    expect(hasInteractiveNodes(node)).toBe(false)
   })
 
   test('if there are interactive nodes', () => {
@@ -17,7 +17,7 @@ describe('hasInteractiveNodes', () => {
   test('if the node itself is interactive', () => {
     const node = document.createElement('button')
 
-    expect(hasInteractiveNodes(node)).toBe(true)
+    expect(hasInteractiveNodes(node)).toBe(false)
   })
 
   test('if there are nested interactive nodes', () => {
@@ -36,7 +36,7 @@ describe('hasInteractiveNodes', () => {
     const node = document.createElement('button')
     node.disabled = true
 
-    expect(hasInteractiveNodes(node)).toBeUndefined()
+    expect(hasInteractiveNodes(node)).toBe(false)
   })
 
   test('if the child node is disabled', () => {
@@ -45,7 +45,7 @@ describe('hasInteractiveNodes', () => {
     button.disabled = true
     node.appendChild(button)
 
-    expect(hasInteractiveNodes(node)).toBeUndefined()
+    expect(hasInteractiveNodes(node)).toBe(false)
   })
 
   test('if child node has tabindex', () => {

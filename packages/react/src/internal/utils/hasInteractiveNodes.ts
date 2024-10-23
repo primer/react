@@ -31,34 +31,38 @@ const interactiveElements = interactiveElementsSelectors.map(
  * ignoring nodes that are conditionally interactive based on the return value of the function.
  * @returns {boolean | undefined}
  */
-export function hasInteractiveNodes(node: HTMLElement | null, ignoreSelectors?: string) {
-  if (!node || isNonValidInteractiveNode(node)) return
+export function hasInteractiveNodes(node: HTMLElement | null, ignoreNodes?: HTMLElement[]) {
+  if (!node || isNonValidInteractiveNode(node)) return false
 
   // We only need to confirm if at least one interactive node exists.
   // If one does exist, we can abort early.
 
-  const interactiveNodes = findInteractiveChildNodes(node, ignoreSelectors)
+  const nodesToIgnore = ignoreNodes ? [node, ...ignoreNodes] : [node]
+  const interactiveNodes = findInteractiveChildNodes(node, nodesToIgnore)
 
-  if (interactiveNodes) {
-    return true
-  }
+  return Boolean(interactiveNodes)
 }
 
-function isNonValidInteractiveNode(node: HTMLElement | null) {
-  return node && node.matches('[disabled], [hidden], [inert]')
+function isNonValidInteractiveNode(node: HTMLElement) {
+  const nodeStyle = getComputedStyle(node)
+  const isNonInteractive = node.matches('[disabled], [hidden], [inert]')
+  const isHiddenVisually = nodeStyle.display === 'none' || nodeStyle.visibility === 'hidden'
+
+  return isNonInteractive || isHiddenVisually
 }
 
-function findInteractiveChildNodes(node: HTMLElement | null, ignoreSelectors?: string) {
+function findInteractiveChildNodes(node: HTMLElement | null, ignoreNodes: HTMLElement[]) {
   if (!node) return
 
-  const ignoreSelector = ignoreSelectors ? !node.matches(ignoreSelectors) : true
+  const ignoreSelector = ignoreNodes.find(elem => elem === node)
+  const isNotValidNode = isNonValidInteractiveNode(node)
 
-  if (node.matches(interactiveElements.join(', ')) && ignoreSelector) {
+  if (node.matches(interactiveElements.join(', ')) && !ignoreSelector && !isNotValidNode) {
     return node
   }
 
   for (const child of node.children) {
-    const interactiveNode = findInteractiveChildNodes(child as HTMLElement, ignoreSelectors)
+    const interactiveNode = findInteractiveChildNodes(child as HTMLElement, ignoreNodes)
 
     if (interactiveNode) return true
   }

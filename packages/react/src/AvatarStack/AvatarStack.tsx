@@ -204,7 +204,7 @@ const AvatarStack = ({
   sx: sxProp = defaultSxProp,
 }: AvatarStackProps) => {
   const [hasInteractiveChildren, setHasInteractiveChildren] = useState<boolean | undefined>(false)
-  const avatarStackContainer = useRef<HTMLDivElement>(null)
+  const stackContainer = useRef<HTMLDivElement>(null)
 
   const count = React.Children.count(children)
   const wrapperClassNames = clsx(
@@ -261,8 +261,22 @@ const AvatarStack = ({
   }
 
   useEffect(() => {
-    const hasInteractive = hasInteractiveNodes(avatarStackContainer.current, 'div[tabindex]')
-    setHasInteractiveChildren(hasInteractive)
+    if (stackContainer.current) {
+      const interactiveChildren = () => {
+        setHasInteractiveChildren(hasInteractiveNodes(stackContainer.current))
+      }
+
+      const observer = new MutationObserver(interactiveChildren)
+
+      observer.observe(stackContainer.current, {childList: true})
+
+      // Call on initial render, then call it again only if there's a mutation
+      interactiveChildren()
+
+      return () => {
+        observer.disconnect()
+      }
+    }
   }, [])
 
   const getResponsiveAvatarSizeStyles = () => {
@@ -298,7 +312,7 @@ const AvatarStack = ({
       <Box
         className={bodyClassNames}
         tabIndex={!hasInteractiveChildren && !disableExpand ? 0 : undefined}
-        ref={avatarStackContainer}
+        ref={stackContainer}
       >
         {transformChildren(children)}
       </Box>
