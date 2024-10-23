@@ -37,6 +37,14 @@
     }
   }
 
+  /* this is a workaround until portal based tooltips are fully removed from dotcom */
+  &:has(div:last-child:empty) {
+    button,
+    a {
+      border-radius: var(--borderRadius-medium);
+    }
+  }
+
   /* if child is loading button */
   & > *[data-loading-wrapper] {
     /* stylelint-disable-next-line primer/spacing */

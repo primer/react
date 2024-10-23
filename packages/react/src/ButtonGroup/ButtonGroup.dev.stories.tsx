@@ -1,7 +1,7 @@
 import React from 'react'
 import type {Meta} from '@storybook/react'
 import ButtonGroup from './ButtonGroup'
-import {Button, IconButton} from '../Button'
+import {Button, IconButton, LinkButton} from '../Button'
 import {CopilotIcon} from '@primer/octicons-react'
 import {Box, Tooltip, ThemeProvider, BaseStyles} from '..'
 
@@ -43,5 +43,22 @@ export const ButtonAndLinkWithTooltip2 = () => (
         Link
       </Button>
     </Tooltip>
+  </ButtonGroup>
+)
+
+export const ButtonGroupSingleButton = () => (
+  <ButtonGroup>
+    <IconButton icon={CopilotIcon} aria-label="Open GitHub Copilot chat" />
+    <div></div>
+  </ButtonGroup>
+)
+
+export const LinkButtonWithIconButtons = () => (
+  <ButtonGroup>
+    <LinkButton size="small" sx={{color: 'pink'}} href="https://primer.style">
+      Link
+    </LinkButton>
+    <IconButton icon={CopilotIcon} aria-label="Open GitHub Copilot chat" />
+    <IconButton icon={CopilotIcon} aria-label="Open GitHub Copilot chat" />
   </ButtonGroup>
 )
