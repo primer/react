@@ -189,7 +189,7 @@ const ButtonBase = forwardRef(
                       count !== undefined && !TrailingVisual
                         ? renderModuleVisual(
                             () => (
-                              <CounterLabel className={classes.ButtonCounterLabel} data-component="ButtonCounter">
+                              <CounterLabel className={classes.CounterLabel} data-component="ButtonCounter">
                                 {count}
                               </CounterLabel>
                             ),
@@ -305,7 +305,7 @@ const ButtonBase = forwardRef(
                     count !== undefined && !TrailingVisual
                       ? renderModuleVisual(
                           () => (
-                            <CounterLabel className={classes.ButtonCounterLabel} data-component="ButtonCounter">
+                            <CounterLabel className={classes.CounterLabel} data-component="ButtonCounter">
                               {count}
                             </CounterLabel>
                           ),
