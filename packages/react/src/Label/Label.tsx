@@ -117,7 +117,7 @@ const Label = React.forwardRef(function Label({as, size = 'small', variant = 'de
     }
     return <Component className={clsx(className, classes.Label)} data-size={size} data-variant={variant} {...rest} />
   }
-  return <StyledLabel as={as || 'span'} className={className} size={size} variant={variant} ref={ref} {...rest} />
+  return <StyledLabel as={as} className={className} size={size} variant={variant} ref={ref} {...rest} />
 }) as PolymorphicForwardRefComponent<'span', LabelProps>
 
 export default Label
