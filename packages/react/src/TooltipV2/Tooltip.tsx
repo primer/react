@@ -198,40 +198,72 @@ export const Tooltip = React.forwardRef(
     const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
     const openTooltip = () => {
-      if (
-        tooltipElRef.current &&
-        triggerRef.current &&
-        tooltipElRef.current.hasAttribute('popover') &&
-        !tooltipElRef.current.matches(':popover-open')
-      ) {
-        const tooltip = tooltipElRef.current
-        const trigger = triggerRef.current
-        tooltip.showPopover()
-        setIsPopoverOpen(true)
-        /*
-         * TOOLTIP POSITIONING
-         */
-        const settings = {
-          side: directionToPosition[direction].side,
-          align: directionToPosition[direction].align,
+      try {
+        if (
+          tooltipElRef.current &&
+          triggerRef.current &&
+          tooltipElRef.current.hasAttribute('popover') &&
+          !tooltipElRef.current.matches(':popover-open')
+        ) {
+          const tooltip = tooltipElRef.current
+          const trigger = triggerRef.current
+          tooltip.showPopover()
+          setIsPopoverOpen(true)
+          /*
+           * TOOLTIP POSITIONING
+           */
+          const settings = {
+            side: directionToPosition[direction].side,
+            align: directionToPosition[direction].align,
+          }
+          const {top, left, anchorAlign, anchorSide} = getAnchoredPosition(tooltip, trigger, settings)
+          // This is required to make sure the popover is positioned correctly i.e. when there is not enough space on the specified direction, we set a new direction to position the ::after
+          const calculatedDirection = positionToDirection[`${anchorSide}-${anchorAlign}` as string]
+          setCalculatedDirection(calculatedDirection)
+          tooltip.style.top = `${top}px`
+          tooltip.style.left = `${left}px`
         }
-        const {top, left, anchorAlign, anchorSide} = getAnchoredPosition(tooltip, trigger, settings)
-        // This is required to make sure the popover is positioned correctly i.e. when there is not enough space on the specified direction, we set a new direction to position the ::after
-        const calculatedDirection = positionToDirection[`${anchorSide}-${anchorAlign}` as string]
-        setCalculatedDirection(calculatedDirection)
-        tooltip.style.top = `${top}px`
-        tooltip.style.left = `${left}px`
+      } catch (error) {
+        // older browsers don't support the :popover-open selector and will throw, even though we use a polyfill
+        // see https://github.com/github/issues/issues/12468
+        if (
+          error &&
+          typeof error === 'object' &&
+          'message' in error &&
+          typeof error.message === 'string' &&
+          error.message.includes('not a valid selector')
+        ) {
+          // fail silently
+        } else {
+          throw error
+        }
       }
     }
     const closeTooltip = () => {
-      if (
-        tooltipElRef.current &&
-        triggerRef.current &&
-        tooltipElRef.current.hasAttribute('popover') &&
-        tooltipElRef.current.matches(':popover-open')
-      ) {
-        tooltipElRef.current.hidePopover()
-        setIsPopoverOpen(false)
+      try {
+        if (
+          tooltipElRef.current &&
+          triggerRef.current &&
+          tooltipElRef.current.hasAttribute('popover') &&
+          tooltipElRef.current.matches(':popover-open')
+        ) {
+          tooltipElRef.current.hidePopover()
+          setIsPopoverOpen(false)
+        }
+      } catch (error) {
+        // older browsers don't support the :popover-open selector and will throw, even though we use a polyfill
+        // see https://github.com/github/issues/issues/12468
+        if (
+          error &&
+          typeof error === 'object' &&
+          'message' in error &&
+          typeof error.message === 'string' &&
+          error.message.includes('not a valid selector')
+        ) {
+          // fail silently
+        } else {
+          throw error
+        }
       }
     }
 
