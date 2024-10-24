@@ -1,28 +1,45 @@
+import React, {
+  forwardRef,
+  useEffect,
+  useState,
+  type ComponentProps,
+  type ComponentPropsWithoutRef,
+  type ReactElement,
+} from 'react'
 import styled from 'styled-components'
 import type {SxProp} from '../sx'
 import sx from '../sx'
-import type {ComponentProps} from '../utils/types'
-import React, {forwardRef, useEffect, useState} from 'react'
+import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
+import {useFeatureFlag} from '../FeatureFlags'
+import {clsx} from 'clsx'
+import classes from './Details.module.css'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {useMergedRefs} from '../internal/hooks/useMergedRefs'
 
-export const StyledDetails = styled.details<SxProp>`
-  & > summary {
-    list-style: none;
-  }
-  & > summary::-webkit-details-marker {
-    display: none;
-  }
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
 
-  ${sx};
-`
+const StyledDetails = toggleStyledComponent(
+  CSS_MODULES_FEATURE_FLAG,
+  'details',
+  styled.details<SxProp>`
+    & > summary {
+      list-style: none;
+    }
+    & > summary::-webkit-details-marker {
+      display: none;
+    }
+
+    ${sx};
+  `,
+)
 
 export const StyledSummary = styled.summary<SxProp>`
   ${sx};
 `
 
-const Root = React.forwardRef<HTMLDetailsElement, ComponentProps<typeof StyledDetails>>(
-  ({children, ...props}: ComponentProps<typeof StyledDetails>, forwardRef) => {
+const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
+  ({className, children, ...rest}, forwardRef): ReactElement => {
+    const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
     const detailsRef = React.useRef<HTMLDetailsElement>(null)
     const ref = useMergedRefs(forwardRef, detailsRef)
     const [hasSummary, setHasSummary] = useState(false)
@@ -56,7 +73,7 @@ const Root = React.forwardRef<HTMLDetailsElement, ComponentProps<typeof StyledDe
     }, [])
 
     return (
-      <StyledDetails {...props} ref={ref}>
+      <StyledDetails className={clsx(className, {[classes.Details]: enabled})} {...rest} ref={ref}>
         {/* Include default summary if summary is not provided */}
         {!hasSummary && <Details.Summary data-default-summary>{'See Details'}</Details.Summary>}
         {children}
@@ -93,5 +110,5 @@ const Details = Object.assign(Root, {
   Summary,
 })
 
-export type DetailsProps = ComponentProps<typeof Details>
+export type DetailsProps = ComponentPropsWithoutRef<'details'> & SxProp
 export default Details
