@@ -1,5 +1,5 @@
 import React from 'react'
-import {Select, FormControl, Box} from '..'
+import {Select, FormControl, Box, Heading} from '..'
 
 export default {
   title: 'Components/Select/Features',
@@ -60,8 +60,11 @@ export const WithCaption = () => (
 
 export const VisuallyHiddenLabel = () => (
   <Box as="form">
+    <Heading as="h2" variant="small">
+      Primer form title
+    </Heading>
     <FormControl>
-      <FormControl.Label visuallyHidden>Default label</FormControl.Label>
+      <FormControl.Label visuallyHidden>Primer form label</FormControl.Label>
       <Select>
         <Select.Option value="one">Choice one</Select.Option>
         <Select.Option value="two">Choice two</Select.Option>
@@ -70,6 +73,7 @@ export const VisuallyHiddenLabel = () => (
         <Select.Option value="five">Choice five</Select.Option>
         <Select.Option value="six">Choice six</Select.Option>
       </Select>
+      <FormControl.Caption>Label is visually hidden; the title describes the purpose visually</FormControl.Caption>
     </FormControl>
   </Box>
 )
@@ -161,6 +165,22 @@ export const WithCustomStyling = () => (
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
       <Select sx={{borderRadius: '12px', border: '1px dashed #000000'}}>
+        <Select.Option value="one">Choice one</Select.Option>
+        <Select.Option value="two">Choice two</Select.Option>
+        <Select.Option value="three">Choice three</Select.Option>
+        <Select.Option value="four">Choice four</Select.Option>
+        <Select.Option value="five">Choice five</Select.Option>
+        <Select.Option value="six">Choice six</Select.Option>
+      </Select>
+    </FormControl>
+  </Box>
+)
+
+export const WithPlaceholderOption = () => (
+  <Box as="form">
+    <FormControl>
+      <FormControl.Label>Default label</FormControl.Label>
+      <Select placeholder="No choice selected">
         <Select.Option value="one">Choice one</Select.Option>
         <Select.Option value="two">Choice two</Select.Option>
         <Select.Option value="three">Choice three</Select.Option>

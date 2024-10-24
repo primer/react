@@ -61,6 +61,7 @@ module.exports = {
   // rules which apply to JS, TS, etc.
   rules: {
     'no-shadow': 'off',
+    'react/button-has-type': 'error',
     'react/prop-types': 'off',
     'react/display-name': 'off',
     'react-hooks/exhaustive-deps': 'error',
@@ -237,6 +238,7 @@ module.exports = {
         'react/jsx-no-undef': 'off',
         'react/jsx-key': 'off',
         'react/jsx-no-comment-textnodes': 'off',
+        'react-hooks/rules-of-hooks': 'off',
         'import/no-anonymous-default-export': 'off',
         'prettier/prettier': 'off',
         // These a11y rules should eventually be re-enabled

@@ -10,7 +10,7 @@ import {StyledButton} from './types'
 import {getVariantStyles, getButtonStyles, getAlignContentSize} from './styles'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import {defaultSxProp} from '../utils/defaultSxProp'
-import {VisuallyHidden} from '../internal/components/VisuallyHidden'
+import {VisuallyHidden} from '../VisuallyHidden'
 import Spinner from '../Spinner'
 import CounterLabel from '../CounterLabel'
 import {useId} from '../hooks'
@@ -19,24 +19,30 @@ import {AriaStatus} from '../live-region'
 import {clsx} from 'clsx'
 import classes from './ButtonBase.module.css'
 import {useFeatureFlag} from '../FeatureFlags'
+import {isElement} from 'react-is'
 
 const iconWrapStyles = {
   display: 'flex',
   pointerEvents: 'none',
 }
 
-const renderVisual = (Visual: React.ElementType, loading: boolean, visualName: string) => (
+const renderVisual = (Visual: React.ElementType | React.ReactElement, loading: boolean, visualName: string) => (
   <Box as="span" data-component={visualName} sx={{...iconWrapStyles}}>
-    {loading ? <Spinner size="small" /> : <Visual />}
+    {loading ? <Spinner size="small" /> : isElement(Visual) ? Visual : <Visual />}
   </Box>
 )
 
-const renderModuleVisual = (Visual: React.ElementType, loading: boolean, visualName: string, counterLabel: boolean) => (
+const renderModuleVisual = (
+  Visual: React.ElementType | React.ReactElement,
+  loading: boolean,
+  visualName: string,
+  counterLabel: boolean,
+) => (
   <span
     data-component={visualName}
-    className={clsx(!counterLabel && classes.Visual, loading ? classes.loadingSpinner : classes.VisualWrap)}
+    className={clsx(!counterLabel && classes.Visual, loading ? classes.LoadingSpinner : classes.VisualWrap)}
   >
-    {loading ? <Spinner size="small" /> : <Visual />}
+    {loading ? <Spinner size="small" /> : isElement(Visual) ? Visual : <Visual />}
   </span>
 )
 
@@ -64,7 +70,7 @@ const ButtonBase = forwardRef(
       ...rest
     } = props
 
-    const enabled = useFeatureFlag('primer_react_css_modules_team')
+    const enabled = useFeatureFlag('primer_react_css_modules_ga')
     const innerRef = React.useRef<HTMLButtonElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
@@ -141,6 +147,8 @@ const ButtonBase = forwardRef(
               {Icon ? (
                 loading ? (
                   <Spinner size="small" />
+                ) : isElement(Icon) ? (
+                  Icon
                 ) : (
                   <Icon />
                 )
@@ -163,7 +171,7 @@ const ButtonBase = forwardRef(
                     }
                     {
                       /* Render a leading visual unless the button is in a loading state.
-                     Then replace the leading visual with a loading spinner. */
+                      Then replace the leading visual with a loading spinner. */
                       LeadingVisual && renderModuleVisual(LeadingVisual, Boolean(loading), 'leadingVisual', false)
                     }
                     {children && (
@@ -260,6 +268,8 @@ const ButtonBase = forwardRef(
             {Icon ? (
               loading ? (
                 <Spinner size="small" />
+              ) : isElement(Icon) ? (
+                Icon
               ) : (
                 <Icon />
               )
@@ -352,7 +362,7 @@ const ButtonBase = forwardRef(
           data-inactive={inactive ? true : undefined}
           data-loading={Boolean(loading)}
           data-no-visuals={!LeadingVisual && !TrailingVisual && !TrailingAction ? true : undefined}
-          data-size={size === 'small' || size === 'large' ? size : undefined}
+          data-size={size}
           data-label-wrap={labelWrap}
           aria-describedby={[loadingAnnouncementID, ariaDescribedBy]
             .filter(descriptionID => Boolean(descriptionID))
@@ -369,6 +379,8 @@ const ButtonBase = forwardRef(
           {Icon ? (
             loading ? (
               <Spinner size="small" />
+            ) : isElement(Icon) ? (
+              Icon
             ) : (
               <Icon />
             )

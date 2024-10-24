@@ -1,19 +1,15 @@
 import path from 'node:path'
-import {fileURLToPath} from 'node:url'
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import babel from '@rollup/plugin-babel'
 import replace from '@rollup/plugin-replace'
 import terser from '@rollup/plugin-terser'
-import glob from 'fast-glob'
 import {visualizer} from 'rollup-plugin-visualizer'
 import {importCSS} from 'rollup-plugin-import-css'
 import postcss from 'rollup-plugin-postcss'
 import postcssPresetPrimer from 'postcss-preset-primer'
 import MagicString from 'magic-string'
-import packageJson from './package.json' assert {type: 'json'}
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
+import packageJson from './package.json' with {type: 'json'}
 
 const input = new Set([
   // "exports"
@@ -28,40 +24,16 @@ const input = new Set([
 
   // "./next"
   'src/next/index.ts',
-
-  // Make sure all members are exported
-  'src/constants.ts',
-
-  ...glob.sync(
-    [
-      // "./lib-esm/hooks/*"
-      'src/hooks/*',
-
-      // "./lib-esm/polyfills/*"
-      'src/polyfills/*',
-
-      // "./lib-esm/utils/*"
-      'src/utils/*',
-
-      // for backward compatbility, see https://github.com/primer/react/pull/3740
-      'src/ActionMenu/index.ts',
-    ],
-    {
-      cwd: __dirname,
-      ignore: [
-        '**/__tests__/**',
-        '*.stories.tsx',
-
-        // File currently imports from package.json
-        'src/utils/test-deprecations.tsx',
-
-        // Files use dependencies which are not listed by package
-        'src/utils/testing.tsx',
-        'src/utils/test-matchers.tsx',
-      ],
-    },
-  ),
 ])
+
+function getEntrypointsFromInput(input) {
+  return Object.fromEntries(
+    Array.from(input).map(value => {
+      const relativePath = path.relative('src', value)
+      return [path.join(path.dirname(relativePath), path.basename(relativePath, path.extname(relativePath))), value]
+    }),
+  )
+}
 
 const extensions = ['.js', '.jsx', '.ts', '.tsx']
 const ESM_ONLY = new Set([
@@ -88,7 +60,11 @@ const postcssModulesOptions = {
 }
 
 const baseConfig = {
-  input: Array.from(input),
+  input: {
+    ...getEntrypointsFromInput(input),
+    // "./test-helpers"
+    'test-helpers': 'src/utils/test-helpers.tsx',
+  },
   plugins: [
     babel({
       extensions,

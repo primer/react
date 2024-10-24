@@ -17,6 +17,7 @@ import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
+import {useFeatureFlag} from '../FeatureFlags'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -58,6 +59,16 @@ function isMultiSelectVariant(
 const focusZoneSettings: Partial<FocusZoneHookSettings> = {
   // Let FilteredActionList handle focus zone
   disabled: true,
+}
+
+const areItemsEqual = (itemA: ItemInput, itemB: ItemInput) => {
+  // prefer checking equivality by item.id
+  if (typeof itemA.id !== 'undefined') return itemA.id === itemB.id
+  else return itemA === itemB
+}
+
+const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
+  return items.some(i => areItemsEqual(i, item))
 }
 
 export function SelectPanel({
@@ -128,7 +139,7 @@ export function SelectPanel({
 
   const itemsToRender = useMemo(() => {
     return items.map(item => {
-      const isItemSelected = isMultiSelectVariant(selected) ? selected.includes(item) : selected === item
+      const isItemSelected = isMultiSelectVariant(selected) ? doesItemsIncludeItem(selected, item) : selected === item
 
       return {
         ...item,
@@ -142,8 +153,10 @@ export function SelectPanel({
           }
 
           if (isMultiSelectVariant(selected)) {
-            const otherSelectedItems = selected.filter(selectedItem => selectedItem !== item)
-            const newSelectedItems = selected.includes(item) ? otherSelectedItems : [...otherSelectedItems, item]
+            const otherSelectedItems = selected.filter(selectedItem => !areItemsEqual(selectedItem, item))
+            const newSelectedItems = doesItemsIncludeItem(selected, item)
+              ? otherSelectedItems
+              : [...otherSelectedItems, item]
 
             const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
             multiSelectOnChange(newSelectedItems)
@@ -174,6 +187,8 @@ export function SelectPanel({
     }
   }, [inputLabel, textInputProps])
 
+  const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
+
   return (
     <LiveRegion>
       <AnchoredOverlay
@@ -192,15 +207,17 @@ export function SelectPanel({
         focusZoneSettings={focusZoneSettings}
       >
         <LiveRegionOutlet />
-        <Message
-          value={
-            filterValue === ''
-              ? 'Showing all items'
-              : items.length <= 0
-              ? 'No matching items'
-              : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
-          }
-        />
+        {usingModernActionList ? null : (
+          <Message
+            value={
+              filterValue === ''
+                ? 'Showing all items'
+                : items.length <= 0
+                ? 'No matching items'
+                : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
+            }
+          />
+        )}
         <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}>
           <Box sx={{pt: 2, px: 3}}>
             <Heading as="h1" id={titleId} sx={{fontSize: 1}}>

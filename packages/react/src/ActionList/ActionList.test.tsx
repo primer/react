@@ -465,7 +465,9 @@ describe('ActionList', () => {
 
       return (
         <FeatureFlags flags={{primer_react_action_list_item_as_button: false}}>
-          <button onClick={focusRef}>Prompt</button>
+          <button type="button" onClick={focusRef}>
+            Prompt
+          </button>
           <ActionList>
             <ActionList.Item ref={ref}>Item 1</ActionList.Item>
             <ActionList.Item>Item 2</ActionList.Item>
@@ -582,6 +584,37 @@ describe('ActionList', () => {
     await user.keyboard('{Enter}')
 
     expect(mockOnSelect).toHaveBeenCalledTimes(1)
+  })
+
+  it('should not render buttons when feature flag is enabled and is specified role', async () => {
+    const {getByRole} = HTMLRender(
+      <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+        <ActionList>
+          <ActionList.Item role="option">Item 1</ActionList.Item>
+          <ActionList.Item role="menuitem">Item 2</ActionList.Item>
+          <ActionList.Item role="menuitemcheckbox">Item 3</ActionList.Item>
+          <ActionList.Item role="menuitemradio">Item 4</ActionList.Item>
+          <ActionList.Item>Item 5</ActionList.Item>
+        </ActionList>
+      </FeatureFlags>,
+    )
+
+    const option = getByRole('option')
+    expect(option.tagName).toBe('LI')
+    expect(option.textContent).toBe('Item 1')
+
+    const menuItem = getByRole('menuitem')
+    expect(menuItem.tagName).toBe('LI')
+
+    const menuItemCheckbox = getByRole('menuitemcheckbox')
+    expect(menuItemCheckbox.tagName).toBe('LI')
+
+    const menuItemRadio = getByRole('menuitemradio')
+    expect(menuItemRadio.tagName).toBe('LI')
+
+    const button = getByRole('button')
+    expect(button.parentElement?.tagName).toBe('LI')
+    expect(button.textContent).toBe('Item 5')
   })
 
   it('should be navigatable with arrow keys for certain roles', async () => {

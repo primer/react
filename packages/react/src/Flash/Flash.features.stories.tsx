@@ -22,7 +22,7 @@ export const Success = () => (
     }}
   >
     <Box sx={{display: 'grid', paddingBlock: 'var(--base-size-8)', alignSelf: 'start', gridArea: 'visual'}}>
-      <Octicon icon={CheckCircleIcon} />
+      <Octicon icon={CheckCircleIcon} aria-label="Success" />
     </Box>
     <Box
       sx={{
@@ -48,7 +48,7 @@ export const Danger = () => (
     }}
   >
     <Box sx={{display: 'grid', paddingBlock: 'var(--base-size-8)', alignSelf: 'start', gridArea: 'visual'}}>
-      <Octicon icon={InfoIcon} />
+      <Octicon icon={InfoIcon} aria-label="Danger" />
     </Box>
     <Box
       sx={{
@@ -74,7 +74,7 @@ export const Warning = () => (
     }}
   >
     <Box sx={{display: 'grid', paddingBlock: 'var(--base-size-8)', alignSelf: 'start', gridArea: 'visual'}}>
-      <Octicon icon={AlertIcon} />
+      <Octicon icon={AlertIcon} aria-label="Warning" />
     </Box>
     <Box
       sx={{
@@ -100,7 +100,7 @@ export const Full = () => (
     }}
   >
     <Box sx={{display: 'grid', paddingBlock: 'var(--base-size-8)', alignSelf: 'start', gridArea: 'visual'}}>
-      <Octicon icon={InfoIcon} />
+      <Octicon icon={InfoIcon} aria-label="Info" />
     </Box>
     <Box
       sx={{
@@ -134,7 +134,7 @@ export const WithIconAndAction = () => (
     }}
   >
     <Box sx={{display: 'grid', paddingBlock: 'var(--base-size-8)', alignSelf: 'start', gridArea: 'visual'}}>
-      <Octicon icon={InfoIcon} />
+      <Octicon icon={InfoIcon} aria-label="Info" />
     </Box>
     <Box
       sx={{
@@ -180,7 +180,7 @@ export const WithIconActionDismiss = () => (
     }}
   >
     <Box sx={{display: 'grid', paddingBlock: 'var(--base-size-8)', alignSelf: 'start', gridArea: 'visual'}}>
-      <Octicon icon={InfoIcon} />
+      <Octicon icon={InfoIcon} aria-label="Info" />
     </Box>
     <Box
       sx={{

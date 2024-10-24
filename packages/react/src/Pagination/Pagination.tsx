@@ -4,7 +4,6 @@ import Box from '../Box'
 import {get} from '../constants'
 import type {SxProp} from '../sx'
 import sx from '../sx'
-import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import {buildComponentData, buildPaginationModel} from './model'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {viewportRanges} from '../hooks/useResponsiveValue'
@@ -56,7 +55,10 @@ const Page = styled.a`
     transition-duration: 0.1s;
   }
 
-  ${getGlobalFocusStyles(0)};
+  &:focus-visible {
+    outline: 2px solid ${get('colors.accent.emphasis')};
+    outline-offset: -2px;
+  }
 
   &:active {
     border-color: ${get('colors.border.muted')};
@@ -72,6 +74,12 @@ const Page = styled.a`
     color: ${get('colors.fg.onEmphasis')};
     background-color: ${get('colors.accent.emphasis')};
     border-color: transparent;
+  }
+
+  &[aria-current]:focus-visible {
+    outline: 2px solid ${get('colors.accent.emphasis')};
+    outline-offset: -2px;
+    box-shadow: inset 0 0 0 3px ${get('colors.fg.onEmphasis')};
   }
 
   &[aria-disabled],
@@ -196,7 +204,7 @@ const PaginationContainer = styled.nav<SxProp>`
         .TablePaginationSteps[data-hidden-viewport-ranges*='${viewportRangeKey}'] > *:first-child {
           margin-inline-end: 0;
         }
-        
+
         .TablePaginationSteps[data-hidden-viewport-ranges*='${viewportRangeKey}'] > *:last-child {
           margin-inline-start: 0;
         }

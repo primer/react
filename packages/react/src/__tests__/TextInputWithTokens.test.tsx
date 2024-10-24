@@ -8,6 +8,7 @@ import {IssueLabelToken} from '../Token'
 import type {TextInputWithTokensProps} from '../TextInputWithTokens'
 import TextInputWithTokens from '../TextInputWithTokens'
 import {MarkGithubIcon} from '@primer/octicons-react'
+import {FeatureFlags} from '../FeatureFlags'
 
 const mockTokens = [
   {text: 'zero', id: 0},
@@ -36,6 +37,26 @@ const LabelledTextInputWithTokens: React.FC<React.PropsWithChildren<TextInputWit
 jest.useFakeTimers()
 
 describe('TextInputWithTokens', () => {
+  it('should support `className` on the outermost element', () => {
+    const onRemoveMock = jest.fn()
+    const Element = () => <TextInputWithTokens className={'test-class-name'} tokens={[]} onTokenRemove={onRemoveMock} />
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(HTMLRender(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
+  })
+
   it('renders without tokens', () => {
     const onRemoveMock = jest.fn()
     expect(render(<TextInputWithTokens tokens={[]} onTokenRemove={onRemoveMock} />)).toMatchSnapshot()
@@ -317,7 +338,9 @@ describe('TextInputWithTokens', () => {
           onTokenRemove={onRemoveMock}
           visibleTokenCount={visibleTokenCount}
         />
-        <button id="focusableOutsideComponent">Focus me</button>
+        <button type="button" id="focusableOutsideComponent">
+          Focus me
+        </button>
       </>,
     )
     const inputNode = getByLabelText('Tokens')
@@ -373,7 +396,9 @@ describe('TextInputWithTokens', () => {
           onTokenRemove={onRemoveMock}
           visibleTokenCount={visibleTokenCount}
         />
-        <button id="focusableOutsideComponent">Focus me</button>
+        <button type="button" id="focusableOutsideComponent">
+          Focus me
+        </button>
       </>,
     )
     const inputNode = getByLabelText('Tokens')

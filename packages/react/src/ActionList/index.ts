@@ -9,7 +9,7 @@ import {LeadingVisual, TrailingVisual} from './Visuals'
 import {Heading} from './Heading'
 
 export type {ActionListProps} from './shared'
-export type {ActionListGroupProps} from './Group'
+export type {ActionListGroupProps, ActionListGroupHeadingProps} from './Group'
 export type {ActionListItemProps} from './shared'
 export type {ActionListLinkItemProps} from './LinkItem'
 export type {ActionListDividerProps} from './Divider'
