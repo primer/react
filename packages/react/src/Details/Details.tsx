@@ -1,11 +1,4 @@
-import React, {
-  forwardRef,
-  useEffect,
-  useState,
-  type ComponentProps,
-  type ComponentPropsWithoutRef,
-  type ReactElement,
-} from 'react'
+import React, {useEffect, useState, type ComponentProps, type ComponentPropsWithoutRef, type ReactElement} from 'react'
 import styled from 'styled-components'
 import type {SxProp} from '../sx'
 import sx from '../sx'
@@ -13,7 +6,6 @@ import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import {useFeatureFlag} from '../FeatureFlags'
 import {clsx} from 'clsx'
 import classes from './Details.module.css'
-import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {useMergedRefs} from '../internal/hooks/useMergedRefs'
 
 const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
@@ -94,14 +86,13 @@ export type SummaryProps = {
 } & SxProp &
   ComponentProps<typeof StyledSummary>
 
-const Summary = forwardRef(({as: Component = StyledSummary, children, ...props}: SummaryProps, forwardedRef) => {
+const Summary = ({as: Component = StyledSummary, children, ...props}: SummaryProps) => {
   return (
-    <Component ref={forwardedRef} as={Component === StyledSummary ? null : 'summary'} {...props}>
+    <Component as={Component === StyledSummary ? null : 'summary'} {...props}>
       {children}
     </Component>
   )
-}) as PolymorphicForwardRefComponent<'summary', SummaryProps>
-
+}
 Summary.displayName = 'Summary'
 
 export {Summary}
