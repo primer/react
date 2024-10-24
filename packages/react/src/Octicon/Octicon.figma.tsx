@@ -2215,7 +2215,7 @@ figma.connect(DuplicateIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?nod
 })
 
 figma.connect(FileCodeIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=32-99', {
-  example: () => <FileCodeIcon size={16} />,
+  example: () => FileCodeIcon,
 })
 
 figma.connect(ChevronRightIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=179-924', {
