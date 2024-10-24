@@ -1363,7 +1363,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
               <a
                 aria-current="page"
                 aria-labelledby=":r2f:--label  "
-                class="c12 c13 Link"
+                class="c1 c12 Link"
                 href="#"
                 id=":r2f:"
                 tabindex="0"
@@ -1373,7 +1373,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
                   data-component="ActionList.Item--DividerContainer"
                 >
                   <span
-                    class="c1 c14"
+                    class="c1 c13"
                     id=":r2f:--label"
                   >
                     Sub Item
@@ -1867,7 +1867,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
               <a
                 aria-current="page"
                 aria-labelledby=":r29:--label  "
-                class="c12 c13 Link"
+                class="c1 c12 Link"
                 href="#"
                 id=":r29:"
                 tabindex="0"
