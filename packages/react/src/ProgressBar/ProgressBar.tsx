@@ -5,7 +5,6 @@ import {width} from 'styled-system'
 import {get} from '../constants'
 import type {SxProp} from '../sx'
 import sx from '../sx'
-import {warning} from '../utils/warning'
 
 type ProgressProp = {
   progress?: string | number
