@@ -5,6 +5,7 @@ import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
 import {userEvent} from '@testing-library/user-event'
 import ThemeProvider from '../ThemeProvider'
 import {FeatureFlags} from '../FeatureFlags'
+import type {InitialLoadingType} from './SelectPanel'
 import {getLiveRegion} from '../utils/testing'
 
 const renderWithFlag = (children: React.ReactNode, flag: boolean) => {
@@ -434,6 +435,73 @@ for (const useModernActionList of [false, true]) {
       describe('screen reader announcements', () => {
         // this is only implemented with the feature flag
         if (!useModernActionList) return
+
+        function LoadingSelectPanel({
+          initialLoadingType = 'spinner',
+          items = [],
+        }: {
+          initialLoadingType?: InitialLoadingType
+          items?: SelectPanelProps['items']
+        }) {
+          const [open, setOpen] = React.useState(false)
+
+          return (
+            <ThemeProvider>
+              <SelectPanel
+                title="test title"
+                subtitle="test subtitle"
+                placeholder="Select items"
+                open={open}
+                items={items}
+                onFilterChange={() => {}}
+                selected={[]}
+                onSelectedChange={() => {}}
+                onOpenChange={isOpen => {
+                  setOpen(isOpen)
+                }}
+                initialLoadingType={initialLoadingType}
+              />
+            </ThemeProvider>
+          )
+        }
+
+        it('displays a loading spinner on first open', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<LoadingSelectPanel />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.getByTestId('filtered-action-list-spinner')).toBeTruthy()
+        })
+
+        it('displays a loading skeleton on first open', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<LoadingSelectPanel initialLoadingType="skeleton" />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.getByTestId('filtered-action-list-skeleton')).toBeTruthy()
+        })
+
+        it('displays a loading spinner in the text input if items are already loaded', async () => {
+          const user = userEvent.setup()
+
+          renderWithFlag(<LoadingSelectPanel items={items} />, useModernActionList)
+
+          await user.click(screen.getByText('Select items'))
+
+          expect(screen.getAllByRole('option')).toHaveLength(3)
+
+          // since the test component never repopulates the panel's list of items, the panel will
+          // enter the loading state after the following line executes and stay there indefinitely
+          await user.type(document.activeElement!, 'two')
+
+          // The aria-describedby attribute is only available if the icon is present. The input
+          // field has a role of combobox.
+          expect(screen.getByRole('combobox').hasAttribute('aria-describedby')).toBeTruthy()
+        })
 
         it('should announce initial focused item', async () => {
           const user = userEvent.setup()
