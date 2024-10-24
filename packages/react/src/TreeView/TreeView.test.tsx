@@ -217,10 +217,10 @@ describe('Markup', () => {
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
 
     treeitem = getByLabelText(/Item 2/)
-    expect(treeitem).not.toHaveAttribute('aria-expanded')
+    expect(treeitem).toHaveAttribute('aria-expanded', 'false')
 
     await user.click(getByText(/Item 2/))
-    expect(treeitem).not.toHaveAttribute('aria-expanded')
+    expect(treeitem).toHaveAttribute('aria-expanded', 'true')
   })
 
   it('should render with containIntrinsicSize', () => {
@@ -1537,7 +1537,7 @@ describe('Asyncronous loading', () => {
     expect(parentItem).toHaveAttribute('aria-expanded', 'true')
   })
 
-  it('should remove `aria-expanded` if no content is loaded in', async () => {
+  it('should update `aria-expanded` if no content is loaded in', async () => {
     function Example() {
       const [state, setState] = React.useState<SubTreeState>('loading')
       const timeoutId = React.useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -1584,6 +1584,7 @@ describe('Asyncronous loading', () => {
       jest.runAllTimers()
     })
 
-    expect(treeitem).not.toHaveAttribute('aria-expanded')
+    expect(treeitem).toHaveAttribute('aria-expanded', 'true')
+    expect(getByLabelText('No items found')).toBeInTheDocument()
   })
 })
