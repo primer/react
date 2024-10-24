@@ -321,6 +321,7 @@ function Panel({
     else return []
   }
 
+  // We don't need to call this function when the flag is off but we will implement the empty state for the deprecated SelectPanel in the follow up PR, so I am keeping it as is for now.
   const currentMessage = getCurrentMessage(children)
 
   return (
@@ -381,7 +382,7 @@ function Panel({
             loading={isLoading}
             loadingType={loadingType()}
             // TODO: We will remove the flag in the follow up PR and make sure that the messages are properly implemented for the deprecated SelectPanel as well.
-            {...(usingModernActionList ? {message: currentMessage} : {})}
+            {...(usingModernActionList ? {message: currentMessage} : undefined)}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
             sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
