@@ -18,6 +18,8 @@ import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 import {useFeatureFlag} from '../FeatureFlags'
+import {useResponsiveValue} from '../hooks/useResponsiveValue'
+import {StyledOverlay} from '../Overlay/Overlay'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -189,23 +191,71 @@ export function SelectPanel({
 
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
 
+  const responsiveVariants = Object.assign({regular: 'anchored', narrow: 'full-screen'}) // defaults
+
+  const currentVariant = useResponsiveValue(responsiveVariants, 'anchored')
+
+  const ConditionalOverlay: React.FC<React.PropsWithChildren<{isAnchored: boolean}>> = props => {
+    const {isAnchored, ...rest} = props
+
+    if (isAnchored)
+      return (
+        <AnchoredOverlay
+          renderAnchor={renderMenuAnchor}
+          anchorRef={anchorRef}
+          open={open}
+          onOpen={onOpen}
+          onClose={onClose}
+          overlayProps={{
+            role: 'dialog',
+            'aria-labelledby': titleId,
+            'aria-describedby': subtitle ? subtitleId : undefined,
+            ...overlayProps,
+          }}
+          focusTrapSettings={focusTrapSettings}
+          focusZoneSettings={focusZoneSettings}
+          {...rest}
+        >
+          {props.children}
+        </AnchoredOverlay>
+      )
+    // This variant can be used for full-screen, bottom-sheet, modal, etc.
+    else {
+      return (
+        <StyledOverlay
+          open={open}
+          as="dialog"
+          aria-labelledby={titleId}
+          aria-describedby={subtitle ? subtitleId : undefined}
+          data-variant={currentVariant}
+          sx={{
+            // reset dialog default styles
+            border: 'none',
+            padding: 0,
+            color: 'fg.default',
+            '&[open]': {display: 'flex'},
+            '&[data-variant="full-screen"]': {
+              margin: 0,
+              top: 0,
+              left: 0,
+              width: '100%',
+              maxWidth: '100vw',
+              height: '100%',
+              maxHeight: '100vh',
+              borderRadius: 'unset',
+            },
+          }}
+          {...rest}
+        >
+          {props.children}
+        </StyledOverlay>
+      )
+    }
+  }
+
   return (
     <LiveRegion>
-      <AnchoredOverlay
-        renderAnchor={renderMenuAnchor}
-        anchorRef={anchorRef}
-        open={open}
-        onOpen={onOpen}
-        onClose={onClose}
-        overlayProps={{
-          role: 'dialog',
-          'aria-labelledby': titleId,
-          'aria-describedby': subtitle ? subtitleId : undefined,
-          ...overlayProps,
-        }}
-        focusTrapSettings={focusTrapSettings}
-        focusZoneSettings={focusZoneSettings}
-      >
+      <ConditionalOverlay isAnchored={currentVariant === 'anchored'}>
         <LiveRegionOutlet />
         {usingModernActionList ? null : (
           <Message
@@ -218,7 +268,7 @@ export function SelectPanel({
             }
           />
         )}
-        <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}>
+        <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit', width: '100%'}}>
           <Box sx={{pt: 2, px: 3}}>
             <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
               {title}
@@ -260,7 +310,7 @@ export function SelectPanel({
             </Box>
           )}
         </Box>
-      </AnchoredOverlay>
+      </ConditionalOverlay>
     </LiveRegion>
   )
 }
