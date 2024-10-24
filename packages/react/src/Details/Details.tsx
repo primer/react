@@ -37,5 +37,5 @@ const Details = React.forwardRef<HTMLDetailsElement, DetailsProps>(
 
 Details.displayName = 'Details'
 
-export type DetailsProps = ComponentPropsWithoutRef<'details'>
+export type DetailsProps = ComponentPropsWithoutRef<'details'> & SxProp
 export default Details
