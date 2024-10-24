@@ -1,5 +1,5 @@
 import type {MouseEventHandler} from 'react'
-import React, {useCallback, useState} from 'react'
+import React, {useCallback, useState, useId} from 'react'
 import {isValidElementType} from 'react-is'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {clsx} from 'clsx'
@@ -11,6 +11,7 @@ import type {StyledWrapperProps} from '../internal/components/TextInputWrapper'
 import TextInputWrapper from '../internal/components/TextInputWrapper'
 import TextInputAction from '../internal/components/TextInputInnerAction'
 import UnstyledTextInput from '../internal/components/UnstyledTextInput'
+import VisuallyHidden from '../_VisuallyHidden'
 
 export type TextInputNonPassthroughProps = {
   /** @deprecated Use `leadingVisual` or `trailingVisual` prop instead */
@@ -24,6 +25,8 @@ export type TextInputNonPassthroughProps = {
    * 'trailing': at the end of the input
    **/
   loaderPosition?: 'auto' | 'leading' | 'trailing'
+  /** Text for screen readers to convey the loading state */
+  loaderText?: string
   /**
    * A visual that renders inside the input before the typing area
    */
@@ -67,6 +70,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       disabled,
       loading,
       loaderPosition = 'auto',
+      loaderText = 'Loading',
       monospace,
       validationStatus,
       sx: sxProp,
@@ -96,6 +100,18 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     const focusInput: MouseEventHandler = () => {
       inputRef.current?.focus()
     }
+    const leadingVisualId = useId()
+    const trailingVisualId = useId()
+    const loadingId = useId()
+
+    const inputDescribedBy =
+      clsx(
+        inputProps['aria-describedby'],
+        LeadingVisual && leadingVisualId,
+        TrailingVisual && trailingVisualId,
+        loading && loadingId,
+      ) || undefined
+
     const handleInputFocus = useCallback(
       (e: React.FocusEvent<HTMLInputElement>) => {
         setIsInputFocused(true)
@@ -137,7 +153,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           visualPosition="leading"
           showLoadingIndicator={showLeadingLoadingIndicator}
           hasLoadingIndicator={typeof loading === 'boolean'}
-          data-testid="text-input-leading-visual"
+          id={leadingVisualId}
         >
           {typeof LeadingVisual !== 'string' && isValidElementType(LeadingVisual) ? <LeadingVisual /> : LeadingVisual}
         </TextInputInnerVisualSlot>
@@ -150,12 +166,15 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
           aria-required={required}
           aria-invalid={validationStatus === 'error' ? 'true' : undefined}
           {...inputProps}
+          aria-describedby={inputDescribedBy}
           data-component="input"
         />
+        {loading && <VisuallyHidden id={loadingId}>{loaderText}</VisuallyHidden>}
         <TextInputInnerVisualSlot
           visualPosition="trailing"
           showLoadingIndicator={showTrailingLoadingIndicator}
           hasLoadingIndicator={typeof loading === 'boolean'}
+          id={trailingVisualId}
           data-testid="text-input-trailing-visual"
         >
           {typeof TrailingVisual !== 'string' && isValidElementType(TrailingVisual) ? (
