@@ -113,12 +113,6 @@
       "description": "If defined, Overlays will be rendered in the named portal. See also `Portal`."
     },
     {
-      "name": "focusTrap",
-      "type": "string",
-      "defaultValue": "true",
-      "description": "Determines if the `Overlay` recieves a focus trap or not"
-    },
-    {
       "name": "sx",
       "type": "SystemStyleObject"
     }
