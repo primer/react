@@ -91,6 +91,21 @@ export const StyledOverlay = styled.div<StyledOverlayProps>`
     outline: solid 1px transparent;
   }
 
+  /* TODO: To test <Dialog> styles */
+  &[data-dialog='true'] {
+    height: fit-content;
+    inset-block: unset;
+    inset-inline: unset;
+
+    padding: 0;
+    border: 0;
+    max-height: unset;
+  }
+
+  ::backdrop {
+    display: none;
+  }
+
   ${sx};
 `
 type BaseOverlayProps = {
@@ -109,6 +124,7 @@ type BaseOverlayProps = {
   portalContainerName?: string
   preventFocusOnOpen?: boolean
   role?: AriaRole
+  focusTrap?: boolean
   children?: React.ReactNode
 }
 
@@ -133,12 +149,13 @@ type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
  * @param bottom Optional. Vertical bottom position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
  * @param position Optional. Sets how an element is positioned in a document. Defaults to `absolute` positioning.
  * @param portalContainerName Optional. The name of the portal container to render the Overlay into.
+ * @param focusTrap Optional. Determines if the `Overlay` recieves a focus trap or not. Defaults to `true`.
  */
-const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
+const Overlay = React.forwardRef<HTMLElement, OwnOverlayProps>(
   (
     {
       onClickOutside,
-      role = 'none',
+      role,
       initialFocusRef,
       returnFocusRef,
       ignoreClickRefs,
@@ -159,7 +176,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
     },
     forwardedRef,
   ): ReactElement => {
-    const overlayRef = useRef<HTMLDivElement>(null)
+    const overlayRef = useRef<HTMLElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, overlayRef)
     const {theme} = useTheme()
     const slideAnimationDistance = parseInt(get('space.2')(theme).replace('px', ''))
@@ -200,19 +217,29 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
     // To be backwards compatible with the old Overlay, we need to set the left prop if x-position is not specified
     const leftPosition: React.CSSProperties = left === undefined && right === undefined ? {left: 0} : {left}
 
+    const isDialog = role && role !== 'dialog' ? false : true
+
+    useEffect(() => {
+      if (isDialog && overlayRef.current instanceof HTMLDialogElement) {
+        overlayRef.current.showModal()
+      }
+    }, [overlayRef, isDialog])
+
     return (
       <Portal containerName={portalContainerName}>
         <StyledOverlay
           height={height}
           width={width}
           role={role}
+          as={isDialog ? 'dialog' : undefined}
+          data-dialog={isDialog}
           {...rest}
           ref={overlayRef}
           style={
             {
               ...leftPosition,
               right,
-              top,
+              top: top || !isDialog ? top : 0,
               bottom,
               position,
               '--styled-overlay-visibility': visibility,

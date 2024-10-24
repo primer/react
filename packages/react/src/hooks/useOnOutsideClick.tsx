@@ -5,7 +5,7 @@ export type TouchOrMouseEvent = MouseEvent | TouchEvent
 type TouchOrMouseEventCallback = (event: TouchOrMouseEvent) => boolean | undefined
 
 export type UseOnOutsideClickSettings = {
-  containerRef: React.RefObject<HTMLDivElement> | React.RefObject<HTMLUListElement>
+  containerRef: React.RefObject<HTMLElement> | React.RefObject<HTMLUListElement>
   ignoreClickRefs?: React.RefObject<HTMLElement>[]
   onClickOutside: (e: TouchOrMouseEvent) => void
 }
