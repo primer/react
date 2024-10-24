@@ -68,7 +68,7 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
 
     const ariaAttributes = {
       'aria-valuenow':
-        ariaValueNow || (progressAsNumber !== undefined && progressAsNumber >= 0 ? Math.round(progressAsNumber) : 0),
+        ariaValueNow ?? (progressAsNumber !== undefined && progressAsNumber >= 0 ? Math.round(progressAsNumber) : 0),
       'aria-valuemin': 0,
       'aria-valuemax': 100,
       'aria-valuetext': ariaValueText,
