@@ -69,6 +69,10 @@ export const Playground: StoryFn = ({
     </ResizableContainer>
   )
 }
+Playground.args = {
+  as: 'ul',
+}
+
 Playground.argTypes = {
   overflowStyle: {
     control: {
