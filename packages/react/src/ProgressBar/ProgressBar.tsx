@@ -76,12 +76,12 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
 
     return (
       <ProgressItem
+        {...rest}
         role="progressbar"
         aria-label={ariaLabel}
         ref={forwardRef}
         progress={progress}
         {...ariaAttributes}
-        {...rest}
       />
     )
   },
