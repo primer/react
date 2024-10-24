@@ -139,7 +139,7 @@ describe('Details', () => {
   })
 
   describe('Details.Summary', () => {
-    behavesAsComponent({Component: Details.Summary})
+    behavesAsComponent({Component: Details.Summary, options: {skipSx: true}})
 
     it('should support a custom `className` on the container element', () => {
       render(<Details.Summary className="custom-class">test summary</Details.Summary>)

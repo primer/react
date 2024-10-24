@@ -1,4 +1,4 @@
-import React, {useEffect, useState, type ComponentProps, type ComponentPropsWithoutRef, type ReactElement} from 'react'
+import React, {useEffect, useState, type ComponentPropsWithoutRef, type ReactElement} from 'react'
 import styled from 'styled-components'
 import type {SxProp} from '../sx'
 import sx from '../sx'
@@ -24,10 +24,6 @@ const StyledDetails = toggleStyledComponent(
     ${sx};
   `,
 )
-
-export const StyledSummary = styled.summary<SxProp>`
-  ${sx};
-`
 
 const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
   ({className, children, ...rest}, forwardRef): ReactElement => {
@@ -83,12 +79,11 @@ export type SummaryProps = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   as?: React.ElementType<React.PropsWithChildren<any>>
   children?: React.ReactNode
-} & SxProp &
-  ComponentProps<typeof StyledSummary>
+} & React.HTMLProps<HTMLElement>
 
-const Summary = ({as: Component = StyledSummary, children, ...props}: SummaryProps) => {
+const Summary = ({as: Component = 'summary', children, ...props}: SummaryProps) => {
   return (
-    <Component as={Component === StyledSummary ? null : 'summary'} {...props}>
+    <Component as={Component === 'summary' ? null : 'summary'} {...props}>
       {children}
     </Component>
   )
