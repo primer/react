@@ -1,4 +1,4 @@
-import styled, {css} from 'styled-components'
+import styled from 'styled-components'
 import type {ComponentPropsWithRef, ReactElement} from 'react'
 import React, {useEffect, useRef} from 'react'
 import useLayoutEffect from '../utils/useIsomorphicLayoutEffect'
@@ -99,10 +99,11 @@ export const StyledOverlay = styled.div<StyledOverlayProps>`
 
     padding: 0;
     border: 0;
+    max-height: unset;
   }
 
   ::backdrop {
-    background: none;
+    display: none;
   }
 
   ${sx};
