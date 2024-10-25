@@ -7,7 +7,7 @@ import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
 
-const Timeline = styled.div<{clipSidebar?: boolean} & SxProp>`
+const Timeline = styled.ul<{clipSidebar?: boolean} & SxProp>`
   display: flex;
   flex-direction: column;
   ${props =>
@@ -27,7 +27,7 @@ const Timeline = styled.div<{clipSidebar?: boolean} & SxProp>`
 
 type StyledTimelineItemProps = {condensed?: boolean} & SxProp
 
-const TimelineItem = styled.div.attrs<StyledTimelineItemProps>(props => ({
+const TimelineItem = styled.li.attrs<StyledTimelineItemProps>(props => ({
   className: clsx('Timeline-Item', props.className),
 }))<StyledTimelineItemProps>`
   display: flex;
@@ -108,7 +108,7 @@ const TimelineBody = styled.div<SxProp>`
   ${sx};
 `
 
-const TimelineBreak = styled.div<SxProp>`
+const TimelineBreak = styled.li<SxProp>`
   position: relative;
   z-index: 1;
   height: 24px;
