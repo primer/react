@@ -1,6 +1,6 @@
 import React, {useState, useRef, useCallback} from 'react'
 import type {Meta} from '@storybook/react'
-import {TriangleDownIcon, PlusIcon, IssueDraftIcon} from '@primer/octicons-react'
+import {TriangleDownIcon, PlusIcon, IssueDraftIcon, XIcon} from '@primer/octicons-react'
 import {
   Overlay,
   ButtonGroup,
@@ -16,8 +16,10 @@ import {
   Label,
   ActionList,
   ActionMenu,
+  useFocusTrap,
 } from '..'
 import type {AnchorSide} from '@primer/behaviors'
+import type {AriaRole} from '../utils/types'
 import {Tooltip} from '../TooltipV2'
 
 export default {
@@ -25,6 +27,7 @@ export default {
   component: Overlay,
   args: {
     anchorSide: 'inside-top',
+    role: 'dialog',
   },
   argTypes: {
     anchorSide: {
@@ -43,16 +46,22 @@ export default {
         'outside-right',
       ],
     },
+    role: {
+      type: 'string',
+    },
   },
 } as Meta
 
 interface OverlayProps {
   anchorSide: AnchorSide
+  role?: AriaRole
+  right?: boolean
 }
 
 export const DropdownOverlay = ({anchorSide}: OverlayProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
+
   return (
     <>
       <Button ref={buttonRef} sx={{position: 'relative'}} onClick={() => setIsOpen(!isOpen)}>
@@ -67,8 +76,9 @@ export const DropdownOverlay = ({anchorSide}: OverlayProps) => {
           onEscape={() => setIsOpen(false)}
           onClickOutside={() => setIsOpen(false)}
           anchorSide={anchorSide}
+          role="none"
         >
-          <ActionList>
+          <ActionList role="menu">
             <ActionList.Item>Copy link</ActionList.Item>
             <ActionList.Item>Quote reply</ActionList.Item>
             <ActionList.Item>Reference in new issue</ActionList.Item>
@@ -82,12 +92,15 @@ export const DropdownOverlay = ({anchorSide}: OverlayProps) => {
   )
 }
 
-export const DialogOverlay = ({anchorSide}: OverlayProps) => {
+export const DialogOverlay = ({anchorSide, role}: OverlayProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
   const confirmButtonRef = useRef<HTMLButtonElement>(null)
   const anchorRef = useRef<HTMLDivElement>(null)
   const closeOverlay = () => setIsOpen(false)
+  useFocusTrap({containerRef, disabled: !isOpen, initialFocusRef: confirmButtonRef, returnFocusRef: buttonRef})
+
   return (
     <Box ref={anchorRef}>
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
@@ -102,6 +115,9 @@ export const DialogOverlay = ({anchorSide}: OverlayProps) => {
           onClickOutside={closeOverlay}
           width="small"
           anchorSide={anchorSide}
+          role={role}
+          aria-modal={role === 'dialog' ? 'true' : undefined}
+          ref={containerRef}
         >
           <Box display="flex" flexDirection="column" p={2}>
             <Text>Are you sure?</Text>
@@ -118,7 +134,7 @@ export const DialogOverlay = ({anchorSide}: OverlayProps) => {
   )
 }
 
-export const OverlayOnTopOfOverlay = ({anchorSide}: OverlayProps) => {
+export const OverlayOnTopOfOverlay = ({anchorSide, role}: OverlayProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [isSecondaryOpen, setIsSecondaryOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -129,6 +145,14 @@ export const OverlayOnTopOfOverlay = ({anchorSide}: OverlayProps) => {
   const closeSecondaryOverlay = useCallback(() => setIsSecondaryOpen(false), [setIsSecondaryOpen])
   const items = ['🔵 Cyan', '🔴 Magenta', '🟡 Yellow']
   const [selectedItem, setSelectedItem] = React.useState(items[0])
+
+  const primaryContainer = useRef<HTMLDivElement>(null)
+  const secondaryContainer = useRef<HTMLDivElement>(null)
+
+  useFocusTrap({
+    containerRef: !isSecondaryOpen ? primaryContainer : secondaryContainer,
+    disabled: !isOpen,
+  })
 
   return (
     <Box position="absolute" top={0} left={0} bottom={0} right={0} ref={anchorRef}>
@@ -145,6 +169,9 @@ export const OverlayOnTopOfOverlay = ({anchorSide}: OverlayProps) => {
           onClickOutside={closeOverlay}
           width="small"
           anchorSide={anchorSide}
+          role={role}
+          aria-modal={role === 'dialog' ? 'true' : undefined}
+          ref={primaryContainer}
         >
           <Button ref={secondaryButtonRef} onClick={() => setIsSecondaryOpen(!isSecondaryOpen)}>
             open overlay
@@ -158,6 +185,9 @@ export const OverlayOnTopOfOverlay = ({anchorSide}: OverlayProps) => {
               width="small"
               sx={{top: '40px'}}
               anchorSide={anchorSide}
+              role={role}
+              aria-modal={role === 'dialog' ? 'true' : undefined}
+              ref={secondaryContainer}
             >
               <Box display="flex" flexDirection="column" p={2}>
                 <Text>Select an option!</Text>
@@ -186,12 +216,14 @@ export const OverlayOnTopOfOverlay = ({anchorSide}: OverlayProps) => {
   )
 }
 
-export const MemexNestedOverlays = () => {
+export const MemexNestedOverlays = ({role}: OverlayProps) => {
   const [overlayOpen, setOverlayOpen] = React.useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   const durations = ['days', 'weeks']
   const [duration, setDuration] = React.useState(durations[0])
+  useFocusTrap({containerRef, disabled: !overlayOpen, returnFocusRef: buttonRef})
 
   return (
     <div>
@@ -213,6 +245,9 @@ export const MemexNestedOverlays = () => {
           ignoreClickRefs={[buttonRef]}
           top={60}
           left={16}
+          role={role}
+          aria-modal={role === 'dialog' ? 'true' : undefined}
+          ref={containerRef}
         >
           <Box as="form" onSubmit={() => setOverlayOpen(false)} sx={{display: 'flex', flexDirection: 'column', py: 2}}>
             <Box sx={{paddingX: 3, display: 'flex', alignItems: 'center', gap: 1}}>
@@ -247,12 +282,19 @@ export const MemexNestedOverlays = () => {
   )
 }
 
-export const NestedOverlays = () => {
+export const NestedOverlays = ({role}: OverlayProps) => {
   const [listOverlayOpen, setListOverlayOpen] = React.useState(false)
   const [createListOverlayOpen, setCreateListOverlayOpen] = React.useState(false)
 
   const buttonRef = useRef<HTMLButtonElement>(null)
   const secondaryButtonRef = useRef<HTMLButtonElement>(null)
+  const primaryContainer = useRef<HTMLDivElement>(null)
+  const secondaryContainer = useRef<HTMLDivElement>(null)
+
+  useFocusTrap({
+    containerRef: !createListOverlayOpen ? primaryContainer : secondaryContainer,
+    disabled: !listOverlayOpen,
+  })
 
   React.useEffect(() => {
     // eslint-disable-next-line no-console
@@ -285,6 +327,9 @@ export const NestedOverlays = () => {
           ignoreClickRefs={[buttonRef]}
           top={100}
           left={16}
+          ref={primaryContainer}
+          role={role}
+          aria-modal={role === 'dialog' ? 'true' : undefined}
         >
           <Box sx={{display: 'flex', flexDirection: 'column', py: 2}}>
             <Box sx={{paddingX: 3, paddingY: 2}}>
@@ -324,6 +369,9 @@ export const NestedOverlays = () => {
               ignoreClickRefs={[secondaryButtonRef]}
               top={120}
               left={64}
+              role={role}
+              aria-modal={role === 'dialog' ? 'true' : undefined}
+              ref={secondaryContainer}
             >
               <Box as="form" sx={{display: 'flex', flexDirection: 'column', p: 3}}>
                 <Text color="fg.muted" sx={{fontSize: 1, mb: 3}}>
@@ -344,11 +392,12 @@ export const NestedOverlays = () => {
   )
 }
 
-export const MemexIssueOverlay = () => {
+export const MemexIssueOverlay = ({role}: OverlayProps) => {
   const [overlayOpen, setOverlayOpen] = React.useState(false)
   const linkRef = useRef<HTMLAnchorElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
 
   const [title, setTitle] = React.useState('Implement draft issue editor')
   const [editing, setEditing] = React.useState(false)
@@ -357,6 +406,8 @@ export const MemexIssueOverlay = () => {
     // If we just started editing, focus the newly rendered input
     if (editing) inputRef.current?.focus()
   }, [editing])
+
+  useFocusTrap({containerRef, disabled: !overlayOpen, initialFocusRef: buttonRef, returnFocusRef: linkRef})
 
   return (
     <>
@@ -389,6 +440,9 @@ export const MemexIssueOverlay = () => {
           returnFocusRef={linkRef}
           top={0}
           left="calc(100vw - 480px)"
+          role={role}
+          aria-modal={role === 'dialog' ? 'true' : undefined}
+          ref={containerRef}
         >
           <Box sx={{p: 4, height: '100vh'}}>
             <Box sx={{display: 'flex', alignItems: 'center', gap: 1, mb: 2}}>
@@ -451,13 +505,21 @@ export const MemexIssueOverlay = () => {
   )
 }
 
-export const PositionedOverlays = ({right}: {right?: boolean}) => {
+export const PositionedOverlays = ({right, role}: OverlayProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [direction, setDirection] = useState<'left' | 'right'>(right ? 'right' : 'left')
   const buttonRef = useRef<HTMLButtonElement>(null)
   const confirmButtonRef = useRef<HTMLButtonElement>(null)
   const anchorRef = useRef<HTMLDivElement>(null)
   const closeOverlay = () => setIsOpen(false)
+
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useFocusTrap({
+    containerRef,
+    disabled: !isOpen,
+  })
+
   return (
     <Box ref={anchorRef}>
       <Button
@@ -491,6 +553,9 @@ export const PositionedOverlays = ({right}: {right?: boolean}) => {
             onClickOutside={closeOverlay}
             width="auto"
             anchorSide="inside-right"
+            role={role}
+            aria-modal={role === 'dialog' ? 'true' : undefined}
+            ref={containerRef}
           >
             <Box
               sx={{
@@ -501,6 +566,17 @@ export const PositionedOverlays = ({right}: {right?: boolean}) => {
                 alignItems: 'center',
               }}
             >
+              <IconButton
+                aria-label="Close"
+                onClick={closeOverlay}
+                icon={XIcon}
+                variant="invisible"
+                sx={{
+                  position: 'absolute',
+                  left: '5px',
+                  top: '5px',
+                }}
+              />
               <Text>Look! left aligned</Text>
             </Box>
           </Overlay>
@@ -515,6 +591,9 @@ export const PositionedOverlays = ({right}: {right?: boolean}) => {
             anchorSide={'inside-left'}
             right={0}
             position="fixed"
+            role={role}
+            aria-modal={role === 'dialog' ? 'true' : undefined}
+            ref={containerRef}
           >
             <Box
               sx={{
@@ -525,6 +604,17 @@ export const PositionedOverlays = ({right}: {right?: boolean}) => {
                 alignItems: 'center',
               }}
             >
+              <IconButton
+                aria-label="Close"
+                onClick={closeOverlay}
+                icon={XIcon}
+                variant="invisible"
+                sx={{
+                  position: 'absolute',
+                  right: '5px',
+                  top: '5px',
+                }}
+              />
               <Text>Look! right aligned</Text>
             </Box>
           </Overlay>
