@@ -1,7 +1,7 @@
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {scrollIntoView} from '@primer/behaviors'
 import type {KeyboardEventHandler} from 'react'
-import React, {useCallback, useEffect, useRef} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import type {TextInputProps} from '../TextInput'
@@ -65,7 +65,7 @@ export function FilteredActionList({
   )
 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const listContainerRef = useRef<HTMLDivElement>(null)
+  const [listContainerElement, setListContainerElement] = useState<HTMLDivElement | null>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useId()
@@ -84,9 +84,13 @@ export function FilteredActionList({
     [activeDescendantRef],
   )
 
+  const listContainerRefCallback = useCallback((node: HTMLDivElement | null) => {
+    setListContainerElement(node)
+  }, [])
+
   useFocusZone(
     {
-      containerRef: listContainerRef,
+      containerRef: {current: listContainerElement},
       focusOutBehavior: 'wrap',
       focusableElementFilter: element => {
         return !(element instanceof HTMLInputElement)
@@ -101,8 +105,9 @@ export function FilteredActionList({
       },
     },
     [
-      // List ref isn't set while loading.  Need to re-bind focus zone when it changes
-      listContainerRef,
+      // List container isn't in the DOM while loading.  Need to re-bind focus zone when it changes
+      // listContainerElement,
+      listContainerElement,
     ],
   )
 
@@ -140,7 +145,7 @@ export function FilteredActionList({
         {loading && scrollContainerRef.current && loadingType.appearsInBody ? (
           <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerRef.current.clientHeight} />
         ) : (
-          <ActionList ref={listContainerRef} items={items} {...listProps} role="listbox" id={listId} />
+          <ActionList ref={listContainerRefCallback} items={items} {...listProps} role="listbox" id={listId} />
         )}
       </Box>
     </Box>

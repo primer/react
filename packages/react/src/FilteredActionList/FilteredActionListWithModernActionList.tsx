@@ -1,7 +1,7 @@
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 import type {KeyboardEventHandler} from 'react'
-import React, {useCallback, useEffect, useRef} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import type {TextInputProps} from '../TextInput'
@@ -68,7 +68,7 @@ export function FilteredActionList({
   )
 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const listContainerRef = useRef<HTMLUListElement>(null)
+  const [listContainerElement, setListContainerElement] = useState<HTMLUListElement | null>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useId()
@@ -87,9 +87,13 @@ export function FilteredActionList({
     [activeDescendantRef],
   )
 
+  const listContainerRefCallback = useCallback((node: HTMLUListElement | null) => {
+    setListContainerElement(node)
+  }, [])
+
   useFocusZone(
     {
-      containerRef: listContainerRef,
+      containerRef: {current: listContainerElement},
       bindKeys: FocusKeys.ArrowVertical | FocusKeys.PageUpDown,
       focusOutBehavior: 'wrap',
       focusableElementFilter: element => {
@@ -105,8 +109,9 @@ export function FilteredActionList({
       },
     },
     [
-      // List ref isn't set while loading.  Need to re-bind focus zone when it changes
-      loading,
+      // List container isn't in the DOM while loading.  Need to re-bind focus zone when it changes
+      // listContainerElement,
+      listContainerElement,
     ],
   )
 
@@ -118,7 +123,7 @@ export function FilteredActionList({
   }, [items])
 
   useScrollFlash(scrollContainerRef)
-  useAnnouncements(items, listContainerRef, inputRef)
+  useAnnouncements(items, {current: listContainerElement}, inputRef)
 
   function getItemListForEachGroup(groupId: string) {
     const itemsInGroup = []
@@ -160,7 +165,7 @@ export function FilteredActionList({
           <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerRef.current.clientHeight} />
         ) : (
           <ActionList
-            ref={listContainerRef}
+            ref={listContainerRefCallback}
             showDividers={showItemDividers}
             {...listProps}
             role="listbox"
@@ -175,13 +180,15 @@ export function FilteredActionList({
                         {group.header?.title ? group.header.title : `Group ${group.groupId}`}
                       </ActionList.GroupHeading>
                       {getItemListForEachGroup(group.groupId).map((item, index) => {
-                        return <MappedActionListItem key={index} {...item} renderItem={listProps.renderItem} />
+                        const key = ('key' in item ? item.key : undefined) ?? item.id?.toString() ?? index.toString()
+                        return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
                       })}
                     </ActionList.Group>
                   )
                 })
               : items.map((item, index) => {
-                  return <MappedActionListItem key={index} {...item} renderItem={listProps.renderItem} />
+                  const key = ('key' in item ? item.key : undefined) ?? item.id?.toString() ?? index.toString()
+                  return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
                 })}
           </ActionList>
         )}

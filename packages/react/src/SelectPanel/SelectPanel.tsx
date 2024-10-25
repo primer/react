@@ -112,28 +112,33 @@ export function SelectPanel({
   const titleId = useId()
   const subtitleId = useId()
   const [dataLoadedOnce, setDataLoadedOnce] = useState(false)
-  const [isLoading, setIsLoading] = useProvidedStateOrCreate(loading, undefined, false)
+  const [isLoading, setIsLoading] = useState(false)
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
   const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
   const loadingDelayTimeoutId = useRef<number | null>(null)
+  const loadingManagedInternally = loading === undefined
+  const loadingManagedExternally = !loadingManagedInternally
+
   const onFilterChange: FilteredActionListProps['onFilterChange'] = useCallback(
     (value, e) => {
-      if (dataLoadedOnce) {
-        // If data has already been loaded once, delay the spinner a bit. This also helps
-        // not show and then immediately hide the spinner if items are loaded quickly, i.e.
-        // not async.
+      if (loadingManagedInternally) {
+        if (dataLoadedOnce) {
+          // If data has already been loaded once, delay the spinner a bit. This also helps
+          // not show and then immediately hide the spinner if items are loaded quickly, i.e.
+          // not async.
 
-        if (loadingDelayTimeoutId.current) {
-          safeClearTimeout(loadingDelayTimeoutId.current)
-        }
+          if (loadingDelayTimeoutId.current) {
+            safeClearTimeout(loadingDelayTimeoutId.current)
+          }
 
-        loadingDelayTimeoutId.current = safeSetTimeout(() => setIsLoading(true), 1000)
-      } else {
-        // If this is the first data load and there are no items, show the loading spinner
-        // immediately
+          loadingDelayTimeoutId.current = safeSetTimeout(() => setIsLoading(true), 1000)
+        } else {
+          // If this is the first data load and there are no items, show the loading spinner
+          // immediately
 
-        if (items.length === 0) {
-          setIsLoading(true)
+          if (items.length === 0) {
+            setIsLoading(true)
+          }
         }
       }
 
@@ -141,17 +146,25 @@ export function SelectPanel({
       setInternalFilterValue(value)
     },
     [
-      dataLoadedOnce,
+      loadingManagedInternally,
       externalOnFilterChange,
       setInternalFilterValue,
+      dataLoadedOnce,
       safeSetTimeout,
       safeClearTimeout,
-      setIsLoading,
       items.length,
     ],
   )
 
   useEffect(() => {
+    if (loadingManagedExternally) {
+      if (items.length > 0) {
+        setDataLoadedOnce(true)
+      }
+
+      return
+    }
+
     if (isLoading) {
       setIsLoading(false)
       setDataLoadedOnce(true)
@@ -162,6 +175,8 @@ export function SelectPanel({
 
   // Populate panel with items on first open
   useEffect(() => {
+    if (loadingManagedExternally) return
+
     // If data was already loaded once, do nothing
     if (dataLoadedOnce) return
 
@@ -173,7 +188,7 @@ export function SelectPanel({
         onFilterChange(filterValue, null)
       }
     }
-  }, [open, dataLoadedOnce, onFilterChange, filterValue, items])
+  }, [open, dataLoadedOnce, onFilterChange, filterValue, items, loadingManagedExternally])
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(
@@ -319,7 +334,7 @@ export function SelectPanel({
             items={itemsToRender}
             textInputProps={extendedTextInputProps}
             inputRef={inputRef}
-            loading={isLoading}
+            loading={loading || isLoading}
             loadingType={loadingType()}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
