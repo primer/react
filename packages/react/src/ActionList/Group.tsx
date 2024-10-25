@@ -107,7 +107,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   )
 }
 
-export type GroupHeadingProps = Pick<ActionListGroupProps, 'variant' | 'auxiliaryText'> &
+export type ActionListGroupHeadingProps = Pick<ActionListGroupProps, 'variant' | 'auxiliaryText'> &
   Omit<ActionListHeadingProps, 'as'> &
   SxProp &
   React.HTMLAttributes<HTMLElement> & {
@@ -123,7 +123,7 @@ export type GroupHeadingProps = Pick<ActionListGroupProps, 'variant' | 'auxiliar
  * hidden from the accessibility tree due to the limitation of listbox children. https://w3c.github.io/aria/#listbox
  * groups under menu or listbox are labelled by `aria-label`
  */
-export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> = ({
+export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadingProps>> = ({
   as,
   variant,
   // We are not recommending this prop to be used, it should only be used internally for incremental rollout.
