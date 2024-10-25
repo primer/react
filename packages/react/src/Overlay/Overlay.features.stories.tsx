@@ -53,7 +53,7 @@ export default {
 } as Meta
 
 interface OverlayProps {
-  anchorSide: AnchorSide
+  anchorSide?: AnchorSide
   role?: AriaRole
   right?: boolean
 }
