@@ -163,10 +163,10 @@ const Overlay = React.forwardRef<HTMLElement, OwnOverlayProps>(
       visibility = 'visible',
       height = 'auto',
       width = 'auto',
-      top,
-      left,
-      right,
-      bottom,
+      top = 'auto',
+      left = 'auto',
+      right = 'auto',
+      bottom = 'auto',
       anchorSide,
       portalContainerName,
       preventFocusOnOpen,
@@ -181,6 +181,10 @@ const Overlay = React.forwardRef<HTMLElement, OwnOverlayProps>(
     const {theme} = useTheme()
     const slideAnimationDistance = parseInt(get('space.2')(theme).replace('px', ''))
     const slideAnimationEasing = get('animation.easeOutCubic')(theme)
+
+    const inset = {
+      inset: [top, right, bottom, left].map(val => (typeof val === 'number' && val > 0 ? `${val}px` : val)).join(' '),
+    }
 
     useOverlay({
       overlayRef,
@@ -215,7 +219,7 @@ const Overlay = React.forwardRef<HTMLElement, OwnOverlayProps>(
     }, [anchorSide, slideAnimationDistance, slideAnimationEasing, visibility])
 
     // To be backwards compatible with the old Overlay, we need to set the left prop if x-position is not specified
-    const leftPosition: React.CSSProperties = left === undefined && right === undefined ? {left: 0} : {left}
+    const leftPosition: React.CSSProperties = left === 'auto' && right === 'auto' ? {left: 0} : {left}
 
     const isDialog = role && role !== 'dialog' ? false : true
 
@@ -238,9 +242,7 @@ const Overlay = React.forwardRef<HTMLElement, OwnOverlayProps>(
           style={
             {
               ...leftPosition,
-              right,
-              top: top || !isDialog ? top : 0,
-              bottom,
+              ...inset,
               position,
               '--styled-overlay-visibility': visibility,
               ...styleFromProps,
