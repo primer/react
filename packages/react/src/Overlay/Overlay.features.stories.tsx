@@ -67,6 +67,7 @@ export const DropdownOverlay = ({anchorSide}: OverlayProps) => {
           onEscape={() => setIsOpen(false)}
           onClickOutside={() => setIsOpen(false)}
           anchorSide={anchorSide}
+          top={0}
         >
           <ActionList>
             <ActionList.Item>Copy link</ActionList.Item>
@@ -102,6 +103,7 @@ export const DialogOverlay = ({anchorSide}: OverlayProps) => {
           onClickOutside={closeOverlay}
           width="small"
           anchorSide={anchorSide}
+          top={0}
         >
           <Box display="flex" flexDirection="column" p={2}>
             <Text>Are you sure?</Text>
@@ -145,6 +147,7 @@ export const OverlayOnTopOfOverlay = ({anchorSide}: OverlayProps) => {
           onClickOutside={closeOverlay}
           width="small"
           anchorSide={anchorSide}
+          top={0}
         >
           <Button ref={secondaryButtonRef} onClick={() => setIsSecondaryOpen(!isSecondaryOpen)}>
             open overlay
@@ -514,6 +517,7 @@ export const PositionedOverlays = ({right}: {right?: boolean}) => {
             width="auto"
             anchorSide={'inside-left'}
             right={0}
+            top={0}
             position="fixed"
           >
             <Box
