@@ -151,7 +151,7 @@ type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
  * @param portalContainerName Optional. The name of the portal container to render the Overlay into.
  * @param focusTrap Optional. Determines if the `Overlay` recieves a focus trap or not. Defaults to `true`.
  */
-const Overlay = React.forwardRef<HTMLElement, OwnOverlayProps>(
+const Overlay = React.forwardRef<HTMLDialogElement, OwnOverlayProps>(
   (
     {
       onClickOutside,
@@ -176,7 +176,7 @@ const Overlay = React.forwardRef<HTMLElement, OwnOverlayProps>(
     },
     forwardedRef,
   ): ReactElement => {
-    const overlayRef = useRef<HTMLElement>(null)
+    const overlayRef = useRef<HTMLDialogElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, overlayRef)
     const {theme} = useTheme()
     const slideAnimationDistance = parseInt(get('space.2')(theme).replace('px', ''))
