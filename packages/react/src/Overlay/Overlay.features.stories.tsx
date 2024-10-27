@@ -206,14 +206,13 @@ export const MemexNestedOverlays = () => {
       </ButtonGroup>
       {overlayOpen && (
         <Overlay
-          width="medium"
+          width="auto"
           onEscape={() => setOverlayOpen(false)}
           onClickOutside={() => setOverlayOpen(false)}
           returnFocusRef={buttonRef}
           ignoreClickRefs={[buttonRef]}
           top={60}
           left={16}
-          reflow={true}
         >
           <Box as="form" onSubmit={() => setOverlayOpen(false)} sx={{display: 'flex', flexDirection: 'column', py: 2}}>
             <Box sx={{paddingX: 3, display: 'flex', alignItems: 'center', gap: 1}}>
