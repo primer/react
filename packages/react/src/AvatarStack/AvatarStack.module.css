@@ -27,7 +27,7 @@
   &:where([data-avatar-count='1']) {
     .AvatarItem {
       /* stylelint-disable-next-line primer/box-shadow */
-      box-shadow: 0 0 0 var(--avatar-border-width) var(--avatar-borderColor);
+      box-shadow: 0 0 0 var(--avatar-border-width) var(--avatar-borderColor) !important;
     }
   }
 
@@ -129,7 +129,7 @@
   overflow: hidden;
   flex-shrink: 0;
   /* stylelint-disable-next-line primer/box-shadow */
-  box-shadow: 0 0 0 var(--avatar-border-width) var(--bgColor-default);
+  box-shadow: 0 0 0 var(--avatar-border-width) var(--bgColor-default) !important;
 
   &:first-child {
     z-index: 10;
