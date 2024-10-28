@@ -96,7 +96,8 @@
     .AvatarStackBody {
       flex-direction: row-reverse;
 
-      &:not([data-disable-expand]):hover {
+      &:not([data-disable-expand]):hover,
+      &:not([data-disable-expand]):focus-within {
         .AvatarItem {
           margin-right: var(--base-size-4) !important;
           margin-left: 0 !important;
@@ -164,7 +165,8 @@
   }
 }
 
-.AvatarStackBody:not([data-disable-expand]):hover {
+.AvatarStackBody:not([data-disable-expand]):hover,
+.AvatarStackBody:not([data-disable-expand]):focus-within {
   width: auto;
 
   .AvatarItem {

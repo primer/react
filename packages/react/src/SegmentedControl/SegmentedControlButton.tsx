@@ -8,6 +8,7 @@ import sx, {merge} from '../sx'
 import {getSegmentedControlButtonStyles, getSegmentedControlListItemStyles} from './getSegmentedControlStyles'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {isElement} from 'react-is'
+import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 
 export type SegmentedControlButtonProps = {
   /** The visible label rendered in the button */
@@ -22,6 +23,7 @@ export type SegmentedControlButtonProps = {
   ButtonHTMLAttributes<HTMLButtonElement | HTMLLIElement>
 
 const SegmentedControlButtonStyled = styled.button`
+  ${getGlobalFocusStyles('-1px')};
   ${sx};
 `
 

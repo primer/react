@@ -1,5 +1,5 @@
 import {clsx} from 'clsx'
-import React from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import Box from '../Box'
@@ -15,6 +15,8 @@ import type {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
 import classes from './AvatarStack.module.css'
 import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import {useFeatureFlag} from '../FeatureFlags'
+import {hasInteractiveNodes} from '../internal/utils/hasInteractiveNodes'
+import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 
 type StyledAvatarStackWrapperProps = {
   count?: number
@@ -29,9 +31,9 @@ const AvatarStackWrapper = toggleStyledComponent(
     --avatar-three-margin: calc(var(--avatar-stack-size) * -0.85);
 
     display: flex;
-    position: relative;
-    height: var(--avatar-stack-size);
-    min-width: var(--avatar-stack-size);
+    position: absolute;
+
+    ${getGlobalFocusStyles('1px')}
 
     .pc-AvatarStackBody {
       display: flex;
@@ -46,7 +48,8 @@ const AvatarStackWrapper = toggleStyledComponent(
       box-shadow: 0 0 0 var(--avatar-border-width)
         ${props => (props.count === 1 ? get('colors.avatar.border') : get('colors.canvas.default'))};
       position: relative;
-      overflow: hidden;
+      height: var(--avatar-stack-size);
+      min-width: var(--avatar-stack-size);
 
       &:first-child {
         margin-left: 0;
@@ -137,7 +140,8 @@ const AvatarStackWrapper = toggleStyledComponent(
       .pc-AvatarStackBody {
         flex-direction: row-reverse;
 
-        &:not(.pc-AvatarStack--disableExpand):hover {
+        &:not(.pc-AvatarStack--disableExpand):hover,
+        &:not(.pc-AvatarStack--disableExpand):focus-within {
           .pc-AvatarItem {
             margin-right: ${get('space.1')}!important;
             margin-left: 0 !important;
@@ -150,7 +154,8 @@ const AvatarStackWrapper = toggleStyledComponent(
       }
     }
 
-    .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover {
+    .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover,
+    .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):focus-within {
       width: auto;
 
       .pc-AvatarItem {
@@ -163,6 +168,8 @@ const AvatarStackWrapper = toggleStyledComponent(
         opacity 0.2s ease-in-out,
         visibility 0.2s ease-in-out,
         box-shadow 0.1s ease-in-out;
+
+        ${getGlobalFocusStyles('1px')}
 
         &:first-child {
           margin-left: 0;
@@ -204,6 +211,8 @@ const AvatarStack = ({
   sx: sxProp = defaultSxProp,
 }: AvatarStackProps) => {
   const enabled = useFeatureFlag('primer_react_css_modules_team')
+  const [hasInteractiveChildren, setHasInteractiveChildren] = useState<boolean | undefined>(false)
+  const stackContainer = useRef<HTMLDivElement>(null)
   const count = React.Children.count(children)
   const wrapperClassNames = clsx(
     {
@@ -259,6 +268,25 @@ const AvatarStack = ({
   }
   const childSizes = getAvatarChildSizes()
 
+  useEffect(() => {
+    if (stackContainer.current) {
+      const interactiveChildren = () => {
+        setHasInteractiveChildren(hasInteractiveNodes(stackContainer.current))
+      }
+
+      const observer = new MutationObserver(interactiveChildren)
+
+      observer.observe(stackContainer.current, {childList: true})
+
+      // Call on initial render, then call it again only if there's a mutation
+      interactiveChildren()
+
+      return () => {
+        observer.disconnect()
+      }
+    }
+  }, [])
+
   const getResponsiveAvatarSizeStyles = () => {
     // if there is no size set on the AvatarStack, use the `size` props of the Avatar children to set the `--avatar-stack-size` CSS variable
     if (!size) {
@@ -309,12 +337,22 @@ const AvatarStack = ({
         <div
           data-disable-expand={disableExpand ? '' : undefined}
           className={clsx(bodyClassNames, classes.AvatarStackBody)}
+          tabIndex={!hasInteractiveChildren && !disableExpand ? 0 : undefined}
+          ref={stackContainer}
         >
           {children}
         </div>
       )
     }
-    return <Box className={bodyClassNames}>{children}</Box>
+    return (
+      <Box
+        className={bodyClassNames}
+        tabIndex={!hasInteractiveChildren && !disableExpand ? 0 : undefined}
+        ref={stackContainer}
+      >
+        {children}
+      </Box>
+    )
   }
 
   return (
@@ -328,7 +366,7 @@ const AvatarStack = ({
       style={enabled ? (getResponsiveAvatarSizeStyles() as React.CSSProperties) : undefined}
       sx={enabled ? undefined : avatarStackSx}
     >
-      <AvatarStackBody>{transformChildren(children, enabled)}</AvatarStackBody>
+      <AvatarStackBody> {transformChildren(children, enabled)}</AvatarStackBody>
     </AvatarStackWrapper>
   )
 }
