@@ -314,6 +314,7 @@ const AvatarStack = ({
         tabIndex={!hasInteractiveChildren && !disableExpand ? 0 : undefined}
         ref={stackContainer}
       >
+        {' '}
         {transformChildren(children)}
       </Box>
     </AvatarStackWrapper>
