@@ -132,7 +132,7 @@ function TimelineBreak(props: ComponentProps<typeof StyledTimelineBreak>) {
   return <StyledTimelineBreak aria-hidden {...props} />
 }
 
-function TimelineGroup<As extends React.ElementType>({children, ...props}: React.ComponentPropsWithoutRef<'ul'>) {
+function TimelineGroup({children, ...props}: React.ComponentPropsWithoutRef<'ul'>) {
   return (
     <Box as="li">
       <Box as="ul" className="Timeline-Group" {...props}>

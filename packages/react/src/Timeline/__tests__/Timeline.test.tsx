@@ -27,7 +27,11 @@ describe('Timeline.Item', () => {
   behavesAsComponent({Component: Timeline.Item})
 
   it('should have no axe violations', async () => {
-    const {container} = HTMLRender(<Timeline.Item />)
+    const {container} = HTMLRender(
+      <Timeline>
+        <Timeline.Item />
+      </Timeline>,
+    )
     const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })
@@ -46,6 +50,35 @@ describe('Timeline.Badge', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Timeline.Badge />)
+    const results = await axe.run(container)
+    expect(results).toHaveNoViolations()
+  })
+})
+
+describe('Timeline.Break', () => {
+  behavesAsComponent({Component: Timeline.Break})
+
+  it('should have no axe violations', async () => {
+    const {container} = HTMLRender(<Timeline.Break />)
+    const results = await axe.run(container)
+    expect(results).toHaveNoViolations()
+  })
+})
+
+describe('Timeline.Group', () => {
+  behavesAsComponent({Component: Timeline.Group, options: {skipAs: true, skipSx: true}})
+
+  // TODO
+  it.todo('correctly renders with Timeline.Group')
+
+  it('should have no axe violations', async () => {
+    const {container} = HTMLRender(
+      <Timeline>
+        <Timeline.Group>
+          <Timeline.Item>test</Timeline.Item>
+        </Timeline.Group>
+      </Timeline>,
+    )
     const results = await axe.run(container)
     expect(results).toHaveNoViolations()
   })

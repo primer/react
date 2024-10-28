@@ -9,6 +9,7 @@ export function shouldAcceptCallWithNoProps() {
       <Timeline.Badge />
       <Timeline.Body />
       <Timeline.Break />
+      <Timeline.Group />
     </>
   )
 }
@@ -26,6 +27,8 @@ export function shouldNotAcceptSystemProps() {
       <Timeline.Body backgroundColor="green" />
       {/* @ts-expect-error system props should not be accepted */}
       <Timeline.Break backgroundColor="blue" />
+      {/* @ts-expect-error system props should not be accepted */}
+      <Timeline.Group backgroundColor="blue" />
     </>
   )
 }

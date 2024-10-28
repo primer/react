@@ -9,6 +9,12 @@ exports[`Timeline renders with clipSidebar prop 1`] = `
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+  list-style: none;
+  padding-inline-start: 0;
+}
+
+.c0 .Timeline-Group {
+  padding-inline-start: 0;
 }
 
 .c0 .Timeline-Item:first-child {
@@ -19,7 +25,7 @@ exports[`Timeline renders with clipSidebar prop 1`] = `
   padding-bottom: 0;
 }
 
-<div
+<ul
   className="c0"
 />
 `;
@@ -61,7 +67,7 @@ exports[`Timeline.Item renders with condensed prop 1`] = `
   border: 0;
 }
 
-<div
+<li
   className="c0 Timeline-Item"
 />
 `;
