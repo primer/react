@@ -12,6 +12,8 @@ const Timeline = styled.ul<{clipSidebar?: boolean} & SxProp>`
   flex-direction: column;
   list-style: none;
   padding-inline-start: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
 
   .Timeline-Group {
     padding-inline-start: 0;
