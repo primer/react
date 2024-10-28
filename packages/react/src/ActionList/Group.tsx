@@ -9,6 +9,7 @@ import type {ActionListHeadingProps} from './Heading'
 import {useSlots} from '../hooks/useSlots'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {invariant} from '../utils/invariant'
+import {clsx} from 'clsx'
 
 export type ActionListGroupProps = {
   /**
@@ -106,7 +107,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   )
 }
 
-export type GroupHeadingProps = Pick<ActionListGroupProps, 'variant' | 'auxiliaryText'> &
+export type ActionListGroupHeadingProps = Pick<ActionListGroupProps, 'variant' | 'auxiliaryText'> &
   Omit<ActionListHeadingProps, 'as'> &
   SxProp &
   React.HTMLAttributes<HTMLElement> & {
@@ -122,13 +123,14 @@ export type GroupHeadingProps = Pick<ActionListGroupProps, 'variant' | 'auxiliar
  * hidden from the accessibility tree due to the limitation of listbox children. https://w3c.github.io/aria/#listbox
  * groups under menu or listbox are labelled by `aria-label`
  */
-export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> = ({
+export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadingProps>> = ({
   as,
   variant,
   // We are not recommending this prop to be used, it should only be used internally for incremental rollout.
   _internalBackwardCompatibleTitle,
   auxiliaryText,
   children,
+  className,
   sx = defaultSxProp,
   ...props
 }) => {
@@ -191,7 +193,13 @@ export const GroupHeading: React.FC<React.PropsWithChildren<GroupHeadingProps>> 
       ) : (
         // for explicit (role="list" is passed as prop) and implicit list roles (ActionList ins rendered as list by default), group titles are proper heading tags.
         <Box sx={styles}>
-          <Heading className="ActionListGroupHeading" as={as || 'h3'} id={groupHeadingId} sx={sx} {...props}>
+          <Heading
+            className={clsx(className, 'ActionListGroupHeading')}
+            as={as || 'h3'}
+            id={groupHeadingId}
+            sx={sx}
+            {...props}
+          >
             {_internalBackwardCompatibleTitle ?? children}
           </Heading>
           {auxiliaryText && <div className="ActionListGroupHeadingDescription">{auxiliaryText}</div>}

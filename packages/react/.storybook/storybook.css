@@ -8,10 +8,11 @@
   background-color: var(--bgColor-default);
 }
 
+/* stylelint-disable-next-line selector-max-specificity, selector-max-id */
 #storybook-preview-wrapper {
-  background-color: var(--bgColor-default) !important;
   width: 100% !important;
   height: 100% !important;
+  background-color: var(--bgColor-default) !important;
 }
 
 .theme-wrap-grid {
@@ -22,9 +23,9 @@
 }
 
 .story-wrap-grid {
-  outline: 1px solid #d4d4d8;
-  padding-bottom: 40px;
   position: relative;
+  padding-bottom: var(--base-size-40);
+  outline: 1px solid #d4d4d8;
 }
 
 @media (max-width: calc(20rem * 4)) {
@@ -47,14 +48,22 @@
 
 .theme-name {
   position: absolute;
-  bottom: 0;
   right: 0;
-  background-color: var(--bgColor-muted);
+  bottom: 0;
   padding: var(--base-size-4) var(--base-size-8);
-  font: var(--text-caption-shorthand);
   margin: 0;
+  font: var(--text-caption-shorthand);
+  background-color: var(--bgColor-muted);
 }
 
-.testCustomClassname {
+.testCustomClassnameColor {
   color: var(--fgColor-sponsors);
+}
+
+.testCustomClassnameBgColor {
+  background-color: var(--bgColor-sponsors-emphasis);
+}
+
+.testCustomClassnameBorderColor {
+  border-color: var(--borderColor-sponsors-emphasis);
 }

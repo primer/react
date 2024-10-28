@@ -4,6 +4,7 @@ import {render, behavesAsComponent, checkExports} from '../../utils/testing'
 import {render as HTMLRender, screen} from '@testing-library/react'
 import axe from 'axe-core'
 import ThemeProvider from '../../ThemeProvider'
+import {FeatureFlags} from '../../FeatureFlags'
 
 const theme = {
   breakpoints: ['400px', '640px', '960px', '1280px'],
@@ -33,6 +34,25 @@ describe('Heading', () => {
 
   checkExports('Heading', {
     default: Heading,
+  })
+
+  it('should support `className` on the outermost element', () => {
+    const Element = () => <Heading className={'test-class-name'} />
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(HTMLRender(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('renders <h2> by default', () => {
@@ -147,11 +167,6 @@ describe('Heading', () => {
     // Note: this is the generated class name when styled-components is used
     // for this component
     expect(screen.getByText('test')).not.toHaveClass(/^Heading__StyledHeading/)
-  })
-
-  it('should support `className` on the outermost element', () => {
-    const {container} = HTMLRender(<Heading className="test">test</Heading>)
-    expect(container.firstChild).toHaveClass('test')
   })
 
   it('should support overrides with sx if provided', () => {
