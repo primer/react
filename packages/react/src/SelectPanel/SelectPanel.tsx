@@ -1,4 +1,4 @@
-import {SearchIcon, TriangleDownIcon} from '@primer/octicons-react'
+import {SearchIcon, TriangleDownIcon, XIcon} from '@primer/octicons-react'
 import React, {useCallback, useMemo} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
@@ -11,7 +11,7 @@ import type {OverlayProps} from '../Overlay'
 import type {TextInputProps} from '../TextInput'
 import type {ItemProps, ItemInput} from './types'
 
-import {Button} from '../Button'
+import {Button, IconButton} from '../Button'
 import {useProvidedRefOrCreate} from '../hooks'
 import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
@@ -195,6 +195,9 @@ export function SelectPanel({
 
   const currentVariant = useResponsiveValue(responsiveVariants, 'anchored')
 
+  /* Dialog */
+  const dialogRef = React.useRef<HTMLDialogElement>(null)
+
   const ConditionalOverlay: React.FC<React.PropsWithChildren<{isAnchored: boolean}>> = props => {
     const {isAnchored, ...rest} = props
 
@@ -221,34 +224,49 @@ export function SelectPanel({
       )
     // This variant can be used for full-screen, bottom-sheet, modal, etc.
     else {
+      const anchorProps = {
+        ref: anchorRef,
+        onClick: onOpen,
+        'aria-haspopup': true,
+        'aria-expanded': open,
+      }
+      const anchor = renderMenuAnchor ? renderMenuAnchor(anchorProps) : null
+
       return (
-        <StyledOverlay
-          open={open}
-          as="dialog"
-          aria-labelledby={titleId}
-          aria-describedby={subtitle ? subtitleId : undefined}
-          data-variant={currentVariant}
-          sx={{
-            // reset dialog default styles
-            border: 'none',
-            padding: 0,
-            color: 'fg.default',
-            '&[open]': {display: 'flex'},
-            '&[data-variant="full-screen"]': {
-              margin: 0,
-              top: 0,
-              left: 0,
-              width: '100%',
-              maxWidth: '100vw',
-              height: '100%',
-              maxHeight: '100vh',
-              borderRadius: 'unset',
-            },
-          }}
-          {...rest}
-        >
-          {props.children}
-        </StyledOverlay>
+        <>
+          {anchor}
+          {open ? (
+            <StyledOverlay
+              open={open}
+              ref={dialogRef}
+              as="dialog"
+              aria-labelledby={titleId}
+              aria-describedby={subtitle ? subtitleId : undefined}
+              data-variant={currentVariant}
+              sx={{
+                // reset dialog default styles
+                border: 'none',
+                display: 'flex',
+                padding: 0,
+                color: 'fg.default',
+                '&[open]': {display: 'flex'},
+                '&[data-variant="full-screen"]': {
+                  margin: 0,
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  maxWidth: '100vw',
+                  height: '100%',
+                  maxHeight: '100vh',
+                  borderRadius: 'unset',
+                },
+              }}
+              {...rest}
+            >
+              {props.children}
+            </StyledOverlay>
+          ) : null}
+        </>
       )
     }
   }
@@ -269,16 +287,26 @@ export function SelectPanel({
           />
         )}
         <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit', width: '100%'}}>
-          <Box sx={{pt: 2, px: 3}}>
-            <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
-              {title}
-            </Heading>
-            {subtitle ? (
-              <Box id={subtitleId} sx={{fontSize: 0, color: 'fg.muted'}}>
-                {subtitle}
-              </Box>
-            ) : null}
+          <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 2, px: 3}}>
+            <Box>
+              <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
+                {title}
+              </Heading>
+              {subtitle ? (
+                <Box id={subtitleId} sx={{fontSize: 0, color: 'fg.muted'}}>
+                  {subtitle}
+                </Box>
+              ) : null}
+            </Box>
+            <IconButton
+              type="button"
+              variant="invisible"
+              icon={XIcon}
+              aria-label="Close"
+              onClick={() => onClose('anchor-click')}
+            />
           </Box>
+
           <FilteredActionList
             filterValue={filterValue}
             onFilterChange={onFilterChange}
