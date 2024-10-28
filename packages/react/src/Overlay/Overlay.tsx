@@ -206,6 +206,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
 
     // To be backwards compatible with the old Overlay, we need to set the left prop if x-position is not specified
     const leftPosition: React.CSSProperties = left === undefined && right === undefined ? {left: 0} : {left}
+
     return (
       <Portal containerName={portalContainerName}>
         <StyledOverlay
