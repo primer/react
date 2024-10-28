@@ -31,13 +31,15 @@ const AvatarStackWrapper = toggleStyledComponent(
     --avatar-three-margin: calc(var(--avatar-stack-size) * -0.85);
 
     display: flex;
-    position: absolute;
-
-    ${getGlobalFocusStyles('1px')}
+    position: relative;
+    height: var(--avatar-stack-size);
+    min-width: var(--avatar-stack-size);
 
     .pc-AvatarStackBody {
       display: flex;
       position: absolute;
+
+      ${getGlobalFocusStyles('1px')}
     }
 
     .pc-AvatarItem {
@@ -48,8 +50,7 @@ const AvatarStackWrapper = toggleStyledComponent(
       box-shadow: 0 0 0 var(--avatar-border-width)
         ${props => (props.count === 1 ? get('colors.avatar.border') : get('colors.canvas.default'))};
       position: relative;
-      height: var(--avatar-stack-size);
-      min-width: var(--avatar-stack-size);
+      overflow: hidden;
 
       &:first-child {
         margin-left: 0;
@@ -184,6 +185,7 @@ const AvatarStackWrapper = toggleStyledComponent(
     ${sx};
   `,
 )
+
 const transformChildren = (children: React.ReactNode, enabled: boolean) => {
   return React.Children.map(children, child => {
     if (!React.isValidElement(child)) return child
