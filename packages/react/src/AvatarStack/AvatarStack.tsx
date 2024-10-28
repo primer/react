@@ -215,6 +215,7 @@ const AvatarStack = ({
   const enabled = useFeatureFlag('primer_react_css_modules_team')
   const [hasInteractiveChildren, setHasInteractiveChildren] = useState<boolean | undefined>(false)
   const stackContainer = useRef<HTMLDivElement>(null)
+
   const count = React.Children.count(children)
   const wrapperClassNames = clsx(
     {
@@ -342,6 +343,7 @@ const AvatarStack = ({
           tabIndex={!hasInteractiveChildren && !disableExpand ? 0 : undefined}
           ref={stackContainer}
         >
+          {' '}
           {children}
         </div>
       )
@@ -352,6 +354,7 @@ const AvatarStack = ({
         tabIndex={!hasInteractiveChildren && !disableExpand ? 0 : undefined}
         ref={stackContainer}
       >
+        {' '}
         {children}
       </Box>
     )
@@ -368,7 +371,7 @@ const AvatarStack = ({
       style={enabled ? (getResponsiveAvatarSizeStyles() as React.CSSProperties) : undefined}
       sx={enabled ? undefined : avatarStackSx}
     >
-      <AvatarStackBody> {transformChildren(children, enabled)}</AvatarStackBody>
+      <AvatarStackBody>{transformChildren(children, enabled)}</AvatarStackBody>
     </AvatarStackWrapper>
   )
 }
