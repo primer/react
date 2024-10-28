@@ -53,19 +53,23 @@ export const CondensedItems = () => (
 
 export const TimelineBreak = () => (
   <Timeline>
-    <Timeline.Item>
-      <Timeline.Badge sx={{bg: 'done.emphasis'}}>
-        <Octicon icon={GitMergeIcon} color="fg.onEmphasis" aria-label="Merged" />
-      </Timeline.Badge>
-      <Timeline.Body>This is a message</Timeline.Body>
-    </Timeline.Item>
+    <Timeline.Group>
+      <Timeline.Item>
+        <Timeline.Badge sx={{bg: 'done.emphasis'}}>
+          <Octicon icon={GitMergeIcon} color="fg.onEmphasis" aria-label="Merged" />
+        </Timeline.Badge>
+        <Timeline.Body>This is a message</Timeline.Body>
+      </Timeline.Item>
+    </Timeline.Group>
     <Timeline.Break />
-    <Timeline.Item>
-      <Timeline.Badge>
-        <Octicon icon={GitBranchIcon} aria-label="Branch" />
-      </Timeline.Badge>
-      <Timeline.Body>This is a message</Timeline.Body>
-    </Timeline.Item>
+    <Timeline.Group>
+      <Timeline.Item>
+        <Timeline.Badge>
+          <Octicon icon={GitBranchIcon} aria-label="Branch" />
+        </Timeline.Badge>
+        <Timeline.Body>This is a message</Timeline.Body>
+      </Timeline.Item>
+    </Timeline.Group>
   </Timeline>
 )
 

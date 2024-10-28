@@ -10,6 +10,13 @@ import type {ComponentProps} from '../utils/types'
 const Timeline = styled.ul<{clipSidebar?: boolean} & SxProp>`
   display: flex;
   flex-direction: column;
+  list-style: none;
+  padding-inline-start: 0;
+
+  .Timeline-Group {
+    padding-inline-start: 0;
+  }
+
   ${props =>
     props.clipSidebar &&
     css`
@@ -108,7 +115,7 @@ const TimelineBody = styled.div<SxProp>`
   ${sx};
 `
 
-const TimelineBreak = styled.li<SxProp>`
+const StyledTimelineBreak = styled.div<SxProp>`
   position: relative;
   z-index: 1;
   height: 24px;
@@ -120,6 +127,21 @@ const TimelineBreak = styled.li<SxProp>`
   border-top: ${get('space.1')} solid ${get('colors.border.default')};
   ${sx};
 `
+
+function TimelineBreak(props: ComponentProps<typeof StyledTimelineBreak>) {
+  return <StyledTimelineBreak aria-hidden {...props} />
+}
+
+function TimelineGroup<As extends React.ElementType>({children, ...props}: React.ComponentPropsWithoutRef<'ul'>) {
+  return (
+    <Box as="li">
+      <Box as="ul" className="Timeline-Group" {...props}>
+        {children}
+      </Box>
+    </Box>
+  )
+}
+TimelineGroup.displayName = 'Timeline.Group'
 
 TimelineItem.displayName = 'Timeline.Item'
 
@@ -133,9 +155,11 @@ export type TimelineProps = ComponentProps<typeof Timeline>
 export type TimelineItemsProps = ComponentProps<typeof TimelineItem>
 export type TimelineBodyProps = ComponentProps<typeof TimelineBody>
 export type TimelineBreakProps = ComponentProps<typeof TimelineBreak>
+export type TimelineGroupProps = ComponentProps<typeof TimelineGroup>
 export default Object.assign(Timeline, {
   Item: TimelineItem,
   Badge: TimelineBadge,
   Body: TimelineBody,
   Break: TimelineBreak,
+  Group: TimelineGroup,
 })
