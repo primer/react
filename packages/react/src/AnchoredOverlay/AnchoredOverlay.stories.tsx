@@ -51,6 +51,7 @@ export const Default = () => {
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
       renderAnchor={props => <Button {...props}>Button</Button>}
+      overlayProps={{role: 'dialog', 'aria-modal': true}}
     >
       {hoverCard}
     </AnchoredOverlay>
@@ -74,7 +75,7 @@ export const Playground = (args: Args) => {
       width={args.width}
       height={args.height}
       renderAnchor={props => <Button {...props}>Button</Button>}
-      overlayProps={args.portalContainerName}
+      overlayProps={{...args.portalContainerName, role: 'dialog', 'aria-modal': true}}
       side={args.side}
     >
       {hoverCard}
