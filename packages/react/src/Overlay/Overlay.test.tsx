@@ -154,7 +154,7 @@ describe('Overlay', () => {
     const user = userEvent.setup()
     const container = render(
       <ThemeProvider>
-        <PositionedOverlays right />
+        <PositionedOverlays role="dialog" right />
       </ThemeProvider>,
     )
 
@@ -162,8 +162,10 @@ describe('Overlay', () => {
     await user.click(container.getByText('Open right overlay'))
     expect(container.getByText('Look! right aligned')).toBeInTheDocument()
 
-    const overlay = container.getByText('Look! right aligned').parentElement?.parentElement
+    const innerOverlay = container.getByText('Look! right aligned')
+    const overlay = container.getByRole('dialog')
 
+    expect(innerOverlay).toBeInTheDocument()
     expect(overlay).toHaveStyle({position: 'fixed', right: 0})
     expect(overlay).not.toHaveStyle({left: 0})
 
@@ -182,7 +184,7 @@ describe('Overlay', () => {
     const user = userEvent.setup()
     const container = render(
       <ThemeProvider>
-        <PositionedOverlays />
+        <PositionedOverlays role="dialog" />
       </ThemeProvider>,
     )
 
@@ -190,7 +192,10 @@ describe('Overlay', () => {
     await user.click(container.getByText('Open left overlay'))
     expect(container.getByText('Look! left aligned')).toBeInTheDocument()
 
-    const overlay = container.getByText('Look! left aligned').parentElement?.parentElement
+    const innerOverlay = container.getByText('Look! left aligned')
+    const overlay = container.getByRole('dialog')
+
+    expect(innerOverlay).toBeInTheDocument()
     expect(overlay).toHaveStyle({left: 0, position: 'absolute'})
 
     spy.mockRestore()
