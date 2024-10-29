@@ -117,6 +117,7 @@ export const DialogOverlay = ({anchorSide, role}: OverlayProps) => {
           anchorSide={anchorSide}
           role={role}
           aria-modal={role === 'dialog' ? 'true' : undefined}
+          aria-label={role === 'dialog' ? 'Confirmation Overlay' : undefined}
           ref={containerRef}
         >
           <Box display="flex" flexDirection="column" p={2}>
@@ -171,6 +172,7 @@ export const OverlayOnTopOfOverlay = ({anchorSide, role}: OverlayProps) => {
           anchorSide={anchorSide}
           role={role}
           aria-modal={role === 'dialog' ? 'true' : undefined}
+          aria-label={role === 'dialog' ? 'Primary Overlay' : undefined}
           ref={primaryContainer}
         >
           <Button ref={secondaryButtonRef} onClick={() => setIsSecondaryOpen(!isSecondaryOpen)}>
@@ -187,6 +189,7 @@ export const OverlayOnTopOfOverlay = ({anchorSide, role}: OverlayProps) => {
               anchorSide={anchorSide}
               role={role}
               aria-modal={role === 'dialog' ? 'true' : undefined}
+              aria-label={role === 'dialog' ? 'Secondary Overlay' : undefined}
               ref={secondaryContainer}
             >
               <Box display="flex" flexDirection="column" p={2}>
@@ -247,6 +250,7 @@ export const MemexNestedOverlays = ({role}: OverlayProps) => {
           left={16}
           role={role}
           aria-modal={role === 'dialog' ? 'true' : undefined}
+          aria-label={role === 'dialog' ? 'Memex Nested Overlay' : undefined}
           ref={containerRef}
         >
           <Box as="form" onSubmit={() => setOverlayOpen(false)} sx={{display: 'flex', flexDirection: 'column', py: 2}}>
@@ -330,6 +334,7 @@ export const NestedOverlays = ({role}: OverlayProps) => {
           ref={primaryContainer}
           role={role}
           aria-modal={role === 'dialog' ? 'true' : undefined}
+          aria-label={role === 'dialog' ? 'Nested Overlay' : undefined}
         >
           <Box sx={{display: 'flex', flexDirection: 'column', py: 2}}>
             <Box sx={{paddingX: 3, paddingY: 2}}>
@@ -371,6 +376,7 @@ export const NestedOverlays = ({role}: OverlayProps) => {
               left={64}
               role={role}
               aria-modal={role === 'dialog' ? 'true' : undefined}
+              aria-label={role === 'dialog' ? 'Create List Overlay' : undefined}
               ref={secondaryContainer}
             >
               <Box as="form" sx={{display: 'flex', flexDirection: 'column', p: 3}}>
@@ -442,6 +448,7 @@ export const MemexIssueOverlay = ({role}: OverlayProps) => {
           left="calc(100vw - 480px)"
           role={role}
           aria-modal={role === 'dialog' ? 'true' : undefined}
+          aria-label={role === 'dialog' ? 'Memex Issue Overlay' : undefined}
           ref={containerRef}
         >
           <Box sx={{p: 4, height: '100vh'}}>
@@ -555,6 +562,7 @@ export const PositionedOverlays = ({right, role}: OverlayProps) => {
             anchorSide="inside-right"
             role={role}
             aria-modal={role === 'dialog' ? 'true' : undefined}
+            aria-label={role === 'dialog' ? 'Positioned Overlay' : undefined}
             ref={containerRef}
           >
             <Box
@@ -593,6 +601,7 @@ export const PositionedOverlays = ({right, role}: OverlayProps) => {
             position="fixed"
             role={role}
             aria-modal={role === 'dialog' ? 'true' : undefined}
+            aria-label={role === 'dialog' ? 'Positioned Overlay' : undefined}
             ref={containerRef}
           >
             <Box
