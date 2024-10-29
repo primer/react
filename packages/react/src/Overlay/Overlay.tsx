@@ -13,6 +13,7 @@ import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import type {AnchorSide} from '@primer/behaviors'
 import {useTheme} from '../ThemeProvider'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {useFeatureFlag} from '../FeatureFlags'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -114,7 +115,7 @@ type BaseOverlayProps = {
   preventFocusOnOpen?: boolean
   role?: AriaRole
   children?: React.ReactNode
-  reflow?: boolean
+  preventOverflow?: boolean
 }
 
 type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
@@ -138,7 +139,7 @@ type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
  * @param bottom Optional. Vertical bottom position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
  * @param position Optional. Sets how an element is positioned in a document. Defaults to `absolute` positioning.
  * @param portalContainerName Optional. The name of the portal container to render the Overlay into.
- * @param reflow Optional. If true, the Overlay width will be adjusted responsively at `320px` if there is not enough space to display the Overlay in the requested position.
+ * @param preventOverflow Optional. The Overlay width will be adjusted responsively if width is `auto`, `medium` or lower and there is not enough space to display the Overlay. If `preventOverflow` is `true`, the width of the `Overlay` will not be adjusted.
  */
 const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
   (
@@ -161,7 +162,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
       preventFocusOnOpen,
       position,
       style: styleFromProps = {},
-      reflow = true,
+      preventOverflow = true,
       ...rest
     },
     forwardedRef,
@@ -208,6 +209,9 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
     const leftPosition: React.CSSProperties = left === undefined && right === undefined ? {left: 0} : {left}
     const reflowSize = ['xsmall', 'small', 'medium', 'auto'].includes(width)
 
+    const enabled = useFeatureFlag('primer_react_overlay_overflow')
+    const overflow = enabled && reflowSize ? true : undefined
+
     return (
       <Portal containerName={portalContainerName}>
         <StyledOverlay
@@ -227,7 +231,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
               ...styleFromProps,
             } as React.CSSProperties
           }
-          data-reflow-container={reflowSize && reflow ? true : undefined}
+          data-reflow-container={overflow || (reflowSize && !preventOverflow) ? true : undefined}
         />
       </Portal>
     )

@@ -327,7 +327,7 @@ export const NestedOverlays = ({role}: OverlayProps) => {
           ignoreClickRefs={[buttonRef]}
           top={100}
           left={16}
-          reflow={true}
+          preventOverflow={false}
           ref={primaryContainer}
           role={role}
           aria-modal={role === 'dialog' ? 'true' : undefined}
