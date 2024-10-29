@@ -10,15 +10,9 @@ import React from 'react'
 import {clsx} from 'clsx'
 import classes from './Header.module.css'
 
-type StyledHeaderProps = {
-  className?: string
-  style?: React.CSSProperties
-  children?: React.ReactNode
-} & SxProp
-type StyledHeaderItemProps = {
-  full?: boolean
-} & StyledHeaderProps
-type StyledHeaderLinkProps = {to?: Location | Pathname; href?: string} & StyledHeaderProps
+type StyledHeaderProps = React.ComponentPropsWithoutRef<'header'> & SxProp
+type StyledHeaderItemProps = React.ComponentPropsWithoutRef<'div'> & SxProp & {full?: boolean}
+type StyledHeaderLinkProps = React.ComponentPropsWithoutRef<'a'> & SxProp & {to?: Location | Pathname}
 
 const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
 
