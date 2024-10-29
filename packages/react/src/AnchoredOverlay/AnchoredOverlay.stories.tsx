@@ -54,6 +54,7 @@ export const Default = () => {
       onClose={() => setOpen(false)}
       renderAnchor={props => <Button {...props}>Button</Button>}
       overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay'}}
+      focusZoneSettings={{disabled: true}}
     >
       {hoverCard}
     </AnchoredOverlay>
@@ -84,6 +85,7 @@ export const Playground = (args: Args) => {
         'aria-label': 'User Card Overlay',
       }}
       side={args.side}
+      focusZoneSettings={{disabled: true}}
     >
       {hoverCard}
     </AnchoredOverlay>
