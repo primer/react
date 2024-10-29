@@ -29,7 +29,7 @@ type BranchNameProps<As extends React.ElementType> = {
   SxProp
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-function UnwrappedBranchName<As extends React.ElementType>(props: BranchNameProps<As>, ref: ForwardedRef<any>) {
+function BranchName<As extends React.ElementType>(props: BranchNameProps<As>, ref: ForwardedRef<any>) {
   const {as: BaseComponent = 'a', className, children, sx, ...rest} = props
   const enabled = useFeatureFlag('primer_react_css_modules_team')
 
@@ -50,7 +50,7 @@ function UnwrappedBranchName<As extends React.ElementType>(props: BranchNameProp
   }
 
   return (
-    <StyledBranchName {...rest} ref={ref} className={className} sx={sx}>
+    <StyledBranchName {...rest} as={BaseComponent} ref={ref} className={className} sx={sx}>
       {children}
     </StyledBranchName>
   )
@@ -66,7 +66,5 @@ const fixedForwardRef = React.forwardRef as FixedForwardRef
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type DistributiveOmit<T, TOmitted extends PropertyKey> = T extends any ? Omit<T, TOmitted> : never
 
-const BranchName = fixedForwardRef(UnwrappedBranchName)
-
 export type {BranchNameProps}
-export default BranchName
+export default fixedForwardRef(BranchName)
