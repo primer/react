@@ -17,6 +17,8 @@ exports[`Timeline renders with clipSidebar prop 1`] = `
 
 .c0 .Timeline-Group {
   padding-inline-start: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 .c0 .Timeline-Item:first-child {
