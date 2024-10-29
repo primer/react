@@ -4038,13 +4038,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c5 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c6 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
@@ -4212,11 +4205,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
         id=":r2n:"
       >
         <span
-          className="c5"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c6"
+            className="c5"
             fill="none"
             height="16px"
             sx={
@@ -4257,25 +4250,18 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c3 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c4 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
 }
 
-.c7 {
+.c6 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: hidden;
 }
 
-.c6 {
+.c5 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -4381,7 +4367,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: 12px;
 }
 
-.c5 {
+.c4 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -4391,7 +4377,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c5:focus {
+.c4:focus {
   outline: 0;
 }
 
@@ -4423,11 +4409,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
         id=":r2q:"
       >
         <span
-          className="c3"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c3"
             fill="none"
             height="16px"
             sx={
@@ -4460,14 +4446,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
     </span>
     <input
       aria-describedby=":r2s:"
-      className="c5"
+      className="c4"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
       type="text"
     />
     <span
-      className="c6"
+      className="c5"
       id=":r2s:"
     >
       Loading
@@ -4481,11 +4467,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
         id=":r2r:"
       >
         <span
-          className="c3"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c7"
+            className="c6"
             fill="none"
             height="16px"
             sx={
@@ -4526,13 +4512,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c5 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c6 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
@@ -4700,11 +4679,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
         id=":r30:"
       >
         <span
-          className="c5"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c6"
+            className="c5"
             fill="none"
             height="16px"
             sx={
@@ -4744,24 +4723,17 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c4 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
 .c3 {
   visibility: hidden;
 }
 
-.c8 {
+.c7 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: hidden;
 }
 
-.c5 {
+.c4 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -4772,7 +4744,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   left: 0;
 }
 
-.c7 {
+.c6 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -4878,7 +4850,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: 12px;
 }
 
-.c6 {
+.c5 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -4888,7 +4860,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c6:focus {
+.c5:focus {
   outline: 0;
 }
 
@@ -4945,11 +4917,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c5"
+            className="c4"
             fill="none"
             height="32px"
             sx={
@@ -4987,14 +4959,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
     </span>
     <input
       aria-describedby=":r33: :r35:"
-      className="c6"
+      className="c5"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
       type="text"
     />
     <span
-      className="c7"
+      className="c6"
       id=":r35:"
     >
       Loading
@@ -5008,11 +4980,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
         id=":r34:"
       >
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c8"
+            className="c7"
             fill="none"
             height="16px"
             sx={
@@ -5052,24 +5024,17 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c4 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
 .c3 {
   visibility: hidden;
 }
 
-.c8 {
+.c7 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: hidden;
 }
 
-.c5 {
+.c4 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -5080,7 +5045,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   left: 0;
 }
 
-.c7 {
+.c6 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -5186,7 +5151,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: 12px;
 }
 
-.c6 {
+.c5 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -5196,7 +5161,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c6:focus {
+.c5:focus {
   outline: 0;
 }
 
@@ -5253,11 +5218,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c5"
+            className="c4"
             fill="none"
             height="32px"
             sx={
@@ -5295,14 +5260,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
     </span>
     <input
       aria-describedby=":r38: :r3a:"
-      className="c6"
+      className="c5"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
       type="text"
     />
     <span
-      className="c7"
+      className="c6"
       id=":r3a:"
     >
       Loading
@@ -5316,11 +5281,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
         id=":r39:"
       >
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c8"
+            className="c7"
             fill="none"
             height="16px"
             sx={
@@ -5360,24 +5325,17 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c4 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
 .c3 {
   visibility: visible;
 }
 
-.c8 {
+.c7 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
 }
 
-.c5 {
+.c4 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -5388,7 +5346,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   left: 0;
 }
 
-.c7 {
+.c6 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -5494,7 +5452,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c6 {
+.c5 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -5504,7 +5462,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c6:focus {
+.c5:focus {
   outline: 0;
 }
 
@@ -5561,11 +5519,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c5"
+            className="c4"
             fill="none"
             height="32px"
             sx={
@@ -5603,14 +5561,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
     </span>
     <input
       aria-describedby=":r3d: :r3f:"
-      className="c6"
+      className="c5"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
       type="text"
     />
     <span
-      className="c7"
+      className="c6"
       id=":r3f:"
     >
       Loading
@@ -5624,11 +5582,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
         id=":r3e:"
       >
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c8"
+            className="c7"
             fill="none"
             height="16px"
             sx={
@@ -5668,18 +5626,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c6 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
 .c5 {
   visibility: hidden;
 }
 
-.c7 {
+.c6 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -5877,11 +5828,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c6"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c7"
+            className="c6"
             fill="none"
             height="32px"
             sx={
@@ -5926,24 +5877,17 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c3 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c7 {
+.c6 {
   visibility: visible;
 }
 
-.c4 {
+.c3 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
 }
 
-.c8 {
+.c7 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -5954,7 +5898,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   right: 0;
 }
 
-.c6 {
+.c5 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -6060,7 +6004,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c5 {
+.c4 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -6070,7 +6014,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c5:focus {
+.c4:focus {
   outline: 0;
 }
 
@@ -6102,11 +6046,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
         id=":r3m:"
       >
         <span
-          className="c3"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c3"
             fill="none"
             height="16px"
             sx={
@@ -6139,14 +6083,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
     </span>
     <input
       aria-describedby=":r3n: :r3o:"
-      className="c5"
+      className="c4"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
       type="text"
     />
     <span
-      className="c6"
+      className="c5"
       id=":r3o:"
     >
       Loading
@@ -6160,7 +6104,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         id=":r3n:"
       >
         <div
-          className="c7"
+          className="c6"
         >
           <svg
             aria-hidden="true"
@@ -6185,11 +6129,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c3"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c8"
+            className="c7"
             fill="none"
             height="32px"
             sx={
@@ -6234,18 +6178,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c6 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
 .c5 {
   visibility: hidden;
 }
 
-.c7 {
+.c6 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -6443,11 +6380,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c6"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c7"
+            className="c6"
             fill="none"
             height="32px"
             sx={
@@ -6492,22 +6429,15 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c4 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
 .c3 {
   visibility: hidden;
 }
 
-.c8 {
+.c7 {
   visibility: visible;
 }
 
-.c5 {
+.c4 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -6518,7 +6448,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   left: 0;
 }
 
-.c9 {
+.c8 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -6529,7 +6459,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   right: 0;
 }
 
-.c7 {
+.c6 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -6643,7 +6573,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c6 {
+.c5 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -6653,7 +6583,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c6:focus {
+.c5:focus {
   outline: 0;
 }
 
@@ -6711,11 +6641,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c5"
+            className="c4"
             fill="none"
             height="32px"
             sx={
@@ -6753,14 +6683,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
     </span>
     <input
       aria-describedby=":r3v: :r40: :r41:"
-      className="c6"
+      className="c5"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
       type="text"
     />
     <span
-      className="c7"
+      className="c6"
       id=":r41:"
     >
       Loading
@@ -6774,7 +6704,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         id=":r40:"
       >
         <div
-          className="c8"
+          className="c7"
         >
           <svg
             aria-hidden="true"
@@ -6799,11 +6729,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c9"
+            className="c8"
             fill="none"
             height="32px"
             sx={
@@ -6848,22 +6778,15 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c4 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
 .c3 {
   visibility: hidden;
 }
 
-.c8 {
+.c7 {
   visibility: visible;
 }
 
-.c5 {
+.c4 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -6874,7 +6797,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   left: 0;
 }
 
-.c9 {
+.c8 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -6885,7 +6808,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   right: 0;
 }
 
-.c7 {
+.c6 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -6991,7 +6914,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c6 {
+.c5 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -7001,7 +6924,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c6:focus {
+.c5:focus {
   outline: 0;
 }
 
@@ -7058,11 +6981,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c5"
+            className="c4"
             fill="none"
             height="32px"
             sx={
@@ -7100,14 +7023,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
     </span>
     <input
       aria-describedby=":r44: :r45: :r46:"
-      className="c6"
+      className="c5"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
       type="text"
     />
     <span
-      className="c7"
+      className="c6"
       id=":r46:"
     >
       Loading
@@ -7121,7 +7044,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         id=":r45:"
       >
         <div
-          className="c8"
+          className="c7"
         >
           <svg
             aria-hidden="true"
@@ -7146,11 +7069,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c9"
+            className="c8"
             fill="none"
             height="32px"
             sx={
@@ -7195,14 +7118,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c4 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c8 {
+.c7 {
   visibility: hidden;
 }
 
@@ -7210,7 +7126,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
-.c5 {
+.c4 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -7221,7 +7137,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   left: 0;
 }
 
-.c9 {
+.c8 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -7232,7 +7148,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   right: 0;
 }
 
-.c7 {
+.c6 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -7344,7 +7260,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c6 {
+.c5 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -7354,7 +7270,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c6:focus {
+.c5:focus {
   outline: 0;
 }
 
@@ -7412,11 +7328,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c5"
+            className="c4"
             fill="none"
             height="32px"
             sx={
@@ -7454,14 +7370,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
     </span>
     <input
       aria-describedby=":r49: :r4a: :r4b:"
-      className="c6"
+      className="c5"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
       type="text"
     />
     <span
-      className="c7"
+      className="c6"
       id=":r4b:"
     >
       Loading
@@ -7475,7 +7391,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         id=":r4a:"
       >
         <div
-          className="c8"
+          className="c7"
         >
           <svg
             aria-hidden="true"
@@ -7500,11 +7416,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c9"
+            className="c8"
             fill="none"
             height="32px"
             sx={
