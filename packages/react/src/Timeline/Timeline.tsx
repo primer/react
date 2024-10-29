@@ -188,6 +188,8 @@ TimelineBody.displayName = 'Timeline.Body'
 
 TimelineBreak.displayName = 'Timeline.Break'
 
+Timeline.displayName = 'Timeline'
+
 export type TimelineProps = ComponentProps<typeof StyledTimeline>
 export type TimelineItemsProps = ComponentProps<typeof TimelineItem>
 export type TimelineBodyProps = ComponentProps<typeof TimelineBody>
