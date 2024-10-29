@@ -1,6 +1,6 @@
 {
   "name": "@primer/react",
-  "version": "37.0.0-rc.6",
+  "version": "37.0.1",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -24,18 +24,7 @@
     "./test-helpers": {
       "import": "./lib-esm/test-helpers.js",
       "require": "./lib/test-helpers.js"
-    },
-    "./lib-esm/*": {
-      "import": [
-        "./lib-esm/*.js",
-        "./lib-esm/*/index.js"
-      ],
-      "require": [
-        "./lib/*.js",
-        "./lib/*/index.js"
-      ]
-    },
-    "./lib-esm/internal/*": null
+    }
   },
   "typings": "lib/index.d.ts",
   "sideEffects": [
@@ -92,7 +81,7 @@
     "@github/relative-time-element": "^4.4.2",
     "@github/tab-container-element": "^4.8.0",
     "@lit-labs/react": "1.2.1",
-    "@oddbird/popover-polyfill": "^0.3.1",
+    "@oddbird/popover-polyfill": "^0.4.4",
     "@primer/behaviors": "^1.7.2",
     "@primer/live-region-element": "^0.7.1",
     "@primer/octicons-react": "^19.9.0",
@@ -132,7 +121,7 @@
     "@rollup/plugin-commonjs": "25.0.4",
     "@rollup/plugin-node-resolve": "15.1.0",
     "@rollup/plugin-replace": "5.0.2",
-    "@rollup/plugin-terser": "0.4.3",
+    "@rollup/plugin-terser": "0.4.4",
     "@rollup/plugin-typescript": "11.1.5",
     "@rollup/plugin-virtual": "3.0.2",
     "@storybook/addon-a11y": "^8.3.0",
@@ -144,19 +133,19 @@
     "@storybook/preview-api": "^8.3.0",
     "@storybook/react": "^8.3.2",
     "@storybook/react-vite": "^8.3.0",
-    "@storybook/source-loader": "^8.3.0",
+    "@storybook/source-loader": "^8.3.5",
     "@storybook/theming": "^8.3.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^16.0.0",
     "@testing-library/react-hooks": "^8.0.1",
     "@testing-library/user-event": "^14.5.2",
-    "@types/lodash.groupby": "4.6.7",
+    "@types/lodash.groupby": "4.6.9",
     "@types/lodash.isempty": "4.4.9",
     "@types/lodash.isobject": "3.0.9",
     "@types/lodash.keyby": "4.6.7",
     "@types/node": "20.12.11",
-    "@types/react": "18.3.3",
+    "@types/react": "18.3.11",
     "@types/react-dom": "18.3.0",
     "@types/react-test-renderer": "18.3.0",
     "@types/semver": "7.5.8",
@@ -177,7 +166,7 @@
     "copyfiles": "2.4.1",
     "cross-env": "7.0.3",
     "fast-glob": "3.3.2",
-    "filesize": "10.1.2",
+    "filesize": "10.1.6",
     "front-matter": "4.0.2",
     "gzip-size": "6.0.0",
     "jest-css-modules": "2.1.0",
@@ -199,10 +188,10 @@
     "react-dnd": "14.0.4",
     "react-dnd-html5-backend": "14.0.2",
     "react-dom": "18.3.1",
-    "react-test-renderer": "18.2.0",
+    "react-test-renderer": "18.3.1",
     "recast": "0.23.7",
     "rimraf": "5.0.5",
-    "rollup": "4.22.4",
+    "rollup": "4.24.0",
     "rollup-plugin-import-css": "^0.0.0",
     "rollup-plugin-postcss": "4.0.2",
     "rollup-plugin-visualizer": "5.9.2",

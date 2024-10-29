@@ -26,6 +26,11 @@ Playground.argTypes = {
       type: 'boolean',
     },
   },
+  'aria-disabled': {
+    control: {
+      type: 'boolean',
+    },
+  },
   inactive: {
     control: {
       type: 'boolean',
@@ -79,6 +84,7 @@ Playground.args = {
   leadingVisual: null,
   trailingAction: null,
   labelWrap: false,
+  'aria-disabled': false,
 }
 
 export const Default = () => <Button>Default</Button>

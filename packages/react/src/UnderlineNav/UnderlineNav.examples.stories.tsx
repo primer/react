@@ -22,7 +22,8 @@ import {
 } from '@primer/octicons-react'
 import type {Meta} from '@storybook/react'
 import {UnderlineNav} from './index'
-import {Avatar, Octicon, Button, Box, Heading, Link, Text, StateLabel, BranchName} from '..'
+import {Avatar, Button, Box, Heading, Link, Text, StateLabel, BranchName} from '..'
+import Octicon from '../Octicon'
 
 export default {
   title: 'Components/UnderlineNav/Examples',

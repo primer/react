@@ -136,7 +136,7 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 .c2[data-is-active-descendant] {
-  font-weight: 600;
+  font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
@@ -233,7 +233,7 @@ exports[`NavList renders a simple list 1`] = `
 }
 
 .c7[data-is-active-descendant] {
-  font-weight: 600;
+  font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
@@ -464,6 +464,10 @@ exports[`NavList renders with groups 1`] = `
   margin-top: 8px;
 }
 
+.c2:has([data-component="NavList.GroupHeading"]):has([data-component="ActionList.GroupHeading"]) [data-component="ActionList.GroupHeading"] {
+  display: none;
+}
+
 .c3 {
   padding-top: 6px;
   padding-bottom: 6px;
@@ -472,6 +476,20 @@ exports[`NavList renders with groups 1`] = `
   font-size: 12px;
   font-weight: 600;
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+}
+
+.c3 .ActionListGroupHeading {
+  font-size: var(--text-body-size-small),12px;
+  font-weight: var(--base-text-weight-semibold,600);
+  line-height: var(--text-body-lineHeight-small,1.6666);
+  color: var(--fgColor-muted);
+}
+
+.c3 .ActionListGroupHeadingDescription {
+  font-size: var(--text-body-size-small,12px);
+  font-weight: var(--base-text-weight-normal,400);
+  line-height: var(--text-body-lineHeight-small,1.6666);
+  color: var(--fgColor-muted);
 }
 
 .c4 {
@@ -613,7 +631,7 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c6[data-is-active-descendant] {
-  font-weight: 600;
+  font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
@@ -710,7 +728,7 @@ exports[`NavList renders with groups 1`] = `
 }
 
 .c11[data-is-active-descendant] {
-  font-weight: 600;
+  font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
@@ -853,12 +871,17 @@ exports[`NavList renders with groups 1`] = `
       <li
         class="c2"
       >
-        <h3
-          class="c3 Heading"
-          id=":r7:"
+        <div
+          class="c3"
         >
-          Overview
-        </h3>
+          <h3
+            class="ActionListGroupHeading Heading"
+            data-component="ActionList.GroupHeading"
+            id=":r7:"
+          >
+            Overview
+          </h3>
+        </div>
         <ul
           aria-labelledby=":r7:"
           class="c4"
@@ -897,12 +920,17 @@ exports[`NavList renders with groups 1`] = `
       <li
         class="c2"
       >
-        <h3
-          class="c3 Heading"
-          id=":r9:"
+        <div
+          class="c3"
         >
-          Components
-        </h3>
+          <h3
+            class="ActionListGroupHeading Heading"
+            data-component="ActionList.GroupHeading"
+            id=":r9:"
+          >
+            Components
+          </h3>
+        </div>
         <ul
           aria-labelledby=":r9:"
           class="c4"
@@ -1005,12 +1033,6 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   padding: 0;
   margin: 0;
   display: block;
-}
-
-.c9 {
-  -webkit-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
-  transform: rotate(180deg);
 }
 
 .c0 {
@@ -1124,7 +1146,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 .c11[data-is-active-descendant] {
-  font-weight: 600;
+  font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
@@ -1221,7 +1243,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
 }
 
 .c4[data-is-active-descendant] {
-  font-weight: 600;
+  font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
@@ -1289,6 +1311,12 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   color: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
+}
+
+.c9 {
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 @media (forced-colors:active) {
@@ -1367,15 +1395,15 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
       class="c0"
     >
       <li
-        aria-labelledby=":r26:"
+        aria-labelledby=":r2c:"
         class="c1 c2"
       >
         <button
-          aria-controls=":r27:"
+          aria-controls=":r2d:"
           aria-expanded="true"
-          aria-labelledby=":r26:--label :r26:--trailing-visual "
+          aria-labelledby=":r2c:--label :r2c:--trailing-visual "
           class="c3 c4"
-          id=":r26:"
+          id=":r2c:"
           tabindex="0"
         >
           <div
@@ -1387,13 +1415,13 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
             >
               <span
                 class="c1 c7"
-                id=":r26:--label"
+                id=":r2c:--label"
               >
                 Item
               </span>
               <span
                 class="c1 c8"
-                id=":r26:--trailing-visual"
+                id=":r2c:--trailing-visual"
               >
                 <svg
                   aria-hidden="true"
@@ -1415,19 +1443,19 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
         </button>
         <div>
           <ul
-            aria-labelledby=":r26:"
+            aria-labelledby=":r2c:"
             class="c1 c10"
-            id=":r27:"
+            id=":r2d:"
           >
             <li
               class="c3 c11"
             >
               <a
                 aria-current="page"
-                aria-labelledby=":r29:--label  "
+                aria-labelledby=":r2f:--label  "
                 class="c12 c13"
                 href="#"
-                id=":r29:"
+                id=":r2f:"
                 tabindex="0"
               >
                 <div
@@ -1436,7 +1464,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
                 >
                   <span
                     class="c1 c14"
-                    id=":r29:--label"
+                    id=":r2f:--label"
                   >
                     Sub Item
                   </span>
@@ -1510,12 +1538,6 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   flex-grow: 1;
   font-weight: 600;
   word-break: break-word;
-}
-
-.c9 {
-  -webkit-transform: rotate(0deg);
-  -ms-transform: rotate(0deg);
-  transform: rotate(0deg);
 }
 
 .c0 {
@@ -1629,7 +1651,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 .c11[data-is-active-descendant] {
-  font-weight: 600;
+  font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
@@ -1747,7 +1769,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
 }
 
 .c4[data-is-active-descendant] {
-  font-weight: 600;
+  font-weight: 400;
   background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
 }
 
@@ -1815,6 +1837,12 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   color: inherit;
   -webkit-text-decoration: none;
   text-decoration: none;
+}
+
+.c9 {
+  -webkit-transform: rotate(0deg);
+  -ms-transform: rotate(0deg);
+  transform: rotate(0deg);
 }
 
 @media (forced-colors:active) {
@@ -1901,15 +1929,15 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
       class="c0"
     >
       <li
-        aria-labelledby=":r20:"
+        aria-labelledby=":r26:"
         class="c1 c2"
       >
         <button
-          aria-controls=":r21:"
+          aria-controls=":r27:"
           aria-expanded="false"
-          aria-labelledby=":r20:--label :r20:--trailing-visual "
+          aria-labelledby=":r26:--label :r26:--trailing-visual "
           class="c3 c4"
-          id=":r20:"
+          id=":r26:"
           tabindex="0"
         >
           <div
@@ -1921,13 +1949,13 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
             >
               <span
                 class="c1 c7"
-                id=":r20:--label"
+                id=":r26:--label"
               >
                 Item
               </span>
               <span
                 class="c1 c8"
-                id=":r20:--trailing-visual"
+                id=":r26:--trailing-visual"
               >
                 <svg
                   aria-hidden="true"
@@ -1949,19 +1977,19 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
         </button>
         <div>
           <ul
-            aria-labelledby=":r20:"
+            aria-labelledby=":r26:"
             class="c1 c10"
-            id=":r21:"
+            id=":r27:"
           >
             <li
               class="c3 c11"
             >
               <a
                 aria-current="page"
-                aria-labelledby=":r23:--label  "
+                aria-labelledby=":r29:--label  "
                 class="c12 c13"
                 href="#"
-                id=":r23:"
+                id=":r29:"
                 tabindex="0"
               >
                 <div
@@ -1970,7 +1998,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
                 >
                   <span
                     class="c1 c7"
-                    id=":r23:--label"
+                    id=":r29:--label"
                   >
                     Sub Item
                   </span>
