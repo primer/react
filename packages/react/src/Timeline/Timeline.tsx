@@ -50,9 +50,6 @@ const Timeline = React.forwardRef<HTMLElement, TimelineProps>((props, forwardRef
     const updateGroup = () => {
       const group = timeline.querySelector('ul.Timeline-Group')
       setHasGroup(!!group)
-      console.log(timeline)
-      console.log(group)
-      console.log(!!group)
     }
 
     // Update group on mount
