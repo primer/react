@@ -206,6 +206,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
 
     // To be backwards compatible with the old Overlay, we need to set the left prop if x-position is not specified
     const leftPosition: React.CSSProperties = left === undefined && right === undefined ? {left: 0} : {left}
+    const reflowSize = ['xsmall', 'small', 'medium', 'auto'].includes(width)
 
     return (
       <Portal containerName={portalContainerName}>
@@ -226,7 +227,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
               ...styleFromProps,
             } as React.CSSProperties
           }
-          data-reflow-container={width === 'auto' && reflow ? true : undefined}
+          data-reflow-container={reflowSize && reflow ? true : undefined}
         />
       </Portal>
     )

@@ -560,25 +560,31 @@ export const PositionedOverlays = ({right, role}: OverlayProps) => {
           >
             <Box
               sx={{
-                height: '100vh',
                 width: '500px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
               }}
             >
-              <IconButton
-                aria-label="Close"
-                onClick={closeOverlay}
-                icon={XIcon}
-                variant="invisible"
+              <Box
                 sx={{
-                  position: 'absolute',
-                  left: '5px',
-                  top: '5px',
+                  height: '100vh',
+                  maxWidth: 'calc(-1rem + 100vw)',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}
-              />
-              <Text>Look! left aligned</Text>
+              >
+                <IconButton
+                  aria-label="Close"
+                  onClick={closeOverlay}
+                  icon={XIcon}
+                  variant="invisible"
+                  sx={{
+                    position: 'absolute',
+                    left: '5px',
+                    top: '5px',
+                  }}
+                />
+                <Text>Look! left aligned</Text>
+              </Box>
             </Box>
           </Overlay>
         ) : (
@@ -598,25 +604,31 @@ export const PositionedOverlays = ({right, role}: OverlayProps) => {
           >
             <Box
               sx={{
-                height: '100vh',
                 width: '500px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
               }}
             >
-              <IconButton
-                aria-label="Close"
-                onClick={closeOverlay}
-                icon={XIcon}
-                variant="invisible"
+              <Box
                 sx={{
-                  position: 'absolute',
-                  right: '5px',
-                  top: '5px',
+                  height: '100vh',
+                  maxWidth: 'calc(-1rem + 100vw)',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}
-              />
-              <Text>Look! right aligned</Text>
+              >
+                <IconButton
+                  aria-label="Close"
+                  onClick={closeOverlay}
+                  icon={XIcon}
+                  variant="invisible"
+                  sx={{
+                    position: 'absolute',
+                    right: '5px',
+                    top: '5px',
+                  }}
+                />
+                <Text>Look! right aligned</Text>
+              </Box>
             </Box>
           </Overlay>
         )
