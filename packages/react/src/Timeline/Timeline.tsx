@@ -1,13 +1,14 @@
 import {clsx} from 'clsx'
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import styled, {css} from 'styled-components'
 import Box from '../Box'
 import {get} from '../constants'
 import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
+import {useMergedRefs} from '../internal/hooks/useMergedRefs'
 
-const Timeline = styled.ul<{clipSidebar?: boolean} & SxProp>`
+const StyledTimeline = styled.div<{clipSidebar?: boolean} & SxProp>`
   display: flex;
   flex-direction: column;
   list-style: none;
@@ -17,6 +18,8 @@ const Timeline = styled.ul<{clipSidebar?: boolean} & SxProp>`
 
   .Timeline-Group {
     padding-inline-start: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
   }
 
   ${props =>
@@ -33,6 +36,43 @@ const Timeline = styled.ul<{clipSidebar?: boolean} & SxProp>`
 
   ${sx};
 `
+
+const Timeline = React.forwardRef<HTMLElement, TimelineProps>((props, forwardRef) => {
+  const timelineRef = React.useRef<HTMLElement>(null)
+  const ref = useMergedRefs(forwardRef, timelineRef)
+  const [hasGroup, setHasGroup] = useState(false)
+  useEffect(() => {
+    const {current: timeline} = timelineRef
+    if (!timeline) {
+      return
+    }
+
+    const updateGroup = () => {
+      const group = timeline.querySelector('ul.Timeline-Group')
+      setHasGroup(!!group)
+      console.log(timeline)
+      console.log(group)
+      console.log(!!group)
+    }
+
+    // Update group on mount
+    updateGroup()
+
+    const observer = new MutationObserver(() => {
+      updateGroup()
+    })
+
+    observer.observe(timeline, {
+      childList: true,
+      subtree: true,
+    })
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [])
+  return <StyledTimeline ref={ref} as={hasGroup ? 'div' : 'ul'} {...props} />
+})
 
 type StyledTimelineItemProps = {condensed?: boolean} & SxProp
 
@@ -136,10 +176,8 @@ function TimelineBreak(props: ComponentProps<typeof StyledTimelineBreak>) {
 
 function TimelineGroup({children, ...props}: React.ComponentPropsWithoutRef<'ul'>) {
   return (
-    <Box as="li">
-      <Box as="ul" className="Timeline-Group" {...props}>
-        {children}
-      </Box>
+    <Box as="ul" className="Timeline-Group" {...props}>
+      {children}
     </Box>
   )
 }
@@ -153,7 +191,7 @@ TimelineBody.displayName = 'Timeline.Body'
 
 TimelineBreak.displayName = 'Timeline.Break'
 
-export type TimelineProps = ComponentProps<typeof Timeline>
+export type TimelineProps = ComponentProps<typeof StyledTimeline>
 export type TimelineItemsProps = ComponentProps<typeof TimelineItem>
 export type TimelineBodyProps = ComponentProps<typeof TimelineBody>
 export type TimelineBreakProps = ComponentProps<typeof TimelineBreak>
