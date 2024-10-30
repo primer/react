@@ -17,10 +17,10 @@
   align-self: stretch;
   align-items: center;
   flex-wrap: nowrap;
-}
 
-.Full {
-  flex: auto;
+  &:where([data-full]) {
+    flex: auto;
+  }
 }
 
 .HeaderLink {

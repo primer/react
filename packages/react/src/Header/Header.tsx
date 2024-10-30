@@ -78,7 +78,8 @@ const HeaderItem = React.forwardRef<HTMLElement, StyledHeaderItemProps>(function
   return (
     <StyledHeaderItem
       ref={forwardRef}
-      className={clsx(className, enabled && classes.HeaderItem, enabled && rest.full && classes.Full)}
+      className={clsx(className, enabled && classes.HeaderItem)}
+      data-full={rest.full}
       {...rest}
     >
       {children}
