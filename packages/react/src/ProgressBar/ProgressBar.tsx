@@ -111,6 +111,8 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
       throw new Error('You should pass `progress` or children, not both.')
     }
 
+    // Get the number of non-empty nodes passed as children, this will exclude
+    // booleans, null, and undefined
     const validChildren = React.Children.toArray(children).length
 
     return (
