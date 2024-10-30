@@ -48,7 +48,7 @@
 
   @media screen and (forced-colors: active) {
     svg {
-      fill: 'FieldText',
+      fill: 'FieldText';
     }
   }
 }
@@ -56,10 +56,10 @@
 .disabled {
   @media screen and (forced-colors: active) {
     svg {
-      fill: 'GrayText'
+      fill: 'GrayText';
     }
   }
-} 
+}
 
 .ArrowIndicator {
   position: absolute;
@@ -68,4 +68,3 @@
   pointer-events: none;
   transform: translateY(-50%);
 }
-
