@@ -22,8 +22,10 @@ type StyledAvatarStackWrapperProps = {
   count?: number
 } & SxProp
 
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+
 const AvatarStackWrapper = toggleStyledComponent(
-  'primer_react_css_modules_team',
+  CSS_MODULES_FEATURE_FLAG,
   'span',
   styled.span<StyledAvatarStackWrapperProps>`
     --avatar-border-width: 1px;
@@ -204,6 +206,46 @@ export type AvatarStackProps = {
   children: React.ReactNode
 } & SxProp
 
+const AvatarStackBody = ({
+  disableExpand,
+  hasInteractiveChildren,
+  stackContainer,
+  children,
+}: {
+  disableExpand: boolean | undefined
+  hasInteractiveChildren: boolean | undefined
+  stackContainer: React.RefObject<HTMLDivElement>
+} & React.ComponentPropsWithoutRef<'div'>) => {
+  const bodyClassNames = clsx('pc-AvatarStackBody', {
+    'pc-AvatarStack--disableExpand': disableExpand,
+  })
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
+  if (enabled) {
+    return (
+      <div
+        data-disable-expand={disableExpand ? '' : undefined}
+        className={clsx(bodyClassNames, classes.AvatarStackBody)}
+        tabIndex={!hasInteractiveChildren && !disableExpand ? 0 : undefined}
+        ref={stackContainer}
+      >
+        {' '}
+        {children}
+      </div>
+    )
+  }
+  return (
+    <Box
+      className={bodyClassNames}
+      tabIndex={!hasInteractiveChildren && !disableExpand ? 0 : undefined}
+      ref={stackContainer}
+    >
+      {' '}
+      {children}
+    </Box>
+  )
+}
+
 const AvatarStack = ({
   children,
   alignRight,
@@ -212,7 +254,7 @@ const AvatarStack = ({
   className,
   sx: sxProp = defaultSxProp,
 }: AvatarStackProps) => {
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   const [hasInteractiveChildren, setHasInteractiveChildren] = useState<boolean | undefined>(false)
   const stackContainer = useRef<HTMLDivElement>(null)
 
@@ -226,9 +268,6 @@ const AvatarStack = ({
     },
     className,
   )
-  const bodyClassNames = clsx('pc-AvatarStackBody', {
-    'pc-AvatarStack--disableExpand': disableExpand,
-  })
 
   const getAvatarChildSizes = () => {
     const avatarSizeMap: Record<WidthOnlyViewportRangeKeys, number[]> = {
@@ -334,32 +373,6 @@ const AvatarStack = ({
     sxProp as SxProp,
   )
 
-  const AvatarStackBody = ({children}: React.ComponentPropsWithoutRef<'div'>) => {
-    if (enabled) {
-      return (
-        <div
-          data-disable-expand={disableExpand ? '' : undefined}
-          className={clsx(bodyClassNames, classes.AvatarStackBody)}
-          tabIndex={!hasInteractiveChildren && !disableExpand ? 0 : undefined}
-          ref={stackContainer}
-        >
-          {' '}
-          {children}
-        </div>
-      )
-    }
-    return (
-      <Box
-        className={bodyClassNames}
-        tabIndex={!hasInteractiveChildren && !disableExpand ? 0 : undefined}
-        ref={stackContainer}
-      >
-        {' '}
-        {children}
-      </Box>
-    )
-  }
-
   return (
     <AvatarStackWrapper
       count={enabled ? undefined : count}
@@ -371,7 +384,13 @@ const AvatarStack = ({
       style={enabled ? (getResponsiveAvatarSizeStyles() as React.CSSProperties) : undefined}
       sx={enabled ? undefined : avatarStackSx}
     >
-      <AvatarStackBody>{transformChildren(children, enabled)}</AvatarStackBody>
+      <AvatarStackBody
+        disableExpand={disableExpand}
+        hasInteractiveChildren={hasInteractiveChildren}
+        stackContainer={stackContainer}
+      >
+        {transformChildren(children, enabled)}
+      </AvatarStackBody>
     </AvatarStackWrapper>
   )
 }
