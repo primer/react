@@ -17,12 +17,18 @@ type CSSModulesProps = {
  *
  * @param flag - the feature flag that will control whether or not the provided
  * styled component is used
+ * @param defautlAs - the default component to use when `as` is not provided
  * @param Component - the styled component that will be used if the feature flag
  * is disabled
  */
-export function toggleStyledComponent<T, P extends CSSModulesProps>(flag: string, Component: React.ComponentType<P>) {
+export function toggleStyledComponent<T, P extends CSSModulesProps>(
+  flag: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  defaultAs: string | React.ComponentType<any>,
+  Component: React.ComponentType<P>,
+) {
   const Wrapper = React.forwardRef<T, P>(function Wrapper(
-    {as: BaseComponent = 'div', sx: sxProp = defaultSxProp, ...rest},
+    {as: BaseComponent = defaultAs, sx: sxProp = defaultSxProp, ...rest},
     ref,
   ) {
     const enabled = useFeatureFlag(flag)
@@ -32,7 +38,7 @@ export function toggleStyledComponent<T, P extends CSSModulesProps>(flag: string
       }
       return <BaseComponent {...rest} ref={ref} />
     }
-    return <Component as={BaseComponent} {...(rest as P)} sx={sxProp} ref={ref} />
+    return <Component as={BaseComponent} {...(rest as unknown as P)} sx={sxProp} ref={ref} />
   })
 
   return Wrapper

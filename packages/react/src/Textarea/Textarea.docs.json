@@ -60,6 +60,11 @@
     {
       "name": "sx",
       "type": "SystemStyleObject"
+    },
+    {
+      "name": "className",
+      "type": "string | undefined",
+      "description": "The className to apply to the wrapper element"
     }
   ],
   "subcomponents": []

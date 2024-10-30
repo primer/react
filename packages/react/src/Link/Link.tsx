@@ -8,6 +8,7 @@ import type {ComponentProps} from '../utils/types'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 type StyledLinkProps = {
+  /** @deprecated use CSS modules to style hover color */
   hoverColor?: string
   muted?: boolean
   /** @deprecated use `inline` to specify the type of link instead */
