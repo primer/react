@@ -198,7 +198,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
           left={position?.left || 0}
           anchorSide={position?.anchorSide}
           className={className}
-          preventOverflow={false}
+          preventOverflow={true}
           {...overlayProps}
         >
           {children}
