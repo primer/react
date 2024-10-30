@@ -9,10 +9,11 @@ import {useFeatureFlag} from '../FeatureFlags'
 import React from 'react'
 import {clsx} from 'clsx'
 import classes from './Header.module.css'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
-type StyledHeaderProps = React.ComponentPropsWithoutRef<'header'> & SxProp
-type StyledHeaderItemProps = React.ComponentPropsWithoutRef<'div'> & SxProp & {full?: boolean}
-type StyledHeaderLinkProps = React.ComponentPropsWithoutRef<'a'> & SxProp & {to?: Location | Pathname}
+type StyledHeaderProps = React.ComponentProps<'header'> & SxProp
+type StyledHeaderItemProps = React.ComponentProps<'div'> & SxProp & {full?: boolean}
+type StyledHeaderLinkProps = React.ComponentProps<'a'> & SxProp & {to?: Location | Pathname}
 
 const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
 
@@ -45,7 +46,7 @@ const Header = React.forwardRef<HTMLElement, StyledHeaderProps>(function Header(
       {children}
     </StyledHeader>
   )
-})
+}) as PolymorphicForwardRefComponent<'header', StyledHeaderProps>
 
 Header.displayName = 'Header'
 
