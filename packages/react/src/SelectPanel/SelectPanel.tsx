@@ -17,7 +17,7 @@ import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 import {useFeatureFlag} from '../FeatureFlags'
-import {useResponsiveValue} from '../hooks/useResponsiveValue'
+import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
 import {StyledOverlay} from '../Overlay/Overlay'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 
@@ -44,10 +44,13 @@ interface SelectPanelBaseProps {
   inputLabel?: string
   overlayProps?: Partial<OverlayProps>
   footer?: string | React.ReactElement
+  // do we need keep the old variants for backward-compat?
+  // there isn't any usage in dotcom
+  variant?: 'anchored' | 'modal' | FilteredActionListProps['variant']
 }
 
 export type SelectPanelProps = SelectPanelBaseProps &
-  Omit<FilteredActionListProps, 'selectionVariant'> &
+  Omit<FilteredActionListProps, 'selectionVariant' | 'variant'> &
   Pick<AnchoredOverlayProps, 'open'> &
   AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection)
@@ -98,6 +101,7 @@ export function SelectPanel({
   footer,
   textInputProps,
   overlayProps,
+  variant = 'anchored',
   sx,
   ...listProps
 }: SelectPanelProps): JSX.Element {
@@ -191,9 +195,7 @@ export function SelectPanel({
 
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
 
-  const responsiveVariants = Object.assign({regular: 'anchored', narrow: 'full-screen'}) // defaults
-
-  const currentVariant = useResponsiveValue(responsiveVariants, 'anchored')
+  const currentVariant = useResponsiveValue({regular: variant, narrow: 'full-screen'}, 'anchored')
 
   /* Dialog */
   const dialogRef = React.useRef<HTMLDivElement>(null)
@@ -374,6 +376,10 @@ export function SelectPanel({
               left: position?.left,
               '::backdrop': {backgroundColor: 'transparent'},
             },
+            '&[data-variant="modal"]': {
+              inset: 0,
+              margin: 'auto',
+            },
             '&[data-variant="full-screen"]': {
               margin: 0,
               top: 0,
@@ -394,8 +400,8 @@ export function SelectPanel({
                 filterValue === ''
                   ? 'Showing all items'
                   : items.length <= 0
-                  ? 'No matching items'
-                  : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
+                    ? 'No matching items'
+                    : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
               }
             />
           )}
