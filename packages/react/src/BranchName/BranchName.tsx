@@ -66,5 +66,7 @@ const fixedForwardRef = React.forwardRef as FixedForwardRef
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type DistributiveOmit<T, TOmitted extends PropertyKey> = T extends any ? Omit<T, TOmitted> : never
 
+BranchName.displayName = 'BranchName'
+
 export type {BranchNameProps}
 export default fixedForwardRef(BranchName)
