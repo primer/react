@@ -1,7 +1,6 @@
 import {SearchIcon, TriangleDownIcon, XIcon} from '@primer/octicons-react'
 import React, {useCallback, useMemo} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
-import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 import Box from '../Box'
 import type {FilteredActionListProps} from '../FilteredActionList'
@@ -12,7 +11,7 @@ import type {TextInputProps} from '../TextInput'
 import type {ItemProps, ItemInput} from './types'
 
 import {Button, IconButton} from '../Button'
-import {useProvidedRefOrCreate} from '../hooks'
+import {useProvidedRefOrCreate, useAnchoredPosition, useOnEscapePress, useOnOutsideClick} from '../hooks'
 import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
@@ -20,6 +19,7 @@ import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/Live
 import {useFeatureFlag} from '../FeatureFlags'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import {StyledOverlay} from '../Overlay/Overlay'
+import {useFocusTrap} from '../hooks/useFocusTrap'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -196,149 +196,263 @@ export function SelectPanel({
   const currentVariant = useResponsiveValue(responsiveVariants, 'anchored')
 
   /* Dialog */
-  const dialogRef = React.useRef<HTMLDialogElement>(null)
+  const dialogRef = React.useRef<HTMLDivElement>(null)
 
-  const ConditionalOverlay: React.FC<React.PropsWithChildren<{isAnchored: boolean}>> = props => {
-    const {isAnchored, ...rest} = props
+  /* Anchored */
+  const {position} = useAnchoredPosition(
+    {
+      anchorElementRef: anchorRef,
+      floatingElementRef: dialogRef,
+      side: 'outside-bottom',
+      align: 'start',
+    },
+    [open, anchorRef.current, dialogRef.current],
+  )
 
-    if (isAnchored)
-      return (
-        <AnchoredOverlay
-          renderAnchor={renderMenuAnchor}
-          anchorRef={anchorRef}
-          open={open}
-          onOpen={onOpen}
-          onClose={onClose}
-          overlayProps={{
-            role: 'dialog',
-            'aria-labelledby': titleId,
-            'aria-describedby': subtitle ? subtitleId : undefined,
-            ...overlayProps,
-          }}
-          focusTrapSettings={focusTrapSettings}
-          focusZoneSettings={focusZoneSettings}
-          {...rest}
-        >
-          {props.children}
-        </AnchoredOverlay>
-      )
-    // This variant can be used for full-screen, bottom-sheet, modal, etc.
-    else {
-      const anchorProps = {
-        ref: anchorRef,
-        onClick: onOpen,
-        'aria-haspopup': true,
-        'aria-expanded': open,
+  useFocusTrap({
+    containerRef: dialogRef,
+    disabled: !open || !position,
+    returnFocusRef: anchorRef,
+    ...focusTrapSettings,
+  })
+
+  // const ConditionalOverlay: React.FC<React.PropsWithChildren<{isAnchored: boolean}>> = props => {
+  //   const {isAnchored, ...rest} = props
+
+  //   if (isAnchored)
+  //     return (
+  //       <AnchoredOverlay
+  //         renderAnchor={renderMenuAnchor}
+  //         anchorRef={anchorRef}
+  //         open={open}
+  //         onOpen={onOpen}
+  //         onClose={onClose}
+  //         overlayProps={{
+  //           role: 'dialog',
+  //           'aria-labelledby': titleId,
+  //           'aria-describedby': subtitle ? subtitleId : undefined,
+  //           ...overlayProps,
+  //         }}
+  //         focusTrapSettings={focusTrapSettings}
+  //         focusZoneSettings={focusZoneSettings}
+  //         {...rest}
+  //       >
+  //         {props.children}
+  //       </AnchoredOverlay>
+  //     )
+  //   // This variant can be used for full-screen, bottom-sheet, modal, etc.
+  //   else {
+  //     const anchorProps = {
+  //       ref: anchorRef,
+  //       onClick: onOpen,
+  //       'aria-haspopup': true,
+  //       'aria-expanded': open,
+  //     }
+  //     const anchor = renderMenuAnchor ? renderMenuAnchor(anchorProps) : null
+
+  //     return (
+  //       <>
+  //         {anchor}
+  //         {open ? (
+  //           <StyledOverlay
+  //             open={open}
+  //             ref={dialogRef}
+  //             as="dialog"
+  //             aria-labelledby={titleId}
+  //             aria-describedby={subtitle ? subtitleId : undefined}
+  //             data-variant={currentVariant}
+  //             sx={{
+  //               // reset dialog default styles
+  //               border: 'none',
+  //               display: 'flex',
+  //               padding: 0,
+  //               color: 'fg.default',
+  //               '&[open]': {display: 'flex'},
+  //               '&[data-variant="full-screen"]': {
+  //                 margin: 0,
+  //                 top: 0,
+  //                 left: 0,
+  //                 width: '100%',
+  //                 maxWidth: '100vw',
+  //                 height: '100%',
+  //                 maxHeight: '100vh',
+  //                 borderRadius: 'unset',
+  //               },
+  //             }}
+  //             {...rest}
+  //           >
+  //             {props.children}
+  //           </StyledOverlay>
+  //         ) : null}
+  //       </>
+  //     )
+  //   }
+  // }
+
+  const onAnchorClick = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      if (event.defaultPrevented || event.button !== 0) {
+        return
       }
-      const anchor = renderMenuAnchor ? renderMenuAnchor(anchorProps) : null
+      if (!open) {
+        onOpen('anchor-click')
+      } else {
+        // console.log('are you here?')
+        // if (event.target === event.currentTarget) {
+        //   console.log('click outside')
+        //   onClose('click-outside')
+        // } else {
+        onClose('anchor-click')
+        // }
+      }
+    },
+    [open, onOpen, onClose],
+  )
 
-      return (
-        <>
-          {anchor}
-          {open ? (
-            <StyledOverlay
-              open={open}
-              ref={dialogRef}
-              as="dialog"
-              aria-labelledby={titleId}
-              aria-describedby={subtitle ? subtitleId : undefined}
-              data-variant={currentVariant}
-              sx={{
-                // reset dialog default styles
-                border: 'none',
-                display: 'flex',
-                padding: 0,
-                color: 'fg.default',
-                '&[open]': {display: 'flex'},
-                '&[data-variant="full-screen"]': {
-                  margin: 0,
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  maxWidth: '100vw',
-                  height: '100%',
-                  maxHeight: '100vh',
-                  borderRadius: 'unset',
-                },
-              }}
-              {...rest}
-            >
-              {props.children}
-            </StyledOverlay>
-          ) : null}
-        </>
-      )
-    }
+  const onAnchorKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLElement>) => {
+      if (!event.defaultPrevented) {
+        if (!open && ['ArrowDown', 'ArrowUp', ' ', 'Enter'].includes(event.key)) {
+          onOpen('anchor-key-press', event)
+          event.preventDefault()
+        }
+      }
+    },
+    [open, onOpen],
+  )
+
+  const anchorProps = {
+    ref: anchorRef,
+    onClick: onAnchorClick,
+    'aria-haspopup': true,
+    'aria-expanded': open,
+    onKeyDown: onAnchorKeyDown,
   }
 
+  // Esc handler
+  useOnEscapePress(
+    (event: KeyboardEvent) => {
+      if (open) {
+        event.stopImmediatePropagation()
+        event.preventDefault()
+        onClose('escape')
+      }
+    },
+    [open],
+  )
+
+  const onClickOutside = () => {
+    onClose('click-outside')
+  }
+  useOnOutsideClick({
+    onClickOutside,
+    containerRef: dialogRef,
+    ignoreClickRefs: [anchorRef],
+  })
+
+  const anchor = renderMenuAnchor ? renderMenuAnchor(anchorProps) : null
   return (
     <LiveRegion>
-      <ConditionalOverlay isAnchored={currentVariant === 'anchored'}>
-        <LiveRegionOutlet />
-        {usingModernActionList ? null : (
-          <Message
-            value={
-              filterValue === ''
-                ? 'Showing all items'
-                : items.length <= 0
-                ? 'No matching items'
-                : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
-            }
-          />
-        )}
-        <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit', width: '100%'}}>
-          <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 2, px: 3}}>
-            <Box>
-              <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
-                {title}
-              </Heading>
-              {subtitle ? (
-                <Box id={subtitleId} sx={{fontSize: 0, color: 'fg.muted'}}>
-                  {subtitle}
-                </Box>
-              ) : null}
-            </Box>
-            <IconButton
-              type="button"
-              variant="invisible"
-              icon={XIcon}
-              aria-label="Close"
-              onClick={() => onClose('anchor-click')}
+      {anchor}
+      {open ? (
+        <StyledOverlay
+          ref={dialogRef}
+          role="dialog"
+          aria-labelledby={titleId}
+          aria-describedby={subtitle ? subtitleId : undefined}
+          data-variant={currentVariant}
+          sx={{
+            // reset dialog default styles
+            // width: 'medium',
+            border: 'none',
+            display: 'flex',
+            padding: 0,
+            color: 'fg.default',
+            '&[data-variant="anchored"], &[data-variant="full-screen"]': {
+              margin: 0,
+              top: position?.top,
+              left: position?.left,
+              '::backdrop': {backgroundColor: 'transparent'},
+            },
+            '&[data-variant="full-screen"]': {
+              margin: 0,
+              top: 0,
+              left: 0,
+              width: '100%',
+              maxWidth: '100vw',
+              height: '100%',
+              maxHeight: '100vh',
+              borderRadius: 'unset',
+            },
+          }}
+          {...overlayProps}
+        >
+          <LiveRegionOutlet />
+          {usingModernActionList ? null : (
+            <Message
+              value={
+                filterValue === ''
+                  ? 'Showing all items'
+                  : items.length <= 0
+                  ? 'No matching items'
+                  : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
+              }
             />
-          </Box>
-
-          <FilteredActionList
-            filterValue={filterValue}
-            onFilterChange={onFilterChange}
-            placeholderText={placeholderText}
-            {...listProps}
-            role="listbox"
-            // browsers give aria-labelledby precedence over aria-label so we need to make sure
-            // we don't accidentally override props.aria-label
-            aria-labelledby={listProps['aria-label'] ? undefined : titleId}
-            aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
-            selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
-            items={itemsToRender}
-            textInputProps={extendedTextInputProps}
-            inputRef={inputRef}
-            // inheriting height and maxHeight ensures that the FilteredActionList is never taller
-            // than the Overlay (which would break scrolling the items)
-            sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
-          />
-          {footer && (
-            <Box
-              sx={{
-                display: 'flex',
-                borderTop: '1px solid',
-                borderColor: 'border.default',
-                padding: 2,
-              }}
-            >
-              {footer}
-            </Box>
           )}
-        </Box>
-      </ConditionalOverlay>
+          <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit', width: '100%'}}>
+            <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 2, px: 3}}>
+              <Box>
+                <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
+                  {title}
+                </Heading>
+                {subtitle ? (
+                  <Box id={subtitleId} sx={{fontSize: 0, color: 'fg.muted'}}>
+                    {subtitle}
+                  </Box>
+                ) : null}
+              </Box>
+              <IconButton
+                type="button"
+                variant="invisible"
+                icon={XIcon}
+                aria-label="Close"
+                onClick={() => onClose('anchor-click')}
+              />
+            </Box>
+
+            <FilteredActionList
+              filterValue={filterValue}
+              onFilterChange={onFilterChange}
+              placeholderText={placeholderText}
+              {...listProps}
+              role="listbox"
+              // browsers give aria-labelledby precedence over aria-label so we need to make sure
+              // we don't accidentally override props.aria-label
+              aria-labelledby={listProps['aria-label'] ? undefined : titleId}
+              aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
+              selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+              items={itemsToRender}
+              textInputProps={extendedTextInputProps}
+              inputRef={inputRef}
+              // inheriting height and maxHeight ensures that the FilteredActionList is never taller
+              // than the Overlay (which would break scrolling the items)
+              sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
+            />
+            {footer && (
+              <Box
+                sx={{
+                  display: 'flex',
+                  borderTop: '1px solid',
+                  borderColor: 'border.default',
+                  padding: 2,
+                }}
+              >
+                {footer}
+              </Box>
+            )}
+          </Box>
+        </StyledOverlay>
+      ) : null}
     </LiveRegion>
   )
 }
