@@ -4,12 +4,14 @@ import {
   Autocomplete,
   BaseStyles,
   Box,
+  Button,
   Checkbox,
   CheckboxGroup,
   FormControl,
   Radio,
   RadioGroup,
   Select,
+  SelectPanel,
   Text,
   TextInput,
   TextInputWithTokens,
@@ -17,7 +19,8 @@ import {
   ThemeProvider,
   theme,
 } from '..'
-import {MarkGithubIcon} from '@primer/octicons-react'
+import {MarkGithubIcon, TriangleDownIcon} from '@primer/octicons-react'
+import type {ItemInput} from '../deprecated/ActionList/List'
 
 export default {
   title: 'Components/FormControl/Features',
@@ -269,6 +272,68 @@ export const ValidationExample = () => {
       <FormControl.Caption>
         With or without &quot;@&quot;. For example &quot;monalisa&quot; or &quot;@monalisa&quot;
       </FormControl.Caption>
+    </FormControl>
+  )
+}
+
+function getColorCircle(color: string) {
+  return function () {
+    return (
+      <Box
+        sx={{
+          backgroundColor: color,
+          borderColor: color,
+          width: 14,
+          height: 14,
+          borderRadius: 10,
+          margin: 'auto',
+          borderWidth: '1px',
+          borderStyle: 'solid',
+        }}
+      />
+    )
+  }
+}
+
+const items: ItemInput[] = [
+  {leadingVisual: getColorCircle('#a2eeef'), text: 'enhancement', description: 'New feature or request', id: 1},
+  {leadingVisual: getColorCircle('#d73a4a'), text: 'bug', description: "Something isn't working", id: 2},
+  {leadingVisual: getColorCircle('#0cf478'), text: 'good first issue', description: 'Good for newcomers', id: 3},
+  {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: 4},
+  {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5},
+  {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6},
+  {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7},
+].map(item => ({...item, descriptionVariant: 'block'}))
+
+export const WithSelectPanel = () => {
+  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = items.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+
+  return (
+    <FormControl required>
+      <FormControl.Label>Select Labels</FormControl.Label>
+      <SelectPanel
+        title="Select labels"
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <Button
+            trailingAction={TriangleDownIcon}
+            aria-labelledby={` ${ariaLabelledBy}`}
+            {...anchorProps}
+            aria-haspopup="dialog"
+          >
+            {children ?? 'Select Labels'}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+      />
     </FormControl>
   )
 }

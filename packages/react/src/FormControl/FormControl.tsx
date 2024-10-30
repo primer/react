@@ -4,6 +4,7 @@ import Box from '../Box'
 import Checkbox from '../Checkbox'
 import Radio from '../Radio'
 import Select from '../Select'
+import {SelectPanel} from '../SelectPanel'
 import TextInput from '../TextInput'
 import TextInputWithTokens from '../TextInputWithTokens'
 import Textarea from '../Textarea'
@@ -50,7 +51,16 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
       leadingVisual: FormControlLeadingVisual,
       validation: FormControlValidation,
     })
-    const expectedInputComponents = [Autocomplete, Checkbox, Radio, Select, TextInput, TextInputWithTokens, Textarea]
+    const expectedInputComponents = [
+      Autocomplete,
+      Checkbox,
+      Radio,
+      Select,
+      TextInput,
+      TextInputWithTokens,
+      Textarea,
+      SelectPanel,
+    ]
     const choiceGroupContext = useContext(CheckboxOrRadioGroupContext)
     const disabled = choiceGroupContext.disabled || disabledProp
     const id = useId(idProp)
