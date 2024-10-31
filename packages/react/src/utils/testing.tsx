@@ -193,6 +193,7 @@ export function unloadCSS(path: string) {
 interface Options {
   skipAs?: boolean
   skipSx?: boolean
+  skipDisplayName?: boolean
 }
 
 interface BehavesAsComponent {
@@ -221,9 +222,11 @@ export function behavesAsComponent({Component, toRender, options}: BehavesAsComp
     })
   }
 
-  it('sets a valid displayName', () => {
-    expect(Component.displayName).toMatch(COMPONENT_DISPLAY_NAME_REGEX)
-  })
+  if (!options.skipDisplayName) {
+    it('sets a valid displayName', () => {
+      expect(Component.displayName).toMatch(COMPONENT_DISPLAY_NAME_REGEX)
+    })
+  }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
