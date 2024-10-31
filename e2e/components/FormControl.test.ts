@@ -5,15 +5,15 @@ import {themes} from '../test-helpers/themes'
 const stories = [
   {
     title: 'Default',
-    id: 'components-form-control--default',
+    id: 'components-formcontrol--default',
   },
   {
     title: 'Custom Required',
-    id: 'components-form-control-features--custom-required',
+    id: 'components-formcontrol-features--custom-required',
   },
   {
     title: 'Disabled Inputs',
-    id: 'components-form-control-features--disabled-inputs',
+    id: 'components-formcontrol-features--disabled-inputs',
   },
   {
     title: 'Form Control with Custom Input',
