@@ -1,7 +1,7 @@
 import React from 'react'
 import type {Meta} from '@storybook/react'
 import {FormControl, Box} from '..'
-import Select from '.'
+import Select from './Select'
 
 export default {
   title: 'Components/Select/Dev',

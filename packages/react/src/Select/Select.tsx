@@ -97,7 +97,6 @@ const ArrowIndicator: React.FC<{className?: string}> = ({className}) => {
 const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
   ({block, children, contrast, disabled, placeholder, size, required, validationStatus, ...rest}: SelectProps, ref) => {
     const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
-
     if (enabled) {
       return (
         <TextInputWrapper
