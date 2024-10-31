@@ -31,25 +31,39 @@ interface SelectPanelMultiSelection {
   onSelectedChange: (selected: ItemInput[]) => void
 }
 
+type OpenGestures = 'anchor-click' | 'anchor-key-press'
+type CloseGestures = 'click-outside' | 'escape' | 'selection' | 'save-click' | 'cancel-click'
+
 interface SelectPanelBaseProps {
   // TODO: Make `title` required in the next major version
   title?: string | React.ReactElement
   subtitle?: string | React.ReactElement
-  onOpenChange: (
-    open: boolean,
-    gesture: 'anchor-click' | 'anchor-key-press' | 'click-outside' | 'escape' | 'selection',
-  ) => void
+  onOpenChange: (open: boolean, gesture: OpenGestures | CloseGestures) => void
   placeholder?: string
   // TODO: Make `inputLabel` required in next major version
   inputLabel?: string
   overlayProps?: Partial<OverlayProps>
   footer?: string | React.ReactElement
-  // do we need keep the old variants for backward-compat?
-  // there isn't any usage in dotcom
-  variant?: 'anchored' | 'modal' | FilteredActionListProps['variant']
 }
 
+type SelectPanelVariantProps =
+  | {
+      // do we need keep the old variants for backward-compat?
+      // there isn't any usage in dotcom
+      variant: 'anchored' | FilteredActionListProps['variant']
+      onCancel?: never
+    }
+  | {
+      variant: 'modal'
+      onCancel: () => void
+    }
+  | {
+      variant?: undefined
+      onCancel?: never
+    }
+
 export type SelectPanelProps = SelectPanelBaseProps &
+  SelectPanelVariantProps &
   Omit<FilteredActionListProps, 'selectionVariant' | 'variant'> &
   Pick<AnchoredOverlayProps, 'open'> &
   AnchoredOverlayWrapperAnchorProps &
@@ -101,6 +115,7 @@ export function SelectPanel({
   footer,
   textInputProps,
   variant = 'anchored',
+  onCancel,
   overlayProps = variant === 'modal' ? {maxWidth: 'medium', height: 'fit-content', maxHeight: 'large'} : undefined,
   sx,
   ...listProps
@@ -122,7 +137,7 @@ export function SelectPanel({
     [onOpenChange],
   )
   const onClose = useCallback(
-    (gesture: Parameters<Exclude<AnchoredOverlayProps['onClose'], undefined>>[0] | 'selection') => {
+    (gesture: Parameters<Exclude<AnchoredOverlayProps['onClose'], undefined>>[0] | CloseGestures) => {
       onOpenChange(false, gesture)
     },
     [onOpenChange],
@@ -434,7 +449,7 @@ export function SelectPanel({
                   variant="invisible"
                   icon={XIcon}
                   aria-label="Close"
-                  onClick={() => onClose('anchor-click')}
+                  onClick={() => onClose('cancel-click')}
                 />
               </Box>
 
@@ -456,18 +471,52 @@ export function SelectPanel({
                 // than the Overlay (which would break scrolling the items)
                 sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
               />
-              {footer && (
+
+              {footer || variant === 'modal' ? (
                 <Box
                   sx={{
                     display: 'flex',
                     borderTop: '1px solid',
                     borderColor: 'border.default',
-                    padding: 2,
+                    padding: variant === 'modal' ? 3 : 2,
+                    justifyContent: footer ? 'space-between' : 'end',
+                    alignItems: 'center',
+                    flexShrink: 0,
+                    minHeight: '44px',
+                    '> button': {
+                      // make button full width if there's just one
+                      width: variant === 'modal' ? 'auto' : '100%',
+                    },
                   }}
                 >
                   {footer}
+                  {variant === 'modal' ? (
+                    <Box sx={{display: 'flex', gap: 2}}>
+                      <Button
+                        type="button"
+                        size="small"
+                        onClick={() => {
+                          if (typeof onCancel === 'function') onCancel()
+                          onClose('cancel-click')
+                        }}
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        type="submit"
+                        size="small"
+                        variant="primary"
+                        onClick={() => {
+                          // assuming it was saving onSelectedChange already
+                          onClose('save-click')
+                        }}
+                      >
+                        Save
+                      </Button>
+                    </Box>
+                  ) : null}
                 </Box>
-              )}
+              ) : null}
             </Box>
           </StyledOverlay>
         </>

@@ -371,7 +371,8 @@ export const WithGroups = () => {
 }
 
 export const ModalVariant = () => {
-  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
+  const initialItems = [items[0], items[1]]
+  const [selected, setSelected] = React.useState<ItemInput[]>(initialItems)
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = useState(false)
@@ -382,6 +383,7 @@ export const ModalVariant = () => {
       <h1>Multi Select Panel as Modal</h1>
       <SelectPanel
         variant="modal"
+        onCancel={() => setSelected(initialItems)}
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
           <Button aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
             {children ?? 'Select Labels'}
@@ -395,7 +397,6 @@ export const ModalVariant = () => {
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        showItemDividers={true}
       />
     </>
   )
