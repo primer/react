@@ -130,7 +130,7 @@ Validate that no visual regressions occur when the feature flag is enabled. The 
 - Add `dev` stories for any edge cases spotted in production for the component (ie. `sx` prop, custom className, styled system attributes). `dev` stories may include things that we wouldn't normally recommend for the purpose of stress testing what happens when PRC components are overridden with custom styles.
 - Setup VRT tests for `dev` stories. Copy an existing test in the corresponding test file in the [e2e directory](https://github.com/primer/react/tree/main/e2e/components) and update the id to match the new `dev` story.
 
-**Example test file**
+Example test file:
 
 ```ts
 import {test, expect} from '@playwright/test'
