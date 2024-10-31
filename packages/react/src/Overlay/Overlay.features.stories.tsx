@@ -172,6 +172,7 @@ export const OverlayOnTopOfOverlay = ({anchorSide, role}: OverlayProps) => {
           role={role}
           aria-modal={role === 'dialog' ? 'true' : undefined}
           ref={primaryContainer}
+          preventOverflow={false}
         >
           <Button ref={secondaryButtonRef} onClick={() => setIsSecondaryOpen(!isSecondaryOpen)}>
             open overlay
@@ -188,11 +189,12 @@ export const OverlayOnTopOfOverlay = ({anchorSide, role}: OverlayProps) => {
               role={role}
               aria-modal={role === 'dialog' ? 'true' : undefined}
               ref={secondaryContainer}
+              preventOverflow={false}
             >
               <Box display="flex" flexDirection="column" p={2}>
                 <Text>Select an option!</Text>
                 <ActionMenu>
-                  <ActionMenu.Button sx={{width: 200}}>{selectedItem}</ActionMenu.Button>
+                  <ActionMenu.Button>{selectedItem}</ActionMenu.Button>
                   <ActionMenu.Overlay>
                     <ActionList selectionVariant="single">
                       {items.map(item => (
@@ -248,6 +250,7 @@ export const MemexNestedOverlays = ({role}: OverlayProps) => {
           role={role}
           aria-modal={role === 'dialog' ? 'true' : undefined}
           ref={containerRef}
+          preventOverflow={false}
         >
           <Box as="form" onSubmit={() => setOverlayOpen(false)} sx={{display: 'flex', flexDirection: 'column', py: 2}}>
             <Box sx={{paddingX: 3, display: 'flex', alignItems: 'center', gap: 1}}>
@@ -435,17 +438,17 @@ export const MemexIssueOverlay = ({role}: OverlayProps) => {
       {overlayOpen && (
         <Overlay
           height="auto"
-          width="large"
+          width="auto"
           onEscape={() => setOverlayOpen(false)}
           onClickOutside={() => setOverlayOpen(false)}
           returnFocusRef={linkRef}
           top={0}
-          left="calc(100vw - 480px)"
+          left="calc(100vw - 350px)"
           role={role}
           aria-modal={role === 'dialog' ? 'true' : undefined}
           ref={containerRef}
         >
-          <Box sx={{p: 4, height: '100vh'}}>
+          <Box sx={{p: 4, height: '100vh', width: '350px'}}>
             <Box sx={{display: 'flex', alignItems: 'center', gap: 1, mb: 2}}>
               <Label size="large">
                 <IssueDraftIcon /> Draft
@@ -489,7 +492,7 @@ export const MemexIssueOverlay = ({role}: OverlayProps) => {
                 aria-label="Change issue title"
                 sx={{
                   width: '100%',
-                  fontSize: 4,
+                  fontSize: 3,
                   color: 'fg.default',
                   p: 2,
                   textAlign: 'left',
@@ -560,7 +563,7 @@ export const PositionedOverlays = ({right, role}: OverlayProps) => {
           >
             <Box
               sx={{
-                width: '500px',
+                width: ['350px', '500px'],
               }}
             >
               <Box
@@ -604,7 +607,7 @@ export const PositionedOverlays = ({right, role}: OverlayProps) => {
           >
             <Box
               sx={{
-                width: '500px',
+                width: ['350px', '500px'],
               }}
             >
               <Box
