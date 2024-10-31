@@ -396,7 +396,6 @@ export const ModalVariant = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
         showItemDividers={true}
-        overlayProps={{width: 'small', height: 'medium'}}
       />
     </>
   )
