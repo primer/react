@@ -458,6 +458,11 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       [onSelect, setIsExpandedWithCache, toggle],
     )
 
+    const ariaDescribedByIds = [
+      slots.leadingVisual ? leadingVisualId : null,
+      slots.trailingVisual ? trailingVisualId : null,
+    ].filter(Boolean)
+
     return (
       <ItemContext.Provider
         value={{
@@ -480,7 +485,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           role="treeitem"
           aria-label={ariaLabel}
           aria-labelledby={ariaLabel ? undefined : ariaLabelledby || labelId}
-          aria-describedby={`${leadingVisualId} ${trailingVisualId}`}
+          aria-describedby={ariaDescribedByIds.length ? ariaDescribedByIds.join(' ') : undefined}
           aria-level={level}
           aria-expanded={isSubTreeEmpty ? undefined : isExpanded}
           aria-current={isCurrentItem ? 'true' : undefined}
