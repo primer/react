@@ -58,11 +58,6 @@ function isMultiSelectVariant(
   return Array.isArray(selected)
 }
 
-const focusZoneSettings: Partial<FocusZoneHookSettings> = {
-  // Let FilteredActionList handle focus zone
-  disabled: true,
-}
-
 const areItemsEqual = (itemA: ItemInput, itemB: ItemInput) => {
   // prefer checking equivality by item.id
   if (typeof itemA.id !== 'undefined') return itemA.id === itemB.id
@@ -175,9 +170,8 @@ export function SelectPanel({
   }, [onClose, onSelectedChange, items, selected])
 
   const inputRef = React.useRef<HTMLInputElement>(null)
-  const focusTrapSettings = {
-    initialFocusRef: inputRef,
-  }
+
+  const overlayRef = React.useRef<HTMLDivElement>(null)
 
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
     return {
@@ -195,99 +189,23 @@ export function SelectPanel({
 
   const currentVariant = useResponsiveValue(responsiveVariants, 'anchored')
 
-  /* Dialog */
-  const dialogRef = React.useRef<HTMLDivElement>(null)
-
   /* Anchored */
   const {position} = useAnchoredPosition(
     {
       anchorElementRef: anchorRef,
-      floatingElementRef: dialogRef,
+      floatingElementRef: overlayRef,
       side: 'outside-bottom',
       align: 'start',
     },
-    [open, anchorRef.current, dialogRef.current],
+    [open, anchorRef.current, overlayRef.current],
   )
 
   useFocusTrap({
-    containerRef: dialogRef,
+    containerRef: overlayRef,
     disabled: !open || !position,
     returnFocusRef: anchorRef,
-    ...focusTrapSettings,
+    initialFocusRef: inputRef,
   })
-
-  // const ConditionalOverlay: React.FC<React.PropsWithChildren<{isAnchored: boolean}>> = props => {
-  //   const {isAnchored, ...rest} = props
-
-  //   if (isAnchored)
-  //     return (
-  //       <AnchoredOverlay
-  //         renderAnchor={renderMenuAnchor}
-  //         anchorRef={anchorRef}
-  //         open={open}
-  //         onOpen={onOpen}
-  //         onClose={onClose}
-  //         overlayProps={{
-  //           role: 'dialog',
-  //           'aria-labelledby': titleId,
-  //           'aria-describedby': subtitle ? subtitleId : undefined,
-  //           ...overlayProps,
-  //         }}
-  //         focusTrapSettings={focusTrapSettings}
-  //         focusZoneSettings={focusZoneSettings}
-  //         {...rest}
-  //       >
-  //         {props.children}
-  //       </AnchoredOverlay>
-  //     )
-  //   // This variant can be used for full-screen, bottom-sheet, modal, etc.
-  //   else {
-  //     const anchorProps = {
-  //       ref: anchorRef,
-  //       onClick: onOpen,
-  //       'aria-haspopup': true,
-  //       'aria-expanded': open,
-  //     }
-  //     const anchor = renderMenuAnchor ? renderMenuAnchor(anchorProps) : null
-
-  //     return (
-  //       <>
-  //         {anchor}
-  //         {open ? (
-  //           <StyledOverlay
-  //             open={open}
-  //             ref={dialogRef}
-  //             as="dialog"
-  //             aria-labelledby={titleId}
-  //             aria-describedby={subtitle ? subtitleId : undefined}
-  //             data-variant={currentVariant}
-  //             sx={{
-  //               // reset dialog default styles
-  //               border: 'none',
-  //               display: 'flex',
-  //               padding: 0,
-  //               color: 'fg.default',
-  //               '&[open]': {display: 'flex'},
-  //               '&[data-variant="full-screen"]': {
-  //                 margin: 0,
-  //                 top: 0,
-  //                 left: 0,
-  //                 width: '100%',
-  //                 maxWidth: '100vw',
-  //                 height: '100%',
-  //                 maxHeight: '100vh',
-  //                 borderRadius: 'unset',
-  //               },
-  //             }}
-  //             {...rest}
-  //           >
-  //             {props.children}
-  //           </StyledOverlay>
-  //         ) : null}
-  //       </>
-  //     )
-  //   }
-  // }
 
   const onAnchorClick = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
@@ -297,13 +215,7 @@ export function SelectPanel({
       if (!open) {
         onOpen('anchor-click')
       } else {
-        // console.log('are you here?')
-        // if (event.target === event.currentTarget) {
-        //   console.log('click outside')
-        //   onClose('click-outside')
-        // } else {
         onClose('anchor-click')
-        // }
       }
     },
     [open, onOpen, onClose],
@@ -346,7 +258,7 @@ export function SelectPanel({
   }
   useOnOutsideClick({
     onClickOutside,
-    containerRef: dialogRef,
+    containerRef: overlayRef,
     ignoreClickRefs: [anchorRef],
   })
 
@@ -356,7 +268,7 @@ export function SelectPanel({
       {anchor}
       {open ? (
         <StyledOverlay
-          ref={dialogRef}
+          ref={overlayRef}
           role="dialog"
           aria-labelledby={titleId}
           aria-describedby={subtitle ? subtitleId : undefined}
