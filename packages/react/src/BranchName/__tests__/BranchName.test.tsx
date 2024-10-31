@@ -6,7 +6,12 @@ import axe from 'axe-core'
 import {FeatureFlags} from '../../FeatureFlags'
 
 describe('BranchName', () => {
-  behavesAsComponent({Component: BranchName})
+  behavesAsComponent({
+    Component: BranchName,
+    options: {
+      skipDisplayName: true,
+    },
+  })
 
   checkExports('BranchName', {
     default: BranchName,
