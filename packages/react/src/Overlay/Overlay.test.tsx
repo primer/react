@@ -11,7 +11,7 @@ import {FeatureFlags} from '../FeatureFlags'
 
 type TestComponentSettings = {
   initialFocus?: 'button'
-  width?: string
+  width?: 'small' | 'medium' | 'large' | 'auto' | 'xlarge' | 'xxlarge'
   callback?: () => void
 }
 const TestComponent = ({initialFocus, width = 'small', callback}: TestComponentSettings) => {
