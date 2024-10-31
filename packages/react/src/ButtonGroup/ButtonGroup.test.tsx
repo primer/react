@@ -1,5 +1,5 @@
 import {Button} from '../Button'
-import {render, screen, fireEvent} from '@testing-library/react'
+import {render, screen} from '@testing-library/react'
 import axe from 'axe-core'
 import {FeatureFlags} from '../FeatureFlags'
 import {behavesAsComponent} from '../utils/testing'
