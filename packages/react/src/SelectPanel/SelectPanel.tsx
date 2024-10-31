@@ -12,7 +12,6 @@ import type {ItemProps, ItemInput} from './types'
 
 import {Button, IconButton} from '../Button'
 import {useProvidedRefOrCreate, useAnchoredPosition, useOnEscapePress, useOnOutsideClick} from '../hooks'
-import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
@@ -20,6 +19,7 @@ import {useFeatureFlag} from '../FeatureFlags'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import {StyledOverlay} from '../Overlay/Overlay'
 import {useFocusTrap} from '../hooks/useFocusTrap'
+import Portal from '../Portal'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -267,103 +267,115 @@ export function SelectPanel({
     <LiveRegion>
       {anchor}
       {open ? (
-        <StyledOverlay
-          ref={overlayRef}
-          role="dialog"
-          aria-labelledby={titleId}
-          aria-describedby={subtitle ? subtitleId : undefined}
-          data-variant={currentVariant}
-          sx={{
-            // reset dialog default styles
-            // width: 'medium',
-            border: 'none',
-            display: 'flex',
-            padding: 0,
-            color: 'fg.default',
-            '&[data-variant="anchored"], &[data-variant="full-screen"]': {
-              margin: 0,
-              top: position?.top,
-              left: position?.left,
-              '::backdrop': {backgroundColor: 'transparent'},
-            },
-            '&[data-variant="full-screen"]': {
-              margin: 0,
-              top: 0,
-              left: 0,
-              width: '100%',
-              maxWidth: '100vw',
-              height: '100%',
-              maxHeight: '100vh',
-              borderRadius: 'unset',
-            },
-          }}
-          {...overlayProps}
-        >
-          <LiveRegionOutlet />
-          {usingModernActionList ? null : (
-            <Message
-              value={
-                filterValue === ''
-                  ? 'Showing all items'
-                  : items.length <= 0
-                  ? 'No matching items'
-                  : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
-              }
-            />
-          )}
-          <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit', width: '100%'}}>
-            <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 2, px: 3}}>
-              <Box>
-                <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
-                  {title}
-                </Heading>
-                {subtitle ? (
-                  <Box id={subtitleId} sx={{fontSize: 0, color: 'fg.muted'}}>
-                    {subtitle}
-                  </Box>
-                ) : null}
-              </Box>
-              <IconButton
-                type="button"
-                variant="invisible"
-                icon={XIcon}
-                aria-label="Close"
-                onClick={() => onClose('anchor-click')}
+        <Portal>
+          <StyledOverlay
+            ref={overlayRef}
+            role="dialog"
+            aria-labelledby={titleId}
+            aria-describedby={subtitle ? subtitleId : undefined}
+            data-variant={currentVariant}
+            sx={{
+              // reset dialog default styles
+              // width: 'medium',
+              border: 'none',
+              display: 'flex',
+              padding: 0,
+              color: 'fg.default',
+              '&[data-variant="anchored"], &[data-variant="full-screen"]': {
+                margin: 0,
+                top: position?.top,
+                left: position?.left,
+                '::backdrop': {backgroundColor: 'transparent'},
+              },
+              '&[data-variant="full-screen"]': {
+                margin: 0,
+                top: 0,
+                left: 0,
+                width: '100%',
+                maxWidth: '100vw',
+                height: '100%',
+                maxHeight: '100vh',
+                borderRadius: 'unset',
+              },
+            }}
+            {...overlayProps}
+          >
+            <LiveRegionOutlet />
+            {usingModernActionList ? null : (
+              <Message
+                value={
+                  filterValue === ''
+                    ? 'Showing all items'
+                    : items.length <= 0
+                    ? 'No matching items'
+                    : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
+                }
               />
-            </Box>
-
-            <FilteredActionList
-              filterValue={filterValue}
-              onFilterChange={onFilterChange}
-              placeholderText={placeholderText}
-              {...listProps}
-              role="listbox"
-              // browsers give aria-labelledby precedence over aria-label so we need to make sure
-              // we don't accidentally override props.aria-label
-              aria-labelledby={listProps['aria-label'] ? undefined : titleId}
-              aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
-              selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
-              items={itemsToRender}
-              textInputProps={extendedTextInputProps}
-              inputRef={inputRef}
-              // inheriting height and maxHeight ensures that the FilteredActionList is never taller
-              // than the Overlay (which would break scrolling the items)
-              sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
-            />
-            {footer && (
+            )}
+            <Box
+              sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit', width: '100%'}}
+            >
               <Box
                 sx={{
                   display: 'flex',
-                  borderTop: '1px solid',
-                  borderColor: 'border.default',
-                  padding: 2,
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-start',
+                  padding: '8px',
+                  paddingBottom: 0, // search input has its own padding
                 }}
               >
-                {footer}
+                <Box sx={{paddingInline: '8px', paddingBlock: '4px'}}>
+                  <Heading as="h1" id={titleId} sx={{fontSize: 1, paddingBottom: '4px'}}>
+                    {title}
+                  </Heading>
+                  {subtitle ? (
+                    <Box id={subtitleId} sx={{fontSize: 0, color: 'fg.muted'}}>
+                      {subtitle}
+                    </Box>
+                  ) : null}
+                </Box>
+                <IconButton
+                  type="button"
+                  variant="invisible"
+                  icon={XIcon}
+                  aria-label="Close"
+                  onClick={() => onClose('anchor-click')}
+                />
               </Box>
-            )}
-          </Box>
-        </StyledOverlay>
+
+              <FilteredActionList
+                filterValue={filterValue}
+                onFilterChange={onFilterChange}
+                placeholderText={placeholderText}
+                {...listProps}
+                role="listbox"
+                // browsers give aria-labelledby precedence over aria-label so we need to make sure
+                // we don't accidentally override props.aria-label
+                aria-labelledby={listProps['aria-label'] ? undefined : titleId}
+                aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
+                selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+                items={itemsToRender}
+                textInputProps={extendedTextInputProps}
+                inputRef={inputRef}
+                // inheriting height and maxHeight ensures that the FilteredActionList is never taller
+                // than the Overlay (which would break scrolling the items)
+                sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
+              />
+              {footer && (
+                <Box
+                  sx={{
+                    display: 'flex',
+                    borderTop: '1px solid',
+                    borderColor: 'border.default',
+                    padding: 2,
+                  }}
+                >
+                  {footer}
+                </Box>
+              )}
+            </Box>
+          </StyledOverlay>
+        </Portal>
       ) : null}
     </LiveRegion>
   )
