@@ -3,12 +3,15 @@
     display: inline-block;
     width: var(--avatarSize-regular);
     height: var(--avatarSize-regular);
+    /* stylelint-disable-next-line primer/typography */
     line-height: 1;
     border-radius: 50%;
+    /* stylelint-disable-next-line primer/box-shadow */
     box-shadow: 0 0 0 1px var(--avatar-borderColor);
   }
 
   &:where([data-square]) {
+    /* stylelint-disable-next-line primer/borders */
     border-radius: clamp(4px, var(--avatarSize-regular) - 24px, var(--borderRadius-medium));
   }
 
