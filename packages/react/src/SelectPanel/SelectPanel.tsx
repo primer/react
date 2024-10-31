@@ -502,6 +502,7 @@ export function SelectPanel({
                       >
                         Cancel
                       </Button>
+                      {/* TODO: loading state for save? */}
                       <Button
                         type="submit"
                         size="small"

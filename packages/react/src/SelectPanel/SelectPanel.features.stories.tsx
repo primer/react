@@ -401,3 +401,38 @@ export const ModalVariant = () => {
     </>
   )
 }
+
+export const ModalVariantWithSecondaryAction = () => {
+  const initialItems = [items[0], items[1]]
+  const [selected, setSelected] = React.useState<ItemInput[]>(initialItems)
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [open, setOpen] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+
+  return (
+    <>
+      <h1>Multi Select Panel as Modal with secondary action</h1>
+      <SelectPanel
+        variant="modal"
+        onCancel={() => setSelected(initialItems)}
+        // backward compatible API choice
+        // TODO: improve this API, rename it to a single secondaryAction or secondaryFooterSlotSomething
+        footer={<Button size="small">Edit labels</Button>}
+        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <Button aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+            {children ?? 'Select Labels'}
+          </Button>
+        )}
+        anchorRef={buttonRef}
+        placeholderText="Filter Labels"
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+      />
+    </>
+  )
+}
