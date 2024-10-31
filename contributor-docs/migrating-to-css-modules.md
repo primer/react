@@ -132,7 +132,7 @@ Validate that no visual regressions occur when the feature flag is enabled. The 
 
 **Example test file**
 
-```js
+```ts
 import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
