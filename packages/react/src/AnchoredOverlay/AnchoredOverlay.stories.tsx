@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import type {Args, Meta} from '@storybook/react'
 import {LocationIcon, RepoIcon} from '@primer/octicons-react'
 
-import {Avatar, Text} from '..'
+import {Avatar, Link, Text} from '..'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import {Button} from '../Button'
 import Octicon from '../Octicon'
@@ -23,7 +23,9 @@ const hoverCard = (
     <Stack direction="horizontal" gap="none">
       <Text weight="medium">monalisa</Text>
       <Text color={'var(--fgColor-muted)'} ml={1}>
-        Monalisa Octocat
+        <Link inline underline muted href="#">
+          Monalisa Octocat
+        </Link>
       </Text>
     </Stack>
     <Text size="medium">Former beach cat and champion swimmer. Now your friendly octapus with a normal face.</Text>
@@ -51,6 +53,8 @@ export const Default = () => {
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
       renderAnchor={props => <Button {...props}>Button</Button>}
+      overlayProps={{role: 'dialog', 'aria-modal': true, 'aria-label': 'User Card Overlay'}}
+      focusZoneSettings={{disabled: true}}
     >
       {hoverCard}
     </AnchoredOverlay>
@@ -74,8 +78,14 @@ export const Playground = (args: Args) => {
       width={args.width}
       height={args.height}
       renderAnchor={props => <Button {...props}>Button</Button>}
-      overlayProps={args.portalContainerName}
+      overlayProps={{
+        ...args.portalContainerName,
+        role: 'dialog',
+        'aria-modal': true,
+        'aria-label': 'User Card Overlay',
+      }}
       side={args.side}
+      focusZoneSettings={{disabled: true}}
     >
       {hoverCard}
     </AnchoredOverlay>
