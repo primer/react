@@ -1,0 +1,31 @@
+.SkeletonAvatar {
+  &:where([data-component='SkeletonAvatar']) {
+    display: inline-block;
+    width: var(--avatarSize-regular);
+    height: var(--avatarSize-regular);
+    line-height: 1;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px var(--avatar-borderColor);
+  }
+
+  &:where([data-square]) {
+    border-radius: clamp(4px, var(--avatarSize-regular) - 24px, var(--borderRadius-medium));
+  }
+
+  &:where([data-responsive]) {
+    @media screen and (--viewportRange-narrow) {
+      width: var(--avatarSize-narrow);
+      height: var(--avatarSize-narrow);
+    }
+
+    @media screen and (--viewportRange-regular) {
+      width: var(--avatarSize-regular);
+      height: var(--avatarSize-regular);
+    }
+
+    @media screen and (--viewportRange-wide) {
+      width: var(--avatarSize-wide);
+      height: var(--avatarSize-wide);
+    }
+  }
+}
