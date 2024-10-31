@@ -345,6 +345,7 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
           data-index={index}
           className={hiddenItemIds.includes(index.toString()) ? 'ItemWrapper--hidden' : undefined}
           as={isList ? 'li' : 'span'}
+          key={index}
         >
           {child}
         </ItemWrapper>
@@ -379,8 +380,8 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   ) : (
     <StyledLabelGroupContainer data-overflow="inline" data-list={isList || undefined} sx={sxProp} as={as}>
       {isList
-        ? React.Children.map(children, child => {
-            return <li>{child}</li>
+        ? React.Children.map(children, (child, index) => {
+            return <li key={index}>{child}</li>
           })
         : children}
     </StyledLabelGroupContainer>
