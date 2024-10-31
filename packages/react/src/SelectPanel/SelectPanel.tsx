@@ -17,7 +17,7 @@ import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 import {useFeatureFlag} from '../FeatureFlags'
-import {useResponsiveValue, type ResponsiveValue} from '../hooks/useResponsiveValue'
+import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import {StyledOverlay} from '../Overlay/Overlay'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 
