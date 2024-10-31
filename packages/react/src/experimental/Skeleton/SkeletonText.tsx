@@ -15,7 +15,7 @@ type SkeletonTextProps = {
   maxWidth?: React.CSSProperties['maxWidth']
   /** Class name for custom styling */
   className?: string
-} & HTMLProps<HTMLDivElement>
+} & Omit<HTMLProps<HTMLDivElement>, 'size'>
 
 const skeletonTextStyles = {
   '&[data-component="SkeletonText"]': {
@@ -91,7 +91,7 @@ export const SkeletonText: React.FC<SkeletonTextProps> = ({
         className={clsx(className, {[classes.SkeletonText]: enabled})}
         sx={
           enabled
-            ? undefined
+            ? {}
             : {
                 maxWidth,
                 ...skeletonTextStyles,
@@ -120,7 +120,7 @@ export const SkeletonText: React.FC<SkeletonTextProps> = ({
             data-component="SkeletonText"
             data-in-multiline="true"
             data-text-skeleton-size={size}
-            sx={enabled ? undefined : skeletonTextStyles}
+            sx={enabled ? {} : skeletonTextStyles}
             className={clsx(className, {[classes.SkeletonText]: enabled})}
             {...rest}
           />
