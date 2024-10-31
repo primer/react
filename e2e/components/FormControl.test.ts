@@ -67,7 +67,7 @@ const stories = [
 
 test.describe('FormControl', () => {
   for (const story of stories) {
-    describe(story.title, () => {
+    test.describe(story.title, () => {
       for (const theme of themes) {
         test.describe(theme, () => {
           test('default @vrt', async ({page}) => {
