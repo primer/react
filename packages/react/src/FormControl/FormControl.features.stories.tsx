@@ -407,3 +407,49 @@ export const CustomRequired = () => (
     </FormControl>
   </Box>
 )
+
+export const WithCaption = () => (
+  <FormControl>
+    <FormControl.Label>Example label</FormControl.Label>
+    <TextInput />
+    <FormControl.Caption>Example caption</FormControl.Caption>
+  </FormControl>
+)
+
+export const WithCaptionAndDisabled = () => (
+  <FormControl disabled>
+    <FormControl.Label>Example label</FormControl.Label>
+    <TextInput />
+    <FormControl.Caption>Example caption</FormControl.Caption>
+  </FormControl>
+)
+
+export const WithHiddenLabel = () => (
+  <FormControl>
+    <FormControl.Label visuallyHidden>Example label</FormControl.Label>
+    <TextInput />
+  </FormControl>
+)
+
+export const WithRequiredIndicator = () => (
+  <FormControl required>
+    <FormControl.Label requiredIndicator>Example label</FormControl.Label>
+    <TextInput />
+  </FormControl>
+)
+
+export const WithSuccessValidation = () => (
+  <FormControl required>
+    <FormControl.Label requiredIndicator>Example label</FormControl.Label>
+    <TextInput defaultValue="Input value" />
+    <FormControl.Validation variant="success">Example success validation message</FormControl.Validation>
+  </FormControl>
+)
+
+export const WithErrorValidation = () => (
+  <FormControl required>
+    <FormControl.Label requiredIndicator>Example label</FormControl.Label>
+    <TextInput defaultValue="Input value" />
+    <FormControl.Validation variant="error">Example error validation message</FormControl.Validation>
+  </FormControl>
+)
