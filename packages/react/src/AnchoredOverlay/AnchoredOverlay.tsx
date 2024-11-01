@@ -107,7 +107,7 @@ export const AnchoredOverlay: React.FC<React.PropsWithChildren<AnchoredOverlayPr
   overlayProps,
   focusTrapSettings,
   focusZoneSettings,
-  side = overlayProps?.['anchorSide'] || 'outside-bottom',
+  side = 'outside-bottom',
   align = 'start',
   alignmentOffset,
   anchorOffset,
