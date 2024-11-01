@@ -410,6 +410,7 @@ export const SelectPanelRepositionInsideDialog = () => {
           selected={selected}
           onSelectedChange={setSelected}
           onFilterChange={setFilter}
+          overlayProps={{anchorSide: 'outside-top'}}
         />
       </Stack>
     </Dialog>
