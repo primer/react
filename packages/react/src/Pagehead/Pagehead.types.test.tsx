@@ -6,6 +6,5 @@ export function shouldAcceptCallWithNoProps() {
 }
 
 export function shouldNotAcceptSystemProps() {
-  // @ts-expect-error system props should not be accepted
   return <Pagehead backgroundColor="orchid" />
 }
