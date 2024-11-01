@@ -8,6 +8,7 @@ import type {OverlayProps} from '../Overlay'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {ActionList} from '../deprecated/ActionList'
 import {Stack} from '../Stack'
+import {Dialog} from '../experimental'
 
 const meta = {
   title: 'Components/SelectPanel/Examples',
@@ -364,7 +365,7 @@ export const RepositionAfterLoading = () => {
   return (
     <>
       <Stack direction="vertical" justify="space-between" style={{height: 'calc(100vh - 300px)', width: 'fit-content'}}>
-        <h1>Items in component scope</h1>
+        <h1>Reposition panel after loading</h1>
         <SelectPanel
           loading={loading}
           title="Select labels"
@@ -378,5 +379,39 @@ export const RepositionAfterLoading = () => {
         />
       </Stack>
     </>
+  )
+}
+
+export const SelectPanelInsideDialog = () => {
+  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
+  const [open, setOpen] = useState(false)
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [loading, setLoading] = useState(true)
+
+  React.useEffect(() => {
+    if (!open) setLoading(true)
+    window.setTimeout(() => {
+      if (open) setLoading(false)
+    }, 2000)
+  }, [open])
+
+  return (
+    <Dialog title="SelectPanel inside Dialog" onClose={() => {}}>
+      <Stack direction="vertical" justify="space-between" style={{height: 'calc(100vh - 500px)', width: 'fit-content'}}>
+        <p>other content</p>
+        <SelectPanel
+          loading={loading}
+          title="Select labels"
+          placeholderText="Filter Labels"
+          open={open}
+          onOpenChange={setOpen}
+          items={filteredItems}
+          selected={selected}
+          onSelectedChange={setSelected}
+          onFilterChange={setFilter}
+        />
+      </Stack>
+    </Dialog>
   )
 }
