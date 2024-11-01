@@ -7,6 +7,7 @@ import {SelectPanel} from './SelectPanel'
 import type {OverlayProps} from '../Overlay'
 import {TriangleDownIcon} from '@primer/octicons-react'
 import {ActionList} from '../deprecated/ActionList'
+import {Stack} from '../Stack'
 
 const meta = {
   title: 'Components/SelectPanel/Examples',
@@ -342,6 +343,40 @@ export const ItemsInScope = () => {
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
       />
+    </>
+  )
+}
+
+export const RepositionAfterLoading = () => {
+  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
+  const [open, setOpen] = useState(false)
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const [loading, setLoading] = useState(true)
+
+  React.useEffect(() => {
+    if (!open) setLoading(true)
+    window.setTimeout(() => {
+      if (open) setLoading(false)
+    }, 2000)
+  }, [open])
+
+  return (
+    <>
+      <Stack direction="vertical" justify="space-between" style={{height: 'calc(100vh - 300px)', width: 'fit-content'}}>
+        <h1>Items in component scope</h1>
+        <SelectPanel
+          loading={loading}
+          title="Select labels"
+          placeholderText="Filter Labels"
+          open={open}
+          onOpenChange={setOpen}
+          items={filteredItems}
+          selected={selected}
+          onSelectedChange={setSelected}
+          onFilterChange={setFilter}
+        />
+      </Stack>
     </>
   )
 }
