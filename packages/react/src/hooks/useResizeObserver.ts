@@ -16,8 +16,9 @@ export function useResizeObserver<T extends HTMLElement>(callback: ResizeObserve
     savedCallback.current = callback
   })
 
+  const targetEl = target && 'current' in target ? target.current : document.documentElement
+
   useLayoutEffect(() => {
-    const targetEl = target && 'current' in target ? target.current : document.documentElement
     if (!targetEl) {
       return
     }
@@ -31,5 +32,5 @@ export function useResizeObserver<T extends HTMLElement>(callback: ResizeObserve
     return () => {
       observer.disconnect()
     }
-  }, [target])
+  }, [targetEl])
 }
