@@ -49,6 +49,14 @@ const StyledButtonGroup = toggleStyledComponent(
       }
     }
 
+    /* this is a workaround until portal based tooltips are fully removed from dotcom */
+    &:has(div:last-child:empty) {
+      button,
+      a {
+        border-radius: var(--borderRadius-medium);
+      }
+    }
+
     /* if child is loading button */
     & > *[data-loading-wrapper] {
       /* stylelint-disable-next-line primer/spacing */
@@ -105,19 +113,6 @@ const ButtonGroup = React.forwardRef<HTMLElement, ButtonGroupProps>(function But
     </StyledButtonGroup>
   )
 })
-
-// const ButtonGroup = React.forwardRef<HTMLDivElement, ButtonGroupProps>(
-//   ({children, sx = defaultSxProp, ...rest}: ButtonGroupProps, forwardedRef) => {
-//     const ref = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLDivElement>)
-//     const buttons = React.Children.map(children, (child, index) => <Box key={index}>{child}</Box>)
-
-//     return (
-//       <StyledButtonGroup ref={ref} sx={sx} {...rest}>
-//         {buttons}
-//       </StyledButtonGroup>
-//     )
-//   },
-// )
 
 ButtonGroup.displayName = 'ButtonGroup'
 
