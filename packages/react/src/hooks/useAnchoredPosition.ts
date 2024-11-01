@@ -45,7 +45,8 @@ export function useAnchoredPosition(
 
   useLayoutEffect(updatePosition, [updatePosition])
 
-  useResizeObserver(updatePosition)
+  useResizeObserver(updatePosition) // watches for changes in window size
+  useResizeObserver(updatePosition, floatingElementRef as React.RefObject<HTMLElement>) // watches for changes in floating element size
 
   return {
     floatingElementRef,

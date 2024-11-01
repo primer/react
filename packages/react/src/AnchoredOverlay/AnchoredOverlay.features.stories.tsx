@@ -315,14 +315,14 @@ export const RepositionAfterContentGrows = () => {
 
   return (
     <Stack direction="vertical" justify="space-between" style={{height: 'calc(100vh - 200px)'}}>
-      <p>
+      <div>
         What to expect:
         <ul>
           <li>The anchored overlay should open below the anchor (default position)</li>
           <li>After 2000ms, the amount of content in the overlay grows</li>
           <li>the overlay should reposition itself above the anchor so that it stays inside the window</li>
         </ul>
-      </p>
+      </div>
       <AnchoredOverlay
         renderAnchor={props => (
           <Button {...props} sx={{width: 'fit-content'}}>
@@ -363,14 +363,14 @@ export const RepositionAfterContentGrowsWithinDialog = () => {
   return (
     <Dialog onClose={() => {}}>
       <Stack direction="vertical" justify="space-between" style={{height: 'calc(100vh - 300px)'}}>
-        <p>
+        <div>
           What to expect:
           <ul>
             <li>The anchored overlay should open below the anchor (default position)</li>
             <li>After 2000ms, the amount of content in the overlay grows</li>
             <li>the overlay should reposition itself above the anchor so that it stays inside the window</li>
           </ul>
-        </p>
+        </div>
         <AnchoredOverlay
           renderAnchor={props => (
             <Button {...props} sx={{width: 'fit-content'}}>
