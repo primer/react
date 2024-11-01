@@ -382,7 +382,7 @@ export const RepositionAfterLoading = () => {
   )
 }
 
-export const SelectPanelInsideDialog = () => {
+export const SelectPanelRepositionInsideDialog = () => {
   const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
   const [open, setOpen] = useState(false)
   const [filter, setFilter] = React.useState('')
@@ -397,7 +397,7 @@ export const SelectPanelInsideDialog = () => {
   }, [open])
 
   return (
-    <Dialog title="SelectPanel inside Dialog" onClose={() => {}}>
+    <Dialog title="SelectPanel reposition after loading inside Dialog" onClose={() => {}}>
       <Stack direction="vertical" justify="space-between" style={{height: 'calc(100vh - 500px)', width: 'fit-content'}}>
         <p>other content</p>
         <SelectPanel
