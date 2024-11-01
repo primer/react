@@ -118,7 +118,7 @@ const ButtonBase = forwardRef(
           >
             <Box
               as={Component}
-              sx={sxStyles}
+              sx={sxProp}
               aria-disabled={loading ? true : undefined}
               {...rest}
               ref={innerRef}
@@ -198,13 +198,13 @@ const ButtonBase = forwardRef(
                             true,
                           )
                         : TrailingVisual
-                          ? renderModuleVisual(
-                              TrailingVisual,
-                              Boolean(loading) && !LeadingVisual,
-                              'trailingVisual',
-                              false,
-                            )
-                          : null
+                        ? renderModuleVisual(
+                            TrailingVisual,
+                            Boolean(loading) && !LeadingVisual,
+                            'trailingVisual',
+                            false,
+                          )
+                        : null
                     }
                   </Box>
                   {
@@ -314,13 +314,8 @@ const ButtonBase = forwardRef(
                           true,
                         )
                       : TrailingVisual
-                        ? renderModuleVisual(
-                            TrailingVisual,
-                            Boolean(loading) && !LeadingVisual,
-                            'trailingVisual',
-                            false,
-                          )
-                        : null
+                      ? renderModuleVisual(TrailingVisual, Boolean(loading) && !LeadingVisual, 'trailingVisual', false)
+                      : null
                   }
                 </span>
                 {
@@ -425,8 +420,8 @@ const ButtonBase = forwardRef(
                         'trailingVisual',
                       )
                     : TrailingVisual
-                      ? renderVisual(TrailingVisual, Boolean(loading) && !LeadingVisual, 'trailingVisual')
-                      : null
+                    ? renderVisual(TrailingVisual, Boolean(loading) && !LeadingVisual, 'trailingVisual')
+                    : null
                 }
               </Box>
               {
