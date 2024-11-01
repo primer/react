@@ -416,6 +416,14 @@ export const WithCaption = () => (
   </FormControl>
 )
 
+export const WithCaptionAndDisabled = () => (
+  <FormControl disabled>
+    <FormControl.Label>Example label</FormControl.Label>
+    <TextInput />
+    <FormControl.Caption>Example caption</FormControl.Caption>
+  </FormControl>
+)
+
 export const WithHiddenLabel = () => (
   <FormControl>
     <FormControl.Label visuallyHidden>Example label</FormControl.Label>

@@ -48,6 +48,10 @@ const stories = [
     id: 'components-formcontrol-features--with-caption',
   },
   {
+    title: 'With Caption And Disabled',
+    id: 'components-formcontrol-features--with-caption-and-disabled',
+  },
+  {
     title: 'With Hidden Label',
     id: 'components-formcontrol-features--with-hidden-label',
   },
