@@ -7,11 +7,12 @@
   color: var(--fgColor-muted);
   background-color: transparent;
 
-  &:hover, &:focus {
-    color: var(--fgColor-default)
+  &:hover,
+  &:focus {
+    color: var(--fgColor-default);
   }
 
-  &[data-component="IconButton"] {
+  &[data-component='IconButton'] {
     /* stylelint-disable-next-line csstools/value-no-unknown-custom-properties */
     width: var(--inner-action-size);
     /* stylelint-disable-next-line csstools/value-no-unknown-custom-properties */
