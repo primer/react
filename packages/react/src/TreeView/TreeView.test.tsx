@@ -220,7 +220,7 @@ describe('Markup', () => {
     expect(treeitem).not.toHaveAttribute('aria-expanded')
 
     await user.click(getByText(/Item 2/))
-    expect(treeitem).not.toHaveAttribute('aria-expanded')
+    expect(treeitem).toHaveAttribute('aria-expanded', 'true')
   })
 
   it('should render with containIntrinsicSize', () => {
@@ -1537,7 +1537,7 @@ describe('Asyncronous loading', () => {
     expect(parentItem).toHaveAttribute('aria-expanded', 'true')
   })
 
-  it('should remove `aria-expanded` if no content is loaded in', async () => {
+  it('should update `aria-expanded` if no content is loaded in', async () => {
     function Example() {
       const [state, setState] = React.useState<SubTreeState>('loading')
       const timeoutId = React.useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -1584,6 +1584,46 @@ describe('Asyncronous loading', () => {
       jest.runAllTimers()
     })
 
-    expect(treeitem).not.toHaveAttribute('aria-expanded')
+    expect(treeitem).toHaveAttribute('aria-expanded', 'true')
+    expect(getByLabelText('No items found')).toBeInTheDocument()
+  })
+
+  it('should have `aria-expanded` when directory is empty', async () => {
+    const {getByRole} = renderWithTheme(
+      <TreeView aria-label="Files changed">
+        <TreeView.Item id="src" defaultExpanded>
+          <TreeView.LeadingVisual>
+            <TreeView.DirectoryIcon />
+          </TreeView.LeadingVisual>
+          Parent
+          <TreeView.SubTree>
+            <TreeView.Item id="src/Avatar.tsx">child</TreeView.Item>
+            <TreeView.Item id="src/Button.tsx" current>
+              child current
+            </TreeView.Item>
+            <TreeView.Item id="src/Box.tsx">
+              empty child
+              <TreeView.SubTree />
+            </TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+      </TreeView>,
+    )
+
+    const parentItem = getByRole('treeitem', {name: 'Parent'})
+
+    // Parent item should be expanded
+    expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+
+    // Current child should not have `aria-expanded`
+    expect(getByRole('treeitem', {name: 'child current'})).not.toHaveAttribute('aria-expanded')
+
+    // Empty child should not have `aria-expanded` when closed
+    expect(getByRole('treeitem', {name: 'empty child'})).not.toHaveAttribute('aria-expanded')
+
+    fireEvent.click(getByRole('treeitem', {name: 'empty child'}))
+
+    // Empty child should have `aria-expanded` when opened
+    expect(getByRole('treeitem', {name: 'empty child'})).toHaveAttribute('aria-expanded')
   })
 })
