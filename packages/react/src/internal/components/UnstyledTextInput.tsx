@@ -1,19 +1,41 @@
 import styled from 'styled-components'
 import sx from '../../sx'
+import {toggleStyledComponent} from '../utils/toggleStyledComponent'
+import React from 'react'
+import {useFeatureFlag} from '../../FeatureFlags'
 
-const UnstyledTextInput = styled.input`
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  &:focus {
-    outline: 0;
-  }
+import styles from './UnstyledTextInput.module.css'
+import {clsx} from 'clsx'
 
-  ${sx};
-`
+export const TEXT_INPUT_CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+
+const ToggledUnstyledTextInput = toggleStyledComponent(
+  TEXT_INPUT_CSS_MODULES_FEATURE_FLAG,
+  'input',
+  styled.input`
+    border: 0;
+    font-size: inherit;
+    font-family: inherit;
+    background-color: transparent;
+    -webkit-appearance: none;
+    color: inherit;
+    width: 100%;
+    &:focus {
+      outline: 0;
+    }
+
+    ${sx};
+  `,
+)
+
+const UnstyledTextInput = React.forwardRef<HTMLInputElement, React.ComponentPropsWithoutRef<'input'>>(
+  function UnstyledTextInput({className, ...rest}, forwardRef) {
+    const enabled = useFeatureFlag(TEXT_INPUT_CSS_MODULES_FEATURE_FLAG)
+    return (
+      <ToggledUnstyledTextInput ref={forwardRef} className={clsx(className, {[styles.Input]: enabled})} {...rest} />
+    )
+  },
+)
+UnstyledTextInput.displayName = 'UnstyledTextInput'
 
 export default UnstyledTextInput
