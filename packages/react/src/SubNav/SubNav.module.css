@@ -32,7 +32,8 @@
   padding-left: var(--base-size-16);
   font-size: var(--text-body-size-medium);
   font-weight: var(--base-text-weight-medium);
-  line-height: var(--text-body-lineHeight-small);
+  /* stylelint-disable-next-line primer/typography */
+  line-height: 20px; /* custom values for SubNav */
   color: var(--fgColor-default);
   text-align: center;
   text-decoration: none;
