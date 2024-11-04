@@ -63,6 +63,7 @@
   &:is([data-selected]) {
     color: var(--fgColor-onEmphasis);
     background-color: var(--bgColor-accent-emphasis);
-    border-color: var(--borderColor-accent-emphasis);
+    /* stylelint-disable-next-line primer/colors */
+    border-color: var(--bgColor-accent-emphasis);
   }
 }
