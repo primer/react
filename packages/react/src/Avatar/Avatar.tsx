@@ -60,6 +60,7 @@ const Avatar = React.forwardRef(function Avatar(
     <img
       data-component="Avatar"
       className={clsx(className, classes.Avatar)}
+      ref={ref}
       alt={alt}
       data-responsive={isResponsive ? '' : undefined}
       data-square={square ? '' : undefined}
