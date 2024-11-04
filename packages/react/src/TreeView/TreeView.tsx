@@ -361,7 +361,7 @@ export type TreeViewItemProps = {
   containIntrinsicSize?: string
   current?: boolean
   defaultExpanded?: boolean
-  expanded?: boolean
+  expanded?: boolean | null
   onExpandedChange?: (expanded: boolean) => void
   onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
   className?: string
@@ -401,7 +401,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       // If defaultExpanded is not provided, we default to false unless the item
       // is the current item, in which case we default to true.
       defaultValue: () => expandedStateCache.current?.get(itemId) ?? defaultExpanded ?? isCurrentItem,
-      value: expanded,
+      value: expanded === null ? false : expanded,
       onChange: onExpandedChange,
     })
     const {level} = React.useContext(ItemContext)
@@ -482,7 +482,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           aria-labelledby={ariaLabel ? undefined : ariaLabelledby || labelId}
           aria-describedby={`${leadingVisualId} ${trailingVisualId}`}
           aria-level={level}
-          aria-expanded={isExpanded}
+          aria-expanded={(isSubTreeEmpty && !isExpanded) || expanded === null ? undefined : isExpanded}
           aria-current={isCurrentItem ? 'true' : undefined}
           aria-selected={isFocused ? 'true' : 'false'}
           data-has-leading-action={slots.leadingAction ? true : undefined}
@@ -788,7 +788,7 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, re
 
 const EmptyItem = React.forwardRef<HTMLElement>((props, ref) => {
   return (
-    <Item id={useId()} ref={ref}>
+    <Item expanded={null} id={useId()} ref={ref}>
       <Text sx={{color: 'fg.muted'}}>No items found</Text>
     </Item>
   )
