@@ -17,7 +17,7 @@ import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 import {useFeatureFlag} from '../FeatureFlags'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
-import {StyledOverlay} from '../Overlay/Overlay'
+import Overlay from '../Overlay/Overlay'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import Portal from '../Portal'
 
@@ -212,6 +212,7 @@ export function SelectPanel({
       if (event.defaultPrevented || event.button !== 0) {
         return
       }
+
       if (!open) {
         onOpen('anchor-click')
       } else {
@@ -256,11 +257,11 @@ export function SelectPanel({
   const onClickOutside = () => {
     onClose('click-outside')
   }
-  useOnOutsideClick({
-    onClickOutside,
-    containerRef: overlayRef,
-    ignoreClickRefs: [anchorRef],
-  })
+  // useOnOutsideClick({
+  //   onClickOutside,
+  //   containerRef: overlayRef,
+  //   ignoreClickRefs: [anchorRef],
+  // })
 
   const anchor = renderMenuAnchor ? renderMenuAnchor(anchorProps) : null
   return (
@@ -268,12 +269,17 @@ export function SelectPanel({
       {anchor}
       {open ? (
         <Portal>
-          <StyledOverlay
+          <Overlay
             ref={overlayRef}
+            returnFocusRef={anchorRef}
+            onEscape={() => onClose('escape')}
             role="dialog"
             aria-labelledby={titleId}
             aria-describedby={subtitle ? subtitleId : undefined}
+            onClickOutside={onClickOutside}
+            ignoreClickRefs={[anchorRef]}
             data-variant={currentVariant}
+            initialFocusRef={inputRef}
             sx={{
               // reset dialog default styles
               // width: 'medium',
@@ -374,7 +380,7 @@ export function SelectPanel({
                 </Box>
               )}
             </Box>
-          </StyledOverlay>
+          </Overlay>
         </Portal>
       ) : null}
     </LiveRegion>
