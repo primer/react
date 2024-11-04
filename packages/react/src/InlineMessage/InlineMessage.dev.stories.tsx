@@ -10,5 +10,9 @@ const meta = {
 export default meta
 
 export const DevDefault = () => {
-  return <InlineMessage variant="unavailable">An example inline message</InlineMessage>
+  return (
+    <InlineMessage variant="unavailable" sx={{border: '1px solid red'}}>
+      An example inline message
+    </InlineMessage>
+  )
 }
