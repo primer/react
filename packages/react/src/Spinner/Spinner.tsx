@@ -98,7 +98,7 @@ function StyledSpinner({sx, className, ...props}: SpinnerProps) {
     return <Spinner className={clsx(classes.SpinnerAnimation, className)} {...props} />
   }
 
-  return <StyledComponentSpinner sx={sx} {...props} />
+  return <StyledComponentSpinner sx={sx} className={className} {...props} />
 }
 
 StyledSpinner.displayName = 'Spinner'

@@ -52,6 +52,21 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   border-width: 0;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -150,21 +165,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 .c1 > select {
   padding-left: 0;
   padding-right: 0;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
 }
 
 .c5 {
@@ -864,6 +864,21 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   border-width: 0;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -962,21 +977,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 12px;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
 }
 
 .c5 {
@@ -1283,6 +1283,21 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   flex-grow: 1;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -1401,21 +1416,6 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   padding-right: 12px;
 }
 
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -1497,6 +1497,21 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   clip: rect(0,0,0,0);
   white-space: nowrap;
   border-width: 0;
+}
+
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c4:focus {
+  outline: 0;
 }
 
 .c0 {
@@ -1601,21 +1616,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 12px;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
 }
 
 .c5 {
@@ -2227,6 +2227,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   border-width: 0;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -2332,21 +2347,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 12px;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
 }
 
 .c5 {
@@ -2956,6 +2956,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   border-width: 0;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -3061,21 +3076,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 12px;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
 }
 
 .c5 {
@@ -3685,6 +3685,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   border-width: 0;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -3783,21 +3798,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 12px;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
 }
 
 .c5 {
@@ -4411,6 +4411,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   border-width: 0;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -4509,21 +4524,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 12px;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
 }
 
 .c5 {
@@ -5139,6 +5139,21 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   border-width: 0;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -5239,21 +5254,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 .c1 > select {
   padding-left: 12px;
   padding-right: 12px;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
 }
 
 .c5 {
@@ -5865,6 +5865,21 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   border-width: 0;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -5963,21 +5978,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 .c1 > select {
   padding-left: 12px;
   padding-right: 12px;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
 }
 
 .c5 {
@@ -6322,6 +6322,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -6420,21 +6435,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 0;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
 }
 
 .c5 {
@@ -7110,6 +7110,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c6 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c6:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -7208,21 +7223,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 0;
   padding-right: 12px;
-}
-
-.c6 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c6:focus {
-  outline: 0;
 }
 
 .c7 {
@@ -7935,6 +7935,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -8033,21 +8048,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 0;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
 }
 
 .c5 {
@@ -8732,6 +8732,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c7 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c7:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -8830,21 +8845,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 0;
   padding-right: 12px;
-}
-
-.c7 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c7:focus {
-  outline: 0;
 }
 
 .c8 {
@@ -9602,6 +9602,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c7 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c7:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -9700,21 +9715,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 0;
   padding-right: 12px;
-}
-
-.c7 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c7:focus {
-  outline: 0;
 }
 
 .c8 {
@@ -10472,6 +10472,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c7 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c7:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -10570,21 +10585,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 0;
   padding-right: 0;
-}
-
-.c7 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c7:focus {
-  outline: 0;
 }
 
 .c8 {
@@ -11336,6 +11336,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -11434,21 +11449,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 0;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
 }
 
 .c5 {
@@ -12163,6 +12163,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c6 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c6:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -12261,21 +12276,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 0;
   padding-right: 0;
-}
-
-.c6 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c6:focus {
-  outline: 0;
 }
 
 .c7 {
@@ -13027,6 +13027,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -13125,21 +13140,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 0;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
 }
 
 .c5 {
@@ -13863,6 +13863,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c7 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c7:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -13968,21 +13983,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 0;
   padding-right: 0;
-}
-
-.c7 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c7:focus {
-  outline: 0;
 }
 
 .c8 {
@@ -14777,6 +14777,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c7 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c7:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -14875,21 +14890,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 0;
   padding-right: 0;
-}
-
-.c7 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c7:focus {
-  outline: 0;
 }
 
 .c8 {
@@ -15686,6 +15686,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c7 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c7:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -15784,21 +15799,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 0;
   padding-right: 0;
-}
-
-.c7 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c7:focus {
-  outline: 0;
 }
 
 .c8 {
@@ -16559,6 +16559,21 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   border-width: 0;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -16657,21 +16672,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 12px;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
 }
 
 .c5 {
@@ -17270,6 +17270,21 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   flex-grow: 1;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -17368,21 +17383,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 .c1 > select {
   padding-left: 12px;
   padding-right: 12px;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
 }
 
 .c5 {
@@ -17953,6 +17953,21 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   flex-grow: 1;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+  height: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -18051,21 +18066,6 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 12px;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
