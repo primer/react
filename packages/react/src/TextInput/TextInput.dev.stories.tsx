@@ -22,7 +22,7 @@ export const WithCSS = () => (
     <Box as="form">
       <FormControl>
         <FormControl.Label>Default label</FormControl.Label>
-        <TextInput className="testCustomClassnameColor" />
+        <TextInput className="testCustomClassnameBorderColor" />
       </FormControl>
     </Box>
   </FeatureFlags>
@@ -48,7 +48,7 @@ export const WithSxAndCSS = () => (
     <Box as="form">
       <FormControl>
         <FormControl.Label>Default label</FormControl.Label>
-        <TextInput sx={{borderColor: 'red'}} className="testCustomClassnameColor" />
+        <TextInput sx={{borderColor: 'red'}} className="testCustomClassnameBorderColor" />
       </FormControl>
     </Box>
   </FeatureFlags>
