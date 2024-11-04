@@ -19,6 +19,8 @@ export type AvatarProps = {
   src: string
   /** Provide alt text when the Avatar is used without the user's name next to it. */
   alt?: string
+  /** Additional class name. */
+  className?: string
 } & SxProp
 
 const Avatar = React.forwardRef(function Avatar(
