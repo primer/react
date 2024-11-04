@@ -580,7 +580,7 @@ AsyncError.args = {
 }
 
 export const EmptyDirectories: StoryFn = () => {
-  const [state, setState] = React.useState<SubTreeState>('loading')
+  const [state, setState] = React.useState<SubTreeState>('initial')
   const timeoutId = React.useRef<ReturnType<typeof setTimeout> | null>(null)
 
   React.useEffect(() => {
@@ -597,6 +597,7 @@ export const EmptyDirectories: StoryFn = () => {
       <TreeView.Item
         id="src"
         onExpandedChange={expanded => {
+          setState('loading')
           if (expanded) {
             timeoutId.current = setTimeout(() => {
               setState('done')
