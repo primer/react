@@ -1587,4 +1587,43 @@ describe('Asyncronous loading', () => {
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
     expect(getByLabelText('No items found')).toBeInTheDocument()
   })
+
+  it('should have `aria-expanded` when directory is empty', async () => {
+    const {getByRole} = renderWithTheme(
+      <TreeView aria-label="Files changed">
+        <TreeView.Item id="src" defaultExpanded>
+          <TreeView.LeadingVisual>
+            <TreeView.DirectoryIcon />
+          </TreeView.LeadingVisual>
+          Parent
+          <TreeView.SubTree>
+            <TreeView.Item id="src/Avatar.tsx">child</TreeView.Item>
+            <TreeView.Item id="src/Button.tsx" current>
+              child current
+            </TreeView.Item>
+            <TreeView.Item id="src/Box.tsx">
+              empty child
+              <TreeView.SubTree />
+            </TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+      </TreeView>,
+    )
+
+    const parentItem = getByRole('treeitem', {name: 'Parent'})
+
+    // Parent item should be expanded
+    expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+
+    // Current child should not have `aria-expanded`
+    expect(getByRole('treeitem', {name: 'child current'})).not.toHaveAttribute('aria-expanded')
+
+    // Empty child should not have `aria-expanded` when closed
+    expect(getByRole('treeitem', {name: 'empty child'})).not.toHaveAttribute('aria-expanded')
+
+    fireEvent.click(getByRole('treeitem', {name: 'empty child'}))
+
+    // Empty child should have `aria-expanded` when opened
+    expect(getByRole('treeitem', {name: 'empty child'})).toHaveAttribute('aria-expanded')
+  })
 })

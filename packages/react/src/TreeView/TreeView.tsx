@@ -482,7 +482,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           aria-labelledby={ariaLabel ? undefined : ariaLabelledby || labelId}
           aria-describedby={`${leadingVisualId} ${trailingVisualId}`}
           aria-level={level}
-          aria-expanded={(isSubTreeEmpty && !isExpanded) || expanded === null ? undefined : isExpanded}
+          aria-expanded={(isSubTreeEmpty && (!isExpanded || !hasSubTree)) || expanded === null ? undefined : isExpanded}
           aria-current={isCurrentItem ? 'true' : undefined}
           aria-selected={isFocused ? 'true' : 'false'}
           data-has-leading-action={slots.leadingAction ? true : undefined}
