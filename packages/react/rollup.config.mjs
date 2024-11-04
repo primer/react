@@ -83,6 +83,12 @@ const baseConfig = {
       ],
       plugins: [
         'macros',
+        [
+          'babel-plugin-react-compiler',
+          {
+            target: '18',
+          },
+        ],
         'add-react-displayname',
         'dev-expression',
         'babel-plugin-styled-components',

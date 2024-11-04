@@ -76,6 +76,7 @@ const createSlots = <SlotNames extends string>(slotNames: SlotNames[]) => {
      * Slots uses a render prop API so abstract the
      * implementation detail of using a context provider.
      */
+    // eslint-disable-next-line react-compiler/react-compiler
     const slots = slotsRef.current
 
     return (

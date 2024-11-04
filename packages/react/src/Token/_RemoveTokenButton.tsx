@@ -87,12 +87,12 @@ const StyledTokenButton = styled.span<TokenButtonProps & SxProp>`
 
 const RemoveTokenButton: React.FC<React.PropsWithChildren<ComponentProps<typeof StyledTokenButton>>> = ({
   'aria-label': ariaLabel,
+  // `children` is not included in the output of this component
+  children: _children,
   isParentInteractive,
   size = defaultTokenSize,
   ...rest
 }) => {
-  delete rest.children
-
   return (
     <StyledTokenButton
       as={isParentInteractive ? 'span' : 'button'}

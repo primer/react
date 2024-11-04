@@ -13,6 +13,7 @@ const useFirstRender = () => {
   useEffect(() => {
     firstRender.current = false
   }, [])
+  // eslint-disable-next-line react-compiler/react-compiler
   return firstRender.current
 }
 

@@ -52,6 +52,7 @@ const NextJSLikeLink = forwardRef(
       ref,
       href,
     }
+    // eslint-disable-next-line react-compiler/react-compiler
     return <>{React.isValidElement(child) ? React.cloneElement(child, childProps) : null}</>
   },
 )

@@ -711,6 +711,7 @@ function usePreviousValue<T>(value: T): T {
     ref.current = value
   }, [value])
 
+  // eslint-disable-next-line react-compiler/react-compiler
   return ref.current
 }
 

@@ -323,6 +323,7 @@ export const Tooltip = React.forwardRef(
       <TooltipContext.Provider value={value}>
         <>
           {React.isValidElement(child) &&
+            // eslint-disable-next-line react-compiler/react-compiler
             React.cloneElement(child as React.ReactElement<TriggerPropsType>, {
               ref: triggerRef,
               // If it is a type description, we use tooltip to describe the trigger

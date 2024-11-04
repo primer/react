@@ -18,6 +18,7 @@ module.exports = {
     'plugin:import/typescript',
     'plugin:ssr-friendly/recommended',
   ],
+  plugins: ['eslint-plugin-react-compiler'],
   settings: {
     react: {
       version: 'detect',
@@ -165,6 +166,7 @@ module.exports = {
             ],
           },
         ],
+        'react-compiler/react-compiler': 'error',
       },
     },
 

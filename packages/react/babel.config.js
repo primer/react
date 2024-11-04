@@ -1,11 +1,16 @@
 const defines = require('./babel-defines')
 
+const ReactCompilerConfig = {
+  target: '18',
+}
+
 function replacementPlugin(env) {
   return ['babel-plugin-transform-replace-expressions', {replace: defines[env]}]
 }
 
 const sharedPlugins = [
   'macros',
+  ['babel-plugin-react-compiler', ReactCompilerConfig],
   'dev-expression',
   'add-react-displayname',
   'babel-plugin-styled-components',

@@ -110,6 +110,7 @@ const Menu: React.FC<React.PropsWithChildren<ActionMenuProps>> = ({
       // tooltip trigger
       const anchorChildren = child.props.children
       if (anchorChildren.type === MenuButton) {
+        // eslint-disable-next-line react-compiler/react-compiler
         renderAnchor = anchorProps => {
           // We need to attach the anchor props to the tooltip trigger (ActionMenu.Button's grandchild) not the tooltip itself.
           const triggerButton = React.cloneElement(
@@ -206,6 +207,7 @@ const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children: 
 
   return (
     <ActionListContainerContext.Provider value={thisActionListContext}>
+      {/* eslint-disable-next-line react-compiler/react-compiler */}
       {React.cloneElement(child, {
         ...anchorProps,
         ref: anchorRef,

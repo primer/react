@@ -187,7 +187,8 @@ const LabelGroup: React.FC<React.PropsWithChildren<LabelGroupProps>> = ({
   // and save on reflows caused by measuring DOM nodes.
   const overlayWidth =
     hiddenItemIds.length && overflowStyle === 'overlay'
-      ? getOverlayWidth(buttonClientRect, containerRef, overlayPaddingPx)
+      ? // eslint-disable-next-line react-compiler/react-compiler
+        getOverlayWidth(buttonClientRect, containerRef, overlayPaddingPx)
       : undefined
 
   const expandButtonRef: React.RefCallback<HTMLButtonElement> = React.useCallback(

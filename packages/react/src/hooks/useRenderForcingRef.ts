@@ -10,7 +10,10 @@ import {useCallback, useRef, useState} from 'react'
 export function useRenderForcingRef<TRef>(value?: TRef) {
   const [refCurrent, setRefCurrent] = useState<TRef | null>(value || null)
   const ref = useRef<TRef>(null) as MutableRefObject<TRef | null>
-  ref.current = refCurrent
+
+  if (ref.current === null) {
+    ref.current = refCurrent
+  }
 
   const setRef = useCallback(
     (newRef: TRef | null) => {
