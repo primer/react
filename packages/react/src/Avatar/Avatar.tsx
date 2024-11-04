@@ -22,7 +22,15 @@ export type AvatarProps = {
 } & SxProp
 
 const Avatar = React.forwardRef(function Avatar(
-  {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, sx: sxProp = defaultSxProp, className, ...rest},
+  {
+    as: Component = 'img',
+    alt = '',
+    size = DEFAULT_AVATAR_SIZE,
+    square = false,
+    sx: sxProp = defaultSxProp,
+    className,
+    ...rest
+  },
   ref,
 ) {
   const isResponsive = isResponsiveValue(size)
@@ -39,7 +47,7 @@ const Avatar = React.forwardRef(function Avatar(
   if (sxProp !== defaultSxProp) {
     return (
       <Box
-        as="img"
+        as={Component}
         data-component="Avatar"
         className={clsx(className, classes.Avatar)}
         ref={ref}
@@ -56,7 +64,7 @@ const Avatar = React.forwardRef(function Avatar(
   }
 
   return (
-    <img
+    <Component
       data-component="Avatar"
       className={clsx(className, classes.Avatar)}
       ref={ref}
