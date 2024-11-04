@@ -48,7 +48,6 @@ const Avatar = React.forwardRef(function Avatar(
         data-square={square ? '' : undefined}
         width={isResponsive ? undefined : size}
         height={isResponsive ? undefined : size}
-        // @ts-ignore - it's not allowing CSS properties here
         style={cssSizeVars as React.CSSProperties}
         sx={sxProp}
         {...rest}
