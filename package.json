@@ -76,7 +76,7 @@
     "rimraf": "5.0.5",
     "size-limit": "11.1.5",
     "stylelint": "16.9.0",
-    "typescript": "5.4.5"
+    "typescript": "5.6.3"
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-gnu": "^4.9.6"
