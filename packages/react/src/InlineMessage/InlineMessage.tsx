@@ -68,24 +68,31 @@ const StyledMessage = toggleStyledComponent(
   `,
 )
 
-const variantToIcon: Record<MessageVariant, React.ReactNode> = {
-  warning: <AlertIcon className={classes.InlineMessageIcon} />,
-  critical: <AlertIcon className={classes.InlineMessageIcon} />,
-  success: <CheckCircleIcon className={classes.InlineMessageIcon} />,
-  unavailable: <AlertIcon className={classes.InlineMessageIcon} />,
+const variantToIcon = (enabled: boolean, variant: MessageVariant): React.ReactNode => {
+  const icons = {
+    warning: <AlertIcon className={enabled ? classes.InlineMessageIcon : 'InlineMessageIcon'} />,
+    critical: <AlertIcon className={enabled ? classes.InlineMessageIcon : 'InlineMessageIcon'} />,
+    success: <CheckCircleIcon className={enabled ? classes.InlineMessageIcon : 'InlineMessageIcon'} />,
+    unavailable: <AlertIcon className={enabled ? classes.InlineMessageIcon : 'InlineMessageIcon'} />,
+  }
+
+  return icons[variant]
 }
 
-const variantToSmallIcon: Record<MessageVariant, React.ReactNode> = {
-  warning: <AlertFillIcon className={classes.InlineMessageIcon} size={12} />,
-  critical: <AlertFillIcon className={classes.InlineMessageIcon} size={12} />,
-  success: <CheckCircleFillIcon className={classes.InlineMessageIcon} size={12} />,
-  unavailable: <AlertFillIcon className={classes.InlineMessageIcon} size={12} />,
+const variantToSmallIcon = (enabled: boolean, variant: MessageVariant): React.ReactNode => {
+  const icons = {
+    warning: <AlertFillIcon className={classes.InlineMessageIcon} size={12} />,
+    critical: <AlertFillIcon className={classes.InlineMessageIcon} size={12} />,
+    success: <CheckCircleFillIcon className={classes.InlineMessageIcon} size={12} />,
+    unavailable: <AlertFillIcon className={classes.InlineMessageIcon} size={12} />,
+  }
+  return icons[variant]
 }
 
 export function InlineMessage({children, className, size = 'medium', variant, ...rest}: InlineMessageProps) {
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
-  const icon = size === 'small' ? variantToSmallIcon[variant] : variantToIcon[variant]
+  const icon = size === 'small' ? variantToSmallIcon(enabled, variant) : variantToIcon(enabled, variant)
   if (enabled) {
     return (
       <StyledMessage
