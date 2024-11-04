@@ -13,9 +13,7 @@
   }
 
   &[data-component='IconButton'] {
-    /* stylelint-disable-next-line csstools/value-no-unknown-custom-properties */
     width: var(--inner-action-size);
-    /* stylelint-disable-next-line csstools/value-no-unknown-custom-properties */
     height: var(--inner-action-size);
   }
 
