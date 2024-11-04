@@ -14,7 +14,7 @@ const stories = [
   },
   {
     title: 'Dev Default',
-    id: 'experimental-components-inlinemessage-dev--dev-story',
+    id: 'experimental-components-inlinemessage-dev--dev-default',
   },
 ]
 
