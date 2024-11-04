@@ -34,16 +34,15 @@ exports[`ProgressBar respects the "progress" prop 1`] = `
 }
 
 <span
-  aria-label="Upload test.png"
-  aria-valuemax={100}
-  aria-valuemin={0}
-  aria-valuenow={80}
-  aria-valuetext="80%"
   className="c0"
-  role="progressbar"
 >
   <span
+    aria-label="Upload test.png"
+    aria-valuemax={100}
+    aria-valuemin={0}
+    aria-valuenow={80}
     className="c1"
+    role="progressbar"
   />
 </span>
 `;
