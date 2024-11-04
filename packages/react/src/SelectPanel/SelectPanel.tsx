@@ -279,11 +279,10 @@ export function SelectPanel({
           ignoreClickRefs={[anchorRef]}
           data-variant={currentVariant}
           initialFocusRef={inputRef}
-          left={position?.left}
-          top={position?.top || 0}
+          left={currentVariant === 'full-screen' ? 0 : position?.left || 0}
+          top={currentVariant === 'full-screen' ? 0 : position?.top || 0}
           sx={{
             // reset dialog default styles
-            // width: 'medium',
             border: 'none',
             display: 'flex',
             padding: 0,
@@ -291,14 +290,9 @@ export function SelectPanel({
 
             '&[data-variant="anchored"], &[data-variant="full-screen"]': {
               margin: 0,
-              top: position?.top,
-              left: position?.left,
-              '::backdrop': {backgroundColor: 'transparent'},
             },
             '&[data-variant="full-screen"]': {
               margin: 0,
-              top: 0,
-              left: 0,
               width: '100vw',
               maxWidth: '100vw',
               height: '100vh',
