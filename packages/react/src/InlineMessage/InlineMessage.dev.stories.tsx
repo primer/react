@@ -11,7 +11,7 @@ export default meta
 
 export const DevDefault = () => {
   return (
-    <InlineMessage variant="unavailable" sx={{color: 'red'}}>
+    <InlineMessage variant="unavailable" sx={{border: '1px solid red'}}>
       An example inline message
     </InlineMessage>
   )

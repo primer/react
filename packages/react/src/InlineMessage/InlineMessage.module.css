@@ -38,5 +38,5 @@
 }
 
 .InlineMessageIcon {
-  min-height: calc(var(--inline-message-lineHeight) * var(--inline-message-fontSize)) !important;
+  min-height: calc(var(--inline-message-lineHeight) * var(--inline-message-fontSize));
 }
