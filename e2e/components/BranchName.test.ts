@@ -2,110 +2,58 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
+const stories = [
+  {
+    title: 'Default',
+    id: 'components-branchname--default',
+    focus: true,
+  },
+  {
+    title: 'Not A Link',
+    id: 'components-branchname-features--not-a-link',
+    focus: false,
+  },
+  {
+    title: 'With A Branch Icon',
+    id: 'components-branchname-features--with-branch-icon',
+    focus: false,
+  },
+] as const
+
 test.describe('BranchName', () => {
-  test.describe('Default', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-branchname--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`BranchName.Default.${theme}.png`)
-
-          // Focus state
-          await page.keyboard.press('Tab')
-          expect(await page.screenshot()).toMatchSnapshot(`BranchName.Default.${theme}.focus.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-branchname--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+  for (const story of stories) {
+    test.describe(story.title, () => {
+      for (const theme of themes) {
+        test.describe(theme, () => {
+          test('default @vrt', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
               },
-            },
-          })
-        })
-      })
-    }
-  })
+            })
 
-  test.describe('Not A Link', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-branchname-features--not-a-link',
-            globals: {
-              colorScheme: theme,
-            },
+            // Default state
+            expect(await page.screenshot()).toMatchSnapshot(`BranchName.${story.title}.${theme}.png`)
+
+            // Focus state
+            if (story.focus) {
+              await page.keyboard.press('Tab')
+              expect(await page.screenshot()).toMatchSnapshot(`BranchName.${story.title}.${theme}.focus.png`)
+            }
           })
 
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`BranchName.Not A Link.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-branchname-features--not-a-link',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+          test('axe @aat', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
               },
-            },
+            })
+            await expect(page).toHaveNoViolations()
           })
         })
-      })
-    }
-  })
-
-  test.describe('With A Branch Icon', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-branchname-features--with-branch-icon',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`BranchName.With A Branch Icon.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-branchname-features--with-branch-icon',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
-      })
-    }
-  })
+      }
+    })
+  }
 })
