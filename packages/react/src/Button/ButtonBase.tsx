@@ -118,7 +118,7 @@ const ButtonBase = forwardRef(
           >
             <Box
               as={Component}
-              sx={sxStyles}
+              sx={sxProp}
               aria-disabled={loading ? true : undefined}
               {...rest}
               ref={innerRef}
