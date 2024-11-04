@@ -9,10 +9,7 @@ const meta = {
 
 export default meta
 
+// Previous Styled version of the component didn't accept an sx prop so no need to test if that works.
 export const DevDefault = () => {
-  return (
-    <InlineMessage variant="unavailable" sx={{border: '1px solid red'}}>
-      An example inline message
-    </InlineMessage>
-  )
+  return <InlineMessage variant="unavailable">An example inline message</InlineMessage>
 }
