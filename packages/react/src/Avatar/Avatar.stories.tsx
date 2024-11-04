@@ -63,12 +63,6 @@ Playground.argTypes = {
       disable: true,
     },
   },
-  ref: {
-    controls: false,
-    table: {
-      disable: true,
-    },
-  },
   sx: {
     controls: false,
     table: {
