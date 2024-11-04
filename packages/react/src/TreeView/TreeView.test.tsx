@@ -217,7 +217,7 @@ describe('Markup', () => {
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
 
     treeitem = getByLabelText(/Item 2/)
-    expect(treeitem).toHaveAttribute('aria-expanded', 'false')
+    expect(treeitem).not.toHaveAttribute('aria-expanded')
 
     await user.click(getByText(/Item 2/))
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
