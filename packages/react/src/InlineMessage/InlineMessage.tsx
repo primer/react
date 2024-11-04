@@ -93,21 +93,13 @@ export function InlineMessage({children, className, size = 'medium', variant, ..
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   const icon = size === 'small' ? variantToSmallIcon(enabled, variant) : variantToIcon(enabled, variant)
-  if (enabled) {
-    return (
-      <StyledMessage
-        className={clsx(classes.InlineMessage, className)}
-        {...rest}
-        data-size={size}
-        data-variant={variant}
-      >
-        {icon}
-        {children}
-      </StyledMessage>
-    )
-  }
   return (
-    <StyledMessage {...rest} data-size={size} data-variant={variant}>
+    <StyledMessage
+      className={clsx(className, enabled && classes.InlineMessage)}
+      {...rest}
+      data-size={size}
+      data-variant={variant}
+    >
       {icon}
       {children}
     </StyledMessage>
