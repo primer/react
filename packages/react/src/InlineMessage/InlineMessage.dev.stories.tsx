@@ -9,7 +9,7 @@ const meta = {
 
 export default meta
 
-export const Default = () => {
+export const DevDefault = () => {
   return (
     <InlineMessage variant="unavailable" sx={{color: 'red'}}>
       An example inline message
