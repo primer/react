@@ -10,6 +10,7 @@
   justify-items: center;
   /* stylelint-disable-next-line primer/spacing */
   padding: var(--blankslate-outer-padding-block) var(--blankslate-outer-padding-inline);
+  text-align: center;
 
   &:where([data-spacious='true']) {
     --blankslate-outer-padding-block: var(--base-size-80);
