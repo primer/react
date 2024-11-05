@@ -4,7 +4,7 @@ import {Tooltip} from '../Tooltip'
 import {checkStoriesForAxeViolations} from '../../utils/testing'
 import {render as HTMLRender} from '@testing-library/react'
 import theme from '../../theme'
-import {Button, IconButton, ActionMenu, ActionList, ThemeProvider, BaseStyles} from '../..'
+import {Button, IconButton, ActionMenu, ActionList, ThemeProvider, BaseStyles, ButtonGroup} from '../..'
 import {XIcon} from '@primer/octicons-react'
 
 const TooltipComponent = (props: Omit<TooltipProps, 'text'> & {text?: string}) => (
@@ -138,6 +138,20 @@ describe('Tooltip', () => {
     )
 
     const triggerEL = getByRole('button')
+    expect(triggerEL).toBeInTheDocument()
+  })
+  it('should allow for two-level deep interactive elements', () => {
+    const {getByText} = HTMLRender(
+      <Tooltip text="Tooltip text">
+        <ButtonGroup>
+          <Button>Button 1</Button>
+          <Button>Button 2</Button>
+          <Button>Button 3</Button>
+        </ButtonGroup>
+      </Tooltip>,
+    )
+
+    const triggerEL = getByText('Button 1')
     expect(triggerEL).toBeInTheDocument()
   })
 })
