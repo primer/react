@@ -189,6 +189,19 @@ describe('Markup', () => {
     expect(noDescription).toHaveAccessibleDescription(' ')
   })
 
+  it('should not have aria-describedby when no leading or trailing visual', () => {
+    const {getByLabelText} = renderWithTheme(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        <TreeView.Item id="item-2">Item 2</TreeView.Item>
+      </TreeView>,
+    )
+
+    const noDescription = getByLabelText(/Item 1/)
+    expect(noDescription).not.toHaveAccessibleDescription()
+    expect(noDescription).not.toHaveAttribute('aria-describedby')
+  })
+
   it('should include `aria-expanded` when a SubTree contains content', async () => {
     const user = userEvent.setup({
       advanceTimers: jest.advanceTimersByTime,
