@@ -177,4 +177,127 @@ describe('LabelGroup', () => {
 
     expect(document.activeElement).toEqual(getByText('+2').closest('button'))
   })
+
+  describe('should render as ul by default', () => {
+    it('without truncation', () => {
+      const {getByRole} = HTMLRender(
+        <ThemeAndStyleContainer>
+          <LabelGroup>
+            <Label>One</Label>
+            <Label>Two</Label>
+            <Label>Three</Label>
+            <Label>Four</Label>
+            <Label>Five</Label>
+          </LabelGroup>
+        </ThemeAndStyleContainer>,
+      )
+      const list = getByRole('list')
+      expect(list).not.toBeNull()
+      expect(list.tagName).toBe('UL')
+      expect(list).toHaveAttribute('data-list', 'true')
+      expect(list.querySelectorAll('li')).toHaveLength(5)
+    })
+
+    it('with truncation', () => {
+      const {getByRole} = HTMLRender(
+        <ThemeAndStyleContainer>
+          <LabelGroup visibleChildCount={3}>
+            <Label>One</Label>
+            <Label>Two</Label>
+            <Label>Three</Label>
+            <Label>Four</Label>
+            <Label>Five</Label>
+          </LabelGroup>
+        </ThemeAndStyleContainer>,
+      )
+      const list = getByRole('list')
+      expect(list).not.toBeNull()
+      expect(list.tagName).toBe('UL')
+      expect(list).toHaveAttribute('data-list', 'true')
+      // account for "show more" button
+      expect(list.querySelectorAll('li')).toHaveLength(6)
+    })
+  })
+
+  describe('should render as custom element when `as` is provided', () => {
+    it('without truncation', () => {
+      const {queryByRole, container} = HTMLRender(
+        <ThemeAndStyleContainer>
+          <LabelGroup as="div">
+            <Label>One</Label>
+            <Label>Two</Label>
+            <Label>Three</Label>
+            <Label>Four</Label>
+            <Label>Five</Label>
+          </LabelGroup>
+        </ThemeAndStyleContainer>,
+      )
+      const list = queryByRole('list')
+      expect(list).toBeNull()
+      const labelGroupDiv = container.querySelectorAll('div')[1]
+      expect(labelGroupDiv.querySelectorAll('li')).toHaveLength(0)
+      expect(labelGroupDiv.querySelectorAll('span')).toHaveLength(5)
+      expect(labelGroupDiv).not.toHaveAttribute('data-list')
+    })
+
+    it('with truncation', () => {
+      const {queryByRole, container} = HTMLRender(
+        <ThemeAndStyleContainer>
+          <LabelGroup as="div" visibleChildCount={2}>
+            <Label>One</Label>
+            <Label>Two</Label>
+            <Label>Three</Label>
+            <Label>Four</Label>
+            <Label>Five</Label>
+          </LabelGroup>
+        </ThemeAndStyleContainer>,
+      )
+      const list = queryByRole('list')
+      expect(list).toBeNull()
+      const labelGroupDiv = container.querySelectorAll('div')[1]
+      expect(labelGroupDiv.querySelectorAll('li')).toHaveLength(0)
+      expect(labelGroupDiv.querySelectorAll(':scope > span')).toHaveLength(5)
+      expect(labelGroupDiv).not.toHaveAttribute('data-list')
+    })
+  })
+
+  describe('should render children as list items when rendered as ol', () => {
+    it('without truncation', () => {
+      const {getByRole} = HTMLRender(
+        <ThemeAndStyleContainer>
+          <LabelGroup as={'ol'}>
+            <Label>One</Label>
+            <Label>Two</Label>
+            <Label>Three</Label>
+            <Label>Four</Label>
+            <Label>Five</Label>
+          </LabelGroup>
+        </ThemeAndStyleContainer>,
+      )
+      const list = getByRole('list')
+      expect(list).not.toBeNull()
+      expect(list.tagName).toBe('OL')
+      expect(list).toHaveAttribute('data-list', 'true')
+      expect(list.querySelectorAll('li')).toHaveLength(5)
+    })
+    it('with truncation', () => {
+      const {getByRole} = HTMLRender(
+        <ThemeAndStyleContainer>
+          <LabelGroup as={'ol'} visibleChildCount={1}>
+            <Label>One</Label>
+            <Label>Two</Label>
+            <Label>Three</Label>
+            <Label>Four</Label>
+            <Label>Five</Label>
+          </LabelGroup>
+        </ThemeAndStyleContainer>,
+      )
+      const list = getByRole('list')
+      expect(list).not.toBeNull()
+      expect(list.tagName).toBe('OL')
+      expect(list).toHaveAttribute('data-list', 'true')
+      // account for "show more" button
+      expect(list.querySelectorAll('li')).toHaveLength(6)
+    })
+  })
 })
