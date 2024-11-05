@@ -1,0 +1,13 @@
+.InputLabel {
+  display: block;
+  font-weight: bold;
+  font-size: var(--text-body-size-medium);
+  color: var(--fgColor-default);
+  cursor: pointer;
+  align-self: flex-start;
+
+  &:where([data-disabled]) {
+    color: var(--fgColor-muted);
+    cursor: not-allowed;
+  }
+}

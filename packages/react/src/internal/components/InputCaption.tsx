@@ -4,6 +4,7 @@ import Text from '../../Text'
 import type {SxProp} from '../../sx'
 import classes from './InputCaption.module.css'
 import {useFeatureFlag} from '../../FeatureFlags'
+import {featureFlag} from '../../FormControl/FormControlFeatureFlags'
 
 type Props = {
   /**
@@ -29,7 +30,7 @@ const InputCaption: React.FC<React.PropsWithChildren<Props>> = ({
   id,
   sx,
 }) => {
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  const enabled = useFeatureFlag(featureFlag)
   const className = clsx(customClassName, {
     [classes.InputCaption]: enabled,
   })
