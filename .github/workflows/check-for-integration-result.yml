@@ -3,7 +3,7 @@ name: Check for integration result
 on:
   issue_comment:
     types: [created, edited, deleted]
-  workflow_dispatch: # for debugging
+  push: # for debugging
       
 jobs:
   # fetch comments, if integration-test comment is present, use that to label pass or fail. remove in-progress.
