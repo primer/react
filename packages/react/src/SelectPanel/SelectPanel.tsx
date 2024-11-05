@@ -1,5 +1,5 @@
 import {SearchIcon, TriangleDownIcon, XIcon} from '@primer/octicons-react'
-import React, {useCallback, useMemo} from 'react'
+import React, {useCallback, useEffect, useMemo, useState} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 import Box from '../Box'
@@ -11,7 +11,7 @@ import type {TextInputProps} from '../TextInput'
 import type {ItemProps, ItemInput} from './types'
 
 import {Button, IconButton} from '../Button'
-import {useProvidedRefOrCreate, useAnchoredPosition, useOnEscapePress, useOnOutsideClick} from '../hooks'
+import {useProvidedRefOrCreate, useAnchoredPosition, useOnEscapePress} from '../hooks'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
@@ -19,7 +19,6 @@ import {useFeatureFlag} from '../FeatureFlags'
 import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import Overlay from '../Overlay/Overlay'
 import {useFocusTrap} from '../hooks/useFocusTrap'
-import Portal from '../Portal'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -115,6 +114,7 @@ export function SelectPanel({
   const onClose = useCallback(
     (gesture: Parameters<Exclude<AnchoredOverlayProps['onClose'], undefined>>[0] | 'selection') => {
       onOpenChange(false, gesture)
+      setIsPanelOpened(false)
     },
     [onOpenChange],
   )
@@ -257,11 +257,24 @@ export function SelectPanel({
   const onClickOutside = () => {
     onClose('click-outside')
   }
-  // useOnOutsideClick({
-  //   onClickOutside,
-  //   containerRef: overlayRef,
-  //   ignoreClickRefs: [anchorRef],
-  // })
+  const [initialSelected, setInitialSelected] = useState<ItemInput[]>([])
+  const [isPanelOpened, setIsPanelOpened] = useState(false)
+
+  const hasSaveAndCancelButtons = currentVariant === 'full-screen' && isMultiSelectVariant(selected)
+
+  useEffect(() => {
+    if (hasSaveAndCancelButtons && !isPanelOpened) {
+      setInitialSelected(selected)
+      setIsPanelOpened(true)
+    }
+  }, [hasSaveAndCancelButtons, isPanelOpened, selected])
+
+  const handleCancel = () => {
+    if (hasSaveAndCancelButtons) {
+      onSelectedChange(initialSelected)
+    }
+    onClose('anchor-click')
+  }
 
   const anchor = renderMenuAnchor ? renderMenuAnchor(anchorProps) : null
   return (
@@ -334,13 +347,7 @@ export function SelectPanel({
                   </Box>
                 ) : null}
               </Box>
-              <IconButton
-                type="button"
-                variant="invisible"
-                icon={XIcon}
-                aria-label="Close"
-                onClick={() => onClose('anchor-click')}
-              />
+              <IconButton type="button" variant="invisible" icon={XIcon} aria-label="Close" onClick={handleCancel} />
             </Box>
 
             <FilteredActionList
@@ -361,18 +368,45 @@ export function SelectPanel({
               // than the Overlay (which would break scrolling the items)
               sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
             />
-            {footer && (
+            {footer || hasSaveAndCancelButtons ? (
               <Box
                 sx={{
                   display: 'flex',
                   borderTop: '1px solid',
                   borderColor: 'border.default',
-                  padding: 2,
+                  padding: hasSaveAndCancelButtons ? 3 : 2,
+                  justifyContent: footer ? 'space-between' : 'end',
+                  alignItems: 'center',
+                  flexShrink: 0,
+                  minHeight: '44px',
+                  '> button': {
+                    // make button full width if there's just one
+                    width: hasSaveAndCancelButtons ? 'auto' : '100%',
+                  },
                 }}
               >
                 {footer}
+                {hasSaveAndCancelButtons ? (
+                  <Box sx={{display: 'flex', gap: 2}}>
+                    <Button type="button" size="small" onClick={handleCancel}>
+                      Cancel
+                    </Button>
+                    {/* TODO: loading state for save? */}
+                    <Button
+                      type="submit"
+                      size="small"
+                      variant="primary"
+                      onClick={() => {
+                        // assuming it was saving onSelectedChange already
+                        onClose('anchor-click')
+                      }}
+                    >
+                      Save
+                    </Button>
+                  </Box>
+                ) : null}
               </Box>
-            )}
+            ) : null}
           </Box>
         </Overlay>
       ) : null}
