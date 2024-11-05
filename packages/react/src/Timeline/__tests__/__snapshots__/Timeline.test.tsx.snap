@@ -29,7 +29,7 @@ exports[`Timeline renders with clipSidebar prop 1`] = `
   padding-bottom: 0;
 }
 
-<ul
+<div
   className="c0"
 />
 `;
@@ -71,7 +71,7 @@ exports[`Timeline.Item renders with condensed prop 1`] = `
   border: 0;
 }
 
-<li
+<div
   className="c0 Timeline-Item"
 />
 `;

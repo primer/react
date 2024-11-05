@@ -1,14 +1,14 @@
 import {clsx} from 'clsx'
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import styled, {css} from 'styled-components'
 import Box from '../Box'
 import {get} from '../constants'
 import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
-import {useMergedRefs} from '../internal/hooks/useMergedRefs'
+import {useFeatureFlag} from '../FeatureFlags'
 
-const StyledTimeline = styled.div<{clipSidebar?: boolean} & SxProp>`
+const Timeline = styled.div<{clipSidebar?: boolean} & SxProp>`
   display: flex;
   flex-direction: column;
   list-style: none;
@@ -37,43 +37,9 @@ const StyledTimeline = styled.div<{clipSidebar?: boolean} & SxProp>`
   ${sx};
 `
 
-const Timeline = React.forwardRef<HTMLElement, TimelineProps>((props, forwardRef) => {
-  const timelineRef = React.useRef<HTMLElement>(null)
-  const ref = useMergedRefs(forwardRef, timelineRef)
-  const [hasGroup, setHasGroup] = useState(false)
-  useEffect(() => {
-    const {current: timeline} = timelineRef
-    if (!timeline) {
-      return
-    }
-
-    const updateGroup = () => {
-      const group = timeline.querySelector('ul.Timeline-Group')
-      setHasGroup(!!group)
-    }
-
-    // Update group on mount
-    updateGroup()
-
-    const observer = new MutationObserver(() => {
-      updateGroup()
-    })
-
-    observer.observe(timeline, {
-      childList: true,
-      subtree: true,
-    })
-
-    return () => {
-      observer.disconnect()
-    }
-  }, [])
-  return <StyledTimeline ref={ref} as={hasGroup ? 'div' : 'ul'} {...props} />
-})
-
 type StyledTimelineItemProps = {condensed?: boolean} & SxProp
 
-const TimelineItem = styled.li.attrs<StyledTimelineItemProps>(props => ({
+const StyledTimelineItem = styled.div.attrs<StyledTimelineItemProps>(props => ({
   className: clsx('Timeline-Item', props.className),
 }))<StyledTimelineItemProps>`
   display: flex;
@@ -113,6 +79,16 @@ const TimelineItem = styled.li.attrs<StyledTimelineItemProps>(props => ({
 
   ${sx};
 `
+
+export type TimelineItemsProps<As extends React.ElementType> = {
+  as?: As
+} & SxProp &
+  React.ComponentProps<As>
+
+function TimelineItem<As extends React.ElementType>(props: TimelineItemsProps<As>) {
+  const asList = useFeatureFlag('primer_react_timeline_as_list')
+  return <StyledTimelineItem as={asList ? 'li' : 'div'} {...props} />
+}
 
 export type TimelineBadgeProps = {children?: React.ReactNode} & SxProp
 
@@ -168,7 +144,8 @@ const StyledTimelineBreak = styled.div<SxProp>`
 `
 
 function TimelineBreak(props: ComponentProps<typeof StyledTimelineBreak>) {
-  return <StyledTimelineBreak aria-hidden {...props} />
+  const asList = useFeatureFlag('primer_react_timeline_as_list')
+  return <StyledTimelineBreak aria-hidden={asList ? true : undefined} {...props} />
 }
 
 function TimelineGroup({children, ...props}: React.ComponentPropsWithoutRef<'ul'>) {
@@ -178,6 +155,7 @@ function TimelineGroup({children, ...props}: React.ComponentPropsWithoutRef<'ul'
     </Box>
   )
 }
+
 TimelineGroup.displayName = 'Timeline.Group'
 
 TimelineItem.displayName = 'Timeline.Item'
@@ -188,10 +166,7 @@ TimelineBody.displayName = 'Timeline.Body'
 
 TimelineBreak.displayName = 'Timeline.Break'
 
-Timeline.displayName = 'Timeline'
-
-export type TimelineProps = ComponentProps<typeof StyledTimeline>
-export type TimelineItemsProps = ComponentProps<typeof TimelineItem>
+export type TimelineProps = ComponentProps<typeof Timeline>
 export type TimelineBodyProps = ComponentProps<typeof TimelineBody>
 export type TimelineBreakProps = ComponentProps<typeof TimelineBreak>
 export type TimelineGroupProps = ComponentProps<typeof TimelineGroup>

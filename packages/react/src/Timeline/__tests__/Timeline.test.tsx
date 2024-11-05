@@ -4,6 +4,7 @@ import {render, rendersClass, behavesAsComponent, checkExports} from '../../util
 
 import React from 'react'
 import Timeline from '..'
+import {FeatureFlags} from '../../FeatureFlags'
 
 describe('Timeline', () => {
   behavesAsComponent({Component: Timeline})
@@ -73,11 +74,13 @@ describe('Timeline.Group', () => {
 
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(
-      <Timeline>
-        <Timeline.Group>
-          <Timeline.Item>test</Timeline.Item>
-        </Timeline.Group>
-      </Timeline>,
+      <FeatureFlags flags={{primer_react_timeline_as_list: true}}>
+        <Timeline>
+          <Timeline.Group>
+            <Timeline.Item>test</Timeline.Item>
+          </Timeline.Group>
+        </Timeline>
+      </FeatureFlags>,
     )
     const results = await axe.run(container)
     expect(results).toHaveNoViolations()

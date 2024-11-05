@@ -5,6 +5,7 @@ import Timeline from './Timeline'
 import Octicon from '../Octicon'
 import {GitBranchIcon, GitCommitIcon, GitMergeIcon} from '@primer/octicons-react'
 import Link from '../Link'
+import {FeatureFlags} from '../FeatureFlags'
 
 export default {
   title: 'Components/Timeline/Features',
@@ -18,77 +19,91 @@ export default {
 } as Meta<ComponentProps<typeof Timeline>>
 
 export const ClipSidebar = () => (
-  <Timeline clipSidebar>
-    <Timeline.Item>
-      <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} aria-label="Commit" />
-      </Timeline.Badge>
-      <Timeline.Body>This is a message</Timeline.Body>
-    </Timeline.Item>
-    <Timeline.Item>
-      <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} aria-label="Commit" />
-      </Timeline.Badge>
-      <Timeline.Body>This is a message</Timeline.Body>
-    </Timeline.Item>
-  </Timeline>
+  <FeatureFlags flags={{primer_react_timeline_as_list: true}}>
+    <Timeline clipSidebar>
+      <Timeline.Group>
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={GitCommitIcon} aria-label="Commit" />
+          </Timeline.Badge>
+          <Timeline.Body>This is a message</Timeline.Body>
+        </Timeline.Item>
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={GitCommitIcon} aria-label="Commit" />
+          </Timeline.Badge>
+          <Timeline.Body>This is a message</Timeline.Body>
+        </Timeline.Item>
+      </Timeline.Group>
+    </Timeline>
+  </FeatureFlags>
 )
 
 export const CondensedItems = () => (
-  <Timeline>
-    <Timeline.Item condensed>
-      <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} aria-label="Commit" />
-      </Timeline.Badge>
-      <Timeline.Body>This is a message</Timeline.Body>
-    </Timeline.Item>
-    <Timeline.Item condensed>
-      <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} aria-label="Commit" />
-      </Timeline.Badge>
-      <Timeline.Body>This is a message</Timeline.Body>
-    </Timeline.Item>
-  </Timeline>
+  <FeatureFlags flags={{primer_react_timeline_as_list: true}}>
+    <Timeline>
+      <Timeline.Group>
+        <Timeline.Item condensed>
+          <Timeline.Badge>
+            <Octicon icon={GitCommitIcon} aria-label="Commit" />
+          </Timeline.Badge>
+          <Timeline.Body>This is a message</Timeline.Body>
+        </Timeline.Item>
+        <Timeline.Item condensed>
+          <Timeline.Badge>
+            <Octicon icon={GitCommitIcon} aria-label="Commit" />
+          </Timeline.Badge>
+          <Timeline.Body>This is a message</Timeline.Body>
+        </Timeline.Item>
+      </Timeline.Group>
+    </Timeline>
+  </FeatureFlags>
 )
 
 export const TimelineBreak = () => (
-  <Timeline>
-    <Timeline.Group>
-      <Timeline.Item>
-        <Timeline.Badge sx={{bg: 'done.emphasis'}}>
-          <Octicon icon={GitMergeIcon} color="fg.onEmphasis" aria-label="Merged" />
-        </Timeline.Badge>
-        <Timeline.Body>This is a message</Timeline.Body>
-      </Timeline.Item>
-    </Timeline.Group>
-    <Timeline.Break />
-    <Timeline.Group>
-      <Timeline.Item>
-        <Timeline.Badge>
-          <Octicon icon={GitBranchIcon} aria-label="Branch" />
-        </Timeline.Badge>
-        <Timeline.Body>This is a message</Timeline.Body>
-      </Timeline.Item>
-    </Timeline.Group>
-  </Timeline>
+  <FeatureFlags flags={{primer_react_timeline_as_list: true}}>
+    <Timeline>
+      <Timeline.Group>
+        <Timeline.Item>
+          <Timeline.Badge sx={{bg: 'done.emphasis'}}>
+            <Octicon icon={GitMergeIcon} color="fg.onEmphasis" aria-label="Merged" />
+          </Timeline.Badge>
+          <Timeline.Body>This is a message</Timeline.Body>
+        </Timeline.Item>
+      </Timeline.Group>
+      <Timeline.Break />
+      <Timeline.Group>
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={GitBranchIcon} aria-label="Branch" />
+          </Timeline.Badge>
+          <Timeline.Body>This is a message</Timeline.Body>
+        </Timeline.Item>
+      </Timeline.Group>
+    </Timeline>
+  </FeatureFlags>
 )
 
 export const WithInlineLinks = () => (
-  <Timeline>
-    <Timeline.Item>
-      <Timeline.Badge>
-        <Octicon icon={GitCommitIcon} aria-label="Commit" />
-      </Timeline.Badge>
-      <Timeline.Body>
-        <Link
-          href="#"
-          sx={{fontWeight: 'bold', color: 'fg.default', mr: 1, '&:hover': {color: 'var(--fgColor-accent)'}}}
-          muted
-        >
-          Monalisa
-        </Link>
-        enabled auto-merge (squash)
-      </Timeline.Body>
-    </Timeline.Item>
-  </Timeline>
+  <FeatureFlags flags={{primer_react_timeline_as_list: true}}>
+    <Timeline>
+      <Timeline.Group>
+        <Timeline.Item>
+          <Timeline.Badge>
+            <Octicon icon={GitCommitIcon} aria-label="Commit" />
+          </Timeline.Badge>
+          <Timeline.Body>
+            <Link
+              href="#"
+              sx={{fontWeight: 'bold', color: 'fg.default', mr: 1, '&:hover': {color: 'var(--fgColor-accent)'}}}
+              muted
+            >
+              Monalisa
+            </Link>
+            enabled auto-merge (squash)
+          </Timeline.Body>
+        </Timeline.Item>
+      </Timeline.Group>
+    </Timeline>
+  </FeatureFlags>
 )
