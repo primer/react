@@ -14,37 +14,35 @@ const stories = [
 ]
 
 test.describe('Token', () => {
-  test.describe('Default', () => {
-    for (const story of stories) {
-      test.describe(story.title, () => {
-        for (const theme of themes) {
-          test.describe(theme, () => {
-            test('default @vrt', async ({page}) => {
-              await visit(page, {
-                id: 'components-token--default',
-                globals: {
-                  colorScheme: theme,
-                },
-              })
-
-              // Default state
-              expect(await page.screenshot()).toMatchSnapshot(`Token.Default.${theme}.png`)
+  for (const story of stories) {
+    test.describe(story.title, () => {
+      for (const theme of themes) {
+        test.describe(theme, () => {
+          test('default @vrt', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+              },
             })
 
-            test('axe @aat', async ({page}) => {
-              await visit(page, {
-                id: 'components-token--default',
-                globals: {
-                  colorScheme: theme,
-                },
-              })
-              await expect(page).toHaveNoViolations()
-            })
+            // Default state
+            expect(await page.screenshot()).toMatchSnapshot(`Token.Default.${theme}.png`)
           })
-        }
-      })
-    }
-  })
+
+          test('axe @aat', async ({page}) => {
+            await visit(page, {
+              id: 'components-token--default',
+              globals: {
+                colorScheme: theme,
+              },
+            })
+            await expect(page).toHaveNoViolations()
+          })
+        })
+      }
+    })
+  }
 
   test.describe('Small Token', () => {
     for (const theme of themes) {
