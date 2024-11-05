@@ -107,10 +107,10 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
     const accessibleLabel = ariaLabel
       ? {'aria-label': ariaLabel}
       : ariaLabelledBy
-      ? {'aria-labelledby': ariaLabelledBy}
-      : {
-          'aria-label': '',
-        }
+        ? {'aria-labelledby': ariaLabelledBy}
+        : {
+            'aria-label': '',
+          }
 
     return (
       <Box as="span" className="TextInput-action" marginLeft={1} marginRight={1} lineHeight="0">

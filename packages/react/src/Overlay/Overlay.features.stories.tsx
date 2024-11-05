@@ -174,6 +174,7 @@ export const OverlayOnTopOfOverlay = ({anchorSide, role}: OverlayProps) => {
           aria-modal={role === 'dialog' ? 'true' : undefined}
           aria-label={role === 'dialog' ? 'Primary Overlay' : undefined}
           ref={primaryContainer}
+          preventOverflow={false}
         >
           <Button ref={secondaryButtonRef} onClick={() => setIsSecondaryOpen(!isSecondaryOpen)}>
             open overlay
@@ -191,11 +192,12 @@ export const OverlayOnTopOfOverlay = ({anchorSide, role}: OverlayProps) => {
               aria-modal={role === 'dialog' ? 'true' : undefined}
               aria-label={role === 'dialog' ? 'Secondary Overlay' : undefined}
               ref={secondaryContainer}
+              preventOverflow={false}
             >
               <Box display="flex" flexDirection="column" p={2}>
                 <Text>Select an option!</Text>
                 <ActionMenu>
-                  <ActionMenu.Button sx={{width: 200}}>{selectedItem}</ActionMenu.Button>
+                  <ActionMenu.Button>{selectedItem}</ActionMenu.Button>
                   <ActionMenu.Overlay>
                     <ActionList selectionVariant="single">
                       {items.map(item => (
@@ -241,7 +243,7 @@ export const MemexNestedOverlays = ({role}: OverlayProps) => {
       </ButtonGroup>
       {overlayOpen && (
         <Overlay
-          width="medium"
+          width="auto"
           onEscape={() => setOverlayOpen(false)}
           onClickOutside={() => setOverlayOpen(false)}
           returnFocusRef={buttonRef}
@@ -252,6 +254,7 @@ export const MemexNestedOverlays = ({role}: OverlayProps) => {
           aria-modal={role === 'dialog' ? 'true' : undefined}
           aria-label={role === 'dialog' ? 'Memex Nested Overlay' : undefined}
           ref={containerRef}
+          preventOverflow={false}
         >
           <Box as="form" onSubmit={() => setOverlayOpen(false)} sx={{display: 'flex', flexDirection: 'column', py: 2}}>
             <Box sx={{paddingX: 3, display: 'flex', alignItems: 'center', gap: 1}}>
@@ -331,6 +334,7 @@ export const NestedOverlays = ({role}: OverlayProps) => {
           ignoreClickRefs={[buttonRef]}
           top={100}
           left={16}
+          preventOverflow={false}
           ref={primaryContainer}
           role={role}
           aria-modal={role === 'dialog' ? 'true' : undefined}
@@ -440,18 +444,18 @@ export const MemexIssueOverlay = ({role}: OverlayProps) => {
       {overlayOpen && (
         <Overlay
           height="auto"
-          width="large"
+          width="auto"
           onEscape={() => setOverlayOpen(false)}
           onClickOutside={() => setOverlayOpen(false)}
           returnFocusRef={linkRef}
           top={0}
-          left="calc(100vw - 480px)"
+          left="calc(100vw - 350px)"
           role={role}
           aria-modal={role === 'dialog' ? 'true' : undefined}
           aria-label={role === 'dialog' ? 'Memex Issue Overlay' : undefined}
           ref={containerRef}
         >
-          <Box sx={{p: 4, height: '100vh'}}>
+          <Box sx={{p: 4, height: '100vh', width: '350px'}}>
             <Box sx={{display: 'flex', alignItems: 'center', gap: 1, mb: 2}}>
               <Label size="large">
                 <IssueDraftIcon /> Draft
@@ -495,7 +499,7 @@ export const MemexIssueOverlay = ({role}: OverlayProps) => {
                 aria-label="Change issue title"
                 sx={{
                   width: '100%',
-                  fontSize: 4,
+                  fontSize: 3,
                   color: 'fg.default',
                   p: 2,
                   textAlign: 'left',
@@ -567,25 +571,31 @@ export const PositionedOverlays = ({right, role}: OverlayProps) => {
           >
             <Box
               sx={{
-                height: '100vh',
-                width: '500px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
+                width: ['350px', '500px'],
               }}
             >
-              <IconButton
-                aria-label="Close"
-                onClick={closeOverlay}
-                icon={XIcon}
-                variant="invisible"
+              <Box
                 sx={{
-                  position: 'absolute',
-                  left: '5px',
-                  top: '5px',
+                  height: '100vh',
+                  maxWidth: 'calc(-1rem + 100vw)',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}
-              />
-              <Text>Look! left aligned</Text>
+              >
+                <IconButton
+                  aria-label="Close"
+                  onClick={closeOverlay}
+                  icon={XIcon}
+                  variant="invisible"
+                  sx={{
+                    position: 'absolute',
+                    left: '5px',
+                    top: '5px',
+                  }}
+                />
+                <Text>Look! left aligned</Text>
+              </Box>
             </Box>
           </Overlay>
         ) : (
@@ -606,25 +616,31 @@ export const PositionedOverlays = ({right, role}: OverlayProps) => {
           >
             <Box
               sx={{
-                height: '100vh',
-                width: '500px',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
+                width: ['350px', '500px'],
               }}
             >
-              <IconButton
-                aria-label="Close"
-                onClick={closeOverlay}
-                icon={XIcon}
-                variant="invisible"
+              <Box
                 sx={{
-                  position: 'absolute',
-                  right: '5px',
-                  top: '5px',
+                  height: '100vh',
+                  maxWidth: 'calc(-1rem + 100vw)',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}
-              />
-              <Text>Look! right aligned</Text>
+              >
+                <IconButton
+                  aria-label="Close"
+                  onClick={closeOverlay}
+                  icon={XIcon}
+                  variant="invisible"
+                  sx={{
+                    position: 'absolute',
+                    right: '5px',
+                    top: '5px',
+                  }}
+                />
+                <Text>Look! right aligned</Text>
+              </Box>
             </Box>
           </Overlay>
         )
