@@ -38,8 +38,12 @@ jobs:
               labels: [pass ? 'integration-tests: passing' : 'integration-tests: failing'],
             })
 
-            await github.rest.issues.removeLabel({
-              ...issue,
-              name: ['integration-tests: recommended'],
-            })
+            try {
+              await github.rest.issues.removeLabel({
+                ...issue,
+                name: ['integration-tests: recommended'],
+              })
+            } catch (erorr) {
+              console.log(error) // no need to fail
+            } 
             
