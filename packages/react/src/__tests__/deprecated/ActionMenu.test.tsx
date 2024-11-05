@@ -4,7 +4,7 @@ import React from 'react'
 import theme from '../../theme'
 import {ActionMenu} from '../../deprecated'
 import {behavesAsComponent, checkExports} from '../../utils/testing'
-import {BaseStyles, SSRProvider, ThemeProvider} from '../..'
+import {BaseStyles, ThemeProvider} from '../..'
 import type {ItemProps} from '../../deprecated/ActionList/Item'
 
 const items = [
@@ -19,13 +19,11 @@ const mockOnActivate = jest.fn()
 function SimpleActionMenu(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
-      <SSRProvider>
-        <BaseStyles>
-          <div id="something-else">X</div>
-          <ActionMenu onAction={mockOnActivate} anchorContent="Menu" items={items} />
-          <div id="portal-root"></div>
-        </BaseStyles>
-      </SSRProvider>
+      <BaseStyles>
+        <div id="something-else">X</div>
+        <ActionMenu onAction={mockOnActivate} anchorContent="Menu" items={items} />
+        <div id="portal-root"></div>
+      </BaseStyles>
     </ThemeProvider>
   )
 }
@@ -38,11 +36,7 @@ describe('ActionMenu', () => {
   behavesAsComponent({
     Component: ActionMenu,
     options: {skipAs: true, skipSx: true},
-    toRender: () => (
-      <SSRProvider>
-        <ActionMenu items={[]} />
-      </SSRProvider>
-    ),
+    toRender: () => <ActionMenu items={[]} />,
   })
 
   checkExports('deprecated/ActionMenu', {

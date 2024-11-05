@@ -1,3 +1,4 @@
+import {clsx} from 'clsx'
 import styled from 'styled-components'
 import {useProvidedRefOrCreate} from '../hooks'
 import React, {useContext, useEffect, type ChangeEventHandler, type InputHTMLAttributes, type ReactElement} from 'react'
@@ -8,6 +9,10 @@ import {CheckboxGroupContext} from '../CheckboxGroup/CheckboxGroupContext'
 import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import {get} from '../constants'
 import {sharedCheckboxAndRadioStyles} from '../internal/utils/sharedCheckboxAndRadioStyles'
+import classes from './Checkbox.module.css'
+import sharedClasses from './shared.module.css'
+import {useFeatureFlag} from '../FeatureFlags'
+import Box from '../Box'
 
 export type CheckboxProps = {
   /**
@@ -63,8 +68,11 @@ const StyledCheckbox = styled.input`
 
   &:checked,
   &:indeterminate {
-    background: ${get('colors.accent.fg')};
-    border-color: ${get('colors.accent.fg')};
+    background: var(--control-checked-bgColor-rest, ${get('colors.accent.fg')});
+    border-color: var(
+      --control-checked-bgColor-rest,
+      ${get('colors.accent.fg')}
+    ); /* using bgColor here to avoid a border change in dark high contrast */
 
     &::before {
       animation: checkmarkIn 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards 80ms;
@@ -86,12 +94,12 @@ const StyledCheckbox = styled.input`
     }
 
     &:disabled {
-      background-color: ${get('colors.fg.muted')};
-      border-color: ${get('colors.fg.muted')};
+      background-color: var(--control-checked-bgColor-disabled, ${get('colors.fg.muted')});
+      border-color: var(--control-checked-borderColor-disabled, ${get('colors.fg.muted')});
       opacity: 1;
 
       &::before {
-        background-color: ${get('colors.fg.onEmphasis')};
+        background-color: var(--control-checked-fgColor-disabled, ${get('colors.fg.onEmphasis')});
       }
     }
 
@@ -103,7 +111,7 @@ const StyledCheckbox = styled.input`
   }
 
   &:indeterminate {
-    background: ${get('colors.accent.fg')};
+    background: var(--control-checked-bgColor-rest, ${get('colors.accent.fg')});
     &::before {
       mask-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMiIgdmlld0JveD0iMCAwIDEwIDIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxwYXRoIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBkPSJNMCAxQzAgMC40NDc3MTUgMC40NDc3MTUgMCAxIDBIOUM5LjU1MjI5IDAgMTAgMC40NDc3MTUgMTAgMUMxMCAxLjU1MjI4IDkuNTUyMjkgMiA5IDJIMUMwLjQ0NzcxNSAyIDAgMS41NTIyOCAwIDFaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K');
       visibility: visible;
@@ -142,6 +150,7 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
   (
     {
       checked,
+      className,
       defaultChecked,
       indeterminate,
       disabled,
@@ -154,11 +163,26 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
     },
     ref,
   ): ReactElement => {
+    const enabled = useFeatureFlag('primer_react_css_modules_staff')
     const checkboxRef = useProvidedRefOrCreate(ref as React.RefObject<HTMLInputElement>)
     const checkboxGroupContext = useContext(CheckboxGroupContext)
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
       checkboxGroupContext.onChange && checkboxGroupContext.onChange(e)
       onChange && onChange(e)
+    }
+    const inputProps = {
+      type: 'checkbox',
+      disabled,
+      ref: checkboxRef,
+      checked: indeterminate ? false : checked,
+      defaultChecked,
+      required,
+      ['aria-required']: required ? ('true' as const) : ('false' as const),
+      ['aria-invalid']: validationStatus === 'error' ? ('true' as const) : ('false' as const),
+      onChange: handleOnChange,
+      value,
+      name: value,
+      ...rest,
     }
 
     useLayoutEffect(() => {
@@ -180,23 +204,21 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       }
     })
 
-    return (
-      <StyledCheckbox
-        type="checkbox"
-        disabled={disabled}
-        ref={checkboxRef}
-        checked={indeterminate ? false : checked}
-        defaultChecked={defaultChecked}
-        sx={sxProp}
-        required={required}
-        aria-required={required ? 'true' : 'false'}
-        aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
-        onChange={handleOnChange}
-        value={value}
-        name={value}
-        {...rest}
-      />
-    )
+    if (enabled) {
+      if (sxProp) {
+        return (
+          <Box
+            as="input"
+            {...inputProps}
+            className={clsx(className, sharedClasses.Input, classes.Checkbox)}
+            sx={sxProp}
+          />
+        )
+      }
+      return <input {...inputProps} className={clsx(className, sharedClasses.Input, classes.Checkbox)} />
+    }
+
+    return <StyledCheckbox {...inputProps} className={className} sx={sxProp} />
   },
 )
 

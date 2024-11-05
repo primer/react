@@ -7,6 +7,7 @@ import axe from 'axe-core'
 import customRules from '@github/axe-github'
 import {ThemeProvider} from '..'
 import {default as defaultTheme} from '../theme'
+import type {LiveRegionElement} from '@primer/live-region-element'
 
 type ComputedStyles = Record<string, string | Record<string, string>>
 
@@ -192,6 +193,7 @@ export function unloadCSS(path: string) {
 interface Options {
   skipAs?: boolean
   skipSx?: boolean
+  skipDisplayName?: boolean
 }
 
 interface BehavesAsComponent {
@@ -220,9 +222,11 @@ export function behavesAsComponent({Component, toRender, options}: BehavesAsComp
     })
   }
 
-  it('sets a valid displayName', () => {
-    expect(Component.displayName).toMatch(COMPONENT_DISPLAY_NAME_REGEX)
-  })
+  if (!options.skipDisplayName) {
+    it('sets a valid displayName', () => {
+      expect(Component.displayName).toMatch(COMPONENT_DISPLAY_NAME_REGEX)
+    })
+  }
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -269,4 +273,12 @@ export function checkStoriesForAxeViolations(name: string, storyDir?: string) {
       expect(results).toHaveNoViolations()
     })
   })
+}
+
+export function getLiveRegion(): LiveRegionElement {
+  const liveRegion = document.querySelector('live-region')
+  if (liveRegion) {
+    return liveRegion as LiveRegionElement
+  }
+  throw new Error('No live-region found')
 }

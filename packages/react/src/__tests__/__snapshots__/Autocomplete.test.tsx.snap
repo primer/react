@@ -327,11 +327,19 @@ exports[`snapshots renders a loading state 1`] = `
   justify-content: center;
 }
 
+.c3:not(:focus):not(:active):not(:focus-within) {
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 .c2 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
 }
 
 .c0 {
@@ -347,21 +355,6 @@ exports[`snapshots renders a loading state 1`] = `
   border-width: 0;
 }
 
-.c4:not(:focus):not(:active):not(:focus-within) {
-  -webkit-clip-path: inset(50%);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-.c3 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-}
-
 @media (min-width:768px) {
 
 }
@@ -374,12 +367,12 @@ exports[`snapshots renders a loading state 1`] = `
       display="flex"
     >
       <span
-        className="c2"
+        className="Box"
       >
         <svg
           aria-hidden={true}
-          aria-labelledby=":r1v:"
-          className="c3"
+          aria-labelledby=":r2h:"
+          className="c2"
           fill="none"
           height="32px"
           viewBox="0 0 16 16"
@@ -403,8 +396,8 @@ exports[`snapshots renders a loading state 1`] = `
           />
         </svg>
         <span
-          className="c4"
-          id=":r1v:"
+          className="c3"
+          id=":r2h:"
         >
           Loading
         </span>
@@ -521,6 +514,14 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 
 .c2:focus {
   outline: 0;
+}
+
+@media (forced-colors:active) {
+
+}
+
+@media (forced-colors:active) {
+
 }
 
 @media (forced-colors:active) {
@@ -750,7 +751,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 .c3[aria-disabled] [data-component="ActionList.Checkbox"],
 .c3[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -778,7 +779,6 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 }
 
 .c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c3:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c3[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
@@ -786,6 +786,22 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 .c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
 .c3[data-focus-visible-added] + li {
   --divider-color: transparent;
+}
+
+.c3[data-is-active-descendant] {
+  font-weight: 400;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c3[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
 }
 
 [data-component="ActionList.Divider"] + .c2 {
@@ -798,9 +814,20 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 }
 
 @media (forced-colors:active) {
+  .c6 {
+    border-width: 1px;
+  }
+}
+
+@media (forced-colors:active) {
+
+}
+
+@media (forced-colors:active) {
   .c3:focus,
   .c3:focus-visible,
-  .c3 > a.focus-visible {
+  .c3 > a.focus-visible,
+  .c3[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -849,7 +876,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
         role="listbox"
       >
         <li
-          aria-labelledby="0--label "
+          aria-labelledby="0--label  "
           aria-selected={false}
           className="c2 c3"
           data-id="0"
@@ -881,7 +908,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           </div>
         </li>
         <li
-          aria-labelledby="1--label "
+          aria-labelledby="1--label  "
           aria-selected={false}
           className="c2 c3"
           data-id="1"
@@ -913,7 +940,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           </div>
         </li>
         <li
-          aria-labelledby="2--label "
+          aria-labelledby="2--label  "
           aria-selected={false}
           className="c2 c3"
           data-id="2"
@@ -945,7 +972,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           </div>
         </li>
         <li
-          aria-labelledby="3--label "
+          aria-labelledby="3--label  "
           aria-selected={false}
           className="c2 c3"
           data-id="3"
@@ -977,7 +1004,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           </div>
         </li>
         <li
-          aria-labelledby="4--label "
+          aria-labelledby="4--label  "
           aria-selected={false}
           className="c2 c3"
           data-id="4"
@@ -1009,7 +1036,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           </div>
         </li>
         <li
-          aria-labelledby="5--label "
+          aria-labelledby="5--label  "
           aria-selected={false}
           className="c2 c3"
           data-id="5"
@@ -1041,7 +1068,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           </div>
         </li>
         <li
-          aria-labelledby="6--label "
+          aria-labelledby="6--label  "
           aria-selected={false}
           className="c2 c3"
           data-id="6"
@@ -1073,7 +1100,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           </div>
         </li>
         <li
-          aria-labelledby="7--label "
+          aria-labelledby="7--label  "
           aria-selected={false}
           className="c2 c3"
           data-id="7"
@@ -1105,7 +1132,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           </div>
         </li>
         <li
-          aria-labelledby="20--label "
+          aria-labelledby="20--label  "
           aria-selected={false}
           className="c2 c3"
           data-id="20"
@@ -1137,7 +1164,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           </div>
         </li>
         <li
-          aria-labelledby="21--label "
+          aria-labelledby="21--label  "
           aria-selected={false}
           className="c2 c3"
           data-id="21"
@@ -1169,7 +1196,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
           </div>
         </li>
         <li
-          aria-labelledby="add-new-item--label "
+          aria-labelledby="add-new-item--label  "
           aria-selected={false}
           className="c2 c3"
           data-id="add-new-item"
@@ -1338,6 +1365,10 @@ exports[`snapshots renders a multiselect input 1`] = `
 
 .c2:focus {
   outline: 0;
+}
+
+@media (forced-colors:active) {
+
 }
 
 @media (forced-colors:active) {
@@ -1527,7 +1558,7 @@ exports[`snapshots renders a multiselect input 1`] = `
 .c3[aria-disabled] [data-component="ActionList.Checkbox"],
 .c3[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -1555,7 +1586,6 @@ exports[`snapshots renders a multiselect input 1`] = `
 }
 
 .c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c3:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c3[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
@@ -1565,10 +1595,33 @@ exports[`snapshots renders a multiselect input 1`] = `
   --divider-color: transparent;
 }
 
+.c3[data-is-active-descendant] {
+  font-weight: 400;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c3[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
+}
+
+@media (forced-colors:active) {
+  .c5 {
+    border-width: 1px;
+  }
+}
+
 @media (forced-colors:active) {
   .c3:focus,
   .c3:focus-visible,
-  .c3 > a.focus-visible {
+  .c3 > a.focus-visible,
+  .c3[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -1609,7 +1662,7 @@ exports[`snapshots renders a multiselect input 1`] = `
         role="listbox"
       >
         <li
-          aria-labelledby="0--label "
+          aria-labelledby="0--label  "
           aria-selected={false}
           className="c2 c3"
           data-id="0"
@@ -1641,7 +1694,7 @@ exports[`snapshots renders a multiselect input 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="1--label "
+          aria-labelledby="1--label  "
           aria-selected={false}
           className="c2 c3"
           data-id="1"
@@ -1673,7 +1726,7 @@ exports[`snapshots renders a multiselect input 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="2--label "
+          aria-labelledby="2--label  "
           aria-selected={false}
           className="c2 c3"
           data-id="2"
@@ -1705,7 +1758,7 @@ exports[`snapshots renders a multiselect input 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="3--label "
+          aria-labelledby="3--label  "
           aria-selected={false}
           className="c2 c3"
           data-id="3"
@@ -1737,7 +1790,7 @@ exports[`snapshots renders a multiselect input 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="4--label "
+          aria-labelledby="4--label  "
           aria-selected={false}
           className="c2 c3"
           data-id="4"
@@ -1769,7 +1822,7 @@ exports[`snapshots renders a multiselect input 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="5--label "
+          aria-labelledby="5--label  "
           aria-selected={false}
           className="c2 c3"
           data-id="5"
@@ -1801,7 +1854,7 @@ exports[`snapshots renders a multiselect input 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="6--label "
+          aria-labelledby="6--label  "
           aria-selected={false}
           className="c2 c3"
           data-id="6"
@@ -1833,7 +1886,7 @@ exports[`snapshots renders a multiselect input 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="7--label "
+          aria-labelledby="7--label  "
           aria-selected={false}
           className="c2 c3"
           data-id="7"
@@ -1865,7 +1918,7 @@ exports[`snapshots renders a multiselect input 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="20--label "
+          aria-labelledby="20--label  "
           aria-selected={false}
           className="c2 c3"
           data-id="20"
@@ -1897,7 +1950,7 @@ exports[`snapshots renders a multiselect input 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="21--label "
+          aria-labelledby="21--label  "
           aria-selected={false}
           className="c2 c3"
           data-id="21"
@@ -2041,6 +2094,14 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 
 .c2:focus {
   outline: 0;
+}
+
+@media (forced-colors:active) {
+
+}
+
+@media (forced-colors:active) {
+
 }
 
 @media (forced-colors:active) {
@@ -2304,7 +2365,6 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 }
 
 .c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c3:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c3[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
@@ -2312,6 +2372,22 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 .c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + .c2,
 .c3[data-focus-visible-added] + li {
   --divider-color: transparent;
+}
+
+.c3[data-is-active-descendant] {
+  font-weight: 400;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c3[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
 }
 
 .c8 {
@@ -2358,7 +2434,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 .c8[aria-disabled] [data-component="ActionList.Checkbox"],
 .c8[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -2386,7 +2462,6 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 }
 
 .c8:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c8:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c8[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
@@ -2396,10 +2471,39 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   --divider-color: transparent;
 }
 
+.c8[data-is-active-descendant] {
+  font-weight: 400;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c8[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
+}
+
+@media (forced-colors:active) {
+  .c5 {
+    border-width: 8px;
+  }
+}
+
+@media (forced-colors:active) {
+  .c9 {
+    border-width: 1px;
+  }
+}
+
 @media (forced-colors:active) {
   .c3:focus,
   .c3:focus-visible,
-  .c3 > a.focus-visible {
+  .c3 > a.focus-visible,
+  .c3[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -2428,7 +2532,8 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 @media (forced-colors:active) {
   .c8:focus,
   .c8:focus-visible,
-  .c8 > a.focus-visible {
+  .c8 > a.focus-visible,
+  .c8[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -2469,7 +2574,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
         role="listbox"
       >
         <li
-          aria-labelledby="0--label "
+          aria-labelledby="0--label  "
           aria-selected={true}
           className="c2 c3"
           data-id="0"
@@ -2501,7 +2606,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="1--label "
+          aria-labelledby="1--label  "
           aria-selected={true}
           className="c2 c3"
           data-id="1"
@@ -2533,7 +2638,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="2--label "
+          aria-labelledby="2--label  "
           aria-selected={true}
           className="c2 c3"
           data-id="2"
@@ -2565,7 +2670,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="3--label "
+          aria-labelledby="3--label  "
           aria-selected={false}
           className="c2 c8"
           data-id="3"
@@ -2597,7 +2702,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="4--label "
+          aria-labelledby="4--label  "
           aria-selected={false}
           className="c2 c8"
           data-id="4"
@@ -2629,7 +2734,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="5--label "
+          aria-labelledby="5--label  "
           aria-selected={false}
           className="c2 c8"
           data-id="5"
@@ -2661,7 +2766,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="6--label "
+          aria-labelledby="6--label  "
           aria-selected={false}
           className="c2 c8"
           data-id="6"
@@ -2693,7 +2798,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="7--label "
+          aria-labelledby="7--label  "
           aria-selected={false}
           className="c2 c8"
           data-id="7"
@@ -2725,7 +2830,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="20--label "
+          aria-labelledby="20--label  "
           aria-selected={false}
           className="c2 c8"
           data-id="20"
@@ -2757,7 +2862,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="21--label "
+          aria-labelledby="21--label  "
           aria-selected={false}
           className="c2 c8"
           data-id="21"
@@ -3052,7 +3157,7 @@ exports[`snapshots renders a single select input 1`] = `
 .c3[aria-disabled] [data-component="ActionList.Checkbox"],
 .c3[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -3080,7 +3185,6 @@ exports[`snapshots renders a single select input 1`] = `
 }
 
 .c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c3:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c3[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
@@ -3090,10 +3194,27 @@ exports[`snapshots renders a single select input 1`] = `
   --divider-color: transparent;
 }
 
+.c3[data-is-active-descendant] {
+  font-weight: 400;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c3[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
+}
+
 @media (forced-colors:active) {
   .c3:focus,
   .c3:focus-visible,
-  .c3 > a.focus-visible {
+  .c3 > a.focus-visible,
+  .c3[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -3134,7 +3255,7 @@ exports[`snapshots renders a single select input 1`] = `
         role="listbox"
       >
         <li
-          aria-labelledby="0--label "
+          aria-labelledby="0--label  "
           className="c2 c3"
           data-id="0"
           id="0"
@@ -3160,7 +3281,7 @@ exports[`snapshots renders a single select input 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="1--label "
+          aria-labelledby="1--label  "
           className="c2 c3"
           data-id="1"
           id="1"
@@ -3186,7 +3307,7 @@ exports[`snapshots renders a single select input 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="2--label "
+          aria-labelledby="2--label  "
           className="c2 c3"
           data-id="2"
           id="2"
@@ -3212,7 +3333,7 @@ exports[`snapshots renders a single select input 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="3--label "
+          aria-labelledby="3--label  "
           className="c2 c3"
           data-id="3"
           id="3"
@@ -3238,7 +3359,7 @@ exports[`snapshots renders a single select input 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="4--label "
+          aria-labelledby="4--label  "
           className="c2 c3"
           data-id="4"
           id="4"
@@ -3264,7 +3385,7 @@ exports[`snapshots renders a single select input 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="5--label "
+          aria-labelledby="5--label  "
           className="c2 c3"
           data-id="5"
           id="5"
@@ -3290,7 +3411,7 @@ exports[`snapshots renders a single select input 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="6--label "
+          aria-labelledby="6--label  "
           className="c2 c3"
           data-id="6"
           id="6"
@@ -3316,7 +3437,7 @@ exports[`snapshots renders a single select input 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="7--label "
+          aria-labelledby="7--label  "
           className="c2 c3"
           data-id="7"
           id="7"
@@ -3342,7 +3463,7 @@ exports[`snapshots renders a single select input 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="20--label "
+          aria-labelledby="20--label  "
           className="c2 c3"
           data-id="20"
           id="20"
@@ -3368,7 +3489,7 @@ exports[`snapshots renders a single select input 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="21--label "
+          aria-labelledby="21--label  "
           className="c2 c3"
           data-id="21"
           id="21"
@@ -3523,7 +3644,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
 .c3[aria-disabled] [data-component="ActionList.Checkbox"],
 .c3[data-inactive] [data-component="ActionList.Checkbox"] {
   cursor: not-allowed;
-  background-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+  background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
 }
 
@@ -3551,7 +3672,6 @@ exports[`snapshots renders with a custom text input component 1`] = `
 }
 
 .c3:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]),
-.c3:focus:not([aria-disabled]):not([data-inactive]):not([data-loading]),
 .c3[data-focus-visible-added]:not([aria-disabled]):not([data-inactive]) {
   --divider-color: transparent;
 }
@@ -3561,10 +3681,27 @@ exports[`snapshots renders with a custom text input component 1`] = `
   --divider-color: transparent;
 }
 
+.c3[data-is-active-descendant] {
+  font-weight: 400;
+  background-color: var(--control-transparent-bgColor-selected,var(--color-action-list-item-default-selected-bg,rgba(208,215,222,0.24)));
+}
+
+.c3[data-is-active-descendant]::after {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: -8px;
+  width: 4px;
+  height: 24px;
+  content: "";
+  background-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  border-radius: 6px;
+}
+
 @media (forced-colors:active) {
   .c3:focus,
   .c3:focus-visible,
-  .c3 > a.focus-visible {
+  .c3 > a.focus-visible,
+  .c3[data-is-active-descendant] {
     outline: solid 1px transparent !important;
   }
 }
@@ -3601,7 +3738,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
         role="listbox"
       >
         <li
-          aria-labelledby="0--label "
+          aria-labelledby="0--label  "
           className="c2 c3"
           data-id="0"
           id="0"
@@ -3627,7 +3764,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="1--label "
+          aria-labelledby="1--label  "
           className="c2 c3"
           data-id="1"
           id="1"
@@ -3653,7 +3790,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="2--label "
+          aria-labelledby="2--label  "
           className="c2 c3"
           data-id="2"
           id="2"
@@ -3679,7 +3816,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="3--label "
+          aria-labelledby="3--label  "
           className="c2 c3"
           data-id="3"
           id="3"
@@ -3705,7 +3842,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="4--label "
+          aria-labelledby="4--label  "
           className="c2 c3"
           data-id="4"
           id="4"
@@ -3731,7 +3868,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="5--label "
+          aria-labelledby="5--label  "
           className="c2 c3"
           data-id="5"
           id="5"
@@ -3757,7 +3894,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="6--label "
+          aria-labelledby="6--label  "
           className="c2 c3"
           data-id="6"
           id="6"
@@ -3783,7 +3920,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="7--label "
+          aria-labelledby="7--label  "
           className="c2 c3"
           data-id="7"
           id="7"
@@ -3809,7 +3946,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="20--label "
+          aria-labelledby="20--label  "
           className="c2 c3"
           data-id="20"
           id="20"
@@ -3835,7 +3972,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
           </div>
         </li>
         <li
-          aria-labelledby="21--label "
+          aria-labelledby="21--label  "
           className="c2 c3"
           data-id="21"
           id="21"

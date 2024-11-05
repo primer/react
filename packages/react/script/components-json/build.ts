@@ -31,7 +31,7 @@ const docsFiles = glob.sync('src/**/*.docs.json')
 
 // Get the story name prefix for the default story id
 const storyPrefix = {
-  draft: 'drafts-',
+  draft: 'experimental-',
   experimental: 'experimental-',
   deprecated: 'deprecated-',
   alpha: '',
@@ -158,19 +158,35 @@ function getStorySourceCode(filepath: string) {
     ExportNamedDeclaration(path) {
       const varDeclaration = path.node.declaration
 
-      let id: Identifier
-      let func: ArrowFunctionExpression | FunctionDeclaration
+      let id: Identifier | null = null
+      let func: ArrowFunctionExpression | FunctionDeclaration | null = null
 
       if (varDeclaration?.type === 'VariableDeclaration') {
         id = varDeclaration.declarations[0].id as Identifier
         const init = varDeclaration.declarations[0].init
-        if (init?.type === 'ArrowFunctionExpression') func = init
-        else return // not a function = not story
+        if (init?.type === 'ArrowFunctionExpression') {
+          func = init
+        } else if (init?.type === 'ObjectExpression') {
+          const renderProperty = init.properties.find(property => {
+            if (property.type === 'ObjectProperty') {
+              if (property.key.type === 'Identifier') {
+                return property.key.name === 'render'
+              }
+            }
+            return false
+          })
+
+          if (renderProperty?.type === 'ObjectProperty' && renderProperty.value.type === 'ArrowFunctionExpression') {
+            func = renderProperty.value
+          }
+        }
       } else if (varDeclaration?.type === 'FunctionDeclaration') {
         id = varDeclaration.id as Identifier
         func = varDeclaration
-      } else {
-        return // not a function = not story
+      }
+
+      if (!id || !func) {
+        return
       }
 
       const code = prettier

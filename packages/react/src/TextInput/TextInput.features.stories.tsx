@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Box, FormControl} from '..'
+import {Box, FormControl, Heading, Stack} from '..'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {CalendarIcon, CheckIcon, XCircleFillIcon} from '@primer/octicons-react'
@@ -31,9 +31,13 @@ export const WithCaption = () => (
 
 export const VisuallyHiddenLabel = () => (
   <Box as="form">
+    <Heading as="h2" variant="small">
+      Primer form title
+    </Heading>
     <FormControl>
-      <FormControl.Label visuallyHidden>Default label</FormControl.Label>
+      <FormControl.Label visuallyHidden>Primer form label</FormControl.Label>
       <TextInput />
+      <FormControl.Caption>Label is visually hidden; the title describes the purpose visually</FormControl.Caption>
     </FormControl>
   </Box>
 )
@@ -94,34 +98,42 @@ export const Required = () => (
   </Box>
 )
 
-export const WithLeadingVisual = () => (
-  <Box as="form">
-    <FormControl>
-      <FormControl.Label>Default label</FormControl.Label>
-      <TextInput leadingVisual={CheckIcon} />
-    </FormControl>
-    <FormControl>
-      <FormControl.Label>Enter monies</FormControl.Label>
-      <TextInput leadingVisual="$" />
-    </FormControl>
-  </Box>
-)
+export const WithLeadingVisual = () => {
+  const Checkmark = () => <CheckIcon aria-label="Checkmark" />
 
-export const WithTrailingIcon = () => (
-  <Box>
-    <FormControl>
-      <FormControl.Label>Default label</FormControl.Label>
-      <TextInput trailingVisual={CheckIcon} />
-    </FormControl>
-    <FormControl>
-      <FormControl.Label>Enter monies</FormControl.Label>
-      <TextInput trailingVisual="minutes" placeholder="200" />
-    </FormControl>
-  </Box>
-)
+  return (
+    <Box as="form">
+      <FormControl>
+        <FormControl.Label>Default label</FormControl.Label>
+        <TextInput leadingVisual={Checkmark} />
+      </FormControl>
+      <FormControl>
+        <FormControl.Label>Enter monies</FormControl.Label>
+        <TextInput leadingVisual="$" />
+      </FormControl>
+    </Box>
+  )
+}
+
+export const WithTrailingIcon = () => {
+  const Checkmark = () => <CheckIcon aria-label="Checkmark" />
+
+  return (
+    <Box>
+      <FormControl>
+        <FormControl.Label>Default label</FormControl.Label>
+        <TextInput trailingVisual={Checkmark} />
+      </FormControl>
+      <FormControl>
+        <FormControl.Label>Enter monies</FormControl.Label>
+        <TextInput trailingVisual="minutes" placeholder="200" />
+      </FormControl>
+    </Box>
+  )
+}
 
 export const WithTrailingAction = () => {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState('sample text')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
@@ -131,18 +143,15 @@ export const WithTrailingAction = () => {
       <FormControl>
         <FormControl.Label>Default label</FormControl.Label>
         <TextInput
-          trailingAction={
-            <TextInput.Action
-              onClick={() => {
-                setValue('')
-              }}
-              icon={XCircleFillIcon}
-              aria-label="Clear input"
-              sx={{color: 'fg.subtle'}}
-            />
-          }
           value={value}
           onChange={handleChange}
+          trailingAction={
+            <Stack justify="center" style={{minWidth: '34px'}}>
+              {value.length ? (
+                <TextInput.Action onClick={() => setValue('')} icon={XCircleFillIcon} aria-label="Clear input" />
+              ) : undefined}
+            </Stack>
+          }
         />
       </FormControl>
     </Box>
@@ -150,7 +159,7 @@ export const WithTrailingAction = () => {
 }
 
 export const WithTooltipDirection = () => {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState('sample text')
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
@@ -160,19 +169,20 @@ export const WithTooltipDirection = () => {
       <FormControl>
         <FormControl.Label>Default label</FormControl.Label>
         <TextInput
-          trailingAction={
-            <TextInput.Action
-              onClick={() => {
-                setValue('')
-              }}
-              icon={XCircleFillIcon}
-              aria-label="Clear input"
-              tooltipDirection="nw"
-              sx={{color: 'fg.subtle'}}
-            />
-          }
           value={value}
           onChange={handleChange}
+          trailingAction={
+            <Stack justify="center" style={{minWidth: '34px'}}>
+              {value.length ? (
+                <TextInput.Action
+                  onClick={() => setValue('')}
+                  icon={XCircleFillIcon}
+                  aria-label="Clear input"
+                  tooltipDirection="nw"
+                />
+              ) : undefined}
+            </Stack>
+          }
         />
       </FormControl>
     </Box>
@@ -292,3 +302,16 @@ WithLoadingIndicator.parameters = {
     exclude: [...textInputExcludedControlKeys, 'loaderPosition', ...Object.keys(formControlArgTypes), 'children'],
   },
 }
+
+export const WithAutocompleteAttribute = () => (
+  <Box as="form">
+    <FormControl>
+      <FormControl.Label>First name</FormControl.Label>
+      <TextInput autoComplete="given-name" />
+    </FormControl>
+    <FormControl>
+      <FormControl.Label>Last name</FormControl.Label>
+      <TextInput autoComplete="family-name" />
+    </FormControl>
+  </Box>
+)

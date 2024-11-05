@@ -1,19 +1,9 @@
 import React, {useState, useCallback, useRef} from 'react'
-import {Button, IconButton, Breadcrumbs, ActionMenu, ActionList, NavList} from '..'
+import {Button, IconButton, Breadcrumbs, ActionMenu, ActionList} from '..'
 import {PageHeader} from '../PageHeader'
 import {Tooltip} from './Tooltip'
-import {Dialog} from '../drafts'
-import {
-  GitBranchIcon,
-  KebabHorizontalIcon,
-  TriangleDownIcon,
-  CheckIcon,
-  PeopleIcon,
-  SmileyIcon,
-  EyeIcon,
-  CommentIcon,
-  XIcon,
-} from '@primer/octicons-react'
+import {Dialog} from '../experimental'
+import {GitBranchIcon, KebabHorizontalIcon, TriangleDownIcon, CheckIcon, XIcon} from '@primer/octicons-react'
 import {default as VisuallyHidden} from '../_VisuallyHidden'
 
 export default {
@@ -28,7 +18,7 @@ export const CustomId = () => (
 )
 
 export const FilesPage = () => (
-  <PageHeader>
+  <PageHeader role="banner" aria-label="Banner">
     <PageHeader.ContextArea>
       <PageHeader.ParentLink>Files</PageHeader.ParentLink>
       <PageHeader.ContextAreaActions>
@@ -161,37 +151,6 @@ FilesPage.parameters = {
   },
 }
 
-export const Hyperlist = () => (
-  <NavList>
-    <NavList.Item href="/assigned" aria-current="page">
-      <NavList.LeadingVisual>
-        <PeopleIcon />
-      </NavList.LeadingVisual>
-      Assigned to me
-    </NavList.Item>
-    <Tooltip text="Created by me ⌥ ⇧ 2" direction="n">
-      <NavList.Item href="/created">
-        <NavList.LeadingVisual>
-          <SmileyIcon />
-        </NavList.LeadingVisual>
-        Created by me
-      </NavList.Item>
-    </Tooltip>
-    <NavList.Item href="/mentioned">
-      <NavList.LeadingVisual>
-        <CommentIcon />
-      </NavList.LeadingVisual>
-      Mentioned
-    </NavList.Item>
-    <NavList.Item href="/recent-activity">
-      <NavList.LeadingVisual>
-        <EyeIcon />
-      </NavList.LeadingVisual>
-      Recent activity
-    </NavList.Item>
-  </NavList>
-)
-
 export const DialogTrigger = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [secondOpen, setSecondOpen] = useState(false)
@@ -202,7 +161,7 @@ export const DialogTrigger = () => {
   return (
     <>
       <Tooltip text="Ready to merge">
-        <IconButton ref={buttonRef} onClick={() => setIsOpen(!isOpen)} icon={CheckIcon} aria-label="Check mark" />
+        <IconButton ref={buttonRef} onClick={() => setIsOpen(!isOpen)} icon={CheckIcon} aria-label="Merge" />
       </Tooltip>
       {isOpen && (
         <Dialog
@@ -211,7 +170,7 @@ export const DialogTrigger = () => {
           footerButtons={[
             {buttonType: 'default', content: 'Open Second Dialog', onClick: openSecondDialog},
             {buttonType: 'danger', content: 'Delete the universe', onClick: onDialogClose},
-            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog, autoFocus: true},
+            {buttonType: 'primary', content: 'Proceed', onClick: openSecondDialog},
           ]}
         >
           The icon button that triggers the dialog, takes the focus back when the dialog is closed however the the

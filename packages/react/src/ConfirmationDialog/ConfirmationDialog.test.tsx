@@ -5,11 +5,10 @@ import React, {useCallback, useRef, useState} from 'react'
 import {ActionMenu} from '../deprecated/ActionMenu'
 import BaseStyles from '../BaseStyles'
 import Box from '../Box'
-import Button from '../deprecated/Button/Button'
+import {Button} from '../Button'
 import {ConfirmationDialog, useConfirm} from './ConfirmationDialog'
 import theme from '../theme'
 import {ThemeProvider} from '../ThemeProvider'
-import {SSRProvider} from '../utils/ssr'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 
 const Basic = ({confirmButtonType}: Pick<React.ComponentProps<typeof ConfirmationDialog>, 'confirmButtonType'>) => {
@@ -18,24 +17,22 @@ const Basic = ({confirmButtonType}: Pick<React.ComponentProps<typeof Confirmatio
   const onDialogClose = useCallback(() => setIsOpen(false), [])
   return (
     <ThemeProvider theme={theme}>
-      <SSRProvider>
-        <BaseStyles>
-          <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
-            Show dialog
-          </Button>
-          {isOpen && (
-            <ConfirmationDialog
-              title="Confirm"
-              onClose={onDialogClose}
-              cancelButtonContent="Secondary"
-              confirmButtonContent="Primary"
-              confirmButtonType={confirmButtonType}
-            >
-              Lorem ipsum dolor sit Pippin good dog.
-            </ConfirmationDialog>
-          )}
-        </BaseStyles>
-      </SSRProvider>
+      <BaseStyles>
+        <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
+          Show dialog
+        </Button>
+        {isOpen && (
+          <ConfirmationDialog
+            title="Confirm"
+            onClose={onDialogClose}
+            cancelButtonContent="Secondary"
+            confirmButtonContent="Primary"
+            confirmButtonType={confirmButtonType}
+          >
+            Lorem ipsum dolor sit Pippin good dog.
+          </ConfirmationDialog>
+        )}
+      </BaseStyles>
     </ThemeProvider>
   )
 }
@@ -57,16 +54,14 @@ const ShorthandHookFromActionMenu = () => {
   }, [confirm])
   return (
     <ThemeProvider theme={theme}>
-      <SSRProvider>
-        <BaseStyles>
-          <Box display="flex" flexDirection="column" alignItems="flex-start">
-            <ActionMenu
-              renderAnchor={props => <Button {...props}>{text}</Button>}
-              items={[{text: 'Show dialog', onAction: onButtonClick}]}
-            />
-          </Box>
-        </BaseStyles>
-      </SSRProvider>
+      <BaseStyles>
+        <Box display="flex" flexDirection="column" alignItems="flex-start">
+          <ActionMenu
+            renderAnchor={props => <Button {...props}>{text}</Button>}
+            items={[{text: 'Show dialog', onAction: onButtonClick}]}
+          />
+        </Box>
+      </BaseStyles>
     </ThemeProvider>
   )
 }

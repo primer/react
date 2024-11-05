@@ -11,6 +11,7 @@ import Box from '../Box'
 import Label from '../Label'
 import Heading from '../Heading'
 import {AnchoredOverlay} from '../AnchoredOverlay'
+import CounterLabel from '../CounterLabel'
 import {
   EyeIcon,
   BookIcon,
@@ -25,6 +26,9 @@ import {
   PeopleIcon,
   FileDirectoryIcon,
   PlusCircleIcon,
+  GitPullRequestIcon,
+  IssueOpenedIcon,
+  ProjectIcon,
   LinkExternalIcon,
 } from '@primer/octicons-react'
 import {FeatureFlags} from '../FeatureFlags'
@@ -354,6 +358,24 @@ export const ListBoxMultiSelect = () => {
   )
 }
 
+export const WithDynamicContent = () => {
+  const [isTrue, setIsTrue] = React.useState(false)
+
+  return (
+    <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+      <ActionList>
+        <ActionList.Item
+          onSelect={() => {
+            setIsTrue(!isTrue)
+          }}
+        >
+          Activated? {isTrue ? 'Yes' : 'No'}
+        </ActionList.Item>
+      </ActionList>
+    </FeatureFlags>
+  )
+}
+
 export const DisabledSelectedMultiselect = () => (
   <ActionList selectionVariant="multiple" role="menu" aria-label="Project">
     <ActionList.Item role="menuitemcheckbox" selected aria-checked disabled>
@@ -633,23 +655,27 @@ export const InsideOverlay = () => {
       open={open}
       onOpen={toggle}
       onClose={toggle}
-      renderAnchor={props => <button {...props}>toggle overlay</button>}
+      renderAnchor={props => (
+        <button type="button" {...props}>
+          toggle overlay
+        </button>
+      )}
     >
-      <ActionList>
-        <ActionList.Item>
+      <ActionList role="menu">
+        <ActionList.Item role="menuitem">
           Use your arrow keys
           <ActionList.TrailingVisual>↓</ActionList.TrailingVisual>
         </ActionList.Item>
-        <ActionList.Item>
+        <ActionList.Item role="menuitem">
           keep going
           <ActionList.TrailingVisual>↓</ActionList.TrailingVisual>
         </ActionList.Item>
-        <ActionList.Item>
+        <ActionList.Item role="menuitem">
           more more
           <ActionList.TrailingVisual>↓</ActionList.TrailingVisual>
         </ActionList.Item>
         <ActionList.Divider />
-        <ActionList.Item variant="danger">
+        <ActionList.Item variant="danger" role="menuitem">
           now go up!
           <ActionList.TrailingVisual>↑</ActionList.TrailingVisual>
         </ActionList.Item>
@@ -725,6 +751,38 @@ export const GroupWithFilledTitle = () => {
     </ActionList>
   )
 }
+
+export const WithCustomTrailingVisuals = () => (
+  <ActionList>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <IssueOpenedIcon />
+      </ActionList.LeadingVisual>
+      Issues
+      <ActionList.TrailingVisual>
+        <CounterLabel>20</CounterLabel>
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <GitPullRequestIcon />
+      </ActionList.LeadingVisual>
+      PRs
+      <ActionList.TrailingVisual>
+        <CounterLabel>12</CounterLabel>
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+    <ActionList.Item>
+      <ActionList.LeadingVisual>
+        <ProjectIcon />
+      </ActionList.LeadingVisual>
+      Projects
+      <ActionList.TrailingVisual>
+        <CounterLabel>2</CounterLabel>
+      </ActionList.TrailingVisual>
+    </ActionList.Item>
+  </ActionList>
+)
 
 export const ActionListWithButtonSemantics = () => {
   return (

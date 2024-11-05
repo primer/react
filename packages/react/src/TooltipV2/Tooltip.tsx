@@ -31,10 +31,10 @@ const StyledTooltip = styled.span`
     white-space: normal;
     font: normal normal 11px/1.5 ${get('fonts.normal')};
     -webkit-font-smoothing: subpixel-antialiased;
-    color: ${get('colors.fg.onEmphasis')};
+    color: var(--tooltip-fgColor, ${get('colors.fg.onEmphasis')});
     text-align: center;
     word-wrap: break-word;
-    background: ${get('colors.neutral.emphasisPlus')};
+    background: var(--tooltip-bgColor, ${get('colors.neutral.emphasisPlus')});
     border-radius: ${get('radii.2')};
     border: 0;
     opacity: 0;
@@ -133,7 +133,7 @@ export type TooltipProps = React.PropsWithChildren<
     ComponentProps<typeof StyledTooltip>
 >
 
-export type TriggerPropsType = {
+type TriggerPropsType = {
   'aria-describedby'?: string
   'aria-labelledby'?: string
   'aria-label'?: string
@@ -171,7 +171,7 @@ const positionToDirection: Record<string, TooltipDirection> = {
 // The list is from GitHub's custom-axe-rules https://github.com/github/github/blob/master/app/assets/modules/github/axe-custom-rules.ts#L3
 const interactiveElements = [
   'a[href]',
-  'button:not(:disabled)',
+  'button:not([disabled])',
   'summary',
   'select',
   'input:not([type=hidden])',
@@ -198,40 +198,72 @@ export const Tooltip = React.forwardRef(
     const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
     const openTooltip = () => {
-      if (
-        tooltipElRef.current &&
-        triggerRef.current &&
-        tooltipElRef.current.hasAttribute('popover') &&
-        !tooltipElRef.current.matches(':popover-open')
-      ) {
-        const tooltip = tooltipElRef.current
-        const trigger = triggerRef.current
-        tooltip.showPopover()
-        setIsPopoverOpen(true)
-        /*
-         * TOOLTIP POSITIONING
-         */
-        const settings = {
-          side: directionToPosition[direction].side,
-          align: directionToPosition[direction].align,
+      try {
+        if (
+          tooltipElRef.current &&
+          triggerRef.current &&
+          tooltipElRef.current.hasAttribute('popover') &&
+          !tooltipElRef.current.matches(':popover-open')
+        ) {
+          const tooltip = tooltipElRef.current
+          const trigger = triggerRef.current
+          tooltip.showPopover()
+          setIsPopoverOpen(true)
+          /*
+           * TOOLTIP POSITIONING
+           */
+          const settings = {
+            side: directionToPosition[direction].side,
+            align: directionToPosition[direction].align,
+          }
+          const {top, left, anchorAlign, anchorSide} = getAnchoredPosition(tooltip, trigger, settings)
+          // This is required to make sure the popover is positioned correctly i.e. when there is not enough space on the specified direction, we set a new direction to position the ::after
+          const calculatedDirection = positionToDirection[`${anchorSide}-${anchorAlign}` as string]
+          setCalculatedDirection(calculatedDirection)
+          tooltip.style.top = `${top}px`
+          tooltip.style.left = `${left}px`
         }
-        const {top, left, anchorAlign, anchorSide} = getAnchoredPosition(tooltip, trigger, settings)
-        // This is required to make sure the popover is positioned correctly i.e. when there is not enough space on the specified direction, we set a new direction to position the ::after
-        const calculatedDirection = positionToDirection[`${anchorSide}-${anchorAlign}` as string]
-        setCalculatedDirection(calculatedDirection)
-        tooltip.style.top = `${top}px`
-        tooltip.style.left = `${left}px`
+      } catch (error) {
+        // older browsers don't support the :popover-open selector and will throw, even though we use a polyfill
+        // see https://github.com/github/issues/issues/12468
+        if (
+          error &&
+          typeof error === 'object' &&
+          'message' in error &&
+          typeof error.message === 'string' &&
+          error.message.includes('not a valid selector')
+        ) {
+          // fail silently
+        } else {
+          throw error
+        }
       }
     }
     const closeTooltip = () => {
-      if (
-        tooltipElRef.current &&
-        triggerRef.current &&
-        tooltipElRef.current.hasAttribute('popover') &&
-        tooltipElRef.current.matches(':popover-open')
-      ) {
-        tooltipElRef.current.hidePopover()
-        setIsPopoverOpen(false)
+      try {
+        if (
+          tooltipElRef.current &&
+          triggerRef.current &&
+          tooltipElRef.current.hasAttribute('popover') &&
+          tooltipElRef.current.matches(':popover-open')
+        ) {
+          tooltipElRef.current.hidePopover()
+          setIsPopoverOpen(false)
+        }
+      } catch (error) {
+        // older browsers don't support the :popover-open selector and will throw, even though we use a polyfill
+        // see https://github.com/github/issues/issues/12468
+        if (
+          error &&
+          typeof error === 'object' &&
+          'message' in error &&
+          typeof error.message === 'string' &&
+          error.message.includes('not a valid selector')
+        ) {
+          // fail silently
+        } else {
+          throw error
+        }
       }
     }
 
@@ -328,8 +360,8 @@ export const Tooltip = React.forwardRef(
             {...rest}
             // Only need tooltip role if the tooltip is a description for supplementary information
             role={type === 'description' ? 'tooltip' : undefined}
-            // stop AT from announcing the tooltip twice when it is a label type because it will be announced with "aria-labelledby"
-            aria-hidden={type === 'label' ? true : undefined}
+            // stop AT from announcing the tooltip twice: when it is a label type it will be announced with "aria-labelledby",when it is a description type it will be announced with "aria-describedby"
+            aria-hidden={true}
             id={tooltipId}
             // mouse leave and enter on the tooltip itself is needed to keep the tooltip open when the mouse is over the tooltip
             onMouseEnter={openTooltip}

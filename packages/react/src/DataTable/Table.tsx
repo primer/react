@@ -1,5 +1,5 @@
 import {SortAscIcon, SortDescIcon} from '@primer/octicons-react'
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
@@ -12,8 +12,8 @@ import type {Column, CellAlignment} from './column'
 import type {UniqueRow} from './row'
 import {SortDirection} from './sorting'
 import {useTableLayout} from './useTable'
-import {SkeletonText} from '../drafts/Skeleton/SkeletonText'
-import {ScrollableRegion} from '../internal/components/ScrollableRegion'
+import {SkeletonText} from '../experimental/Skeleton/SkeletonText'
+import {ScrollableRegion} from '../ScrollableRegion'
 
 // ----------------------------------------------------------------------------
 // Table
@@ -250,6 +250,8 @@ const Table = React.forwardRef<HTMLTableElement, TableProps>(function Table(
   ref,
 ) {
   return (
+    // TODO update type to be non-optional in next major release
+    // @ts-expect-error this type should be required in the next major version
     <ScrollableRegion aria-labelledby={labelledby} className="TableOverflowWrapper">
       <StyledTable
         {...rest}
