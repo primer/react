@@ -10,7 +10,7 @@ import type {BetterSystemStyleObject, SxProp} from '../sx'
 import {merge} from '../sx'
 import type {Theme} from '../ThemeProvider'
 import {canUseDOM} from '../utils/environment'
-import {useOverflow} from '../internal/hooks/useOverflow'
+import {useOverflow} from '../hooks/useOverflow'
 import {warning} from '../utils/warning'
 import {useStickyPaneHeight} from './useStickyPaneHeight'
 
@@ -788,8 +788,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             width: resizable
               ? ['100%', null, 'clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width))']
               : isPaneWidth(width)
-              ? paneWidths[width]
-              : width.default,
+                ? paneWidths[width]
+                : width.default,
             padding: SPACING_MAP[padding],
             overflow: [null, null, 'auto'],
 

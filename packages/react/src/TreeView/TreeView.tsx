@@ -4,7 +4,7 @@ import {
   FileDirectoryFillIcon,
   FileDirectoryOpenFillIcon,
 } from '@primer/octicons-react'
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 import React, {useCallback, useEffect} from 'react'
 import styled from 'styled-components'
 import {ConfirmationDialog} from '../ConfirmationDialog/ConfirmationDialog'
@@ -21,8 +21,8 @@ import sx from '../sx'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
-import {SkeletonAvatar} from '../drafts/Skeleton/SkeletonAvatar'
-import {SkeletonText} from '../drafts/Skeleton/SkeletonText'
+import {SkeletonAvatar} from '../experimental/Skeleton/SkeletonAvatar'
+import {SkeletonText} from '../experimental/Skeleton/SkeletonText'
 
 // ----------------------------------------------------------------------------
 // Context
@@ -361,7 +361,7 @@ export type TreeViewItemProps = {
   containIntrinsicSize?: string
   current?: boolean
   defaultExpanded?: boolean
-  expanded?: boolean
+  expanded?: boolean | null
   onExpandedChange?: (expanded: boolean) => void
   onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
   className?: string
@@ -401,7 +401,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       // If defaultExpanded is not provided, we default to false unless the item
       // is the current item, in which case we default to true.
       defaultValue: () => expandedStateCache.current?.get(itemId) ?? defaultExpanded ?? isCurrentItem,
-      value: expanded,
+      value: expanded === null ? false : expanded,
       onChange: onExpandedChange,
     })
     const {level} = React.useContext(ItemContext)
@@ -458,6 +458,11 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       [onSelect, setIsExpandedWithCache, toggle],
     )
 
+    const ariaDescribedByIds = [
+      slots.leadingVisual ? leadingVisualId : null,
+      slots.trailingVisual ? trailingVisualId : null,
+    ].filter(Boolean)
+
     return (
       <ItemContext.Provider
         value={{
@@ -480,9 +485,9 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           role="treeitem"
           aria-label={ariaLabel}
           aria-labelledby={ariaLabel ? undefined : ariaLabelledby || labelId}
-          aria-describedby={`${leadingVisualId} ${trailingVisualId}`}
+          aria-describedby={ariaDescribedByIds.length ? ariaDescribedByIds.join(' ') : undefined}
           aria-level={level}
-          aria-expanded={isSubTreeEmpty ? undefined : isExpanded}
+          aria-expanded={(isSubTreeEmpty && (!isExpanded || !hasSubTree)) || expanded === null ? undefined : isExpanded}
           aria-current={isCurrentItem ? 'true' : undefined}
           aria-selected={isFocused ? 'true' : 'false'}
           data-has-leading-action={slots.leadingAction ? true : undefined}
@@ -616,10 +621,9 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
 
   // Handle transition from loading to done state
   React.useEffect(() => {
+    const parentElement = document.getElementById(itemId)
+    if (!parentElement) return
     if (previousState === 'loading' && state === 'done') {
-      const parentElement = document.getElementById(itemId)
-      if (!parentElement) return
-
       // Announce update to screen readers
       const parentName = getAccessibleName(parentElement)
 
@@ -646,6 +650,9 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
 
         setLoadingFocused(false)
       }
+    } else if (state === 'loading') {
+      const parentName = getAccessibleName(parentElement)
+      announceUpdate(`${parentName} content loading`)
     }
   }, [loadingFocused, previousState, state, itemId, announceUpdate, ref, safeSetTimeout])
 
@@ -695,6 +702,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
       ref={ref}
     >
       {state === 'loading' ? <LoadingItem ref={loadingItemRef} count={count} /> : children}
+      {isSubTreeEmpty && state !== 'loading' ? <EmptyItem /> : null}
     </ul>
   )
 }
@@ -779,6 +787,14 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, re
         <Spinner size="small" />
       </LeadingVisual>
       <Text sx={{color: 'fg.muted'}}>Loading...</Text>
+    </Item>
+  )
+})
+
+const EmptyItem = React.forwardRef<HTMLElement>((props, ref) => {
+  return (
+    <Item expanded={null} id={useId()} ref={ref}>
+      <Text sx={{color: 'fg.muted'}}>No items found</Text>
     </Item>
   )
 })

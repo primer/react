@@ -407,7 +407,7 @@ export const AsyncSuccess: StoryFn = args => {
 }
 
 AsyncSuccess.args = {
-  responseTime: 2000,
+  responseTime: 4000,
 }
 
 export const AsyncWithCount: StoryFn = args => {
@@ -481,6 +481,8 @@ AsyncWithCount.argTypes = {
     type: 'number',
   },
 }
+
+AsyncWithCount.storyName = 'Async with count (skeleton nodes)'
 
 async function alwaysFails(responseTime: number) {
   await wait(responseTime)
@@ -578,7 +580,7 @@ AsyncError.args = {
 }
 
 export const EmptyDirectories: StoryFn = () => {
-  const [state, setState] = React.useState<SubTreeState>('loading')
+  const [state, setState] = React.useState<SubTreeState>('initial')
   const timeoutId = React.useRef<ReturnType<typeof setTimeout> | null>(null)
 
   React.useEffect(() => {
@@ -595,6 +597,7 @@ export const EmptyDirectories: StoryFn = () => {
       <TreeView.Item
         id="src"
         onExpandedChange={expanded => {
+          setState('loading')
           if (expanded) {
             timeoutId.current = setTimeout(() => {
               setState('done')
@@ -960,24 +963,26 @@ export const WithoutIndentation: StoryFn = () => (
           <TreeView.DirectoryIcon />
         </TreeView.LeadingVisual>
         src
-      </TreeView.Item>
-      <TreeView.Item id="src/Avatar.tsx">
-        <TreeView.LeadingVisual>
-          <FileIcon />
-        </TreeView.LeadingVisual>
-        Avatar.tsx
-        <TreeView.TrailingVisual label="Added">
-          <Octicon icon={DiffAddedIcon} color="success.fg" />
-        </TreeView.TrailingVisual>
-      </TreeView.Item>
-      <TreeView.Item id="src/Button.tsx" current>
-        <TreeView.LeadingVisual>
-          <FileIcon />
-        </TreeView.LeadingVisual>
-        Button.tsx
-        <TreeView.TrailingVisual label="Modified">
-          <Octicon icon={DiffModifiedIcon} color="attention.fg" />
-        </TreeView.TrailingVisual>
+        <TreeView.SubTree>
+          <TreeView.Item id="src/Avatar.tsx">
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Avatar.tsx
+            <TreeView.TrailingVisual label="Added">
+              <Octicon icon={DiffAddedIcon} color="success.fg" />
+            </TreeView.TrailingVisual>
+          </TreeView.Item>
+          <TreeView.Item id="src/Button.tsx" current>
+            <TreeView.LeadingVisual>
+              <FileIcon />
+            </TreeView.LeadingVisual>
+            Button.tsx
+            <TreeView.TrailingVisual label="Modified">
+              <Octicon icon={DiffModifiedIcon} color="attention.fg" />
+            </TreeView.TrailingVisual>
+          </TreeView.Item>
+        </TreeView.SubTree>
       </TreeView.Item>
       <TreeView.Item id="package.json">
         <TreeView.LeadingVisual>
@@ -999,7 +1004,7 @@ export const LeadingAction: StoryFn = () => {
         <TreeView.LeadingAction>
           <IconButton icon={GrabberIcon} aria-label="Reorder item 1" variant="invisible" />
         </TreeView.LeadingAction>
-        <TreeView.LeadingVisual>
+        <TreeView.LeadingVisual label="Issue closed">
           <Octicon icon={IssueClosedIcon} sx={{color: 'done.fg'}} />
         </TreeView.LeadingVisual>
         Item 1
@@ -1008,19 +1013,19 @@ export const LeadingAction: StoryFn = () => {
         <TreeView.LeadingAction>
           <IconButton icon={GrabberIcon} aria-label="Reorder item 2" variant="invisible" />
         </TreeView.LeadingAction>
-        <TreeView.LeadingVisual>
+        <TreeView.LeadingVisual label="Issue opened">
           <Octicon icon={IssueOpenedIcon} sx={{color: 'open.fg'}} />
         </TreeView.LeadingVisual>
         Item 2
         <TreeView.SubTree>
           <TreeView.Item id="item-2-sub-task-1">
-            <TreeView.LeadingVisual>
+            <TreeView.LeadingVisual label="Issue opened">
               <Octicon icon={IssueOpenedIcon} sx={{color: 'open.fg'}} />
             </TreeView.LeadingVisual>
             sub task 1
           </TreeView.Item>
           <TreeView.Item id="item-2-sub-task-2">
-            <TreeView.LeadingVisual>
+            <TreeView.LeadingVisual label="Issue opened">
               <Octicon icon={IssueOpenedIcon} sx={{color: 'open.fg'}} />
             </TreeView.LeadingVisual>
             sub task 2
@@ -1031,7 +1036,7 @@ export const LeadingAction: StoryFn = () => {
         <TreeView.LeadingAction>
           <IconButton icon={GrabberIcon} aria-label="Reorder item 3" variant="invisible" />
         </TreeView.LeadingAction>
-        <TreeView.LeadingVisual>
+        <TreeView.LeadingVisual label="Issue opened">
           <Octicon icon={IssueOpenedIcon} sx={{color: 'open.fg'}} />
         </TreeView.LeadingVisual>
         Item 3

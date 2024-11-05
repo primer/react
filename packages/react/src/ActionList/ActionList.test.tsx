@@ -4,27 +4,26 @@ import axe from 'axe-core'
 import React from 'react'
 import theme from '../theme'
 import {ActionList} from '.'
+import {BookIcon} from '@primer/octicons-react'
 import {behavesAsComponent, checkExports} from '../utils/testing'
-import {BaseStyles, ThemeProvider, SSRProvider, ActionMenu} from '..'
+import {BaseStyles, ThemeProvider, ActionMenu} from '..'
 import {FeatureFlags} from '../FeatureFlags'
 
 function SimpleActionList(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
-      <SSRProvider>
-        <BaseStyles>
-          <ActionList>
-            <ActionList.Item>New file</ActionList.Item>
-            <ActionList.Divider />
-            <ActionList.Item>Copy link</ActionList.Item>
-            <ActionList.Item>Edit file</ActionList.Item>
-            <ActionList.Item variant="danger">Delete file</ActionList.Item>
-            <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="d">
-              Link Item
-            </ActionList.LinkItem>
-          </ActionList>
-        </BaseStyles>
-      </SSRProvider>
+      <BaseStyles>
+        <ActionList>
+          <ActionList.Item>New file</ActionList.Item>
+          <ActionList.Divider />
+          <ActionList.Item>Copy link</ActionList.Item>
+          <ActionList.Item>Edit file</ActionList.Item>
+          <ActionList.Item variant="danger">Delete file</ActionList.Item>
+          <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="d">
+            Link Item
+          </ActionList.LinkItem>
+        </ActionList>
+      </BaseStyles>
     </ThemeProvider>
   )
 }
@@ -34,6 +33,13 @@ const projects = [
   {name: 'Primer React', scope: 'github/primer'},
   {name: 'Disabled Project', scope: 'github/primer', disabled: true},
   {name: 'Inactive Project', scope: 'github/primer', inactiveText: 'Unavailable due to an outage'},
+  {name: 'Loading Project', scope: 'github/primer', loading: true},
+  {
+    name: 'Inactive and Loading Project',
+    scope: 'github/primer',
+    loading: true,
+    inactiveText: 'Unavailable due to an outage, but loading still passed',
+  },
 ]
 function SingleSelectListStory(): JSX.Element {
   const [selectedIndex, setSelectedIndex] = React.useState(0)
@@ -48,6 +54,7 @@ function SingleSelectListStory(): JSX.Element {
           onSelect={() => setSelectedIndex(index)}
           disabled={project.disabled}
           inactiveText={project.inactiveText}
+          loading={project.loading}
         >
           {project.name}
         </ActionList.Item>
@@ -144,6 +151,24 @@ describe('ActionList', () => {
     expect(options[3]).toHaveAttribute('aria-selected', 'false')
   })
 
+  it('should skip onSelect on loading items', async () => {
+    const component = HTMLRender(<SingleSelectListStory />)
+    const options = await waitFor(() => component.getAllByRole('option'))
+
+    expect(options[0]).toHaveAttribute('aria-selected', 'true')
+    expect(options[4]).toHaveAttribute('aria-selected', 'false')
+
+    fireEvent.click(options[4])
+
+    expect(options[0]).toHaveAttribute('aria-selected', 'true')
+    expect(options[4]).toHaveAttribute('aria-selected', 'false')
+
+    fireEvent.keyPress(options[3], {key: 'Enter', charCode: 13})
+
+    expect(options[0]).toHaveAttribute('aria-selected', 'true')
+    expect(options[4]).toHaveAttribute('aria-selected', 'false')
+  })
+
   it('should throw when selected is provided without a selectionVariant on parent', async () => {
     // we expect console.error to be called, so we suppress that in the test
     const mockError = jest.spyOn(console, 'error').mockImplementation(() => jest.fn())
@@ -177,14 +202,23 @@ describe('ActionList', () => {
 
   it('should focus the button around the leading visual when tabbing to an inactive item', async () => {
     const component = HTMLRender(<SingleSelectListStory />)
-    const inactiveOptionButton = await waitFor(() =>
-      component.getByRole('button', {description: projects[3].inactiveText}),
-    )
-    const inactiveIndex = projects.findIndex(project => 'inactiveText' in project)
+    const inactiveOptionButton = await waitFor(() => component.getByRole('button', {name: projects[3].inactiveText}))
 
-    for (let i = 0; i < inactiveIndex; i++) {
-      await userEvent.tab()
-    }
+    await userEvent.tab() // get focus on first element
+    await userEvent.keyboard('{ArrowDown}')
+    await userEvent.keyboard('{ArrowDown}')
+    expect(inactiveOptionButton).toHaveFocus()
+  })
+
+  it('should behave as inactive if both inactiveText and loading props are passed', async () => {
+    const component = HTMLRender(<SingleSelectListStory />)
+    const inactiveOptionButton = await waitFor(() => component.getByRole('button', {name: projects[5].inactiveText}))
+
+    await userEvent.tab() // get focus on first element
+    await userEvent.keyboard('{ArrowDown}')
+    await userEvent.keyboard('{ArrowDown}')
+    await userEvent.keyboard('{ArrowDown}')
+    await userEvent.keyboard('{ArrowDown}')
 
     expect(inactiveOptionButton).toHaveFocus()
   })
@@ -229,19 +263,17 @@ describe('ActionList', () => {
     expect(() =>
       HTMLRender(
         <ThemeProvider theme={theme}>
-          <SSRProvider>
-            <BaseStyles>
-              <ActionMenu open={true}>
-                <ActionMenu.Button>Trigger</ActionMenu.Button>
-                <ActionMenu.Overlay>
-                  <ActionList>
-                    <ActionList.Heading as="h1">Heading</ActionList.Heading>
-                    <ActionList.Item>Item</ActionList.Item>
-                  </ActionList>
-                </ActionMenu.Overlay>
-              </ActionMenu>
-            </BaseStyles>
-          </SSRProvider>
+          <BaseStyles>
+            <ActionMenu open={true}>
+              <ActionMenu.Button>Trigger</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Heading as="h1">Heading</ActionList.Heading>
+                  <ActionList.Item>Item</ActionList.Item>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
         </ThemeProvider>,
       ),
     ).toThrow(
@@ -256,20 +288,18 @@ describe('ActionList', () => {
     expect(() =>
       HTMLRender(
         <ThemeProvider theme={theme}>
-          <SSRProvider>
-            <BaseStyles>
-              <ActionMenu open={true}>
-                <ActionMenu.Button>Trigger</ActionMenu.Button>
-                <ActionMenu.Overlay>
-                  <ActionList>
-                    <ActionList.Group>
-                      <ActionList.GroupHeading as="h2">Group Heading</ActionList.GroupHeading>
-                    </ActionList.Group>
-                  </ActionList>
-                </ActionMenu.Overlay>
-              </ActionMenu>
-            </BaseStyles>
-          </SSRProvider>
+          <BaseStyles>
+            <ActionMenu open={true}>
+              <ActionMenu.Button>Trigger</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Group>
+                    <ActionList.GroupHeading as="h2">Group Heading</ActionList.GroupHeading>
+                  </ActionList.Group>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
         </ThemeProvider>,
       ),
     ).toThrow(
@@ -425,9 +455,39 @@ describe('ActionList', () => {
     expect(listItems.length).toBe(2)
   })
 
+  it('should apply ref to ActionList.Item when feature flag is disabled', async () => {
+    const MockComponent = () => {
+      const ref = React.useRef<HTMLLIElement>(null)
+
+      const focusRef = () => {
+        if (ref.current) ref.current.focus()
+      }
+
+      return (
+        <FeatureFlags flags={{primer_react_action_list_item_as_button: false}}>
+          <button type="button" onClick={focusRef}>
+            Prompt
+          </button>
+          <ActionList>
+            <ActionList.Item ref={ref}>Item 1</ActionList.Item>
+            <ActionList.Item>Item 2</ActionList.Item>
+          </ActionList>
+        </FeatureFlags>
+      )
+    }
+
+    const {getByRole} = HTMLRender(<MockComponent />)
+    const triggerBtn = getByRole('button', {name: 'Prompt'})
+    const focusTarget = getByRole('listitem', {name: 'Item 1'})
+
+    fireEvent.click(triggerBtn)
+
+    expect(document.activeElement).toBe(focusTarget)
+  })
+
   it('should render ActionList.Item as li when feature flag is enabled and has proper aria role', async () => {
     const {container} = HTMLRender(
-      <FeatureFlags flags={{primer_react_action_list_item_as_button: false}}>
+      <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
         <ActionList role="listbox">
           <ActionList.Item role="option">Item 1</ActionList.Item>
           <ActionList.Item role="option">Item 2</ActionList.Item>
@@ -444,5 +504,148 @@ describe('ActionList', () => {
 
     const listItems = container.querySelectorAll('li')
     expect(listItems.length).toBe(2)
+  })
+
+  it('should render the trailing action as a button (default)', async () => {
+    const {container} = HTMLRender(
+      <ActionList>
+        <ActionList.Item>
+          Item 1
+          <ActionList.TrailingAction icon={BookIcon} label="Action" />
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const action = container.querySelector('button[aria-labelledby]')
+    expect(action).toHaveAccessibleName('Action')
+  })
+
+  it('should render the trailing action as a link', async () => {
+    const {container} = HTMLRender(
+      <ActionList>
+        <ActionList.Item>
+          Item 1
+          <ActionList.TrailingAction as="a" href="#" icon={BookIcon} label="Action" />
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const action = container.querySelector('a[href="#"][aria-labelledby]')
+    expect(action).toHaveAccessibleName('Action')
+  })
+
+  it('should do action when trailing action is clicked', async () => {
+    const onClick = jest.fn()
+    const component = HTMLRender(
+      <ActionList>
+        <ActionList.Item>
+          Item 1
+          <ActionList.TrailingAction icon={BookIcon} label="Action" onClick={onClick} />
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    const trailingAction = await waitFor(() => component.getByRole('button', {name: 'Action'}))
+    fireEvent.click(trailingAction)
+    expect(onClick).toHaveBeenCalled()
+  })
+
+  it('should focus the trailing action', async () => {
+    HTMLRender(
+      <ActionList>
+        <ActionList.Item>
+          Item 1
+          <ActionList.TrailingAction icon={BookIcon} label="Action" />
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    await userEvent.tab()
+    expect(document.activeElement).toHaveTextContent('Item 1')
+    await userEvent.tab()
+    expect(document.activeElement).toHaveAccessibleName('Action')
+  })
+
+  it('should only trigger a key event once when feature flag is enabled', async () => {
+    const mockOnSelect = jest.fn()
+    const user = userEvent.setup()
+    const {getByRole} = HTMLRender(
+      <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+        <ActionList>
+          <ActionList.Item onSelect={mockOnSelect}>Item 1</ActionList.Item>
+        </ActionList>
+      </FeatureFlags>,
+    )
+    const item = getByRole('button')
+
+    item.focus()
+
+    expect(document.activeElement).toBe(item)
+    await user.keyboard('{Enter}')
+
+    expect(mockOnSelect).toHaveBeenCalledTimes(1)
+  })
+
+  it('should not render buttons when feature flag is enabled and is specified role', async () => {
+    const {getByRole} = HTMLRender(
+      <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+        <ActionList>
+          <ActionList.Item role="option">Item 1</ActionList.Item>
+          <ActionList.Item role="menuitem">Item 2</ActionList.Item>
+          <ActionList.Item role="menuitemcheckbox">Item 3</ActionList.Item>
+          <ActionList.Item role="menuitemradio">Item 4</ActionList.Item>
+          <ActionList.Item>Item 5</ActionList.Item>
+        </ActionList>
+      </FeatureFlags>,
+    )
+
+    const option = getByRole('option')
+    expect(option.tagName).toBe('LI')
+    expect(option.textContent).toBe('Item 1')
+
+    const menuItem = getByRole('menuitem')
+    expect(menuItem.tagName).toBe('LI')
+
+    const menuItemCheckbox = getByRole('menuitemcheckbox')
+    expect(menuItemCheckbox.tagName).toBe('LI')
+
+    const menuItemRadio = getByRole('menuitemradio')
+    expect(menuItemRadio.tagName).toBe('LI')
+
+    const button = getByRole('button')
+    expect(button.parentElement?.tagName).toBe('LI')
+    expect(button.textContent).toBe('Item 5')
+  })
+
+  it('should be navigatable with arrow keys for certain roles', async () => {
+    HTMLRender(
+      <ActionList role="listbox" aria-label="Select a project">
+        <ActionList.Item role="option">Option 1</ActionList.Item>
+        <ActionList.Item role="option">Option 2</ActionList.Item>
+        <ActionList.Item role="option" disabled>
+          Option 3
+        </ActionList.Item>
+        <ActionList.Item role="option">Option 4</ActionList.Item>
+        <ActionList.Item role="option" inactiveText="Unavailable due to an outage">
+          Option 5
+        </ActionList.Item>
+      </ActionList>,
+    )
+
+    await userEvent.tab() // tab into the story, this should focus on the first button
+    expect(document.activeElement).toHaveTextContent('Option 1')
+
+    await userEvent.keyboard('{ArrowDown}')
+    expect(document.activeElement).toHaveTextContent('Option 2')
+
+    await userEvent.keyboard('{ArrowDown}')
+    expect(document.activeElement).not.toHaveTextContent('Option 3') // option 3 is disabled
+    expect(document.activeElement).toHaveTextContent('Option 4')
+
+    await userEvent.keyboard('{ArrowDown}')
+    expect(document.activeElement).toHaveAccessibleName('Unavailable due to an outage')
+
+    await userEvent.keyboard('{ArrowUp}')
+    expect(document.activeElement).toHaveTextContent('Option 4')
   })
 })

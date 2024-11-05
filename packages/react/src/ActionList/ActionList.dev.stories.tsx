@@ -41,6 +41,7 @@ export const GroupWithSubtleTitleOldAPI = () => {
         under features.
       </p>
       <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
+        {/* eslint-disable-next-line primer-react/no-deprecated-props */}
         <ActionList.Group title="Everyone">
           {users.slice(2).map(user => (
             <ActionList.Item
@@ -80,6 +81,7 @@ export const GroupWithFilledTitleOldAPI = () => {
         under features.
       </p>
       <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
+        {/* eslint-disable-next-line primer-react/no-deprecated-props */}
         <ActionList.Group title="Everyone" variant="filled">
           {users.slice(2).map(user => (
             <ActionList.Item
@@ -101,3 +103,16 @@ export const GroupWithFilledTitleOldAPI = () => {
     </>
   )
 }
+
+export const GroupHeadingCustomClassname = () => (
+  <ActionList>
+    <ActionList.Heading as="h2">Filter by</ActionList.Heading>
+    <ActionList.Group>
+      <ActionList.GroupHeading className="testCustomClassnameColor" as="h3">
+        Repositories
+      </ActionList.GroupHeading>
+      <ActionList.Item onClick={() => {}}>app/assets/modules</ActionList.Item>
+      <ActionList.Item onClick={() => {}}>src/react/components</ActionList.Item>
+    </ActionList.Group>
+  </ActionList>
+)

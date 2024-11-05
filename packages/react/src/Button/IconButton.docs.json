@@ -15,7 +15,7 @@
     },
     {
       "name": "variant",
-      "type": "'default' | 'primary' | 'danger' | 'outline' | 'invisible'",
+      "type": "'default' | 'primary' | 'danger' | 'outline' | 'invisible' | 'link'",
       "defaultValue": "",
       "description": "Changes the look and feel of the button which is different for each variant"
     },
@@ -41,6 +41,20 @@
       "type": "string",
       "defaultValue": "",
       "description": "Use an aria label to describe the functionality of the button. Please refer to [our guidance on alt text](https://primer.style/guides/accessibility/alternative-text-for-images) for tips on writing good alternative text."
+    },
+    {
+      "name": "keyshortcuts",
+      "type": "string",
+      "defaultValue": "",
+      "required": false,
+      "description": "Keyboard shortcuts that trigger the button. Keyboard shortcut will be appended to the accessible name or description (depending on the tooltip type) of the button with a comma (i.e. Bold, Command+B) and it will be displayed in the tooltip."
+    },
+    {
+      "name": "tooltipDirection",
+      "type": "'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw'",
+      "defaultValue": "'s'",
+      "description": "The direction of the tooltip. ",
+      "required": false
     },
     {
       "name": "sx",

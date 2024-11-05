@@ -2,7 +2,8 @@ import React from 'react'
 import type {Meta, StoryFn} from '@storybook/react'
 import {PageLayout} from './PageLayout'
 import {Placeholder} from '../Placeholder'
-import {Box, BranchName, Heading, Link, StateLabel, TabNav, Text} from '..'
+import {Box, BranchName, Heading, Link, StateLabel, Text} from '..'
+import TabNav from '../TabNav'
 
 export default {
   title: 'Components/PageLayout/Features',
@@ -162,7 +163,7 @@ export const NestedScrollContainer: StoryFn = args => (
           <Placeholder label="Header" height={64} />
         </PageLayout.Header>
         <PageLayout.Content padding="normal" width="large">
-          <Box sx={{display: 'grid', gap: 3}}>
+          <Box sx={{display: 'grid', gap: 3}} tabIndex={0} role="region" aria-label="Page content">
             {Array.from({length: args.numParagraphsInContent}).map((_, i) => (
               <Box key={i} as="p" sx={{margin: 0}}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam at enim id lorem tempus egestas a non
@@ -334,7 +335,7 @@ export const ScrollContainerWithinPageLayoutPane: StoryFn = () => (
           </Box>
         </PageLayout.Pane>
         <PageLayout.Content padding="normal" width="large">
-          <Box sx={{display: 'grid'}}>
+          <Box sx={{display: 'grid'}} tabIndex={0} role="region" aria-label="Page content">
             <Placeholder label="Page content" height={1600} />
           </Box>
         </PageLayout.Content>

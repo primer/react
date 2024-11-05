@@ -4,13 +4,14 @@ import type {SxProp} from '../sx'
 import sx from '../sx'
 import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import type {TooltipDirection} from '../TooltipV2'
+import type {IconProps} from '@primer/octicons-react'
 
 export const StyledButton = styled.button<SxProp>`
   ${getGlobalFocusStyles('-2px')};
   ${sx};
 `
 
-export type VariantType = 'default' | 'primary' | 'invisible' | 'danger'
+export type VariantType = 'default' | 'primary' | 'invisible' | 'danger' | 'link'
 
 export type Size = 'small' | 'medium' | 'large'
 
@@ -38,6 +39,14 @@ export type ButtonBaseProps = {
    */
   block?: boolean
   /**
+   * When true, the button is in a loading state.
+   */
+  loading?: boolean
+  /**
+   * The content to announce to screen readers when loading.
+   */
+  loadingAnnouncement?: string
+  /*
    * Whether the button looks visually disabled, but can still accept all the same
    * interactions as an enabled button.
    */
@@ -58,17 +67,17 @@ export type ButtonProps = {
   /**
    * The icon for the IconButton
    */
-  icon?: React.ElementType | null
+  icon?: React.FunctionComponent<IconProps> | React.ElementType | React.ReactElement | null
 
   /**
    * The leading visual which comes before the button content
    */
-  leadingVisual?: React.ElementType | null
+  leadingVisual?: React.ElementType | React.ReactElement | null
 
   /**
    * The trailing visual which comes after the button content
    */
-  trailingVisual?: React.ElementType | null
+  trailingVisual?: React.ElementType | React.ReactElement | null
 
   /**
    * Trailing action appears to the right of the trailing visual and is always locked to the end
@@ -85,6 +94,7 @@ export type IconButtonProps = ButtonA11yProps & {
   unsafeDisableTooltip?: boolean
   description?: string
   tooltipDirection?: TooltipDirection
+  keyshortcuts?: string
 } & Omit<ButtonBaseProps, 'aria-label' | 'aria-labelledby'>
 
 // adopted from React.AnchorHTMLAttributes

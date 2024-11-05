@@ -1,4 +1,4 @@
-# ADR 004: Strict props or Composite components
+# Strict props or Composite components
 
 ## Status
 

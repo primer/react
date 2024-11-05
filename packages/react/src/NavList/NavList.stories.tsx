@@ -2,6 +2,7 @@ import type {Meta, StoryFn} from '@storybook/react'
 import React from 'react'
 import {PageLayout} from '../PageLayout'
 import {NavList} from './NavList'
+import {ArrowRightIcon, ArrowLeftIcon, BookIcon, FileDirectoryIcon} from '@primer/octicons-react'
 
 const meta: Meta = {
   title: 'Components/NavList',
@@ -224,7 +225,7 @@ export const WithInactiveItems: StoryFn = () => (
   </PageLayout>
 )
 
-export const WithGroup = () => (
+export const WithGroup: StoryFn = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
       <NavList>
@@ -245,5 +246,86 @@ export const WithGroup = () => (
     <PageLayout.Content></PageLayout.Content>
   </PageLayout>
 )
+
+export const WithGroupHeadingLinks: StoryFn = () => (
+  <PageLayout>
+    <PageLayout.Pane position="start">
+      <NavList>
+        <NavList.Group>
+          <NavList.GroupHeading>
+            <a href="#group-1">Group 1</a>
+          </NavList.GroupHeading>
+          <NavList.Item aria-current="true" href="#">
+            Item 1A
+          </NavList.Item>
+          <NavList.Item href="#">Item 1B</NavList.Item>
+          <NavList.Item href="#">Item 1C</NavList.Item>
+        </NavList.Group>
+        <NavList.Group>
+          <NavList.GroupHeading>
+            <a href="#group-2">Group 2</a>
+          </NavList.GroupHeading>
+          <NavList.Item href="#">Item 2A</NavList.Item>
+          <NavList.Item href="#">Item 2B</NavList.Item>
+          <NavList.Item href="#">Item 2C</NavList.Item>
+        </NavList.Group>
+      </NavList>
+    </PageLayout.Pane>
+    <PageLayout.Content></PageLayout.Content>
+  </PageLayout>
+)
+
+export const WithTrailingAction = () => {
+  return (
+    <PageLayout>
+      <PageLayout.Pane position="start">
+        <NavList>
+          <NavList.Item>
+            <NavList.LeadingVisual>
+              <FileDirectoryIcon />
+            </NavList.LeadingVisual>
+            Item 1
+            <NavList.TrailingAction label="Expand sidebar" icon={ArrowLeftIcon} />
+          </NavList.Item>
+          <NavList.Item>
+            Item 2
+            <NavList.TrailingAction as="a" href="#" label="Some action" icon={ArrowRightIcon} />
+          </NavList.Item>
+        </NavList>
+      </PageLayout.Pane>
+    </PageLayout>
+  )
+}
+
+export const WithTrailingActionInSubItem = () => {
+  return (
+    <PageLayout>
+      <PageLayout.Pane position="start">
+        <NavList>
+          <NavList.Item>
+            <NavList.LeadingVisual>
+              <FileDirectoryIcon />
+            </NavList.LeadingVisual>
+            Item 1
+            <NavList.TrailingAction label="Expand sidebar" icon={ArrowLeftIcon} />
+          </NavList.Item>
+          <NavList.Item>
+            Item 2
+            <NavList.TrailingAction as="a" href="#" label="Some action" icon={ArrowRightIcon} />
+          </NavList.Item>
+          <NavList.Item>
+            Item 3
+            <NavList.SubNav>
+              <NavList.Item href="#">
+                Sub item 1
+                <NavList.TrailingAction label="Another action" icon={BookIcon} />
+              </NavList.Item>
+            </NavList.SubNav>
+          </NavList.Item>
+        </NavList>
+      </PageLayout.Pane>
+    </PageLayout>
+  )
+}
 
 export default meta

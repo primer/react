@@ -115,6 +115,24 @@
       "name": "NavList.Group",
       "props": [
         {
+          "name": "title",
+          "type": "string",
+          "description": "The text that gets rendered as the group's heading. Alternatively, you can pass the `NavList.GroupHeading` component as a child of `NavList.Group`.\n If both `title` and `NavList.GroupHeading` are passed, `NavList.GroupHeading` will be rendered as the heading."
+        },
+        {
+          "name": "sx",
+          "type": "SystemStyleObject"
+        },
+        {
+          "name": "ref",
+          "type": "React.RefObject<HTMLElement>"
+        }
+      ]
+    },
+    {
+      "name": "NavList.GroupHeading",
+      "props": [
+        {
           "name": "sx",
           "type": "SystemStyleObject"
         },
@@ -134,6 +152,37 @@
         {
           "name": "ref",
           "type": "React.RefObject<HTMLElement>"
+        }
+      ]
+    },
+    {
+      "name": "NavList.TrailingAction",
+      "props": [
+        {
+          "name": "as",
+          "type": "a | button",
+          "defaultValue": "button",
+          "required": false,
+          "description": "HTML element to render as."
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "defaultValue": "",
+          "required": true,
+          "description": "Acccessible name for the control."
+        },
+        {
+          "name": "icon",
+          "type": "string",
+          "defaultValue": "",
+          "required": true,
+          "description": "Octicon to pass into IconButton. When this is not set, TrailingAction renders as a `Button` instead of an `IconButton`."
+        },
+        {
+          "name": "href",
+          "type": "string",
+          "description": "href when the TrailingAction is rendered as a link."
         }
       ]
     }

@@ -45,6 +45,10 @@ export type ActionListItemProps = {
    */
   inactiveText?: string
   /**
+   * Whether the item is loading
+   */
+  loading?: boolean
+  /**
    * Private API for use internally only. Used by LinkItem to wrap contents in an anchor
    */
   _PrivateItemWrapper?: React.FC<React.PropsWithChildren<MenuItemProps>>
@@ -63,6 +67,7 @@ type MenuItemProps = {
 export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled'> & {
   inlineDescriptionId?: string
   blockDescriptionId?: string
+  trailingVisualId?: string
   inactive?: boolean
 }
 
