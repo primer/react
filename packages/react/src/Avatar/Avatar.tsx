@@ -1,5 +1,5 @@
 import {clsx} from 'clsx'
-import React from 'react'
+import React, {type HTMLProps} from 'react'
 import Box from '../Box'
 import type {SxProp} from '../sx'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
@@ -21,7 +21,8 @@ export type AvatarProps = {
   alt?: string
   /** Additional class name. */
   className?: string
-} & SxProp
+} & SxProp &
+  React.ComponentPropsWithoutRef<'img'>
 
 const Avatar = React.forwardRef(function Avatar(
   {
