@@ -8,9 +8,11 @@ on:
 jobs:
   # fetch comments, if integration-test comment is present, use that to label pass or fail. remove in-progress.
   check-for-integration-result:
-    if: ${{ github.event.issue.pull_request }}
+    # if: ${{ github.event.issue.pull_request }}
     runs-on: ubuntu-latest
     steps:
+      - name: debug event
+        run: 'echo ${{ github.event }}'
       - name: Get integration result comment
         uses: actions/github-script@v7
         with:
