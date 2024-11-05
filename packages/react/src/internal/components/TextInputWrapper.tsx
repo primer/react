@@ -5,6 +5,13 @@ import {get} from '../../constants'
 import type {SxProp} from '../../sx'
 import sx from '../../sx'
 import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
+import {TEXT_INPUT_CSS_MODULES_FEATURE_FLAG} from './UnstyledTextInput'
+import {toggleStyledComponent} from '../utils/toggleStyledComponent'
+import React, {type ComponentProps, type ComponentPropsWithoutRef} from 'react'
+import {useFeatureFlag} from '../../FeatureFlags'
+import {clsx} from 'clsx'
+
+import styles from './TextInputWrapper.module.css'
 
 export type TextInputSizes = 'small' | 'medium' | 'large'
 
@@ -48,7 +55,7 @@ const sizeVariants = variant({
   },
 })
 
-export type StyledBaseWrapperProps = {
+type StyledTextInputBaseWrapperProps = {
   block?: boolean
   contrast?: boolean
   disabled?: boolean
@@ -56,21 +63,21 @@ export type StyledBaseWrapperProps = {
   isInputFocused?: boolean
   monospace?: boolean
   validationStatus?: FormValidationStatus
+  className?: string
+  style?: React.CSSProperties
 } & WidthProps &
   MinWidthProps &
   MaxWidthProps &
-  SxProp
+  SxProp &
+  ComponentPropsWithoutRef<'span'>
 
-export type StyledWrapperProps = {
+type StyledTextInputWrapperProps = {
   hasLeadingVisual?: boolean
   hasTrailingVisual?: boolean
   /** @deprecated Use `size` prop instead */
   variant?: TextInputSizes
   size?: TextInputSizes
-} & StyledBaseWrapperProps
-
-const textInputBasePadding = '12px'
-export const textInputHorizPadding = textInputBasePadding
+} & StyledTextInputBaseWrapperProps
 
 const renderFocusStyles = (hasTrailingAction: boolean, isInputFocused: boolean) => {
   if (hasTrailingAction) {
@@ -92,133 +99,184 @@ const renderFocusStyles = (hasTrailingAction: boolean, isInputFocused: boolean) 
   `
 }
 
-export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
-  font-size: ${get('fontSizes.1')};
-  line-height: 20px;
-  color: ${get('colors.fg.default')};
-  vertical-align: middle;
-  background-color: ${get('colors.canvas.default')};
-  border: 1px solid var(--control-borderColor-rest, ${get('colors.border.default')});
-  border-radius: ${get('radii.2')};
-  outline: none;
-  box-shadow: ${get('shadows.primer.shadow.inset')};
-  display: inline-flex;
-  align-items: stretch;
-  min-height: 32px;
-  overflow: hidden;
+const StyledTextInputBaseWrapper = toggleStyledComponent(
+  TEXT_INPUT_CSS_MODULES_FEATURE_FLAG,
+  'span',
+  styled.span<StyledTextInputBaseWrapperProps>`
+    font-size: ${get('fontSizes.1')};
+    line-height: 20px;
+    color: ${get('colors.fg.default')};
+    vertical-align: middle;
+    background-color: ${get('colors.canvas.default')};
+    border: 1px solid var(--control-borderColor-rest, ${get('colors.border.default')});
+    border-radius: ${get('radii.2')};
+    outline: none;
+    box-shadow: ${get('shadows.primer.shadow.inset')};
+    display: inline-flex;
+    align-items: stretch;
+    min-height: 32px;
+    overflow: hidden;
 
-  input,
-  textarea {
-    cursor: text;
-  }
-
-  select {
-    cursor: pointer;
-  }
-
-  input,
-  textarea,
-  select {
-    &::placeholder {
-      color: var(---control-fgColor-placeholder, ${get('colors.fg.muted')});
+    input,
+    textarea {
+      cursor: text;
     }
-  }
 
-  ${props => renderFocusStyles(Boolean(props.hasTrailingAction), Boolean(props.isInputFocused))}
+    select {
+      cursor: pointer;
+    }
 
-  > textarea {
-    padding: ${textInputBasePadding};
-  }
+    input,
+    textarea,
+    select {
+      &::placeholder {
+        color: var(---control-fgColor-placeholder, ${get('colors.fg.muted')});
+      }
+    }
 
-  ${props =>
-    props.contrast &&
-    css`
-      background-color: ${get('colors.canvas.inset')};
-    `}
+    ${props => renderFocusStyles(Boolean(props.hasTrailingAction), Boolean(props.isInputFocused))}
 
-  ${props =>
-    props.disabled &&
-    css`
-      color: ${get('colors.primer.fg.disabled')};
-      background-color: ${get('colors.input.disabledBg')};
-      box-shadow: none;
-      border-color: var(--control-borderColor-disabled, ${get('colors.border.default')});
+    > textarea {
+      padding: 12px;
+    }
 
-      input,
-      textarea,
-      select {
-        cursor: not-allowed;
+    ${props =>
+      props.contrast &&
+      css`
+        background-color: ${get('colors.canvas.inset')};
+      `}
+
+    ${props =>
+      props.disabled &&
+      css`
+        color: ${get('colors.primer.fg.disabled')};
+        background-color: ${get('colors.input.disabledBg')};
+        box-shadow: none;
+        border-color: var(--control-borderColor-disabled, ${get('colors.border.default')});
+
+        input,
+        textarea,
+        select {
+          cursor: not-allowed;
+        }
+      `}
+
+    ${props =>
+      props.monospace &&
+      css`
+        font-family: ${get('fonts.mono')};
+      `}
+
+    ${props =>
+      props.validationStatus === 'error' &&
+      css`
+        border-color: ${get('colors.danger.emphasis')};
+        ${renderFocusStyles(Boolean(props.hasTrailingAction), Boolean(props.isInputFocused))}
+      `}
+
+
+    ${props =>
+      props.validationStatus === 'success' &&
+      css`
+        border-color: ${get('colors.success.emphasis')};
+      `}
+
+    ${props =>
+      props.block &&
+      css`
+        width: 100%;
+        display: flex;
+        align-self: stretch;
+      `}
+
+    // Ensures inputs don' t zoom on mobile but are body-font size on desktop
+    @media (min-width: ${get('breakpoints.1')}) {
+      font-size: ${get('fontSizes.1')};
+    }
+
+    ${width}
+    ${minWidth}
+    ${maxWidth}
+    ${sizeDeprecatedVariants}
+    ${sizeVariants}
+    ${sx};
+  `,
+)
+
+export const TextInputBaseWrapper = React.forwardRef<HTMLElement, StyledTextInputWrapperProps>(
+  function TextInputBaseWrapper({className, ...rest}, forwardRef) {
+    const enabled = useFeatureFlag(TEXT_INPUT_CSS_MODULES_FEATURE_FLAG)
+
+    // TODO: Handle WidthProps & MinWidthProps & MaxWidthProps
+    return (
+      <StyledTextInputBaseWrapper
+        ref={forwardRef}
+        className={clsx(className, enabled && styles.TextInputBaseWrapper)}
+        data-validation={rest.validationStatus}
+        data-block={rest.block}
+        data-monospace={rest.monospace}
+        data-disabled={rest.disabled}
+        data-contrast={rest.contrast}
+        data-focused={rest.isInputFocused}
+        data-trailing-action={rest.hasTrailingAction}
+        data-size={rest.size}
+        data-variant={rest.variant}
+        {...rest}
+      />
+    )
+  },
+)
+TextInputBaseWrapper.displayName = 'TextInputBaseWrapper'
+
+const StyledTextInputWrapper = toggleStyledComponent(
+  TEXT_INPUT_CSS_MODULES_FEATURE_FLAG,
+  TextInputBaseWrapper,
+  styled(TextInputBaseWrapper)<StyledTextInputWrapperProps>`
+    background-repeat: no-repeat; // Repeat and position set for form states (success, error, etc)
+    background-position: right 8px center; // For form validation. This keeps images 8px from right and centered vertically.
+
+    & > :not(:last-child) {
+      margin-right: ${get('space.2')};
+    }
+
+    .TextInput-icon,
+    .TextInput-action {
+      align-self: center;
+      color: ${get('colors.fg.muted')};
+      flex-shrink: 0;
+    }
+
+    ${props => css`
+      padding-left: ${props.hasLeadingVisual ? '12px' : 0};
+      padding-right: ${props.hasTrailingVisual && !props.hasTrailingAction ? '12px' : 0};
+
+      > input,
+      > select {
+        padding-left: ${!props.hasLeadingVisual ? '12px' : 0};
+        padding-right: ${!props.hasTrailingVisual && !props.hasTrailingAction ? '12px' : 0};
       }
     `}
 
-    ${props =>
-    props.monospace &&
-    css`
-      font-family: ${get('fonts.mono')};
-    `}
+    ${sx};
+  `,
+)
 
-  ${props =>
-    props.validationStatus === 'error' &&
-    css`
-      border-color: ${get('colors.danger.emphasis')};
-      ${renderFocusStyles(Boolean(props.hasTrailingAction), Boolean(props.isInputFocused))}
-    `}
+export const TextInputWrapper = React.forwardRef<HTMLElement, StyledBaseWrapperProps>(function TextInputWrapper(
+  {className, ...rest},
+  forwardRef,
+) {
+  const enabled = useFeatureFlag(TEXT_INPUT_CSS_MODULES_FEATURE_FLAG)
 
+  return (
+    <StyledTextInputWrapper
+      ref={forwardRef}
+      className={clsx(className, enabled && styles.TextInputWrapper)}
+      data-visual={rest.hasLeadingVisual ? 'leading' : rest.hasTrailingVisual ? 'trailing' : 'none'}
+      {...rest}
+    />
+  )
+})
 
-  ${props =>
-    props.validationStatus === 'success' &&
-    css`
-      border-color: ${get('colors.success.emphasis')};
-    `}
-
-  ${props =>
-    props.block &&
-    css`
-      width: 100%;
-      display: flex;
-      align-self: stretch;
-    `}
-
-  // Ensures inputs don' t zoom on mobile but are body-font size on desktop
-  @media (min-width: ${get('breakpoints.1')}) {
-    font-size: ${get('fontSizes.1')};
-  }
-
-  ${width}
-  ${minWidth}
-  ${maxWidth}
-  ${sizeDeprecatedVariants}
-  ${sizeVariants}
-  ${sx};
-`
-
-const TextInputWrapper = styled(TextInputBaseWrapper)<StyledWrapperProps>`
-  background-repeat: no-repeat; // Repeat and position set for form states (success, error, etc)
-  background-position: right 8px center; // For form validation. This keeps images 8px from right and centered vertically.
-
-  & > :not(:last-child) {
-    margin-right: ${get('space.2')};
-  }
-
-  .TextInput-icon,
-  .TextInput-action {
-    align-self: center;
-    color: ${get('colors.fg.muted')};
-    flex-shrink: 0;
-  }
-
-  ${props => css`
-    padding-left: ${props.hasLeadingVisual ? textInputHorizPadding : 0};
-    padding-right: ${props.hasTrailingVisual && !props.hasTrailingAction ? textInputHorizPadding : 0};
-
-    > input,
-    > select {
-      padding-left: ${!props.hasLeadingVisual ? textInputHorizPadding : 0};
-      padding-right: ${!props.hasTrailingVisual && !props.hasTrailingAction ? textInputHorizPadding : 0};
-    }
-  `}
-
-  ${sx};
-`
-
+export type StyledBaseWrapperProps = ComponentProps<typeof TextInputBaseWrapper>
+export type StyledWrapperProps = ComponentProps<typeof TextInputWrapper>
 export default TextInputWrapper
