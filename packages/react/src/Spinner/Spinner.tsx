@@ -6,7 +6,6 @@ import type {HTMLDataAttributes} from '../internal/internal-types'
 import {useId} from '../hooks'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './Spinner.module.css'
-import Box from '../Box'
 
 const sizeMap = {
   small: '16px',
@@ -87,11 +86,15 @@ const StyledComponentSpinner = styled(Spinner)`
   ${sx}
 `
 
+const StyledBaseSpinner = styled.div`
+  ${sx}
+`
+
 function StyledSpinner({sx, ...props}: SpinnerProps) {
   const enabled = useFeatureFlag('primer_react_css_modules_team')
   if (enabled) {
     if (sx) {
-      return <Box sx={sx} as={Spinner} className={classes.SpinnerAnimation} {...props} />
+      return <StyledBaseSpinner sx={sx} as={Spinner} className={classes.SpinnerAnimation} {...props} />
     }
 
     return <Spinner className={classes.SpinnerAnimation} {...props} />
