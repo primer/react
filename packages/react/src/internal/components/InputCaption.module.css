@@ -1,0 +1,9 @@
+.InputCaption {
+  color: var(--fgColor-muted);
+  display: block;
+  font-size: var(--text-caption-size);
+
+  &:where([data-disabled]) {
+    color: var(--control-fgColor-disabled);
+  }
+}
