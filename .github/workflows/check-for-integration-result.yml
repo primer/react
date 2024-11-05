@@ -21,8 +21,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo
             });
-            console.log(result)
-            const integrationComments = result.data.filter(c => c.user.login == 'primer-integration[bot]' && c.body.includes('test-result'))
+            const integrationComments = result.data.filter(c => c.user.login == 'primer-integration[bot]') // && c.body.includes('test-result'))
             console.log(integrationComments)
 
             const latestComment = integrationComments.sort(c => c.createdAt)[0]
