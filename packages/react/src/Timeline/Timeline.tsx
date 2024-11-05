@@ -153,7 +153,7 @@ function TimelineGroup({children, ...props}: React.ComponentPropsWithoutRef<'ul'
     `Timeline.Group is only meant to be used with the timeline as list feature, you may want to turn on the 'primer_react_timeline_as_list' feature flag. Using Timeline.Group without this feature may have unintended consequences`,
   )
   return (
-    <Box as="ul" className="Timeline-Group" {...props}>
+    <Box as={asList ? 'ul' : 'div'} className="Timeline-Group" {...props}>
       {children}
     </Box>
   )
