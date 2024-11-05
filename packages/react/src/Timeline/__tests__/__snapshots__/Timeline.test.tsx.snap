@@ -10,9 +10,6 @@ exports[`Timeline renders with clipSidebar prop 1`] = `
   -ms-flex-direction: column;
   flex-direction: column;
   list-style: none;
-  padding-inline-start: 0;
-  margin-block-start: 0;
-  margin-block-end: 0;
 }
 
 .c0 .Timeline-Group {
