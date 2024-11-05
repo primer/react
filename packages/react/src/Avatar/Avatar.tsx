@@ -6,7 +6,6 @@ import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isResponsiveValue} from '../hooks/useResponsiveValue'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import classes from './Avatar.module.css'
-import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 export const DEFAULT_AVATAR_SIZE = 20
 
@@ -24,16 +23,8 @@ export type AvatarProps = {
 } & SxProp &
   React.ComponentPropsWithoutRef<'img'>
 
-const Avatar = React.forwardRef(function Avatar(
-  {
-    as: Component = 'img',
-    alt = '',
-    size = DEFAULT_AVATAR_SIZE,
-    square = false,
-    sx: sxProp = defaultSxProp,
-    className,
-    ...rest
-  },
+const Avatar = React.forwardRef<HTMLImageElement, AvatarProps>(function Avatar(
+  {alt = '', size = DEFAULT_AVATAR_SIZE, square = false, sx: sxProp = defaultSxProp, className, ...rest},
   ref,
 ) {
   const isResponsive = isResponsiveValue(size)
@@ -50,7 +41,7 @@ const Avatar = React.forwardRef(function Avatar(
   if (sxProp !== defaultSxProp) {
     return (
       <Box
-        as={Component}
+        as={'img'}
         data-component="Avatar"
         className={clsx(className, classes.Avatar)}
         ref={ref}
@@ -67,7 +58,7 @@ const Avatar = React.forwardRef(function Avatar(
   }
 
   return (
-    <Component
+    <img
       data-component="Avatar"
       className={clsx(className, classes.Avatar)}
       ref={ref}
@@ -80,7 +71,7 @@ const Avatar = React.forwardRef(function Avatar(
       {...rest}
     />
   )
-}) as PolymorphicForwardRefComponent<'img', AvatarProps>
+})
 
 if (__DEV__) {
   Avatar.displayName = 'Avatar'
