@@ -7,14 +7,12 @@ import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
 import {useFeatureFlag} from '../FeatureFlags'
+import {warning} from '../utils/warning'
 
 const Timeline = styled.div<{clipSidebar?: boolean} & SxProp>`
   display: flex;
   flex-direction: column;
   list-style: none;
-  padding-inline-start: 0;
-  margin-block-start: 0;
-  margin-block-end: 0;
 
   .Timeline-Group {
     padding-inline-start: 0;
@@ -149,6 +147,11 @@ function TimelineBreak(props: ComponentProps<typeof StyledTimelineBreak>) {
 }
 
 function TimelineGroup({children, ...props}: React.ComponentPropsWithoutRef<'ul'>) {
+  const asList = useFeatureFlag('primer_react_timeline_as_list')
+  warning(
+    !asList,
+    `Timeline.Group is only meant to be used with the timeline as list feature, you may want to turn on the 'primer_react_timeline_as_list' feature flag. Using Timeline.Group without this feature may have unintended consequences`,
+  )
   return (
     <Box as="ul" className="Timeline-Group" {...props}>
       {children}
