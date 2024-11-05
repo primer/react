@@ -88,7 +88,7 @@ const labels: Record<BannerVariant, string> = {
   warning: 'Warning',
 }
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 export const Banner = React.forwardRef<HTMLElement, BannerProps>(function Banner(
   {
