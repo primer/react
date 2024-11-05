@@ -40,8 +40,9 @@ function Spinner({
 
   return (
     /* inline-flex removes the extra line height */
-    <Box as="span" className={classes.Box}>
-      <svg
+    <span className={classes.Box}>
+      <Box
+        as="svg"
         height={size}
         width={size}
         viewBox="0 0 16 16"
@@ -69,9 +70,9 @@ function Spinner({
           strokeLinecap="round"
           vectorEffect="non-scaling-stroke"
         />
-      </svg>
+      </Box>
       {hasHiddenLabel ? <VisuallyHidden id={labelId}>{srText}</VisuallyHidden> : null}
-    </Box>
+    </span>
   )
 }
 
@@ -87,17 +88,13 @@ const StyledComponentSpinner = styled(Spinner)`
   ${sx}
 `
 
-function StyledSpinner({sx, ...props}: SpinnerProps) {
+function StyledSpinner(props: SpinnerProps) {
   const enabled = useFeatureFlag('primer_react_css_modules_team')
   if (enabled) {
-    if (sx) {
-      return <StyledComponentSpinner className={classes.SpinnerAnimation} sx={sx} {...props} />
-    }
-
     return <Spinner className={classes.SpinnerAnimation} {...props} />
   }
 
-  return <StyledComponentSpinner sx={sx} {...props} />
+  return <StyledComponentSpinner {...props} />
 }
 
 StyledSpinner.displayName = 'Spinner'
