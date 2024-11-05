@@ -24,11 +24,14 @@ jobs:
           
             const result = await github.rest.issues.listComments(issue);
             const integrationComments = result.data.filter(c => c.user.login == 'primer-integration[bot]' && c.body.includes('<!-- test-result'))
-            console.log(integrationComments)
-            if (integrationComments.length === 0) return
+            if (integrationComments.length === 0) {
+              console.log('Integration comment with test-result not found')
+              return
+            }
 
             const latestComment = integrationComments.pop()
-            const pass = latestComment.includes(':green-circle:')
+            console.log(latestComment.body)
+            const pass = latestComment.body.includes(':green-circle:')
             
             await github.rest.issues.addLabels({
               ...issue,
