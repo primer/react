@@ -216,6 +216,10 @@ const UlBox = styled.ul<SxProp>`
     text-overflow: ellipsis;
   }
 
+  &[data-truncate-text='false'] .PRIVATE_TreeView-item-content-text {
+    word-break: break-word;
+  }
+
   .PRIVATE_TreeView-item-visual {
     display: flex;
     align-items: center;

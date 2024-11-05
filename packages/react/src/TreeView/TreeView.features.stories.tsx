@@ -34,7 +34,7 @@ const meta: Meta = {
 
 export const Files: StoryFn = () => (
   <nav aria-label="Files">
-    <TreeView aria-label="Files">
+    <TreeView aria-label="Files" truncate={false}>
       <TreeView.Item id="src" defaultExpanded>
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
@@ -112,7 +112,7 @@ export const Files: StoryFn = () => (
 export const FilesChanged: StoryFn = () => {
   return (
     <nav aria-label="Files">
-      <TreeView aria-label="Files">
+      <TreeView aria-label="Files" truncate={false}>
         <TreeView.Item id="src" defaultExpanded>
           <TreeView.LeadingVisual>
             <TreeView.DirectoryIcon />
@@ -1058,7 +1058,7 @@ export const MultilineItems: StoryFn = () => (
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
-            Avatar.tsx
+            Avatar.tsx Avatar.tsx Avatar.tsx Avatar.tsx Avatar.tsx
             <TreeView.TrailingVisual label="Added">
               <Octicon icon={DiffAddedIcon} color="success.fg" />
             </TreeView.TrailingVisual>
