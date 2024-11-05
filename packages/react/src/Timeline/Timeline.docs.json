@@ -57,6 +57,10 @@
           "type": "SystemStyleObject"
         }
       ]
+    },
+    {
+      "name": "Timeline.Group",
+      "props": []
     }
   ]
 }
