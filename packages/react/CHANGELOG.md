@@ -1,5 +1,19 @@
 # @primer/react
 
+## 37.2.0
+
+### Minor Changes
+
+- [#5168](https://github.com/primer/react/pull/5168) [`b9749d4`](https://github.com/primer/react/commit/b9749d4efccf17b4aa669231a57df55333497ca2) Thanks [@TylerJDev](https://github.com/TylerJDev)! - TreeView: Adds indication of no nodes in a tree item, allows for `aria-expanded even if the item is empty.
+
+- [#5202](https://github.com/primer/react/pull/5202) [`293c574`](https://github.com/primer/react/commit/293c574a25d49bb52a2f5c17e4c54b1b1b598ddc) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Update `SubNav` component to use CSS modules behind the feature flag primer_react_css_modules_team
+
+### Patch Changes
+
+- [#5225](https://github.com/primer/react/pull/5225) [`e732591`](https://github.com/primer/react/commit/e732591e939e5a86dc5ce2ce2da25388177b6a54) Thanks [@jonrohan](https://github.com/jonrohan)! - chore(Banner): Move Banner CSS module flag from staff to ga
+
+- [#5177](https://github.com/primer/react/pull/5177) [`26b54d8`](https://github.com/primer/react/commit/26b54d8a58e83e50127b5c04ac26ec953a89c108) Thanks [@lukasoppermann](https://github.com/lukasoppermann)! - Allow primitives dep to be if version 9 OR 10
+
 ## 37.1.0
 
 ### Minor Changes
