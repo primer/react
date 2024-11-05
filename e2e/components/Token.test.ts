@@ -27,12 +27,12 @@ test.describe('Token', () => {
             })
 
             // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`Token.Default.${theme}.png`)
+            expect(await page.screenshot()).toMatchSnapshot(`Token.Default.${story.title}.${theme}.png`)
           })
 
           test('axe @aat', async ({page}) => {
             await visit(page, {
-              id: 'components-token--default',
+              id: story.id,
               globals: {
                 colorScheme: theme,
               },
