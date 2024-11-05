@@ -4,13 +4,14 @@ import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import React from 'react'
 import classes from './_TokenTextContainer.module.css'
 import {useFeatureFlag} from '../FeatureFlags'
+import {clsx} from 'clsx'
 
 const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
 
 const StyledTokenTextContainer = toggleStyledComponent(
   CSS_MODULES_FEATURE_FLAG,
   'span',
-  styled('span')<Partial<TokenBaseProps>>`
+  styled('span')`
     flex-grow: 1;
     min-width: 0;
     overflow: hidden;
@@ -57,7 +58,7 @@ const TokenTextContainer = ({children, ...props}: React.PropsWithChildren<Partia
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   return (
-    <StyledTokenTextContainer className={enabled && classes.TokenTextContainer} {...props}>
+    <StyledTokenTextContainer className={clsx(enabled && classes.TokenTextContainer)} {...props}>
       {children}
     </StyledTokenTextContainer>
   )
