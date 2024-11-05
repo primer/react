@@ -2,4 +2,4 @@
 "@primer/react": patch
 ---
 
-Spinner component size get's large when passing sx and size props
+Update Spinner component to correctly use the `size` prop when both `sx` and `size` are provided
