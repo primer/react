@@ -67,11 +67,11 @@ export const Files: StoryFn = () => (
               </TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-          <TreeView.Item id="src/ReallyLongFileNameThatShouldBeTruncated.tsx">
+          <TreeView.Item id="src/ReallyLongFileNameThatShouldNotTruncated.tsx">
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
-            ReallyLongFileNameThatShouldBeTruncated.tsx
+            ReallyLongFileNameThatShouldNotTruncate.tsx
           </TreeView.Item>
         </TreeView.SubTree>
       </TreeView.Item>
@@ -154,11 +154,11 @@ export const FilesChanged: StoryFn = () => {
                 </TreeView.Item>
               </TreeView.SubTree>
             </TreeView.Item>
-            <TreeView.Item id="src/ReallyLongFileNameThatShouldBeTruncated.tsx">
+            <TreeView.Item id="src/ReallyLongFileNameThatShouldNotTruncated.tsx">
               <TreeView.LeadingVisual>
                 <FileIcon />
               </TreeView.LeadingVisual>
-              ReallyLongFileNameThatShouldBeTruncated.tsx
+              ReallyLongFileNameThatShouldNotTruncated.tsx
               <TreeView.TrailingVisual label="modified">
                 <Octicon icon={DiffModifiedIcon} color="attention.fg" />
               </TreeView.TrailingVisual>
@@ -785,7 +785,7 @@ export const ContainIntrinsicSize: StoryFn = () => {
 export const InitialFocus: StoryFn = () => (
   <div>
     <Button>Focusable element before TreeView</Button>
-    <TreeView aria-label="Test tree">
+    <TreeView aria-label="Test tree" truncate={false}>
       <TreeView.Item id="src" defaultExpanded>
         <TreeView.LeadingVisual>
           <TreeView.DirectoryIcon />
@@ -890,11 +890,11 @@ export const InitialFocus: StoryFn = () => (
               </TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-          <TreeView.Item id="src/ReallyLongFileNameThatShouldBeTruncated.tsx">
+          <TreeView.Item id="src/ReallyLongFileNameThatShouldNotBeTruncated.tsx">
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
-            ReallyLongFileNameThatShouldBeTruncated.tsx
+            ReallyLongFileNameThatShouldNotBeTruncated.tsx
           </TreeView.Item>
         </TreeView.SubTree>
       </TreeView.Item>
@@ -1058,7 +1058,7 @@ export const MultilineItems: StoryFn = () => (
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
-            Avatar.tsx Avatar.tsx Avatar.tsx Avatar.tsx Avatar.tsx
+            Avatar.tsx
             <TreeView.TrailingVisual label="Added">
               <Octicon icon={DiffAddedIcon} color="success.fg" />
             </TreeView.TrailingVisual>
