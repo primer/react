@@ -32,6 +32,9 @@ const invisibleButtonStyleOverrides = {
   paddingBottom: '2px',
   paddingLeft: '4px',
   position: 'relative',
+  backgroundColor: 'transparent',
+  color: 'fg.subtle',
+  '&:hover, &:focus': {color: 'fg.default'},
 
   '&[data-component="IconButton"]': {
     width: 'var(--inner-action-size)',
@@ -104,10 +107,10 @@ const TextInputAction = forwardRef<HTMLButtonElement, TextInputActionProps>(
     const accessibleLabel = ariaLabel
       ? {'aria-label': ariaLabel}
       : ariaLabelledBy
-      ? {'aria-labelledby': ariaLabelledBy}
-      : {
-          'aria-label': '',
-        }
+        ? {'aria-labelledby': ariaLabelledBy}
+        : {
+            'aria-label': '',
+          }
 
     return (
       <Box as="span" className="TextInput-action" marginLeft={1} marginRight={1} lineHeight="0">

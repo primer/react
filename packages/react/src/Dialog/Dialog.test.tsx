@@ -1,5 +1,5 @@
 import React from 'react'
-import {render, waitFor} from '@testing-library/react'
+import {fireEvent, render, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import {Dialog} from './Dialog'
 import MatchMediaMock from 'jest-matchmedia-mock'
@@ -83,6 +83,24 @@ describe('Dialog', () => {
     await user.click(backdrop)
 
     expect(onClose).toHaveBeenCalledWith('escape')
+  })
+
+  it('does not call `onClose` when click was not originated from backdrop', async () => {
+    const onClose = jest.fn()
+
+    const {getByRole} = render(<Dialog onClose={onClose}>Pay attention to me</Dialog>)
+
+    expect(onClose).not.toHaveBeenCalled()
+
+    const dialog = getByRole('dialog')
+    const backdrop = dialog.parentElement!
+
+    fireEvent.mouseDown(dialog)
+    fireEvent.mouseUp(backdrop)
+    // trigger the click on the backdrop, mouseUp doesn't do it for us
+    fireEvent.click(backdrop)
+
+    expect(onClose).not.toHaveBeenCalled()
   })
 
   it('calls `onClose` when keying "Escape"', async () => {

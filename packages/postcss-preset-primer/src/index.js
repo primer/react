@@ -1,7 +1,15 @@
-import {existsSync} from 'node:fs'
+import {readFileSync, existsSync} from 'node:fs'
 import path from 'node:path'
 import {fileURLToPath} from 'node:url'
 import {globSync} from 'glob'
+import postcssGlobalData from '@csstools/postcss-global-data'
+import postcssPresetEnv from 'postcss-preset-env'
+import postcssMixins from 'postcss-mixins'
+import cssnano from 'cssnano'
+// @ts-ignore
+import customPropertiesFallback from 'postcss-custom-properties-fallback'
+// @ts-ignore
+import browsers from '@github/browserslist-config'
 
 const filepath = fileURLToPath(import.meta.url)
 const {root: ROOT_DIR} = path.parse(filepath)
@@ -34,11 +42,59 @@ const postcssPresetPrimer = () => {
 
   return {
     postcssPlugin: 'postcss-preset-primer',
+    // Note: plugins passed into here must be called as functions and cannot use
+    // array syntax typically used in PostCSS config. Also, presets that use
+    // their own plugins won't work by default. We need to pull the plugins out
+    // and apply them from the preset
     plugins: [
-      [
-        'postcss-preset-env',
-        {
+      postcssGlobalData({
+        files: globSync('dist/css/**/*.css', {
+          cwd: primitivesPath,
+        }).map(file => {
+          return path.join(primitivesPath, file)
+        }),
+      }),
+      postcssMixins({
+        mixinsDir: path.join(path.dirname(filepath), 'mixins'),
+      }),
+      customPropertiesFallback({
+        importFrom: [
+          () => {
+            let customProperties = {}
+            const filePaths = globSync(['dist/fallbacks/**/*.json', 'dist/docs/functional/themes/light.json'], {
+              cwd: primitivesPath,
+              ignore: ['fallbacks/color-fallbacks.json'],
+            })
+
+            for (const filePath of filePaths) {
+              const fileData = readFileSync(path.join(primitivesPath, filePath), 'utf8')
+
+              const jsonData = JSON.parse(fileData)
+              let result = {}
+
+              if (filePath === 'dist/docs/functional/themes/light.json') {
+                for (const variable of Object.keys(jsonData)) {
+                  // @ts-ignore
+                  result[`--${variable}`] = jsonData[variable].value
+                }
+              } else {
+                result = jsonData
+              }
+
+              customProperties = {
+                ...customProperties,
+                ...result,
+              }
+            }
+
+            return {customProperties}
+          },
+        ],
+      }),
+      ...plugins(
+        postcssPresetEnv({
           stage: 2,
+          browsers,
           // https://preset-env.cssdb.org/features/#stage-2
           features: {
             'nesting-rules': {
@@ -47,18 +103,9 @@ const postcssPresetPrimer = () => {
             'focus-visible-pseudo-class': false,
             'logical-properties-and-values': false,
           },
-        },
-      ],
-      [
-        '@csstools/postcss-global-data',
-        {
-          files: globSync('dist/css/**/*.css', {
-            cwd: primitivesPath,
-          }),
-        },
-      ],
-      ['postcss-nesting', {edition: '2024-02'}],
-      ['postcss-custom-media', {}],
+        }),
+      ),
+      ...plugins(cssnano()),
     ],
   }
 }
@@ -85,6 +132,15 @@ function ancestors(directory) {
   }
 
   return result
+}
+
+/**
+ * Returns array of plugins from the given PostCSS preset
+ * @param {import('postcss').Processor | import('postcss').Plugin} preset
+ * @returns {Array<any>}
+ */
+function plugins(preset) {
+  return 'plugins' in preset ? preset.plugins : []
 }
 
 export default postcssPresetPrimer

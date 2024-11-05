@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import {get} from '../constants'
 import {Button} from '../internal/components/ButtonReset'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
-import {VisuallyHidden} from '../internal/components/VisuallyHidden'
+import {VisuallyHidden} from '../VisuallyHidden'
 import {warning} from '../utils/warning'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {viewportRanges} from '../hooks/useResponsiveValue'
@@ -72,6 +72,7 @@ const StyledPagination = styled.nav`
     line-height: calc(20 / 14);
     user-select: none;
     border-radius: 6px;
+    padding: 0.5rem calc((2rem - 1.25rem) / 2); /* primer.control.medium.paddingInline.condensed primer.control.medium.paddingBlock */
   }
 
   .TablePaginationAction[data-has-page]:hover,
@@ -191,9 +192,15 @@ export function Pagination({
     totalCount,
   })
   const truncatedPageCount = pageCount > 2 ? Math.min(pageCount - 2, MAX_TRUNCATED_STEP_COUNT) : 0
-  const [offsetStartIndex, setOffsetStartIndex] = useState(() => {
-    return getDefaultOffsetStartIndex(pageIndex, pageCount, truncatedPageCount)
-  })
+  const defaultOffset = getDefaultOffsetStartIndex(pageIndex, pageCount, truncatedPageCount)
+  const [defaultOffsetStartIndex, setDefaultOffsetStartIndex] = useState(defaultOffset)
+  const [offsetStartIndex, setOffsetStartIndex] = useState(defaultOffsetStartIndex)
+
+  if (defaultOffsetStartIndex !== defaultOffset) {
+    setOffsetStartIndex(defaultOffset)
+    setDefaultOffsetStartIndex(defaultOffset)
+  }
+
   const offsetEndIndex = offsetStartIndex + truncatedPageCount - 1
   const hasLeadingTruncation = offsetStartIndex >= 2
   const hasTrailingTruncation = pageCount - 1 - offsetEndIndex > 1
@@ -332,15 +339,15 @@ function getDefaultOffsetStartIndex(pageIndex: number, pageCount: number, trunca
   // When the current page is closer to the end of the list than the beginning
   if (pageIndex > pageCount - 1 - pageIndex) {
     if (pageCount - 1 - pageIndex >= truncatedPageCount) {
-      return pageIndex - 3
+      return Math.max(pageIndex - 3, 1)
     }
-    return pageCount - 1 - truncatedPageCount
+    return Math.max(pageCount - 1 - truncatedPageCount, 1)
   }
 
   // When the current page is closer to the beginning of the list than the end
   if (pageIndex < pageCount - 1 - pageIndex) {
     if (pageIndex >= truncatedPageCount) {
-      return pageIndex - 3
+      return Math.max(pageIndex - 3, 1)
     }
     return 1
   }
@@ -349,7 +356,7 @@ function getDefaultOffsetStartIndex(pageIndex: number, pageCount: number, trunca
   if (pageIndex < truncatedPageCount) {
     return pageIndex
   }
-  return pageIndex - 3
+  return Math.max(pageIndex - 3, 1)
 }
 
 type RangeProps = {
@@ -366,7 +373,7 @@ function Range({pageStart, pageEnd, totalCount}: RangeProps) {
       <Message value={`Showing ${start} through ${end} of ${totalCount}`} />
       <p className="TablePaginationRange">
         {start}
-        <VisuallyHidden as="span">&nbsp;through&nbsp;</VisuallyHidden>
+        <VisuallyHidden>&nbsp;through&nbsp;</VisuallyHidden>
         <span aria-hidden="true">‒</span>
         {end} of {totalCount}
       </p>
@@ -490,7 +497,7 @@ type PaginationResult = {
 function usePagination(config: PaginationConfig): PaginationResult {
   const {defaultPageIndex, onChange, pageSize, totalCount} = config
   const pageCount = Math.ceil(totalCount / pageSize)
-  const [pageIndex, setPageIndex] = useState(() => {
+  const [defaultIndex, setDefaultIndex] = useState(() => {
     if (defaultPageIndex !== undefined) {
       if (defaultPageIndex >= 0 && defaultPageIndex < pageCount) {
         return defaultPageIndex
@@ -509,6 +516,13 @@ function usePagination(config: PaginationConfig): PaginationResult {
 
     return 0
   })
+  const [pageIndex, setPageIndex] = useState(defaultIndex)
+  const validDefaultPageCount = defaultPageIndex !== undefined && defaultPageIndex >= 0 && defaultPageIndex < pageCount
+  if (validDefaultPageCount && defaultIndex !== defaultPageIndex) {
+    setDefaultIndex(defaultPageIndex)
+    setPageIndex(defaultPageIndex)
+    onChange?.({pageIndex: defaultPageIndex})
+  }
   const pageStart = pageIndex * pageSize
   const pageEnd = Math.min(pageIndex * pageSize + pageSize, totalCount - 1)
   const hasNextPage = pageIndex + 1 < pageCount

@@ -2,9 +2,10 @@ import {SearchIcon, HeartIcon} from '@primer/octicons-react'
 import {render, screen, fireEvent} from '@testing-library/react'
 import axe from 'axe-core'
 import React from 'react'
-import {IconButton, Button} from '../../Button'
+import {IconButton, Button, LinkButton} from '../../Button'
 import type {ButtonProps} from '../../Button'
 import {behavesAsComponent} from '../../utils/testing'
+import {FeatureFlags} from '../../FeatureFlags'
 
 type StatefulLoadingButtonProps = {
   children?: React.ReactNode
@@ -24,10 +25,71 @@ const StatefulLoadingButton = (props: StatefulLoadingButtonProps) => {
   return <Button loading={isLoading} onClick={handleClick} {...props} />
 }
 
+describe('IconButton', () => {
+  it('should support `className` on the outermost element', () => {
+    const Element = () => <IconButton className={'test-class-name'} icon={SearchIcon} aria-label="Search button" />
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
+  })
+})
+
+describe('LinkButton', () => {
+  it('should support `className` on the outermost element', () => {
+    const Element = () => <LinkButton className={'test-class-name'} />
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
+  })
+})
+
 describe('Button', () => {
   behavesAsComponent({
     Component: TestButton,
     options: {skipSx: true, skipAs: true},
+  })
+
+  it('should support `className` on the outermost element', () => {
+    const Element = () => <Button className={'test-class-name'} />
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('renders a <button>', () => {
@@ -251,16 +313,14 @@ describe('Button', () => {
   })
 
   it('should render tooltip on an icon button when unsafeDisableTooltip prop is passed as false', () => {
-    const {getByRole, getByText} = render(
-      <IconButton icon={HeartIcon} aria-label="Heart" unsafeDisableTooltip={false} />,
-    )
+    const {getByRole, getByText} = render(<IconButton icon={HeartIcon} aria-label="Heart" />)
     const triggerEL = getByRole('button')
     const tooltipEl = getByText('Heart')
     expect(triggerEL).toHaveAttribute('aria-labelledby', tooltipEl.id)
   })
   it('should render description type tooltip on an icon button when unsafeDisableTooltip prop is passed as false', () => {
     const {getByRole, getByText} = render(
-      <IconButton icon={HeartIcon} aria-label="Heart" description="Love is all around" unsafeDisableTooltip={false} />,
+      <IconButton icon={HeartIcon} aria-label="Heart" description="Love is all around" />,
     )
     const triggerEL = getByRole('button')
     expect(triggerEL).toHaveAttribute('aria-label', 'Heart')
@@ -275,16 +335,12 @@ describe('Button', () => {
     expect(triggerEl).not.toHaveAttribute('aria-label')
   })
   it('should render aria-keyshorts on an icon button when keyshortcuts prop is passed', () => {
-    const {getByRole} = render(
-      <IconButton unsafeDisableTooltip={false} icon={HeartIcon} aria-label="Heart" keyshortcuts="Command+H" />,
-    )
+    const {getByRole} = render(<IconButton icon={HeartIcon} aria-label="Heart" keyshortcuts="Command+H" />)
     const triggerEl = getByRole('button')
     expect(triggerEl).toHaveAttribute('aria-keyshortcuts', 'Command+H')
   })
   it('should append the keyshortcuts to the tooltip text that labels the icon button when keyshortcuts prop is passed', () => {
-    const {getByRole, getByText} = render(
-      <IconButton unsafeDisableTooltip={false} icon={HeartIcon} aria-label="Heart" keyshortcuts="Command+H" />,
-    )
+    const {getByRole, getByText} = render(<IconButton icon={HeartIcon} aria-label="Heart" keyshortcuts="Command+H" />)
     const triggerEl = getByRole('button')
     const tooltipEl = getByText('Heart, Command+H')
     expect(tooltipEl).toBeInTheDocument()
@@ -292,26 +348,14 @@ describe('Button', () => {
   })
   it('should render aria-keyshorts on an icon button when keyshortcuts prop is passed (Description Type)', () => {
     const {getByRole} = render(
-      <IconButton
-        unsafeDisableTooltip={false}
-        icon={HeartIcon}
-        aria-label="Heart"
-        description="Love is all around"
-        keyshortcuts="Command+H"
-      />,
+      <IconButton icon={HeartIcon} aria-label="Heart" description="Love is all around" keyshortcuts="Command+H" />,
     )
     const triggerEl = getByRole('button')
     expect(triggerEl).toHaveAttribute('aria-keyshortcuts', 'Command+H')
   })
   it('should append the keyshortcuts to the tooltip text that describes the icon button when keyshortcuts prop is passed (Description Type)', () => {
     const {getByRole, getByText} = render(
-      <IconButton
-        unsafeDisableTooltip={false}
-        icon={HeartIcon}
-        aria-label="Heart"
-        description="Love is all around"
-        keyshortcuts="Command+H"
-      />,
+      <IconButton icon={HeartIcon} aria-label="Heart" description="Love is all around" keyshortcuts="Command+H" />,
     )
     const triggerEl = getByRole('button')
     const tooltipEl = getByText('Love is all around, Command+H')

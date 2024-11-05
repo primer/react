@@ -578,7 +578,7 @@ const components = new Map([
     {
       stories: [
         {
-          id: 'drafts-components-hidden--default',
+          id: 'experimental-components-hidden--default',
           name: 'Default',
         },
       ],
@@ -631,29 +631,6 @@ const components = new Map([
         {
           id: 'components-iconbutton-features--keyshortcuts-on-description',
           name: 'Keyshortcuts on Description',
-        },
-      ],
-    },
-  ],
-  [
-    'InlineAutocomplete',
-    {
-      stories: [
-        {
-          id: 'components-forms-inlineautocomplete--default',
-          name: 'Default',
-        },
-        {
-          id: 'components-forms-inlineautocomplete--playground',
-          name: 'Playground',
-        },
-        {
-          id: 'components-forms-inlineautocomplete-features--custom-rendering',
-          name: 'Custom Rendering',
-        },
-        {
-          id: 'components-forms-inlineautocomplete-features--single-line',
-          name: 'Single Line',
         },
       ],
     },
@@ -1125,28 +1102,52 @@ const components = new Map([
           name: 'Default',
         },
         {
-          id: 'components-selectpanel-features--single-select-story',
+          id: 'components-selectpanel-features--single-select',
           name: 'Single Select',
         },
         {
-          id: 'components-selectpanel-features--external-anchor-story',
-          name: 'External Anchor',
+          id: 'components-selectpanel-features--with-external-anchor',
+          name: 'With External Anchor',
         },
         {
-          id: 'components-selectpanel-features--select-panel-height-initial-with-overflowing-items-story',
-          name: 'SelectPanel, Height: Initial, Overflowing Items',
+          id: 'components-selectpanel-features--with-footer',
+          name: 'With Footer',
         },
         {
-          id: 'components-selectpanel-features--select-panel-height-initial-with-underflowing-items-story',
-          name: 'SelectPanel, Height: Initial, Underflowing Items',
+          id: 'components-selectpanel-features--with-groups',
+          name: 'With Groups',
         },
         {
-          id: 'components-selectpanel-features--select-panel-above-tall-body',
-          name: 'SelectPanel, Above a Tall Body',
+          id: 'components-selectpanel-features--with-item-dividers',
+          name: 'With Item Dividers',
         },
         {
-          id: 'components-selectpanel-features-select-panel-height-and-scroll',
-          name: 'SelectPanel, Height and Scroll',
+          id: 'components-selectpanel-features--with-placeholder-for-seach-input',
+          name: 'With Placeholder for Search Input',
+        },
+        {
+          id: 'components-selectpanel-features--with-placeholder-select',
+          name: 'With Placeholder Select',
+        },
+        {
+          id: 'components-selectpanel-examples--above-tall-body',
+          name: 'Above Tall Body',
+        },
+        {
+          id: 'components-selectpanel-examples--height-variantions-and-scroll',
+          name: 'Height Variantions and Scroll',
+        },
+        {
+          id: 'components-selectpanel-examples--height-initial-with-overflowing-items-story',
+          name: 'Height Initial with Overflowing Items',
+        },
+        {
+          id: 'components-selectpanel-examples--height-initial-with-underflowing-items-story',
+          name: 'Height Initial with Underflowing Items',
+        },
+        {
+          id: 'components-selectpanel-examples--height-initial-with-underflowing-items-after-fetch',
+          name: 'Height Initial with Underflowing Items After Fetch',
         },
       ],
     },

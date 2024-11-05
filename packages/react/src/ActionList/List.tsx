@@ -33,19 +33,25 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
 
     /** if list is inside a Menu, it will get a role from the Menu */
     const {
-      listRole,
+      listRole: listRoleFromContainer,
       listLabelledBy,
       selectionVariant: containerSelectionVariant, // TODO: Remove after DropdownMenu2 deprecation
-      enableFocusZone,
+      enableFocusZone: enableFocusZoneFromContainer,
     } = React.useContext(ActionListContainerContext)
 
-    const ariaLabelledBy = slots.heading ? slots.heading.props.id ?? headingId : listLabelledBy
-
+    const ariaLabelledBy = slots.heading ? (slots.heading.props.id ?? headingId) : listLabelledBy
+    const listRole = role || listRoleFromContainer
     const listRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLUListElement>)
+
+    let enableFocusZone = false
+    if (enableFocusZoneFromContainer !== undefined) enableFocusZone = enableFocusZoneFromContainer
+    else if (listRole) enableFocusZone = ['menu', 'menubar', 'listbox'].includes(listRole)
+
     useFocusZone({
       disabled: !enableFocusZone,
       containerRef: listRef,
       bindKeys: FocusKeys.ArrowVertical | FocusKeys.HomeAndEnd | FocusKeys.PageUpDown,
+      focusOutBehavior: listRole === 'menu' ? 'wrap' : undefined,
     })
 
     return (
@@ -54,14 +60,14 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
           variant,
           selectionVariant: selectionVariant || containerSelectionVariant,
           showDividers,
-          role: role || listRole,
+          role: listRole,
           headingId,
         }}
       >
         {slots.heading}
         <ListBox
           sx={merge(styles, sxProp as SxProp)}
-          role={role || listRole}
+          role={listRole}
           aria-labelledby={ariaLabelledBy}
           {...props}
           ref={listRef}

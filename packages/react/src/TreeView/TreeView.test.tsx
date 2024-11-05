@@ -220,7 +220,7 @@ describe('Markup', () => {
     expect(treeitem).not.toHaveAttribute('aria-expanded')
 
     await user.click(getByText(/Item 2/))
-    expect(treeitem).not.toHaveAttribute('aria-expanded')
+    expect(treeitem).toHaveAttribute('aria-expanded', 'true')
   })
 
   it('should render with containIntrinsicSize', () => {
@@ -249,7 +249,7 @@ describe('Markup', () => {
     const user = userEvent.setup({delay: null})
     const {getByRole} = renderWithTheme(
       <div>
-        <button>Focusable element</button>
+        <button type="button">Focusable element</button>
         <TreeView aria-label="Test tree">
           <TreeView.Item id="item-1">Item 1</TreeView.Item>
           <TreeView.Item id="item-2" current>
@@ -277,7 +277,7 @@ describe('Markup', () => {
     const user = userEvent.setup({delay: null})
     const {getByRole} = renderWithTheme(
       <div>
-        <button>Focusable element</button>
+        <button type="button">Focusable element</button>
         <TreeView aria-label="Test tree">
           <TreeView.Item id="item-1">
             Item 1
@@ -318,13 +318,13 @@ describe('Markup', () => {
           <TreeView.Item id="item-1">Item 1</TreeView.Item>
           <TreeView.Item id="item-2">
             Item 2
-            <button id="item-2-button" tabIndex={-1} aria-hidden>
+            <button id="item-2-button" tabIndex={-1} aria-hidden type="button">
               Link in Item 2
             </button>
           </TreeView.Item>
           <TreeView.Item id="item-3">Item 3</TreeView.Item>
         </TreeView>
-        <button>Focusable element</button>
+        <button type="button">Focusable element</button>
       </div>,
     )
 
@@ -1354,12 +1354,18 @@ describe('State', () => {
 describe('Asyncronous loading', () => {
   it('updates aria live region when loading is done', () => {
     function TestTree() {
-      const [state, setState] = React.useState<SubTreeState>('loading')
+      const [state, setState] = React.useState<SubTreeState>('initial')
+
+      const setLoadingState = () => {
+        setState(state === 'initial' ? 'loading' : 'done')
+      }
 
       return (
         <div>
           {/* Mimic the completion of async loading by clicking the button */}
-          <button onClick={() => setState('done')}>Done</button>
+          <button type="button" onClick={setLoadingState}>
+            Load
+          </button>
           <TreeView aria-label="Test tree">
             <TreeView.Item id="parent" defaultExpanded>
               Parent
@@ -1380,11 +1386,16 @@ describe('Asyncronous loading', () => {
     }
     const {getByRole} = renderWithTheme(<TestTree />)
 
-    const doneButton = getByRole('button', {name: 'Done'})
+    const doneButton = getByRole('button', {name: 'Load'})
     const liveRegion = getByRole('status')
 
     // Live region should be empty
     expect(liveRegion).toHaveTextContent('')
+
+    // Click load button to mimic async loading
+    fireEvent.click(doneButton)
+
+    expect(liveRegion).toHaveTextContent('Parent content loading')
 
     // Click done button to mimic the completion of async loading
     fireEvent.click(doneButton)
@@ -1526,7 +1537,7 @@ describe('Asyncronous loading', () => {
     expect(parentItem).toHaveAttribute('aria-expanded', 'true')
   })
 
-  it('should remove `aria-expanded` if no content is loaded in', async () => {
+  it('should update `aria-expanded` if no content is loaded in', async () => {
     function Example() {
       const [state, setState] = React.useState<SubTreeState>('loading')
       const timeoutId = React.useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -1563,9 +1574,9 @@ describe('Asyncronous loading', () => {
       advanceTimers: jest.advanceTimersByTime,
     })
 
-    const treeitem = getByLabelText(/Item 1/)
+    const treeitem = getByLabelText('Item 1')
     expect(treeitem).toHaveAttribute('aria-expanded', 'false')
-    await user.click(getByText(/Item 1/))
+    await user.click(getByText('Item 1'))
 
     expect(treeitem).toHaveAttribute('aria-expanded', 'true')
 
@@ -1573,6 +1584,46 @@ describe('Asyncronous loading', () => {
       jest.runAllTimers()
     })
 
-    expect(treeitem).not.toHaveAttribute('aria-expanded')
+    expect(treeitem).toHaveAttribute('aria-expanded', 'true')
+    expect(getByLabelText('No items found')).toBeInTheDocument()
+  })
+
+  it('should have `aria-expanded` when directory is empty', async () => {
+    const {getByRole} = renderWithTheme(
+      <TreeView aria-label="Files changed">
+        <TreeView.Item id="src" defaultExpanded>
+          <TreeView.LeadingVisual>
+            <TreeView.DirectoryIcon />
+          </TreeView.LeadingVisual>
+          Parent
+          <TreeView.SubTree>
+            <TreeView.Item id="src/Avatar.tsx">child</TreeView.Item>
+            <TreeView.Item id="src/Button.tsx" current>
+              child current
+            </TreeView.Item>
+            <TreeView.Item id="src/Box.tsx">
+              empty child
+              <TreeView.SubTree />
+            </TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+      </TreeView>,
+    )
+
+    const parentItem = getByRole('treeitem', {name: 'Parent'})
+
+    // Parent item should be expanded
+    expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+
+    // Current child should not have `aria-expanded`
+    expect(getByRole('treeitem', {name: 'child current'})).not.toHaveAttribute('aria-expanded')
+
+    // Empty child should not have `aria-expanded` when closed
+    expect(getByRole('treeitem', {name: 'empty child'})).not.toHaveAttribute('aria-expanded')
+
+    fireEvent.click(getByRole('treeitem', {name: 'empty child'}))
+
+    // Empty child should have `aria-expanded` when opened
+    expect(getByRole('treeitem', {name: 'empty child'})).toHaveAttribute('aria-expanded')
   })
 })

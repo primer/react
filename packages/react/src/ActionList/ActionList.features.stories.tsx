@@ -358,6 +358,24 @@ export const ListBoxMultiSelect = () => {
   )
 }
 
+export const WithDynamicContent = () => {
+  const [isTrue, setIsTrue] = React.useState(false)
+
+  return (
+    <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+      <ActionList>
+        <ActionList.Item
+          onSelect={() => {
+            setIsTrue(!isTrue)
+          }}
+        >
+          Activated? {isTrue ? 'Yes' : 'No'}
+        </ActionList.Item>
+      </ActionList>
+    </FeatureFlags>
+  )
+}
+
 export const DisabledSelectedMultiselect = () => (
   <ActionList selectionVariant="multiple" role="menu" aria-label="Project">
     <ActionList.Item role="menuitemcheckbox" selected aria-checked disabled>
@@ -637,23 +655,27 @@ export const InsideOverlay = () => {
       open={open}
       onOpen={toggle}
       onClose={toggle}
-      renderAnchor={props => <button {...props}>toggle overlay</button>}
+      renderAnchor={props => (
+        <button type="button" {...props}>
+          toggle overlay
+        </button>
+      )}
     >
-      <ActionList>
-        <ActionList.Item>
+      <ActionList role="menu">
+        <ActionList.Item role="menuitem">
           Use your arrow keys
           <ActionList.TrailingVisual>↓</ActionList.TrailingVisual>
         </ActionList.Item>
-        <ActionList.Item>
+        <ActionList.Item role="menuitem">
           keep going
           <ActionList.TrailingVisual>↓</ActionList.TrailingVisual>
         </ActionList.Item>
-        <ActionList.Item>
+        <ActionList.Item role="menuitem">
           more more
           <ActionList.TrailingVisual>↓</ActionList.TrailingVisual>
         </ActionList.Item>
         <ActionList.Divider />
-        <ActionList.Item variant="danger">
+        <ActionList.Item variant="danger" role="menuitem">
           now go up!
           <ActionList.TrailingVisual>↑</ActionList.TrailingVisual>
         </ActionList.Item>
