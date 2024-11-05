@@ -285,7 +285,7 @@ const Root: React.FC<TreeViewProps> = ({
   'aria-labelledby': ariaLabelledby,
   children,
   flat,
-  truncate,
+  truncate = true,
   className,
 }) => {
   const containerRef = React.useRef<HTMLUListElement>(null)

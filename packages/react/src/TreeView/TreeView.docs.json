@@ -70,6 +70,12 @@
           "type": "(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void"
         },
         {
+          "name": "truncate",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "Truncate the item's text content with an ellipsis."
+        },
+        {
           "name": "ref",
           "type": "React.Ref<HTMLElement>"
         }
