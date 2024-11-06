@@ -267,7 +267,7 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       onClick={focusInput}
       sx={{
         paddingLeft: '12px',
-        py: `calc('12px' / 2)`,
+        py: `calc(12px / 2)`,
         ...(block
           ? {
               display: 'flex',

@@ -1,4 +1,4 @@
-.TextInputBaseWrapper { 
+.TextInputBaseWrapper {
   display: inline-flex;
   min-height: 32px;
   overflow: hidden;
@@ -32,7 +32,8 @@
   }
 
   /* TODO: verify */
-  &:where([data-trailing-action="true"][data-focused="true"]), &:where(:not([data-trailing-action="true"]):focus-within) {
+  &:where([data-trailing-action='true'][data-focused='true']),
+  &:where(:not([data-trailing-action='true']):focus-within) {
     /* stylelint-disable-next-line primer/colors */
     border-color: var(--fgColor-accent);
     outline: 2px solid var(--fgColor-accent);
@@ -46,7 +47,7 @@
   &:where([data-contrast='true']) {
     background-color: var(--bgColor-inset);
   }
-    
+
   &:where([data-disabled='true']) {
     color: var(--fgColor-disabled);
     background-color: var(--control-bgColor-disabled);
@@ -68,7 +69,8 @@
     border-color: var(--borderColor-danger-emphasis);
 
     /* TODO: verify */
-    &:where([data-trailing-action="true"][data-focused="true"]), &:where(:not([data-trailing-action="true"])):focus-within {
+    &:where([data-trailing-action='true'][data-focused='true']),
+    &:where(:not([data-trailing-action='true'])):focus-within {
       /* stylelint-disable-next-line primer/colors */
       border-color: var(--fgColor-accent);
       outline: 2px solid var(--fgColor-accent);
@@ -153,11 +155,10 @@
   padding-left: 0;
 
   /* Repeat and position set for form states (success, error, etc) */
-  background-repeat: no-repeat; 
+  background-repeat: no-repeat;
 
   /* For form validation. This keeps images 8px from right and centered vertically. */
-  background-position: right 8px center; 
-
+  background-position: right 8px center;
 
   & > :not(:last-child) {
     margin-right: var(--base-size-8);
@@ -170,22 +171,22 @@
     flex-shrink: 0;
   }
 
-  &:where([data-visual="leading"]) {
+  &:where([data-visual='leading']) {
     padding-left: var(--base-size-12);
   }
 
-  &:where([data-visual="trailing"]:not([data-trailing-action="true"])) {
+  &:where([data-visual='trailing']:not([data-trailing-action='true'])) {
     padding-right: var(--base-size-12);
   }
 
-  &:where(:not([data-visual="leading"])) {
+  &:where(:not([data-visual='leading'])) {
     > input,
     > select {
-        padding-left: var(--base-size-12);
-      }
+      padding-left: var(--base-size-12);
+    }
   }
 
-  &:where(:not([data-visual="trailing"]):not([data-trailing-action="true"])) {
+  &:where(:not([data-visual='trailing']):not([data-trailing-action='true'])) {
     > input,
     > select {
       padding-right: var(--base-size-12);
