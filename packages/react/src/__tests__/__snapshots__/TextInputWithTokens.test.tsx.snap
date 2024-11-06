@@ -3002,18 +3002,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   }
 }
 
-@media screen and (min-width:544px) {
-  .c0 {
-    font-size: 12px;
-  }
-}
-
-@media screen and (min-width:768px) {
-  .c0 {
-    font-size: 12px;
-  }
-}
-
 <span
   className="c0 c1"
   data-size="small"
@@ -3843,18 +3831,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   }
 }
 
-@media screen and (min-width:544px) {
-  .c0 {
-    font-size: 12px;
-  }
-}
-
-@media screen and (min-width:768px) {
-  .c0 {
-    font-size: 12px;
-  }
-}
-
 <span
   className="c0 c1"
   data-size="small"
@@ -4678,19 +4654,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   bottom: 0;
 }
 
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
+@media (min-width:var(--breakpoint-medium)) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -5521,23 +5485,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   bottom: 0;
 }
 
-<<<<<<< HEAD
 @media (min-width:var(--breakpoint-medium)) {
-=======
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
->>>>>>> bc9c696320d83c9d871ac49978e213a9c5cb39d2
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -7771,21 +7719,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   }
 }
 
-<<<<<<< HEAD
-=======
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
-}
-
->>>>>>> bc9c696320d83c9d871ac49978e213a9c5cb39d2
 <span
     className="c0 c1"
     data-size="medium"
@@ -8678,21 +8611,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   }
 }
 
-<<<<<<< HEAD
-=======
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
-}
-
->>>>>>> bc9c696320d83c9d871ac49978e213a9c5cb39d2
 <span
     className="c0 c1"
     data-leading-visual={true}
@@ -9622,21 +9540,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   }
 }
 
-<<<<<<< HEAD
-=======
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
-}
-
->>>>>>> bc9c696320d83c9d871ac49978e213a9c5cb39d2
 <span
     className="c0 c1"
     data-size="medium"
@@ -10538,21 +10441,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   }
 }
 
-<<<<<<< HEAD
-=======
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
-}
-
->>>>>>> bc9c696320d83c9d871ac49978e213a9c5cb39d2
 <span
     className="c0 c1"
     data-leading-visual={true}
@@ -11527,21 +11415,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   }
 }
 
-<<<<<<< HEAD
-=======
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
-}
-
->>>>>>> bc9c696320d83c9d871ac49978e213a9c5cb39d2
 <span
     className="c0 c1"
     data-leading-visual={true}
@@ -12516,21 +12389,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   }
 }
 
-<<<<<<< HEAD
-=======
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
-}
-
->>>>>>> bc9c696320d83c9d871ac49978e213a9c5cb39d2
 <span
     className="c0 c1"
     data-leading-visual={true}
@@ -13500,21 +13358,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   }
 }
 
-<<<<<<< HEAD
-=======
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
-}
-
->>>>>>> bc9c696320d83c9d871ac49978e213a9c5cb39d2
 <span
     className="c0 c1"
     data-size="medium"
@@ -14446,21 +14289,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   }
 }
 
-<<<<<<< HEAD
-=======
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
-}
-
->>>>>>> bc9c696320d83c9d871ac49978e213a9c5cb39d2
 <span
     className="c0 c1"
     data-leading-visual={true}
@@ -15430,21 +15258,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   }
 }
 
-<<<<<<< HEAD
-=======
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
-}
-
->>>>>>> bc9c696320d83c9d871ac49978e213a9c5cb39d2
 <span
     className="c0 c1"
     data-size="medium"
@@ -16380,18 +16193,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 @media (min-width:var(--breakpoint-medium)) {
   .c0 {
     font-size: var(--text-body-size-medium);
-  }
-}
-
-@media screen and (min-width:544px) {
-  .c0 {
-    font-size: 12px;
-  }
-}
-
-@media screen and (min-width:768px) {
-  .c0 {
-    font-size: 12px;
   }
 }
 
@@ -17409,21 +17210,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   }
 }
 
-<<<<<<< HEAD
-=======
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
-}
-
->>>>>>> bc9c696320d83c9d871ac49978e213a9c5cb39d2
 <span
     className="c0 c1"
     data-leading-visual={true}
@@ -18436,21 +18222,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   }
 }
 
-<<<<<<< HEAD
-=======
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
-}
-
->>>>>>> bc9c696320d83c9d871ac49978e213a9c5cb39d2
 <span
     className="c0 c1"
     data-leading-visual={true}
