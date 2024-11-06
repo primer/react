@@ -38,17 +38,17 @@ export type ObjectPaths<T> = T extends readonly any[] & ArrayWithinBounds<T>
         ? Extract<keyof T, string | number> | PrefixPath<T, Extract<keyof T, string | number>>
         : never
 
-type PrefixPath<T, Prefix> =
-  Prefix extends Extract<keyof T, number | string> ? `${Prefix}.${ObjectPaths<T[Prefix]>}` : never
+type PrefixPath<T, Prefix> = Prefix extends Extract<keyof T, number | string>
+  ? `${Prefix}.${ObjectPaths<T[Prefix]>}`
+  : never
 
 // Get the value of a given path within an object
-export type ObjectPathValue<ObjectType extends object, Path extends string | number> =
-  ObjectType extends Record<
-    string | number,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    any
-  >
-    ? Path extends `${infer Key}.${infer NestedPath}`
-      ? ObjectPathValue<ObjectType[Key], NestedPath>
-      : ObjectType[Path]
-    : never
+export type ObjectPathValue<ObjectType extends object, Path extends string | number> = ObjectType extends Record<
+  string | number,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  any
+>
+  ? Path extends `${infer Key}.${infer NestedPath}`
+    ? ObjectPathValue<ObjectType[Key], NestedPath>
+    : ObjectType[Path]
+  : never
