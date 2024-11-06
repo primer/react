@@ -57,7 +57,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -72,9 +72,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -112,8 +110,8 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -179,10 +177,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -210,14 +204,17 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   font-size: var(--text-title-size-medium);
 }
 
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
 .c1 {
   padding-right: 0;
   padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > input,
@@ -257,6 +254,12 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -978,7 +981,7 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -993,9 +996,7 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -1033,8 +1034,8 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -1100,10 +1101,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -1131,14 +1128,17 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   font-size: var(--text-title-size-medium);
 }
 
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
 .c1 {
   padding-right: 0;
   padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > input,
@@ -1178,6 +1178,12 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -1504,7 +1510,7 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -1519,14 +1525,7 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  width: 100%;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -1564,8 +1563,8 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -1631,10 +1630,6 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -1662,11 +1657,7 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   font-size: var(--text-title-size-medium);
 }
 
-.c1 {
-  padding-right: 0;
-  padding-left: 0;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
+.c0 {
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -1675,6 +1666,13 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   display: -ms-flexbox;
   display: flex;
   width: 100%;
+}
+
+.c1 {
+  padding-right: 0;
+  padding-left: 0;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
 }
 
 .c1 > input,
@@ -1714,6 +1712,17 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
 }
 
 .c4 {
@@ -1820,7 +1829,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -1835,11 +1844,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-  max-height: 20px;
-  overflow: auto;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -1877,8 +1882,8 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -1944,10 +1949,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -1975,16 +1976,19 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   font-size: var(--text-title-size-medium);
 }
 
-.c1 {
-  padding-right: 0;
-  padding-left: 0;
-  background-repeat: no-repeat;
-  background-position: right 8px center;
+.c0 {
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
   max-height: 20px;
   overflow: auto;
+}
+
+.c1 {
+  padding-right: 0;
+  padding-left: 0;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
 }
 
 .c1 > input,
@@ -2024,6 +2028,14 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+  max-height: 20px;
+  overflow: auto;
 }
 
 .c4 {
@@ -2655,7 +2667,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -2670,9 +2682,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -2710,8 +2720,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -2777,10 +2787,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -2808,14 +2814,17 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   font-size: var(--text-title-size-medium);
 }
 
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
 .c1 {
   padding-right: 0;
   padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > input,
@@ -2855,6 +2864,12 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -3484,7 +3499,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -3499,9 +3514,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -3539,8 +3552,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -3606,10 +3619,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -3637,14 +3646,17 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   font-size: var(--text-title-size-medium);
 }
 
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
 .c1 {
   padding-right: 0;
   padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > input,
@@ -3684,6 +3696,12 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -4313,7 +4331,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -4328,9 +4346,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -4368,8 +4384,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -4435,10 +4451,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -4466,14 +4478,17 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   font-size: var(--text-title-size-medium);
 }
 
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
 .c1 {
   padding-right: 0;
   padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > input,
@@ -4513,6 +4528,12 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -5142,7 +5163,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -5157,9 +5178,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -5197,8 +5216,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -5264,10 +5283,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -5295,14 +5310,17 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   font-size: var(--text-title-size-medium);
 }
 
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
 .c1 {
   padding-right: 0;
   padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > input,
@@ -5342,6 +5360,12 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -5973,7 +5997,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -5988,10 +6012,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-  overflow: auto;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -6029,8 +6050,8 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -6096,10 +6117,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -6127,15 +6144,18 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   font-size: var(--text-title-size-medium);
 }
 
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+  overflow: auto;
+}
+
 .c1 {
   padding-right: 0;
   padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-  overflow: auto;
 }
 
 .c1 > input,
@@ -6175,6 +6195,13 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+  overflow: auto;
 }
 
 .c4 {
@@ -6806,7 +6833,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -6821,9 +6848,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -6861,8 +6886,8 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -6928,10 +6953,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -6959,14 +6980,17 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   font-size: var(--text-title-size-medium);
 }
 
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
 .c1 {
   padding-right: 0;
   padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > input,
@@ -7006,6 +7030,12 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -7370,7 +7400,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -7385,9 +7415,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -7425,8 +7453,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -7492,10 +7520,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -7523,14 +7547,17 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   font-size: var(--text-title-size-medium);
 }
 
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
 .c1 {
   padding-right: 0;
   padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > input,
@@ -7570,6 +7597,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -8262,7 +8295,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -8277,9 +8310,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -8317,8 +8348,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -8384,10 +8415,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -8415,14 +8442,17 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   font-size: var(--text-title-size-medium);
 }
 
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
 .c1 {
   padding-right: 0;
   padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > input,
@@ -8462,6 +8492,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c6 {
@@ -9191,7 +9227,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -9206,9 +9242,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -9246,8 +9280,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -9313,10 +9347,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -9344,14 +9374,17 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   font-size: var(--text-title-size-medium);
 }
 
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
 .c1 {
   padding-right: 0;
   padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > input,
@@ -9391,6 +9424,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -10092,7 +10131,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -10107,9 +10146,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -10147,8 +10184,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -10214,10 +10251,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -10245,14 +10278,17 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   font-size: var(--text-title-size-medium);
 }
 
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
 .c1 {
   padding-right: 0;
   padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > input,
@@ -10292,6 +10328,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c7 {
@@ -11066,7 +11108,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -11081,9 +11123,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -11121,8 +11161,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -11188,10 +11228,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -11219,14 +11255,17 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   font-size: var(--text-title-size-medium);
 }
 
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
 .c1 {
   padding-right: 0;
   padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > input,
@@ -11266,6 +11305,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c7 {
@@ -12040,7 +12085,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -12055,9 +12100,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -12095,8 +12138,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -12162,10 +12205,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -12193,14 +12232,17 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   font-size: var(--text-title-size-medium);
 }
 
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
 .c1 {
   padding-right: 0;
   padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > input,
@@ -12240,6 +12282,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c7 {
@@ -13009,7 +13057,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -13024,9 +13072,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -13064,8 +13110,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -13131,10 +13177,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -13162,14 +13204,17 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   font-size: var(--text-title-size-medium);
 }
 
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
 .c1 {
   padding-right: 0;
   padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > input,
@@ -13209,6 +13254,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -13940,7 +13991,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -13955,9 +14006,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -13995,8 +14044,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -14062,10 +14111,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -14093,14 +14138,17 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   font-size: var(--text-title-size-medium);
 }
 
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
 .c1 {
   padding-right: 0;
   padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > input,
@@ -14140,6 +14188,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c6 {
@@ -14909,7 +14963,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -14924,9 +14978,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -14964,8 +15016,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -15031,10 +15083,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -15062,14 +15110,17 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   font-size: var(--text-title-size-medium);
 }
 
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
 .c1 {
   padding-right: 0;
   padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > input,
@@ -15109,6 +15160,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -15849,7 +15906,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -15864,9 +15921,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -15904,8 +15959,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -15971,10 +16026,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -16002,14 +16053,17 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   font-size: var(--text-title-size-medium);
 }
 
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
 .c1 {
   padding-right: 0;
   padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > input,
@@ -16049,6 +16103,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c7 {
@@ -16861,7 +16921,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -16876,9 +16936,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -16916,8 +16974,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -16983,10 +17041,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -17014,14 +17068,17 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   font-size: var(--text-title-size-medium);
 }
 
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
 .c1 {
   padding-right: 0;
   padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > input,
@@ -17061,6 +17118,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c7 {
@@ -17875,7 +17938,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -17890,9 +17953,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -17930,8 +17991,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -17997,10 +18058,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -18028,14 +18085,17 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   font-size: var(--text-title-size-medium);
 }
 
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
 .c1 {
   padding-right: 0;
   padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > input,
@@ -18075,6 +18135,12 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c7 {
@@ -18853,7 +18919,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -18868,9 +18934,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -18908,8 +18972,8 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -18975,10 +19039,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -19006,14 +19066,17 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   font-size: var(--text-title-size-medium);
 }
 
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
 .c1 {
   padding-right: 0;
   padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > input,
@@ -19053,6 +19116,12 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -19671,7 +19740,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -19686,9 +19755,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -19726,8 +19793,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -19793,10 +19860,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -19824,14 +19887,17 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   font-size: var(--text-title-size-medium);
 }
 
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
 .c1 {
   padding-right: 0;
   padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > input,
@@ -19871,6 +19937,12 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -20461,7 +20533,7 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -20476,9 +20548,7 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -20516,8 +20586,8 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -20583,10 +20653,6 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   line-height: var(--base-size-20);
 }
 
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
-}
-
 .c0:where([data-size='large']) {
   --inner-action-size: var(--base-size-28);
   height: var(--base-size-40);
@@ -20614,14 +20680,17 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   font-size: var(--text-title-size-medium);
 }
 
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+}
+
 .c1 {
   padding-right: 0;
   padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > input,
@@ -20661,6 +20730,12 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {

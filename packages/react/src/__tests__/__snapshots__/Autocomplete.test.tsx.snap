@@ -7,7 +7,7 @@ exports[`snapshots renders a custom empty state message 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -22,6 +22,7 @@ exports[`snapshots renders a custom empty state message 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -59,8 +60,8 @@ exports[`snapshots renders a custom empty state message 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -124,10 +125,6 @@ exports[`snapshots renders a custom empty state message 1`] = `
   padding-left: var(--base-size-8);
   font-size: var(--text-body-size-small);
   line-height: var(--base-size-20);
-}
-
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
 }
 
 .c0:where([data-size='large']) {
@@ -290,7 +287,7 @@ exports[`snapshots renders a loading state 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -305,6 +302,7 @@ exports[`snapshots renders a loading state 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -342,8 +340,8 @@ exports[`snapshots renders a loading state 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -407,10 +405,6 @@ exports[`snapshots renders a loading state 1`] = `
   padding-left: var(--base-size-8);
   font-size: var(--text-body-size-small);
   line-height: var(--base-size-20);
-}
-
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
 }
 
 .c0:where([data-size='large']) {
@@ -630,7 +624,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -645,6 +639,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -682,8 +677,8 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -747,10 +742,6 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   padding-left: var(--base-size-8);
   font-size: var(--text-body-size-small);
   line-height: var(--base-size-20);
-}
-
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
 }
 
 .c0:where([data-size='large']) {
@@ -1589,7 +1580,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -1604,6 +1595,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -1641,8 +1633,8 @@ exports[`snapshots renders a multiselect input 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -1706,10 +1698,6 @@ exports[`snapshots renders a multiselect input 1`] = `
   padding-left: var(--base-size-8);
   font-size: var(--text-body-size-small);
   line-height: var(--base-size-20);
-}
-
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
 }
 
 .c0:where([data-size='large']) {
@@ -2426,7 +2414,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -2441,6 +2429,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -2478,8 +2467,8 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -2543,10 +2532,6 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   padding-left: var(--base-size-8);
   font-size: var(--text-body-size-small);
   line-height: var(--base-size-20);
-}
-
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
 }
 
 .c0:where([data-size='large']) {
@@ -3446,7 +3431,7 @@ exports[`snapshots renders a single select input 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -3461,6 +3446,7 @@ exports[`snapshots renders a single select input 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -3498,8 +3484,8 @@ exports[`snapshots renders a single select input 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -3563,10 +3549,6 @@ exports[`snapshots renders a single select input 1`] = `
   padding-left: var(--base-size-8);
   font-size: var(--text-body-size-small);
   line-height: var(--base-size-20);
-}
-
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
 }
 
 .c0:where([data-size='large']) {
@@ -4658,7 +4640,7 @@ exports[`snapshots renders with an input value 1`] = `
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -4673,6 +4655,7 @@ exports[`snapshots renders with an input value 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -4710,8 +4693,8 @@ exports[`snapshots renders with an input value 1`] = `
 
 .c0:where([data-trailing-action][data-focused]),
 .c0:where(:not([data-trailing-action]):focus-within) {
-  border-color: var(--fgColor-accent);
-  outline: 2px solid var(--fgColor-accent);
+  border-color: var(--borderColor-accent-emphasis);
+  outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
   outline-offset: -1px;
 }
 
@@ -4775,10 +4758,6 @@ exports[`snapshots renders with an input value 1`] = `
   padding-left: var(--base-size-8);
   font-size: var(--text-body-size-small);
   line-height: var(--base-size-20);
-}
-
-.c0:where([data-size='medium']) {
-  --inner-action-size: var(--base-size-24);
 }
 
 .c0:where([data-size='large']) {
