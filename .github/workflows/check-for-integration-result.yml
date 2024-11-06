@@ -57,7 +57,7 @@ jobs:
             
             const newIntegrationLabel = pass ? INTEGRATION_LABEL_NAMES.passing : INTEGRATION_LABEL_NAMES.failing;
             
-            INTEGRATION_LABEL_NAMES.map(async (name) => {
+            Object.values(INTEGRATION_LABEL_NAMES).map(async (name) => {
               if (name === newIntegrationLabel) {
                 if (integrationLabels.includes(name)); // already added, nothing to do here
                 else await github.rest.issues.addLabels({...issue, labels: [newIntegrationLabel]});
