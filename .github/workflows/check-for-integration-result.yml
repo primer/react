@@ -6,7 +6,7 @@ on:
   pull_request: # for debugging
       
 jobs:
-  # fetch comments, if integration-test comment is present, use that to label pass or fail. remove in-progress.
+  # note: this workflow always passes, it does not fail when integration tests are failing
   check-for-integration-result:
     # if: ${{ github.event.issue.pull_request }}
     runs-on: ubuntu-latest
@@ -16,51 +16,53 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            const INTEGRATION_LABEL_NAMES = {
+              // synced with https://github.com/primer/react/labels?q=integration-tests
+              skipped: 'integration-tests: skipped manually',
+              recommended: 'integration-tests: recommended',
+              failing: 'integration-tests: failing',
+              passing: 'integration-tests: passing'
+            };
+            
             const issue = {
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo
-            }
-          
+            };
+            
+            const { data: currentLabels } = await github.rest.issues.listLabelsOnIssue(issue);
+            const integrationLabels = currentLabels
+              .map(label => label.name)
+              .filter(label => label.startsWith('integration-tests:'));
+            
+            if (integrationLabels.includes(INTEGRATION_LABEL_NAMES.skipped)) return;
+            
             const result = await github.rest.issues.listComments(issue);
-            const integrationComments = result.data.filter(c => c.user.login == 'primer-integration[bot]' && c.body.includes('<!-- test-result'))
+            const integrationComments = result.data.filter(
+              comment =>
+                comment.user.login == 'primer-integration[bot]' &&
+                comment.body.includes('<!-- test-result')
+            );
             if (integrationComments.length === 0) {
-              console.log('Integration comment with test-result not found')
-              return // nothing to do here
-            }
-
-            const latestComment = integrationComments.pop()
-            console.log(latestComment.body)
-            const pass = latestComment.body.includes('🟢')
-            console.log({pass})
-
-            const existingLabels = await github.rest.issues.listLabelsOnIssue({...issue})
-            console.log(existingLabels)
-            const integrationLabels = existingLabels.filter(label => label.name.startsWith('integration-tests:'))
-            console.log(integrationLabels)
-
-            // reset integration-tests labels before applying the latest label again
-            // todo: only try to remove these when they are present
-            try {
-              await github.rest.issues.removeLabel({...issue, name: 'integration-tests: recommended'})
-            } catch (error) {
-              console.log(error.response.status, error.response.url)
-            }
-            try {
-              await github.rest.issues.removeLabel({...issue, name: 'integration-tests: passing'})
-            } catch (error) {
-              console.log(error.response.status, error.response.url)
-            }
-            try {
-              await github.rest.issues.removeLabel({...issue, name: 'integration-tests: failing'})
-            } catch (error) {
-              console.log(error.response.status, error.response.url)
+              console.log('Integration comment with test-result not found');
+              return; // CI should pass if there's nothing to do
             }
             
-            await github.rest.issues.addLabels({
-              ...issue,
-              labels: [pass ? 'integration-tests: passing' : 'integration-tests: failing'],
-            })
+            const latestComment = integrationComments.pop();
+            console.log(latestComment.body);
 
+            // based on comment message in github/github: https://github.com/github/github/blob/fe7fe9072fd913ec04255ce7403ae764e6c33d5f/.github/workflows/github-ci.yml#L664-L692
+            const pass = latestComment.body.includes('🟢');
+            console.log({ pass });
             
+            const newIntegrationLabel = pass ? INTEGRATION_LABEL_NAMES.passing : INTEGRATION_LABEL_NAMES.failing;
             
+            INTEGRATION_LABEL_NAMES.map(async (name) => {
+              if (name === newIntegrationLabel) {
+                if (integrationLabels.includes(name)); // already added, nothing to do here
+                else await github.rest.issues.addLabels({...issue, labels: [newIntegrationLabel]});
+              } else if (integrationLabels.includes(name)) {
+                // remove outdated labels
+                await github.rest.issues.removeLabel({ ...issue, name });
+              }
+            });
