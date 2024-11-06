@@ -3,7 +3,7 @@ name: Check for integration result comment
 on:
   issue_comment:
     types: [created, edited]
-      
+
 jobs:
   # note: this workflow always passes, it does not fail when integration tests are failing
   check-for-integration-result-comment:
@@ -22,20 +22,20 @@ jobs:
               failing: 'integration-tests: failing',
               passing: 'integration-tests: passing'
             };
-            
+
             const issue = {
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo
             };
-            
+
             const { data: currentLabels } = await github.rest.issues.listLabelsOnIssue(issue);
             const existingIntegrationLabels = currentLabels
               .map(label => label.name)
               .filter(label => label.startsWith('integration-tests:'));
-            
+
             if (existingIntegrationLabels.includes(INTEGRATION_LABEL_NAMES.skipped)) return;
-            
+
             const result = await github.rest.issues.listComments(issue);
             const integrationComments = result.data.filter(
               comment =>
@@ -46,17 +46,17 @@ jobs:
               console.log('Integration comment with test-result not found');
               return; // CI should pass if there's nothing to do
             }
-            
+
             const latestComment = integrationComments.pop();
             console.log(latestComment.body);
 
             // based on comment message in github/github: https://github.com/github/github/blob/fe7fe9072fd913ec04255ce7403ae764e6c33d5f/.github/workflows/github-ci.yml#L664-L692
             const pass = latestComment.body.includes('🟢');
             console.log({ pass });
-            
+
             const newIntegrationLabel = pass ? INTEGRATION_LABEL_NAMES.passing : INTEGRATION_LABEL_NAMES.failing;
             console.log({existingIntegrationLabels, newIntegrationLabel})
-            
+
             Object.values(INTEGRATION_LABEL_NAMES).map(async (name) => {
               if (name === newIntegrationLabel) {
                 if (existingIntegrationLabels.includes(name)); // already added, nothing to do here
