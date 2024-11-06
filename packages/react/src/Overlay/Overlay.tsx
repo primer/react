@@ -16,6 +16,9 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import {useFeatureFlag} from '../FeatureFlags'
 
 type StyledOverlayProps = {
+  /**
+   * Sets the width of the `Overlay`, pick from our set list of widths, or pass `auto` to automatically set the width based on the content of the `Overlay`. `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `480px`, `xlarge` corresponds to `640px`, `xxlarge` corresponds to `960px`.
+   */
   width?: keyof typeof widthMap
   height?: keyof typeof heightMap
   maxHeight?: keyof Omit<typeof heightMap, 'auto' | 'initial'>
