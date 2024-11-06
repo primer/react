@@ -26,7 +26,7 @@ jobs:
             const integrationComments = result.data.filter(c => c.user.login == 'primer-integration[bot]' && c.body.includes('<!-- test-result'))
             if (integrationComments.length === 0) {
               console.log('Integration comment with test-result not found')
-              return
+              return // nothing to do here
             }
 
             const latestComment = integrationComments.pop()
@@ -34,7 +34,13 @@ jobs:
             const pass = latestComment.body.includes('🟢')
             console.log({pass})
 
+            const existingLabels = await github.rest.issues.listLabelsOnIssue({...issue})
+            console.log(existingLabels)
+            const integrationLabels = existingLabels.filter(label => label.name.startsWith('integration-tests:'))
+            console.log(integrationLabels)
+
             // reset integration-tests labels before applying the latest label again
+            // todo: only try to remove these when they are present
             try {
               await github.rest.issues.removeLabel({...issue, name: 'integration-tests: recommended'})
             } catch (error) {
