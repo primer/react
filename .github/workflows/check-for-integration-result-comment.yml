@@ -3,7 +3,6 @@ name: Check for integration result comment
 on:
   issue_comment:
     types: [created, edited]
-  pull_request: # for debugging
       
 jobs:
   # note: this workflow always passes, it does not fail when integration tests are failing
