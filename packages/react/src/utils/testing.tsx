@@ -98,7 +98,7 @@ export function getComputedStyles(className: string, restProps?: Record<string, 
 
   if (restProps) {
     for (const [key, value] of Object.entries(restProps)) {
-      if (value !== undefined) div.setAttribute(key, value)
+      if (key.startsWith('data-') && value !== undefined) div.setAttribute(key, value)
     }
   }
 
