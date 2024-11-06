@@ -67,11 +67,11 @@ export const Files: StoryFn = () => (
               </TreeView.Item>
             </TreeView.SubTree>
           </TreeView.Item>
-          <TreeView.Item id="src/ReallyLongFileNameThatShouldNotTruncated.tsx">
+          <TreeView.Item id="src/ReallyLongFileNameThatShouldBeTruncated.tsx">
             <TreeView.LeadingVisual>
               <FileIcon />
             </TreeView.LeadingVisual>
-            ReallyLongFileNameThatShouldNotTruncate.tsx
+            ReallyLongFileNameThatShouldBeTruncated.tsx
           </TreeView.Item>
         </TreeView.SubTree>
       </TreeView.Item>
@@ -154,11 +154,11 @@ export const FilesChanged: StoryFn = () => {
                 </TreeView.Item>
               </TreeView.SubTree>
             </TreeView.Item>
-            <TreeView.Item id="src/ReallyLongFileNameThatShouldNotTruncated.tsx">
+            <TreeView.Item id="src/ReallyLongFileNameThatShouldBeTruncated.tsx">
               <TreeView.LeadingVisual>
                 <FileIcon />
               </TreeView.LeadingVisual>
-              ReallyLongFileNameThatShouldNotTruncated.tsx
+              ReallyLongFileNameThatShouldBeTruncated.tsx
               <TreeView.TrailingVisual label="modified">
                 <Octicon icon={DiffModifiedIcon} color="attention.fg" />
               </TreeView.TrailingVisual>
