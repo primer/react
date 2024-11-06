@@ -30,12 +30,9 @@ export type StyledWrapperProps = {
   hasTrailingVisual?: boolean
 } & StyledBaseWrapperProps
 
-const textInputBasePadding = '12px'
-export const textInputHorizPadding = textInputBasePadding
-
 export const StyledTextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
   display: inline-flex;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
   font-size: var(--text-body-size-medium);
   line-height: var(--base-size-20);
@@ -67,8 +64,8 @@ export const StyledTextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
 
   &:where([data-trailing-action][data-focused]),
   &:where(:not([data-trailing-action]):focus-within) {
-    border-color: var(--fgColor-accent);
-    outline: 2px solid var(--fgColor-accent);
+    border-color: var(--borderColor-accent-emphasis);
+    outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
     outline-offset: -1px;
   }
 
@@ -116,13 +113,14 @@ export const StyledTextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
     display: flex;
     width: 100%;
     align-self: stretch;
-    ${width}
   }
 
   /* Ensures inputs don' t zoom on mobile but are body-font size on desktop */
   @media (min-width: var(--breakpoint-medium)) {
     font-size: var(--text-body-size-medium);
   }
+
+  --inner-action-size: var(--base-size-24); /* Default size */
 
   &:where([data-size='small']) {
     --inner-action-size: var(--base-size-20);
@@ -134,10 +132,6 @@ export const StyledTextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
     padding-left: var(--base-size-8);
     font-size: var(--text-body-size-small);
     line-height: var(--base-size-20);
-  }
-
-  &:where([data-size='medium']) {
-    --inner-action-size: var(--base-size-24);
   }
 
   &:where([data-size='large']) {
@@ -170,10 +164,12 @@ export const StyledTextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
     font-size: var(--text-title-size-medium);
   }
 
-  ${width}
-  ${minWidth}
-  ${maxWidth}
-  ${sx};
+  & {
+    ${width}
+    ${minWidth}
+    ${maxWidth}
+    ${sx}
+  }
 `
 
 export function TextInputBaseWrapper(props: React.PropsWithChildren<StyledBaseWrapperProps>) {
@@ -250,7 +246,9 @@ const StyledTextInputWrapper = styled(TextInputBaseWrapper)<StyledWrapperProps>`
     padding-right: var(--base-size-12);
   }
 
-  ${sx};
+  & {
+    ${sx}
+  }
 `
 
 export function TextInputWrapper(props: React.PropsWithChildren<StyledWrapperProps>) {
