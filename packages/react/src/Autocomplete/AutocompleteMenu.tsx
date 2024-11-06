@@ -362,10 +362,6 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
                         {isElement(TrailingVisual) ? TrailingVisual : <TrailingVisual />}
                       </ActionList.TrailingVisual>
                     )}
-                    {/* TEST ONLY */}
-                    <ActionList.Description truncate>
-                      {children ?? text} {children ?? text} {children ?? text}
-                    </ActionList.Description>
                   </ActionList.Item>
                 )
               })}

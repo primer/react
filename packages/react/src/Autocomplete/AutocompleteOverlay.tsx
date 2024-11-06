@@ -58,10 +58,11 @@ function AutocompleteOverlay({
       onClickOutside={closeOptionList}
       onEscape={closeOptionList}
       ref={floatingElementRef as React.RefObject<HTMLDivElement>}
-      // TEST ONLY
-      top={124}
-      left={33}
-      sx={{position: 'fixed'}}
+      top={position?.top}
+      left={position?.left}
+      sx={{
+        overflow: 'auto',
+      }}
       {...overlayProps}
     >
       {children}
