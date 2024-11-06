@@ -31,11 +31,11 @@ jobs:
             };
             
             const { data: currentLabels } = await github.rest.issues.listLabelsOnIssue(issue);
-            const integrationLabels = currentLabels
+            const existingIntegrationLabels = currentLabels
               .map(label => label.name)
               .filter(label => label.startsWith('integration-tests:'));
             
-            if (integrationLabels.includes(INTEGRATION_LABEL_NAMES.skipped)) return;
+            if (existingIntegrationLabels.includes(INTEGRATION_LABEL_NAMES.skipped)) return;
             
             const result = await github.rest.issues.listComments(issue);
             const integrationComments = result.data.filter(
@@ -56,13 +56,13 @@ jobs:
             console.log({ pass });
             
             const newIntegrationLabel = pass ? INTEGRATION_LABEL_NAMES.passing : INTEGRATION_LABEL_NAMES.failing;
-            console.log({newIntegrationLabel})
+            console.log({existingIntegrationLabels, newIntegrationLabel})
             
             Object.values(INTEGRATION_LABEL_NAMES).map(async (name) => {
               if (name === newIntegrationLabel) {
-                if (integrationLabels.includes(name)); // already added, nothing to do here
+                if (existingIntegrationLabels.includes(name)); // already added, nothing to do here
                 else await github.rest.issues.addLabels({...issue, labels: [newIntegrationLabel]});
-              } else if (integrationLabels.includes(name)) {
+              } else if (existingIntegrationLabels.includes(name)) {
                 // remove outdated labels
                 await github.rest.issues.removeLabel({ ...issue, name });
               }
