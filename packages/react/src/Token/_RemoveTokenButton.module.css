@@ -1,0 +1,31 @@
+.TokenButton {
+    display: inline-flex;
+    padding: 0;
+    margin-left: var(--base-size-4);
+    font-family: inherit;
+    color: currentColor;
+    text-decoration: none;
+    cursor: pointer;
+    user-select: none;
+    background-color: transparent;
+    border: 0;
+    border-radius: 999px;
+    justify-content: center;
+    align-items: center;
+    appearance: none;
+    align-self: baseline
+}
+
+.TokenButton.Bigger {
+  margin-left: var(--base-size-8);
+}
+
+.TokenButton:hover, .TokenButton:focus {
+  /* TODO: choose a better functional color variable for this */
+  background-color: var(--bgColor-neutral-muted);
+}
+
+.TokenButton:active {
+  /* TODO: choose a better functional color variable for this */
+  background-color: var(--bgColor-neutral-muted);
+}
