@@ -24,7 +24,7 @@
   appearance: none;
 }
 
-  /* Position psuedo-element above text content, but below the
+/* Position psuedo-element above text content, but below the
   remove button.
   This ensures the <a> or <button> receives the click no
   matter where on the token the user clicks. */
@@ -32,7 +32,7 @@
   cursor: pointer;
 }
 
-  /* Position psuedo-element above text content, but below the
+/* Position psuedo-element above text content, but below the
   remove button.
   This ensures the <a> or <button> receives the click no
   matter where on the token the user clicks. */
