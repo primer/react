@@ -112,7 +112,7 @@ export const Files: StoryFn = () => (
 export const FilesChanged: StoryFn = () => {
   return (
     <nav aria-label="Files">
-      <TreeView aria-label="Files">
+      <TreeView aria-label="Files" truncate={false}>
         <TreeView.Item id="src" defaultExpanded>
           <TreeView.LeadingVisual>
             <TreeView.DirectoryIcon />
