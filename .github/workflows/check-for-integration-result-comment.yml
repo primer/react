@@ -1,4 +1,4 @@
-name: Check for integration result
+name: Check for integration result comment
 
 on:
   issue_comment:
@@ -7,7 +7,7 @@ on:
       
 jobs:
   # note: this workflow always passes, it does not fail when integration tests are failing
-  check-for-integration-result:
+  check-for-integration-result-comment:
     if: github.event.issue.pull_request
     runs-on: ubuntu-latest
     steps:
