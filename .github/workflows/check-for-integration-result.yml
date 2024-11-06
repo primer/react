@@ -8,7 +8,7 @@ on:
 jobs:
   # note: this workflow always passes, it does not fail when integration tests are failing
   check-for-integration-result:
-    # if: ${{ github.event.issue.pull_request }}
+    if: github.event.issue.pull_request
     runs-on: ubuntu-latest
     steps:
       - name: Get integration result comment
