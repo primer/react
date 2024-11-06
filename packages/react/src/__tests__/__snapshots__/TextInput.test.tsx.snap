@@ -1658,6 +1658,18 @@ exports[`TextInput renders small 1`] = `
   }
 }
 
+@media screen and (min-width:544px) {
+  .c0 {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .c0 {
+    font-size: 12px;
+  }
+}
+
 <span
   aria-busy={false}
   className="c0 c1 TextInput-wrapper"
@@ -4173,6 +4185,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 }
 
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
 @media (min-width:768px) {
 
 }
@@ -4388,6 +4408,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 @media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
 
 }
 
@@ -4647,6 +4675,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 }
 
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
 @media (min-width:768px) {
 
 }
@@ -4871,6 +4907,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 @media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
 
 }
 
@@ -5175,6 +5219,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 }
 
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
 @media (min-width:768px) {
 
 }
@@ -5476,6 +5528,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 }
 
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
 @media (min-width:768px) {
 
 }
@@ -5771,6 +5831,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 }
 
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
 @media (min-width:768px) {
 
 }
@@ -6025,6 +6093,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 @media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
 
 }
 
@@ -6323,6 +6399,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 }
 
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
 @media (min-width:768px) {
 
 }
@@ -6594,6 +6678,18 @@ exports[`TextInput renders with a loading indicator 1`] = `
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
+  }
+}
+
+@media screen and (min-width:544px) {
+  .c0 {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .c0 {
+    font-size: 12px;
   }
 }
 
@@ -6938,6 +7034,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 }
 
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
 @media (min-width:768px) {
 
 }
@@ -7279,6 +7383,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 @media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
 
 }
 

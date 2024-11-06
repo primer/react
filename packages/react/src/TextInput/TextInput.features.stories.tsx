@@ -75,7 +75,7 @@ export const Small = () => (
   <Box as="form">
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
-      <TextInput size="small" />
+      <TextInput variant="small" />
     </FormControl>
   </Box>
 )
