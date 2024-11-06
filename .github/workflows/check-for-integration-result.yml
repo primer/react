@@ -2,7 +2,7 @@ name: Check for integration result
 
 on:
   issue_comment:
-    types: [created, edited, deleted]
+    types: [created, edited]
   pull_request: # for debugging
       
 jobs:
@@ -32,18 +32,22 @@ jobs:
             const latestComment = integrationComments.pop()
             console.log(latestComment.body)
             const pass = latestComment.body.includes(':green-circle:')
+
+            try {
+              // reset before applying labels again
+              await github.rest.issues.removeLabel({
+                ...issue,
+                name: ['integration-tests: recommended', 'integration-tests: passing', 'integration-tests: failing'],
+              })
+            } catch (error) {
+              // fails if label is not applied
+              console.log(error) 
+            } 
             
             await github.rest.issues.addLabels({
               ...issue,
               labels: [pass ? 'integration-tests: passing' : 'integration-tests: failing'],
             })
 
-            try {
-              await github.rest.issues.removeLabel({
-                ...issue,
-                name: ['integration-tests: recommended'],
-              })
-            } catch (error) {
-              console.log(error) // no need to fail
-            } 
+            
             
