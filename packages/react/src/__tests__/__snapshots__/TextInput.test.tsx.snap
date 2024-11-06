@@ -2931,6 +2931,18 @@ exports[`TextInput renders small 1`] = `
   }
 }
 
+@media screen and (min-width:544px) {
+  .c0 {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .c0 {
+    font-size: 12px;
+  }
+}
+
 <span
   aria-busy={false}
   className="c0 c1 TextInput-wrapper"
@@ -6331,6 +6343,22 @@ exports[`TextInput renders with a loading indicator 1`] = `
   }
 }
 
+@media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
 <span
     aria-busy={true}
     className="c0 c1 TextInput-wrapper"
@@ -6650,6 +6678,25 @@ exports[`TextInput renders with a loading indicator 1`] = `
   }
 }
 
+<<<<<<< HEAD
+=======
+@media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+>>>>>>> bc9c696320d83c9d871ac49978e213a9c5cb39d2
 <span
     aria-busy={true}
     className="c0 c1 TextInput-wrapper"
@@ -7007,6 +7054,25 @@ exports[`TextInput renders with a loading indicator 1`] = `
   }
 }
 
+<<<<<<< HEAD
+=======
+@media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+>>>>>>> bc9c696320d83c9d871ac49978e213a9c5cb39d2
 <span
     aria-busy={true}
     className="c0 c1 TextInput-wrapper"
@@ -7335,6 +7401,25 @@ exports[`TextInput renders with a loading indicator 1`] = `
   }
 }
 
+<<<<<<< HEAD
+=======
+@media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+>>>>>>> bc9c696320d83c9d871ac49978e213a9c5cb39d2
 <span
     aria-busy={true}
     className="c0 c1 TextInput-wrapper"
@@ -7737,6 +7822,25 @@ exports[`TextInput renders with a loading indicator 1`] = `
   }
 }
 
+<<<<<<< HEAD
+=======
+@media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+>>>>>>> bc9c696320d83c9d871ac49978e213a9c5cb39d2
 <span
     aria-busy={true}
     className="c0 c1 TextInput-wrapper"
@@ -8139,6 +8243,25 @@ exports[`TextInput renders with a loading indicator 1`] = `
   }
 }
 
+<<<<<<< HEAD
+=======
+@media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+>>>>>>> bc9c696320d83c9d871ac49978e213a9c5cb39d2
 <span
     aria-busy={true}
     className="c0 c1 TextInput-wrapper"
@@ -8536,6 +8659,25 @@ exports[`TextInput renders with a loading indicator 1`] = `
   }
 }
 
+<<<<<<< HEAD
+=======
+@media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+>>>>>>> bc9c696320d83c9d871ac49978e213a9c5cb39d2
 <span
     aria-busy={true}
     className="c0 c1 TextInput-wrapper"
@@ -8894,6 +9036,25 @@ exports[`TextInput renders with a loading indicator 1`] = `
   }
 }
 
+<<<<<<< HEAD
+=======
+@media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+>>>>>>> bc9c696320d83c9d871ac49978e213a9c5cb39d2
 <span
     aria-busy={true}
     className="c0 c1 TextInput-wrapper"
@@ -9291,6 +9452,25 @@ exports[`TextInput renders with a loading indicator 1`] = `
   }
 }
 
+<<<<<<< HEAD
+=======
+@media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+>>>>>>> bc9c696320d83c9d871ac49978e213a9c5cb39d2
 <span
     aria-busy={true}
     className="c0 c1 TextInput-wrapper"
@@ -9658,6 +9838,25 @@ exports[`TextInput renders with a loading indicator 1`] = `
   }
 }
 
+<<<<<<< HEAD
+=======
+@media screen and (min-width:544px) {
+  .c0 {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .c0 {
+    font-size: 12px;
+  }
+}
+
+@media (min-width:768px) {
+
+}
+
+>>>>>>> bc9c696320d83c9d871ac49978e213a9c5cb39d2
 <span
     aria-busy={true}
     className="c0 c1 TextInput-wrapper"
@@ -10101,6 +10300,25 @@ exports[`TextInput renders with a loading indicator 1`] = `
   }
 }
 
+<<<<<<< HEAD
+=======
+@media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+>>>>>>> bc9c696320d83c9d871ac49978e213a9c5cb39d2
 <span
     aria-busy={true}
     className="c0 c1 TextInput-wrapper"
@@ -10537,7 +10755,27 @@ exports[`TextInput renders with a loading indicator 1`] = `
   outline: 0;
 }
 
+<<<<<<< HEAD
 @media (min-width:var(--breakpoint-medium)) {
+=======
+@media (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+>>>>>>> bc9c696320d83c9d871ac49978e213a9c5cb39d2
   .c0 {
     font-size: var(--text-body-size-medium);
   }
