@@ -38,17 +38,17 @@ jobs:
             try {
               await github.rest.issues.removeLabel({...issue, name: 'integration-tests: recommended'})
             } catch (error) {
-              console.log(error.data) 
+              console.log(error.response.status, error.response.url)
             }
             try {
               await github.rest.issues.removeLabel({...issue, name: 'integration-tests: passing'})
             } catch (error) {
-              console.log(error.data) 
+              console.log(error.response.status, error.response.url)
             }
             try {
               await github.rest.issues.removeLabel({...issue, name: 'integration-tests: failing'})
             } catch (error) {
-              console.log(error.data) 
+              console.log(error.response.status, error.response.url)
             }
             
             await github.rest.issues.addLabels({
