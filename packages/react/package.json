@@ -209,11 +209,11 @@
     "yaml": "2.3.4"
   },
   "peerDependencies": {
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
+    "@types/react": "18.x || 19.x",
+    "@types/react-dom": "18.x || 19.x",
     "@types/styled-components": "^5.1.11",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
+    "react": "18.x || 19.x",
+    "react-dom": "18.x || 19.x",
     "styled-components": "5.x"
   },
   "peerDependenciesMeta": {
