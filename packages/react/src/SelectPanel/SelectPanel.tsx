@@ -95,6 +95,7 @@ export function SelectPanel({
   sx,
   ...listProps
 }: SelectPanelProps): JSX.Element {
+  console.log('render in primer react')
   const titleId = useId()
   const subtitleId = useId()
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -270,9 +271,11 @@ export function SelectPanel({
   }, [hasSaveAndCancelButtons, isPanelOpened, selected])
 
   const handleCancel = () => {
+    console.log('cancel in primer react')
     if (hasSaveAndCancelButtons) {
       onSelectedChange(initialSelected)
     }
+    console.log('current selected', selected)
     onClose('anchor-click')
   }
 
