@@ -32,17 +32,24 @@ jobs:
             const latestComment = integrationComments.pop()
             console.log(latestComment.body)
             const pass = latestComment.body.includes(':green-circle:')
+            console.log({pass})
 
+            // reset integration-tests labels before applying the latest label again
             try {
-              // reset before applying labels again
-              await github.rest.issues.removeLabel({
-                ...issue,
-                name: ['integration-tests: recommended', 'integration-tests: passing', 'integration-tests: failing'],
-              })
+              await github.rest.issues.removeLabel({...issue, name: 'integration-tests: recommended'})
             } catch (error) {
-              // fails if label is not applied
-              console.log(error) 
-            } 
+              console.log(error.data.message) 
+            }
+            try {
+              await github.rest.issues.removeLabel({...issue, name: 'integration-tests: passing'})
+            } catch (error) {
+              console.log(error.data.message) 
+            }
+            try {
+              await github.rest.issues.removeLabel({...issue, name: 'integration-tests: failing'})
+            } catch (error) {
+              console.log(error.data.message) 
+            }
             
             await github.rest.issues.addLabels({
               ...issue,
