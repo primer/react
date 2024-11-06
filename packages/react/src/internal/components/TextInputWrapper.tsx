@@ -1,52 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 import type {MaxWidthProps, MinWidthProps, WidthProps} from 'styled-system'
-import {maxWidth, minWidth, variant, width} from 'styled-system'
+import {maxWidth, minWidth, width} from 'styled-system'
 import type {SxProp} from '../../sx'
 import sx from '../../sx'
 import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
 
 export type TextInputSizes = 'small' | 'medium' | 'large'
-
-const sizeDeprecatedVariants = variant({
-  variants: {
-    small: {
-      minHeight: '28px',
-      px: 2,
-      py: '3px',
-      fontSize: 0,
-      lineHeight: '20px',
-    },
-    large: {
-      px: 2,
-      py: '10px',
-      fontSize: 3,
-    },
-  },
-})
-
-const sizeVariants = variant({
-  prop: 'size',
-  variants: {
-    small: {
-      '--inner-action-size': '20px',
-      minHeight: '28px',
-      px: 2,
-      py: '3px',
-      fontSize: 0,
-      lineHeight: '20px',
-    },
-    medium: {
-      '--inner-action-size': '24px',
-    },
-    large: {
-      '--inner-action-size': '28px',
-      px: 2,
-      py: '10px',
-      height: '40px',
-    },
-  },
-})
 
 export type StyledBaseWrapperProps = {
   block?: boolean
@@ -212,8 +172,6 @@ export const StyledTextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
   ${width}
   ${minWidth}
   ${maxWidth}
-  ${sizeDeprecatedVariants}
-  ${sizeVariants}
   ${sx};
 `
 
