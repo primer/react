@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {type ComponentProps, type ComponentPropsWithoutRef} from 'react'
 import styled from 'styled-components'
 import type {MaxWidthProps, MinWidthProps, WidthProps} from 'styled-system'
 import {maxWidth, minWidth, width} from 'styled-system'
@@ -7,7 +7,6 @@ import sx from '../../sx'
 import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
 import {TEXT_INPUT_CSS_MODULES_FEATURE_FLAG} from './UnstyledTextInput'
 import {toggleStyledComponent} from '../utils/toggleStyledComponent'
-import {type ComponentProps, type ComponentPropsWithoutRef} from 'react'
 import {useFeatureFlag} from '../../FeatureFlags'
 import {clsx} from 'clsx'
 
@@ -187,6 +186,7 @@ export const TextInputBaseWrapper = React.forwardRef<HTMLElement, StyledTextInpu
   function TextInputBaseWrapper(
     {
       className,
+      style,
       variant,
       size,
       isInputFocused,
@@ -196,29 +196,68 @@ export const TextInputBaseWrapper = React.forwardRef<HTMLElement, StyledTextInpu
       contrast,
       monospace,
       block,
+      width,
+      minWidth,
+      maxWidth,
       ...restProps
     },
     forwardRef,
   ) {
     const enabled = useFeatureFlag(TEXT_INPUT_CSS_MODULES_FEATURE_FLAG)
 
-    // TODO: Handle WidthProps & MinWidthProps & MaxWidthProps
-    return (
-      <StyledTextInputBaseWrapper
-        ref={forwardRef}
-        className={clsx(className, enabled && styles.TextInputBaseWrapper)}
-        data-validation={validationStatus}
-        data-block={block}
-        data-monospace={monospace}
-        data-disabled={disabled}
-        data-contrast={contrast}
-        data-focused={isInputFocused}
-        data-trailing-action={hasTrailingAction}
-        data-size={size}
-        data-variant={variant}
-        {...restProps}
-      />
-    )
+    if (enabled) {
+      let cssStyle: React.CSSProperties = {}
+      if (typeof width === 'string') {
+        cssStyle.width = width
+      }
+      if (typeof minWidth === 'string') {
+        cssStyle.minWidth = minWidth
+      }
+      if (typeof maxWidth === 'string') {
+        cssStyle.maxWidth = maxWidth
+      }
+      if (style) {
+        cssStyle = {...cssStyle, ...style}
+      }
+
+      return (
+        <StyledTextInputBaseWrapper
+          ref={forwardRef}
+          className={className}
+          data-block={block || undefined}
+          data-contrast={contrast || undefined}
+          data-disabled={disabled || undefined}
+          data-focused={isInputFocused || undefined}
+          data-monospace={monospace || undefined}
+          data-size={size || undefined}
+          data-trailing-action={hasTrailingAction || undefined}
+          data-validation={validationStatus || undefined}
+          data-variant={variant || undefined}
+          style={cssStyle}
+          {...restProps}
+        />
+      )
+    } else {
+      const styleAndWidthProps = {width, minWidth, maxWidth, style}
+
+      return (
+        <StyledTextInputBaseWrapper
+          ref={forwardRef}
+          className={className}
+          data-block={block || undefined}
+          data-contrast={contrast || undefined}
+          data-disabled={disabled || undefined}
+          data-focused={isInputFocused || undefined}
+          data-monospace={monospace || undefined}
+          data-size={size || undefined}
+          data-trailing-action={hasTrailingAction || undefined}
+          data-validation={validationStatus || undefined}
+          data-variant={variant || undefined}
+          {...styleAndWidthProps}
+          {...restProps}
+        />
+      )
+    }
   },
 )
 TextInputBaseWrapper.displayName = 'TextInputBaseWrapper'
