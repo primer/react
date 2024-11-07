@@ -9,7 +9,7 @@
   user-select: none;
   background-color: transparent;
   border: 0;
-  border-radius: 999px;
+  border-radius: var(--borderRadius-full);
   justify-content: center;
   align-items: center;
   appearance: none;

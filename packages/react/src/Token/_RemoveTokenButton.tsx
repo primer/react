@@ -100,6 +100,7 @@ const RemoveTokenButton = ({
   'aria-label': ariaLabel,
   isParentInteractive,
   size = defaultTokenSize,
+  className,
   ...rest
 }: React.PropsWithChildren<RemoveTokenButtonProps>) => {
   delete rest.children
@@ -112,7 +113,7 @@ const RemoveTokenButton = ({
       tabIndex={isParentInteractive ? -1 : undefined}
       aria-label={!isParentInteractive ? 'Remove token' : ariaLabel}
       size={size}
-      className={clsx(enabled && classes.TokenButton, enabled && calcMarginClass(size))}
+      className={clsx(enabled && classes.TokenButton, enabled && calcMarginClass(size), className)}
       style={
         enabled
           ? {

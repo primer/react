@@ -1,0 +1,4 @@
+.RemoveButton[data-has-multiple-action-targets='true'] {
+  position: relative;
+  z-index: 1;
+}
