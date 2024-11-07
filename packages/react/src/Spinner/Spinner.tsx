@@ -6,7 +6,6 @@ import type {HTMLDataAttributes} from '../internal/internal-types'
 import {useId} from '../hooks'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './Spinner.module.css'
-import Box from '../Box'
 import {clsx} from 'clsx'
 
 const sizeMap = {
