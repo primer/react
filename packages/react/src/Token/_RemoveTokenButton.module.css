@@ -9,11 +9,31 @@
   user-select: none;
   background-color: transparent;
   border: 0;
-  border-radius: 999px;
+  border-radius: var(--borderRadius-full);
   justify-content: center;
   align-items: center;
   appearance: none;
   align-self: baseline;
+}
+
+.TokenButton[data-size='small'] {
+  width: 16px;
+  height: 16px;
+}
+
+.TokenButton[data-size='medium'] {
+  width: 20px;
+  height: 20px;
+} 
+
+.TokenButton[data-size='large'] {
+  width: 24px;
+  height: 24px;
+}
+
+.TokenButton[data-size='xlarge'] {
+  width: 32px;
+  height: 32px;
 }
 
 .TokenButton.Bigger {

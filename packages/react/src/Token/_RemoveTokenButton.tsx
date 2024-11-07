@@ -105,6 +105,7 @@ const RemoveTokenButton = ({
   delete rest.children
 
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+  // transform: `translate(${rest.borderOffset}px, -${rest.borderOffset}px)`,
 
   return (
     <StyledTokenButton
@@ -113,12 +114,12 @@ const RemoveTokenButton = ({
       aria-label={!isParentInteractive ? 'Remove token' : ariaLabel}
       size={size}
       className={clsx(enabled && classes.TokenButton, enabled && calcMarginClass(size))}
+      data-size={enabled && size}
+      data-border-offset={enabled && rest.borderOffset}
       style={
         enabled
           ? {
               transform: `translate(${rest.borderOffset}px, -${rest.borderOffset}px)`,
-              height: tokenSizes[size],
-              width: tokenSizes[size],
             }
           : {}
       }
