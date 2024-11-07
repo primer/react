@@ -159,7 +159,6 @@ const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLS
         id={id?.toString()}
         size={size}
         {...rest}
-        // @ts-expect-error TokenBase wants Anchor, Button, and Span refs
         ref={forwardedRef}
       />
     )
