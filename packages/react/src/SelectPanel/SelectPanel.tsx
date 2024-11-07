@@ -176,9 +176,9 @@ export function SelectPanel({
 
   const anchorProps = {
     ref: anchorRef,
-    onClick: onAnchorClick,
     'aria-haspopup': true,
     'aria-expanded': open,
+    onClick: onAnchorClick,
     onKeyDown: onAnchorKeyDown,
   }
   // TODO: anchor should be called button because it's not an anchor anymore
