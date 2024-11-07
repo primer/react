@@ -139,9 +139,9 @@ export type TooltipProps = React.PropsWithChildren<
     direction?: TooltipDirection
     text: string
     type?: 'label' | 'description'
-  } & SxProp &
-    ComponentProps<typeof StyledTooltip>
->
+  } & SxProp
+> &
+  React.HTMLAttributes<HTMLElement>
 
 type TriggerPropsType = {
   'aria-describedby'?: string
