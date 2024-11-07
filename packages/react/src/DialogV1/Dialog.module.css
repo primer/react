@@ -1,0 +1,62 @@
+.Overlay {
+  &:before {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    cursor: default;
+    content: ' ';
+    z-index: 99;
+    background: var(--overlay-backdrop-bgColor);
+  }
+}
+
+.CloseIcon {
+  position: absolute;
+  top: var(--base-size-8);
+  right: var(--base-size-16);
+}
+
+.Dialog {
+  box-shadow: var(--shadow-floating-large);
+  border-radius: var(--borderRadius-medium);
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  max-height: 80vh;
+  z-index: 999;
+  margin: 10vh auto;
+  background-color: var(--bgColor-default);
+  width: 440px;
+  outline: none;
+
+  @media screen and (--viewportRange-narrow) {
+    width: 320px;
+  }
+
+  @media screen and (--viewportRange-wide) {
+    width: 640px;
+  }
+
+  @media screen and (max-width: 750px) {
+    width: 100dvw;
+    margin: 0;
+    border-radius: 0;
+    height: 100dvh;
+  }
+}
+
+.Header {
+  border-radius: var(--borderRadius-medium) var(--borderRadius-medium) 0 0;
+  border-bottom: var(--borderWidth-thin) solid var(--borderColor-default);
+  display: flex;
+  padding: var(--base-size-16);
+  background: var(--bgColor-muted);
+
+  @media screen and (max-width: 750px) {
+    border-radius: 0px;
+  }
+}
