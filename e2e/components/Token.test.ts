@@ -51,6 +51,18 @@ const stories = [
     title: 'AvatarToken On Remove Fn',
     id: 'components-avatartoken--with-on-remove-fn',
   },
+  {
+    title: 'AvatarToken Default',
+    id: 'components-avatartoken--default-token',
+  },
+  {
+    title: 'AvatarToken Interactive',
+    id: 'components-avatartoken--interactive',
+  },
+  {
+    title: 'AvatarToken On Remove Fn',
+    id: 'components-avatartoken--with-on-remove-fn',
+  },
 ]
 
 test.describe('Token', () => {
