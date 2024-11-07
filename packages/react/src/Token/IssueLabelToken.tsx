@@ -8,6 +8,8 @@ import {parseToHsla, parseToRgba} from 'color2k'
 import {useTheme} from '../ThemeProvider'
 import TokenTextContainer from './_TokenTextContainer'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import classes from './IssueLabelToken.module.css'
+import {useFeatureFlag} from '../FeatureFlags'
 
 export interface IssueLabelTokenProps extends TokenBaseProps {
   /**
@@ -140,7 +142,7 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
       isSelected={isSelected}
       text={text}
       size={size}
-      sx={labelStyles}
+      style={labelStyles}
       {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
       {...rest}
       ref={forwardedRef}
@@ -153,14 +155,8 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
           size={size}
           aria-hidden={hasMultipleActionTargets ? 'true' : 'false'}
           isParentInteractive={isTokenInteractive(props)}
-          sx={
-            hasMultipleActionTargets
-              ? {
-                  position: 'relative',
-                  zIndex: '1',
-                }
-              : {}
-          }
+          data-has-multiple-action-targets={hasMultipleActionTargets}
+          className={classes.RemoveButton}
         />
       ) : null}
     </TokenBase>
