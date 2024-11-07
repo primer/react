@@ -1,6 +1,7 @@
-import {SearchIcon, TriangleDownIcon, XIcon} from '@primer/octicons-react'
+import {SearchIcon, TriangleDownIcon} from '@primer/octicons-react'
 import React, {useCallback, useMemo} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
+import Overlay from '../Overlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 import Box from '../Box'
 import type {FilteredActionListProps} from '../FilteredActionList'
@@ -10,15 +11,12 @@ import type {OverlayProps} from '../Overlay'
 import type {TextInputProps} from '../TextInput'
 import type {ItemProps, ItemInput} from './types'
 
-import {Button, IconButton} from '../Button'
-import {useProvidedRefOrCreate, useAnchoredPosition, useOnEscapePress, useOnOutsideClick} from '../hooks'
-import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
+import {Button} from '../Button'
+import {useAnchoredPosition, useProvidedRefOrCreate} from '../hooks'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 import {useFeatureFlag} from '../FeatureFlags'
-import {useResponsiveValue} from '../hooks/useResponsiveValue'
-import {StyledOverlay} from '../Overlay/Overlay'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 
 interface SelectPanelSingleSelection {
@@ -44,26 +42,11 @@ interface SelectPanelBaseProps {
   inputLabel?: string
   overlayProps?: Partial<OverlayProps>
   footer?: string | React.ReactElement
+  // TODO: do we need keep the old variants for backward-compat? there isn't any usage in dotcom
+  variant?: 'anchored' | 'modal' | FilteredActionListProps['variant']
 }
 
-type SelectPanelVariantProps =
-  | {
-      // do we need keep the old variants for backward-compat?
-      // there isn't any usage in dotcom
-      variant: 'anchored' | FilteredActionListProps['variant']
-      onCancel?: never
-    }
-  | {
-      variant: 'modal'
-      onCancel: () => void
-    }
-  | {
-      variant?: undefined
-      onCancel?: never
-    }
-
 export type SelectPanelProps = SelectPanelBaseProps &
-  SelectPanelVariantProps &
   Omit<FilteredActionListProps, 'selectionVariant' | 'variant'> &
   Pick<AnchoredOverlayProps, 'open'> &
   AnchoredOverlayWrapperAnchorProps &
@@ -73,11 +56,6 @@ function isMultiSelectVariant(
   selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
 ): selected is SelectPanelMultiSelection['selected'] {
   return Array.isArray(selected)
-}
-
-const focusZoneSettings: Partial<FocusZoneHookSettings> = {
-  // Let FilteredActionList handle focus zone
-  disabled: true,
 }
 
 const areItemsEqual = (itemA: ItemInput, itemB: ItemInput) => {
@@ -115,7 +93,6 @@ export function SelectPanel({
   footer,
   textInputProps,
   variant = 'anchored',
-  onCancel,
   overlayProps = variant === 'modal' ? {maxWidth: 'medium', height: 'fit-content', maxHeight: 'large'} : undefined,
   sx,
   ...listProps
@@ -143,6 +120,10 @@ export function SelectPanel({
     [onOpenChange],
   )
 
+  const onCancel = () => {
+    // TODO
+  }
+
   const renderMenuAnchor = useMemo(() => {
     if (renderAnchor === null) {
       return null
@@ -157,6 +138,57 @@ export function SelectPanel({
       })
     }
   }, [placeholder, renderAnchor, selected])
+
+  /* Anchoring logic */
+  const overlayRef = React.useRef<HTMLDivElement>(null)
+  const inputRef = React.useRef<HTMLInputElement>(null)
+
+  const {position} = useAnchoredPosition(
+    {
+      anchorElementRef: anchorRef,
+      floatingElementRef: overlayRef,
+      side: 'outside-bottom',
+      align: 'start',
+    },
+    [open, anchorRef.current, overlayRef.current],
+  )
+
+  const onAnchorClick = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      if (event.defaultPrevented || event.button !== 0) {
+        return
+      }
+
+      if (!open) {
+        onOpen('anchor-click')
+      } else {
+        onClose('anchor-click')
+      }
+    },
+    [open, onOpen, onClose],
+  )
+
+  const onAnchorKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLElement>) => {
+      if (!event.defaultPrevented) {
+        if (!open && ['ArrowDown', 'ArrowUp', ' ', 'Enter'].includes(event.key)) {
+          onOpen('anchor-key-press', event)
+          event.preventDefault()
+        }
+      }
+    },
+    [open, onOpen],
+  )
+
+  const anchorProps = {
+    ref: anchorRef,
+    'aria-haspopup': true,
+    'aria-expanded': open,
+    onClick: onAnchorClick,
+    onKeyDown: onAnchorKeyDown,
+  }
+  // TODO: anchor should be called button because it's not an anchor anymore
+  const anchor = renderMenuAnchor ? renderMenuAnchor(anchorProps) : null
 
   const itemsToRender = useMemo(() => {
     return items.map(item => {
@@ -193,10 +225,13 @@ export function SelectPanel({
     })
   }, [onClose, onSelectedChange, items, selected])
 
-  const inputRef = React.useRef<HTMLInputElement>(null)
-  const focusTrapSettings = {
+  /** Focus trap */
+  useFocusTrap({
+    containerRef: overlayRef,
+    disabled: !open || !position,
     initialFocusRef: inputRef,
-  }
+    returnFocusRef: anchorRef,
+  })
 
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
     return {
@@ -210,318 +245,135 @@ export function SelectPanel({
 
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
 
-  const currentVariant = useResponsiveValue({regular: variant, narrow: 'full-screen'}, 'anchored')
+  if (!open) return <>{anchor}</>
 
-  /* Dialog */
-  const dialogRef = React.useRef<HTMLDivElement>(null)
-
-  /* Anchored */
-  const {position} = useAnchoredPosition(
-    {
-      anchorElementRef: anchorRef,
-      floatingElementRef: dialogRef,
-      side: 'outside-bottom',
-      align: 'start',
-    },
-    [open, anchorRef.current, dialogRef.current],
-  )
-
-  useFocusTrap({
-    containerRef: dialogRef,
-    disabled: !open || !position,
-    returnFocusRef: anchorRef,
-    ...focusTrapSettings,
-  })
-
-  // const ConditionalOverlay: React.FC<React.PropsWithChildren<{isAnchored: boolean}>> = props => {
-  //   const {isAnchored, ...rest} = props
-
-  //   if (isAnchored)
-  //     return (
-  //       <AnchoredOverlay
-  //         renderAnchor={renderMenuAnchor}
-  //         anchorRef={anchorRef}
-  //         open={open}
-  //         onOpen={onOpen}
-  //         onClose={onClose}
-  //         overlayProps={{
-  //           role: 'dialog',
-  //           'aria-labelledby': titleId,
-  //           'aria-describedby': subtitle ? subtitleId : undefined,
-  //           ...overlayProps,
-  //         }}
-  //         focusTrapSettings={focusTrapSettings}
-  //         focusZoneSettings={focusZoneSettings}
-  //         {...rest}
-  //       >
-  //         {props.children}
-  //       </AnchoredOverlay>
-  //     )
-  //   // This variant can be used for full-screen, bottom-sheet, modal, etc.
-  //   else {
-  //     const anchorProps = {
-  //       ref: anchorRef,
-  //       onClick: onOpen,
-  //       'aria-haspopup': true,
-  //       'aria-expanded': open,
-  //     }
-  //     const anchor = renderMenuAnchor ? renderMenuAnchor(anchorProps) : null
-
-  //     return (
-  //       <>
-  //         {anchor}
-  //         {open ? (
-  //           <StyledOverlay
-  //             open={open}
-  //             ref={dialogRef}
-  //             as="dialog"
-  //             aria-labelledby={titleId}
-  //             aria-describedby={subtitle ? subtitleId : undefined}
-  //             data-variant={currentVariant}
-  //             sx={{
-  //               // reset dialog default styles
-  //               border: 'none',
-  //               display: 'flex',
-  //               padding: 0,
-  //               color: 'fg.default',
-  //               '&[open]': {display: 'flex'},
-  //               '&[data-variant="full-screen"]': {
-  //                 margin: 0,
-  //                 top: 0,
-  //                 left: 0,
-  //                 width: '100%',
-  //                 maxWidth: '100vw',
-  //                 height: '100%',
-  //                 maxHeight: '100vh',
-  //                 borderRadius: 'unset',
-  //               },
-  //             }}
-  //             {...rest}
-  //           >
-  //             {props.children}
-  //           </StyledOverlay>
-  //         ) : null}
-  //       </>
-  //     )
-  //   }
-  // }
-
-  const onAnchorClick = useCallback(
-    (event: React.MouseEvent<HTMLElement>) => {
-      if (event.defaultPrevented || event.button !== 0) {
-        return
-      }
-      if (!open) {
-        onOpen('anchor-click')
-      } else {
-        // console.log('are you here?')
-        // if (event.target === event.currentTarget) {
-        //   console.log('click outside')
-        //   onClose('click-outside')
-        // } else {
-        onClose('anchor-click')
-        // }
-      }
-    },
-    [open, onOpen, onClose],
-  )
-
-  const onAnchorKeyDown = useCallback(
-    (event: React.KeyboardEvent<HTMLElement>) => {
-      if (!event.defaultPrevented) {
-        if (!open && ['ArrowDown', 'ArrowUp', ' ', 'Enter'].includes(event.key)) {
-          onOpen('anchor-key-press', event)
-          event.preventDefault()
-        }
-      }
-    },
-    [open, onOpen],
-  )
-
-  const anchorProps = {
-    ref: anchorRef,
-    onClick: onAnchorClick,
-    'aria-haspopup': true,
-    'aria-expanded': open,
-    onKeyDown: onAnchorKeyDown,
-  }
-
-  // Esc handler
-  useOnEscapePress(
-    (event: KeyboardEvent) => {
-      if (open) {
-        event.stopImmediatePropagation()
-        event.preventDefault()
-        onClose('escape')
-      }
-    },
-    [open],
-  )
-
-  const onClickOutside = () => {
-    onClose('click-outside')
-  }
-  useOnOutsideClick({
-    onClickOutside,
-    containerRef: dialogRef,
-    ignoreClickRefs: [anchorRef],
-  })
-
-  const anchor = renderMenuAnchor ? renderMenuAnchor(anchorProps) : null
   return (
     <LiveRegion>
       {anchor}
-      {open ? (
-        <>
-          {currentVariant === 'modal' && (
-            <Box
-              data-backdrop
-              sx={{
-                backgroundColor: 'primer.canvas.backdrop',
-                position: 'fixed',
-                inset: 0,
-              }}
-            />
-          )}
-          <StyledOverlay
-            ref={dialogRef}
-            role="dialog"
-            aria-labelledby={titleId}
-            aria-describedby={subtitle ? subtitleId : undefined}
-            data-variant={currentVariant}
-            sx={{
-              // reset dialog default styles
-              // width: 'medium',
-              border: 'none',
-              display: 'flex',
-              padding: 0,
-              color: 'fg.default',
-              '&[data-variant="anchored"], &[data-variant="full-screen"]': {
-                margin: 0,
-                top: position?.top,
-                left: position?.left,
-              },
-              '&[data-variant="modal"]': {
-                inset: 0,
-                margin: 'auto',
-              },
-              '&[data-variant="full-screen"]': {
-                margin: 0,
-                top: 0,
-                left: 0,
-                width: '100%',
-                maxWidth: '100vw',
-                height: '100%',
-                maxHeight: '100vh',
-                borderRadius: 'unset',
-              },
-            }}
-            {...overlayProps}
-          >
-            <LiveRegionOutlet />
-            {usingModernActionList ? null : (
-              <Message
-                value={
-                  filterValue === ''
-                    ? 'Showing all items'
-                    : items.length <= 0
-                      ? 'No matching items'
-                      : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
-                }
-              />
-            )}
-            <Box
-              sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit', width: '100%'}}
-            >
-              <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', pt: 2, px: 3}}>
-                <Box>
-                  <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
-                    {title}
-                  </Heading>
-                  {subtitle ? (
-                    <Box id={subtitleId} sx={{fontSize: 0, color: 'fg.muted'}}>
-                      {subtitle}
-                    </Box>
-                  ) : null}
-                </Box>
-                <IconButton
-                  type="button"
-                  variant="invisible"
-                  icon={XIcon}
-                  aria-label="Close"
-                  onClick={() => onClose('cancel-click')}
-                />
+
+      <Overlay
+        role="dialog"
+        aria-labelledby={titleId}
+        aria-describedby={subtitle ? subtitleId : undefined}
+        ref={overlayRef}
+        returnFocusRef={anchorRef}
+        onEscape={() => onClose('escape')}
+        onClickOutside={() => onClose('click-outside')}
+        ignoreClickRefs={
+          /* this is required so that clicking the button while the panel is open does not re-open the panel */
+          [anchorRef]
+        }
+        {...position}
+        {...overlayProps}
+        sx={{
+          // TODO: check styles, do we need all of these?
+          display: 'flex',
+          padding: 0,
+          color: 'fg.default',
+
+          '&[data-variant="anchored"], &[data-variant="full-screen"]': {
+            margin: 0,
+            top: position?.top,
+            left: position?.left,
+          },
+          '&[data-variant="modal"]': {
+            inset: 0,
+            margin: 'auto',
+          },
+        }}
+      >
+        <LiveRegionOutlet />
+        {usingModernActionList ? null : (
+          <Message
+            value={
+              filterValue === ''
+                ? 'Showing all items'
+                : items.length <= 0
+                  ? 'No matching items'
+                  : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
+            }
+          />
+        )}
+        <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}>
+          <Box sx={{pt: 2, px: 3}}>
+            <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
+              {title}
+            </Heading>
+            {subtitle ? (
+              <Box id={subtitleId} sx={{fontSize: 0, color: 'fg.muted'}}>
+                {subtitle}
               </Box>
-
-              <FilteredActionList
-                filterValue={filterValue}
-                onFilterChange={onFilterChange}
-                placeholderText={placeholderText}
-                {...listProps}
-                role="listbox"
-                // browsers give aria-labelledby precedence over aria-label so we need to make sure
-                // we don't accidentally override props.aria-label
-                aria-labelledby={listProps['aria-label'] ? undefined : titleId}
-                aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
-                selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
-                items={itemsToRender}
-                textInputProps={extendedTextInputProps}
-                inputRef={inputRef}
-                // inheriting height and maxHeight ensures that the FilteredActionList is never taller
-                // than the Overlay (which would break scrolling the items)
-                sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
-              />
-
-              {footer || variant === 'modal' ? (
-                <Box
-                  sx={{
-                    display: 'flex',
-                    borderTop: '1px solid',
-                    borderColor: 'border.default',
-                    padding: variant === 'modal' ? 3 : 2,
-                    justifyContent: footer ? 'space-between' : 'end',
-                    alignItems: 'center',
-                    flexShrink: 0,
-                    minHeight: '44px',
-                    '> button': {
-                      // make button full width if there's just one
-                      width: variant === 'modal' ? 'auto' : '100%',
-                    },
-                  }}
-                >
-                  {footer}
-                  {variant === 'modal' ? (
-                    <Box sx={{display: 'flex', gap: 2}}>
-                      <Button
-                        type="button"
-                        size="small"
-                        onClick={() => {
-                          if (typeof onCancel === 'function') onCancel()
-                          onClose('cancel-click')
-                        }}
-                      >
-                        Cancel
-                      </Button>
-                      {/* TODO: loading state for save? */}
-                      <Button
-                        type="submit"
-                        size="small"
-                        variant="primary"
-                        onClick={() => {
-                          // assuming it was saving onSelectedChange already
-                          onClose('save-click')
-                        }}
-                      >
-                        Save
-                      </Button>
-                    </Box>
-                  ) : null}
+            ) : null}
+          </Box>
+          <FilteredActionList
+            filterValue={filterValue}
+            onFilterChange={onFilterChange}
+            placeholderText={placeholderText}
+            {...listProps}
+            role="listbox"
+            // browsers give aria-labelledby precedence over aria-label so we need to make sure
+            // we don't accidentally override props.aria-label
+            aria-labelledby={listProps['aria-label'] ? undefined : titleId}
+            aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
+            selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+            items={itemsToRender}
+            textInputProps={extendedTextInputProps}
+            inputRef={inputRef}
+            // inheriting height and maxHeight ensures that the FilteredActionList is never taller
+            // than the Overlay (which would break scrolling the items)
+            sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
+          />
+          {footer || variant === 'modal' ? (
+            <Box
+              sx={{
+                display: 'flex',
+                borderTop: '1px solid',
+                borderColor: 'border.default',
+                padding: variant === 'modal' ? 3 : 2,
+                justifyContent: footer ? 'space-between' : 'end',
+                alignItems: 'center',
+                flexShrink: 0,
+                minHeight: '44px',
+                '> button': {
+                  // make button full width if there's just one
+                  width: variant === 'modal' ? 'auto' : '100%',
+                },
+              }}
+            >
+              {footer}
+              {variant === 'modal' ? (
+                <Box sx={{display: 'flex', gap: 2}}>
+                  <Button
+                    type="button"
+                    size="small"
+                    onClick={() => {
+                      onCancel()
+                      onClose('cancel-click')
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  {/* TODO: loading state for save? */}
+                  <Button type="submit" size="small" variant="primary" onClick={() => onClose('save-click')}>
+                    Save
+                  </Button>
                 </Box>
               ) : null}
             </Box>
-          </StyledOverlay>
-        </>
-      ) : null}
+          ) : null}
+        </Box>
+      </Overlay>
+
+      {variant === 'modal' && (
+        <Box
+          data-backdrop
+          sx={{
+            backgroundColor: 'primer.canvas.backdrop',
+            position: 'fixed',
+            inset: 0,
+          }}
+        />
+      )}
     </LiveRegion>
   )
 }
