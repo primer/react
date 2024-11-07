@@ -223,7 +223,7 @@ export const TextInputBaseWrapper = React.forwardRef<HTMLElement, StyledTextInpu
       return (
         <StyledTextInputBaseWrapper
           ref={forwardRef}
-          className={className}
+          className={clsx(className, styles.TextInputBaseWrapper)}
           data-block={block || undefined}
           data-contrast={contrast || undefined}
           data-disabled={disabled || undefined}
