@@ -1,6 +1,6 @@
 .AvatarContainer {
   display: block;
-  
+
   --spacing: calc(var(--base-size-4) * 2);
 }
 
@@ -10,5 +10,5 @@
 }
 
 .Token {
-  padding-left: var(--base-size-4)
+  padding-left: var(--base-size-4);
 }
