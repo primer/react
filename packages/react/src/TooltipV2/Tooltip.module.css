@@ -1,3 +1,14 @@
+/* Animation definition */
+@keyframes tooltip-appear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 .Tooltip {
   /* Overriding the default popover styles */
   display: none;
@@ -6,13 +17,15 @@
     position: absolute;
     width: max-content;
     max-width: 250px;
+    /* stylelint-disable-next-line primer/spacing */
     padding: 0.5em 0.75em;
     margin: auto;
 
     /* for scrollbar */
     overflow: visible;
     clip: auto;
-    font: var(--text-body-shorthand-small);
+    /* stylelint-disable-next-line primer/typography */
+    font: normal normal 11px/1.5 var(--fontStack-system);
     color: var(--tooltip-fgColor);
     text-align: center;
     word-wrap: break-word;
@@ -80,19 +93,9 @@
     display: block;
     width: 8px;
     height: 100%;
+    /* stylelint-disable-next-line primer/spacing */
     margin-left: -8px;
     content: '';
-  }
-
-  /* Animation definition */
-  @keyframes tooltip-appear {
-    from {
-      opacity: 0;
-    }
-
-    to {
-      opacity: 1;
-    }
   }
 
   /* Animation styles */
