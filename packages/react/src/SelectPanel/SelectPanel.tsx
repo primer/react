@@ -184,14 +184,6 @@ export function SelectPanel({
   // TODO: anchor should be called button because it's not an anchor anymore
   const anchor = renderMenuAnchor ? renderMenuAnchor(anchorProps) : null
 
-  /** Focus trap */
-  useFocusTrap({
-    containerRef: overlayRef,
-    disabled: !open || !position,
-    returnFocusRef: anchorRef,
-    initialFocusRef: inputRef,
-  })
-
   const itemsToRender = useMemo(() => {
     return items.map(item => {
       const isItemSelected = isMultiSelectVariant(selected) ? doesItemsIncludeItem(selected, item) : selected === item
@@ -226,6 +218,14 @@ export function SelectPanel({
       } as ItemProps
     })
   }, [onClose, onSelectedChange, items, selected])
+
+  /** Focus trap */
+  useFocusTrap({
+    containerRef: overlayRef,
+    disabled: !open || !position,
+    initialFocusRef: inputRef,
+    returnFocusRef: anchorRef,
+  })
 
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
     return {
