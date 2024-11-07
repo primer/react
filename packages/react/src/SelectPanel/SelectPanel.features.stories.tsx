@@ -371,8 +371,7 @@ export const WithGroups = () => {
 }
 
 export const ModalVariant = () => {
-  const initialItems = [items[0], items[1]]
-  const [selected, setSelected] = React.useState<ItemInput[]>(initialItems)
+  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = useState(false)
@@ -383,7 +382,6 @@ export const ModalVariant = () => {
       <h1>Multi Select Panel as Modal</h1>
       <SelectPanel
         variant="modal"
-        onCancel={() => setSelected(initialItems)}
         renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
           <Button aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
             {children ?? 'Select Labels'}
@@ -403,8 +401,7 @@ export const ModalVariant = () => {
 }
 
 export const ModalVariantWithSecondaryAction = () => {
-  const initialItems = [items[0], items[1]]
-  const [selected, setSelected] = React.useState<ItemInput[]>(initialItems)
+  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
   const [filter, setFilter] = React.useState('')
   const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = useState(false)
@@ -415,7 +412,6 @@ export const ModalVariantWithSecondaryAction = () => {
       <h1>Multi Select Panel as Modal with secondary action</h1>
       <SelectPanel
         variant="modal"
-        onCancel={() => setSelected(initialItems)}
         // backward compatible API choice
         // TODO: improve this API, rename it to a single secondaryAction or secondaryFooterSlotSomething
         footer={<Button size="small">Edit labels</Button>}

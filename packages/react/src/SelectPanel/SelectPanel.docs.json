@@ -75,11 +75,6 @@
       "description": "Anchored to the button or centered on the screen. Modal variant also adds Save and Cancel buttons."
     },
     {
-      "name": "onCancel",
-      "type": "() => void",
-      "description": "Function that will be called when cancel button or close button is pressed. Required with variant='modal'"
-    },
-    {
       "name": "footer",
       "type": "string | React.ReactElement",
       "defaultValue": "null",
