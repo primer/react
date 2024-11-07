@@ -1,0 +1,36 @@
+.TokenBase {
+  align-items: center;
+  border-radius: 999px;
+  display: inline-flex;
+  font-weight: 600;
+  font-family: inherit;
+  text-decoration: none;
+  position: relative;
+  white-space: nowrap;
+  ${variants}
+  ${sx}
+}
+
+[data-cursor-is-interactive="true"] {
+  cursor: pointer;
+}
+
+[data-cursor-is-interactive="false"] {
+  cursor: auto;
+}
+
+[data-size='small'] {
+  
+}
+
+[data-size='medium'] {
+  
+}
+
+[data-size='large'] {
+  
+}
+
+[data-size='xlarge'] {
+  
+}

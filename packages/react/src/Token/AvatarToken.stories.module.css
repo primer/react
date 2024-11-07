@@ -1,0 +1,21 @@
+.SingleExampleContainer {
+  align-items: start;
+  flex-direction: column;
+  gap: 0;
+}
+
+.ContainerText {
+  align-items: start;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.InteractiveTokens {
+  align-items: start;
+  gap: 8px;
+}
+
+.WithOnRemoveFn {
+  align-items: start;
+  gap: 8px;
+}
