@@ -2188,6 +2188,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 <span
   className="c0 c1"
   data-size="medium"
+  data-token-wrapping={true}
   onClick={[Function]}
 >
   <div
@@ -6354,6 +6355,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 <span
   className="c0 c1"
   data-size="medium"
+  data-token-wrapping={true}
   onClick={[Function]}
 >
   <div
