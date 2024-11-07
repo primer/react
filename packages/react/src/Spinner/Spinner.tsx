@@ -88,14 +88,18 @@ const StyledComponentSpinner = styled(Spinner)`
   ${sx}
 `
 
+const StyledBaseSpinner = styled.div`
+  ${sx}
+`
+
 function StyledSpinner({sx, className, ...props}: SpinnerProps) {
   const enabled = useFeatureFlag('primer_react_css_modules_team')
   if (enabled) {
     if (sx) {
-      return <Box sx={sx} as={Spinner} className={clsx(classes.SpinnerAnimation, className)} {...props} />
+      return <StyledBaseSpinner sx={sx} as={Spinner} className={clsx(className, classes.SpinnerAnimation)} {...props} />
     }
 
-    return <Spinner className={clsx(classes.SpinnerAnimation, className)} {...props} />
+    return <Spinner className={clsx(className, classes.SpinnerAnimation)} {...props} />
   }
 
   return <StyledComponentSpinner sx={sx} className={className} {...props} />
