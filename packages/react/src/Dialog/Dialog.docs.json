@@ -4,7 +4,23 @@
   "name": "Dialog",
   "status": "draft",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-dialog--default"
+    },
+    {
+      "id": "components-dialog-features--bottom-sheet-narrow"
+    },
+    {
+      "id": "components-dialog-features--full-screen-narrow"
+    },
+    {
+      "id": "components-dialog-features--side-sheet"
+    },
+    {
+      "id": "components-dialog-features--return-focus-ref"
+    }
+  ],
   "importPath": "@primer/react/experimental",
   "props": [
     {
