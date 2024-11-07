@@ -97,7 +97,6 @@
     --inner-action-size: var(--base-size-20);
 
     min-height: var(--base-size-28);
-    /* stylelint-disable-next-line unit-no-unknown */
     padding-top: var(--base-size-4);
     padding-right: var(--base-size-8);
     /* stylelint-disable-next-line primer/spacing */
