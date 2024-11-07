@@ -4,7 +4,7 @@
   /* checked -> unchecked - add 120ms delay to fully see animation-out */
   transition:
     background-color,
-    border-color 80ms cubic-bezier(0.33, 1, 0.68, 1);
+    border-color var(--base-duration-instant) var(--easing-entrance);
 
   &::before {
     width: var(--base-size-16);
@@ -19,7 +19,7 @@
     mask-size: 75%;
     mask-repeat: no-repeat;
     mask-position: center;
-    animation: checkmarkOut 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    animation: checkmarkOut var(--base-duration-instant) var(--easing-move) forwards;
   }
 
   &:checked,
@@ -31,7 +31,7 @@
     border-color: var(--control-checked-bgColor-rest);
 
     &::before {
-      animation: checkmarkIn 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards 80ms;
+      animation: checkmarkIn var(--base-duration-instant) var(--easing-move) forwards var(--base-delay-instant);
     }
   }
 
@@ -42,7 +42,7 @@
   &:checked {
     transition:
       background-color,
-      border-color 80ms cubic-bezier(0.32, 0, 0.67, 0) 0ms;
+      border-color var(--base-duration-instant) var(--easing-exit) var(--base-delay-none); 
 
     &::before {
       visibility: visible;

@@ -148,7 +148,7 @@ const loadingKeyframes = keyframes`
 `
 
 export const LoadingCounter = styled.span`
-  animation: ${loadingKeyframes} 1.2s ease-in-out infinite alternate;
+  animation: ${loadingKeyframes} 1.2s var(--easing-move) infinite alternate;
   background-color: var(--bgColor-neutral-muted, ${get('colors.neutral.subtle')});
   border-color: var(--borderColor-default, ${get('colors.border.default')});
   width: 1.5rem;

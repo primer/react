@@ -176,7 +176,7 @@ const Backdrop = styled('div')`
   align-items: center;
   justify-content: center;
   background-color: ${get('colors.primer.canvas.backdrop')};
-  animation: dialog-backdrop-appear 200ms ${get('animation.easeOutCubic')};
+  animation: dialog-backdrop-appear var(--base-duration-fast) var(--easing-entrance);
 
   &[data-position-regular='center'] {
     align-items: center;
@@ -254,14 +254,16 @@ const StyledDialog = styled.div<StyledDialogProps>`
   opacity: 1;
 
   @media screen and (prefers-reduced-motion: no-preference) {
-    animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+    animation: Overlay--motion-scaleFade var(--base-duration-fast) var(--easing-entrance) var(--base-delay-none) 1
+      normal none running;
   }
 
   &[data-position-regular='center'] {
     border-radius: var(--borderRadius-large, 0.75rem);
 
     @media screen and (prefers-reduced-motion: no-preference) {
-      animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+      animation: Overlay--motion-scaleFade var(--base-duration-fast) cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none
+        running;
     }
   }
 
@@ -273,7 +275,8 @@ const StyledDialog = styled.div<StyledDialogProps>`
     border-bottom-left-radius: 0;
 
     @media screen and (prefers-reduced-motion: no-preference) {
-      animation: Overlay--motion-slideInRight 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+      animation: Overlay--motion-slideInRight var(--base-duration-default) cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal
+        none running;
     }
   }
 
@@ -285,7 +288,8 @@ const StyledDialog = styled.div<StyledDialogProps>`
     border-bottom-right-radius: 0;
 
     @media screen and (prefers-reduced-motion: no-preference) {
-      animation: Overlay--motion-slideInLeft 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+      animation: Overlay--motion-slideInLeft var(--base-duration-default) cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal
+        none running;
     }
   }
 
@@ -306,7 +310,8 @@ const StyledDialog = styled.div<StyledDialogProps>`
       border-bottom-left-radius: 0;
 
       @media screen and (prefers-reduced-motion: no-preference) {
-        animation: Overlay--motion-slideUp 0.25s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+        animation: Overlay--motion-slideUp var(--base-duration-default) cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none
+          running;
       }
     }
 
@@ -319,7 +324,8 @@ const StyledDialog = styled.div<StyledDialogProps>`
       flex-grow: 1;
 
       @media screen and (prefers-reduced-motion: no-preference) {
-        animation: Overlay--motion-scaleFade 0.2s cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none running;
+        animation: Overlay--motion-scaleFade var(--base-duration-fast) cubic-bezier(0.33, 1, 0.68, 1) 0s 1 normal none
+          running;
       }
     }
   }

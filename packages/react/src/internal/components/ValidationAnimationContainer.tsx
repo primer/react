@@ -19,7 +19,7 @@ const fadeIn = keyframes`
   `
 // using easeOutQuint easing fn https://easings.net/#easeOutQuint
 const AnimatedElement = styled.div<Props>`
-  animation: ${props => props.show && css`170ms ${fadeIn} cubic-bezier(0.44, 0.74, 0.36, 1);`};
+  animation: ${props => props.show && css`var(--base-duration-fast) ${fadeIn} var(--easing-entrance);`};
   @media (prefers-reduced-motion) {
     animation: none;
   }

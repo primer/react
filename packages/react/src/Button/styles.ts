@@ -255,7 +255,8 @@ export const getBaseStyles = (theme?: Theme) => ({
   padding: '0 12px',
   gap: '8px',
   minWidth: 'max-content',
-  transition: '80ms cubic-bezier(0.65, 0, 0.35, 1)',
+  transitionTimingFunction: 'var(--easing-exit)',
+  transitionDuration: 'var(--base-duration-instant)',
   transitionProperty: 'color, fill, background-color, border-color',
   '&[href]': {
     display: 'inline-flex',
@@ -264,7 +265,7 @@ export const getBaseStyles = (theme?: Theme) => ({
     },
   },
   '&:hover': {
-    transitionDuration: '80ms',
+    transitionTimingFunction: 'var(--easing-entrance)',
   },
   '&:active': {
     transition: 'none',

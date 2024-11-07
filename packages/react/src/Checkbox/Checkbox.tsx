@@ -63,7 +63,7 @@ const StyledCheckbox = styled.input`
     mask-repeat: no-repeat;
     mask-position: center;
 
-    animation: checkmarkOut 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    animation: checkmarkOut var(--base-duration-instant) var(--easing-move) forwards;
   }
 
   &:checked,
@@ -75,7 +75,7 @@ const StyledCheckbox = styled.input`
     ); /* using bgColor here to avoid a border change in dark high contrast */
 
     &::before {
-      animation: checkmarkIn 80ms cubic-bezier(0.65, 0, 0.35, 1) forwards 80ms;
+      animation: checkmarkIn var(--base-duration-instant) var(--easing-move) forwards var(--base-delay-instant);
     }
   }
 
@@ -86,11 +86,11 @@ const StyledCheckbox = styled.input`
   &:checked {
     transition:
       background-color,
-      border-color 80ms cubic-bezier(0.32, 0, 0.67, 0) 0ms;
+      border-color var(--base-duration-instant) var(--easing-exit) var(--base-delay-none);
 
     &::before {
       visibility: visible;
-      transition: visibility 0s linear 0s;
+      transition: visibility 0s var(--easing-static) 0s;
     }
 
     &:disabled {
