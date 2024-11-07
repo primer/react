@@ -95,7 +95,6 @@ export function SelectPanel({
   sx,
   ...listProps
 }: SelectPanelProps): JSX.Element {
-  console.log('render in primer react')
   const titleId = useId()
   const subtitleId = useId()
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -275,10 +274,11 @@ export function SelectPanel({
     if (hasSaveAndCancelButtons) {
       onSelectedChange(initialSelected)
     }
-    console.log('current selected', selected)
+
     onClose('anchor-click')
   }
 
+  console.log('current selected', selected)
   const anchor = renderMenuAnchor ? renderMenuAnchor(anchorProps) : null
   return (
     <LiveRegion>
