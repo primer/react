@@ -263,20 +263,16 @@ export function SelectPanel({
           /* this is required so that clicking the button while the panel is open does not re-open the panel */
           [anchorRef]
         }
-        {...position}
+        data-variant={variant}
         {...overlayProps}
+        {...(variant === 'anchored' ? position : {})}
         sx={{
-          // TODO: check styles, do we need all of these?
-          display: 'flex',
-          padding: 0,
-          color: 'fg.default',
-
-          '&[data-variant="anchored"], &[data-variant="full-screen"]': {
+          '&[data-variant="anchored"]': {
             margin: 0,
-            top: position?.top,
-            left: position?.left,
           },
           '&[data-variant="modal"]': {
+            // TODO: this doesn't work yet because Portal has a bug
+            // see https://github.com/primer/react/pull/3959/files
             inset: 0,
             margin: 'auto',
           },
