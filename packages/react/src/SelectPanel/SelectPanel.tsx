@@ -271,8 +271,7 @@ export function SelectPanel({
             margin: 0,
           },
           '&[data-variant="modal"]': {
-            // TODO: this doesn't work yet because Portal has a bug
-            // see https://github.com/primer/react/pull/3959/files
+            position: 'fixed',
             inset: 0,
             margin: 'auto',
           },
