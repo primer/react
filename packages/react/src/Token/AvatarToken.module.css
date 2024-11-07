@@ -16,22 +16,22 @@
   padding-left: var(--base-size-4);
 }
 
-[data-size='small'] {
+.AvatarContainer[data-size='small'] {
   width: calc(16px - var(--spacing));
   height: calc(16px - var(--spacing));
 }
 
-[data-size='medium'] {
+.AvatarContainer[data-size='medium'] {
   width: calc(20px - var(--spacing));
   height: calc(20px - var(--spacing));
 }
 
-[data-size='large'] {
+.AvatarContainer[data-size='large'] {
   width: calc(24px - var(--spacing));
   height: calc(24px - var(--spacing));
 }
 
-[data-size='xlarge'] {
+.AvatarContainer[data-size='xlarge'] {
   width: calc(32px - var(--spacing));
   height: calc(32px - var(--spacing));
 }
