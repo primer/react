@@ -9,11 +9,11 @@
   align-items: center;
 }
 
-.TokenBase[data-cursor-is-interactive="true"] {
+.TokenBase[data-cursor-is-interactive='true'] {
   cursor: pointer;
 }
 
-.TokenBase[data-cursor-is-interactive="false"] {
+.TokenBase[data-cursor-is-interactive='false'] {
   cursor: auto;
 }
 
