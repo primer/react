@@ -152,7 +152,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -1076,7 +1076,7 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -1605,7 +1605,7 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -1924,7 +1924,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -2762,7 +2762,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -3594,7 +3594,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -4426,7 +4426,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -5258,7 +5258,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -6092,7 +6092,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -6928,7 +6928,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -7495,7 +7495,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -8390,7 +8390,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -9322,7 +9322,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -10226,7 +10226,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -11203,7 +11203,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -12180,7 +12180,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -13152,7 +13152,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -14086,7 +14086,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -15058,7 +15058,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -16001,7 +16001,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -17016,7 +17016,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -18033,7 +18033,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -19014,7 +19014,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -19835,7 +19835,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -20628,7 +20628,7 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {

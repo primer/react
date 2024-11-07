@@ -106,7 +106,7 @@ export const StyledTextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
   }
 
   &:where([data-validation='success']) {
-    border-color: var(--borderColor-success-emphasis);
+    border-color: var(--bgColor-success-emphasis);
   }
 
   &:where([data-block]) {

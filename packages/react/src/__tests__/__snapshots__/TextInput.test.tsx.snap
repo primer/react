@@ -101,7 +101,7 @@ exports[`TextInput renders 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -336,7 +336,7 @@ exports[`TextInput renders block 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -572,7 +572,7 @@ exports[`TextInput renders contrast 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -808,7 +808,7 @@ exports[`TextInput renders error 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -1045,7 +1045,7 @@ exports[`TextInput renders large 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -1281,7 +1281,7 @@ exports[`TextInput renders leadingVisual 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -1546,7 +1546,7 @@ exports[`TextInput renders leadingVisual 2`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -1811,7 +1811,7 @@ exports[`TextInput renders leadingVisual 3`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -2058,7 +2058,7 @@ exports[`TextInput renders leadingVisual 4`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -2305,7 +2305,7 @@ exports[`TextInput renders monospace 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -2541,7 +2541,7 @@ exports[`TextInput renders placeholder 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -2777,7 +2777,7 @@ exports[`TextInput renders small 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -3436,7 +3436,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -4075,7 +4075,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -4793,7 +4793,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -5101,7 +5101,7 @@ exports[`TextInput renders trailingVisual 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -5366,7 +5366,7 @@ exports[`TextInput renders trailingVisual 2`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -5631,7 +5631,7 @@ exports[`TextInput renders trailingVisual 3`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -5878,7 +5878,7 @@ exports[`TextInput renders trailingVisual 4`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -6153,7 +6153,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -6469,7 +6469,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -6823,7 +6823,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -7148,7 +7148,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -7547,7 +7547,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -7946,7 +7946,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -8340,7 +8340,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -8695,7 +8695,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -9089,7 +9089,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -9453,7 +9453,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -9893,7 +9893,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -10332,7 +10332,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
@@ -10725,7 +10725,7 @@ exports[`TextInput should render a password input 1`] = `
 }
 
 .c0:where([data-validation='success']) {
-  border-color: var(--borderColor-success-emphasis);
+  border-color: var(--bgColor-success-emphasis);
 }
 
 .c0:where([data-block]) {
