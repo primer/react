@@ -7,22 +7,6 @@ import ThemeProvider from '../ThemeProvider'
 import {FeatureFlags} from '../FeatureFlags'
 import {getLiveRegion} from '../utils/testing'
 
-// window.matchMedia() is not implemented by JSDOM so we have to create a mock:
-// https://jestjs.io/docs/manual-mocks#mocking-methods-which-are-not-implemented-in-jsdom
-Object.defineProperty(window, 'matchMedia', {
-  writable: true,
-  value: jest.fn().mockImplementation(query => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: jest.fn(), // deprecated
-    removeListener: jest.fn(), // deprecated
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
-  })),
-})
-
 const renderWithFlag = (children: React.ReactNode, flag: boolean) => {
   return render(
     <FeatureFlags flags={{primer_react_select_panel_with_modern_action_list: flag}}>{children}</FeatureFlags>,
