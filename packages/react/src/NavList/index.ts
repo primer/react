@@ -7,6 +7,7 @@ import {
   TrailingAction,
   Divider,
   Group,
+  GroupHeading,
 } from './NavList'
 import type {
   NavListProps,
@@ -17,6 +18,7 @@ import type {
   NavListTrailingActionProps,
   NavListDividerProps,
   NavListGroupProps,
+  NavListGroupHeadingProps,
 } from './NavList'
 
 export const NavList = Object.assign(NavListImpl, {
@@ -27,6 +29,7 @@ export const NavList = Object.assign(NavListImpl, {
   TrailingAction,
   Divider,
   Group,
+  GroupHeading,
 })
 
 export type {
@@ -38,4 +41,5 @@ export type {
   NavListTrailingActionProps,
   NavListDividerProps,
   NavListGroupProps,
+  NavListGroupHeadingProps,
 }

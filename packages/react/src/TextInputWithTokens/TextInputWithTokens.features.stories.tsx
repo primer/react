@@ -142,3 +142,73 @@ export const Unstyled = () => {
     </Box>
   )
 }
+
+export const PreventTokensFromWrapping = () => {
+  const [tokens, setTokens] = useState([...mockTokens].slice(0, 3))
+  const onTokenRemove: (tokenId: string | number) => void = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+
+  return (
+    <Box as="form">
+      <FormControl>
+        <FormControl.Label>Default label</FormControl.Label>
+        <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} preventTokenWrapping />
+      </FormControl>
+    </Box>
+  )
+}
+
+export const MaxHeight = () => {
+  const [tokens, setTokens] = useState([...mockTokens].slice(0, 7))
+  const onTokenRemove: (tokenId: string | number) => void = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+
+  return (
+    <Box sx={{maxWidth: '300px'}}>
+      {/* Setting max-width to force tokens to wrap and demo `maxHeight` behavior */}
+      <FormControl>
+        <FormControl.Label>Default label</FormControl.Label>
+        <TextInputWithTokens
+          tokens={tokens}
+          onTokenRemove={onTokenRemove}
+          maxHeight={70}
+          block // `block` only needed to fill parent width without overflowing
+        />
+      </FormControl>
+    </Box>
+  )
+}
+
+export const Size = () => {
+  const [tokens, setTokens] = useState([...mockTokens].slice(0, 3))
+  const onTokenRemove: (tokenId: string | number) => void = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+
+  return (
+    <Box as="form">
+      <FormControl>
+        <FormControl.Label>Default label</FormControl.Label>
+        <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} size="small" />
+      </FormControl>
+    </Box>
+  )
+}
+
+export const Truncated = () => {
+  const [tokens, setTokens] = useState(mockTokens)
+  const onTokenRemove: (tokenId: string | number) => void = tokenId => {
+    setTokens(tokens.filter(token => token.id !== tokenId))
+  }
+
+  return (
+    <Box as="form">
+      <FormControl>
+        <FormControl.Label>Default label</FormControl.Label>
+        <TextInputWithTokens tokens={tokens} onTokenRemove={onTokenRemove} visibleTokenCount={5} />
+      </FormControl>
+    </Box>
+  )
+}

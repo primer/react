@@ -13,6 +13,7 @@ import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
 import type {AnchorSide} from '@primer/behaviors'
 import {useTheme} from '../ThemeProvider'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
+import {useFeatureFlag} from '../FeatureFlags'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -91,6 +92,10 @@ export const StyledOverlay = styled.div<StyledOverlayProps>`
     outline: solid 1px transparent;
   }
 
+  &[data-reflow-container='true'] {
+    max-width: calc(100vw - 2rem);
+  }
+
   ${sx};
 `
 type BaseOverlayProps = {
@@ -110,6 +115,7 @@ type BaseOverlayProps = {
   preventFocusOnOpen?: boolean
   role?: AriaRole
   children?: React.ReactNode
+  preventOverflow?: boolean
 }
 
 type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
@@ -136,6 +142,7 @@ type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
  * @param bottom Optional. Vertical bottom position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
  * @param position Optional. Sets how an element is positioned in a document. Defaults to `absolute` positioning.
  * @param portalContainerName Optional. The name of the portal container to render the Overlay into.
+ * @param preventOverflow Optional. The Overlay width will be adjusted responsively if there is not enough space to display the Overlay. If `preventOverflow` is `true`, the width of the `Overlay` will not be adjusted.
  */
 export const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
   (
@@ -158,6 +165,7 @@ export const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
       preventFocusOnOpen,
       position,
       style: styleFromProps = {},
+      preventOverflow = true,
       ...rest
     },
     forwardedRef,
@@ -203,6 +211,8 @@ export const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
     // To be backwards compatible with the old Overlay, we need to set the left prop if x-position is not specified
     const leftPosition: React.CSSProperties = left === undefined && right === undefined ? {left: 0} : {left}
 
+    const enabled = useFeatureFlag('primer_react_overlay_overflow')
+
     return (
       <Portal containerName={portalContainerName}>
         <StyledOverlay
@@ -222,6 +232,7 @@ export const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
               ...styleFromProps,
             } as React.CSSProperties
           }
+          data-reflow-container={enabled || !preventOverflow ? true : undefined}
         />
       </Portal>
     )

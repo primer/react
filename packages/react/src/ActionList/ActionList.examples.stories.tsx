@@ -19,8 +19,9 @@ import {TextInput} from '../TextInput'
 import Spinner from '../Spinner'
 import Box from '../Box'
 import Text from '../Text'
-import VisuallyHidden from '../_VisuallyHidden'
 import {FormControl} from '../FormControl'
+import {AriaStatus} from '../live-region'
+import {VisuallyHidden} from '../VisuallyHidden'
 
 const meta: Meta = {
   title: 'Components/ActionList/Examples',
@@ -123,6 +124,7 @@ const filterSlowly = async (query: string) => {
 
 export function MixedSelection(): JSX.Element {
   const [selectedIndex, setSelectedIndex] = React.useState<number | null>(1)
+  const listRef = React.useRef<HTMLUListElement>(null)
 
   const options = [
     {text: 'Status', icon: <IssueOpenedIcon />},
@@ -133,6 +135,11 @@ export function MixedSelection(): JSX.Element {
     {text: 'Due Date', icon: <CalendarIcon />},
   ]
 
+  const clearGroup = () => {
+    ;(listRef.current?.querySelector('li[aria-selected="true"]') as HTMLLIElement | undefined)?.focus()
+    setSelectedIndex(null)
+  }
+
   return (
     <>
       <h1>List with mixed selection</h1>
@@ -142,9 +149,9 @@ export function MixedSelection(): JSX.Element {
         is an action. This pattern appears inside a menu for selection view options in Memex
       </p>
 
-      <ActionList>
+      <ActionList ref={listRef}>
         <ActionList.Group selectionVariant="single" role="listbox">
-          <ActionList.GroupHeading>Group by</ActionList.GroupHeading>
+          <ActionList.GroupHeading as="h2">Group by</ActionList.GroupHeading>
           {options.map((option, index) => (
             <ActionList.Item
               key={index}
@@ -160,7 +167,7 @@ export function MixedSelection(): JSX.Element {
         {typeof selectedIndex === 'number' && (
           <>
             <ActionList.Divider />
-            <ActionList.Item onSelect={() => setSelectedIndex(null)}>
+            <ActionList.Item onSelect={clearGroup}>
               <ActionList.LeadingVisual>
                 <XIcon />
               </ActionList.LeadingVisual>
@@ -177,13 +184,22 @@ export function AsyncListWithSpinner(): JSX.Element {
   const [results, setResults] = React.useState(branches.slice(0, 6))
   const [loading, setLoading] = React.useState(false)
   const [selected, setSelected] = React.useState('main')
+  const [filterVal, setFilterVal] = React.useState('')
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const filter = async (event: any) => {
     setLoading(true)
     const filteredResults = await filterSlowly(event.target.value)
     setResults(filteredResults.slice(0, 6))
+    setFilterVal(event.target.value)
     setLoading(false)
+  }
+
+  const getStatusMessage = () => {
+    if (loading) return 'Loading results'
+    if (!filterVal) return 'Showing top 6 branches'
+    if (results.length === 0) return 'No branches match that query'
+    return `Branches filtered, showing ${results.length} branches`
   }
 
   return (
@@ -198,13 +214,13 @@ export function AsyncListWithSpinner(): JSX.Element {
         <FormControl.Label>Search branches</FormControl.Label>
         <TextInput onChange={filter} block />
       </FormControl>
-      <div role="status">
-        {results.length === 0 ? (
-          <Text sx={{display: 'block', fontSize: 1, m: 2}}>No branches match that query</Text>
-        ) : (
-          <VisuallyHidden>{results.length} branches match that query</VisuallyHidden>
-        )}
-      </div>
+      {results.length === 0 ? (
+        <Text sx={{display: 'block', fontSize: 1, m: 2}}>No branches match that query</Text>
+      ) : null}
+
+      <VisuallyHidden>
+        <AriaStatus>{getStatusMessage()}</AriaStatus>
+      </VisuallyHidden>
 
       <ActionList selectionVariant="single" role="listbox" aria-label="Branch" sx={{height: 208, overflow: 'auto'}}>
         {loading ? (

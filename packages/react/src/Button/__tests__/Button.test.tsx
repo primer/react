@@ -2,9 +2,10 @@ import {SearchIcon, HeartIcon} from '@primer/octicons-react'
 import {render, screen, fireEvent} from '@testing-library/react'
 import axe from 'axe-core'
 import React from 'react'
-import {IconButton, Button} from '../../Button'
+import {IconButton, Button, LinkButton} from '../../Button'
 import type {ButtonProps} from '../../Button'
 import {behavesAsComponent} from '../../utils/testing'
+import {FeatureFlags} from '../../FeatureFlags'
 
 type StatefulLoadingButtonProps = {
   children?: React.ReactNode
@@ -24,10 +25,71 @@ const StatefulLoadingButton = (props: StatefulLoadingButtonProps) => {
   return <Button loading={isLoading} onClick={handleClick} {...props} />
 }
 
+describe('IconButton', () => {
+  it('should support `className` on the outermost element', () => {
+    const Element = () => <IconButton className={'test-class-name'} icon={SearchIcon} aria-label="Search button" />
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
+  })
+})
+
+describe('LinkButton', () => {
+  it('should support `className` on the outermost element', () => {
+    const Element = () => <LinkButton className={'test-class-name'} />
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
+  })
+})
+
 describe('Button', () => {
   behavesAsComponent({
     Component: TestButton,
     options: {skipSx: true, skipAs: true},
+  })
+
+  it('should support `className` on the outermost element', () => {
+    const Element = () => <Button className={'test-class-name'} />
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(render(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(render(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
   })
 
   it('renders a <button>', () => {

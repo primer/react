@@ -7,7 +7,7 @@ import Box from './Box'
 import type {ComponentProps} from './utils/types'
 import {Link} from './Link'
 import React from 'react'
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 import type {SxProp} from './sx'
 import sx from './sx'
 

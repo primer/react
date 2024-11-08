@@ -31,6 +31,7 @@
 .Description {
   margin: 0;
   margin-bottom: var(--base-size-8);
+  text-align: center;
 }
 
 .Heading {
@@ -57,7 +58,6 @@
 }
 
 /* At the time these styles were written, 34rem was our "small" breakpoint width */
-/* stylelint-disable-next-line plugin/no-unsupported-browser-features */
 @container blankslate (max-width: 34rem) {
   .Blankslate {
     --blankslate-outer-padding-block: var(--base-size-20);

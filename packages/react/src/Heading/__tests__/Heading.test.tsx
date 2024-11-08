@@ -37,6 +37,25 @@ describe('Heading', () => {
     Heading,
   })
 
+  it('should support `className` on the outermost element', () => {
+    const Element = () => <Heading className={'test-class-name'} />
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(HTMLRender(<Element />).container.firstChild).toHaveClass('test-class-name')
+    expect(HTMLRender(<FeatureFlagElement />).container.firstChild).toHaveClass('test-class-name')
+  })
+
   it('renders <h2> by default', () => {
     expect(render(<Heading />).type).toEqual('h2')
   })
@@ -143,54 +162,25 @@ describe('Heading', () => {
     ).toHaveStyleRule('font-style', 'italic')
   })
 
-  describe('with primer_react_css_modules_team enabled', () => {
-    it('should only include css modules class', () => {
-      HTMLRender(
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_team: true,
-          }}
-        >
-          <Heading>test</Heading>
-        </FeatureFlags>,
-      )
-      expect(screen.getByText('test')).toHaveClass('Heading')
-      // Note: this is the generated class name when styled-components is used
-      // for this component
-      expect(screen.getByText('test')).not.toHaveClass(/^Heading__StyledHeading/)
-    })
+  it('should only include css modules class', () => {
+    HTMLRender(<Heading>test</Heading>)
+    expect(screen.getByText('test')).toHaveClass('Heading')
+    // Note: this is the generated class name when styled-components is used
+    // for this component
+    expect(screen.getByText('test')).not.toHaveClass(/^Heading__StyledHeading/)
+  })
 
-    it('should support `className` on the outermost element', () => {
-      const {container} = HTMLRender(
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_team: true,
-          }}
-        >
-          <Heading className="test">test</Heading>
-        </FeatureFlags>,
-      )
-      expect(container.firstChild).toHaveClass('test')
-    })
+  it('should support overrides with sx if provided', () => {
+    HTMLRender(
+      <Heading
+        sx={{
+          fontWeight: '900',
+        }}
+      >
+        test
+      </Heading>,
+    )
 
-    it('should support overrides with sx if provided', () => {
-      HTMLRender(
-        <FeatureFlags
-          flags={{
-            primer_react_css_modules_team: true,
-          }}
-        >
-          <Heading
-            sx={{
-              fontWeight: '900',
-            }}
-          >
-            test
-          </Heading>
-        </FeatureFlags>,
-      )
-
-      expect(screen.getByText('test')).toHaveStyle('font-weight: 900')
-    })
+    expect(screen.getByText('test')).toHaveStyle('font-weight: 900')
   })
 })

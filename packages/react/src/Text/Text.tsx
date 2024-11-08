@@ -1,27 +1,28 @@
-import styled from 'styled-components'
+import {clsx} from 'clsx'
+import styled, {type StyledComponent} from 'styled-components'
+import React, {forwardRef} from 'react'
 import type {SystemCommonProps, SystemTypographyProps} from '../constants'
 import {COMMON, TYPOGRAPHY} from '../constants'
 import type {SxProp} from '../sx'
 import sx from '../sx'
+import {useFeatureFlag} from '../FeatureFlags'
+import Box from '../Box'
+import {useRefObjectAsForwardedRef} from '../hooks'
+import classes from './Text.module.css'
 import type {ComponentProps} from '../utils/types'
 
 type StyledTextProps = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  as?: React.ComponentType<any> | keyof JSX.IntrinsicElements
+  /** The size of the text. */
   size?: 'large' | 'medium' | 'small'
+  /** The weight of the text. */
   weight?: 'light' | 'normal' | 'medium' | 'semibold'
 } & SystemTypographyProps &
   SystemCommonProps &
   SxProp
 
-/**
- * Text styles a string.
- * @primerid text
- * @primerstatus alpha
- * @primera11yreviewed true
- */
-const Text = styled.span.attrs<StyledTextProps>(({size, weight}) => ({
-  'data-size': size,
-  'data-weight': weight,
-}))<StyledTextProps>`
+const StyledText = styled.span<StyledTextProps>`
   ${TYPOGRAPHY};
   ${COMMON};
 
@@ -58,5 +59,75 @@ const Text = styled.span.attrs<StyledTextProps>(({size, weight}) => ({
 
   ${sx};
 `
-export type TextProps = ComponentProps<typeof Text>
+
+const COMMON_PROP_NAMES = new Set(Object.keys(COMMON))
+const TYPOGRAPHY_PROP_NAMES = new Set(Object.keys(TYPOGRAPHY))
+
+const includesSystemProps = (props: StyledTextProps) => {
+  if (props.sx) {
+    return true
+  }
+
+  return Object.keys(props).some(prop => {
+    return TYPOGRAPHY_PROP_NAMES.has(prop) || COMMON_PROP_NAMES.has(prop)
+  })
+}
+
+/**
+ * Text styles a string.
+ * @primerid text
+ * @primerstatus alpha
+ * @primera11yreviewed true
+ */
+const Text = forwardRef(({as: Component = 'span', className, size, weight, ...props}, forwardedRef) => {
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
+
+  const innerRef = React.useRef<HTMLElement>(null)
+  useRefObjectAsForwardedRef(forwardedRef, innerRef)
+  if (enabled) {
+    // If props includes TYPOGRAPHY or COMMON props, pass them to the Box component
+    if (includesSystemProps(props)) {
+      return (
+        // @ts-ignore shh
+        <Box
+          as={Component}
+          className={clsx(className, classes.Text)}
+          data-size={size}
+          data-weight={weight}
+          {...props}
+          // @ts-ignore shh
+          ref={innerRef}
+        />
+      )
+    }
+
+    return (
+      <Component
+        className={clsx(className, classes.Text)}
+        data-size={size}
+        data-weight={weight}
+        {...props}
+        // @ts-ignore shh
+        ref={innerRef}
+      />
+    )
+  }
+
+  return (
+    <StyledText
+      as={Component}
+      className={className}
+      data-size={size}
+      data-weight={weight}
+      {...props}
+      // @ts-ignore shh
+      ref={innerRef}
+    />
+  )
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+}) as StyledComponent<'span', any, StyledTextProps, never>
+
+Text.displayName = 'Text'
+
+export type TextProps = ComponentProps<typeof StyledText>
 export default Text

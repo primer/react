@@ -3,7 +3,8 @@ import userEvent from '@testing-library/user-event'
 import axe from 'axe-core'
 import React from 'react'
 import theme from '../theme'
-import {ActionMenu, ActionList, BaseStyles, ThemeProvider, Tooltip, Button, IconButton} from '..'
+import {ActionMenu, ActionList, BaseStyles, ThemeProvider, Button, IconButton} from '..'
+import Tooltip from '../Tooltip'
 import {Tooltip as TooltipV2} from '../TooltipV2/Tooltip'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
@@ -401,7 +402,7 @@ describe('ActionMenu', () => {
       button.focus()
     })
 
-    expect(component.getByRole('tooltip')).toBeInTheDocument()
+    expect(component.getByRole('tooltip', {hidden: true})).toBeInTheDocument()
   })
 
   it('should open menu on menu anchor click and it is wrapped with tooltip v2', async () => {
@@ -437,7 +438,7 @@ describe('ActionMenu', () => {
       button.focus()
     })
 
-    expect(component.getByRole('tooltip')).toBeInTheDocument()
+    expect(component.getByRole('tooltip', {hidden: true})).toBeInTheDocument()
   })
 
   it('should pass the "id" prop from ActionMenu.Button to the HTML button', async () => {
@@ -639,6 +640,174 @@ describe('ActionMenu', () => {
       await user.click(subSubmenuItem)
 
       expect(baseAnchor).not.toHaveAttribute('aria-expanded', 'true')
+    })
+  })
+
+  describe('calls event handlers on trigger', () => {
+    it('should call onClick and onKeyDown passed to ActionMenu.Button', async () => {
+      const mockOnClick = jest.fn()
+      const mockOnKeyDown = jest.fn()
+
+      const component = HTMLRender(
+        <ThemeProvider theme={theme}>
+          <ActionMenu>
+            <ActionMenu.Button onClick={mockOnClick} onKeyDown={mockOnKeyDown}>
+              Open menu
+            </ActionMenu.Button>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Item>New file</ActionList.Item>
+                <ActionList.Item>Copy link</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </ThemeProvider>,
+      )
+
+      const user = userEvent.setup()
+      const button = component.getByRole('button')
+      await user.click(button)
+
+      expect(component.getByRole('menu')).toBeInTheDocument()
+      expect(mockOnClick).toHaveBeenCalledTimes(1)
+
+      // select and close menu
+      const menuItems = component.getAllByRole('menuitem')
+      await user.click(menuItems[0])
+      expect(component.queryByRole('menu')).toBeNull()
+
+      expect(button).toEqual(document.activeElement)
+      await user.keyboard('{Enter}')
+      expect(component.queryByRole('menu')).toBeInTheDocument()
+      expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
+    })
+
+    it('should call onClick and onKeyDown passed to IconButton inside ActionMenu.Anchor', async () => {
+      const mockOnClick = jest.fn()
+      const mockOnKeyDown = jest.fn()
+
+      const component = HTMLRender(
+        <ThemeProvider theme={theme}>
+          <ActionMenu>
+            <ActionMenu.Anchor>
+              <IconButton
+                icon={KebabHorizontalIcon}
+                aria-label="Open menu"
+                onClick={mockOnClick}
+                onKeyDown={mockOnKeyDown}
+              />
+            </ActionMenu.Anchor>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Item>New file</ActionList.Item>
+                <ActionList.Item>Copy link</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </ThemeProvider>,
+      )
+
+      const user = userEvent.setup()
+      const button = component.getByRole('button')
+      await user.click(button)
+
+      expect(component.getByRole('menu')).toBeInTheDocument()
+      expect(mockOnClick).toHaveBeenCalledTimes(1)
+
+      // select and close menu
+      const menuItems = component.getAllByRole('menuitem')
+      await user.click(menuItems[0])
+      expect(component.queryByRole('menu')).toBeNull()
+
+      expect(button).toEqual(document.activeElement)
+      await user.keyboard('{Enter}')
+      expect(component.queryByRole('menu')).toBeInTheDocument()
+      expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
+    })
+
+    it('should call onClick and onKeyDown passed to ActionMenu.Button with Tooltip', async () => {
+      const mockOnClick = jest.fn()
+      const mockOnKeyDown = jest.fn()
+
+      const component = HTMLRender(
+        <ThemeProvider theme={theme}>
+          <ActionMenu>
+            <TooltipV2 text="Additional context about the menu button" direction="s">
+              <ActionMenu.Button onClick={mockOnClick} onKeyDown={mockOnKeyDown}>
+                Open menu
+              </ActionMenu.Button>
+            </TooltipV2>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Item>New file</ActionList.Item>
+                <ActionList.Item>Copy link</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </ThemeProvider>,
+      )
+
+      const user = userEvent.setup()
+      const button = component.getByRole('button')
+      await user.click(button)
+
+      expect(component.getByRole('menu')).toBeInTheDocument()
+      expect(mockOnClick).toHaveBeenCalledTimes(1)
+
+      // select and close menu
+      const menuItems = component.getAllByRole('menuitem')
+      await user.click(menuItems[0])
+      expect(component.queryByRole('menu')).toBeNull()
+
+      expect(button).toEqual(document.activeElement)
+      await user.keyboard('{Enter}')
+      expect(component.queryByRole('menu')).toBeInTheDocument()
+      expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
+    })
+
+    it('should call onClick and onKeyDown passed to IconButton inside ActionMenu.Anchor with Tooltip', async () => {
+      const mockOnClick = jest.fn()
+      const mockOnKeyDown = jest.fn()
+
+      const component = HTMLRender(
+        <ThemeProvider theme={theme}>
+          <ActionMenu>
+            <ActionMenu.Anchor>
+              <TooltipV2 text="Additional context about the menu button" direction="s">
+                <IconButton
+                  icon={KebabHorizontalIcon}
+                  aria-label="Open menu"
+                  onClick={mockOnClick}
+                  onKeyDown={mockOnKeyDown}
+                />
+              </TooltipV2>
+            </ActionMenu.Anchor>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Item>New file</ActionList.Item>
+                <ActionList.Item>Copy link</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </ThemeProvider>,
+      )
+
+      const user = userEvent.setup()
+      const button = component.getByRole('button')
+      await user.click(button)
+
+      expect(component.getByRole('menu')).toBeInTheDocument()
+      expect(mockOnClick).toHaveBeenCalledTimes(1)
+
+      // select and close menu
+      const menuItems = component.getAllByRole('menuitem')
+      await user.click(menuItems[0])
+      expect(component.queryByRole('menu')).toBeNull()
+
+      expect(button).toEqual(document.activeElement)
+      await user.keyboard('{Enter}')
+      expect(component.queryByRole('menu')).toBeInTheDocument()
+      expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
     })
   })
 })

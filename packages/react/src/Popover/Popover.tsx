@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 import styled from 'styled-components'
 import {get} from '../constants'
 import type {SxProp} from '../sx'
@@ -23,6 +23,7 @@ type StyledPopoverProps = {
   /**
    * Controls the position of the caret
    * @default top
+   * @deprecated `caret` is deprecated and will be removed in v38.
    */
   caret?: CaretPosition
   /**

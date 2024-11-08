@@ -1,14 +1,13 @@
 import React, {useCallback, useEffect, useRef, useState, type SyntheticEvent} from 'react'
 import styled from 'styled-components'
 import type {ButtonProps} from '../Button'
-import {Button} from '../Button'
+import {Button, IconButton} from '../Button'
 import Box from '../Box'
 import {get} from '../constants'
 import {useOnEscapePress, useProvidedRefOrCreate} from '../hooks'
 import {useFocusTrap} from '../hooks/useFocusTrap'
 import type {SxProp} from '../sx'
 import sx from '../sx'
-import Octicon from '../Octicon'
 import {XIcon} from '@primer/octicons-react'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {FocusKeys} from '@primer/behaviors'
@@ -143,6 +142,11 @@ export interface DialogProps extends SxProp {
    * The element to focus when the Dialog opens
    */
   initialFocusRef?: React.RefObject<HTMLElement>
+
+  /**
+   * Additional class names to apply to the dialog
+   */
+  className?: string
 }
 
 /**
@@ -435,6 +439,7 @@ export const Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<D
     returnFocusRef,
     initialFocusRef,
     sx,
+    className,
   } = props
   const dialogLabelId = useId()
   const dialogDescriptionId = useId()
@@ -444,14 +449,15 @@ export const Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<D
       footerButton.ref = autoFocusedFooterButtonRef
     }
   }
+  const [lastMouseDownIsBackdrop, setLastMouseDownIsBackdrop] = useState<boolean>(false)
   const defaultedProps = {...props, title, subtitle, role, dialogLabelId, dialogDescriptionId}
   const onBackdropClick = useCallback(
     (e: SyntheticEvent) => {
-      if (e.target === e.currentTarget) {
+      if (e.target === e.currentTarget && lastMouseDownIsBackdrop) {
         onClose('escape')
       }
     },
-    [onClose],
+    [onClose, lastMouseDownIsBackdrop],
   )
 
   const dialogRef = useRef<HTMLDivElement>(null)
@@ -504,7 +510,14 @@ export const Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<D
   return (
     <>
       <Portal>
-        <Backdrop ref={backdropRef} {...positionDataAttributes} onClick={onBackdropClick}>
+        <Backdrop
+          ref={backdropRef}
+          {...positionDataAttributes}
+          onClick={onBackdropClick}
+          onMouseDown={e => {
+            setLastMouseDownIsBackdrop(e.target === e.currentTarget)
+          }}
+        >
           <StyledDialog
             width={width}
             height={height}
@@ -515,6 +528,7 @@ export const Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<D
             aria-modal
             {...positionDataAttributes}
             sx={sx}
+            className={className}
           >
             {header}
             <ScrollableRegion aria-labelledby={dialogLabelId} className="DialogOverflowWrapper">
@@ -641,32 +655,19 @@ export const Buttons: React.FunctionComponent<React.PropsWithChildren<{buttons: 
   )
 }
 
-const DialogCloseButton = styled(Button)`
-  border-radius: 4px;
-  background: transparent;
-  border: 0;
-  vertical-align: middle;
-  color: ${get('colors.fg.muted')};
-  padding: ${get('space.2')};
-  align-self: flex-start;
-  line-height: normal;
-  box-shadow: none;
-`
-
 /**
  * The close button rendered in the header area of a Dialog.
  * @alias Dialog.CloseButton
  * @primerparentid dialog_v2
  */
-export const CloseButton: React.FunctionComponent<
+export const CloseButton: React.FC<
   React.PropsWithChildren<{
     /** Callback for closing the Dialog */
     onClose: () => void
   }>
 > = ({onClose}) => {
   return (
-    <DialogCloseButton aria-label="Close" onClick={onClose}>
-      <Octicon icon={XIcon} />
-    </DialogCloseButton>
+    // eslint-disable-next-line primer-react/a11y-remove-disable-tooltip
+    <IconButton unsafeDisableTooltip={true} icon={XIcon} aria-label="Close" onClick={onClose} variant="invisible" />
   )
 }

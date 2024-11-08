@@ -24,6 +24,7 @@ export type Props = {
    * When 'as' prop is 'legend' or 'span', it is used as the `id` for the element.
    */
   id?: string
+  className?: string
 } & SxProp
 
 /*
@@ -39,14 +40,15 @@ since they are intended to be controlled by the FormControl context:
  */
 const FormControlLabel: React.FC<
   React.PropsWithChildren<
-    React.ComponentProps<typeof InputLabel> & {
+    {
       /**
        * This prop may be used to override the `htmlFor` set from FormControl's React Context.
        */
       htmlFor?: string
-    } & Props
+    } & React.ComponentProps<typeof InputLabel> &
+      Props
   >
-> = ({as, children, htmlFor, id, visuallyHidden, requiredIndicator = true, requiredText, sx, ...props}) => {
+> = ({as, children, htmlFor, id, visuallyHidden, requiredIndicator = true, requiredText, sx, className, ...props}) => {
   const {disabled, id: formControlId, required} = useFormControlContext()
 
   /**
@@ -57,6 +59,7 @@ const FormControlLabel: React.FC<
       ? {
           as,
           id,
+          className,
           visuallyHidden,
           required,
           requiredText,
@@ -68,6 +71,7 @@ const FormControlLabel: React.FC<
       : {
           as,
           id,
+          className,
           visuallyHidden,
           htmlFor: htmlFor || formControlId,
           required,

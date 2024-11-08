@@ -13,7 +13,7 @@ import type {BetterSystemStyleObject, CSSCustomProperties} from '../sx'
  */
 export const ButtonComponent = forwardRef(
   ({children, sx: sxProp = defaultSxProp, ...props}, forwardedRef): JSX.Element => {
-    const {block, size, leadingVisual, trailingVisual, trailingAction} = props
+    const {block, size = 'medium', leadingVisual, trailingVisual, trailingAction} = props
     let sxStyles = sxProp
     const style: CSSCustomProperties = {}
 
@@ -80,7 +80,7 @@ export function generateCustomSxProp(
   providedSx: BetterSystemStyleObject,
 ) {
   // Possible data attributes: data-size, data-block, data-no-visuals
-  const size = buttonProps.size && buttonProps.size !== 'medium' ? `[data-size="${buttonProps.size}"]` : '' // medium is a default size therefore it doesn't have a data attribute that used for styling
+  const size = `[data-size="${buttonProps.size}"]`
   const block = buttonProps.block ? `[data-block="block"]` : ''
   const noVisuals =
     buttonProps.leadingVisual || buttonProps.trailingVisual || buttonProps.trailingAction ? '' : '[data-no-visuals]'

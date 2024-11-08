@@ -61,6 +61,7 @@ module.exports = {
   // rules which apply to JS, TS, etc.
   rules: {
     'no-shadow': 'off',
+    'react/button-has-type': 'error',
     'react/prop-types': 'off',
     'react/display-name': 'off',
     'react-hooks/exhaustive-deps': 'error',
@@ -149,6 +150,11 @@ module.exports = {
                 message:
                   'Please use the `useIsomorphicLayoutEffect` hook from `src/hooks/useIsomorphicLayoutEffect.ts` instead',
               },
+              {
+                name: 'clsx',
+                importNames: ['default'],
+                message: 'Use the named import instead: `import {clsx} from "clsx"`',
+              },
             ],
             patterns: [
               {
@@ -232,6 +238,7 @@ module.exports = {
         'react/jsx-no-undef': 'off',
         'react/jsx-key': 'off',
         'react/jsx-no-comment-textnodes': 'off',
+        'react-hooks/rules-of-hooks': 'off',
         'import/no-anonymous-default-export': 'off',
         'prettier/prettier': 'off',
         // These a11y rules should eventually be re-enabled

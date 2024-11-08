@@ -13,6 +13,7 @@ import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import type {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
 import styled from 'styled-components'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import {isElement} from 'react-is'
 
 // Needed because passing a ref to `Box` causes a type error
 const SegmentedControlList = styled.ul`
@@ -87,16 +88,33 @@ export const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
   )
     ? React.Children.toArray(children)[selectedIndex]
     : undefined
-  const getChildIcon = (childArg: React.ReactNode) => {
+  const getChildIcon = (childArg: React.ReactNode): React.ReactElement | null => {
     if (
       React.isValidElement<SegmentedControlButtonProps>(childArg) &&
       childArg.type === Button &&
       childArg.props.leadingIcon
     ) {
-      return childArg.props.leadingIcon
+      if (isElement(childArg.props.leadingIcon)) {
+        return childArg.props.leadingIcon
+      } else {
+        const LeadingIcon = childArg.props.leadingIcon
+        return <LeadingIcon />
+      }
     }
 
-    return React.isValidElement<SegmentedControlIconButtonProps>(childArg) ? childArg.props.icon : null
+    if (
+      React.isValidElement<SegmentedControlIconButtonProps>(childArg) &&
+      childArg.type === SegmentedControlIconButton
+    ) {
+      if (isElement(childArg.props.icon)) {
+        childArg.props.icon
+      } else {
+        const Icon = childArg.props.icon
+        return <Icon />
+      }
+    }
+
+    return null
   }
   const getChildText = (childArg: React.ReactNode) => {
     if (React.isValidElement<SegmentedControlButtonProps>(childArg) && childArg.type === Button) {
@@ -122,7 +140,10 @@ export const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
           The aria-label is only provided as a backup when the designer or engineer neglects to show a label for the SegmentedControl.
           The best thing to do is to have a visual label who's id is referenced using the `aria-labelledby` prop.
         */}
-        <ActionMenu.Button aria-label={ariaLabel} leadingVisual={getChildIcon(selectedChild)}>
+        <ActionMenu.Button
+          aria-label={ariaLabel && `${getChildText(selectedChild)}, ${ariaLabel}`}
+          leadingVisual={getChildIcon(selectedChild)}
+        >
           {getChildText(selectedChild)}
         </ActionMenu.Button>
         <ActionMenu.Overlay aria-labelledby={ariaLabelledby}>
@@ -144,7 +165,7 @@ export const Root: React.FC<React.PropsWithChildren<SegmentedControlProps>> = ({
                     child.props.onClick && child.props.onClick(event as React.MouseEvent<HTMLLIElement>)
                   }}
                 >
-                  {ChildIcon && <ChildIcon />} {getChildText(child)}
+                  {ChildIcon} {getChildText(child)}
                 </ActionList.Item>
               )
             })}

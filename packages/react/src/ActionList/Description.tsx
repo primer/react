@@ -14,6 +14,7 @@ export type ActionListDescriptionProps = {
    * - `"block"` - Secondary text is positioned below primary text.
    */
   variant?: 'inline' | 'block'
+  className?: string
 } & SxProp
 
 /**
@@ -24,6 +25,7 @@ export type ActionListDescriptionProps = {
 export const Description: FC<PropsWithChildren<ActionListDescriptionProps>> = ({
   variant = 'inline',
   sx = {},
+  className,
   ...props
 }) => {
   const styles = {
@@ -42,12 +44,19 @@ export const Description: FC<PropsWithChildren<ActionListDescriptionProps>> = ({
   const {blockDescriptionId, inlineDescriptionId} = React.useContext(ItemContext)
 
   return variant === 'block' ? (
-    <Box as="span" sx={merge(styles, sx as SxProp)} id={blockDescriptionId} data-component="ActionList.Description">
+    <Box
+      as="span"
+      sx={merge(styles, sx as SxProp)}
+      id={blockDescriptionId}
+      className={className}
+      data-component="ActionList.Description"
+    >
       {props.children}
     </Box>
   ) : (
     <Truncate
       id={inlineDescriptionId}
+      className={className}
       sx={merge(styles, sx as SxProp)}
       title={props.children as string}
       inline={true}

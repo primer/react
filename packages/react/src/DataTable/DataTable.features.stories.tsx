@@ -25,7 +25,7 @@ import {createColumnHelper} from './column'
 import {fetchRepos, repos, useFlakeyQuery} from './storybook/data'
 
 export default {
-  title: 'Drafts/Components/DataTable/Features',
+  title: 'Experimental/Components/DataTable/Features',
   component: DataTable,
 } as Meta<typeof DataTable>
 

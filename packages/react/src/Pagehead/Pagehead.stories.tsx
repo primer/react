@@ -1,15 +1,28 @@
 import React from 'react'
 import type {Meta, StoryFn} from '@storybook/react'
 import Pagehead from './Pagehead'
+import Heading from '../Heading'
 
 export default {
-  title: 'Components/Pagehead',
+  title: 'Deprecated/Components/Pagehead',
   component: Pagehead,
 } as Meta<typeof Pagehead>
 
-export const Default = () => <Pagehead>Pagehead</Pagehead>
+export const Default = () => (
+  <Pagehead>
+    <Heading as="h2" variant="small">
+      Pagehead
+    </Heading>
+  </Pagehead>
+)
 
-export const Playground: StoryFn<typeof Pagehead> = args => <Pagehead {...args}>Pagehead</Pagehead>
+export const Playground: StoryFn<typeof Pagehead> = args => (
+  <Pagehead {...args}>
+    <Heading as="h2" variant="small">
+      Pagehead
+    </Heading>
+  </Pagehead>
+)
 
 Playground.args = {
   as: 'div',

@@ -6,37 +6,37 @@ import {viewports} from '../test-helpers/viewports'
 const stories: Array<{title: string; id: string; viewports?: Array<keyof typeof viewports>}> = [
   {
     title: 'Default',
-    id: 'drafts-components-blankslate--default',
+    id: 'experimental-components-blankslate--default',
     viewports: ['primer.breakpoint.xs', 'primer.breakpoint.sm'],
   },
   {
     title: 'Narrow',
-    id: 'drafts-components-blankslate-features--narrow',
+    id: 'experimental-components-blankslate-features--narrow',
     viewports: ['primer.breakpoint.xs', 'primer.breakpoint.sm'],
   },
   {
     title: 'Spacious',
-    id: 'drafts-components-blankslate-features--spacious',
+    id: 'experimental-components-blankslate-features--spacious',
     viewports: ['primer.breakpoint.xs', 'primer.breakpoint.sm'],
   },
   {
     title: 'With Border',
-    id: 'drafts-components-blankslate-features--with-border',
+    id: 'experimental-components-blankslate-features--with-border',
     viewports: ['primer.breakpoint.sm'],
   },
   {
     title: 'With Primary Action',
-    id: 'drafts-components-blankslate-features--with-primary-action',
+    id: 'experimental-components-blankslate-features--with-primary-action',
     viewports: ['primer.breakpoint.sm'],
   },
   {
     title: 'With Secondary Action',
-    id: 'drafts-components-blankslate-features--with-secondary-action',
+    id: 'experimental-components-blankslate-features--with-secondary-action',
     viewports: ['primer.breakpoint.sm'],
   },
   {
     title: 'With Visual',
-    id: 'drafts-components-blankslate-features--with-visual',
+    id: 'experimental-components-blankslate-features--with-visual',
     viewports: ['primer.breakpoint.sm'],
   },
 ]
@@ -51,24 +51,6 @@ test.describe('Blankslate', () => {
               id: story.id,
               globals: {
                 colorScheme: theme,
-                featureFlags: {
-                  primer_react_css_modules_staff: true,
-                },
-              },
-            })
-
-            // Default state
-            expect(await page.screenshot()).toMatchSnapshot(`Blankslate.${story.title}.${theme}.png`)
-          })
-
-          test('default (styled-components) @vrt', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-                featureFlags: {
-                  primer_react_css_modules_staff: false,
-                },
               },
             })
 
@@ -77,19 +59,6 @@ test.describe('Blankslate', () => {
           })
 
           test('axe @aat', async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                colorScheme: theme,
-                featureFlags: {
-                  primer_react_css_modules_staff: true,
-                },
-              },
-            })
-            await expect(page).toHaveNoViolations()
-          })
-
-          test('axe (styled-components) @aat', async ({page}) => {
             await visit(page, {
               id: story.id,
               globals: {
@@ -106,29 +75,6 @@ test.describe('Blankslate', () => {
           test(`${name} @vrt`, async ({page}) => {
             await visit(page, {
               id: story.id,
-              globals: {
-                featureFlags: {
-                  primer_react_css_modules_staff: true,
-                },
-              },
-            })
-            const width = viewports[name]
-
-            await page.setViewportSize({
-              width,
-              height: 667,
-            })
-            expect(await page.screenshot()).toMatchSnapshot(`Blankslate.${story.title}.${name}.png`)
-          })
-
-          test(`${name} (styled-components) @vrt`, async ({page}) => {
-            await visit(page, {
-              id: story.id,
-              globals: {
-                featureFlags: {
-                  primer_react_css_modules_staff: false,
-                },
-              },
             })
             const width = viewports[name]
 

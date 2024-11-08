@@ -51,6 +51,10 @@ describe('Tooltip', () => {
     const {getByText} = HTMLRender(<TooltipComponent type="label" />)
     expect(getByText('Tooltip text')).toHaveAttribute('aria-hidden', 'true')
   })
+  it('should render aria-hidden on the tooltip element when the tooltip is description type', () => {
+    const {getByText} = HTMLRender(<TooltipComponent type="description" />)
+    expect(getByText('Tooltip text')).toHaveAttribute('aria-hidden', 'true')
+  })
   it('should describe the trigger element by its tooltip when the tooltip type is description (by default)', () => {
     const {getByRole, getByText} = HTMLRender(<TooltipComponent />)
     const triggerEL = getByRole('button')
@@ -108,5 +112,32 @@ describe('Tooltip', () => {
     )
     const triggerEL = getByRole('button')
     expect(triggerEL.getAttribute('aria-describedby')).toContain('custom-tooltip-id')
+  })
+  it('should throw an error if the trigger element is disabled', () => {
+    const spy = jest.spyOn(console, 'error').mockImplementation()
+    expect(() => {
+      HTMLRender(
+        <Tooltip text="Tooltip text" direction="n">
+          <Button disabled>Delete</Button>
+        </Tooltip>,
+      )
+    }).toThrow(
+      'The `Tooltip` component expects a single React element that contains interactive content. Consider using a `<button>` or equivalent interactive element instead.',
+    )
+    expect(spy).toHaveBeenCalled()
+    spy.mockRestore()
+  })
+  it('should not throw an error when the trigger element is a button in a fieldset', () => {
+    const {getByRole} = HTMLRender(
+      <fieldset>
+        <legend>Legend</legend>
+        <Tooltip text="Tooltip text">
+          <button type="button">Button Text</button>
+        </Tooltip>
+      </fieldset>,
+    )
+
+    const triggerEL = getByRole('button')
+    expect(triggerEL).toBeInTheDocument()
   })
 })

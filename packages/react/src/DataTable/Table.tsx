@@ -1,5 +1,5 @@
 import {SortAscIcon, SortDescIcon} from '@primer/octicons-react'
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
@@ -12,7 +12,7 @@ import type {Column, CellAlignment} from './column'
 import type {UniqueRow} from './row'
 import {SortDirection} from './sorting'
 import {useTableLayout} from './useTable'
-import {SkeletonText} from '../drafts/Skeleton/SkeletonText'
+import {SkeletonText} from '../experimental/Skeleton/SkeletonText'
 import {ScrollableRegion} from '../ScrollableRegion'
 
 // ----------------------------------------------------------------------------

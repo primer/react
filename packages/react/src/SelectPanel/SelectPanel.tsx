@@ -1,7 +1,7 @@
 import {SearchIcon, TriangleDownIcon} from '@primer/octicons-react'
 import React, {useCallback, useMemo} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
-import {AnchoredOverlay} from '../AnchoredOverlay'
+import {Overlay} from '../Overlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 import Box from '../Box'
 import type {FilteredActionListProps} from '../FilteredActionList'
@@ -12,11 +12,12 @@ import type {TextInputProps} from '../TextInput'
 import type {ItemProps, ItemInput} from './types'
 
 import {Button} from '../Button'
-import {useProvidedRefOrCreate} from '../hooks'
-import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
+import {useAnchoredPosition, useProvidedRefOrCreate} from '../hooks'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
+import {useFeatureFlag} from '../FeatureFlags'
+import {useFocusTrap} from '../hooks/useFocusTrap'
 
 interface SelectPanelSingleSelection {
   /** Specify the selected items */
@@ -78,9 +79,14 @@ function isMultiSelectVariant(
   return Array.isArray(selected)
 }
 
-const focusZoneSettings: Partial<FocusZoneHookSettings> = {
-  // Let FilteredActionList handle focus zone
-  disabled: true,
+const areItemsEqual = (itemA: ItemInput, itemB: ItemInput) => {
+  // prefer checking equivality by item.id
+  if (typeof itemA.id !== 'undefined') return itemA.id === itemB.id
+  else return itemA === itemB
+}
+
+const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
+  return items.some(i => areItemsEqual(i, item))
 }
 
 /**
@@ -156,9 +162,60 @@ export function SelectPanel({
     }
   }, [placeholder, renderAnchor, selected])
 
+  /* Anchoring logic */
+  const overlayRef = React.useRef<HTMLDivElement>(null)
+  const inputRef = React.useRef<HTMLInputElement>(null)
+
+  const {position} = useAnchoredPosition(
+    {
+      anchorElementRef: anchorRef,
+      floatingElementRef: overlayRef,
+      side: 'outside-bottom',
+      align: 'start',
+    },
+    [open, anchorRef.current, overlayRef.current],
+  )
+
+  const onAnchorClick = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      if (event.defaultPrevented || event.button !== 0) {
+        return
+      }
+
+      if (!open) {
+        onOpen('anchor-click')
+      } else {
+        onClose('anchor-click')
+      }
+    },
+    [open, onOpen, onClose],
+  )
+
+  const onAnchorKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLElement>) => {
+      if (!event.defaultPrevented) {
+        if (!open && ['ArrowDown', 'ArrowUp', ' ', 'Enter'].includes(event.key)) {
+          onOpen('anchor-key-press', event)
+          event.preventDefault()
+        }
+      }
+    },
+    [open, onOpen],
+  )
+
+  const anchorProps = {
+    ref: anchorRef,
+    'aria-haspopup': true,
+    'aria-expanded': open,
+    onClick: onAnchorClick,
+    onKeyDown: onAnchorKeyDown,
+  }
+  // TODO: anchor should be called button because it's not an anchor anymore
+  const anchor = renderMenuAnchor ? renderMenuAnchor(anchorProps) : null
+
   const itemsToRender = useMemo(() => {
     return items.map(item => {
-      const isItemSelected = isMultiSelectVariant(selected) ? selected.includes(item) : selected === item
+      const isItemSelected = isMultiSelectVariant(selected) ? doesItemsIncludeItem(selected, item) : selected === item
 
       return {
         ...item,
@@ -172,8 +229,10 @@ export function SelectPanel({
           }
 
           if (isMultiSelectVariant(selected)) {
-            const otherSelectedItems = selected.filter(selectedItem => selectedItem !== item)
-            const newSelectedItems = selected.includes(item) ? otherSelectedItems : [...otherSelectedItems, item]
+            const otherSelectedItems = selected.filter(selectedItem => !areItemsEqual(selectedItem, item))
+            const newSelectedItems = doesItemsIncludeItem(selected, item)
+              ? otherSelectedItems
+              : [...otherSelectedItems, item]
 
             const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
             multiSelectOnChange(newSelectedItems)
@@ -189,10 +248,13 @@ export function SelectPanel({
     })
   }, [onClose, onSelectedChange, items, selected])
 
-  const inputRef = React.useRef<HTMLInputElement>(null)
-  const focusTrapSettings = {
+  /** Focus trap */
+  useFocusTrap({
+    containerRef: overlayRef,
+    disabled: !open || !position,
     initialFocusRef: inputRef,
-  }
+    returnFocusRef: anchorRef,
+  })
 
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
     return {
@@ -204,33 +266,41 @@ export function SelectPanel({
     }
   }, [inputLabel, textInputProps])
 
+  const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
+
+  if (!open) return <>{anchor}</>
+
   return (
     <LiveRegion>
-      <AnchoredOverlay
-        renderAnchor={renderMenuAnchor}
-        anchorRef={anchorRef}
-        open={open}
-        onOpen={onOpen}
-        onClose={onClose}
-        overlayProps={{
-          role: 'dialog',
-          'aria-labelledby': titleId,
-          'aria-describedby': subtitle ? subtitleId : undefined,
-          ...overlayProps,
-        }}
-        focusTrapSettings={focusTrapSettings}
-        focusZoneSettings={focusZoneSettings}
+      {anchor}
+
+      <Overlay
+        role="dialog"
+        aria-labelledby={titleId}
+        aria-describedby={subtitle ? subtitleId : undefined}
+        ref={overlayRef}
+        returnFocusRef={anchorRef}
+        onEscape={() => onClose('escape')}
+        onClickOutside={() => onClose('click-outside')}
+        ignoreClickRefs={
+          /* this is required so that clicking the button while the panel is open does not re-open the panel */
+          [anchorRef]
+        }
+        {...position}
+        {...overlayProps}
       >
         <LiveRegionOutlet />
-        <Message
-          value={
-            filterValue === ''
-              ? 'Showing all items'
-              : items.length <= 0
-              ? 'No matching items'
-              : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
-          }
-        />
+        {usingModernActionList ? null : (
+          <Message
+            value={
+              filterValue === ''
+                ? 'Showing all items'
+                : items.length <= 0
+                  ? 'No matching items'
+                  : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
+            }
+          />
+        )}
         <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}>
           <Box sx={{pt: 2, px: 3}}>
             <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
@@ -248,6 +318,9 @@ export function SelectPanel({
             placeholderText={placeholderText}
             {...listProps}
             role="listbox"
+            // browsers give aria-labelledby precedence over aria-label so we need to make sure
+            // we don't accidentally override props.aria-label
+            aria-labelledby={listProps['aria-label'] ? undefined : titleId}
             aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
             selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
             items={itemsToRender}
@@ -270,7 +343,7 @@ export function SelectPanel({
             </Box>
           )}
         </Box>
-      </AnchoredOverlay>
+      </Overlay>
     </LiveRegion>
   )
 }

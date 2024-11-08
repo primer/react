@@ -1,5 +1,5 @@
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 import type {To} from 'history'
 import React, {useRef, useState} from 'react'
 import styled from 'styled-components'
@@ -28,6 +28,9 @@ const TabNavNav = styled.nav`
   border-bottom: 1px solid ${get('colors.border.default')};
 `
 
+/**
+ * @deprecated
+ */
 export type TabNavProps = ComponentProps<typeof TabNavBase>
 
 /**
@@ -35,6 +38,7 @@ export type TabNavProps = ComponentProps<typeof TabNavBase>
  * @primerid tab_nav
  * @primerstatus alpha
  * @primera11yreviewed false
+ * @deprecated
  */
 export function TabNav({
   /** Links in the tabbed navigation */
@@ -87,6 +91,9 @@ export function TabNav({
   )
 }
 
+/**
+ * @deprecated
+ */
 export type TabNavLinkProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement> & {
   /** Used when the item is rendered using a component like React Router's `Link`. The path to navigate to. */
   to?: To
@@ -100,6 +107,7 @@ export type TabNavLinkProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLA
  * An individual link in the TabNav.
  * @alias TabNav.Link
  * @primerparentid tab_nav
+ * @deprecated
  */
 export const TabNavLink = styled.a.attrs<TabNavLinkProps>(props => ({
   className: clsx(ITEM_CLASS, props.selected && SELECTED_CLASS, props.className),

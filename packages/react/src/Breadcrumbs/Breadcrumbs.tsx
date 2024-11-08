@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 import type {To} from 'history'
 import React from 'react'
 import styled from 'styled-components'

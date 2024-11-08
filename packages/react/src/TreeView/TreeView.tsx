@@ -4,7 +4,7 @@ import {
   FileDirectoryFillIcon,
   FileDirectoryOpenFillIcon,
 } from '@primer/octicons-react'
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 import React, {useCallback, useEffect} from 'react'
 import styled from 'styled-components'
 import {ConfirmationDialog} from '../ConfirmationDialog/ConfirmationDialog'
@@ -21,8 +21,8 @@ import sx from '../sx'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
-import {SkeletonAvatar} from '../drafts/Skeleton/SkeletonAvatar'
-import {SkeletonText} from '../drafts/Skeleton/SkeletonText'
+import {SkeletonAvatar} from '../experimental/Skeleton/SkeletonAvatar'
+import {SkeletonText} from '../experimental/Skeleton/SkeletonText'
 
 // ----------------------------------------------------------------------------
 // Context
@@ -67,6 +67,8 @@ export type TreeViewProps = {
   children: React.ReactNode
   /** Prevents the tree from indenting items. This should only be used when the tree is used to display a flat list of items. */
   flat?: boolean
+  /** Whether to truncate node text */
+  truncate?: boolean
   /** Class name(s) used to customize styles */
   className?: string
 }
@@ -207,12 +209,18 @@ const UlBox = styled.ul<SxProp>`
   }
 
   .PRIVATE_TreeView-item-content-text {
-    /* Truncate text label */
     flex: 1 1 auto;
     width: 0;
+  }
+
+  &[data-truncate-text='true'] .PRIVATE_TreeView-item-content-text {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+  }
+
+  &[data-truncate-text='false'] .PRIVATE_TreeView-item-content-text {
+    word-break: break-word;
   }
 
   .PRIVATE_TreeView-item-visual {
@@ -290,6 +298,7 @@ export const Root: React.FC<TreeViewProps> = ({
   'aria-labelledby': ariaLabelledby,
   children,
   flat,
+  truncate = true,
   className,
 }) => {
   const containerRef = React.useRef<HTMLUListElement>(null)
@@ -346,6 +355,7 @@ export const Root: React.FC<TreeViewProps> = ({
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledby}
           data-omit-spacer={flat}
+          data-truncate-text={truncate || false}
           onMouseDown={onMouseDown}
           className={className}
         >
@@ -377,7 +387,7 @@ export type TreeViewItemProps = {
   /** The expanded state of the item when it is initially rendered. Use when you do not need to control the state. */
   defaultExpanded?: boolean
   /** The controlled expanded state of item. Must be used in conjunction with onExpandedChange. */
-  expanded?: boolean
+  expanded?: boolean | null
   /** Event handler called when the expanded state of the item changes. */
   onExpandedChange?: (expanded: boolean) => void
   /** Callback when a tree view node is activated */
@@ -425,7 +435,7 @@ export const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       // If defaultExpanded is not provided, we default to false unless the item
       // is the current item, in which case we default to true.
       defaultValue: () => expandedStateCache.current?.get(itemId) ?? defaultExpanded ?? isCurrentItem,
-      value: expanded,
+      value: expanded === null ? false : expanded,
       onChange: onExpandedChange,
     })
     const {level} = React.useContext(ItemContext)
@@ -482,6 +492,11 @@ export const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       [onSelect, setIsExpandedWithCache, toggle],
     )
 
+    const ariaDescribedByIds = [
+      slots.leadingVisual ? leadingVisualId : null,
+      slots.trailingVisual ? trailingVisualId : null,
+    ].filter(Boolean)
+
     return (
       <ItemContext.Provider
         value={{
@@ -504,9 +519,9 @@ export const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           role="treeitem"
           aria-label={ariaLabel}
           aria-labelledby={ariaLabel ? undefined : ariaLabelledby || labelId}
-          aria-describedby={`${leadingVisualId} ${trailingVisualId}`}
+          aria-describedby={ariaDescribedByIds.length ? ariaDescribedByIds.join(' ') : undefined}
           aria-level={level}
-          aria-expanded={isSubTreeEmpty ? undefined : isExpanded}
+          aria-expanded={(isSubTreeEmpty && (!isExpanded || !hasSubTree)) || expanded === null ? undefined : isExpanded}
           aria-current={isCurrentItem ? 'true' : undefined}
           aria-selected={isFocused ? 'true' : 'false'}
           data-has-leading-action={slots.leadingAction ? true : undefined}
@@ -644,10 +659,9 @@ export const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}
 
   // Handle transition from loading to done state
   React.useEffect(() => {
+    const parentElement = document.getElementById(itemId)
+    if (!parentElement) return
     if (previousState === 'loading' && state === 'done') {
-      const parentElement = document.getElementById(itemId)
-      if (!parentElement) return
-
       // Announce update to screen readers
       const parentName = getAccessibleName(parentElement)
 
@@ -674,6 +688,9 @@ export const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}
 
         setLoadingFocused(false)
       }
+    } else if (state === 'loading') {
+      const parentName = getAccessibleName(parentElement)
+      announceUpdate(`${parentName} content loading`)
     }
   }, [loadingFocused, previousState, state, itemId, announceUpdate, ref, safeSetTimeout])
 
@@ -723,6 +740,7 @@ export const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}
       ref={ref}
     >
       {state === 'loading' ? <LoadingItem ref={loadingItemRef} count={count} /> : children}
+      {isSubTreeEmpty && state !== 'loading' ? <EmptyItem /> : null}
     </ul>
   )
 }
@@ -807,6 +825,14 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, re
         <Spinner size="small" />
       </LeadingVisual>
       <Text sx={{color: 'fg.muted'}}>Loading...</Text>
+    </Item>
+  )
+})
+
+const EmptyItem = React.forwardRef<HTMLElement>((props, ref) => {
+  return (
+    <Item expanded={null} id={useId()} ref={ref}>
+      <Text sx={{color: 'fg.muted'}}>No items found</Text>
     </Item>
   )
 })

@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import {clsx} from 'clsx'
 import React, {useMemo} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
@@ -186,6 +186,9 @@ const TooltipBase = styled.span<SxProp>`
   ${sx};
 `
 
+/**
+ * @deprecated
+ */
 export type TooltipProps = {
   /**
    * Sets where the tooltip renders in relation to the target.
@@ -207,8 +210,9 @@ export const TooltipContext = React.createContext<{tooltipId?: string}>({})
  * Tooltips add additional context to interactive UI elements and appear on mouse hover or keyboard focus.
  * @primerid tooltip
  * @primerdocsid tooltip
- * @primerstatus alpha
+ * @primerstatus deprecated
  * @primera11yreviewed false
+ * @deprecated
  */
 function Tooltip({direction = 'n', children, className, text, noDelay, align, wrap, id, ...rest}: TooltipProps) {
   const tooltipId = useId(id)
