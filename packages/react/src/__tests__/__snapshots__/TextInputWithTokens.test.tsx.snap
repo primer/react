@@ -301,19 +301,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c5:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -459,12 +446,21 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       />
     </div>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -511,12 +507,21 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -563,12 +568,21 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -615,12 +629,21 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -667,12 +690,21 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -719,12 +751,21 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -771,12 +812,21 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -823,12 +873,21 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -1241,19 +1300,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c5:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -1371,12 +1417,21 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
       />
     </div>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -1423,12 +1478,21 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -2097,19 +2161,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c5:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -2227,12 +2278,21 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       />
     </div>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -2279,12 +2339,21 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -2331,12 +2400,21 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -2383,12 +2461,21 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -2435,12 +2522,21 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -2487,12 +2583,21 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -2539,12 +2644,21 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -2591,12 +2705,21 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -2945,19 +3068,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   line-height: 16px;
   padding-left: 4px;
   padding-right: 4px;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c5:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -3075,12 +3185,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       />
     </div>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="small"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="small"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -3127,12 +3246,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="small"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="small"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -3179,12 +3307,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="small"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="small"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -3231,12 +3368,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="small"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="small"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -3283,12 +3429,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="small"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="small"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -3335,12 +3490,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="small"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="small"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -3387,12 +3551,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="small"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="small"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -3439,12 +3612,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="small"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="small"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -3793,19 +3975,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c5:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -3923,12 +4092,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       />
     </div>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="medium"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="medium"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -3975,12 +4153,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="medium"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="medium"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -4027,12 +4214,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="medium"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="medium"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -4079,12 +4275,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="medium"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="medium"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -4131,12 +4336,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="medium"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="medium"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -4183,12 +4397,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="medium"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="medium"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -4235,12 +4458,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="medium"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="medium"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -4287,12 +4519,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="medium"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="medium"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -4641,19 +4882,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   line-height: 24px;
   padding-left: 8px;
   padding-right: 8px;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c5:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -4771,12 +4999,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       />
     </div>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="large"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="large"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -4823,12 +5060,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="large"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="large"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -4875,12 +5121,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="large"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="large"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -4927,12 +5182,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="large"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="large"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -4979,12 +5243,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="large"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="large"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -5031,12 +5304,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="large"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="large"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -5083,12 +5365,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="large"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="large"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -5135,12 +5426,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="large"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="large"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -5491,19 +5791,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c5:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -5621,12 +5908,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       />
     </div>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -5673,12 +5969,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -5725,12 +6030,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -5777,12 +6091,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -5829,12 +6152,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -5881,12 +6213,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -5933,12 +6274,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -5985,12 +6335,21 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -6343,19 +6702,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c5:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -6473,12 +6819,21 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       />
     </div>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -6525,12 +6880,21 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -6577,12 +6941,21 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -6629,12 +7002,21 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -6681,12 +7063,21 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -6733,12 +7124,21 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -6785,12 +7185,21 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -6837,12 +7246,21 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -7193,18 +7611,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-}
-
-.c5:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c6 {
@@ -7273,13 +7679,22 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       />
     </div>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={false}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -7294,13 +7709,22 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={false}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -7315,13 +7739,22 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={false}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -7336,13 +7769,22 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={false}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -7357,13 +7799,22 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={false}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -7378,13 +7829,22 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={false}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -7399,13 +7859,22 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={false}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -7420,13 +7889,22 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={false}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -7760,19 +8238,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c5:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -7891,12 +8356,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         />
       </div>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -7943,12 +8417,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -7995,12 +8478,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -8047,12 +8539,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -8099,12 +8600,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -8151,12 +8661,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -8203,12 +8722,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -8255,12 +8783,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -8671,19 +9208,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c7:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c10 {
@@ -8845,12 +9369,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         />
       </div>
       <span
-        className="c7"
+        className="c7 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -8897,12 +9430,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c7 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -8949,12 +9491,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c7 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -9001,12 +9552,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c7 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -9053,12 +9613,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c7 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -9105,12 +9674,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c7 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -9157,12 +9735,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c7 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -9209,12 +9796,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c7 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -9619,19 +10215,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c5:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -9750,12 +10333,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         />
       </div>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -9802,12 +10394,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -9854,12 +10455,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -9906,12 +10516,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -9958,12 +10577,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -10010,12 +10638,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -10062,12 +10699,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -10114,12 +10760,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -10539,19 +11194,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c8:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c11 {
@@ -10743,12 +11385,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         />
       </div>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -10795,12 +11446,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -10847,12 +11507,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -10899,12 +11568,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -10951,12 +11629,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -11003,12 +11690,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -11055,12 +11751,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -11107,12 +11812,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -11532,19 +12246,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c8:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c11 {
@@ -11736,12 +12437,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         />
       </div>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -11788,12 +12498,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -11840,12 +12559,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -11892,12 +12620,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -11944,12 +12681,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -11996,12 +12742,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -12048,12 +12803,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -12100,12 +12864,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -12525,19 +13298,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c8:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c11 {
@@ -12730,12 +13490,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         />
       </div>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -12782,12 +13551,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -12834,12 +13612,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -12886,12 +13673,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -12938,12 +13734,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -12990,12 +13795,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -13042,12 +13856,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -13094,12 +13917,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -13513,19 +14345,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c5:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -13644,12 +14463,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         />
       </div>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -13696,12 +14524,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -13748,12 +14585,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -13800,12 +14646,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -13852,12 +14707,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -13904,12 +14768,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -13956,12 +14829,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -14008,12 +14890,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -14463,19 +15354,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c7:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c10 {
@@ -14638,12 +15516,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         />
       </div>
       <span
-        className="c7"
+        className="c7 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -14690,12 +15577,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c7 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -14742,12 +15638,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c7 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -14794,12 +15699,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c7 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -14846,12 +15760,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c7 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -14898,12 +15821,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c7 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -14950,12 +15882,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c7 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -15002,12 +15943,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c7"
+        className="c7 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -15451,19 +16401,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c5:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -15582,12 +16519,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         />
       </div>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -15634,12 +16580,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -15686,12 +16641,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -15738,12 +16702,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -15790,12 +16763,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -15842,12 +16824,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -15894,12 +16885,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -15946,12 +16946,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c5"
+        className="c5 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -16408,19 +17417,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: 16px;
   padding-left: 4px;
   padding-right: 4px;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c8:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c11 {
@@ -16613,12 +17609,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         />
       </div>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="small"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="small"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -16665,12 +17670,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="small"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="small"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -16717,12 +17731,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="small"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="small"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -16769,12 +17792,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="small"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="small"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -16821,12 +17853,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="small"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="small"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -16873,12 +17914,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="small"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="small"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -16925,12 +17975,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="small"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="small"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -16977,12 +18036,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="small"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="small"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -17441,19 +18509,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c8:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c11 {
@@ -17646,12 +18701,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         />
       </div>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -17698,12 +18762,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -17750,12 +18823,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -17802,12 +18884,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -17854,12 +18945,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -17906,12 +19006,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -17958,12 +19067,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -18010,12 +19128,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -18472,19 +19599,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   line-height: 24px;
   padding-left: 8px;
   padding-right: 8px;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c8:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c11 {
@@ -18677,12 +19791,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         />
       </div>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="large"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="large"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -18729,12 +19852,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="large"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="large"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -18781,12 +19913,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="large"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="large"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -18833,12 +19974,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="large"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="large"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -18885,12 +20035,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="large"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="large"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -18937,12 +20096,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="large"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="large"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -18989,12 +20157,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="large"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="large"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -19041,12 +20218,21 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         </span>
       </span>
       <span
-        className="c8"
+        className="c8 Token"
+        data-cursor-is-interactive={true}
+        data-is-remove-btn={true}
+        data-is-selected={false}
+        data-size="large"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="large"
+        style={
+          {
+            "borderWidth": "1px",
+          }
+        }
         tabIndex={0}
       >
         <span
@@ -19471,19 +20657,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
-  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
-  border-style: solid;
-  border-width: 1px;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  max-width: 100%;
-  padding-right: 0;
-}
-
-.c5:hover {
-  background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c8 {
@@ -19601,12 +20774,21 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       />
     </div>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -19653,12 +20835,21 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -19705,12 +20896,21 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -19757,12 +20957,21 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -19809,12 +21018,21 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -19861,12 +21079,21 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -19913,12 +21140,21 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -19965,12 +21201,21 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       </span>
     </span>
     <span
-      className="c5"
+      className="c5 Token"
+      data-cursor-is-interactive={true}
+      data-is-remove-btn={true}
+      data-is-selected={false}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "borderWidth": "1px",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -20308,29 +21553,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
-}
-
-.c5:hover {
-  background-image: linear-gradient(rgba(0,0,0,0.15),rgba(0,0,0,0.15)),linear-gradient(rgb(var(--label-r),var(--label-g),var(--label-b)),rgb(var(--label-r),var(--label-g),var(--label-b)));
-  box-shadow: var(--shadow-resting-medium,var(--color-shadow-medium,0 3px 6px rgba(140,149,159,0.15)));
 }
 
 .c7 {
@@ -20371,8 +21593,6 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   margin-left: 8px;
   height: 32px;
   width: 32px;
-  position: relative;
-  z-index: 1;
 }
 
 .c7:hover,
@@ -20451,11 +21671,39 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     </div>
     <span
       className="c5"
+      data-cursor-is-interactive={true}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "&:hover": {
+            "backgroundImage": "linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), linear-gradient(rgb(var(--label-r),var(--label-g),var(--label-b)), rgb(var(--label-r),var(--label-g),var(--label-b)))",
+            "boxShadow": "shadow.medium",
+          },
+          "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+          "--border-threshold": "0.96",
+          "--label-b": "153",
+          "--label-g": "153",
+          "--label-h": "0",
+          "--label-l": "60",
+          "--label-r": "153",
+          "--label-s": "0",
+          "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+          "--lightness-threshold": "0.453",
+          "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+          "background": "rgb(var(--label-r), var(--label-g), var(--label-b))",
+          "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+          "borderStyle": "solid",
+          "borderWidth": 1,
+          "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+          "paddingRight": 0,
+          "position": "relative",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -20466,7 +21714,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7"
+        className="c7 RemoveButton"
+        data-has-multiple-action-targets={true}
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
@@ -20498,11 +21747,39 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     </span>
     <span
       className="c5"
+      data-cursor-is-interactive={true}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "&:hover": {
+            "backgroundImage": "linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), linear-gradient(rgb(var(--label-r),var(--label-g),var(--label-b)), rgb(var(--label-r),var(--label-g),var(--label-b)))",
+            "boxShadow": "shadow.medium",
+          },
+          "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+          "--border-threshold": "0.96",
+          "--label-b": "153",
+          "--label-g": "153",
+          "--label-h": "0",
+          "--label-l": "60",
+          "--label-r": "153",
+          "--label-s": "0",
+          "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+          "--lightness-threshold": "0.453",
+          "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+          "background": "rgb(var(--label-r), var(--label-g), var(--label-b))",
+          "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+          "borderStyle": "solid",
+          "borderWidth": 1,
+          "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+          "paddingRight": 0,
+          "position": "relative",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -20513,7 +21790,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7"
+        className="c7 RemoveButton"
+        data-has-multiple-action-targets={true}
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
@@ -20545,11 +21823,39 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     </span>
     <span
       className="c5"
+      data-cursor-is-interactive={true}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "&:hover": {
+            "backgroundImage": "linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), linear-gradient(rgb(var(--label-r),var(--label-g),var(--label-b)), rgb(var(--label-r),var(--label-g),var(--label-b)))",
+            "boxShadow": "shadow.medium",
+          },
+          "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+          "--border-threshold": "0.96",
+          "--label-b": "153",
+          "--label-g": "153",
+          "--label-h": "0",
+          "--label-l": "60",
+          "--label-r": "153",
+          "--label-s": "0",
+          "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+          "--lightness-threshold": "0.453",
+          "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+          "background": "rgb(var(--label-r), var(--label-g), var(--label-b))",
+          "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+          "borderStyle": "solid",
+          "borderWidth": 1,
+          "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+          "paddingRight": 0,
+          "position": "relative",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -20560,7 +21866,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7"
+        className="c7 RemoveButton"
+        data-has-multiple-action-targets={true}
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
@@ -20592,11 +21899,39 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     </span>
     <span
       className="c5"
+      data-cursor-is-interactive={true}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "&:hover": {
+            "backgroundImage": "linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), linear-gradient(rgb(var(--label-r),var(--label-g),var(--label-b)), rgb(var(--label-r),var(--label-g),var(--label-b)))",
+            "boxShadow": "shadow.medium",
+          },
+          "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+          "--border-threshold": "0.96",
+          "--label-b": "153",
+          "--label-g": "153",
+          "--label-h": "0",
+          "--label-l": "60",
+          "--label-r": "153",
+          "--label-s": "0",
+          "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+          "--lightness-threshold": "0.453",
+          "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+          "background": "rgb(var(--label-r), var(--label-g), var(--label-b))",
+          "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+          "borderStyle": "solid",
+          "borderWidth": 1,
+          "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+          "paddingRight": 0,
+          "position": "relative",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -20607,7 +21942,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7"
+        className="c7 RemoveButton"
+        data-has-multiple-action-targets={true}
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
@@ -20639,11 +21975,39 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     </span>
     <span
       className="c5"
+      data-cursor-is-interactive={true}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "&:hover": {
+            "backgroundImage": "linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), linear-gradient(rgb(var(--label-r),var(--label-g),var(--label-b)), rgb(var(--label-r),var(--label-g),var(--label-b)))",
+            "boxShadow": "shadow.medium",
+          },
+          "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+          "--border-threshold": "0.96",
+          "--label-b": "153",
+          "--label-g": "153",
+          "--label-h": "0",
+          "--label-l": "60",
+          "--label-r": "153",
+          "--label-s": "0",
+          "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+          "--lightness-threshold": "0.453",
+          "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+          "background": "rgb(var(--label-r), var(--label-g), var(--label-b))",
+          "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+          "borderStyle": "solid",
+          "borderWidth": 1,
+          "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+          "paddingRight": 0,
+          "position": "relative",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -20654,7 +22018,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7"
+        className="c7 RemoveButton"
+        data-has-multiple-action-targets={true}
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
@@ -20686,11 +22051,39 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     </span>
     <span
       className="c5"
+      data-cursor-is-interactive={true}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "&:hover": {
+            "backgroundImage": "linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), linear-gradient(rgb(var(--label-r),var(--label-g),var(--label-b)), rgb(var(--label-r),var(--label-g),var(--label-b)))",
+            "boxShadow": "shadow.medium",
+          },
+          "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+          "--border-threshold": "0.96",
+          "--label-b": "153",
+          "--label-g": "153",
+          "--label-h": "0",
+          "--label-l": "60",
+          "--label-r": "153",
+          "--label-s": "0",
+          "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+          "--lightness-threshold": "0.453",
+          "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+          "background": "rgb(var(--label-r), var(--label-g), var(--label-b))",
+          "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+          "borderStyle": "solid",
+          "borderWidth": 1,
+          "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+          "paddingRight": 0,
+          "position": "relative",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -20701,7 +22094,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7"
+        className="c7 RemoveButton"
+        data-has-multiple-action-targets={true}
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
@@ -20733,11 +22127,39 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     </span>
     <span
       className="c5"
+      data-cursor-is-interactive={true}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "&:hover": {
+            "backgroundImage": "linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), linear-gradient(rgb(var(--label-r),var(--label-g),var(--label-b)), rgb(var(--label-r),var(--label-g),var(--label-b)))",
+            "boxShadow": "shadow.medium",
+          },
+          "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+          "--border-threshold": "0.96",
+          "--label-b": "153",
+          "--label-g": "153",
+          "--label-h": "0",
+          "--label-l": "60",
+          "--label-r": "153",
+          "--label-s": "0",
+          "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+          "--lightness-threshold": "0.453",
+          "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+          "background": "rgb(var(--label-r), var(--label-g), var(--label-b))",
+          "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+          "borderStyle": "solid",
+          "borderWidth": 1,
+          "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+          "paddingRight": 0,
+          "position": "relative",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -20748,7 +22170,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7"
+        className="c7 RemoveButton"
+        data-has-multiple-action-targets={true}
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
@@ -20780,11 +22203,39 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     </span>
     <span
       className="c5"
+      data-cursor-is-interactive={true}
+      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
+      style={
+        {
+          "&:hover": {
+            "backgroundImage": "linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), linear-gradient(rgb(var(--label-r),var(--label-g),var(--label-b)), rgb(var(--label-r),var(--label-g),var(--label-b)))",
+            "boxShadow": "shadow.medium",
+          },
+          "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+          "--border-threshold": "0.96",
+          "--label-b": "153",
+          "--label-g": "153",
+          "--label-h": "0",
+          "--label-l": "60",
+          "--label-r": "153",
+          "--label-s": "0",
+          "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+          "--lightness-threshold": "0.453",
+          "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+          "background": "rgb(var(--label-r), var(--label-g), var(--label-b))",
+          "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+          "borderStyle": "solid",
+          "borderWidth": 1,
+          "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+          "paddingRight": 0,
+          "position": "relative",
+        }
+      }
       tabIndex={0}
     >
       <span
@@ -20795,7 +22246,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7"
+        className="c7 RemoveButton"
+        data-has-multiple-action-targets={true}
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"

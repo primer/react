@@ -9,7 +9,6 @@ import {useTheme} from '../ThemeProvider'
 import TokenTextContainer from './_TokenTextContainer'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import classes from './IssueLabelToken.module.css'
-import {useFeatureFlag} from '../FeatureFlags'
 
 export interface IssueLabelTokenProps extends TokenBaseProps {
   /**
