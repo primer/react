@@ -66,6 +66,7 @@ export type TreeViewProps = {
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
   children: React.ReactNode
   flat?: boolean
+  truncate?: boolean
   className?: string
 }
 
@@ -205,12 +206,18 @@ const UlBox = styled.ul<SxProp>`
   }
 
   .PRIVATE_TreeView-item-content-text {
-    /* Truncate text label */
     flex: 1 1 auto;
     width: 0;
+  }
+
+  &[data-truncate-text='true'] .PRIVATE_TreeView-item-content-text {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+  }
+
+  &[data-truncate-text='false'] .PRIVATE_TreeView-item-content-text {
+    word-break: break-word;
   }
 
   .PRIVATE_TreeView-item-visual {
@@ -282,6 +289,7 @@ const Root: React.FC<TreeViewProps> = ({
   'aria-labelledby': ariaLabelledby,
   children,
   flat,
+  truncate = true,
   className,
 }) => {
   const containerRef = React.useRef<HTMLUListElement>(null)
@@ -338,6 +346,7 @@ const Root: React.FC<TreeViewProps> = ({
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledby}
           data-omit-spacer={flat}
+          data-truncate-text={truncate || false}
           onMouseDown={onMouseDown}
           className={className}
         >
@@ -361,7 +370,7 @@ export type TreeViewItemProps = {
   containIntrinsicSize?: string
   current?: boolean
   defaultExpanded?: boolean
-  expanded?: boolean
+  expanded?: boolean | null
   onExpandedChange?: (expanded: boolean) => void
   onSelect?: (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void
   className?: string
@@ -401,7 +410,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       // If defaultExpanded is not provided, we default to false unless the item
       // is the current item, in which case we default to true.
       defaultValue: () => expandedStateCache.current?.get(itemId) ?? defaultExpanded ?? isCurrentItem,
-      value: expanded,
+      value: expanded === null ? false : expanded,
       onChange: onExpandedChange,
     })
     const {level} = React.useContext(ItemContext)
@@ -458,6 +467,11 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       [onSelect, setIsExpandedWithCache, toggle],
     )
 
+    const ariaDescribedByIds = [
+      slots.leadingVisual ? leadingVisualId : null,
+      slots.trailingVisual ? trailingVisualId : null,
+    ].filter(Boolean)
+
     return (
       <ItemContext.Provider
         value={{
@@ -480,9 +494,9 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           role="treeitem"
           aria-label={ariaLabel}
           aria-labelledby={ariaLabel ? undefined : ariaLabelledby || labelId}
-          aria-describedby={`${leadingVisualId} ${trailingVisualId}`}
+          aria-describedby={ariaDescribedByIds.length ? ariaDescribedByIds.join(' ') : undefined}
           aria-level={level}
-          aria-expanded={isSubTreeEmpty ? undefined : isExpanded}
+          aria-expanded={(isSubTreeEmpty && (!isExpanded || !hasSubTree)) || expanded === null ? undefined : isExpanded}
           aria-current={isCurrentItem ? 'true' : undefined}
           aria-selected={isFocused ? 'true' : 'false'}
           data-has-leading-action={slots.leadingAction ? true : undefined}
@@ -697,6 +711,7 @@ const SubTree: React.FC<TreeViewSubTreeProps> = ({count, state, children}) => {
       ref={ref}
     >
       {state === 'loading' ? <LoadingItem ref={loadingItemRef} count={count} /> : children}
+      {isSubTreeEmpty && state !== 'loading' ? <EmptyItem /> : null}
     </ul>
   )
 }
@@ -781,6 +796,14 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, re
         <Spinner size="small" />
       </LeadingVisual>
       <Text sx={{color: 'fg.muted'}}>Loading...</Text>
+    </Item>
+  )
+})
+
+const EmptyItem = React.forwardRef<HTMLElement>((props, ref) => {
+  return (
+    <Item expanded={null} id={useId()} ref={ref}>
+      <Text sx={{color: 'fg.muted'}}>No items found</Text>
     </Item>
   )
 })

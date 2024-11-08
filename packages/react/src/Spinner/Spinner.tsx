@@ -3,8 +3,10 @@ import styled from 'styled-components'
 import sx, {type SxProp} from '../sx'
 import {VisuallyHidden} from '../VisuallyHidden'
 import type {HTMLDataAttributes} from '../internal/internal-types'
-import Box from '../Box'
 import {useId} from '../hooks'
+import {useFeatureFlag} from '../FeatureFlags'
+import classes from './Spinner.module.css'
+import {clsx} from 'clsx'
 
 const sizeMap = {
   small: '16px',
@@ -20,6 +22,7 @@ export type SpinnerProps = {
   /** @deprecated Use `srText` instead. */
   'aria-label'?: string
   className?: string
+  style?: React.CSSProperties
 } & HTMLDataAttributes &
   SxProp
 
@@ -28,6 +31,7 @@ function Spinner({
   srText = 'Loading',
   'aria-label': ariaLabel,
   className,
+  style,
   ...props
 }: SpinnerProps) {
   const size = sizeMap[sizeKey]
@@ -36,7 +40,7 @@ function Spinner({
 
   return (
     /* inline-flex removes the extra line height */
-    <Box as="span" sx={{display: 'inline-flex'}}>
+    <span className={classes.Box}>
       <svg
         height={size}
         width={size}
@@ -46,6 +50,7 @@ function Spinner({
         aria-label={ariaLabel ?? undefined}
         aria-labelledby={hasHiddenLabel ? labelId : undefined}
         className={className}
+        style={style}
         {...props}
       >
         <circle
@@ -66,11 +71,11 @@ function Spinner({
         />
       </svg>
       {hasHiddenLabel ? <VisuallyHidden id={labelId}>{srText}</VisuallyHidden> : null}
-    </Box>
+    </span>
   )
 }
 
-const StyledSpinner = styled(Spinner)`
+const StyledComponentSpinner = styled(Spinner)`
   @keyframes rotate-keyframes {
     100% {
       transform: rotate(360deg);
@@ -81,6 +86,23 @@ const StyledSpinner = styled(Spinner)`
 
   ${sx}
 `
+
+const StyledBaseSpinner = styled.div`
+  ${sx}
+`
+
+function StyledSpinner({sx, className, ...props}: SpinnerProps) {
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  if (enabled) {
+    if (sx) {
+      return <StyledBaseSpinner sx={sx} as={Spinner} className={clsx(className, classes.SpinnerAnimation)} {...props} />
+    }
+
+    return <Spinner className={clsx(className, classes.SpinnerAnimation)} {...props} />
+  }
+
+  return <StyledComponentSpinner sx={sx} className={className} {...props} />
+}
 
 StyledSpinner.displayName = 'Spinner'
 

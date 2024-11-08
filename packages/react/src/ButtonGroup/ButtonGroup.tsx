@@ -7,9 +7,12 @@ import classes from './ButtonGroup.module.css'
 import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
+import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
+import {useProvidedRefOrCreate} from '../hooks'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 const StyledButtonGroup = toggleStyledComponent(
-  'primer_react_css_modules_team',
+  'primer_react_css_modules_staff',
   'div',
   styled.div`
     display: inline-flex;
@@ -74,23 +77,34 @@ const StyledButtonGroup = toggleStyledComponent(
 )
 
 export type ButtonGroupProps = ComponentProps<typeof StyledButtonGroup>
+
 const ButtonGroup = React.forwardRef<HTMLElement, ButtonGroupProps>(function ButtonGroup(
-  {children, className, ...rest},
+  {children, className, role, ...rest},
   forwardRef,
 ) {
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  const enabled = useFeatureFlag('primer_react_css_modules_staff')
+  const buttonRef = useProvidedRefOrCreate(forwardRef as React.RefObject<HTMLDivElement>)
+
+  useFocusZone({
+    containerRef: buttonRef,
+    disabled: role !== 'toolbar',
+    bindKeys: FocusKeys.ArrowHorizontal,
+    focusOutBehavior: 'wrap',
+  })
+
   return (
     <StyledButtonGroup
-      ref={forwardRef}
+      ref={buttonRef}
       className={clsx(className, {
         [classes.ButtonGroup]: enabled,
       })}
+      role={role}
       {...rest}
     >
       {children}
     </StyledButtonGroup>
   )
-})
+}) as PolymorphicForwardRefComponent<'div', ButtonGroupProps>
 
 ButtonGroup.displayName = 'ButtonGroup'
 

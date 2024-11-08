@@ -313,6 +313,10 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
   outline: none;
 }
 
+.c3[data-reflow-container='true'] {
+  max-width: calc(100vw - 2rem);
+}
+
 @media (forced-colors:active) {
   .c1:focus {
     outline: solid 1px transparent;

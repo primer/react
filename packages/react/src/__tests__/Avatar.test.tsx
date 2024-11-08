@@ -7,7 +7,12 @@ import axe from 'axe-core'
 import {FeatureFlags} from '../FeatureFlags'
 
 describe('Avatar', () => {
-  behavesAsComponent({Component: Avatar})
+  behavesAsComponent({
+    Component: Avatar,
+    options: {
+      skipAs: true,
+    },
+  })
 
   checkExports('Avatar', {
     default: Avatar,
