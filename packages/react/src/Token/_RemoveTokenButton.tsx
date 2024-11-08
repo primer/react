@@ -106,7 +106,6 @@ const RemoveTokenButton = ({
   delete rest.children
 
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
-  // transform: `translate(${rest.borderOffset}px, -${rest.borderOffset}px)`,
 
   return (
     <StyledTokenButton
