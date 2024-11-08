@@ -87,20 +87,14 @@ export function percent(value: number | string): string {
 
 export function renderStyles(node: React.ReactElement) {
   const {
-    props: {className, ...restProps},
+    props: {className},
   } = render(node)
-  return getComputedStyles(className, restProps)
+  return getComputedStyles(className)
 }
 
-export function getComputedStyles(className: string, restProps?: Record<string, string | undefined>) {
+export function getComputedStyles(className: string) {
   const div = document.createElement('div')
   div.className = className
-
-  if (restProps) {
-    for (const [key, value] of Object.entries(restProps)) {
-      if (key.startsWith('data-') && value !== undefined) div.setAttribute(key, value)
-    }
-  }
 
   const computed: ComputedStyles = {}
   for (const sheet of document.styleSheets) {
