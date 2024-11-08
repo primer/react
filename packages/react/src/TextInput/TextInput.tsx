@@ -41,17 +41,7 @@ export type TextInputNonPassthroughProps = {
   trailingAction?: React.ReactElement<React.HTMLProps<HTMLButtonElement>>
 } & Pick<
   StyledWrapperProps,
-  | 'block'
-  | 'contrast'
-  | 'disabled'
-  | 'monospace'
-  | 'sx'
-  | 'width'
-  | 'maxWidth'
-  | 'minWidth'
-  | 'variant'
-  | 'size'
-  | 'validationStatus'
+  'block' | 'contrast' | 'disabled' | 'monospace' | 'sx' | 'width' | 'variant' | 'size' | 'validationStatus'
 >
 
 export type TextInputProps = Merge<React.ComponentPropsWithoutRef<'input'>, TextInputNonPassthroughProps>
@@ -79,8 +69,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       onBlur,
       // start deprecated props
       width: widthProp,
-      minWidth: minWidthProp,
-      maxWidth: maxWidthProp,
       variant: variantProp,
       // end deprecated props
       type = 'text',
@@ -138,8 +126,6 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         sx={sxProp}
         size={sizeProp}
         width={widthProp}
-        minWidth={minWidthProp}
-        maxWidth={maxWidthProp}
         variant={variantProp}
         hasLeadingVisual={Boolean(LeadingVisual || showLeadingLoadingIndicator)}
         hasTrailingVisual={Boolean(TrailingVisual || showTrailingLoadingIndicator)}
