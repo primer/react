@@ -176,16 +176,16 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
       align-self: stretch;
     `}
 
-  // Ensures inputs don' t zoom on mobile but are body-font size on desktop
-  @media (min-width: ${get('breakpoints.1')}) {
-    font-size: ${get('fontSizes.1')};
-  }
-
   ${props =>
     props.width &&
     css`
       width: ${props.width};
     `}
+
+  // Ensures inputs don' t zoom on mobile but are body-font size on desktop
+  @media (min-width: ${get('breakpoints.1')}) {
+    font-size: ${get('fontSizes.1')};
+  }
 
   ${sizeDeprecatedVariants}
   ${sizeVariants}
