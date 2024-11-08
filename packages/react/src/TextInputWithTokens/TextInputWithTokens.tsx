@@ -13,7 +13,7 @@ import Token from '../Token/Token'
 import type {TokenSizeKeys} from '../Token/TokenBase'
 
 import type {TextInputSizes} from '../internal/components/TextInputWrapper'
-import TextInputWrapper from '../internal/components/TextInputWrapper'
+import TextInputWrapper, {textInputHorizPadding} from '../internal/components/TextInputWrapper'
 import UnstyledTextInput from '../internal/components/UnstyledTextInput'
 import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
 
@@ -262,8 +262,8 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       variant={variantProp} // deprecated. use `size` prop instead
       onClick={focusInput}
       sx={{
-        paddingLeft: '12px',
-        py: `calc(12px / 2)`,
+        paddingLeft: textInputHorizPadding,
+        py: `calc(${textInputHorizPadding} / 2)`,
         ...(block
           ? {
               display: 'flex',
