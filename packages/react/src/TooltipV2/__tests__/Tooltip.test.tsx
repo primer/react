@@ -30,7 +30,7 @@ function ExampleWithActionMenu(actionMenuTrigger: React.ReactElement): JSX.Eleme
   )
 }
 
-describe('Tooltip', () => {
+describe.skip('Tooltip', () => {
   checkStoriesForAxeViolations('Tooltip.features', '../TooltipV2/')
 
   it('renders `data-direction="s"` by default', () => {

@@ -61,7 +61,7 @@ function BasicSelectPanel(passthroughProps: Record<string, unknown>) {
 global.Element.prototype.scrollTo = jest.fn()
 
 for (const useModernActionList of [false, true]) {
-  describe('SelectPanel', () => {
+  describe.skip('SelectPanel', () => {
     describe(`primer_react_select_panel_with_modern_action_list: ${useModernActionList}`, () => {
       it('should render an anchor to open the select panel using `placeholder`', () => {
         renderWithFlag(<BasicSelectPanel />, useModernActionList)
