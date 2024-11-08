@@ -6,7 +6,6 @@ import TextInputWrapper from '../internal/components/TextInputWrapper'
 import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './Select.module.css'
-import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 export type SelectProps = Omit<
   Omit<React.ComponentPropsWithoutRef<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant'>,
@@ -168,7 +167,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
       </TextInputWrapper>
     )
   },
-) as PolymorphicForwardRefComponent<'select', SelectProps>
+)
 
 const Option: React.FC<React.PropsWithChildren<React.HTMLProps<HTMLOptionElement> & {value: string}>> = props => (
   <option {...props} />
