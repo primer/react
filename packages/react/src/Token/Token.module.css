@@ -1,4 +1,4 @@
-.Token{
+.Token {
   max-width: 100%;
   color: var(--fgColor-muted);
   background-color: var(--bgColor-neutral-muted);
@@ -13,7 +13,7 @@
 }
 
 .Token[data-is-selected='true'] {
-  color: var(--fgColor-default)
+  color: var(--fgColor-default);
 }
 
 .Token[data-is-remove-btn='true'] {
