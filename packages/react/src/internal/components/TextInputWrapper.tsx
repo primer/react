@@ -1,5 +1,5 @@
 import styled, {css} from 'styled-components'
-import {maxWidth, minWidth, variant, width} from 'styled-system'
+import {variant} from 'styled-system'
 import {get} from '../../constants'
 import type {SxProp} from '../../sx'
 import sx from '../../sx'
