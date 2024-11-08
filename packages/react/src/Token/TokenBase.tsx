@@ -141,7 +141,7 @@ const StyledTokenBase = toggleStyledComponent(
 )
 
 const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLSpanElement | undefined, TokenBaseProps>(
-  ({onRemove, onKeyDown, id, size = defaultTokenSize, ...rest}, forwardedRef) => {
+  ({onRemove, onKeyDown, id, className, size = defaultTokenSize, ...rest}, forwardedRef) => {
     const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
     return (
@@ -153,7 +153,7 @@ const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLS
             onRemove()
           }
         }}
-        className={clsx(enabled && classes.TokenBase)}
+        className={clsx(enabled && classes.TokenBase, className)}
         data-cursor-is-interactive={isTokenInteractive(rest)}
         data-size={size}
         id={id?.toString()}
