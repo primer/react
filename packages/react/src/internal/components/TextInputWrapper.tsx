@@ -322,15 +322,27 @@ export const TextInputWrapper = React.forwardRef<HTMLElement, StyledBaseWrapperP
 ) {
   const enabled = useFeatureFlag(TEXT_INPUT_CSS_MODULES_FEATURE_FLAG)
 
-  return (
-    <StyledTextInputWrapper
-      ref={forwardRef}
-      className={clsx(className, enabled && styles.TextInputWrapper)}
-      data-leading-visual={hasLeadingVisual || undefined}
-      data-trailing-visual={hasTrailingVisual || undefined}
-      {...restProps}
-    />
-  )
+  if (enabled) {
+    return (
+      <TextInputBaseWrapper
+        ref={forwardRef}
+        className={clsx(className, styles.TextInputWrapper)}
+        data-leading-visual={hasLeadingVisual || undefined}
+        data-trailing-visual={hasTrailingVisual || undefined}
+        {...restProps}
+      />
+    )
+  } else {
+    return (
+      <StyledTextInputWrapper
+        ref={forwardRef}
+        className={className}
+        data-leading-visual={hasLeadingVisual || undefined}
+        data-trailing-visual={hasTrailingVisual || undefined}
+        {...restProps}
+      />
+    )
+  }
 })
 
 export type StyledBaseWrapperProps = ComponentProps<typeof TextInputBaseWrapper>
