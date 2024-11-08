@@ -221,8 +221,8 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -273,8 +273,8 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c5 {
@@ -1145,8 +1145,8 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -1197,8 +1197,8 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c5 {
@@ -1674,8 +1674,8 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1731,8 +1731,8 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1993,8 +1993,8 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
   max-height: 20px;
   overflow: auto;
 }
@@ -2047,8 +2047,8 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
   max-height: 20px;
   overflow: auto;
 }
@@ -2832,8 +2832,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -2884,8 +2884,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c5 {
@@ -3664,8 +3664,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -3716,8 +3716,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c5 {
@@ -4496,8 +4496,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -4548,8 +4548,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c5 {
@@ -5328,8 +5328,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -5380,8 +5380,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c5 {
@@ -6162,8 +6162,8 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
   overflow: auto;
 }
 
@@ -6215,8 +6215,8 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
   overflow: auto;
 }
 
@@ -6999,8 +6999,8 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -7051,8 +7051,8 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c5 {
@@ -7566,8 +7566,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -7618,8 +7618,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c5 {
@@ -8461,8 +8461,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -8513,8 +8513,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c7 {
@@ -9393,8 +9393,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -9445,8 +9445,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c5 {
@@ -10297,8 +10297,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -10349,8 +10349,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c8 {
@@ -11274,8 +11274,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -11326,8 +11326,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c8 {
@@ -12251,8 +12251,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -12303,8 +12303,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c8 {
@@ -13223,8 +13223,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -13275,8 +13275,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c5 {
@@ -14157,8 +14157,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -14209,8 +14209,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c7 {
@@ -15129,8 +15129,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -15181,8 +15181,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c5 {
@@ -16072,8 +16072,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -16124,8 +16124,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c8 {
@@ -17087,8 +17087,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -17139,8 +17139,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c8 {
@@ -18104,8 +18104,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -18156,8 +18156,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c8 {
@@ -19085,8 +19085,8 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -19137,8 +19137,8 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c5 {
@@ -19906,8 +19906,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -19958,8 +19958,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c5 {
@@ -20699,8 +20699,8 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -20751,8 +20751,8 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 @media (min-width:var(--breakpoint-medium)) {

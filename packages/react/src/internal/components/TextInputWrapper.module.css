@@ -27,7 +27,7 @@
   textarea,
   select {
     &::placeholder {
-      color: var(---control-fgColor-placeholder, var(--fgColor-muted));
+      color: var(---control-fgColor-placeholder);
     }
   }
 
@@ -86,7 +86,7 @@
     align-self: stretch;
   }
 
-  /* Ensures inputs don' t zoom on mobile but are body-font size on desktop */
+  /* Ensures inputs don't zoom on mobile but are body-font size on desktop */
   @media (min-width: var(--breakpoint-medium)) {
     font-size: var(--text-body-size-medium);
   }
