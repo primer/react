@@ -27,7 +27,7 @@
   textarea,
   select {
     &::placeholder {
-      color: var(---control-fgColor-placeholder, var(--fgColor-muted));
+      color: var(--fgColor-muted);
     }
   }
 
