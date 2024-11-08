@@ -7,7 +7,7 @@ import classes from './ButtonGroup.module.css'
 import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
-import {FocusKeys, useFocusZone, type FocusZoneHookSettings} from '../hooks/useFocusZone'
+import {FocusKeys, useFocusZone} from '../hooks/useFocusZone'
 import {useProvidedRefOrCreate} from '../hooks'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
@@ -76,14 +76,10 @@ const StyledButtonGroup = toggleStyledComponent(
   `,
 )
 
-export type ButtonGroupProps = ComponentProps<typeof StyledButtonGroup> & {
-  /**
-   * Settings to apply to the Focus Zone on the ButtonGroup container component. This is only used when role="toolbar" is supplied.
-   */
-  focusZoneSettings?: Partial<FocusZoneHookSettings>
-}
+export type ButtonGroupProps = ComponentProps<typeof StyledButtonGroup>
+
 const ButtonGroup = React.forwardRef<HTMLElement, ButtonGroupProps>(function ButtonGroup(
-  {children, className, role, focusZoneSettings, ...rest},
+  {children, className, role, ...rest},
   forwardRef,
 ) {
   const enabled = useFeatureFlag('primer_react_css_modules_staff')
@@ -93,7 +89,7 @@ const ButtonGroup = React.forwardRef<HTMLElement, ButtonGroupProps>(function But
     containerRef: buttonRef,
     disabled: role !== 'toolbar',
     bindKeys: FocusKeys.ArrowHorizontal,
-    ...focusZoneSettings,
+    focusOutBehavior: 'wrap',
   })
 
   return (
