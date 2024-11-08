@@ -114,6 +114,7 @@ const RemoveTokenButton = ({
       tabIndex={isParentInteractive ? -1 : undefined}
       aria-label={!isParentInteractive ? 'Remove token' : ariaLabel}
       size={size}
+      data-size={size}
       className={clsx(enabled && classes.TokenButton, enabled && calcMarginClass(size), className)}
       style={
         enabled
