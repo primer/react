@@ -80,6 +80,7 @@ const StyledTimelineItem = styled.div.attrs<StyledTimelineItemProps>(props => ({
 
 export type TimelineItemsProps<As extends React.ElementType> = {
   as?: As
+  condensed?: boolean
 } & React.ComponentPropsWithoutRef<React.ElementType extends As ? 'div' : As> &
   SxProp
 function TimelineItem<As extends React.ElementType>(props: TimelineItemsProps<As>) {
