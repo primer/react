@@ -35,7 +35,7 @@ const UnstyledTextInput = React.forwardRef<HTMLInputElement, ToggledUnstyledText
   forwardRef,
 ) {
   const enabled = useFeatureFlag(TEXT_INPUT_CSS_MODULES_FEATURE_FLAG)
-  return <ToggledUnstyledTextInput ref={forwardRef} className={clsx(className, {[styles.Input]: enabled})} {...rest} />
+  return <ToggledUnstyledTextInput ref={forwardRef} {...rest} className={clsx(className, enabled && styles.Input)} />
 })
 UnstyledTextInput.displayName = 'UnstyledTextInput'
 
