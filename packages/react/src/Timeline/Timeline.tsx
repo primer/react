@@ -80,12 +80,14 @@ const StyledTimelineItem = styled.div.attrs<StyledTimelineItemProps>(props => ({
 
 export type TimelineItemsProps<As extends React.ElementType> = {
   as?: As
-} & SxProp &
-  React.ComponentProps<As>
-
+} & React.ComponentPropsWithoutRef<React.ElementType extends As ? 'div' : As> &
+  SxProp
 function TimelineItem<As extends React.ElementType>(props: TimelineItemsProps<As>) {
   const asList = useFeatureFlag('primer_react_timeline_as_list')
-  return <StyledTimelineItem as={asList ? 'li' : 'div'} {...props} />
+  const defaultComponent = asList ? 'li' : 'div'
+  const {as: BaseComponent = defaultComponent, ...rest} = props
+
+  return <StyledTimelineItem as={BaseComponent} {...rest} />
 }
 
 export type TimelineBadgeProps = {children?: React.ReactNode} & SxProp
