@@ -66,6 +66,7 @@ export type TreeViewProps = {
   'aria-labelledby'?: React.AriaAttributes['aria-labelledby']
   children: React.ReactNode
   flat?: boolean
+  truncate?: boolean
   className?: string
 }
 
@@ -205,12 +206,18 @@ const UlBox = styled.ul<SxProp>`
   }
 
   .PRIVATE_TreeView-item-content-text {
-    /* Truncate text label */
     flex: 1 1 auto;
     width: 0;
+  }
+
+  &[data-truncate-text='true'] .PRIVATE_TreeView-item-content-text {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+  }
+
+  &[data-truncate-text='false'] .PRIVATE_TreeView-item-content-text {
+    word-break: break-word;
   }
 
   .PRIVATE_TreeView-item-visual {
@@ -282,6 +289,7 @@ const Root: React.FC<TreeViewProps> = ({
   'aria-labelledby': ariaLabelledby,
   children,
   flat,
+  truncate = true,
   className,
 }) => {
   const containerRef = React.useRef<HTMLUListElement>(null)
@@ -338,6 +346,7 @@ const Root: React.FC<TreeViewProps> = ({
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledby}
           data-omit-spacer={flat}
+          data-truncate-text={truncate || false}
           onMouseDown={onMouseDown}
           className={className}
         >
@@ -458,6 +467,11 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       [onSelect, setIsExpandedWithCache, toggle],
     )
 
+    const ariaDescribedByIds = [
+      slots.leadingVisual ? leadingVisualId : null,
+      slots.trailingVisual ? trailingVisualId : null,
+    ].filter(Boolean)
+
     return (
       <ItemContext.Provider
         value={{
@@ -480,7 +494,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           role="treeitem"
           aria-label={ariaLabel}
           aria-labelledby={ariaLabel ? undefined : ariaLabelledby || labelId}
-          aria-describedby={`${leadingVisualId} ${trailingVisualId}`}
+          aria-describedby={ariaDescribedByIds.length ? ariaDescribedByIds.join(' ') : undefined}
           aria-level={level}
           aria-expanded={(isSubTreeEmpty && (!isExpanded || !hasSubTree)) || expanded === null ? undefined : isExpanded}
           aria-current={isCurrentItem ? 'true' : undefined}
