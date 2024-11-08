@@ -40,7 +40,7 @@ export const Chord = ({keys, format = 'condensed', variant = 'normal'}: Keybindi
       borderRadius: 2,
       fontWeight: 'normal',
       fontFamily: 'normal',
-      fontSize: 0,
+      fontSize: 'min(11px, 0.85em)',
       p: 1,
       gap: '0.5ch',
       boxShadow: 'none',
