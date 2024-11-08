@@ -20,6 +20,7 @@ import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisua
 import styles from './TextInputWithTokens.module.css'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
+import type {BetterSystemStyleObject} from '../sx'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyReactComponent = React.ComponentType<React.PropsWithChildren<any>>
@@ -257,41 +258,45 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
 
   const enabled = useFeatureFlag(TEXT_INPUT_CSS_MODULES_FEATURE_FLAG)
 
-  const stylingProps = enabled
-    ? {
-        className: clsx(className, styles.TextInputWrapper),
-        style: maxHeight ? {maxHeight, ...style} : style,
-        sx: sxProp,
-      }
-    : {
-        className,
-        sx: {
-          paddingLeft: '12px',
-          py: `calc(12px / 2)`,
-          ...(block
-            ? {
-                display: 'flex',
-                width: '100%',
-              }
-            : {}),
+  const stylingProps = React.useMemo(
+    () =>
+      enabled
+        ? {
+            className: clsx(className, styles.TextInputWrapper),
+            style: maxHeight ? {maxHeight, ...style} : style,
+            sx: sxProp,
+          }
+        : {
+            className,
+            style,
+            sx: {
+              paddingLeft: '12px',
+              py: '6px',
+              ...(block
+                ? {
+                    display: 'flex',
+                    width: '100%',
+                  }
+                : {}),
 
-          ...(maxHeight
-            ? {
-                maxHeight,
-                overflow: 'auto',
-              }
-            : {}),
+              ...(maxHeight
+                ? {
+                    maxHeight,
+                    overflow: 'auto',
+                  }
+                : {}),
 
-          ...(preventTokenWrapping
-            ? {
-                overflow: 'auto',
-              }
-            : {}),
+              ...(preventTokenWrapping
+                ? {
+                    overflow: 'auto',
+                  }
+                : {}),
 
-          ...sxProp,
-        },
-        style,
-      }
+              ...sxProp,
+            } as BetterSystemStyleObject,
+          },
+    [block, className, enabled, maxHeight, preventTokenWrapping, style, sxProp],
+  )
 
   return (
     <TextInputWrapper
