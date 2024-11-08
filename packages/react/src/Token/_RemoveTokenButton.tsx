@@ -2,16 +2,16 @@ import React from 'react'
 import {XIcon} from '@primer/octicons-react'
 import styled, {css} from 'styled-components'
 import {variant} from 'styled-system'
+import {clsx} from 'clsx'
 import {get} from '../constants'
-import type {SxProp} from '../sx'
-import sx from '../sx'
+import sx, {type SxProp} from '../sx'
 import type {TokenSizeKeys} from './TokenBase'
 import {tokenSizes, defaultTokenSize} from './TokenBase'
 import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import {useFeatureFlag} from '../FeatureFlags'
-import {clsx} from 'clsx'
 
 import classes from './_RemoveTokenButton.module.css'
+
 interface TokenButtonProps extends SxProp {
   borderOffset?: number
   size?: TokenSizeKeys
@@ -114,7 +114,11 @@ const RemoveTokenButton = ({
       aria-label={!isParentInteractive ? 'Remove token' : ariaLabel}
       size={size}
       data-size={size}
-      className={clsx(enabled && classes.TokenButton, enabled && calcMarginClass(size), className)}
+      className={clsx(
+        enabled && classes.TokenButton,
+        enabled && addLargerMarginClass(size) && classes.Bigger,
+        className,
+      )}
       style={
         enabled
           ? {
@@ -129,15 +133,14 @@ const RemoveTokenButton = ({
   )
 }
 
-function calcMarginClass(size: TokenSizeKeys): string {
+function addLargerMarginClass(size: TokenSizeKeys): boolean {
   switch (size) {
     case 'large':
     case 'xlarge':
-      return 'Bigger'
+      return true
     default:
-      return ''
+      return false
   }
 }
 
-// function calcVariant
 export default RemoveTokenButton

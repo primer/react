@@ -17,8 +17,8 @@
 }
 
 .TokenButton[data-size='small'] {
-  width: 16px;
-  height: 16px;
+  width: var(--base-size-16);
+  height: var(--base-size-16);
 }
 
 .TokenButton[data-size='medium'] {
@@ -27,16 +27,16 @@
 }
 
 .TokenButton[data-size='large'] {
-  width: 24px;
-  height: 24px;
+  width: var(--base-size-24);
+  height: var(--base-size-24);
 }
 
 .TokenButton[data-size='xlarge'] {
-  width: 32px;
-  height: 32px;
+  width: var(--base-size-32);
+  height: var(--base-size-32);
 }
 
-.TokenButton.Bigger {
+.Bigger {
   margin-left: var(--base-size-8);
 }
 
