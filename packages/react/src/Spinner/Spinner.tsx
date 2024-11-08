@@ -93,6 +93,7 @@ const StyledBaseSpinner = styled.div`
 
 /**
  * Use Spinner to show users that an action is in progress.
+ * @alias Spinner
  * @primerid spinner
  * @primerstatus alpha
  * @primera11yreviewed false

@@ -312,12 +312,7 @@ function getImportPath(status: string, deprecated: boolean) {
     return '@primer/react/deprecated'
   }
 
-  // TODO: eventually all `draft` components should be moved to `experimental`
-  if (status === 'draft') {
-    return '@primer/react/drafts'
-  }
-
-  if (status === 'experimental') {
+  if (status === 'experimental' || status === 'draft') {
     return '@primer/react/experimental'
   }
 
@@ -358,7 +353,7 @@ function formatComponentJson(docgenOutputItem: ComponentDoc) {
 
   return {
     // `filePath` is just used for debugging. It may not actually be necessary.
-    // filePath,
+    filePath,
     ...(!primerparentid ? {id: primerid} : {}),
     ...(!primerparentid ? {docsId: primerdocsid} : {}),
     name: componentName,

@@ -504,13 +504,15 @@ export type BannerPrimaryActionProps = Omit<ButtonProps, 'variant'>
  * @alias Banner.PrimaryAction
  * @primerparentid banner
  */
-const BannerPrimaryAction = forwardRef(({children, className, ...rest}: BannerPrimaryActionProps, forwardedRef) => {
-  return (
-    <Button ref={forwardedRef} className={clsx('BannerPrimaryAction', className)} variant="default" {...rest}>
-      {children}
-    </Button>
-  )
-}) as PolymorphicForwardRefComponent<'button', BannerPrimaryActionProps>
+export const BannerPrimaryAction = forwardRef(
+  ({children, className, ...rest}: BannerPrimaryActionProps, forwardedRef) => {
+    return (
+      <Button ref={forwardedRef} className={clsx('BannerPrimaryAction', className)} variant="default" {...rest}>
+        {children}
+      </Button>
+    )
+  },
+) as PolymorphicForwardRefComponent<'button', BannerPrimaryActionProps>
 
 BannerPrimaryAction.displayName = 'BannerPrimaryAction'
 
@@ -521,14 +523,14 @@ export type BannerSecondaryActionProps = Omit<ButtonProps, 'variant'>
  * @alias Banner.SecondaryAction
  * @primerparentid banner
  */
-const BannerSecondaryAction = forwardRef(({children, className, ...rest}: BannerSecondaryActionProps, forwardedRef) => {
-  return (
-    <Button ref={forwardedRef} className={clsx('BannerPrimaryAction', className)} variant="link" {...rest}>
-      {children}
-    </Button>
-  )
-}) as PolymorphicForwardRefComponent<'button', BannerSecondaryActionProps>
+export const BannerSecondaryAction = forwardRef(
+  ({children, className, ...rest}: BannerSecondaryActionProps, forwardedRef) => {
+    return (
+      <Button ref={forwardedRef} className={clsx('BannerPrimaryAction', className)} variant="link" {...rest}>
+        {children}
+      </Button>
+    )
+  },
+) as PolymorphicForwardRefComponent<'button', BannerSecondaryActionProps>
 
 BannerSecondaryAction.displayName = 'BannerSecondaryAction'
-
-export {BannerPrimaryAction, BannerSecondaryAction}

@@ -31,7 +31,7 @@ const StyledDetails = toggleStyledComponent(
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
+export const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
   ({className, children, ...rest}, forwardRef): ReactElement => {
     const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
     const detailsRef = React.useRef<HTMLDetailsElement>(null)
@@ -69,7 +69,7 @@ const Root = React.forwardRef<HTMLDetailsElement, DetailsProps>(
     return (
       <StyledDetails className={clsx(className, {[classes.Details]: enabled})} {...rest} ref={ref}>
         {/* Include default summary if summary is not provided */}
-        {!hasSummary && <Details.Summary data-default-summary>{'See Details'}</Details.Summary>}
+        {!hasSummary && <Summary data-default-summary>{'See Details'}</Summary>}
         {children}
       </StyledDetails>
     )
@@ -86,7 +86,7 @@ export type SummaryProps<As extends React.ElementType> = {
   children?: React.ReactNode
 } & React.ComponentPropsWithoutRef<React.ElementType extends As ? As : 'summary'>
 
-function Summary<As extends React.ElementType>({as, children, ...props}: SummaryProps<As>) {
+export function Summary<As extends React.ElementType>({as, children, ...props}: SummaryProps<As>) {
   const Component = as ?? 'summary'
   return (
     <Component as={Component === 'summary' ? null : 'summary'} {...props}>
@@ -96,11 +96,4 @@ function Summary<As extends React.ElementType>({as, children, ...props}: Summary
 }
 Summary.displayName = 'Summary'
 
-export {Summary}
-
-const Details = Object.assign(Root, {
-  Summary,
-})
-
 export type DetailsProps = ComponentPropsWithoutRef<'details'> & SxProp
-export default Details

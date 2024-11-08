@@ -52,6 +52,12 @@ const StyledSkeletonBox = toggleStyledComponent(
   `,
 )
 
+/**
+ * SkeletonBox is a low-level component used to create a skeleton loading animation.
+ * @primerid skeleton_box
+ * @primerstatus draft
+ * @primera11yreviewed false
+ */
 export const SkeletonBox = React.forwardRef<HTMLDivElement, SkeletonBoxProps>(function SkeletonBox(
   {height, width, className, style, ...props},
   ref,

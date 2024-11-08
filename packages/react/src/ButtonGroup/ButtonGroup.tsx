@@ -84,7 +84,7 @@ export type ButtonGroupProps = ComponentProps<typeof StyledButtonGroup>
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-const ButtonGroup = React.forwardRef<HTMLElement, ButtonGroupProps>(function ButtonGroup(
+export const ButtonGroup = React.forwardRef<HTMLElement, ButtonGroupProps>(function ButtonGroup(
   {children, className, role, ...rest},
   forwardRef,
 ) {
@@ -113,5 +113,3 @@ const ButtonGroup = React.forwardRef<HTMLElement, ButtonGroupProps>(function But
 }) as PolymorphicForwardRefComponent<'div', ButtonGroupProps>
 
 ButtonGroup.displayName = 'ButtonGroup'
-
-export default ButtonGroup

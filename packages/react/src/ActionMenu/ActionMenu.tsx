@@ -70,6 +70,7 @@ const mergeAnchorHandlers = (anchorProps: React.HTMLAttributes<HTMLElement>, but
 /**
  * Action menu is composed of action list and overlay patterns used for quick actions and selections.
  * Defaults to a the "default" Button variant with a trailing down triangle icon.
+ * @alias ActionMenu
  * @primerid action_menu
  * @primerstatus beta
  * @primera11yreviewed false
@@ -179,53 +180,55 @@ export type ActionMenuAnchorProps = {children: React.ReactElement; id?: string} 
  * @alias ActionMenu.Anchor
  * @primerparentid action_menu
  */
-const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(({children: child, ...anchorProps}, anchorRef) => {
-  const {onOpen, isSubmenu} = React.useContext(MenuContext)
+export const Anchor = React.forwardRef<HTMLElement, ActionMenuAnchorProps>(
+  ({children: child, ...anchorProps}, anchorRef) => {
+    const {onOpen, isSubmenu} = React.useContext(MenuContext)
 
-  const openSubmenuOnRightArrow: React.KeyboardEventHandler<HTMLElement> = useCallback(
-    event => {
-      if (isSubmenu && event.key === 'ArrowRight' && !event.defaultPrevented) onOpen?.('anchor-key-press')
-    },
-    [isSubmenu, onOpen],
-  )
+    const openSubmenuOnRightArrow: React.KeyboardEventHandler<HTMLElement> = useCallback(
+      event => {
+        if (isSubmenu && event.key === 'ArrowRight' && !event.defaultPrevented) onOpen?.('anchor-key-press')
+      },
+      [isSubmenu, onOpen],
+    )
 
-  const onButtonClick = (event: React.MouseEvent<HTMLElement>) => {
-    child.props.onClick?.(event)
-    anchorProps.onClick?.(event) // onClick is passed from AnchoredOverlay
-  }
+    const onButtonClick = (event: React.MouseEvent<HTMLElement>) => {
+      child.props.onClick?.(event)
+      anchorProps.onClick?.(event) // onClick is passed from AnchoredOverlay
+    }
 
-  const onButtonKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
-    child.props.onKeyDown?.(event)
-    openSubmenuOnRightArrow(event)
-    anchorProps.onKeyDown?.(event) // onKeyDown is passed from AnchoredOverlay
-  }
+    const onButtonKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+      child.props.onKeyDown?.(event)
+      openSubmenuOnRightArrow(event)
+      anchorProps.onKeyDown?.(event) // onKeyDown is passed from AnchoredOverlay
+    }
 
-  // Add right chevron icon to submenu anchors rendered using `ActionList.Item`
-  const parentActionListContext = useContext(ActionListContainerContext)
-  const thisActionListContext = useMemo(
-    () =>
-      isSubmenu
-        ? {
-            ...parentActionListContext,
-            defaultTrailingVisual: <ChevronRightIcon />,
-            // Default behavior is to close after selecting; we want to open the submenu instead
-            afterSelect: () => onOpen?.('anchor-click'),
-          }
-        : parentActionListContext,
-    [isSubmenu, onOpen, parentActionListContext],
-  )
+    // Add right chevron icon to submenu anchors rendered using `ActionList.Item`
+    const parentActionListContext = useContext(ActionListContainerContext)
+    const thisActionListContext = useMemo(
+      () =>
+        isSubmenu
+          ? {
+              ...parentActionListContext,
+              defaultTrailingVisual: <ChevronRightIcon />,
+              // Default behavior is to close after selecting; we want to open the submenu instead
+              afterSelect: () => onOpen?.('anchor-click'),
+            }
+          : parentActionListContext,
+      [isSubmenu, onOpen, parentActionListContext],
+    )
 
-  return (
-    <ActionListContainerContext.Provider value={thisActionListContext}>
-      {React.cloneElement(child, {
-        ...anchorProps,
-        ref: anchorRef,
-        onClick: onButtonClick,
-        onKeyDown: onButtonKeyDown,
-      })}
-    </ActionListContainerContext.Provider>
-  )
-})
+    return (
+      <ActionListContainerContext.Provider value={thisActionListContext}>
+        {React.cloneElement(child, {
+          ...anchorProps,
+          ref: anchorRef,
+          onClick: onButtonClick,
+          onKeyDown: onButtonKeyDown,
+        })}
+      </ActionListContainerContext.Provider>
+    )
+  },
+)
 
 /** this component is syntactical sugar 🍭 */
 export type ActionMenuButtonProps = Omit<ButtonProps, 'children'> & {

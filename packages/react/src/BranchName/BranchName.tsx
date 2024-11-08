@@ -34,7 +34,7 @@ type BranchNameProps<As extends React.ElementType> = {
  * @primerstatus alpha
  * @primera11yreviewed false
  */
-function BranchName<As extends React.ElementType>(
+export function BranchName<As extends React.ElementType>(
   props: BranchNameProps<As>,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ref: ForwardedRef<any>,
