@@ -1,5 +1,5 @@
 import {clsx} from 'clsx'
-import React from 'react'
+import React, {type ForwardedRef} from 'react'
 import styled, {css} from 'styled-components'
 import Box from '../Box'
 import {get} from '../constants'
@@ -81,14 +81,16 @@ const StyledTimelineItem = styled.div.attrs<StyledTimelineItemProps>(props => ({
 export type TimelineItemsProps<As extends React.ElementType> = {
   as?: As
   condensed?: boolean
-} & React.ComponentPropsWithoutRef<React.ElementType extends As ? 'div' : As> &
+} & React.ComponentPropsWithRef<React.ElementType extends As ? 'div' : As> &
   SxProp
-function TimelineItem<As extends React.ElementType>(props: TimelineItemsProps<As>) {
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function TimelineItem<As extends React.ElementType>(props: TimelineItemsProps<As>, ref: ForwardedRef<any>) {
   const asList = useFeatureFlag('primer_react_timeline_as_list')
   const defaultComponent = asList ? 'li' : 'div'
   const {as: BaseComponent = defaultComponent, ...rest} = props
 
-  return <StyledTimelineItem as={BaseComponent} {...rest} />
+  return <StyledTimelineItem {...rest} as={BaseComponent} ref={ref} />
 }
 
 export type TimelineBadgeProps = {children?: React.ReactNode} & SxProp
@@ -172,12 +174,15 @@ TimelineBody.displayName = 'Timeline.Body'
 
 TimelineBreak.displayName = 'Timeline.Break'
 
+const ForwardRefTimelineItem = React.forwardRef(TimelineItem)
+ForwardRefTimelineItem.displayName = 'Timeline.Item'
+
 export type TimelineProps = ComponentProps<typeof Timeline>
 export type TimelineBodyProps = ComponentProps<typeof TimelineBody>
 export type TimelineBreakProps = ComponentProps<typeof TimelineBreak>
 export type TimelineGroupProps = ComponentProps<typeof TimelineGroup>
 export default Object.assign(Timeline, {
-  Item: TimelineItem,
+  Item: ForwardRefTimelineItem,
   Badge: TimelineBadge,
   Body: TimelineBody,
   Break: TimelineBreak,
