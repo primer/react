@@ -84,11 +84,11 @@ describe('Textarea', () => {
       width: '100%',
       display: 'flex',
     }
-    const defaultStyles = renderStyles(<Textarea />)
-    const blockStyles = renderStyles(<Textarea block />)
+    const defaultStyles = renderStyles(<Textarea block />)
+    const blockStyles = renderStyles(<Textarea />)
 
-    expect(defaultStyles).not.toEqual(expect.objectContaining(expectedStyles))
-    expect(blockStyles).toEqual(expect.objectContaining(expectedStyles))
+    expect(defaultStyles).toEqual(expect.objectContaining(expectedStyles))
+    expect(blockStyles).not.toEqual(expect.objectContaining(expectedStyles))
   })
 
   it('renders default resize values correctly', () => {
