@@ -358,7 +358,6 @@ export function SelectPanel({
           ) : null}
         </Box>
       </Overlay>
-
       {variant === 'modal' && (
         <Box
           data-backdrop

@@ -2479,6 +2479,18 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   }
 }
 
+@media screen and (min-width:544px) {
+  .c0 {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .c0 {
+    font-size: 12px;
+  }
+}
+
 <span
   className="c0 c1"
   onClick={[Function]}
@@ -3208,6 +3220,18 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   }
 }
 
+@media screen and (min-width:544px) {
+  .c0 {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .c0 {
+    font-size: 12px;
+  }
+}
+
 <span
   className="c0 c1"
   onClick={[Function]}
@@ -3925,6 +3949,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 }
 
 @media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
 
 }
 
@@ -4653,6 +4685,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 }
 
 @media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
 
 }
 
@@ -6573,6 +6613,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 }
 
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
 <span
     className="c0 c1"
     onClick={[Function]}
@@ -7358,6 +7406,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 @media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
 
 }
 
@@ -8186,6 +8242,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 }
 
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
 <span
     className="c0 c1"
     onClick={[Function]}
@@ -8983,6 +9047,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 }
 
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
 <span
     className="c0 c1"
     onClick={[Function]}
@@ -9853,6 +9925,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 }
 
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
 <span
     className="c0 c1"
     onClick={[Function]}
@@ -10720,6 +10800,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 @media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
 
 }
 
@@ -11584,6 +11672,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 @media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
 
 }
 
@@ -12414,6 +12510,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 }
 
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
 <span
     className="c0 c1"
     onClick={[Function]}
@@ -13275,6 +13379,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 @media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
 
 }
 
@@ -14116,6 +14228,18 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
+  }
+}
+
+@media screen and (min-width:544px) {
+  .c0 {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .c0 {
+    font-size: 12px;
   }
 }
 
@@ -15028,6 +15152,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 }
 
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
 <span
     className="c0 c1"
     onClick={[Function]}
@@ -15932,6 +16064,14 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 @media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
 
 }
 
