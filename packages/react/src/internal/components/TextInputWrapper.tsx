@@ -18,8 +18,10 @@ export type StyledBaseWrapperProps = {
   variant?: TextInputSizes
   size?: TextInputSizes
   width?: string
-} & SxProp &
-  React.ComponentPropsWithoutRef<'span'>
+  className?: string
+  style?: React.CSSProperties
+  onClick?: React.MouseEventHandler
+} & SxProp
 
 export type StyledWrapperProps = {
   hasLeadingVisual?: boolean
