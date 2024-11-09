@@ -1,7 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import type {MaxWidthProps, MinWidthProps, WidthProps} from 'styled-system'
-import {maxWidth, minWidth, width} from 'styled-system'
 import type {SxProp} from '../../sx'
 import sx from '../../sx'
 import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
@@ -19,10 +17,8 @@ export type StyledBaseWrapperProps = {
   /** @deprecated Use `size` prop instead */
   variant?: TextInputSizes
   size?: TextInputSizes
-} & WidthProps &
-  MinWidthProps &
-  MaxWidthProps &
-  SxProp &
+  width?: string
+} & SxProp &
   React.ComponentPropsWithoutRef<'span'>
 
 export type StyledWrapperProps = {
@@ -165,9 +161,6 @@ export const StyledTextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
   }
 
   & {
-    ${width}
-    ${minWidth}
-    ${maxWidth}
     ${sx}
   }
 `
@@ -183,6 +176,8 @@ export function TextInputBaseWrapper(props: React.PropsWithChildren<StyledBaseWr
     contrast,
     monospace,
     block,
+    width,
+    style,
     ...restProps
   } = props
   return (
@@ -196,6 +191,7 @@ export function TextInputBaseWrapper(props: React.PropsWithChildren<StyledBaseWr
       data-contrast={contrast || undefined}
       data-monospace={monospace || undefined}
       data-block={block || undefined}
+      style={width ? {width, ...style} : style}
       {...restProps}
     />
   )

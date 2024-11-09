@@ -88,8 +88,6 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     hideTokenRemoveButtons = false,
     maxHeight,
     width: widthProp,
-    minWidth: minWidthProp,
-    maxWidth: maxWidthProp,
     validationStatus,
     variant: variantProp, // deprecated. use `size` instead
     visibleTokenCount,
@@ -259,8 +257,6 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       hasLeadingVisual={Boolean(LeadingVisual || showLeadingLoadingIndicator)}
       hasTrailingVisual={Boolean(TrailingVisual || showTrailingLoadingIndicator)}
       width={widthProp}
-      minWidth={minWidthProp}
-      maxWidth={maxWidthProp}
       size={inputSizeMap[size]}
       validationStatus={validationStatus}
       variant={variantProp} // deprecated. use `size` prop instead
