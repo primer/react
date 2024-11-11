@@ -17,6 +17,7 @@ import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 import {useFeatureFlag} from '../FeatureFlags'
+
 import {useFocusTrap} from '../hooks/useFocusTrap'
 
 interface SelectPanelSingleSelection {
@@ -238,82 +239,81 @@ export function SelectPanel({
 
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
 
-  if (!open) return <>{anchor}</>
-
   return (
     <LiveRegion>
       {anchor}
-
-      <Overlay
-        role="dialog"
-        aria-labelledby={titleId}
-        aria-describedby={subtitle ? subtitleId : undefined}
-        ref={overlayRef}
-        returnFocusRef={anchorRef}
-        onEscape={() => onClose('escape')}
-        onClickOutside={() => onClose('click-outside')}
-        ignoreClickRefs={
-          /* this is required so that clicking the button while the panel is open does not re-open the panel */
-          [anchorRef]
-        }
-        {...position}
-        {...overlayProps}
-      >
-        <LiveRegionOutlet />
-        {usingModernActionList ? null : (
-          <Message
-            value={
-              filterValue === ''
-                ? 'Showing all items'
-                : items.length <= 0
-                  ? 'No matching items'
-                  : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
-            }
-          />
-        )}
-        <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}>
-          <Box sx={{pt: 2, px: 3}}>
-            <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
-              {title}
-            </Heading>
-            {subtitle ? (
-              <Box id={subtitleId} sx={{fontSize: 0, color: 'fg.muted'}}>
-                {subtitle}
-              </Box>
-            ) : null}
-          </Box>
-          <FilteredActionList
-            filterValue={filterValue}
-            onFilterChange={onFilterChange}
-            placeholderText={placeholderText}
-            {...listProps}
-            role="listbox"
-            // browsers give aria-labelledby precedence over aria-label so we need to make sure
-            // we don't accidentally override props.aria-label
-            aria-labelledby={listProps['aria-label'] ? undefined : titleId}
-            aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
-            selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
-            items={itemsToRender}
-            textInputProps={extendedTextInputProps}
-            inputRef={inputRef}
-            // inheriting height and maxHeight ensures that the FilteredActionList is never taller
-            // than the Overlay (which would break scrolling the items)
-            sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
-          />
-          {footer && (
-            <Box
-              sx={{
-                display: 'flex',
-                borderTop: '1px solid',
-                borderColor: 'border.default',
-                padding: 2,
-              }}
-            >
-              {footer}
-            </Box>
+      {open && (
+        <Overlay
+          role="dialog"
+          aria-labelledby={titleId}
+          aria-describedby={subtitle ? subtitleId : undefined}
+          ref={overlayRef}
+          returnFocusRef={anchorRef}
+          onEscape={() => onClose('escape')}
+          onClickOutside={() => onClose('click-outside')}
+          ignoreClickRefs={
+            /* this is required so that clicking the button while the panel is open does not re-open the panel */
+            [anchorRef]
+          }
+          {...position}
+          {...overlayProps}
+        >
+          <LiveRegionOutlet />
+          {usingModernActionList ? null : (
+            <Message
+              value={
+                filterValue === ''
+                  ? 'Showing all items'
+                  : items.length <= 0
+                    ? 'No matching items'
+                    : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
+              }
+            />
           )}
-        </Box>
-      </Overlay>
+          <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}>
+            <Box sx={{pt: 2, px: 3}}>
+              <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
+                {title}
+              </Heading>
+              {subtitle ? (
+                <Box id={subtitleId} sx={{fontSize: 0, color: 'fg.muted'}}>
+                  {subtitle}
+                </Box>
+              ) : null}
+            </Box>
+            <FilteredActionList
+              filterValue={filterValue}
+              onFilterChange={onFilterChange}
+              placeholderText={placeholderText}
+              {...listProps}
+              role="listbox"
+              // browsers give aria-labelledby precedence over aria-label so we need to make sure
+              // we don't accidentally override props.aria-label
+              aria-labelledby={listProps['aria-label'] ? undefined : titleId}
+              aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
+              selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
+              items={itemsToRender}
+              textInputProps={extendedTextInputProps}
+              inputRef={inputRef}
+              // inheriting height and maxHeight ensures that the FilteredActionList is never taller
+              // than the Overlay (which would break scrolling the items)
+              sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
+            />
+            {footer && (
+              <Box
+                sx={{
+                  display: 'flex',
+                  borderTop: '1px solid',
+                  borderColor: 'border.default',
+                  padding: 2,
+                }}
+              >
+                {footer}
+              </Box>
+            )}
+          </Box>
+        </Overlay>
+      )}
     </LiveRegion>
   )
 }
