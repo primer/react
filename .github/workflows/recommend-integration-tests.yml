@@ -35,20 +35,31 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const result = await github.paginate(github.rest.issues.listComments, {
+            const issue = {
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo
-            });
+            }
+            const comments = await github.paginate(github.rest.issues.listComments, issue);
+            const previousComments = comments.filter(c => c.user.login == 'github-actions[bot]' && c.body.startsWith('<!-- recommend-integration-tests.yml -->'))
 
-            const previousComment = result.filter(c => c.user.login == 'github-actions[bot]' && c.body.startsWith('<!-- recommend-integration-tests.yml -->'))
-            if (!previousComment.length) {
+            if (previousComments.length === 0) {
+              // recommend integration tests
               await github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
+                ...issue,
                 body: '<!-- recommend-integration-tests.yml -->\n\n :wave: Hi, this pull request contains changes to the source code that github/github depends on. If you are GitHub staff, we recommend testing these changes with github/github using the [integration workflow](https://gh.io/testing_primer_at_dotcom). Thanks!'
               })
+            } else {
+              const labels = await github.rest.issues.listLabelsOnIssue(issue)
+              const hasPassingLabel = labels.data.find(label => label.name === 'integration-tests: passing')
+              
+              if (hasPassingLabel) {
+                // recommend running integration tests again as there are new commits that might change the status
+                await github.rest.issues.createComment({
+                  ...issue,
+                  body: '<!-- recommend-integration-tests.yml -->\n\n :wave: Hi, there are new commits since previous integration test. We recommend running the [integration workflow](https://gh.io/testing_primer_at_dotcom) once more, unless you are sure the new changes do not affect github/github. Thanks!'
+                })
+              }
             }
 
       - name: Add label
@@ -57,18 +68,21 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const result = await github.rest.issues.listLabelsOnIssue({
+            const issue = {
               issue_number: context.issue.number,
               owner: context.repo.owner,
-              repo: context.repo.repo,
-            })
-
+              repo: context.repo.repo
+            }
+            const labels = await github.rest.issues.listLabelsOnIssue(issue)
             const integrationLabels = result.data.filter(label => label.name.startsWith('integration-tests'))
+
             if (!integrationLabels.length) {
-              await github.rest.issues.addLabels({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                labels: ['integration-tests: recommended'],
-              })
+              // recommend integration tests
+              await github.rest.issues.addLabels({...issue, labels: ['integration-tests: recommended']})
+            } else {
+              const hasPassingLabel = integrationLabels.find(label => label.name === 'integration-tests: passing')
+              if (hasPassingLabel) {
+                // recommend running integration tests again as there are new commits that might change the status
+                await github.rest.issues.addLabels({...issue, labels: ['integration-tests: recommended']})
+              }
             }
