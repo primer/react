@@ -114,11 +114,7 @@ const RemoveTokenButton = ({
       aria-label={!isParentInteractive ? 'Remove token' : ariaLabel}
       size={size}
       data-size={size}
-      className={clsx(
-        enabled && classes.TokenButton,
-        enabled && addLargerMarginClass(size) && classes.Bigger,
-        className,
-      )}
+      className={clsx(enabled && classes.TokenButton, className)}
       style={
         enabled
           ? {
@@ -131,16 +127,6 @@ const RemoveTokenButton = ({
       <XIcon size={getTokenButtonIconSize(size)} />
     </StyledTokenButton>
   )
-}
-
-function addLargerMarginClass(size: TokenSizeKeys): boolean {
-  switch (size) {
-    case 'large':
-    case 'xlarge':
-      return true
-    default:
-      return false
-  }
 }
 
 export default RemoveTokenButton
