@@ -9,13 +9,13 @@ import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
 import classes from './Breadcrumbs.module.css'
 import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
-import {FeatureFlags, useFeatureFlag} from '../FeatureFlags'
-import Link from '../Link'
+import {useFeatureFlag} from '../FeatureFlags'
 
 const SELECTED_CLASS = 'selected'
+const CSS_MODULES_FLAG = 'primer_react_css_modules_team'
 
 const Wrapper = toggleStyledComponent(
-  'primer_react_css_modules_team',
+  CSS_MODULES_FLAG,
   'li',
   styled.li`
     display: inline-block;
@@ -43,7 +43,7 @@ const Wrapper = toggleStyledComponent(
 )
 
 const BreadcrumbsBase = toggleStyledComponent(
-  'primer_react_css_modules_team',
+  CSS_MODULES_FLAG,
   'nav',
   styled.nav<SxProp>`
     display: flex;
@@ -59,7 +59,7 @@ export type BreadcrumbsProps = React.PropsWithChildren<
 >
 
 const BreadcrumbsList = ({children}: React.PropsWithChildren) => {
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  const enabled = useFeatureFlag(CSS_MODULES_FLAG)
   if (enabled) {
     return <ol className={classes.BreadcrumbsList}>{children}</ol>
   }
@@ -72,7 +72,7 @@ const BreadcrumbsList = ({children}: React.PropsWithChildren) => {
 }
 
 function Breadcrumbs({className, children, sx: sxProp}: React.PropsWithChildren<BreadcrumbsProps>) {
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  const enabled = useFeatureFlag(CSS_MODULES_FLAG)
   const wrappedChildren = React.Children.map(children, child => (
     <Wrapper className={clsx({[classes.ItemWrapper]: enabled})}>{child}</Wrapper>
   ))
@@ -90,15 +90,13 @@ function Breadcrumbs({className, children, sx: sxProp}: React.PropsWithChildren<
 type StyledBreadcrumbsItemProps = {
   to?: To
   selected?: boolean
+  className?: string
 } & SxProp
 
 const StyledBreadcrumbsItem = toggleStyledComponent(
-  'primer_react_css_modules_team',
+  CSS_MODULES_FLAG,
   'a',
-  styled.a.attrs<StyledBreadcrumbsItemProps>(props => ({
-    className: clsx(props.selected && SELECTED_CLASS, props.className),
-    'aria-current': props.selected ? 'page' : null,
-  }))<StyledBreadcrumbsItemProps>`
+  styled.a`
     color: ${get('colors.accent.fg')};
     display: inline-block;
     font-size: ${get('fontSizes.1')};
@@ -117,20 +115,19 @@ const StyledBreadcrumbsItem = toggleStyledComponent(
     ${sx};
   `,
 )
-const BreadcrumbsItem = ({
-  selected,
-  ...props
-}: StyledBreadcrumbsItemProps & React.ComponentPropsWithRef<typeof Link>) => {
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
-  if (enabled) {
-    return (
-      // Remove this when the feature flag is removed from Link
-      <FeatureFlags flags={{primer_react_css_modules_ga: true}}>
-        <Link className={clsx(classes.Item, {[classes.ItemSelected]: selected})} {...props} />
-      </FeatureFlags>
-    )
-  }
-  return <StyledBreadcrumbsItem selected={selected} {...props} />
+const BreadcrumbsItem = ({selected, className, ...props}: StyledBreadcrumbsItemProps) => {
+  const enabled = useFeatureFlag(CSS_MODULES_FLAG)
+  return (
+    <StyledBreadcrumbsItem
+      className={clsx(className, {
+        [SELECTED_CLASS]: selected,
+        [classes.Item]: enabled,
+        [classes.ItemSelected]: enabled && selected,
+      })}
+      aria-current={selected ? 'page' : null}
+      {...props}
+    />
+  )
 }
 
 Breadcrumbs.displayName = 'Breadcrumbs'
