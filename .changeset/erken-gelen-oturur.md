@@ -2,4 +2,4 @@
 '@primer/react': patch
 ---
 
-Updates loading counter for UnderlineNav.Item component
+UnderlineNav: Display loading counters only for items with the "counter" prop.
