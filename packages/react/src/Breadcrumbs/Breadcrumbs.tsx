@@ -91,7 +91,8 @@ type StyledBreadcrumbsItemProps = {
   to?: To
   selected?: boolean
   className?: string
-} & SxProp
+} & SxProp &
+  React.ComponentPropsWithoutRef<'a'>
 
 const StyledBreadcrumbsItem = toggleStyledComponent(
   CSS_MODULES_FLAG,
