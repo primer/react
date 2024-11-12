@@ -9,14 +9,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   margin-right: 4px;
 }
 
-.c3 {
-  width: 16px;
-  height: 16px;
-  width: 100%;
-  height: 100%;
-}
-
-.c5 {
+.c4 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -58,10 +51,9 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
-  padding-left: 4px;
 }
 
-.c6 {
+.c5 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -101,16 +93,16 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   width: 16px;
 }
 
-.c6:hover,
-.c6:focus {
+.c5:hover,
+.c5:focus {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
-.c6:active {
+.c5:active {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c4 {
+.c3 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -135,11 +127,11 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   text-decoration: none;
 }
 
-.c4:is(a,button,[tabIndex='0']) {
+.c3:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c4:is(a,button,[tabIndex='0']):after {
+.c3:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -156,7 +148,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
 }
 
 <span
-  className="c0"
+  className="c0 Token"
   onKeyDown={[Function]}
   size="small"
 >
@@ -165,16 +157,18 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   >
     <span
       className="c2"
+      data-size="small"
     >
       <img
         alt=""
-        className="c3 Avatar"
+        className="Avatar Avatar"
         data-component="Avatar"
         height={16}
         src="https://avatars.githubusercontent.com/mperrotti"
         style={
           {
-            "--avatarSize-regular": "16px",
+            "height": "100%",
+            "width": "100%",
           }
         }
         width={16}
@@ -182,11 +176,11 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
     </span>
   </div>
   <span
-    className="c4"
+    className="c3"
   >
     token
     <span
-      className="c5"
+      className="c4"
     >
        (press backspace or delete to remove)
     </span>
@@ -194,7 +188,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c6"
+    className="c5"
     data-size="small"
     onClick={[Function]}
     size="small"
@@ -234,14 +228,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   margin-right: 4px;
 }
 
-.c3 {
-  width: 20px;
-  height: 20px;
-  width: 100%;
-  height: 100%;
-}
-
-.c5 {
+.c4 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -283,10 +270,9 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
-  padding-left: 4px;
 }
 
-.c6 {
+.c5 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -326,16 +312,16 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   width: 20px;
 }
 
-.c6:hover,
-.c6:focus {
+.c5:hover,
+.c5:focus {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
-.c6:active {
+.c5:active {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c4 {
+.c3 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -360,11 +346,11 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   text-decoration: none;
 }
 
-.c4:is(a,button,[tabIndex='0']) {
+.c3:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c4:is(a,button,[tabIndex='0']):after {
+.c3:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -381,7 +367,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
 }
 
 <span
-  className="c0"
+  className="c0 Token"
   onKeyDown={[Function]}
   size="medium"
 >
@@ -390,16 +376,18 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   >
     <span
       className="c2"
+      data-size="medium"
     >
       <img
         alt=""
-        className="c3 Avatar"
+        className="Avatar Avatar"
         data-component="Avatar"
         height={20}
         src="https://avatars.githubusercontent.com/mperrotti"
         style={
           {
-            "--avatarSize-regular": "20px",
+            "height": "100%",
+            "width": "100%",
           }
         }
         width={20}
@@ -407,11 +395,11 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
     </span>
   </div>
   <span
-    className="c4"
+    className="c3"
   >
     token
     <span
-      className="c5"
+      className="c4"
     >
        (press backspace or delete to remove)
     </span>
@@ -419,7 +407,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c6"
+    className="c5"
     data-size="medium"
     onClick={[Function]}
     size="medium"
@@ -459,14 +447,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   margin-right: 8px;
 }
 
-.c3 {
-  width: 24px;
-  height: 24px;
-  width: 100%;
-  height: 100%;
-}
-
-.c5 {
+.c4 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -508,10 +489,9 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
-  padding-left: 4px;
 }
 
-.c6 {
+.c5 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -551,16 +531,16 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   width: 24px;
 }
 
-.c6:hover,
-.c6:focus {
+.c5:hover,
+.c5:focus {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
-.c6:active {
+.c5:active {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c4 {
+.c3 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -585,11 +565,11 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   text-decoration: none;
 }
 
-.c4:is(a,button,[tabIndex='0']) {
+.c3:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c4:is(a,button,[tabIndex='0']):after {
+.c3:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -606,7 +586,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
 }
 
 <span
-  className="c0"
+  className="c0 Token"
   onKeyDown={[Function]}
   size="large"
 >
@@ -615,16 +595,18 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   >
     <span
       className="c2"
+      data-size="large"
     >
       <img
         alt=""
-        className="c3 Avatar"
+        className="Avatar Avatar"
         data-component="Avatar"
         height={24}
         src="https://avatars.githubusercontent.com/mperrotti"
         style={
           {
-            "--avatarSize-regular": "24px",
+            "height": "100%",
+            "width": "100%",
           }
         }
         width={24}
@@ -632,11 +614,11 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
     </span>
   </div>
   <span
-    className="c4"
+    className="c3"
   >
     token
     <span
-      className="c5"
+      className="c4"
     >
        (press backspace or delete to remove)
     </span>
@@ -644,7 +626,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c6"
+    className="c5"
     data-size="large"
     onClick={[Function]}
     size="large"
@@ -684,14 +666,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   margin-right: 8px;
 }
 
-.c3 {
-  width: 32px;
-  height: 32px;
-  width: 100%;
-  height: 100%;
-}
-
-.c5 {
+.c4 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -735,10 +710,9 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
-  padding-left: 4px;
 }
 
-.c6 {
+.c5 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -778,16 +752,16 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   width: 32px;
 }
 
-.c6:hover,
-.c6:focus {
+.c5:hover,
+.c5:focus {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
-.c6:active {
+.c5:active {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c4 {
+.c3 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -812,11 +786,11 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   text-decoration: none;
 }
 
-.c4:is(a,button,[tabIndex='0']) {
+.c3:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c4:is(a,button,[tabIndex='0']):after {
+.c3:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -833,7 +807,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
 }
 
 <span
-  className="c0"
+  className="c0 Token"
   onKeyDown={[Function]}
   size="xlarge"
 >
@@ -842,16 +816,18 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   >
     <span
       className="c2"
+      data-size="xlarge"
     >
       <img
         alt=""
-        className="c3 Avatar"
+        className="Avatar Avatar"
         data-component="Avatar"
         height={32}
         src="https://avatars.githubusercontent.com/mperrotti"
         style={
           {
-            "--avatarSize-regular": "32px",
+            "height": "100%",
+            "width": "100%",
           }
         }
         width={32}
@@ -859,11 +835,11 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
     </span>
   </div>
   <span
-    className="c4"
+    className="c3"
   >
     token
     <span
-      className="c5"
+      className="c4"
     >
        (press backspace or delete to remove)
     </span>
@@ -871,7 +847,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c6"
+    className="c5"
     data-size="xlarge"
     onClick={[Function]}
     size="xlarge"
@@ -911,13 +887,6 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   margin-right: 4px;
 }
 
-.c3 {
-  width: 20px;
-  height: 20px;
-  width: 100%;
-  height: 100%;
-}
-
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -946,10 +915,9 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   border-width: 1px;
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   max-width: 100%;
-  padding-left: 4px;
 }
 
-.c4 {
+.c3 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -974,11 +942,11 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   text-decoration: none;
 }
 
-.c4:is(a,button,[tabIndex='0']) {
+.c3:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c4:is(a,button,[tabIndex='0']):after {
+.c3:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -995,7 +963,7 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
 }
 
 <span
-  className="c0"
+  className="c0 Token"
   onKeyDown={[Function]}
   size="medium"
 >
@@ -1004,16 +972,18 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   >
     <span
       className="c2"
+      data-size="medium"
     >
       <img
         alt=""
-        className="c3 Avatar"
+        className="Avatar Avatar"
         data-component="Avatar"
         height={20}
         src="https://avatars.githubusercontent.com/mperrotti"
         style={
           {
-            "--avatarSize-regular": "20px",
+            "height": "100%",
+            "width": "100%",
           }
         }
         width={20}
@@ -1021,7 +991,7 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
     </span>
   </div>
   <span
-    className="c4"
+    className="c3"
   >
     token
   </span>
@@ -1037,14 +1007,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   margin-right: 4px;
 }
 
-.c3 {
-  width: 20px;
-  height: 20px;
-  width: 100%;
-  height: 100%;
-}
-
-.c5 {
+.c4 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -1086,10 +1049,9 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   max-width: 100%;
   padding-right: 0;
-  padding-left: 4px;
 }
 
-.c6 {
+.c5 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -1129,16 +1091,16 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   width: 20px;
 }
 
-.c6:hover,
-.c6:focus {
+.c5:hover,
+.c5:focus {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
-.c6:active {
+.c5:active {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c4 {
+.c3 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -1163,11 +1125,11 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   text-decoration: none;
 }
 
-.c4:is(a,button,[tabIndex='0']) {
+.c3:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c4:is(a,button,[tabIndex='0']):after {
+.c3:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -1184,7 +1146,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
 }
 
 <span
-  className="c0"
+  className="c0 Token"
   onKeyDown={[Function]}
   size="medium"
 >
@@ -1193,16 +1155,18 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   >
     <span
       className="c2"
+      data-size="medium"
     >
       <img
         alt=""
-        className="c3 Avatar"
+        className="Avatar Avatar"
         data-component="Avatar"
         height={20}
         src="https://avatars.githubusercontent.com/mperrotti"
         style={
           {
-            "--avatarSize-regular": "20px",
+            "height": "100%",
+            "width": "100%",
           }
         }
         width={20}
@@ -1210,11 +1174,11 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
     </span>
   </div>
   <span
-    className="c4"
+    className="c3"
   >
     token
     <span
-      className="c5"
+      className="c4"
     >
        (press backspace or delete to remove)
     </span>
@@ -1222,7 +1186,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c6"
+    className="c5"
     data-size="medium"
     onClick={[Function]}
     size="medium"
@@ -1276,24 +1240,6 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
   line-height: 16px;
   padding-left: 4px;
   padding-right: 4px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
 }
 
 .c2 {
@@ -1387,6 +1333,28 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
   className="c0"
   onKeyDown={[Function]}
   size="small"
+  style={
+    {
+      "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+      "--border-threshold": "0.96",
+      "--label-b": "153",
+      "--label-g": "153",
+      "--label-h": "0",
+      "--label-l": "60",
+      "--label-r": "153",
+      "--label-s": "0",
+      "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+      "--lightness-threshold": "0.453",
+      "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+      "background": "rgb(var(--label-r), var(--label-g), var(--label-b))",
+      "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+      "borderStyle": "solid",
+      "borderWidth": 1,
+      "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+      "paddingRight": 0,
+      "position": "relative",
+    }
+  }
 >
   <span
     className="c1"
@@ -1396,7 +1364,8 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c2 RemoveButton"
+    data-has-multiple-action-targets={false}
     data-size="small"
     onClick={[Function]}
     size="small"
@@ -1450,24 +1419,6 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
 }
 
 .c2 {
@@ -1561,6 +1512,28 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
   className="c0"
   onKeyDown={[Function]}
   size="medium"
+  style={
+    {
+      "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+      "--border-threshold": "0.96",
+      "--label-b": "153",
+      "--label-g": "153",
+      "--label-h": "0",
+      "--label-l": "60",
+      "--label-r": "153",
+      "--label-s": "0",
+      "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+      "--lightness-threshold": "0.453",
+      "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+      "background": "rgb(var(--label-r), var(--label-g), var(--label-b))",
+      "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+      "borderStyle": "solid",
+      "borderWidth": 1,
+      "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+      "paddingRight": 0,
+      "position": "relative",
+    }
+  }
 >
   <span
     className="c1"
@@ -1570,7 +1543,8 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c2 RemoveButton"
+    data-has-multiple-action-targets={false}
     data-size="medium"
     onClick={[Function]}
     size="medium"
@@ -1624,24 +1598,6 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
   line-height: 24px;
   padding-left: 8px;
   padding-right: 8px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
 }
 
 .c2 {
@@ -1735,6 +1691,28 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
   className="c0"
   onKeyDown={[Function]}
   size="large"
+  style={
+    {
+      "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+      "--border-threshold": "0.96",
+      "--label-b": "153",
+      "--label-g": "153",
+      "--label-h": "0",
+      "--label-l": "60",
+      "--label-r": "153",
+      "--label-s": "0",
+      "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+      "--lightness-threshold": "0.453",
+      "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+      "background": "rgb(var(--label-r), var(--label-g), var(--label-b))",
+      "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+      "borderStyle": "solid",
+      "borderWidth": 1,
+      "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+      "paddingRight": 0,
+      "position": "relative",
+    }
+  }
 >
   <span
     className="c1"
@@ -1744,7 +1722,8 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c2 RemoveButton"
+    data-has-multiple-action-targets={false}
     data-size="large"
     onClick={[Function]}
     size="large"
@@ -1800,24 +1779,6 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
 }
 
 .c2 {
@@ -1911,6 +1872,28 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
   className="c0"
   onKeyDown={[Function]}
   size="xlarge"
+  style={
+    {
+      "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+      "--border-threshold": "0.96",
+      "--label-b": "153",
+      "--label-g": "153",
+      "--label-h": "0",
+      "--label-l": "60",
+      "--label-r": "153",
+      "--label-s": "0",
+      "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+      "--lightness-threshold": "0.453",
+      "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+      "background": "rgb(var(--label-r), var(--label-g), var(--label-b))",
+      "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+      "borderStyle": "solid",
+      "borderWidth": 1,
+      "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+      "paddingRight": 0,
+      "position": "relative",
+    }
+  }
 >
   <span
     className="c1"
@@ -1920,7 +1903,8 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c2 RemoveButton"
+    data-has-multiple-action-targets={false}
     data-size="xlarge"
     onClick={[Function]}
     size="xlarge"
@@ -1974,24 +1958,6 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  --label-r: 3;
-  --label-g: 102;
-  --label-b: 214;
-  --label-h: 212;
-  --label-s: 97;
-  --label-l: 43;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
 }
 
 .c2 {
@@ -2085,6 +2051,28 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
   className="c0"
   onKeyDown={[Function]}
   size="medium"
+  style={
+    {
+      "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+      "--border-threshold": "0.96",
+      "--label-b": "214",
+      "--label-g": "102",
+      "--label-h": "212",
+      "--label-l": "43",
+      "--label-r": "3",
+      "--label-s": "97",
+      "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+      "--lightness-threshold": "0.453",
+      "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+      "background": "rgb(var(--label-r), var(--label-g), var(--label-b))",
+      "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+      "borderStyle": "solid",
+      "borderWidth": 1,
+      "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+      "paddingRight": 0,
+      "position": "relative",
+    }
+  }
 >
   <span
     className="c1"
@@ -2094,7 +2082,8 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c2 RemoveButton"
+    data-has-multiple-action-targets={false}
     data-size="medium"
     onClick={[Function]}
     size="medium"
@@ -2148,24 +2137,6 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
 }
 
 .c2 {
@@ -2259,6 +2230,28 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
   className="c0"
   onKeyDown={[Function]}
   size="medium"
+  style={
+    {
+      "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+      "--border-threshold": "0.96",
+      "--label-b": "153",
+      "--label-g": "153",
+      "--label-h": "0",
+      "--label-l": "60",
+      "--label-r": "153",
+      "--label-s": "0",
+      "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+      "--lightness-threshold": "0.453",
+      "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+      "background": "rgb(var(--label-r), var(--label-g), var(--label-b))",
+      "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+      "borderStyle": "solid",
+      "borderWidth": 1,
+      "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+      "paddingRight": 0,
+      "position": "relative",
+    }
+  }
 >
   <span
     className="c1"
@@ -2268,7 +2261,8 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c2 RemoveButton"
+    data-has-multiple-action-targets={false}
     data-size="medium"
     onClick={[Function]}
     size="medium"
@@ -2322,41 +2316,6 @@ exports[`Token components IssueLabelToken renders isSelected 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: hsl(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 5) * 1%));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
-}
-
-.c0:focus {
-  outline: none;
-}
-
-.c0:after {
-  content: "";
-  position: absolute;
-  z-index: 1;
-  top: -2px;
-  right: -2px;
-  bottom: -2px;
-  left: -2px;
-  display: block;
-  pointer-events: none;
-  box-shadow: 0 0 0 2px rgb(var(--label-r),var(--label-g),var(--label-b));
-  border-radius: 999px;
 }
 
 .c1 {
@@ -2401,6 +2360,44 @@ exports[`Token components IssueLabelToken renders isSelected 1`] = `
   className="c0"
   onKeyDown={[Function]}
   size="medium"
+  style={
+    {
+      "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+      "--border-threshold": "0.96",
+      "--label-b": "153",
+      "--label-g": "153",
+      "--label-h": "0",
+      "--label-l": "60",
+      "--label-r": "153",
+      "--label-s": "0",
+      "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+      "--lightness-threshold": "0.453",
+      "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+      ":after": {
+        "borderRadius": "999px",
+        "bottom": "-2px",
+        "boxShadow": "0 0 0 2px rgb(var(--label-r), var(--label-g), var(--label-b))",
+        "content": """",
+        "display": "block",
+        "left": "-2px",
+        "pointerEvents": "none",
+        "position": "absolute",
+        "right": "-2px",
+        "top": "-2px",
+        "zIndex": 1,
+      },
+      ":focus": {
+        "outline": "none",
+      },
+      "background": "hsl(var(--label-h), calc(var(--label-s) * 1%), calc((var(--label-l) - 5) * 1%))",
+      "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+      "borderStyle": "solid",
+      "borderWidth": 1,
+      "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+      "paddingRight": undefined,
+      "position": "relative",
+    }
+  }
 >
   <span
     className="c1"
@@ -2433,24 +2430,6 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
-  --label-r: 153;
-  --label-g: 153;
-  --label-b: 153;
-  --label-h: 0;
-  --label-s: 0;
-  --label-l: 60;
-  --perceived-lightness: calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255);
-  --lightness-switch: max(0,min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000),1));
-  padding-right: 0;
-  position: relative;
-  --lightness-threshold: 0.453;
-  --border-threshold: 0.96;
-  --border-alpha: max(0,min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100),1));
-  background: rgb(var(--label-r),var(--label-g),var(--label-b));
-  color: hsl(0,0%,calc(var(--lightness-switch) * 100%));
-  border-width: 1px;
-  border-style: solid;
-  border-color: hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha));
 }
 
 .c2 {
@@ -2544,6 +2523,28 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
   className="c0"
   onKeyDown={[Function]}
   size="medium"
+  style={
+    {
+      "--border-alpha": "max(0, min(calc((var(--perceived-lightness) - var(--border-threshold)) * 100), 1))",
+      "--border-threshold": "0.96",
+      "--label-b": "153",
+      "--label-g": "153",
+      "--label-h": "0",
+      "--label-l": "60",
+      "--label-r": "153",
+      "--label-s": "0",
+      "--lightness-switch": "max(0, min(calc((var(--perceived-lightness) - var(--lightness-threshold)) * -1000), 1))",
+      "--lightness-threshold": "0.453",
+      "--perceived-lightness": "calc(((var(--label-r) * 0.2126) + (var(--label-g) * 0.7152) + (var(--label-b) * 0.0722)) / 255)",
+      "background": "rgb(var(--label-r), var(--label-g), var(--label-b))",
+      "borderColor": "hsla(var(--label-h),calc(var(--label-s) * 1%),calc((var(--label-l) - 25) * 1%),var(--border-alpha))",
+      "borderStyle": "solid",
+      "borderWidth": 1,
+      "color": "hsl(0, 0%, calc(var(--lightness-switch) * 100%))",
+      "paddingRight": 0,
+      "position": "relative",
+    }
+  }
 >
   <span
     className="c1"
@@ -2553,7 +2554,8 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c2 RemoveButton"
+    data-has-multiple-action-targets={false}
     data-size="medium"
     onClick={[Function]}
     size="medium"
