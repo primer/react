@@ -2,7 +2,7 @@
   "id": "data_table",
   "name": "DataTable",
   "status": "draft",
-  "a11yReviewed": false,
+  "a11yReviewed": true,
   "stories": [
     {
       "id": "experimental-components-datatable-features--with-title"
