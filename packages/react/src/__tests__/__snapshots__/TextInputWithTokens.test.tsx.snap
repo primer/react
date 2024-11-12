@@ -18032,7 +18032,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7"
+        className="c7 RemoveButton"
+        data-has-multiple-action-targets={true}
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
@@ -18105,7 +18106,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7"
+        className="c7 RemoveButton"
+        data-has-multiple-action-targets={true}
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
@@ -18178,7 +18180,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7"
+        className="c7 RemoveButton"
+        data-has-multiple-action-targets={true}
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
@@ -18251,7 +18254,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7"
+        className="c7 RemoveButton"
+        data-has-multiple-action-targets={true}
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
@@ -18324,7 +18328,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7"
+        className="c7 RemoveButton"
+        data-has-multiple-action-targets={true}
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
@@ -18397,7 +18402,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7"
+        className="c7 RemoveButton"
+        data-has-multiple-action-targets={true}
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
@@ -18470,7 +18476,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7"
+        className="c7 RemoveButton"
+        data-has-multiple-action-targets={true}
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
@@ -18543,7 +18550,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7"
+        className="c7 RemoveButton"
+        data-has-multiple-action-targets={true}
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"

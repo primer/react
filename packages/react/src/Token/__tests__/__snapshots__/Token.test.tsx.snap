@@ -167,8 +167,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
         src="https://avatars.githubusercontent.com/mperrotti"
         style={
           {
-            "height": "100%",
-            "width": "100%",
+            "--avatarSize-regular": "16px",
           }
         }
         width={16}
@@ -188,7 +187,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c6"
+    className="c5"
     data-size="small"
     onClick={[Function]}
     size="small"
@@ -386,8 +385,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
         src="https://avatars.githubusercontent.com/mperrotti"
         style={
           {
-            "height": "100%",
-            "width": "100%",
+            "--avatarSize-regular": "20px",
           }
         }
         width={20}
@@ -407,7 +405,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c6"
+    className="c5"
     data-size="medium"
     onClick={[Function]}
     size="medium"
@@ -605,8 +603,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
         src="https://avatars.githubusercontent.com/mperrotti"
         style={
           {
-            "height": "100%",
-            "width": "100%",
+            "--avatarSize-regular": "24px",
           }
         }
         width={24}
@@ -626,7 +623,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c6"
+    className="c5"
     data-size="large"
     onClick={[Function]}
     size="large"
@@ -826,8 +823,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
         src="https://avatars.githubusercontent.com/mperrotti"
         style={
           {
-            "height": "100%",
-            "width": "100%",
+            "--avatarSize-regular": "32px",
           }
         }
         width={32}
@@ -847,7 +843,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c6"
+    className="c5"
     data-size="xlarge"
     onClick={[Function]}
     size="xlarge"
@@ -982,8 +978,7 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
         src="https://avatars.githubusercontent.com/mperrotti"
         style={
           {
-            "height": "100%",
-            "width": "100%",
+            "--avatarSize-regular": "20px",
           }
         }
         width={20}
@@ -1165,8 +1160,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
         src="https://avatars.githubusercontent.com/mperrotti"
         style={
           {
-            "height": "100%",
-            "width": "100%",
+            "--avatarSize-regular": "20px",
           }
         }
         width={20}
@@ -1186,7 +1180,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c6"
+    className="c5"
     data-size="medium"
     onClick={[Function]}
     size="medium"
@@ -1364,7 +1358,8 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c2 RemoveButton"
+    data-has-multiple-action-targets={false}
     data-size="small"
     onClick={[Function]}
     size="small"
@@ -1542,7 +1537,8 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c2 RemoveButton"
+    data-has-multiple-action-targets={false}
     data-size="medium"
     onClick={[Function]}
     size="medium"
@@ -1720,7 +1716,8 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c2 RemoveButton"
+    data-has-multiple-action-targets={false}
     data-size="large"
     onClick={[Function]}
     size="large"
@@ -1900,7 +1897,8 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c2 RemoveButton"
+    data-has-multiple-action-targets={false}
     data-size="xlarge"
     onClick={[Function]}
     size="xlarge"
@@ -2078,7 +2076,8 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c2 RemoveButton"
+    data-has-multiple-action-targets={false}
     data-size="medium"
     onClick={[Function]}
     size="medium"
@@ -2256,7 +2255,8 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c2 RemoveButton"
+    data-has-multiple-action-targets={false}
     data-size="medium"
     onClick={[Function]}
     size="medium"
@@ -2548,7 +2548,8 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2"
+    className="c2 RemoveButton"
+    data-has-multiple-action-targets={false}
     data-size="medium"
     onClick={[Function]}
     size="medium"

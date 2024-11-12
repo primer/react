@@ -39,12 +39,7 @@ const AvatarToken = forwardRef(({avatarSrc, id, size = defaultTokenSize, ...rest
     <Token
       leadingVisual={() => (
         <AvatarContainer avatarSize={size} className={clsx(enabled && classes.AvatarContainer)} data-size={size}>
-          <Avatar
-            src={avatarSrc}
-            size={parseInt(tokenSizes[size], 10)}
-            className={classes.Avatar}
-            style={!enabled ? {height: '100%', width: '100%'} : {}}
-          />
+          <Avatar src={avatarSrc} size={parseInt(tokenSizes[size], 10)} className={classes.Avatar} />
         </AvatarContainer>
       )}
       size={size}
