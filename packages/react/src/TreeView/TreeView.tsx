@@ -16,8 +16,6 @@ import {useControllableState} from '../hooks/useControllableState'
 import {useId} from '../hooks/useId'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import {useSlots} from '../hooks/useSlots'
-import type {SxProp} from '../sx'
-import sx from '../sx'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
@@ -73,7 +71,7 @@ export type TreeViewProps = {
 /* Size of toggle icon in pixels. */
 const TOGGLE_ICON_SIZE = 12
 
-const UlBox = styled.ul<SxProp>`
+const UlBox = styled.ul`
   list-style: none;
   padding: 0;
   margin: 0;
@@ -280,8 +278,6 @@ const UlBox = styled.ul<SxProp>`
     white-space: nowrap;
     border-width: 0;
   }
-
-  ${sx}
 `
 
 const Root: React.FC<TreeViewProps> = ({
@@ -795,7 +791,7 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, re
       <LeadingVisual>
         <Spinner size="small" />
       </LeadingVisual>
-      <Text sx={{color: 'fg.muted'}}>Loading...</Text>
+      <Text className="fgColor-muted">Loading...</Text>
     </Item>
   )
 })
@@ -803,7 +799,7 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, re
 const EmptyItem = React.forwardRef<HTMLElement>((props, ref) => {
   return (
     <Item expanded={null} id={useId()} ref={ref}>
-      <Text sx={{color: 'fg.muted'}}>No items found</Text>
+      <Text className="fgColor-muted">No items found</Text>
     </Item>
   )
 })
