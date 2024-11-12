@@ -388,7 +388,7 @@ export const Tooltip = React.forwardRef(
             {keybindingHint && (
               <span className={clsx(classes.keybindingHintContainer, text && classes.hasTextBefore)}>
                 <VisuallyHidden>(</VisuallyHidden>
-                <KeybindingHint keys={keybindingHint} format="condensed" variant="onEmphasis" />
+                <KeybindingHint keys={keybindingHint} format="condensed" variant="onEmphasis" size="small" />
                 <VisuallyHidden>)</VisuallyHidden>
               </span>
             )}
