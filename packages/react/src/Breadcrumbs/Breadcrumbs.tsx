@@ -120,7 +120,7 @@ const StyledBreadcrumbsItem = toggleStyledComponent(
 const BreadcrumbsItem = ({
   selected,
   ...props
-}: StyledBreadcrumbsItemProps & React.ComponentPropsWithoutRef<typeof Link>) => {
+}: StyledBreadcrumbsItemProps & React.ComponentPropsWithRef<typeof Link>) => {
   const enabled = useFeatureFlag('primer_react_css_modules_team')
   if (enabled) {
     return (
