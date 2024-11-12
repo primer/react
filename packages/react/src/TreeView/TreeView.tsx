@@ -78,7 +78,7 @@ export type TreeViewProps = {
 const TOGGLE_ICON_SIZE = 12
 
 const UlBox = toggleStyledComponent(
-  'primer_react_tree_view_css_modules',
+  'primer_react_css_modules_team',
   'ul',
   styled.ul<SxProp>`
     list-style: none;
@@ -338,7 +338,7 @@ const Root: React.FC<TreeViewProps> = ({
     expandedStateCache.current = new Map()
   }
 
-  const cssModulesEnabled = useFeatureFlag('primer_react_tree_view_css_modules')
+  const cssModulesEnabled = useFeatureFlag('primer_react_css_modules_team')
 
   return (
     <RootContext.Provider
@@ -767,7 +767,7 @@ function usePreviousValue<T>(value: T): T {
 }
 
 const StyledSkeletonItemContainer = toggleStyledComponent(
-  'primer_react_tree_view_css_modules',
+  'primer_react_css_modules_team',
   'span',
   styled.span.attrs({
     className: 'PRIVATE_TreeView-item-skeleton',
@@ -804,7 +804,7 @@ const StyledSkeletonItemContainer = toggleStyledComponent(
 )
 
 const StyledSkeletonText = toggleStyledComponent(
-  'primer_react_tree_view_css_modules',
+  'primer_react_css_modules_team',
   SkeletonText,
   styled(SkeletonText)`
     width: var(--tree-item-loading-width, 67%);
@@ -812,7 +812,7 @@ const StyledSkeletonText = toggleStyledComponent(
 )
 
 const SkeletonItem = () => {
-  const cssModulesEnabled = useFeatureFlag('primer_react_tree_view_css_modules')
+  const cssModulesEnabled = useFeatureFlag('primer_react_css_modules_team')
   return (
     <StyledSkeletonItemContainer
       className={clsx(

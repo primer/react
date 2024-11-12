@@ -4,6 +4,7 @@ import React from 'react'
 import {ThemeProvider} from '../ThemeProvider'
 import type {SubTreeState} from './TreeView'
 import {TreeView} from './TreeView'
+import {FeatureFlags} from '../FeatureFlags'
 
 jest.useFakeTimers()
 
@@ -1364,7 +1365,7 @@ describe('State', () => {
   })
 })
 
-describe('Asyncronous loading', () => {
+describe('Asynchronous loading', () => {
   it('updates aria live region when loading is done', () => {
     function TestTree() {
       const [state, setState] = React.useState<SubTreeState>('initial')
@@ -1638,5 +1639,34 @@ describe('Asyncronous loading', () => {
 
     // Empty child should have `aria-expanded` when opened
     expect(getByRole('treeitem', {name: 'empty child'})).toHaveAttribute('aria-expanded')
+  })
+})
+
+describe('CSS Module Migration', () => {
+  it('should support `className` on the outermost element', () => {
+    const TreeViewTestComponent = () => (
+      <TreeView aria-label="Test tree" className={'test-class-name'}>
+        <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        <TreeView.Item id="item-2">Item 2</TreeView.Item>
+        <TreeView.Item id="item-3">Item 3</TreeView.Item>
+      </TreeView>
+    )
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <TreeViewTestComponent />
+        </FeatureFlags>
+      )
+    }
+
+    // Testing on the second child element because the first child element is visually hidden
+    expect(render(<TreeViewTestComponent />).container.children[1]).toHaveClass('test-class-name')
+    expect(render(<FeatureFlagElement />).container.children[1]).toHaveClass('test-class-name')
   })
 })
