@@ -22,7 +22,7 @@
     margin: 0 0.5em;
     font-size: var(--text-body-size-medium);
     content: '';
-    /* stylelint-disable-next-line primer/borders */
+    /* stylelint-disable-next-line primer/borders, primer/colors */
     border-right: 0.1em solid var(--fgColor-muted);
     transform: rotate(15deg) translateY(0.0625em);
   }
