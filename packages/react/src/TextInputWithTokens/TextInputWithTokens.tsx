@@ -14,8 +14,11 @@ import type {TokenSizeKeys} from '../Token/TokenBase'
 
 import type {TextInputSizes} from '../internal/components/TextInputWrapper'
 import TextInputWrapper, {textInputHorizPadding} from '../internal/components/TextInputWrapper'
-import UnstyledTextInput from '../internal/components/UnstyledTextInput'
+import UnstyledTextInput, {TEXT_INPUT_CSS_MODULES_FEATURE_FLAG} from '../internal/components/UnstyledTextInput'
 import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
+import {useFeatureFlag} from '../FeatureFlags'
+
+import styles from './TextInputWithTokens.module.css'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyReactComponent = React.ComponentType<React.PropsWithChildren<any>>
@@ -248,6 +251,8 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
   const showTrailingLoadingIndicator =
     loading && (loaderPosition === 'trailing' || (loaderPosition === 'auto' && !LeadingVisual))
 
+  const enabled = useFeatureFlag(TEXT_INPUT_CSS_MODULES_FEATURE_FLAG)
+
   return (
     <TextInputWrapper
       block={block}
@@ -325,7 +330,8 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
             onBlur={handleInputBlur}
             onKeyDown={handleInputKeyDown}
             type="text"
-            sx={{height: '100%'}}
+            sx={enabled ? undefined : {height: '100%'}}
+            className={enabled ? styles.UnstyledTextInput : undefined}
             aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
             {...inputPropsRest}
           />
