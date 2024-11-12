@@ -13,7 +13,7 @@
 }
 
 .Token {
-  padding-left: var(--base-size-4);
+  padding-left: var(--base-size-4) !important;
 }
 
 .AvatarContainer[data-size='small'] {
