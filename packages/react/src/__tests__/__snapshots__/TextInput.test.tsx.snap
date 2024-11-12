@@ -1658,6 +1658,18 @@ exports[`TextInput renders small 1`] = `
   }
 }
 
+@media screen and (min-width:544px) {
+  .c0 {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .c0 {
+    font-size: 12px;
+  }
+}
+
 <span
   aria-busy={false}
   className="c0 c1 TextInput-wrapper"
@@ -4038,13 +4050,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c5 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c6 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
@@ -4180,6 +4185,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 }
 
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
 @media (min-width:768px) {
 
 }
@@ -4212,11 +4225,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
         id=":r2n:"
       >
         <span
-          className="c5"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c6"
+            className="c5"
             fill="none"
             height="16px"
             sx={
@@ -4257,22 +4270,514 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c3 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: visible;
+}
+
+.c6 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  visibility: hidden;
+}
+
+.c5 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+  vertical-align: middle;
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+  border-radius: 6px;
+  outline: none;
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  overflow: hidden;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0:focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 0;
+  padding-right: 12px;
 }
 
 .c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+<span
+    aria-busy={true}
+    className="c0 c1 TextInput-wrapper"
+    onClick={[Function]}
+  >
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+        id=":r2q:"
+      >
+        <span
+          className="Box"
+        >
+          <svg
+            aria-hidden={true}
+            className="c3"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </span>
+      </div>
+    </span>
+    <input
+      aria-describedby=":r2s:"
+      className="c4"
+      data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="text"
+    />
+    <span
+      className="c5"
+      id=":r2s:"
+    >
+      Loading
+    </span>
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c2"
+        display="flex"
+        id=":r2r:"
+      >
+        <span
+          className="Box"
+        >
+          <svg
+            aria-hidden={true}
+            className="c6"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "hidden",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </span>
+      </div>
+    </span>
+  </span>,
+  .c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c5 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
+}
+
+.c3 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.c0 {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+  vertical-align: middle;
+  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
+  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+  border-radius: 6px;
+  outline: none;
+  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  min-height: 32px;
+  overflow: hidden;
+}
+
+.c0 input,
+.c0 textarea {
+  cursor: text;
+}
+
+.c0 select {
+  cursor: pointer;
+}
+
+.c0 input::-webkit-input-placeholder,
+.c0 textarea::-webkit-input-placeholder,
+.c0 select::-webkit-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::-moz-placeholder,
+.c0 textarea::-moz-placeholder,
+.c0 select::-moz-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input:-ms-input-placeholder,
+.c0 textarea:-ms-input-placeholder,
+.c0 select:-ms-input-placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0 input::placeholder,
+.c0 textarea::placeholder,
+.c0 select::placeholder {
+  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
+}
+
+.c0:focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0 > textarea {
+  padding: 12px;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-left: 0;
+  padding-right: 12px;
+}
+
+.c1 > :not(:last-child) {
+  margin-right: 8px;
+}
+
+.c1 .TextInput-icon,
+.c1 .TextInput-action {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-left: 12px;
+  padding-right: 0;
+}
+
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+@media (min-width:768px) {
+  .c0 {
+    font-size: 14px;
+  }
+}
+
+@media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
+@media (min-width:768px) {
+
+}
+
+<span
+    aria-busy={true}
+    className="c0 c1 TextInput-wrapper"
+    onClick={[Function]}
+  >
+    <input
+      aria-describedby=":r31:"
+      className="c2"
+      data-component="input"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      type="text"
+    />
+    <span
+      className="c3"
+      id=":r31:"
+    >
+      Loading
+    </span>
+    <span
+      className="TextInput-icon"
+    >
+      <div
+        className="c4"
+        display="flex"
+        id=":r30:"
+      >
+        <span
+          className="Box"
+        >
+          <svg
+            aria-hidden={true}
+            className="c5"
+            fill="none"
+            height="16px"
+            sx={
+              {
+                "visibility": "visible",
+              }
+            }
+            viewBox="0 0 16 16"
+            width="16px"
+          >
+            <circle
+              cx="8"
+              cy="8"
+              r="7"
+              stroke="currentColor"
+              strokeOpacity="0.25"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+            <path
+              d="M15 8a7.002 7.002 0 00-7-7"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeWidth="2"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </span>
+      </div>
+    </span>
+  </span>,
+  .c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.c3 {
+  visibility: hidden;
 }
 
 .c7 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: hidden;
+}
+
+.c4 {
+  -webkit-animation: rotate-keyframes 1s linear infinite;
+  animation: rotate-keyframes 1s linear infinite;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  max-width: 100%;
+  visibility: visible;
+  left: 0;
 }
 
 .c6 {
@@ -4405,500 +4910,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 }
 
-@media (min-width:768px) {
+@media screen and (min-width:544px) {
 
 }
 
-<span
-    aria-busy={true}
-    className="c0 c1 TextInput-wrapper"
-    onClick={[Function]}
-  >
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-        id=":r2q:"
-      >
-        <span
-          className="c3"
-        >
-          <svg
-            aria-hidden={true}
-            className="c4"
-            fill="none"
-            height="16px"
-            sx={
-              {
-                "visibility": "visible",
-              }
-            }
-            viewBox="0 0 16 16"
-            width="16px"
-          >
-            <circle
-              cx="8"
-              cy="8"
-              r="7"
-              stroke="currentColor"
-              strokeOpacity="0.25"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M15 8a7.002 7.002 0 00-7-7"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-        </span>
-      </div>
-    </span>
-    <input
-      aria-describedby=":r2s:"
-      className="c5"
-      data-component="input"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      type="text"
-    />
-    <span
-      className="c6"
-      id=":r2s:"
-    >
-      Loading
-    </span>
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c2"
-        display="flex"
-        id=":r2r:"
-      >
-        <span
-          className="c3"
-        >
-          <svg
-            aria-hidden={true}
-            className="c7"
-            fill="none"
-            height="16px"
-            sx={
-              {
-                "visibility": "hidden",
-              }
-            }
-            viewBox="0 0 16 16"
-            width="16px"
-          >
-            <circle
-              cx="8"
-              cy="8"
-              r="7"
-              stroke="currentColor"
-              strokeOpacity="0.25"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M15 8a7.002 7.002 0 00-7-7"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-        </span>
-      </div>
-    </span>
-  </span>,
-  .c4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c5 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c6 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: visible;
-}
-
-.c3 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  overflow: hidden;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0 input::-webkit-input-placeholder,
-.c0 textarea::-webkit-input-placeholder,
-.c0 select::-webkit-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::-moz-placeholder,
-.c0 textarea::-moz-placeholder,
-.c0 select::-moz-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input:-ms-input-placeholder,
-.c0 textarea:-ms-input-placeholder,
-.c0 select:-ms-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::placeholder,
-.c0 textarea::placeholder,
-.c0 select::placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0:focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 12px;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
-}
-
-<span
-    aria-busy={true}
-    className="c0 c1 TextInput-wrapper"
-    onClick={[Function]}
-  >
-    <input
-      aria-describedby=":r31:"
-      className="c2"
-      data-component="input"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      type="text"
-    />
-    <span
-      className="c3"
-      id=":r31:"
-    >
-      Loading
-    </span>
-    <span
-      className="TextInput-icon"
-    >
-      <div
-        className="c4"
-        display="flex"
-        id=":r30:"
-      >
-        <span
-          className="c5"
-        >
-          <svg
-            aria-hidden={true}
-            className="c6"
-            fill="none"
-            height="16px"
-            sx={
-              {
-                "visibility": "visible",
-              }
-            }
-            viewBox="0 0 16 16"
-            width="16px"
-          >
-            <circle
-              cx="8"
-              cy="8"
-              r="7"
-              stroke="currentColor"
-              strokeOpacity="0.25"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-            <path
-              d="M15 8a7.002 7.002 0 00-7-7"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeWidth="2"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-        </span>
-      </div>
-    </span>
-  </span>,
-  .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  position: relative;
-}
-
-.c4 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c3 {
-  visibility: hidden;
-}
-
-.c8 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  visibility: hidden;
-}
-
-.c5 {
-  -webkit-animation: rotate-keyframes 1s linear infinite;
-  animation: rotate-keyframes 1s linear infinite;
-  position: absolute;
-  top: 0;
-  height: 100%;
-  max-width: 100%;
-  visibility: visible;
-  left: 0;
-}
-
-.c7 {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  -webkit-clip: rect(0,0,0,0);
-  clip: rect(0,0,0,0);
-  white-space: nowrap;
-  border-width: 0;
-}
-
-.c0 {
-  font-size: 14px;
-  line-height: 20px;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-  vertical-align: middle;
-  background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
-  border: 1px solid var(--control-borderColor-rest,var(--borderColor-default,var(--color-border-default,#d0d7de)));
-  border-radius: 6px;
-  outline: none;
-  box-shadow: var(--shadow-inset,var(--color-primer-shadow-inset,inset 0 1px 0 rgba(208,215,222,0.2)));
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  min-height: 32px;
-  overflow: hidden;
-}
-
-.c0 input,
-.c0 textarea {
-  cursor: text;
-}
-
-.c0 select {
-  cursor: pointer;
-}
-
-.c0 input::-webkit-input-placeholder,
-.c0 textarea::-webkit-input-placeholder,
-.c0 select::-webkit-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::-moz-placeholder,
-.c0 textarea::-moz-placeholder,
-.c0 select::-moz-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input:-ms-input-placeholder,
-.c0 textarea:-ms-input-placeholder,
-.c0 select:-ms-input-placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0 input::placeholder,
-.c0 textarea::placeholder,
-.c0 select::placeholder {
-  color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
-}
-
-.c0:focus-within {
-  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
-  outline-offset: -1px;
-}
-
-.c0 > textarea {
-  padding: 12px;
-}
-
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 0;
-}
-
-.c1 > :not(:last-child) {
-  margin-right: 8px;
-}
-
-.c1 .TextInput-icon,
-.c1 .TextInput-action {
-  -webkit-align-self: center;
-  -ms-flex-item-align: center;
-  align-self: center;
-  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-}
-
-.c1 > input,
-.c1 > select {
-  padding-left: 0;
-  padding-right: 12px;
-}
-
-.c6 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c6:focus {
-  outline: 0;
-}
-
-@media (min-width:768px) {
-  .c0 {
-    font-size: 14px;
-  }
-}
-
-@media (min-width:768px) {
+@media screen and (min-width:768px) {
 
 }
 
@@ -4945,11 +4961,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c5"
+            className="c4"
             fill="none"
             height="32px"
             sx={
@@ -4987,14 +5003,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
     </span>
     <input
       aria-describedby=":r33: :r35:"
-      className="c6"
+      className="c5"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
       type="text"
     />
     <span
-      className="c7"
+      className="c6"
       id=":r35:"
     >
       Loading
@@ -5008,11 +5024,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
         id=":r34:"
       >
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c8"
+            className="c7"
             fill="none"
             height="16px"
             sx={
@@ -5052,24 +5068,17 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c4 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
 .c3 {
   visibility: hidden;
 }
 
-.c8 {
+.c7 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: hidden;
 }
 
-.c5 {
+.c4 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -5080,7 +5089,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   left: 0;
 }
 
-.c7 {
+.c6 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -5186,7 +5195,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: 12px;
 }
 
-.c6 {
+.c5 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -5196,7 +5205,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c6:focus {
+.c5:focus {
   outline: 0;
 }
 
@@ -5207,6 +5216,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 @media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
 
 }
 
@@ -5253,11 +5270,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c5"
+            className="c4"
             fill="none"
             height="32px"
             sx={
@@ -5295,14 +5312,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
     </span>
     <input
       aria-describedby=":r38: :r3a:"
-      className="c6"
+      className="c5"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
       type="text"
     />
     <span
-      className="c7"
+      className="c6"
       id=":r3a:"
     >
       Loading
@@ -5316,11 +5333,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
         id=":r39:"
       >
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c8"
+            className="c7"
             fill="none"
             height="16px"
             sx={
@@ -5360,24 +5377,17 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c4 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
 .c3 {
   visibility: visible;
 }
 
-.c8 {
+.c7 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
 }
 
-.c5 {
+.c4 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -5388,7 +5398,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   left: 0;
 }
 
-.c7 {
+.c6 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -5494,7 +5504,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c6 {
+.c5 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -5504,7 +5514,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c6:focus {
+.c5:focus {
   outline: 0;
 }
 
@@ -5515,6 +5525,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 @media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
 
 }
 
@@ -5561,11 +5579,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c5"
+            className="c4"
             fill="none"
             height="32px"
             sx={
@@ -5603,14 +5621,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
     </span>
     <input
       aria-describedby=":r3d: :r3f:"
-      className="c6"
+      className="c5"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
       type="text"
     />
     <span
-      className="c7"
+      className="c6"
       id=":r3f:"
     >
       Loading
@@ -5624,11 +5642,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
         id=":r3e:"
       >
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c8"
+            className="c7"
             fill="none"
             height="16px"
             sx={
@@ -5668,18 +5686,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c6 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
 .c5 {
   visibility: hidden;
 }
 
-.c7 {
+.c6 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -5817,6 +5828,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 @media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
 
 }
 
@@ -5877,11 +5896,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c6"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c7"
+            className="c6"
             fill="none"
             height="32px"
             sx={
@@ -5926,24 +5945,17 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c3 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c7 {
+.c6 {
   visibility: visible;
 }
 
-.c4 {
+.c3 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   visibility: visible;
 }
 
-.c8 {
+.c7 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -5954,7 +5966,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   right: 0;
 }
 
-.c6 {
+.c5 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -6060,7 +6072,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c5 {
+.c4 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -6070,7 +6082,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c5:focus {
+.c4:focus {
   outline: 0;
 }
 
@@ -6081,6 +6093,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 @media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
 
 }
 
@@ -6102,11 +6122,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
         id=":r3m:"
       >
         <span
-          className="c3"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c4"
+            className="c3"
             fill="none"
             height="16px"
             sx={
@@ -6139,14 +6159,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
     </span>
     <input
       aria-describedby=":r3n: :r3o:"
-      className="c5"
+      className="c4"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
       type="text"
     />
     <span
-      className="c6"
+      className="c5"
       id=":r3o:"
     >
       Loading
@@ -6160,7 +6180,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         id=":r3n:"
       >
         <div
-          className="c7"
+          className="c6"
         >
           <svg
             aria-hidden="true"
@@ -6185,11 +6205,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c3"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c8"
+            className="c7"
             fill="none"
             height="32px"
             sx={
@@ -6234,18 +6254,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c6 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
 .c5 {
   visibility: hidden;
 }
 
-.c7 {
+.c6 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -6386,6 +6399,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 }
 
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
+
+}
+
 @media (min-width:768px) {
 
 }
@@ -6443,11 +6464,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c6"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c7"
+            className="c6"
             fill="none"
             height="32px"
             sx={
@@ -6492,22 +6513,15 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c4 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
 .c3 {
   visibility: hidden;
 }
 
-.c8 {
+.c7 {
   visibility: visible;
 }
 
-.c5 {
+.c4 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -6518,7 +6532,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   left: 0;
 }
 
-.c9 {
+.c8 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -6529,7 +6543,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   right: 0;
 }
 
-.c7 {
+.c6 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -6643,7 +6657,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c6 {
+.c5 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -6653,7 +6667,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c6:focus {
+.c5:focus {
   outline: 0;
 }
 
@@ -6664,6 +6678,18 @@ exports[`TextInput renders with a loading indicator 1`] = `
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
+  }
+}
+
+@media screen and (min-width:544px) {
+  .c0 {
+    font-size: 12px;
+  }
+}
+
+@media screen and (min-width:768px) {
+  .c0 {
+    font-size: 12px;
   }
 }
 
@@ -6711,11 +6737,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c5"
+            className="c4"
             fill="none"
             height="32px"
             sx={
@@ -6753,14 +6779,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
     </span>
     <input
       aria-describedby=":r3v: :r40: :r41:"
-      className="c6"
+      className="c5"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
       type="text"
     />
     <span
-      className="c7"
+      className="c6"
       id=":r41:"
     >
       Loading
@@ -6774,7 +6800,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         id=":r40:"
       >
         <div
-          className="c8"
+          className="c7"
         >
           <svg
             aria-hidden="true"
@@ -6799,11 +6825,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c9"
+            className="c8"
             fill="none"
             height="32px"
             sx={
@@ -6848,22 +6874,15 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c4 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
 .c3 {
   visibility: hidden;
 }
 
-.c8 {
+.c7 {
   visibility: visible;
 }
 
-.c5 {
+.c4 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -6874,7 +6893,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   left: 0;
 }
 
-.c9 {
+.c8 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -6885,7 +6904,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   right: 0;
 }
 
-.c7 {
+.c6 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -6991,7 +7010,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c6 {
+.c5 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -7001,7 +7020,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c6:focus {
+.c5:focus {
   outline: 0;
 }
 
@@ -7012,6 +7031,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 @media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
 
 }
 
@@ -7058,11 +7085,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c5"
+            className="c4"
             fill="none"
             height="32px"
             sx={
@@ -7100,14 +7127,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
     </span>
     <input
       aria-describedby=":r44: :r45: :r46:"
-      className="c6"
+      className="c5"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
       type="text"
     />
     <span
-      className="c7"
+      className="c6"
       id=":r46:"
     >
       Loading
@@ -7121,7 +7148,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         id=":r45:"
       >
         <div
-          className="c8"
+          className="c7"
         >
           <svg
             aria-hidden="true"
@@ -7146,11 +7173,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c9"
+            className="c8"
             fill="none"
             height="32px"
             sx={
@@ -7195,14 +7222,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   position: relative;
 }
 
-.c4 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-}
-
-.c8 {
+.c7 {
   visibility: hidden;
 }
 
@@ -7210,7 +7230,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   visibility: visible;
 }
 
-.c5 {
+.c4 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -7221,7 +7241,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   left: 0;
 }
 
-.c9 {
+.c8 {
   -webkit-animation: rotate-keyframes 1s linear infinite;
   animation: rotate-keyframes 1s linear infinite;
   position: absolute;
@@ -7232,7 +7252,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   right: 0;
 }
 
-.c7 {
+.c6 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -7344,7 +7364,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: 0;
 }
 
-.c6 {
+.c5 {
   border: 0;
   font-size: inherit;
   font-family: inherit;
@@ -7354,7 +7374,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   width: 100%;
 }
 
-.c6:focus {
+.c5:focus {
   outline: 0;
 }
 
@@ -7363,6 +7383,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 @media (min-width:768px) {
+
+}
+
+@media screen and (min-width:544px) {
+
+}
+
+@media screen and (min-width:768px) {
 
 }
 
@@ -7412,11 +7440,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c5"
+            className="c4"
             fill="none"
             height="32px"
             sx={
@@ -7454,14 +7482,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
     </span>
     <input
       aria-describedby=":r49: :r4a: :r4b:"
-      className="c6"
+      className="c5"
       data-component="input"
       onBlur={[Function]}
       onFocus={[Function]}
       type="text"
     />
     <span
-      className="c7"
+      className="c6"
       id=":r4b:"
     >
       Loading
@@ -7475,7 +7503,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
         id=":r4a:"
       >
         <div
-          className="c8"
+          className="c7"
         >
           <svg
             aria-hidden="true"
@@ -7500,11 +7528,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
           </svg>
         </div>
         <span
-          className="c4"
+          className="Box"
         >
           <svg
             aria-hidden={true}
-            className="c9"
+            className="c8"
             fill="none"
             height="32px"
             sx={

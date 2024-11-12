@@ -14,7 +14,7 @@ const sizeDeprecatedVariants = variant({
       minHeight: '28px',
       px: 2,
       py: '3px',
-      fontSize: 0,
+      fontSize: [0, 0, 0],
       lineHeight: '20px',
     },
     large: {
@@ -33,7 +33,7 @@ const sizeVariants = variant({
       minHeight: '28px',
       px: 2,
       py: '3px',
-      fontSize: 0,
+      fontSize: [0, 0, 0],
       lineHeight: '20px',
     },
     medium: {
