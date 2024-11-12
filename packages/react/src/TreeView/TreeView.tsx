@@ -66,6 +66,7 @@ export type TreeViewProps = {
   flat?: boolean
   truncate?: boolean
   className?: string
+  style?: React.CSSProperties
 }
 
 /* Size of toggle icon in pixels. */
@@ -287,6 +288,7 @@ const Root: React.FC<TreeViewProps> = ({
   flat,
   truncate = true,
   className,
+  style,
 }) => {
   const containerRef = React.useRef<HTMLUListElement>(null)
   const mouseDownRef = React.useRef<boolean>(false)
@@ -345,6 +347,7 @@ const Root: React.FC<TreeViewProps> = ({
           data-truncate-text={truncate || false}
           onMouseDown={onMouseDown}
           className={className}
+          style={style}
         >
           {children}
         </UlBox>
