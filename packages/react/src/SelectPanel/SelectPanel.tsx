@@ -47,6 +47,7 @@ interface SelectPanelBaseProps {
 
 export type SelectPanelProps = SelectPanelBaseProps &
   Omit<FilteredActionListProps, 'selectionVariant'> &
+  Pick<FilteredActionListProps, 'loading' | 'loadingType'> &
   Pick<AnchoredOverlayProps, 'open'> &
   AnchoredOverlayWrapperAnchorProps &
   (SelectPanelSingleSelection | SelectPanelMultiSelection)

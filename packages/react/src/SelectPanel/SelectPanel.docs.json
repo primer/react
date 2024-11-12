@@ -73,6 +73,17 @@
       "type": "string | React.ReactElement",
       "defaultValue": "null",
       "description": "Footer rendered at the end of the panel"
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "description": "When true, the loading state is displayed"
+    },
+    {
+      "name": "loadingType",
+      "type": " 'spinner' | 'skeleton'",
+      "defaultValue": "spinner",
+      "description": "The type of loading state to render when retrieving initial data"
     }
   ],
   "subcomponents": []
