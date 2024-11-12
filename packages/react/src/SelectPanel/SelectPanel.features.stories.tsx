@@ -416,6 +416,56 @@ export const AsyncFetchLoadingExternallyManaged = () => {
       onSelectedChange={setSelected}
       onFilterChange={setFilter}
       loading={loading}
+    />
+  )
+}
+
+export const SkeletonTypeLoading = () => {
+  const [loading, setLoading] = React.useState<boolean>(true)
+  const [selected, setSelected] = React.useState<ItemInput[]>([])
+  const [filter, setFilter] = React.useState('')
+  const [fetchedItems, setFetchedItems] = React.useState<ItemInput[]>([])
+  const [open, setOpen] = useState(false)
+
+  const filteredItems = React.useMemo(
+    () =>
+      fetchedItems.filter(fetchedItem => {
+        if (!fetchedItem.text) return false
+        return fetchedItem.text.toLowerCase().startsWith(filter.toLowerCase())
+      }),
+    [fetchedItems, filter],
+  )
+
+  const onOpenChange = () => {
+    setLoading(true)
+    setOpen(!open)
+    setTimeout(() => {
+      setFetchedItems(items)
+      setLoading(false)
+    }, 1500)
+  }
+  return (
+    <SelectPanel
+      title="Select labels"
+      subtitle="Use labels to organize issues and pull requests"
+      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+        <Button
+          trailingAction={TriangleDownIcon}
+          aria-labelledby={` ${ariaLabelledBy}`}
+          {...anchorProps}
+          aria-haspopup="dialog"
+        >
+          {children ?? 'Select Labels'}
+        </Button>
+      )}
+      placeholderText="Filter labels"
+      open={open}
+      onOpenChange={onOpenChange}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onFilterChange={setFilter}
+      loading={loading}
       loadingType="skeleton"
     />
   )

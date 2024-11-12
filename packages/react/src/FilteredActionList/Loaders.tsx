@@ -16,7 +16,9 @@ export const Loading = ({type = 'spinner', ...props}: {type?: LoadingTypes}) => 
 
 function LoadingSpinner({...props}): JSX.Element {
   return (
-    <Box p={3} flexGrow={1} sx={{alignContent: 'center', textAlign: 'center', height: '100%'}}>
+    <Box
+      sx={{display: 'flex', alignContent: 'center', justifyContent: 'center', width: '100%', padding: '40px 16px 48px'}}
+    >
       <Spinner {...props} />
     </Box>
   )
