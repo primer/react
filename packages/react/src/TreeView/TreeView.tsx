@@ -7,6 +7,7 @@ import {
 import {clsx} from 'clsx'
 import React, {useCallback, useEffect} from 'react'
 import styled from 'styled-components'
+import classes from './TreeView.module.css'
 import {ConfirmationDialog} from '../ConfirmationDialog/ConfirmationDialog'
 import Spinner from '../Spinner'
 import Text from '../Text'
@@ -16,11 +17,15 @@ import {useControllableState} from '../hooks/useControllableState'
 import {useId} from '../hooks/useId'
 import useSafeTimeout from '../hooks/useSafeTimeout'
 import {useSlots} from '../hooks/useSlots'
+import type {SxProp} from '../sx'
+import sx from '../sx'
 import {getAccessibleName} from './shared'
 import {getFirstChildElement, useRovingTabIndex} from './useRovingTabIndex'
 import {useTypeahead} from './useTypeahead'
 import {SkeletonAvatar} from '../experimental/Skeleton/SkeletonAvatar'
 import {SkeletonText} from '../experimental/Skeleton/SkeletonText'
+import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
+import {useFeatureFlag} from '../FeatureFlags'
 
 // ----------------------------------------------------------------------------
 // Context
@@ -72,214 +77,220 @@ export type TreeViewProps = {
 /* Size of toggle icon in pixels. */
 const TOGGLE_ICON_SIZE = 12
 
-const UlBox = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0;
-
-  /*
-   * WARNING: This is a performance optimization.
-   *
-   * We define styles for the tree items at the root level of the tree
-   * to avoid recomputing the styles for each item when the tree updates.
-   * We're sacraficing maintainability for performance because TreeView
-   * needs to be performant enough to handle large trees (thousands of items).
-   *
-   * This is intended to be a temporary solution until we can improve the
-   * performance of our styling patterns.
-   *
-   * Do NOT copy this pattern without understanding the tradeoffs.
-   * Do NOT reference PRIVATE_* classnames outside of this file.
-   */
-  .PRIVATE_TreeView-item {
-    outline: none;
-
-    &:focus-visible > div,
-    &.focus-visible > div {
-      box-shadow: inset 0 0 0 2px ${get(`colors.accent.fg`)};
-      @media (forced-colors: active) {
-        outline: 2px solid HighlightText;
-        outline-offset: -2;
-      }
-    }
-    &[data-has-leading-action] {
-      --has-leading-action: 1;
-    }
-  }
-
-  .PRIVATE_TreeView-item-container {
-    --level: 1; /* default level */
-    --toggle-width: 1rem; /* 16px */
-    --min-item-height: 2rem; /* 32px */
-    position: relative;
-    display: grid;
-    --leading-action-width: calc(var(--has-leading-action, 0) * 1.5rem);
-    --spacer-width: calc(calc(var(--level) - 1) * (var(--toggle-width) / 2));
-    grid-template-columns: var(--spacer-width) var(--leading-action-width) var(--toggle-width) 1fr;
-    grid-template-areas: 'spacer leadingAction toggle content';
-    width: 100%;
-    font-size: ${get('fontSizes.1')};
-    color: ${get('colors.fg.default')};
-    border-radius: ${get('radii.2')};
-    cursor: pointer;
-
-    &:hover {
-      background-color: ${get('colors.actionListItem.default.hoverBg')};
-
-      @media (forced-colors: active) {
-        outline: 2px solid transparent;
-        outline-offset: -2px;
-      }
-    }
-
-    @media (pointer: coarse) {
-      --toggle-width: 1.5rem; /* 24px */
-      --min-item-height: 2.75rem; /* 44px */
-    }
-
-    &:has(.PRIVATE_TreeView-item-skeleton):hover {
-      background-color: transparent;
-      cursor: default;
-
-      @media (forced-colors: active) {
-        outline: none;
-      }
-    }
-  }
-
-  &[data-omit-spacer='true'] .PRIVATE_TreeView-item-container {
-    grid-template-columns: 0 0 0 1fr;
-  }
-
-  .PRIVATE_TreeView-item[aria-current='true'] > .PRIVATE_TreeView-item-container {
-    background-color: ${get('colors.actionListItem.default.selectedBg')};
-
-    /* Current item indicator */
-    &::after {
-      content: '';
-      position: absolute;
-      top: calc(50% - 0.75rem); /* 50% - 12px */
-      left: -${get('space.2')};
-      width: 0.25rem; /* 4px */
-      height: 1.5rem; /* 24px */
-      background-color: ${get('colors.accent.fg')};
-      border-radius: ${get('radii.2')};
-
-      @media (forced-colors: active) {
-        background-color: HighlightText;
-      }
-    }
-  }
-
-  .PRIVATE_TreeView-item-toggle {
-    grid-area: toggle;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    /* The toggle should appear vertically centered for single-line items, but remain at the top for items that wrap
-    across more lines. */
-    padding-top: calc(var(--min-item-height) / 2 - ${TOGGLE_ICON_SIZE}px / 2);
-    height: 100%;
-    color: ${get('colors.fg.muted')};
-  }
-
-  .PRIVATE_TreeView-item-toggle--hover:hover {
-    background-color: ${get('colors.treeViewItem.chevron.hoverBg')};
-  }
-
-  .PRIVATE_TreeView-item-toggle--end {
-    border-top-left-radius: ${get('radii.2')};
-    border-bottom-left-radius: ${get('radii.2')};
-  }
-
-  .PRIVATE_TreeView-item-content {
-    grid-area: content;
-    display: flex;
-    height: 100%;
-    padding: 0 ${get('space.2')};
-    gap: ${get('space.2')};
-    line-height: var(--custom-line-height, var(--text-body-lineHeight-medium, 1.4285));
-    /* The dynamic top and bottom padding to maintain the minimum item height for single line items */
-    padding-top: calc((var(--min-item-height) - var(--custom-line-height, 1.3rem)) / 2);
-    padding-bottom: calc((var(--min-item-height) - var(--custom-line-height, 1.3rem)) / 2);
-  }
-
-  .PRIVATE_TreeView-item-content-text {
-    flex: 1 1 auto;
-    width: 0;
-  }
-
-  &[data-truncate-text='true'] .PRIVATE_TreeView-item-content-text {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
-  &[data-truncate-text='false'] .PRIVATE_TreeView-item-content-text {
-    word-break: break-word;
-  }
-
-  .PRIVATE_TreeView-item-visual {
-    display: flex;
-    align-items: center;
-    color: ${get('colors.fg.muted')};
-    /* The visual icons should appear vertically centered for single-line items, but remain at the top for items that wrap
-    across more lines. */
-    height: var(--custom-line-height, 1.3rem);
-  }
-
-  .PRIVATE_TreeView-item-leading-action {
-    display: flex;
-    color: ${get('colors.fg.muted')};
-    grid-area: leadingAction;
-  }
-
-  .PRIVATE_TreeView-item-level-line {
-    width: 100%;
-    height: 100%;
-    border-right: 1px solid;
+const UlBox = toggleStyledComponent(
+  'primer_react_tree_view_css_modules',
+  'ul',
+  styled.ul<SxProp>`
+    list-style: none;
+    padding: 0;
+    margin: 0;
 
     /*
-     * On devices without hover, the nesting indicator lines
-     * appear at all times.
+     * WARNING: This is a performance optimization.
+     *
+     * We define styles for the tree items at the root level of the tree
+     * to avoid recomputing the styles for each item when the tree updates.
+     * We're sacraficing maintainability for performance because TreeView
+     * needs to be performant enough to handle large trees (thousands of items).
+     *
+     * This is intended to be a temporary solution until we can improve the
+     * performance of our styling patterns.
+     *
+     * Do NOT copy this pattern without understanding the tradeoffs.
+     * Do NOT reference PRIVATE_* classnames outside of this file.
      */
-    border-color: ${get('colors.border.subtle')};
-  }
+    .PRIVATE_TreeView-item {
+      outline: none;
 
-  /*
-   * On devices with :hover support, the nesting indicator lines
-   * fade in when the user mouses over the entire component,
-   * or when there's focus inside the component. This makes
-   * sure the component remains simple when not in use.
-   */
-  @media (hover: hover) {
-    .PRIVATE_TreeView-item-level-line {
-      border-color: transparent;
+      &:focus-visible > div,
+      &.focus-visible > div {
+        box-shadow: inset 0 0 0 2px ${get(`colors.accent.fg`)};
+        @media (forced-colors: active) {
+          outline: 2px solid HighlightText;
+          outline-offset: -2;
+        }
+      }
+      &[data-has-leading-action] {
+        --has-leading-action: 1;
+      }
     }
 
-    &:hover .PRIVATE_TreeView-item-level-line,
-    &:focus-within .PRIVATE_TreeView-item-level-line {
+    .PRIVATE_TreeView-item-container {
+      --level: 1; /* default level */
+      --toggle-width: 1rem; /* 16px */
+      --min-item-height: 2rem; /* 32px */
+      position: relative;
+      display: grid;
+      --leading-action-width: calc(var(--has-leading-action, 0) * 1.5rem);
+      --spacer-width: calc(calc(var(--level) - 1) * (var(--toggle-width) / 2));
+      grid-template-columns: var(--spacer-width) var(--leading-action-width) var(--toggle-width) 1fr;
+      grid-template-areas: 'spacer leadingAction toggle content';
+      width: 100%;
+      font-size: ${get('fontSizes.1')};
+      color: ${get('colors.fg.default')};
+      border-radius: ${get('radii.2')};
+      cursor: pointer;
+
+      &:hover {
+        background-color: ${get('colors.actionListItem.default.hoverBg')};
+
+        @media (forced-colors: active) {
+          outline: 2px solid transparent;
+          outline-offset: -2px;
+        }
+      }
+
+      @media (pointer: coarse) {
+        --toggle-width: 1.5rem; /* 24px */
+        --min-item-height: 2.75rem; /* 44px */
+      }
+
+      &:has(.PRIVATE_TreeView-item-skeleton):hover {
+        background-color: transparent;
+        cursor: default;
+
+        @media (forced-colors: active) {
+          outline: none;
+        }
+      }
+    }
+
+    &[data-omit-spacer='true'] .PRIVATE_TreeView-item-container {
+      grid-template-columns: 0 0 0 1fr;
+    }
+
+    .PRIVATE_TreeView-item[aria-current='true'] > .PRIVATE_TreeView-item-container {
+      background-color: ${get('colors.actionListItem.default.selectedBg')};
+
+      /* Current item indicator */
+      &::after {
+        content: '';
+        position: absolute;
+        top: calc(50% - 0.75rem); /* 50% - 12px */
+        left: -${get('space.2')};
+        width: 0.25rem; /* 4px */
+        height: 1.5rem; /* 24px */
+        background-color: ${get('colors.accent.fg')};
+        border-radius: ${get('radii.2')};
+
+        @media (forced-colors: active) {
+          background-color: HighlightText;
+        }
+      }
+    }
+
+    .PRIVATE_TreeView-item-toggle {
+      grid-area: toggle;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      /* The toggle should appear vertically centered for single-line items, but remain at the top for items that wrap
+    across more lines. */
+      padding-top: calc(var(--min-item-height) / 2 - ${TOGGLE_ICON_SIZE}px / 2);
+      height: 100%;
+      color: ${get('colors.fg.muted')};
+    }
+
+    .PRIVATE_TreeView-item-toggle--hover:hover {
+      background-color: ${get('colors.treeViewItem.chevron.hoverBg')};
+    }
+
+    .PRIVATE_TreeView-item-toggle--end {
+      border-top-left-radius: ${get('radii.2')};
+      border-bottom-left-radius: ${get('radii.2')};
+    }
+
+    .PRIVATE_TreeView-item-content {
+      grid-area: content;
+      display: flex;
+      height: 100%;
+      padding: 0 ${get('space.2')};
+      gap: ${get('space.2')};
+      line-height: var(--custom-line-height, var(--text-body-lineHeight-medium, 1.4285));
+      /* The dynamic top and bottom padding to maintain the minimum item height for single line items */
+      padding-top: calc((var(--min-item-height) - var(--custom-line-height, 1.3rem)) / 2);
+      padding-bottom: calc((var(--min-item-height) - var(--custom-line-height, 1.3rem)) / 2);
+    }
+
+    .PRIVATE_TreeView-item-content-text {
+      flex: 1 1 auto;
+      width: 0;
+    }
+
+    &[data-truncate-text='true'] .PRIVATE_TreeView-item-content-text {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    &[data-truncate-text='false'] .PRIVATE_TreeView-item-content-text {
+      word-break: break-word;
+    }
+
+    .PRIVATE_TreeView-item-visual {
+      display: flex;
+      align-items: center;
+      color: ${get('colors.fg.muted')};
+      /* The visual icons should appear vertically centered for single-line items, but remain at the top for items that wrap
+    across more lines. */
+      height: var(--custom-line-height, 1.3rem);
+    }
+
+    .PRIVATE_TreeView-item-leading-action {
+      display: flex;
+      color: ${get('colors.fg.muted')};
+      grid-area: leadingAction;
+    }
+
+    .PRIVATE_TreeView-item-level-line {
+      width: 100%;
+      height: 100%;
+      border-right: 1px solid;
+
+      /*
+       * On devices without hover, the nesting indicator lines
+       * appear at all times.
+       */
       border-color: ${get('colors.border.subtle')};
     }
-  }
 
-  .PRIVATE_TreeView-directory-icon {
-    display: grid;
-    color: ${get('colors.treeViewItem.directory.fill')};
-  }
+    /*
+     * On devices with :hover support, the nesting indicator lines
+     * fade in when the user mouses over the entire component,
+     * or when there's focus inside the component. This makes
+     * sure the component remains simple when not in use.
+     */
+    @media (hover: hover) {
+      .PRIVATE_TreeView-item-level-line {
+        border-color: transparent;
+      }
 
-  .PRIVATE_VisuallyHidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-  }
-`
+      &:hover .PRIVATE_TreeView-item-level-line,
+      &:focus-within .PRIVATE_TreeView-item-level-line {
+        border-color: ${get('colors.border.subtle')};
+      }
+    }
+
+    .PRIVATE_TreeView-directory-icon {
+      display: grid;
+      color: ${get('colors.treeViewItem.directory.fill')};
+    }
+
+    .PRIVATE_VisuallyHidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    ${sx}
+  `,
+)
 
 const Root: React.FC<TreeViewProps> = ({
   'aria-label': ariaLabel,
@@ -327,6 +338,8 @@ const Root: React.FC<TreeViewProps> = ({
     expandedStateCache.current = new Map()
   }
 
+  const cssModulesEnabled = useFeatureFlag('primer_react_tree_view_css_modules')
+
   return (
     <RootContext.Provider
       value={{
@@ -346,7 +359,7 @@ const Root: React.FC<TreeViewProps> = ({
           data-omit-spacer={flat}
           data-truncate-text={truncate || false}
           onMouseDown={onMouseDown}
-          className={className}
+          className={clsx(className, {[classes.TreeViewRootUlStyles]: cssModulesEnabled})}
           style={style}
         >
           {children}
