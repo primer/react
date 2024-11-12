@@ -4,7 +4,6 @@ import type {KeyboardEventHandler} from 'react'
 import React, {useCallback, useEffect, useRef} from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
-import Spinner from '../Spinner'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {get} from '../constants'
@@ -22,6 +21,9 @@ import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
 import {useAnnouncements} from './useAnnouncements'
 
+import {Loading} from '../FilteredActionList/Loaders'
+import type {LoadingTypes} from '../FilteredActionList/Loaders'
+
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
 export interface FilteredActionListProps
@@ -29,6 +31,7 @@ export interface FilteredActionListProps
     ListPropsBase,
     SxProp {
   loading?: boolean
+  loadingType?: LoadingTypes
   placeholderText?: string
   filterValue?: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
@@ -52,6 +55,7 @@ export function FilteredActionList({
   sx,
   groupMetadata,
   showItemDividers,
+  loadingType,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -150,11 +154,19 @@ export function FilteredActionList({
         />
       </StyledHeader>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
-      <Box ref={scrollContainerRef} overflow="auto">
+      <Box
+        ref={scrollContainerRef}
+        sx={{
+          overflow: 'auto',
+          // To be able to align the spinner centrally
+          '&:has([data-attribute="data-loading"])': {
+            height: '100%',
+            alignContent: 'center',
+          },
+        }}
+      >
         {loading ? (
-          <Box width="100%" display="flex" flexDirection="row" justifyContent="center" pt={6} pb={7}>
-            <Spinner />
-          </Box>
+          <Loading data-attribute="data-loading" type={loadingType} />
         ) : (
           <ActionList ref={listContainerRef} showDividers={showItemDividers} {...listProps} role="listbox" id={listId}>
             {groupMetadata?.length
