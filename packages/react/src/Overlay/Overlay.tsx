@@ -139,7 +139,7 @@ type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
  * @param bottom Optional. Vertical bottom position of the overlay, relative to its closest positioned ancestor (often its `Portal`).
  * @param position Optional. Sets how an element is positioned in a document. Defaults to `absolute` positioning.
  * @param portalContainerName Optional. The name of the portal container to render the Overlay into.
- * @param preventOverflow Optional. The Overlay width will be adjusted responsively if width is `auto`, `medium` or lower and there is not enough space to display the Overlay. If `preventOverflow` is `true`, the width of the `Overlay` will not be adjusted.
+ * @param preventOverflow Optional. The Overlay width will be adjusted responsively if there is not enough space to display the Overlay. If `preventOverflow` is `true`, the width of the `Overlay` will not be adjusted.
  */
 const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
   (
@@ -207,10 +207,8 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
 
     // To be backwards compatible with the old Overlay, we need to set the left prop if x-position is not specified
     const leftPosition: React.CSSProperties = left === undefined && right === undefined ? {left: 0} : {left}
-    const reflowSize = ['xsmall', 'small', 'medium', 'auto'].includes(width)
 
     const enabled = useFeatureFlag('primer_react_overlay_overflow')
-    const overflow = enabled && reflowSize ? true : undefined
 
     return (
       <Portal containerName={portalContainerName}>
@@ -231,7 +229,7 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
               ...styleFromProps,
             } as React.CSSProperties
           }
-          data-reflow-container={overflow || (reflowSize && !preventOverflow) ? true : undefined}
+          data-reflow-container={enabled || !preventOverflow ? true : undefined}
         />
       </Portal>
     )
