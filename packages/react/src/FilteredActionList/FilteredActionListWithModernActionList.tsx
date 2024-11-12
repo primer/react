@@ -36,6 +36,7 @@ export interface FilteredActionListProps
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
+  message?: React.ReactNode[]
 }
 
 const StyledHeader = styled.div`
@@ -55,6 +56,7 @@ export function FilteredActionList({
   sx,
   groupMetadata,
   showItemDividers,
+  message,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
@@ -160,9 +162,11 @@ export function FilteredActionList({
         />
       </StyledHeader>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
-      <Box ref={scrollContainerRef} overflow="auto" display="flex" flexGrow={1}>
+      <Box ref={scrollContainerRef} sx={{overflow: 'auto', height: '100%', display: 'flex', flexGrow: '1'}}>
         {loading && scrollContainerRef.current && loadingType.appearsInBody ? (
           <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerRef.current.clientHeight} />
+        ) : message && message.length > 0 ? (
+          message
         ) : (
           <ActionList
             ref={listContainerRefCallback}

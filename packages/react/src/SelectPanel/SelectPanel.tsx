@@ -1,5 +1,5 @@
 import {SearchIcon, TriangleDownIcon} from '@primer/octicons-react'
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react'
+import React, {useCallback, useEffect, useMemo, useRef, useState, type ReactNode} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
 import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
@@ -10,6 +10,7 @@ import Heading from '../Heading'
 import type {OverlayProps} from '../Overlay'
 import type {TextInputProps} from '../TextInput'
 import type {ItemProps, ItemInput} from './types'
+import {SelectPanelMessage} from './SelectPanelMessage'
 
 import {Button} from '../Button'
 import {useProvidedRefOrCreate} from '../hooks'
@@ -50,11 +51,13 @@ interface SelectPanelBaseProps {
   initialLoadingType?: InitialLoadingType
 }
 
-export type SelectPanelProps = SelectPanelBaseProps &
-  Omit<FilteredActionListProps, 'selectionVariant'> &
-  Pick<AnchoredOverlayProps, 'open' | 'height'> &
-  AnchoredOverlayWrapperAnchorProps &
-  (SelectPanelSingleSelection | SelectPanelMultiSelection)
+export type SelectPanelProps = React.PropsWithChildren<
+  SelectPanelBaseProps &
+    Omit<FilteredActionListProps, 'selectionVariant'> &
+    Pick<AnchoredOverlayProps, 'open' | 'height'> &
+    AnchoredOverlayWrapperAnchorProps &
+    (SelectPanelSingleSelection | SelectPanelMultiSelection)
+>
 
 function isMultiSelectVariant(
   selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
@@ -77,7 +80,7 @@ const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
   return items.some(i => areItemsEqual(i, item))
 }
 
-export function SelectPanel({
+function Panel({
   open,
   onOpenChange,
   renderAnchor = props => {
@@ -106,6 +109,7 @@ export function SelectPanel({
   loading,
   initialLoadingType = 'spinner',
   height,
+  children,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const inputRef = React.useRef<HTMLInputElement>(null)
@@ -279,6 +283,62 @@ export function SelectPanel({
   }
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
 
+  // If there is no items after the first load, show the no items state
+  const isNoItemsState = items.length === 0 && dataLoadedOnce && !loading && filterValue === ''
+  // If there is no items after the first load and the user is filtering, show the no match state
+  const isNoMatchState = items.length === 0 && dataLoadedOnce && !loading && filterValue !== ''
+
+  function getCurrentMessage(children: ReactNode): ReactNode[] {
+    const variantMap = new Map<string, React.ReactElement>()
+
+    for (const child of React.Children.toArray(children)) {
+      if (React.isValidElement(child)) {
+        const variant = child.props.variant ?? null
+        if (variant === 'noInitialItems' && isNoItemsState) {
+          variantMap.set('noInitialItems', child)
+        } else if (variant === 'noFilteredItems' && isNoMatchState) {
+          variantMap.set('noFilteredItems', child)
+        } else if (variant === 'error' || variant === 'warning') {
+          variantMap.set(variant, child)
+        }
+      }
+    }
+
+    const priorityOrder = ['error', 'warning', 'noInitialItems', 'noFilteredItems']
+
+    for (const key of priorityOrder) {
+      if (variantMap.has(key)) {
+        return [variantMap.get(key)!]
+      }
+    }
+
+    // Return a default message if there is no custom message is provided.
+    if (isNoItemsState)
+      return [
+        <SelectPanel.Message
+          title="You haven't created any items yet"
+          variant="noInitialItems"
+          key="default-noInitialItems"
+        >
+          Please add or create new items to populate the list.
+        </SelectPanel.Message>,
+      ]
+    else if (isNoMatchState)
+      return [
+        <SelectPanel.Message
+          title={`No items found for ${filterValue}`}
+          variant="noFilteredItems"
+          key="default-noFilteredItems"
+        >
+          Adjust your search term to find other items.
+        </SelectPanel.Message>,
+      ]
+    else return []
+  }
+
+  // We don't need to call this function when the flag is off but we will implement the empty state for the deprecated SelectPanel in the follow up PR, so I am keeping it as is for now.
+  const currentMessage = getCurrentMessage(children)
+
   return (
     <LiveRegion>
       <AnchoredOverlay
@@ -336,6 +396,8 @@ export function SelectPanel({
             inputRef={inputRef}
             loading={loading || isLoading}
             loadingType={loadingType()}
+            // TODO: We will remove the flag in the follow up PR and make sure that the messages are properly implemented for the deprecated SelectPanel as well.
+            {...(usingModernActionList ? {message: currentMessage} : undefined)}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
             sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
@@ -358,4 +420,8 @@ export function SelectPanel({
   )
 }
 
-SelectPanel.displayName = 'SelectPanel'
+Panel.displayName = 'SelectPanel'
+
+export const SelectPanel = Object.assign(Panel, {
+  Message: SelectPanelMessage,
+})
