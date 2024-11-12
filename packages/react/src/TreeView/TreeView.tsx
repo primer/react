@@ -766,46 +766,62 @@ function usePreviousValue<T>(value: T): T {
   return ref.current
 }
 
-const StyledSkeletonItemContainer = styled.span.attrs({className: 'PRIVATE_TreeView-item-skeleton'})`
-  display: flex;
-  align-items: center;
-  column-gap: 0.5rem;
-  height: 2rem;
+const StyledSkeletonItemContainer = toggleStyledComponent(
+  'primer_react_tree_view_css_modules',
+  'span',
+  styled.span.attrs({
+    className: 'PRIVATE_TreeView-item-skeleton',
+  })`
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    height: 2rem;
 
-  @media (pointer: coarse) {
-    height: 2.75rem;
-  }
+    @media (pointer: coarse) {
+      height: 2.75rem;
+    }
 
-  &:nth-of-type(5n + 1) {
-    --tree-item-loading-width: 67%;
-  }
+    &:nth-of-type(5n + 1) {
+      --tree-item-loading-width: 67%;
+    }
 
-  &:nth-of-type(5n + 2) {
-    --tree-item-loading-width: 47%;
-  }
+    &:nth-of-type(5n + 2) {
+      --tree-item-loading-width: 47%;
+    }
 
-  &:nth-of-type(5n + 3) {
-    --tree-item-loading-width: 73%;
-  }
+    &:nth-of-type(5n + 3) {
+      --tree-item-loading-width: 73%;
+    }
 
-  &:nth-of-type(5n + 4) {
-    --tree-item-loading-width: 64%;
-  }
+    &:nth-of-type(5n + 4) {
+      --tree-item-loading-width: 64%;
+    }
 
-  &:nth-of-type(5n + 5) {
-    --tree-item-loading-width: 50%;
-  }
-`
+    &:nth-of-type(5n + 5) {
+      --tree-item-loading-width: 50%;
+    }
+  `,
+)
 
-const StyledSkeletonText = styled(SkeletonText)`
-  width: var(--tree-item-loading-width, 67%);
-`
+const StyledSkeletonText = toggleStyledComponent(
+  'primer_react_tree_view_css_modules',
+  SkeletonText,
+  styled(SkeletonText)`
+    width: var(--tree-item-loading-width, 67%);
+  `,
+)
 
 const SkeletonItem = () => {
+  const cssModulesEnabled = useFeatureFlag('primer_react_tree_view_css_modules')
   return (
-    <StyledSkeletonItemContainer>
+    <StyledSkeletonItemContainer
+      className={clsx(
+        {[(classes.TreeViewSkeletonItemContainerStyles, classes.PRIVATE_TreeViewItemSkeleton)]: cssModulesEnabled},
+        'PRIVATE_TreeView-item-skeleton',
+      )}
+    >
       <SkeletonAvatar size={16} square />
-      <StyledSkeletonText />
+      <StyledSkeletonText className={clsx({[classes.TreeItemSkeletonTextStyles]: cssModulesEnabled})} />
     </StyledSkeletonItemContainer>
   )
 }
