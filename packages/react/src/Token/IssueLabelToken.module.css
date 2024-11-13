@@ -1,0 +1,8 @@
+.IssueLabel[data-has-remove-button='true'] {
+  padding-right: 0;
+}
+
+.RemoveButton[data-has-multiple-action-targets='true'] {
+  position: relative;
+  z-index: 1;
+}
