@@ -2,4 +2,4 @@
 "@primer/react": minor
 ---
 
-Remove width props from TextInput
+Deprecate width, minWidth and maxWidth props from TextInput

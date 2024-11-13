@@ -1,5 +1,7 @@
 import React, {type ComponentProps} from 'react'
 import styled from 'styled-components'
+import {maxWidth, minWidth, width, type ResponsiveValue} from 'styled-system'
+import {get} from '../../constants'
 import type {SxProp} from '../../sx'
 import sx from '../../sx'
 import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
@@ -23,11 +25,16 @@ type StyledTextInputBaseWrapperProps = {
   /** @deprecated Use `size` prop instead */
   variant?: TextInputSizes
   size?: TextInputSizes
-  width?: string
   className?: string
   style?: React.CSSProperties
   onClick?: React.MouseEventHandler
   children?: React.ReactNode
+  /** @deprecated Update `width` using CSS modules or style. */
+  width?: string | number | ResponsiveValue<string | number>
+  /** @deprecated Update `min-width` using CSS modules or style. */
+  minWidth?: string | number | ResponsiveValue<string | number>
+  /** @deprecated Update `max-width` using CSS modules or style. */
+  maxWidth?: string | number | ResponsiveValue<string | number>
 } & SxProp
 
 type StyledTextInputWrapperProps = {
@@ -39,19 +46,19 @@ const StyledTextInputBaseWrapper = toggleStyledComponent(
   TEXT_INPUT_CSS_MODULES_FEATURE_FLAG,
   'span',
   styled.span<StyledTextInputBaseWrapperProps>`
+    font-size: ${get('fontSizes.1')};
+    line-height: var(--base-size-20);
+    color: ${get('colors.fg.default')};
+    vertical-align: middle;
+    background-color: ${get('colors.canvas.default')};
+    border: 1px solid var(--control-borderColor-rest, ${get('colors.border.default')});
+    border-radius: ${get('radii.2')};
+    outline: none;
+    box-shadow: ${get('shadows.primer.shadow.inset')};
     display: inline-flex;
+    align-items: stretch;
     min-height: var(--base-size-32);
     overflow: hidden;
-    font-size: var(--text-body-size-medium);
-    line-height: var(--base-size-20);
-    color: var(--fgColor-default);
-    vertical-align: middle;
-    background-color: var(--bgColor-default);
-    border: var(--borderWidth-thin) solid var(--control-borderColor-rest);
-    border-radius: var(--borderRadius-medium);
-    outline: none;
-    box-shadow: var(--shadow-inset);
-    align-items: stretch;
 
     input,
     textarea {
@@ -66,14 +73,14 @@ const StyledTextInputBaseWrapper = toggleStyledComponent(
     textarea,
     select {
       &::placeholder {
-        color: var(---control-fgColor-placeholder, var(--fgColor-muted));
+        color: var(---control-fgColor-placeholder, ${get('colors.fg.muted')});
       }
     }
 
     &:where([data-trailing-action][data-focused]),
     &:where(:not([data-trailing-action]):focus-within) {
-      border-color: var(--borderColor-accent-emphasis);
-      outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
+      border-color: ${get('colors.accent.fg')};
+      outline: 2px solid ${get('colors.accent.fg')};
       outline-offset: -1px;
     }
 
@@ -82,14 +89,14 @@ const StyledTextInputBaseWrapper = toggleStyledComponent(
     }
 
     &:where([data-contrast]) {
-      background-color: var(--bgColor-inset);
+      background-color: ${get('colors.canvas.inset')};
     }
 
     &:where([data-disabled]) {
-      color: var(--fgColor-disabled);
-      background-color: var(--control-bgColor-disabled);
-      border-color: var(--control-borderColor-disabled);
+      color: ${get('colors.primer.fg.disabled')};
+      background-color: ${get('colors.input.disabledBg')};
       box-shadow: none;
+      border-color: var(--control-borderColor-disabled, ${get('colors.border.default')});
 
       input,
       textarea,
@@ -99,32 +106,32 @@ const StyledTextInputBaseWrapper = toggleStyledComponent(
     }
 
     &:where([data-monospace]) {
-      font-family: var(--fontStack-monospace);
+      font-family: ${get('fonts.mono')};
     }
 
     &:where([data-validation='error']) {
-      border-color: var(--borderColor-danger-emphasis);
+      border-color: ${get('colors.danger.emphasis')};
 
       &:where([data-trailing-action][data-focused]),
       &:where(:not([data-trailing-action])):focus-within {
-        border-color: var(--fgColor-accent);
-        outline: 2px solid var(--fgColor-accent);
+        border-color: ${get('colors.accent.fg')};
+        outline: 2px solid ${get('colors.accent.fg')};
         outline-offset: -1px;
       }
     }
 
     &:where([data-validation='success']) {
-      border-color: var(--bgColor-success-emphasis);
+      border-color: ${get('colors.success.emphasis')};
     }
 
     &:where([data-block]) {
-      display: flex;
       width: 100%;
+      display: flex;
       align-self: stretch;
     }
 
     /* Ensures inputs don' t zoom on mobile but are body-font size on desktop */
-    @media (min-width: var(--breakpoint-medium)) {
+    @media (min-width: ${get('breakpoints.1')}) {
       font-size: var(--text-body-size-medium);
     }
 
@@ -173,6 +180,9 @@ const StyledTextInputBaseWrapper = toggleStyledComponent(
     }
 
     & {
+      ${width}
+      ${minWidth}
+      ${maxWidth}
       ${sx}
     }
   `,
