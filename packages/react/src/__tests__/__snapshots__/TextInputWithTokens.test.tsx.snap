@@ -481,8 +481,10 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -531,8 +533,10 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -581,8 +585,10 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -631,8 +637,10 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -681,8 +689,10 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -731,8 +741,10 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -781,8 +793,10 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -831,8 +845,10 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -1377,8 +1393,10 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -1427,8 +1445,10 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -2229,8 +2249,10 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -2279,8 +2301,10 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -2329,8 +2353,10 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -2379,8 +2405,10 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -2429,8 +2457,10 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -2479,8 +2509,10 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -2529,8 +2561,10 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -2579,8 +2613,10 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -3061,8 +3097,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="small"
         onClick={[Function]}
         size="small"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -3111,8 +3149,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="small"
         onClick={[Function]}
         size="small"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -3161,8 +3201,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="small"
         onClick={[Function]}
         size="small"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -3211,8 +3253,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="small"
         onClick={[Function]}
         size="small"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -3261,8 +3305,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="small"
         onClick={[Function]}
         size="small"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -3311,8 +3357,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="small"
         onClick={[Function]}
         size="small"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -3361,8 +3409,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="small"
         onClick={[Function]}
         size="small"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -3411,8 +3461,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="small"
         onClick={[Function]}
         size="small"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -3893,8 +3945,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="medium"
         onClick={[Function]}
         size="medium"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -3943,8 +3997,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="medium"
         onClick={[Function]}
         size="medium"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -3993,8 +4049,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="medium"
         onClick={[Function]}
         size="medium"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -4043,8 +4101,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="medium"
         onClick={[Function]}
         size="medium"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -4093,8 +4153,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="medium"
         onClick={[Function]}
         size="medium"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -4143,8 +4205,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="medium"
         onClick={[Function]}
         size="medium"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -4193,8 +4257,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="medium"
         onClick={[Function]}
         size="medium"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -4243,8 +4309,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="medium"
         onClick={[Function]}
         size="medium"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -4725,8 +4793,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="large"
         onClick={[Function]}
         size="large"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -4775,8 +4845,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="large"
         onClick={[Function]}
         size="large"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -4825,8 +4897,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="large"
         onClick={[Function]}
         size="large"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -4875,8 +4949,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="large"
         onClick={[Function]}
         size="large"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -4925,8 +5001,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="large"
         onClick={[Function]}
         size="large"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -4975,8 +5053,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="large"
         onClick={[Function]}
         size="large"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -5025,8 +5105,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="large"
         onClick={[Function]}
         size="large"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -5075,8 +5157,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="large"
         onClick={[Function]}
         size="large"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -5559,8 +5643,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -5609,8 +5695,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -5659,8 +5747,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -5709,8 +5799,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -5759,8 +5851,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -5809,8 +5903,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -5859,8 +5955,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -5909,8 +6007,10 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -6395,8 +6495,10 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -6445,8 +6547,10 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -6495,8 +6599,10 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -6545,8 +6651,10 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -6595,8 +6703,10 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -6645,8 +6755,10 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -6695,8 +6807,10 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -6745,8 +6859,10 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -7797,8 +7913,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -7847,8 +7965,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -7897,8 +8017,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -7947,8 +8069,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -7997,8 +8121,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -8047,8 +8173,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -8097,8 +8225,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -8147,8 +8277,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -8735,8 +8867,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c10"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -8785,8 +8919,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c10"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -8835,8 +8971,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c10"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -8885,8 +9023,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c10"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -8935,8 +9075,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c10"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -8985,8 +9127,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c10"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -9035,8 +9179,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c10"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -9085,8 +9231,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c10"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -9624,8 +9772,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -9674,8 +9824,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -9724,8 +9876,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -9774,8 +9928,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -9824,8 +9980,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -9874,8 +10032,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -9924,8 +10084,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -9974,8 +10136,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -10601,8 +10765,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -10651,8 +10817,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -10701,8 +10869,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -10751,8 +10921,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -10801,8 +10973,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -10851,8 +11025,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -10901,8 +11077,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -10951,8 +11129,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -11578,8 +11758,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -11628,8 +11810,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -11678,8 +11862,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -11728,8 +11914,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -11778,8 +11966,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -11828,8 +12018,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -11878,8 +12070,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -11928,8 +12122,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -12556,8 +12752,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -12606,8 +12804,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -12656,8 +12856,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -12706,8 +12908,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -12756,8 +12960,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -12806,8 +13012,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -12856,8 +13064,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -12906,8 +13116,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -13454,8 +13666,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -13504,8 +13718,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -13554,8 +13770,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -13604,8 +13822,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -13654,8 +13874,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -13704,8 +13926,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -13754,8 +13978,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -13804,8 +14030,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -14432,8 +14660,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c10"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -14482,8 +14712,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c10"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -14532,8 +14764,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c10"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -14582,8 +14816,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c10"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -14632,8 +14868,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c10"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -14682,8 +14920,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c10"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -14732,8 +14972,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c10"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -14782,8 +15024,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c10"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -15360,8 +15604,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -15410,8 +15656,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -15460,8 +15708,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -15510,8 +15760,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -15560,8 +15812,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -15610,8 +15864,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -15660,8 +15916,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -15710,8 +15968,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c8"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -16375,8 +16635,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="small"
           onClick={[Function]}
           size="small"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -16425,8 +16687,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="small"
           onClick={[Function]}
           size="small"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -16475,8 +16739,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="small"
           onClick={[Function]}
           size="small"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -16525,8 +16791,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="small"
           onClick={[Function]}
           size="small"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -16575,8 +16843,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="small"
           onClick={[Function]}
           size="small"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -16625,8 +16895,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="small"
           onClick={[Function]}
           size="small"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -16675,8 +16947,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="small"
           onClick={[Function]}
           size="small"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -16725,8 +16999,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="small"
           onClick={[Function]}
           size="small"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -17392,8 +17668,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -17442,8 +17720,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -17492,8 +17772,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -17542,8 +17824,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -17592,8 +17876,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -17642,8 +17928,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -17692,8 +17980,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -17742,8 +18032,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="xlarge"
           onClick={[Function]}
           size="xlarge"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -18407,8 +18699,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="large"
           onClick={[Function]}
           size="large"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -18457,8 +18751,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="large"
           onClick={[Function]}
           size="large"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -18507,8 +18803,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="large"
           onClick={[Function]}
           size="large"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -18557,8 +18855,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="large"
           onClick={[Function]}
           size="large"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -18607,8 +18907,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="large"
           onClick={[Function]}
           size="large"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -18657,8 +18959,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="large"
           onClick={[Function]}
           size="large"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -18707,8 +19011,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="large"
           onClick={[Function]}
           size="large"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -18757,8 +19063,10 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         <span
           aria-hidden="true"
           className="c11"
+          data-size="large"
           onClick={[Function]}
           size="large"
+          style={{}}
           tabIndex={-1}
         >
           <svg
@@ -19315,8 +19623,10 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -19365,8 +19675,10 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -19415,8 +19727,10 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -19465,8 +19779,10 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -19515,8 +19831,10 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -19565,8 +19883,10 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -19615,8 +19935,10 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -19665,8 +19987,10 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       <span
         aria-hidden="true"
         className="c8"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -20143,8 +20467,10 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       <span
         aria-hidden="true"
         className="c7"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -20188,8 +20514,10 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       <span
         aria-hidden="true"
         className="c7"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -20233,8 +20561,10 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       <span
         aria-hidden="true"
         className="c7"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -20278,8 +20608,10 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       <span
         aria-hidden="true"
         className="c7"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -20323,8 +20655,10 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       <span
         aria-hidden="true"
         className="c7"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -20368,8 +20702,10 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       <span
         aria-hidden="true"
         className="c7"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -20413,8 +20749,10 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       <span
         aria-hidden="true"
         className="c7"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
@@ -20458,8 +20796,10 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       <span
         aria-hidden="true"
         className="c7"
+        data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
+        style={{}}
         tabIndex={-1}
       >
         <svg
