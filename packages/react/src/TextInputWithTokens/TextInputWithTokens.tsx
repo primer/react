@@ -92,8 +92,6 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
     hideTokenRemoveButtons = false,
     maxHeight,
     width: widthProp,
-    minWidth: minWidthProp,
-    maxWidth: maxWidthProp,
     validationStatus,
     variant: variantProp, // deprecated. use `size` instead
     visibleTokenCount,
@@ -305,14 +303,40 @@ function TextInputWithTokensInnerComponent<TokenComponentType extends AnyReactCo
       hasLeadingVisual={Boolean(LeadingVisual || showLeadingLoadingIndicator)}
       hasTrailingVisual={Boolean(TrailingVisual || showTrailingLoadingIndicator)}
       width={widthProp}
-      minWidth={minWidthProp}
-      maxWidth={maxWidthProp}
       size={inputSizeMap[size]}
       validationStatus={validationStatus}
       variant={variantProp} // deprecated. use `size` prop instead
       onClick={focusInput}
+<<<<<<< HEAD
       data-token-wrapping={Boolean(preventTokenWrapping || maxHeight) || undefined}
       {...stylingProps}
+=======
+      sx={{
+        paddingLeft: '12px',
+        py: `calc(12px / 2)`,
+        ...(block
+          ? {
+              display: 'flex',
+              width: '100%',
+            }
+          : {}),
+
+        ...(maxHeight
+          ? {
+              maxHeight,
+              overflow: 'auto',
+            }
+          : {}),
+
+        ...(preventTokenWrapping
+          ? {
+              overflow: 'auto',
+            }
+          : {}),
+
+        ...sxProp,
+      }}
+>>>>>>> c20c57a3ab8b0c19159a9ad0dde9c9bd13bb7867
     >
       {IconComponent && !LeadingVisual && <IconComponent className="TextInput-icon" />}
       <TextInputInnerVisualSlot

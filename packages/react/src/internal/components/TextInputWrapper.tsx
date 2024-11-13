@@ -26,10 +26,8 @@ type StyledTextInputBaseWrapperProps = {
   /** @deprecated Use `size` prop instead */
   variant?: TextInputSizes
   size?: TextInputSizes
-} & WidthProps &
-  MinWidthProps &
-  MaxWidthProps &
-  SxProp &
+  width?: string
+} & SxProp &
   ComponentPropsWithoutRef<'span'>
 
 type StyledTextInputWrapperProps = {
@@ -175,9 +173,6 @@ const StyledTextInputBaseWrapper = toggleStyledComponent(
     }
 
     & {
-      ${width}
-      ${minWidth}
-      ${maxWidth}
       ${sx}
     }
   `,
@@ -198,67 +193,29 @@ export const TextInputBaseWrapper = React.forwardRef<HTMLElement, StyledTextInpu
       monospace,
       block,
       width,
-      minWidth,
-      maxWidth,
       ...restProps
     },
     forwardRef,
   ) {
     const enabled = useFeatureFlag(TEXT_INPUT_CSS_MODULES_FEATURE_FLAG)
 
-    if (enabled) {
-      let cssStyle: React.CSSProperties = {}
-      if (typeof width === 'string') {
-        cssStyle.width = width
-      }
-      if (typeof minWidth === 'string') {
-        cssStyle.minWidth = minWidth
-      }
-      if (typeof maxWidth === 'string') {
-        cssStyle.maxWidth = maxWidth
-      }
-      if (style) {
-        cssStyle = {...cssStyle, ...style}
-      }
-
-      return (
-        <StyledTextInputBaseWrapper
-          ref={forwardRef}
-          className={clsx(className, styles.TextInputBaseWrapper)}
-          data-block={block || undefined}
-          data-contrast={contrast || undefined}
-          data-disabled={disabled || undefined}
-          data-focused={isInputFocused || undefined}
-          data-monospace={monospace || undefined}
-          data-size={size || undefined}
-          data-trailing-action={hasTrailingAction || undefined}
-          data-validation={validationStatus || undefined}
-          data-variant={variant || undefined}
-          style={cssStyle}
-          {...restProps}
-        />
-      )
-    } else {
-      const styleAndWidthProps = {width, minWidth, maxWidth, style}
-
-      return (
-        <StyledTextInputBaseWrapper
-          ref={forwardRef}
-          className={className}
-          data-block={block || undefined}
-          data-contrast={contrast || undefined}
-          data-disabled={disabled || undefined}
-          data-focused={isInputFocused || undefined}
-          data-monospace={monospace || undefined}
-          data-size={size || undefined}
-          data-trailing-action={hasTrailingAction || undefined}
-          data-validation={validationStatus || undefined}
-          data-variant={variant || undefined}
-          {...styleAndWidthProps}
-          {...restProps}
-        />
-      )
-    }
+    return (
+      <StyledTextInputBaseWrapper
+        ref={forwardRef}
+        className={clsx(className, enabled && styles.TextInputBaseWrapper)}
+        data-block={block || undefined}
+        data-contrast={contrast || undefined}
+        data-disabled={disabled || undefined}
+        data-focused={isInputFocused || undefined}
+        data-monospace={monospace || undefined}
+        data-size={size || undefined}
+        data-trailing-action={hasTrailingAction || undefined}
+        data-validation={validationStatus || undefined}
+        data-variant={variant || undefined}
+        style={width ? {width, ...style} : style}
+        {...restProps}
+      />
+    )
   },
 )
 TextInputBaseWrapper.displayName = 'TextInputBaseWrapper'

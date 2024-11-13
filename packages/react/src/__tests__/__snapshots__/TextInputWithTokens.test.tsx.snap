@@ -238,6 +238,19 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   padding-left: 0;
 }
 
+.c1 {
+  padding-right: 0;
+  padding-left: 0;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
 .c1 > :not(:last-child) {
   margin-right: var(--base-size-8);
 }
@@ -1163,6 +1176,19 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   padding-left: 12px;
   padding-top: 6px;
   padding-bottom: 6px;
+}
+
+.c1 {
+  padding-right: 0;
+  padding-left: 0;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 {
@@ -2885,6 +2911,19 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   padding-left: 0;
 }
 
+.c1 {
+  padding-right: 0;
+  padding-left: 0;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
 .c1 > :not(:last-child) {
   margin-right: var(--base-size-8);
 }
@@ -3718,6 +3757,19 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   padding-left: 12px;
   padding-top: 6px;
   padding-bottom: 6px;
+}
+
+.c1 {
+  padding-right: 0;
+  padding-left: 0;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 {
@@ -4581,6 +4633,19 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   padding-left: 0;
 }
 
+.c1 {
+  padding-right: 0;
+  padding-left: 0;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
 .c1 > :not(:last-child) {
   margin-right: var(--base-size-8);
 }
@@ -5414,6 +5479,19 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   padding-left: 12px;
   padding-top: 6px;
   padding-bottom: 6px;
+}
+
+.c1 {
+  padding-right: 0;
+  padding-left: 0;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 {
@@ -7132,6 +7210,19 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   padding-left: 0;
 }
 
+.c1 {
+  padding-right: 0;
+  padding-left: 0;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
 .c1 > :not(:last-child) {
   margin-right: var(--base-size-8);
 }
@@ -7699,6 +7790,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-left: 0;
 }
 
+.c1 {
+  padding-right: 0;
+  padding-left: 0;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
 .c1 > :not(:last-child) {
   margin-right: var(--base-size-8);
 }
@@ -8595,6 +8699,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-left: 12px;
   padding-top: 6px;
   padding-bottom: 6px;
+}
+
+.c1 {
+  padding-right: 0;
+  padding-left: 0;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 {
@@ -9558,6 +9675,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-left: 0;
 }
 
+.c1 {
+  padding-right: 0;
+  padding-left: 0;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
 .c1 > :not(:last-child) {
   margin-right: var(--base-size-8);
 }
@@ -10478,6 +10608,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-left: 0;
 }
 
+.c1 {
+  padding-right: 0;
+  padding-left: 0;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
 .c1 > :not(:last-child) {
   margin-right: var(--base-size-8);
 }
@@ -11471,6 +11614,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-left: 0;
 }
 
+.c1 {
+  padding-right: 0;
+  padding-left: 0;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
 .c1 > :not(:last-child) {
   margin-right: var(--base-size-8);
 }
@@ -12449,6 +12605,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-left: 12px;
   padding-top: 6px;
   padding-bottom: 6px;
+}
+
+.c1 {
+  padding-right: 0;
+  padding-left: 0;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 {
@@ -13437,6 +13606,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-left: 12px;
   padding-top: 6px;
   padding-bottom: 6px;
+}
+
+.c1 {
+  padding-right: 0;
+  padding-left: 0;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 {
@@ -14402,6 +14584,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-left: 0;
 }
 
+.c1 {
+  padding-right: 0;
+  padding-left: 0;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
 .c1 > :not(:last-child) {
   margin-right: var(--base-size-8);
 }
@@ -15375,6 +15570,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-left: 12px;
   padding-top: 6px;
   padding-bottom: 6px;
+}
+
+.c1 {
+  padding-right: 0;
+  padding-left: 0;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 {
@@ -16334,6 +16542,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-left: 12px;
   padding-top: 6px;
   padding-bottom: 6px;
+}
+
+.c1 {
+  padding-right: 0;
+  padding-left: 0;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 {
@@ -17380,6 +17601,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-left: 0;
 }
 
+.c1 {
+  padding-right: 0;
+  padding-left: 0;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
 .c1 > :not(:last-child) {
   margin-right: var(--base-size-8);
 }
@@ -18413,6 +18647,19 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   padding-left: 0;
 }
 
+.c1 {
+  padding-right: 0;
+  padding-left: 0;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
 .c1 > :not(:last-child) {
   margin-right: var(--base-size-8);
 }
@@ -19410,6 +19657,19 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   padding-left: 0;
 }
 
+.c1 {
+  padding-right: 0;
+  padding-left: 0;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
 .c1 > :not(:last-child) {
   margin-right: var(--base-size-8);
 }
@@ -20232,6 +20492,19 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   padding-left: 12px;
   padding-top: 6px;
   padding-bottom: 6px;
+}
+
+.c1 {
+  padding-right: 0;
+  padding-left: 0;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 {
