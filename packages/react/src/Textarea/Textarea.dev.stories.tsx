@@ -7,7 +7,7 @@ export default {
   component: Textarea,
 } as Meta
 
-export const Default = () => (
+export const DevDefault = () => (
   <Box as="form">
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
