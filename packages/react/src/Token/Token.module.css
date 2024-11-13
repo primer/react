@@ -3,7 +3,7 @@
   color: var(--fgColor-muted);
   background-color: var(--bgColor-neutral-muted);
   border-color: var(--borderColor-muted);
-  border-style: 'solid';
+  border-style: solid;
 }
 
 .Token[data-interactive='true']:hover {
