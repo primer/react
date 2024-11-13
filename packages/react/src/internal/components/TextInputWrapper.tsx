@@ -1,8 +1,5 @@
 import React, {type ComponentProps, type ComponentPropsWithoutRef} from 'react'
 import styled from 'styled-components'
-import type {MaxWidthProps, MinWidthProps, WidthProps} from 'styled-system'
-import {maxWidth, minWidth, variant, width} from 'styled-system'
-import {get} from '../../constants'
 import type {SxProp} from '../../sx'
 import sx from '../../sx'
 import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
