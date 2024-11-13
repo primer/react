@@ -103,7 +103,7 @@ const Token = forwardRef((props, forwardedRef) => {
       {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
       {...rest}
       ref={forwardedRef}
-      style={enabled ? {borderWidth: `${tokenBorderWidthPx}px`, ...style} : {}}
+      style={enabled ? {borderWidth: `${tokenBorderWidthPx}px`, ...style} : style}
     >
       {LeadingVisual ? (
         <LeadingVisualContainer size={size}>

@@ -2419,7 +2419,7 @@ exports[`Token components IssueLabelToken renders isSelected 1`] = `
 <span
   className="c0"
   data-cursor-is-interactive={false}
-  data-has-remove-button={true}
+  data-has-remove-button={false}
   data-size="medium"
   onKeyDown={[Function]}
   size="medium"

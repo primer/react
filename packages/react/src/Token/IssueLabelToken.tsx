@@ -150,7 +150,7 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
       size={size}
       sx={!enabled ? labelStyles : {}}
       style={enabled ? labelStyles : {}}
-      data-has-remove-button={!hideRemoveButton && onRemove}
+      data-has-remove-button={!hideRemoveButton && !!onRemove}
       {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
       {...rest}
       ref={forwardedRef}
