@@ -1760,7 +1760,7 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   width: 100%;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }

@@ -1,6 +1,6 @@
 import React, {type ComponentProps} from 'react'
 import styled from 'styled-components'
-import {maxWidth, minWidth, width, type ResponsiveValue} from 'styled-system'
+import {maxWidth as maxWidthFn, minWidth as minWidthFn, width as widthFn, type ResponsiveValue} from 'styled-system'
 import {get} from '../../constants'
 import type {SxProp} from '../../sx'
 import sx from '../../sx'
@@ -180,9 +180,9 @@ const StyledTextInputBaseWrapper = toggleStyledComponent(
     }
 
     & {
-      ${width}
-      ${minWidth}
-      ${maxWidth}
+      ${widthFn}
+      ${minWidthFn}
+      ${maxWidthFn}
       ${sx}
     }
   `,
@@ -203,11 +203,14 @@ export const TextInputBaseWrapper = React.forwardRef<HTMLElement, StyledTextInpu
       monospace,
       block,
       width,
+      minWidth,
+      maxWidth,
       ...restProps
     },
     forwardRef,
   ) {
     const enabled = useFeatureFlag(TEXT_INPUT_CSS_MODULES_FEATURE_FLAG)
+    const widthProps = enabled ? {} : {width, minWidth, maxWidth}
 
     return (
       <StyledTextInputBaseWrapper
@@ -222,7 +225,8 @@ export const TextInputBaseWrapper = React.forwardRef<HTMLElement, StyledTextInpu
         data-trailing-action={hasTrailingAction || undefined}
         data-validation={validationStatus || undefined}
         data-variant={variant || undefined}
-        style={width ? {width, ...style} : style}
+        style={enabled && typeof width === 'string' ? {width, ...style} : style}
+        {...widthProps}
         {...restProps}
       />
     )
@@ -234,15 +238,6 @@ const StyledTextInputWrapper = toggleStyledComponent(
   TEXT_INPUT_CSS_MODULES_FEATURE_FLAG,
   TextInputBaseWrapper,
   styled(TextInputBaseWrapper)<StyledTextInputWrapperProps>`
-    padding-right: 0;
-    padding-left: 0;
-
-    > input,
-    > select {
-      padding-right: 0;
-      padding-left: 0;
-    }
-
     /* Repeat and position set for form states (success, error, etc) */
     background-repeat: no-repeat;
 
@@ -250,14 +245,23 @@ const StyledTextInputWrapper = toggleStyledComponent(
     background-position: right 8px center;
 
     & > :not(:last-child) {
-      margin-right: var(--base-size-8);
+      margin-right: ${get('space.2')};
     }
 
     .TextInput-icon,
     .TextInput-action {
       align-self: center;
-      color: var(--fgColor-muted);
+      color: ${get('colors.fg.muted')};
       flex-shrink: 0;
+    }
+
+    padding-right: 0;
+    padding-left: 0;
+
+    > input,
+    > select {
+      padding-right: 0;
+      padding-left: 0;
     }
 
     &:where([data-leading-visual]) {

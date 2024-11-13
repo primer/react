@@ -213,7 +213,7 @@ exports[`TextInput renders 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -448,7 +448,7 @@ exports[`TextInput renders block 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -684,7 +684,7 @@ exports[`TextInput renders contrast 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -920,7 +920,7 @@ exports[`TextInput renders error 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -1157,7 +1157,7 @@ exports[`TextInput renders large 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -1393,7 +1393,7 @@ exports[`TextInput renders leadingVisual 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -1658,7 +1658,7 @@ exports[`TextInput renders leadingVisual 2`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -1923,7 +1923,7 @@ exports[`TextInput renders leadingVisual 3`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -2170,7 +2170,7 @@ exports[`TextInput renders leadingVisual 4`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -2417,7 +2417,7 @@ exports[`TextInput renders monospace 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -2653,7 +2653,7 @@ exports[`TextInput renders placeholder 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -2889,7 +2889,7 @@ exports[`TextInput renders small 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -5213,7 +5213,7 @@ exports[`TextInput renders trailingVisual 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -5478,7 +5478,7 @@ exports[`TextInput renders trailingVisual 2`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -5743,7 +5743,7 @@ exports[`TextInput renders trailingVisual 3`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -5990,7 +5990,7 @@ exports[`TextInput renders trailingVisual 4`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -6265,7 +6265,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -6581,7 +6581,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -6935,7 +6935,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -7260,7 +7260,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -7659,7 +7659,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -8058,7 +8058,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -8452,7 +8452,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -8807,7 +8807,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -9201,7 +9201,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -9565,7 +9565,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -10005,7 +10005,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -10444,7 +10444,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -10837,7 +10837,7 @@ exports[`TextInput should render a password input 1`] = `
   padding-right: var(--base-size-12);
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }

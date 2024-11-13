@@ -87,7 +87,7 @@
   }
 
   /* Ensures inputs don't zoom on mobile but are body-font size on desktop */
-  @media (min-width: var(--breakpoint-medium)) {
+  @media screen and (--viewportRange-regular) {
     font-size: var(--text-body-size-medium);
   }
 
