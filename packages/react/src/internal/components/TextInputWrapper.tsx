@@ -27,6 +27,7 @@ type StyledTextInputBaseWrapperProps = {
   className?: string
   style?: React.CSSProperties
   onClick?: React.MouseEventHandler
+  children?: React.ReactNode
 } & SxProp
 
 type StyledTextInputWrapperProps = {
