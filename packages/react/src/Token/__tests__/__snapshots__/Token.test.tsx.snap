@@ -195,8 +195,10 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c6"
+    data-size="small"
     onClick={[Function]}
     size="small"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -418,8 +420,10 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c6"
+    data-size="medium"
     onClick={[Function]}
     size="medium"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -641,8 +645,10 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c6"
+    data-size="large"
     onClick={[Function]}
     size="large"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -866,8 +872,10 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c6"
+    data-size="xlarge"
     onClick={[Function]}
     size="xlarge"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -1215,8 +1223,10 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c6"
+    data-size="medium"
     onClick={[Function]}
     size="medium"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -1387,8 +1397,10 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c2"
+    data-size="small"
     onClick={[Function]}
     size="small"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -1559,8 +1571,10 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c2"
+    data-size="medium"
     onClick={[Function]}
     size="medium"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -1731,8 +1745,10 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c2"
+    data-size="large"
     onClick={[Function]}
     size="large"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -1905,8 +1921,10 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c2"
+    data-size="xlarge"
     onClick={[Function]}
     size="xlarge"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -2077,8 +2095,10 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c2"
+    data-size="medium"
     onClick={[Function]}
     size="medium"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -2249,8 +2269,10 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c2"
+    data-size="medium"
     onClick={[Function]}
     size="medium"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -2532,8 +2554,10 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c2"
+    data-size="medium"
     onClick={[Function]}
     size="medium"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -2711,8 +2735,10 @@ exports[`Token components Token renders all sizes 1`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c3"
+    data-size="small"
     onClick={[Function]}
     size="small"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -2890,8 +2916,10 @@ exports[`Token components Token renders all sizes 2`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c3"
+    data-size="medium"
     onClick={[Function]}
     size="medium"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -3069,8 +3097,10 @@ exports[`Token components Token renders all sizes 3`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c3"
+    data-size="large"
     onClick={[Function]}
     size="large"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -3250,8 +3280,10 @@ exports[`Token components Token renders all sizes 4`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c3"
+    data-size="xlarge"
     onClick={[Function]}
     size="xlarge"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -3612,8 +3644,10 @@ exports[`Token components Token renders with a remove button 1`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c3"
+    data-size="medium"
     onClick={[Function]}
     size="medium"
+    style={{}}
   >
     <svg
       aria-hidden="true"
