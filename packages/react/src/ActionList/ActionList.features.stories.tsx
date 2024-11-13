@@ -551,7 +551,19 @@ export const TextWrapAndTruncation = () => (
           <ArrowRightIcon />
         </ActionList.LeadingVisual>
         Inline Description
-        <ActionList.Description>This description gets truncated because it is inline</ActionList.Description>
+        <ActionList.Description truncate>
+          This description gets truncated because it is inline with truncation
+        </ActionList.Description>
+        <ActionList.TrailingVisual>
+          <ArrowLeftIcon />
+        </ActionList.TrailingVisual>
+      </ActionList.Item>
+      <ActionList.Item>
+        <ActionList.LeadingVisual>
+          <ArrowRightIcon />
+        </ActionList.LeadingVisual>
+        Inline Description
+        <ActionList.Description>This description wraps because it is inline without truncation</ActionList.Description>
         <ActionList.TrailingVisual>
           <ArrowLeftIcon />
         </ActionList.TrailingVisual>

@@ -1,6 +1,6 @@
 {
   "name": "@primer/react",
-  "version": "37.2.0",
+  "version": "37.4.0",
   "description": "An implementation of GitHub's Primer Design System using React",
   "main": "lib/index.js",
   "module": "lib-esm/index.js",
@@ -198,7 +198,7 @@
     "semver": "7.6.2",
     "storybook": "^8.3.0",
     "styled-components": "5.3.11",
-    "terser": "5.31.0",
+    "terser": "5.36.0",
     "ts-toolbelt": "9.6.0",
     "tsx": "4.7.0",
     "typescript": "^5.6.3",
