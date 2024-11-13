@@ -568,9 +568,9 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                   onSelect && 'PRIVATE_TreeView-item-toggle--hover',
                   level === 1 && 'PRIVATE_TreeView-item-toggle--end',
                   {
-                    [(classes.PRIVATE_TreeViewItemToggle,
-                    classes.PRIVATE_TreeViewItemToggleHover,
-                    classes.PRIVATE_TreeViewItemToggleEnd)]: cssModulesEnabled,
+                    [classes.PRIVATE_TreeViewItemToggle]: cssModulesEnabled,
+                    [classes.PRIVATE_TreeViewItemToggleHover]: cssModulesEnabled,
+                    [classes.PRIVATE_TreeViewItemToggleEnd]: cssModulesEnabled,
                   },
                 )}
                 onClick={event => {
@@ -816,7 +816,10 @@ const SkeletonItem = () => {
   return (
     <StyledSkeletonItemContainer
       className={clsx(
-        {[(classes.TreeViewSkeletonItemContainerStyles, classes.PRIVATE_TreeViewItemSkeleton)]: cssModulesEnabled},
+        {
+          [classes.TreeViewSkeletonItemContainerStyles]: cssModulesEnabled,
+          [classes.PRIVATE_TreeViewItemSkeleton]: cssModulesEnabled,
+        },
         'PRIVATE_TreeView-item-skeleton',
       )}
     >
