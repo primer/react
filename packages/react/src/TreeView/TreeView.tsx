@@ -484,6 +484,8 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       slots.trailingVisual ? trailingVisualId : null,
     ].filter(Boolean)
 
+    const cssModulesEnabled = useFeatureFlag('primer_react_css_modules_team')
+
     return (
       <ItemContext.Provider
         value={{
@@ -499,7 +501,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       >
         {/* @ts-ignore Box doesn't have type support for `ref` used in combination with `as` */}
         <li
-          className={clsx('PRIVATE_TreeView-item', className)}
+          className={clsx('PRIVATE_TreeView-item', className, {[classes.PRIVATE_TreeViewItem]: cssModulesEnabled})}
           ref={ref as React.ForwardedRef<HTMLLIElement>}
           tabIndex={0}
           id={itemId}
@@ -540,7 +542,9 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
           }}
         >
           <div
-            className="PRIVATE_TreeView-item-container"
+            className={clsx('PRIVATE_TreeView-item-container', {
+              [classes.PRIVATE_TreeViewItemContainer]: cssModulesEnabled,
+            })}
             style={{
               // @ts-ignore CSS custom property
               '--level': level,
@@ -563,6 +567,11 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                   'PRIVATE_TreeView-item-toggle',
                   onSelect && 'PRIVATE_TreeView-item-toggle--hover',
                   level === 1 && 'PRIVATE_TreeView-item-toggle--end',
+                  {
+                    [(classes.PRIVATE_TreeViewItemToggle,
+                    classes.PRIVATE_TreeViewItemToggleHover,
+                    classes.PRIVATE_TreeViewItemToggleEnd)]: cssModulesEnabled,
+                  },
                 )}
                 onClick={event => {
                   if (onSelect) {
@@ -577,9 +586,20 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                 )}
               </div>
             ) : null}
-            <div id={labelId} className="PRIVATE_TreeView-item-content">
+            <div
+              id={labelId}
+              className={clsx('PRIVATE_TreeView-item-content', {
+                [classes.PRIVATE_TreeViewItemContent]: cssModulesEnabled,
+              })}
+            >
               {slots.leadingVisual}
-              <span className="PRIVATE_TreeView-item-content-text">{childrenWithoutSubTree}</span>
+              <span
+                className={clsx('PRIVATE_TreeView-item-content-text', {
+                  [classes.PRIVATE_TreeViewItemContentText]: cssModulesEnabled,
+                })}
+              >
+                {childrenWithoutSubTree}
+              </span>
               {slots.trailingVisual}
             </div>
           </div>
@@ -592,10 +612,16 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
 
 /** Lines to indicate the depth of an item in a TreeView */
 const LevelIndicatorLines: React.FC<{level: number}> = ({level}) => {
+  const cssModulesEnabled = useFeatureFlag('primer_react_css_modules_team')
   return (
     <div style={{width: '100%', display: 'flex'}}>
       {Array.from({length: level - 1}).map((_, index) => (
-        <div key={index} className="PRIVATE_TreeView-item-level-line" />
+        <div
+          key={index}
+          className={clsx('PRIVATE_TreeView-item-level-line', {
+            [classes.PRIVATE_TreeViewItemLevelLine]: cssModulesEnabled,
+          })}
+        />
       ))}
     </div>
   )
@@ -790,6 +816,7 @@ type LoadingItemProps = {
 
 const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, ref) => {
   const itemId = useId()
+  const cssModulesEnabled = useFeatureFlag('primer_react_css_modules_team')
 
   if (count) {
     return (
@@ -797,7 +824,9 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, re
         {Array.from({length: count}).map((_, i) => {
           return <SkeletonItem aria-hidden={true} key={i} />
         })}
-        <div className="PRIVATE_VisuallyHidden">Loading {count} items</div>
+        <div className={clsx('PRIVATE_VisuallyHidden', {[classes.PRIVATE_TreeViewVisuallyHidden]: cssModulesEnabled})}>
+          Loading {count} items
+        </div>
       </Item>
     )
   }
@@ -849,14 +878,22 @@ export type TreeViewVisualProps = {
 }
 
 const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
+  const cssModulesEnabled = useFeatureFlag('primer_react_css_modules_team')
   const {isExpanded, leadingVisualId} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
     <>
-      <div className="PRIVATE_VisuallyHidden" aria-hidden={true} id={leadingVisualId}>
+      <div
+        className={clsx('PRIVATE_VisuallyHidden', {[classes.PRIVATE_TreeViewVisuallyHidden]: cssModulesEnabled})}
+        aria-hidden={true}
+        id={leadingVisualId}
+      >
         {props.label}
       </div>
-      <div className="PRIVATE_TreeView-item-visual" aria-hidden={true}>
+      <div
+        className={clsx('PRIVATE_TreeView-item-visual', {[classes.PRIVATE_TreeViewItemVisual]: cssModulesEnabled})}
+        aria-hidden={true}
+      >
         {children}
       </div>
     </>
@@ -866,14 +903,22 @@ const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
 LeadingVisual.displayName = 'TreeView.LeadingVisual'
 
 const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
+  const cssModulesEnabled = useFeatureFlag('primer_react_css_modules_team')
   const {isExpanded, trailingVisualId} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
     <>
-      <div className="PRIVATE_VisuallyHidden" aria-hidden={true} id={trailingVisualId}>
+      <div
+        className={clsx('PRIVATE_VisuallyHidden', {[classes.PRIVATE_TreeViewVisuallyHidden]: cssModulesEnabled})}
+        aria-hidden={true}
+        id={trailingVisualId}
+      >
         {props.label}
       </div>
-      <div className="PRIVATE_TreeView-item-visual" aria-hidden={true}>
+      <div
+        className={clsx('PRIVATE_TreeView-item-visual', {[classes.PRIVATE_TreeViewItemVisual]: cssModulesEnabled})}
+        aria-hidden={true}
+      >
         {children}
       </div>
     </>
@@ -886,14 +931,23 @@ TrailingVisual.displayName = 'TreeView.TrailingVisual'
 // TreeView.LeadingAction
 
 const LeadingAction: React.FC<TreeViewVisualProps> = props => {
+  const cssModulesEnabled = useFeatureFlag('primer_react_css_modules_team')
   const {isExpanded} = React.useContext(ItemContext)
   const children = typeof props.children === 'function' ? props.children({isExpanded}) : props.children
   return (
     <>
-      <div className="PRIVATE_VisuallyHidden" aria-hidden={true}>
+      <div
+        className={clsx('PRIVATE_VisuallyHidden', {[classes.PRIVATE_TreeViewVisuallyHidden]: cssModulesEnabled})}
+        aria-hidden={true}
+      >
         {props.label}
       </div>
-      <div className="PRIVATE_TreeView-item-leading-action" aria-hidden={true}>
+      <div
+        className={clsx('PRIVATE_TreeView-item-leading-action', {
+          [classes.PRIVATE_TreeViewItemLeadingAction]: cssModulesEnabled,
+        })}
+        aria-hidden={true}
+      >
         {children}
       </div>
     </>
@@ -905,10 +959,13 @@ LeadingAction.displayName = 'TreeView.LeadingAction'
 // TreeView.DirectoryIcon
 
 const DirectoryIcon = () => {
+  const cssModulesEnabled = useFeatureFlag('primer_react_css_modules_team')
   const {isExpanded} = React.useContext(ItemContext)
   const Icon = isExpanded ? FileDirectoryOpenFillIcon : FileDirectoryFillIcon
   return (
-    <div className="PRIVATE_TreeView-directory-icon">
+    <div
+      className={clsx('PRIVATE_TreeView-directory-icon', {[classes.PRIVATE_TreeViewDirectoryIcon]: cssModulesEnabled})}
+    >
       <Icon />
     </div>
   )
