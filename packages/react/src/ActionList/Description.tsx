@@ -49,7 +49,6 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
       id={variant === 'block' ? blockDescriptionId : inlineDescriptionId}
       className={className}
       data-component="ActionList.Description"
-      title={props.children as string}
     >
       {props.children}
     </Box>
