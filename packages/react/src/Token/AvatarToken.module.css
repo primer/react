@@ -1,0 +1,37 @@
+:root {
+  --spacing: calc(var(--base-size-4) * 2);
+}
+
+.AvatarContainer {
+  display: block;
+}
+
+/* TODO: Remove this once the avatar component is converted to CSS modules */
+.Avatar {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.Token {
+  padding-left: var(--base-size-4) !important;
+}
+
+.AvatarContainer[data-size='small'] {
+  width: calc(16px - var(--spacing));
+  height: calc(16px - var(--spacing));
+}
+
+.AvatarContainer[data-size='medium'] {
+  width: calc(20px - var(--spacing));
+  height: calc(20px - var(--spacing));
+}
+
+.AvatarContainer[data-size='large'] {
+  width: calc(24px - var(--spacing));
+  height: calc(24px - var(--spacing));
+}
+
+.AvatarContainer[data-size='xlarge'] {
+  width: calc(32px - var(--spacing));
+  height: calc(32px - var(--spacing));
+}
