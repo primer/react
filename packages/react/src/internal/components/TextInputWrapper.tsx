@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import type {MaxWidthProps, MinWidthProps, WidthProps} from 'styled-system'
-import {maxWidth, minWidth, width} from 'styled-system'
+import {maxWidth, minWidth, width, type ResponsiveValue} from 'styled-system'
 import {get} from '../../constants'
 import type {SxProp} from '../../sx'
 import sx from '../../sx'
@@ -23,10 +22,13 @@ export type StyledBaseWrapperProps = {
   className?: string
   style?: React.CSSProperties
   onClick?: React.MouseEventHandler
-} & /** @deprecated Update `width` using CSS modules or style. */ WidthProps &
-  /** @deprecated Update `min-width` using CSS modules or style. */ MinWidthProps &
-  /** @deprecated Update `max-width` using CSS modules or style. */ MaxWidthProps &
-  SxProp
+  /** @deprecated Update `width` using CSS modules or style. */
+  width?: string | number | ResponsiveValue<string | number>
+  /** @deprecated Update `min-width` using CSS modules or style. */
+  minWidth?: string | number | ResponsiveValue<string | number>
+  /** @deprecated Update `max-width` using CSS modules or style. */
+  maxWidth?: string | number | ResponsiveValue<string | number>
+} & SxProp
 
 export type StyledWrapperProps = {
   hasLeadingVisual?: boolean
