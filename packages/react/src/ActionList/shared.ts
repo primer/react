@@ -52,6 +52,7 @@ export type ActionListItemProps = {
    * Private API for use internally only. Used by LinkItem to wrap contents in an anchor
    */
   _PrivateItemWrapper?: React.FC<React.PropsWithChildren<MenuItemProps>>
+  className?: string
 } & SxProp
 
 type MenuItemProps = {
@@ -131,6 +132,7 @@ export type ActionListProps = React.PropsWithChildren<{
    * The ARIA role describing the function of `List` component. `listbox` or `menu` are a common values.
    */
   role?: AriaRole
+  className?: string
 }> &
   SxProp
 

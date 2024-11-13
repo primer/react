@@ -4,6 +4,9 @@ import Truncate from '../Truncate'
 import type {SxProp} from '../sx'
 import {merge} from '../sx'
 import {ItemContext} from './shared'
+import {useFeatureFlag} from '../FeatureFlags'
+import classes from './ActionList.module.css'
+import {clsx} from 'clsx'
 
 export type ActionListDescriptionProps = {
   /**
@@ -41,6 +44,29 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
   }
 
   const {blockDescriptionId, inlineDescriptionId} = React.useContext(ItemContext)
+
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
+
+  if (enabled) {
+    if (sx) {
+      return (
+        <Box
+          className={clsx(classes.Description)}
+          as="span"
+          sx={sx}
+          id={blockDescriptionId}
+          data-component="ActionList.Description"
+        >
+          {props.children}
+        </Box>
+      )
+    }
+    return (
+      <span className={clsx(classes.Description)} id={blockDescriptionId} data-component="ActionList.Description">
+        {props.children}
+      </span>
+    )
+  }
 
   return variant === 'block' || !truncate ? (
     <Box

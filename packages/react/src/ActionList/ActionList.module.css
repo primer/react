@@ -1,0 +1,28 @@
+/* wrapper span
+ default block */
+.ActionListItem-descriptionWrap {
+  grid-area: label;
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-size-4);
+
+  & .ActionListItem-label {
+    font-weight: var(--base-text-weight-semibold);
+  }
+}
+
+/* inline */
+.ActionListItem-descriptionWrap--inline {
+  position: relative;
+  flex-direction: row;
+  align-items: baseline;
+  gap: var(--base-size-8);
+}
+
+/* description */
+.Description {
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-normal);
+  line-height: var(--text-body-lineHeight-small);
+  color: var(--fgColor-muted);
+}
