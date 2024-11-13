@@ -2,4 +2,4 @@
 "@primer/react": minor
 ---
 
-Update `Token` component to use CSS Modules
+Update `Token`, `IssueLabelToken`, `AvatarToken` components to use CSS Modules
