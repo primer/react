@@ -11,7 +11,7 @@ export const DevDefault = () => (
   <Box as="form">
     <FormControl>
       <FormControl.Label>Default label</FormControl.Label>
-      <Textarea sx={{color: 'red'}} style={{border: '1px solid blue'}} value="foo" />
+      <Textarea sx={{color: 'blue'}} style={{border: '1px solid blue'}} value="foo" />
     </FormControl>
   </Box>
 )
