@@ -24,8 +24,6 @@
   top: 0;
   left: 50%;
   z-index: 999;
-  /* stylelint-disable-next-line primer/responsive-widths */
-  width: 440px;
   max-height: 80vh;
   margin: 10vh auto;
   background-color: var(--bgColor-default);
@@ -34,11 +32,16 @@
   box-shadow: var(--shadow-floating-large);
   transform: translateX(-50%);
 
-  @media screen and (--viewportRange-narrow) {
+  &:where([data-width='default']) {
+    /* stylelint-disable-next-line primer/responsive-widths */
+    width: 440px;
+  }
+
+  &:where([data-width='narrow']) {
     width: 320px;
   }
 
-  @media screen and (--viewportRange-wide) {
+  &:where([data-width='wide']) {
     /* stylelint-disable-next-line primer/responsive-widths */
     width: 640px;
   }

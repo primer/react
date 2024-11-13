@@ -163,6 +163,7 @@ const Dialog = forwardRef<HTMLDivElement, InternalDialogProps>(
           {...props}
           {...getDialogProps()}
           className={clsx({[classes.Dialog]: enabled}, className)}
+          data-width={props.wide ? 'wide' : props.narrow ? 'narrow' : 'default'}
         >
           <IconButton
             icon={XIcon}
