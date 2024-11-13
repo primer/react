@@ -35,19 +35,19 @@ export type StyledWrapperProps = {
 } & StyledBaseWrapperProps
 
 export const StyledTextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
+  font-size: ${get('fontSizes.1')};
+  line-height: var(--base-size-20);
+  color: ${get('colors.fg.default')};
+  vertical-align: middle;
+  background-color: ${get('colors.canvas.default')};
+  border: 1px solid var(--control-borderColor-rest, ${get('colors.border.default')});
+  border-radius: ${get('radii.2')};
+  outline: none;
+  box-shadow: ${get('shadows.primer.shadow.inset')};
   display: inline-flex;
+  align-items: stretch;
   min-height: var(--base-size-32);
   overflow: hidden;
-  font-size: var(--text-body-size-medium);
-  line-height: var(--base-size-20);
-  color: var(--fgColor-default);
-  vertical-align: middle;
-  background-color: var(--bgColor-default);
-  border: var(--borderWidth-thin) solid var(--control-borderColor-rest);
-  border-radius: var(--borderRadius-medium);
-  outline: none;
-  box-shadow: var(--shadow-inset);
-  align-items: stretch;
 
   input,
   textarea {
@@ -62,14 +62,14 @@ export const StyledTextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
   textarea,
   select {
     &::placeholder {
-      color: var(---control-fgColor-placeholder, var(--fgColor-muted));
+      color: var(---control-fgColor-placeholder, ${get('colors.fg.muted')});
     }
   }
 
   &:where([data-trailing-action][data-focused]),
   &:where(:not([data-trailing-action]):focus-within) {
-    border-color: var(--borderColor-accent-emphasis);
-    outline: var(--borderWidth-thick) solid var(--borderColor-accent-emphasis);
+    border-color: ${get('colors.accent.fg')};
+    outline: 2px solid ${get('colors.accent.fg')};
     outline-offset: -1px;
   }
 
@@ -78,14 +78,14 @@ export const StyledTextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
   }
 
   &:where([data-contrast]) {
-    background-color: var(--bgColor-inset);
+    background-color: ${get('colors.canvas.inset')};
   }
 
   &:where([data-disabled]) {
-    color: var(--fgColor-disabled);
-    background-color: var(--control-bgColor-disabled);
-    border-color: var(--control-borderColor-disabled);
+    color: ${get('colors.primer.fg.disabled')};
+    background-color: ${get('colors.input.disabledBg')};
     box-shadow: none;
+    border-color: var(--control-borderColor-disabled, ${get('colors.border.default')});
 
     input,
     textarea,
@@ -95,22 +95,22 @@ export const StyledTextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
   }
 
   &:where([data-monospace]) {
-    font-family: var(--fontStack-monospace);
+    font-family: ${get('fonts.mono')};
   }
 
   &:where([data-validation='error']) {
-    border-color: var(--borderColor-danger-emphasis);
+    border-color: ${get('colors.success.emphasis')};
 
     &:where([data-trailing-action][data-focused]),
     &:where(:not([data-trailing-action])):focus-within {
-      border-color: var(--fgColor-accent);
-      outline: 2px solid var(--fgColor-accent);
+      border-color: ${get('colors.accent.fg')};
+      outline: 2px solid ${get('colors.accent.fg')};
       outline-offset: -1px;
     }
   }
 
   &:where([data-validation='success']) {
-    border-color: var(--bgColor-success-emphasis);
+    border-color: ${get('colors.success.emphasis')};
   }
 
   &:where([data-block]) {
