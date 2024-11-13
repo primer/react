@@ -20,8 +20,8 @@
   .PRIVATE_TreeViewItem {
     outline: none;
 
-    &:focus-visible>div,
-    &.focus-visible>div {
+    &:focus-visible > div,
+    &.focus-visible > div {
       box-shadow: var(--boxShadow-thick) var(--fgColor-accent);
 
       @media (forced-colors: active) {
@@ -37,11 +37,8 @@
 
   .PRIVATE_TreeViewItemContainer {
     --level: 1;
-    /* default level */
     --toggle-width: 1rem;
-    /* 16px */
     --min-item-height: 2rem;
-    /* 32px */
 
     position: relative;
     display: grid;
@@ -67,9 +64,7 @@
 
     @media (pointer: coarse) {
       --toggle-width: 1.5rem;
-      /* 24px */
       --min-item-height: 2.75rem;
-      /* 44px */
     }
 
     &:has(.PRIVATE_TreeViewItemSkeleton):hover {
@@ -86,20 +81,17 @@
     grid-template-columns: 0 0 0 1fr;
   }
 
-  .PRIVATE_TreeViewItem[aria-current='true']>.PRIVATE_TreeViewItemContainer {
+  .PRIVATE_TreeViewItem[aria-current='true'] > .PRIVATE_TreeViewItemContainer {
     background-color: var(--control-transparent-bgColor-selected);
 
     /* Current item indicator */
     /* stylelint-disable-next-line selector-max-specificity */
     &::after {
       position: absolute;
-      top: calc(50% - 0.75rem);
-      /* 50% - 12px */
+      top: calc(50% - var(--base-size-12));
       left: calc(-1 * var(--base-size-8));
       width: 0.25rem;
-      /* 4px */
       height: 1.5rem;
-      /* 24px */
       content: '';
       background-color: var(--bgColor-accent-emphasis);
       border-radius: var(--borderRadius-medium);
