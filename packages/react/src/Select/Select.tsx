@@ -8,7 +8,6 @@ import {useFeatureFlag} from '../FeatureFlags'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 import classes from './Select.module.css'
-import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 export type SelectProps = Omit<
   Omit<React.ComponentPropsWithoutRef<'select'>, 'size'> & Omit<StyledWrapperProps, 'variant'>,
