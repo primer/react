@@ -3,7 +3,7 @@ import Text from '../../../Text'
 import type {SxProp} from '../../../sx'
 import CheckboxOrRadioGroupContext from './CheckboxOrRadioGroupContext'
 import classes from './CheckboxOrRadioGroup.module.css'
-import {CSS_MODULES_FLAG} from './CheckboxOrRadioGroup'
+import {CSS_MODULES_FLAG} from './FeatureFlag'
 import {useFeatureFlag} from '../../../FeatureFlags'
 import {clsx} from 'clsx'
 

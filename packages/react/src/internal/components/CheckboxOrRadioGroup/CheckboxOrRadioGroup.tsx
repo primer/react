@@ -15,6 +15,7 @@ import classes from './CheckboxOrRadioGroup.module.css'
 import {toggleStyledComponent} from '../../utils/toggleStyledComponent'
 import {useFeatureFlag} from '../../../FeatureFlags'
 import {clsx} from 'clsx'
+import {CSS_MODULES_FLAG} from './FeatureFlag'
 
 export type CheckboxOrRadioGroupProps = {
   /** Class name for custom styling */
@@ -37,8 +38,6 @@ export type CheckboxOrRadioGroupProps = {
    */
   required?: boolean
 } & SxProp
-
-export const CSS_MODULES_FLAG = 'primer_react_css_modules_team'
 
 const Body = toggleStyledComponent(
   CSS_MODULES_FLAG,
