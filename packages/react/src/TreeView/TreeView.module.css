@@ -93,7 +93,13 @@
       width: 0.25rem;
       height: 1.5rem;
       content: '';
-      background-color: var(--bgColor-accent-emphasis);
+
+      /*
+       * Use fgColor accent for consistency across all themes. Using the "correct" variable,
+       * --bgColor-accent-emphasis, causes vrt failures for dark high contrast mode
+       */
+      /* stylelint-disable-next-line primer/colors */
+      background-color: var(--fgColor-accent);
       border-radius: var(--borderRadius-medium);
 
       @media (forced-colors: active) {
