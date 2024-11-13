@@ -48,7 +48,7 @@ export type RadioProps = {
   SxProp
 
 const StyledRadio = toggleStyledComponent(
-  'primer_react_css_modules_team',
+  'primer_react_css_modules_staff',
   'input',
   styled.input`
     ${sharedCheckboxAndRadioStyles};
@@ -103,7 +103,7 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
     ref,
   ): ReactElement => {
     const radioGroupContext = useContext(RadioGroupContext)
-    const enabled = useFeatureFlag('primer_react_css_modules_team')
+    const enabled = useFeatureFlag('primer_react_css_modules_staff')
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
       radioGroupContext?.onChange && radioGroupContext.onChange(e)
       onChange && onChange(e)
