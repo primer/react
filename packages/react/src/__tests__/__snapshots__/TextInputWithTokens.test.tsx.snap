@@ -357,7 +357,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -414,7 +413,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -471,7 +469,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -528,7 +525,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -585,7 +581,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -642,7 +637,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -699,7 +693,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -756,7 +749,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -1199,7 +1191,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -1256,7 +1247,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -1852,7 +1842,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -1909,7 +1898,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -1966,7 +1954,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -2023,7 +2010,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -2080,7 +2066,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -2137,7 +2122,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -2194,7 +2178,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -2251,7 +2234,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -2649,7 +2631,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="small"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -2706,7 +2687,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="small"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -2763,7 +2743,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="small"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -2820,7 +2799,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="small"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -2877,7 +2855,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="small"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -2934,7 +2911,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="small"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -2991,7 +2967,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="small"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -3048,7 +3023,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="small"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -3446,7 +3420,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="medium"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -3503,7 +3476,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="medium"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -3560,7 +3532,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="medium"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -3617,7 +3588,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="medium"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -3674,7 +3644,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="medium"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -3731,7 +3700,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="medium"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -3788,7 +3756,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="medium"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -3845,7 +3812,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="medium"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -4236,7 +4202,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="large"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -4293,7 +4258,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="large"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -4350,7 +4314,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="large"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -4407,7 +4370,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="large"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -4464,7 +4426,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="large"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -4521,7 +4482,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="large"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -4578,7 +4538,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="large"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -4635,7 +4594,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="large"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -5028,7 +4986,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -5085,7 +5042,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -5142,7 +5098,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -5199,7 +5154,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -5256,7 +5210,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -5313,7 +5266,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -5370,7 +5322,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -5427,7 +5378,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -5810,7 +5760,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -5867,7 +5816,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -5924,7 +5872,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -5981,7 +5928,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -6038,7 +5984,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -6095,7 +6040,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -6152,7 +6096,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -6209,7 +6152,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -6541,7 +6483,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -6567,7 +6508,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -6593,7 +6533,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -6619,7 +6558,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -6645,7 +6583,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -6671,7 +6608,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -6697,7 +6633,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -6723,7 +6658,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -7099,7 +7033,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -7156,7 +7089,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -7213,7 +7145,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -7270,7 +7201,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -7327,7 +7257,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -7384,7 +7313,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -7441,7 +7369,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -7498,7 +7425,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -7994,7 +7920,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -8051,7 +7976,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -8108,7 +8032,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -8165,7 +8088,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -8222,7 +8144,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -8279,7 +8200,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -8336,7 +8256,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -8393,7 +8312,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -8840,7 +8758,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -8897,7 +8814,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -8954,7 +8870,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -9011,7 +8926,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -9068,7 +8982,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -9125,7 +9038,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -9182,7 +9094,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -9239,7 +9150,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -9774,7 +9684,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -9831,7 +9740,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -9888,7 +9796,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -9945,7 +9852,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -10002,7 +9908,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -10059,7 +9964,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -10116,7 +10020,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -10173,7 +10076,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -10708,7 +10610,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -10765,7 +10666,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -10822,7 +10722,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -10879,7 +10778,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -10936,7 +10834,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -10993,7 +10890,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -11050,7 +10946,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -11107,7 +11002,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -11642,7 +11536,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -11699,7 +11592,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -11756,7 +11648,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -11813,7 +11704,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -11870,7 +11760,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -11927,7 +11816,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -11984,7 +11872,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -12041,7 +11928,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -12497,7 +12383,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -12554,7 +12439,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -12611,7 +12495,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -12668,7 +12551,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -12725,7 +12607,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -12782,7 +12663,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -12839,7 +12719,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -12896,7 +12775,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -13431,7 +13309,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -13488,7 +13365,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -13545,7 +13421,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -13602,7 +13477,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -13659,7 +13533,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -13716,7 +13589,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -13773,7 +13645,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -13830,7 +13701,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -14316,7 +14186,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -14373,7 +14242,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -14430,7 +14298,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -14487,7 +14354,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -14544,7 +14410,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -14601,7 +14466,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -14658,7 +14522,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -14715,7 +14578,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -15298,7 +15160,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="small"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -15355,7 +15216,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="small"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -15412,7 +15272,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="small"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -15469,7 +15328,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="small"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -15526,7 +15384,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="small"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -15583,7 +15440,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="small"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -15640,7 +15496,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="small"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -15697,7 +15552,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="small"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -16271,7 +16125,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -16328,7 +16181,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -16385,7 +16237,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -16442,7 +16293,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -16499,7 +16349,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -16556,7 +16405,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -16613,7 +16461,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -16670,7 +16517,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="xlarge"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -17242,7 +17088,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="large"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -17299,7 +17144,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="large"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -17356,7 +17200,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="large"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -17413,7 +17256,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="large"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -17470,7 +17312,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="large"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -17527,7 +17368,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="large"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -17584,7 +17424,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="large"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -17641,7 +17480,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
         onKeyDown={[Function]}
         onKeyUp={[Function]}
         size="large"
-        style={{}}
         tabIndex={0}
       >
         <span
@@ -18096,7 +17934,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -18153,7 +17990,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -18210,7 +18046,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -18267,7 +18102,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -18324,7 +18158,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -18381,7 +18214,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -18438,7 +18270,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -18495,7 +18326,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span

@@ -155,7 +155,6 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   data-size="small"
   onKeyDown={[Function]}
   size="small"
-  style={{}}
 >
   <div
     className="c1"
@@ -378,7 +377,6 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   data-size="medium"
   onKeyDown={[Function]}
   size="medium"
-  style={{}}
 >
   <div
     className="c1"
@@ -601,7 +599,6 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   data-size="large"
   onKeyDown={[Function]}
   size="large"
-  style={{}}
 >
   <div
     className="c1"
@@ -826,7 +823,6 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   data-size="xlarge"
   onKeyDown={[Function]}
   size="xlarge"
-  style={{}}
 >
   <div
     className="c1"
@@ -987,7 +983,6 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   data-size="medium"
   onKeyDown={[Function]}
   size="medium"
-  style={{}}
 >
   <div
     className="c1"
@@ -1174,7 +1169,6 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   data-size="medium"
   onKeyDown={[Function]}
   size="medium"
-  style={{}}
 >
   <div
     className="c1"
@@ -2751,7 +2745,6 @@ exports[`Token components Token renders all sizes 1`] = `
   data-size="small"
   onKeyDown={[Function]}
   size="small"
-  style={{}}
 >
   <span
     className="c1"
@@ -2936,7 +2929,6 @@ exports[`Token components Token renders all sizes 2`] = `
   data-size="medium"
   onKeyDown={[Function]}
   size="medium"
-  style={{}}
 >
   <span
     className="c1"
@@ -3121,7 +3113,6 @@ exports[`Token components Token renders all sizes 3`] = `
   data-size="large"
   onKeyDown={[Function]}
   size="large"
-  style={{}}
 >
   <span
     className="c1"
@@ -3308,7 +3299,6 @@ exports[`Token components Token renders all sizes 4`] = `
   data-size="xlarge"
   onKeyDown={[Function]}
   size="xlarge"
-  style={{}}
 >
   <span
     className="c1"
@@ -3431,7 +3421,6 @@ exports[`Token components Token renders isSelected 1`] = `
   data-size="medium"
   onKeyDown={[Function]}
   size="medium"
-  style={{}}
 >
   <span
     className="c1"
@@ -3525,7 +3514,6 @@ exports[`Token components Token renders with a leadingVisual 1`] = `
   data-size="medium"
   onKeyDown={[Function]}
   size="medium"
-  style={{}}
 >
   <div
     className="c1"
@@ -3685,7 +3673,6 @@ exports[`Token components Token renders with a remove button 1`] = `
   data-size="medium"
   onKeyDown={[Function]}
   size="medium"
-  style={{}}
 >
   <span
     className="c1"
