@@ -1,7 +1,7 @@
 import type {MouseEventHandler} from 'react'
 import React, {forwardRef} from 'react'
 import Box from '../Box'
-import type {SxProp} from '../sx'
+import {merge, type BetterSystemStyleObject, type SxProp} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import type {TokenBaseProps} from './TokenBase'
 import TokenBase, {defaultTokenSize, isTokenInteractive} from './TokenBase'
@@ -52,7 +52,7 @@ const Token = forwardRef((props, forwardedRef) => {
     hideRemoveButton,
     href,
     onClick,
-    sx = defaultSxProp,
+    sx: sxProp = defaultSxProp,
     className,
     style,
     ...rest
@@ -68,20 +68,42 @@ const Token = forwardRef((props, forwardedRef) => {
     onClick,
   }
 
+  const mergedSx = merge<BetterSystemStyleObject>(
+    {
+      backgroundColor: 'neutral.subtle',
+      borderColor: props.isSelected ? 'fg.default' : 'border.subtle',
+      borderStyle: 'solid',
+      borderWidth: `${tokenBorderWidthPx}px`,
+      color: props.isSelected ? 'fg.default' : 'fg.muted',
+      maxWidth: '100%',
+      paddingRight: !(hideRemoveButton || !onRemove) ? 0 : undefined,
+      ...(isTokenInteractive(props)
+        ? {
+            '&:hover': {
+              backgroundColor: 'neutral.muted',
+              boxShadow: 'shadow.medium',
+              color: 'fg.default',
+            },
+          }
+        : {}),
+    },
+    sxProp,
+  )
+
   return (
     <TokenBase
       onRemove={onRemove}
       id={id?.toString()}
-      className={clsx(enabled && className, classes.Token)}
+      className={clsx(enabled && className, enabled && classes.Token)}
       text={text}
       size={size}
-      sx={sx}
+      sx={enabled ? sxProp : mergedSx}
       data-is-selected={props.isSelected}
       data-is-remove-btn={!(hideRemoveButton || !onRemove)}
       {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
       {...rest}
       ref={forwardedRef}
-      style={{borderWidth: `${tokenBorderWidthPx}px`, ...style}}
+      style={enabled ? {borderWidth: `${tokenBorderWidthPx}px`, ...style} : {}}
     >
       {LeadingVisual ? (
         <LeadingVisualContainer size={size}>
