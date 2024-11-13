@@ -54,6 +54,7 @@ const Token = forwardRef((props, forwardedRef) => {
     onClick,
     sx = defaultSxProp,
     className,
+    style,
     ...rest
   } = props
   const hasMultipleActionTargets = isTokenInteractive(props) && Boolean(onRemove) && !hideRemoveButton
@@ -80,7 +81,7 @@ const Token = forwardRef((props, forwardedRef) => {
       {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
       {...rest}
       ref={forwardedRef}
-      style={{borderWidth: `${tokenBorderWidthPx}px`}}
+      style={{borderWidth: `${tokenBorderWidthPx}px`, ...style}}
     >
       {LeadingVisual ? (
         <LeadingVisualContainer size={size}>
