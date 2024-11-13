@@ -51,6 +51,13 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   line-height: 16px;
   padding-left: 4px;
   padding-right: 4px;
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
+  border-style: solid;
+  border-width: 1px;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  max-width: 100%;
+  padding-right: 0;
   padding-left: 4px;
 }
 
@@ -149,17 +156,13 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
 }
 
 <span
-  className="c0 Token"
+  className="c0"
   data-cursor-is-interactive={false}
   data-is-remove-btn={true}
   data-size="small"
   onKeyDown={[Function]}
   size="small"
-  style={
-    {
-      "borderWidth": "1px",
-    }
-  }
+  style={{}}
 >
   <div
     className="c1"
@@ -277,6 +280,13 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
+  border-style: solid;
+  border-width: 1px;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  max-width: 100%;
+  padding-right: 0;
   padding-left: 4px;
 }
 
@@ -375,17 +385,13 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
 }
 
 <span
-  className="c0 Token"
+  className="c0"
   data-cursor-is-interactive={false}
   data-is-remove-btn={true}
   data-size="medium"
   onKeyDown={[Function]}
   size="medium"
-  style={
-    {
-      "borderWidth": "1px",
-    }
-  }
+  style={{}}
 >
   <div
     className="c1"
@@ -503,6 +509,13 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   line-height: 24px;
   padding-left: 8px;
   padding-right: 8px;
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
+  border-style: solid;
+  border-width: 1px;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  max-width: 100%;
+  padding-right: 0;
   padding-left: 4px;
 }
 
@@ -601,17 +614,13 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
 }
 
 <span
-  className="c0 Token"
+  className="c0"
   data-cursor-is-interactive={false}
   data-is-remove-btn={true}
   data-size="large"
   onKeyDown={[Function]}
   size="large"
-  style={
-    {
-      "borderWidth": "1px",
-    }
-  }
+  style={{}}
 >
   <div
     className="c1"
@@ -731,6 +740,13 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
+  border-style: solid;
+  border-width: 1px;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  max-width: 100%;
+  padding-right: 0;
   padding-left: 4px;
 }
 
@@ -829,17 +845,13 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
 }
 
 <span
-  className="c0 Token"
+  className="c0"
   data-cursor-is-interactive={false}
   data-is-remove-btn={true}
   data-size="xlarge"
   onKeyDown={[Function]}
   size="xlarge"
-  style={
-    {
-      "borderWidth": "1px",
-    }
-  }
+  style={{}}
 >
   <div
     className="c1"
@@ -944,6 +956,12 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+  border-style: solid;
+  border-width: 1px;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+  max-width: 100%;
   padding-left: 4px;
 }
 
@@ -993,18 +1011,14 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
 }
 
 <span
-  className="c0 Token"
+  className="c0"
   data-cursor-is-interactive={false}
   data-is-remove-btn={false}
   data-is-selected={true}
   data-size="medium"
   onKeyDown={[Function]}
   size="medium"
-  style={
-    {
-      "borderWidth": "1px",
-    }
-  }
+  style={{}}
 >
   <div
     className="c1"
@@ -1086,6 +1100,13 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
+  border-style: solid;
+  border-width: 1px;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  max-width: 100%;
+  padding-right: 0;
   padding-left: 4px;
 }
 
@@ -1184,17 +1205,13 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
 }
 
 <span
-  className="c0 Token"
+  className="c0"
   data-cursor-is-interactive={false}
   data-is-remove-btn={true}
   data-size="medium"
   onKeyDown={[Function]}
   size="medium"
-  style={
-    {
-      "borderWidth": "1px",
-    }
-  }
+  style={{}}
 >
   <div
     className="c1"
@@ -2644,6 +2661,13 @@ exports[`Token components Token renders all sizes 1`] = `
   line-height: 16px;
   padding-left: 4px;
   padding-right: 4px;
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
+  border-style: solid;
+  border-width: 1px;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  max-width: 100%;
+  padding-right: 0;
 }
 
 .c3 {
@@ -2734,17 +2758,13 @@ exports[`Token components Token renders all sizes 1`] = `
 }
 
 <span
-  className="c0 Token"
+  className="c0"
   data-cursor-is-interactive={false}
   data-is-remove-btn={true}
   data-size="small"
   onKeyDown={[Function]}
   size="small"
-  style={
-    {
-      "borderWidth": "1px",
-    }
-  }
+  style={{}}
 >
   <span
     className="c1"
@@ -2826,6 +2846,13 @@ exports[`Token components Token renders all sizes 2`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
+  border-style: solid;
+  border-width: 1px;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  max-width: 100%;
+  padding-right: 0;
 }
 
 .c3 {
@@ -2916,17 +2943,13 @@ exports[`Token components Token renders all sizes 2`] = `
 }
 
 <span
-  className="c0 Token"
+  className="c0"
   data-cursor-is-interactive={false}
   data-is-remove-btn={true}
   data-size="medium"
   onKeyDown={[Function]}
   size="medium"
-  style={
-    {
-      "borderWidth": "1px",
-    }
-  }
+  style={{}}
 >
   <span
     className="c1"
@@ -3008,6 +3031,13 @@ exports[`Token components Token renders all sizes 3`] = `
   line-height: 24px;
   padding-left: 8px;
   padding-right: 8px;
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
+  border-style: solid;
+  border-width: 1px;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  max-width: 100%;
+  padding-right: 0;
 }
 
 .c3 {
@@ -3098,17 +3128,13 @@ exports[`Token components Token renders all sizes 3`] = `
 }
 
 <span
-  className="c0 Token"
+  className="c0"
   data-cursor-is-interactive={false}
   data-is-remove-btn={true}
   data-size="large"
   onKeyDown={[Function]}
   size="large"
-  style={
-    {
-      "borderWidth": "1px",
-    }
-  }
+  style={{}}
 >
   <span
     className="c1"
@@ -3192,6 +3218,13 @@ exports[`Token components Token renders all sizes 4`] = `
   padding-right: 16px;
   padding-top: 0;
   padding-bottom: 0;
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
+  border-style: solid;
+  border-width: 1px;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  max-width: 100%;
+  padding-right: 0;
 }
 
 .c3 {
@@ -3282,17 +3315,13 @@ exports[`Token components Token renders all sizes 4`] = `
 }
 
 <span
-  className="c0 Token"
+  className="c0"
   data-cursor-is-interactive={false}
   data-is-remove-btn={true}
   data-size="xlarge"
   onKeyDown={[Function]}
   size="xlarge"
-  style={
-    {
-      "borderWidth": "1px",
-    }
-  }
+  style={{}}
 >
   <span
     className="c1"
@@ -3361,6 +3390,12 @@ exports[`Token components Token renders isSelected 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+  border-style: solid;
+  border-width: 1px;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
+  max-width: 100%;
 }
 
 .c1 {
@@ -3402,18 +3437,14 @@ exports[`Token components Token renders isSelected 1`] = `
 }
 
 <span
-  className="c0 Token"
+  className="c0"
   data-cursor-is-interactive={false}
   data-is-remove-btn={false}
   data-is-selected={true}
   data-size="medium"
   onKeyDown={[Function]}
   size="medium"
-  style={
-    {
-      "borderWidth": "1px",
-    }
-  }
+  style={{}}
 >
   <span
     className="c1"
@@ -3454,6 +3485,12 @@ exports[`Token components Token renders with a leadingVisual 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
+  border-style: solid;
+  border-width: 1px;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  max-width: 100%;
 }
 
 .c2 {
@@ -3495,17 +3532,13 @@ exports[`Token components Token renders with a leadingVisual 1`] = `
 }
 
 <span
-  className="c0 Token"
+  className="c0"
   data-cursor-is-interactive={false}
   data-is-remove-btn={false}
   data-size="medium"
   onKeyDown={[Function]}
   size="medium"
-  style={
-    {
-      "borderWidth": "1px",
-    }
-  }
+  style={{}}
 >
   <div
     className="c1"
@@ -3562,6 +3595,13 @@ exports[`Token components Token renders with a remove button 1`] = `
   line-height: 20px;
   padding-left: 8px;
   padding-right: 8px;
+  background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
+  border-color: var(--borderColor-muted,var(--color-border-subtle,rgba(31,35,40,0.15)));
+  border-style: solid;
+  border-width: 1px;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
+  max-width: 100%;
+  padding-right: 0;
 }
 
 .c3 {
@@ -3652,17 +3692,13 @@ exports[`Token components Token renders with a remove button 1`] = `
 }
 
 <span
-  className="c0 Token"
+  className="c0"
   data-cursor-is-interactive={false}
   data-is-remove-btn={true}
   data-size="medium"
   onKeyDown={[Function]}
   size="medium"
-  style={
-    {
-      "borderWidth": "1px",
-    }
-  }
+  style={{}}
 >
   <span
     className="c1"
