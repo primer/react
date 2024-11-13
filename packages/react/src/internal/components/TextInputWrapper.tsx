@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import type {MaxWidthProps, MinWidthProps, WidthProps} from 'styled-system'
+import {maxWidth, minWidth, width} from 'styled-system'
 import type {SxProp} from '../../sx'
 import sx from '../../sx'
 import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
@@ -21,7 +23,10 @@ export type StyledBaseWrapperProps = {
   className?: string
   style?: React.CSSProperties
   onClick?: React.MouseEventHandler
-} & SxProp
+} & /** @deprecated Update `width` using CSS modules or style. */ WidthProps &
+  /** @deprecated Update `min-width` using CSS modules or style. */ MinWidthProps &
+  /** @deprecated Update `max-width` using CSS modules or style. */ MaxWidthProps &
+  SxProp
 
 export type StyledWrapperProps = {
   hasLeadingVisual?: boolean
@@ -163,6 +168,9 @@ export const StyledTextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
   }
 
   & {
+    ${width}
+    ${minWidth}
+    ${maxWidth}
     ${sx}
   }
 `
