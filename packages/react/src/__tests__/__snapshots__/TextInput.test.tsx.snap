@@ -1,6 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TextInput renders 1`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -94,20 +108,6 @@ exports[`TextInput renders 1`] = `
   padding-right: 12px;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -131,6 +131,20 @@ exports[`TextInput renders 1`] = `
 `;
 
 exports[`TextInput renders block 1`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -232,20 +246,6 @@ exports[`TextInput renders block 1`] = `
   padding-right: 12px;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -269,6 +269,20 @@ exports[`TextInput renders block 1`] = `
 `;
 
 exports[`TextInput renders contrast 1`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -363,20 +377,6 @@ exports[`TextInput renders contrast 1`] = `
   padding-right: 12px;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -400,6 +400,20 @@ exports[`TextInput renders contrast 1`] = `
 `;
 
 exports[`TextInput renders error 1`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -500,20 +514,6 @@ exports[`TextInput renders error 1`] = `
   padding-right: 12px;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -538,6 +538,20 @@ exports[`TextInput renders error 1`] = `
 `;
 
 exports[`TextInput renders large 1`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -637,20 +651,6 @@ exports[`TextInput renders large 1`] = `
   padding-right: 12px;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -675,6 +675,20 @@ exports[`TextInput renders large 1`] = `
 `;
 
 exports[`TextInput renders leadingVisual 1`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -766,20 +780,6 @@ exports[`TextInput renders leadingVisual 1`] = `
 .c1 > select {
   padding-left: 0;
   padding-right: 12px;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -834,6 +834,20 @@ exports[`TextInput renders leadingVisual 1`] = `
 `;
 
 exports[`TextInput renders leadingVisual 2`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -925,20 +939,6 @@ exports[`TextInput renders leadingVisual 2`] = `
 .c1 > select {
   padding-left: 0;
   padding-right: 12px;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -993,6 +993,20 @@ exports[`TextInput renders leadingVisual 2`] = `
 `;
 
 exports[`TextInput renders leadingVisual 3`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -1084,20 +1098,6 @@ exports[`TextInput renders leadingVisual 3`] = `
 .c1 > select {
   padding-left: 0;
   padding-right: 12px;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -1134,6 +1134,20 @@ exports[`TextInput renders leadingVisual 3`] = `
 `;
 
 exports[`TextInput renders leadingVisual 4`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -1227,20 +1241,6 @@ exports[`TextInput renders leadingVisual 4`] = `
   padding-right: 12px;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -1275,6 +1275,20 @@ exports[`TextInput renders leadingVisual 4`] = `
 `;
 
 exports[`TextInput renders monospace 1`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -1369,20 +1383,6 @@ exports[`TextInput renders monospace 1`] = `
   padding-right: 12px;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -1406,6 +1406,20 @@ exports[`TextInput renders monospace 1`] = `
 `;
 
 exports[`TextInput renders placeholder 1`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -1499,20 +1513,6 @@ exports[`TextInput renders placeholder 1`] = `
   padding-right: 12px;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
-}
-
 @media (min-width:768px) {
   .c0 {
     font-size: 14px;
@@ -1537,6 +1537,20 @@ exports[`TextInput renders placeholder 1`] = `
 `;
 
 exports[`TextInput renders small 1`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -1636,20 +1650,6 @@ exports[`TextInput renders small 1`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 12px;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -2111,6 +2111,20 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   animation-delay: 0s;
 }
 
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -2196,20 +2210,6 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 0;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
 }
 
 @media (forced-colors:active) {
@@ -2638,6 +2638,20 @@ exports[`TextInput renders trailingAction text button 1`] = `
   height: var(--inner-action-size);
 }
 
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -2723,20 +2737,6 @@ exports[`TextInput renders trailingAction text button 1`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 0;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
 }
 
 @media (forced-colors:active) {
@@ -3244,6 +3244,20 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   animation-delay: 0s;
 }
 
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -3329,20 +3343,6 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 0;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
 }
 
 @media (forced-colors:active) {
@@ -3440,6 +3440,20 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 `;
 
 exports[`TextInput renders trailingVisual 1`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -3531,20 +3545,6 @@ exports[`TextInput renders trailingVisual 1`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 0;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -3599,6 +3599,20 @@ exports[`TextInput renders trailingVisual 1`] = `
 `;
 
 exports[`TextInput renders trailingVisual 2`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -3690,20 +3704,6 @@ exports[`TextInput renders trailingVisual 2`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 0;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -3758,6 +3758,20 @@ exports[`TextInput renders trailingVisual 2`] = `
 `;
 
 exports[`TextInput renders trailingVisual 3`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -3849,20 +3863,6 @@ exports[`TextInput renders trailingVisual 3`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 0;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -3899,6 +3899,20 @@ exports[`TextInput renders trailingVisual 3`] = `
 `;
 
 exports[`TextInput renders trailingVisual 4`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -3990,20 +4004,6 @@ exports[`TextInput renders trailingVisual 4`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 0;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -4068,6 +4068,20 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -4159,20 +4173,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 0;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -4294,6 +4294,20 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -4385,20 +4399,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 0;
   padding-right: 12px;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c4:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -4558,6 +4558,20 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -4649,20 +4663,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 0;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -4793,6 +4793,20 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c5 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c5:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -4884,20 +4898,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 0;
   padding-right: 12px;
-}
-
-.c5 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c5:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -5102,6 +5102,20 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c5 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c5:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -5193,20 +5207,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 0;
   padding-right: 12px;
-}
-
-.c5 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c5:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -5411,6 +5411,20 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c5 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c5:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -5502,20 +5516,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 0;
   padding-right: 0;
-}
-
-.c5 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c5:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -5714,6 +5714,20 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -5805,20 +5819,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 0;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -5979,6 +5979,20 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -6070,20 +6084,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 0;
   padding-right: 0;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c4:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -6282,6 +6282,20 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -6373,20 +6387,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 0;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -6556,6 +6556,20 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c5 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c5:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -6655,20 +6669,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 0;
   padding-right: 0;
-}
-
-.c5 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c5:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -6917,6 +6917,20 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c5 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c5:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -7008,20 +7022,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 0;
   padding-right: 0;
-}
-
-.c5 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c5:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -7265,6 +7265,20 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c5 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c5:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -7362,20 +7376,6 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c1 > select {
   padding-left: 0;
   padding-right: 0;
-}
-
-.c5 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c5:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -7573,6 +7573,20 @@ exports[`TextInput renders with a loading indicator 1`] = `
 `;
 
 exports[`TextInput should render a password input 1`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
   line-height: 20px;
@@ -7664,20 +7678,6 @@ exports[`TextInput should render a password input 1`] = `
 .c1 > select {
   padding-left: 12px;
   padding-right: 12px;
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
