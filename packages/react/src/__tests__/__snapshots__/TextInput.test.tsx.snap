@@ -90,7 +90,7 @@ exports[`TextInput renders 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -105,11 +105,11 @@ exports[`TextInput renders 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -154,20 +154,14 @@ exports[`TextInput renders 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -175,10 +169,16 @@ exports[`TextInput renders 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -325,7 +325,7 @@ exports[`TextInput renders block 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -340,11 +340,11 @@ exports[`TextInput renders block 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -389,20 +389,14 @@ exports[`TextInput renders block 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -410,10 +404,16 @@ exports[`TextInput renders block 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -561,7 +561,7 @@ exports[`TextInput renders contrast 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -576,11 +576,11 @@ exports[`TextInput renders contrast 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -625,20 +625,14 @@ exports[`TextInput renders contrast 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -646,10 +640,16 @@ exports[`TextInput renders contrast 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -797,7 +797,7 @@ exports[`TextInput renders error 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -812,11 +812,11 @@ exports[`TextInput renders error 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -861,20 +861,14 @@ exports[`TextInput renders error 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -882,10 +876,16 @@ exports[`TextInput renders error 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -1034,7 +1034,7 @@ exports[`TextInput renders large 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -1049,11 +1049,11 @@ exports[`TextInput renders large 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -1098,20 +1098,14 @@ exports[`TextInput renders large 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -1119,10 +1113,16 @@ exports[`TextInput renders large 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -1270,7 +1270,7 @@ exports[`TextInput renders leadingVisual 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -1285,11 +1285,11 @@ exports[`TextInput renders leadingVisual 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -1334,20 +1334,14 @@ exports[`TextInput renders leadingVisual 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -1355,10 +1349,16 @@ exports[`TextInput renders leadingVisual 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -1535,7 +1535,7 @@ exports[`TextInput renders leadingVisual 2`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -1550,11 +1550,11 @@ exports[`TextInput renders leadingVisual 2`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -1599,20 +1599,14 @@ exports[`TextInput renders leadingVisual 2`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -1620,10 +1614,16 @@ exports[`TextInput renders leadingVisual 2`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -1800,7 +1800,7 @@ exports[`TextInput renders leadingVisual 3`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -1815,11 +1815,11 @@ exports[`TextInput renders leadingVisual 3`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -1864,20 +1864,14 @@ exports[`TextInput renders leadingVisual 3`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -1885,10 +1879,16 @@ exports[`TextInput renders leadingVisual 3`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -2047,7 +2047,7 @@ exports[`TextInput renders leadingVisual 4`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -2062,11 +2062,11 @@ exports[`TextInput renders leadingVisual 4`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -2111,20 +2111,14 @@ exports[`TextInput renders leadingVisual 4`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -2132,10 +2126,16 @@ exports[`TextInput renders leadingVisual 4`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -2294,7 +2294,7 @@ exports[`TextInput renders monospace 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -2309,11 +2309,11 @@ exports[`TextInput renders monospace 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -2358,20 +2358,14 @@ exports[`TextInput renders monospace 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -2379,10 +2373,16 @@ exports[`TextInput renders monospace 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -2530,7 +2530,7 @@ exports[`TextInput renders placeholder 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -2545,11 +2545,11 @@ exports[`TextInput renders placeholder 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -2594,20 +2594,14 @@ exports[`TextInput renders placeholder 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -2615,10 +2609,16 @@ exports[`TextInput renders placeholder 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -2766,7 +2766,7 @@ exports[`TextInput renders small 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -2781,11 +2781,11 @@ exports[`TextInput renders small 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -2830,20 +2830,14 @@ exports[`TextInput renders small 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -2851,10 +2845,16 @@ exports[`TextInput renders small 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -3425,7 +3425,7 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -3440,11 +3440,11 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -3489,20 +3489,14 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -3510,10 +3504,16 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -4064,7 +4064,7 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -4079,11 +4079,11 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -4128,20 +4128,14 @@ exports[`TextInput renders trailingAction text button 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -4149,10 +4143,16 @@ exports[`TextInput renders trailingAction text button 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -4782,7 +4782,7 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -4797,11 +4797,11 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -4846,20 +4846,14 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -4867,10 +4861,16 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -5090,7 +5090,7 @@ exports[`TextInput renders trailingVisual 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -5105,11 +5105,11 @@ exports[`TextInput renders trailingVisual 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -5154,20 +5154,14 @@ exports[`TextInput renders trailingVisual 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -5175,10 +5169,16 @@ exports[`TextInput renders trailingVisual 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -5355,7 +5355,7 @@ exports[`TextInput renders trailingVisual 2`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -5370,11 +5370,11 @@ exports[`TextInput renders trailingVisual 2`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -5419,20 +5419,14 @@ exports[`TextInput renders trailingVisual 2`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -5440,10 +5434,16 @@ exports[`TextInput renders trailingVisual 2`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -5620,7 +5620,7 @@ exports[`TextInput renders trailingVisual 3`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -5635,11 +5635,11 @@ exports[`TextInput renders trailingVisual 3`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -5684,20 +5684,14 @@ exports[`TextInput renders trailingVisual 3`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -5705,10 +5699,16 @@ exports[`TextInput renders trailingVisual 3`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -5867,7 +5867,7 @@ exports[`TextInput renders trailingVisual 4`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -5882,11 +5882,11 @@ exports[`TextInput renders trailingVisual 4`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -5931,20 +5931,14 @@ exports[`TextInput renders trailingVisual 4`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -5952,10 +5946,16 @@ exports[`TextInput renders trailingVisual 4`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -6142,7 +6142,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -6157,11 +6157,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -6206,20 +6206,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -6227,10 +6221,16 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -6458,7 +6458,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -6473,11 +6473,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -6522,20 +6522,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -6543,10 +6537,16 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -6812,7 +6812,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -6827,11 +6827,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -6876,20 +6876,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -6897,10 +6891,16 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -7137,7 +7137,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -7152,11 +7152,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -7201,20 +7201,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -7222,10 +7216,16 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -7536,7 +7536,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -7551,11 +7551,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -7600,20 +7600,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -7621,10 +7615,16 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -7935,7 +7935,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -7950,11 +7950,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -7999,20 +7999,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -8020,10 +8014,16 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -8329,7 +8329,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -8344,11 +8344,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -8393,20 +8393,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -8414,10 +8408,16 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -8684,7 +8684,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -8699,11 +8699,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -8748,20 +8748,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -8769,10 +8763,16 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -9078,7 +9078,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -9093,11 +9093,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -9142,20 +9142,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -9163,10 +9157,16 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -9442,7 +9442,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -9457,11 +9457,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -9506,20 +9506,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -9527,10 +9521,16 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -9882,7 +9882,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -9897,11 +9897,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -9946,20 +9946,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -9967,10 +9961,16 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -10321,7 +10321,7 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -10336,11 +10336,11 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -10385,20 +10385,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -10406,10 +10400,16 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {
@@ -10714,7 +10714,7 @@ exports[`TextInput should render a password input 1`] = `
 }
 
 .c0:where([data-validation='error']) {
-  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
 }
 
 .c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
@@ -10729,11 +10729,11 @@ exports[`TextInput should render a password input 1`] = `
 }
 
 .c0:where([data-block]) {
+  width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
   -webkit-align-self: stretch;
   -ms-flex-item-align: stretch;
   align-self: stretch;
@@ -10778,20 +10778,14 @@ exports[`TextInput should render a password input 1`] = `
 }
 
 .c1 {
-  padding-right: 0;
-  padding-left: 0;
   background-repeat: no-repeat;
   background-position: right 8px center;
-}
-
-.c1 > input,
-.c1 > select {
   padding-right: 0;
   padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
-  margin-right: var(--base-size-8);
+  margin-right: 8px;
 }
 
 .c1 .TextInput-icon,
@@ -10799,10 +10793,16 @@ exports[`TextInput should render a password input 1`] = `
   -webkit-align-self: center;
   -ms-flex-item-align: center;
   align-self: center;
-  color: var(--fgColor-muted);
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;
   flex-shrink: 0;
+}
+
+.c1 > input,
+.c1 > select {
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1:where([data-leading-visual]) {

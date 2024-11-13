@@ -20,7 +20,6 @@ export type StyledBaseWrapperProps = {
   /** @deprecated Use `size` prop instead */
   variant?: TextInputSizes
   size?: TextInputSizes
-  width?: string
   className?: string
   style?: React.CSSProperties
   onClick?: React.MouseEventHandler
@@ -99,7 +98,7 @@ export const StyledTextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
   }
 
   &:where([data-validation='error']) {
-    border-color: ${get('colors.success.emphasis')};
+    border-color: ${get('colors.danger.emphasis')};
 
     &:where([data-trailing-action][data-focused]),
     &:where(:not([data-trailing-action])):focus-within {
@@ -114,8 +113,8 @@ export const StyledTextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
   }
 
   &:where([data-block]) {
-    display: flex;
     width: 100%;
+    display: flex;
     align-self: stretch;
   }
 
@@ -187,8 +186,6 @@ export function TextInputBaseWrapper(props: React.PropsWithChildren<StyledBaseWr
     contrast,
     monospace,
     block,
-    width,
-    style,
     ...restProps
   } = props
   return (
@@ -202,22 +199,12 @@ export function TextInputBaseWrapper(props: React.PropsWithChildren<StyledBaseWr
       data-contrast={contrast || undefined}
       data-monospace={monospace || undefined}
       data-block={block || undefined}
-      style={width ? {width, ...style} : style}
       {...restProps}
     />
   )
 }
 
 const StyledTextInputWrapper = styled(TextInputBaseWrapper)<StyledWrapperProps>`
-  padding-right: 0;
-  padding-left: 0;
-
-  > input,
-  > select {
-    padding-right: 0;
-    padding-left: 0;
-  }
-
   /* Repeat and position set for form states (success, error, etc) */
   background-repeat: no-repeat;
 
@@ -225,14 +212,23 @@ const StyledTextInputWrapper = styled(TextInputBaseWrapper)<StyledWrapperProps>`
   background-position: right 8px center;
 
   & > :not(:last-child) {
-    margin-right: var(--base-size-8);
+    margin-right: ${get('space.2')};
   }
 
   .TextInput-icon,
   .TextInput-action {
     align-self: center;
-    color: var(--fgColor-muted);
+    color: ${get('colors.fg.muted')};
     flex-shrink: 0;
+  }
+
+  padding-right: 0;
+  padding-left: 0;
+
+  > input,
+  > select {
+    padding-right: 0;
+    padding-left: 0;
   }
 
   &:where([data-leading-visual]) {
