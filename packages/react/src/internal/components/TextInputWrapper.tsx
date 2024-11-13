@@ -1,4 +1,4 @@
-import React, {type ComponentProps, type ComponentPropsWithoutRef} from 'react'
+import React, {type ComponentProps} from 'react'
 import styled from 'styled-components'
 import type {SxProp} from '../../sx'
 import sx from '../../sx'
@@ -24,8 +24,10 @@ type StyledTextInputBaseWrapperProps = {
   variant?: TextInputSizes
   size?: TextInputSizes
   width?: string
-} & SxProp &
-  ComponentPropsWithoutRef<'span'>
+  className?: string
+  style?: React.CSSProperties
+  onClick?: React.MouseEventHandler
+} & SxProp
 
 type StyledTextInputWrapperProps = {
   hasLeadingVisual?: boolean
