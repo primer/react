@@ -1,5 +1,6 @@
 import styled, {css} from 'styled-components'
-import {variant} from 'styled-system'
+import type {MaxWidthProps, MinWidthProps, WidthProps} from 'styled-system'
+import {maxWidth, minWidth, variant, width} from 'styled-system'
 import {get} from '../../constants'
 import type {SxProp} from '../../sx'
 import sx from '../../sx'
@@ -55,8 +56,10 @@ export type StyledBaseWrapperProps = {
   isInputFocused?: boolean
   monospace?: boolean
   validationStatus?: FormValidationStatus
-  width?: string
-} & SxProp
+} & /** @deprecated Update `width` using CSS modules or style. */ WidthProps &
+  /** @deprecated Update `min-width` using CSS modules or style. */ MinWidthProps &
+  /** @deprecated Update `max-width` using CSS modules or style. */ MaxWidthProps &
+  SxProp
 
 export type StyledWrapperProps = {
   hasLeadingVisual?: boolean
@@ -176,17 +179,14 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
       align-self: stretch;
     `}
 
-  ${props =>
-    props.width &&
-    css`
-      width: ${props.width};
-    `}
-
   // Ensures inputs don' t zoom on mobile but are body-font size on desktop
   @media (min-width: ${get('breakpoints.1')}) {
     font-size: ${get('fontSizes.1')};
   }
 
+  ${width}
+  ${minWidth}
+  ${maxWidth}
   ${sizeDeprecatedVariants}
   ${sizeVariants}
   ${sx};
