@@ -16,10 +16,9 @@ import type {TextInputSizes} from '../internal/components/TextInputWrapper'
 import TextInputWrapper from '../internal/components/TextInputWrapper'
 import UnstyledTextInput, {TEXT_INPUT_CSS_MODULES_FEATURE_FLAG} from '../internal/components/UnstyledTextInput'
 import TextInputInnerVisualSlot from '../internal/components/TextInputInnerVisualSlot'
-
+import {useFeatureFlag} from '../FeatureFlags'
 import styles from './TextInputWithTokens.module.css'
 import {clsx} from 'clsx'
-import {useFeatureFlag} from '../FeatureFlags'
 import type {BetterSystemStyleObject} from '../sx'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

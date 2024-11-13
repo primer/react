@@ -17,6 +17,7 @@ import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 import {useFeatureFlag} from '../FeatureFlags'
+
 import {useFocusTrap} from '../hooks/useFocusTrap'
 
 interface SelectPanelSingleSelection {
@@ -238,12 +239,11 @@ export function SelectPanel({
 
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
 
-  if (!open) return <>{anchor}</>
+  if (!open) return <LiveRegion>{anchor}</LiveRegion>
 
   return (
     <LiveRegion>
       {anchor}
-
       <Overlay
         role="dialog"
         aria-labelledby={titleId}
