@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import type {MaxWidthProps, MinWidthProps, WidthProps} from 'styled-system'
 import {maxWidth, minWidth, width} from 'styled-system'
+import {get} from '../../constants'
 import type {SxProp} from '../../sx'
 import sx from '../../sx'
 import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
@@ -119,7 +120,7 @@ export const StyledTextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
   }
 
   /* Ensures inputs don' t zoom on mobile but are body-font size on desktop */
-  @media (min-width: var(--breakpoint-medium)) {
+  @media (min-width: ${get('breakpoints.1')}) {
     font-size: var(--text-body-size-medium);
   }
 

@@ -403,7 +403,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   bottom: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -1343,7 +1343,7 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   bottom: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -1760,7 +1760,7 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   outline: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -2199,7 +2199,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   bottom: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -3047,7 +3047,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   bottom: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -3895,7 +3895,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   bottom: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -4743,7 +4743,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   bottom: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -5593,7 +5593,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   bottom: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -6445,7 +6445,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   bottom: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -7245,7 +7245,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   bottom: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -7862,7 +7862,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   bottom: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -8773,7 +8773,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   bottom: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -9721,7 +9721,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   bottom: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -10641,7 +10641,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   bottom: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -11634,7 +11634,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   bottom: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -12627,7 +12627,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   bottom: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -13615,7 +13615,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   bottom: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -14565,7 +14565,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   bottom: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -15553,7 +15553,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   bottom: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -16510,7 +16510,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   bottom: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -17543,7 +17543,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   bottom: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -18574,7 +18574,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   bottom: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -19573,7 +19573,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   bottom: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -20422,7 +20422,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   bottom: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
@@ -21093,7 +21093,7 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   outline: 0;
 }
 
-@media (min-width:var(--breakpoint-medium)) {
+@media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
   }
