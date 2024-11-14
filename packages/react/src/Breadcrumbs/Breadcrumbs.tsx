@@ -10,6 +10,7 @@ import type {ComponentProps} from '../utils/types'
 import classes from './Breadcrumbs.module.css'
 import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import {useFeatureFlag} from '../FeatureFlags'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 const SELECTED_CLASS = 'selected'
 const CSS_MODULES_FLAG = 'primer_react_css_modules_team'
@@ -87,14 +88,12 @@ function Breadcrumbs({className, children, sx: sxProp}: React.PropsWithChildren<
   )
 }
 
-type StyledBreadcrumbsItemProps<As extends React.ElementType> = {
+type StyledBreadcrumbsItemProps = {
   to?: To
   selected?: boolean
   className?: string
-  as?: As
 } & SxProp &
-  React.ComponentPropsWithoutRef<'a'> &
-  DistributiveOmit<React.ComponentPropsWithRef<React.ElementType extends As ? 'a' : As>, 'as'>
+  React.ComponentPropsWithoutRef<'a'>
 
 const StyledBreadcrumbsItem = toggleStyledComponent(
   CSS_MODULES_FLAG,
@@ -119,8 +118,7 @@ const StyledBreadcrumbsItem = toggleStyledComponent(
   `,
 )
 
-function BreadcrumbsItem<As extends React.ElementType>(props: StyledBreadcrumbsItemProps<As>) {
-  const {selected, className, ...rest} = props
+const BreadcrumbsItem = React.forwardRef(({selected, className, ...rest}, ref) => {
   const enabled = useFeatureFlag(CSS_MODULES_FLAG)
   return (
     <StyledBreadcrumbsItem
@@ -130,13 +128,11 @@ function BreadcrumbsItem<As extends React.ElementType>(props: StyledBreadcrumbsI
         [classes.ItemSelected]: enabled && selected,
       })}
       aria-current={selected ? 'page' : null}
+      ref={ref}
       {...rest}
     />
   )
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type DistributiveOmit<T, TOmitted extends PropertyKey> = T extends any ? Omit<T, TOmitted> : never
+}) as PolymorphicForwardRefComponent<'a', StyledBreadcrumbsItemProps>
 
 Breadcrumbs.displayName = 'Breadcrumbs'
 

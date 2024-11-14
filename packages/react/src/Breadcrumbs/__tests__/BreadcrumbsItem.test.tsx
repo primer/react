@@ -20,4 +20,8 @@ describe('Breadcrumbs.Item', () => {
   it('respects the "selected" prop', () => {
     expect(render(<Breadcrumbs.Item selected />)).toMatchSnapshot()
   })
+
+  it('respects the "as" prop', () => {
+    expect(render(<Breadcrumbs.Item as="h2" selected />)).toMatchSnapshot()
+  })
 })
