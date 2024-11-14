@@ -5,8 +5,11 @@ import {width} from 'styled-system'
 import {get} from '../constants'
 import type {SxProp} from '../sx'
 import sx from '../sx'
+import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
+import clsx from 'clsx'
 
 type ProgressProp = {
+  className?: string
   progress?: string | number
   bg?: string
 }
@@ -16,22 +19,28 @@ const shimmer = keyframes`
   to { mask-position: 0%; }
 `
 
-const ProgressItem = styled.span<ProgressProp & SxProp>`
-  width: ${props => (props.progress ? `${props.progress}%` : 0)};
-  background-color: ${props => get(`colors.${props.bg || 'success.emphasis'}`)};
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
 
-  @media (prefers-reduced-motion: no-preference) {
-    &[data-animated='true'] {
-      mask-image: linear-gradient(75deg, #000 30%, rgba(0, 0, 0, 0.65) 80%);
-      mask-size: 200%;
-      animation: ${shimmer};
-      animation-duration: 1s;
-      animation-iteration-count: infinite;
+const ProgressItem = toggleStyledComponent(
+  CSS_MODULES_FEATURE_FLAG,
+  'span',
+  styled.span<ProgressProp & SxProp>`
+    width: ${props => (props.progress ? `${props.progress}%` : 0)};
+    background-color: ${props => get(`colors.${props.bg || 'success.emphasis'}`)};
+
+    @media (prefers-reduced-motion: no-preference) {
+      &[data-animated='true'] {
+        mask-image: linear-gradient(75deg, #000 30%, rgba(0, 0, 0, 0.65) 80%);
+        mask-size: 200%;
+        animation: ${shimmer};
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+      }
     }
-  }
 
-  ${sx};
-`
+    ${sx};
+  `,
+)
 
 const sizeMap = {
   small: '5px',
@@ -57,11 +66,22 @@ const ProgressContainer = styled.span<StyledProgressContainerProps>`
   ${sx};
 `
 
-export type ProgressBarItems = React.HTMLAttributes<HTMLSpanElement> & {'aria-label'?: string} & ProgressProp & SxProp
+export type ProgressBarItems = React.HTMLAttributes<HTMLSpanElement> & {
+  'aria-label'?: string
+  className?: string
+} & ProgressProp &
+  SxProp
 
 export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
   (
-    {progress, 'aria-label': ariaLabel, 'aria-valuenow': ariaValueNow, 'aria-valuetext': ariaValueText, ...rest},
+    {
+      progress,
+      'aria-label': ariaLabel,
+      'aria-valuenow': ariaValueNow,
+      'aria-valuetext': ariaValueText,
+      className,
+      ...rest
+    },
     forwardRef,
   ) => {
     const progressAsNumber = typeof progress === 'string' ? parseInt(progress, 10) : progress
@@ -76,6 +96,7 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
 
     return (
       <ProgressItem
+        className={clsx('ProgressBarItem', className)}
         {...rest}
         role="progressbar"
         aria-label={ariaLabel}
