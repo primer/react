@@ -1,6 +1,6 @@
 import {clsx} from 'clsx'
 import type {To} from 'history'
-import React from 'react'
+import React, {type ForwardedRef} from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import {get} from '../constants'
@@ -87,12 +87,14 @@ function Breadcrumbs({className, children, sx: sxProp}: React.PropsWithChildren<
   )
 }
 
-type StyledBreadcrumbsItemProps = {
+type StyledBreadcrumbsItemProps<As extends React.ElementType> = {
   to?: To
   selected?: boolean
   className?: string
+  as?: As
 } & SxProp &
-  React.ComponentPropsWithoutRef<'a'>
+  React.ComponentPropsWithoutRef<'a'> &
+  DistributiveOmit<React.ComponentPropsWithRef<React.ElementType extends As ? 'a' : As>, 'as'>
 
 const StyledBreadcrumbsItem = toggleStyledComponent(
   CSS_MODULES_FLAG,
@@ -116,7 +118,8 @@ const StyledBreadcrumbsItem = toggleStyledComponent(
     ${sx};
   `,
 )
-const BreadcrumbsItem = ({selected, className, ...props}: StyledBreadcrumbsItemProps) => {
+function BreadcrumbsItem<As extends React.ElementType>(props: StyledBreadcrumbsItemProps<As>, ref: ForwardedRef<any>) {
+  const {selected, className, ...rest} = props
   const enabled = useFeatureFlag(CSS_MODULES_FLAG)
   return (
     <StyledBreadcrumbsItem
@@ -126,10 +129,14 @@ const BreadcrumbsItem = ({selected, className, ...props}: StyledBreadcrumbsItemP
         [classes.ItemSelected]: enabled && selected,
       })}
       aria-current={selected ? 'page' : null}
-      {...props}
+      ref={ref} 
+      {...rest}
     />
   )
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type DistributiveOmit<T, TOmitted extends PropertyKey> = T extends any ? Omit<T, TOmitted> : never
 
 Breadcrumbs.displayName = 'Breadcrumbs'
 
