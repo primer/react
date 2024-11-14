@@ -54,7 +54,7 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -70,12 +70,9 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -111,24 +108,113 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -148,8 +234,32 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -295,14 +405,16 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   className="c0 c1"
+  data-leading-visual={true}
+  data-size="medium"
+  data-trailing-visual={true}
   onClick={[Function]}
-  size="medium"
 >
   <span
     aria-hidden="true"
@@ -882,7 +994,7 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -898,12 +1010,9 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -939,24 +1048,113 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -976,8 +1174,32 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 
 .c1 > input,
 .c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
   padding-left: 12px;
-  padding-right: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -1123,14 +1345,14 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   className="c0 c1"
+  data-size="medium"
   onClick={[Function]}
-  size="medium"
 >
   <div
     className="c2"
@@ -1305,7 +1527,7 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -1321,25 +1543,9 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-self: stretch;
-  -ms-flex-item-align: stretch;
-  align-self: stretch;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  width: 100%;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -1375,21 +1581,103 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
 }
 
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
@@ -1398,6 +1686,13 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
   display: -ms-flexbox;
   display: flex;
   width: 100%;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -1417,8 +1712,37 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 
 .c1 > input,
 .c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
   padding-left: 12px;
-  padding-right: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
 }
 
 .c4 {
@@ -1438,14 +1762,15 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   className="c0 c1"
+  data-block={true}
+  data-size="medium"
   onClick={[Function]}
-  size="medium"
 >
   <div
     className="c2"
@@ -1521,7 +1846,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -1537,14 +1862,9 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-  max-height: 20px;
-  overflow: auto;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -1580,26 +1900,115 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
 }
 
-.c1 {
-  background-repeat: no-repeat;
-  background-position: right 8px center;
-  padding-left: 0;
-  padding-right: 0;
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
   padding-left: 12px;
   padding-top: calc(12px / 2);
   padding-bottom: calc(12px / 2);
   max-height: 20px;
   overflow: auto;
+}
+
+.c1 {
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -1619,8 +2028,34 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 
 .c1 > input,
 .c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
   padding-left: 12px;
-  padding-right: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+  max-height: 20px;
+  overflow: auto;
 }
 
 .c4 {
@@ -1766,14 +2201,14 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   className="c0 c1"
+  data-size="medium"
   onClick={[Function]}
-  size="medium"
 >
   <div
     className="c2"
@@ -2265,7 +2700,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -2281,19 +2716,9 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 20px;
-  min-height: 28px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  font-size: 12px;
-  line-height: 20px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -2329,24 +2754,113 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -2366,8 +2880,32 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 
 .c1 > input,
 .c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
   padding-left: 12px;
-  padding-right: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -2511,26 +3049,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
-  }
-}
-
-@media screen and (min-width:544px) {
-  .c0 {
-    font-size: 12px;
-  }
-}
-
-@media screen and (min-width:768px) {
-  .c0 {
-    font-size: 12px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   className="c0 c1"
+  data-size="small"
   onClick={[Function]}
-  size="small"
 >
   <div
     className="c2"
@@ -3022,7 +3548,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -3038,19 +3564,9 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 20px;
-  min-height: 28px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  font-size: 12px;
-  line-height: 20px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -3086,24 +3602,113 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -3123,8 +3728,32 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 
 .c1 > input,
 .c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
   padding-left: 12px;
-  padding-right: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -3268,26 +3897,14 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
-  }
-}
-
-@media screen and (min-width:544px) {
-  .c0 {
-    font-size: 12px;
-  }
-}
-
-@media screen and (min-width:768px) {
-  .c0 {
-    font-size: 12px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   className="c0 c1"
+  data-size="small"
   onClick={[Function]}
-  size="small"
 >
   <div
     className="c2"
@@ -3779,7 +4396,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -3795,12 +4412,9 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -3836,24 +4450,113 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -3873,8 +4576,32 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 
 .c1 > input,
 .c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
   padding-left: 12px;
-  padding-right: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -4017,27 +4744,15 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 }
 
 @media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   className="c0 c1"
+  data-size="medium"
   onClick={[Function]}
-  size="medium"
 >
   <div
     className="c2"
@@ -4529,7 +5244,7 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -4545,12 +5260,9 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -4586,24 +5298,113 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -4623,8 +5424,32 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 
 .c1 > input,
 .c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
   padding-left: 12px;
-  padding-right: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -4769,27 +5594,15 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 }
 
 @media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   className="c0 c1"
+  data-size="medium"
   onClick={[Function]}
-  size="medium"
 >
   <div
     className="c2"
@@ -5281,7 +6094,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -5297,13 +6110,9 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-  overflow: auto;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -5339,25 +6148,114 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+  overflow: auto;
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-  overflow: auto;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -5377,8 +6275,33 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 
 .c1 > input,
 .c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
   padding-left: 12px;
-  padding-right: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
+  overflow: auto;
 }
 
 .c4 {
@@ -5524,14 +6447,14 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   className="c0 c1"
+  data-size="medium"
   onClick={[Function]}
-  size="medium"
 >
   <div
     className="c2"
@@ -6023,7 +6946,7 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -6039,12 +6962,9 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -6080,24 +7000,113 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -6117,8 +7126,32 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 
 .c1 > input,
 .c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
   padding-left: 12px;
-  padding-right: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -6214,14 +7247,14 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   className="c0 c1"
+  data-size="medium"
   onClick={[Function]}
-  size="medium"
 >
   <div
     className="c2"
@@ -6480,7 +7513,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -6496,12 +7529,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -6537,24 +7567,113 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
+  padding-right: 0;
   padding-left: 0;
-  padding-right: 12px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > :not(:last-child) {
@@ -6574,8 +7693,32 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
   padding-right: 0;
+  padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -6721,26 +7864,15 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
 }
 
 <span
     className="c0 c1"
+    data-size="medium"
+    data-trailing-visual={true}
     onClick={[Function]}
-    size="medium"
   >
     <div
       className="c2"
@@ -7292,7 +8424,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -7308,12 +8440,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -7349,24 +8478,113 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
   padding-right: 0;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -7386,8 +8604,32 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
+  padding-right: 0;
   padding-left: 0;
-  padding-right: 12px;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c6 {
@@ -7533,26 +8775,15 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
 }
 
 <span
     className="c0 c1"
+    data-leading-visual={true}
+    data-size="medium"
     onClick={[Function]}
-    size="medium"
   >
     <span
       className="TextInput-icon"
@@ -8141,7 +9372,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -8157,12 +9388,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -8198,24 +9426,113 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
+  padding-right: 0;
   padding-left: 0;
-  padding-right: 12px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > :not(:last-child) {
@@ -8235,8 +9552,32 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
   padding-right: 0;
+  padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -8382,26 +9723,15 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
 }
 
 <span
     className="c0 c1"
+    data-size="medium"
+    data-trailing-visual={true}
     onClick={[Function]}
-    size="medium"
   >
     <div
       className="c2"
@@ -8962,7 +10292,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -8978,12 +10308,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -9019,24 +10346,113 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
   padding-right: 0;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -9056,8 +10472,32 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
+  padding-right: 0;
   padding-left: 0;
-  padding-right: 12px;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c7 {
@@ -9203,26 +10643,15 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
 }
 
 <span
     className="c0 c1"
+    data-leading-visual={true}
+    data-size="medium"
     onClick={[Function]}
-    size="medium"
   >
     <span
       className="TextInput-icon"
@@ -9856,7 +11285,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -9872,12 +11301,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -9913,24 +11339,113 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
   padding-right: 0;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -9950,8 +11465,32 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
+  padding-right: 0;
   padding-left: 0;
-  padding-right: 12px;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c7 {
@@ -10097,26 +11636,15 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
 }
 
 <span
     className="c0 c1"
+    data-leading-visual={true}
+    data-size="medium"
     onClick={[Function]}
-    size="medium"
   >
     <span
       className="TextInput-icon"
@@ -10750,7 +12278,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -10766,12 +12294,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -10807,24 +12332,113 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -10844,8 +12458,32 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c7 {
@@ -10991,26 +12629,16 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
 }
 
 <span
     className="c0 c1"
+    data-leading-visual={true}
+    data-size="medium"
+    data-trailing-visual={true}
     onClick={[Function]}
-    size="medium"
   >
     <span
       className="TextInput-icon"
@@ -11638,7 +13266,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -11654,12 +13282,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -11695,24 +13320,113 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
+  padding-right: 0;
   padding-left: 0;
-  padding-right: 12px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > :not(:last-child) {
@@ -11732,8 +13446,32 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
   padding-right: 0;
+  padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -11879,26 +13617,15 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
 }
 
 <span
     className="c0 c1"
+    data-size="medium"
+    data-trailing-visual={true}
     onClick={[Function]}
-    size="medium"
   >
     <div
       className="c2"
@@ -12489,7 +14216,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -12505,12 +14232,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -12546,24 +14270,113 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -12583,8 +14396,32 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c6 {
@@ -12730,26 +14567,16 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
 }
 
 <span
     className="c0 c1"
+    data-leading-visual={true}
+    data-size="medium"
+    data-trailing-visual={true}
     onClick={[Function]}
-    size="medium"
   >
     <span
       className="TextInput-icon"
@@ -13377,7 +15204,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -13393,12 +15220,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -13434,24 +15258,113 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
+  padding-right: 0;
   padding-left: 0;
-  padding-right: 12px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1 > :not(:last-child) {
@@ -13471,8 +15384,32 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
   padding-right: 0;
+  padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -13618,26 +15555,15 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
 }
 
 <span
     className="c0 c1"
+    data-size="medium"
+    data-trailing-visual={true}
     onClick={[Function]}
-    size="medium"
   >
     <div
       className="c2"
@@ -14237,7 +16163,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -14253,19 +16179,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 20px;
-  min-height: 28px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  font-size: 12px;
-  line-height: 20px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -14301,24 +16217,113 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -14338,8 +16343,32 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c7 {
@@ -14482,31 +16511,17 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 }
 
 @media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
   .c0 {
-    font-size: 14px;
-  }
-}
-
-@media screen and (min-width:544px) {
-  .c0 {
-    font-size: 12px;
-  }
-}
-
-@media screen and (min-width:768px) {
-  .c0 {
-    font-size: 12px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
     className="c0 c1"
+    data-leading-visual={true}
+    data-size="small"
+    data-trailing-visual={true}
     onClick={[Function]}
-    size="small"
   >
     <span
       className="TextInput-icon"
@@ -15179,7 +17194,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -15195,12 +17210,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -15236,24 +17248,113 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -15273,8 +17374,32 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c7 {
@@ -15420,26 +17545,16 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
 }
 
 <span
     className="c0 c1"
+    data-leading-visual={true}
+    data-size="medium"
+    data-trailing-visual={true}
     onClick={[Function]}
-    size="medium"
   >
     <span
       className="TextInput-icon"
@@ -16112,7 +18227,7 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -16128,12 +18243,9 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -16169,24 +18281,113 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -16206,8 +18407,32 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c7 {
@@ -16351,26 +18576,16 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media screen and (min-width:544px) {
-
-}
-
-@media screen and (min-width:768px) {
-
 }
 
 <span
     className="c0 c1"
+    data-leading-visual={true}
+    data-size="medium"
+    data-trailing-visual={true}
     onClick={[Function]}
-    size="medium"
   >
     <span
       className="TextInput-icon"
@@ -17009,7 +19224,7 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -17025,12 +19240,9 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -17066,24 +19278,113 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -17103,8 +19404,32 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 
 .c1 > input,
 .c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
   padding-left: 12px;
-  padding-right: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -17250,14 +19575,14 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   className="c0 c1"
+  data-size="medium"
   onClick={[Function]}
-  size="medium"
 >
   <div
     className="c2"
@@ -17736,7 +20061,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -17752,12 +20077,9 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -17793,24 +20115,113 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -17830,8 +20241,32 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 
 .c1 > input,
 .c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
   padding-left: 12px;
-  padding-right: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -17989,14 +20424,14 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   className="c0 c1"
+  data-size="medium"
   onClick={[Function]}
-  size="medium"
 >
   <div
     className="c2"
@@ -18435,7 +20870,7 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -18451,12 +20886,9 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 24px;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -18492,24 +20924,113 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
+.c0 {
+  padding-left: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -18529,8 +21050,32 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 
 .c1 > input,
 .c1 > select {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1 {
   padding-left: 12px;
-  padding-right: 12px;
+  padding-top: calc(12px / 2);
+  padding-bottom: calc(12px / 2);
 }
 
 .c4 {
@@ -18550,14 +21095,14 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   className="c0 c1"
+  data-size="medium"
   onClick={[Function]}
-  size="medium"
 >
   <div
     className="c2"
