@@ -221,8 +221,8 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -251,30 +251,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
-}
-
-.c1:where([data-leading-visual]) {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where([data-trailing-visual]:not([data-trailing-action])) {
-  padding-right: var(--base-size-12);
-}
-
-.c1:where(:not([data-leading-visual])) > input,
-.c1:where(:not([data-leading-visual])) > select {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
-  padding-right: var(--base-size-12);
-}
-
-.c1 {
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1:where([data-leading-visual]) {
@@ -1185,8 +1161,8 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -1237,23 +1213,8 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c5 {
@@ -1790,22 +1751,12 @@ exports[`TextInputWithTokens renders as block layout 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
   width: 100%;
 }
 
@@ -2062,8 +2013,8 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
   max-height: 20px;
   overflow: auto;
 }
@@ -2116,25 +2067,10 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
   max-height: 20px;
   overflow: auto;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
 }
 
 .c5 {
@@ -2272,6 +2208,7 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
 <span
   className="c0 c1"
   data-size="medium"
+  data-token-wrapping={true}
   onClick={[Function]}
 >
   <div
@@ -2931,8 +2868,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -2983,23 +2920,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c5 {
@@ -3794,8 +3716,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -3846,23 +3768,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c5 {
@@ -4657,8 +4564,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -4709,23 +4616,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c5 {
@@ -5520,8 +5412,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -5572,23 +5464,8 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c5 {
@@ -6385,8 +6262,8 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
   overflow: auto;
 }
 
@@ -6438,24 +6315,9 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
   overflow: auto;
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
 }
 
 .c5 {
@@ -6593,6 +6455,7 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
 <span
   className="c0 c1"
   data-size="medium"
+  data-token-wrapping={true}
   onClick={[Function]}
 >
   <div
@@ -7252,8 +7115,8 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -7304,23 +7167,8 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c5 {
@@ -7834,8 +7682,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -7864,30 +7712,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
-}
-
-.c1:where([data-leading-visual]) {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where([data-trailing-visual]:not([data-trailing-action])) {
-  padding-right: var(--base-size-12);
-}
-
-.c1:where(:not([data-leading-visual])) > input,
-.c1:where(:not([data-leading-visual])) > select {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
-  padding-right: var(--base-size-12);
-}
-
-.c1 {
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1:where([data-leading-visual]) {
@@ -8769,8 +8593,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -8799,30 +8623,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
-}
-
-.c1:where([data-leading-visual]) {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where([data-trailing-visual]:not([data-trailing-action])) {
-  padding-right: var(--base-size-12);
-}
-
-.c1:where(:not([data-leading-visual])) > input,
-.c1:where(:not([data-leading-visual])) > select {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
-  padding-right: var(--base-size-12);
-}
-
-.c1 {
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1:where([data-leading-visual]) {
@@ -9741,8 +9541,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -9771,30 +9571,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
-}
-
-.c1:where([data-leading-visual]) {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where([data-trailing-visual]:not([data-trailing-action])) {
-  padding-right: var(--base-size-12);
-}
-
-.c1:where(:not([data-leading-visual])) > input,
-.c1:where(:not([data-leading-visual])) > select {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
-  padding-right: var(--base-size-12);
-}
-
-.c1 {
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1:where([data-leading-visual]) {
@@ -10685,8 +10461,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -10715,30 +10491,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
-}
-
-.c1:where([data-leading-visual]) {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where([data-trailing-visual]:not([data-trailing-action])) {
-  padding-right: var(--base-size-12);
-}
-
-.c1:where(:not([data-leading-visual])) > input,
-.c1:where(:not([data-leading-visual])) > select {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
-  padding-right: var(--base-size-12);
-}
-
-.c1 {
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1:where([data-leading-visual]) {
@@ -11702,8 +11454,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -11732,30 +11484,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
-}
-
-.c1:where([data-leading-visual]) {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where([data-trailing-visual]:not([data-trailing-action])) {
-  padding-right: var(--base-size-12);
-}
-
-.c1:where(:not([data-leading-visual])) > input,
-.c1:where(:not([data-leading-visual])) > select {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
-  padding-right: var(--base-size-12);
-}
-
-.c1 {
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1:where([data-leading-visual]) {
@@ -12719,8 +12447,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -12749,30 +12477,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
-}
-
-.c1:where([data-leading-visual]) {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where([data-trailing-visual]:not([data-trailing-action])) {
-  padding-right: var(--base-size-12);
-}
-
-.c1:where(:not([data-leading-visual])) > input,
-.c1:where(:not([data-leading-visual])) > select {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
-  padding-right: var(--base-size-12);
-}
-
-.c1 {
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1:where([data-leading-visual]) {
@@ -13731,8 +13435,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -13761,30 +13465,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
-}
-
-.c1:where([data-leading-visual]) {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where([data-trailing-visual]:not([data-trailing-action])) {
-  padding-right: var(--base-size-12);
-}
-
-.c1:where(:not([data-leading-visual])) > input,
-.c1:where(:not([data-leading-visual])) > select {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
-  padding-right: var(--base-size-12);
-}
-
-.c1 {
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1:where([data-leading-visual]) {
@@ -14705,8 +14385,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -14735,30 +14415,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
-}
-
-.c1:where([data-leading-visual]) {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where([data-trailing-visual]:not([data-trailing-action])) {
-  padding-right: var(--base-size-12);
-}
-
-.c1:where(:not([data-leading-visual])) > input,
-.c1:where(:not([data-leading-visual])) > select {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
-  padding-right: var(--base-size-12);
-}
-
-.c1 {
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1:where([data-leading-visual]) {
@@ -15717,8 +15373,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -15747,30 +15403,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
-}
-
-.c1:where([data-leading-visual]) {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where([data-trailing-visual]:not([data-trailing-action])) {
-  padding-right: var(--base-size-12);
-}
-
-.c1:where(:not([data-leading-visual])) > input,
-.c1:where(:not([data-leading-visual])) > select {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
-  padding-right: var(--base-size-12);
-}
-
-.c1 {
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1:where([data-leading-visual]) {
@@ -16700,8 +16332,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -16730,30 +16362,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
-}
-
-.c1:where([data-leading-visual]) {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where([data-trailing-visual]:not([data-trailing-action])) {
-  padding-right: var(--base-size-12);
-}
-
-.c1:where(:not([data-leading-visual])) > input,
-.c1:where(:not([data-leading-visual])) > select {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
-  padding-right: var(--base-size-12);
-}
-
-.c1 {
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1:where([data-leading-visual]) {
@@ -17755,8 +17363,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -17785,30 +17393,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
-}
-
-.c1:where([data-leading-visual]) {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where([data-trailing-visual]:not([data-trailing-action])) {
-  padding-right: var(--base-size-12);
-}
-
-.c1:where(:not([data-leading-visual])) > input,
-.c1:where(:not([data-leading-visual])) > select {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
-  padding-right: var(--base-size-12);
-}
-
-.c1 {
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1:where([data-leading-visual]) {
@@ -18812,8 +18396,8 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -18842,30 +18426,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
-}
-
-.c1:where([data-leading-visual]) {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where([data-trailing-visual]:not([data-trailing-action])) {
-  padding-right: var(--base-size-12);
-}
-
-.c1:where(:not([data-leading-visual])) > input,
-.c1:where(:not([data-leading-visual])) > select {
-  padding-left: var(--base-size-12);
-}
-
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
-.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
-  padding-right: var(--base-size-12);
-}
-
-.c1 {
-  padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
 }
 
 .c1:where([data-leading-visual]) {
@@ -19833,8 +19393,8 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -19885,23 +19445,8 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c5 {
@@ -20685,8 +20230,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -20737,23 +20282,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c5 {
@@ -21509,8 +21039,8 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 
 .c0 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 .c1 {
@@ -21561,23 +21091,8 @@ exports[`TextInputWithTokens renders without tokens 1`] = `
 
 .c1 {
   padding-left: 12px;
-  padding-top: calc(12px / 2);
-  padding-bottom: calc(12px / 2);
-}
-
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-  height: 100%;
-}
-
-.c4:focus {
-  outline: 0;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 @media (min-width:768px) {
