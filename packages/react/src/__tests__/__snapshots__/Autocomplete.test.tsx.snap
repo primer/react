@@ -214,6 +214,24 @@ exports[`snapshots renders a custom empty state message 1`] = `
   padding-right: var(--base-size-12);
 }
 
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
@@ -474,6 +492,24 @@ exports[`snapshots renders a loading state 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 .c1:where([data-leading-visual]) {
@@ -811,6 +847,24 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 .c1:where([data-leading-visual]) {
@@ -1787,6 +1841,24 @@ exports[`snapshots renders a multiselect input 1`] = `
   padding-right: var(--base-size-12);
 }
 
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
 @media (forced-colors:active) {
 
 }
@@ -2601,6 +2673,24 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 .c1:where([data-leading-visual]) {
@@ -3618,6 +3708,24 @@ exports[`snapshots renders a single select input 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 .c1:where([data-leading-visual]) {
@@ -4827,6 +4935,24 @@ exports[`snapshots renders with an input value 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 .c1:where([data-leading-visual]) {

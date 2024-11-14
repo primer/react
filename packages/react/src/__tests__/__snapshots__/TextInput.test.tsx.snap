@@ -213,6 +213,24 @@ exports[`TextInput renders 1`] = `
   padding-right: var(--base-size-12);
 }
 
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
@@ -428,6 +446,24 @@ exports[`TextInput renders block 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 .c1:where([data-leading-visual]) {
@@ -684,6 +720,24 @@ exports[`TextInput renders contrast 1`] = `
   padding-right: var(--base-size-12);
 }
 
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
@@ -900,6 +954,24 @@ exports[`TextInput renders error 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 .c1:where([data-leading-visual]) {
@@ -1157,6 +1229,24 @@ exports[`TextInput renders large 1`] = `
   padding-right: var(--base-size-12);
 }
 
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
@@ -1373,6 +1463,24 @@ exports[`TextInput renders leadingVisual 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 .c1:where([data-leading-visual]) {
@@ -1658,6 +1766,24 @@ exports[`TextInput renders leadingVisual 2`] = `
   padding-right: var(--base-size-12);
 }
 
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
@@ -1903,6 +2029,24 @@ exports[`TextInput renders leadingVisual 3`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 .c1:where([data-leading-visual]) {
@@ -2170,6 +2314,24 @@ exports[`TextInput renders leadingVisual 4`] = `
   padding-right: var(--base-size-12);
 }
 
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
@@ -2397,6 +2559,24 @@ exports[`TextInput renders monospace 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 .c1:where([data-leading-visual]) {
@@ -2653,6 +2833,24 @@ exports[`TextInput renders placeholder 1`] = `
   padding-right: var(--base-size-12);
 }
 
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
@@ -2869,6 +3067,24 @@ exports[`TextInput renders small 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 .c1:where([data-leading-visual]) {
@@ -3548,6 +3764,24 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   padding-right: var(--base-size-12);
 }
 
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
 @media (forced-colors:active) {
   .c4:focus {
     outline: solid 1px transparent;
@@ -4167,6 +4401,24 @@ exports[`TextInput renders trailingAction text button 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 .c1:where([data-leading-visual]) {
@@ -4905,6 +5157,24 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   padding-right: var(--base-size-12);
 }
 
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
 @media (forced-colors:active) {
   .c4:focus {
     outline: solid 1px transparent;
@@ -5213,6 +5483,24 @@ exports[`TextInput renders trailingVisual 1`] = `
   padding-right: var(--base-size-12);
 }
 
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
@@ -5458,6 +5746,24 @@ exports[`TextInput renders trailingVisual 2`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 .c1:where([data-leading-visual]) {
@@ -5743,6 +6049,24 @@ exports[`TextInput renders trailingVisual 3`] = `
   padding-right: var(--base-size-12);
 }
 
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
@@ -5970,6 +6294,24 @@ exports[`TextInput renders trailingVisual 4`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 .c1:where([data-leading-visual]) {
@@ -6245,6 +6587,24 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 .c1:where([data-leading-visual]) {
@@ -6561,6 +6921,24 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 .c1:where([data-leading-visual]) {
@@ -6935,6 +7313,24 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: var(--base-size-12);
 }
 
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
@@ -7240,6 +7636,24 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 .c1:where([data-leading-visual]) {
@@ -7659,6 +8073,24 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: var(--base-size-12);
 }
 
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
@@ -8038,6 +8470,24 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 .c1:where([data-leading-visual]) {
@@ -8452,6 +8902,24 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: var(--base-size-12);
 }
 
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
@@ -8787,6 +9255,24 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 .c1:where([data-leading-visual]) {
@@ -9201,6 +9687,24 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: var(--base-size-12);
 }
 
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
@@ -9562,6 +10066,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
   padding-right: var(--base-size-12);
 }
 
@@ -9985,6 +10497,24 @@ exports[`TextInput renders with a loading indicator 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 .c1:where([data-leading-visual]) {
@@ -10444,6 +10974,14 @@ exports[`TextInput renders with a loading indicator 1`] = `
   padding-right: var(--base-size-12);
 }
 
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
 @media (min-width:768px) {
   .c0 {
     font-size: var(--text-body-size-medium);
@@ -10817,6 +11355,24 @@ exports[`TextInput should render a password input 1`] = `
 .c1 > select {
   padding-right: 0;
   padding-left: 0;
+}
+
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 .c1:where([data-leading-visual]) {
