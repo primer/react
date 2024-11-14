@@ -151,13 +151,13 @@
     width: 0;
   }
 
-  &[data-truncate-text='true'] .PRIVATE_TreeViewItemContentText {
+  &:where([data-truncate-text='true']) .PRIVATE_TreeViewItemContentText {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  &[data-truncate-text='false'] .PRIVATE_TreeViewItemContentText {
+  &:where([data-truncate-text='false']) .PRIVATE_TreeViewItemContentText {
     word-break: break-word;
   }
 
