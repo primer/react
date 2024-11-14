@@ -385,7 +385,7 @@ const colors = {
           "hoverBg": "var(--control-transparent-bgColor-hover, var(--color-tree-view-item-chevron-hover-bg, rgba(208,215,222,0.32)))"
         },
         "directory": {
-          "fill": "var(--treeViewItem-leadingVisual-bgColor-rest, var(--color-tree-view-item-chevron-directory-fill, #54aeff))"
+          "fill": "var(--treeViewItem-leadingVisual-iconColor-rest, var(--color-tree-view-item-chevron-directory-fill, #54aeff))"
         }
       },
       "fg": {
@@ -909,7 +909,7 @@ const colors = {
           "hoverBg": "var(--control-transparent-bgColor-hover, var(--color-tree-view-item-chevron-hover-bg, #ced5dc))"
         },
         "directory": {
-          "fill": "var(--treeViewItem-leadingVisual-bgColor-rest, var(--color-tree-view-item-chevron-directory-fill, #368cf9))"
+          "fill": "var(--treeViewItem-leadingVisual-iconColor-rest, var(--color-tree-view-item-chevron-directory-fill, #368cf9))"
         }
       },
       "fg": {
@@ -1433,7 +1433,7 @@ const colors = {
           "hoverBg": "var(--control-transparent-bgColor-hover, var(--color-tree-view-item-chevron-hover-bg, rgba(208,215,222,0.32)))"
         },
         "directory": {
-          "fill": "var(--treeViewItem-leadingVisual-bgColor-rest, var(--color-tree-view-item-chevron-directory-fill, #54aeff))"
+          "fill": "var(--treeViewItem-leadingVisual-iconColor-rest, var(--color-tree-view-item-chevron-directory-fill, #54aeff))"
         }
       },
       "fg": {
@@ -1957,7 +1957,7 @@ const colors = {
           "hoverBg": "var(--control-transparent-bgColor-hover, var(--color-tree-view-item-chevron-hover-bg, rgba(208,215,222,0.32)))"
         },
         "directory": {
-          "fill": "var(--treeViewItem-leadingVisual-bgColor-rest, var(--color-tree-view-item-chevron-directory-fill, #54aeff))"
+          "fill": "var(--treeViewItem-leadingVisual-iconColor-rest, var(--color-tree-view-item-chevron-directory-fill, #54aeff))"
         }
       },
       "fg": {
@@ -2480,7 +2480,7 @@ const colors = {
           "hoverBg": "var(--control-transparent-bgColor-hover, var(--color-tree-view-item-chevron-hover-bg, rgba(177,186,196,0.12)))"
         },
         "directory": {
-          "fill": "var(--treeViewItem-leadingVisual-bgColor-rest, var(--color-tree-view-item-directory-fill, #848d97))"
+          "fill": "var(--treeViewItem-leadingVisual-iconColor-rest, var(--color-tree-view-item-directory-fill, #848d97))"
         }
       },
       "fg": {
@@ -3006,7 +3006,7 @@ const colors = {
           "hoverBg": "var(--control-transparent-bgColor-hover, var(--color-tree-view-item-chevron-hover-bg, rgba(144,157,171,0.12)))"
         },
         "directory": {
-          "fill": "var(--treeViewItem-leadingVisual-bgColor-rest, var(--color-tree-view-item-directory-fill, #768390))"
+          "fill": "var(--treeViewItem-leadingVisual-iconColor-rest, var(--color-tree-view-item-directory-fill, #768390))"
         }
       },
       "fg": {
@@ -3532,7 +3532,7 @@ const colors = {
           "hoverBg": "var(--control-transparent-bgColor-hover, var(--color-tree-view-item-chevron-hover-bg, #525964))"
         },
         "directory": {
-          "fill": "var(--treeViewItem-leadingVisual-bgColor-rest, var(--color-tree-view-item-directory-fill, #f0f3f6))"
+          "fill": "var(--treeViewItem-leadingVisual-iconColor-rest, var(--color-tree-view-item-directory-fill, #f0f3f6))"
         }
       },
       "fg": {
@@ -4058,7 +4058,7 @@ const colors = {
           "hoverBg": "var(--control-transparent-bgColor-hover, var(--color-tree-view-item-chevron-hover-bg, rgba(177,186,196,0.12)))"
         },
         "directory": {
-          "fill": "var(--treeViewItem-leadingVisual-bgColor-rest, var(--color-tree-view-item-directory-fill, #8b949e))"
+          "fill": "var(--treeViewItem-leadingVisual-iconColor-rest, var(--color-tree-view-item-directory-fill, #8b949e))"
         }
       },
       "fg": {
@@ -4584,7 +4584,7 @@ const colors = {
           "hoverBg": "var(--control-transparent-bgColor-hover, var(--color-tree-view-item-chevron-hover-bg, rgba(177,186,196,0.12)))"
         },
         "directory": {
-          "fill": "var(--treeViewItem-leadingVisual-bgColor-rest, var(--color-tree-view-item-directory-fill, #8b949e))"
+          "fill": "var(--treeViewItem-leadingVisual-iconColor-rest, var(--color-tree-view-item-directory-fill, #8b949e))"
         }
       },
       "fg": {
