@@ -501,7 +501,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
       >
         {/* @ts-ignore Box doesn't have type support for `ref` used in combination with `as` */}
         <li
-          className={clsx('PRIVATE_TreeView-item', className, {[classes.PRIVATE_TreeViewItem]: cssModulesEnabled})}
+          className={clsx('PRIVATE_TreeView-item', className, {[classes.TreeViewItem]: cssModulesEnabled})}
           ref={ref as React.ForwardedRef<HTMLLIElement>}
           tabIndex={0}
           id={itemId}
@@ -543,7 +543,7 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
         >
           <div
             className={clsx('PRIVATE_TreeView-item-container', {
-              [classes.PRIVATE_TreeViewItemContainer]: cssModulesEnabled,
+              [classes.TreeViewItemContainer]: cssModulesEnabled,
             })}
             style={{
               // @ts-ignore CSS custom property
@@ -568,9 +568,9 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
                   onSelect && 'PRIVATE_TreeView-item-toggle--hover',
                   level === 1 && 'PRIVATE_TreeView-item-toggle--end',
                   {
-                    [classes.PRIVATE_TreeViewItemToggle]: cssModulesEnabled,
-                    [classes.PRIVATE_TreeViewItemToggleHover]: cssModulesEnabled,
-                    [classes.PRIVATE_TreeViewItemToggleEnd]: cssModulesEnabled,
+                    [classes.TreeViewItemToggle]: cssModulesEnabled,
+                    [classes.TreeViewItemToggleHover]: cssModulesEnabled,
+                    [classes.TreeViewItemToggleEnd]: cssModulesEnabled,
                   },
                 )}
                 onClick={event => {
@@ -589,13 +589,13 @@ const Item = React.forwardRef<HTMLElement, TreeViewItemProps>(
             <div
               id={labelId}
               className={clsx('PRIVATE_TreeView-item-content', {
-                [classes.PRIVATE_TreeViewItemContent]: cssModulesEnabled,
+                [classes.TreeViewItemContent]: cssModulesEnabled,
               })}
             >
               {slots.leadingVisual}
               <span
                 className={clsx('PRIVATE_TreeView-item-content-text', {
-                  [classes.PRIVATE_TreeViewItemContentText]: cssModulesEnabled,
+                  [classes.TreeViewItemContentText]: cssModulesEnabled,
                 })}
               >
                 {childrenWithoutSubTree}
@@ -619,7 +619,7 @@ const LevelIndicatorLines: React.FC<{level: number}> = ({level}) => {
         <div
           key={index}
           className={clsx('PRIVATE_TreeView-item-level-line', {
-            [classes.PRIVATE_TreeViewItemLevelLine]: cssModulesEnabled,
+            [classes.TreeViewItemLevelLine]: cssModulesEnabled,
           })}
         />
       ))}
@@ -818,7 +818,7 @@ const SkeletonItem = () => {
       className={clsx(
         {
           [classes.TreeViewSkeletonItemContainerStyles]: cssModulesEnabled,
-          [classes.PRIVATE_TreeViewItemSkeleton]: cssModulesEnabled,
+          [classes.TreeViewItemSkeleton]: cssModulesEnabled,
         },
         'PRIVATE_TreeView-item-skeleton',
       )}
@@ -843,7 +843,7 @@ const LoadingItem = React.forwardRef<HTMLElement, LoadingItemProps>(({count}, re
         {Array.from({length: count}).map((_, i) => {
           return <SkeletonItem aria-hidden={true} key={i} />
         })}
-        <div className={clsx('PRIVATE_VisuallyHidden', {[classes.PRIVATE_TreeViewVisuallyHidden]: cssModulesEnabled})}>
+        <div className={clsx('PRIVATE_VisuallyHidden', {[classes.TreeViewVisuallyHidden]: cssModulesEnabled})}>
           Loading {count} items
         </div>
       </Item>
@@ -903,14 +903,14 @@ const LeadingVisual: React.FC<TreeViewVisualProps> = props => {
   return (
     <>
       <div
-        className={clsx('PRIVATE_VisuallyHidden', {[classes.PRIVATE_TreeViewVisuallyHidden]: cssModulesEnabled})}
+        className={clsx('PRIVATE_VisuallyHidden', {[classes.TreeViewVisuallyHidden]: cssModulesEnabled})}
         aria-hidden={true}
         id={leadingVisualId}
       >
         {props.label}
       </div>
       <div
-        className={clsx('PRIVATE_TreeView-item-visual', {[classes.PRIVATE_TreeViewItemVisual]: cssModulesEnabled})}
+        className={clsx('PRIVATE_TreeView-item-visual', {[classes.TreeViewItemVisual]: cssModulesEnabled})}
         aria-hidden={true}
       >
         {children}
@@ -928,14 +928,14 @@ const TrailingVisual: React.FC<TreeViewVisualProps> = props => {
   return (
     <>
       <div
-        className={clsx('PRIVATE_VisuallyHidden', {[classes.PRIVATE_TreeViewVisuallyHidden]: cssModulesEnabled})}
+        className={clsx('PRIVATE_VisuallyHidden', {[classes.TreeViewVisuallyHidden]: cssModulesEnabled})}
         aria-hidden={true}
         id={trailingVisualId}
       >
         {props.label}
       </div>
       <div
-        className={clsx('PRIVATE_TreeView-item-visual', {[classes.PRIVATE_TreeViewItemVisual]: cssModulesEnabled})}
+        className={clsx('PRIVATE_TreeView-item-visual', {[classes.TreeViewItemVisual]: cssModulesEnabled})}
         aria-hidden={true}
       >
         {children}
@@ -956,14 +956,14 @@ const LeadingAction: React.FC<TreeViewVisualProps> = props => {
   return (
     <>
       <div
-        className={clsx('PRIVATE_VisuallyHidden', {[classes.PRIVATE_TreeViewVisuallyHidden]: cssModulesEnabled})}
+        className={clsx('PRIVATE_VisuallyHidden', {[classes.TreeViewVisuallyHidden]: cssModulesEnabled})}
         aria-hidden={true}
       >
         {props.label}
       </div>
       <div
         className={clsx('PRIVATE_TreeView-item-leading-action', {
-          [classes.PRIVATE_TreeViewItemLeadingAction]: cssModulesEnabled,
+          [classes.TreeViewItemLeadingAction]: cssModulesEnabled,
         })}
         aria-hidden={true}
       >
@@ -982,9 +982,7 @@ const DirectoryIcon = () => {
   const {isExpanded} = React.useContext(ItemContext)
   const Icon = isExpanded ? FileDirectoryOpenFillIcon : FileDirectoryFillIcon
   return (
-    <div
-      className={clsx('PRIVATE_TreeView-directory-icon', {[classes.PRIVATE_TreeViewDirectoryIcon]: cssModulesEnabled})}
-    >
+    <div className={clsx('PRIVATE_TreeView-directory-icon', {[classes.TreeViewDirectoryIcon]: cssModulesEnabled})}>
       <Icon />
     </div>
   )

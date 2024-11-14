@@ -8,16 +8,15 @@
    *
    * We define styles for the tree items at the root level of the tree
    * to avoid recomputing the styles for each item when the tree updates.
-   * We're sacraficing maintainability for performance because TreeView
+   * We're sacrificing maintainability for performance because TreeView
    * needs to be performant enough to handle large trees (thousands of items).
    *
    * This is intended to be a temporary solution until we can improve the
    * performance of our styling patterns.
    *
    * Do NOT copy this pattern without understanding the tradeoffs.
-   * Do NOT reference PRIVATE_* classnames outside of this file.
    */
-  .PRIVATE_TreeViewItem {
+  .TreeViewItem {
     outline: none;
 
     &:focus-visible > div,
@@ -35,7 +34,7 @@
     }
   }
 
-  .PRIVATE_TreeViewItemContainer {
+  .TreeViewItemContainer {
     --level: 1;
     --toggle-width: 1rem;
     --min-item-height: 2rem;
@@ -67,7 +66,7 @@
       --min-item-height: 2.75rem;
     }
 
-    &:has(.PRIVATE_TreeViewItemSkeleton):hover {
+    &:has(.TreeViewItemSkeleton):hover {
       cursor: default;
       background-color: transparent;
 
@@ -77,11 +76,11 @@
     }
   }
 
-  &:where([data-omit-spacer='true']) .PRIVATE_TreeViewItemContainer {
+  &:where([data-omit-spacer='true']) .TreeViewItemContainer {
     grid-template-columns: 0 0 0 1fr;
   }
 
-  .PRIVATE_TreeViewItem[aria-current='true'] > .PRIVATE_TreeViewItemContainer {
+  .TreeViewItem[aria-current='true'] > .TreeViewItemContainer {
     background-color: var(--control-transparent-bgColor-selected);
 
     /* Current item indicator */
@@ -108,7 +107,7 @@
     }
   }
 
-  .PRIVATE_TreeViewItemToggle {
+  .TreeViewItemToggle {
     display: flex;
     height: 100%;
 
@@ -122,16 +121,16 @@
     align-items: flex-start;
   }
 
-  .PRIVATE_TreeViewItemToggleHover:hover {
+  .TreeViewItemToggleHover:hover {
     background-color: var(--control-transparent-bgColor-hover);
   }
 
-  .PRIVATE_TreeViewItemToggleEnd {
+  .TreeViewItemToggleEnd {
     border-top-left-radius: var(--borderRadius-medium);
     border-bottom-left-radius: var(--borderRadius-medium);
   }
 
-  .PRIVATE_TreeViewItemContent {
+  .TreeViewItemContent {
     display: flex;
     height: 100%;
     padding: 0 var(--base-size-8);
@@ -146,22 +145,22 @@
     gap: var(--stack-gap-condensed);
   }
 
-  .PRIVATE_TreeViewItemContentText {
+  .TreeViewItemContentText {
     flex: 1 1 auto;
     width: 0;
   }
 
-  &:where([data-truncate-text='true']) .PRIVATE_TreeViewItemContentText {
+  &:where([data-truncate-text='true']) .TreeViewItemContentText {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  &:where([data-truncate-text='false']) .PRIVATE_TreeViewItemContentText {
+  &:where([data-truncate-text='false']) .TreeViewItemContentText {
     word-break: break-word;
   }
 
-  .PRIVATE_TreeViewItemVisual {
+  .TreeViewItemVisual {
     display: flex;
 
     /* The visual icons should appear vertically centered for single-line items, but remain at the top for items that wrap
@@ -171,13 +170,13 @@
     align-items: center;
   }
 
-  .PRIVATE_TreeViewItemLeadingAction {
+  .TreeViewItemLeadingAction {
     display: flex;
     color: var(--fgColor-muted);
     grid-area: leadingAction;
   }
 
-  .PRIVATE_TreeViewItemLevelLine {
+  .TreeViewItemLevelLine {
     width: 100%;
     height: 100%;
 
@@ -196,22 +195,22 @@
    * sure the component remains simple when not in use.
    */
   @media (hover: hover) {
-    .PRIVATE_TreeViewItemLevelLine {
+    .TreeViewItemLevelLine {
       border-color: transparent;
     }
 
-    &:hover .PRIVATE_TreeViewItemLevelLine,
-    &:focus-within .PRIVATE_TreeViewItemLevelLine {
+    &:hover .TreeViewItemLevelLine,
+    &:focus-within .TreeViewItemLevelLine {
       border-color: var(--borderColor-muted);
     }
   }
 
-  .PRIVATE_TreeViewDirectoryIcon {
+  .TreeViewDirectoryIcon {
     display: grid;
     color: var(--treeViewItem-leadingVisual-iconColor-rest);
   }
 
-  .PRIVATE_TreeViewVisuallyHidden {
+  .TreeViewVisuallyHidden {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -231,7 +230,7 @@
  * `--treeViewItem-leadingVisual-iconColor-rest` variable.
  */
 /* stylelint-disable-next-line selector-no-qualifying-type */
-body[data-dark-theme='dark_high_contrast'] .PRIVATE_TreeViewDirectoryIcon {
+body[data-dark-theme='dark_high_contrast'] .TreeViewDirectoryIcon {
   /* stylelint-disable-next-line primer/colors */
   color: var(--color-tree-view-item-directory-fill, #f0f3f6);
 }
