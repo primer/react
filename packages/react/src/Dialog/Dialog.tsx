@@ -505,7 +505,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
       <Portal>
         <Backdrop
           ref={backdropRef}
-          className={enabled ? classes.Overlay : undefined}
+          className={enabled ? classes.Backdrop : undefined}
           {...positionDataAttributes}
           onClick={onBackdropClick}
           onMouseDown={(e: React.MouseEvent<HTMLDivElement>) => {
