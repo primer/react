@@ -17,6 +17,7 @@ import {useId} from '../hooks/useId'
 import {ScrollableRegion} from '../ScrollableRegion'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
+import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 import classes from './Dialog.module.css'
 import {useFeatureFlag} from '../FeatureFlags'
@@ -615,7 +616,8 @@ type StyledBodyProps = React.ComponentProps<'div'> & SxProp
 const Body = React.forwardRef<HTMLElement, StyledBodyProps>(function Body({className, ...rest}, forwardRef) {
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   return <StyledBody ref={forwardRef} className={clsx(className, enabled && classes.Body)} {...rest} />
-})
+}) as PolymorphicForwardRefComponent<'div', StyledBodyProps>
+
 Body.displayName = 'Dialog.Body'
 
 const StyledFooter = toggleStyledComponent(
