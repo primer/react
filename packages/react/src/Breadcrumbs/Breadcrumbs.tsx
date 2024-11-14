@@ -1,6 +1,6 @@
 import {clsx} from 'clsx'
 import type {To} from 'history'
-import React, {type ForwardedRef} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import {get} from '../constants'
