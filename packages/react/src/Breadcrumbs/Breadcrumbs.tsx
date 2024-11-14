@@ -118,7 +118,8 @@ const StyledBreadcrumbsItem = toggleStyledComponent(
     ${sx};
   `,
 )
-function BreadcrumbsItem<As extends React.ElementType>(props: StyledBreadcrumbsItemProps<As>, ref: ForwardedRef<any>) {
+
+function BreadcrumbsItem<As extends React.ElementType>(props: StyledBreadcrumbsItemProps<As>) {
   const {selected, className, ...rest} = props
   const enabled = useFeatureFlag(CSS_MODULES_FLAG)
   return (
@@ -129,7 +130,6 @@ function BreadcrumbsItem<As extends React.ElementType>(props: StyledBreadcrumbsI
         [classes.ItemSelected]: enabled && selected,
       })}
       aria-current={selected ? 'page' : null}
-      ref={ref} 
       {...rest}
     />
   )
