@@ -164,11 +164,11 @@
       &:where([data-width='small']) {
         width: 296px;
       }
-    
+
       &:where([data-width='medium']) {
         width: 320px;
       }
-    
+
       &:where([data-width='large']) {
         /* stylelint-disable-next-line primer/responsive-widths */
         width: 480px;
@@ -177,7 +177,7 @@
       &:where([data-height='small']) {
         height: 480px;
       }
-    
+
       &:where([data-height='large']) {
         height: 640px;
       }
@@ -237,7 +237,7 @@
 .Body {
   padding: var(--base-size-16);
   overflow: auto;
-  flex-grow: 1
+  flex-grow: 1;
 }
 
 .Footer {
