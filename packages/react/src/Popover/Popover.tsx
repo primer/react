@@ -4,6 +4,9 @@ import {get} from '../constants'
 import type {SxProp} from '../sx'
 import sx from '../sx'
 import type {ComponentProps} from '../utils/types'
+import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
+import {useFeatureFlag} from '../FeatureFlags'
+import classes from './Popover.module.css'
 
 type CaretPosition =
   | 'top'
@@ -28,16 +31,48 @@ type StyledPopoverProps = {
   open?: boolean
 } & SxProp
 
-const Popover = styled.div.attrs<StyledPopoverProps>(({className, caret = 'top'}) => {
-  return {
-    className: clsx(className, `caret-pos--${caret}`),
+const CSS_MODULES_FLAG = 'primer_react_css_modules_team'
+
+const StyledPopover = toggleStyledComponent(
+  CSS_MODULES_FLAG,
+  'div',
+  styled.div.attrs<StyledPopoverProps>(({className, caret = 'top'}) => {
+    return {
+      className: clsx(className, `caret-pos--${caret}`),
+    }
+  })<StyledPopoverProps>`
+    position: ${props => (props.relative ? 'relative' : 'absolute')};
+    z-index: 100;
+    display: ${props => (props.open ? 'block' : 'none')};
+    ${sx};
+  `,
+)
+
+export type PopoverProps = {
+  /** Class name for custom styling */
+  className?: string
+} & StyledPopoverProps
+
+const Popover: React.FC<React.PropsWithChildren<PopoverProps>> = ({
+  className,
+  caret = 'top',
+  open,
+  relative,
+  ...props
+}) => {
+  const enabled = useFeatureFlag(CSS_MODULES_FLAG)
+  if (enabled) {
+    return (
+      <StyledPopover
+        data-open={open ? '' : undefined}
+        data-relative={relative ? '' : undefined}
+        className={clsx(className, classes.Popover, `caret-pos--${caret}`)}
+      />
+    )
   }
-})<StyledPopoverProps>`
-  position: ${props => (props.relative ? 'relative' : 'absolute')};
-  z-index: 100;
-  display: ${props => (props.open ? 'block' : 'none')};
-  ${sx};
-`
+
+  return <StyledPopover {...props} className={className} caret={caret} open={open} />
+}
 
 const PopoverContent = styled.div<SxProp>`
   border: 1px solid ${get('colors.border.default')};
@@ -220,6 +255,5 @@ const PopoverContent = styled.div<SxProp>`
 
 PopoverContent.displayName = 'Popover.Content'
 
-export type PopoverProps = ComponentProps<typeof Popover>
 export type PopoverContentProps = ComponentProps<typeof PopoverContent>
 export default Object.assign(Popover, {Content: PopoverContent})
