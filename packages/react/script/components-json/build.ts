@@ -77,8 +77,16 @@ const components = docsFiles.map(docsFilepath => {
   // if stories are not defined in *.docs.json, fill feature stories as default
   const stories = (docs.stories.length > 0 ? docs.stories : getStoryIds(docs, Object.keys(featureStorySourceCode)))
     // Filter out the default story
-    .filter(({id}) => id !== defaultStoryId)
+    .filter(({id}) => {
+      return id !== defaultStoryId
+    })
     .map(({id}) => {
+      if (id.endsWith('--default')) {
+        return {
+          id,
+          code: defaultStoryCode,
+        }
+      }
       const storyName = getStoryName(id)
       const code = id.includes('-features--') ? featureStorySourceCode[storyName] : exampleStorySourceCode[storyName]
 
@@ -96,10 +104,13 @@ const components = docsFiles.map(docsFilepath => {
 
   // Add default story to the beginning of the array
   if (defaultStoryCode) {
-    docs.stories.unshift({
-      id: defaultStoryId,
-      code: defaultStoryCode,
-    })
+    const hasDefaultStory = docs.stories.find(story => story.code === defaultStoryCode)
+    if (!hasDefaultStory) {
+      docs.stories.unshift({
+        id: defaultStoryId,
+        code: defaultStoryCode,
+      })
+    }
   }
 
   // TODO: Provide default type and description for sx and ref props
