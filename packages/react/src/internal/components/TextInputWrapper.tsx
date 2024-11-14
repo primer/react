@@ -1,52 +1,12 @@
-import styled, {css} from 'styled-components'
-import type {ResponsiveValue} from 'styled-system'
-import {maxWidth, minWidth, variant, width} from 'styled-system'
+import React from 'react'
+import styled from 'styled-components'
+import {maxWidth, minWidth, width, type ResponsiveValue} from 'styled-system'
 import {get} from '../../constants'
 import type {SxProp} from '../../sx'
 import sx from '../../sx'
 import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
 
 export type TextInputSizes = 'small' | 'medium' | 'large'
-
-const sizeDeprecatedVariants = variant({
-  variants: {
-    small: {
-      minHeight: '28px',
-      px: 2,
-      py: '3px',
-      fontSize: [0, 0, 0],
-      lineHeight: '20px',
-    },
-    large: {
-      px: 2,
-      py: '10px',
-      fontSize: 3,
-    },
-  },
-})
-
-const sizeVariants = variant({
-  prop: 'size',
-  variants: {
-    small: {
-      '--inner-action-size': '20px',
-      minHeight: '28px',
-      px: 2,
-      py: '3px',
-      fontSize: [0, 0, 0],
-      lineHeight: '20px',
-    },
-    medium: {
-      '--inner-action-size': '24px',
-    },
-    large: {
-      '--inner-action-size': '28px',
-      px: 2,
-      py: '10px',
-      height: '40px',
-    },
-  },
-})
 
 export type StyledBaseWrapperProps = {
   block?: boolean
@@ -56,6 +16,12 @@ export type StyledBaseWrapperProps = {
   isInputFocused?: boolean
   monospace?: boolean
   validationStatus?: FormValidationStatus
+  /** @deprecated Use `size` prop instead */
+  variant?: TextInputSizes
+  size?: TextInputSizes
+  className?: string
+  style?: React.CSSProperties
+  onClick?: React.MouseEventHandler
   /** @deprecated Update `width` using CSS modules or style. */
   width?: string | number | ResponsiveValue<string | number>
   /** @deprecated Update `min-width` using CSS modules or style. */
@@ -67,37 +33,11 @@ export type StyledBaseWrapperProps = {
 export type StyledWrapperProps = {
   hasLeadingVisual?: boolean
   hasTrailingVisual?: boolean
-  /** @deprecated Use `size` prop instead */
-  variant?: TextInputSizes
-  size?: TextInputSizes
 } & StyledBaseWrapperProps
 
-const textInputBasePadding = '12px'
-export const textInputHorizPadding = textInputBasePadding
-
-const renderFocusStyles = (hasTrailingAction: boolean, isInputFocused: boolean) => {
-  if (hasTrailingAction) {
-    return (
-      isInputFocused &&
-      css`
-        border-color: ${get('colors.accent.fg')};
-        outline: 2px solid ${get('colors.accent.fg')};
-        outline-offset: -1px;
-      `
-    )
-  }
-  return css`
-    &:focus-within {
-      border-color: ${get('colors.accent.fg')};
-      outline: 2px solid ${get('colors.accent.fg')};
-      outline-offset: -1px;
-    }
-  `
-}
-
-export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
+export const StyledTextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
   font-size: ${get('fontSizes.1')};
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: ${get('colors.fg.default')};
   vertical-align: middle;
   background-color: ${get('colors.canvas.default')};
@@ -107,7 +47,7 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
   box-shadow: ${get('shadows.primer.shadow.inset')};
   display: inline-flex;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
 
   input,
@@ -127,77 +67,151 @@ export const TextInputBaseWrapper = styled.span<StyledBaseWrapperProps>`
     }
   }
 
-  ${props => renderFocusStyles(Boolean(props.hasTrailingAction), Boolean(props.isInputFocused))}
+  &:where([data-trailing-action][data-focused]),
+  &:where(:not([data-trailing-action]):focus-within) {
+    border-color: ${get('colors.accent.fg')};
+    outline: 2px solid ${get('colors.accent.fg')};
+    outline-offset: -1px;
+  }
 
   > textarea {
-    padding: ${textInputBasePadding};
+    padding: var(--base-size-12);
   }
 
-  ${props =>
-    props.contrast &&
-    css`
-      background-color: ${get('colors.canvas.inset')};
-    `}
+  &:where([data-contrast]) {
+    background-color: ${get('colors.canvas.inset')};
+  }
 
-  ${props =>
-    props.disabled &&
-    css`
-      color: ${get('colors.primer.fg.disabled')};
-      background-color: ${get('colors.input.disabledBg')};
-      box-shadow: none;
-      border-color: var(--control-borderColor-disabled, ${get('colors.border.default')});
+  &:where([data-disabled]) {
+    color: ${get('colors.primer.fg.disabled')};
+    background-color: ${get('colors.input.disabledBg')};
+    box-shadow: none;
+    border-color: var(--control-borderColor-disabled, ${get('colors.border.default')});
 
-      input,
-      textarea,
-      select {
-        cursor: not-allowed;
-      }
-    `}
+    input,
+    textarea,
+    select {
+      cursor: not-allowed;
+    }
+  }
 
-    ${props =>
-    props.monospace &&
-    css`
-      font-family: ${get('fonts.mono')};
-    `}
+  &:where([data-monospace]) {
+    font-family: ${get('fonts.mono')};
+  }
 
-  ${props =>
-    props.validationStatus === 'error' &&
-    css`
-      border-color: ${get('colors.danger.emphasis')};
-      ${renderFocusStyles(Boolean(props.hasTrailingAction), Boolean(props.isInputFocused))}
-    `}
+  &:where([data-validation='error']) {
+    border-color: ${get('colors.danger.emphasis')};
 
+    &:where([data-trailing-action][data-focused]),
+    &:where(:not([data-trailing-action])):focus-within {
+      border-color: ${get('colors.accent.fg')};
+      outline: 2px solid ${get('colors.accent.fg')};
+      outline-offset: -1px;
+    }
+  }
 
-  ${props =>
-    props.validationStatus === 'success' &&
-    css`
-      border-color: ${get('colors.success.emphasis')};
-    `}
+  &:where([data-validation='success']) {
+    border-color: ${get('colors.success.emphasis')};
+  }
 
-  ${props =>
-    props.block &&
-    css`
-      width: 100%;
-      display: flex;
-      align-self: stretch;
-    `}
+  &:where([data-block]) {
+    width: 100%;
+    display: flex;
+    align-self: stretch;
+  }
 
-  // Ensures inputs don' t zoom on mobile but are body-font size on desktop
+  /* Ensures inputs don' t zoom on mobile but are body-font size on desktop */
   @media (min-width: ${get('breakpoints.1')}) {
-    font-size: ${get('fontSizes.1')};
+    font-size: var(--text-body-size-medium);
   }
 
-  ${width}
-  ${minWidth}
-  ${maxWidth}
-  ${sizeDeprecatedVariants}
-  ${sizeVariants}
-  ${sx};
+  --inner-action-size: var(--base-size-24); /* Default size */
+
+  &:where([data-size='small']) {
+    --inner-action-size: var(--base-size-20);
+
+    min-height: var(--base-size-28);
+    padding-top: 3px;
+    padding-right: var(--base-size-8);
+    padding-bottom: 3px;
+    padding-left: var(--base-size-8);
+    font-size: var(--text-body-size-small);
+    line-height: var(--base-size-20);
+  }
+
+  &:where([data-size='large']) {
+    --inner-action-size: var(--base-size-28);
+
+    height: var(--base-size-40);
+    padding-top: 10px;
+    padding-right: var(--base-size-8);
+    padding-bottom: 10px;
+    padding-left: var(--base-size-8);
+  }
+
+  /* Deprecated */
+  &:where([data-variant='small']) {
+    min-height: 28px;
+    padding-top: 3px;
+    padding-right: var(--base-size-8);
+    padding-bottom: 3px;
+    padding-left: var(--base-size-8);
+    font-size: (--text-body-size-small);
+    line-height: var(--base-size-20);
+  }
+
+  /* Deprecated */
+  &:where([data-variant='large']) {
+    padding-top: 10px;
+    padding-right: var(--base-size-8);
+    padding-bottom: 10px;
+    padding-left: var(--base-size-8);
+    font-size: var(--text-title-size-medium);
+  }
+
+  & {
+    ${width}
+    ${minWidth}
+    ${maxWidth}
+    ${sx}
+  }
 `
 
-const TextInputWrapper = styled(TextInputBaseWrapper)<StyledWrapperProps>`
-  background-repeat: no-repeat; // Repeat and position set for form states (success, error, etc)
-  background-position: right 8px center; // For form validation. This keeps images 8px from right and centered vertically.
+export function TextInputBaseWrapper(props: React.PropsWithChildren<StyledBaseWrapperProps>) {
+  const {
+    variant,
+    size,
+    isInputFocused,
+    hasTrailingAction,
+    validationStatus,
+    disabled,
+    contrast,
+    monospace,
+    block,
+    ...restProps
+  } = props
+  return (
+    <StyledTextInputBaseWrapper
+      data-variant={variant}
+      data-size={size}
+      data-focused={isInputFocused || undefined}
+      data-trailing-action={hasTrailingAction || undefined}
+      data-validation={validationStatus}
+      data-disabled={disabled || undefined}
+      data-contrast={contrast || undefined}
+      data-monospace={monospace || undefined}
+      data-block={block || undefined}
+      {...restProps}
+    />
+  )
+}
+
+const StyledTextInputWrapper = styled(TextInputBaseWrapper)<StyledWrapperProps>`
+  /* Repeat and position set for form states (success, error, etc) */
+  background-repeat: no-repeat;
+
+  /* For form validation. This keeps images 8px from right and centered vertically. */
+  background-position: right 8px center;
 
   & > :not(:last-child) {
     margin-right: ${get('space.2')};
@@ -210,18 +224,47 @@ const TextInputWrapper = styled(TextInputBaseWrapper)<StyledWrapperProps>`
     flex-shrink: 0;
   }
 
-  ${props => css`
-    padding-left: ${props.hasLeadingVisual ? textInputHorizPadding : 0};
-    padding-right: ${props.hasTrailingVisual && !props.hasTrailingAction ? textInputHorizPadding : 0};
+  padding-right: 0;
+  padding-left: 0;
 
-    > input,
-    > select {
-      padding-left: ${!props.hasLeadingVisual ? textInputHorizPadding : 0};
-      padding-right: ${!props.hasTrailingVisual && !props.hasTrailingAction ? textInputHorizPadding : 0};
-    }
-  `}
+  > input,
+  > select {
+    padding-right: 0;
+    padding-left: 0;
+  }
 
-  ${sx};
+  &:where([data-leading-visual]) {
+    padding-left: var(--base-size-12);
+  }
+
+  &:where([data-trailing-visual]:not([data-trailing-action])) {
+    padding-right: var(--base-size-12);
+  }
+
+  &:where(:not([data-leading-visual])) > input,
+  &:where(:not([data-leading-visual])) > select {
+    padding-left: var(--base-size-12);
+  }
+
+  &:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+  &:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+    padding-right: var(--base-size-12);
+  }
+
+  & {
+    ${sx}
+  }
 `
+
+export function TextInputWrapper(props: React.PropsWithChildren<StyledWrapperProps>) {
+  const {hasLeadingVisual, hasTrailingVisual, ...restProps} = props
+  return (
+    <StyledTextInputWrapper
+      data-leading-visual={hasLeadingVisual || undefined}
+      data-trailing-visual={hasTrailingVisual || undefined}
+      {...restProps}
+    />
+  )
+}
 
 export default TextInputWrapper
