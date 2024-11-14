@@ -123,7 +123,7 @@
   }
 
   .PRIVATE_TreeViewItemToggleHover:hover {
-    background-color: var(--color-tree-view-item-chevron-hover-bg);
+    background-color: var(--control-transparent-bgColor-hover);
   }
 
   .PRIVATE_TreeViewItemToggleEnd {
