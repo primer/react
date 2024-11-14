@@ -15,18 +15,6 @@ const stories = [
     title: 'Hide Page Numbers',
     id: 'components-pagination-features--hide-page-numbers',
   },
-  {
-    title: 'Hide Page Numbers By Viewport',
-    id: 'components-pagination-features--hide-page-numbers-by-viewport&globals=viewport:small',
-  },
-  {
-    title: 'Higher Surrounding Page Count',
-    id: 'components-pagination-features--higher-surrounding-page-count&globals=viewport:small',
-  },
-  {
-    title: 'Larger Page Count Margin',
-    id: 'components-pagination-features--larger-page-count-margin&globals=viewport:small',
-  },
 ] as const
 
 test.describe('Pagination', () => {
