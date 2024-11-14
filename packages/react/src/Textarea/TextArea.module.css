@@ -19,11 +19,11 @@
 
 .TextArea[resize='both'] {
   resize: both;
-} 
+}
 
 .TextArea[resize='horizontal'] {
   resize: horizontal;
-} 
+}
 
 .TextArea[resize='vertical'] {
   resize: vertical;
