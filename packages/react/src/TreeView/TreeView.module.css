@@ -224,17 +224,6 @@
   }
 }
 
-/*
- * Using "legacy" variable and hex code fallback as a workaround for dark high
- * contrast mode, which currently does not support the expected color for
- * `--treeViewItem-leadingVisual-iconColor-rest` variable.
- */
-/* stylelint-disable-next-line selector-no-qualifying-type */
-body[data-dark-theme='dark_high_contrast'] .TreeViewDirectoryIcon {
-  /* stylelint-disable-next-line primer/colors */
-  color: var(--color-tree-view-item-directory-fill, #f0f3f6);
-}
-
 .TreeViewSkeletonItemContainerStyle {
   display: flex;
   align-items: center;
