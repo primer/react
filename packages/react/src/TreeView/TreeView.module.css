@@ -77,7 +77,7 @@
     }
   }
 
-  &[data-omit-spacer='true'] .PRIVATE_TreeViewItemContainer {
+  &:where([data-omit-spacer='true']) .PRIVATE_TreeViewItemContainer {
     grid-template-columns: 0 0 0 1fr;
   }
 
