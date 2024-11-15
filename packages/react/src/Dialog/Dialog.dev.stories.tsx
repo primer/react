@@ -38,17 +38,11 @@ interface DialogStoryProps {
   subtitle: boolean
 }
 
-function CssHeader({
-  title,
-  subtitle,
-  dialogLabelId,
-  dialogDescriptionId,
-}: React.PropsWithChildren<DialogProps & {dialogLabelId: string; dialogDescriptionId: string}>) {
+function CssHeader({title, subtitle, dialogLabelId}: React.PropsWithChildren<DialogProps & {dialogLabelId: string}>) {
   if (typeof title === 'string' && typeof subtitle === 'string') {
     return (
       <Dialog.Header className="testCustomClassnameColor">
         <h1 id={dialogLabelId}>{title.toUpperCase()}</h1>
-        <h2 id={dialogDescriptionId}>{subtitle.toLowerCase()}</h2>
       </Dialog.Header>
     )
   }
@@ -99,17 +93,11 @@ export const WithCss = ({width, height, subtitle}: DialogStoryProps) => {
   )
 }
 
-function SxHeader({
-  title,
-  subtitle,
-  dialogLabelId,
-  dialogDescriptionId,
-}: React.PropsWithChildren<DialogProps & {dialogLabelId: string; dialogDescriptionId: string}>) {
+function SxHeader({title, subtitle, dialogLabelId}: React.PropsWithChildren<DialogProps & {dialogLabelId: string}>) {
   if (typeof title === 'string' && typeof subtitle === 'string') {
     return (
       <Dialog.Header sx={{color: 'accent.emphasis'}}>
         <h1 id={dialogLabelId}>{title.toUpperCase()}</h1>
-        <h2 id={dialogDescriptionId}>{subtitle.toLowerCase()}</h2>
       </Dialog.Header>
     )
   }
@@ -164,13 +152,11 @@ function SxAndCssHeader({
   title,
   subtitle,
   dialogLabelId,
-  dialogDescriptionId,
-}: React.PropsWithChildren<DialogProps & {dialogLabelId: string; dialogDescriptionId: string}>) {
+}: React.PropsWithChildren<DialogProps & {dialogLabelId: string}>) {
   if (typeof title === 'string' && typeof subtitle === 'string') {
     return (
       <Dialog.Header sx={{color: 'accent.emphasis'}} className="testCustomClassnameColor">
         <h1 id={dialogLabelId}>{title.toUpperCase()}</h1>
-        <h2 id={dialogDescriptionId}>{subtitle.toLowerCase()}</h2>
       </Dialog.Header>
     )
   }
