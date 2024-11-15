@@ -6,7 +6,6 @@ import Autocomplete from '../Autocomplete'
 import type {AutocompleteMenuInternalProps, AutocompleteMenuItem} from '../Autocomplete/AutocompleteMenu'
 import BaseStyles from '../BaseStyles'
 import theme from '../theme'
-import {ThemeProvider} from '../ThemeProvider'
 import {render} from '../utils/testing'
 
 const mockItems = [
@@ -33,19 +32,17 @@ const LabelledAutocomplete = <T extends AutocompleteMenuItem>({
   const {['aria-labelledby']: ariaLabelledBy, ...menuPropsRest} = menuProps
   const {id = 'autocompleteInput', ...inputPropsRest} = inputProps
   return (
-    <ThemeProvider theme={theme}>
-      <BaseStyles>
-        <label htmlFor={id} id={ariaLabelledBy}>
-          Autocomplete field
-        </label>
-        <Autocomplete id="autocompleteId">
-          <Autocomplete.Input id={id} {...inputPropsRest} />
-          <Autocomplete.Overlay>
-            <Autocomplete.Menu aria-labelledby={ariaLabelledBy} {...menuPropsRest} />
-          </Autocomplete.Overlay>
-        </Autocomplete>
-      </BaseStyles>
-    </ThemeProvider>
+    <BaseStyles>
+      <label htmlFor={id} id={ariaLabelledBy}>
+        Autocomplete field
+      </label>
+      <Autocomplete id="autocompleteId">
+        <Autocomplete.Input id={id} {...inputPropsRest} />
+        <Autocomplete.Overlay>
+          <Autocomplete.Menu aria-labelledby={ariaLabelledBy} {...menuPropsRest} />
+        </Autocomplete.Overlay>
+      </Autocomplete>
+    </BaseStyles>
   )
 }
 
