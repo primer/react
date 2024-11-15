@@ -1,0 +1,220 @@
+/* -----Root styling----- */
+.Root[data-padding='none'] {
+  padding: 0;
+}
+
+.Root[data-padding='condensed'] {
+  padding: var(--base-size-16);
+}
+
+.Root[data-padding='normal'] {
+  padding: var(--base-size-16);
+
+  @media screen and (min-width:1280px) {
+    padding: var(--base-size-24);
+  }
+}
+
+.RootWrapper {
+  display: flex;
+  margin-right: auto;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+.RootWrapper[data-width='medium'] {
+  max-width: 768px;
+}
+
+.RootWrapper[data-width='large'] {
+  max-width: 1012px;
+}
+
+.RootWrapper[data-width='full'] {
+  max-width: 100%;
+}
+
+.RootWrapper[data-width='xlarge'] {
+  max-width: 1280px;
+}
+
+
+.RootContent {
+  display: flex;
+  flex: 1 1 100%;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+/* -----Header styling----- */
+
+.Header {
+  width: 100%;
+}
+
+.Header[data-row-gap='none'] {
+  margin-bottom: 0;
+}
+
+.Header[data-row-gap='condensed'] {
+  margin-bottom: var(--base-size-16);
+}
+
+.Header[data-row-gap='normal'] {
+  margin-bottom: var(--base-size-16);
+
+  @media screen and (min-width:1280px) {
+    margin-bottom: var(--base-size-24);
+  }
+}
+
+.HeaderContent[data-padding='none'] {
+  padding: 0;
+}
+
+.HeaderContent[data-padding='condensed'] {
+  padding: var(--base-size-16);
+}
+
+.HeaderContent[data-padding='normal'] {
+  padding: var(--base-size-16);
+
+  @media screen and (min-width:1280px) {
+    padding: var(--base-size-24);
+  }
+}
+
+.HeaderHorizontalDivider[data-padding='none'] {
+  margin-top: 0;
+}
+
+.HeaderHorizontalDivider[data-padding='condensed'] {
+  margin-top: var(--base-size-16);
+}
+
+.HeaderHorizontalDivider[data-padding='normal'] {
+  margin-top: var(--base-size-16);
+
+  @media screen and (min-width:1280px) {
+    margin-top: var(--base-size-24);
+  }
+}
+
+
+/* ----Content Styling---- */
+
+.ContentWrapper {
+  display: flex;
+  min-width: var(--base-size-4);
+  flex-direction: column;
+  order: 2;
+
+  /* Set flex-basis to 0% to allow flex-grow to control the width of the content region.
+     Without this, the content region could wrap onto a different line
+     than the pane region on wide viewports if its contents are too wide. */
+  flex-basis: 0;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.ContentWrapper[data-is-hidden='true'] {
+  display: none;
+}
+
+.Content {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  flex-grow: 1;
+}
+
+.Content[data-width='full'] {
+  max-width: 100%;
+}
+
+.Content[data-width='medium'] {
+  max-width: 768px;
+}
+
+.Content[data-width='large'] {
+  max-width: 1012px;
+}
+
+.Content[data-width='xlarge'] {
+  max-width: 1280px;
+}
+
+.Content[data-padding='none'] {
+  padding: 0;
+}
+
+.Content[data-padding='condensed'] {
+  padding: var(--base-size-16); 
+}
+
+.Content[data-padding='normal'] {
+  padding: var(--base-size-16);
+
+  @media screen and (min-width:1280px) {
+    padding: var(--base-size-24);
+  }
+}
+
+/* ----TODO: Pane Styling---- */
+
+
+
+/* ----Footer Styling ----- */
+
+.FooterWrapper {
+  width: 100%;
+  order: 4;
+}
+
+.FooterWrapper[data-row-gap='none'] {
+  margin-top: 0;
+}
+
+.FooterWrapper[data-row-gap='condensed'] {
+  margin-top: var(--base-size-16);
+}
+
+.FooterWrapper[data-row-gap='normal'] {
+  margin-top: var(--base-size-16);
+
+  @media screen and (min-width:1280px) {
+    margin-top: var(--base-size-24);
+  }
+}
+
+.FooterHorizontalDivider[data-row-gap='none'] {
+  margin-bottom: 0;
+}
+
+.FooterHorizontalDivider[data-row-gap='condensed'] {
+  margin-bottom: var(--base-size-16);
+}
+
+.FooterHorizontalDivider[data-padding='normal'] {
+  margin-bottom: var(--base-size-16);
+
+  @media screen and (min-width:1280px) {
+    margin-bottom: var(--base-size-24);
+  }
+}
+
+.FooterContent[data-row-gap='none'] {
+  padding: 0;
+}
+
+.FooterContent[data-row-gap='condensed'] {
+  padding: var(--base-size-16);
+}
+
+.FooterContent[data-padding='normal'] {
+  padding: var(--base-size-16);
+
+  @media screen and (min-width:1280px) {
+    padding: var(--base-size-24);
+  }
+}

@@ -1,5 +1,6 @@
 import React, {useRef} from 'react'
 import {createGlobalStyle} from 'styled-components'
+import {clsx} from 'clsx'
 import Box from '../Box'
 import {useId} from '../hooks/useId'
 import {useRefObjectAsForwardedRef} from '../hooks/useRefObjectAsForwardedRef'
@@ -13,6 +14,9 @@ import {canUseDOM} from '../utils/environment'
 import {useOverflow} from '../hooks/useOverflow'
 import {warning} from '../utils/warning'
 import {useStickyPaneHeight} from './useStickyPaneHeight'
+import {useFeatureFlag} from '../FeatureFlags'
+
+import classes from './PageLayout.module.css'
 
 const REGION_ORDER = {
   header: 0,
@@ -57,7 +61,11 @@ export type PageLayoutProps = {
 
   /** Private prop to allow SplitPageLayout to customize slot components */
   _slotsConfig?: Record<'header' | 'footer', React.ElementType>
+  className?: string
+  style?: React.CSSProperties
 } & SxProp
+
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
 
 const containerWidths = {
   full: '100%',
@@ -74,14 +82,52 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
   columnGap = 'normal',
   children,
   sx = {},
+  className,
+  style,
   _slotsConfig: slotsConfig,
 }) => {
   const {rootRef, enableStickyPane, disableStickyPane, contentTopRef, contentBottomRef, stickyPaneHeight} =
     useStickyPaneHeight()
 
   const paneRef = useRef<HTMLDivElement>(null)
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   const [slots, rest] = useSlots(children, slotsConfig ?? {header: Header, footer: Footer})
+
+  if (enabled) {
+    return (
+      <PageLayoutContext.Provider
+        value={{
+          padding,
+          rowGap,
+          columnGap,
+          enableStickyPane,
+          disableStickyPane,
+          contentTopRef,
+          contentBottomRef,
+          paneRef,
+        }}
+      >
+        <Box
+          ref={rootRef}
+          className={clsx(classes.Root, className)}
+          style={{
+            // @ts-ignore TypeScript doesn't know about CSS custom properties
+            '--sticky-pane-height': stickyPaneHeight,
+            ...style,
+          }}
+          data-padding={padding}
+          sx={sx}
+        >
+          <Box data-width={containerWidth} className={classes.RootWrapper}>
+            {slots.header}
+            <Box className={classes.RootContent}>{rest}</Box>
+            {slots.footer}
+          </Box>
+        </Box>
+      </PageLayoutContext.Provider>
+    )
+  }
 
   return (
     <PageLayoutContext.Provider
@@ -128,6 +174,7 @@ Root.displayName = 'PageLayout'
 
 type DividerProps = {
   variant?: 'none' | 'line' | 'filled' | ResponsiveValue<'none' | 'line' | 'filled'>
+  className?: string
 } & SxProp
 
 const horizontalDividerVariants = {
@@ -158,7 +205,7 @@ function negateSpacingValue(value: number | null | Array<number | null>) {
   return value === null ? null : -value
 }
 
-const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({variant = 'none', sx = {}}) => {
+const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({variant = 'none', sx = {}, className}) => {
   const {padding} = React.useContext(PageLayoutContext)
   const responsiveVariant = useResponsiveValue(variant, 'none')
   return (
@@ -177,6 +224,7 @@ const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({var
           sx,
         )
       }
+      className={className}
     />
   )
 }
@@ -412,6 +460,8 @@ export type PageLayoutHeaderProps = {
    */
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
   hidden?: boolean | ResponsiveValue<boolean>
+  className?: string
+  style?: React.CSSProperties
 } & SxProp
 
 const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
@@ -422,8 +472,12 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   dividerWhenNarrow = 'inherit',
   hidden = false,
   children,
+  style,
   sx = {},
+  className,
 }) => {
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
   // Combine divider and dividerWhenNarrow for backwards compatibility
   const dividerProp =
     !isResponsiveValue(divider) && dividerWhenNarrow !== 'inherit'
@@ -433,11 +487,33 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   const dividerVariant = useResponsiveValue(dividerProp, 'none')
   const isHidden = useResponsiveValue(hidden, false)
   const {rowGap} = React.useContext(PageLayoutContext)
+
+  if (enabled) {
+    return (
+      <Box
+        as="header"
+        aria-label={label}
+        aria-labelledby={labelledBy}
+        data-row-gap={rowGap}
+        hidden={isHidden}
+        sx={sx}
+        className={clsx(classes.Header, className)}
+        style={style}
+      >
+        <Box data-padding={padding} className={classes.HeaderContent}>
+          {children}
+        </Box>
+        <HorizontalDivider data-row-gap={rowGap} className={classes.HeaderHorizontalDivider} variant={dividerVariant} />
+      </Box>
+    )
+  }
+
   return (
     <Box
       as="header"
       aria-label={label}
       aria-labelledby={labelledBy}
+      data-row-gap={rowGap}
       hidden={isHidden}
       sx={merge<BetterSystemStyleObject>(
         {
@@ -447,7 +523,9 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
         sx,
       )}
     >
-      <Box sx={{padding: SPACING_MAP[padding]}}>{children}</Box>
+      <Box data-padding={padding} sx={{padding: SPACING_MAP[padding]}}>
+        {children}
+      </Box>
       <HorizontalDivider variant={dividerVariant} sx={{marginTop: SPACING_MAP[rowGap]}} />
     </Box>
   )
@@ -477,6 +555,8 @@ export type PageLayoutContentProps = {
   width?: keyof typeof contentWidths
   padding?: keyof typeof SPACING_MAP
   hidden?: boolean | ResponsiveValue<boolean>
+  className?: string
+  style?: React.CSSProperties
 } & SxProp
 
 // TODO: Account for pane width when centering content
@@ -496,10 +576,36 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
   hidden = false,
   children,
   sx = {},
+  className,
+  style,
 }) => {
   const isHidden = useResponsiveValue(hidden, false)
   const {contentTopRef, contentBottomRef} = React.useContext(PageLayoutContext)
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
+  if (enabled) {
+    return (
+      <Box
+        as={as}
+        aria-label={label}
+        aria-labelledby={labelledBy}
+        sx={sx}
+        className={clsx(className, classes.ContentWrapper)}
+        style={style}
+        data-is-hidden={isHidden}
+      >
+        {/* Track the top of the content region so we can calculate the height of the pane region */}
+        <Box ref={contentTopRef} />
+
+        <Box data-width={width} data-padding={padding} className={classes.Content}>
+          {children}
+        </Box>
+
+        {/* Track the bottom of the content region so we can calculate the height of the pane region */}
+        <Box ref={contentBottomRef} />
+      </Box>
+    )
+  }
   return (
     <Box
       as={as}
@@ -870,6 +976,8 @@ export type PageLayoutFooterProps = {
    */
   dividerWhenNarrow?: 'inherit' | 'none' | 'line' | 'filled'
   hidden?: boolean | ResponsiveValue<boolean>
+  className?: string
+  style?: React.CSSProperties
 } & SxProp
 
 const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
@@ -881,6 +989,8 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
   hidden = false,
   children,
   sx = {},
+  className,
+  style,
 }) => {
   // Combine divider and dividerWhenNarrow for backwards compatibility
   const dividerProp =
@@ -891,6 +1001,26 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
   const dividerVariant = useResponsiveValue(dividerProp, 'none')
   const isHidden = useResponsiveValue(hidden, false)
   const {rowGap} = React.useContext(PageLayoutContext)
+
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
+  if (enabled) {
+    return (
+      <Box
+        as="footer"
+        aria-label={label}
+        aria-labelledby={labelledBy}
+        data-row-gap={rowGap}
+        hidden={isHidden}
+        className={clsx(classes.FooterWrapper, className)}
+        sx={sx}
+        style={style}
+      >
+        <HorizontalDivider data-row-gap={rowGap} variant={dividerVariant} className={classes.FooterHorizontalDivider} />
+        <Box className={classes.FooterContent}>{children}</Box>
+      </Box>
+    )
+  }
   return (
     <Box
       as="footer"
