@@ -49,7 +49,7 @@ const stories = [
   },
 ] as const
 
-test.describe('PageLoyout', () => {
+test.describe('PageLayout', () => {
   for (const story of stories) {
     test.describe(story.title, () => {
       for (const theme of themes) {
@@ -64,7 +64,7 @@ test.describe('PageLoyout', () => {
 
             // Default state
             expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
-              `PageLoyout.${story.title}.${theme}.png`,
+              `PageLayout.${story.title}.${theme}.png`,
             )
           })
 
@@ -98,7 +98,7 @@ test.describe('PageLayout', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`PageLoyout.StickyPane.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`PageLayout.StickyPane.${theme}.png`)
 
           const content = page.getByTestId('content3')
           await content.scrollIntoViewIfNeeded()
