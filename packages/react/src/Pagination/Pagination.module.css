@@ -103,16 +103,17 @@
   box-shadow: inset 0 0 0 3px var(--fgColor-onEmphasis);
 }
 
-.Page[aria-disabled],
-.Page[aria-disabled]:hover {
+.Page[aria-disabled]:first-child,
+.Page[aria-disabled]:hover:first-child {
   /* stylelint-disable-next-line primer/spacing */
   margin: 0 2px;
-}
-
-.Page:first-child {
   /* stylelint-disable-next-line primer/spacing */
   margin-right: 6px;
 }
+
+/* .Page:first-child {
+  
+} */
 
 .Page[aria-disabled],
 .Page[aria-disabled]:hover,
