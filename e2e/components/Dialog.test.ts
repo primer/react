@@ -55,7 +55,10 @@ test.describe('Dialog', () => {
             })
 
             // Default state
-            await page.getByRole('button', {name: 'Show dialog'}).click()
+            const isDialogOpen = await page.locator('role=dialog').isVisible()
+            if (!isDialogOpen) {
+              await page.getByRole('button', {name: 'Show dialog'}).click()
+            }
             expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
               `Dialog.${story.title}.${theme}.png`,
             )
