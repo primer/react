@@ -65,7 +65,7 @@ function CssFooter({footerButtons}: React.PropsWithChildren<DialogProps>) {
   )
 }
 export const WithCss = ({width, height, subtitle}: DialogStoryProps) => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(true)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
   return (
     <FeatureFlags
@@ -126,7 +126,7 @@ function SxFooter({footerButtons}: React.PropsWithChildren<DialogProps>) {
   )
 }
 export const WithSx = ({width, height, subtitle}: DialogStoryProps) => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(true)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
   return (
     <FeatureFlags
@@ -191,7 +191,7 @@ function SxAndCssFooter({footerButtons}: React.PropsWithChildren<DialogProps>) {
   )
 }
 export const WithSxAndCss = ({width, height, subtitle}: DialogStoryProps) => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(true)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
   return (
     <FeatureFlags
