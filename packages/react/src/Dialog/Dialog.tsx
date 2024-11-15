@@ -251,7 +251,8 @@ export type DialogHeight = keyof typeof heightMap
 type StyledDialogProps = {
   width?: DialogWidth
   height?: DialogHeight
-} & SxProp
+} & SxProp &
+  React.ComponentPropsWithRef<'div'>
 
 const StyledDialog = toggleStyledComponent(
   CSS_MODULES_FEATURE_FLAG,
@@ -500,6 +501,7 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
             return [`data-position-${key}`, value]
           }),
         )
+  const dimensionProps = enabled ? {'data-width': width, 'data-height': height} : {width, height}
 
   return (
     <>
@@ -514,18 +516,15 @@ const _Dialog = React.forwardRef<HTMLDivElement, React.PropsWithChildren<DialogP
           }}
         >
           <StyledDialog
-            width={width}
-            height={height}
             ref={dialogRef}
             role={role}
             aria-labelledby={dialogLabelId}
             aria-describedby={dialogDescriptionId}
             aria-modal
             {...positionDataAttributes}
+            {...dimensionProps}
             sx={sx}
-            className={clsx({[classes.Dialog]: enabled}, className)}
-            data-width={props.width}
-            data-height={props.height}
+            className={clsx(className, enabled && classes.Dialog)}
           >
             {header}
             <ScrollableRegion aria-labelledby={dialogLabelId} className="DialogOverflowWrapper">
