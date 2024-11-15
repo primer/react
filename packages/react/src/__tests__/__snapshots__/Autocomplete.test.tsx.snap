@@ -2,7 +2,21 @@
 
 exports[`snapshots renders a custom empty state message 1`] = `
 [
-  .c0 {
+  .c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
   font-size: 14px;
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
@@ -198,20 +212,6 @@ exports[`snapshots renders a custom empty state message 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -282,7 +282,21 @@ exports[`snapshots renders a custom empty state message 1`] = `
 
 exports[`snapshots renders a loading state 1`] = `
 [
-  .c0 {
+  .c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
   font-size: 14px;
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
@@ -478,20 +492,6 @@ exports[`snapshots renders a loading state 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
 }
 
 @media (min-width:768px) {
@@ -619,7 +619,21 @@ exports[`snapshots renders a loading state 1`] = `
 
 exports[`snapshots renders a menu that contains an item to add to the menu 1`] = `
 [
-  .c0 {
+  .c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
   font-size: 14px;
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
@@ -815,20 +829,6 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
 }
 
 @media (forced-colors:active) {
@@ -1575,7 +1575,21 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 
 exports[`snapshots renders a multiselect input 1`] = `
 [
-  .c0 {
+  .c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
   font-size: 14px;
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
@@ -1771,20 +1785,6 @@ exports[`snapshots renders a multiselect input 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
 }
 
 @media (forced-colors:active) {
@@ -2409,7 +2409,21 @@ exports[`snapshots renders a multiselect input 1`] = `
 
 exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 [
-  .c0 {
+  .c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
   font-size: 14px;
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
@@ -2605,20 +2619,6 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
 }
 
 @media (forced-colors:active) {
@@ -3426,7 +3426,21 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 
 exports[`snapshots renders a single select input 1`] = `
 [
-  .c0 {
+  .c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
   font-size: 14px;
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
@@ -3622,20 +3636,6 @@ exports[`snapshots renders a single select input 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
 }
 
 @media (forced-colors:active) {
@@ -4635,7 +4635,21 @@ exports[`snapshots renders with a custom text input component 1`] = `
 
 exports[`snapshots renders with an input value 1`] = `
 [
-  .c0 {
+  .c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
   font-size: 14px;
   line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
@@ -4831,20 +4845,6 @@ exports[`snapshots renders with an input value 1`] = `
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
 .c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
   padding-right: var(--base-size-12);
-}
-
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
-}
-
-.c2:focus {
-  outline: 0;
 }
 
 @media (forced-colors:active) {
