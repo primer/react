@@ -351,7 +351,7 @@ export const Default: StoryFn = args => (
   >
     <PageLayout.Header
       padding={args['Header.padding']}
-      sx={{color: 'blue'}}
+      sx={{color: 'var(--fgColor-success)'}}
       divider={{
         narrow: args['Header.divider.narrow'],
         regular: args['Header.divider.regular'],
@@ -366,7 +366,7 @@ export const Default: StoryFn = args => (
       <Placeholder height={args['Header placeholder height']} label="Header" />
     </PageLayout.Header>
     <PageLayout.Content
-      sx={{color: 'blue'}}
+      sx={{color: 'var(--fgColor-success)'}}
       width={args['Content.width']}
       padding={args['Content.padding']}
       hidden={{
@@ -378,7 +378,7 @@ export const Default: StoryFn = args => (
       <Placeholder height={args['Content placeholder height']} label="Content" />
     </PageLayout.Content>
     <PageLayout.Pane
-      sx={{color: 'blue'}}
+      sx={{color: 'var(--fgColor-success)'}}
       position={{
         narrow: args['Pane.position.narrow'],
         regular: args['Pane.position.regular'],
@@ -403,7 +403,7 @@ export const Default: StoryFn = args => (
       <Placeholder height={args['Pane placeholder height']} label="Pane" />
     </PageLayout.Pane>
     <PageLayout.Footer
-      sx={{color: 'blue'}}
+      sx={{color: 'var(--fgColor-success)'}}
       padding={args['Footer.padding']}
       divider={{
         narrow: args['Footer.divider.narrow'],
