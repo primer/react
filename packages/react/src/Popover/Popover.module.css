@@ -1,14 +1,14 @@
 .Popover {
-    position: 'absolute';
+    position: absolute;
     z-index: 100;
-    display: 'none';
+    display: none;
 
     &:where([data-open]) {
-        display: 'block';
+        display: block;
     }
 
     &:where([data-relative]) {
-        position: 'relative';
+        position: relative;
     }
 }
 
@@ -32,7 +32,7 @@
   }
 
   &::before {
-    top: - var(--base-size-16);
+    top: calc(-1 * var(--base-size-16)) ;
     /* stylelint-disable-next-line primer/spacing */
     margin-left: -9px;
 
@@ -45,7 +45,7 @@
   &::after {
     /* stylelint-disable-next-line primer/spacing */
     top: -14px;
-    margin-left: - var(--base-size-8);
+    margin-left: calc(-1 * var(--base-size-8));
     
     /* // todo: solid */
     /* stylelint-disable-next-line primer/borders */
@@ -54,32 +54,32 @@
     border-bottom-color: var(--overlay-bgColor);
   }
 
-      /* Bottom-oriented carets */
-      .Popover.caret-pos--bottom &,
-      .Popover.caret-pos--bottom-right &,
-      .Popover.caret-pos--bottom-left & {
-          &::before,
-          &::after {
-          top: auto;
-          border-bottom-color: transparent;
-          }
-  
-      &::before {
-        bottom: - var(--base-size-16);
-        border-top-color: var(--borderColor-default);
-      }
-  
-      &::after {
-        /* stylelint-disable-next-line primer/spacing */
-        bottom: -14px;
-        /* stylelint-disable-next-line primer/colors */
-        border-top-color: var(--overlay-bgColor);
-      }
+    /* Bottom-oriented carets */
+    :where([data-caret='bottom']) &,
+    :where([data-caret='bottom-right']) &,
+    :where([data-caret='bottom-left']) & {
+        &::before,
+        &::after {
+        top: auto;
+        border-bottom-color: transparent;
+        }
+
+    &::before {
+      bottom: calc(-1 * var(--base-size-16));
+      border-top-color: var(--borderColor-default);
     }
+
+    &::after {
+      /* stylelint-disable-next-line primer/spacing */
+      bottom: -14px;
+      /* stylelint-disable-next-line primer/colors */
+      border-top-color: var(--overlay-bgColor);
+    }
+  }
   
     /* Top & Bottom: Right-oriented carets */
-    .Popover.caret-pos--top-right & ,
-    .Popover.caret-pos--bottom-right & {
+    :where([data-caret='top-right']) &,
+    :where([data-caret='bottom-right']) & {
       /* stylelint-disable-next-line primer/spacing */
       right: -9px;
       margin-right: 0;
@@ -102,8 +102,8 @@
     }
   
     /* Top & Bottom: Left-oriented carets */
-    .Popover.caret-pos--top-left & ,
-    .Popover.caret-pos--bottom-left & {
+    :where([data-caret='top-left']) &,
+    :where([data-caret='bottom-left']) & {
       /* stylelint-disable-next-line primer/spacing */
       left: -9px;
       margin-left: 0;
@@ -121,12 +121,12 @@
     }
   
     /* Right- & Left-oriented carets */
-    .Popover.caret-pos--right & ,
-    .Popover.caret-pos--right-top & ,
-    .Popover.caret-pos--right-bottom & ,
-    .Popover.caret-pos--left & ,
-    .Popover.caret-pos--left-top & ,
-    .Popover.caret-pos--left-bottom & {
+    :where([data-caret='right']) &,
+    :where([data-caret='right-top']) &,
+    :where([data-caret='right-bottom']) &,
+    :where([data-caret='left']) &,
+    :where([data-caret='left-top']) &,
+    :where([data-caret='left-bottom']) & {
       &::before,
       &::after {
         top: 50%;
@@ -141,16 +141,16 @@
       }
   
       &::after {
-        margin-top: - var(--base-size-8);
+        margin-top: calc(-1 * var(--base-size-8));
       }
     }
   
     /* Right-oriented carets */
-    .Popover.caret-pos--right & ,
-    .Popover.caret-pos--right-top & ,
-    .Popover.caret-pos--right-bottom & {
+    :where([data-caret='right']) &,
+    :where([data-caret='right-top']) &,
+    :where([data-caret='right-bottom']) & {
       &::before {
-        right: - var(--base-size-16);
+        right: calc(-1 * var(--base-size-16));
         border-left-color: var(--borderColor-default);
       }
   
@@ -163,11 +163,11 @@
     }
   
     /* Left-oriented carets */
-    .Popover.caret-pos--left & ,
-    .Popover.caret-pos--left-top & ,
-    .Popover.caret-pos--left-bottom & {
+    :where([data-caret='left']) &,
+    :where([data-caret='left-top']) &,
+    :where([data-caret='left-bottom']) & {
       &::before {
-        left: - var(--base-size-16);
+        left: calc(-1 * var(--base-size-16));
         border-right-color: var(--borderColor-default);
       }
   
@@ -180,8 +180,8 @@
     }
   
     /* Right & Left: Top-oriented carets */
-    .Popover.caret-pos--right-top & ,
-    .Popover.caret-pos--left-top & {
+    :where([data-caret='right-top']) &,
+    :where([data-caret='left-top']) & {
       &::before,
       &::after {
         top: var(--base-size-24);
@@ -189,8 +189,8 @@
     }
 
   /* Right & Left: Bottom-oriented carets */
-  .Popover.caret-pos--right-bottom & ,
-  .Popover.caret-pos--left-bottom & {
+    :where([data-caret='right-bottom']) &,
+    :where([data-caret='left-bottom']) & {
     &::before,
     &::after {
       top: auto;
