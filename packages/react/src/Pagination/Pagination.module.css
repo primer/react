@@ -111,10 +111,6 @@
   margin-right: 6px;
 }
 
-/* .Page:first-child {
-  
-} */
-
 .Page[aria-disabled],
 .Page[aria-disabled]:hover,
 .Page[role='presentation'],
