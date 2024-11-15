@@ -102,6 +102,14 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
 
     const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
+    const progressBarWidth = '--progress-width'
+    const progressBarBg = '--progress-bg'
+    const styles: {[key: string]: string} = {}
+
+    const bgType = rest.bg && rest.bg.split('.')
+    styles[progressBarWidth] = progress ? `${progress}%` : '0%'
+    styles[progressBarBg] = (bgType && `var(--bgColor-${bgType[0]}-${bgType[1]})`) || 'var(--bgColor-success-emphasis)'
+
     return (
       <ProgressItem
         className={clsx(className, {[classes.ProgressBarItem]: enabled})}
@@ -110,7 +118,7 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
         aria-label={ariaLabel}
         ref={forwardRef}
         progress={progress}
-        data-progress={`${progress || 0}%`}
+        style={styles}
         {...ariaAttributes}
       />
     )
