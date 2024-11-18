@@ -309,6 +309,7 @@ import {
   TriangleDownIcon,
   CopilotIcon,
   XCircleIcon,
+  AiModelIcon,
 } from '@primer/octicons-react'
 
 figma.connect(NoEntryFillIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=2617-91', {
@@ -3247,21 +3248,21 @@ figma.connect(FileIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=
   example: () => <FileIcon size={16} />,
 })
 
-// figma.connect(AiModelIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=6003-39', {
-//   props: {
-//     name: 'AiModelIcon',
-//     fn: AiModelIcon,
-//   },
-//   example: () => <AiModelIcon size={16} />,
-// })
+figma.connect(AiModelIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=6003-39', {
+  props: {
+    name: 'AiModelIcon',
+    fn: AiModelIcon,
+  },
+  example: () => <AiModelIcon size={16} />,
+})
 
-// figma.connect(AiModelIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=6003-52', {
-//   props: {
-//     name: 'AiModelIcon',
-//     fn: AiModelIcon,
-//   },
-//   example: () => <AiModelIcon size={24} />,
-// })
+figma.connect(AiModelIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=6003-52', {
+  props: {
+    name: 'AiModelIcon',
+    fn: AiModelIcon,
+  },
+  example: () => <AiModelIcon size={24} />,
+})
 
 figma.connect(CodeIcon, 'https://figma.com/file/1ljgTFkT5NKNRfq5hw07JQ/?node-id=13-280', {
   props: {
