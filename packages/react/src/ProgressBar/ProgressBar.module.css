@@ -32,19 +32,19 @@
   border-radius: var(--borderRadius-small);
   gap: 2px;
 
-  &[data-progress-display='inline'] {
+  &:where([data-progress-display='inline']) {
     display: inline-flex;
   }
 
-  &[data-progress-bar-size='default'] {
+  &:where([data-progress-bar-size='default']) {
     height: 8px;
   }
 
-  &[data-progress-bar-size='small'] {
+  &:where([data-progress-bar-size='small']) {
     height: 5px;
   }
 
-  &[data-progress-bar-size='large'] {
+  &:where([data-progress-bar-size='large']) {
     height: 10px;
   }
 }
