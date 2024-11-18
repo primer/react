@@ -53,7 +53,7 @@ This guide outlines the steps to follow when refactoring Primer React components
    - Add a feature flag to toggle the `sx` prop for controlled rollout (staff shipping). How it's used will be based on the implementation of the component. For most you'll be able to `useFeatureFlag` and toggle between components. For more complex styled components, you can use the utility `toggleStyledComponent` which will render based on the feature flag string provided.
 
      ```jsx
-     /* When there is an exisiting styled component, use the `toggleStyledComponent` utility. */
+     /* When there is an existing styled component, use the `toggleStyledComponent` utility. */
      const StyledDiv = toggleStyledComponent(
        'primer_react_css_modules_team',
        'div',

@@ -2,6 +2,7 @@ import React from 'react'
 import {Select} from '..'
 import {render} from '@testing-library/react'
 import {FeatureFlags} from '../FeatureFlags'
+import userEvent from '@testing-library/user-event'
 
 describe('Select', () => {
   it('should support `className` on the outermost element', () => {
@@ -154,5 +155,32 @@ describe('Select', () => {
 
     expect(select).toHaveAttribute('disabled')
     expect(select).toHaveAttribute('disabled')
+  })
+
+  it('trigger changes event when option selected', async () => {
+    const {getByLabelText} = render(
+      <>
+        <label htmlFor="default">Choice</label>
+        <Select
+          id="default"
+          onChange={e => {
+            expect(e.currentTarget.value).toBe('one')
+          }}
+        >
+          <Select.Option value="one">Choice one</Select.Option>
+          <Select.Option value="two">Choice two</Select.Option>
+          <Select.Option value="three">Choice three</Select.Option>
+          <Select.Option value="four">Choice four</Select.Option>
+          <Select.Option value="five">Choice five</Select.Option>
+          <Select.Option value="six">Choice six</Select.Option>
+        </Select>
+      </>,
+    )
+
+    const select = getByLabelText('Choice')
+
+    expect(select).toBeDefined()
+
+    await userEvent.selectOptions(select, 'one')
   })
 })
