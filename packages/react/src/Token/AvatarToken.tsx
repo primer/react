@@ -1,6 +1,5 @@
 import React, {forwardRef} from 'react'
 import styled from 'styled-components'
-import {clsx} from 'clsx'
 import {get} from '../constants'
 import type {TokenBaseProps, TokenSizeKeys} from './TokenBase'
 import {defaultTokenSize, tokenSizes} from './TokenBase'
@@ -34,24 +33,42 @@ const AvatarContainer = toggleStyledComponent(
 
 const AvatarToken = forwardRef(({avatarSrc, id, size = defaultTokenSize, ...rest}, forwardedRef) => {
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+  if (enabled) {
+    return (
+      <Token
+        leadingVisual={() => (
+          <AvatarContainer avatarSize={size} className={classes.AvatarContainer} data-size={size}>
+            <Avatar src={avatarSrc} size={parseInt(tokenSizes[size], 10)} className={classes.Avatar} />
+          </AvatarContainer>
+        )}
+        size={size}
+        id={id?.toString()}
+        className={classes.Token}
+        {...rest}
+        ref={forwardedRef}
+      />
+    )
+  }
 
   return (
     <Token
       leadingVisual={() => (
-        <AvatarContainer avatarSize={size} className={clsx(enabled && classes.AvatarContainer)} data-size={size}>
-          <Avatar src={avatarSrc} size={parseInt(tokenSizes[size], 10)} className={classes.Avatar} />
+        <AvatarContainer avatarSize={size}>
+          <Avatar
+            src={avatarSrc}
+            size={parseInt(tokenSizes[size], 10)}
+            sx={{
+              width: '100%',
+              height: '100%',
+            }}
+          />
         </AvatarContainer>
       )}
       size={size}
       id={id?.toString()}
-      className={clsx(enabled && classes.Token)}
-      sx={
-        !enabled
-          ? {
-              paddingLeft: get('space.1'),
-            }
-          : {}
-      }
+      sx={{
+        paddingLeft: get('space.1'),
+      }}
       {...rest}
       ref={forwardedRef}
     />

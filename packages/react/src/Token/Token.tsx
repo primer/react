@@ -90,20 +90,56 @@ const Token = forwardRef((props, forwardedRef) => {
     sxProp,
   )
 
+  if (enabled) {
+    return (
+      <TokenBase
+        onRemove={onRemove}
+        id={id?.toString()}
+        className={clsx(className, classes.Token)}
+        text={text}
+        size={size}
+        sx={sxProp}
+        data-is-selected={props.isSelected}
+        data-is-remove-btn={!(hideRemoveButton || !onRemove)}
+        {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
+        {...rest}
+        ref={forwardedRef}
+        style={{borderWidth: `${tokenBorderWidthPx}px`, ...style}}
+      >
+        {LeadingVisual ? (
+          <LeadingVisualContainer size={size}>
+            <LeadingVisual />
+          </LeadingVisualContainer>
+        ) : null}
+        <TokenTextContainer {...(hasMultipleActionTargets ? interactiveTokenProps : {})}>
+          {text}
+          {onRemove && <VisuallyHidden> (press backspace or delete to remove)</VisuallyHidden>}
+        </TokenTextContainer>
+
+        {!hideRemoveButton && onRemove ? (
+          <RemoveTokenButton
+            borderOffset={tokenBorderWidthPx}
+            onClick={onRemoveClick}
+            size={size}
+            isParentInteractive={isTokenInteractive(props)}
+            aria-hidden={hasMultipleActionTargets ? 'true' : 'false'}
+          />
+        ) : null}
+      </TokenBase>
+    )
+  }
+
   return (
     <TokenBase
       onRemove={onRemove}
       id={id?.toString()}
-      className={clsx(enabled && className, enabled && classes.Token)}
       text={text}
       size={size}
-      sx={enabled ? sxProp : mergedSx}
-      data-is-selected={props.isSelected}
-      data-is-remove-btn={!(hideRemoveButton || !onRemove)}
+      sx={mergedSx}
       {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
       {...rest}
       ref={forwardedRef}
-      style={enabled ? {borderWidth: `${tokenBorderWidthPx}px`, ...style} : style}
+      style={style}
     >
       {LeadingVisual ? (
         <LeadingVisualContainer size={size}>

@@ -144,6 +144,27 @@ const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLS
   ({onRemove, onKeyDown, id, className, size = defaultTokenSize, ...rest}, forwardedRef) => {
     const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
+    if (enabled) {
+      return (
+        <StyledTokenBase
+          onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
+            onKeyDown && onKeyDown(event)
+
+            if ((event.key === 'Backspace' || event.key === 'Delete') && onRemove) {
+              onRemove()
+            }
+          }}
+          className={clsx(classes.TokenBase, className)}
+          data-cursor-is-interactive={isTokenInteractive(rest)}
+          data-size={size}
+          id={id?.toString()}
+          size={size}
+          {...rest}
+          ref={forwardedRef}
+        />
+      )
+    }
+
     return (
       <StyledTokenBase
         onKeyDown={(event: KeyboardEvent<HTMLSpanElement & HTMLAnchorElement & HTMLButtonElement>) => {
@@ -153,9 +174,6 @@ const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLS
             onRemove()
           }
         }}
-        className={clsx(enabled && classes.TokenBase, className)}
-        data-cursor-is-interactive={isTokenInteractive(rest)}
-        data-size={size}
         id={id?.toString()}
         size={size}
         {...rest}

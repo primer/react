@@ -9,7 +9,14 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   margin-right: 4px;
 }
 
-.c4 {
+.c3 {
+  width: 16px;
+  height: 16px;
+  width: 100%;
+  height: 100%;
+}
+
+.c5 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -54,7 +61,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   padding-left: 4px;
 }
 
-.c5 {
+.c6 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -94,16 +101,16 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   width: 16px;
 }
 
-.c5:hover,
-.c5:focus {
+.c6:hover,
+.c6:focus {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
-.c5:active {
+.c6:active {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c3 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -128,11 +135,11 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   text-decoration: none;
 }
 
-.c3:is(a,button,[tabIndex='0']) {
+.c4:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c3:is(a,button,[tabIndex='0']):after {
+.c4:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -150,9 +157,6 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
 
 <span
   className="c0"
-  data-cursor-is-interactive={false}
-  data-is-remove-btn={true}
-  data-size="small"
   onKeyDown={[Function]}
   size="small"
 >
@@ -161,11 +165,10 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   >
     <span
       className="c2"
-      data-size="small"
     >
       <img
         alt=""
-        className="Avatar Avatar"
+        className="c3 Avatar"
         data-component="Avatar"
         height={16}
         src="https://avatars.githubusercontent.com/mperrotti"
@@ -179,11 +182,11 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
     </span>
   </div>
   <span
-    className="c3"
+    className="c4"
   >
     token
     <span
-      className="c4"
+      className="c5"
     >
        (press backspace or delete to remove)
     </span>
@@ -191,7 +194,7 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c5"
+    className="c6"
     data-size="small"
     onClick={[Function]}
     size="small"
@@ -231,7 +234,14 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   margin-right: 4px;
 }
 
-.c4 {
+.c3 {
+  width: 20px;
+  height: 20px;
+  width: 100%;
+  height: 100%;
+}
+
+.c5 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -276,7 +286,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   padding-left: 4px;
 }
 
-.c5 {
+.c6 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -316,16 +326,16 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   width: 20px;
 }
 
-.c5:hover,
-.c5:focus {
+.c6:hover,
+.c6:focus {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
-.c5:active {
+.c6:active {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c3 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -350,11 +360,11 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   text-decoration: none;
 }
 
-.c3:is(a,button,[tabIndex='0']) {
+.c4:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c3:is(a,button,[tabIndex='0']):after {
+.c4:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -372,9 +382,6 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
 
 <span
   className="c0"
-  data-cursor-is-interactive={false}
-  data-is-remove-btn={true}
-  data-size="medium"
   onKeyDown={[Function]}
   size="medium"
 >
@@ -383,11 +390,10 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   >
     <span
       className="c2"
-      data-size="medium"
     >
       <img
         alt=""
-        className="Avatar Avatar"
+        className="c3 Avatar"
         data-component="Avatar"
         height={20}
         src="https://avatars.githubusercontent.com/mperrotti"
@@ -401,11 +407,11 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
     </span>
   </div>
   <span
-    className="c3"
+    className="c4"
   >
     token
     <span
-      className="c4"
+      className="c5"
     >
        (press backspace or delete to remove)
     </span>
@@ -413,7 +419,7 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c5"
+    className="c6"
     data-size="medium"
     onClick={[Function]}
     size="medium"
@@ -453,7 +459,14 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   margin-right: 8px;
 }
 
-.c4 {
+.c3 {
+  width: 24px;
+  height: 24px;
+  width: 100%;
+  height: 100%;
+}
+
+.c5 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -498,7 +511,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   padding-left: 4px;
 }
 
-.c5 {
+.c6 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -538,16 +551,16 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   width: 24px;
 }
 
-.c5:hover,
-.c5:focus {
+.c6:hover,
+.c6:focus {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
-.c5:active {
+.c6:active {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c3 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -572,11 +585,11 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   text-decoration: none;
 }
 
-.c3:is(a,button,[tabIndex='0']) {
+.c4:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c3:is(a,button,[tabIndex='0']):after {
+.c4:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -594,9 +607,6 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
 
 <span
   className="c0"
-  data-cursor-is-interactive={false}
-  data-is-remove-btn={true}
-  data-size="large"
   onKeyDown={[Function]}
   size="large"
 >
@@ -605,11 +615,10 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   >
     <span
       className="c2"
-      data-size="large"
     >
       <img
         alt=""
-        className="Avatar Avatar"
+        className="c3 Avatar"
         data-component="Avatar"
         height={24}
         src="https://avatars.githubusercontent.com/mperrotti"
@@ -623,11 +632,11 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
     </span>
   </div>
   <span
-    className="c3"
+    className="c4"
   >
     token
     <span
-      className="c4"
+      className="c5"
     >
        (press backspace or delete to remove)
     </span>
@@ -635,7 +644,7 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c5"
+    className="c6"
     data-size="large"
     onClick={[Function]}
     size="large"
@@ -675,7 +684,14 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   margin-right: 8px;
 }
 
-.c4 {
+.c3 {
+  width: 32px;
+  height: 32px;
+  width: 100%;
+  height: 100%;
+}
+
+.c5 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -722,7 +738,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   padding-left: 4px;
 }
 
-.c5 {
+.c6 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -762,16 +778,16 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   width: 32px;
 }
 
-.c5:hover,
-.c5:focus {
+.c6:hover,
+.c6:focus {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
-.c5:active {
+.c6:active {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c3 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -796,11 +812,11 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   text-decoration: none;
 }
 
-.c3:is(a,button,[tabIndex='0']) {
+.c4:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c3:is(a,button,[tabIndex='0']):after {
+.c4:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -818,9 +834,6 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
 
 <span
   className="c0"
-  data-cursor-is-interactive={false}
-  data-is-remove-btn={true}
-  data-size="xlarge"
   onKeyDown={[Function]}
   size="xlarge"
 >
@@ -829,11 +842,10 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   >
     <span
       className="c2"
-      data-size="xlarge"
     >
       <img
         alt=""
-        className="Avatar Avatar"
+        className="c3 Avatar"
         data-component="Avatar"
         height={32}
         src="https://avatars.githubusercontent.com/mperrotti"
@@ -847,11 +859,11 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
     </span>
   </div>
   <span
-    className="c3"
+    className="c4"
   >
     token
     <span
-      className="c4"
+      className="c5"
     >
        (press backspace or delete to remove)
     </span>
@@ -859,7 +871,7 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c5"
+    className="c6"
     data-size="xlarge"
     onClick={[Function]}
     size="xlarge"
@@ -899,6 +911,13 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   margin-right: 4px;
 }
 
+.c3 {
+  width: 20px;
+  height: 20px;
+  width: 100%;
+  height: 100%;
+}
+
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -930,7 +949,7 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   padding-left: 4px;
 }
 
-.c3 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -955,11 +974,11 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   text-decoration: none;
 }
 
-.c3:is(a,button,[tabIndex='0']) {
+.c4:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c3:is(a,button,[tabIndex='0']):after {
+.c4:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -977,10 +996,6 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
 
 <span
   className="c0"
-  data-cursor-is-interactive={false}
-  data-is-remove-btn={false}
-  data-is-selected={true}
-  data-size="medium"
   onKeyDown={[Function]}
   size="medium"
 >
@@ -989,11 +1004,10 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
   >
     <span
       className="c2"
-      data-size="medium"
     >
       <img
         alt=""
-        className="Avatar Avatar"
+        className="c3 Avatar"
         data-component="Avatar"
         height={20}
         src="https://avatars.githubusercontent.com/mperrotti"
@@ -1007,7 +1021,7 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
     </span>
   </div>
   <span
-    className="c3"
+    className="c4"
   >
     token
   </span>
@@ -1023,7 +1037,14 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   margin-right: 4px;
 }
 
-.c4 {
+.c3 {
+  width: 20px;
+  height: 20px;
+  width: 100%;
+  height: 100%;
+}
+
+.c5 {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -1068,7 +1089,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   padding-left: 4px;
 }
 
-.c5 {
+.c6 {
   background-color: transparent;
   font-family: inherit;
   color: currentColor;
@@ -1108,16 +1129,16 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   width: 20px;
 }
 
-.c5:hover,
-.c5:focus {
+.c6:hover,
+.c6:focus {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-muted,rgba(175,184,193,0.2)));
 }
 
-.c5:active {
+.c6:active {
   background-color: var(--bgColor-neutral-muted,var(--color-neutral-subtle,rgba(234,238,242,0.5)));
 }
 
-.c3 {
+.c4 {
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -ms-flex-positive: 1;
@@ -1142,11 +1163,11 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   text-decoration: none;
 }
 
-.c3:is(a,button,[tabIndex='0']) {
+.c4:is(a,button,[tabIndex='0']) {
   cursor: pointer;
 }
 
-.c3:is(a,button,[tabIndex='0']):after {
+.c4:is(a,button,[tabIndex='0']):after {
   content: '';
   position: absolute;
   left: 0;
@@ -1164,9 +1185,6 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
 
 <span
   className="c0"
-  data-cursor-is-interactive={false}
-  data-is-remove-btn={true}
-  data-size="medium"
   onKeyDown={[Function]}
   size="medium"
 >
@@ -1175,11 +1193,10 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   >
     <span
       className="c2"
-      data-size="medium"
     >
       <img
         alt=""
-        className="Avatar Avatar"
+        className="c3 Avatar"
         data-component="Avatar"
         height={20}
         src="https://avatars.githubusercontent.com/mperrotti"
@@ -1193,11 +1210,11 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
     </span>
   </div>
   <span
-    className="c3"
+    className="c4"
   >
     token
     <span
-      className="c4"
+      className="c5"
     >
        (press backspace or delete to remove)
     </span>
@@ -1205,7 +1222,7 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c5"
+    className="c6"
     data-size="medium"
     onClick={[Function]}
     size="medium"
@@ -1368,12 +1385,8 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
 
 <span
   className="c0"
-  data-cursor-is-interactive={false}
-  data-has-remove-button={true}
-  data-size="small"
   onKeyDown={[Function]}
   size="small"
-  style={{}}
 >
   <span
     className="c1"
@@ -1383,8 +1396,7 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2 RemoveButton"
-    data-has-multiple-action-targets={false}
+    className="c2"
     data-size="small"
     onClick={[Function]}
     size="small"
@@ -1547,12 +1559,8 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
 
 <span
   className="c0"
-  data-cursor-is-interactive={false}
-  data-has-remove-button={true}
-  data-size="medium"
   onKeyDown={[Function]}
   size="medium"
-  style={{}}
 >
   <span
     className="c1"
@@ -1562,8 +1570,7 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2 RemoveButton"
-    data-has-multiple-action-targets={false}
+    className="c2"
     data-size="medium"
     onClick={[Function]}
     size="medium"
@@ -1726,12 +1733,8 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
 
 <span
   className="c0"
-  data-cursor-is-interactive={false}
-  data-has-remove-button={true}
-  data-size="large"
   onKeyDown={[Function]}
   size="large"
-  style={{}}
 >
   <span
     className="c1"
@@ -1741,8 +1744,7 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2 RemoveButton"
-    data-has-multiple-action-targets={false}
+    className="c2"
     data-size="large"
     onClick={[Function]}
     size="large"
@@ -1907,12 +1909,8 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
 
 <span
   className="c0"
-  data-cursor-is-interactive={false}
-  data-has-remove-button={true}
-  data-size="xlarge"
   onKeyDown={[Function]}
   size="xlarge"
-  style={{}}
 >
   <span
     className="c1"
@@ -1922,8 +1920,7 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2 RemoveButton"
-    data-has-multiple-action-targets={false}
+    className="c2"
     data-size="xlarge"
     onClick={[Function]}
     size="xlarge"
@@ -2086,12 +2083,8 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
 
 <span
   className="c0"
-  data-cursor-is-interactive={false}
-  data-has-remove-button={true}
-  data-size="medium"
   onKeyDown={[Function]}
   size="medium"
-  style={{}}
 >
   <span
     className="c1"
@@ -2101,8 +2094,7 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2 RemoveButton"
-    data-has-multiple-action-targets={false}
+    className="c2"
     data-size="medium"
     onClick={[Function]}
     size="medium"
@@ -2265,12 +2257,8 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
 
 <span
   className="c0"
-  data-cursor-is-interactive={false}
-  data-has-remove-button={true}
-  data-size="medium"
   onKeyDown={[Function]}
   size="medium"
-  style={{}}
 >
   <span
     className="c1"
@@ -2280,8 +2268,7 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2 RemoveButton"
-    data-has-multiple-action-targets={false}
+    className="c2"
     data-size="medium"
     onClick={[Function]}
     size="medium"
@@ -2412,12 +2399,8 @@ exports[`Token components IssueLabelToken renders isSelected 1`] = `
 
 <span
   className="c0"
-  data-cursor-is-interactive={false}
-  data-has-remove-button={false}
-  data-size="medium"
   onKeyDown={[Function]}
   size="medium"
-  style={{}}
 >
   <span
     className="c1"
@@ -2559,12 +2542,8 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
 
 <span
   className="c0"
-  data-cursor-is-interactive={false}
-  data-has-remove-button={true}
-  data-size="medium"
   onKeyDown={[Function]}
   size="medium"
-  style={{}}
 >
   <span
     className="c1"
@@ -2574,8 +2553,7 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
   <button
     aria-hidden="false"
     aria-label="Remove token"
-    className="c2 RemoveButton"
-    data-has-multiple-action-targets={false}
+    className="c2"
     data-size="medium"
     onClick={[Function]}
     size="medium"
@@ -2740,9 +2718,6 @@ exports[`Token components Token renders all sizes 1`] = `
 
 <span
   className="c0"
-  data-cursor-is-interactive={false}
-  data-is-remove-btn={true}
-  data-size="small"
   onKeyDown={[Function]}
   size="small"
 >
@@ -2924,9 +2899,6 @@ exports[`Token components Token renders all sizes 2`] = `
 
 <span
   className="c0"
-  data-cursor-is-interactive={false}
-  data-is-remove-btn={true}
-  data-size="medium"
   onKeyDown={[Function]}
   size="medium"
 >
@@ -3108,9 +3080,6 @@ exports[`Token components Token renders all sizes 3`] = `
 
 <span
   className="c0"
-  data-cursor-is-interactive={false}
-  data-is-remove-btn={true}
-  data-size="large"
   onKeyDown={[Function]}
   size="large"
 >
@@ -3294,9 +3263,6 @@ exports[`Token components Token renders all sizes 4`] = `
 
 <span
   className="c0"
-  data-cursor-is-interactive={false}
-  data-is-remove-btn={true}
-  data-size="xlarge"
   onKeyDown={[Function]}
   size="xlarge"
 >
@@ -3415,10 +3381,6 @@ exports[`Token components Token renders isSelected 1`] = `
 
 <span
   className="c0"
-  data-cursor-is-interactive={false}
-  data-is-remove-btn={false}
-  data-is-selected={true}
-  data-size="medium"
   onKeyDown={[Function]}
   size="medium"
 >
@@ -3509,9 +3471,6 @@ exports[`Token components Token renders with a leadingVisual 1`] = `
 
 <span
   className="c0"
-  data-cursor-is-interactive={false}
-  data-is-remove-btn={false}
-  data-size="medium"
   onKeyDown={[Function]}
   size="medium"
 >
@@ -3668,9 +3627,6 @@ exports[`Token components Token renders with a remove button 1`] = `
 
 <span
   className="c0"
-  data-cursor-is-interactive={false}
-  data-is-remove-btn={true}
-  data-size="medium"
   onKeyDown={[Function]}
   size="medium"
 >

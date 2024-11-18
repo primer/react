@@ -348,10 +348,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
     </div>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -404,10 +400,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -460,10 +452,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -516,10 +504,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -572,10 +556,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -628,10 +608,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -684,10 +660,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -740,10 +712,6 @@ exports[`TextInputWithTokens renders a leadingVisual and trailingVisual 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -1182,10 +1150,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
     </div>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -1238,10 +1202,6 @@ exports[`TextInputWithTokens renders a truncated set of tokens 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -1833,10 +1793,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
     </div>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -1889,10 +1845,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -1945,10 +1897,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -2001,10 +1949,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -2057,10 +2001,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -2113,10 +2053,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -2169,10 +2105,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -2225,10 +2157,6 @@ exports[`TextInputWithTokens renders at a maximum height when specified 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -2622,10 +2550,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
     </div>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="small"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -2678,10 +2602,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="small"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -2734,10 +2654,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="small"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -2790,10 +2706,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="small"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -2846,10 +2758,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="small"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -2902,10 +2810,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="small"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -2958,10 +2862,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="small"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -3014,10 +2914,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="small"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -3411,10 +3307,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
     </div>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="medium"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -3467,10 +3359,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="medium"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -3523,10 +3411,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="medium"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -3579,10 +3463,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="medium"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -3635,10 +3515,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="medium"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -3691,10 +3567,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="medium"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -3747,10 +3619,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="medium"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -3803,10 +3671,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 2`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="medium"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -4193,10 +4057,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
     </div>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="large"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -4249,10 +4109,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="large"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -4305,10 +4161,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="large"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -4361,10 +4213,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="large"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -4417,10 +4265,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="large"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -4473,10 +4317,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="large"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -4529,10 +4369,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="large"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -4585,10 +4421,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 3`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="large"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -4977,10 +4809,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
     </div>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -5033,10 +4861,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -5089,10 +4913,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -5145,10 +4965,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -5201,10 +5017,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -5257,10 +5069,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -5313,10 +5121,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -5369,10 +5173,6 @@ exports[`TextInputWithTokens renders tokens at the specified sizes 4`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -5751,10 +5551,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
     </div>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -5807,10 +5603,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -5863,10 +5655,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -5919,10 +5707,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -5975,10 +5759,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -6031,10 +5811,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -6087,10 +5863,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -6143,10 +5915,6 @@ exports[`TextInputWithTokens renders tokens on a single line when specified 1`] 
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -6473,10 +6241,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     </div>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={false}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
@@ -6498,10 +6262,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={false}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
@@ -6523,10 +6283,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={false}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
@@ -6548,10 +6304,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={false}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
@@ -6573,10 +6325,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={false}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
@@ -6598,10 +6346,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={false}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
@@ -6623,10 +6367,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={false}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
@@ -6648,10 +6388,6 @@ exports[`TextInputWithTokens renders tokens without a remove button when specifi
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={false}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
@@ -7024,10 +6760,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </div>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -7080,10 +6812,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -7136,10 +6864,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -7192,10 +6916,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -7248,10 +6968,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -7304,10 +7020,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -7360,10 +7072,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -7416,10 +7124,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -7911,10 +7615,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </div>
       <span
         className="c7"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -7967,10 +7667,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c7"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -8023,10 +7719,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c7"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -8079,10 +7771,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c7"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -8135,10 +7823,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c7"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -8191,10 +7875,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c7"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -8247,10 +7927,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c7"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -8303,10 +7979,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c7"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -8749,10 +8421,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </div>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -8805,10 +8473,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -8861,10 +8525,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -8917,10 +8577,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -8973,10 +8629,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -9029,10 +8681,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -9085,10 +8733,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -9141,10 +8785,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -9675,10 +9315,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </div>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -9731,10 +9367,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -9787,10 +9419,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -9843,10 +9471,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -9899,10 +9523,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -9955,10 +9575,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -10011,10 +9627,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -10067,10 +9679,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -10601,10 +10209,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </div>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -10657,10 +10261,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -10713,10 +10313,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -10769,10 +10365,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -10825,10 +10417,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -10881,10 +10469,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -10937,10 +10521,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -10993,10 +10573,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -11527,10 +11103,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </div>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -11583,10 +11155,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -11639,10 +11207,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -11695,10 +11259,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -11751,10 +11311,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -11807,10 +11363,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -11863,10 +11415,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -11919,10 +11467,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -12374,10 +11918,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </div>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -12430,10 +11970,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -12486,10 +12022,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -12542,10 +12074,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -12598,10 +12126,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -12654,10 +12178,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -12710,10 +12230,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -12766,10 +12282,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -13300,10 +12812,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </div>
       <span
         className="c7"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -13356,10 +12864,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c7"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -13412,10 +12916,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c7"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -13468,10 +12968,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c7"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -13524,10 +13020,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c7"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -13580,10 +13072,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c7"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -13636,10 +13124,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c7"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -13692,10 +13176,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c7"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -14177,10 +13657,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </div>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -14233,10 +13709,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -14289,10 +13761,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -14345,10 +13813,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -14401,10 +13865,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -14457,10 +13917,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -14513,10 +13969,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -14569,10 +14021,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c5"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -15151,10 +14599,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </div>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="small"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -15207,10 +14651,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="small"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -15263,10 +14703,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="small"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -15319,10 +14755,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="small"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -15375,10 +14807,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="small"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -15431,10 +14859,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="small"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -15487,10 +14911,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="small"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -15543,10 +14963,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="small"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -16116,10 +15532,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </div>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -16172,10 +15584,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -16228,10 +15636,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -16284,10 +15688,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -16340,10 +15740,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -16396,10 +15792,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -16452,10 +15844,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -16508,10 +15896,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="xlarge"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -17079,10 +16463,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </div>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="large"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -17135,10 +16515,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="large"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -17191,10 +16567,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="large"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -17247,10 +16619,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="large"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -17303,10 +16671,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="large"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -17359,10 +16723,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="large"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -17415,10 +16775,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="large"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -17471,10 +16827,6 @@ exports[`TextInputWithTokens renders with a loading indicator 1`] = `
       </span>
       <span
         className="c8"
-        data-cursor-is-interactive={true}
-        data-is-remove-btn={true}
-        data-is-selected={false}
-        data-size="large"
         onBlur={[Function]}
         onFocus={[Function]}
         onKeyDown={[Function]}
@@ -17925,10 +17277,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
     </div>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -17981,10 +17329,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -18037,10 +17381,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -18093,10 +17433,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -18149,10 +17485,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -18205,10 +17537,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -18261,10 +17589,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -18317,10 +17641,6 @@ exports[`TextInputWithTokens renders with tokens 1`] = `
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-is-remove-btn={true}
-      data-is-selected={false}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -18616,6 +17936,8 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
   margin-left: 8px;
   height: 32px;
   width: 32px;
+  position: relative;
+  z-index: 1;
 }
 
 .c7:hover,
@@ -18694,15 +18016,11 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     </div>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-has-remove-button={true}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -18713,8 +18031,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7 RemoveButton"
-        data-has-multiple-action-targets={true}
+        className="c7"
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
@@ -18746,15 +18063,11 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-has-remove-button={true}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -18765,8 +18078,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7 RemoveButton"
-        data-has-multiple-action-targets={true}
+        className="c7"
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
@@ -18798,15 +18110,11 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-has-remove-button={true}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -18817,8 +18125,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7 RemoveButton"
-        data-has-multiple-action-targets={true}
+        className="c7"
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
@@ -18850,15 +18157,11 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-has-remove-button={true}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -18869,8 +18172,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7 RemoveButton"
-        data-has-multiple-action-targets={true}
+        className="c7"
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
@@ -18902,15 +18204,11 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-has-remove-button={true}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -18921,8 +18219,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7 RemoveButton"
-        data-has-multiple-action-targets={true}
+        className="c7"
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
@@ -18954,15 +18251,11 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-has-remove-button={true}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -18973,8 +18266,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7 RemoveButton"
-        data-has-multiple-action-targets={true}
+        className="c7"
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
@@ -19006,15 +18298,11 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-has-remove-button={true}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -19025,8 +18313,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7 RemoveButton"
-        data-has-multiple-action-targets={true}
+        className="c7"
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"
@@ -19058,15 +18345,11 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
     </span>
     <span
       className="c5"
-      data-cursor-is-interactive={true}
-      data-has-remove-button={true}
-      data-size="xlarge"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       onKeyUp={[Function]}
       size="xlarge"
-      style={{}}
       tabIndex={0}
     >
       <span
@@ -19077,8 +18360,7 @@ exports[`TextInputWithTokens renders with tokens using a custom token component 
       </span>
       <span
         aria-hidden="true"
-        className="c7 RemoveButton"
-        data-has-multiple-action-targets={true}
+        className="c7"
         data-size="xlarge"
         onClick={[Function]}
         size="xlarge"

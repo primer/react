@@ -68,6 +68,7 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
     href,
     onClick,
   }
+
   const {resolvedColorScheme} = useTheme()
   const hasMultipleActionTargets = isTokenInteractive(props) && Boolean(onRemove) && !hideRemoveButton
   const onRemoveClick: MouseEventHandler = e => {
@@ -140,17 +141,45 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
     }
   }, [fillColor, resolvedColorScheme, hideRemoveButton, onRemove, isSelected, props])
 
+  if (enabled) {
+    return (
+      <TokenBase
+        onRemove={onRemove}
+        id={id?.toString()}
+        isSelected={isSelected}
+        className={clsx(classes.IssueLabel, className)}
+        text={text}
+        size={size}
+        style={labelStyles}
+        data-has-remove-button={!hideRemoveButton && !!onRemove}
+        {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
+        {...rest}
+        ref={forwardedRef}
+      >
+        <TokenTextContainer {...(hasMultipleActionTargets ? interactiveTokenProps : {})}>{text}</TokenTextContainer>
+        {!hideRemoveButton && onRemove ? (
+          <RemoveTokenButton
+            borderOffset={tokenBorderWidthPx}
+            onClick={onRemoveClick}
+            size={size}
+            aria-hidden={hasMultipleActionTargets ? 'true' : 'false'}
+            isParentInteractive={isTokenInteractive(props)}
+            data-has-multiple-action-targets={hasMultipleActionTargets}
+            className={classes.RemoveButton}
+          />
+        ) : null}
+      </TokenBase>
+    )
+  }
+
   return (
     <TokenBase
       onRemove={onRemove}
       id={id?.toString()}
       isSelected={isSelected}
-      className={clsx(enabled && classes.IssueLabel, className)}
       text={text}
       size={size}
-      sx={!enabled ? labelStyles : {}}
-      style={enabled ? labelStyles : {}}
-      data-has-remove-button={!hideRemoveButton && !!onRemove}
+      sx={labelStyles}
       {...(!hasMultipleActionTargets ? interactiveTokenProps : {})}
       {...rest}
       ref={forwardedRef}
@@ -163,8 +192,14 @@ const IssueLabelToken = forwardRef((props, forwardedRef) => {
           size={size}
           aria-hidden={hasMultipleActionTargets ? 'true' : 'false'}
           isParentInteractive={isTokenInteractive(props)}
-          data-has-multiple-action-targets={hasMultipleActionTargets}
-          className={classes.RemoveButton}
+          sx={
+            hasMultipleActionTargets
+              ? {
+                  position: 'relative',
+                  zIndex: '1',
+                }
+              : {}
+          }
         />
       ) : null}
     </TokenBase>
