@@ -50,6 +50,7 @@ const stories: Array<{
   },
   {
     title: 'Groups And Descriptions',
+    skipOpen: true,
     id: 'components-actionmenu-examples--groups-and-descriptions',
   },
   {
