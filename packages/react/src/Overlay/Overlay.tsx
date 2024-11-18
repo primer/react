@@ -14,6 +14,11 @@ import type {AnchorSide} from '@primer/behaviors'
 import {useTheme} from '../ThemeProvider'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 import {useFeatureFlag} from '../FeatureFlags'
+import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
+import classes from './Overlay.module.css'
+import {clsx} from 'clsx'
+
+const CSS_MODULES_FLAG = 'primer_react_css_modules_team'
 
 type StyledOverlayProps = {
   width?: keyof typeof widthMap
@@ -61,43 +66,48 @@ function getSlideAnimationStartingVector(anchorSide?: AnchorSide): {x: number; y
   return {x: 0, y: 0}
 }
 
-export const StyledOverlay = styled.div<StyledOverlayProps>`
-  background-color: ${get('colors.canvas.overlay')};
-  box-shadow: ${get('shadows.overlay.shadow')};
-  position: absolute;
-  min-width: 192px;
-  max-width: ${props => props.maxWidth && widthMap[props.maxWidth]};
-  height: ${props => heightMap[props.height || 'auto']};
-  max-height: ${props => props.maxHeight && heightMap[props.maxHeight]};
-  width: ${props => widthMap[props.width || 'auto']};
-  border-radius: 12px;
-  overflow: ${props => (props.overflow ? props.overflow : 'hidden')};
-  animation: overlay-appear ${animationDuration}ms ${get('animation.easeOutCubic')};
+export const BaseOverlay = toggleStyledComponent(
+  CSS_MODULES_FLAG,
+  'div',
+  styled.div<StyledOverlayProps>`
+    background-color: ${get('colors.canvas.overlay')};
+    box-shadow: ${get('shadows.overlay.shadow')};
+    position: absolute;
+    min-width: 192px;
+    max-width: ${props => props.maxWidth && widthMap[props.maxWidth]};
+    height: ${props => heightMap[props.height || 'auto']};
+    max-height: ${props => props.maxHeight && heightMap[props.maxHeight]};
+    width: ${props => widthMap[props.width || 'auto']};
+    border-radius: 12px;
+    overflow: ${props => (props.overflow ? props.overflow : 'hidden')};
+    animation: overlay-appear ${animationDuration}ms ${get('animation.easeOutCubic')};
 
-  @keyframes overlay-appear {
-    0% {
-      opacity: 0;
+    @keyframes overlay-appear {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
     }
-    100% {
-      opacity: 1;
+    visibility: var(--styled-overlay-visibility);
+    :focus {
+      outline: none;
     }
-  }
-  visibility: var(--styled-overlay-visibility);
-  :focus {
-    outline: none;
-  }
 
-  @media (forced-colors: active) {
-    /* Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips */
-    outline: solid 1px transparent;
-  }
+    @media (forced-colors: active) {
+      /* Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips */
+      outline: solid 1px transparent;
+    }
 
-  &[data-reflow-container='true'] {
-    max-width: calc(100vw - 2rem);
-  }
+    &[data-reflow-container='true'] {
+      max-width: calc(100vw - 2rem);
+    }
 
-  ${sx};
-`
+    ${sx};
+  `,
+)
+
 type BaseOverlayProps = {
   ignoreClickRefs?: React.RefObject<HTMLElement>[]
   initialFocusRef?: React.RefObject<HTMLElement>
@@ -116,6 +126,7 @@ type BaseOverlayProps = {
   role?: AriaRole
   children?: React.ReactNode
   preventOverflow?: boolean
+  className?: string
 }
 
 type OwnOverlayProps = Merge<StyledOverlayProps, BaseOverlayProps>
@@ -163,6 +174,9 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
       position,
       style: styleFromProps = {},
       preventOverflow = true,
+      className,
+      maxHeight,
+      maxWidth,
       ...rest
     },
     forwardedRef,
@@ -208,31 +222,65 @@ const Overlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
     // To be backwards compatible with the old Overlay, we need to set the left prop if x-position is not specified
     const leftPosition: React.CSSProperties = left === undefined && right === undefined ? {left: 0} : {left}
 
-    const enabled = useFeatureFlag('primer_react_overlay_overflow')
+    const overflowEnabled = useFeatureFlag('primer_react_overlay_overflow')
+    const cssModulesEnabled = useFeatureFlag(CSS_MODULES_FLAG)
 
-    return (
-      <Portal containerName={portalContainerName}>
-        <StyledOverlay
-          height={height}
-          width={width}
-          role={role}
-          {...rest}
-          ref={overlayRef}
-          style={
-            {
-              ...leftPosition,
-              right,
-              top,
-              bottom,
-              position,
-              '--styled-overlay-visibility': visibility,
-              ...styleFromProps,
-            } as React.CSSProperties
-          }
-          data-reflow-container={enabled || !preventOverflow ? true : undefined}
-        />
-      </Portal>
-    )
+    if (cssModulesEnabled) {
+      return (
+        <Portal containerName={portalContainerName}>
+          <BaseOverlay
+            role={role}
+            {...rest}
+            ref={overlayRef}
+            style={
+              {
+                ...leftPosition,
+                right,
+                top,
+                bottom,
+                position,
+                '--styled-overlay-visibility': visibility,
+                ...styleFromProps,
+              } as React.CSSProperties
+            }
+            {...{
+              [`data-width-${width}`]: '',
+              [`data-max-width-${maxWidth}`]: maxWidth ? '' : undefined,
+              [`data-height-${height}`]: '',
+              [`data-max-height-${maxHeight}`]: maxHeight ? '' : undefined,
+              [`data-visibility-${visibility}`]: '',
+            }}
+            data-reflow-container={overflowEnabled || !preventOverflow ? true : undefined}
+            className={clsx(className, classes.Overlay)}
+          />
+        </Portal>
+      )
+    } else {
+      return (
+        <Portal containerName={portalContainerName}>
+          <BaseOverlay
+            height={height}
+            width={width}
+            role={role}
+            {...rest}
+            ref={overlayRef}
+            style={
+              {
+                ...leftPosition,
+                right,
+                top,
+                bottom,
+                position,
+                '--styled-overlay-visibility': visibility,
+                ...styleFromProps,
+              } as React.CSSProperties
+            }
+            data-reflow-container={overflowEnabled || !preventOverflow ? true : undefined}
+            className={className}
+          />
+        </Portal>
+      )
+    }
   },
 ) as PolymorphicForwardRefComponent<'div', OwnOverlayProps>
 
