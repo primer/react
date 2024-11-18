@@ -115,7 +115,7 @@ export const ProfilePage = () => {
   return (
     <Box sx={{display: 'flex', flexDirection: 'row', gap: 3, alignItems: 'flex-start'}}>
       <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', height: '100%'}}>
-        <Avatar size={256} src="https://avatars.githubusercontent.com/u/92997159?v=4" alt="mona user avatar" />
+        <Avatar size={256} src="https://avatars.githubusercontent.com/u/7143434?v=4" alt="mona user avatar" />
         <Box>
           {/* Initial bio info */}
           <Box sx={{paddingY: 3}}>
