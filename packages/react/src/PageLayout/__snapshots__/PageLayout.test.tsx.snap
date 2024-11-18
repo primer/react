@@ -190,9 +190,11 @@ exports[`PageLayout renders condensed layout 1`] = `
     >
       <header
         class="c2"
+        data-gap="condensed"
       >
         <div
           class="c3"
+          data-padding="none"
         >
           Header
         </div>
@@ -532,9 +534,11 @@ exports[`PageLayout renders default layout 1`] = `
     >
       <header
         class="c2"
+        data-gap="normal"
       >
         <div
           class="c3"
+          data-padding="none"
         >
           Header
         </div>
@@ -874,9 +878,11 @@ exports[`PageLayout renders pane in different position when narrow 1`] = `
     >
       <header
         class="c2"
+        data-gap="normal"
       >
         <div
           class="c3"
+          data-padding="none"
         >
           Header
         </div>
@@ -1216,9 +1222,11 @@ exports[`PageLayout renders with dividers 1`] = `
     >
       <header
         class="c2"
+        data-gap="normal"
       >
         <div
           class="c3"
+          data-padding="none"
         >
           Header
         </div>

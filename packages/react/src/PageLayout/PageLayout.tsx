@@ -175,6 +175,8 @@ Root.displayName = 'PageLayout'
 type DividerProps = {
   variant?: 'none' | 'line' | 'filled' | ResponsiveValue<'none' | 'line' | 'filled'>
   className?: string
+  gap?: keyof typeof SPACING_MAP
+  position?: keyof typeof panePositions
 } & SxProp
 
 const horizontalDividerVariants = {
@@ -190,8 +192,7 @@ const horizontalDividerVariants = {
     display: 'block',
     height: 8,
     backgroundColor: 'canvas.inset',
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    boxShadow: (theme: any) =>
+    boxShadow: (theme: Theme) =>
       `inset 0 -1px 0 0 ${theme.colors.border.default}, inset 0 1px 0 0 ${theme.colors.border.default}`,
   },
 }
@@ -205,28 +206,43 @@ function negateSpacingValue(value: number | null | Array<number | null>) {
   return value === null ? null : -value
 }
 
-const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({variant = 'none', sx = {}, className}) => {
+const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
+  variant = 'none',
+  sx = {},
+  className,
+  gap,
+  position,
+}) => {
   const {padding} = React.useContext(PageLayoutContext)
   const responsiveVariant = useResponsiveValue(variant, 'none')
-  return (
-    <Box
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      sx={(theme: any) =>
-        merge<BetterSystemStyleObject>(
-          {
-            // Stretch divider to viewport edges on narrow screens
-            marginX: negateSpacingValue(SPACING_MAP[padding]),
-            ...horizontalDividerVariants[responsiveVariant],
-            [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
-              marginX: '0 !important',
-            },
-          },
-          sx,
-        )
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
+  const stylingProps = enabled
+    ? {
+        sx,
+        className: clsx(classes.HorizontalDivider, className),
+        'data-spacing': padding,
+        'data-variant': responsiveVariant,
+        'data-gap': gap,
+        'data-position': position,
       }
-      className={className}
-    />
-  )
+    : {
+        sx: (theme: Theme) =>
+          merge<BetterSystemStyleObject>(
+            {
+              // Stretch divider to viewport edges on narrow screens
+              marginX: negateSpacingValue(SPACING_MAP[padding]),
+              ...horizontalDividerVariants[responsiveVariant],
+              [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
+                marginX: '0 !important',
+              },
+            },
+            sx,
+          ),
+        className,
+      }
+
+  return <Box {...stylingProps} />
 }
 
 const verticalDividerVariants = {
@@ -242,8 +258,7 @@ const verticalDividerVariants = {
     display: 'block',
     width: 8,
     backgroundColor: 'canvas.inset',
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    boxShadow: (theme: any) =>
+    boxShadow: (theme: Theme) =>
       `inset -1px 0 0 0 ${theme.colors.border.default}, inset 1px 0 0 0 ${theme.colors.border.default}`,
   },
 }
@@ -275,11 +290,15 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   onDrag,
   onDragEnd,
   onDoubleClick,
+  position,
+  gap,
+  className,
   sx = {},
 }) => {
   const [isDragging, setIsDragging] = React.useState(false)
   const [isKeyboardDrag, setIsKeyboardDrag] = React.useState(false)
   const responsiveVariant = useResponsiveValue(variant, 'none')
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   const stableOnDrag = React.useRef(onDrag)
   const stableOnDragEnd = React.useRef(onDragEnd)
@@ -370,17 +389,28 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
     }
   }, [isDragging, isKeyboardDrag, currentWidth, minWidth, maxWidth])
 
-  return (
-    <Box
-      sx={merge<BetterSystemStyleObject>(
-        {
-          height: '100%',
-          position: 'relative',
-          ...verticalDividerVariants[responsiveVariant],
-        },
+  const stylingProps = enabled
+    ? {
         sx,
-      )}
-    >
+        className: clsx(classes.VerticalDivider, className),
+        'data-variant': responsiveVariant,
+        'data-position': position,
+        'data-gap': gap,
+      }
+    : {
+        sx: merge<BetterSystemStyleObject>(
+          {
+            height: '100%',
+            position: 'relative',
+            ...verticalDividerVariants[responsiveVariant],
+          },
+          sx,
+        ),
+        className,
+      }
+
+  return (
+    <Box {...stylingProps}>
       {draggable ? (
         // Drag handle
         <>
@@ -421,7 +451,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
             }}
             onDoubleClick={onDoubleClick}
           />
-          <DraggingGlobalStyles />
+          {!enabled && <DraggingGlobalStyles />}
         </>
       ) : null}
     </Box>
@@ -476,8 +506,6 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   sx = {},
   className,
 }) => {
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
-
   // Combine divider and dividerWhenNarrow for backwards compatibility
   const dividerProp =
     !isResponsiveValue(divider) && dividerWhenNarrow !== 'inherit'
@@ -487,6 +515,7 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   const dividerVariant = useResponsiveValue(dividerProp, 'none')
   const isHidden = useResponsiveValue(hidden, false)
   const {rowGap} = React.useContext(PageLayoutContext)
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   if (enabled) {
     return (
@@ -494,7 +523,7 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
         as="header"
         aria-label={label}
         aria-labelledby={labelledBy}
-        data-row-gap={rowGap}
+        data-gap={rowGap}
         hidden={isHidden}
         sx={sx}
         className={clsx(classes.Header, className)}
@@ -503,7 +532,7 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
         <Box data-padding={padding} className={classes.HeaderContent}>
           {children}
         </Box>
-        <HorizontalDivider data-row-gap={rowGap} className={classes.HeaderHorizontalDivider} variant={dividerVariant} />
+        <HorizontalDivider gap={rowGap} className={classes.HeaderHorizontalDivider} variant={dividerVariant} />
       </Box>
     )
   }
@@ -513,7 +542,7 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
       as="header"
       aria-label={label}
       aria-labelledby={labelledBy}
-      data-row-gap={rowGap}
+      data-gap={rowGap}
       hidden={isHidden}
       sx={merge<BetterSystemStyleObject>(
         {
@@ -850,11 +879,11 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         <Box
           data-is-hidden={isHidden}
           data-position={position}
-          data-row-gap={rowGap}
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          data-gap={rowGap}
+          data-sticky={sticky}
           className={clsx(classes.PaneWrapper, className)}
           style={style}
-          sx={(theme: any) =>
+          sx={(theme: Theme) =>
             merge<BetterSystemStyleObject>(
               {
                 // Regular and wide viewports
@@ -883,7 +912,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           <HorizontalDivider
             variant={{narrow: dividerVariant, regular: 'none'}}
             className={classes.PaneHorizontalDivider}
-            data-row-gap={rowGap}
+            gap={rowGap}
           />
           <Box
             ref={paneRef}
@@ -922,8 +951,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             }}
             // If pane is resizable, the divider should be draggable
             draggable={resizable}
-            data-position={position}
-            data-column-gap={columnGap}
+            position={position}
+            gap={columnGap}
             className={classes.PaneVerticalDivider}
             onDrag={(delta, isKeyboard = false) => {
               // Get the number of pixels the divider was dragged
@@ -950,8 +979,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
 
     return (
       <Box
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        sx={(theme: any) =>
+        sx={(theme: Theme) =>
           merge<BetterSystemStyleObject>(
             {
               // Narrow viewports
@@ -1119,13 +1147,13 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
         as="footer"
         aria-label={label}
         aria-labelledby={labelledBy}
-        data-row-gap={rowGap}
+        data-gap={rowGap}
         hidden={isHidden}
         className={clsx(classes.FooterWrapper, className)}
         sx={sx}
         style={style}
       >
-        <HorizontalDivider data-row-gap={rowGap} variant={dividerVariant} className={classes.FooterHorizontalDivider} />
+        <HorizontalDivider gap={rowGap} variant={dividerVariant} className={classes.FooterHorizontalDivider} />
         <Box className={classes.FooterContent}>{children}</Box>
       </Box>
     )

@@ -241,9 +241,11 @@ exports[`SplitPageLayout renders default layout 1`] = `
     >
       <header
         class="c2"
+        data-gap="none"
       >
         <div
           class="c3"
+          data-padding="normal"
         >
           Header
         </div>
