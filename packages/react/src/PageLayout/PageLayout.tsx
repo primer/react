@@ -716,6 +716,8 @@ export type PageLayoutPaneProps = {
   offsetHeader?: string | number
   hidden?: boolean | ResponsiveValue<boolean>
   id?: string
+  className?: string
+  style?: React.CSSProperties
 } & SxProp
 
 const panePositions = {
@@ -751,9 +753,13 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       children,
       id,
       sx = {},
+      className,
+      style,
     },
     forwardRef,
   ) => {
+    const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
     // Combine position and positionWhenNarrow for backwards compatibility
     const positionProp =
       !isResponsiveValue(responsivePosition) && positionWhenNarrow !== 'inherit'
@@ -837,6 +843,109 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       } else if (label) {
         labelProp['aria-label'] = label
       }
+    }
+
+    if (enabled) {
+      return (
+        <Box
+          data-is-hidden={isHidden}
+          data-position={position}
+          data-row-gap={rowGap}
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          className={clsx(classes.PaneWrapper, className)}
+          style={style}
+          sx={(theme: any) =>
+            merge<BetterSystemStyleObject>(
+              {
+                // Regular and wide viewports
+                [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
+                  width: 'auto',
+                  marginY: '0 !important',
+                  ...(sticky
+                    ? {
+                        position: 'sticky',
+                        // If offsetHeader has value, it will stick the pane to the position where the sticky top ends
+                        // else top will be 0 as the default value of offsetHeader
+                        top: typeof offsetHeader === 'number' ? `${offsetHeader}px` : offsetHeader,
+                        maxHeight: 'var(--sticky-pane-height)',
+                      }
+                    : {}),
+                  ...(position === 'end'
+                    ? {flexDirection: 'row-reverse', marginLeft: SPACING_MAP[columnGap]}
+                    : {flexDirection: 'row', marginRight: SPACING_MAP[columnGap]}),
+                },
+              },
+              sx,
+            )
+          }
+        >
+          {/* Show a horizontal divider when viewport is narrow. Otherwise, show a vertical divider. */}
+          <HorizontalDivider
+            variant={{narrow: dividerVariant, regular: 'none'}}
+            className={classes.PaneHorizontalDivider}
+            data-row-gap={rowGap}
+          />
+          <Box
+            ref={paneRef}
+            style={{
+              // @ts-ignore CSS custom properties are not supported by TypeScript
+              '--pane-width': `${paneWidth}px`,
+            }}
+            sx={(theme: Theme) => ({
+              '--pane-min-width': isCustomWidthOptions(width) ? width.min : `${minWidth}px`,
+              '--pane-max-width-diff': '511px',
+              '--pane-max-width': isCustomWidthOptions(width) ? width.max : `calc(100vw - var(--pane-max-width-diff))`,
+              width: resizable
+                ? ['100%', null, 'clamp(var(--pane-min-width), var(--pane-width), var(--pane-max-width))']
+                : isPaneWidth(width)
+                  ? paneWidths[width]
+                  : width.default,
+              padding: SPACING_MAP[padding],
+              overflow: [null, null, 'auto'],
+
+              [`@media screen and (min-width: ${theme.breakpoints[3]})`]: {
+                '--pane-max-width-diff': '959px',
+              },
+            })}
+            {...(hasOverflow && {tabIndex: 0, role: 'region'})}
+            {...labelProp}
+            {...(id && {id: paneId})}
+          >
+            {children}
+          </Box>
+
+          <VerticalDivider
+            variant={{
+              narrow: 'none',
+              // If pane is resizable, always show a vertical divider on regular viewports
+              regular: resizable ? 'line' : dividerVariant,
+            }}
+            // If pane is resizable, the divider should be draggable
+            draggable={resizable}
+            data-position={position}
+            data-column-gap={columnGap}
+            className={classes.PaneVerticalDivider}
+            onDrag={(delta, isKeyboard = false) => {
+              // Get the number of pixels the divider was dragged
+              let deltaWithDirection
+              if (isKeyboard) {
+                deltaWithDirection = delta
+              } else {
+                deltaWithDirection = position === 'end' ? -delta : delta
+              }
+              updatePaneWidth(paneWidth + deltaWithDirection)
+            }}
+            // Ensure `paneWidth` state and actual pane width are in sync when the drag ends
+            onDragEnd={() => {
+              const paneRect = paneRef.current?.getBoundingClientRect()
+              if (!paneRect) return
+              updatePaneWidth(paneRect.width)
+            }}
+            // Reset pane width on double click
+            onDoubleClick={() => updatePaneWidth(getDefaultPaneWidth(width))}
+          />
+        </Box>
+      )
     }
 
     return (
