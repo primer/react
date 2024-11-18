@@ -9,17 +9,23 @@ import {ListContext} from './shared'
 import VisuallyHidden from '../_VisuallyHidden'
 import {ActionListContainerContext} from './ActionListContainerContext'
 import {invariant} from '../utils/invariant'
+import {clsx} from 'clsx'
+import {useFeatureFlag} from '../FeatureFlags'
+import classes from './ActionList.module.css'
 
 type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 export type ActionListHeadingProps = {
   as: HeadingLevels
   visuallyHidden?: boolean
+  className?: string
 } & SxProp
 
 export const Heading = forwardRef(
-  ({as, children, sx = defaultSxProp, visuallyHidden = false, ...props}, forwardedRef) => {
+  ({as, children, sx = defaultSxProp, visuallyHidden = false, className, ...props}, forwardedRef) => {
     const innerRef = React.useRef<HTMLHeadingElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, innerRef)
+
+    const enabled = useFeatureFlag('primer_react_css_modules_team')
 
     const {headingId: headingId, variant: listVariant} = React.useContext(ListContext)
     const {container} = React.useContext(ActionListContainerContext)
@@ -37,16 +43,43 @@ export const Heading = forwardRef(
 
     return (
       <VisuallyHidden isVisible={!visuallyHidden}>
-        <HeadingComponent
-          as={as}
-          ref={innerRef}
-          // use custom id if it is provided. Otherwise, use the id from the context
-          id={props.id ?? headingId}
-          sx={merge<BetterSystemStyleObject>(styles, sx)}
-          {...props}
-        >
-          {children}
-        </HeadingComponent>
+        {enabled ? (
+          sx !== defaultSxProp ? (
+            <HeadingComponent
+              as={as}
+              ref={innerRef}
+              // use custom id if it is provided. Otherwise, use the id from the context
+              id={props.id ?? headingId}
+              className={clsx(className, classes.ActionListTemp)}
+              sx={sx}
+              {...props}
+            >
+              {children}
+            </HeadingComponent>
+          ) : (
+            <HeadingComponent
+              as={as}
+              ref={innerRef}
+              // use custom id if it is provided. Otherwise, use the id from the context
+              id={props.id ?? headingId}
+              className={clsx(className, classes.ActionListTemp)}
+              {...props}
+            >
+              {children}
+            </HeadingComponent>
+          )
+        ) : (
+          <HeadingComponent
+            as={as}
+            ref={innerRef}
+            // use custom id if it is provided. Otherwise, use the id from the context
+            id={props.id ?? headingId}
+            sx={merge<BetterSystemStyleObject>(styles, sx)}
+            {...props}
+          >
+            {children}
+          </HeadingComponent>
+        )}
       </VisuallyHidden>
     )
   },

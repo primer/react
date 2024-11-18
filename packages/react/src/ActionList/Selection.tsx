@@ -3,13 +3,18 @@ import {CheckIcon} from '@primer/octicons-react'
 import type {ActionListGroupProps} from './Group'
 import {GroupContext} from './Group'
 import {type ActionListProps, type ActionListItemProps, ListContext} from './shared'
-import {LeadingVisualContainer} from './Visuals'
+import {LeadingVisualContainer, VisualContainer} from './Visuals'
 import Box from '../Box'
+import {clsx} from 'clsx'
+import {useFeatureFlag} from '../FeatureFlags'
+import classes from './ActionList.module.css'
 
 type SelectionProps = Pick<ActionListItemProps, 'selected'>
 export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({selected}) => {
   const {selectionVariant: listSelectionVariant, role: listRole} = React.useContext(ListContext)
   const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
+
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
 
   /** selectionVariant in Group can override the selectionVariant in List root */
   /** fallback to selectionVariant from container menu if any (ActionMenu, SelectPanel ) */
@@ -30,6 +35,9 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
   }
 
   if (selectionVariant === 'single' || listRole === 'menu') {
+    if (enabled) {
+      return <VisualContainer data-component="ActionList.Selection">{selected && <CheckIcon />}</VisualContainer>
+    }
     return (
       <LeadingVisualContainer data-component="ActionList.Selection">{selected && <CheckIcon />}</LeadingVisualContainer>
     )
@@ -60,6 +68,13 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
     },
   }
 
+  if (enabled) {
+    return (
+      <VisualContainer data-component="ActionList.Selection">
+        <div data-component="ActionList.Checkbox" />
+      </VisualContainer>
+    )
+  }
   return (
     <LeadingVisualContainer data-component="ActionList.Selection">
       <Box
