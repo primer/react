@@ -10,6 +10,8 @@ import {useSlots} from '../hooks/useSlots'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {invariant} from '../utils/invariant'
 import {clsx} from 'clsx'
+import {useFeatureFlag} from '../FeatureFlags'
+import classes from './ActionList.module.css'
 
 export type ActionListGroupProps = {
   /**
@@ -53,6 +55,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   sx = {},
   ...props
 }) => {
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
   const id = useId()
   const {role: listRole} = React.useContext(ListContext)
 
@@ -72,6 +75,54 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
     groupHeadingId = id
   }
 
+  if (enabled) {
+    if (sx) {
+      return (
+        <Box as="li" role={listRole ? 'none' : undefined} sx={sx} {...props}>
+          <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>
+            {title && !slots.groupHeading ? (
+              // Escape hatch: supports old API <ActionList.Group title="group title"> in a non breaking way
+              <GroupHeading variant={variant} auxiliaryText={auxiliaryText} _internalBackwardCompatibleTitle={title} />
+            ) : null}
+            {/* Supports new API ActionList.GroupHeading */}
+            {!title && slots.groupHeading ? React.cloneElement(slots.groupHeading) : null}
+            <ul
+              // if listRole is set (listbox or menu), we don't label the list with the groupHeadingId
+              // because the heading is hidden from the accessibility tree and only used for presentation role.
+              // We will instead use aria-label to label the list. See a line below.
+              aria-labelledby={listRole ? undefined : groupHeadingId}
+              aria-label={listRole ? title ?? (slots.groupHeading?.props.children as string) : undefined}
+              role={role || (listRole && 'group')}
+            >
+              {slots.groupHeading ? childrenWithoutSlots : props.children}
+            </ul>
+          </GroupContext.Provider>
+        </Box>
+      )
+    }
+    return (
+      <li role={listRole ? 'none' : undefined} {...props}>
+        <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>
+          {title && !slots.groupHeading ? (
+            // Escape hatch: supports old API <ActionList.Group title="group title"> in a non breaking way
+            <GroupHeading variant={variant} auxiliaryText={auxiliaryText} _internalBackwardCompatibleTitle={title} />
+          ) : null}
+          {/* Supports new API ActionList.GroupHeading */}
+          {!title && slots.groupHeading ? React.cloneElement(slots.groupHeading) : null}
+          <ul
+            // if listRole is set (listbox or menu), we don't label the list with the groupHeadingId
+            // because the heading is hidden from the accessibility tree and only used for presentation role.
+            // We will instead use aria-label to label the list. See a line below.
+            aria-labelledby={listRole ? undefined : groupHeadingId}
+            aria-label={listRole ? title ?? (slots.groupHeading?.props.children as string) : undefined}
+            role={role || (listRole && 'group')}
+          >
+            {slots.groupHeading ? childrenWithoutSlots : props.children}
+          </ul>
+        </GroupContext.Provider>
+      </li>
+    )
+  }
   return (
     <Box
       as="li"
@@ -97,7 +148,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
           // because the heading is hidden from the accessibility tree and only used for presentation role.
           // We will instead use aria-label to label the list. See a line below.
           aria-labelledby={listRole ? undefined : groupHeadingId}
-          aria-label={listRole ? (title ?? (slots.groupHeading?.props.children as string)) : undefined}
+          aria-label={listRole ? title ?? (slots.groupHeading?.props.children as string) : undefined}
           role={role || (listRole && 'group')}
         >
           {slots.groupHeading ? childrenWithoutSlots : props.children}
@@ -186,24 +237,35 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
     <>
       {/* for listbox (SelectPanel) and menu (ActionMenu) roles, group titles are presentational. */}
       {listRole && listRole !== 'list' ? (
-        <Box sx={styles} role="presentation" aria-hidden="true" {...props}>
+        <div role="presentation" aria-hidden="true" {...props}>
           <span id={groupHeadingId}>{_internalBackwardCompatibleTitle ?? children}</span>
           {auxiliaryText && <div className="ActionListGroupHeadingDescription">{auxiliaryText}</div>}
-        </Box>
+        </div>
       ) : (
         // for explicit (role="list" is passed as prop) and implicit list roles (ActionList ins rendered as list by default), group titles are proper heading tags.
-        <Box sx={styles}>
-          <Heading
-            className={clsx(className, 'ActionListGroupHeading')}
-            as={as || 'h3'}
-            id={groupHeadingId}
-            sx={sx}
-            {...props}
-          >
-            {_internalBackwardCompatibleTitle ?? children}
-          </Heading>
+        <div>
+          {sx ? (
+            <Heading
+              className={clsx(className, 'ActionListGroupHeading')}
+              as={as || 'h3'}
+              id={groupHeadingId}
+              sx={sx}
+              {...props}
+            >
+              {_internalBackwardCompatibleTitle ?? children}
+            </Heading>
+          ) : (
+            <Heading
+              className={clsx(className, 'ActionListGroupHeading')}
+              as={as || 'h3'}
+              id={groupHeadingId}
+              {...props}
+            >
+              {_internalBackwardCompatibleTitle ?? children}
+            </Heading>
+          )}
           {auxiliaryText && <div className="ActionListGroupHeadingDescription">{auxiliaryText}</div>}
-        </Box>
+        </div>
       )}
     </>
   )
