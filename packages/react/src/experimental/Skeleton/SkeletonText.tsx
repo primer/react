@@ -5,6 +5,7 @@ import classes from './SkeletonText.module.css'
 import {useFeatureFlag} from '../../FeatureFlags'
 import {clsx} from 'clsx'
 import {merge} from '../../sx'
+import {CSS_MODULE_FLAG} from './FeatureFlag'
 
 type SkeletonTextProps = {
   /** Size of the text that the skeleton is replacing. */
@@ -80,7 +81,7 @@ export const SkeletonText: React.FC<SkeletonTextProps> = ({
   style,
   ...rest
 }) => {
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  const enabled = useFeatureFlag(CSS_MODULE_FLAG)
 
   if (lines < 2) {
     return (

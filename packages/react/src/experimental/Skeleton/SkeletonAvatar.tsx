@@ -9,6 +9,7 @@ import classes from './SkeletonAvatar.module.css'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../../FeatureFlags'
 import {merge} from '../../sx'
+import {CSS_MODULE_FLAG} from './FeatureFlag'
 
 export type SkeletonAvatarProps = Pick<AvatarProps, 'size' | 'square'> & {
   /** Class name for custom styling */
@@ -39,7 +40,7 @@ export const SkeletonAvatar: React.FC<SkeletonAvatarProps> = ({
 }) => {
   const responsive = isResponsiveValue(size)
   const cssSizeVars = {} as Record<string, string>
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  const enabled = useFeatureFlag(CSS_MODULE_FLAG)
   const avatarSx = responsive
     ? {
         ...getBreakpointDeclarations(

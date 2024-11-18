@@ -1,9 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TextInput renders 1`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -19,8 +33,9 @@ exports[`TextInput renders 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -56,21 +71,107 @@ exports[`TextInput renders 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -90,27 +191,31 @@ exports[`TextInput renders 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
@@ -131,9 +236,23 @@ exports[`TextInput renders 1`] = `
 `;
 
 exports[`TextInput renders block 1`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -149,16 +268,9 @@ exports[`TextInput renders block 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  width: 100%;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-self: stretch;
-  -ms-flex-item-align: stretch;
-  align-self: stretch;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -194,21 +306,107 @@ exports[`TextInput renders block 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -228,33 +426,38 @@ exports[`TextInput renders block 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   aria-busy={false}
   className="c0 c1 TextInput-wrapper"
+  data-block={true}
   onClick={[Function]}
 >
   <input
@@ -269,9 +472,23 @@ exports[`TextInput renders block 1`] = `
 `;
 
 exports[`TextInput renders contrast 1`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -287,9 +504,9 @@ exports[`TextInput renders contrast 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -325,21 +542,107 @@ exports[`TextInput renders contrast 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -359,33 +662,38 @@ exports[`TextInput renders contrast 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   aria-busy={false}
   className="c0 c1 TextInput-wrapper"
+  data-contrast={true}
   onClick={[Function]}
 >
   <input
@@ -400,9 +708,23 @@ exports[`TextInput renders contrast 1`] = `
 `;
 
 exports[`TextInput renders error 1`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -418,9 +740,9 @@ exports[`TextInput renders error 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -456,27 +778,107 @@ exports[`TextInput renders error 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
 }
 
-.c0:focus-within {
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
+}
+
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -496,33 +898,38 @@ exports[`TextInput renders error 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   aria-busy={false}
   className="c0 c1 TextInput-wrapper"
+  data-validation="error"
   onClick={[Function]}
 >
   <input
@@ -538,9 +945,23 @@ exports[`TextInput renders error 1`] = `
 `;
 
 exports[`TextInput renders large 1`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -556,14 +977,9 @@ exports[`TextInput renders large 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 28px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  height: 40px;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -599,21 +1015,107 @@ exports[`TextInput renders large 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -633,35 +1135,39 @@ exports[`TextInput renders large 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   aria-busy={false}
   className="c0 c1 TextInput-wrapper"
+  data-size="large"
   onClick={[Function]}
-  size="large"
 >
   <input
     className="c2"
@@ -675,9 +1181,23 @@ exports[`TextInput renders large 1`] = `
 `;
 
 exports[`TextInput renders leadingVisual 1`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -693,8 +1213,9 @@ exports[`TextInput renders leadingVisual 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -730,21 +1251,107 @@ exports[`TextInput renders leadingVisual 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -764,33 +1371,38 @@ exports[`TextInput renders leadingVisual 1`] = `
 
 .c1 > input,
 .c1 > select {
+  padding-right: 0;
   padding-left: 0;
-  padding-right: 12px;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   aria-busy={false}
   className="c0 c1 TextInput-wrapper"
+  data-leading-visual={true}
   onClick={[Function]}
 >
   <span
@@ -834,9 +1446,23 @@ exports[`TextInput renders leadingVisual 1`] = `
 `;
 
 exports[`TextInput renders leadingVisual 2`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -852,8 +1478,9 @@ exports[`TextInput renders leadingVisual 2`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -889,21 +1516,107 @@ exports[`TextInput renders leadingVisual 2`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -923,33 +1636,38 @@ exports[`TextInput renders leadingVisual 2`] = `
 
 .c1 > input,
 .c1 > select {
+  padding-right: 0;
   padding-left: 0;
-  padding-right: 12px;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   aria-busy={false}
   className="c0 c1 TextInput-wrapper"
+  data-leading-visual={true}
   onClick={[Function]}
 >
   <span
@@ -993,9 +1711,23 @@ exports[`TextInput renders leadingVisual 2`] = `
 `;
 
 exports[`TextInput renders leadingVisual 3`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -1011,8 +1743,9 @@ exports[`TextInput renders leadingVisual 3`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -1048,21 +1781,107 @@ exports[`TextInput renders leadingVisual 3`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -1082,33 +1901,38 @@ exports[`TextInput renders leadingVisual 3`] = `
 
 .c1 > input,
 .c1 > select {
+  padding-right: 0;
   padding-left: 0;
-  padding-right: 12px;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   aria-busy={false}
   className="c0 c1 TextInput-wrapper"
+  data-leading-visual={true}
   onClick={[Function]}
 >
   <span
@@ -1134,9 +1958,23 @@ exports[`TextInput renders leadingVisual 3`] = `
 `;
 
 exports[`TextInput renders leadingVisual 4`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -1152,8 +1990,9 @@ exports[`TextInput renders leadingVisual 4`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -1189,21 +2028,107 @@ exports[`TextInput renders leadingVisual 4`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -1223,33 +2148,38 @@ exports[`TextInput renders leadingVisual 4`] = `
 
 .c1 > input,
 .c1 > select {
+  padding-right: 0;
   padding-left: 0;
-  padding-right: 12px;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   aria-busy={false}
   className="c0 c1 TextInput-wrapper"
+  data-leading-visual={true}
   onClick={[Function]}
 >
   <span
@@ -1275,9 +2205,23 @@ exports[`TextInput renders leadingVisual 4`] = `
 `;
 
 exports[`TextInput renders monospace 1`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -1293,9 +2237,9 @@ exports[`TextInput renders monospace 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -1331,21 +2275,107 @@ exports[`TextInput renders monospace 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -1365,33 +2395,38 @@ exports[`TextInput renders monospace 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   aria-busy={false}
   className="c0 c1 TextInput-wrapper"
+  data-monospace={true}
   onClick={[Function]}
 >
   <input
@@ -1406,9 +2441,23 @@ exports[`TextInput renders monospace 1`] = `
 `;
 
 exports[`TextInput renders placeholder 1`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -1424,8 +2473,9 @@ exports[`TextInput renders placeholder 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -1461,21 +2511,107 @@ exports[`TextInput renders placeholder 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -1495,27 +2631,31 @@ exports[`TextInput renders placeholder 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
@@ -1537,9 +2677,23 @@ exports[`TextInput renders placeholder 1`] = `
 `;
 
 exports[`TextInput renders small 1`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -1555,16 +2709,9 @@ exports[`TextInput renders small 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 20px;
-  min-height: 28px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  font-size: 12px;
-  line-height: 20px;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -1600,21 +2747,107 @@ exports[`TextInput renders small 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -1634,35 +2867,39 @@ exports[`TextInput renders small 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   aria-busy={false}
   className="c0 c1 TextInput-wrapper"
+  data-size="small"
   onClick={[Function]}
-  size="small"
 >
   <input
     className="c2"
@@ -2099,9 +3336,23 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   animation-delay: 0s;
 }
 
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -2117,8 +3368,9 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -2154,15 +3406,107 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -2182,22 +3526,26 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
   padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (forced-colors:active) {
@@ -2228,13 +3576,14 @@ exports[`TextInput renders trailingAction icon button 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   aria-busy={false}
   className="c0 c1 TextInput-wrapper"
+  data-trailing-action={true}
   onClick={[Function]}
 >
   <input
@@ -2626,9 +3975,23 @@ exports[`TextInput renders trailingAction text button 1`] = `
   height: var(--inner-action-size);
 }
 
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -2644,8 +4007,9 @@ exports[`TextInput renders trailingAction text button 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -2681,15 +4045,107 @@ exports[`TextInput renders trailingAction text button 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -2709,22 +4165,26 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
   padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (forced-colors:active) {
@@ -2749,13 +4209,14 @@ exports[`TextInput renders trailingAction text button 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   aria-busy={false}
   className="c0 c1 TextInput-wrapper"
+  data-trailing-action={true}
   onClick={[Function]}
 >
   <input
@@ -3232,9 +4693,23 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   animation-delay: 0s;
 }
 
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -3250,8 +4725,9 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -3287,15 +4763,107 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -3315,22 +4883,26 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
   padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (forced-colors:active) {
@@ -3361,13 +4933,14 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   aria-busy={false}
   className="c0 c1 TextInput-wrapper"
+  data-trailing-action={true}
   onClick={[Function]}
 >
   <input
@@ -3428,9 +5001,23 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 `;
 
 exports[`TextInput renders trailingVisual 1`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -3446,8 +5033,9 @@ exports[`TextInput renders trailingVisual 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -3483,21 +5071,107 @@ exports[`TextInput renders trailingVisual 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
+  padding-right: 0;
   padding-left: 0;
-  padding-right: 12px;
 }
 
 .c1 > :not(:last-child) {
@@ -3517,33 +5191,38 @@ exports[`TextInput renders trailingVisual 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
   padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   aria-busy={false}
   className="c0 c1 TextInput-wrapper"
+  data-trailing-visual={true}
   onClick={[Function]}
 >
   <input
@@ -3587,9 +5266,23 @@ exports[`TextInput renders trailingVisual 1`] = `
 `;
 
 exports[`TextInput renders trailingVisual 2`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -3605,8 +5298,9 @@ exports[`TextInput renders trailingVisual 2`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -3642,21 +5336,107 @@ exports[`TextInput renders trailingVisual 2`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
+  padding-right: 0;
   padding-left: 0;
-  padding-right: 12px;
 }
 
 .c1 > :not(:last-child) {
@@ -3676,33 +5456,38 @@ exports[`TextInput renders trailingVisual 2`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
   padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   aria-busy={false}
   className="c0 c1 TextInput-wrapper"
+  data-trailing-visual={true}
   onClick={[Function]}
 >
   <input
@@ -3746,9 +5531,23 @@ exports[`TextInput renders trailingVisual 2`] = `
 `;
 
 exports[`TextInput renders trailingVisual 3`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -3764,8 +5563,9 @@ exports[`TextInput renders trailingVisual 3`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -3801,21 +5601,107 @@ exports[`TextInput renders trailingVisual 3`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
+  padding-right: 0;
   padding-left: 0;
-  padding-right: 12px;
 }
 
 .c1 > :not(:last-child) {
@@ -3835,33 +5721,38 @@ exports[`TextInput renders trailingVisual 3`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
   padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   aria-busy={false}
   className="c0 c1 TextInput-wrapper"
+  data-trailing-visual={true}
   onClick={[Function]}
 >
   <input
@@ -3887,9 +5778,23 @@ exports[`TextInput renders trailingVisual 3`] = `
 `;
 
 exports[`TextInput renders trailingVisual 4`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -3905,8 +5810,9 @@ exports[`TextInput renders trailingVisual 4`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -3942,21 +5848,107 @@ exports[`TextInput renders trailingVisual 4`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
+  padding-right: 0;
   padding-left: 0;
-  padding-right: 12px;
 }
 
 .c1 > :not(:last-child) {
@@ -3976,33 +5968,38 @@ exports[`TextInput renders trailingVisual 4`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
   padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
   aria-busy={false}
   className="c0 c1 TextInput-wrapper"
+  data-trailing-visual={true}
   onClick={[Function]}
 >
   <input
@@ -4056,9 +6053,23 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -4074,8 +6085,9 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -4111,21 +6123,107 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
+  padding-right: 0;
   padding-left: 0;
-  padding-right: 12px;
 }
 
 .c1 > :not(:last-child) {
@@ -4145,41 +6243,38 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
   padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
 }
 
 <span
     aria-busy={true}
     className="c0 c1 TextInput-wrapper"
+    data-trailing-visual={true}
     onClick={[Function]}
   >
     <input
@@ -4274,9 +6369,23 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -4292,8 +6401,9 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -4329,21 +6439,107 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -4363,41 +6559,38 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
+  padding-right: 0;
   padding-left: 0;
-  padding-right: 12px;
 }
 
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c4:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
 }
 
 <span
     aria-busy={true}
     className="c0 c1 TextInput-wrapper"
+    data-leading-visual={true}
     onClick={[Function]}
   >
     <span
@@ -4530,9 +6723,23 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -4548,8 +6755,9 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -4585,21 +6793,107 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
+  padding-right: 0;
   padding-left: 0;
-  padding-right: 12px;
 }
 
 .c1 > :not(:last-child) {
@@ -4619,41 +6913,38 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
   padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
 }
 
 <span
     aria-busy={true}
     className="c0 c1 TextInput-wrapper"
+    data-trailing-visual={true}
     onClick={[Function]}
   >
     <input
@@ -4757,9 +7048,23 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c5 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c5:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -4775,8 +7080,9 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -4812,21 +7118,107 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -4846,41 +7238,38 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
+  padding-right: 0;
   padding-left: 0;
-  padding-right: 12px;
 }
 
-.c5 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c5:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
 }
 
 <span
     aria-busy={true}
     className="c0 c1 TextInput-wrapper"
+    data-leading-visual={true}
     onClick={[Function]}
   >
     <span
@@ -5058,9 +7447,23 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c5 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c5:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -5076,8 +7479,9 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -5113,21 +7517,107 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -5147,41 +7637,38 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
+  padding-right: 0;
   padding-left: 0;
-  padding-right: 12px;
 }
 
-.c5 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c5:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
 }
 
 <span
     aria-busy={true}
     className="c0 c1 TextInput-wrapper"
+    data-leading-visual={true}
     onClick={[Function]}
   >
     <span
@@ -5359,9 +7846,23 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c5 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c5:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -5377,8 +7878,9 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -5414,21 +7916,107 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -5448,41 +8036,39 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
-.c5 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c5:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
 }
 
 <span
     aria-busy={true}
     className="c0 c1 TextInput-wrapper"
+    data-leading-visual={true}
+    data-trailing-visual={true}
     onClick={[Function]}
   >
     <span
@@ -5654,9 +8240,23 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -5672,8 +8272,9 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -5709,21 +8310,107 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
+  padding-right: 0;
   padding-left: 0;
-  padding-right: 12px;
 }
 
 .c1 > :not(:last-child) {
@@ -5743,41 +8430,38 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
   padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
 }
 
 <span
     aria-busy={true}
     className="c0 c1 TextInput-wrapper"
+    data-trailing-visual={true}
     onClick={[Function]}
   >
     <input
@@ -5911,9 +8595,23 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c4 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c4:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -5929,8 +8627,9 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -5966,21 +8665,107 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -6000,41 +8785,39 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
-.c4 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c4:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
 }
 
 <span
     aria-busy={true}
     className="c0 c1 TextInput-wrapper"
+    data-leading-visual={true}
+    data-trailing-visual={true}
     onClick={[Function]}
   >
     <span
@@ -6206,9 +8989,23 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -6224,8 +9021,9 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -6261,21 +9059,107 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
+  padding-right: 0;
   padding-left: 0;
-  padding-right: 12px;
 }
 
 .c1 > :not(:last-child) {
@@ -6295,41 +9179,38 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
   padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
 }
 
 <span
     aria-busy={true}
     className="c0 c1 TextInput-wrapper"
+    data-trailing-visual={true}
     onClick={[Function]}
   >
     <input
@@ -6472,9 +9353,23 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c5 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c5:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -6490,16 +9385,9 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 20px;
-  min-height: 28px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 3px;
-  padding-bottom: 3px;
-  font-size: 12px;
-  line-height: 20px;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -6535,21 +9423,107 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -6569,43 +9543,41 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
-.c5 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c5:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
 }
 
-@media (min-width:768px) {
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
 
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
-}
-
-@media (min-width:768px) {
-
 }
 
 <span
     aria-busy={true}
     className="c0 c1 TextInput-wrapper"
+    data-leading-visual={true}
+    data-size="small"
+    data-trailing-visual={true}
     onClick={[Function]}
-    size="small"
   >
     <span
       className="TextInput-icon"
@@ -6821,9 +9793,23 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c5 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c5:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -6839,8 +9825,9 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -6876,21 +9863,107 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -6910,41 +9983,39 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
-.c5 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c5:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
-}
-
-@media (min-width:768px) {
-
-}
-
-@media (min-width:768px) {
-
 }
 
 <span
     aria-busy={true}
     className="c0 c1 TextInput-wrapper"
+    data-leading-visual={true}
+    data-trailing-visual={true}
     onClick={[Function]}
   >
     <span
@@ -7161,9 +10232,23 @@ exports[`TextInput renders with a loading indicator 1`] = `
   border-width: 0;
 }
 
+.c5 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c5:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -7179,14 +10264,9 @@ exports[`TextInput renders with a loading indicator 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
-  --inner-action-size: 28px;
-  padding-left: 8px;
-  padding-right: 8px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  height: 40px;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -7222,21 +10302,107 @@ exports[`TextInput renders with a loading indicator 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -7256,43 +10422,41 @@ exports[`TextInput renders with a loading indicator 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
-.c5 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c5:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
 }
 
-@media (min-width:768px) {
-
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
 }
 
-@media (min-width:768px) {
-
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
 <span
     aria-busy={true}
     className="c0 c1 TextInput-wrapper"
+    data-leading-visual={true}
+    data-size="large"
+    data-trailing-visual={true}
     onClick={[Function]}
-    size="large"
   >
     <span
       className="TextInput-icon"
@@ -7461,9 +10625,23 @@ exports[`TextInput renders with a loading indicator 1`] = `
 `;
 
 exports[`TextInput should render a password input 1`] = `
+.c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
 .c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -7479,8 +10657,9 @@ exports[`TextInput should render a password input 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -7516,21 +10695,107 @@ exports[`TextInput should render a password input 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -7550,27 +10815,31 @@ exports[`TextInput should render a password input 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 

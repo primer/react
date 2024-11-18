@@ -233,6 +233,64 @@ export const ShortcutMenu = () => {
   )
 }
 
+export const ContextMenu = () => {
+  const ListItemWithContextMenu = ({children}: {children: string}) => {
+    const handleContextMenu: React.MouseEventHandler<HTMLLIElement> = event => {
+      event.preventDefault()
+      setOpen(true)
+    }
+
+    const [open, setOpen] = React.useState(false)
+    const triggerRef = React.useRef<HTMLLIElement>(null)
+
+    return (
+      // We need to add an aria-label for improving support for more assistive technologies. For example: VoiceOver might not detect the `name` without `aria-label`
+      // Since this has a custom context menu, it's ok to add a tabIndex
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+      <li ref={triggerRef} onContextMenu={handleContextMenu} tabIndex={0} aria-label={children}>
+        {children}
+        <ActionMenu open={open} onOpenChange={setOpen} anchorRef={triggerRef}>
+          <ActionMenu.Button sx={{visibility: 'hidden', height: 0}}>Anchor</ActionMenu.Button>
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item>
+                Copy link
+                <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+              </ActionList.Item>
+              <ActionList.Item>
+                Quote reply
+                <ActionList.TrailingVisual>⌘Q</ActionList.TrailingVisual>
+              </ActionList.Item>
+              <ActionList.Item>
+                Edit comment
+                <ActionList.TrailingVisual>⌘E</ActionList.TrailingVisual>
+              </ActionList.Item>
+              <ActionList.LinkItem href="#">View file</ActionList.LinkItem>
+              <ActionList.Divider />
+              <ActionList.Item variant="danger">
+                Delete file
+                <ActionList.TrailingVisual>⌘D</ActionList.TrailingVisual>
+              </ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+      </li>
+    )
+  }
+
+  return (
+    <>
+      <div>Right click the list items below to see the context menu</div>
+
+      <ul>
+        <ListItemWithContextMenu>List item one</ListItemWithContextMenu>
+        <ListItemWithContextMenu>List item two</ListItemWithContextMenu>
+        <ListItemWithContextMenu>List item three</ListItemWithContextMenu>
+      </ul>
+    </>
+  )
+}
+
 export const CustomAnchor = () => (
   <ActionMenu>
     <ActionMenu.Anchor>
