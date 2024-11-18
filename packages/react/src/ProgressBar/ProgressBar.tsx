@@ -118,7 +118,7 @@ export const Item = forwardRef<HTMLSpanElement, ProgressBarItems>(
         aria-label={ariaLabel}
         ref={forwardRef}
         progress={progress}
-        style={styles}
+        style={enabled ? styles : undefined}
         {...ariaAttributes}
       />
     )
@@ -156,16 +156,17 @@ export const ProgressBar = forwardRef<HTMLSpanElement, ProgressBarProps>(
     // Get the number of non-empty nodes passed as children, this will exclude
     // booleans, null, and undefined
     const validChildren = React.Children.toArray(children).length
-
     const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
+    const cssModulesProps = !enabled
+      ? {barSize}
+      : {'data-progress-display': rest.inline ? 'inline' : 'block', 'data-progress-bar-size': barSize}
 
     return (
       <ProgressContainer
         ref={forwardRef}
-        barSize={barSize}
         className={clsx(className, {[classes.ProgressBarContainer]: enabled})}
-        data-progress-display={rest.inline ? 'inline' : 'block'}
-        data-progress-bar-size={barSize}
+        {...cssModulesProps}
         {...rest}
       >
         {validChildren ? (
