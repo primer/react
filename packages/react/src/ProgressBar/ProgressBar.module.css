@@ -10,7 +10,9 @@
 
 .ProgressBarItem {
   width: var(--progress-width);
+  /* stylelint-disable-next-line primer/colors */
   background-color: var(--progress-bg);
+
   @media (prefers-reduced-motion: no-preference) {
     &[data-animated='true'] {
       mask-image: linear-gradient(75deg, #000 30%, rgba(0, 0, 0, 0.65) 80%);
@@ -23,25 +25,26 @@
 }
 
 .ProgressBarContainer {
-    display: flex;
-    overflow: hidden;
-    background-color: var(--borderColor-default);
-    border-radius: var(--borderRadius-small);
-    gap: 2px;
+  display: flex;
+  overflow: hidden;
+  /* stylelint-disable-next-line primer/colors */
+  background-color: var(--borderColor-default);
+  border-radius: var(--borderRadius-small);
+  gap: 2px;
 
-    &[data-progress-display="inline"] {
-        display: inline-flex
-    }
+  &[data-progress-display='inline'] {
+    display: inline-flex;
+  }
 
-    &[data-progress-bar-size="default"] {
-        height: 8px;
-    }
+  &[data-progress-bar-size='default'] {
+    height: 8px;
+  }
 
-    &[data-progress-bar-size="small"] {
-        height: 5px;
-    }
+  &[data-progress-bar-size='small'] {
+    height: 5px;
+  }
 
-    &[data-progress-bar-size="large"] {
-        height: 10px;
-    }
+  &[data-progress-bar-size='large'] {
+    height: 10px;
+  }
 }
