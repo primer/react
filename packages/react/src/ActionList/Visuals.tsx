@@ -13,6 +13,14 @@ import classes from './ActionList.module.css'
 
 export type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
 
+export const VisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, className, ...props}) => {
+  if (sx) {
+    return <Box as="span" className={clsx(className, classes.ActionListTemp)} sx={sx} {...props} />
+  }
+  return <span className={clsx(className, classes.ActionListTemp)} {...props} />
+}
+
+// remove when primer_react_css_modules_X is shipped
 export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
   return (
     <Box
@@ -36,8 +44,25 @@ export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProp
 }
 
 export type ActionListLeadingVisualProps = VisualProps
-export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
+export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, className, ...props}) => {
   const {variant, disabled, inactive} = React.useContext(ItemContext)
+
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
+
+  if (enabled) {
+    if (sx) {
+      return (
+        <VisualContainer className={clsx(className, classes.ActionListTemp)} sx={sx} {...props}>
+          {props.children}
+        </VisualContainer>
+      )
+    }
+    return (
+      <VisualContainer className={clsx(className, classes.ActionListTemp)} {...props}>
+        {props.children}
+      </VisualContainer>
+    )
+  }
   return (
     <LeadingVisualContainer
       sx={merge(
@@ -59,8 +84,17 @@ export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({s
 }
 
 export type ActionListTrailingVisualProps = VisualProps
-export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
+export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, className, ...props}) => {
   const {variant, disabled, inactive, trailingVisualId} = React.useContext(ItemContext)
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
+  if (enabled) {
+    if (sx) {
+      return (
+        <Box as="span" className={clsx(className, classes.ActionListTemp)} id={trailingVisualId} sx={sx} {...props} />
+      )
+    }
+    return <span className={clsx(className, classes.ActionListTemp)} id={trailingVisualId} {...props} />
+  }
   return (
     <Box
       id={trailingVisualId}
@@ -114,22 +148,11 @@ export const VisualOrIndicator: React.FC<
 
   return inactiveText ? (
     <Tooltip text={inactiveText} type="label">
-      <Box
-        as="button"
-        sx={{
-          background: 'none',
-          color: 'inherit',
-          border: 'none',
-          padding: 0,
-          font: 'inherit',
-          cursor: 'pointer',
-        }}
-        aria-describedby={labelId}
-      >
+      <button type="button" className={classes.WhatIsThis} aria-describedby={labelId}>
         <VisualComponent>
           <AlertIcon />
         </VisualComponent>
-      </Box>
+      </button>
     </Tooltip>
   ) : (
     <VisualComponent>

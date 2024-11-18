@@ -26,3 +26,13 @@
   line-height: var(--text-body-lineHeight-small);
   color: var(--fgColor-muted);
 }
+
+.WhatIsThis {
+  display: flex;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
