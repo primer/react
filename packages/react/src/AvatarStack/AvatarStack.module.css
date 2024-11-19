@@ -27,7 +27,7 @@
   &:where([data-avatar-count='1']) {
     .AvatarItem {
       /* stylelint-disable-next-line primer/box-shadow */
-      box-shadow: 0 0 0 var(--avatar-border-width) var(--avatar-borderColor) !important;
+      box-shadow: 0 0 0 var(--avatar-border-width) var(--avatar-borderColor);
     }
   }
 
@@ -76,7 +76,7 @@
     justify-content: flex-end;
 
     .AvatarItem {
-      margin-left: 0 !important;
+      margin-left: 0;
 
       &:first-child {
         margin-right: 0;
@@ -99,11 +99,11 @@
       &:not([data-disable-expand]):hover,
       &:not([data-disable-expand]):focus-within {
         .AvatarItem {
-          margin-right: var(--base-size-4) !important;
-          margin-left: 0 !important;
+          margin-right: var(--base-size-4);
+          margin-left: 0;
 
           &:first-child {
-            margin-right: 0 !important;
+            margin-right: 0;
           }
         }
       }
@@ -129,7 +129,7 @@
   overflow: hidden;
   flex-shrink: 0;
   /* stylelint-disable-next-line primer/box-shadow */
-  box-shadow: 0 0 0 var(--avatar-border-width) var(--bgColor-default) !important;
+  box-shadow: 0 0 0 var(--avatar-border-width) var(--bgColor-default);
 
   &:first-child {
     z-index: 10;
