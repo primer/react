@@ -260,7 +260,9 @@ const Overlay: React.FC<React.PropsWithChildren<MenuOverlayProps>> = ({
   // If the menu anchor is an icon button, we need to label the menu by tooltip that also labelled the anchor.
   const [anchorAriaLabelledby, setAnchorAriaLabelledby] = useState<null | string>(null)
   useEffect(() => {
-    if (anchorRef.current) {
+    // Necessary for HMR reloads
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (anchorRef?.current) {
       const ariaLabelledby = anchorRef.current.getAttribute('aria-labelledby')
       if (ariaLabelledby) {
         setAnchorAriaLabelledby(ariaLabelledby)

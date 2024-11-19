@@ -14,9 +14,9 @@ import type {MenuCloseHandler} from '../ActionMenu'
 export const useMenuKeyboardNavigation = (
   open: boolean,
   onClose: MenuCloseHandler | undefined,
-  containerRef: React.RefObject<HTMLElement>,
-  anchorRef: React.RefObject<HTMLElement>,
-  isSubmenu: boolean,
+  containerRef?: React.RefObject<HTMLElement>,
+  anchorRef?: React.RefObject<HTMLElement>,
+  isSubmenu: boolean = false,
 ) => {
   useMenuInitialFocus(open, containerRef, anchorRef)
   useMnemonics(open, containerRef)
@@ -32,12 +32,12 @@ export const useMenuKeyboardNavigation = (
 const useCloseMenuOnTab = (
   open: boolean,
   onClose: MenuCloseHandler | undefined,
-  containerRef: React.RefObject<HTMLElement>,
-  anchorRef: React.RefObject<HTMLElement>,
+  containerRef?: React.RefObject<HTMLElement>,
+  anchorRef?: React.RefObject<HTMLElement>,
 ) => {
   React.useEffect(() => {
-    const container = containerRef.current
-    const anchor = anchorRef.current
+    const container = containerRef?.current
+    const anchor = anchorRef?.current
 
     const handler = (event: KeyboardEvent) => {
       if (open && event.key === 'Tab') onClose?.('tab')
@@ -59,10 +59,10 @@ const useCloseSubmenuOnArrow = (
   open: boolean,
   isSubmenu: boolean,
   onClose: MenuCloseHandler | undefined,
-  containerRef: React.RefObject<HTMLElement>,
+  containerRef?: React.RefObject<HTMLElement>,
 ) => {
   React.useEffect(() => {
-    const container = containerRef.current
+    const container = containerRef?.current
 
     const handler = (event: KeyboardEvent) => {
       if (open && isSubmenu && event.key === 'ArrowLeft') onClose?.('arrow-left')
@@ -81,12 +81,12 @@ const useCloseSubmenuOnArrow = (
  */
 const useMoveFocusToMenuItem = (
   open: boolean,
-  containerRef: React.RefObject<HTMLElement>,
-  anchorRef: React.RefObject<HTMLElement>,
+  containerRef?: React.RefObject<HTMLElement>,
+  anchorRef?: React.RefObject<HTMLElement>,
 ) => {
   React.useEffect(() => {
-    const container = containerRef.current
-    const anchor = anchorRef.current
+    const container = containerRef?.current
+    const anchor = anchorRef?.current
 
     const handler = (event: KeyboardEvent) => {
       if (!open || !container) return
