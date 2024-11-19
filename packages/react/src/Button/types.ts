@@ -31,7 +31,7 @@ export type ButtonBaseProps = {
    */
   size?: Size
   /**
-   * Items that are disabled can not be clicked, selected, or navigated through.
+   * Avoid disabling buttons because it will make them inaccessible to users who rely on keyboard navigation. that are disabled can not be clicked, selected, or navigated through.
    */
   disabled?: boolean
   /**
