@@ -24,7 +24,7 @@ body[data-page-layout-dragging='true'] * {
   --spacing-condensed: var(--base-size-16);
   --spacing-normal: var(--base-size-16);
 
-  @media screen and (min-width: 1280px) {
+  @media screen and (min-width: 1012px) {
     --spacing-normal: var(--base-size-24);
   }
 
@@ -232,7 +232,7 @@ body[data-page-layout-dragging='true'] * {
   /* Hack to prevent overflowing content from pushing the pane region to the next line */
   min-width: 1px;
   flex-direction: column;
-  order: 2;
+  order: var(--region-order-content);
 
   /* Set flex-basis to 0% to allow flex-grow to control the width of the content region.
      Without this, the content region could wrap onto a different line
@@ -509,7 +509,7 @@ body[data-page-layout-dragging='true'] * {
 
 .FooterWrapper {
   width: 100%;
-  order: 4;
+  order: var(--region-order-footer);
 
   &:where([data-gap='none']) {
     /* stylelint-disable-next-line primer/spacing */
