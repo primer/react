@@ -1141,40 +1141,56 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
 
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
-  if (enabled) {
-    return (
-      <Box
-        as="footer"
-        aria-label={label}
-        aria-labelledby={labelledBy}
-        data-gap={rowGap}
-        hidden={isHidden}
-        className={clsx(classes.FooterWrapper, className)}
-        sx={sx}
-        style={style}
-      >
-        <HorizontalDivider gap={rowGap} variant={dividerVariant} className={classes.FooterHorizontalDivider} />
-        <Box className={classes.FooterContent}>{children}</Box>
-      </Box>
-    )
-  }
+  const footerStylingProps = enabled
+    ? {
+        className: clsx(classes.FooterWrapper, className),
+        sx,
+        'data-gap': rowGap,
+      }
+    : {
+        className,
+        sx: merge<BetterSystemStyleObject>(
+          {
+            order: REGION_ORDER.footer,
+            width: '100%',
+            marginTop: SPACING_MAP[rowGap],
+          },
+          sx,
+        ),
+      }
+  const dividerStylingProps = enabled
+    ? {
+        className: classes.FooterHorizontalDivider,
+      }
+    : {
+        sx: {
+          marginBottom: SPACING_MAP[rowGap],
+        },
+      }
+  const contentStylingProps = enabled
+    ? {
+        className: classes.FooterContent,
+        sx: {
+          padding: SPACING_MAP[padding],
+        },
+      }
+    : {
+        sx: {
+          padding: SPACING_MAP[padding],
+        },
+      }
+
   return (
     <Box
       as="footer"
       aria-label={label}
       aria-labelledby={labelledBy}
       hidden={isHidden}
-      sx={merge<BetterSystemStyleObject>(
-        {
-          order: REGION_ORDER.footer,
-          width: '100%',
-          marginTop: SPACING_MAP[rowGap],
-        },
-        sx,
-      )}
+      style={style}
+      {...footerStylingProps}
     >
-      <HorizontalDivider variant={dividerVariant} sx={{marginBottom: SPACING_MAP[rowGap]}} />
-      <Box sx={{padding: SPACING_MAP[padding]}}>{children}</Box>
+      <HorizontalDivider {...dividerStylingProps} gap={rowGap} variant={dividerVariant} />
+      <Box {...contentStylingProps}>{children}</Box>
     </Box>
   )
 }
