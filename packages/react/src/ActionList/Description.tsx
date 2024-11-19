@@ -7,6 +7,7 @@ import {ItemContext} from './shared'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './ActionList.module.css'
 import {clsx} from 'clsx'
+import {defaultSxProp} from '../utils/defaultSxProp'
 
 export type ActionListDescriptionProps = {
   /**
@@ -25,7 +26,7 @@ export type ActionListDescriptionProps = {
 
 export const Description: React.FC<React.PropsWithChildren<ActionListDescriptionProps>> = ({
   variant = 'inline',
-  sx = {},
+  sx = defaultSxProp, // <-- default
   className,
   truncate,
   ...props
@@ -48,7 +49,7 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
   const enabled = useFeatureFlag('primer_react_css_modules_team')
 
   if (enabled) {
-    if (sx) {
+    if (sx !== defaultSxProp) {
       return (
         <Box
           className={clsx(classes.Description)}
@@ -57,13 +58,13 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
           id={blockDescriptionId}
           data-component="ActionList.Description"
         >
-          {props.children}
+          {props.children}hi
         </Box>
       )
     }
     return (
       <span className={clsx(classes.Description)} id={blockDescriptionId} data-component="ActionList.Description">
-        {props.children}
+        {props.children}hey
       </span>
     )
   }

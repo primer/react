@@ -798,7 +798,7 @@ export const WithCustomTrailingVisuals = () => (
 
 export const ActionListWithButtonSemantics = () => {
   return (
-    <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+    <FeatureFlags flags={{primer_react_action_list_item_as_button: false}}>
       <ActionList>
         <ActionList.Item>Copy link</ActionList.Item>
         <ActionList.Item inactiveText="Nothing to quote">Quote reply</ActionList.Item>

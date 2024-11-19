@@ -52,14 +52,33 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     },
     forwardedRef,
   ): JSX.Element => {
-    const [slots, childrenWithoutSlots] = useSlots(props.children, {
+    const enabled = useFeatureFlag('primer_react_css_modules_team')
+
+    const baseSlots = {
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
       trailingAction: TrailingAction,
       // blockDescription: [Description, props => props.variant === 'block' || props.variant === undefined],
-      inlineDescription: [Description, props => props.variant === 'inline'],
-      description: Description,
-    })
+      // inlineDescription: [Description, props => props.variant === 'inline'],
+      // blockDescription: [Description, props => props.variant === 'block'],
+      // inlineDescription: [Description, props => props.variant !== 'block'],
+      // description: Description,
+    }
+
+    const [partialSlots, childrenWithoutSlots] = useSlots(
+      props.children,
+      enabled
+        ? {...baseSlots, description: Description}
+        : {
+            ...baseSlots,
+            blockDescription: [Description, props => props.variant === 'block'],
+            inlineDescription: [Description, props => props.variant !== 'block'],
+          },
+    )
+
+    const slots = {blockDescription: undefined, inlineDescription: undefined, description: undefined, ...partialSlots}
+
+    // slots.description = slots.inlineDescription ?? slots.blockDescription
 
     const {container, afterSelect, selectionAttribute, defaultTrailingVisual} =
       React.useContext(ActionListContainerContext)
@@ -295,7 +314,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option']
     const includeSelectionAttribute = itemSelectionAttribute && itemRole && selectableRoles.includes(itemRole)
 
-    const blockDescriptionSlot = [Description, (props: any) => props.variant === 'block' || props.variant === undefined]
+    // const blockDescriptionSlot = [Description, (props: any) => props.variant === 'block' || props.variant === undefined]
 
     const menuItemProps = {
       onClick: clickHandler,
@@ -338,8 +357,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       containerProps = _PrivateItemWrapper ? {role: itemRole ? 'none' : undefined} : {...menuItemProps, ...props}
       wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
     }
-
-    const enabled = useFeatureFlag('primer_react_css_modules_team')
 
     if (enabled) {
       // if (sxProp !== defaultSxProp) {
@@ -488,7 +505,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                     {/* Loading message needs to be in here so it is read with the label */}
                     {loading === true && <VisuallyHidden>Loading</VisuallyHidden>}
                   </Box>
-                  {/* {slots.inlineDescription} */}
+                  {slots.inlineDescription}
 
                   {slots.description && React.cloneElement(slots.description, {variant: 'inline'})}
                 </ConditionalWrapper>
@@ -519,7 +536,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                   </Box>
                 ) : null
               }
-              {/* {slots.blockDescription} */}
+              {slots.blockDescription}
               {slots.description && React.cloneElement(slots.description, {variant: 'block'})}
             </Box>
           </ItemWrapper>
