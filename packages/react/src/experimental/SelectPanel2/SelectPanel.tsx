@@ -286,7 +286,7 @@ const Panel: React.FC<SelectPanelProps> = ({
           },
         }}
         {...props}
-        onClick={event => {
+        onClick={(event: React.MouseEvent<HTMLElement>) => {
           if (event.target === event.currentTarget) onClickOutside()
         }}
       >
