@@ -26,7 +26,7 @@ export type ActionListDescriptionProps = {
 
 export const Description: React.FC<React.PropsWithChildren<ActionListDescriptionProps>> = ({
   variant = 'inline',
-  sx = defaultSxProp, // <-- default
+  sx = defaultSxProp,
   className,
   truncate,
   ...props
@@ -64,7 +64,7 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
     }
     return (
       <span className={clsx(classes.Description)} id={blockDescriptionId} data-component="ActionList.Description">
-        {props.children}hey
+        {props.children}
       </span>
     )
   }

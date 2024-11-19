@@ -52,7 +52,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   auxiliaryText,
   selectionVariant,
   role,
-  sx = {},
+  sx = defaultSxProp,
   ...props
 }) => {
   const enabled = useFeatureFlag('primer_react_css_modules_team')
@@ -76,7 +76,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   }
 
   if (enabled) {
-    if (sx) {
+    if (sx !== defaultSxProp) {
       return (
         <Box as="li" role={listRole ? 'none' : undefined} sx={sx} {...props}>
           <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>
@@ -244,7 +244,7 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
       ) : (
         // for explicit (role="list" is passed as prop) and implicit list roles (ActionList ins rendered as list by default), group titles are proper heading tags.
         <div>
-          {sx ? (
+          {sx !== defaultSxProp ? (
             <Heading
               className={clsx(className, 'ActionListGroupHeading')}
               as={as || 'h3'}

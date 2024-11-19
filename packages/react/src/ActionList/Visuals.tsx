@@ -10,18 +10,26 @@ import {Tooltip, type TooltipProps} from '../TooltipV2'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './ActionList.module.css'
+import {defaultSxProp} from '../utils/defaultSxProp'
 
 export type VisualProps = SxProp & React.HTMLAttributes<HTMLSpanElement>
 
-export const VisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, className, ...props}) => {
-  if (sx) {
+export const VisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({
+  sx = defaultSxProp,
+  className,
+  ...props
+}) => {
+  if (sx !== defaultSxProp) {
     return <Box as="span" className={clsx(className, classes.ActionListTemp)} sx={sx} {...props} />
   }
   return <span className={clsx(className, classes.ActionListTemp)} {...props} />
 }
 
 // remove when primer_react_css_modules_X is shipped
-export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, ...props}) => {
+export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = ({
+  sx = defaultSxProp,
+  ...props
+}) => {
   return (
     <Box
       as="span"
@@ -44,13 +52,17 @@ export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProp
 }
 
 export type ActionListLeadingVisualProps = VisualProps
-export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, className, ...props}) => {
+export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
+  sx = defaultSxProp,
+  className,
+  ...props
+}) => {
   const {variant, disabled, inactive} = React.useContext(ItemContext)
 
   const enabled = useFeatureFlag('primer_react_css_modules_team')
 
   if (enabled) {
-    if (sx) {
+    if (sx !== defaultSxProp) {
       return (
         <VisualContainer className={clsx(className, classes.ActionListTemp)} sx={sx} {...props}>
           {props.children}
@@ -84,11 +96,15 @@ export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({s
 }
 
 export type ActionListTrailingVisualProps = VisualProps
-export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({sx = {}, className, ...props}) => {
+export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
+  sx = defaultSxProp,
+  className,
+  ...props
+}) => {
   const {variant, disabled, inactive, trailingVisualId} = React.useContext(ItemContext)
   const enabled = useFeatureFlag('primer_react_css_modules_team')
   if (enabled) {
-    if (sx) {
+    if (sx !== defaultSxProp) {
       return (
         <Box as="span" className={clsx(className, classes.ActionListTemp)} id={trailingVisualId} sx={sx} {...props} />
       )

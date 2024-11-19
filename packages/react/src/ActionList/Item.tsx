@@ -58,11 +58,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
       trailingAction: TrailingAction,
-      // blockDescription: [Description, props => props.variant === 'block' || props.variant === undefined],
-      // inlineDescription: [Description, props => props.variant === 'inline'],
-      // blockDescription: [Description, props => props.variant === 'block'],
-      // inlineDescription: [Description, props => props.variant !== 'block'],
-      // description: Description,
     }
 
     const [partialSlots, childrenWithoutSlots] = useSlots(
@@ -77,8 +72,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     )
 
     const slots = {blockDescription: undefined, inlineDescription: undefined, description: undefined, ...partialSlots}
-
-    // slots.description = slots.inlineDescription ?? slots.blockDescription
 
     const {container, afterSelect, selectionAttribute, defaultTrailingVisual} =
       React.useContext(ActionListContainerContext)

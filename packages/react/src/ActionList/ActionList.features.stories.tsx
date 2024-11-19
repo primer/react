@@ -741,9 +741,11 @@ export const GroupWithFilledTitle = () => {
   }
 
   return (
-    <ActionList selectionVariant="multiple" role="menu" showDividers aria-label="Reviewers">
+    <ActionList selectionVariant="multiple" role="list" showDividers aria-label="Reviewers">
       <ActionList.Group>
-        <ActionList.GroupHeading variant="filled">Everyone</ActionList.GroupHeading>
+        <ActionList.GroupHeading variant="filled" as="h1">
+          Everyone
+        </ActionList.GroupHeading>
         {users.slice(2).map(user => (
           <ActionList.Item
             role="menuitemcheckbox"
