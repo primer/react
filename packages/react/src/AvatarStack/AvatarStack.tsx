@@ -229,7 +229,6 @@ const AvatarStackBody = ({
         tabIndex={!hasInteractiveChildren && !disableExpand ? 0 : undefined}
         ref={stackContainer}
       >
-        {' '}
         {children}
       </div>
     )
@@ -240,7 +239,6 @@ const AvatarStackBody = ({
       tabIndex={!hasInteractiveChildren && !disableExpand ? 0 : undefined}
       ref={stackContainer}
     >
-      {' '}
       {children}
     </Box>
   )
@@ -389,6 +387,7 @@ const AvatarStack = ({
         hasInteractiveChildren={hasInteractiveChildren}
         stackContainer={stackContainer}
       >
+        {' '}
         {transformChildren(children, enabled)}
       </AvatarStackBody>
     </AvatarStackWrapper>
