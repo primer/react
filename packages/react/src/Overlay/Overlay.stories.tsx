@@ -246,7 +246,7 @@ export const Default = () => {
           anchorSide="inside-right"
           role="dialog"
           aria-modal="true"
-          aria-label="sample overlay"
+          aria-label="Sample overlay"
           ref={containerRef}
         >
           <Box
@@ -307,7 +307,7 @@ export const Playground = (args: Args) => {
           width={args.width}
           height={args.height}
           aria-modal={args.role === 'dialog'}
-          aria-label={args.role === 'list' ? 'sample overlay' : undefined}
+          aria-label={args.role === 'list' ? 'Sample overlay' : undefined}
           ref={containerRef}
           {...args}
         >

@@ -44,7 +44,7 @@ export const SxProps = () => {
           anchorSide="inside-right"
           role="dialog"
           aria-modal="true"
-          aria-label="sample overlay"
+          aria-label="Sample overlay"
           ref={containerRef}
           sx={{
             left: '50%',

@@ -117,7 +117,7 @@ export const DialogOverlay = ({anchorSide, role}: OverlayProps) => {
           anchorSide={anchorSide}
           role={role}
           aria-modal={role === 'dialog' ? 'true' : undefined}
-          aria-label={role === 'list' ? 'confirmation screen' : undefined}
+          aria-label={role === 'list' ? 'Confirmation screen' : undefined}
           ref={containerRef}
         >
           <Box display="flex" flexDirection="column" p={2}>
@@ -172,7 +172,7 @@ export const OverlayOnTopOfOverlay = ({anchorSide, role}: OverlayProps) => {
           anchorSide={anchorSide}
           role={role}
           aria-modal={role === 'dialog' ? 'true' : undefined}
-          aria-label={role === 'list' ? 'open overlay' : undefined}
+          aria-label={role === 'list' ? 'Open overlay' : undefined}
           ref={primaryContainer}
           preventOverflow={false}
         >
@@ -190,7 +190,7 @@ export const OverlayOnTopOfOverlay = ({anchorSide, role}: OverlayProps) => {
               anchorSide={anchorSide}
               role={role}
               aria-modal={role === 'dialog' ? 'true' : undefined}
-              aria-label={role === 'list' ? 'options' : undefined}
+              aria-label={role === 'list' ? 'Options' : undefined}
               ref={secondaryContainer}
               preventOverflow={false}
             >
@@ -252,7 +252,7 @@ export const MemexNestedOverlays = ({role}: OverlayProps) => {
           left={16}
           role={role}
           aria-modal={role === 'dialog' ? 'true' : undefined}
-          aria-label={role === 'list' ? 'add iteration' : undefined}
+          aria-label={role === 'list' ? 'Add iteration' : undefined}
           ref={containerRef}
           preventOverflow={false}
         >
@@ -338,7 +338,7 @@ export const NestedOverlays = ({role}: OverlayProps) => {
           ref={primaryContainer}
           role={role}
           aria-modal={role === 'dialog' ? 'true' : undefined}
-          aria-label={role === 'list' ? 'sample list' : undefined}
+          aria-label={role === 'list' ? 'Sample list' : undefined}
         >
           <Box sx={{display: 'flex', flexDirection: 'column', py: 2}}>
             <Box sx={{paddingX: 3, paddingY: 2}}>
@@ -380,7 +380,7 @@ export const NestedOverlays = ({role}: OverlayProps) => {
               left={64}
               role={role}
               aria-modal={role === 'dialog' ? 'true' : undefined}
-              aria-label={role === 'list' ? 'create a list' : undefined}
+              aria-label={role === 'list' ? 'Create a list' : undefined}
               ref={secondaryContainer}
             >
               <Box as="form" sx={{display: 'flex', flexDirection: 'column', p: 3}}>
@@ -452,7 +452,7 @@ export const MemexIssueOverlay = ({role}: OverlayProps) => {
           left="calc(100vw - 350px)"
           role={role}
           aria-modal={role === 'dialog' ? 'true' : undefined}
-          aria-label={role === 'list' ? 'draft issue editor' : undefined}
+          aria-label={role === 'list' ? 'Draft issue editor' : undefined}
           ref={containerRef}
         >
           <Box sx={{p: 4, height: '100vh', width: '350px'}}>
@@ -566,7 +566,7 @@ export const PositionedOverlays = ({right, role}: OverlayProps) => {
             anchorSide="inside-right"
             role={role}
             aria-modal={role === 'dialog' ? 'true' : undefined}
-            aria-label={role === 'list' ? 'left aligned overlay' : undefined}
+            aria-label={role === 'list' ? 'Left aligned overlay' : undefined}
             ref={containerRef}
           >
             <Box
@@ -611,7 +611,7 @@ export const PositionedOverlays = ({right, role}: OverlayProps) => {
             position="fixed"
             role={role}
             aria-modal={role === 'dialog' ? 'true' : undefined}
-            aria-label={role === 'list' ? 'right aligned overlay' : undefined}
+            aria-label={role === 'list' ? 'Right aligned overlay' : undefined}
             ref={containerRef}
           >
             <Box
