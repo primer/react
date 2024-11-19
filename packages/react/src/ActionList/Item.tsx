@@ -21,6 +21,8 @@ import {ConditionalWrapper} from '../internal/components/ConditionalWrapper'
 import {invariant} from '../utils/invariant'
 import {useFeatureFlag} from '../FeatureFlags'
 import VisuallyHidden from '../_VisuallyHidden'
+import classes from './ActionList.module.css'
+import {clsx} from 'clsx'
 
 const LiBox = styled.li<SxProp>(sx)
 
@@ -54,8 +56,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
       trailingAction: TrailingAction,
-      blockDescription: [Description, props => props.variant === 'block'],
-      inlineDescription: [Description, props => props.variant !== 'block'],
+      // blockDescription: [Description, props => props.variant === 'block' || props.variant === undefined],
+      inlineDescription: [Description, props => props.variant === 'inline'],
+      description: Description,
     })
 
     const {container, afterSelect, selectionAttribute, defaultTrailingVisual} =
@@ -292,6 +295,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option']
     const includeSelectionAttribute = itemSelectionAttribute && itemRole && selectableRoles.includes(itemRole)
 
+    const blockDescriptionSlot = [Description, (props: any) => props.variant === 'block' || props.variant === undefined]
+
     const menuItemProps = {
       onClick: clickHandler,
       onKeyPress: !buttonSemantics ? keyPressHandler : undefined,
@@ -332,6 +337,90 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     } else {
       containerProps = _PrivateItemWrapper ? {role: itemRole ? 'none' : undefined} : {...menuItemProps, ...props}
       wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
+    }
+
+    const enabled = useFeatureFlag('primer_react_css_modules_team')
+
+    if (enabled) {
+      // if (sxProp !== defaultSxProp) {
+      //   return ()
+
+      // }
+      return (
+        <ItemContext.Provider
+          value={{
+            variant,
+            disabled,
+            inactive: Boolean(inactiveText),
+            inlineDescriptionId,
+            blockDescriptionId,
+            trailingVisualId,
+          }}
+        >
+          <li
+            ref={!buttonSemanticsFeatureFlag || listSemantics ? forwardedRef : null}
+            data-variant={variant === 'danger' ? variant : undefined}
+            {...containerProps}
+          >
+            <ItemWrapper {...wrapperProps}>
+              <Selection selected={selected} />
+              <VisualOrIndicator
+                inactiveText={showInactiveIndicator ? inactiveText : undefined}
+                itemHasLeadingVisual={Boolean(slots.leadingVisual)}
+                labelId={labelId}
+                loading={loading}
+                position="leading"
+              >
+                {slots.leadingVisual}
+              </VisualOrIndicator>
+              <div data-component="ActionList.Item--DividerContainer">
+                <ConditionalWrapper
+                  // we need a flex container if:
+                  // - there is a trailing visual
+                  // - OR there is a loading or inactive indicator
+                  // - AND no leading visual to replace with an indicator
+                  if={Boolean(trailingVisual || ((showInactiveIndicator || loading) && !slots.leadingVisual))}
+                  sx={{display: 'flex', flexGrow: 1}}
+                >
+                  <ConditionalWrapper
+                    if={!!slots.description}
+                    // if={description}
+                    sx={{outline: '1px solid red'}}
+                  >
+                    <span id={labelId}>
+                      {childrenWithoutSlots}
+                      {/* Loading message needs to be in here so it is read with the label */}
+                      {loading === true && <VisuallyHidden>Loading</VisuallyHidden>}
+                    </span>
+                    {/* {console.log(slots.inlineDescription)} */}
+                    {/* {console.log(slots.blockDescription)} */}
+                    {console.log(slots.description)}
+                    {/* {slots.inlineDescription} */}
+                    {/* {slots.blockDescription} */}
+                    {slots.description}
+                  </ConditionalWrapper>
+                  <VisualOrIndicator
+                    inactiveText={showInactiveIndicator ? inactiveText : undefined}
+                    itemHasLeadingVisual={Boolean(slots.leadingVisual)}
+                    labelId={labelId}
+                    loading={loading}
+                    position="trailing"
+                  >
+                    {trailingVisual}
+                  </VisualOrIndicator>
+                </ConditionalWrapper>
+                {
+                  // If the item is inactive, but it's not in an overlay (e.g. ActionMenu, SelectPanel),
+                  // render the inactive warning message directly in the item.
+                  inactive && container ? <span id={inactiveWarningId}>{inactiveText}</span> : null
+                }
+                {/* {slots.blockDescription} */}
+              </div>
+            </ItemWrapper>
+            {!inactive && !loading && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}
+          </li>
+        </ItemContext.Provider>
+      )
     }
 
     return (
@@ -399,7 +488,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                     {/* Loading message needs to be in here so it is read with the label */}
                     {loading === true && <VisuallyHidden>Loading</VisuallyHidden>}
                   </Box>
-                  {slots.inlineDescription}
+                  {/* {slots.inlineDescription} */}
+
+                  {slots.description && React.cloneElement(slots.description, {variant: 'inline'})}
                 </ConditionalWrapper>
                 <VisualOrIndicator
                   inactiveText={showInactiveIndicator ? inactiveText : undefined}
@@ -428,7 +519,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                   </Box>
                 ) : null
               }
-              {slots.blockDescription}
+              {/* {slots.blockDescription} */}
+              {slots.description && React.cloneElement(slots.description, {variant: 'block'})}
             </Box>
           </ItemWrapper>
           {!inactive && !loading && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}

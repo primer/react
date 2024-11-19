@@ -241,7 +241,7 @@ export const BlockDescription = () => (
           <Avatar src={`https://github.com/${user.login}.png`} />
         </ActionList.LeadingVisual>
         {user.login}
-        <ActionList.Description variant="block">{user.name}</ActionList.Description>
+        <ActionList.Description>{user.name}</ActionList.Description>
       </ActionList.Item>
     ))}
   </ActionList>
