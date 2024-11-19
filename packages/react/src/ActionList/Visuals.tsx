@@ -64,13 +64,13 @@ export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
   if (enabled) {
     if (sx !== defaultSxProp) {
       return (
-        <VisualContainer className={clsx(className, classes.ActionListTemp)} sx={sx} {...props}>
+        <VisualContainer className={clsx(className, classes.ActionListItemVisualLeading)} sx={sx} {...props}>
           {props.children}
         </VisualContainer>
       )
     }
     return (
-      <VisualContainer className={clsx(className, classes.ActionListTemp)} {...props}>
+      <VisualContainer className={clsx(className, classes.ActionListItemVisualLeading)} {...props}>
         {props.children}
       </VisualContainer>
     )
@@ -106,10 +106,25 @@ export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
   if (enabled) {
     if (sx !== defaultSxProp) {
       return (
-        <Box as="span" className={clsx(className, classes.ActionListTemp)} id={trailingVisualId} sx={sx} {...props} />
+        <VisualContainer
+          className={clsx(className, classes.ActionListItemVisualTrailing)}
+          sx={sx}
+          id={trailingVisualId}
+          {...props}
+        >
+          {props.children}
+        </VisualContainer>
       )
     }
-    return <span className={clsx(className, classes.ActionListTemp)} id={trailingVisualId} {...props} />
+    return (
+      <VisualContainer
+        className={clsx(className, classes.ActionListItemVisualTrailing)}
+        id={trailingVisualId}
+        {...props}
+      >
+        {props.children}
+      </VisualContainer>
+    )
   }
   return (
     <Box
@@ -148,8 +163,9 @@ export const VisualOrIndicator: React.FC<
     labelId?: string
     loading?: boolean
     position: 'leading' | 'trailing'
+    className?: string
   }>
-> = ({children, labelId, loading, inactiveText, itemHasLeadingVisual, position}) => {
+> = ({children, labelId, loading, inactiveText, itemHasLeadingVisual, position, className}) => {
   const VisualComponent = position === 'leading' ? LeadingVisual : TrailingVisual
 
   if (!loading && !inactiveText) return children
@@ -171,7 +187,7 @@ export const VisualOrIndicator: React.FC<
       </button>
     </Tooltip>
   ) : (
-    <VisualComponent>
+    <VisualComponent className={className}>
       <Spinner size="small" />
     </VisualComponent>
   )

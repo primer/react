@@ -332,6 +332,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         DefaultItemWrapper = listSemantics ? React.Fragment : ButtonItemContainer
       }
     }
+    if (enabled) {
+      DefaultItemWrapper = DivItemContainerNoBox
+    }
 
     const ItemWrapper = _PrivateItemWrapper || DefaultItemWrapper
 
@@ -405,7 +408,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
             {...containerProps}
           >
             <ItemWrapper {...wrapperProps} className="hello">
-              <Selection selected={selected} />
+              <Selection selected={selected} className={classes.ActionListItemActionLeading} />
               <VisualOrIndicator
                 inactiveText={showInactiveIndicator ? inactiveText : undefined}
                 itemHasLeadingVisual={Boolean(slots.leadingVisual)}
@@ -415,36 +418,36 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               >
                 {slots.leadingVisual}
               </VisualOrIndicator>
-              <ConditionalWrapper
+              {/* <ConditionalWrapper
                 // we need a flex container if:
                 // - there is a trailing visual
                 // - OR there is a loading or inactive indicator
                 // - AND no leading visual to replace with an indicator
                 if={Boolean(trailingVisual || ((showInactiveIndicator || loading) && !slots.leadingVisual))}
                 // sx={{display: 'flex', flexGrow: 1}}
+              > */}
+              <ConditionalWrapper
+                if={!!slots.description}
+                // if={description}
+                sx={{outline: '1px solid red'}}
               >
-                <ConditionalWrapper
-                  if={!!slots.description}
-                  // if={description}
-                  sx={{outline: '1px solid red'}}
-                >
-                  <span id={labelId}>
-                    {childrenWithoutSlots}
-                    {/* Loading message needs to be in here so it is read with the label */}
-                    {loading === true && <VisuallyHidden>Loading</VisuallyHidden>}
-                  </span>
-                  {slots.description}
-                </ConditionalWrapper>
-                <VisualOrIndicator
-                  inactiveText={showInactiveIndicator ? inactiveText : undefined}
-                  itemHasLeadingVisual={Boolean(slots.leadingVisual)}
-                  labelId={labelId}
-                  loading={loading}
-                  position="trailing"
-                >
-                  {trailingVisual}
-                </VisualOrIndicator>
+                <span id={labelId} style={{outline: 'solid 1px purple'}}>
+                  {childrenWithoutSlots}
+                  {/* Loading message needs to be in here so it is read with the label */}
+                  {loading === true && <VisuallyHidden>Loading</VisuallyHidden>}
+                </span>
+                {slots.description}
               </ConditionalWrapper>
+              {/* </ConditionalWrapper> */}
+              <VisualOrIndicator
+                inactiveText={showInactiveIndicator ? inactiveText : undefined}
+                itemHasLeadingVisual={Boolean(slots.leadingVisual)}
+                labelId={labelId}
+                loading={loading}
+                position="trailing"
+              >
+                {trailingVisual}
+              </VisualOrIndicator>
               {
                 // If the item is inactive, but it's not in an overlay (e.g. ActionMenu, SelectPanel),
                 // render the inactive warning message directly in the item.

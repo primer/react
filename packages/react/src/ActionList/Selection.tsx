@@ -9,8 +9,8 @@ import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './ActionList.module.css'
 
-type SelectionProps = Pick<ActionListItemProps, 'selected'>
-export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({selected}) => {
+type SelectionProps = Pick<ActionListItemProps, 'selected' | 'className'>
+export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({selected, className}) => {
   const {selectionVariant: listSelectionVariant, role: listRole} = React.useContext(ListContext)
   const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
 
@@ -36,7 +36,7 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
 
   if (selectionVariant === 'single' || listRole === 'menu') {
     if (enabled) {
-      return <VisualContainer data-component="ActionList.Selection">{selected && <CheckIcon />}</VisualContainer>
+      return <VisualContainer className={className}>{selected && <CheckIcon />}</VisualContainer>
     }
     return (
       <LeadingVisualContainer data-component="ActionList.Selection">{selected && <CheckIcon />}</LeadingVisualContainer>
@@ -70,7 +70,7 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
 
   if (enabled) {
     return (
-      <VisualContainer data-component="ActionList.Selection">
+      <VisualContainer className={className}>
         <div data-component="ActionList.Checkbox" />
       </VisualContainer>
     )
