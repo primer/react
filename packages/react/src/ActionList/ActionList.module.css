@@ -1,3 +1,552 @@
+/* stylelint-disable selector-max-compound-selectors */
+/* stylelint-disable selector-max-specificity */
+/* stylelint-disable max-nesting-depth */
+
+/* :root {
+  --actionListContent-paddingBlock: var(--control-medium-paddingBlock);
+} */
+
+/* .ActionListHeader {
+  margin-bottom: var(--base-size-16);
+  margin-left: var(--base-size-8);
+} */
+
+.ActionList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  &:where([data-variant='inset']) {
+    padding: var(--base-size-8);
+  }
+
+  &:where([data-dividers]) {
+    & .ItemLabel::before {
+      position: absolute;
+      /* stylelint-disable-next-line primer/spacing */
+      top: calc(-1 * var(--actionListContent-paddingBlock));
+      display: block;
+      width: 100%;
+      height: 1px;
+      content: '';
+      /* stylelint-disable-next-line primer/colors */
+      background: var(--borderColor-muted);
+    }
+
+    /* if descriptionWrap--inline exists, move pseudo divider to wrapper */
+    & .ActionListItem-descriptionWrap--inline {
+      &::before {
+        position: absolute;
+        /* stylelint-disable-next-line primer/spacing */
+        top: calc(-1 * var(--actionListContent-paddingBlock));
+        display: block;
+        width: 100%;
+        height: var(--borderWidth-thin);
+        content: '';
+        /* stylelint-disable-next-line primer/colors */
+        background: var(--borderColor-muted);
+      }
+
+      /* unset the default label pseudo */
+      & .ItemLabel::before {
+        content: unset;
+      }
+    }
+  }
+}
+
+/* list dividers */
+
+.ActionListWrap--divided {
+  /* hide divider if item is active */
+  & .ActionListItem--navActive {
+    & .ItemLabel::before,
+    & + .ActionListItem .ItemLabel::before {
+      visibility: hidden;
+    }
+  }
+}
+
+/* hide if item is first of type with label::before, or is the first item after a sectionDivider */
+.ActionListItem:first-of-type .ItemLabel::before,
+.ActionList-sectionDivider + .ActionListItem .ItemLabel::before {
+  visibility: hidden;
+}
+
+/* hide if item is first of type with label::before, or is the first item after a sectionDivider */
+.ActionListItem:first-of-type .ActionListItem-descriptionWrap--inline::before,
+.ActionList-sectionDivider + .ActionListItem .ActionListItem-descriptionWrap--inline::before {
+  visibility: hidden;
+}
+
+/* ActionList::Item */
+
+.ActionListItem {
+  position: relative;
+  list-style: none;
+  background-color: var(--control-transparent-bgColor-rest);
+  border-radius: var(--borderRadius-medium);
+
+  /* state */
+
+  &:hover,
+  &:active {
+    cursor: pointer;
+  }
+
+  /* hide dividers  */
+  @media (hover: hover) {
+    &:hover {
+      & .ItemLabel::before,
+      & + .ActionListItem .ItemLabel::before {
+        visibility: hidden;
+      }
+
+      & .ActionListItem-descriptionWrap--inline::before,
+      & + .ActionListItem .ActionListItem-descriptionWrap--inline::before {
+        visibility: hidden;
+      }
+    }
+  }
+
+  /* Make sure that the first visible item isn't a divider */
+  &[hidden] + .ActionList-sectionDivider {
+    display: none;
+  }
+
+  /* collapse styles here */
+  &.ActionListItem--hasSubItem {
+    /* first child */
+    & > .ActionListContent {
+      z-index: 1;
+
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--control-transparent-bgColor-hover);
+        }
+      }
+
+      &:active {
+        background-color: var(--control-transparent-bgColor-active);
+      }
+    }
+  }
+
+  /* only hover li without list as children */
+  &:not(.ActionListItem--hasSubItem),
+   /* target contents of first child li if sub-item (li wraps item label + nested ul) */
+  &.ActionListItem--hasSubItem > .ActionListContent {
+    @media (hover: hover) {
+      &:hover {
+        cursor: pointer;
+        background-color: var(--control-transparent-bgColor-hover);
+
+        &:not(.ActionListItem--navActive, :focus-visible) {
+          /* Support for "Windows high contrast mode" */
+          outline: solid var(--borderWidth-thin) transparent;
+          outline-offset: calc(-1 * var(--borderWidth-thin));
+          box-shadow: var(--boxShadow-thin) var(--control-transparent-borderColor-active);
+        }
+      }
+    }
+
+    &:active {
+      background: var(--control-transparent-bgColor-active);
+
+      &:not(.ActionListItem--navActive) {
+        /* Support for "Windows high contrast mode" https:sarahmhigley.com/writing/whcm-quick-tips/ */
+        outline: solid var(--borderWidth-thin) transparent;
+        outline-offset: calc(-1 * var(--borderWidth-thin));
+        box-shadow: var(--boxShadow-thin) var(--control-transparent-borderColor-active);
+      }
+
+      & .ItemLabel::before,
+      & + .ActionListItem .ItemLabel::before {
+        visibility: hidden;
+      }
+    }
+  }
+
+  /* Autocomplete [aria-selected] items */
+
+  &[aria-selected='true'] {
+    font-weight: var(--base-text-weight-normal);
+    background: var(--control-transparent-bgColor-selected);
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--control-transparent-bgColor-hover);
+      }
+    }
+
+    &::before,
+    & + .ActionListItem::before {
+      visibility: hidden;
+    }
+
+    /* blue accent line */
+
+    &::after {
+      /* @mixin activeIndicatorLine calc(-1 * var(--base-size-4)); */
+    }
+  }
+
+  /* active state [aria-current] */
+
+  &.ActionListItem--navActive {
+    /* provides a visual indication of the current item for Windows high-contrast mode */
+    outline: 2px solid transparent;
+
+    &:not(.ActionListItem--subItem) {
+      & .ItemLabel {
+        font-weight: var(--base-text-weight-semibold);
+      }
+    }
+
+    &:not(.ActionListItem--danger) {
+      background: var(--control-transparent-bgColor-selected);
+
+      @media (hover: hover) {
+        &:hover {
+          background-color: var(--control-transparent-bgColor-hover);
+        }
+      }
+
+      &::before,
+      & + .ActionListItem::before {
+        visibility: hidden;
+      }
+
+      /* blue accent line  */
+      &::after {
+        /* @mixin activeIndicatorLine; */
+      }
+    }
+  }
+
+  /* disabled */
+
+  &.ActionListItem--disabled,
+  &[aria-disabled='true'] {
+    & .ActionListContent {
+      & .ItemLabel,
+      & .ActionListItem-description {
+        color: var(--control-fgColor-disabled);
+      }
+
+      & .ActionListItem-visual {
+        fill: var(--control-fgColor-disabled);
+      }
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        cursor: not-allowed;
+        background-color: transparent;
+      }
+    }
+  }
+
+  /* variants */
+
+  /* danger */
+  &.ActionListItem--danger {
+    & .ItemLabel {
+      color: var(--control-danger-fgColor-rest);
+    }
+
+    & .ActionListItem-visual {
+      color: var(--control-danger-fgColor-rest);
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background: var(--control-danger-bgColor-hover);
+
+        & .ItemLabel,
+        & .ActionListItem-visual,
+        & .ActionListItem-description {
+          color: var(--control-danger-fgColor-hover);
+        }
+      }
+    }
+
+    & .ActionListContent {
+      &:active {
+        background: var(--control-danger-bgColor-active);
+
+        & .ItemLabel,
+        & .ActionListItem-visual,
+        & .ActionListItem-description {
+          color: var(--control-danger-fgColor-hover);
+        }
+      }
+    }
+  }
+}
+
+/* button or a href */
+.ActionListContent {
+  position: relative;
+  display: grid;
+  width: 100%;
+  /* stylelint-disable-next-line primer/spacing */
+  padding-block: var(--actionListContent-paddingBlock);
+  /* stylelint-disable-next-line primer/spacing */
+  padding-inline: var(--control-medium-paddingInline-condensed);
+  color: var(--control-fgColor-rest);
+  text-align: left;
+  user-select: none;
+  background-color: transparent;
+  border: none;
+  border-radius: var(--borderRadius-medium);
+  transition: background 33.333ms linear;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  grid-template-rows: min-content;
+  grid-template-areas: 'leadingAction leadingVisual label trailingVisual trailingAction';
+  grid-template-columns: min-content min-content minmax(0, auto) min-content min-content;
+  align-items: start;
+
+  /* column-gap persists with empty grid-areas, margin applies only when children exist */
+  & > :not(:last-child) {
+    /* stylelint-disable-next-line primer/spacing */
+    margin-right: var(--control-medium-gap);
+  }
+
+  /* state */
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  /* disabled */
+  &[aria-disabled='true'] {
+    & .ItemLabel,
+    & .ActionListItem-description {
+      color: var(--control-fgColor-disabled);
+    }
+
+    & .ActionListItem-visual {
+      fill: var(--control-fgColor-disabled);
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        cursor: not-allowed;
+        background-color: transparent;
+      }
+    }
+  }
+
+  /* collapsible item [aria-expanded] */
+
+  /* nesting (single level)
+   target items inside expanded subgroups */
+  &[aria-expanded] {
+    & + .ActionList--subGroup {
+      @media screen and (prefers-reduced-motion: no-preference) {
+        transition:
+          opacity 160ms cubic-bezier(0.25, 1, 0.5, 1),
+          transform 160ms cubic-bezier(0.25, 1, 0.5, 1);
+      }
+
+      & .ActionListContent {
+        padding-left: var(--base-size-24);
+      }
+    }
+
+    /* has 16px leading visual */
+    &.ActionListContent--visual16 + .ActionList--subGroup {
+      & .ActionListContent {
+        padding-left: var(--base-size-32);
+      }
+    }
+
+    /* has 20px leading visual */
+    &.ActionListContent--visual20 + .ActionList--subGroup {
+      & .ActionListContent {
+        padding-left: var(--base-size-36);
+      }
+    }
+
+    /* has 24px leading visual */
+    &.ActionListContent--visual24 + .ActionList--subGroup {
+      & .ActionListContent {
+        padding-left: var(--base-size-40);
+      }
+    }
+  }
+
+  &[aria-expanded='true'] {
+    & .ActionListItem-collapseIcon {
+      transition: transform 120ms linear;
+      transform: scaleY(-1);
+    }
+
+    & + .ActionList--subGroup {
+      height: auto;
+      overflow: visible;
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    &.ActionListContent--hasActiveSubItem {
+      & > .ItemLabel {
+        font-weight: var(--base-text-weight-semibold);
+      }
+    }
+  }
+
+  &[aria-expanded='false'] {
+    & .ActionListItem-collapseIcon {
+      transition: transform 120ms linear;
+      transform: scaleY(1);
+    }
+
+    & + .ActionList--subGroup {
+      height: 0;
+      overflow: hidden;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(calc(-1 * var(--base-size-16)));
+    }
+
+    /* show active indicator on parent collapse if child is active */
+    &.ActionListContent--hasActiveSubItem {
+      background: var(--control-transparent-bgColor-selected);
+
+      & .ItemLabel {
+        font-weight: var(--base-text-weight-semibold);
+      }
+
+      &::before,
+      & + .ActionListItem::before {
+        visibility: hidden;
+      }
+
+      /* blue accent line */
+      &::after {
+        /* @mixin activeIndicatorLine; */
+      }
+    }
+  }
+
+  /*
+  * checkbox item [aria-checked]
+  * listbox [aria-selected]
+  */
+  &[aria-checked='true'],
+  &[aria-selected='true'] {
+    /* multiselect checkmark */
+    & .ActionListItem-multiSelectCheckmark {
+      visibility: visible;
+      opacity: 1;
+      transition:
+        visibility 0 linear 0,
+        opacity 50ms;
+    }
+
+    /* singleselect checkmark */
+    & .ActionListItem-singleSelectCheckmark {
+      visibility: visible;
+    }
+
+    /* checkbox */
+    & .ActionListItem-multiSelectIcon {
+      & .ActionListItem-multiSelectIconRect {
+        fill: var(--control-checked-bgColor-rest);
+        stroke: var(--control-checked-bgColor-rest);
+        stroke-width: var(--borderWidth-thin, 1px);
+      }
+
+      & .ActionListItem-multiSelectCheckmark {
+        fill: var(--fgColor-onEmphasis);
+      }
+    }
+  }
+
+  &[aria-checked='false'],
+  &[aria-selected='false'] {
+    /* multiselect checkmark */
+    & .ActionListItem-multiSelectCheckmark {
+      visibility: hidden;
+      opacity: 0;
+      transition:
+        visibility 0 linear 50ms,
+        opacity 50ms;
+    }
+
+    /* singleselect checkmark */
+    & .ActionListItem-singleSelectCheckmark {
+      visibility: hidden;
+      transition: visibility 0s linear 200ms;
+    }
+
+    /* checkbox */
+    & .ActionListItem-multiSelectIcon {
+      & .ActionListItem-multiSelectIconRect {
+        fill: var(--bgColor-default);
+        stroke: var(--control-borderColor-rest);
+        stroke-width: var(--borderWidth-thin, 1px);
+      }
+    }
+
+    & .ActionListItem-multiSelectIconRect {
+      fill: var(--bgColor-default);
+      border: var(--borderWidth-thin) solid var(--control-borderColor-rest);
+    }
+  }
+
+  /* sizes */
+
+  &.ActionListContent--sizeLarge {
+    --actionListContent-paddingBlock: var(--control-large-paddingBlock);
+  }
+
+  &.ActionListContent--sizeXLarge {
+    --actionListContent-paddingBlock: var(--control-xlarge-paddingBlock);
+  }
+
+  /* On pointer:coarse (mobile), all list items are large */
+  @media (pointer: coarse) {
+    --actionListContent-paddingBlock: var(--control-large-paddingBlock);
+  }
+
+  &.ActionListContent--blockDescription {
+    /* if leading/trailing visual, align with first line of content */
+    & .ActionListItem-visual {
+      place-self: start;
+    }
+  }
+}
+
+/* place children on grid */
+
+.ActionListItem-action--leading {
+  grid-area: leadingAction;
+}
+
+.ActionListItem-visual--leading {
+  grid-area: leadingVisual;
+}
+
+.ActionListItem-visual--trailing {
+  grid-area: trailingVisual;
+}
+
+.ActionListItem-action--trailing {
+  grid-area: trailingAction;
+}
+
+/* have leading visual svg filled with chosen color */
+
+/* stylelint-disable-next-line selector-max-type */
+.ActionListItem-visual--leading svg {
+  fill: currentcolor;
+}
+
 /* wrapper span
  default block */
 .ActionListItem-descriptionWrap {
@@ -6,7 +555,7 @@
   flex-direction: column;
   gap: var(--base-size-4);
 
-  & .ActionListItem-label {
+  & .ItemLabel {
     font-weight: var(--base-text-weight-semibold);
   }
 }
@@ -20,11 +569,134 @@
 }
 
 /* description */
-.Description {
+.ActionListItem-description {
   font-size: var(--text-body-size-small);
   font-weight: var(--base-text-weight-normal);
   line-height: var(--text-body-lineHeight-small);
   color: var(--fgColor-muted);
+}
+
+/* helper for grid alignment with multi-line content
+ span wrapping svg or text */
+.ActionListItem-visual,
+.ActionListItem-action {
+  display: flex;
+  min-height: var(--control-medium-lineBoxHeight);
+  color: var(--fgColor-muted);
+  pointer-events: none;
+  fill: var(--fgColor-muted);
+  align-items: center;
+}
+
+/* text */
+.ItemLabel {
+  position: relative;
+  font-size: var(--text-body-size-medium);
+  font-weight: var(--base-text-weight-normal);
+  line-height: var(--text-body-lineHeight-medium);
+  color: var(--fgColor-default);
+  grid-area: label;
+}
+
+.ItemLabel--truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* nested lists (only supports 1 level currently)
+ target ActionListItem--subItem for padding-left to maintain :active :after state */
+
+.ActionListItem--subItem > .ActionListContent > .ItemLabel {
+  font-size: var(--text-body-size-small);
+  line-height: var(--text-body-lineHeight-small);
+}
+
+/* trailing action icon button */
+
+.ActionListItem--withActions {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.ActionListItem-trailingAction {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+/* show trailing action button on hover */
+
+.ActionListItem--trailingActionHover {
+  & .ActionListItem-trailingAction {
+    visibility: hidden;
+  }
+
+  &:hover,
+  &:focus-within {
+    & .ActionListItem-trailingAction {
+      visibility: visible;
+    }
+  }
+}
+
+/* ActionList::Divider */
+
+.ActionList-sectionDivider {
+  /* with children */
+  &:not(:empty) {
+    display: flex;
+    font-size: var(--text-body-size-small);
+    font-weight: var(--base-text-weight-semibold);
+    line-height: var(--text-body-lineHeight-small);
+    color: var(--fgColor-muted);
+    flex-direction: column;
+    /* stylelint-disable-next-line primer/spacing */
+    padding-inline: var(--actionListContent-paddingBlock);
+    padding-block: var(--base-size-8);
+  }
+
+  /* no children */
+  &:empty {
+    display: block;
+    height: var(--borderWidth-thin);
+    padding: 0;
+    /* stylelint-disable-next-line primer/spacing */
+    margin-block-start: calc(var(--base-size-8) - var(--borderWidth-thin));
+    margin-block-end: var(--base-size-8);
+    margin-inline: calc(-1 * var(--base-size-8));
+    list-style: none;
+    /* stylelint-disable-next-line primer/colors */
+    background: var(--borderColor-muted);
+    border: 0;
+  }
+
+  & .ActionList-sectionDivider-title {
+    font-size: var(--text-body-size-small);
+    font-weight: var(--base-text-weight-semibold);
+    color: var(--fgColor-muted);
+    align-self: flex-start;
+  }
+}
+
+.ActionList-sectionDivider--filled {
+  /* stylelint-disable-next-line primer/spacing */
+  margin-block-start: calc(var(--base-size-8) - var(--borderWidth-thin));
+  margin-block-end: var(--base-size-8);
+  margin-inline: calc(-1 * var(--base-size-8));
+  background: var(--bgColor-muted);
+  border-top: solid var(--borderWidth-thin) var(--borderColor-muted, var(--color-action-list-item-inline-divider));
+  border-bottom: solid var(--borderWidth-thin) var(--borderColor-muted, var(--color-action-list-item-inline-divider));
+
+  /* if no children, treat as divider */
+  &:empty {
+    height: var(--base-size-8);
+    box-sizing: border-box;
+  }
+
+  &:first-child {
+    margin-block-start: 0;
+  }
 }
 
 .WhatIsThis {

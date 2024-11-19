@@ -429,9 +429,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               <ConditionalWrapper
                 if={!!slots.description}
                 // if={description}
-                sx={{outline: '1px solid red'}}
+                className={classes.ItemDescriptionWrap}
+                data-description-variant
               >
-                <span id={labelId} style={{outline: 'solid 1px purple'}}>
+                <span id={labelId} className={classes.ItemLabel}>
                   {childrenWithoutSlots}
                   {/* Loading message needs to be in here so it is read with the label */}
                   {loading === true && <VisuallyHidden>Loading</VisuallyHidden>}
