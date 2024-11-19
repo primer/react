@@ -13,7 +13,7 @@ const stories = [
   },
   {
     title: 'Playground',
-    id: 'private-components-overlay-dev--sx-props',
+    id: 'private-components-overlay--playground',
     setup: async (page: Page) => {
       await page.keyboard.press('Tab')
       await page.keyboard.press('Enter')
@@ -83,6 +83,14 @@ const stories = [
     id: 'private-components-overlay-features--positioned-overlays',
     setup: async (page: Page) => {
       await page.keyboard.press('Tab')
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Enter')
+    },
+  },
+  {
+    title: 'SX Props',
+    id: 'private-components-overlay-dev--sx-props',
+    setup: async (page: Page) => {
       await page.keyboard.press('Tab')
       await page.keyboard.press('Enter')
     },
