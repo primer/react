@@ -42,12 +42,7 @@ const ButtonItemContainer = React.forwardRef(({as: Component = 'button', childre
 
 const ButtonItemContainerNoBox = React.forwardRef(({children, ...props}, forwardedRef) => {
   return (
-    <button
-      type="button"
-      ref={forwardedRef as React.Ref<HTMLButtonElement>}
-      style={{outline: 'solid red 1px'}}
-      {...props}
-    >
+    <button type="button" ref={forwardedRef as React.Ref<HTMLButtonElement>} {...props}>
       {children}
     </button>
   )
@@ -55,7 +50,7 @@ const ButtonItemContainerNoBox = React.forwardRef(({children, ...props}, forward
 
 const DivItemContainerNoBox = React.forwardRef(({children, ...props}, forwardedRef) => {
   return (
-    <div ref={forwardedRef as React.Ref<HTMLDivElement>} style={{outline: 'solid red 1px'}} {...props}>
+    <div ref={forwardedRef as React.Ref<HTMLDivElement>} {...props}>
       {children}
     </div>
   )
@@ -372,20 +367,33 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       containerProps = _PrivateItemWrapper
         ? {role: itemRole ? 'none' : undefined, ...props}
         : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          (listSemantics && {...menuItemProps, ...props, ref: forwardedRef}) || {}
+          (listSemantics && {...menuItemProps, ...props, ref: forwardedRef, className: classes.ActionListItem}) || {}
 
       wrapperProps = _PrivateItemWrapper
         ? menuItemProps
         : !listSemantics && {
             ...menuItemProps,
             ...props,
-            // styles: merge<BetterSystemStyleObject>(styles, sxProp),
+            styles: merge<BetterSystemStyleObject>(styles, sxProp),
             ref: forwardedRef,
+            className: classes.ActionListItem,
           }
     } else {
-      containerProps = _PrivateItemWrapper ? {role: itemRole ? 'none' : undefined} : {...menuItemProps, ...props}
+      containerProps = _PrivateItemWrapper
+        ? {role: itemRole ? 'none' : undefined, className: classes.ActionListItem}
+        : {...menuItemProps, ...props, className: classes.ActionListItem}
       wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
     }
+
+    // Extract the variant prop value from the description slot component
+    const getDescriptionVariant = descriptionSlot => {
+      if (descriptionSlot && descriptionSlot.props && descriptionSlot.props.variant) {
+        return descriptionSlot.props.variant
+      }
+      return 'inline'
+    }
+
+    const descriptionVariant = getDescriptionVariant(slots.description)
 
     if (enabled) {
       if (sxProp !== defaultSxProp) {
@@ -407,8 +415,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
             data-variant={variant === 'danger' ? variant : undefined}
             {...containerProps}
           >
-            <ItemWrapper {...wrapperProps} className="hello">
-              <Selection selected={selected} className={classes.ActionListItemActionLeading} />
+            <ItemWrapper {...wrapperProps} className={classes.ActionListContent}>
+              <Selection selected={selected} className={classes.LeadingAction} />
               <VisualOrIndicator
                 inactiveText={showInactiveIndicator ? inactiveText : undefined}
                 itemHasLeadingVisual={Boolean(slots.leadingVisual)}
@@ -418,19 +426,11 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               >
                 {slots.leadingVisual}
               </VisualOrIndicator>
-              {/* <ConditionalWrapper
-                // we need a flex container if:
-                // - there is a trailing visual
-                // - OR there is a loading or inactive indicator
-                // - AND no leading visual to replace with an indicator
-                if={Boolean(trailingVisual || ((showInactiveIndicator || loading) && !slots.leadingVisual))}
-                // sx={{display: 'flex', flexGrow: 1}}
-              > */}
               <ConditionalWrapper
                 if={!!slots.description}
                 // if={description}
                 className={classes.ItemDescriptionWrap}
-                data-description-variant
+                data-description-variant={descriptionVariant}
               >
                 <span id={labelId} className={classes.ItemLabel}>
                   {childrenWithoutSlots}
@@ -439,7 +439,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                 </span>
                 {slots.description}
               </ConditionalWrapper>
-              {/* </ConditionalWrapper> */}
               <VisualOrIndicator
                 inactiveText={showInactiveIndicator ? inactiveText : undefined}
                 itemHasLeadingVisual={Boolean(slots.leadingVisual)}
@@ -454,7 +453,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                 // render the inactive warning message directly in the item.
                 inactive && container ? <span id={inactiveWarningId}>{inactiveText}</span> : null
               }
-              {/* {slots.blockDescription} */}
             </ItemWrapper>
             {!inactive && !loading && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}
           </li>
@@ -528,8 +526,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                     {loading === true && <VisuallyHidden>Loading</VisuallyHidden>}
                   </Box>
                   {slots.inlineDescription}
-
-                  {slots.description && React.cloneElement(slots.description, {variant: 'inline'})}
                 </ConditionalWrapper>
                 <VisualOrIndicator
                   inactiveText={showInactiveIndicator ? inactiveText : undefined}
@@ -559,7 +555,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                 ) : null
               }
               {slots.blockDescription}
-              {slots.description && React.cloneElement(slots.description, {variant: 'block'})}
             </Box>
           </ItemWrapper>
           {!inactive && !loading && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}

@@ -63,7 +63,7 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
       )
     }
     return (
-      <span className={clsx(classes.Description)} id={blockDescriptionId} data-component="ActionList.Description">
+      <span className={clsx(classes.Description)} id={blockDescriptionId}>
         {props.children}
       </span>
     )

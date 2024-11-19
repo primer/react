@@ -33,8 +33,8 @@
       background: var(--borderColor-muted);
     }
 
-    /* if descriptionWrap--inline exists, move pseudo divider to wrapper */
-    & .ActionListItem-descriptionWrap--inline {
+    /* if inline description, move pseudo divider to wrapper */
+    & [data-description='inline'] {
       &::before {
         position: absolute;
         /* stylelint-disable-next-line primer/spacing */
@@ -52,6 +52,18 @@
         content: unset;
       }
     }
+
+    /* hide if item is first of type with label::before, or is the first item after a sectionDivider */
+    .ActionListItem:first-of-type .ItemLabel::before,
+    .ActionList-sectionDivider + .ActionListItem .ItemLabel::before {
+      visibility: hidden;
+    }
+
+    /* hide if item is first of type with label::before, or is the first item after a sectionDivider */
+    .ActionListItem:first-of-type [data-description='inline']::before,
+    .ActionList-sectionDivider + .ActionListItem [data-description='inline']::before {
+      visibility: hidden;
+    }
   }
 }
 
@@ -65,18 +77,6 @@
       visibility: hidden;
     }
   }
-}
-
-/* hide if item is first of type with label::before, or is the first item after a sectionDivider */
-.ActionListItem:first-of-type .ItemLabel::before,
-.ActionList-sectionDivider + .ActionListItem .ItemLabel::before {
-  visibility: hidden;
-}
-
-/* hide if item is first of type with label::before, or is the first item after a sectionDivider */
-.ActionListItem:first-of-type .ActionListItem-descriptionWrap--inline::before,
-.ActionList-sectionDivider + .ActionListItem .ActionListItem-descriptionWrap--inline::before {
-  visibility: hidden;
 }
 
 /* ActionList::Item */
@@ -102,8 +102,8 @@
         visibility: hidden;
       }
 
-      & .ActionListItem-descriptionWrap--inline::before,
-      & + .ActionListItem .ActionListItem-descriptionWrap--inline::before {
+      & [data-description='inline']::before,
+      & + .ActionListItem [data-description='inline']::before {
         visibility: hidden;
       }
     }
@@ -230,11 +230,11 @@
   &[aria-disabled='true'] {
     & .ActionListContent {
       & .ItemLabel,
-      & .ActionListItem-description {
+      & .Description {
         color: var(--control-fgColor-disabled);
       }
 
-      & .ActionListItem-visual {
+      & .VisualWrap {
         fill: var(--control-fgColor-disabled);
       }
     }
@@ -255,7 +255,7 @@
       color: var(--control-danger-fgColor-rest);
     }
 
-    & .ActionListItem-visual {
+    & .VisualWrap {
       color: var(--control-danger-fgColor-rest);
     }
 
@@ -264,8 +264,8 @@
         background: var(--control-danger-bgColor-hover);
 
         & .ItemLabel,
-        & .ActionListItem-visual,
-        & .ActionListItem-description {
+        & .VisualWrap,
+        & .Description {
           color: var(--control-danger-fgColor-hover);
         }
       }
@@ -276,8 +276,8 @@
         background: var(--control-danger-bgColor-active);
 
         & .ItemLabel,
-        & .ActionListItem-visual,
-        & .ActionListItem-description {
+        & .VisualWrap,
+        & .Description {
           color: var(--control-danger-fgColor-hover);
         }
       }
@@ -323,11 +323,11 @@
   /* disabled */
   &[aria-disabled='true'] {
     & .ItemLabel,
-    & .ActionListItem-description {
+    & .Description {
       color: var(--control-fgColor-disabled);
     }
 
-    & .ActionListItem-visual {
+    & .VisualWrap {
       fill: var(--control-fgColor-disabled);
     }
 
@@ -516,7 +516,7 @@
 
   &.ActionListContent--blockDescription {
     /* if leading/trailing visual, align with first line of content */
-    & .ActionListItem-visual {
+    & .VisualWrap {
       place-self: start;
     }
   }
@@ -524,15 +524,15 @@
 
 /* place children on grid */
 
-.ActionListItem-action--leading {
+.LeadingAction {
   grid-area: leadingAction;
 }
 
-.ActionListItem-visual--leading {
+.LeadingVisual {
   grid-area: leadingVisual;
 }
 
-.ActionListItem-visual--trailing {
+.TrailingVisual {
   grid-area: trailingVisual;
 }
 
@@ -543,13 +543,13 @@
 /* have leading visual svg filled with chosen color */
 
 /* stylelint-disable-next-line selector-max-type */
-.ActionListItem-visual--leading svg {
+/* .VisualWrap--leading svg {
   fill: currentcolor;
-}
+} */
 
 /* wrapper span
  default block */
-.ActionListItem-descriptionWrap {
+.ItemDescriptionWrap {
   grid-area: label;
   display: flex;
   flex-direction: column;
@@ -561,7 +561,7 @@
 }
 
 /* inline */
-.ActionListItem-descriptionWrap--inline {
+[data-description='inline'] {
   position: relative;
   flex-direction: row;
   align-items: baseline;
@@ -569,7 +569,7 @@
 }
 
 /* description */
-.ActionListItem-description {
+.Description {
   font-size: var(--text-body-size-small);
   font-weight: var(--base-text-weight-normal);
   line-height: var(--text-body-lineHeight-small);
@@ -578,8 +578,7 @@
 
 /* helper for grid alignment with multi-line content
  span wrapping svg or text */
-.ActionListItem-visual,
-.ActionListItem-action {
+.VisualWrap {
   display: flex;
   min-height: var(--control-medium-lineBoxHeight);
   color: var(--fgColor-muted);

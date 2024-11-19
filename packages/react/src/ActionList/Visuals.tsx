@@ -20,9 +20,9 @@ export const VisualContainer: React.FC<React.PropsWithChildren<VisualProps>> = (
   ...props
 }) => {
   if (sx !== defaultSxProp) {
-    return <Box as="span" className={clsx(className, classes.ActionListTemp)} sx={sx} {...props} />
+    return <Box as="span" className={clsx(className, classes.VisualWrap)} sx={sx} {...props} />
   }
-  return <span className={clsx(className, classes.ActionListTemp)} {...props} />
+  return <span className={clsx(className, classes.VisualWrap)} {...props} />
 }
 
 // remove when primer_react_css_modules_X is shipped
@@ -64,13 +64,13 @@ export const LeadingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
   if (enabled) {
     if (sx !== defaultSxProp) {
       return (
-        <VisualContainer className={clsx(className, classes.ActionListItemVisualLeading)} sx={sx} {...props}>
+        <VisualContainer className={clsx(className, classes.LeadingVisual)} sx={sx} {...props}>
           {props.children}
         </VisualContainer>
       )
     }
     return (
-      <VisualContainer className={clsx(className, classes.ActionListItemVisualLeading)} {...props}>
+      <VisualContainer className={clsx(className, classes.LeadingVisual)} {...props}>
         {props.children}
       </VisualContainer>
     )
@@ -106,22 +106,13 @@ export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
   if (enabled) {
     if (sx !== defaultSxProp) {
       return (
-        <VisualContainer
-          className={clsx(className, classes.ActionListItemVisualTrailing)}
-          sx={sx}
-          id={trailingVisualId}
-          {...props}
-        >
+        <VisualContainer className={clsx(className, classes.TrailingVisual)} sx={sx} id={trailingVisualId} {...props}>
           {props.children}
         </VisualContainer>
       )
     }
     return (
-      <VisualContainer
-        className={clsx(className, classes.ActionListItemVisualTrailing)}
-        id={trailingVisualId}
-        {...props}
-      >
+      <VisualContainer className={clsx(className, classes.TrailingVisual)} id={trailingVisualId} {...props}>
         {props.children}
       </VisualContainer>
     )
