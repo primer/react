@@ -19,7 +19,7 @@
     }
   }
 
-  :focus {
+  &:focus {
     outline: none;
   }
 
