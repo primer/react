@@ -76,7 +76,7 @@
     justify-content: flex-end;
 
     .AvatarItem {
-      margin-left: 0;
+      margin-left: 0 !important;
 
       &:first-child {
         margin-right: 0;
@@ -99,11 +99,11 @@
       &:not([data-disable-expand]):hover,
       &:not([data-disable-expand]):focus-within {
         .AvatarItem {
-          margin-right: var(--base-size-4);
-          margin-left: 0;
+          margin-right: var(--base-size-4) !important;
+          margin-left: 0 !important;
 
           &:first-child {
-            margin-right: 0;
+            margin-right: 0 !important;
           }
         }
       }
@@ -124,12 +124,16 @@
   --avatarSize-regular: var(--avatar-stack-size);
 
   position: relative;
+  display: flex;
   width: var(--avatar-stack-size);
   height: var(--avatar-stack-size);
   overflow: hidden;
   flex-shrink: 0;
-  /* stylelint-disable-next-line primer/box-shadow */
-  box-shadow: 0 0 0 var(--avatar-border-width) var(--bgColor-default);
+
+  &:is(img) {
+    /* stylelint-disable-next-line primer/box-shadow */
+    box-shadow: 0 0 0 var(--avatar-border-width) var(--bgColor-default);
+  }
 
   &:first-child {
     z-index: 10;

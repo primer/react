@@ -49,10 +49,14 @@ const AvatarStackWrapper = toggleStyledComponent(
       flex-shrink: 0;
       height: var(--avatar-stack-size);
       width: var(--avatar-stack-size);
-      box-shadow: 0 0 0 var(--avatar-border-width)
-        ${props => (props.count === 1 ? get('colors.avatar.border') : get('colors.canvas.default'))};
       position: relative;
       overflow: hidden;
+      display: flex;
+
+      &:is(img) {
+        box-shadow: 0 0 0 var(--avatar-border-width)
+          ${props => (props.count === 1 ? get('colors.avatar.border') : get('colors.canvas.default'))};
+      }
 
       &:first-child {
         margin-left: 0;
