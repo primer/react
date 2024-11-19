@@ -24,7 +24,7 @@ export type LabelColorOptions =
   | 'done'
   | 'sponsors'
 
-type LabelSizeKeys = 'small' | 'large'
+type LabelSizeKeys = 'small' | 'medium' | 'large' | 'xlarge'
 
 export const variants: Record<LabelColorOptions, BetterSystemStyleObject> = {
   default: {

@@ -67,6 +67,7 @@ const Token = forwardRef((props, forwardedRef) => {
       color: props.isSelected ? 'fg.default' : 'fg.muted',
       maxWidth: '100%',
       paddingRight: !(hideRemoveButton || !onRemove) ? 0 : undefined,
+      height: `var(--control-size-${size})`,
       ...(isTokenInteractive(props)
         ? {
             '&:hover': {
