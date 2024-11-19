@@ -6,16 +6,16 @@
   border-style: solid;
 }
 
-.Token[data-interactive='true']:hover {
+.Token:where([data-interactive='true']):hover {
   color: var(--fgColor-default);
   background-color: var(--bgColor-neutral-muted);
   box-shadow: var(--shadow-resting-medium);
 }
 
-.Token[data-is-selected='true'] {
+.Token:where([data-is-selected='true']) {
   color: var(--fgColor-default);
 }
 
-.Token[data-is-remove-btn='true'] {
+.Token:where([data-is-remove-btn='true']) {
   padding-right: 0;
 }

@@ -9,15 +9,15 @@
   align-items: center;
 }
 
-.TokenBase[data-cursor-is-interactive='true'] {
+.TokenBase:where([data-cursor-is-interactive='true']) {
   cursor: pointer;
 }
 
-.TokenBase[data-cursor-is-interactive='false'] {
+.TokenBase:where([data-cursor-is-interactive='false']) {
   cursor: auto;
 }
 
-.TokenBase[data-size='small'] {
+.TokenBase:where([data-size='small']) {
   width: auto;
   height: 16px;
   padding-right: var(--base-size-4);
@@ -27,7 +27,7 @@
   line-height: 16px;
 }
 
-.TokenBase[data-size='medium'] {
+.TokenBase:where([data-size='medium']) {
   width: auto;
   height: 20px;
   padding-right: var(--base-size-8);

@@ -158,7 +158,6 @@ const TokenBase = React.forwardRef<HTMLButtonElement | HTMLAnchorElement | HTMLS
           data-cursor-is-interactive={isTokenInteractive(rest)}
           data-size={size}
           id={id?.toString()}
-          size={size}
           {...rest}
           ref={forwardedRef}
         />

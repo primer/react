@@ -9,6 +9,7 @@ import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../uti
 import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './AvatarToken.module.css'
+import {clsx} from 'clsx'
 
 // TODO: update props to only accept 'large' and 'xlarge' on the next breaking change
 export interface AvatarTokenProps extends TokenBaseProps {
@@ -31,7 +32,7 @@ const AvatarContainer = toggleStyledComponent(
   `,
 )
 
-const AvatarToken = forwardRef(({avatarSrc, id, size = defaultTokenSize, ...rest}, forwardedRef) => {
+const AvatarToken = forwardRef(({avatarSrc, id, size = defaultTokenSize, className, ...rest}, forwardedRef) => {
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   if (enabled) {
     return (
@@ -43,7 +44,7 @@ const AvatarToken = forwardRef(({avatarSrc, id, size = defaultTokenSize, ...rest
         )}
         size={size}
         id={id?.toString()}
-        className={classes.Token}
+        className={clsx(classes.Token, className)}
         {...rest}
         ref={forwardedRef}
       />

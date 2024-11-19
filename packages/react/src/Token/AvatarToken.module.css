@@ -8,30 +8,30 @@
 
 /* TODO: Remove this once the avatar component is converted to CSS modules */
 .Avatar {
-  width: 100% !important;
-  height: 100% !important;
+  width: 100%;
+  height: 100%;
 }
 
 .Token {
   padding-left: var(--base-size-4) !important;
 }
 
-.AvatarContainer[data-size='small'] {
+.AvatarContainer:where([data-size='small']) {
   width: calc(16px - var(--spacing));
   height: calc(16px - var(--spacing));
 }
 
-.AvatarContainer[data-size='medium'] {
+.AvatarContainer:where([data-size='medium']) {
   width: calc(20px - var(--spacing));
   height: calc(20px - var(--spacing));
 }
 
-.AvatarContainer[data-size='large'] {
+.AvatarContainer:where([data-size='large']) {
   width: calc(24px - var(--spacing));
   height: calc(24px - var(--spacing));
 }
 
-.AvatarContainer[data-size='xlarge'] {
+.AvatarContainer:where([data-size='xlarge']) {
   width: calc(32px - var(--spacing));
   height: calc(32px - var(--spacing));
 }
