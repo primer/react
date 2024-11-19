@@ -136,14 +136,14 @@
     },
     {
       "name": "height",
-      "type": "\"small\" | \"initial\" | \"large\" | \"medium\" | \"auto\" | \"fit-content\" | \"xsmall\" | \"xlarge\"",
+      "type": "'small' | 'initial' | 'large' | 'medium' | 'auto' | 'fit-content' | 'xsmall' | 'xlarge'",
       "required": false,
       "description": "",
       "defaultValue": ""
     },
     {
       "name": "width",
-      "type": "\"small\" | \"large\" | \"medium\" | \"auto\" | \"xlarge\" | \"xxlarge\"",
+      "type": "'small' | 'large' | 'medium' | 'auto' | 'xlarge' | 'xxlarge'",
       "required": false,
       "description": "",
       "defaultValue": ""

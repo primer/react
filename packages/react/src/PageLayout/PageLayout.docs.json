@@ -230,13 +230,6 @@
           "defaultValue": ""
         },
         {
-          "name": "positionWhenNarrow",
-          "type": "'end' | 'start' | 'inherit'",
-          "deprecated": true,
-          "description": "@deprecated Use the `position` prop with a responsive value instead.\n\nBefore:\n```\nposition=\"start\"\npositionWhenNarrow=\"end\"\n```\n\nAfter:\n```\nposition={{regular: 'start', narrow: 'end'}}\n```",
-          "defaultValue": "inherit"
-        },
-        {
           "name": "sx",
           "type": "SystemStyleObject"
         },

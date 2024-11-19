@@ -94,7 +94,7 @@
     },
     {
       "name": "initialSortDirection",
-      "type": "\"ASC\" | \"DESC\"",
+      "type": "'ASC' | 'DESC'",
       "required": false,
       "description": "Provide the sort direction that the table should be sorted by on the\ncurrently sorted column",
       "defaultValue": ""
@@ -166,7 +166,7 @@
       "props": [
         {
           "name": "align",
-          "type": "\"end\" | \"start\"",
+          "type": "'end' | 'start'",
           "required": false,
           "description": "The horizontal alignment of the cell's content",
           "defaultValue": ""
@@ -182,7 +182,7 @@
       "props": [
         {
           "name": "align",
-          "type": "\"end\" | \"start\"",
+          "type": "'end' | 'start'",
           "required": false,
           "description": "The horizontal alignment of the cell's content",
           "defaultValue": ""
