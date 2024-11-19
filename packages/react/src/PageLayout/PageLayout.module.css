@@ -228,7 +228,7 @@ body[data-page-layout-dragging='true'] * {
 
 .ContentWrapper {
   display: flex;
-  
+
   /* Hack to prevent overflowing content from pushing the pane region to the next line */
   min-width: 1px;
   flex-direction: column;
@@ -353,7 +353,7 @@ body[data-page-layout-dragging='true'] * {
         /* stylelint-disable-next-line primer/spacing */
         margin-left: var(--spacing-none);
       }
- 
+
       &:where([data-column-gap='condensed']) {
         /* stylelint-disable-next-line primer/spacing */
         margin-left: var(--spacing-condensed);
