@@ -8,6 +8,7 @@ export default {
 
 export const Default = () => (
   <ProgressBar
+    aria-label="Status"
     progress={50}
     sx={{
       height: '20px',
