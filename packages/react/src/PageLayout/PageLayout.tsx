@@ -106,7 +106,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
       }
 
   const wrapperStylingProps = enabled
-    ? {className: classes.PageLayoutRoot, 'data-width': containerWidth}
+    ? {className: classes.PageLayoutWrapper, 'data-width': containerWidth}
     : {
         sx: {
           maxWidth: containerWidths[containerWidth],
@@ -139,11 +139,12 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
     >
       <Box
         ref={rootRef}
-        style={{
-          // @ts-ignore TypeScript doesn't know about CSS custom properties
-          '--sticky-pane-height': stickyPaneHeight,
-          style,
-        }}
+        style={
+          {
+            '--sticky-pane-height': stickyPaneHeight,
+            ...style,
+          } as React.CSSProperties
+        }
         {...stylingProps}
       >
         <Box {...wrapperStylingProps}>
@@ -506,45 +507,55 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   const {rowGap} = React.useContext(PageLayoutContext)
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
-  if (enabled) {
-    return (
-      <Box
-        as="header"
-        aria-label={label}
-        aria-labelledby={labelledBy}
-        data-gap={rowGap}
-        hidden={isHidden}
-        sx={sx}
-        className={clsx(classes.Header, className)}
-        style={style}
-      >
-        <Box data-padding={padding} className={classes.HeaderContent}>
-          {children}
-        </Box>
-        <HorizontalDivider gap={rowGap} className={classes.HeaderHorizontalDivider} variant={dividerVariant} />
-      </Box>
-    )
-  }
+  const headerStylingProps = enabled
+    ? {
+        sx,
+        className: clsx(classes.Header, className),
+        'data-gap': rowGap,
+      }
+    : {
+        sx: merge<BetterSystemStyleObject>(
+          {
+            width: '100%',
+            marginBottom: SPACING_MAP[rowGap],
+          },
+          sx,
+        ),
+        className,
+      }
+
+  const contentStylingProps = enabled
+    ? {
+        className: classes.HeaderContent,
+        'data-padding': padding,
+      }
+    : {
+        sx: {
+          padding: SPACING_MAP[padding],
+        },
+      }
+
+  const dividerStylingProps = enabled
+    ? {
+        className: classes.HeaderHorizontalDivider,
+      }
+    : {
+        sx: {
+          marginBottom: SPACING_MAP[rowGap],
+        },
+      }
 
   return (
     <Box
       as="header"
       aria-label={label}
       aria-labelledby={labelledBy}
-      data-gap={rowGap}
       hidden={isHidden}
-      sx={merge<BetterSystemStyleObject>(
-        {
-          width: '100%',
-          marginBottom: SPACING_MAP[rowGap],
-        },
-        sx,
-      )}
+      style={style}
+      {...headerStylingProps}
     >
-      <Box data-padding={padding} sx={{padding: SPACING_MAP[padding]}}>
-        {children}
-      </Box>
-      <HorizontalDivider variant={dividerVariant} sx={{marginTop: SPACING_MAP[rowGap]}} />
+      <Box {...contentStylingProps}>{children}</Box>
+      <HorizontalDivider gap={rowGap} variant={dividerVariant} {...dividerStylingProps} />
     </Box>
   )
 }
@@ -601,64 +612,53 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
   const {contentTopRef, contentBottomRef} = React.useContext(PageLayoutContext)
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
-  if (enabled) {
-    return (
-      <Box
-        as={as}
-        aria-label={label}
-        aria-labelledby={labelledBy}
-        sx={sx}
-        className={clsx(className, classes.ContentWrapper)}
-        style={style}
-        data-is-hidden={isHidden}
-      >
-        {/* Track the top of the content region so we can calculate the height of the pane region */}
-        <Box ref={contentTopRef} />
-
-        <Box data-width={width} data-padding={padding} className={classes.Content}>
-          {children}
-        </Box>
-
-        {/* Track the bottom of the content region so we can calculate the height of the pane region */}
-        <Box ref={contentBottomRef} />
-      </Box>
-    )
-  }
-  return (
-    <Box
-      as={as}
-      aria-label={label}
-      aria-labelledby={labelledBy}
-      sx={merge<BetterSystemStyleObject>(
-        {
-          display: isHidden ? 'none' : 'flex',
-          flexDirection: 'column',
-          order: REGION_ORDER.content,
-          // Set flex-basis to 0% to allow flex-grow to control the width of the content region.
-          // Without this, the content region could wrap onto a different line
-          // than the pane region on wide viewports if its contents are too wide.
-          flexBasis: 0,
-          flexGrow: 1,
-          flexShrink: 1,
-          minWidth: 1, // Hack to prevent overflowing content from pushing the pane region to the next line
-        },
+  const wrapperStylingProps = enabled
+    ? {
         sx,
-      )}
-    >
-      {/* Track the top of the content region so we can calculate the height of the pane region */}
-      <Box ref={contentTopRef} />
+        className: clsx(classes.ContentWrapper, className),
+        'data-is-hidden': isHidden,
+      }
+    : {
+        sx: merge<BetterSystemStyleObject>(
+          {
+            display: isHidden ? 'none' : 'flex',
+            flexDirection: 'column',
+            order: REGION_ORDER.content,
+            // Set flex-basis to 0% to allow flex-grow to control the width of the content region.
+            // Without this, the content region could wrap onto a different line
+            // than the pane region on wide viewports if its contents are too wide.
+            flexBasis: 0,
+            flexGrow: 1,
+            flexShrink: 1,
+            minWidth: 1, // Hack to prevent overflowing content from pushing the pane region to the next line
+          },
+          sx,
+        ),
+        className,
+      }
 
-      <Box
-        sx={{
+  const stylingProps = enabled
+    ? {
+        className: classes.Content,
+        'data-width': width,
+        'data-padding': padding,
+      }
+    : {
+        sx: {
           width: '100%',
           maxWidth: contentWidths[width],
           marginX: 'auto',
           flexGrow: 1,
           padding: SPACING_MAP[padding],
-        }}
-      >
-        {children}
-      </Box>
+        },
+      }
+
+  return (
+    <Box as={as} aria-label={label} aria-labelledby={labelledBy} style={style} {...wrapperStylingProps}>
+      {/* Track the top of the content region so we can calculate the height of the pane region */}
+      <Box ref={contentTopRef} />
+
+      <Box {...stylingProps}>{children}</Box>
 
       {/* Track the bottom of the content region so we can calculate the height of the pane region */}
       <Box ref={contentBottomRef} />
@@ -980,10 +980,10 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         />
         <Box
           ref={paneRef}
-          {...paneStylingProps}
           {...(hasOverflow && {tabIndex: 0, role: 'region'})}
           {...labelProp}
           {...(id && {id: paneId})}
+          {...paneStylingProps}
         >
           {children}
         </Box>
