@@ -6,8 +6,6 @@
     /* stylelint-disable-next-line primer/typography */
     line-height: 1;
     border-radius: 50%;
-    /* stylelint-disable-next-line primer/box-shadow */
-    box-shadow: 0 0 0 1px var(--avatar-borderColor);
   }
 
   &:where([data-square]) {
