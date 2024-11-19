@@ -89,7 +89,7 @@ const stories = [
   },
   {
     title: 'SX Props',
-    id: 'components-popover-dev--sx-props',
+    id: 'private-components-overlay-dev--sx-props',
     setup: async (page: Page) => {
       await page.keyboard.press('Tab')
       await page.keyboard.press('Enter')
@@ -97,7 +97,7 @@ const stories = [
   },
 ] as const
 
-test.describe('Popover', () => {
+test.describe('Overlay ', () => {
   for (const story of stories) {
     test.describe(story.title, () => {
       for (const theme of themes) {
