@@ -541,7 +541,7 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
       }
     : {
         sx: {
-          marginBottom: SPACING_MAP[rowGap],
+          marginTop: SPACING_MAP[rowGap],
         },
       }
 
