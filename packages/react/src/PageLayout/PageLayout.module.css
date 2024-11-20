@@ -10,7 +10,6 @@ body[data-page-layout-dragging='true'] * {
   user-select: none;
 }
 
-/* -----Root styling----- */
 .PageLayoutRoot {
   /* Region Order */
   --region-order-header: 0;
@@ -28,11 +27,7 @@ body[data-page-layout-dragging='true'] * {
     --spacing-normal: var(--base-size-24);
   }
 
-  /* stylelint-disable-next-line primer/spacing */
-  padding: var(--spacing);
-
-  /* Pane Values */
-
+  /* Pane Width Values */
   --pane-width-small: 100%;
   --pane-width-medium: 100%;
   --pane-width-large: 100%;
@@ -54,6 +49,22 @@ body[data-page-layout-dragging='true'] * {
     --pane-width-large: 336px;
     --pane-max-width-diff: 959px;
   }
+
+  /* These following CSS variables are dynamic values that get overridden by styles passed in via props. */
+  --spacing: 0;
+  --spacing-row: 0;
+  --spacing-column: 0;
+  --spacing-divider: 0;
+  --offset-header: 0;
+  --sticky-pane-height: 0;
+  --pane-width: 0;
+  --pane-min-width: 0;
+  --pane-max-width: 0;
+  --pane-width-custom: 0;
+  --pane-width-size: 0;
+
+  /* stylelint-disable-next-line primer/spacing */
+  padding: var(--spacing);
 }
 
 .PageLayoutWrapper {
@@ -270,27 +281,12 @@ body[data-page-layout-dragging='true'] * {
 }
 
 .Pane {
+  width: var(--pane-width-size);
   /* stylelint-disable-next-line primer/spacing */
   padding: var(--spacing);
 
   @media screen and (min-width: 768px) {
     overflow: auto;
-  }
-
-  &:where([data-width-type='custom']) {
-    width: var(--pane-custom-width);
-  }
-
-  &:where([data-width-type='small']) {
-    width: var(--pane-width-small);
-  }
-
-  &:where([data-width-type='medium']) {
-    width: var(--pane-width-medium);
-  }
-
-  &:where([data-width-type='large']) {
-    width: var(--pane-width-large);
   }
 
   &:where([data-resizable]) {

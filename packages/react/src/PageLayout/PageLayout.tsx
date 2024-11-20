@@ -957,12 +957,12 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       ? {
           className: classes.Pane,
           'data-resizable': resizable || undefined,
-          'data-width-type': isPaneWidth(width) ? width : 'custom',
           style: {
             '--spacing': `var(--spacing-${padding})`,
             '--pane-min-width': isCustomWidthOptions(width) ? width.min : `${minWidth}px`,
             '--pane-max-width': isCustomWidthOptions(width) ? width.max : `calc(100vw - var(--pane-max-width-diff))`,
-            '--pane-custom-width': isCustomWidthOptions(width) ? width.default : undefined,
+            '--pane-width-custom': isCustomWidthOptions(width) ? width.default : undefined,
+            '--pane-width-size': `var(--pane-width-${isPaneWidth(width) ? width : 'custom'})`,
             '--pane-width': `${paneWidth}px`,
           } as React.CSSProperties,
         }
