@@ -120,5 +120,8 @@
 }
 
 .keybindingHintContainer.hasTextBefore {
-  margin-inline-start: var(--base-size-6);
+  /* Offset negative on the right right to make right spacing look like top and bottom spacing, only for keybinding hints and only when there is text */
+  /* stylelint-disable-next-line primer/spacing */
+  margin-right: -0.25em;
+  margin-left: var(--base-size-6);
 }
