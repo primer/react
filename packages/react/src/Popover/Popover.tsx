@@ -53,18 +53,16 @@ export type PopoverProps = {
 } & StyledPopoverProps &
   HTMLProps<HTMLDivElement>
 
-const Popover: React.FC<React.PropsWithChildren<PopoverProps>> = ({
-  className,
-  caret = 'top',
-  open,
-  relative,
-  ...props
-}) => {
+const Popover = React.forwardRef<HTMLElement, PopoverProps>(function Popover(
+  {className, caret = 'top', open, relative, ...props},
+  forwardRef,
+) {
   const enabled = useFeatureFlag(CSS_MODULES_FLAG)
   if (enabled) {
     return (
       <BaseComponent
         {...props}
+        ref={forwardRef}
         data-open={open ? '' : undefined}
         data-relative={relative ? '' : undefined}
         data-caret={caret}
@@ -74,7 +72,8 @@ const Popover: React.FC<React.PropsWithChildren<PopoverProps>> = ({
   }
 
   return <BaseComponent {...props} className={className} caret={caret} open={open} relative={relative} />
-}
+})
+Popover.displayName = 'Popover'
 
 const StyledPopoverContent = toggleStyledComponent(
   CSS_MODULES_FLAG,
