@@ -1,7 +1,7 @@
 import {SearchIcon, TriangleDownIcon} from '@primer/octicons-react'
 import React, {useCallback, useMemo} from 'react'
 import type {AnchoredOverlayProps} from '../AnchoredOverlay'
-import Overlay from '../Overlay'
+import {AnchoredOverlay} from '../AnchoredOverlay'
 import type {AnchoredOverlayWrapperAnchorProps} from '../AnchoredOverlay/AnchoredOverlay'
 import Box from '../Box'
 import type {FilteredActionListProps} from '../FilteredActionList'
@@ -12,12 +12,12 @@ import type {TextInputProps} from '../TextInput'
 import type {ItemProps, ItemInput} from './types'
 
 import {Button} from '../Button'
-import {useAnchoredPosition, useProvidedRefOrCreate} from '../hooks'
+import {useProvidedRefOrCreate} from '../hooks'
+import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
 import {useFeatureFlag} from '../FeatureFlags'
-import {useFocusTrap} from '../hooks/useFocusTrap'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -54,6 +54,11 @@ function isMultiSelectVariant(
   selected: SelectPanelSingleSelection['selected'] | SelectPanelMultiSelection['selected'],
 ): selected is SelectPanelMultiSelection['selected'] {
   return Array.isArray(selected)
+}
+
+const focusZoneSettings: Partial<FocusZoneHookSettings> = {
+  // Let FilteredActionList handle focus zone
+  disabled: true,
 }
 
 const areItemsEqual = (itemA: ItemInput, itemB: ItemInput) => {
@@ -132,57 +137,6 @@ export function SelectPanel({
     }
   }, [placeholder, renderAnchor, selected])
 
-  /* Anchoring logic */
-  const overlayRef = React.useRef<HTMLDivElement>(null)
-  const inputRef = React.useRef<HTMLInputElement>(null)
-
-  const {position} = useAnchoredPosition(
-    {
-      anchorElementRef: anchorRef,
-      floatingElementRef: overlayRef,
-      side: 'outside-bottom',
-      align: 'start',
-    },
-    [open, anchorRef.current, overlayRef.current],
-  )
-
-  const onAnchorClick = useCallback(
-    (event: React.MouseEvent<HTMLElement>) => {
-      if (event.defaultPrevented || event.button !== 0) {
-        return
-      }
-
-      if (!open) {
-        onOpen('anchor-click')
-      } else {
-        onClose('anchor-click')
-      }
-    },
-    [open, onOpen, onClose],
-  )
-
-  const onAnchorKeyDown = useCallback(
-    (event: React.KeyboardEvent<HTMLElement>) => {
-      if (!event.defaultPrevented) {
-        if (!open && ['ArrowDown', 'ArrowUp', ' ', 'Enter'].includes(event.key)) {
-          onOpen('anchor-key-press', event)
-          event.preventDefault()
-        }
-      }
-    },
-    [open, onOpen],
-  )
-
-  const anchorProps = {
-    ref: anchorRef,
-    'aria-haspopup': true,
-    'aria-expanded': open,
-    onClick: onAnchorClick,
-    onKeyDown: onAnchorKeyDown,
-  }
-  // TODO: anchor should be called button because it's not an anchor anymore
-  const anchor = renderMenuAnchor ? renderMenuAnchor(anchorProps) : null
-
   const itemsToRender = useMemo(() => {
     return items.map(item => {
       const isItemSelected = isMultiSelectVariant(selected) ? doesItemsIncludeItem(selected, item) : selected === item
@@ -218,13 +172,10 @@ export function SelectPanel({
     })
   }, [onClose, onSelectedChange, items, selected])
 
-  /** Focus trap */
-  useFocusTrap({
-    containerRef: overlayRef,
-    disabled: !open || !position,
+  const inputRef = React.useRef<HTMLInputElement>(null)
+  const focusTrapSettings = {
     initialFocusRef: inputRef,
-    returnFocusRef: anchorRef,
-  })
+  }
 
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
     return {
@@ -238,26 +189,22 @@ export function SelectPanel({
 
   const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
 
-  if (!open) return <>{anchor}</>
-
   return (
     <LiveRegion>
-      {anchor}
-
-      <Overlay
-        role="dialog"
-        aria-labelledby={titleId}
-        aria-describedby={subtitle ? subtitleId : undefined}
-        ref={overlayRef}
-        returnFocusRef={anchorRef}
-        onEscape={() => onClose('escape')}
-        onClickOutside={() => onClose('click-outside')}
-        ignoreClickRefs={
-          /* this is required so that clicking the button while the panel is open does not re-open the panel */
-          [anchorRef]
-        }
-        {...position}
-        {...overlayProps}
+      <AnchoredOverlay
+        renderAnchor={renderMenuAnchor}
+        anchorRef={anchorRef}
+        open={open}
+        onOpen={onOpen}
+        onClose={onClose}
+        overlayProps={{
+          role: 'dialog',
+          'aria-labelledby': titleId,
+          'aria-describedby': subtitle ? subtitleId : undefined,
+          ...overlayProps,
+        }}
+        focusTrapSettings={focusTrapSettings}
+        focusZoneSettings={focusZoneSettings}
       >
         <LiveRegionOutlet />
         {usingModernActionList ? null : (
@@ -313,7 +260,7 @@ export function SelectPanel({
             </Box>
           )}
         </Box>
-      </Overlay>
+      </AnchoredOverlay>
     </LiveRegion>
   )
 }

@@ -12,7 +12,7 @@ import {useProvidedRefOrCreate} from '../hooks'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
 
 const StyledButtonGroup = toggleStyledComponent(
-  'primer_react_css_modules_staff',
+  'primer_react_css_modules_ga',
   'div',
   styled.div`
     display: inline-flex;
@@ -82,7 +82,7 @@ const ButtonGroup = React.forwardRef<HTMLElement, ButtonGroupProps>(function But
   {children, className, role, ...rest},
   forwardRef,
 ) {
-  const enabled = useFeatureFlag('primer_react_css_modules_staff')
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
   const buttonRef = useProvidedRefOrCreate(forwardRef as React.RefObject<HTMLDivElement>)
 
   useFocusZone({
