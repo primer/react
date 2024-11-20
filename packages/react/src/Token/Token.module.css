@@ -16,6 +16,6 @@
   color: var(--fgColor-default);
 }
 
-.Token:where([data-is-remove-btn='true']) {
+.Token[data-is-remove-btn='true'] {
   padding-right: 0;
 }

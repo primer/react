@@ -1,5 +1,6 @@
 .TextInputWrapper {
   padding-top: var(--base-size-6);
+  padding-right: 0;
   padding-bottom: var(--base-size-6);
   padding-left: var(--base-size-12);
 
