@@ -47,10 +47,10 @@
       "id": "components-iconbutton-features--loading-trigger"
     },
     {
-      "id": "components-iconbutton-features--keyshortcuts-on-description"
+      "id": "components-iconbutton-features--keybinding-hint-on-description"
     },
     {
-      "id": "components-iconbutton-features--keyshortcuts"
+      "id": "components-iconbutton-features--keybinding-hint"
     }
   ],
   "importPath": "@primer/react",
