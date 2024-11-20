@@ -3,7 +3,35 @@
   "name": "ToggleSwitch",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-toggleswitch--default"
+    },
+    {
+      "id": "components-toggleswitch-features--small"
+    },
+    {
+      "id": "components-toggleswitch-features--with-caption"
+    },
+    {
+      "id": "components-toggleswitch-features--disabled"
+    },
+    {
+      "id": "components-toggleswitch-features--checked"
+    },
+    {
+      "id": "components-toggleswitch-features--checked-disabled"
+    },
+    {
+      "id": "components-toggleswitch-features--loading"
+    },
+    {
+      "id": "components-toggleswitch-features--label-end"
+    },
+    {
+      "id": "components-toggleswitch-features--controlled"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {
