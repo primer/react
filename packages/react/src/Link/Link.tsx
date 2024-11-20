@@ -17,7 +17,7 @@ type StyledLinkProps = {
   inline?: boolean
 } & SxProp
 
-const Link = forwardRef(({as: Component = 'a', className, inline, underline, ...props}, forwardedRef) => {
+const Link = forwardRef(({as: Component = 'a', className, inline, underline, hoverColor, ...props}, forwardedRef) => {
   const innerRef = React.useRef<HTMLAnchorElement>(null)
   useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
@@ -53,6 +53,7 @@ const Link = forwardRef(({as: Component = 'a', className, inline, underline, ...
         data-muted={props.muted}
         data-inline={inline}
         data-underline={underline}
+        data-hover-color={hoverColor}
         {...props}
         // @ts-ignore shh
         ref={innerRef}
@@ -66,6 +67,7 @@ const Link = forwardRef(({as: Component = 'a', className, inline, underline, ...
       data-muted={props.muted}
       data-inline={inline}
       data-underline={underline}
+      data-hover-color={hoverColor}
       {...props}
       // @ts-ignore shh
       ref={innerRef}
