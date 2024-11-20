@@ -42,7 +42,7 @@ const ESM_ONLY = new Set([
   '@github/paste-markdown',
   '@github/relative-time-element',
   '@github/tab-container-element',
-  '@lit-labs/react',
+  '@lit/react',
   '@oddbird/popover-polyfill',
 ])
 const dependencies = [
