@@ -2,20 +2,62 @@
 /* stylelint-disable selector-max-specificity */
 /* stylelint-disable max-nesting-depth */
 
-/* :root {
-  --actionListContent-paddingBlock: var(--control-medium-paddingBlock);
-} */
-
 /* check this as full width variant */
 .ActionListHeader {
   margin-bottom: var(--base-size-16);
   margin-left: var(--base-size-8);
 }
 
+.GroupHeadingWrap {
+  display: flex;
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
+  line-height: var(--text-body-lineHeight-small);
+  color: var(--fgColor-muted);
+  flex-direction: column;
+  /* stylelint-disable-next-line primer/spacing */
+  padding-inline: var(--control-medium-paddingBlock);
+  padding-block: var(--base-size-8);
+
+  &:where([data-variant='filled']) {
+    /* stylelint-disable-next-line primer/spacing */
+    margin-block-start: calc(var(--base-size-8) - var(--borderWidth-thin));
+    margin-block-end: var(--base-size-8);
+    margin-inline: calc(-1 * var(--base-size-8));
+    background: var(--bgColor-muted);
+    border-top: solid var(--borderWidth-thin) var(--borderColor-muted);
+    border-bottom: solid var(--borderWidth-thin) var(--borderColor-muted);
+
+    /* if no children, treat as divider */
+    &:empty {
+      height: var(--base-size-8);
+      box-sizing: border-box;
+    }
+
+    &:first-child {
+      margin-block-start: 0;
+    }
+  }
+}
+
+.GroupHeading {
+  margin: 0;
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-muted);
+  align-self: flex-start;
+}
+
 .ActionList {
   padding: 0;
   margin: 0;
   list-style: none;
+
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
 
   &:where([data-variant='inset']) {
     padding: var(--base-size-8);
@@ -25,7 +67,7 @@
     & .ItemLabel::before {
       position: absolute;
       /* stylelint-disable-next-line primer/spacing */
-      top: calc(-1 * var(--actionListContent-paddingBlock));
+      top: calc(-1 * var(--control-medium-paddingBlock));
       display: block;
       width: 100%;
       height: 1px;
@@ -39,7 +81,7 @@
       &::before {
         position: absolute;
         /* stylelint-disable-next-line primer/spacing */
-        top: calc(-1 * var(--actionListContent-paddingBlock));
+        top: calc(-1 * var(--control-medium-paddingBlock));
         display: block;
         width: 100%;
         height: var(--borderWidth-thin);
@@ -292,7 +334,7 @@
   display: grid;
   width: 100%;
   /* stylelint-disable-next-line primer/spacing */
-  padding-block: var(--actionListContent-paddingBlock);
+  padding-block: var(--control-medium-paddingBlock);
   /* stylelint-disable-next-line primer/spacing */
   padding-inline: var(--control-medium-paddingInline-condensed);
   color: var(--control-fgColor-rest);
@@ -502,19 +544,6 @@
 
   /* sizes */
 
-  &.ActionListContent--sizeLarge {
-    --actionListContent-paddingBlock: var(--control-large-paddingBlock);
-  }
-
-  &.ActionListContent--sizeXLarge {
-    --actionListContent-paddingBlock: var(--control-xlarge-paddingBlock);
-  }
-
-  /* On pointer:coarse (mobile), all list items are large */
-  @media (pointer: coarse) {
-    --actionListContent-paddingBlock: var(--control-large-paddingBlock);
-  }
-
   &.ActionListContent--blockDescription {
     /* if leading/trailing visual, align with first line of content */
     & .VisualWrap {
@@ -544,6 +573,7 @@
 /* have leading visual svg filled with chosen color */
 
 /* stylelint-disable-next-line selector-max-type */
+
 /* .VisualWrap--leading svg {
   fill: currentcolor;
 } */
@@ -643,19 +673,6 @@
 /* ActionList::Divider */
 
 .ActionList-sectionDivider {
-  /* with children */
-  &:not(:empty) {
-    display: flex;
-    font-size: var(--text-body-size-small);
-    font-weight: var(--base-text-weight-semibold);
-    line-height: var(--text-body-lineHeight-small);
-    color: var(--fgColor-muted);
-    flex-direction: column;
-    /* stylelint-disable-next-line primer/spacing */
-    padding-inline: var(--actionListContent-paddingBlock);
-    padding-block: var(--base-size-8);
-  }
-
   /* no children */
   &:empty {
     display: block;
@@ -669,33 +686,6 @@
     /* stylelint-disable-next-line primer/colors */
     background: var(--borderColor-muted);
     border: 0;
-  }
-
-  & .ActionList-sectionDivider-title {
-    font-size: var(--text-body-size-small);
-    font-weight: var(--base-text-weight-semibold);
-    color: var(--fgColor-muted);
-    align-self: flex-start;
-  }
-}
-
-.ActionList-sectionDivider--filled {
-  /* stylelint-disable-next-line primer/spacing */
-  margin-block-start: calc(var(--base-size-8) - var(--borderWidth-thin));
-  margin-block-end: var(--base-size-8);
-  margin-inline: calc(-1 * var(--base-size-8));
-  background: var(--bgColor-muted);
-  border-top: solid var(--borderWidth-thin) var(--borderColor-muted, var(--color-action-list-item-inline-divider));
-  border-bottom: solid var(--borderWidth-thin) var(--borderColor-muted, var(--color-action-list-item-inline-divider));
-
-  /* if no children, treat as divider */
-  &:empty {
-    height: var(--base-size-8);
-    box-sizing: border-box;
-  }
-
-  &:first-child {
-    margin-block-start: 0;
   }
 }
 
