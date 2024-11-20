@@ -98,7 +98,6 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
     ? {
         sx,
         className: clsx(classes.PageLayoutRoot, className),
-        'data-padding': padding,
       }
     : {
         sx: merge<BetterSystemStyleObject>({padding: SPACING_MAP[padding]}, sx),
@@ -142,6 +141,7 @@ const Root: React.FC<React.PropsWithChildren<PageLayoutProps>> = ({
         style={
           {
             '--sticky-pane-height': stickyPaneHeight,
+            '--spacing': `var(--spacing-${padding})`,
             ...style,
           } as React.CSSProperties
         }
@@ -165,7 +165,6 @@ Root.displayName = 'PageLayout'
 type DividerProps = {
   variant?: 'none' | 'line' | 'filled' | ResponsiveValue<'none' | 'line' | 'filled'>
   className?: string
-  gap?: keyof typeof SPACING_MAP
   position?: keyof typeof panePositions
 } & SxProp
 
@@ -200,7 +199,6 @@ const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
   variant = 'none',
   sx = {},
   className,
-  gap,
   position,
 }) => {
   const {padding} = React.useContext(PageLayoutContext)
@@ -211,16 +209,17 @@ const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
     ? {
         sx,
         className: clsx(classes.HorizontalDivider, className),
-        'data-spacing': padding,
         'data-variant': responsiveVariant,
-        'data-gap': gap,
         'data-position': position,
+        style: {
+          '--spacing': `var(--spacing-${padding})`,
+        } as React.CSSProperties,
       }
     : {
         sx: (theme: Theme) =>
           merge<BetterSystemStyleObject>(
             {
-              // Stretch divider to viewport edges on narrow screens
+              // Stretch divider to viewporwt edges on narrow screens
               marginX: negateSpacingValue(SPACING_MAP[padding]),
               ...horizontalDividerVariants[responsiveVariant],
               [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
@@ -281,7 +280,6 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   onDragEnd,
   onDoubleClick,
   position,
-  gap,
   className,
   sx = {},
 }) => {
@@ -385,7 +383,6 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
         className: clsx(classes.VerticalDivider, className),
         'data-variant': responsiveVariant,
         'data-position': position,
-        'data-gap': gap,
       }
     : {
         sx: merge<BetterSystemStyleObject>(
@@ -511,7 +508,9 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
     ? {
         sx,
         className: clsx(classes.Header, className),
-        'data-gap': rowGap,
+        style: {
+          '--spacing': `var(--spacing-${rowGap})`,
+        } as React.CSSProperties,
       }
     : {
         sx: merge<BetterSystemStyleObject>(
@@ -527,7 +526,9 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   const contentStylingProps = enabled
     ? {
         className: classes.HeaderContent,
-        'data-padding': padding,
+        style: {
+          '--spacing': `var(--spacing-${padding})`,
+        } as React.CSSProperties,
       }
     : {
         sx: {
@@ -538,6 +539,9 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
   const dividerStylingProps = enabled
     ? {
         className: classes.HeaderHorizontalDivider,
+        style: {
+          '--spacing-divider': `var(--spacing-${padding})`,
+        } as React.CSSProperties,
       }
     : {
         sx: {
@@ -555,7 +559,7 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
       {...headerStylingProps}
     >
       <Box {...contentStylingProps}>{children}</Box>
-      <HorizontalDivider gap={rowGap} variant={dividerVariant} {...dividerStylingProps} />
+      <HorizontalDivider variant={dividerVariant} {...dividerStylingProps} />
     </Box>
   )
 }
@@ -641,7 +645,9 @@ const Content: React.FC<React.PropsWithChildren<PageLayoutContentProps>> = ({
     ? {
         className: classes.Content,
         'data-width': width,
-        'data-padding': padding,
+        style: {
+          '--spacing': `var(--spacing-${padding})`,
+        } as React.CSSProperties,
       }
     : {
         sx: {
@@ -869,12 +875,12 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           className: clsx(classes.PaneWrapper, className),
           style: {
             '--offset-header': typeof offsetHeader === 'number' ? `${offsetHeader}px` : offsetHeader,
+            '--spacing-row': `var(--spacing-${rowGap})`,
+            '--spacing-column': `var(--spacing-${columnGap})`,
             ...style,
           },
           'data-is-hidden': isHidden,
           'data-position': position,
-          'data-row-gap': rowGap,
-          'data-column-gap': columnGap,
           'data-sticky': sticky || undefined,
         }
       : {
@@ -917,6 +923,9 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     const horizontalDividerStylingProps = enabled
       ? {
           className: classes.PaneHorizontalDivider,
+          style: {
+            '--spacing-divider': `var(--spacing-${rowGap})`,
+          },
         }
       : {
           sx: {
@@ -927,6 +936,9 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
     const verticalDividerStylingProps = enabled
       ? {
           className: classes.PaneVerticalDivider,
+          style: {
+            '--spacing': `var(--spacing-${columnGap})`,
+          },
         }
       : {
           sx: {
@@ -938,9 +950,9 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       ? {
           className: classes.Pane,
           'data-resizable': resizable || undefined,
-          'data-padding': padding,
           'data-width-type': isPaneWidth(width) ? width : 'custom',
           style: {
+            '--spacing': `var(--spacing-${padding})`,
             '--pane-min-width': isCustomWidthOptions(width) ? width.min : `${minWidth}px`,
             '--pane-max-width': isCustomWidthOptions(width) ? width.max : `calc(100vw - var(--pane-max-width-diff))`,
             '--pane-custom-width': isCustomWidthOptions(width) ? width.default : undefined,
@@ -975,7 +987,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
         <HorizontalDivider
           variant={{narrow: dividerVariant, regular: 'none'}}
           {...horizontalDividerStylingProps}
-          gap={rowGap}
           position={position}
         />
         <Box
@@ -1011,7 +1022,6 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
             if (!paneRect) return
             updatePaneWidth(paneRect.width)
           }}
-          gap={columnGap}
           position={position}
           // Reset pane width on double click
           onDoubleClick={() => updatePaneWidth(getDefaultPaneWidth(width))}
@@ -1087,7 +1097,10 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
     ? {
         className: clsx(classes.FooterWrapper, className),
         sx,
-        'data-gap': rowGap,
+        style: {
+          '--spacing': `var(--spacing-${rowGap})`,
+          ...style,
+        },
       }
     : {
         className,
@@ -1123,15 +1136,8 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
       }
 
   return (
-    <Box
-      as="footer"
-      aria-label={label}
-      aria-labelledby={labelledBy}
-      hidden={isHidden}
-      style={style}
-      {...footerStylingProps}
-    >
-      <HorizontalDivider {...dividerStylingProps} gap={rowGap} variant={dividerVariant} />
+    <Box as="footer" aria-label={label} aria-labelledby={labelledBy} hidden={isHidden} {...footerStylingProps}>
+      <HorizontalDivider {...dividerStylingProps} variant={dividerVariant} />
       <Box {...contentStylingProps}>{children}</Box>
     </Box>
   )
