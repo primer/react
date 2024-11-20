@@ -50,10 +50,12 @@ export const SimpleList = () => (
 )
 
 export const WithVisualListHeading = () => (
-  <ActionList>
-    <ActionList.Heading as="h2">Filter by</ActionList.Heading>
+  <ActionList variant="full">
+    <ActionList.Heading as="h2" variant="small">
+      Filter by
+    </ActionList.Heading>
     <ActionList.Group>
-      <ActionList.GroupHeading as="h3">Repositories</ActionList.GroupHeading>
+      <ActionList.GroupHeading as="h4">Repositories</ActionList.GroupHeading>
       <ActionList.Item onClick={() => {}}>
         <ActionList.LeadingVisual>
           <FileDirectoryIcon />

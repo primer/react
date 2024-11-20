@@ -428,7 +428,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               </VisualOrIndicator>
               <ConditionalWrapper
                 if={!!slots.description}
-                // if={description}
                 className={classes.ItemDescriptionWrap}
                 data-description-variant={descriptionVariant}
               >

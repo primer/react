@@ -6,10 +6,11 @@
   --actionListContent-paddingBlock: var(--control-medium-paddingBlock);
 } */
 
-/* .ActionListHeader {
+/* check this as full width variant */
+.ActionListHeader {
   margin-bottom: var(--base-size-16);
   margin-left: var(--base-size-8);
-} */
+}
 
 .ActionList {
   padding: 0;

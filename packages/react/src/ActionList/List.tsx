@@ -77,10 +77,10 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
               className={clsx(classes.ActionList, className)}
               role={listRole}
               aria-labelledby={ariaLabelledBy}
-              {...props}
               ref={listRef}
               data-dividers={showDividers ? '' : undefined}
               data-variant={variant}
+              {...props}
             >
               {childrenWithoutSlots}
             </ListBox>
@@ -89,10 +89,10 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
               className={clsx(classes.ActionList, className)}
               role={listRole}
               aria-labelledby={ariaLabelledBy}
-              {...props}
               ref={listRef}
               data-dividers={showDividers ? '' : undefined}
               data-variant={variant}
+              {...props}
             >
               {childrenWithoutSlots}
             </ul>

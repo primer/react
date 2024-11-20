@@ -14,14 +14,16 @@ import {useFeatureFlag} from '../FeatureFlags'
 import classes from './ActionList.module.css'
 
 type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+type HeadingVariants = 'large' | 'medium' | 'small'
 export type ActionListHeadingProps = {
   as: HeadingLevels
+  variant?: HeadingVariants
   visuallyHidden?: boolean
   className?: string
 } & SxProp
 
 export const Heading = forwardRef(
-  ({as, children, sx = defaultSxProp, visuallyHidden = false, className, ...props}, forwardedRef) => {
+  ({as, variant, children, sx = defaultSxProp, visuallyHidden = false, className, ...props}, forwardedRef) => {
     const innerRef = React.useRef<HTMLHeadingElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
@@ -47,10 +49,11 @@ export const Heading = forwardRef(
           sx !== defaultSxProp ? (
             <HeadingComponent
               as={as}
+              variant={variant}
               ref={innerRef}
               // use custom id if it is provided. Otherwise, use the id from the context
               id={props.id ?? headingId}
-              className={clsx(className, classes.ActionListTemp)}
+              className={clsx(className, classes.ActionListHeader)}
               sx={sx}
               {...props}
             >
@@ -59,10 +62,11 @@ export const Heading = forwardRef(
           ) : (
             <HeadingComponent
               as={as}
+              variant={variant}
               ref={innerRef}
               // use custom id if it is provided. Otherwise, use the id from the context
               id={props.id ?? headingId}
-              className={clsx(className, classes.ActionListTemp)}
+              className={clsx(className, classes.ActionListHeader)}
               {...props}
             >
               {children}
@@ -71,6 +75,7 @@ export const Heading = forwardRef(
         ) : (
           <HeadingComponent
             as={as}
+            variant={variant}
             ref={innerRef}
             // use custom id if it is provided. Otherwise, use the id from the context
             id={props.id ?? headingId}

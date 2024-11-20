@@ -4,7 +4,7 @@ import Box from '../Box'
 import type {SxProp} from '../sx'
 import {ListContext, type ActionListProps} from './shared'
 import type {AriaRole} from '../utils/types'
-import {default as Heading} from '../Heading'
+// import {default as Heading} from '../Heading'
 import type {ActionListHeadingProps} from './Heading'
 import {useSlots} from '../hooks/useSlots'
 import {defaultSxProp} from '../utils/defaultSxProp'
@@ -12,6 +12,21 @@ import {invariant} from '../utils/invariant'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './ActionList.module.css'
+
+type HeadingProps = {
+  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+  className?: string
+  children: React.ReactNode
+} & SxProp
+
+const Heading: React.FC<HeadingProps> = ({as: Component = 'h3', className, children, sx = defaultSxProp}) => {
+  return (
+    // Box is temporary to support lingering sx usage
+    <Box as={Component} className={className} sx={sx}>
+      {children}
+    </Box>
+  )
+}
 
 export type ActionListGroupProps = {
   /**
