@@ -1107,7 +1107,7 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
         style: {
           '--spacing': `var(--spacing-${rowGap})`,
           ...style,
-        },
+        } as React.CSSProperties,
       }
     : {
         className,
@@ -1119,10 +1119,14 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
           },
           sx,
         ),
+        style,
       }
   const dividerStylingProps = enabled
     ? {
         className: classes.FooterHorizontalDivider,
+        style: {
+          '--spacing': `var(--spacing-${rowGap})`,
+        } as React.CSSProperties,
       }
     : {
         sx: {
@@ -1132,9 +1136,9 @@ const Footer: React.FC<React.PropsWithChildren<PageLayoutFooterProps>> = ({
   const contentStylingProps = enabled
     ? {
         className: classes.FooterContent,
-        sx: {
-          padding: SPACING_MAP[padding],
-        },
+        style: {
+          '--spacing': `var(--spacing-${padding})`,
+        } as React.CSSProperties,
       }
     : {
         sx: {
