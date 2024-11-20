@@ -214,7 +214,7 @@ const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
         'data-variant': responsiveVariant,
         'data-position': position,
         style: {
-          '--spacing': `var(--spacing-${padding})`,
+          '--spacing-divider': `var(--spacing-${padding})`,
           ...style,
         } as React.CSSProperties,
       }
@@ -547,7 +547,7 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
     ? {
         className: classes.HeaderHorizontalDivider,
         style: {
-          '--spacing-divider': `var(--spacing-${rowGap})`,
+          '--spacing': `var(--spacing-${rowGap})`,
         } as React.CSSProperties,
       }
     : {
@@ -931,8 +931,8 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
       ? {
           className: classes.PaneHorizontalDivider,
           style: {
-            '--spacing-divider': `var(--spacing-${rowGap})`,
-          },
+            '--spacing': `var(--spacing-${rowGap})`,
+          } as React.CSSProperties,
         }
       : {
           sx: {
@@ -945,7 +945,7 @@ const Pane = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageLayout
           className: classes.PaneVerticalDivider,
           style: {
             '--spacing': `var(--spacing-${columnGap})`,
-          },
+          } as React.CSSProperties,
         }
       : {
           sx: {
