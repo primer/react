@@ -165,6 +165,7 @@ Root.displayName = 'PageLayout'
 type DividerProps = {
   variant?: 'none' | 'line' | 'filled' | ResponsiveValue<'none' | 'line' | 'filled'>
   className?: string
+  style?: React.CSSProperties
   position?: keyof typeof panePositions
 } & SxProp
 
@@ -200,6 +201,7 @@ const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
   sx = {},
   className,
   position,
+  style,
 }) => {
   const {padding} = React.useContext(PageLayoutContext)
   const responsiveVariant = useResponsiveValue(variant, 'none')
@@ -213,13 +215,14 @@ const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
         'data-position': position,
         style: {
           '--spacing': `var(--spacing-${padding})`,
+          ...style,
         } as React.CSSProperties,
       }
     : {
         sx: (theme: Theme) =>
           merge<BetterSystemStyleObject>(
             {
-              // Stretch divider to viewporwt edges on narrow screens
+              // Stretch divider to viewport edges on narrow screens
               marginX: negateSpacingValue(SPACING_MAP[padding]),
               ...horizontalDividerVariants[responsiveVariant],
               [`@media screen and (min-width: ${theme.breakpoints[1]})`]: {
@@ -229,6 +232,7 @@ const HorizontalDivider: React.FC<React.PropsWithChildren<DividerProps>> = ({
             sx,
           ),
         className,
+        style,
       }
 
   return <Box {...stylingProps} />
@@ -281,6 +285,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
   onDoubleClick,
   position,
   className,
+  style,
   sx = {},
 }) => {
   const [isDragging, setIsDragging] = React.useState(false)
@@ -383,6 +388,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
         className: clsx(classes.VerticalDivider, className),
         'data-variant': responsiveVariant,
         'data-position': position,
+        style,
       }
     : {
         sx: merge<BetterSystemStyleObject>(
@@ -394,6 +400,7 @@ const VerticalDivider: React.FC<React.PropsWithChildren<DividerProps & Draggable
           sx,
         ),
         className,
+        style,
       }
 
   return (
@@ -540,7 +547,7 @@ const Header: React.FC<React.PropsWithChildren<PageLayoutHeaderProps>> = ({
     ? {
         className: classes.HeaderHorizontalDivider,
         style: {
-          '--spacing-divider': `var(--spacing-${padding})`,
+          '--spacing-divider': `var(--spacing-${rowGap})`,
         } as React.CSSProperties,
       }
     : {
