@@ -3,7 +3,23 @@
   "name": "Timeline",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-timeline--default"
+    },
+    {
+      "id": "components-timeline-features--clip-sidebar"
+    },
+    {
+      "id": "components-timeline-features--condensed-items"
+    },
+    {
+      "id": "components-timeline-features--timeline-break"
+    },
+    {
+      "id": "components-timeline-features--with-inline-links"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {

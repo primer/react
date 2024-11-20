@@ -43,6 +43,10 @@ const stories = [
     id: 'components-textarea-features--custom-width',
     title: 'Custom Width',
   },
+  {
+    id: 'components-textarea-dev--dev-default',
+    title: 'Dev Default',
+  },
 ] as const
 
 test.describe('Textarea', () => {

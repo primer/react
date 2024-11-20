@@ -3,7 +3,20 @@
   "name": "Truncate",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-truncate--default"
+    },
+    {
+      "id": "components-truncate-features--expandable"
+    },
+    {
+      "id": "components-truncate-features--inline"
+    },
+    {
+      "id": "components-truncate-features--max-width"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {

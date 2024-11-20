@@ -22,76 +22,83 @@ const isInViewPort = (page: Page, boundingBox: {x: number; y: number; width: num
   )
 }
 
+const stories = [
+  {
+    id: 'components-pagelayout--default',
+    title: 'Default',
+  },
+  {
+    id: 'components-pagelayout-dev--default',
+    title: 'Dev Default',
+  },
+  {
+    id: 'components-pagelayout-features--pull-request-page',
+    title: 'Pull Request Page',
+  },
+  {
+    id: 'components-pagelayout-features--nested-scroll-container',
+    title: 'Nested Scroll Container',
+  },
+  {
+    id: 'components-pagelayout-features--resizable-pane',
+    title: 'Resizable Pane',
+  },
+  {
+    id: 'components-pagelayout-features--scroll-container-within-page-layout-pane',
+    title: 'Scroll Container Within Page Layout Pane',
+  },
+] as const
+
 test.describe('PageLayout', () => {
-  test.describe('Default', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-pagelayout--default',
-            globals: {
-              colorScheme: theme,
-            },
+  for (const story of stories) {
+    test.describe(story.title, () => {
+      for (const theme of themes) {
+        test.describe(theme, () => {
+          test('default @vrt', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+              },
+            })
+
+            // Default state
+            expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
+              `PageLayout.${story.title}.${theme}.png`,
+            )
           })
 
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`PageLayout.Default.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-pagelayout--default',
-            globals: {
-              colorScheme: theme,
-            },
+          test('axe @aat', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
+              },
+            })
+            await expect(page).toHaveNoViolations()
           })
-          await expect(page).toHaveNoViolations()
         })
-      })
-    }
-  })
+      }
+    })
+  }
+})
 
-  test.describe('Pull Request', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-pagelayout-features--pull-request',
-            globals: {
-              colorScheme: theme,
-            },
-          })
+const stickyPaneId = 'components-pagelayout-features--sticky-pane'
 
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`PageLayout.Pull Request.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-pagelayout-features--pull-request',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
+test.describe('PageLayout', () => {
   test.describe('Sticky Pane', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-pagelayout-features--sticky-pane',
+            id: stickyPaneId,
             globals: {
               colorScheme: theme,
             },
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`PageLayout.Sticky Pane.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`PageLayout.StickyPane.${theme}.png`)
 
           const content = page.getByTestId('content3')
           await content.scrollIntoViewIfNeeded()
@@ -104,7 +111,7 @@ test.describe('PageLayout', () => {
 
         test('non sticky pane', async ({page}) => {
           await visit(page, {
-            id: 'components-pagelayout-features--sticky-pane',
+            id: stickyPaneId,
             globals: {
               colorScheme: theme,
             },
@@ -116,7 +123,7 @@ test.describe('PageLayout', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot()
+          expect(await page.screenshot()).toMatchSnapshot(`PageLayout.NonStickyPane.${theme}.png`)
 
           const content3 = page.getByTestId('content3')
           await content3.scrollIntoViewIfNeeded()
@@ -128,7 +135,7 @@ test.describe('PageLayout', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-pagelayout-features--sticky-pane',
+            id: stickyPaneId,
             globals: {
               colorScheme: theme,
             },
@@ -139,40 +146,14 @@ test.describe('PageLayout', () => {
     }
   })
 
-  test.describe('Nested Scroll Container', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-pagelayout-features--nested-scroll-container',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`PageLayout.Nested Scroll Container.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-pagelayout-features--nested-scroll-container',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
+  const customStickyPaneId = 'components-pagelayout-features--custom-sticky-header'
 
   test.describe('Custom Sticky Header', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
         test('default @vrt', async ({page}) => {
           await visit(page, {
-            id: 'components-pagelayout-features--custom-sticky-header',
+            id: customStickyPaneId,
             globals: {
               colorScheme: theme,
             },
@@ -197,65 +178,7 @@ test.describe('PageLayout', () => {
 
         test('axe @aat', async ({page}) => {
           await visit(page, {
-            id: 'components-pagelayout-features--custom-sticky-header',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
-  test.describe('Resizable Pane', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-pagelayout-features--resizable-pane',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`PageLayout.Resizable Pane.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-pagelayout-features--resizable-pane',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
-  test.describe('Scroll Container Within Page Layout Pane', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-pagelayout-features--scroll-container-within-page-layout-pane',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(
-            `PageLayout.Scroll Container Within Page Layout Pane.${theme}.png`,
-          )
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-pagelayout-features--scroll-container-within-page-layout-pane',
+            id: customStickyPaneId,
             globals: {
               colorScheme: theme,
             },
