@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import type {EventName} from '@lit-labs/react'
-import {createComponent as create} from '@lit-labs/react'
+import type {EventName} from '@lit/react'
+import {createComponent as create} from '@lit/react'
 import sx from '../sx'
 
 type EventNames = Record<string, EventName | string>
