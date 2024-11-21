@@ -1,6 +1,7 @@
 import {test, expect} from '@playwright/test'
 import {visit} from '../../test-helpers/storybook'
 import {themes} from '../../test-helpers/themes'
+import {waitForImages} from '../../test-helpers/waitForImages'
 
 const stories: Array<{
   title: string
@@ -49,10 +50,10 @@ test.describe('SelectPanel', () => {
               },
             })
 
-            const buttonText = story.buttonText || 'Assign label'
-
             // Default state
+            const buttonText = story.buttonText || 'Assign label'
             await page.getByText(buttonText).click()
+            await waitForImages(page)
             expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
               `drafts.SelectPanel.${story.title}.${theme}.png`,
             )
@@ -65,7 +66,11 @@ test.describe('SelectPanel', () => {
                 colorScheme: theme,
               },
             })
-            await page.getByText('Assign label').click()
+
+            // Default state
+            const buttonText = story.buttonText || 'Assign label'
+            await page.getByText(buttonText).click()
+            await waitForImages(page)
             await expect(page).toHaveNoViolations()
           })
         })
