@@ -137,7 +137,6 @@ export const HeightInitialWithUnderflowingItemsAfterFetch = () => {
         placeholderText="Filter Labels"
         open={open}
         onOpenChange={onOpenChange}
-        loading={filteredItems.length === 0}
         items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}

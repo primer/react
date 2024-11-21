@@ -1,10 +1,9 @@
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 import type {KeyboardEventHandler} from 'react'
-import React, {useCallback, useEffect, useRef} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
-import Spinner from '../Spinner'
 import type {TextInputProps} from '../TextInput'
 import TextInput from '../TextInput'
 import {get} from '../constants'
@@ -17,6 +16,8 @@ import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
 import {VisuallyHidden} from '../VisuallyHidden'
 import type {SxProp} from '../sx'
+import type {FilteredActionListLoadingType} from './FilteredActionListLoaders'
+import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './FilteredActionListLoaders'
 
 import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
@@ -29,6 +30,7 @@ export interface FilteredActionListProps
     ListPropsBase,
     SxProp {
   loading?: boolean
+  loadingType?: FilteredActionListLoadingType
   placeholderText?: string
   filterValue?: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
@@ -43,6 +45,7 @@ const StyledHeader = styled.div`
 
 export function FilteredActionList({
   loading = false,
+  loadingType = FilteredActionListLoadingTypes.bodySpinner,
   placeholderText,
   filterValue: externalFilterValue,
   onFilterChange,
@@ -65,7 +68,7 @@ export function FilteredActionList({
   )
 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const listContainerRef = useRef<HTMLUListElement>(null)
+  const [listContainerElement, setListContainerElement] = useState<HTMLUListElement | null>(null)
   const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useId()
@@ -84,9 +87,13 @@ export function FilteredActionList({
     [activeDescendantRef],
   )
 
+  const listContainerRefCallback = useCallback((node: HTMLUListElement | null) => {
+    setListContainerElement(node)
+  }, [])
+
   useFocusZone(
     {
-      containerRef: listContainerRef,
+      containerRef: {current: listContainerElement},
       bindKeys: FocusKeys.ArrowVertical | FocusKeys.PageUpDown,
       focusOutBehavior: 'wrap',
       focusableElementFilter: element => {
@@ -102,8 +109,9 @@ export function FilteredActionList({
       },
     },
     [
-      // List ref isn't set while loading.  Need to re-bind focus zone when it changes
-      loading,
+      // List container isn't in the DOM while loading.  Need to re-bind focus zone when it changes
+      // listContainerElement,
+      listContainerElement,
     ],
   )
 
@@ -115,7 +123,7 @@ export function FilteredActionList({
   }, [items])
 
   useScrollFlash(scrollContainerRef)
-  useAnnouncements(items, listContainerRef, inputRef)
+  useAnnouncements(items, {current: listContainerElement}, inputRef)
 
   function getItemListForEachGroup(groupId: string) {
     const itemsInGroup = []
@@ -146,17 +154,24 @@ export function FilteredActionList({
           aria-controls={listId}
           aria-label={placeholderText}
           aria-describedby={inputDescriptionTextId}
+          loaderPosition={'leading'}
+          loading={loading && !loadingType.appearsInBody}
           {...textInputProps}
         />
       </StyledHeader>
       <VisuallyHidden id={inputDescriptionTextId}>Items will be filtered as you type</VisuallyHidden>
-      <Box ref={scrollContainerRef} overflow="auto">
-        {loading ? (
-          <Box width="100%" display="flex" flexDirection="row" justifyContent="center" pt={6} pb={7}>
-            <Spinner />
-          </Box>
+      <Box ref={scrollContainerRef} overflow="auto" display="flex" flexGrow={1}>
+        {loading && scrollContainerRef.current && loadingType.appearsInBody ? (
+          <FilteredActionListBodyLoader loadingType={loadingType} height={scrollContainerRef.current.clientHeight} />
         ) : (
-          <ActionList ref={listContainerRef} showDividers={showItemDividers} {...listProps} role="listbox" id={listId}>
+          <ActionList
+            ref={listContainerRefCallback}
+            showDividers={showItemDividers}
+            {...listProps}
+            role="listbox"
+            id={listId}
+            sx={{flexGrow: 1}}
+          >
             {groupMetadata?.length
               ? groupMetadata.map((group, index) => {
                   return (
@@ -165,13 +180,15 @@ export function FilteredActionList({
                         {group.header?.title ? group.header.title : `Group ${group.groupId}`}
                       </ActionList.GroupHeading>
                       {getItemListForEachGroup(group.groupId).map((item, index) => {
-                        return <MappedActionListItem key={index} {...item} renderItem={listProps.renderItem} />
+                        const key = ('key' in item ? item.key : undefined) ?? item.id?.toString() ?? index.toString()
+                        return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
                       })}
                     </ActionList.Group>
                   )
                 })
               : items.map((item, index) => {
-                  return <MappedActionListItem key={index} {...item} renderItem={listProps.renderItem} />
+                  const key = ('key' in item ? item.key : undefined) ?? item.id?.toString() ?? index.toString()
+                  return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
                 })}
           </ActionList>
         )}

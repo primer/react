@@ -2,19 +2,11 @@
 // on https://github.com/github/multi-select-user-testing
 
 import {announce} from '@primer/live-region-element'
-import {useEffect, useRef} from 'react'
+import {useEffect, useState} from 'react'
 import type {FilteredActionListProps} from './FilteredActionListEntry'
 
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const delayMs = 500
-
-const useFirstRender = () => {
-  const firstRender = useRef(true)
-  useEffect(() => {
-    firstRender.current = false
-  }, [])
-  return firstRender.current
-}
 
 const getItemWithActiveDescendant = (
   listRef: React.RefObject<HTMLUListElement>,
@@ -71,11 +63,17 @@ export const useAnnouncements = (
     },
     [listContainerRef, inputRef, items, liveRegion],
   )
+  const [inputEmptyFirstLoad, setInputEmptyFirstLoad] = useState(true)
 
-  const isFirstRender = useFirstRender()
   useEffect(
     function announceListUpdates() {
-      if (isFirstRender) return // ignore on first render as announceInitialFocus will also announce
+      const inputElement = inputRef.current
+
+      // Does the input element has no value for the first time? Then it is the initial state.
+      if (inputEmptyFirstLoad) {
+        setInputEmptyFirstLoad(!inputElement?.value)
+        return
+      }
 
       liveRegion?.clear() // clear previous announcements
 
@@ -103,6 +101,6 @@ export const useAnnouncements = (
         })
       })
     },
-    [isFirstRender, items, listContainerRef, liveRegion],
+    [items, listContainerRef, liveRegion, inputRef, inputEmptyFirstLoad],
   )
 }
