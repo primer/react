@@ -14,14 +14,38 @@
   "importPath": "@primer/react",
   "props": [
     {
-      "name": "children",
-      "type": "React.ReactNode",
-      "required": true
+      "name": "aria-label",
+      "type": "string",
+      "description": "",
+      "defaultValue": ""
+    },
+    {
+      "name": "aria-labelledby",
+      "type": "string",
+      "description": "",
+      "defaultValue": ""
+    },
+    {
+      "name": "className",
+      "type": "string",
+      "description": "Class name(s) used to customize styles",
+      "defaultValue": ""
     },
     {
       "name": "flat",
       "type": "boolean",
       "description": "Prevents the tree from indenting items. This should only be used when the tree is used to display a flat list of items."
+    },
+    {
+      "name": "truncate",
+      "type": "boolean",
+      "description": "Whether to truncate node text",
+      "defaultValue": "true"
+    },
+    {
+      "name": "children",
+      "type": "React.ReactNode",
+      "required": true
     }
   ],
   "subcomponents": [
@@ -38,6 +62,24 @@
           "type": "string",
           "required": true,
           "description": "A unique identifier for the item."
+        },
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "description": "",
+          "defaultValue": ""
+        },
+        {
+          "name": "className",
+          "type": "string",
+          "description": "Class name(s) used to customize styles",
+          "defaultValue": ""
         },
         {
           "name": "current",
@@ -68,6 +110,12 @@
         {
           "name": "onSelect",
           "type": "(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => void"
+        },
+        {
+          "name": "truncate",
+          "type": "boolean",
+          "defaultValue": "true",
+          "description": "Truncate the item's text content with an ellipsis."
         },
         {
           "name": "ref",
@@ -112,6 +160,13 @@
           "name": "children",
           "required": true,
           "type": "React.ReactNode"
+        },
+        {
+          "name": "label",
+          "type": "string",
+          "required": false,
+          "description": "Provide an accessible label for the visual. This is not necessary for decorative visuals.",
+          "defaultValue": ""
         }
       ]
     },

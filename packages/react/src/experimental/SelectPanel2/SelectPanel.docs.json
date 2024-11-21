@@ -5,15 +5,15 @@
   "status": "draft",
   "a11yReviewed": false,
   "stories": [
-    {"id": "drafts-components-selectpanel-examples--minimal"},
-    {"id": "drafts-components-selectpanel-examples--short-select-panel"},
-    {"id": "drafts-components-selectpanel-features--instant-selection-variant"},
-    {"id": "drafts-components-selectpanel-features--with-warning"},
-    {"id": "drafts-components-selectpanel-examples--open-from-menu"},
-    {"id": "drafts-components-selectpanel-examples--with-groups"},
-    {"id": "drafts-components-selectpanel-examples--async-search-with-use-transition"},
-    {"id": "drafts-components-selectpanel-examples--async-with-suspended-list"},
-    {"id": "drafts-components-selectpanel-examples--with-filter-buttons"}
+    {"id": "experimental-components-selectpanel-examples--minimal"},
+    {"id": "experimental-components-selectpanel-examples--short-select-panel"},
+    {"id": "experimental-components-selectpanel-features--instant-selection-variant"},
+    {"id": "experimental-components-selectpanel-features--with-warning"},
+    {"id": "experimental-components-selectpanel-examples--open-from-menu"},
+    {"id": "experimental-components-selectpanel-examples--with-groups"},
+    {"id": "experimental-components-selectpanel-examples--async-search-with-use-transition"},
+    {"id": "experimental-components-selectpanel-examples--async-with-suspended-list"},
+    {"id": "experimental-components-selectpanel-examples--with-filter-buttons"}
   ],
   "importPath": "@primer/react/experimental",
   "props": [
@@ -22,6 +22,12 @@
       "type": "string",
       "required": true,
       "description": "A descriptive title for the panel"
+    },
+    {
+      "name": "defaultOpen",
+      "type": "boolean",
+      "description": "",
+      "defaultValue": "false"
     },
     {
       "name": "description",
@@ -80,6 +86,12 @@
       "type": "| 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'fit-content'",
       "defaultValue": "'large'",
       "description": "Sets the height of the `Dialog`, pick from our set list of heights, or pass `fit-content` to set the height based on the contents. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`."
+    },
+    {
+      "name": "maxHeight",
+      "type": "'small' | 'large' | 'medium' | 'fit-content' | 'xlarge'",
+      "description": "",
+      "defaultValue": "'large'"
     }
   ],
   "subcomponents": [
@@ -105,6 +117,12 @@
           "name": "children",
           "type": "React.ReactNode",
           "description": "Rendered before the list. Recommended: `SelectPanel.SearchInput`"
+        },
+        {
+          "name": "onBack",
+          "type": "() => void",
+          "description": "",
+          "defaultValue": ""
         }
       ]
     },

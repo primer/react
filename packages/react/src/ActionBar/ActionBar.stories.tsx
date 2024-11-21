@@ -18,7 +18,8 @@ import {
   ReplyIcon,
   ThreeBarsIcon,
 } from '@primer/octicons-react'
-import {Box, Dialog, Button, Avatar, ActionMenu, IconButton, ActionList, Textarea} from '../'
+import {Box, Button, Avatar, ActionMenu, IconButton, ActionList, Textarea} from '../'
+import {Dialog} from '../DialogV1'
 import {Divider} from '../deprecated/ActionList/Divider'
 import mockData from '../experimental/SelectPanel2/mock-story-data'
 
@@ -39,6 +40,14 @@ export const Default = () => (
     <ActionBar.IconButton icon={ListUnorderedIcon} aria-label="Unordered List"></ActionBar.IconButton>
     <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List"></ActionBar.IconButton>
     <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
+  </ActionBar>
+)
+
+export const TextLabels = () => (
+  <ActionBar aria-label="Toolbar">
+    <Button>Edit</Button>
+    <Button>Duplicate</Button>
+    <Button>Export to CSV</Button>
   </ActionBar>
 )
 

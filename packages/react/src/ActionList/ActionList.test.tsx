@@ -586,6 +586,37 @@ describe('ActionList', () => {
     expect(mockOnSelect).toHaveBeenCalledTimes(1)
   })
 
+  it('should not render buttons when feature flag is enabled and is specified role', async () => {
+    const {getByRole} = HTMLRender(
+      <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+        <ActionList>
+          <ActionList.Item role="option">Item 1</ActionList.Item>
+          <ActionList.Item role="menuitem">Item 2</ActionList.Item>
+          <ActionList.Item role="menuitemcheckbox">Item 3</ActionList.Item>
+          <ActionList.Item role="menuitemradio">Item 4</ActionList.Item>
+          <ActionList.Item>Item 5</ActionList.Item>
+        </ActionList>
+      </FeatureFlags>,
+    )
+
+    const option = getByRole('option')
+    expect(option.tagName).toBe('LI')
+    expect(option.textContent).toBe('Item 1')
+
+    const menuItem = getByRole('menuitem')
+    expect(menuItem.tagName).toBe('LI')
+
+    const menuItemCheckbox = getByRole('menuitemcheckbox')
+    expect(menuItemCheckbox.tagName).toBe('LI')
+
+    const menuItemRadio = getByRole('menuitemradio')
+    expect(menuItemRadio.tagName).toBe('LI')
+
+    const button = getByRole('button')
+    expect(button.parentElement?.tagName).toBe('LI')
+    expect(button.textContent).toBe('Item 5')
+  })
+
   it('should be navigatable with arrow keys for certain roles', async () => {
     HTMLRender(
       <ActionList role="listbox" aria-label="Select a project">
@@ -616,5 +647,53 @@ describe('ActionList', () => {
 
     await userEvent.keyboard('{ArrowUp}')
     expect(document.activeElement).toHaveTextContent('Option 4')
+  })
+
+  describe('ActionList.Description', () => {
+    it('should render the description as inline without truncation by default', () => {
+      const {getByText} = HTMLRender(
+        <ActionList>
+          <ActionList.Item>
+            Item 1<ActionList.Description>Item 1 description</ActionList.Description>
+          </ActionList.Item>
+        </ActionList>,
+      )
+
+      const description = getByText('Item 1 description')
+      expect(description.tagName).toBe('SPAN')
+      expect(description).toHaveStyleRule('flex-basis', 'auto')
+      expect(description).not.toHaveStyleRule('overflow', 'ellipsis')
+      expect(description).not.toHaveStyleRule('white-space', 'nowrap')
+    })
+    it('should render the description as `Truncate` when truncate is true', () => {
+      const {getByText} = HTMLRender(
+        <ActionList>
+          <ActionList.Item>
+            Item 1<ActionList.Description truncate>Item 1 description</ActionList.Description>
+          </ActionList.Item>
+        </ActionList>,
+      )
+
+      const description = getByText('Item 1 description')
+      expect(description.tagName).toBe('DIV')
+      expect(description).toHaveAttribute('title', 'Item 1 description')
+      expect(description).toHaveStyleRule('flex-basis', '0')
+      expect(description).toHaveStyleRule('text-overflow', 'ellipsis')
+      expect(description).toHaveStyleRule('overflow', 'hidden')
+      expect(description).toHaveStyleRule('white-space', 'nowrap')
+    })
+    it('should render the description in a new line when variant is block', () => {
+      const {getByText} = HTMLRender(
+        <ActionList>
+          <ActionList.Item>
+            Item 1<ActionList.Description variant="block">Item 1 description</ActionList.Description>
+          </ActionList.Item>
+        </ActionList>,
+      )
+
+      const description = getByText('Item 1 description')
+      expect(description.tagName).toBe('SPAN')
+      expect(description.parentElement).toHaveAttribute('data-component', 'ActionList.Item--DividerContainer')
+    })
   })
 })

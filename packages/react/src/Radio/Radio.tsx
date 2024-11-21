@@ -8,6 +8,11 @@ import {RadioGroupContext} from '../RadioGroup/RadioGroup'
 import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 import {get} from '../constants'
 import {sharedCheckboxAndRadioStyles} from '../internal/utils/sharedCheckboxAndRadioStyles'
+import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
+import {useFeatureFlag} from '../FeatureFlags'
+import {clsx} from 'clsx'
+import classes from './Radio.module.css'
+import sharedClasses from '../Checkbox/shared.module.css'
 
 export type RadioProps = {
   /**
@@ -42,47 +47,63 @@ export type RadioProps = {
 } & InputHTMLAttributes<HTMLInputElement> &
   SxProp
 
-const StyledRadio = styled.input`
-  ${sharedCheckboxAndRadioStyles};
-  border-radius: var(--borderRadius-full, 100vh);
-  transition:
-    background-color,
-    border-color 80ms cubic-bezier(0.33, 1, 0.68, 1); /* checked -> unchecked - add 120ms delay to fully see animation-out */
+const StyledRadio = toggleStyledComponent(
+  'primer_react_css_modules_staff',
+  'input',
+  styled.input`
+    ${sharedCheckboxAndRadioStyles};
+    border-radius: var(--borderRadius-full, 100vh);
+    transition:
+      background-color,
+      border-color 80ms cubic-bezier(0.33, 1, 0.68, 1); /* checked -> unchecked - add 120ms delay to fully see animation-out */
 
-  &:checked {
-    border-width: var(--base-size-4, 4px);
-    border-color: var(
-      --control-checked-bgColor-rest,
-      ${get('colors.accent.fg')}
-    ); /* using bgColor here to avoid a border change in dark high contrast */
-    background-color: var(--control-checked-fgColor-rest, ${get('colors.fg.onEmphasis')});
+    &:checked {
+      border-width: var(--base-size-4, 4px);
+      border-color: var(
+        --control-checked-bgColor-rest,
+        ${get('colors.accent.fg')}
+      ); /* using bgColor here to avoid a border change in dark high contrast */
+      background-color: var(--control-checked-fgColor-rest, ${get('colors.fg.onEmphasis')});
 
-    &:disabled {
-      cursor: not-allowed;
-      border-color: ${get('colors.fg.muted')};
-      background-color: ${get('colors.fg.muted')};
+      &:disabled {
+        cursor: not-allowed;
+        border-color: ${get('colors.fg.muted')};
+        background-color: ${get('colors.fg.muted')};
+      }
     }
-  }
 
-  ${getGlobalFocusStyles()};
+    ${getGlobalFocusStyles()};
 
-  @media (forced-colors: active) {
-    background-color: canvastext;
-    border-color: canvastext;
-  }
+    @media (forced-colors: active) {
+      background-color: canvastext;
+      border-color: canvastext;
+    }
 
-  ${sx}
-`
+    ${sx}
+  `,
+)
 
 /**
  * An accessible, native radio component for selecting one option from a list.
  */
 const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   (
-    {checked, disabled, name: nameProp, onChange, sx: sxProp, required, validationStatus, value, ...rest}: RadioProps,
+    {
+      checked,
+      disabled,
+      name: nameProp,
+      onChange,
+      sx: sxProp,
+      required,
+      validationStatus,
+      value,
+      className,
+      ...rest
+    }: RadioProps,
     ref,
   ): ReactElement => {
     const radioGroupContext = useContext(RadioGroupContext)
+    const enabled = useFeatureFlag('primer_react_css_modules_staff')
     const handleOnChange: ChangeEventHandler<HTMLInputElement> = e => {
       radioGroupContext?.onChange && radioGroupContext.onChange(e)
       onChange && onChange(e)
@@ -110,6 +131,10 @@ const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
         aria-invalid={validationStatus === 'error' ? 'true' : 'false'}
         sx={sxProp}
         onChange={handleOnChange}
+        className={clsx(className, {
+          [sharedClasses.Input]: enabled,
+          [classes.Radio]: enabled,
+        })}
         {...rest}
       />
     )

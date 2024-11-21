@@ -309,3 +309,39 @@ export const CustomItemRenderer = () => {
     </>
   )
 }
+
+export const ItemsInScope = () => {
+  // items are defined in the same scope as selection, so they could rerender and create new object references
+  // We use item.id to track selection
+  // Reported in: https://github.com/primer/react/issues/4315
+  const items = [
+    {text: 'enhancement', id: 1},
+    {text: 'bug', id: 2},
+    {text: 'good first issue', id: 3},
+    {text: 'design', id: 4},
+    {text: 'blocker', id: 5},
+    {text: 'backend', id: 6},
+    {text: 'frontend', id: 7},
+  ]
+
+  const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
+  const [open, setOpen] = useState(false)
+  const [filter, setFilter] = React.useState('')
+  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+
+  return (
+    <>
+      <h1>Items in component scope</h1>
+      <SelectPanel
+        title="Select labels"
+        placeholderText="Filter Labels"
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={setFilter}
+      />
+    </>
+  )
+}

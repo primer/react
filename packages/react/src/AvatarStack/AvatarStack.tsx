@@ -1,5 +1,5 @@
 import {clsx} from 'clsx'
-import React from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import {get} from '../constants'
 import Box from '../Box'
@@ -12,6 +12,8 @@ import {isResponsiveValue} from '../hooks/useResponsiveValue'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import type {WidthOnlyViewportRangeKeys} from '../utils/types/ViewportRangeKeys'
+import {hasInteractiveNodes} from '../internal/utils/hasInteractiveNodes'
+import getGlobalFocusStyles from '../internal/utils/getGlobalFocusStyles'
 
 type StyledAvatarStackWrapperProps = {
   count?: number
@@ -30,6 +32,8 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
   .pc-AvatarStackBody {
     display: flex;
     position: absolute;
+
+    ${getGlobalFocusStyles('1px')}
   }
 
   .pc-AvatarItem {
@@ -130,7 +134,8 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
     .pc-AvatarStackBody {
       flex-direction: row-reverse;
 
-      &:not(.pc-AvatarStack--disableExpand):hover {
+      &:not(.pc-AvatarStack--disableExpand):hover,
+      &:not(.pc-AvatarStack--disableExpand):focus-within {
         .pc-AvatarItem {
           margin-right: ${get('space.1')}!important;
           margin-left: 0 !important;
@@ -143,7 +148,8 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
     }
   }
 
-  .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover {
+  .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):hover,
+  .pc-AvatarStackBody:not(.pc-AvatarStack--disableExpand):focus-within {
     width: auto;
 
     .pc-AvatarItem {
@@ -156,6 +162,8 @@ const AvatarStackWrapper = styled.span<StyledAvatarStackWrapperProps>`
         opacity 0.2s ease-in-out,
         visibility 0.2s ease-in-out,
         box-shadow 0.1s ease-in-out;
+
+      ${getGlobalFocusStyles('1px')}
 
       &:first-child {
         margin-left: 0;
@@ -183,17 +191,31 @@ export type AvatarStackProps = {
   alignRight?: boolean
   disableExpand?: boolean
   size?: number | ResponsiveValue<number>
+  className?: string
   children: React.ReactNode
 } & SxProp
 
-const AvatarStack = ({children, alignRight, disableExpand, size, sx: sxProp = defaultSxProp}: AvatarStackProps) => {
+const AvatarStack = ({
+  children,
+  alignRight,
+  disableExpand,
+  size,
+  className,
+  sx: sxProp = defaultSxProp,
+}: AvatarStackProps) => {
+  const [hasInteractiveChildren, setHasInteractiveChildren] = useState<boolean | undefined>(false)
+  const stackContainer = useRef<HTMLDivElement>(null)
+
   const count = React.Children.count(children)
-  const wrapperClassNames = clsx({
-    'pc-AvatarStack--two': count === 2,
-    'pc-AvatarStack--three': count === 3,
-    'pc-AvatarStack--three-plus': count > 3,
-    'pc-AvatarStack--right': alignRight,
-  })
+  const wrapperClassNames = clsx(
+    {
+      'pc-AvatarStack--two': count === 2,
+      'pc-AvatarStack--three': count === 3,
+      'pc-AvatarStack--three-plus': count > 3,
+      'pc-AvatarStack--right': alignRight,
+    },
+    className,
+  )
   const bodyClassNames = clsx('pc-AvatarStackBody', {
     'pc-AvatarStack--disableExpand': disableExpand,
   })
@@ -238,6 +260,25 @@ const AvatarStack = ({children, alignRight, disableExpand, size, sx: sxProp = de
     )
   }
 
+  useEffect(() => {
+    if (stackContainer.current) {
+      const interactiveChildren = () => {
+        setHasInteractiveChildren(hasInteractiveNodes(stackContainer.current))
+      }
+
+      const observer = new MutationObserver(interactiveChildren)
+
+      observer.observe(stackContainer.current, {childList: true})
+
+      // Call on initial render, then call it again only if there's a mutation
+      interactiveChildren()
+
+      return () => {
+        observer.disconnect()
+      }
+    }
+  }, [])
+
   const getResponsiveAvatarSizeStyles = () => {
     // if there is no size set on the AvatarStack, use the `size` props of the Avatar children to set the `--avatar-stack-size` CSS variable
     if (!size) {
@@ -268,7 +309,14 @@ const AvatarStack = ({children, alignRight, disableExpand, size, sx: sxProp = de
 
   return (
     <AvatarStackWrapper count={count} className={wrapperClassNames} sx={avatarStackSx}>
-      <Box className={bodyClassNames}> {transformChildren(children)}</Box>
+      <Box
+        className={bodyClassNames}
+        tabIndex={!hasInteractiveChildren && !disableExpand ? 0 : undefined}
+        ref={stackContainer}
+      >
+        {' '}
+        {transformChildren(children)}
+      </Box>
     </AvatarStackWrapper>
   )
 }

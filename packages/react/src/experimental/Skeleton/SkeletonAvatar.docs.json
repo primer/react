@@ -3,7 +3,26 @@
   "name": "SkeletonAvatar",
   "status": "draft",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "drafts-components-skeletonavatar--default"
+    },
+    {
+      "id": "drafts-components-skeletonavatar-features--square"
+    },
+    {
+      "id": "drafts-components-skeletonavatar-features--size"
+    },
+    {
+      "id": "drafts-components-skeletonavatar-features--size-responsive"
+    },
+    {
+      "id": "drafts-components-skeletonavatar-features--in-a-stack"
+    },
+    {
+      "id": "drafts-components-skeletonavatar-features--in-an-avatar-pair"
+    }
+  ],
   "importPath": "@primer/react/experimental",
   "props": [
     {

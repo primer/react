@@ -4,7 +4,7 @@ import Pagehead from './Pagehead'
 import Heading from '../Heading'
 
 export default {
-  title: 'Components/Pagehead',
+  title: 'Deprecated/Components/Pagehead',
   component: Pagehead,
 } as Meta<typeof Pagehead>
 

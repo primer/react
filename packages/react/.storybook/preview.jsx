@@ -46,18 +46,69 @@ const preview = {
               ],
             ],
           ],
-          'Experimental',
+          [
+            'Experimental',
+            [
+              [
+                // Match on any story that leads with "Components"
+                'Components',
+                // This is the ordering of stories under "Components", by default
+                // we'll sort alphabetically
+                [
+                  [
+                    '*',
+                    // Within a set of stories, set the order to the following
+                    ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
+                  ],
+                ],
+              ]
+            ]
+          ],
           'Behaviors',
           'Hooks',
-          'Deprecated',
-          'Private',
+          [
+            'Deprecated',
+            [
+              [
+                // Match on any story that leads with "Components"
+                'Components',
+                // This is the ordering of stories under "Components", by default
+                // we'll sort alphabetically
+                [
+                  [
+                    '*',
+                    // Within a set of stories, set the order to the following
+                    ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
+                  ],
+                ],
+              ]
+            ]
+          ],
+          [
+            'Private',
+            [
+              [
+                // Match on any story that leads with "Components"
+                'Components',
+                // This is the ordering of stories under "Components", by default
+                // we'll sort alphabetically
+                [
+                  [
+                    '*',
+                    // Within a set of stories, set the order to the following
+                    ['*', 'Playground', /Playground$/, 'Features', 'Examples'],
+                  ],
+                ],
+              ]
+            ]
+          ],
           '*',
         ]
 
         /**
          * Get the position of an item within a given order. This will return the
          * index if the item is defined in the given array, or the wildcard index
-         * if it is not explicitlyd efined
+         * if it is not explicitly defined
          */
         function getPosition(order, item) {
           const position = order.findIndex(value => {
@@ -171,6 +222,19 @@ const primerThemes = [
   {value: 'dark_high_contrast', left: '🌗', title: 'Dark High Contrast'},
 ]
 
+const defaultFeatureFlags = new Map(DefaultFeatureFlags.flags)
+const featureFlagEnvList = new Set([
+  'PRIMER_REACT_CSS_MODULES_TEAM',
+  'PRIMER_REACT_CSS_MODULES_STAFF',
+  'PRIMER_REACT_CSS_MODULES_GA',
+])
+
+for (const flag of featureFlagEnvList) {
+  if (import.meta.env[`VITE_${flag}`] === '1') {
+    defaultFeatureFlags.set(flag.toLocaleLowerCase(), true)
+  }
+}
+
 export const globalTypes = {
   colorScheme: {
     name: 'Theme',
@@ -187,7 +251,7 @@ export const globalTypes = {
   featureFlags: {
     name: 'Feature flags',
     description: 'Toggle feature flags',
-    defaultValue: Object.fromEntries(DefaultFeatureFlags.flags),
+    defaultValue: Object.fromEntries(defaultFeatureFlags),
   },
 }
 

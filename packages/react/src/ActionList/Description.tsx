@@ -13,18 +13,25 @@ export type ActionListDescriptionProps = {
    * - `"block"` - Secondary text is positioned below primary text.
    */
   variant?: 'inline' | 'block'
+  className?: string
+  /**
+   * Whether the inline description should truncate the text on overflow.
+   */
+  truncate?: boolean
 } & SxProp
 
 export const Description: React.FC<React.PropsWithChildren<ActionListDescriptionProps>> = ({
   variant = 'inline',
   sx = {},
+  className,
+  truncate,
   ...props
 }) => {
   const styles = {
     fontSize: 0,
     lineHeight: '16px',
     flexGrow: 1,
-    flexBasis: 0,
+    flexBasis: variant === 'inline' && !truncate ? 'auto' : 0,
     minWidth: 0,
     marginLeft: variant === 'block' ? 0 : 2,
     color: 'fg.muted',
@@ -35,13 +42,20 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
 
   const {blockDescriptionId, inlineDescriptionId} = React.useContext(ItemContext)
 
-  return variant === 'block' ? (
-    <Box as="span" sx={merge(styles, sx as SxProp)} id={blockDescriptionId} data-component="ActionList.Description">
+  return variant === 'block' || !truncate ? (
+    <Box
+      as="span"
+      sx={merge(styles, sx as SxProp)}
+      id={variant === 'block' ? blockDescriptionId : inlineDescriptionId}
+      className={className}
+      data-component="ActionList.Description"
+    >
       {props.children}
     </Box>
   ) : (
     <Truncate
       id={inlineDescriptionId}
+      className={className}
       sx={merge(styles, sx as SxProp)}
       title={props.children as string}
       inline={true}

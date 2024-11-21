@@ -3,7 +3,26 @@
   "name": "RadioGroup",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-radiogroup--default"
+    },
+    {
+      "id": "components-radiogroup-features--visually-hidden-label"
+    },
+    {
+      "id": "components-radiogroup-features--with-external-label"
+    },
+    {
+      "id": "components-radiogroup-features--error"
+    },
+    {
+      "id": "components-radiogroup-features--success"
+    },
+    {
+      "id": "components-radiogroup-features--caption"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {
@@ -72,7 +91,7 @@
       ]
     },
     {
-      "name": "RadioGroup.Description",
+      "name": "RadioGroup.Caption",
       "props": [
         {
           "name": "children",

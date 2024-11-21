@@ -6,16 +6,22 @@
   "importPath": "@primer/react/experimental",
   "stories": [
     {
-      "id": "drafts-components-inlinemessage-features--critical"
+      "id": "components-inlinemessage--default"
     },
     {
-      "id": "drafts-components-inlinemessage-features--success"
+      "id": "components-inlinemessage-features--critical"
     },
     {
-      "id": "drafts-components-inlinemessage-features--unavailable"
+      "id": "components-inlinemessage-features--success"
     },
     {
-      "id": "drafts-components-inlinemessage-features--warning"
+      "id": "components-inlinemessage-features--unavailable"
+    },
+    {
+      "id": "components-inlinemessage-features--warning"
+    },
+    {
+      "id": "components-inlinemessage-features--multiline"
     }
   ],
   "props": [

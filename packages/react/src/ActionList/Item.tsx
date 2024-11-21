@@ -24,6 +24,14 @@ import VisuallyHidden from '../_VisuallyHidden'
 
 const LiBox = styled.li<SxProp>(sx)
 
+const ButtonItemContainer = React.forwardRef(({as: Component = 'button', children, styles, ...props}, forwardedRef) => {
+  return (
+    <Box as={Component as React.ElementType} ref={forwardedRef} sx={styles} {...props}>
+      {children}
+    </Box>
+  )
+}) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>
+
 export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
   (
     {
@@ -112,7 +120,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const itemSelectionAttribute = selectionAttribute || inferredSelectionAttribute
     // Ensures ActionList.Item retains list item semantics if a valid ARIA role is applied, or if item is inactive
-    const listSemantics = listRole === 'listbox' || listRole === 'menu' || inactive || container === 'NavList'
+    const listItemSemantics =
+      role === 'option' || role === 'menuitem' || role === 'menuitemradio' || role === 'menuitemcheckbox'
+
+    const listRoleTypes = ['listbox', 'menu', 'list']
+    const listSemantics =
+      (listRole && listRoleTypes.includes(listRole)) || inactive || container === 'NavList' || listItemSemantics
     const buttonSemantics = !listSemantics && !_PrivateItemWrapper && buttonSemanticsFeatureFlag
 
     const {theme} = useTheme()
@@ -134,7 +147,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const hoverStyles = {
       '@media (hover: hover) and (pointer: fine)': {
-        ':hover:not([aria-disabled]):not([data-inactive])': {
+        '&:hover:not([aria-disabled]):not([data-inactive])': {
           backgroundColor: `actionListItem.${variant}.hoverBg`,
           color: getVariantStyles(variant, disabled, inactive).hoverColor,
           boxShadow: `inset 0 0 0 max(1px, 0.0625rem) ${theme?.colors.actionListItem.default.activeBorder}`,
@@ -144,7 +157,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           border: `2 solid`,
           boxShadow: `0 0 0 2px ${theme?.colors.accent.emphasis}`,
         },
-        ':active:not([aria-disabled]):not([data-inactive])': {
+        '&:active:not([aria-disabled]):not([data-inactive])': {
           backgroundColor: `actionListItem.${variant}.activeBg`,
           color: getVariantStyles(variant, disabled, inactive).hoverColor,
         },
@@ -232,7 +245,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
       /** Active styles */
       ...(active ? activeStyles : {}), // NavList
-      '&[data-is-active-descendant]': activeStyles, // SelectPanel
+      '&[data-is-active-descendant]': {...activeStyles, fontWeight: 'normal'}, // SelectPanel
 
       ...(!buttonSemantics ? hoverStyles : {}),
     }
@@ -268,22 +281,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const trailingVisualId = `${itemId}--trailing-visual`
     const inactiveWarningId = inactive && !showInactiveIndicator ? `${itemId}--warning-message` : undefined
 
-    const ButtonItemWrapper = React.forwardRef(({as: Component = 'button', children, ...props}, forwardedRef) => {
-      return (
-        <Box
-          as={Component as React.ElementType}
-          sx={merge<BetterSystemStyleObject>(styles, sxProp)}
-          ref={forwardedRef}
-          {...props}
-        >
-          {children}
-        </Box>
-      )
-    }) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>
-
     let DefaultItemWrapper = React.Fragment
     if (buttonSemanticsFeatureFlag) {
-      DefaultItemWrapper = listSemantics ? React.Fragment : ButtonItemWrapper
+      DefaultItemWrapper = listSemantics ? React.Fragment : ButtonItemContainer
     }
 
     const ItemWrapper = _PrivateItemWrapper || DefaultItemWrapper
@@ -392,7 +392,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                       flexGrow: slots.inlineDescription ? 0 : 1,
                       fontWeight: slots.inlineDescription || slots.blockDescription || active ? 'bold' : 'normal',
                       marginBlockEnd: slots.blockDescription ? '4px' : undefined,
-                      wordBreak: 'break-word',
+                      wordBreak: slots.inlineDescription ? 'normal' : 'break-word',
                     }}
                   >
                     {childrenWithoutSlots}
