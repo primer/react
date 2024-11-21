@@ -71,7 +71,7 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
   if (enabled) {
     return (
       <VisualContainer className={className}>
-        <div data-component="ActionList.Checkbox" />
+        <div className={classes.MultiSelectCheckbox} />
       </VisualContainer>
     )
   }
