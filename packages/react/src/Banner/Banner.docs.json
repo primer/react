@@ -1,10 +1,53 @@
 {
   "id": "banner",
   "name": "Banner",
-  "status": "draft",
+  "status": "alpha",
   "a11yReviewed": true,
   "importPath": "@primer/react/experimental",
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-banner--default"
+    },
+    {
+      "id": "components-banner-features--critical"
+    },
+    {
+      "id": "components-banner-features--info"
+    },
+    {
+      "id": "components-banner-features--success"
+    },
+    {
+      "id": "components-banner-features--upsell"
+    },
+    {
+      "id": "components-banner-features--warning"
+    },
+    {
+      "id": "components-banner-features--dismiss"
+    },
+    {
+      "id": "components-banner-features--dismiss-with-actions"
+    },
+    {
+      "id": "components-banner-features--with-hidden-title"
+    },
+    {
+      "id": "components-banner-features--with-hidden-title-and-actions"
+    },
+    {
+      "id": "components-banner-features--dismissible-with-hidden-title-and-actions"
+    },
+    {
+      "id": "components-banner-features--dismissible-with-hidden-title-and-secondary-action"
+    },
+    {
+      "id": "components-banner-features--with-actions"
+    },
+    {
+      "id": "components-banner-features--custom-icon"
+    }
+  ],
   "props": [
     {
       "name": "aria-label",
@@ -69,15 +112,30 @@
     },
     {
       "name": "Banner.Description",
-      "props": []
+      "props": [
+        {
+          "name": "className",
+          "type": "string",
+          "description": "Class name(s) for custom styling.",
+          "defaultValue": ""
+        }
+      ]
     },
     {
       "name": "Banner.PrimaryAction",
-      "props": []
+      "props": [],
+      "passthrough": {
+        "element": "Button",
+        "url": "/react/Button"
+      }
     },
     {
       "name": "Banner.SecondaryAction",
-      "props": []
+      "props": [],
+      "passthrough": {
+        "element": "Button",
+        "url": "/react/Button"
+      }
     }
   ]
 }

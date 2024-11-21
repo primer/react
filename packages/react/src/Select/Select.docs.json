@@ -3,7 +3,44 @@
   "name": "Select",
   "status": "alpha",
   "a11yReviewed": true,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-select--default"
+    },
+    {
+      "id": "components-select-features--with-option-groups"
+    },
+    {
+      "id": "components-select-features--disabled"
+    },
+    {
+      "id": "components-select-features--with-caption"
+    },
+    {
+      "id": "components-select-features--visually-hidden-label"
+    },
+    {
+      "id": "components-select-features--error"
+    },
+    {
+      "id": "components-select-features--success"
+    },
+    {
+      "id": "components-select-features--block"
+    },
+    {
+      "id": "components-select-features--small"
+    },
+    {
+      "id": "components-select-features--large"
+    },
+    {
+      "id": "components-select-features--with-custom-styling"
+    },
+    {
+      "id": "components-select-features--with-placeholder-option"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {
