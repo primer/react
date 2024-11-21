@@ -3,7 +3,29 @@
   "name": "Flash",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-flash--default"
+    },
+    {
+      "id": "components-flash-features--success"
+    },
+    {
+      "id": "components-flash-features--danger"
+    },
+    {
+      "id": "components-flash-features--warning"
+    },
+    {
+      "id": "components-flash-features--full"
+    },
+    {
+      "id": "components-flash-features--with-icon-and-action"
+    },
+    {
+      "id": "components-flash-features--with-icon-action-dismiss"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {
