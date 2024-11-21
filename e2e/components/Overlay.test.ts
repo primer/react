@@ -110,7 +110,7 @@ test.describe('Overlay ', () => {
               },
             })
 
-            // await story.setup(page)
+            await story.setup(page)
 
             // Default state
             expect(await page.screenshot()).toMatchSnapshot(`Overlay.${story.title}.${theme}.png`)
@@ -123,7 +123,7 @@ test.describe('Overlay ', () => {
                 colorScheme: theme,
               },
             })
-            // await story.setup(page)
+            await story.setup(page)
 
             await expect(page).toHaveNoViolations()
           })
