@@ -1,7 +1,7 @@
 import path from 'node:path'
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
-import babel from '@rollup/plugin-babel'
+import {babel} from '@rollup/plugin-babel'
 import replace from '@rollup/plugin-replace'
 import terser from '@rollup/plugin-terser'
 import {visualizer} from 'rollup-plugin-visualizer'
@@ -42,7 +42,7 @@ const ESM_ONLY = new Set([
   '@github/paste-markdown',
   '@github/relative-time-element',
   '@github/tab-container-element',
-  '@lit-labs/react',
+  '@lit/react',
   '@oddbird/popover-polyfill',
 ])
 const dependencies = [
