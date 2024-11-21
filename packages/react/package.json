@@ -80,7 +80,7 @@
   "dependencies": {
     "@github/relative-time-element": "^4.4.3",
     "@github/tab-container-element": "^4.8.0",
-    "@lit-labs/react": "1.2.1",
+    "@lit/react": "^1.0.6",
     "@oddbird/popover-polyfill": "^0.4.4",
     "@primer/behaviors": "^1.7.2",
     "@primer/live-region-element": "^0.7.1",

@@ -3,7 +3,11 @@
   "name": "Popover",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-popover--default"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {
