@@ -2,4 +2,4 @@
 "@primer/react": minor
 ---
 
-Convert SelectPanel2 to CSS modules behind feature flag
+Convert SelectPanel2 to CSS modules
