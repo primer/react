@@ -307,7 +307,7 @@ export const Playground = (args: Args) => {
           width={args.width}
           height={args.height}
           aria-modal={args.role === 'dialog'}
-          aria-label={args.role === 'list' ? 'Sample overlay' : undefined}
+          aria-label={args.role === 'dialog' ? 'Sample overlay' : undefined}
           ref={containerRef}
           {...args}
         >
