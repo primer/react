@@ -6,13 +6,13 @@ import {
   Button,
   IconButton,
   Heading,
+  Box,
   TextInput,
   Spinner,
   Text,
   Link,
   Checkbox,
   useFormControlForwardedProps,
-  Box,
 } from '../../index'
 import Octicon from '../../Octicon'
 import {ActionListContainerContext} from '../../ActionList/ActionListContainerContext'
@@ -25,10 +25,10 @@ import {invariant} from '../../utils/invariant'
 import {AriaStatus} from '../../live-region'
 import {useResponsiveValue} from '../../hooks/useResponsiveValue'
 import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
-
-import classes from './SelectPanel.module.css'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../../FeatureFlags'
+
+import classes from './SelectPanel.module.css'
 
 const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
 
@@ -258,16 +258,6 @@ const Panel: React.FC<SelectPanelProps> = ({
         height="fit-content"
         maxHeight={maxHeight}
         data-variant={currentVariant}
-        style={
-          enabled
-            ? ({
-                '--max-height': maxHeightValue,
-                '--position-top': `${position?.top ?? 0}px`,
-                '--position-left': `${position?.left ?? 0}px`,
-              } as React.CSSProperties)
-            : undefined
-        }
-        className={enabled ? classes.Overlay : undefined}
         sx={
           enabled
             ? undefined
@@ -313,6 +303,16 @@ const Panel: React.FC<SelectPanelProps> = ({
                 },
               }
         }
+        style={
+          enabled
+            ? ({
+                '--max-height': maxHeightValue,
+                '--position-top': `${position?.top ?? 0}px`,
+                '--position-left': `${position?.left ?? 0}px`,
+              } as React.CSSProperties)
+            : undefined
+        }
+        className={enabled ? classes.Overlay : undefined}
         {...props}
         onClick={event => {
           if (event.target === event.currentTarget) onClickOutside()
