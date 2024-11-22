@@ -79,12 +79,14 @@ export const DropdownOverlay = ({anchorSide}: OverlayProps) => {
           role="none"
         >
           <ActionList role="menu">
-            <ActionList.Item>Copy link</ActionList.Item>
-            <ActionList.Item>Quote reply</ActionList.Item>
-            <ActionList.Item>Reference in new issue</ActionList.Item>
-            <ActionList.Item>Edit</ActionList.Item>
+            <ActionList.Item role="menuitem">Copy link</ActionList.Item>
+            <ActionList.Item role="menuitem">Quote reply</ActionList.Item>
+            <ActionList.Item role="menuitem">Reference in new issue</ActionList.Item>
+            <ActionList.Item role="menuitem">Edit</ActionList.Item>
             <ActionList.Divider />
-            <ActionList.Item variant="danger">Delete</ActionList.Item>
+            <ActionList.Item variant="danger" role="menuitem">
+              Delete
+            </ActionList.Item>
           </ActionList>
         </Overlay>
       ) : null}
@@ -256,7 +258,12 @@ export const MemexNestedOverlays = ({role}: OverlayProps) => {
           ref={containerRef}
           preventOverflow={false}
         >
-          <Box as="form" onSubmit={() => setOverlayOpen(false)} sx={{display: 'flex', flexDirection: 'column', py: 2}}>
+          <Box
+            as="form"
+            onSubmit={() => setOverlayOpen(false)}
+            sx={{display: 'flex', flexDirection: 'column', py: 2}}
+            aria-label="Set Duration Form"
+          >
             <Box sx={{paddingX: 3, display: 'flex', alignItems: 'center', gap: 1}}>
               <Text color="fg.muted" sx={{fontSize: 1}}>
                 Duration:
@@ -383,7 +390,7 @@ export const NestedOverlays = ({role}: OverlayProps) => {
               aria-label={role === 'dialog' ? 'Create a list' : undefined}
               ref={secondaryContainer}
             >
-              <Box as="form" sx={{display: 'flex', flexDirection: 'column', p: 3}}>
+              <Box as="form" sx={{display: 'flex', flexDirection: 'column', p: 3}} aria-label="Set Duration Form">
                 <Text color="fg.muted" sx={{fontSize: 1, mb: 3}}>
                   Create a list to organize your starred repositories.
                 </Text>
