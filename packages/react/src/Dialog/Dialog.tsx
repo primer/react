@@ -31,7 +31,7 @@ import {clsx} from 'clsx'
  */
 export type DialogButtonProps = Omit<ButtonProps, 'content'> & {
   /**
-   * The type of Button element to use
+   * The variant of Button to use
    */
   buttonType?: 'default' | 'primary' | 'danger' | 'normal'
 
