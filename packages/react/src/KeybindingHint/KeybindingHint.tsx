@@ -3,29 +3,41 @@ import {memo} from 'react'
 import Text from '../Text'
 import type {KeybindingHintProps} from './props'
 import {accessibleSequenceString, Sequence} from './components/Sequence'
+import {useFeatureFlag} from '../FeatureFlags'
+
+import classes from './KeybindingHint.module.css'
 
 /** `kbd` element with style resets. */
-const Kbd = ({children}: {children: ReactNode}) => (
-  <Text
-    as={'kbd' as 'span'}
-    sx={{
-      color: 'inherit',
-      fontFamily: 'inherit',
-      fontSize: 'inherit',
-      border: 'none',
-      background: 'none',
-      boxShadow: 'none',
-      p: 0,
-      lineHeight: 'unset',
-      position: 'relative',
-      overflow: 'visible',
-      verticalAlign: 'baseline',
-      textWrap: 'nowrap',
-    }}
-  >
-    {children}
-  </Text>
-)
+const Kbd = ({children}: {children: ReactNode}) => {
+  const enabled = useFeatureFlag('primer_react_css_modules_team')
+
+  return (
+    <Text
+      as={'kbd' as 'span'}
+      className={enabled ? classes.KeybindingHint : undefined}
+      sx={
+        enabled
+          ? undefined
+          : {
+              color: 'inherit',
+              fontFamily: 'inherit',
+              fontSize: 'inherit',
+              border: 'none',
+              background: 'none',
+              boxShadow: 'none',
+              p: 0,
+              lineHeight: 'unset',
+              position: 'relative',
+              overflow: 'visible',
+              verticalAlign: 'baseline',
+              textWrap: 'nowrap',
+            }
+      }
+    >
+      {children}
+    </Text>
+  )
+}
 
 /** Indicates the presence of an available keybinding. */
 // KeybindingHint is a good candidate for memoizing since props will rarely change
