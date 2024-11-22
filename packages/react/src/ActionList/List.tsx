@@ -78,7 +78,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
               role={listRole}
               aria-labelledby={ariaLabelledBy}
               ref={listRef}
-              data-dividers={showDividers ? '' : undefined}
+              data-dividers={showDividers}
               data-variant={variant}
               {...props}
             >
@@ -90,7 +90,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
               role={listRole}
               aria-labelledby={ariaLabelledBy}
               ref={listRef}
-              data-dividers={showDividers ? '' : undefined}
+              data-dividers={showDividers}
               data-variant={variant}
               {...props}
             >

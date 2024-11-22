@@ -63,7 +63,7 @@
     padding: var(--base-size-8);
   }
 
-  &:where([data-dividers]) {
+  &:where([data-dividers='true']) {
     & .ItemLabel::before {
       position: absolute;
       /* stylelint-disable-next-line primer/spacing */
@@ -77,7 +77,7 @@
     }
 
     /* if inline description, move pseudo divider to wrapper */
-    & [data-description='inline'] {
+    & [data-description-variant='inline'] {
       &::before {
         position: absolute;
         /* stylelint-disable-next-line primer/spacing */
@@ -98,13 +98,13 @@
 
     /* hide if item is first of type with label::before, or is the first item after a sectionDivider */
     .ActionListItem:first-of-type .ItemLabel::before,
-    .ActionList-sectionDivider + .ActionListItem .ItemLabel::before {
+    .Divider + .ActionListItem .ItemLabel::before {
       visibility: hidden;
     }
 
     /* hide if item is first of type with label::before, or is the first item after a sectionDivider */
-    .ActionListItem:first-of-type [data-description='inline']::before,
-    .ActionList-sectionDivider + .ActionListItem [data-description='inline']::before {
+    .ActionListItem:first-of-type [data-description-variant='inline']::before,
+    .Divider + .ActionListItem [data-description-variant='inline']::before {
       visibility: hidden;
     }
   }
@@ -130,6 +130,12 @@
   background-color: var(--control-transparent-bgColor-rest);
   border-radius: var(--borderRadius-medium);
 
+  &:has(.TrailingAction) {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
   /* state */
 
   &:hover,
@@ -145,15 +151,45 @@
         visibility: hidden;
       }
 
-      & [data-description='inline']::before,
-      & + .ActionListItem [data-description='inline']::before {
+      & [data-description-variant='inline']::before,
+      & + .ActionListItem [data-description-variant='inline']::before {
         visibility: hidden;
       }
     }
   }
 
+  @media (hover: hover) {
+    &:hover {
+      cursor: pointer;
+      background-color: var(--control-transparent-bgColor-hover);
+
+      &:not([data-active], :focus-visible) {
+        /* Support for "Windows high contrast mode" */
+        outline: solid var(--borderWidth-thin) transparent;
+        outline-offset: calc(-1 * var(--borderWidth-thin));
+        box-shadow: var(--boxShadow-thin) var(--control-transparent-borderColor-active);
+      }
+    }
+  }
+
+  &:active {
+    background: var(--control-transparent-bgColor-active);
+
+    &:not([data-active]) {
+      /* Support for "Windows high contrast mode" https:sarahmhigley.com/writing/whcm-quick-tips/ */
+      outline: solid var(--borderWidth-thin) transparent;
+      outline-offset: calc(-1 * var(--borderWidth-thin));
+      box-shadow: var(--boxShadow-thin) var(--control-transparent-borderColor-active);
+    }
+
+    & .ItemLabel::before,
+    & + .ActionListItem .ItemLabel::before {
+      visibility: hidden;
+    }
+  }
+
   /* Make sure that the first visible item isn't a divider */
-  &[hidden] + .ActionList-sectionDivider {
+  &[hidden] + .Divider {
     display: none;
   }
 
@@ -179,36 +215,6 @@
   &:not(.ActionListItem--hasSubItem),
    /* target contents of first child li if sub-item (li wraps item label + nested ul) */
   &.ActionListItem--hasSubItem > .ActionListContent {
-    @media (hover: hover) {
-      &:hover {
-        cursor: pointer;
-        background-color: var(--control-transparent-bgColor-hover);
-        background-color: pink;
-
-        &:not([data-active], :focus-visible) {
-          /* Support for "Windows high contrast mode" */
-          outline: solid var(--borderWidth-thin) transparent;
-          outline-offset: calc(-1 * var(--borderWidth-thin));
-          box-shadow: var(--boxShadow-thin) var(--control-transparent-borderColor-active);
-        }
-      }
-    }
-
-    &:active {
-      background: var(--control-transparent-bgColor-active);
-
-      &:not([data-active]) {
-        /* Support for "Windows high contrast mode" https:sarahmhigley.com/writing/whcm-quick-tips/ */
-        outline: solid var(--borderWidth-thin) transparent;
-        outline-offset: calc(-1 * var(--borderWidth-thin));
-        box-shadow: var(--boxShadow-thin) var(--control-transparent-borderColor-active);
-      }
-
-      & .ItemLabel::before,
-      & + .ActionListItem .ItemLabel::before {
-        visibility: hidden;
-      }
-    }
   }
 
   /* Autocomplete [aria-selected] items */
@@ -282,15 +288,12 @@
       & .Description,
       & .VisualWrap {
         color: var(--control-fgColor-disabled);
-        color: red;
       }
     }
 
     &:hover {
-      & .ActionListContent {
-        cursor: not-allowed;
-        background-color: transparent;
-      }
+      cursor: not-allowed;
+      background-color: transparent;
     }
   }
 
@@ -318,16 +321,36 @@
       }
     }
 
-    & .ActionListContent {
-      &:active {
-        background: var(--control-danger-bgColor-active);
+    &:active {
+      background: var(--control-danger-bgColor-active);
 
-        & .ItemLabel,
-        & .VisualWrap,
-        & .Description {
-          color: var(--control-danger-fgColor-hover);
-        }
+      & .ItemLabel,
+      & .VisualWrap,
+      & .Description {
+        color: var(--control-danger-fgColor-hover);
       }
+    }
+  }
+
+  /* inactive */
+  &[data-inactive] {
+    & .ItemLabel {
+      color: var(--fgColor-muted);
+    }
+
+    & .VisualWrap {
+      color: var(--fgColor-muted);
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        cursor: not-allowed;
+        background: transparent;
+      }
+    }
+
+    &:active {
+      background: transparent;
     }
   }
 
@@ -572,14 +595,20 @@
   & .ItemLabel {
     font-weight: var(--base-text-weight-semibold);
   }
-}
 
-/* inline */
-[data-description='inline'] {
-  position: relative;
-  flex-direction: row;
-  align-items: baseline;
-  gap: var(--base-size-8);
+  /* inline */
+  &[data-description-variant='inline'] {
+    position: relative;
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--base-size-8);
+
+    & .Description {
+      /* adjust line-height for baseline alignment */
+      /* stylelint-disable-next-line primer/typography */
+      line-height: calc(var(--control-medium-lineBoxHeight) - var(--base-size-2));
+    }
+  }
 }
 
 /* description */
@@ -653,9 +682,7 @@
   }
 }
 
-/* ActionList::Divider */
-
-.ActionList-sectionDivider {
+.Divider {
   /* no children */
   &:empty {
     display: block;
@@ -672,7 +699,17 @@
   }
 }
 
-.WhatIsThis {
+.InactiveButtonWrap {
+  &:has(.TrailingVisual) {
+    grid-area: trailingVisual;
+  }
+
+  &:has(.LeadingVisual) {
+    grid-area: leadingVisual;
+  }
+}
+
+.InactiveButtonReset {
   display: flex;
   padding: 0;
   font: inherit;

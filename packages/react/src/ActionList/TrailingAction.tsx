@@ -19,14 +19,46 @@ type ElementProps =
 export type ActionListTrailingActionProps = ElementProps & {
   icon?: React.ElementType
   label: string
+  className?: string
 }
 
-export const TrailingAction = forwardRef(({as = 'button', icon, label, href = null, ...props}, forwardedRef) => {
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
+export const TrailingAction = forwardRef(
+  ({as = 'button', icon, label, href = null, className, ...props}, forwardedRef) => {
+    const enabled = useFeatureFlag('primer_react_css_modules_team')
 
-  if (enabled) {
+    if (enabled) {
+      return (
+        <span className={clsx(className, classes.TrailingAction)}>
+          {icon ? (
+            <IconButton
+              as={as}
+              aria-label={label}
+              icon={icon}
+              variant="invisible"
+              tooltipDirection="w"
+              href={href}
+              // @ts-expect-error StyledButton wants both Anchor and Button refs
+              ref={forwardedRef}
+              {...props}
+            />
+          ) : (
+            // @ts-expect-error shhh
+            <Button variant="invisible" as={as} href={href} ref={forwardedRef} {...props}>
+              {label}
+            </Button>
+          )}
+        </span>
+      )
+    }
+
     return (
-      <span className={classes.TrailingAction}>
+      <Box
+        as="span"
+        data-component="ActionList.TrailingAction"
+        sx={{
+          flexShrink: 0,
+        }}
+      >
         {icon ? (
           <IconButton
             as={as}
@@ -45,38 +77,9 @@ export const TrailingAction = forwardRef(({as = 'button', icon, label, href = nu
             {label}
           </Button>
         )}
-      </span>
+      </Box>
     )
-  }
-
-  return (
-    <Box
-      as="span"
-      data-component="ActionList.TrailingAction"
-      sx={{
-        flexShrink: 0,
-      }}
-    >
-      {icon ? (
-        <IconButton
-          as={as}
-          aria-label={label}
-          icon={icon}
-          variant="invisible"
-          tooltipDirection="w"
-          href={href}
-          // @ts-expect-error StyledButton wants both Anchor and Button refs
-          ref={forwardedRef}
-          {...props}
-        />
-      ) : (
-        // @ts-expect-error shhh
-        <Button variant="invisible" as={as} href={href} ref={forwardedRef} {...props}>
-          {label}
-        </Button>
-      )}
-    </Box>
-  )
-}) as PolymorphicForwardRefComponent<'button' | 'a', ActionListTrailingActionProps>
+  },
+) as PolymorphicForwardRefComponent<'button' | 'a', ActionListTrailingActionProps>
 
 TrailingAction.displayName = 'ActionList.TrailingAction'

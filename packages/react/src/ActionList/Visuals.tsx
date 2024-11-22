@@ -170,13 +170,15 @@ export const VisualOrIndicator: React.FC<
   }
 
   return inactiveText ? (
-    <Tooltip text={inactiveText} type="label">
-      <button type="button" className={classes.WhatIsThis} aria-describedby={labelId}>
-        <VisualComponent>
-          <AlertIcon />
-        </VisualComponent>
-      </button>
-    </Tooltip>
+    <span className={classes.InactiveButtonWrap}>
+      <Tooltip text={inactiveText} type="label">
+        <button type="button" className={classes.InactiveButtonReset} aria-describedby={labelId}>
+          <VisualComponent>
+            <AlertIcon />
+          </VisualComponent>
+        </button>
+      </Tooltip>
+    </span>
   ) : (
     <VisualComponent className={className}>
       <Spinner size="small" />

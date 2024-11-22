@@ -100,6 +100,7 @@ export const ItemPlayground = args => {
         {leadingVisual && <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>}
         Action list item
         {trailingVisual && <ActionList.TrailingVisual>{trailingVisual}</ActionList.TrailingVisual>}
+        <ActionList.TrailingAction label="Expand sidebar" icon={ArrowLeftIcon} />
       </ActionList.Item>
     </ActionList>
   )

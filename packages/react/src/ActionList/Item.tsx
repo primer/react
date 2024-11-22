@@ -414,6 +414,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
             ref={!buttonSemanticsFeatureFlag || listSemantics ? forwardedRef : null}
             data-variant={variant === 'danger' ? variant : undefined}
             data-active={active ? true : undefined}
+            data-inactive={inactiveText ? true : undefined}
             {...containerProps}
           >
             <ItemWrapper {...wrapperProps} className={classes.ActionListContent}>
@@ -455,6 +456,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               }
             </ItemWrapper>
             {!inactive && !loading && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}
+            {/* {slots.trailingAction} */}
           </li>
         </ItemContext.Provider>
       )
