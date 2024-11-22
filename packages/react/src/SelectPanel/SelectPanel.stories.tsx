@@ -7,10 +7,12 @@ import {Button} from '../Button'
 import {SelectPanel} from '../SelectPanel'
 import type {ItemInput} from '../deprecated/ActionList/List'
 
-export default {
+const meta = {
   title: 'Components/SelectPanel',
   component: SelectPanel,
-} as Meta<typeof SelectPanel>
+} satisfies Meta<typeof SelectPanel>
+
+export default meta
 
 function getColorCircle(color: string) {
   return function () {
@@ -31,20 +33,20 @@ function getColorCircle(color: string) {
   }
 }
 
-const items = [
-  {leadingVisual: getColorCircle('#a2eeef'), text: 'enhancement', id: 1},
-  {leadingVisual: getColorCircle('#d73a4a'), text: 'bug', id: 2},
-  {leadingVisual: getColorCircle('#0cf478'), text: 'good first issue', id: 3},
+const items: ItemInput[] = [
+  {leadingVisual: getColorCircle('#a2eeef'), text: 'enhancement', description: 'New feature or request', id: 1},
+  {leadingVisual: getColorCircle('#d73a4a'), text: 'bug', description: "Something isn't working", id: 2},
+  {leadingVisual: getColorCircle('#0cf478'), text: 'good first issue', description: 'Good for newcomers', id: 3},
   {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: 4},
   {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5},
   {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6},
   {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7},
-]
+].map(item => ({...item, descriptionVariant: 'block'}))
 
 export const Default = () => {
   const [selected, setSelected] = React.useState<ItemInput[]>([items[0], items[1]])
   const [filter, setFilter] = React.useState('')
-  const filteredItems = items.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase()))
+  const filteredItems = items.filter(item => item.text?.toLowerCase().startsWith(filter.toLowerCase()))
   const [open, setOpen] = useState(false)
 
   return (
@@ -63,15 +65,12 @@ export const Default = () => {
             {children ?? 'Select Labels'}
           </Button>
         )}
-        placeholderText="Filter labels"
         open={open}
         onOpenChange={setOpen}
         items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
         onFilterChange={setFilter}
-        showItemDividers={true}
-        overlayProps={{width: 'small', height: 'xsmall'}}
       />
     </>
   )

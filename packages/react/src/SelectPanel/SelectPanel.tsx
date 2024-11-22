@@ -9,14 +9,15 @@ import {FilteredActionList} from '../FilteredActionList'
 import Heading from '../Heading'
 import type {OverlayProps} from '../Overlay'
 import type {TextInputProps} from '../TextInput'
-import type {ItemProps} from '../deprecated/ActionList'
-import type {ItemInput} from '../deprecated/ActionList/List'
+import type {ItemProps, ItemInput} from './types'
+
 import {Button} from '../Button'
 import {useProvidedRefOrCreate} from '../hooks'
 import type {FocusZoneHookSettings} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import {LiveRegion, LiveRegionOutlet, Message} from '../internal/components/LiveRegion'
+import {useFeatureFlag} from '../FeatureFlags'
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -41,6 +42,7 @@ interface SelectPanelBaseProps {
   inputLabel?: string
   overlayProps?: Partial<OverlayProps>
   footer?: string | React.ReactElement
+  className?: string
 }
 
 export type SelectPanelProps = SelectPanelBaseProps &
@@ -58,6 +60,16 @@ function isMultiSelectVariant(
 const focusZoneSettings: Partial<FocusZoneHookSettings> = {
   // Let FilteredActionList handle focus zone
   disabled: true,
+}
+
+const areItemsEqual = (itemA: ItemInput, itemB: ItemInput) => {
+  // prefer checking equivality by item.id
+  if (typeof itemA.id !== 'undefined') return itemA.id === itemB.id
+  else return itemA === itemB
+}
+
+const doesItemsIncludeItem = (items: ItemInput[], item: ItemInput) => {
+  return items.some(i => areItemsEqual(i, item))
 }
 
 export function SelectPanel({
@@ -86,6 +98,7 @@ export function SelectPanel({
   textInputProps,
   overlayProps,
   sx,
+  className,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const titleId = useId()
@@ -128,7 +141,7 @@ export function SelectPanel({
 
   const itemsToRender = useMemo(() => {
     return items.map(item => {
-      const isItemSelected = isMultiSelectVariant(selected) ? selected.includes(item) : selected === item
+      const isItemSelected = isMultiSelectVariant(selected) ? doesItemsIncludeItem(selected, item) : selected === item
 
       return {
         ...item,
@@ -142,8 +155,10 @@ export function SelectPanel({
           }
 
           if (isMultiSelectVariant(selected)) {
-            const otherSelectedItems = selected.filter(selectedItem => selectedItem !== item)
-            const newSelectedItems = selected.includes(item) ? otherSelectedItems : [...otherSelectedItems, item]
+            const otherSelectedItems = selected.filter(selectedItem => !areItemsEqual(selectedItem, item))
+            const newSelectedItems = doesItemsIncludeItem(selected, item)
+              ? otherSelectedItems
+              : [...otherSelectedItems, item]
 
             const multiSelectOnChange = onSelectedChange as SelectPanelMultiSelection['onSelectedChange']
             multiSelectOnChange(newSelectedItems)
@@ -174,6 +189,8 @@ export function SelectPanel({
     }
   }, [inputLabel, textInputProps])
 
+  const usingModernActionList = useFeatureFlag('primer_react_select_panel_with_modern_action_list')
+
   return (
     <LiveRegion>
       <AnchoredOverlay
@@ -192,15 +209,17 @@ export function SelectPanel({
         focusZoneSettings={focusZoneSettings}
       >
         <LiveRegionOutlet />
-        <Message
-          value={
-            filterValue === ''
-              ? 'Showing all items'
-              : items.length <= 0
-              ? 'No matching items'
-              : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
-          }
-        />
+        {usingModernActionList ? null : (
+          <Message
+            value={
+              filterValue === ''
+                ? 'Showing all items'
+                : items.length <= 0
+                  ? 'No matching items'
+                  : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
+            }
+          />
+        )}
         <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}>
           <Box sx={{pt: 2, px: 3}}>
             <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
@@ -218,6 +237,9 @@ export function SelectPanel({
             placeholderText={placeholderText}
             {...listProps}
             role="listbox"
+            // browsers give aria-labelledby precedence over aria-label so we need to make sure
+            // we don't accidentally override props.aria-label
+            aria-labelledby={listProps['aria-label'] ? undefined : titleId}
             aria-multiselectable={isMultiSelectVariant(selected) ? 'true' : 'false'}
             selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
             items={itemsToRender}
@@ -226,6 +248,7 @@ export function SelectPanel({
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
             sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
+            className={className}
           />
           {footer && (
             <Box

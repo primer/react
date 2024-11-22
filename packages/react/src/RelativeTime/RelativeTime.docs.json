@@ -3,7 +3,20 @@
   "name": "RelativeTime",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-relativetime--default"
+    },
+    {
+      "id": "components-relativetime-features--micro-format"
+    },
+    {
+      "id": "components-relativetime-features--recent-time"
+    },
+    {
+      "id": "components-relativetime-features--count-down-timer"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {
@@ -106,6 +119,30 @@
       "type": "boolean",
       "defaultValue": "",
       "description": "Removes the `title` attribute provided on the element by default"
+    },
+    {
+      "name": "attributeChangedCallback",
+      "type": "(attrName: string, oldValue: unknown, newValue: unknown) => void",
+      "description": "",
+      "defaultValue": ""
+    },
+    {
+      "name": "connectedCallback",
+      "type": "() => void",
+      "description": "",
+      "defaultValue": ""
+    },
+    {
+      "name": "onRelativeTimeUpdated",
+      "type": "null | (event: RelativeTimeUpdatedEvent) => void",
+      "description": "",
+      "defaultValue": ""
+    },
+    {
+      "name": "update",
+      "type": "() => void",
+      "description": "",
+      "defaultValue": ""
     },
     {
       "name": "as",

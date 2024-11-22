@@ -3,7 +3,38 @@
   "name": "Textarea",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-textarea--default"
+    },
+    {
+      "id": "components-textarea-features--disabled"
+    },
+    {
+      "id": "components-textarea-features--with-caption"
+    },
+    {
+      "id": "components-textarea-features--visually-hidden-label"
+    },
+    {
+      "id": "components-textarea-features--error"
+    },
+    {
+      "id": "components-textarea-features--success"
+    },
+    {
+      "id": "components-textarea-features--block"
+    },
+    {
+      "id": "components-textarea-features--custom-height"
+    },
+    {
+      "id": "components-textarea-features--custom-width"
+    },
+    {
+      "id": "components-textarea-features--custom-resize-behavior"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {
@@ -60,6 +91,11 @@
     {
       "name": "sx",
       "type": "SystemStyleObject"
+    },
+    {
+      "name": "className",
+      "type": "string | undefined",
+      "description": "The className to apply to the wrapper element"
     }
   ],
   "subcomponents": []

@@ -24,6 +24,14 @@ import VisuallyHidden from '../_VisuallyHidden'
 
 const LiBox = styled.li<SxProp>(sx)
 
+const ButtonItemContainer = React.forwardRef(({as: Component = 'button', children, styles, ...props}, forwardedRef) => {
+  return (
+    <Box as={Component as React.ElementType} ref={forwardedRef} sx={styles} {...props}>
+      {children}
+    </Box>
+  )
+}) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>
+
 export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
   (
     {
@@ -112,7 +120,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const itemSelectionAttribute = selectionAttribute || inferredSelectionAttribute
     // Ensures ActionList.Item retains list item semantics if a valid ARIA role is applied, or if item is inactive
-    const listSemantics = listRole === 'listbox' || listRole === 'menu' || inactive || container === 'NavList'
+    const listItemSemantics =
+      role === 'option' || role === 'menuitem' || role === 'menuitemradio' || role === 'menuitemcheckbox'
+
+    const listRoleTypes = ['listbox', 'menu', 'list']
+    const listSemantics =
+      (listRole && listRoleTypes.includes(listRole)) || inactive || container === 'NavList' || listItemSemantics
     const buttonSemantics = !listSemantics && !_PrivateItemWrapper && buttonSemanticsFeatureFlag
 
     const {theme} = useTheme()
@@ -134,7 +147,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const hoverStyles = {
       '@media (hover: hover) and (pointer: fine)': {
-        ':hover:not([aria-disabled]):not([data-inactive])': {
+        '&:hover:not([aria-disabled]):not([data-inactive])': {
           backgroundColor: `actionListItem.${variant}.hoverBg`,
           color: getVariantStyles(variant, disabled, inactive).hoverColor,
           boxShadow: `inset 0 0 0 max(1px, 0.0625rem) ${theme?.colors.actionListItem.default.activeBorder}`,
@@ -144,7 +157,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           border: `2 solid`,
           boxShadow: `0 0 0 2px ${theme?.colors.accent.emphasis}`,
         },
-        ':active:not([aria-disabled]):not([data-inactive])': {
+        '&:active:not([aria-disabled]):not([data-inactive])': {
           backgroundColor: `actionListItem.${variant}.activeBg`,
           color: getVariantStyles(variant, disabled, inactive).hoverColor,
         },
@@ -181,7 +194,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         cursor: 'not-allowed',
         '[data-component="ActionList.Checkbox"]': {
           cursor: 'not-allowed',
-          bg: selected ? 'fg.muted' : 'var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2))',
+          bg: selected ? 'fg.muted' : 'var(--control-bgColor-disabled, rgba(175, 184, 193, 0.2))',
           borderColor: selected ? 'fg.muted' : 'var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2))',
         },
       },
@@ -196,7 +209,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       marginY: 'unset',
 
       '@media (forced-colors: active)': {
-        ':focus, &:focus-visible, > a.focus-visible': {
+        ':focus, &:focus-visible, > a.focus-visible, &[data-is-active-descendant]': {
           // Support for Windows high contrast https://sarahmhigley.com/writing/whcm-quick-tips
           outline: 'solid 1px transparent !important',
         },
@@ -229,7 +242,11 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       '&:hover:not([aria-disabled]):not([data-inactive]):not([data-loading]) + &, &[data-focus-visible-added] + li': {
         '--divider-color': 'transparent',
       },
-      ...(active ? activeStyles : {}),
+
+      /** Active styles */
+      ...(active ? activeStyles : {}), // NavList
+      '&[data-is-active-descendant]': {...activeStyles, fontWeight: 'normal'}, // SelectPanel
+
       ...(!buttonSemantics ? hoverStyles : {}),
     }
 
@@ -261,24 +278,12 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const labelId = `${itemId}--label`
     const inlineDescriptionId = `${itemId}--inline-description`
     const blockDescriptionId = `${itemId}--block-description`
+    const trailingVisualId = `${itemId}--trailing-visual`
     const inactiveWarningId = inactive && !showInactiveIndicator ? `${itemId}--warning-message` : undefined
-
-    const ButtonItemWrapper = React.forwardRef(({as: Component = 'button', children, ...props}, forwardedRef) => {
-      return (
-        <Box
-          as={Component as React.ElementType}
-          sx={merge<BetterSystemStyleObject>(styles, sxProp)}
-          ref={forwardedRef}
-          {...props}
-        >
-          {children}
-        </Box>
-      )
-    }) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>
 
     let DefaultItemWrapper = React.Fragment
     if (buttonSemanticsFeatureFlag) {
-      DefaultItemWrapper = listSemantics ? React.Fragment : ButtonItemWrapper
+      DefaultItemWrapper = listSemantics ? React.Fragment : ButtonItemContainer
     }
 
     const ItemWrapper = _PrivateItemWrapper || DefaultItemWrapper
@@ -294,10 +299,14 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       'data-inactive': inactive ? true : undefined,
       'data-loading': loading && !inactive ? true : undefined,
       tabIndex: disabled || showInactiveIndicator ? undefined : 0,
-      'aria-labelledby': `${labelId} ${slots.inlineDescription ? inlineDescriptionId : ''}`,
-      'aria-describedby': slots.blockDescription
-        ? [blockDescriptionId, inactiveWarningId].join(' ')
-        : inactiveWarningId,
+      'aria-labelledby': `${labelId} ${slots.trailingVisual ? trailingVisualId : ''} ${
+        slots.inlineDescription ? inlineDescriptionId : ''
+      }`,
+      'aria-describedby':
+        [slots.blockDescription ? blockDescriptionId : undefined, inactiveWarningId ?? undefined]
+          .filter(String)
+          .join(' ')
+          .trim() || undefined,
       ...(includeSelectionAttribute && {[itemSelectionAttribute]: selected}),
       role: itemRole,
       id: itemId,
@@ -327,7 +336,14 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     return (
       <ItemContext.Provider
-        value={{variant, disabled, inactive: Boolean(inactiveText), inlineDescriptionId, blockDescriptionId}}
+        value={{
+          variant,
+          disabled,
+          inactive: Boolean(inactiveText),
+          inlineDescriptionId,
+          blockDescriptionId,
+          trailingVisualId,
+        }}
       >
         <LiBox
           ref={!buttonSemanticsFeatureFlag || listSemantics ? forwardedRef : null}
@@ -376,7 +392,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                       flexGrow: slots.inlineDescription ? 0 : 1,
                       fontWeight: slots.inlineDescription || slots.blockDescription || active ? 'bold' : 'normal',
                       marginBlockEnd: slots.blockDescription ? '4px' : undefined,
-                      wordBreak: 'break-word',
+                      wordBreak: slots.inlineDescription ? 'normal' : 'break-word',
                     }}
                   >
                     {childrenWithoutSlots}

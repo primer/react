@@ -3,7 +3,8 @@ import userEvent from '@testing-library/user-event'
 import axe from 'axe-core'
 import React from 'react'
 import theme from '../theme'
-import {ActionMenu, ActionList, BaseStyles, ThemeProvider, SSRProvider, Tooltip, Button, IconButton} from '..'
+import {ActionMenu, ActionList, BaseStyles, ThemeProvider, Button, IconButton} from '..'
+import Tooltip from '../Tooltip'
 import {Tooltip as TooltipV2} from '../TooltipV2/Tooltip'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import {SingleSelect} from '../ActionMenu/ActionMenu.features.stories'
@@ -13,27 +14,25 @@ import {SearchIcon, KebabHorizontalIcon} from '@primer/octicons-react'
 function Example(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
-      <SSRProvider>
-        <BaseStyles>
-          <ActionMenu>
-            <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
-            <ActionMenu.Overlay>
-              <ActionList>
-                <ActionList.Item>New file</ActionList.Item>
-                <ActionList.Divider />
-                <ActionList.Item>Copy link</ActionList.Item>
-                <ActionList.Item>Edit file</ActionList.Item>
-                <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
-                  Delete file
-                </ActionList.Item>
-                <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
-                  Github
-                </ActionList.LinkItem>
-              </ActionList>
-            </ActionMenu.Overlay>
-          </ActionMenu>
-        </BaseStyles>
-      </SSRProvider>
+      <BaseStyles>
+        <ActionMenu>
+          <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item>New file</ActionList.Item>
+              <ActionList.Divider />
+              <ActionList.Item>Copy link</ActionList.Item>
+              <ActionList.Item>Edit file</ActionList.Item>
+              <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
+                Delete file
+              </ActionList.Item>
+              <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
+                Github
+              </ActionList.LinkItem>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+      </BaseStyles>
     </ThemeProvider>
   )
 }
@@ -41,20 +40,18 @@ function Example(): JSX.Element {
 function ExampleWithTooltip(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
-      <SSRProvider>
-        <BaseStyles>
-          <Tooltip aria-label="Additional context about the menu button" direction="s">
-            <ActionMenu>
-              <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
-              <ActionMenu.Overlay>
-                <ActionList>
-                  <ActionList.Item>New file</ActionList.Item>
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
-          </Tooltip>
-        </BaseStyles>
-      </SSRProvider>
+      <BaseStyles>
+        <Tooltip aria-label="Additional context about the menu button" direction="s">
+          <ActionMenu>
+            <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Item>New file</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </Tooltip>
+      </BaseStyles>
     </ThemeProvider>
   )
 }
@@ -62,18 +59,16 @@ function ExampleWithTooltip(): JSX.Element {
 function ExampleWithTooltipV2(actionMenuTrigger: React.ReactElement): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
-      <SSRProvider>
-        <BaseStyles>
-          <ActionMenu>
-            {actionMenuTrigger}
-            <ActionMenu.Overlay>
-              <ActionList>
-                <ActionList.Item>New file</ActionList.Item>
-              </ActionList>
-            </ActionMenu.Overlay>
-          </ActionMenu>
-        </BaseStyles>
-      </SSRProvider>
+      <BaseStyles>
+        <ActionMenu>
+          {actionMenuTrigger}
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item>New file</ActionList.Item>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+      </BaseStyles>
     </ThemeProvider>
   )
 }
@@ -81,53 +76,51 @@ function ExampleWithTooltipV2(actionMenuTrigger: React.ReactElement): JSX.Elemen
 function ExampleWithSubmenus(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
-      <SSRProvider>
-        <BaseStyles>
-          <ActionMenu>
-            <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
-            <ActionMenu.Overlay>
-              <ActionList>
-                <ActionList.Item>New file</ActionList.Item>
-                <ActionList.Divider />
-                <ActionList.Item>Copy link</ActionList.Item>
-                <ActionList.Item>Edit file</ActionList.Item>
-                <ActionList.Divider />
-                <ActionList.Item>Paste</ActionList.Item>
-                <ActionMenu>
-                  <ActionMenu.Anchor>
-                    <ActionList.Item>Paste special</ActionList.Item>
-                  </ActionMenu.Anchor>
-                  <ActionMenu.Overlay>
-                    <ActionList>
-                      <ActionList.Item>Paste plain text</ActionList.Item>
-                      <ActionList.Item>Paste formulas</ActionList.Item>
-                      <ActionList.Item>Paste with formatting</ActionList.Item>
-                      <ActionMenu>
-                        <ActionMenu.Anchor>
-                          <ActionList.Item>Paste from</ActionList.Item>
-                        </ActionMenu.Anchor>
-                        <ActionMenu.Overlay>
-                          <ActionList>
-                            <ActionList.Item
-                              onSelect={() => {
-                                /*noop*/
-                              }}
-                            >
-                              Current clipboard
-                            </ActionList.Item>
-                            <ActionList.Item>History</ActionList.Item>
-                            <ActionList.Item>Another device</ActionList.Item>
-                          </ActionList>
-                        </ActionMenu.Overlay>
-                      </ActionMenu>
-                    </ActionList>
-                  </ActionMenu.Overlay>
-                </ActionMenu>
-              </ActionList>
-            </ActionMenu.Overlay>
-          </ActionMenu>
-        </BaseStyles>
-      </SSRProvider>
+      <BaseStyles>
+        <ActionMenu>
+          <ActionMenu.Button>Toggle Menu</ActionMenu.Button>
+          <ActionMenu.Overlay>
+            <ActionList>
+              <ActionList.Item>New file</ActionList.Item>
+              <ActionList.Divider />
+              <ActionList.Item>Copy link</ActionList.Item>
+              <ActionList.Item>Edit file</ActionList.Item>
+              <ActionList.Divider />
+              <ActionList.Item>Paste</ActionList.Item>
+              <ActionMenu>
+                <ActionMenu.Anchor>
+                  <ActionList.Item>Paste special</ActionList.Item>
+                </ActionMenu.Anchor>
+                <ActionMenu.Overlay>
+                  <ActionList>
+                    <ActionList.Item>Paste plain text</ActionList.Item>
+                    <ActionList.Item>Paste formulas</ActionList.Item>
+                    <ActionList.Item>Paste with formatting</ActionList.Item>
+                    <ActionMenu>
+                      <ActionMenu.Anchor>
+                        <ActionList.Item>Paste from</ActionList.Item>
+                      </ActionMenu.Anchor>
+                      <ActionMenu.Overlay>
+                        <ActionList>
+                          <ActionList.Item
+                            onSelect={() => {
+                              /*noop*/
+                            }}
+                          >
+                            Current clipboard
+                          </ActionList.Item>
+                          <ActionList.Item>History</ActionList.Item>
+                          <ActionList.Item>Another device</ActionList.Item>
+                        </ActionList>
+                      </ActionMenu.Overlay>
+                    </ActionMenu>
+                  </ActionList>
+                </ActionMenu.Overlay>
+              </ActionMenu>
+            </ActionList>
+          </ActionMenu.Overlay>
+        </ActionMenu>
+      </BaseStyles>
     </ThemeProvider>
   )
 }
@@ -334,6 +327,29 @@ describe('ActionMenu', () => {
     })
   })
 
+  it('should wrap focus when ArrowDown is pressed on the last element', async () => {
+    const component = HTMLRender(<Example />)
+    const button = component.getByRole('button')
+
+    const user = userEvent.setup()
+    await user.click(button)
+
+    expect(component.queryByRole('menu')).toBeInTheDocument()
+    const menuItems = component.getAllByRole('menuitem')
+
+    await user.keyboard('{ArrowDown}')
+    expect(menuItems[0]).toEqual(document.activeElement)
+
+    await user.keyboard('{ArrowDown}')
+    await user.keyboard('{ArrowDown}')
+    await user.keyboard('{ArrowDown}')
+    await user.keyboard('{ArrowDown}')
+    expect(menuItems[menuItems.length - 1]).toEqual(document.activeElement) // last elememt
+
+    await user.keyboard('{ArrowDown}')
+    expect(menuItems[0]).toEqual(document.activeElement) // wrap to first
+  })
+
   it('should have no axe violations', async () => {
     const {container} = HTMLRender(<Example />)
     const results = await axe.run(container)
@@ -386,7 +402,7 @@ describe('ActionMenu', () => {
       button.focus()
     })
 
-    expect(component.getByRole('tooltip')).toBeInTheDocument()
+    expect(component.getByRole('tooltip', {hidden: true})).toBeInTheDocument()
   })
 
   it('should open menu on menu anchor click and it is wrapped with tooltip v2', async () => {
@@ -422,34 +438,32 @@ describe('ActionMenu', () => {
       button.focus()
     })
 
-    expect(component.getByRole('tooltip')).toBeInTheDocument()
+    expect(component.getByRole('tooltip', {hidden: true})).toBeInTheDocument()
   })
 
   it('should pass the "id" prop from ActionMenu.Button to the HTML button', async () => {
     const buttonId = 'toggle-menu-custom-id'
     const component = HTMLRender(
       <ThemeProvider theme={theme}>
-        <SSRProvider>
-          <BaseStyles>
-            <ActionMenu>
-              <ActionMenu.Button id={buttonId}>Toggle Menu</ActionMenu.Button>
-              <ActionMenu.Overlay>
-                <ActionList>
-                  <ActionList.Item>New file</ActionList.Item>
-                  <ActionList.Divider />
-                  <ActionList.Item>Copy link</ActionList.Item>
-                  <ActionList.Item>Edit file</ActionList.Item>
-                  <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
-                    Delete file
-                  </ActionList.Item>
-                  <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
-                    Github
-                  </ActionList.LinkItem>
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
-          </BaseStyles>
-        </SSRProvider>
+        <BaseStyles>
+          <ActionMenu>
+            <ActionMenu.Button id={buttonId}>Toggle Menu</ActionMenu.Button>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Item>New file</ActionList.Item>
+                <ActionList.Divider />
+                <ActionList.Item>Copy link</ActionList.Item>
+                <ActionList.Item>Edit file</ActionList.Item>
+                <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
+                  Delete file
+                </ActionList.Item>
+                <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
+                  Github
+                </ActionList.LinkItem>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </BaseStyles>
       </ThemeProvider>,
     )
     const button = component.getByRole('button')
@@ -460,29 +474,27 @@ describe('ActionMenu', () => {
     const buttonId = 'toggle-menu-custom-id'
     const component = HTMLRender(
       <ThemeProvider theme={theme}>
-        <SSRProvider>
-          <BaseStyles>
-            <ActionMenu>
-              <ActionMenu.Anchor id={buttonId}>
-                <IconButton icon={KebabHorizontalIcon} aria-label="Open menu" />
-              </ActionMenu.Anchor>
-              <ActionMenu.Overlay>
-                <ActionList>
-                  <ActionList.Item>New file</ActionList.Item>
-                  <ActionList.Divider />
-                  <ActionList.Item>Copy link</ActionList.Item>
-                  <ActionList.Item>Edit file</ActionList.Item>
-                  <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
-                    Delete file
-                  </ActionList.Item>
-                  <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
-                    Github
-                  </ActionList.LinkItem>
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
-          </BaseStyles>
-        </SSRProvider>
+        <BaseStyles>
+          <ActionMenu>
+            <ActionMenu.Anchor id={buttonId}>
+              <IconButton icon={KebabHorizontalIcon} aria-label="Open menu" />
+            </ActionMenu.Anchor>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Item>New file</ActionList.Item>
+                <ActionList.Divider />
+                <ActionList.Item>Copy link</ActionList.Item>
+                <ActionList.Item>Edit file</ActionList.Item>
+                <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
+                  Delete file
+                </ActionList.Item>
+                <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
+                  Github
+                </ActionList.LinkItem>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </BaseStyles>
       </ThemeProvider>,
     )
     const button = component.getByRole('button')
@@ -493,24 +505,22 @@ describe('ActionMenu', () => {
   it('should use the tooltip id to name the menu when the anchor is icon button', async () => {
     const component = HTMLRender(
       <ThemeProvider theme={theme}>
-        <SSRProvider>
-          <BaseStyles>
-            <ActionMenu>
-              <ActionMenu.Anchor>
-                <IconButton icon={SearchIcon} aria-label="More actions" unsafeDisableTooltip={false} />
-              </ActionMenu.Anchor>
+        <BaseStyles>
+          <ActionMenu>
+            <ActionMenu.Anchor>
+              <IconButton icon={SearchIcon} aria-label="More actions" />
+            </ActionMenu.Anchor>
 
-              <ActionMenu.Overlay width="medium">
-                <ActionList>
-                  <ActionList.Item onSelect={() => alert('Copy link clicked')}>
-                    Copy link
-                    <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
-                  </ActionList.Item>
-                </ActionList>
-              </ActionMenu.Overlay>
-            </ActionMenu>
-          </BaseStyles>
-        </SSRProvider>
+            <ActionMenu.Overlay width="medium">
+              <ActionList>
+                <ActionList.Item onSelect={() => alert('Copy link clicked')}>
+                  Copy link
+                  <ActionList.TrailingVisual>⌘C</ActionList.TrailingVisual>
+                </ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </BaseStyles>
       </ThemeProvider>,
     )
 
@@ -630,6 +640,232 @@ describe('ActionMenu', () => {
       await user.click(subSubmenuItem)
 
       expect(baseAnchor).not.toHaveAttribute('aria-expanded', 'true')
+    })
+
+    it('supports className prop on ActionMenu.Anchor', async () => {
+      const component = HTMLRender(
+        <ThemeProvider theme={theme}>
+          <BaseStyles>
+            <ActionMenu>
+              <ActionMenu.Anchor className="test-class">
+                <Button>Toggle Menu</Button>
+              </ActionMenu.Anchor>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Item>New file</ActionList.Item>
+                  <ActionList.Divider />
+                  <ActionList.Item>Copy link</ActionList.Item>
+                  <ActionList.Item>Edit file</ActionList.Item>
+                  <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
+                    Delete file
+                  </ActionList.Item>
+                  <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
+                    Github
+                  </ActionList.LinkItem>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
+        </ThemeProvider>,
+      )
+      const anchor = component.getByRole('button', {name: 'Toggle Menu'})
+      expect(anchor).toHaveClass('test-class')
+    })
+
+    it('supports className prop on ActionMenu.Button', async () => {
+      const component = HTMLRender(
+        <ThemeProvider theme={theme}>
+          <BaseStyles>
+            <ActionMenu>
+              <ActionMenu.Button className="test-class">Toggle Menu</ActionMenu.Button>
+              <ActionMenu.Overlay>
+                <ActionList>
+                  <ActionList.Item>New file</ActionList.Item>
+                  <ActionList.Divider />
+                  <ActionList.Item>Copy link</ActionList.Item>
+                  <ActionList.Item>Edit file</ActionList.Item>
+                  <ActionList.Item variant="danger" onSelect={event => event.preventDefault()}>
+                    Delete file
+                  </ActionList.Item>
+                  <ActionList.LinkItem href="//github.com" title="anchor" aria-keyshortcuts="s">
+                    Github
+                  </ActionList.LinkItem>
+                </ActionList>
+              </ActionMenu.Overlay>
+            </ActionMenu>
+          </BaseStyles>
+        </ThemeProvider>,
+      )
+      const button = component.getByRole('button', {name: 'Toggle Menu'})
+      expect(button).toHaveClass('test-class')
+    })
+  })
+
+  describe('calls event handlers on trigger', () => {
+    it('should call onClick and onKeyDown passed to ActionMenu.Button', async () => {
+      const mockOnClick = jest.fn()
+      const mockOnKeyDown = jest.fn()
+
+      const component = HTMLRender(
+        <ThemeProvider theme={theme}>
+          <ActionMenu>
+            <ActionMenu.Button onClick={mockOnClick} onKeyDown={mockOnKeyDown}>
+              Open menu
+            </ActionMenu.Button>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Item>New file</ActionList.Item>
+                <ActionList.Item>Copy link</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </ThemeProvider>,
+      )
+
+      const user = userEvent.setup()
+      const button = component.getByRole('button')
+      await user.click(button)
+
+      expect(component.getByRole('menu')).toBeInTheDocument()
+      expect(mockOnClick).toHaveBeenCalledTimes(1)
+
+      // select and close menu
+      const menuItems = component.getAllByRole('menuitem')
+      await user.click(menuItems[0])
+      expect(component.queryByRole('menu')).toBeNull()
+
+      expect(button).toEqual(document.activeElement)
+      await user.keyboard('{Enter}')
+      expect(component.queryByRole('menu')).toBeInTheDocument()
+      expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
+    })
+
+    it('should call onClick and onKeyDown passed to IconButton inside ActionMenu.Anchor', async () => {
+      const mockOnClick = jest.fn()
+      const mockOnKeyDown = jest.fn()
+
+      const component = HTMLRender(
+        <ThemeProvider theme={theme}>
+          <ActionMenu>
+            <ActionMenu.Anchor>
+              <IconButton
+                icon={KebabHorizontalIcon}
+                aria-label="Open menu"
+                onClick={mockOnClick}
+                onKeyDown={mockOnKeyDown}
+              />
+            </ActionMenu.Anchor>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Item>New file</ActionList.Item>
+                <ActionList.Item>Copy link</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </ThemeProvider>,
+      )
+
+      const user = userEvent.setup()
+      const button = component.getByRole('button')
+      await user.click(button)
+
+      expect(component.getByRole('menu')).toBeInTheDocument()
+      expect(mockOnClick).toHaveBeenCalledTimes(1)
+
+      // select and close menu
+      const menuItems = component.getAllByRole('menuitem')
+      await user.click(menuItems[0])
+      expect(component.queryByRole('menu')).toBeNull()
+
+      expect(button).toEqual(document.activeElement)
+      await user.keyboard('{Enter}')
+      expect(component.queryByRole('menu')).toBeInTheDocument()
+      expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
+    })
+
+    it('should call onClick and onKeyDown passed to ActionMenu.Button with Tooltip', async () => {
+      const mockOnClick = jest.fn()
+      const mockOnKeyDown = jest.fn()
+
+      const component = HTMLRender(
+        <ThemeProvider theme={theme}>
+          <ActionMenu>
+            <TooltipV2 text="Additional context about the menu button" direction="s">
+              <ActionMenu.Button onClick={mockOnClick} onKeyDown={mockOnKeyDown}>
+                Open menu
+              </ActionMenu.Button>
+            </TooltipV2>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Item>New file</ActionList.Item>
+                <ActionList.Item>Copy link</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </ThemeProvider>,
+      )
+
+      const user = userEvent.setup()
+      const button = component.getByRole('button')
+      await user.click(button)
+
+      expect(component.getByRole('menu')).toBeInTheDocument()
+      expect(mockOnClick).toHaveBeenCalledTimes(1)
+
+      // select and close menu
+      const menuItems = component.getAllByRole('menuitem')
+      await user.click(menuItems[0])
+      expect(component.queryByRole('menu')).toBeNull()
+
+      expect(button).toEqual(document.activeElement)
+      await user.keyboard('{Enter}')
+      expect(component.queryByRole('menu')).toBeInTheDocument()
+      expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
+    })
+
+    it('should call onClick and onKeyDown passed to IconButton inside ActionMenu.Anchor with Tooltip', async () => {
+      const mockOnClick = jest.fn()
+      const mockOnKeyDown = jest.fn()
+
+      const component = HTMLRender(
+        <ThemeProvider theme={theme}>
+          <ActionMenu>
+            <ActionMenu.Anchor>
+              <TooltipV2 text="Additional context about the menu button" direction="s">
+                <IconButton
+                  icon={KebabHorizontalIcon}
+                  aria-label="Open menu"
+                  onClick={mockOnClick}
+                  onKeyDown={mockOnKeyDown}
+                />
+              </TooltipV2>
+            </ActionMenu.Anchor>
+            <ActionMenu.Overlay>
+              <ActionList>
+                <ActionList.Item>New file</ActionList.Item>
+                <ActionList.Item>Copy link</ActionList.Item>
+              </ActionList>
+            </ActionMenu.Overlay>
+          </ActionMenu>
+        </ThemeProvider>,
+      )
+
+      const user = userEvent.setup()
+      const button = component.getByRole('button')
+      await user.click(button)
+
+      expect(component.getByRole('menu')).toBeInTheDocument()
+      expect(mockOnClick).toHaveBeenCalledTimes(1)
+
+      // select and close menu
+      const menuItems = component.getAllByRole('menuitem')
+      await user.click(menuItems[0])
+      expect(component.queryByRole('menu')).toBeNull()
+
+      expect(button).toEqual(document.activeElement)
+      await user.keyboard('{Enter}')
+      expect(component.queryByRole('menu')).toBeInTheDocument()
+      expect(mockOnKeyDown).toHaveBeenCalledTimes(1)
     })
   })
 })

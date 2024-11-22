@@ -7,7 +7,7 @@ import {PageHeader} from '../PageHeader'
 import {Hidden} from '.'
 
 export default {
-  title: 'Drafts/Components/Hidden/Examples',
+  title: 'Experimental/Components/Hidden/Examples',
   parameters: {
     layout: 'fullscreen',
     controls: {expanded: true},
@@ -22,7 +22,7 @@ const setViewportParamToNarrow = {
 }
 export const Webhooks = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner" aria-label="Webhooks">
       <PageHeader.ContextArea>
         <PageHeader.ParentLink href="http://github.com">Repository settings</PageHeader.ParentLink>
       </PageHeader.ContextArea>
@@ -51,7 +51,7 @@ WebhooksOnNarrowViewport.parameters = setViewportParamToNarrow
 
 export const PullRequestPage = () => (
   <Box sx={{padding: 3}}>
-    <PageHeader>
+    <PageHeader role="banner" aria-label="Add Hidden utility component">
       <PageHeader.ContextArea>
         <PageHeader.ParentLink href="http://github.com">Pull requests</PageHeader.ParentLink>
       </PageHeader.ContextArea>

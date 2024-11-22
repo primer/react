@@ -3,7 +3,14 @@
   "name": "SplitPageLayout",
   "status": "alpha",
   "a11yReviewed": true,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-splitpagelayout--default"
+    },
+    {
+      "id": "components-splitpagelayout-features--settings-page"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {
@@ -15,6 +22,18 @@
     {
       "name": "SplitPageLayout.Header",
       "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "A unique label for the rendered main landmark",
+          "defaultValue": ""
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "description": "An id to an element which uniquely labels the rendered main landmark",
+          "defaultValue": ""
+        },
         {
           "name": "padding",
           "type": "| 'none' | 'condensed' | 'normal'",
@@ -43,6 +62,18 @@
       "name": "SplitPageLayout.Content",
       "props": [
         {
+          "name": "aria-label",
+          "type": "string",
+          "description": "A unique label for the rendered main landmark",
+          "defaultValue": ""
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "description": "An id to an element which uniquely labels the rendered main landmark",
+          "defaultValue": ""
+        },
+        {
           "name": "width",
           "type": "| 'full' | 'medium' | 'large' | 'xlarge'",
           "defaultValue": "'large'",
@@ -70,10 +101,20 @@
       "name": "SplitPageLayout.Pane",
       "props": [
         {
+          "name": "aria-label",
+          "type": "string | undefined",
+          "description": "Label for the pane. Required if the pane overflows and doesn't have aria-labelledby."
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string | undefined",
+          "description": "Id of an element that acts as a label for the pane. Required if the pane overflows and doesn't have aria-label."
+        },
+        {
           "name": "width",
-          "type": "| 'small' | 'medium' | 'large'",
+          "type": "| 'small' | 'medium' | 'large' | { min: string max: string default: string }",
           "defaultValue": "'medium'",
-          "description": "The width of the pane."
+          "description": "The width of the pane. If using custom widths, provide an object with keys 'min', 'max' and 'default'."
         },
         {
           "name": "minWidth",
@@ -124,6 +165,12 @@
           "description": "Whether the pane is hidden."
         },
         {
+          "name": "position",
+          "type": "'end' | 'start' | {narrow?: 'end' | 'start', narrow?: 'end' | 'start', wide?: 'end' | 'start'}",
+          "description": "Which side of the page the pane should be on. Can be changed for different viewport widths.",
+          "defaultValue": "start"
+        },
+        {
           "name": "sx",
           "type": "SystemStyleObject"
         }
@@ -132,6 +179,18 @@
     {
       "name": "SplitPageLayout.Footer",
       "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "A unique label for the rendered main landmark",
+          "defaultValue": ""
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "description": "An id to an element which uniquely labels the rendered main landmark",
+          "defaultValue": ""
+        },
         {
           "name": "padding",
           "type": "| 'none' | 'condensed' | 'normal'",

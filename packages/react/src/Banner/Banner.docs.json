@@ -1,10 +1,53 @@
 {
   "id": "banner",
   "name": "Banner",
-  "status": "draft",
+  "status": "alpha",
   "a11yReviewed": true,
   "importPath": "@primer/react/experimental",
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-banner--default"
+    },
+    {
+      "id": "components-banner-features--critical"
+    },
+    {
+      "id": "components-banner-features--info"
+    },
+    {
+      "id": "components-banner-features--success"
+    },
+    {
+      "id": "components-banner-features--upsell"
+    },
+    {
+      "id": "components-banner-features--warning"
+    },
+    {
+      "id": "components-banner-features--dismiss"
+    },
+    {
+      "id": "components-banner-features--dismiss-with-actions"
+    },
+    {
+      "id": "components-banner-features--with-hidden-title"
+    },
+    {
+      "id": "components-banner-features--with-hidden-title-and-actions"
+    },
+    {
+      "id": "components-banner-features--dismissible-with-hidden-title-and-actions"
+    },
+    {
+      "id": "components-banner-features--dismissible-with-hidden-title-and-secondary-action"
+    },
+    {
+      "id": "components-banner-features--with-actions"
+    },
+    {
+      "id": "components-banner-features--custom-icon"
+    }
+  ],
   "props": [
     {
       "name": "aria-label",
@@ -12,14 +55,24 @@
       "description": "Provide an optional label to override the default name for the Banner landmark region"
     },
     {
+      "name": "className",
+      "type": "string",
+      "description": "Provide an optional className to add to the outermost element rendered by the Banner"
+    },
+    {
       "name": "description",
       "type": "React.ReactNode",
       "description": "Provide an optional description for the Banner. This should provide supplemental information about the Banner"
     },
     {
+      "name": "hideTitle",
+      "type": "boolean",
+      "description": "Whether to hide the title visually."
+    },
+    {
       "name": "icon",
       "type": "React.ReactNode",
-      "description": "Provide an icon for the banner"
+      "description": "Provide a custom icon for the Banner. This is only available when `variant` is `info` or `upsell`"
     },
     {
       "name": "onDismiss",
@@ -59,15 +112,30 @@
     },
     {
       "name": "Banner.Description",
-      "props": []
+      "props": [
+        {
+          "name": "className",
+          "type": "string",
+          "description": "Class name(s) for custom styling.",
+          "defaultValue": ""
+        }
+      ]
     },
     {
       "name": "Banner.PrimaryAction",
-      "props": []
+      "props": [],
+      "passthrough": {
+        "element": "Button",
+        "url": "/react/Button"
+      }
     },
     {
       "name": "Banner.SecondaryAction",
-      "props": []
+      "props": [],
+      "passthrough": {
+        "element": "Button",
+        "url": "/react/Button"
+      }
     }
   ]
 }

@@ -1,7 +1,8 @@
 import React from 'react'
-import {IconButton, Button, Box, Link, Octicon, ActionMenu, ActionList} from '..'
+import {IconButton, Button, Box, Link, ActionMenu, ActionList} from '..'
+import Octicon from '../Octicon'
 import {Tooltip} from './Tooltip'
-import {SearchIcon, BookIcon, CheckIcon, TriangleDownIcon, GitBranchIcon} from '@primer/octicons-react'
+import {SearchIcon, BookIcon, CheckIcon, TriangleDownIcon, GitBranchIcon, InfoIcon} from '@primer/octicons-react'
 
 export default {
   title: 'Components/TooltipV2/Features',
@@ -171,5 +172,15 @@ export const OnActionMenuAnchor = () => (
         </ActionList>
       </ActionMenu.Overlay>
     </ActionMenu>
+  </Box>
+)
+
+export const KeybindingHint = () => (
+  <Box sx={{p: 6}}>
+    <Tooltip text="Learn more" keybindingHint="Shift+?" type="label">
+      <Link href="#">
+        <InfoIcon />
+      </Link>
+    </Tooltip>
   </Box>
 )

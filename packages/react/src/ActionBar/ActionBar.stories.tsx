@@ -18,15 +18,13 @@ import {
   ReplyIcon,
   ThreeBarsIcon,
 } from '@primer/octicons-react'
-import {MarkdownInput} from '../drafts/MarkdownEditor/_MarkdownInput'
-import {ViewSwitch} from '../drafts/MarkdownEditor/_ViewSwitch'
-import type {MarkdownViewMode} from '../drafts/MarkdownEditor/_ViewSwitch'
-import {Box, Dialog, Button, Avatar, ActionMenu, IconButton, ActionList} from '../'
+import {Box, Button, Avatar, ActionMenu, IconButton, ActionList, Textarea} from '../'
+import {Dialog} from '../DialogV1'
 import {Divider} from '../deprecated/ActionList/Divider'
-import mockData from '../drafts/SelectPanel2/mock-story-data'
+import mockData from '../experimental/SelectPanel2/mock-story-data'
 
 export default {
-  title: 'Drafts/Components/ActionBar',
+  title: 'Experimental/Components/ActionBar',
 } as Meta<typeof ActionBar>
 
 export const Default = () => (
@@ -42,6 +40,14 @@ export const Default = () => (
     <ActionBar.IconButton icon={ListUnorderedIcon} aria-label="Unordered List"></ActionBar.IconButton>
     <ActionBar.IconButton icon={ListOrderedIcon} aria-label="Ordered List"></ActionBar.IconButton>
     <ActionBar.IconButton icon={TasklistIcon} aria-label="Task List"></ActionBar.IconButton>
+  </ActionBar>
+)
+
+export const TextLabels = () => (
+  <ActionBar aria-label="Toolbar">
+    <Button>Edit</Button>
+    <Button>Duplicate</Button>
+    <Button>Export to CSV</Button>
   </ActionBar>
 )
 
@@ -61,10 +67,6 @@ type CommentBoxProps = {'aria-label': string}
 
 export const CommentBox = (props: CommentBoxProps) => {
   const {'aria-label': ariaLabel} = props
-  const [view, setView] = React.useState<MarkdownViewMode>('edit')
-  const loadPreview = React.useCallback(() => {
-    //console.log('loadPreview')
-  }, [])
   const [value, setValue] = React.useState('')
   const [isOpen, setIsOpen] = React.useState(false)
   const buttonRef = React.useRef(null)
@@ -97,14 +99,6 @@ export const CommentBox = (props: CommentBoxProps) => {
         as="header"
       >
         <Box sx={{width: '50%'}}>
-          <ViewSwitch
-            selectedView={view}
-            onViewSelect={setView}
-            //disabled={fileHandler?.uploadProgress !== undefined}
-            onLoadPreview={loadPreview}
-          />
-        </Box>
-        <Box sx={{width: '50%'}}>
           <ActionBar aria-label={toolBarLabel}>
             <ActionBar.IconButton icon={HeadingIcon} aria-label="Heading"></ActionBar.IconButton>
             <ActionBar.IconButton icon={BoldIcon} aria-label="Bold"></ActionBar.IconButton>
@@ -125,19 +119,7 @@ export const CommentBox = (props: CommentBoxProps) => {
           </ActionBar>
         </Box>
       </Box>
-      <MarkdownInput
-        value={value}
-        visible={view === 'edit'}
-        onChange={e => {
-          setValue(e.target.value)
-        }}
-        id={'markdowninput'}
-        isDraggedOver={false}
-        minHeightLines={5}
-        maxHeightLines={35}
-        monospace={false}
-        pasteUrlsAsPlainText={false}
-      />
+      <Textarea value={value} onChange={e => setValue(e.target.value)} id="markdowninput" aria-label="Markdown value" />
       <Dialog aria-labelledby="header" returnFocusRef={buttonRef} isOpen={isOpen} onDismiss={() => setIsOpen(false)}>
         <Dialog.Header id="header">Select a reply</Dialog.Header>
         <Box p={3}>Show saved replies</Box>

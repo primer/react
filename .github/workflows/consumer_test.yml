@@ -14,7 +14,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
       - run: npm i -g npm@^10.5.1
       - name: Remove "prepare" script
@@ -22,7 +22,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build @primer/react
-        run: npm run build -w @primer/react
+        run: npm run build -w rollup-plugin-import-css -w @primer/react
       # Output the artifact as a tarball in `consumer-test`. Write the
       # information for this package in `consumer-test/pack.json` so we can read
       # from it later to install the package
