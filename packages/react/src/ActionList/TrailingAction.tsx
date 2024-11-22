@@ -26,7 +26,7 @@ export const TrailingAction = forwardRef(({as = 'button', icon, label, href = nu
 
   if (enabled) {
     return (
-      <span className={classes.TrailingAction} data-component="ActionList.TrailingAction">
+      <span className={classes.TrailingAction}>
         {icon ? (
           <IconButton
             as={as}

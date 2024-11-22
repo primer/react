@@ -5,7 +5,6 @@ import {GroupContext} from './Group'
 import {type ActionListProps, type ActionListItemProps, ListContext} from './shared'
 import {LeadingVisualContainer, VisualContainer} from './Visuals'
 import Box from '../Box'
-import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './ActionList.module.css'
 
@@ -36,7 +35,11 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
 
   if (selectionVariant === 'single' || listRole === 'menu') {
     if (enabled) {
-      return <VisualContainer className={className}>{selected && <CheckIcon />}</VisualContainer>
+      return (
+        <VisualContainer className={className}>
+          <CheckIcon className={classes.SingleSelectCheckmark} />
+        </VisualContainer>
+      )
     }
     return (
       <LeadingVisualContainer data-component="ActionList.Selection">{selected && <CheckIcon />}</LeadingVisualContainer>

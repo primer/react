@@ -413,6 +413,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           <li
             ref={!buttonSemanticsFeatureFlag || listSemantics ? forwardedRef : null}
             data-variant={variant === 'danger' ? variant : undefined}
+            data-active={active ? true : undefined}
             {...containerProps}
           >
             <ItemWrapper {...wrapperProps} className={classes.ActionListContent}>

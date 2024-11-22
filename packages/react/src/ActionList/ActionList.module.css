@@ -114,7 +114,7 @@
 
 .ActionListWrap--divided {
   /* hide divider if item is active */
-  & .ActionListItem--navActive {
+  & [data-active] {
     & .ItemLabel::before,
     & + .ActionListItem .ItemLabel::before {
       visibility: hidden;
@@ -183,8 +183,9 @@
       &:hover {
         cursor: pointer;
         background-color: var(--control-transparent-bgColor-hover);
+        background-color: pink;
 
-        &:not(.ActionListItem--navActive, :focus-visible) {
+        &:not([data-active], :focus-visible) {
           /* Support for "Windows high contrast mode" */
           outline: solid var(--borderWidth-thin) transparent;
           outline-offset: calc(-1 * var(--borderWidth-thin));
@@ -196,7 +197,7 @@
     &:active {
       background: var(--control-transparent-bgColor-active);
 
-      &:not(.ActionListItem--navActive) {
+      &:not([data-active]) {
         /* Support for "Windows high contrast mode" https:sarahmhigley.com/writing/whcm-quick-tips/ */
         outline: solid var(--borderWidth-thin) transparent;
         outline-offset: calc(-1 * var(--borderWidth-thin));
@@ -212,7 +213,7 @@
 
   /* Autocomplete [aria-selected] items */
 
-  &[aria-selected='true'] {
+  /* &[aria-selected='true'] {
     font-weight: var(--base-text-weight-normal);
     background: var(--control-transparent-bgColor-selected);
 
@@ -225,18 +226,17 @@
     &::before,
     & + .ActionListItem::before {
       visibility: hidden;
-    }
+    } */
 
-    /* blue accent line */
+  /* blue accent line */
 
-    &::after {
-      /* @mixin activeIndicatorLine calc(-1 * var(--base-size-4)); */
+  /* &::after {
     }
-  }
+  } */
 
   /* active state [aria-current] */
 
-  &.ActionListItem--navActive {
+  &[data-active] {
     /* provides a visual indication of the current item for Windows high-contrast mode */
     outline: 2px solid transparent;
 
@@ -246,7 +246,7 @@
       }
     }
 
-    &:not(.ActionListItem--danger) {
+    &:not([data-variant='danger']) {
       background: var(--control-transparent-bgColor-selected);
 
       @media (hover: hover) {
@@ -262,28 +262,32 @@
 
       /* blue accent line  */
       &::after {
-        /* @mixin activeIndicatorLine; */
+        position: absolute;
+        top: calc(50% - var(--base-size-12));
+        left: calc(-1 * var(--base-size-8));
+        width: var(--base-size-4);
+        height: var(--base-size-24);
+        content: '';
+        background: var(--bgColor-accent-emphasis);
+        border-radius: var(--borderRadius-medium);
       }
     }
   }
 
   /* disabled */
 
-  &.ActionListItem--disabled,
   &[aria-disabled='true'] {
     & .ActionListContent {
       & .ItemLabel,
-      & .Description {
-        color: var(--control-fgColor-disabled);
-      }
-
+      & .Description,
       & .VisualWrap {
-        fill: var(--control-fgColor-disabled);
+        color: var(--control-fgColor-disabled);
+        color: red;
       }
     }
 
-    @media (hover: hover) {
-      &:hover {
+    &:hover {
+      & .ActionListContent {
         cursor: not-allowed;
         background-color: transparent;
       }
@@ -293,7 +297,7 @@
   /* variants */
 
   /* danger */
-  &.ActionListItem--danger {
+  &[data-variant='danger'] {
     & .ItemLabel {
       color: var(--control-danger-fgColor-rest);
     }
@@ -332,7 +336,6 @@
   * listbox [aria-selected]
   */
 
-  /* multiselect checkmark */
   & .MultiSelectCheckbox {
     position: relative;
     display: grid;
@@ -370,8 +373,6 @@
 
   &[aria-checked='true'],
   &[aria-selected='true'] {
-    /* multiselect checkmark */
-
     & .MultiSelectCheckbox {
       background-color: var(--control-checked-bgColor-rest);
       border-color: var(--control-checked-borderColor-rest);
@@ -386,33 +387,26 @@
       }
     }
 
-    /* singleselect checkmark */
-    & .ActionListItem-singleSelectCheckmark {
+    & .SingleSelectCheckmark {
       visibility: visible;
     }
-
-    /* checkbox */
   }
 
   &[aria-checked='false'],
   &[aria-selected='false'] {
-    /* multiselect checkmark */
-
     & .MultiSelectCheckbox {
       &::before {
         visibility: hidden;
       }
     }
 
-    /* singleselect checkmark */
-    & .ActionListItem-singleSelectCheckmark {
+    & .SingleSelectCheckmark {
       visibility: hidden;
-      transition: visibility 0s linear 200ms;
     }
   }
 }
 
-/* button or a href */
+/* button or a tag */
 .ActionListContent {
   position: relative;
   display: grid;
@@ -445,25 +439,6 @@
 
   &:hover {
     text-decoration: none;
-  }
-
-  /* disabled */
-  &[aria-disabled='true'] {
-    & .ItemLabel,
-    & .Description {
-      color: var(--control-fgColor-disabled);
-    }
-
-    & .VisualWrap {
-      fill: var(--control-fgColor-disabled);
-    }
-
-    @media (hover: hover) {
-      &:hover {
-        cursor: not-allowed;
-        background-color: transparent;
-      }
-    }
   }
 
   /* collapsible item [aria-expanded] */
@@ -560,8 +535,6 @@
     }
   }
 
-  /* sizes */
-
   &.ActionListContent--blockDescription {
     /* if leading/trailing visual, align with first line of content */
     & .VisualWrap {
@@ -584,17 +557,9 @@
   grid-area: trailingVisual;
 }
 
-.ActionListItem-action--trailing {
+.TrailingAction {
   grid-area: trailingAction;
 }
-
-/* have leading visual svg filled with chosen color */
-
-/* stylelint-disable-next-line selector-max-type */
-
-/* .VisualWrap--leading svg {
-  fill: currentcolor;
-} */
 
 /* wrapper span
  default block */

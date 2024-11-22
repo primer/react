@@ -58,7 +58,7 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
           id={blockDescriptionId}
           data-component="ActionList.Description"
         >
-          {props.children}hi
+          {props.children}
         </Box>
       )
     }
