@@ -40,7 +40,7 @@ const stories = [
       await page.keyboard.press('Tab')
       await page.keyboard.press('Enter')
 
-      await page.waitForSelector('div[role="dialog"]')
+      await page.waitForSelector('div[role="none"]')
     },
   },
   {
