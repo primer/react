@@ -255,10 +255,11 @@ const Panel: React.FC<SelectPanelProps> = ({
         style={
           {
             '--max-height': maxHeightValue,
-            '--position-top': position?.top,
-            '--position-left': position?.left,
+            '--position-top': `${position?.top ?? 0}px`,
+            '--position-left': `${position?.left ?? 0}px`,
           } as React.CSSProperties
         }
+        className={classes.Overlay}
         {...props}
         onClick={event => {
           if (event.target === event.currentTarget) onClickOutside()
@@ -464,8 +465,8 @@ const SelectPanelFooter = ({...props}) => {
 
   return (
     <FooterContext.Provider value={true}>
-      <div className={classes.Footer} data-hide-primary-actions={hidePrimaryActions}>
-        <div className={classes.FooterContent} data-hide-primary-actions={hidePrimaryActions}>
+      <div className={classes.Footer} data-hide-primary-actions={hidePrimaryActions || undefined}>
+        <div className={classes.FooterContent} data-hide-primary-actions={hidePrimaryActions || undefined}>
           {props.children}
         </div>
 
