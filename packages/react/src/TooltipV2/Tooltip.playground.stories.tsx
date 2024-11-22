@@ -11,6 +11,7 @@ const meta: Meta<typeof Tooltip> = {
     text: 'This is the tooltip text',
     direction: 's',
     type: 'description',
+    keybindingHint: undefined,
   },
   argTypes: {
     text: {control: {type: 'text'}},
@@ -20,6 +21,9 @@ const meta: Meta<typeof Tooltip> = {
     },
     type: {
       control: false,
+    },
+    keybindingHint: {
+      control: {type: 'text'},
     },
   },
 }
