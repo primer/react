@@ -268,7 +268,7 @@ export const MemexNestedOverlays = ({role}: OverlayProps) => {
               <Text color="fg.muted" sx={{fontSize: 1}}>
                 Duration:
               </Text>
-              <TextInput defaultValue={2} />
+              <TextInput defaultValue={2} aria-label="Duration" />
               <ActionMenu>
                 <ActionMenu.Button sx={{width: 200}} aria-label="Change duration unit">
                   {duration}
