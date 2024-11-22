@@ -7,104 +7,112 @@ const stories = [
     title: 'Default',
     id: 'private-components-overlay--default',
     setup: async (page: Page) => {
-      await page.waitForSelector('div[role="dialog"]')
-
       await page.keyboard.press('Tab')
       await page.keyboard.press('Enter')
+
+      await page.waitForSelector('div[role="dialog"]')
     },
   },
   {
     title: 'Playground',
     id: 'private-components-overlay--playground',
     setup: async (page: Page) => {
-      await page.waitForSelector('div[role="dialog"]')
-
       await page.keyboard.press('Tab')
       await page.keyboard.press('Enter')
+
+      await page.waitForSelector('div[role="dialog"]')
     },
   },
   {
     title: 'Dialog Overlay',
     id: 'private-components-overlay-features--dialog-overlay',
     setup: async (page: Page) => {
-      await page.waitForSelector('div[role="dialog"]')
       await page.keyboard.press('Tab')
       await page.keyboard.press('Enter')
+
+      await page.waitForSelector('div[role="dialog"]')
     },
   },
   {
     title: 'Dropdown Overlay',
     id: 'private-components-overlay-features--dropdown-overlay',
     setup: async (page: Page) => {
-      await page.waitForSelector('div[role="dialog"]')
       await page.keyboard.press('Tab')
       await page.keyboard.press('Enter')
+
+      await page.waitForSelector('div[role="dialog"]')
     },
   },
   {
     title: 'Memex Issue Overlay',
     id: 'private-components-overlay-features--memex-issue-overlay',
     setup: async (page: Page) => {
-      await page.waitForSelector('div[role="dialog"]')
       await page.keyboard.press('Tab')
       await page.keyboard.press('Enter')
+
+      await page.waitForSelector('div[role="dialog"]')
     },
   },
   {
     title: 'Memex Nested Overlays',
     id: 'private-components-overlay-features--memex-nested-overlays',
     setup: async (page: Page) => {
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Enter')
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Enter')
+
       await page.waitForSelector('div[role="dialog"]')
-      await page.keyboard.press('Tab')
-      await page.keyboard.press('Tab')
-      await page.keyboard.press('Enter')
-      await page.keyboard.press('Tab')
-      await page.keyboard.press('Enter')
     },
   },
   {
     title: 'Nested Overlays',
     id: 'private-components-overlay-features--nested-overlays',
     setup: async (page: Page) => {
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Enter')
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Enter')
+
       await page.waitForSelector('div[role="dialog"]')
-      await page.keyboard.press('Tab')
-      await page.keyboard.press('Tab')
-      await page.keyboard.press('Tab')
-      await page.keyboard.press('Enter')
-      await page.keyboard.press('Tab')
-      await page.keyboard.press('Tab')
-      await page.keyboard.press('Enter')
     },
   },
   {
     title: 'Overlay On Top Of Overlay',
     id: 'private-components-overlay-features--overlay-on-top-of-overlay',
     setup: async (page: Page) => {
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Enter')
+      await page.keyboard.press('Enter')
+      await page.keyboard.press('Enter')
+
       await page.waitForSelector('div[role="dialog"]')
-      await page.keyboard.press('Tab')
-      await page.keyboard.press('Tab')
-      await page.keyboard.press('Enter')
-      await page.keyboard.press('Enter')
-      await page.keyboard.press('Enter')
     },
   },
   {
     title: 'Positioned Overlays',
     id: 'private-components-overlay-features--positioned-overlays',
     setup: async (page: Page) => {
-      await page.waitForSelector('div[role="dialog"]')
       await page.keyboard.press('Tab')
       await page.keyboard.press('Tab')
       await page.keyboard.press('Enter')
+
+      await page.waitForSelector('div[role="dialog"]')
     },
   },
   {
     title: 'SX Props',
     id: 'private-components-overlay-dev--sx-props',
     setup: async (page: Page) => {
-      await page.waitForSelector('div[role="dialog"]')
       await page.keyboard.press('Tab')
       await page.keyboard.press('Enter')
+
+      await page.waitForSelector('div[role="dialog"]')
     },
   },
 ] as const
