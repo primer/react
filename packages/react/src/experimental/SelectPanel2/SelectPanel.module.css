@@ -213,11 +213,11 @@
 .Octicon {
   margin-bottom: var(--base-size-8);
 
-  &:where([data-variant='error']) {
+  &.Error {
     color: var(--fgColor-danger);
   }
 
-  &:where([data-variant='warning']) {
+  &.Warning {
     color: var(--fgColor-attention);
   }
 }

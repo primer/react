@@ -26,6 +26,7 @@ import {useResponsiveValue} from '../../hooks/useResponsiveValue'
 import type {ResponsiveValue} from '../../hooks/useResponsiveValue'
 
 import classes from './SelectPanel.module.css'
+import {clsx} from 'clsx'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -570,7 +571,16 @@ const SelectPanelMessage: React.FC<SelectPanelMessageProps> = ({
   if (size === 'full') {
     return (
       <div aria-live={variant === 'empty' ? undefined : 'polite'} className={classes.MessageFull}>
-        {variant !== 'empty' ? <Octicon icon={AlertIcon} className={classes.Octicon} data-variant={variant} /> : null}
+        {variant !== 'empty' ? (
+          <Octicon
+            icon={AlertIcon}
+            className={clsx(
+              classes.Octicon,
+              variant === 'error' && classes.Error,
+              variant === 'warning' && classes.Warning,
+            )}
+          />
+        ) : null}
         <Text className={classes.MessageTitle}>{title}</Text>
         <Text className={classes.MessageContent}>{children}</Text>
       </div>
