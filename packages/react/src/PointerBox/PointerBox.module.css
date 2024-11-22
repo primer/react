@@ -1,0 +1,5 @@
+.PointerBox {
+    position: relative;
+    border: 1px solid var(--borderColor-default);
+    border-radius: var(--borderRadius-medium);
+}
