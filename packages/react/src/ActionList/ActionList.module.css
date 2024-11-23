@@ -144,6 +144,7 @@
   &:has(.TrailingAction) {
     display: flex;
     flex-wrap: nowrap;
+
     /* align-items: center; */
   }
 
@@ -752,6 +753,13 @@
   cursor: pointer;
   background: none;
   border: none;
+}
+
+.InactiveWarning {
+  font-size: var(--text-body-size-small);
+  line-height: var(--text-caption-lineHeight);
+  color: var(--fgColor-attention);
+  grid-row: 2/2;
 }
 
 @keyframes checkmarkIn {
