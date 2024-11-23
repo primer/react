@@ -144,7 +144,7 @@
   &:has(.TrailingAction) {
     display: flex;
     flex-wrap: nowrap;
-    align-items: center;
+    /* align-items: center; */
   }
 
   /* state */
@@ -700,7 +700,7 @@
   align-items: center;
 }
 
-.ActionListItem-trailingAction {
+.TrailingActionButton {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
@@ -708,13 +708,13 @@
 /* show trailing action button on hover */
 
 .ActionListItem--trailingActionHover {
-  & .ActionListItem-trailingAction {
+  & .TrailingActionButton {
     visibility: hidden;
   }
 
   &:hover,
   &:focus-within {
-    & .ActionListItem-trailingAction {
+    & .TrailingActionButton {
       visibility: visible;
     }
   }

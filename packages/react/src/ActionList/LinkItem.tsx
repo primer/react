@@ -7,6 +7,7 @@ import {Item} from './Item'
 import type {ActionListItemProps} from './shared'
 import Box from '../Box'
 import {defaultSxProp} from '../utils/defaultSxProp'
+import {useFeatureFlag} from '../FeatureFlags'
 
 // adopted from React.AnchorHTMLAttributes
 type LinkProps = {
@@ -40,10 +41,12 @@ export const LinkItem = React.forwardRef(
       '&:hover': {color: 'inherit', textDecoration: 'none'},
     }
 
+    const enabled = useFeatureFlag('primer_react_css_modules_team')
+
     return (
       <Item
         active={active}
-        sx={{paddingY: 0, paddingX: 0}}
+        sx={enabled ? undefined : {paddingY: 0, paddingX: 0}}
         inactiveText={inactiveText}
         data-inactive={inactiveText ? true : undefined}
         _PrivateItemWrapper={({children, onClick, ...rest}) => {
@@ -52,13 +55,13 @@ export const LinkItem = React.forwardRef(
             props.onClick && props.onClick(event as React.MouseEvent<HTMLAnchorElement>)
           }
           return inactiveText ? (
-            <Box sx={merge(styles, sx as SxProp)} {...rest}>
+            <Box sx={enabled ? undefined : merge(styles, sx as SxProp)} {...rest}>
               {children}
             </Box>
           ) : (
             <Link
               as={Component}
-              sx={merge(styles, sx as SxProp)}
+              sx={enabled ? undefined : merge(styles, sx as SxProp)}
               {...rest}
               {...props}
               onClick={clickHandler}

@@ -481,10 +481,10 @@ export const LoadingItem = () => {
 
 export const Links = () => (
   <>
-    <ActionList.Heading as="h1" sx={{fontSize: 1}}>
-      Details
-    </ActionList.Heading>
     <ActionList>
+      <ActionList.Heading as="h1" sx={{fontSize: 1}}>
+        Details
+      </ActionList.Heading>
       <ActionList.LinkItem href="https://github.com/primer/react#readme">
         <ActionList.LeadingVisual>
           <BookIcon />
@@ -823,59 +823,57 @@ ActionListWithButtonSemantics.storyName = 'With Button Semantics (Behind feature
 
 export const WithTrailingAction = () => {
   return (
-    <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
-      <ActionList>
-        <ActionList.Item>
-          <ActionList.LeadingVisual>
-            <FileDirectoryIcon />
-          </ActionList.LeadingVisual>
-          Item 1 (with default TrailingAction)
-          <ActionList.TrailingAction label="Expand sidebar" icon={ArrowLeftIcon} />
-        </ActionList.Item>
-        <ActionList.Item>
-          Item 2 (with link TrailingAction)
-          <ActionList.TrailingAction as="a" href="#" label="Some action 1" icon={ArrowRightIcon} />
-        </ActionList.Item>
-        <ActionList.Item>
-          Item 3<ActionList.Description>This is an inline description.</ActionList.Description>
-          <ActionList.TrailingAction label="Some action 2" icon={BookIcon} />
-        </ActionList.Item>
-        <ActionList.Item>
-          Item 4<ActionList.Description variant="block">This is a block description.</ActionList.Description>
-          <ActionList.TrailingAction label="Some action 3" icon={BookIcon} />
-        </ActionList.Item>
-        <ActionList.Item>
-          Item 5<ActionList.Description variant="block">This is a block description.</ActionList.Description>
-          <ActionList.TrailingAction label="Some action 4" />
-        </ActionList.Item>
-        <ActionList.Item>
-          Item 6
-          <ActionList.TrailingAction href="#" as="a" label="Some action 5" />
-        </ActionList.Item>
-        <ActionList.LinkItem href="#">
-          LinkItem 1
-          <ActionList.Description>
-            with TrailingAction this is a long description and should not cause horizontal scroll on smaller screen
-            sizes
-          </ActionList.Description>
-          <ActionList.TrailingAction label="Another action" />
-        </ActionList.LinkItem>
-        <ActionList.LinkItem href="#">
-          LinkItem 2
-          <ActionList.Description>
-            with TrailingVisual this is a long description and should not cause horizontal scroll on smaller screen
-            sizes
-          </ActionList.Description>
-          <ActionList.TrailingVisual>
-            <TableIcon />
-          </ActionList.TrailingVisual>
-        </ActionList.LinkItem>
-        <ActionList.Item inactiveText="Unavailable due to an outage">
-          Inactive Item<ActionList.Description>With TrailingAction</ActionList.Description>
-          <ActionList.TrailingAction as="a" href="#" label="Some action 8" icon={ArrowRightIcon} />
-        </ActionList.Item>
-      </ActionList>
-    </FeatureFlags>
+    // <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
+    <ActionList>
+      <ActionList.Item>
+        <ActionList.LeadingVisual>
+          <FileDirectoryIcon />
+        </ActionList.LeadingVisual>
+        Item 1 (with default TrailingAction)
+        <ActionList.TrailingAction label="Expand sidebar" icon={ArrowLeftIcon} />
+      </ActionList.Item>
+      <ActionList.Item>
+        Item 2 (with link TrailingAction)
+        <ActionList.TrailingAction as="a" href="#" label="Some action 1" icon={ArrowRightIcon} />
+      </ActionList.Item>
+      <ActionList.Item>
+        Item 3<ActionList.Description>This is an inline description.</ActionList.Description>
+        <ActionList.TrailingAction label="Some action 2" icon={BookIcon} />
+      </ActionList.Item>
+      <ActionList.Item>
+        Item 4<ActionList.Description variant="block">This is a block description.</ActionList.Description>
+        <ActionList.TrailingAction label="Some action 3" icon={BookIcon} />
+      </ActionList.Item>
+      <ActionList.Item>
+        Item 5<ActionList.Description variant="block">This is a block description.</ActionList.Description>
+        <ActionList.TrailingAction label="Some action 4" />
+      </ActionList.Item>
+      <ActionList.Item>
+        Item 6
+        <ActionList.TrailingAction href="#" as="a" label="Some action 5" />
+      </ActionList.Item>
+      <ActionList.LinkItem href="#">
+        LinkItem 1
+        <ActionList.Description>
+          with TrailingAction this is a long description and should not cause horizontal scroll on smaller screen sizes
+        </ActionList.Description>
+        <ActionList.TrailingAction label="Another action" />
+      </ActionList.LinkItem>
+      <ActionList.LinkItem href="#">
+        LinkItem 2
+        <ActionList.Description>
+          with TrailingVisual this is a long description and should not cause horizontal scroll on smaller screen sizes
+        </ActionList.Description>
+        <ActionList.TrailingVisual>
+          <TableIcon />
+        </ActionList.TrailingVisual>
+      </ActionList.LinkItem>
+      <ActionList.Item inactiveText="Unavailable due to an outage">
+        Inactive Item<ActionList.Description>With TrailingAction</ActionList.Description>
+        <ActionList.TrailingAction as="a" href="#" label="Some action 8" icon={ArrowRightIcon} />
+      </ActionList.Item>
+    </ActionList>
+    // </FeatureFlags>
   )
 }
 

@@ -39,11 +39,19 @@ export const TrailingAction = forwardRef(
               href={href}
               // @ts-expect-error StyledButton wants both Anchor and Button refs
               ref={forwardedRef}
+              className={classes.TrailingActionButton}
               {...props}
             />
           ) : (
             // @ts-expect-error shhh
-            <Button variant="invisible" as={as} href={href} ref={forwardedRef} {...props}>
+            <Button
+              variant="invisible"
+              as={as}
+              href={href}
+              ref={forwardedRef}
+              className={classes.TrailingActionButton}
+              {...props}
+            >
               {label}
             </Button>
           )}
