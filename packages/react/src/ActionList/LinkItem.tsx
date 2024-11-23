@@ -20,6 +20,7 @@ type LinkProps = {
   target?: string
   type?: string
   referrerPolicy?: React.AnchorHTMLAttributes<HTMLAnchorElement>['referrerPolicy']
+  className?: string
 }
 
 // LinkItem does not support selected, loading, variants, etc.
@@ -27,7 +28,7 @@ export type ActionListLinkItemProps = Pick<ActionListItemProps, 'active' | 'chil
   LinkProps
 
 export const LinkItem = React.forwardRef(
-  ({sx = defaultSxProp, active, inactiveText, as: Component, ...props}, forwardedRef) => {
+  ({sx = defaultSxProp, active, inactiveText, as: Component, className, ...props}, forwardedRef) => {
     const styles = {
       // occupy full size of Item
       paddingX: 2,
@@ -45,6 +46,7 @@ export const LinkItem = React.forwardRef(
 
     return (
       <Item
+        className={className}
         active={active}
         sx={enabled ? undefined : {paddingY: 0, paddingX: 0}}
         inactiveText={inactiveText}

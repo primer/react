@@ -23,6 +23,7 @@ import {useFeatureFlag} from '../FeatureFlags'
 import VisuallyHidden from '../_VisuallyHidden'
 import classes from './ActionList.module.css'
 import {clsx} from 'clsx'
+import {SubItem} from './SubItem'
 
 const LiBox = styled.li<SxProp>(sx)
 
@@ -81,6 +82,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       leadingVisual: LeadingVisual,
       trailingVisual: TrailingVisual,
       trailingAction: TrailingAction,
+      subItem: SubItem,
     }
 
     const [partialSlots, childrenWithoutSlots] = useSlots(
@@ -331,7 +333,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       DefaultItemWrapper = DivItemContainerNoBox
     }
 
-    const ItemWrapper = _PrivateItemWrapper || DefaultItemWrapper
+    // const ItemWrapper = _PrivateItemWrapper || DefaultItemWrapper
+    const ItemWrapper =
+      _PrivateItemWrapper || (props.wrapper === 'button' ? ButtonItemContainerNoBox : DefaultItemWrapper)
 
     // only apply aria-selected and aria-checked to selectable items
     const selectableRoles = ['menuitemradio', 'menuitemcheckbox', 'option']
@@ -367,7 +371,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       containerProps = _PrivateItemWrapper
         ? {role: itemRole ? 'none' : undefined, ...props}
         : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          (listSemantics && {...menuItemProps, ...props, ref: forwardedRef, className: classes.ActionListItem}) || {}
+          (listSemantics && {...menuItemProps, ...props, ref: forwardedRef}) || {}
 
       wrapperProps = _PrivateItemWrapper
         ? menuItemProps
@@ -376,11 +380,11 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
             ...props,
             styles: merge<BetterSystemStyleObject>(styles, sxProp),
             ref: forwardedRef,
-            className: classes.ActionListItem,
+            // className: classes.ActionListItem,
           }
     } else {
       containerProps = _PrivateItemWrapper
-        ? {role: itemRole ? 'none' : undefined, className: classes.ActionListItem}
+        ? {role: itemRole ? 'none' : undefined}
         : {...menuItemProps, ...props, className: classes.ActionListItem}
       wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
     }
@@ -415,9 +419,16 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
             data-variant={variant === 'danger' ? variant : undefined}
             data-active={active ? true : undefined}
             data-inactive={inactiveText ? true : undefined}
+            data-has-subitem={Boolean(slots.subItem)}
+            className={clsx(classes.ActionListItem, className)}
             {...containerProps}
           >
-            <ItemWrapper {...wrapperProps} className={classes.ActionListContent}>
+            <ItemWrapper
+              {...wrapperProps}
+              className={classes.ActionListContent}
+              aria-expanded={props['aria-expanded']}
+              aria-controls={props['aria-controls']}
+            >
               <Selection selected={selected} className={classes.LeadingAction} />
               <VisualOrIndicator
                 inactiveText={showInactiveIndicator ? inactiveText : undefined}
@@ -463,6 +474,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               </span>
             </ItemWrapper>
             {!inactive && !loading && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}
+            {slots.subItem}
           </li>
         </ItemContext.Provider>
       )

@@ -206,7 +206,7 @@
   }
 
   /* collapse styles here */
-  &.ActionListItem--hasSubItem {
+  &[data-has-subitem='true'] {
     /* first child */
     & > .ActionListContent {
       z-index: 1;
@@ -224,9 +224,9 @@
   }
 
   /* only hover li without list as children */
-  &:not(.ActionListItem--hasSubItem),
+  &:not([data-has-subitem="true"]),
    /* target contents of first child li if sub-item (li wraps item label + nested ul) */
-  &.ActionListItem--hasSubItem > .ActionListContent {
+  &[data-has-subitem="true"] > .ActionListContent {
   }
 
   /* Autocomplete [aria-selected] items */
@@ -258,7 +258,7 @@
     /* provides a visual indication of the current item for Windows high-contrast mode */
     outline: 2px solid transparent;
 
-    &:not(.ActionListItem--subItem) {
+    &:not(.SubItem) {
       & .ItemLabel {
         font-weight: var(--base-text-weight-semibold);
       }
@@ -482,7 +482,7 @@
   /* nesting (single level)
    target items inside expanded subgroups */
   &[aria-expanded] {
-    & + .ActionList--subGroup {
+    & + .SubGroup {
       @media screen and (prefers-reduced-motion: no-preference) {
         transition:
           opacity 160ms cubic-bezier(0.25, 1, 0.5, 1),
@@ -495,21 +495,21 @@
     }
 
     /* has 16px leading visual */
-    &.ActionListContent--visual16 + .ActionList--subGroup {
+    &.ActionListContent--visual16 + .SubGroup {
       & .ActionListContent {
         padding-left: var(--base-size-32);
       }
     }
 
     /* has 20px leading visual */
-    &.ActionListContent--visual20 + .ActionList--subGroup {
+    &.ActionListContent--visual20 + .SubGroup {
       & .ActionListContent {
         padding-left: var(--base-size-36);
       }
     }
 
     /* has 24px leading visual */
-    &.ActionListContent--visual24 + .ActionList--subGroup {
+    &.ActionListContent--visual24 + .SubGroup {
       & .ActionListContent {
         padding-left: var(--base-size-40);
       }
@@ -517,15 +517,16 @@
   }
 
   &[aria-expanded='true'] {
-    & .ActionListItem-collapseIcon {
+    & .ExpandIcon {
       transition: transform 120ms linear;
       transform: scaleY(-1);
     }
 
-    & + .ActionList--subGroup {
+    & ~ .SubGroup {
       height: auto;
       overflow: visible;
       visibility: visible;
+      outline: solid 1px purple !important;
       opacity: 1;
       transform: translateY(0);
     }
@@ -538,12 +539,12 @@
   }
 
   &[aria-expanded='false'] {
-    & .ActionListItem-collapseIcon {
+    & .ExpandIcon {
       transition: transform 120ms linear;
       transform: scaleY(1);
     }
 
-    & + .ActionList--subGroup {
+    & + .SubGroup {
       height: 0;
       overflow: hidden;
       visibility: hidden;
@@ -577,6 +578,10 @@
       place-self: start;
     }
   }
+}
+
+.SubGroup {
+  outline: solid 1px deeppink;
 }
 
 .Ugh {
@@ -688,7 +693,7 @@
 /* nested lists (only supports 1 level currently)
  target ActionListItem--subItem for padding-left to maintain :active :after state */
 
-.ActionListItem--subItem > .ActionListContent > .ItemLabel {
+.SubItem > .ActionListContent > .ItemLabel {
   font-size: var(--text-body-size-small);
   line-height: var(--text-body-lineHeight-small);
 }

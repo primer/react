@@ -7,6 +7,7 @@ import {Description} from './Description'
 import {TrailingAction} from './TrailingAction'
 import {LeadingVisual, TrailingVisual} from './Visuals'
 import {Heading} from './Heading'
+import {SubItem} from './SubItem'
 
 export type {ActionListProps} from './shared'
 export type {ActionListGroupProps, ActionListGroupHeadingProps} from './Group'
@@ -51,4 +52,6 @@ export const ActionList = Object.assign(List, {
 
   /** Secondary action */
   TrailingAction,
+
+  SubItem,
 })

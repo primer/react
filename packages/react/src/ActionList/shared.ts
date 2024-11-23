@@ -53,6 +53,7 @@ export type ActionListItemProps = {
    */
   _PrivateItemWrapper?: React.FC<React.PropsWithChildren<MenuItemProps>>
   className?: string
+  wrapper?: 'button' | 'div'
 } & SxProp
 
 type MenuItemProps = {
