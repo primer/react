@@ -74,6 +74,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
   ({'aria-current': ariaCurrent, children, defaultOpen, sx: sxProp = defaultSxProp, ...props}, ref) => {
     const enabled = useFeatureFlag('primer_react_css_modules_team')
     const {depth} = React.useContext(SubNavContext)
+    console.log('depth', depth)
 
     // Get SubNav from children
     const subNav = React.Children.toArray(children).find(child => isValidElement(child) && child.type === SubNav)
@@ -90,8 +91,16 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
     // Render ItemWithSubNav if SubNav is present
     if (subNav && isValidElement(subNav)) {
       return (
-        <ItemWithSubNav subNav={subNav} depth={depth} defaultOpen={defaultOpen} sx={sxProp}>
+        <ItemWithSubNav
+          subNav={subNav}
+          depth={depth}
+          defaultOpen={defaultOpen}
+          sx={sxProp}
+          data-depth={depth}
+          style={{'--subitem-depth': depth} as React.CSSProperties}
+        >
           {childrenWithoutSubNavOrTrailingAction}
+          depth:{depth}
         </ItemWithSubNav>
       )
     }
@@ -103,9 +112,12 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
         sx={enabled ? undefined : merge<SxProp['sx']>(getSubnavStyles(depth), sxProp)}
         className={classes.SubItem}
+        data-depth={depth}
+        style={{'--subitem-depth': depth} as React.CSSProperties}
         {...props}
       >
         {children}
+        depth:{depth}
       </ActionList.LinkItem>
     )
   },
@@ -131,7 +143,14 @@ const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: s
 
 // TODO: ref prop
 // TODO: Animate open/close transition
-function ItemWithSubNav({children, subNav, depth, defaultOpen, sx: sxProp = defaultSxProp}: ItemWithSubNavProps) {
+function ItemWithSubNav({
+  children,
+  subNav,
+  depth,
+  defaultOpen,
+  style,
+  sx: sxProp = defaultSxProp,
+}: ItemWithSubNavProps) {
   const buttonId = useId()
   const subNavId = useId()
   const [isOpen, setIsOpen] = React.useState((defaultOpen || null) ?? false)
@@ -166,9 +185,8 @@ function ItemWithSubNav({children, subNav, depth, defaultOpen, sx: sxProp = defa
           aria-controls={subNavId}
           active={!isOpen && containsCurrentItem}
           onClick={() => setIsOpen(open => !open)}
-          variant="danger"
           wrapper="button"
-          data-hi
+          style={style}
         >
           {children}
 

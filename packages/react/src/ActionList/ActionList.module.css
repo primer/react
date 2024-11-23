@@ -88,7 +88,7 @@
     }
 
     /* if inline description, move pseudo divider to wrapper */
-    & [data-description-variant='inlisssne'] {
+    & [data-description-variant='inline'] {
       &::before {
         position: absolute;
         /* stylelint-disable-next-line primer/spacing */
@@ -170,36 +170,6 @@
     }
   }
 
-  @media (hover: hover) {
-    &:hover {
-      cursor: pointer;
-      background-color: var(--control-transparent-bgColor-hover);
-
-      &:not([data-active], :focus-visible) {
-        /* Support for "Windows high contrast mode" */
-        outline: solid var(--borderWidth-thin) transparent;
-        outline-offset: calc(-1 * var(--borderWidth-thin));
-        box-shadow: var(--boxShadow-thin) var(--control-transparent-borderColor-active);
-      }
-    }
-  }
-
-  &:active {
-    background: var(--control-transparent-bgColor-active);
-
-    &:not([data-active]) {
-      /* Support for "Windows high contrast mode" https:sarahmhigley.com/writing/whcm-quick-tips/ */
-      outline: solid var(--borderWidth-thin) transparent;
-      outline-offset: calc(-1 * var(--borderWidth-thin));
-      box-shadow: var(--boxShadow-thin) var(--control-transparent-borderColor-active);
-    }
-
-    & .ItemLabel::before,
-    & + .ActionListItem .ItemLabel::before {
-      visibility: hidden;
-    }
-  }
-
   /* Make sure that the first visible item isn't a divider */
   &[hidden] + .Divider {
     display: none;
@@ -224,9 +194,38 @@
   }
 
   /* only hover li without list as children */
-  &:not([data-has-subitem="true"]),
+  &:not([data-has-subitem='true']),
    /* target contents of first child li if sub-item (li wraps item label + nested ul) */
-  &[data-has-subitem="true"] > .ActionListContent {
+  &[data-has-subitem='true'] > .ActionListContent {
+    @media (hover: hover) {
+      &:hover {
+        cursor: pointer;
+        background-color: var(--control-transparent-bgColor-hover);
+
+        &:not([data-active], :focus-visible) {
+          /* Support for "Windows high contrast mode" */
+          outline: solid var(--borderWidth-thin) transparent;
+          outline-offset: calc(-1 * var(--borderWidth-thin));
+          box-shadow: var(--boxShadow-thin) var(--control-transparent-borderColor-active);
+        }
+      }
+    }
+
+    &:active {
+      background: var(--control-transparent-bgColor-active);
+
+      &:not([data-active]) {
+        /* Support for "Windows high contrast mode" https:sarahmhigley.com/writing/whcm-quick-tips/ */
+        outline: solid var(--borderWidth-thin) transparent;
+        outline-offset: calc(-1 * var(--borderWidth-thin));
+        box-shadow: var(--boxShadow-thin) var(--control-transparent-borderColor-active);
+      }
+
+      & .ItemLabel::before,
+      & + .ActionListItem .ItemLabel::before {
+        visibility: hidden;
+      }
+    }
   }
 
   /* Autocomplete [aria-selected] items */
@@ -441,8 +440,34 @@
   }
 }
 
+.SubItem {
+  outline: solid 1px deeppink;
+
+  & .Spacer {
+    display: block;
+  }
+}
+
+[data-has-subitem='true'] {
+  & .Spacer {
+    display: block;
+  }
+
+  & > .ActionListContent {
+    outline: solid 1px blue;
+  }
+}
+
+.Spacer {
+  display: none;
+  outline: solid 1px lightpink;
+  grid-area: spacer;
+}
+
 /* button or a tag */
 .ActionListContent {
+  --subitem-spacer: calc(var(--subitem-depth) * 8px);
+
   position: relative;
   display: grid;
   width: 100%;
@@ -461,8 +486,8 @@
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   grid-template-rows: min-content;
-  grid-template-areas: 'leadingAction leadingVisual content';
-  grid-template-columns: min-content min-content minmax(0, auto);
+  grid-template-areas: 'spacer leadingAction leadingVisual content';
+  grid-template-columns: var(--subitem-spacer) min-content min-content minmax(0, auto);
   align-items: start;
 
   /* column-gap persists with empty grid-areas, margin applies only when children exist */
@@ -490,7 +515,9 @@
       }
 
       & .ActionListContent {
-        padding-left: var(--base-size-24);
+        /* padding-left: var(--base-size-24); */
+
+        /* padding-left: calc(var(--subitem-depth) + var(--base-size-8)); */
       }
     }
 
@@ -526,7 +553,6 @@
       height: auto;
       overflow: visible;
       visibility: visible;
-      outline: solid 1px purple !important;
       opacity: 1;
       transform: translateY(0);
     }
@@ -544,13 +570,13 @@
       transform: scaleY(1);
     }
 
-    & + .SubGroup {
+    /* & + .SubGroup {
       height: 0;
       overflow: hidden;
       visibility: hidden;
       opacity: 0;
       transform: translateY(calc(-1 * var(--base-size-16)));
-    }
+    } */
 
     /* show active indicator on parent collapse if child is active */
     &.ActionListContent--hasActiveSubItem {
@@ -578,10 +604,6 @@
       place-self: start;
     }
   }
-}
-
-.SubGroup {
-  outline: solid 1px deeppink;
 }
 
 .Ugh {
@@ -693,7 +715,7 @@
 /* nested lists (only supports 1 level currently)
  target ActionListItem--subItem for padding-left to maintain :active :after state */
 
-.SubItem > .ActionListContent > .ItemLabel {
+.SubItem .ItemLabel {
   font-size: var(--text-body-size-small);
   line-height: var(--text-body-lineHeight-small);
 }

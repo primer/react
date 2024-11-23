@@ -344,7 +344,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     // const blockDescriptionSlot = [Description, (props: any) => props.variant === 'block' || props.variant === undefined]
 
     const menuItemProps = {
-      onClick: clickHandler,
+      // onClick: clickHandler,
       onKeyPress: !buttonSemantics ? keyPressHandler : undefined,
       'aria-disabled': disabled ? true : undefined,
       'data-inactive': inactive ? true : undefined,
@@ -362,6 +362,11 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       role: itemRole,
       id: itemId,
       className,
+    }
+
+    const collapseItemProps = {
+      onClick: clickHandler,
+      onKeyPress: !buttonSemantics ? keyPressHandler : undefined,
     }
 
     let containerProps
@@ -429,6 +434,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               aria-expanded={props['aria-expanded']}
               aria-controls={props['aria-controls']}
             >
+              <span className={classes.Spacer} />
               <Selection selected={selected} className={classes.LeadingAction} />
               <VisualOrIndicator
                 inactiveText={showInactiveIndicator ? inactiveText : undefined}
