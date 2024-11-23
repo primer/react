@@ -283,7 +283,7 @@ export const InactiveSingleSelect = () => {
   const [selectedIndex, setSelectedIndex] = React.useState(1)
   return (
     <ActionList selectionVariant="single" showDividers role="menu" aria-label="Project">
-      <ActionList.Item role="menuitem" selected={false} inactiveText="Unavailable due to an outage">
+      <ActionList.Item role="menuitemradio" selected={false} inactiveText="Unavailable due to an outage">
         Inactive item
       </ActionList.Item>
       <ActionList.Item
@@ -411,7 +411,7 @@ export const InactiveMultiselect = () => {
   }
   return (
     <ActionList selectionVariant="multiple" role="menu" aria-label="Project">
-      <ActionList.Item role="menuitem" selected={false} inactiveText="Unavailable due to an outage">
+      <ActionList.Item role="menuitemcheckbox" selected={false} inactiveText="Unavailable due to an outage">
         Inactive item
       </ActionList.Item>
       <ActionList.Item
@@ -621,7 +621,6 @@ export const ConditionalChildren = () => {
           {reviewer.type === 'team' && (
             <ActionList.TrailingVisual>
               <PeopleIcon />
-              {reviewer.members}
             </ActionList.TrailingVisual>
           )}
         </ActionList.Item>
@@ -769,7 +768,7 @@ export const GroupWithFilledTitle = () => {
 }
 
 export const WithCustomTrailingVisuals = () => (
-  <ActionList>
+  <ActionList showDividers>
     <ActionList.Item>
       <ActionList.LeadingVisual>
         <IssueOpenedIcon />
@@ -802,7 +801,7 @@ export const WithCustomTrailingVisuals = () => (
 
 export const ActionListWithButtonSemantics = () => {
   return (
-    <FeatureFlags flags={{primer_react_action_list_item_as_button: false}}>
+    <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
       <ActionList>
         <ActionList.Item>Copy link</ActionList.Item>
         <ActionList.Item inactiveText="Nothing to quote">Quote reply</ActionList.Item>

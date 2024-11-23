@@ -50,23 +50,59 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
 
   if (enabled) {
     if (sx !== defaultSxProp) {
+      if (variant === 'block' || !truncate) {
+        return (
+          <Box
+            as="span"
+            sx={merge(styles, sx as SxProp)}
+            id={variant === 'block' ? blockDescriptionId : inlineDescriptionId}
+            className={className}
+            data-component="ActionList.Description"
+          >
+            {props.children}
+          </Box>
+        )
+      } else {
+        return (
+          <Truncate
+            id={inlineDescriptionId}
+            className={className}
+            sx={merge(styles, sx as SxProp)}
+            title={props.children as string}
+            inline={true}
+            maxWidth="100%"
+            data-component="ActionList.Description"
+          >
+            {props.children}
+          </Truncate>
+        )
+      }
+    }
+    if (variant === 'block' || !truncate) {
       return (
-        <Box
-          className={clsx(classes.Description)}
-          as="span"
-          sx={sx}
-          id={blockDescriptionId}
+        <span
+          className={clsx(className, classes.Description)}
           data-component="ActionList.Description"
+          id={variant === 'block' ? blockDescriptionId : inlineDescriptionId}
         >
           {props.children}
-        </Box>
+        </span>
+      )
+    } else {
+      return (
+        <Truncate
+          id={inlineDescriptionId}
+          className={clsx(className, classes.Description)}
+          title={props.children as string}
+          inline={true}
+          maxWidth="100%"
+          data-component="ActionList.Description"
+          data-truncate={truncate}
+        >
+          {props.children}
+        </Truncate>
       )
     }
-    return (
-      <span className={clsx(classes.Description)} id={blockDescriptionId}>
-        {props.children}
-      </span>
-    )
   }
 
   return variant === 'block' || !truncate ? (

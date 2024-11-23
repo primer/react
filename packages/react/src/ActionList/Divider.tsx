@@ -35,6 +35,7 @@ export const Divider: React.FC<React.PropsWithChildren<ActionListDividerProps>> 
           marginTop: (theme: Theme) => `calc(${get('space.2')(theme)} - 1px)`,
           marginBottom: 2,
           listStyle: 'none', // hide the ::marker inserted by browser's stylesheet
+          marginInline: 'calc(-1 * var(--base-size-8))',
         },
         sx as SxProp,
       )}

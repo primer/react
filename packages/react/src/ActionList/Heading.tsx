@@ -67,6 +67,7 @@ export const Heading = forwardRef(
               // use custom id if it is provided. Otherwise, use the id from the context
               id={props.id ?? headingId}
               className={clsx(className, classes.ActionListHeader)}
+              data-list-variant={listVariant}
               {...props}
             >
               {children}

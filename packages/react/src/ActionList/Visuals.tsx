@@ -43,6 +43,7 @@ export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProp
           alignItems: 'center',
           flexShrink: 0,
           marginRight: 2,
+          color: 'fg.muted',
         },
         sx as SxProp,
       )}

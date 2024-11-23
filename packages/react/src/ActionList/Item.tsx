@@ -50,7 +50,7 @@ const ButtonItemContainerNoBox = React.forwardRef(({children, ...props}, forward
 
 const DivItemContainerNoBox = React.forwardRef(({children, ...props}, forwardedRef) => {
   return (
-    <div ref={forwardedRef as React.Ref<HTMLDivElement>} {...props}>
+    <div ref={forwardedRef as React.Ref<HTMLDivElement>} {...props} data-hi>
       {children}
     </div>
   )
@@ -206,8 +206,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       display: 'flex',
       // show between 2 items
       ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
-      width: buttonSemantics && listVariant !== 'full' ? 'calc(100% - 16px)' : '100%',
-      marginX: buttonSemantics && listVariant !== 'full' ? '2' : '0',
+      width: '100%',
+      // marginX: buttonSemantics && listVariant !== 'full' ? '2' : '0',
       borderRadius: 2,
       ...(buttonSemantics ? hoverStyles : {}),
     }
@@ -220,7 +220,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       paddingY: '6px', // custom value off the scale
       lineHeight: TEXT_ROW_HEIGHT,
       minHeight: 5,
-      marginX: listVariant === 'inset' && !buttonSemantics ? 2 : 0,
+      // marginX: listVariant === 'inset' && !buttonSemantics ? 2 : 0,
       borderRadius: 2,
       transition: 'background 33.333ms linear',
       color: getVariantStyles(variant, disabled, inactive || loading).color,
@@ -241,7 +241,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       appearance: 'none',
       background: 'unset',
       border: 'unset',
-      width: listVariant === 'inset' && !buttonSemantics ? 'calc(100% - 16px)' : '100%',
+      width: '100%',
       fontFamily: 'unset',
       textAlign: 'unset',
       marginY: 'unset',
@@ -428,35 +428,37 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               >
                 {slots.leadingVisual}
               </VisualOrIndicator>
-              <ConditionalWrapper
-                if={!!slots.description}
-                className={classes.ItemDescriptionWrap}
-                data-description-variant={descriptionVariant}
-              >
-                <span id={labelId} className={classes.ItemLabel}>
-                  {childrenWithoutSlots}
-                  {/* Loading message needs to be in here so it is read with the label */}
-                  {loading === true && <VisuallyHidden>Loading</VisuallyHidden>}
-                </span>
-                {slots.description}
-              </ConditionalWrapper>
-              <VisualOrIndicator
-                inactiveText={showInactiveIndicator ? inactiveText : undefined}
-                itemHasLeadingVisual={Boolean(slots.leadingVisual)}
-                labelId={labelId}
-                loading={loading}
-                position="trailing"
-              >
-                {trailingVisual}
-              </VisualOrIndicator>
-              {
-                // If the item is inactive, but it's not in an overlay (e.g. ActionMenu, SelectPanel),
-                // render the inactive warning message directly in the item.
-                inactive && container ? <span id={inactiveWarningId}>{inactiveText}</span> : null
-              }
+              <span className={classes.Ugh}>
+                <ConditionalWrapper
+                  if={!!slots.description}
+                  className={classes.ItemDescriptionWrap}
+                  data-description-variant={descriptionVariant}
+                >
+                  <span id={labelId} className={classes.ItemLabel}>
+                    {childrenWithoutSlots}
+                    {/* Loading message needs to be in here so it is read with the label */}
+                    {loading === true && <VisuallyHidden>Loading</VisuallyHidden>}
+                  </span>
+                  {slots.description}
+                </ConditionalWrapper>
+                <VisualOrIndicator
+                  inactiveText={showInactiveIndicator ? inactiveText : undefined}
+                  itemHasLeadingVisual={Boolean(slots.leadingVisual)}
+                  labelId={labelId}
+                  loading={loading}
+                  position="trailing"
+                >
+                  {trailingVisual}
+                </VisualOrIndicator>
+
+                {
+                  // If the item is inactive, but it's not in an overlay (e.g. ActionMenu, SelectPanel),
+                  // render the inactive warning message directly in the item.
+                  inactive && container ? <span id={inactiveWarningId}>{inactiveText}</span> : null
+                }
+              </span>
             </ItemWrapper>
             {!inactive && !loading && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}
-            {/* {slots.trailingAction} */}
           </li>
         </ItemContext.Provider>
       )

@@ -4,8 +4,19 @@
 
 /* check this as full width variant */
 .ActionListHeader {
-  margin-bottom: var(--base-size-16);
-  margin-left: var(--base-size-8);
+  margin-bottom: var(--base-size-8);
+
+  &:where([data-list-variant='full']) {
+    margin-inline-start: var(--base-size-8);
+  }
+
+  &:where([data-list-variant='inset']) {
+    margin-inline-start: calc(var(--control-medium-paddingInline-condensed) + var(--base-size-8));
+  }
+}
+
+.Group:not(:first-child) {
+  margin-block-start: var(--base-size-8);
 }
 
 .GroupHeadingWrap {
@@ -16,7 +27,7 @@
   color: var(--fgColor-muted);
   flex-direction: column;
   /* stylelint-disable-next-line primer/spacing */
-  padding-inline: var(--control-medium-paddingBlock);
+  padding-inline: var(--control-medium-paddingInline-condensed);
   padding-block: var(--base-size-8);
 
   &:where([data-variant='filled']) {
@@ -64,7 +75,7 @@
   }
 
   &:where([data-dividers='true']) {
-    & .ItemLabel::before {
+    & .Ugh::before {
       position: absolute;
       /* stylelint-disable-next-line primer/spacing */
       top: calc(-1 * var(--control-medium-paddingBlock));
@@ -77,7 +88,7 @@
     }
 
     /* if inline description, move pseudo divider to wrapper */
-    & [data-description-variant='inline'] {
+    & [data-description-variant='inlisssne'] {
       &::before {
         position: absolute;
         /* stylelint-disable-next-line primer/spacing */
@@ -91,14 +102,14 @@
       }
 
       /* unset the default label pseudo */
-      & .ItemLabel::before {
+      & .Ugh::before {
         content: unset;
       }
     }
 
     /* hide if item is first of type with label::before, or is the first item after a sectionDivider */
-    .ActionListItem:first-of-type .ItemLabel::before,
-    .Divider + .ActionListItem .ItemLabel::before {
+    .ActionListItem:first-of-type .Ugh::before,
+    .Divider + .ActionListItem .Ugh::before {
       visibility: hidden;
     }
 
@@ -115,8 +126,8 @@
 .ActionListWrap--divided {
   /* hide divider if item is active */
   & [data-active] {
-    & .ItemLabel::before,
-    & + .ActionListItem .ItemLabel::before {
+    & .Ugh::before,
+    & + .ActionListItem .Ugh::before {
       visibility: hidden;
     }
   }
@@ -146,8 +157,8 @@
   /* hide dividers  */
   @media (hover: hover) {
     &:hover {
-      & .ItemLabel::before,
-      & + .ActionListItem .ItemLabel::before {
+      & .Ugh::before,
+      & + .ActionListItem .Ugh::before {
         visibility: hidden;
       }
 
@@ -333,7 +344,7 @@
   }
 
   /* inactive */
-  &[data-inactive] {
+  &[data-inactive='true'] {
     & .ItemLabel {
       color: var(--fgColor-muted);
     }
@@ -434,22 +445,23 @@
   position: relative;
   display: grid;
   width: 100%;
-  /* stylelint-disable-next-line primer/spacing */
-  padding-block: var(--control-medium-paddingBlock);
-  /* stylelint-disable-next-line primer/spacing */
-  padding-inline: var(--control-medium-paddingInline-condensed);
   color: var(--control-fgColor-rest);
   text-align: left;
+  cursor: pointer;
   user-select: none;
   background-color: transparent;
   border: none;
   border-radius: var(--borderRadius-medium);
   transition: background 33.333ms linear;
+  /* stylelint-disable-next-line primer/spacing */
+  padding-block: var(--control-medium-paddingBlock);
+  /* stylelint-disable-next-line primer/spacing */
+  padding-inline: var(--control-medium-paddingInline-condensed);
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   grid-template-rows: min-content;
-  grid-template-areas: 'leadingAction leadingVisual label trailingVisual trailingAction';
-  grid-template-columns: min-content min-content minmax(0, auto) min-content min-content;
+  grid-template-areas: 'leadingAction leadingVisual content';
+  grid-template-columns: min-content min-content minmax(0, auto);
   align-items: start;
 
   /* column-gap persists with empty grid-areas, margin applies only when children exist */
@@ -566,6 +578,17 @@
   }
 }
 
+.Ugh {
+  grid-area: content;
+  position: relative;
+  display: grid;
+  width: 100%;
+  grid-template-rows: min-content;
+  grid-template-areas: 'label trailingVisual trailingAction';
+  grid-template-columns: minmax(0, auto) min-content min-content;
+  align-items: start;
+}
+
 /* place children on grid */
 
 .LeadingAction {
@@ -578,6 +601,7 @@
 
 .TrailingVisual {
   grid-area: trailingVisual;
+  font-size: var(--text-body-size-medium);
 }
 
 .TrailingAction {
@@ -594,14 +618,26 @@
 
   & .ItemLabel {
     font-weight: var(--base-text-weight-semibold);
+    word-break: break-word;
   }
 
   /* inline */
   &[data-description-variant='inline'] {
     position: relative;
+    word-break: normal;
     flex-direction: row;
     align-items: baseline;
     gap: var(--base-size-8);
+
+    & .ItemLabel {
+      word-break: normal;
+    }
+
+    &:has([data-truncate='true']) {
+      & .ItemLabel {
+        flex: 1 0 auto;
+      }
+    }
 
     & .Description {
       /* adjust line-height for baseline alignment */
@@ -615,7 +651,9 @@
 .Description {
   font-size: var(--text-body-size-small);
   font-weight: var(--base-text-weight-normal);
-  line-height: var(--text-body-lineHeight-small);
+
+  /* line-height: var(--text-body-lineHeight-small); */
+  line-height: var(--text-caption-lineHeight);
   color: var(--fgColor-muted);
 }
 
@@ -683,20 +721,17 @@
 }
 
 .Divider {
-  /* no children */
-  &:empty {
-    display: block;
-    height: var(--borderWidth-thin);
-    padding: 0;
-    /* stylelint-disable-next-line primer/spacing */
-    margin-block-start: calc(var(--base-size-8) - var(--borderWidth-thin));
-    margin-block-end: var(--base-size-8);
-    margin-inline: calc(-1 * var(--base-size-8));
-    list-style: none;
-    /* stylelint-disable-next-line primer/colors */
-    background: var(--borderColor-muted);
-    border: 0;
-  }
+  display: block;
+  height: var(--borderWidth-thin);
+  padding: 0;
+  /* stylelint-disable-next-line primer/spacing */
+  margin-block-start: calc(var(--base-size-8) - var(--borderWidth-thin));
+  margin-block-end: var(--base-size-8);
+  margin-inline: calc(-1 * var(--base-size-8));
+  list-style: none;
+  /* stylelint-disable-next-line primer/colors */
+  background: var(--borderColor-muted);
+  border: 0;
 }
 
 .InactiveButtonWrap {

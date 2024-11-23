@@ -92,7 +92,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   if (enabled) {
     if (sx !== defaultSxProp) {
       return (
-        <Box as="li" role={listRole ? 'none' : undefined} sx={sx} {...props}>
+        <Box as="li" className={classes.Group} role={listRole ? 'none' : undefined} sx={sx} {...props}>
           <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>
             {title && !slots.groupHeading ? (
               // Escape hatch: supports old API <ActionList.Group title="group title"> in a non breaking way
@@ -115,7 +115,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
       )
     }
     return (
-      <li role={listRole ? 'none' : undefined} {...props}>
+      <li className={classes.Group} role={listRole ? 'none' : undefined} {...props}>
         <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>
           {title && !slots.groupHeading ? (
             // Escape hatch: supports old API <ActionList.Group title="group title"> in a non breaking way
@@ -222,7 +222,13 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
     <>
       {/* for listbox (SelectPanel) and menu (ActionMenu) roles, group titles are presentational. */}
       {listRole && listRole !== 'list' ? (
-        <div role="presentation" aria-hidden="true" {...props} data-variant={variant}>
+        <div
+          role="presentation"
+          className={classes.GroupHeadingWrap}
+          aria-hidden="true"
+          {...props}
+          data-variant={variant}
+        >
           <span className={clsx(className, classes.GroupHeading)} id={groupHeadingId}>
             {_internalBackwardCompatibleTitle ?? children}
           </span>
