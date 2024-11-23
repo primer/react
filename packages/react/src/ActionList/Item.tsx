@@ -344,7 +344,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     // const blockDescriptionSlot = [Description, (props: any) => props.variant === 'block' || props.variant === undefined]
 
     const menuItemProps = {
-      // onClick: clickHandler,
+      onClick: clickHandler,
       onKeyPress: !buttonSemantics ? keyPressHandler : undefined,
       'aria-disabled': disabled ? true : undefined,
       'data-inactive': inactive ? true : undefined,
@@ -431,8 +431,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
             <ItemWrapper
               {...wrapperProps}
               className={classes.ActionListContent}
-              aria-expanded={props['aria-expanded']}
-              aria-controls={props['aria-controls']}
+              // aria-expanded={props['aria-expanded']}
+              // aria-controls={props['aria-controls']}
             >
               <span className={classes.Spacer} />
               <Selection selected={selected} className={classes.LeadingAction} />

@@ -74,7 +74,6 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
   ({'aria-current': ariaCurrent, children, defaultOpen, sx: sxProp = defaultSxProp, ...props}, ref) => {
     const enabled = useFeatureFlag('primer_react_css_modules_team')
     const {depth} = React.useContext(SubNavContext)
-    console.log('depth', depth)
 
     // Get SubNav from children
     const subNav = React.Children.toArray(children).find(child => isValidElement(child) && child.type === SubNav)
@@ -185,7 +184,7 @@ function ItemWithSubNav({
           aria-controls={subNavId}
           active={!isOpen && containsCurrentItem}
           onClick={() => setIsOpen(open => !open)}
-          wrapper="button"
+          // wrapper="button"
           style={style}
         >
           {children}
