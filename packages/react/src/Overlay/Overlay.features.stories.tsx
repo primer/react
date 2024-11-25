@@ -18,8 +18,6 @@ import {
   ActionMenu,
   useFocusTrap,
 } from '..'
-import type {AnchorSide} from '@primer/behaviors'
-import type {AriaRole} from '../utils/types'
 import {Tooltip} from '../TooltipV2'
 
 export default {
@@ -56,12 +54,6 @@ export default {
     },
   },
 } as Meta
-
-interface OverlayProps {
-  anchorSide?: AnchorSide
-  role?: AriaRole
-  right?: boolean
-}
 
 export const DropdownOverlay = ({anchorSide, open}: Args) => {
   const [isOpen, setIsOpen] = useState(false)
