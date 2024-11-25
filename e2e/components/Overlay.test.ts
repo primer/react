@@ -60,6 +60,7 @@ test.describe('Overlay ', () => {
                 open: true,
               },
             })
+
             await expect(page).toHaveScreenshot(`Overlay.${story.title}.${theme}.png`, {animations: 'disabled'})
           })
 
