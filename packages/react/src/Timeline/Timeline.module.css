@@ -95,6 +95,5 @@
   margin-left: 0;
   background-color: var(--bgColor-default);
   border: 0;
-  /* stylelint-disable-next-line primer/borders */
-  border-top: var(--base-size-4) solid var(--borderColor-default);
+  border-top: var(--borderWidth-thicker) solid var(--borderColor-default);
 }
