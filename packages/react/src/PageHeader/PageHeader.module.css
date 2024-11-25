@@ -67,6 +67,28 @@
   & [data-component='PH_TrailingVisual'] {
     height: calc(var(--title-line-height) * 1em);
   }
+
+  & [data-is-hidden-all] {
+    display: none;
+  }
+
+  & [data-is-hidden-narrow] {
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  & [data-is-hidden-regular] {
+    @media screen and (min-width: 768px) {
+      display: none;
+    }
+  }
+
+  & [data-is-hidden-wide] {
+    @media screen and (min-width: 1440px) {
+      display: none;
+    }
+  }
 }
 
 .ContextArea {
@@ -188,7 +210,7 @@
 }
 
 .Navigation {
-  display: flex;
+  display: block;
   padding-top: var(--base-size-8);
   font-size: var(--text-body-size-medium, 0.875rem);
   font-weight: var(--base-text-weight-light);
