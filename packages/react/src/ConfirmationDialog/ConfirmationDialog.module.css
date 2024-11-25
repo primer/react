@@ -1,0 +1,30 @@
+.ConfirmationHeader {
+    padding: var(--base-size-8);
+    display: flex;
+    flex-direction: row;
+
+    > h1 {
+        font-size: var(--text-title-size-medium);
+        font-weight: var(--text-title-weight-medium);
+        padding: 6px var(--base-size-8);
+        flex-grow: 1;
+        /* override default margin */
+        margin: 0;
+    }
+}
+
+.ConfirmationBody {
+    font-size: var(--text-body-size-medium);
+    padding: 0 var(--base-size-16) var(--base-size-16) var(--base-size-16);
+    flex-grow: 1;
+}
+
+.ConfirmationFooter {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    grid-gap: var(--base-size-8);
+    align-items: end;
+    justify-content: end;
+    padding: var(--base-size-4) var(--base-size-16) var(--base-size-16);
+}
