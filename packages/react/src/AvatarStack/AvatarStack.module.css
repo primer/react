@@ -36,7 +36,7 @@
 
     /* 1. avatar size + the non-overlapping part of the second avatar */
 
-    /* 2. + the border widths of the first two avatars;thiscalcexplained */
+    /* 2. + the border widths of the first two avatars */
     min-width: calc(
       var(--avatar-stack-size) + calc(var(--avatar-stack-size) + var(--avatar-two-margin)) + var(--avatar-border-width)
     );
@@ -47,7 +47,7 @@
 
     /* 1. avatar size + the non-overlapping part of the second avatar */
 
-    /* 2. + the non-overlapping part of the third avatar;thiscalcexplained */
+    /* 2. + the non-overlapping part of the third avatar */
     min-width: calc(
       var(--avatar-stack-size) +
         calc(
@@ -62,7 +62,7 @@
 
     /* 1. avatar size + the non-overlapping part of the second avatar */
 
-    /* 2. + the non-overlapping part of the third and fourth avatar;thiscalcexplained */
+    /* 2. + the non-overlapping part of the third and fourth avatar */
     min-width: calc(
       var(--avatar-stack-size) +
         calc(

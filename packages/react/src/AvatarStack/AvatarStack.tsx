@@ -382,8 +382,7 @@ const AvatarStack = ({
       data-align-right={enabled && alignRight ? '' : undefined}
       data-responsive={enabled && (!size || isResponsiveValue(size)) ? '' : undefined}
       className={clsx(wrapperClassNames, {[classes.AvatarStack]: enabled})}
-      // @ts-ignore - it's not allowing CSS properties here
-      style={enabled ? (getResponsiveAvatarSizeStyles() as React.CSSProperties) : undefined}
+      style={enabled ? getResponsiveAvatarSizeStyles() : undefined}
       sx={avatarStackSx}
     >
       <AvatarStackBody
