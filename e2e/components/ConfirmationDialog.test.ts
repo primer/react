@@ -31,6 +31,7 @@ test.describe('ConfirmationDialog', () => {
               globals: {
                 colorScheme: theme,
               },
+              args: 'args' in story ? story.args : {},
             })
 
             // Default state
@@ -51,6 +52,7 @@ test.describe('ConfirmationDialog', () => {
               globals: {
                 colorScheme: theme,
               },
+              args: 'args' in story ? story.args : {},
             })
             await expect(page).toHaveNoViolations()
           })
