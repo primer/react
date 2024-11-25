@@ -71,8 +71,7 @@
   /* stylelint-disable-next-line primer/colors */
   border-color: var(--bgColor-default);
   border-style: solid;
-  /* stylelint-disable-next-line primer/borders */
-  border-width: 2px;
+  border-width: var(--borderWidth-thick);
   border-radius: 50%;
   align-items: center;
   justify-content: center;
