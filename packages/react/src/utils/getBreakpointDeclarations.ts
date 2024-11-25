@@ -1,6 +1,5 @@
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {isResponsiveValue} from '../hooks/useResponsiveValue'
-import type {BetterSystemStyleObject} from '../sx'
 import type {Properties as CSSProperties} from 'csstype'
 import {mediaQueries} from './layout'
 
@@ -106,7 +105,7 @@ export function getBreakpointDeclarations<TInput, TOutput>(
   value: TInput | ResponsiveValue<TInput>,
   cssProperty: keyof CSSProperties,
   mapFn: (value: TInput) => TOutput,
-): BetterSystemStyleObject {
+) {
   if (isResponsiveValue(value)) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const responsiveValue = value as Extract<TInput, ResponsiveValue<any>>
