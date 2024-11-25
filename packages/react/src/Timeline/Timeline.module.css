@@ -89,7 +89,7 @@
 .TimelineBreak {
   position: relative;
   z-index: 1;
-  height: 24px;
+  height: var(--base-size-24);
   margin: 0;
   margin-bottom: calc(-1 * var(--base-size-16));
   margin-left: 0;
