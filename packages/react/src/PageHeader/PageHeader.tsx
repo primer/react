@@ -779,7 +779,7 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
   children,
   className,
   sx = {},
-  hidden = hiddenOnRegularAndWide,
+  hidden = false,
   as,
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledBy,
