@@ -6,6 +6,9 @@ const stories = [
   {
     title: 'Default',
     id: 'components-confirmationdialog--default',
+    args: {
+      open: true,
+    },
   },
   {
     title: 'Shorthand Hook',

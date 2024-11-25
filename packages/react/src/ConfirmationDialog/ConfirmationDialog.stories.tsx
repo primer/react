@@ -21,16 +21,17 @@ export default {
   ],
 } as Meta
 
-export const Default = () => {
+export const Default = ({...args}) => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const onDialogClose = useCallback(() => setIsOpen(false), [])
+
   return (
     <>
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
         Show dialog
       </Button>
-      {isOpen && (
+      {(isOpen || args.open) && (
         <ConfirmationDialog
           title="Delete universe?"
           onClose={onDialogClose}
@@ -43,4 +44,16 @@ export const Default = () => {
       )}
     </>
   )
+}
+
+Default.args = {
+  open: false,
+}
+
+Default.argTypes = {
+  open: {
+    control: {
+      type: 'boolean',
+    },
+  },
 }
