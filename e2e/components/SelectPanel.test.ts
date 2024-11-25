@@ -32,6 +32,18 @@ const scenarios = matrix({
       id: 'components-selectpanel-examples--height-initial-with-underflowing-items-after-fetch',
       name: 'Height Initial with Underflowing Items After Fetch',
     },
+    {
+      id: 'components-selectpanel-dev--with-css',
+      name: 'With Css',
+    },
+    {
+      id: 'components-selectpanel-dev--with-sx',
+      name: 'With Sx',
+    },
+    {
+      id: 'components-selectpanel-dev--with-sx-and-css',
+      name: 'With Sx and Css',
+    },
   ],
 })
 
@@ -50,8 +62,11 @@ test.describe('SelectPanel', () => {
       await visit(page, {id: scenario.story.id, globals})
 
       // Open select panel
-      await page.keyboard.press('Tab')
-      await page.keyboard.press('Enter')
+      const isPanelOpen = await page.isVisible('[role="listbox"]')
+      if (!isPanelOpen) {
+        await page.keyboard.press('Tab')
+        await page.keyboard.press('Enter')
+      }
       expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(`SelectPanel.${name}.${theme}${flag}.png`)
     })
 
@@ -68,8 +83,11 @@ test.describe('SelectPanel', () => {
     })
 
     // Open select panel
-    await page.keyboard.press('Tab')
-    await page.keyboard.press('Enter')
+    const isPanelOpen = await page.isVisible('[role="listbox"]')
+    if (!isPanelOpen) {
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Enter')
+    }
 
     // windows high contrast mode: light
     await page.emulateMedia({forcedColors: 'active', colorScheme: 'light'})

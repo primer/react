@@ -22,6 +22,12 @@
       "type": "'normal' | 'onEmphasis'",
       "defaultValue": "'normal'",
       "description": "Set to `onEmphasis` for display on 'emphasis' colors."
+    },
+    {
+      "name": "size",
+      "type": "'small' | 'normal'",
+      "defaultValue": "'normal'",
+      "description": "Control the size of the hint."
     }
   ],
   "subcomponents": []
