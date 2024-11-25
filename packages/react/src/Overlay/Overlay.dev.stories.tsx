@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react'
-import type {Meta} from '@storybook/react'
+import type {Args, Meta} from '@storybook/react'
 import Text from '../Text'
 import {Button, IconButton} from '../Button'
 import Overlay from './Overlay'
@@ -10,9 +10,18 @@ import {XIcon} from '@primer/octicons-react'
 export default {
   title: 'Private/Components/Overlay/Dev',
   component: Overlay,
+  args: {
+    open: false,
+  },
+  argTypes: {
+    open: {
+      control: false,
+      visible: false,
+    },
+  },
 } as Meta<typeof Overlay>
 
-export const SxProps = () => {
+export const SxProps = (args: Args) => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const confirmButtonRef = useRef<HTMLButtonElement>(null)
@@ -33,7 +42,7 @@ export const SxProps = () => {
       >
         Open overlay
       </Button>
-      {isOpen ? (
+      {isOpen || args.open ? (
         <Overlay
           initialFocusRef={confirmButtonRef}
           returnFocusRef={buttonRef}
