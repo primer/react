@@ -142,6 +142,9 @@ test.describe('Overlay ', () => {
               globals: {
                 colorScheme: theme,
               },
+              args: {
+                open: true,
+              },
             })
             await story.setup(page)
 

@@ -1,5 +1,5 @@
 import React, {useState, useRef, useCallback} from 'react'
-import type {Meta} from '@storybook/react'
+import type {Args, Meta} from '@storybook/react'
 import {TriangleDownIcon, PlusIcon, IssueDraftIcon, XIcon} from '@primer/octicons-react'
 import {
   Overlay,
@@ -28,6 +28,7 @@ export default {
   args: {
     anchorSide: 'inside-top',
     role: 'dialog',
+    open: false,
   },
   argTypes: {
     anchorSide: {
@@ -49,6 +50,10 @@ export default {
     role: {
       type: 'string',
     },
+    open: {
+      control: false,
+      visible: false,
+    },
   },
 } as Meta
 
@@ -58,7 +63,7 @@ interface OverlayProps {
   right?: boolean
 }
 
-export const DropdownOverlay = ({anchorSide}: OverlayProps) => {
+export const DropdownOverlay = ({anchorSide, open}: Args) => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
@@ -67,7 +72,7 @@ export const DropdownOverlay = ({anchorSide}: OverlayProps) => {
       <Button ref={buttonRef} sx={{position: 'relative'}} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
-      {isOpen ? (
+      {isOpen || open ? (
         <Overlay
           returnFocusRef={buttonRef}
           height="auto"
@@ -94,7 +99,7 @@ export const DropdownOverlay = ({anchorSide}: OverlayProps) => {
   )
 }
 
-export const DialogOverlay = ({anchorSide, role}: OverlayProps) => {
+export const DialogOverlay = ({anchorSide, role, open}: Args) => {
   const [isOpen, setIsOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -108,7 +113,7 @@ export const DialogOverlay = ({anchorSide, role}: OverlayProps) => {
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
-      {isOpen ? (
+      {isOpen || open ? (
         <Overlay
           initialFocusRef={confirmButtonRef}
           returnFocusRef={buttonRef}
@@ -137,7 +142,7 @@ export const DialogOverlay = ({anchorSide, role}: OverlayProps) => {
   )
 }
 
-export const OverlayOnTopOfOverlay = ({anchorSide, role}: OverlayProps) => {
+export const OverlayOnTopOfOverlay = ({anchorSide, role, open}: Args) => {
   const [isOpen, setIsOpen] = useState(false)
   const [isSecondaryOpen, setIsSecondaryOpen] = useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -164,7 +169,7 @@ export const OverlayOnTopOfOverlay = ({anchorSide, role}: OverlayProps) => {
       <Button ref={buttonRef} onClick={() => setIsOpen(!isOpen)}>
         open overlay
       </Button>
-      {isOpen ? (
+      {isOpen || open ? (
         <Overlay
           initialFocusRef={confirmButtonRef}
           returnFocusRef={buttonRef}
@@ -223,7 +228,7 @@ export const OverlayOnTopOfOverlay = ({anchorSide, role}: OverlayProps) => {
   )
 }
 
-export const MemexNestedOverlays = ({role}: OverlayProps) => {
+export const MemexNestedOverlays = ({role, open}: Args) => {
   const [overlayOpen, setOverlayOpen] = React.useState(false)
   const buttonRef = useRef<HTMLButtonElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -243,7 +248,7 @@ export const MemexNestedOverlays = ({role}: OverlayProps) => {
           icon={TriangleDownIcon}
         />
       </ButtonGroup>
-      {overlayOpen && (
+      {(overlayOpen || open) && (
         <Overlay
           width="auto"
           onEscape={() => setOverlayOpen(false)}
@@ -296,7 +301,7 @@ export const MemexNestedOverlays = ({role}: OverlayProps) => {
   )
 }
 
-export const NestedOverlays = ({role}: OverlayProps) => {
+export const NestedOverlays = ({role, open}: Args) => {
   const [listOverlayOpen, setListOverlayOpen] = React.useState(false)
   const [createListOverlayOpen, setCreateListOverlayOpen] = React.useState(false)
 
@@ -332,7 +337,7 @@ export const NestedOverlays = ({role}: OverlayProps) => {
           icon={TriangleDownIcon}
         />
       </ButtonGroup>
-      {listOverlayOpen && (
+      {(listOverlayOpen || open) && (
         <Overlay
           width="medium"
           onEscape={() => setListOverlayOpen(false)}
@@ -409,7 +414,7 @@ export const NestedOverlays = ({role}: OverlayProps) => {
   )
 }
 
-export const MemexIssueOverlay = ({role}: OverlayProps) => {
+export const MemexIssueOverlay = ({role, open}: Args) => {
   const [overlayOpen, setOverlayOpen] = React.useState(false)
   const linkRef = useRef<HTMLAnchorElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -448,7 +453,7 @@ export const MemexIssueOverlay = ({role}: OverlayProps) => {
       >
         <IssueDraftIcon /> {title}
       </Link>
-      {overlayOpen && (
+      {(overlayOpen || open) && (
         <Overlay
           height="auto"
           width="auto"
@@ -523,7 +528,7 @@ export const MemexIssueOverlay = ({role}: OverlayProps) => {
   )
 }
 
-export const PositionedOverlays = ({right, role}: OverlayProps) => {
+export const PositionedOverlays = ({right, role, open}: Args) => {
   const [isOpen, setIsOpen] = useState(false)
   const [direction, setDirection] = useState<'left' | 'right'>(right ? 'right' : 'left')
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -561,7 +566,7 @@ export const PositionedOverlays = ({right, role}: OverlayProps) => {
       >
         Open right overlay
       </Button>
-      {isOpen ? (
+      {isOpen || open ? (
         direction === 'left' ? (
           <Overlay
             initialFocusRef={confirmButtonRef}
