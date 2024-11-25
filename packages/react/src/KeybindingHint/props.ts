@@ -27,4 +27,8 @@ export interface KeybindingHintProps {
    * Set to `onEmphasis` for display on emphasis colors.
    */
   variant?: KeybindingHintVariant
+  /**
+   * Control the size of the hint.
+   */
+  size?: 'small' | 'normal'
 }

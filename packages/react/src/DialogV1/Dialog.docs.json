@@ -4,7 +4,11 @@
   "name": "Dialog",
   "status": "deprecated",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-dialog--default"
+    }
+  ],
   "importPath": "@primer/react/deprecated",
   "props": [
     {
@@ -36,6 +40,14 @@
       "name": "aria-label",
       "type": "string",
       "description": "Pass a label to be used to describe the Dialog. Use either a `aria-label` or an `aria-labelledby` but not both."
+    },
+    {
+      "name": "narrow",
+      "type": "boolean"
+    },
+    {
+      "name": "wide",
+      "type": "boolean"
     },
     {
       "name": "sx",

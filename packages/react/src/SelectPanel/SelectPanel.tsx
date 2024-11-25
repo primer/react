@@ -48,6 +48,7 @@ interface SelectPanelBaseProps {
   overlayProps?: Partial<OverlayProps>
   footer?: string | React.ReactElement
   initialLoadingType?: InitialLoadingType
+  className?: string
 }
 
 export type SelectPanelProps = SelectPanelBaseProps &
@@ -106,6 +107,7 @@ export function SelectPanel({
   loading,
   initialLoadingType = 'spinner',
   height,
+  className,
   ...listProps
 }: SelectPanelProps): JSX.Element {
   const inputRef = React.useRef<HTMLInputElement>(null)
@@ -304,8 +306,8 @@ export function SelectPanel({
               filterValue === ''
                 ? 'Showing all items'
                 : items.length <= 0
-                  ? 'No matching items'
-                  : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
+                ? 'No matching items'
+                : `${items.length} matching ${items.length === 1 ? 'item' : 'items'}`
             }
           />
         )}
@@ -339,6 +341,7 @@ export function SelectPanel({
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
             sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
+            className={className}
           />
           {footer && (
             <Box

@@ -3,7 +3,38 @@
   "name": "SegmentedControl",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-segmentedcontrol--default"
+    },
+    {
+      "id": "components-segmentedcontrol-features--with-icons"
+    },
+    {
+      "id": "components-segmentedcontrol-features--controlled"
+    },
+    {
+      "id": "components-segmentedcontrol-features--variant-narrow-hide-labels"
+    },
+    {
+      "id": "components-segmentedcontrol-features--variant-narrow-action-menu"
+    },
+    {
+      "id": "components-segmentedcontrol-features--fullwidth-narrow"
+    },
+    {
+      "id": "components-segmentedcontrol-features--fullwidth-regular"
+    },
+    {
+      "id": "components-segmentedcontrol-features--fullwidth-all"
+    },
+    {
+      "id": "components-segmentedcontrol-features--icon-only"
+    },
+    {
+      "id": "components-segmentedcontrol-features--associated-with-a-label-and-caption"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {
@@ -41,6 +72,12 @@
       "type": "| 'default' | { narrow?: 'hideLabels' | 'dropdown' | 'default' regular?: 'hideLabels' | 'dropdown' | 'default' wide?: 'hideLabels' | 'dropdown' | 'default' }",
       "defaultValue": "'default'",
       "description": "Configure alternative ways to render the control when it gets rendered in tight spaces"
+    },
+    {
+      "name": "size",
+      "type": "'small' | 'medium'",
+      "description": "The size of the buttons",
+      "defaultValue": ""
     },
     {
       "name": "sx",
