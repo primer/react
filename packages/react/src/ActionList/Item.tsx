@@ -406,7 +406,107 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     if (enabled) {
       if (sxProp !== defaultSxProp) {
-        return <span>ohhey</span>
+        return (
+          <ItemContext.Provider
+            value={{
+              variant,
+              disabled,
+              inactive: Boolean(inactiveText),
+              inlineDescriptionId,
+              blockDescriptionId,
+              trailingVisualId,
+            }}
+          >
+            <LiBox
+              ref={!buttonSemanticsFeatureFlag || listSemantics ? forwardedRef : null}
+              sx={
+                buttonSemanticsFeatureFlag
+                  ? merge<BetterSystemStyleObject>(
+                      listSemantics || _PrivateItemWrapper ? styles : listItemStyles,
+                      listSemantics || _PrivateItemWrapper ? sxProp : {},
+                    )
+                  : merge<BetterSystemStyleObject>(styles, sxProp)
+              }
+              data-variant={variant === 'danger' ? variant : undefined}
+              {...containerProps}
+            >
+              <ItemWrapper {...wrapperProps}>
+                <Selection selected={selected} />
+                <VisualOrIndicator
+                  inactiveText={showInactiveIndicator ? inactiveText : undefined}
+                  itemHasLeadingVisual={Boolean(slots.leadingVisual)}
+                  labelId={labelId}
+                  loading={loading}
+                  position="leading"
+                >
+                  {slots.leadingVisual}
+                </VisualOrIndicator>
+                <Box
+                  data-component="ActionList.Item--DividerContainer"
+                  sx={{display: 'flex', flexDirection: 'column', flexGrow: 1, minWidth: 0}}
+                >
+                  <ConditionalWrapper
+                    // we need a flex container if:
+                    // - there is a trailing visual
+                    // - OR there is a loading or inactive indicator
+                    // - AND no leading visual to replace with an indicator
+                    if={Boolean(trailingVisual || ((showInactiveIndicator || loading) && !slots.leadingVisual))}
+                    sx={{display: 'flex', flexGrow: 1}}
+                  >
+                    <ConditionalWrapper
+                      if={!!slots.inlineDescription}
+                      sx={{display: 'flex', flexGrow: 1, alignItems: 'baseline', minWidth: 0}}
+                    >
+                      <Box
+                        as="span"
+                        id={labelId}
+                        sx={{
+                          flexGrow: slots.inlineDescription ? 0 : 1,
+                          fontWeight: slots.inlineDescription || slots.blockDescription || active ? 'bold' : 'normal',
+                          marginBlockEnd: slots.blockDescription ? '4px' : undefined,
+                          wordBreak: slots.inlineDescription ? 'normal' : 'break-word',
+                        }}
+                      >
+                        {childrenWithoutSlots}
+                        {/* Loading message needs to be in here so it is read with the label */}
+                        {loading === true && <VisuallyHidden>Loading</VisuallyHidden>}
+                      </Box>
+                      {slots.inlineDescription}
+                    </ConditionalWrapper>
+                    <VisualOrIndicator
+                      inactiveText={showInactiveIndicator ? inactiveText : undefined}
+                      itemHasLeadingVisual={Boolean(slots.leadingVisual)}
+                      labelId={labelId}
+                      loading={loading}
+                      position="trailing"
+                    >
+                      {trailingVisual}
+                    </VisualOrIndicator>
+                  </ConditionalWrapper>
+                  {
+                    // If the item is inactive, but it's not in an overlay (e.g. ActionMenu, SelectPanel),
+                    // render the inactive warning message directly in the item.
+                    inactive && container ? (
+                      <Box
+                        as="span"
+                        sx={{
+                          fontSize: 0,
+                          lineHeight: '16px',
+                          color: 'attention.fg',
+                        }}
+                        id={inactiveWarningId}
+                      >
+                        {inactiveText}
+                      </Box>
+                    ) : null
+                  }
+                  {slots.blockDescription}
+                </Box>
+              </ItemWrapper>
+              {!inactive && !loading && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}
+            </LiBox>
+          </ItemContext.Provider>
+        )
       }
       return (
         <ItemContext.Provider
@@ -424,16 +524,11 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
             data-variant={variant === 'danger' ? variant : undefined}
             data-active={active ? true : undefined}
             data-inactive={inactiveText ? true : undefined}
-            data-has-subitem={Boolean(slots.subItem)}
+            // data-has-subitem={Boolean(slots.subItem)}
             className={clsx(classes.ActionListItem, className)}
             {...containerProps}
           >
-            <ItemWrapper
-              {...wrapperProps}
-              className={classes.ActionListContent}
-              // aria-expanded={props['aria-expanded']}
-              // aria-controls={props['aria-controls']}
-            >
+            <ItemWrapper {...wrapperProps} className={classes.ActionListContent}>
               <span className={classes.Spacer} />
               <Selection selected={selected} className={classes.LeadingAction} />
               <VisualOrIndicator
@@ -480,7 +575,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               </span>
             </ItemWrapper>
             {!inactive && !loading && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}
-            {slots.subItem}
+            {/* {slots.subItem} */}
           </li>
         </ItemContext.Provider>
       )

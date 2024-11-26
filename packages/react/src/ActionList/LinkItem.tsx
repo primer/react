@@ -44,11 +44,63 @@ export const LinkItem = React.forwardRef(
 
     const enabled = useFeatureFlag('primer_react_css_modules_team')
 
+    if (enabled) {
+      if (sx !== defaultSxProp) {
+        return (
+          <Item
+            className={className}
+            active={active}
+            inactiveText={inactiveText}
+            data-inactive={inactiveText ? true : undefined}
+            _PrivateItemWrapper={({children, onClick, ...rest}) => {
+              const clickHandler = (event: React.MouseEvent<HTMLElement>) => {
+                onClick && onClick(event)
+                props.onClick && props.onClick(event as React.MouseEvent<HTMLAnchorElement>)
+              }
+              return inactiveText ? (
+                <span {...rest}>{children}</span>
+              ) : (
+                <Link as={Component} {...rest} {...props} onClick={clickHandler} ref={forwardedRef}>
+                  {children}
+                </Link>
+              )
+            }}
+          >
+            {props.children}
+          </Item>
+        )
+      }
+
+      // return (
+      //   <Item
+      //     className={className}
+      //     active={active}
+      //     inactiveText={inactiveText}
+      //     data-inactive={inactiveText ? true : undefined}
+      //     _PrivateItemWrapper={({children, onClick, ...rest}) => {
+      //       const clickHandler = (event: React.MouseEvent<HTMLElement>) => {
+      //         onClick && onClick(event)
+      //         props.onClick && props.onClick(event as React.MouseEvent<HTMLAnchorElement>)
+      //       }
+      //       return inactiveText ? (
+      //         <span {...rest}>{children}</span>
+      //       ) : (
+      //         <Link as={Component} {...rest} {...props} onClick={clickHandler} ref={forwardedRef}>
+      //           {children}
+      //         </Link>
+      //       )
+      //     }}
+      //   >
+      //     {props.children}
+      //   </Item>
+      // )
+    }
+
     return (
       <Item
         className={className}
         active={active}
-        sx={enabled ? undefined : {paddingY: 0, paddingX: 0}}
+        sx={{paddingY: 0, paddingX: 0}}
         inactiveText={inactiveText}
         data-inactive={inactiveText ? true : undefined}
         _PrivateItemWrapper={({children, onClick, ...rest}) => {
@@ -57,13 +109,13 @@ export const LinkItem = React.forwardRef(
             props.onClick && props.onClick(event as React.MouseEvent<HTMLAnchorElement>)
           }
           return inactiveText ? (
-            <Box sx={enabled ? undefined : merge(styles, sx as SxProp)} {...rest}>
+            <Box sx={merge(styles, sx as SxProp)} {...rest}>
               {children}
             </Box>
           ) : (
             <Link
               as={Component}
-              sx={enabled ? undefined : merge(styles, sx as SxProp)}
+              sx={merge(styles, sx as SxProp)}
               {...rest}
               {...props}
               onClick={clickHandler}

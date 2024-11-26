@@ -18,10 +18,6 @@ import sx, {merge} from '../sx'
 import {defaultSxProp} from '../utils/defaultSxProp'
 import {useId} from '../hooks/useId'
 import useIsomorphicLayoutEffect from '../utils/useIsomorphicLayoutEffect'
-import {useFeatureFlag} from '../FeatureFlags'
-import classes from '../ActionList/ActionList.module.css'
-import {clsx} from 'clsx'
-import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 
 const getSubnavStyles = (depth: number) => {
   return {
@@ -39,9 +35,7 @@ export type NavListProps = {
 } & SxProp &
   React.ComponentProps<'nav'>
 
-// const NavBox = styled.nav<SxProp>(sx)
-
-const NavBox = toggleStyledComponent('primer_react_css_modules_team', 'nav', styled.nav<SxProp>(sx))
+const NavBox = styled.nav<SxProp>(sx)
 
 const Root = React.forwardRef<HTMLElement, NavListProps>(({children, ...props}, ref) => {
   return (
@@ -72,7 +66,6 @@ export type NavListItemProps = {
 
 const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
   ({'aria-current': ariaCurrent, children, defaultOpen, sx: sxProp = defaultSxProp, ...props}, ref) => {
-    const enabled = useFeatureFlag('primer_react_css_modules_team')
     const {depth} = React.useContext(SubNavContext)
 
     // Get SubNav from children
@@ -90,16 +83,8 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
     // Render ItemWithSubNav if SubNav is present
     if (subNav && isValidElement(subNav)) {
       return (
-        <ItemWithSubNav
-          subNav={subNav}
-          depth={depth}
-          defaultOpen={defaultOpen}
-          sx={sxProp}
-          data-depth={depth}
-          style={{'--subitem-depth': depth} as React.CSSProperties}
-        >
+        <ItemWithSubNav subNav={subNav} depth={depth} defaultOpen={defaultOpen} sx={sxProp}>
           {childrenWithoutSubNavOrTrailingAction}
-          depth:{depth}
         </ItemWithSubNav>
       )
     }
@@ -109,14 +94,10 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
         ref={ref}
         aria-current={ariaCurrent}
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
-        sx={enabled ? undefined : merge<SxProp['sx']>(getSubnavStyles(depth), sxProp)}
-        className={classes.SubItem}
-        data-depth={depth}
-        style={{'--subitem-depth': depth} as React.CSSProperties}
+        sx={merge<SxProp['sx']>(getSubnavStyles(depth), sxProp)}
         {...props}
       >
         {children}
-        depth:{depth}
       </ActionList.LinkItem>
     )
   },
@@ -142,14 +123,7 @@ const ItemWithSubNavContext = React.createContext<{buttonId: string; subNavId: s
 
 // TODO: ref prop
 // TODO: Animate open/close transition
-function ItemWithSubNav({
-  children,
-  subNav,
-  depth,
-  defaultOpen,
-  style,
-  sx: sxProp = defaultSxProp,
-}: ItemWithSubNavProps) {
+function ItemWithSubNav({children, subNav, depth, defaultOpen, sx: sxProp = defaultSxProp}: ItemWithSubNavProps) {
   const buttonId = useId()
   const subNavId = useId()
   const [isOpen, setIsOpen] = React.useState((defaultOpen || null) ?? false)
@@ -169,55 +143,26 @@ function ItemWithSubNav({
     }
   }, [subNav, buttonId])
 
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
-  if (enabled) {
-    if (sxProp !== defaultSxProp) {
-      return <p>sxprop</p>
-    }
-    return (
-      <ItemWithSubNavContext.Provider value={{buttonId, subNavId, isOpen}}>
-        {/* <li aria-labelledby={buttonId}> */}
-        <ActionList.Item
-          // as="button"
-          id={buttonId}
-          aria-expanded={isOpen}
-          aria-controls={subNavId}
-          active={!isOpen && containsCurrentItem}
-          onClick={() => setIsOpen(open => !open)}
-          // wrapper="button"
-          style={style}
-        >
-          {children}
-
-          {/* What happens if the user provides a TrailingVisual? */}
-          <ActionList.TrailingVisual>
-            <ChevronDownIcon className={classes.ExpandIcon} />
-          </ActionList.TrailingVisual>
-          <ActionList.SubItem>{React.cloneElement(subNav as React.ReactElement, {ref: subNavRef})}</ActionList.SubItem>
-        </ActionList.Item>
-
-        {/* </li> */}
-      </ItemWithSubNavContext.Provider>
-    )
-  }
   return (
     <ItemWithSubNavContext.Provider value={{buttonId, subNavId, isOpen}}>
       <Box as="li" aria-labelledby={buttonId} sx={{listStyle: 'none'}}>
         <ActionList.Item
-          as="button"
+          // as="button"
           id={buttonId}
           aria-expanded={isOpen}
           aria-controls={subNavId}
           // When the subNav is closed, how should we indicated that the subNav contains the current item?
           active={!isOpen && containsCurrentItem}
           onClick={() => setIsOpen(open => !open)}
-          sx={merge<SxProp['sx']>(
-            {
-              ...getSubnavStyles(depth),
-              fontWeight: containsCurrentItem ? 'bold' : null, // Parent item is bold if any of it's sub-items are current
-            },
-            sxProp,
-          )}
+          data-hi
+          sx={{color: 'red'}}
+          // sx={merge<SxProp['sx']>(
+          //   {
+          //     ...getSubnavStyles(depth),
+          //     fontWeight: containsCurrentItem ? 'bold' : null, // Parent item is bold if any of it's sub-items are current
+          //   },
+          //   sxProp,
+          // )}
         >
           {children}
           {/* What happens if the user provides a TrailingVisual? */}
@@ -251,7 +196,7 @@ const SubNavContext = React.createContext<{depth: number}>({depth: 0})
 const SubNav = ({children, sx: sxProp = defaultSxProp}: NavListSubNavProps) => {
   const {buttonId, subNavId, isOpen} = React.useContext(ItemWithSubNavContext)
   const {depth} = React.useContext(SubNavContext)
-  const enabled = useFeatureFlag('primer_react_css_modules_team')
+
   if (!buttonId || !subNavId) {
     // eslint-disable-next-line no-console
     console.error('NavList.SubNav must be a child of a NavList.Item')
@@ -262,19 +207,6 @@ const SubNav = ({children, sx: sxProp = defaultSxProp}: NavListSubNavProps) => {
     // eslint-disable-next-line no-console
     console.error('NavList.SubNav only supports four levels of nesting')
     return null
-  }
-
-  if (enabled) {
-    if (sxProp !== defaultSxProp) {
-      return <p>sxprop</p>
-    }
-    return (
-      <SubNavContext.Provider value={{depth: depth + 1}}>
-        <ul className={classes.SubGroup} id={subNavId} aria-labelledby={buttonId}>
-          {children}
-        </ul>
-      </SubNavContext.Provider>
-    )
   }
 
   return (

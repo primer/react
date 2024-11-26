@@ -2,63 +2,6 @@
 /* stylelint-disable selector-max-specificity */
 /* stylelint-disable max-nesting-depth */
 
-/* check this as full width variant */
-.ActionListHeader {
-  margin-bottom: var(--base-size-8);
-
-  &:where([data-list-variant='full']) {
-    margin-inline-start: var(--base-size-8);
-  }
-
-  &:where([data-list-variant='inset']) {
-    margin-inline-start: calc(var(--control-medium-paddingInline-condensed) + var(--base-size-8));
-  }
-}
-
-.Group:not(:first-child) {
-  margin-block-start: var(--base-size-8);
-}
-
-.GroupHeadingWrap {
-  display: flex;
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-semibold);
-  line-height: var(--text-body-lineHeight-small);
-  color: var(--fgColor-muted);
-  flex-direction: column;
-  /* stylelint-disable-next-line primer/spacing */
-  padding-inline: var(--control-medium-paddingInline-condensed);
-  padding-block: var(--base-size-8);
-
-  &:where([data-variant='filled']) {
-    /* stylelint-disable-next-line primer/spacing */
-    margin-block-start: calc(var(--base-size-8) - var(--borderWidth-thin));
-    margin-block-end: var(--base-size-8);
-    margin-inline: calc(-1 * var(--base-size-8));
-    background: var(--bgColor-muted);
-    border-top: solid var(--borderWidth-thin) var(--borderColor-muted);
-    border-bottom: solid var(--borderWidth-thin) var(--borderColor-muted);
-
-    /* if no children, treat as divider */
-    &:empty {
-      height: var(--base-size-8);
-      box-sizing: border-box;
-    }
-
-    &:first-child {
-      margin-block-start: 0;
-    }
-  }
-}
-
-.GroupHeading {
-  margin: 0;
-  font-size: var(--text-body-size-small);
-  font-weight: var(--base-text-weight-semibold);
-  color: var(--fgColor-muted);
-  align-self: flex-start;
-}
-
 .ActionList {
   padding: 0;
   margin: 0;
@@ -571,6 +514,7 @@
 
 /* button or a tag */
 .ActionListContent {
+  --subitem-depth: 0;
   --subitem-spacer: calc(var(--subitem-depth) * 8px);
 
   position: relative;
@@ -740,21 +684,6 @@
 .TrailingActionButton {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-}
-
-/* show trailing action button on hover */
-
-.ActionListItem--trailingActionHover {
-  & .TrailingActionButton {
-    visibility: hidden;
-  }
-
-  &:hover,
-  &:focus-within {
-    & .TrailingActionButton {
-      visibility: visible;
-    }
-  }
 }
 
 .Divider {

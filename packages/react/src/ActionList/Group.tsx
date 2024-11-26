@@ -11,6 +11,7 @@ import {invariant} from '../utils/invariant'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
 import classes from './ActionList.module.css'
+import groupClasses from './Group.module.css'
 
 type HeadingProps = {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
@@ -92,7 +93,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
   if (enabled) {
     if (sx !== defaultSxProp) {
       return (
-        <Box as="li" className={classes.Group} role={listRole ? 'none' : undefined} sx={sx} {...props}>
+        <Box as="li" className={groupClasses.Group} role={listRole ? 'none' : undefined} sx={sx} {...props}>
           <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>
             {title && !slots.groupHeading ? (
               // Escape hatch: supports old API <ActionList.Group title="group title"> in a non breaking way
@@ -115,7 +116,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
       )
     }
     return (
-      <li className={classes.Group} role={listRole ? 'none' : undefined} {...props}>
+      <li className={groupClasses.Group} role={listRole ? 'none' : undefined} {...props}>
         <GroupContext.Provider value={{selectionVariant, groupHeadingId}}>
           {title && !slots.groupHeading ? (
             // Escape hatch: supports old API <ActionList.Group title="group title"> in a non breaking way
@@ -224,22 +225,22 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
       {listRole && listRole !== 'list' ? (
         <div
           role="presentation"
-          className={classes.GroupHeadingWrap}
+          className={groupClasses.GroupHeadingWrap}
           aria-hidden="true"
           {...props}
           data-variant={variant}
         >
-          <span className={clsx(className, classes.GroupHeading)} id={groupHeadingId}>
+          <span className={clsx(className, groupClasses.GroupHeading)} id={groupHeadingId}>
             {_internalBackwardCompatibleTitle ?? children}
           </span>
           {auxiliaryText && <div className={classes.Description}>{auxiliaryText}</div>}
         </div>
       ) : (
         // for explicit (role="list" is passed as prop) and implicit list roles (ActionList ins rendered as list by default), group titles are proper heading tags.
-        <div className={classes.GroupHeadingWrap} data-variant={variant}>
+        <div className={groupClasses.GroupHeadingWrap} data-variant={variant}>
           {sx !== defaultSxProp ? (
             <Heading
-              className={clsx(className, classes.GroupHeading)}
+              className={clsx(className, groupClasses.GroupHeading)}
               as={as || 'h3'}
               id={groupHeadingId}
               sx={sx}
@@ -248,7 +249,12 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
               {_internalBackwardCompatibleTitle ?? children}
             </Heading>
           ) : (
-            <Heading className={clsx(className, classes.GroupHeading)} as={as || 'h3'} id={groupHeadingId} {...props}>
+            <Heading
+              className={clsx(className, groupClasses.GroupHeading)}
+              as={as || 'h3'}
+              id={groupHeadingId}
+              {...props}
+            >
               {_internalBackwardCompatibleTitle ?? children}
             </Heading>
           )}

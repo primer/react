@@ -11,7 +11,7 @@ import {ActionListContainerContext} from './ActionListContainerContext'
 import {invariant} from '../utils/invariant'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
-import classes from './ActionList.module.css'
+import classes from './Heading.module.css'
 
 type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 type HeadingVariants = 'large' | 'medium' | 'small'
