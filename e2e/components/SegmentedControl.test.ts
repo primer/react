@@ -10,7 +10,7 @@ const stories = [
   },
   {
     title: 'Playground',
-    id: 'components-segmentedcontrol-features--stress-test',
+    id: 'components-segmentedcontrol--playground',
   },
   {
     title: 'Associated with a Label and Caption',
