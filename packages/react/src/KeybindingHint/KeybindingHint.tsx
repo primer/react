@@ -6,15 +6,17 @@ import {accessibleSequenceString, Sequence} from './components/Sequence'
 import {useFeatureFlag} from '../FeatureFlags'
 
 import classes from './KeybindingHint.module.css'
+import {clsx} from 'clsx'
 
 /** `kbd` element with style resets. */
-const Kbd = ({children}: {children: ReactNode}) => {
+const Kbd = ({children, className}: {children: ReactNode; className?: string}) => {
   const enabled = useFeatureFlag('primer_react_css_modules_team')
 
   return (
     <Text
       as={'kbd' as 'span'}
-      className={enabled ? classes.KeybindingHint : undefined}
+      className={clsx(className, enabled && classes.KeybindingHint)}
+      data-testid="keybinding-hint"
       sx={
         enabled
           ? undefined
@@ -41,8 +43,8 @@ const Kbd = ({children}: {children: ReactNode}) => {
 
 /** Indicates the presence of an available keybinding. */
 // KeybindingHint is a good candidate for memoizing since props will rarely change
-export const KeybindingHint = memo((props: KeybindingHintProps) => (
-  <Kbd>
+export const KeybindingHint = memo(({className, ...props}: KeybindingHintProps) => (
+  <Kbd className={className}>
     <Sequence {...props} />
   </Kbd>
 ))
