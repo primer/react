@@ -27,6 +27,16 @@ import {SubItem} from './SubItem'
 
 const LiBox = styled.li<SxProp>(sx)
 
+// const TheExportedComponent = () => {
+//   const enabled = useFeatureFlag('the_feature_flag')
+
+//   if (enabled) {
+//     return <NewComponent {...props} />
+//   } else {
+//     return <OldComponent {...props} />
+//   }
+// }
+
 const ButtonItemContainer = React.forwardRef(({as: Component = 'button', children, styles, ...props}, forwardedRef) => {
   return (
     <Box
@@ -101,8 +111,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const {container, afterSelect, selectionAttribute, defaultTrailingVisual} =
       React.useContext(ActionListContainerContext)
 
-    const buttonSemanticsFeatureFlag = useFeatureFlag('primer_react_action_list_item_as_button')
-
     // Be sure to avoid rendering the container unless there is a default
     const wrappedDefaultTrailingVisual = defaultTrailingVisual ? (
       <TrailingVisual>{defaultTrailingVisual}</TrailingVisual>
@@ -166,7 +174,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const listRoleTypes = ['listbox', 'menu', 'list']
     const listSemantics =
       (listRole && listRoleTypes.includes(listRole)) || inactive || container === 'NavList' || listItemSemantics
-    const buttonSemantics = !listSemantics && !_PrivateItemWrapper && buttonSemanticsFeatureFlag
+    const buttonSemantics = !listSemantics && !_PrivateItemWrapper
 
     const {theme} = useTheme()
 
@@ -322,15 +330,10 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const inactiveWarningId = inactive && !showInactiveIndicator ? `${itemId}--warning-message` : undefined
 
     let DefaultItemWrapper = React.Fragment
-    if (buttonSemanticsFeatureFlag) {
-      if (enabled) {
-        DefaultItemWrapper = listSemantics ? DivItemContainerNoBox : ButtonItemContainerNoBox
-      } else {
-        DefaultItemWrapper = listSemantics ? React.Fragment : ButtonItemContainer
-      }
-    }
     if (enabled) {
-      DefaultItemWrapper = DivItemContainerNoBox
+      DefaultItemWrapper = listSemantics ? DivItemContainerNoBox : ButtonItemContainerNoBox
+    } else {
+      DefaultItemWrapper = listSemantics ? React.Fragment : ButtonItemContainer
     }
 
     // const ItemWrapper = _PrivateItemWrapper || DefaultItemWrapper
@@ -364,45 +367,24 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       className,
     }
 
-    const collapseItemProps = {
-      onClick: clickHandler,
-      onKeyPress: !buttonSemantics ? keyPressHandler : undefined,
-    }
+    const containerProps = _PrivateItemWrapper
+      ? {role: itemRole ? 'none' : undefined, ...props}
+      : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        (listSemantics && {...menuItemProps, ...props, ref: forwardedRef}) || {}
 
-    let containerProps
-    let wrapperProps
-
-    if (buttonSemanticsFeatureFlag) {
-      containerProps = _PrivateItemWrapper
-        ? {role: itemRole ? 'none' : undefined, ...props}
-        : // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-          (listSemantics && {...menuItemProps, ...props, ref: forwardedRef}) || {}
-
-      wrapperProps = _PrivateItemWrapper
-        ? menuItemProps
-        : !listSemantics && {
-            ...menuItemProps,
-            ...props,
-            styles: merge<BetterSystemStyleObject>(styles, sxProp),
-            ref: forwardedRef,
-            // className: classes.ActionListItem,
-          }
-    } else {
-      containerProps = _PrivateItemWrapper
-        ? {role: itemRole ? 'none' : undefined}
-        : {...menuItemProps, ...props, className: classes.ActionListItem}
-      wrapperProps = _PrivateItemWrapper ? menuItemProps : {}
-    }
+    const wrapperProps = _PrivateItemWrapper
+      ? menuItemProps
+      : !listSemantics && {
+          ...menuItemProps,
+          ...props,
+          styles: merge<BetterSystemStyleObject>(styles, sxProp),
+          ref: forwardedRef,
+          // className: classes.ActionListItem,
+        }
 
     // Extract the variant prop value from the description slot component
-    const getDescriptionVariant = descriptionSlot => {
-      if (descriptionSlot && descriptionSlot.props && descriptionSlot.props.variant) {
-        return descriptionSlot.props.variant
-      }
-      return 'inline'
-    }
 
-    const descriptionVariant = getDescriptionVariant(slots.description)
+    const descriptionVariant = slots.description?.props.variant ?? 'inline'
 
     if (enabled) {
       if (sxProp !== defaultSxProp) {
@@ -418,15 +400,11 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
             }}
           >
             <LiBox
-              ref={!buttonSemanticsFeatureFlag || listSemantics ? forwardedRef : null}
-              sx={
-                buttonSemanticsFeatureFlag
-                  ? merge<BetterSystemStyleObject>(
-                      listSemantics || _PrivateItemWrapper ? styles : listItemStyles,
-                      listSemantics || _PrivateItemWrapper ? sxProp : {},
-                    )
-                  : merge<BetterSystemStyleObject>(styles, sxProp)
-              }
+              ref={listSemantics ? forwardedRef : null}
+              sx={merge<BetterSystemStyleObject>(
+                listSemantics || _PrivateItemWrapper ? styles : listItemStyles,
+                listSemantics || _PrivateItemWrapper ? sxProp : {},
+              )}
               data-variant={variant === 'danger' ? variant : undefined}
               {...containerProps}
             >
@@ -520,7 +498,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           }}
         >
           <li
-            ref={!buttonSemanticsFeatureFlag || listSemantics ? forwardedRef : null}
+            ref={listSemantics ? forwardedRef : null}
             data-variant={variant === 'danger' ? variant : undefined}
             data-active={active ? true : undefined}
             data-inactive={inactiveText ? true : undefined}
@@ -575,7 +553,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               </span>
             </ItemWrapper>
             {!inactive && !loading && !menuContext && Boolean(slots.trailingAction) && slots.trailingAction}
-            {/* {slots.subItem} */}
+            {slots.subItem}
           </li>
         </ItemContext.Provider>
       )
@@ -593,15 +571,8 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         }}
       >
         <LiBox
-          ref={!buttonSemanticsFeatureFlag || listSemantics ? forwardedRef : null}
-          sx={
-            buttonSemanticsFeatureFlag
-              ? merge<BetterSystemStyleObject>(
-                  listSemantics || _PrivateItemWrapper ? styles : listItemStyles,
-                  listSemantics || _PrivateItemWrapper ? sxProp : {},
-                )
-              : merge<BetterSystemStyleObject>(styles, sxProp)
-          }
+          ref={listSemantics ? forwardedRef : null}
+          sx={merge<BetterSystemStyleObject>(styles, sxProp)}
           data-variant={variant === 'danger' ? variant : undefined}
           {...containerProps}
         >
