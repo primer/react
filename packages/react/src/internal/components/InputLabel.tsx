@@ -54,6 +54,7 @@ const InputLabel: React.FC<React.PropsWithChildren<Props>> = ({
         display: 'block',
         color: disabled ? 'fg.muted' : 'fg.default',
         cursor: disabled ? 'not-allowed' : 'pointer',
+        alignSelf: 'flex-start',
         ...sx,
       }}
       {...props}
