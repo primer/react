@@ -186,6 +186,8 @@ export const BaseOverlay = React.forwardRef<HTMLDivElement, OwnOverlayProps>(
         <StyledOverlay
           height={height}
           width={width}
+          maxHeight={maxHeight}
+          maxWidth={maxWidth}
           {...rest}
           ref={forwardedRef}
           style={
