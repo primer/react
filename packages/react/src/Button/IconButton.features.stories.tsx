@@ -84,13 +84,13 @@ export const LoadingTrigger = () => {
 
   return <IconButton loading={isLoading} onClick={handleClick} icon={DownloadIcon} aria-label="Download" />
 }
-export const KeyshortcutsOnDescription = () => (
+export const KeybindingHintOnDescription = () => (
   <IconButton
     icon={InboxIcon}
     aria-label="Notifications"
     description="You have unread notifications"
-    keyshortcuts="G+N"
+    keybindingHint="G+N"
   />
 )
 
-export const Keyshortcuts = () => <IconButton icon={BoldIcon} aria-label="Bold" keyshortcuts="Command+B" />
+export const KeybindingHint = () => <IconButton icon={BoldIcon} aria-label="Bold" keybindingHint="Mod+B" />

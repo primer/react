@@ -13,6 +13,8 @@ import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import {clsx} from 'clsx'
 import classes from './Tooltip.module.css'
 import {useFeatureFlag} from '../FeatureFlags'
+import {KeybindingHint, type KeybindingHintProps} from '../KeybindingHint'
+import VisuallyHidden from '../_VisuallyHidden'
 
 const CSS_MODULE_FEATURE_FLAG = 'primer_react_css_modules_team'
 
@@ -138,6 +140,7 @@ export type TooltipProps = React.PropsWithChildren<
     direction?: TooltipDirection
     text: string
     type?: 'label' | 'description'
+    keybindingHint?: KeybindingHintProps['keys']
   } & SxProp
 > &
   React.HTMLAttributes<HTMLElement>
@@ -196,7 +199,10 @@ const isInteractive = (element: HTMLElement) => {
 export const TooltipContext = React.createContext<{tooltipId?: string}>({})
 
 export const Tooltip = React.forwardRef(
-  ({direction = 's', text, type = 'description', children, id, className, ...rest}: TooltipProps, forwardedRef) => {
+  (
+    {direction = 's', text, type = 'description', children, id, className, keybindingHint, ...rest}: TooltipProps,
+    forwardedRef,
+  ) => {
     const tooltipId = useId(id)
     const child = Children.only(children)
     const triggerRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLElement>)
@@ -379,6 +385,13 @@ export const Tooltip = React.forwardRef(
             onMouseLeave={closeTooltip}
           >
             {text}
+            {keybindingHint && (
+              <span className={clsx(classes.keybindingHintContainer, text && classes.hasTextBefore)}>
+                <VisuallyHidden>(</VisuallyHidden>
+                <KeybindingHint keys={keybindingHint} format="condensed" variant="onEmphasis" size="small" />
+                <VisuallyHidden>)</VisuallyHidden>
+              </span>
+            )}
           </StyledTooltip>
         </>
       </TooltipContext.Provider>
