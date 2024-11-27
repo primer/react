@@ -440,7 +440,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                 >
                   {slots.leadingVisual}
                 </VisualOrIndicator>
-                <span className={classes.Ugh}>
+                <span className={classes.ActionListSubContent}>
                   <ConditionalWrapper
                     if={!!slots.description}
                     className={classes.ItemDescriptionWrap}
@@ -512,7 +512,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               >
                 {slots.leadingVisual}
               </VisualOrIndicator>
-              <span className={classes.Ugh}>
+              <span className={classes.ActionListSubContent}>
                 <ConditionalWrapper
                   if={!!slots.description}
                   className={classes.ItemDescriptionWrap}

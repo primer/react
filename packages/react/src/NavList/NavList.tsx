@@ -95,11 +95,9 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
           depth={depth}
           defaultOpen={defaultOpen}
           sx={sxProp}
-          data-depth={depth}
           style={{'--subitem-depth': depth} as React.CSSProperties}
         >
           {childrenWithoutSubNavOrTrailingAction}
-          depth:{depth}
         </ItemWithSubNav>
       )
     }
@@ -109,14 +107,12 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
         ref={ref}
         aria-current={ariaCurrent}
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
-        // sx={enabled ? undefined : merge<SxProp['sx']>(getSubnavStyles(depth), sxProp)}
+        sx={enabled ? undefined : merge<SxProp['sx']>(getSubnavStyles(depth), sxProp)}
         className={classes.SubItem}
-        data-depth={depth}
         style={{'--subitem-depth': depth} as React.CSSProperties}
         {...props}
       >
         {children}
-        depth:{depth}
       </ActionList.LinkItem>
     )
   },
@@ -338,7 +334,6 @@ export type NavListGroupProps = {
 } & SxProp
 
 const defaultSx = {}
-// TODO: ref prop
 const Group: React.FC<NavListGroupProps> = ({title, children, sx: sxProp = defaultSx, ...props}) => {
   return (
     <>

@@ -1,7 +1,3 @@
-/* stylelint-disable selector-max-compound-selectors */
-/* stylelint-disable selector-max-specificity */
-/* stylelint-disable max-nesting-depth */
-
 .ActionList {
   padding: 0;
   margin: 0;
@@ -18,7 +14,8 @@
   }
 
   &:where([data-dividers='true']) {
-    & .Ugh::before {
+    /* place dividers on the wrapper that excludes leading visuals/actions */
+    & .ActionListSubContent::before {
       position: absolute;
       /* stylelint-disable-next-line primer/spacing */
       top: calc(-1 * var(--control-medium-paddingBlock));
@@ -30,7 +27,7 @@
       background: var(--borderColor-muted);
     }
 
-    /* if inline description, move pseudo divider to wrapper */
+    /* if inline description, move pseudo divider to description wrapper */
     & [data-description-variant='inline'] {
       &::before {
         position: absolute;
@@ -44,15 +41,15 @@
         background: var(--borderColor-muted);
       }
 
-      /* unset the default label pseudo */
-      & .Ugh::before {
+      /* remove the default divider */
+      & .ActionListSubContent::before {
         content: unset;
       }
     }
 
     /* hide if item is first of type with label::before, or is the first item after a sectionDivider */
-    .ActionListItem:first-of-type .Ugh::before,
-    .Divider + .ActionListItem .Ugh::before {
+    .ActionListItem:first-of-type .ActionListSubContent::before,
+    .Divider + .ActionListItem .ActionListSubContent::before {
       visibility: hidden;
     }
 
@@ -64,19 +61,7 @@
   }
 }
 
-/* list dividers */
-
-.ActionListWrap--divided {
-  /* hide divider if item is active */
-  & [data-active] {
-    & .Ugh::before,
-    & + .ActionListItem .Ugh::before {
-      visibility: hidden;
-    }
-  }
-}
-
-/* ActionList::Item */
+/* ActionListItem is a li that handles visual state, while ActionListItemContent controls actual state via button or link */
 
 .ActionListItem {
   position: relative;
@@ -84,11 +69,10 @@
   background-color: var(--control-transparent-bgColor-rest);
   border-radius: var(--borderRadius-medium);
 
-  &:has(.TrailingAction) {
+  /* apply flex if trailing action exists as an immediate child */
+  &:has(> .TrailingAction) {
     display: flex;
     flex-wrap: nowrap;
-
-    /* align-items: center; */
   }
 
   /* state */
@@ -101,8 +85,8 @@
   /* hide dividers  */
   @media (hover: hover) {
     &:hover {
-      & .Ugh::before,
-      & + .ActionListItem .Ugh::before {
+      & .ActionListSubContent::before,
+      & + .ActionListItem .ActionListSubContent::before {
         visibility: hidden;
       }
 
@@ -139,35 +123,6 @@
       &:active {
         background-color: var(--control-transparent-bgColor-active);
       }
-    }
-
-    &:has([data-active='true']) {
-      & .ActionListContent[aria-expanded='true'] {
-        background: var(--control-transparent-bgColor-selected);
-
-        & .ItemLabel {
-          font-weight: var(--base-text-weight-semibold);
-        }
-
-        &::before,
-        & + .ActionListItem::before {
-          visibility: hidden;
-        }
-
-        /* blue accent line */
-        &::after {
-          position: absolute;
-          top: calc(50% - var(--base-size-12));
-          left: calc(-1 * var(--base-size-8));
-          width: var(--base-size-4);
-          height: var(--base-size-24);
-          content: '';
-          background: var(--bgColor-accent-emphasis);
-          border-radius: var(--borderRadius-medium);
-        }
-      }
-
-      outline: solid 1px red;
     }
   }
 
@@ -479,6 +434,8 @@
   grid-template-columns: min-content min-content min-content minmax(0, auto);
   align-items: start;
 
+  /* flex: 1 0 auto; */
+
   /* column-gap persists with empty grid-areas, margin applies only when children exist */
   & > :not(:last-child) {
     /* stylelint-disable-next-line primer/spacing */
@@ -562,9 +519,9 @@
 
     /* outline: solid 1px purple; */
 
-    & + .SubGroup:has([data-active='true']) {
-      outline: solid 1px red;
-    }
+    /* & + .SubGroup:has([data-active='true']) {
+      outline: solid 1px blue;
+    } */
 
     &:has([data-active='true']) {
       outline: solid 1px red;
@@ -601,7 +558,7 @@
   }
 }
 
-.Ugh {
+.ActionListSubContent {
   grid-area: content;
   position: relative;
   display: grid;
