@@ -93,7 +93,7 @@
 
   /* state */
 
-  &:hover,
+  &:hover:not([aria-disabled='true']),
   &:active {
     cursor: pointer;
   }
@@ -118,15 +118,21 @@
     display: none;
   }
 
-  /* collapse styles here */
+  /* only hover li without list as children */
+
+  /* &:not([data-has-subitem='true']), */
+
+  /* if item has subitem, move hover styles to ActionListContent */
   &[data-has-subitem='true'] {
     /* first child */
     & > .ActionListContent {
       z-index: 1;
 
       @media (hover: hover) {
-        &:hover {
-          background-color: var(--control-transparent-bgColor-hover);
+        &:hover:not([aria-disabled='true']) {
+          background: lightblue;
+
+          /* background-color: var(--control-transparent-bgColor-hover); */
         }
       }
 
@@ -136,7 +142,7 @@
     }
 
     &:has([data-active='true']) {
-      & .ActionListContent[aria-expanded='false'] {
+      & .ActionListContent[aria-expanded='true'] {
         background: var(--control-transparent-bgColor-selected);
 
         & .ItemLabel {
@@ -165,111 +171,15 @@
     }
   }
 
-  /* collapsible item [aria-expanded] */
-
-  /* nesting (single level)
-   target items inside expanded subgroups */
-  &[aria-expanded] {
-    & + .SubGroup {
-      @media screen and (prefers-reduced-motion: no-preference) {
-        transition:
-          opacity 160ms cubic-bezier(0.25, 1, 0.5, 1),
-          transform 160ms cubic-bezier(0.25, 1, 0.5, 1);
-      }
-
-      & .ActionListContent {
-        /* padding-left: var(--base-size-24); */
-
-        /* padding-left: calc(var(--subitem-depth) + var(--base-size-8)); */
-      }
-    }
-  }
-
-  &[aria-expanded='true'] {
-    & .ExpandIcon {
-      transition: transform 120ms linear;
-      transform: scaleY(-1);
-    }
-
-    & .SubGroup {
-      height: auto;
-      overflow: visible;
-      visibility: visible;
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    &.ActionListContent--hasActiveSubItem {
-      & > .ItemLabel {
-        font-weight: var(--base-text-weight-semibold);
-      }
-    }
-  }
-
-  &[aria-expanded='false'] {
-    & .ExpandIcon {
-      transition: transform 120ms linear;
-      transform: scaleY(1);
-    }
-
-    & .SubGroup {
-      height: 0;
-      overflow: hidden;
-      visibility: hidden;
-      opacity: 0;
-      transform: translateY(calc(-1 * var(--base-size-16)));
-    }
-
-    /* show active indicator on parent collapse if child is active */
-
-    /* outline: solid 1px purple; */
-
-    & + .SubGroup:has([data-active='true']) {
-      outline: solid 1px red;
-    }
-
-    &:has([data-active='true']) {
-      outline: solid 1px red;
-
-      & .ItemLabel {
-        font-weight: var(--base-text-weight-semibold);
-      }
-    }
-
-    &.ActionListContent--hasActiveSubItem {
-      background: var(--control-transparent-bgColor-selected);
-
-      & .ItemLabel {
-        font-weight: var(--base-text-weight-semibold);
-      }
-
-      &::before,
-      & + .ActionListItem::before {
-        visibility: hidden;
-      }
-
-      /* blue accent line */
-      &::after {
-        position: absolute;
-        top: calc(50% - var(--base-size-12));
-        left: calc(-1 * var(--base-size-8));
-        width: var(--base-size-4);
-        height: var(--base-size-24);
-        content: '';
-        background: var(--bgColor-accent-emphasis);
-        border-radius: var(--borderRadius-medium);
-      }
-    }
-  }
-
-  /* only hover li without list as children */
-  &:not([data-has-subitem='true']),
+  /* target contents of first child li if sub-item (li wraps item label + nested ul) */
+  &[data-has-subitem='false'],
    /* target contents of first child li if sub-item (li wraps item label + nested ul) */
   &[data-has-subitem='true'] > .ActionListContent {
     @media (hover: hover) {
-      &:hover {
+      &:hover:not([aria-disabled='true']) {
         cursor: pointer;
         background-color: var(--control-transparent-bgColor-hover);
+        background-color: lightblue;
 
         &:not([data-active], :focus-visible) {
           /* Support for "Windows high contrast mode" */
@@ -295,6 +205,15 @@
         visibility: hidden;
       }
     }
+
+    &[aria-disabled='true'] {
+      @media (hover: hover) {
+        &:hover {
+          cursor: not-allowed;
+          background-color: transparent;
+        }
+      }
+    }
   }
 
   /* active state [aria-current] */
@@ -314,7 +233,7 @@
       background: var(--control-transparent-bgColor-selected);
 
       @media (hover: hover) {
-        &:hover {
+        &:hover:not([aria-disabled='true']) {
           background-color: var(--control-transparent-bgColor-hover);
         }
       }
@@ -347,11 +266,20 @@
       & .VisualWrap {
         color: var(--control-fgColor-disabled);
       }
+
+      @media (hover: hover) {
+        &:hover {
+          cursor: not-allowed;
+          background-color: transparent;
+        }
+      }
     }
 
-    &:hover {
-      cursor: not-allowed;
-      background-color: transparent;
+    @media (hover: hover) {
+      &:hover {
+        cursor: not-allowed;
+        background-color: transparent;
+      }
     }
   }
 
@@ -400,10 +328,22 @@
       color: var(--fgColor-muted);
     }
 
+    & .ActionListContent {
+      &:hover {
+        cursor: not-allowed;
+        background: transparent;
+      }
+    }
+
     @media (hover: hover) {
       &:hover {
         cursor: not-allowed;
         background: transparent;
+
+        & .ActionListContent {
+          cursor: not-allowed;
+          background: transparent;
+        }
       }
     }
 
@@ -522,7 +462,8 @@
   width: 100%;
   color: var(--control-fgColor-rest);
   text-align: left;
-  cursor: pointer;
+
+  /* cursor: pointer; */
   user-select: none;
   background-color: transparent;
   border: none;
@@ -549,12 +490,114 @@
 
   &:hover {
     text-decoration: none;
+    cursor: pointer;
+  }
+
+  &[aria-disabled='true'] {
+    cursor: not-allowed;
   }
 
   &.ActionListContent--blockDescription {
     /* if leading/trailing visual, align with first line of content */
     & .VisualWrap {
       place-self: start;
+    }
+  }
+
+  /* collapsible item [aria-expanded] */
+
+  /* nesting (single level)
+   target items inside expanded subgroups */
+  &[aria-expanded] {
+    & + .SubGroup {
+      @media screen and (prefers-reduced-motion: no-preference) {
+        transition:
+          opacity 160ms cubic-bezier(0.25, 1, 0.5, 1),
+          transform 160ms cubic-bezier(0.25, 1, 0.5, 1);
+      }
+
+      & .ActionListContent {
+        /* padding-left: var(--base-size-24); */
+
+        padding-left: calc(var(--subitem-depth) + var(--base-size-8));
+      }
+    }
+  }
+
+  &[aria-expanded='true'] {
+    & .ExpandIcon {
+      transition: transform 120ms linear;
+      transform: scaleY(-1);
+    }
+
+    & .SubGroup {
+      height: auto;
+      overflow: visible;
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    &.ActionListContent--hasActiveSubItem {
+      & > .ItemLabel {
+        font-weight: var(--base-text-weight-semibold);
+      }
+    }
+  }
+
+  &[aria-expanded='false'] {
+    & .ExpandIcon {
+      transition: transform 120ms linear;
+      transform: scaleY(1);
+    }
+
+    & + .SubGroup {
+      height: 0;
+      overflow: hidden;
+      visibility: hidden;
+      opacity: 0;
+      transform: translateY(calc(-1 * var(--base-size-16)));
+    }
+
+    /* show active indicator on parent collapse if child is active */
+
+    /* outline: solid 1px purple; */
+
+    & + .SubGroup:has([data-active='true']) {
+      outline: solid 1px red;
+    }
+
+    &:has([data-active='true']) {
+      outline: solid 1px red;
+
+      & .ItemLabel {
+        font-weight: var(--base-text-weight-semibold);
+      }
+    }
+
+    &.ActionListContent--hasActiveSubItem {
+      background: var(--control-transparent-bgColor-selected);
+
+      & .ItemLabel {
+        font-weight: var(--base-text-weight-semibold);
+      }
+
+      &::before,
+      & + .ActionListItem::before {
+        visibility: hidden;
+      }
+
+      /* blue accent line */
+      &::after {
+        position: absolute;
+        top: calc(50% - var(--base-size-12));
+        left: calc(-1 * var(--base-size-8));
+        width: var(--base-size-4);
+        height: var(--base-size-24);
+        content: '';
+        background: var(--bgColor-accent-emphasis);
+        border-radius: var(--borderRadius-medium);
+      }
     }
   }
 }

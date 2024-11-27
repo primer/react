@@ -74,7 +74,6 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
   ({'aria-current': ariaCurrent, children, defaultOpen, sx: sxProp = defaultSxProp, ...props}, ref) => {
     const enabled = useFeatureFlag('primer_react_css_modules_team')
     const {depth} = React.useContext(SubNavContext)
-    console.log('depth', depth)
 
     // Get SubNav from children
     const subNav = React.Children.toArray(children).find(child => isValidElement(child) && child.type === SubNav)
@@ -97,7 +96,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
           defaultOpen={defaultOpen}
           sx={sxProp}
           data-depth={depth}
-          style={{'--subitem-depth': depth} as React.CSSProperties}
+          style={{'--subitem-depth': `${depth}px`} as React.CSSProperties}
         >
           {childrenWithoutSubNavOrTrailingAction}
           depth:{depth}
@@ -113,7 +112,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
         sx={enabled ? undefined : merge<SxProp['sx']>(getSubnavStyles(depth), sxProp)}
         className={classes.SubItem}
         data-depth={depth}
-        style={{'--subitem-depth': depth} as React.CSSProperties}
+        style={{'--subitem-depth': `${depth}px`} as React.CSSProperties}
         {...props}
       >
         {children}
@@ -157,6 +156,8 @@ function ItemWithSubNav({
   const subNavRef = React.useRef<HTMLDivElement>(null)
   const [containsCurrentItem, setContainsCurrentItem] = React.useState(false)
 
+  console.log(isOpen, depth)
+
   useIsomorphicLayoutEffect(() => {
     if (subNavRef.current) {
       // Check if SubNav contains current item
@@ -172,20 +173,17 @@ function ItemWithSubNav({
 
   const enabled = useFeatureFlag('primer_react_css_modules_team')
   if (enabled) {
-    if (sxProp !== defaultSxProp) {
-      return <p>sxprop</p>
-    }
+    // if (sxProp !== defaultSxProp) {
+    //   return <p>sxprop</p>
+    // }
     return (
       <ItemWithSubNavContext.Provider value={{buttonId, subNavId, isOpen}}>
-        {/* <li aria-labelledby={buttonId}> */}
         <ActionList.Item
-          // as="button"
           id={buttonId}
           aria-expanded={isOpen}
           aria-controls={subNavId}
           active={!isOpen && containsCurrentItem}
           onClick={() => setIsOpen(open => !open)}
-          // wrapper="button"
           style={style}
         >
           {children}
@@ -196,8 +194,6 @@ function ItemWithSubNav({
           </ActionList.TrailingVisual>
           <ActionList.SubItem>{React.cloneElement(subNav as React.ReactElement, {ref: subNavRef})}</ActionList.SubItem>
         </ActionList.Item>
-
-        {/* </li> */}
       </ItemWithSubNavContext.Provider>
     )
   }
