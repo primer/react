@@ -96,7 +96,7 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
           defaultOpen={defaultOpen}
           sx={sxProp}
           data-depth={depth}
-          style={{'--subitem-depth': `${depth}px`} as React.CSSProperties}
+          style={{'--subitem-depth': depth} as React.CSSProperties}
         >
           {childrenWithoutSubNavOrTrailingAction}
           depth:{depth}
@@ -109,10 +109,10 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
         ref={ref}
         aria-current={ariaCurrent}
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
-        sx={enabled ? undefined : merge<SxProp['sx']>(getSubnavStyles(depth), sxProp)}
+        // sx={enabled ? undefined : merge<SxProp['sx']>(getSubnavStyles(depth), sxProp)}
         className={classes.SubItem}
         data-depth={depth}
-        style={{'--subitem-depth': `${depth}px`} as React.CSSProperties}
+        style={{'--subitem-depth': depth} as React.CSSProperties}
         {...props}
       >
         {children}
@@ -155,8 +155,6 @@ function ItemWithSubNav({
   const [isOpen, setIsOpen] = React.useState((defaultOpen || null) ?? false)
   const subNavRef = React.useRef<HTMLDivElement>(null)
   const [containsCurrentItem, setContainsCurrentItem] = React.useState(false)
-
-  console.log(isOpen, depth)
 
   useIsomorphicLayoutEffect(() => {
     if (subNavRef.current) {
@@ -243,9 +241,8 @@ export type NavListSubNavProps = {
 
 const SubNavContext = React.createContext<{depth: number}>({depth: 0})
 
-// TODO: ref prop
 // NOTE: SubNav must be a direct child of an Item
-const SubNav = ({children, sx: sxProp = defaultSxProp}: NavListSubNavProps) => {
+const SubNav = React.forwardRef(({children, sx: sxProp = defaultSxProp}: NavListSubNavProps, forwardedRef) => {
   const {buttonId, subNavId, isOpen} = React.useContext(ItemWithSubNavContext)
   const {depth} = React.useContext(SubNavContext)
   const enabled = useFeatureFlag('primer_react_css_modules_team')
@@ -267,7 +264,7 @@ const SubNav = ({children, sx: sxProp = defaultSxProp}: NavListSubNavProps) => {
     }
     return (
       <SubNavContext.Provider value={{depth: depth + 1}}>
-        <ul className={classes.SubGroup} id={subNavId} aria-labelledby={buttonId}>
+        <ul className={classes.SubGroup} id={subNavId} aria-labelledby={buttonId} ref={forwardedRef}>
           {children}
         </ul>
       </SubNavContext.Provider>
@@ -293,7 +290,7 @@ const SubNav = ({children, sx: sxProp = defaultSxProp}: NavListSubNavProps) => {
       </Box>
     </SubNavContext.Provider>
   )
-}
+}) as PolymorphicForwardRefComponent<'ul', NavListSubNavProps>
 
 SubNav.displayName = 'NavList.SubNav'
 

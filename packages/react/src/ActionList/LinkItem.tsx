@@ -71,29 +71,29 @@ export const LinkItem = React.forwardRef(
         )
       }
 
-      // return (
-      //   <Item
-      //     className={className}
-      //     active={active}
-      //     inactiveText={inactiveText}
-      //     data-inactive={inactiveText ? true : undefined}
-      //     _PrivateItemWrapper={({children, onClick, ...rest}) => {
-      //       const clickHandler = (event: React.MouseEvent<HTMLElement>) => {
-      //         onClick && onClick(event)
-      //         props.onClick && props.onClick(event as React.MouseEvent<HTMLAnchorElement>)
-      //       }
-      //       return inactiveText ? (
-      //         <span {...rest}>{children}</span>
-      //       ) : (
-      //         <Link as={Component} {...rest} {...props} onClick={clickHandler} ref={forwardedRef}>
-      //           {children}
-      //         </Link>
-      //       )
-      //     }}
-      //   >
-      //     {props.children}
-      //   </Item>
-      // )
+      return (
+        <Item
+          className={className}
+          active={active}
+          inactiveText={inactiveText}
+          data-inactive={inactiveText ? true : undefined}
+          _PrivateItemWrapper={({children, onClick, ...rest}) => {
+            const clickHandler = (event: React.MouseEvent<HTMLElement>) => {
+              onClick && onClick(event)
+              props.onClick && props.onClick(event as React.MouseEvent<HTMLAnchorElement>)
+            }
+            return inactiveText ? (
+              <span {...rest}>{children}</span>
+            ) : (
+              <Link as={Component} {...rest} {...props} onClick={clickHandler} ref={forwardedRef}>
+                {children}
+              </Link>
+            )
+          }}
+        >
+          {props.children}
+        </Item>
+      )
     }
 
     return (

@@ -447,15 +447,14 @@
 
 .Spacer {
   display: none;
-
-  /* outline: solid 1px lightpink; */
+  width: max(0px, var(--subitem-depth) * 8px);
+  outline: solid 1px lightpink;
   grid-area: spacer;
 }
 
 /* button or a tag */
 .ActionListContent {
-  --subitem-depth: 0;
-  --subitem-spacer: calc(var(--subitem-depth) * 8px);
+  --subitem-depth: 0px;
 
   position: relative;
   display: grid;
@@ -477,7 +476,7 @@
   -webkit-tap-highlight-color: transparent;
   grid-template-rows: min-content;
   grid-template-areas: 'spacer leadingAction leadingVisual content';
-  grid-template-columns: var(--subitem-spacer) min-content min-content minmax(0, auto);
+  grid-template-columns: min-content min-content min-content minmax(0, auto);
   align-items: start;
 
   /* column-gap persists with empty grid-areas, margin applies only when children exist */
@@ -519,7 +518,7 @@
       & .ActionListContent {
         /* padding-left: var(--base-size-24); */
 
-        padding-left: calc(var(--subitem-depth) + var(--base-size-8));
+        /* padding-left: calc(var(--subitem-depth) + var(--base-size-8)); */
       }
     }
   }
