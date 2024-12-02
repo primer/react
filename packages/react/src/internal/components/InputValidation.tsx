@@ -35,9 +35,11 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({children, id
       {IconComponent ? (
         <StyledValidationIcon
           aria-hidden="true"
-          style={{
-            minHeight: iconBoxMinHeight,
-          }}
+          style={
+            {
+              '--inputValidation-iconSize': iconBoxMinHeight,
+            } as React.CSSProperties
+          }
         >
           <IconComponent size={iconSize} fill="currentColor" />
         </StyledValidationIcon>
@@ -75,6 +77,7 @@ const StyledValidationIcon = styled.span`
   align-items: center;
   display: flex;
   margin-inline-end: ${get('space.1')};
+  min-height: var(--inputValidation-iconSize);
 `
 
 const StyledValidationText = styled.span`
