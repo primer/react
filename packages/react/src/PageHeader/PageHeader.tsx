@@ -785,10 +785,10 @@ function getHiddenDataAttributes(
   isCssModules: boolean,
   isHidden: boolean | ResponsiveValue<boolean>,
 ): {
-  'data-is-hidden-all'?: boolean
-  'data-is-hidden-narrow'?: boolean
-  'data-is-hidden-regular'?: boolean
-  'data-is-hidden-wide'?: boolean
+  'data-hidden-all'?: boolean
+  'data-hidden-narrow'?: boolean
+  'data-hidden-regular'?: boolean
+  'data-hidden-wide'?: boolean
 } {
   if (!isCssModules) {
     return {}
@@ -801,28 +801,28 @@ function getHiddenDataAttributes(
     const narrowMediaQuery =
       'narrow' in responsiveValue
         ? {
-            'data-is-hidden-narrow': responsiveValue.narrow || undefined,
+            'data-hidden-narrow': responsiveValue.narrow || undefined,
           }
         : {}
 
     const regularMediaQuery =
       'regular' in responsiveValue
         ? {
-            'data-is-hidden-regular': responsiveValue.regular || undefined,
+            'data-hidden-regular': responsiveValue.regular || undefined,
           }
         : {}
 
     const wideMediaQuery =
       'wide' in responsiveValue
         ? {
-            'data-is-hidden-wide': responsiveValue.wide || undefined,
+            'data-hidden-wide': responsiveValue.wide || undefined,
           }
         : {}
 
     // check if all values are the same - this is not a recommended practice but we still should check for it
     if (areAllValuesTheSame(responsiveValue)) {
       // if all the values are the same, we can just use one of the value to determine the CSS property's value
-      return {'data-is-hidden-all': responsiveValue.narrow || undefined}
+      return {'data-hidden-all': responsiveValue.narrow || undefined}
       // check if regular and wide have the same value, if so we can just return the narrow and regular media queries
     } else if (haveRegularAndWideSameValue(responsiveValue)) {
       return {
@@ -838,7 +838,7 @@ function getHiddenDataAttributes(
     }
   } else {
     // If the given value is not a responsive value
-    return {'data-is-hidden-all': isHidden || undefined}
+    return {'data-hidden-all': isHidden || undefined}
   }
 }
 
