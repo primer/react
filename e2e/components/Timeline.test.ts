@@ -2,143 +2,65 @@ import {test, expect} from '@playwright/test'
 import {visit} from '../test-helpers/storybook'
 import {themes} from '../test-helpers/themes'
 
+const stories = [
+  {
+    title: 'Default',
+    id: 'components-timeline--default',
+  },
+  {
+    title: 'Clip Sidebar',
+    id: 'components-timeline-features--clip-sidebar',
+  },
+  {
+    title: 'Condensed Items',
+    id: 'components-timeline-features--condensed-items',
+  },
+  {
+    title: 'Timeline Break',
+    id: 'components-timeline-features--timeline-break',
+  },
+  {
+    title: 'SX Props',
+    id: 'components-timeline-dev--sx-props',
+  },
+] as const
+
 test.describe('Timeline', () => {
-  test.describe('Default', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-timeline--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Timeline.Default.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-timeline--default',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+  for (const story of stories) {
+    test.describe(story.title, () => {
+      for (const theme of themes) {
+        test.describe(theme, () => {
+          test('@vrt', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
               },
-            },
-          })
-        })
-      })
-    }
-  })
+            })
 
-  test.describe('Clip Sidebar', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-timeline-features--clip-sidebar',
-            globals: {
-              colorScheme: theme,
-            },
+            // Default state
+            expect(await page.screenshot()).toMatchSnapshot(`Timeline.${story.title}.${theme}.png`)
           })
 
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Timeline.Clip Sidebar.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-timeline-features--clip-sidebar',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+          test('axe @aat', async ({page}) => {
+            await visit(page, {
+              id: story.id,
+              globals: {
+                colorScheme: theme,
               },
-            },
-          })
-        })
-      })
-    }
-  })
-
-  test.describe('Condensed Items', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-timeline-features--condensed-items',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Timeline.Condensed Items.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-timeline-features--condensed-items',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
+            })
+            await expect(page).toHaveNoViolations({
+              rules: {
+                'color-contrast': {
+                  enabled: theme !== 'dark_dimmed',
+                },
               },
-            },
+            })
           })
         })
-      })
-    }
-  })
-
-  test.describe('Timeline Break', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-timeline-features--timeline-break',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Timeline.Timeline Break.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-timeline-features--timeline-break',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations({
-            rules: {
-              'color-contrast': {
-                enabled: theme !== 'dark_dimmed',
-              },
-            },
-          })
-        })
-      })
-    }
-  })
-
+      }
+    })
+  }
   test.describe('With Inline Links', () => {
     for (const theme of themes) {
       test.describe(theme, () => {

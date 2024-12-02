@@ -74,6 +74,11 @@ describe('KeybindingHint', () => {
     expect(el).toBeInTheDocument()
     expect(el).not.toHaveAttribute('aria-hidden')
   })
+
+  it('accepts className prop', () => {
+    render(<KeybindingHint keys="Control" className="test-class" />)
+    expect(screen.getByTestId('keybinding-hint')).toHaveClass('test-class')
+  })
 })
 
 describe('getAccessibleKeybindingHintString', () => {

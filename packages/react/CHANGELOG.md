@@ -1,5 +1,71 @@
 # @primer/react
 
+## 37.6.0
+
+### Minor Changes
+
+- [#5325](https://github.com/primer/react/pull/5325) [`cdc4da1`](https://github.com/primer/react/commit/cdc4da128895f4f63a526748fd4df63c9f27d055) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Convert SelectPanel2 to CSS modules
+
+- [#5252](https://github.com/primer/react/pull/5252) [`bb0cd90`](https://github.com/primer/react/commit/bb0cd90cab27012ad8bcb33a23f67951d6e213b4) Thanks [@iansan5653](https://github.com/iansan5653)! - Adds `keybindingHint` prop to `TooltipV2` and `IconButton`, updates `onEmphasis` design variant for `KeybindingHint`, and adds `size` prop with `small` option to `KeybindingHint`.
+
+- [#5294](https://github.com/primer/react/pull/5294) [`912a0d7`](https://github.com/primer/react/commit/912a0d7102cb65d2b9c31a68a244795586d1ee3b) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Update `Textarea` component to use CSS module
+
+- [#5227](https://github.com/primer/react/pull/5227) [`1cfbf63`](https://github.com/primer/react/commit/1cfbf633c6ccc01595a19b2e1d8714d59e56a007) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Convert TextInput to CSS module behind feature flag
+
+- [#5150](https://github.com/primer/react/pull/5150) [`e89edbc`](https://github.com/primer/react/commit/e89edbc6c8892e324eeb1af381a70f2ac0e75a3c) Thanks [@jonrohan](https://github.com/jonrohan)! - Convert Breadcrumbs to css module behind feature flag
+
+- [#5298](https://github.com/primer/react/pull/5298) [`3935811`](https://github.com/primer/react/commit/393581160180ccb87da126e441439748909f138d) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Convert Dialog v2 to CSS Modules behind feature flag
+
+- [#5267](https://github.com/primer/react/pull/5267) [`ffc8f91`](https://github.com/primer/react/commit/ffc8f91e9c96033abad523cb4440a144ace30db9) Thanks [@ktravers](https://github.com/ktravers)! - Update `TreeView` component to use CSS Modules
+
+- [#5320](https://github.com/primer/react/pull/5320) [`e9e4d1c`](https://github.com/primer/react/commit/e9e4d1c2781f6d45a3a001f89b352abb1a265c26) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Add forward ref to Popover
+
+- [#5306](https://github.com/primer/react/pull/5306) [`84c3e62`](https://github.com/primer/react/commit/84c3e62b317e5cd3d65ef31c11ccc3071f373b35) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Convert PageLayout to CSS modules behind feature flags
+
+- [#5319](https://github.com/primer/react/pull/5319) [`37c4e97`](https://github.com/primer/react/commit/37c4e9731af622be2b19fed82a1c9235517b918e) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Do not pass through hoverColor prop into DOM element
+
+- [#5257](https://github.com/primer/react/pull/5257) [`4aa40c9`](https://github.com/primer/react/commit/4aa40c9acd90f432c505abba6ca9213dbd971f5c) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Convert TextInput to use data attributes
+
+- [#5329](https://github.com/primer/react/pull/5329) [`e7547e8`](https://github.com/primer/react/commit/e7547e8304fa2a6ea06d0f12a9a3ecd8cbdc429b) Thanks [@francinelucca](https://github.com/francinelucca)! - Update `Timeline` component to use CSS modules behind the feature flag primer_react_css_modules_team
+
+- [#5304](https://github.com/primer/react/pull/5304) [`a3fc488`](https://github.com/primer/react/commit/a3fc4881b8e3916a054900fa2a2b252056350bc9) Thanks [@TylerJDev](https://github.com/TylerJDev)! - Convert ProgressBar to CSS modules behind feature flag
+
+- [#5276](https://github.com/primer/react/pull/5276) [`d91dc54`](https://github.com/primer/react/commit/d91dc541ece37c4a9681ded10b220f511aa34b2f) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Migrate TextInputAction & TextInputInnerVisualSlot to CSS Modules behind feature flag
+
+- [#5300](https://github.com/primer/react/pull/5300) [`65802fc`](https://github.com/primer/react/commit/65802fcbe2e882a53fef85a4b0efb6c326012ad6) Thanks [@francinelucca](https://github.com/francinelucca)! - Update `Popover` component to use CSS modules behind the feature flag primer_react_css_modules_team
+
+### Patch Changes
+
+- [#5285](https://github.com/primer/react/pull/5285) [`057d868`](https://github.com/primer/react/commit/057d868d657e88aeba6eea930bd4fdd50027f62c) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Select component from team to staff flag
+
+- [#5279](https://github.com/primer/react/pull/5279) [`aac10fa`](https://github.com/primer/react/commit/aac10fa1c134444791a01fe7c71d508f94ab5ca5) Thanks [@jonrohan](https://github.com/jonrohan)! - Move CounterLabel CSS module feature flag from staff to ga
+
+- [#5286](https://github.com/primer/react/pull/5286) [`d4cb322`](https://github.com/primer/react/commit/d4cb322ef030bb4bbf379a4a962fc39659779297) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Spinner component from team to staff flag
+
+- [#5288](https://github.com/primer/react/pull/5288) [`9d004d0`](https://github.com/primer/react/commit/9d004d037bbd740d30424e919383ba32a5f04eda) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Radio component from team to staff flag
+
+- [#5291](https://github.com/primer/react/pull/5291) [`8fd0035`](https://github.com/primer/react/commit/8fd003505d91a92c1ea9dc73c4b4efd926c2b6c0) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Pagehead component from team to staff flag
+
+- [#5190](https://github.com/primer/react/pull/5190) [`32c4fe1`](https://github.com/primer/react/commit/32c4fe1441e2f0d4f71ba5c6c75fe0c654908063) Thanks [@mperrotti](https://github.com/mperrotti)! - Changes `<label>` wrapper of `FormControl` to put padding directly on the `label` so the entire row is clickable
+
+- [#5290](https://github.com/primer/react/pull/5290) [`7c94916`](https://github.com/primer/react/commit/7c9491628a2905c806a4d2758152f93331755ffc) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Details component from team to staff flag
+
+- [#5284](https://github.com/primer/react/pull/5284) [`8853f5f`](https://github.com/primer/react/commit/8853f5f9daa6e4f4c284d432e7ce6747709afc27) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Header component from team to staff flag
+
+- [#5275](https://github.com/primer/react/pull/5275) [`d1b7bce`](https://github.com/primer/react/commit/d1b7bceb9ca9211a1d12dbf83c973ddbe7cde973) Thanks [@jonrohan](https://github.com/jonrohan)! - Convert CheckBoxOrRadioGroup to CSS modules behind feature flag
+
+- [#5287](https://github.com/primer/react/pull/5287) [`41ae5aa`](https://github.com/primer/react/commit/41ae5aa7b38707072310354d89721b677bfa4d23) Thanks [@jonrohan](https://github.com/jonrohan)! - Move BranchName component from team to staff flag
+
+- [#5289](https://github.com/primer/react/pull/5289) [`cc876d9`](https://github.com/primer/react/commit/cc876d9ecbf7f4e2d1a7af94605c6be2d7b6fe45) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Skeleton component from team to staff flag
+
+- [#5281](https://github.com/primer/react/pull/5281) [`b8e138e`](https://github.com/primer/react/commit/b8e138e76721003240cf813257e717d607cbb467) Thanks [@jonrohan](https://github.com/jonrohan)! - chore(ButtonGroup): Move ButtonGroup CSS module feature flag from staff to ga
+
+- [#5333](https://github.com/primer/react/pull/5333) [`f0603fd`](https://github.com/primer/react/commit/f0603fd763327e47b862fa94f56a074eede6298b) Thanks [@mperrotti](https://github.com/mperrotti)! - - Makes {Checkbox|Radio}Group `<legend>` bold and default font size
+
+  - Makes Checkbox and Radio `<label>` default font weight
+
+- [#5209](https://github.com/primer/react/pull/5209) [`556afbd`](https://github.com/primer/react/commit/556afbda728ef34a278f786f11cce6c459817178) Thanks [@dusave](https://github.com/dusave)! - Check certain refs for nullishness to address HMR issues in dotcom
+
 ## 37.5.0
 
 ### Minor Changes
