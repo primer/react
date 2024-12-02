@@ -28,3 +28,5 @@ export const OnEmphasis: StoryObj<KeybindingHintProps> = {
   ),
   args: {keys: chord, variant: 'onEmphasis'},
 }
+
+export const Small = {args: {keys: chord, size: 'small'}}
