@@ -359,6 +359,27 @@ export const WithLeadingVisual = () => (
   </Box>
 )
 
+export const WithLeadingVisualAndDisabled = () => (
+  <Box>
+    <FormControl disabled>
+      <FormControl.Label>Option one</FormControl.Label>
+      <FormControl.LeadingVisual>
+        <MarkGithubIcon />
+      </FormControl.LeadingVisual>
+      <Checkbox />
+    </FormControl>
+
+    <FormControl disabled>
+      <FormControl.Label>Option two</FormControl.Label>
+      <FormControl.LeadingVisual>
+        <MarkGithubIcon />
+      </FormControl.LeadingVisual>
+      <Checkbox />
+      <FormControl.Caption>This one has a caption</FormControl.Caption>
+    </FormControl>
+  </Box>
+)
+
 export const DisabledInputs = () => (
   <Box sx={{display: 'flex', flexDirection: 'column', gap: '1rem'}}>
     <FormControl disabled>
