@@ -147,7 +147,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const hoverStyles = {
       '@media (hover: hover) and (pointer: fine)': {
-        ':hover:not([aria-disabled]):not([data-inactive])': {
+        '&:hover:not([aria-disabled]):not([data-inactive])': {
           backgroundColor: `actionListItem.${variant}.hoverBg`,
           color: getVariantStyles(variant, disabled, inactive).hoverColor,
           boxShadow: `inset 0 0 0 max(1px, 0.0625rem) ${theme?.colors.actionListItem.default.activeBorder}`,
@@ -157,7 +157,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           border: `2 solid`,
           boxShadow: `0 0 0 2px ${theme?.colors.accent.emphasis}`,
         },
-        ':active:not([aria-disabled]):not([data-inactive])': {
+        '&:active:not([aria-disabled]):not([data-inactive])': {
           backgroundColor: `actionListItem.${variant}.activeBg`,
           color: getVariantStyles(variant, disabled, inactive).hoverColor,
         },
@@ -392,7 +392,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                       flexGrow: slots.inlineDescription ? 0 : 1,
                       fontWeight: slots.inlineDescription || slots.blockDescription || active ? 'bold' : 'normal',
                       marginBlockEnd: slots.blockDescription ? '4px' : undefined,
-                      wordBreak: 'break-word',
+                      wordBreak: slots.inlineDescription ? 'normal' : 'break-word',
                     }}
                   >
                     {childrenWithoutSlots}

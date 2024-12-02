@@ -5,7 +5,35 @@
   "status": "beta",
   "a11yReviewed": true,
   "importPath": "@primer/react/next",
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-tooltip--default"
+    },
+    {
+      "id": "components-tooltip-features--anchor-has-margin"
+    },
+    {
+      "id": "components-tooltip-features--label-type"
+    },
+    {
+      "id": "components-tooltip-features--description-type"
+    },
+    {
+      "id": "components-tooltip-features--icon-button-with-description"
+    },
+    {
+      "id": "components-tooltip-features--all-directions"
+    },
+    {
+      "id": "components-tooltip-features--multiline-text"
+    },
+    {
+      "id": "components-tooltip-features--calculated-direction"
+    },
+    {
+      "id": "components-tooltip-features--on-action-menu-anchor"
+    }
+  ],
   "props": [
     {
       "name": "direction",
@@ -24,6 +52,11 @@
       "type": "'label' | 'description'",
       "defaultValue": "description",
       "description": "The type of tooltip. `label` is used for labelling the element that triggers tooltip. `description` is used for describing or adding a suplementary information to the element that triggers the tooltip."
+    },
+    {
+      "name": "keybindingHint",
+      "type": "string",
+      "description": "Optional keybinding hint to indicate the availability of a keyboard shortcut. Supported syntax is described in the docs for the `KeybindingHint` component."
     },
     {
       "name": "sx",
