@@ -32,6 +32,7 @@ type SegmentedControlProps = {
   size?: 'small' | 'medium'
   /** Configure alternative ways to render the control when it gets rendered in tight spaces */
   variant?: 'default' | Partial<Record<WidthOnlyViewportRangeKeys, 'hideLabels' | 'dropdown' | 'default'>>
+  className?: string
 } & SxProp
 
 const getSegmentedControlStyles = (props: {isFullWidth?: boolean; size?: SegmentedControlProps['size']}) => ({

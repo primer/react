@@ -172,17 +172,15 @@ const FormControl = React.forwardRef<HTMLDivElement, FormControlProps>(
                 {slots.leadingVisual}
               </Box>
             )}
-            {!slots.label?.props.visuallyHidden || slots.caption ? (
-              <Box display="flex" flexDirection="column" sx={{'> *': {paddingLeft: 'var(--stack-gap-condensed)'}}}>
-                {slots.label}
-                {slots.caption}
-              </Box>
-            ) : (
-              <>
-                {slots.label}
-                {slots.caption}
-              </>
-            )}
+            <Box
+              sx={{
+                '> *': {paddingLeft: 'var(--stack-gap-condensed)'},
+                '> label': {fontWeight: 'var(--base-text-weight-normal)'},
+              }}
+            >
+              {slots.label}
+              {slots.caption}
+            </Box>
           </Box>
         ) : (
           <Box
