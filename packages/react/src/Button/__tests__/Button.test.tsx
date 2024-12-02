@@ -340,13 +340,11 @@ describe('Button', () => {
     expect(triggerEl).toHaveAttribute('aria-keyshortcuts', 'Command+H')
   })
   it('should append the keyshortcuts to the tooltip text that labels the icon button when keyshortcuts prop is passed', () => {
-    const {getByRole, getByText} = render(<IconButton icon={HeartIcon} aria-label="Heart" keyshortcuts="Command+H" />)
-    const triggerEl = getByRole('button')
-    const tooltipEl = getByText('Heart, Command+H')
-    expect(tooltipEl).toBeInTheDocument()
-    expect(triggerEl).toHaveAttribute('aria-labelledby', tooltipEl.id)
+    const {getByRole} = render(<IconButton icon={HeartIcon} aria-label="Heart" keyshortcuts="Command+H" />)
+    const triggerEl = getByRole('button', {name: 'Heart ( command h )'})
+    expect(triggerEl).toBeInTheDocument()
   })
-  it('should render aria-keyshorts on an icon button when keyshortcuts prop is passed (Description Type)', () => {
+  it('should render aria-keyshortcuts on an icon button when keyshortcuts prop is passed (Description Type)', () => {
     const {getByRole} = render(
       <IconButton icon={HeartIcon} aria-label="Heart" description="Love is all around" keyshortcuts="Command+H" />,
     )
@@ -354,12 +352,10 @@ describe('Button', () => {
     expect(triggerEl).toHaveAttribute('aria-keyshortcuts', 'Command+H')
   })
   it('should append the keyshortcuts to the tooltip text that describes the icon button when keyshortcuts prop is passed (Description Type)', () => {
-    const {getByRole, getByText} = render(
+    const {getByRole} = render(
       <IconButton icon={HeartIcon} aria-label="Heart" description="Love is all around" keyshortcuts="Command+H" />,
     )
-    const triggerEl = getByRole('button')
-    const tooltipEl = getByText('Love is all around, Command+H')
-    expect(tooltipEl).toBeInTheDocument()
-    expect(triggerEl.getAttribute('aria-describedby')).toEqual(expect.stringContaining(tooltipEl.id))
+    const triggerEl = getByRole('button', {name: 'Heart'})
+    expect(triggerEl).toHaveAccessibleDescription('Love is all around ( command h )')
   })
 })

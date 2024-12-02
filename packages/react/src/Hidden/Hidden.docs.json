@@ -3,7 +3,17 @@
   "name": "Hidden",
   "status": "draft",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "drafts-components-hidden--default"
+    },
+    {
+      "id": "drafts-components-hidden-features--hide-content"
+    },
+    {
+      "id": "drafts-components-hidden-features--render-content-responsively"
+    }
+  ],
   "importPath": "@primer/react/experimental",
   "props": [
     {
