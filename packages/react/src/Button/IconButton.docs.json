@@ -47,10 +47,10 @@
       "id": "components-iconbutton-features--loading-trigger"
     },
     {
-      "id": "components-iconbutton-features--keyshortcuts-on-description"
+      "id": "components-iconbutton-features--keybinding-hint-on-description"
     },
     {
-      "id": "components-iconbutton-features--keyshortcuts"
+      "id": "components-iconbutton-features--keybinding-hint"
     }
   ],
   "importPath": "@primer/react",
@@ -95,8 +95,13 @@
       "name": "keyshortcuts",
       "type": "string",
       "defaultValue": "",
-      "required": false,
-      "description": "Keyboard shortcuts that trigger the button. Keyboard shortcut will be appended to the accessible name or description (depending on the tooltip type) of the button with a comma (i.e. Bold, Command+B) and it will be displayed in the tooltip."
+      "deprecated": true,
+      "description": "Use `keybindingHint` instead."
+    },
+    {
+      "name": "keybindingHint",
+      "type": "string",
+      "description": "Optional keybinding hint to show in the tooltip for this button. See the `KeybindingHint` component documentation for the correct format for this string. Has no effect if tooltip is overridden or disabled. Does **not** bind any keybindings for this button - this is only for visual hints."
     },
     {
       "name": "tooltipDirection",

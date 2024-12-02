@@ -29,24 +29,26 @@ const splitChord = (chord: string) =>
     .map(k => k.toLowerCase())
     .sort(compareLowercaseKeys)
 
-export const Chord = ({keys, format = 'condensed', variant = 'normal'}: KeybindingHintProps) => (
+export const Chord = ({keys, format = 'condensed', variant = 'normal', size = 'normal'}: KeybindingHintProps) => (
   <Text
     sx={{
       display: 'inline-flex',
-      bg: 'transparent',
-      color: variant === 'onEmphasis' ? 'fg.onEmphasis' : 'fg.muted',
+      bg: variant === 'onEmphasis' ? 'var(--counter-bgColor-emphasis)' : 'var(--bgColor-transparent)',
+      color: variant === 'onEmphasis' ? 'var(--fgColor-onEmphasis)' : 'var(--fgColor-muted)',
       border: '1px solid',
-      borderColor: 'border.default',
-      borderRadius: 2,
+      borderColor: variant === 'onEmphasis' ? 'transparent' : 'var(--borderColor-default)',
+      borderRadius: size === 'small' ? 1 : 2,
       fontWeight: 'normal',
       fontFamily: 'normal',
-      fontSize: 0,
-      p: 1,
+      fontSize: size === 'small' ? '11px' : 0,
+      p: size === 'small' ? '2px' : 1,
       gap: '0.5ch',
       boxShadow: 'none',
       verticalAlign: 'baseline',
       overflow: 'hidden',
-      lineHeight: '10px',
+      lineHeight: size === 'small' ? '8px' : '10px',
+      minWidth: size === 'small' ? 'var(--base-size-16)' : 'var(--base-size-20)',
+      justifyContent: 'center',
     }}
   >
     {splitChord(keys).map((k, i) => (
