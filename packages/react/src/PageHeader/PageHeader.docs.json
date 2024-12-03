@@ -5,43 +5,43 @@
   "a11yReviewed": true,
   "stories": [
     {
-      "id": "drafts-components-pageheader--default"
+      "id": "components-pageheader--default"
     },
     {
-      "id": "drafts-components-pageheader-features--has-title-only"
+      "id": "components-pageheader-features--has-title-only"
     },
     {
-      "id": "drafts-components-pageheader-features--has-large-title"
+      "id": "components-pageheader-features--has-large-title"
     },
     {
-      "id": "drafts-components-pageheader-features--with-leading-and-trailing-visuals"
+      "id": "components-pageheader-features--with-leading-and-trailing-visuals"
     },
     {
-      "id": "drafts-components-pageheader-features--with-leading-visual-hidden-on-regular-viewport"
+      "id": "components-pageheader-features--with-leading-visual-hidden-on-regular-viewport"
     },
     {
-      "id": "drafts-components-pageheader-features--with-actions"
+      "id": "components-pageheader-features--with-actions"
     },
     {
-      "id": "drafts-components-pageheader-features--with-description-slot"
+      "id": "components-pageheader-features--with-description-slot"
     },
     {
-      "id": "drafts-components-pageheader-features--with-navigation-slot"
+      "id": "components-pageheader-features--with-navigation-slot"
     },
     {
-      "id": "drafts-components-pageheader-features--with-custom-navigation"
+      "id": "components-pageheader-features--with-custom-navigation"
     },
     {
-      "id": "drafts-components-pageheader-features--with-leading-and-trailing-actions"
+      "id": "components-pageheader-features--with-leading-and-trailing-actions"
     },
     {
-      "id": "drafts-components-pageheader-features--with-parent-link-and-actions-of-context-area"
+      "id": "components-pageheader-features--with-parent-link-and-actions-of-context-area"
     },
     {
-      "id": "drafts-components-pageheader-features--with-context-bar-and-actions-of-context-area"
+      "id": "components-pageheader-features--with-context-bar-and-actions-of-context-area"
     },
     {
-      "id": "drafts-components-pageheader-features--with-actions-that-have-responsive-content"
+      "id": "components-pageheader-features--with-actions-that-have-responsive-content"
     }
   ],
   "importPath": "@primer/react",
