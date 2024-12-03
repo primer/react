@@ -108,7 +108,6 @@ const Item = React.forwardRef<HTMLAnchorElement, NavListItemProps>(
         aria-current={ariaCurrent}
         active={Boolean(ariaCurrent) && ariaCurrent !== 'false'}
         sx={enabled ? undefined : merge<SxProp['sx']>(getSubnavStyles(depth), sxProp)}
-        // className={classes.SubItem}
         style={{'--subitem-depth': depth} as React.CSSProperties}
         {...props}
       >
@@ -179,7 +178,6 @@ function ItemWithSubNav({
           active={!isOpen && containsCurrentItem}
           onClick={() => setIsOpen(open => !open)}
           style={style}
-          // className={classes.SubItem}
         >
           {children}
           {/* What happens if the user provides a TrailingVisual? */}
@@ -210,7 +208,7 @@ function ItemWithSubNav({
             sxProp,
           )}
         >
-          {children}
+          {children}hi
           {/* What happens if the user provides a TrailingVisual? */}
           <ActionList.TrailingVisual>
             <Octicon

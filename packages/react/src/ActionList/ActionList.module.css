@@ -77,7 +77,7 @@
 
   /* state */
 
-  &:not(:has([aria-disabled]), [aria-disabled='true'], [data-has-subitem='true']) {
+  &:not(:has([aria-disabled], [disabled]), [aria-disabled='true'], [data-has-subitem='true']) {
     @media (hover: hover) {
       &:hover,
       &:active {
@@ -186,10 +186,6 @@
     }
   }
 
-  /* only hover li without list as children */
-
-  /* &:not([data-has-subitem='true']), */
-
   /* if item has subitem, move hover styles to ActionListContent */
   &[data-has-subitem='true'] {
     /* first child */
@@ -206,12 +202,16 @@
         background-color: var(--control-transparent-bgColor-active);
       }
     }
+
+    & .Spacer {
+      display: block;
+    }
   }
 
   /* disabled */
 
   &[aria-disabled='true'],
-  &:has([aria-disabled='true']) {
+  &:has([aria-disabled='true'], [disabled]) {
     & .ActionListContent * {
       color: var(--control-fgColor-disabled);
     }
@@ -249,7 +249,7 @@
   }
 
   /* Make sure that the first visible item isn't a divider */
-  &[hidden] + .Divider {
+  &[aria-hidden] + .Divider {
     display: none;
   }
 
@@ -328,29 +328,11 @@
   }
 }
 
-.SubItem {
-  /* outline: solid 1px deeppink; */
-
-  & .Spacer {
-    display: block;
-  }
-}
-
-[data-has-subitem='true'] {
-  & .Spacer {
-    display: block;
-  }
-
-  & > .ActionListContent {
-    /* outline: solid 1px blue; */
-  }
-}
+/* spacer used to create depth for nested lists */
 
 .Spacer {
   display: none;
   width: max(0px, var(--subitem-depth) * 8px);
-
-  /* outline: solid 1px lightpink; */
   grid-area: spacer;
 }
 
@@ -363,8 +345,6 @@
   width: 100%;
   color: var(--control-fgColor-rest);
   text-align: left;
-
-  /* cursor: pointer; */
   user-select: none;
   background-color: transparent;
   border: none;
@@ -381,8 +361,6 @@
   grid-template-columns: min-content min-content min-content minmax(0, auto);
   align-items: start;
 
-  /* flex: 1 0 auto; */
-
   /* column-gap persists with empty grid-areas, margin applies only when children exist */
   & > :not(:last-child, .Spacer) {
     /* stylelint-disable-next-line primer/spacing */
@@ -393,13 +371,7 @@
 
   &:hover {
     text-decoration: none;
-
-    /* cursor: pointer; */
   }
-
-  /* &[aria-disabled='true'] {
-    cursor: not-allowed;
-  } */
 
   &.ActionListContent--blockDescription {
     /* if leading/trailing visual, align with first line of content */
@@ -410,8 +382,7 @@
 
   /* collapsible item [aria-expanded] */
 
-  /* nesting (single level)
-   target items inside expanded subgroups */
+  /* target items inside expanded subgroups */
   &[aria-expanded] {
     & + .SubGroup {
       @media screen and (prefers-reduced-motion: no-preference) {
@@ -558,8 +529,6 @@
 .Description {
   font-size: var(--text-body-size-small);
   font-weight: var(--base-text-weight-normal);
-
-  /* line-height: var(--text-body-lineHeight-small); */
   line-height: var(--text-caption-lineHeight);
   color: var(--fgColor-muted);
 }
@@ -585,15 +554,6 @@
   grid-area: label;
 }
 
-.ItemLabel--truncate {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-/* nested lists (only supports 1 level currently)
- target ActionListItem--subItem for padding-left to maintain :active :after state */
-
 .SubGroup .ItemLabel {
   font-size: var(--text-body-size-small);
   line-height: var(--text-body-lineHeight-small);
@@ -601,15 +561,19 @@
 
 /* trailing action icon button */
 
-.ActionListItem--withActions {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-}
-
 .TrailingActionButton {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+}
+
+.InactiveButtonWrap {
+  &:has(.TrailingVisual) {
+    grid-area: trailingVisual;
+  }
+
+  &:has(.LeadingVisual) {
+    grid-area: leadingVisual;
+  }
 }
 
 .Divider {
@@ -624,16 +588,6 @@
   /* stylelint-disable-next-line primer/colors */
   background: var(--borderColor-muted);
   border: 0;
-}
-
-.InactiveButtonWrap {
-  &:has(.TrailingVisual) {
-    grid-area: trailingVisual;
-  }
-
-  &:has(.LeadingVisual) {
-    grid-area: leadingVisual;
-  }
 }
 
 .InactiveButtonReset {

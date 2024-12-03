@@ -877,6 +877,7 @@ export const WithTrailingAction = () => {
 
 export const FullVariant = () => (
   <ActionList variant="full">
+    <ActionList.Divider />
     <ActionList.Item>Copy link</ActionList.Item>
     <ActionList.Item>Quote reply</ActionList.Item>
     <ActionList.Item>Edit comment</ActionList.Item>

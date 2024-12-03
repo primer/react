@@ -8,6 +8,7 @@ import {Group} from './Group'
 import {Divider} from './Divider'
 import {Description} from './Description'
 import {TypographyIcon, VersionsIcon, SearchIcon, ArrowRightIcon, ArrowLeftIcon} from '@primer/octicons-react'
+import {variant} from 'styled-system'
 
 export default {
   title: 'Components/ActionList',
@@ -222,6 +223,7 @@ LinkItemPlayground.args = {
   active: false,
   disabled: false,
   id: 'item-1',
+  variant: 'default',
   inactiveText: '',
   leadingVisual: null,
   loading: false,
@@ -232,6 +234,10 @@ LinkItemPlayground.argTypes = {
     control: {
       type: 'boolean',
     },
+  },
+  variant: {
+    control: 'radio',
+    options: ['default', 'danger'],
   },
   role: {
     type: 'string',
