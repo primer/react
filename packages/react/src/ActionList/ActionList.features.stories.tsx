@@ -482,9 +482,6 @@ export const LoadingItem = () => {
 export const Links = () => (
   <>
     <ActionList>
-      <ActionList.Heading as="h1" sx={{fontSize: 1}}>
-        Details
-      </ActionList.Heading>
       <ActionList.LinkItem href="https://github.com/primer/react#readme">
         <ActionList.LeadingVisual>
           <BookIcon />
@@ -766,7 +763,7 @@ export const GroupWithFilledTitle = () => {
 }
 
 export const WithCustomTrailingVisuals = () => (
-  <ActionList showDividers>
+  <ActionList>
     <ActionList.Item>
       <ActionList.LeadingVisual>
         <IssueOpenedIcon />
@@ -821,7 +818,6 @@ ActionListWithButtonSemantics.storyName = 'With Button Semantics (Behind feature
 
 export const WithTrailingAction = () => {
   return (
-    // <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
     <ActionList>
       <ActionList.Item>
         <ActionList.LeadingVisual>
@@ -871,7 +867,6 @@ export const WithTrailingAction = () => {
         <ActionList.TrailingAction as="a" href="#" label="Some action 8" icon={ArrowRightIcon} />
       </ActionList.Item>
     </ActionList>
-    // </FeatureFlags>
   )
 }
 

@@ -8,7 +8,6 @@ import {Group} from './Group'
 import {Divider} from './Divider'
 import {Description} from './Description'
 import {TypographyIcon, VersionsIcon, SearchIcon, ArrowRightIcon, ArrowLeftIcon} from '@primer/octicons-react'
-import {variant} from 'styled-system'
 
 export default {
   title: 'Components/ActionList',
@@ -17,10 +16,9 @@ export default {
 } as Meta<typeof ActionList>
 
 export const Default = () => (
-  <ActionList showDividers>
+  <ActionList>
     <ActionList.Item>Copy link</ActionList.Item>
-    <ActionList.Item active>Quote reply</ActionList.Item>
-    <ActionList.Item>Edit comment</ActionList.Item>
+    <ActionList.Item>Quote reply</ActionList.Item>
     <ActionList.Item>Edit comment</ActionList.Item>
   </ActionList>
 )
@@ -97,12 +95,11 @@ export const ItemPlayground = args => {
   }
 
   return (
-    <ActionList selectionVariant={args.selectionVariant} role="menu">
+    <ActionList selectionVariant={args.selectionVariant}>
       <ActionList.Item {...args}>
         {leadingVisual && <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>}
         Action list item
         {trailingVisual && <ActionList.TrailingVisual>{trailingVisual}</ActionList.TrailingVisual>}
-        <ActionList.TrailingAction label="Expand sidebar" icon={ArrowLeftIcon} />
       </ActionList.Item>
     </ActionList>
   )

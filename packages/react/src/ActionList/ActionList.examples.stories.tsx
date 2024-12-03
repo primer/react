@@ -378,11 +378,11 @@ export function AllCombinations(): JSX.Element {
               <StarIcon />
             </ActionList.LeadingVisual>
             The everything bagel
-            <ActionList.Description variant="block">block description</ActionList.Description>
+            <ActionList.Description variant="inline">inline description</ActionList.Description>
+            <ActionList.Description variant="block">Block description</ActionList.Description>
             <ActionList.TrailingVisual>
               <StarIcon />
             </ActionList.TrailingVisual>
-            <ActionList.TrailingAction as="a" href="#" label="Some action 1" icon={StarIcon} />
           </ActionList.Item>
           <ActionList.Item>none of them, only text</ActionList.Item>
           <ActionList.Item>
