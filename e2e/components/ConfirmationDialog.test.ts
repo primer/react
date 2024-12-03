@@ -6,9 +6,10 @@ const stories = [
   {
     title: 'Default',
     id: 'components-confirmationdialog--default',
-    args: {
-      open: true,
-    },
+  },
+  {
+    title: 'Playground',
+    id: 'components-confirmationdialog--playground',
   },
   {
     title: 'Shorthand Hook',
@@ -25,13 +26,13 @@ test.describe('ConfirmationDialog', () => {
     test.describe(story.title, () => {
       for (const theme of themes) {
         test.describe(theme, () => {
-          test('default @vrt', async ({page}) => {
+          test('@vrt', async ({page}) => {
             await visit(page, {
               id: story.id,
               globals: {
                 colorScheme: theme,
               },
-              args: 'args' in story ? {...story.args, open: true} : {open: true},
+              args: {open: true},
             })
 
             // Default state
@@ -52,7 +53,7 @@ test.describe('ConfirmationDialog', () => {
               globals: {
                 colorScheme: theme,
               },
-              args: 'args' in story ? {...story.args, open: true} : {open: true},
+              args: {open: true},
             })
             await expect(page).toHaveNoViolations()
           })
