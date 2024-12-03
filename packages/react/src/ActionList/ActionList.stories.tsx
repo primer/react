@@ -16,9 +16,10 @@ export default {
 } as Meta<typeof ActionList>
 
 export const Default = () => (
-  <ActionList>
+  <ActionList showDividers>
     <ActionList.Item>Copy link</ActionList.Item>
-    <ActionList.Item>Quote reply</ActionList.Item>
+    <ActionList.Item active>Quote reply</ActionList.Item>
+    <ActionList.Item>Edit comment</ActionList.Item>
     <ActionList.Item>Edit comment</ActionList.Item>
   </ActionList>
 )
@@ -95,7 +96,7 @@ export const ItemPlayground = args => {
   }
 
   return (
-    <ActionList selectionVariant={args.selectionVariant}>
+    <ActionList selectionVariant={args.selectionVariant} role="menu">
       <ActionList.Item {...args}>
         {leadingVisual && <ActionList.LeadingVisual>{leadingVisual}</ActionList.LeadingVisual>}
         Action list item

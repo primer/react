@@ -52,10 +52,12 @@ export const WithNestedSubItems: StoryFn = () => (
   <PageLayout>
     <PageLayout.Pane position="start">
       <NavList>
-        <NavList.Item defaultOpen={true} href="#">
+        <NavList.Item defaultOpen={false} href="#">
           Item 1
           <NavList.SubNav>
-            <NavList.Item href="#">Sub item 1</NavList.Item>
+            <NavList.Item href="#" active>
+              Sub item 1
+            </NavList.Item>
           </NavList.SubNav>
         </NavList.Item>
         <NavList.Item href="#">

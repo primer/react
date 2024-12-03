@@ -425,7 +425,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
               data-variant={variant === 'danger' ? variant : undefined}
               data-active={active ? true : undefined}
               data-inactive={inactiveText ? true : undefined}
-              data-has-subitem={Boolean(slots.subItem)}
+              data-has-subitem={slots.subItem ? true : undefined}
               className={clsx(classes.ActionListItem, className)}
             >
               <ItemWrapper {...wrapperProps} className={classes.ActionListContent}>
@@ -497,7 +497,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
             data-variant={variant === 'danger' ? variant : undefined}
             data-active={active ? true : undefined}
             data-inactive={inactiveText ? true : undefined}
-            data-has-subitem={Boolean(slots.subItem)}
+            data-has-subitem={slots.subItem ? true : undefined}
             className={clsx(classes.ActionListItem, className)}
           >
             <ItemWrapper {...wrapperProps} className={classes.ActionListContent}>
