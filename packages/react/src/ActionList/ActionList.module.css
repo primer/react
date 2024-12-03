@@ -161,7 +161,7 @@
     /* inactive */
     &:where([data-inactive='true']) {
       /* ignore tooltip */
-      & * :not([popover]) {
+      & * :not([popover], .InactiveWarning) {
         color: var(--fgColor-muted);
       }
 
@@ -538,7 +538,8 @@
   position: relative;
   font-size: var(--text-body-size-medium);
   font-weight: var(--base-text-weight-normal);
-  line-height: var(--text-body-lineHeight-medium);
+  /* stylelint-disable-next-line primer/typography */
+  line-height: 1.4285714; /* temporary until we fix line-height rounding in primitives */
   color: var(--fgColor-default);
   grid-area: label;
 }
