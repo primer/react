@@ -5,7 +5,7 @@
   "a11yReviewed": true,
   "stories": [
     {
-      "id": "components-actionbar--default"
+      "id": "experimental-components-actionbar--default"
     }
   ],
   "importPath": "@primer/react",
