@@ -1,3 +1,5 @@
+/* stylelint-disable max-nesting-depth, selector-max-specificity, selector-max-compound-selectors */
+
 .ActionList {
   padding: 0;
   margin: 0;
@@ -94,17 +96,15 @@
     }
 
     /* danger */
-    &[data-variant='danger'] {
+    &:where([data-variant='danger']) {
       & * :not([popover]) {
         color: var(--control-danger-fgColor-rest);
       }
 
       @media (hover: hover) {
-        /* stylelint-disable-next-line max-nesting-depth */
         &:hover {
           background: var(--control-danger-bgColor-hover);
 
-          /* stylelint-disable-next-line max-nesting-depth, selector-max-specificity */
           & * :not([popover]) {
             color: var(--control-danger-fgColor-hover);
           }
@@ -114,7 +114,6 @@
       &:active {
         background: var(--control-danger-bgColor-active);
 
-        /* stylelint-disable-next-line max-nesting-depth, selector-max-specificity */
         & * :not([popover]) {
           color: var(--control-danger-fgColor-hover);
         }
@@ -122,7 +121,7 @@
     }
 
     /* active state [aria-current] */
-    &[data-active] {
+    &:where([data-active]) {
       background: var(--control-transparent-bgColor-selected);
 
       /* provides a visual indication of the current item for Windows high-contrast mode */
@@ -134,7 +133,6 @@
       }
 
       @media (hover: hover) {
-        /* stylelint-disable-next-line max-nesting-depth */
         &:hover {
           background-color: var(--control-transparent-bgColor-hover);
         }
@@ -161,19 +159,17 @@
     }
 
     /* inactive */
-    &[data-inactive='true'] {
+    &:where([data-inactive='true']) {
       /* ignore tooltip */
       & * :not([popover]) {
         color: var(--fgColor-muted);
       }
 
       @media (hover: hover) {
-        /* stylelint-disable-next-line max-nesting-depth */
         &:hover {
           cursor: not-allowed;
           background-color: transparent;
 
-          /* stylelint-disable-next-line max-nesting-depth, selector-max-specificity */
           & * :not([popover]) {
             color: var(--fgColor-muted);
           }
@@ -218,7 +214,6 @@
 
     & .ActionListContent {
       @media (hover: hover) {
-        /* stylelint-disable-next-line max-nesting-depth */
         &:hover {
           cursor: not-allowed;
           background-color: transparent;
@@ -328,15 +323,9 @@
   }
 }
 
-/* spacer used to create depth for nested lists */
-
-.Spacer {
-  display: none;
-  width: max(0px, var(--subitem-depth) * 8px);
-  grid-area: spacer;
-}
-
 /* button or a tag */
+
+/* [ [spacer] [leadingAction] [leadingVisual] [content] ] */
 .ActionListContent {
   --subitem-depth: 0px;
 
@@ -367,17 +356,8 @@
     margin-right: var(--control-medium-gap);
   }
 
-  /* state */
-
   &:hover {
     text-decoration: none;
-  }
-
-  &.ActionListContent--blockDescription {
-    /* if leading/trailing visual, align with first line of content */
-    & .VisualWrap {
-      place-self: start;
-    }
   }
 
   /* collapsible item [aria-expanded] */
@@ -456,6 +436,7 @@
   }
 }
 
+/* [ [content] [trailingVisual] [trailingAction] ] */
 .ActionListSubContent {
   grid-area: content;
   position: relative;
@@ -468,6 +449,14 @@
 }
 
 /* place children on grid */
+
+/* spacer used to create depth for nested lists */
+
+.Spacer {
+  display: none;
+  width: max(0px, var(--subitem-depth) * 8px);
+  grid-area: spacer;
+}
 
 .LeadingAction {
   grid-area: leadingAction;
@@ -500,7 +489,7 @@
   }
 
   /* inline */
-  &[data-description-variant='inline'] {
+  &:where([data-description-variant='inline']) {
     position: relative;
     word-break: normal;
     flex-direction: row;
