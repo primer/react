@@ -52,7 +52,7 @@ function InputLabel({
     >
       {required || requiredText ? (
         <StyledRequiredText>
-          <div>{children}</div>
+          <span>{children}</span>
           <span aria-hidden={requiredIndicator ? undefined : true}>{requiredText ?? '*'}</span>
         </StyledRequiredText>
       ) : (
