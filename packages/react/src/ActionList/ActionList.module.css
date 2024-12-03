@@ -89,15 +89,19 @@
       &:hover {
         background-color: var(--control-transparent-bgColor-hover);
       }
+    }
 
-      &:active {
-        background-color: var(--control-transparent-bgColor-active);
-      }
+    &:active {
+      background-color: var(--control-transparent-bgColor-active);
+    }
+
+    &:focus-visible {
+      @mixin focusOutline 0 deeppink;
     }
 
     /* danger */
     &:where([data-variant='danger']) {
-      & * :not([popover]) {
+      & * :not([popover], .TrailingVisual) {
         color: var(--control-danger-fgColor-rest);
       }
 
@@ -170,7 +174,7 @@
           cursor: not-allowed;
           background-color: transparent;
 
-          & * :not([popover]) {
+          & * :not([popover], .InactiveWarning) {
             color: var(--fgColor-muted);
           }
         }
@@ -178,6 +182,12 @@
 
       &:active {
         background: transparent;
+      }
+    }
+
+    &:where([data-loading='true']) {
+      & * {
+        color: var(--fgColor-muted);
       }
     }
   }
@@ -527,6 +537,8 @@
 .VisualWrap {
   display: flex;
   min-height: var(--control-medium-lineBoxHeight);
+  /* stylelint-disable-next-line primer/typography */
+  line-height: 1.4285714; /* temporary until we fix line-height rounding in primitives */
   color: var(--fgColor-muted);
   pointer-events: none;
   fill: var(--fgColor-muted);

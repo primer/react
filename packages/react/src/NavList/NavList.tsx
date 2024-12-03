@@ -208,7 +208,7 @@ function ItemWithSubNav({
             sxProp,
           )}
         >
-          {children}hi
+          {children}
           {/* What happens if the user provides a TrailingVisual? */}
           <ActionList.TrailingVisual>
             <Octicon

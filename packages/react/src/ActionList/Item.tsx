@@ -164,7 +164,11 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       role === 'option' || role === 'menuitem' || role === 'menuitemradio' || role === 'menuitemcheckbox'
 
     const listRoleTypes = ['listbox', 'menu', 'list']
-    const listSemantics = (listRole && listRoleTypes.includes(listRole)) || inactive || listItemSemantics
+    const listSemantics =
+      (listRole && listRoleTypes.includes(listRole)) ||
+      inactive ||
+      (container === 'NavList' && !enabled) ||
+      listItemSemantics
     const buttonSemantics = !listSemantics && !_PrivateItemWrapper
 
     const {theme} = useTheme()
@@ -567,18 +571,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         <LiBox
           ref={listSemantics ? forwardedRef : null}
           sx={merge<BetterSystemStyleObject>(styles, sxProp)}
-          // sx={merge<BetterSystemStyleObject>(
-          //   listSemantics || _PrivateItemWrapper ? styles : listItemStyles,
-          //   listSemantics || _PrivateItemWrapper ? sxProp : {},
-          // )}
-          // sx={
-          //   buttonSemanticsFeatureFlag
-          //     ? merge<BetterSystemStyleObject>(
-          //         listSemantics || _PrivateItemWrapper ? styles : listItemStyles,
-          //         listSemantics || _PrivateItemWrapper ? sxProp : {},
-          //       )
-          //     : merge<BetterSystemStyleObject>(styles, sxProp)
-          // }
           data-variant={variant === 'danger' ? variant : undefined}
           {...containerProps}
         >
