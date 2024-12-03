@@ -9,7 +9,7 @@ const stories: Array<{title: string; id: string}> = [
   },
   {
     title: 'Dev Default',
-    id: 'experimental-components-underlinepanels--default',
+    id: 'experimental-components-underlinepanels-dev--default',
   },
   {
     title: 'Labelled By External Element',
