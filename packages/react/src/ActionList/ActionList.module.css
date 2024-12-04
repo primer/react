@@ -215,8 +215,8 @@
 
       @media (hover: hover) {
         &:hover {
-          background-color: var(--control-transparent-bgColor-hover);
           cursor: pointer;
+          background-color: var(--control-transparent-bgColor-hover);
         }
       }
 
@@ -575,6 +575,7 @@
   line-height: 20px; /* temporary until we fix line-height rounding in primitives */
   color: var(--fgColor-default);
   grid-area: label;
+  word-break: break-word;
 }
 
 .SubGroup .ItemLabel {
