@@ -6,12 +6,16 @@
   display: flex;
   font-size: var(--text-body-size-small);
   font-weight: var(--base-text-weight-semibold);
-  line-height: var(--text-body-lineHeight-small);
+
+  /* line-height: var(--text-body-lineHeight-small); use when FF rolls out */
+  /* stylelint-disable-next-line primer/typography */
+  line-height: 18px;
   color: var(--fgColor-muted);
   flex-direction: column;
   /* stylelint-disable-next-line primer/spacing */
-  padding-inline: var(--control-medium-paddingInline-condensed);
-  padding-block: var(--base-size-8);
+  padding-inline: var(--control-medium-paddingInline-spacious);
+  /* stylelint-disable-next-line primer/spacing */
+  padding-block: var(--control-medium-paddingBlock);
 
   &:where([data-variant='filled']) {
     /* stylelint-disable-next-line primer/spacing */

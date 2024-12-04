@@ -96,7 +96,7 @@
     }
 
     &:focus-visible {
-      @mixin focusOutline 0 deeppink;
+      @mixin focusOutline 0;
     }
 
     /* danger */
@@ -185,7 +185,8 @@
       }
     }
 
-    &:where([data-loading='true']) {
+    &:where([data-loading='true']),
+    &:has([data-loading='true']) {
       & * {
         color: var(--fgColor-muted);
       }
@@ -528,7 +529,10 @@
 .Description {
   font-size: var(--text-body-size-small);
   font-weight: var(--base-text-weight-normal);
-  line-height: var(--text-caption-lineHeight);
+
+  /* line-height: var(--text-caption-lineHeight); */
+  /* stylelint-disable-next-line primer/typography */
+  line-height: 1.3333;
   color: var(--fgColor-muted);
 }
 

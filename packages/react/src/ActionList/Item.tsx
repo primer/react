@@ -270,7 +270,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         '&:focus-visible, > a.focus-visible, &:focus.focus-visible': {
           outline: 'none',
           border: `2 solid`,
-          boxShadow: `0 0 0 2px ${theme?.colors.accent.emphasis}`,
+          boxShadow: `0 0 0 2px var(--focus-outlineColor)`,
         },
         '&:active:not([aria-disabled]):not([data-inactive])': {
           backgroundColor: `actionListItem.${variant}.activeBg`,

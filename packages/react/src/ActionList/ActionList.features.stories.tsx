@@ -482,6 +482,9 @@ export const LoadingItem = () => {
 export const Links = () => (
   <>
     <ActionList>
+      <ActionList.Heading as="h1" sx={{fontSize: 1}}>
+        Details
+      </ActionList.Heading>
       <ActionList.LinkItem href="https://github.com/primer/react#readme">
         <ActionList.LeadingVisual>
           <BookIcon />
