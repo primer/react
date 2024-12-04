@@ -213,6 +213,8 @@ export const Tooltip = React.forwardRef(
 
     const [isPopoverOpen, setIsPopoverOpen] = useState(false)
 
+    const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null)
+
     const openTooltip = () => {
       try {
         if (
@@ -362,10 +364,19 @@ export const Tooltip = React.forwardRef(
                 child.props.onFocus?.(event)
               },
               onMouseEnter: (event: React.MouseEvent) => {
-                openTooltip()
-                child.props.onMouseEnter?.(event)
+                // show tooltip after mosue has been hovering for at least 50ms
+                // (prevent showing tooltip when mouse is just passing through)
+                const timeoutId = setTimeout(() => {
+                  openTooltip()
+                  child.props.onMouseEnter?.(event)
+                }, 50)
+
+                setTimeoutId(timeoutId)
               },
               onMouseLeave: (event: React.MouseEvent) => {
+                if (timeoutId) {
+                  clearTimeout(timeoutId)
+                }
                 closeTooltip()
                 child.props.onMouseLeave?.(event)
               },
