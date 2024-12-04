@@ -201,7 +201,7 @@ export const GroupHeading: React.FC<React.PropsWithChildren<ActionListGroupHeadi
   sx = defaultSxProp,
   ...props
 }) => {
-  const {variant: listVariant, role: listRole} = React.useContext(ListContext)
+  const {role: listRole} = React.useContext(ListContext)
   const {groupHeadingId} = React.useContext(GroupContext)
   // for list role, the headings are proper heading tags, for menu and listbox, they are just representational and divs
   const missingAsForList = (listRole === undefined || listRole === 'list') && children !== undefined && as === undefined

@@ -12,10 +12,8 @@
   line-height: 18px;
   color: var(--fgColor-muted);
   flex-direction: column;
-  /* stylelint-disable-next-line primer/spacing */
-  padding-inline: var(--control-medium-paddingInline-spacious);
-  /* stylelint-disable-next-line primer/spacing */
-  padding-block: var(--control-medium-paddingBlock);
+  padding-inline: var(--base-size-8);
+  padding-block: var(--base-size-8);
 
   &:where([data-variant='filled']) {
     /* stylelint-disable-next-line primer/spacing */
@@ -25,6 +23,7 @@
     background: var(--bgColor-muted);
     border-top: solid var(--borderWidth-thin) var(--borderColor-muted);
     border-bottom: solid var(--borderWidth-thin) var(--borderColor-muted);
+    padding-inline: var(--base-size-16);
 
     &:first-child {
       margin-block-start: 0;

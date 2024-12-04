@@ -115,8 +115,6 @@ export const getVariantStyles = (
   }
 }
 
-export const TEXT_ROW_HEIGHT = '20px' // custom value off the scale
-
 export type ActionListProps = React.PropsWithChildren<{
   /**
    * `inset` children are offset (vertically and horizontally) from `List`’s edges, `full` children are flush (vertically and horizontally) with `List` edges

@@ -15,7 +15,7 @@ import {GroupContext} from './Group'
 import type {ActionListItemProps, ActionListProps} from './shared'
 import {Selection} from './Selection'
 import {LeadingVisual, TrailingVisual, VisualOrIndicator} from './Visuals'
-import {getVariantStyles, ItemContext, TEXT_ROW_HEIGHT, ListContext} from './shared'
+import {getVariantStyles, ItemContext, ListContext} from './shared'
 import {TrailingAction} from './TrailingAction'
 import {ConditionalWrapper} from '../internal/components/ConditionalWrapper'
 import {invariant} from '../utils/invariant'
@@ -26,20 +26,6 @@ import {clsx} from 'clsx'
 import {SubItem} from './SubItem'
 
 const LiBox = styled.li<SxProp>(sx)
-
-const ButtonItemContainer = React.forwardRef(({as: Component = 'button', children, styles, ...props}, forwardedRef) => {
-  return (
-    <Box
-      as={Component as React.ElementType}
-      ref={forwardedRef}
-      sx={styles}
-      style={{outline: 'solid pink 1px'}}
-      {...props}
-    >
-      {children}
-    </Box>
-  )
-}) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>
 
 const ButtonItemContainerNoBox = React.forwardRef(({children, style, ...props}, forwardedRef) => {
   return (
@@ -72,7 +58,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       loading,
       _PrivateItemWrapper,
       className,
-      inlineStyles,
       ...props
     },
     forwardedRef,
@@ -108,12 +93,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     ) : null
     const trailingVisual = slots.trailingVisual ?? wrappedDefaultTrailingVisual
 
-    const {
-      variant: listVariant,
-      role: listRole,
-      showDividers,
-      selectionVariant: listSelectionVariant,
-    } = React.useContext(ListContext)
+    const {role: listRole, showDividers, selectionVariant: listSelectionVariant} = React.useContext(ListContext)
     const {selectionVariant: groupSelectionVariant} = React.useContext(GroupContext)
     const inactive = Boolean(inactiveText)
     const showInactiveIndicator = inactive && container === undefined
@@ -147,7 +127,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
 
     const itemRole = role || inferredItemRole
     const menuContext = container === 'ActionMenu' || container === 'SelectPanel'
-    const navListContext = container === 'NavList'
 
     if (slots.trailingAction) {
       invariant(!menuContext, `ActionList.TrailingAction can not be used within a ${container}.`)
@@ -188,42 +167,13 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       },
     }
 
-    // const hoverStyles = {
-    //   '@media (hover: hover) and (pointer: fine)': {
-    //     '&:hover:not([aria-disabled]):not([data-inactive])': {
-    //       backgroundColor: `actionListItem.${variant}.hoverBg`,
-    //       color: getVariantStyles(variant, disabled, inactive).hoverColor,
-    //       boxShadow: `inset 0 0 0 max(1px, 0.0625rem) ${theme?.colors.actionListItem.default.activeBorder}`,
-    //     },
-    //     '&:focus-visible, > a.focus-visible, &:focus.focus-visible': {
-    //       outline: 'none',
-    //       border: `2 solid`,
-    //       boxShadow: `0 0 0 2px ${theme?.colors.accent.emphasis}`,
-    //     },
-    //     '&:active:not([aria-disabled]):not([data-inactive])': {
-    //       backgroundColor: `actionListItem.${variant}.activeBg`,
-    //       color: getVariantStyles(variant, disabled, inactive).hoverColor,
-    //     },
-    //   },
-    // }
-
-    // const listItemStyles = {
-    //   display: 'flex',
-    //   // show between 2 items
-    //   ':not(:first-of-type)': {'--divider-color': theme?.colors.actionListItem.inlineDivider},
-    //   width: '100%',
-    //   // marginX: listVariant !== 'full' ? '2' : '0',
-    //   borderRadius: 2,
-    //   // ...(buttonSemantics ? hoverStyles : {}),
-    // }
-
     const styles = {
       position: 'relative',
       display: 'flex',
       paddingX: 2,
       fontSize: 1,
       paddingY: '6px', // custom value off the scale
-      lineHeight: TEXT_ROW_HEIGHT,
+      lineHeight: 'var(--text-caption-lineHeight, 1.3333)',
       minHeight: 5,
       // marginX: listVariant === 'inset' && !buttonSemantics ? 2 : 0,
       borderRadius: 2,

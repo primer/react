@@ -529,10 +529,7 @@
 .Description {
   font-size: var(--text-body-size-small);
   font-weight: var(--base-text-weight-normal);
-
-  /* line-height: var(--text-caption-lineHeight); */
-  /* stylelint-disable-next-line primer/typography */
-  line-height: 1.3333;
+  line-height: var(--text-caption-lineHeight);
   color: var(--fgColor-muted);
 }
 

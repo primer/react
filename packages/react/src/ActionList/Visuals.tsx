@@ -5,7 +5,7 @@ import Spinner from '../Spinner'
 import {get} from '../constants'
 import type {SxProp} from '../sx'
 import {merge} from '../sx'
-import {ItemContext, TEXT_ROW_HEIGHT, getVariantStyles} from './shared'
+import {ItemContext, getVariantStyles} from './shared'
 import {Tooltip, type TooltipProps} from '../TooltipV2'
 import {clsx} from 'clsx'
 import {useFeatureFlag} from '../FeatureFlags'
@@ -35,9 +35,9 @@ export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProp
       as="span"
       sx={merge(
         {
-          height: TEXT_ROW_HEIGHT, // match height of text row
+          height: '20px', // match height of text row
           minWidth: get('space.3'),
-          maxWidth: TEXT_ROW_HEIGHT, // square (same as height)
+          maxWidth: '20px', // square (same as height)
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
