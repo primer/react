@@ -12,6 +12,7 @@ import {get} from '../../constants'
 import {toggleStyledComponent} from '../utils/toggleStyledComponent'
 
 import classes from './UnderlineTabbedInterface.module.css'
+import {useFeatureFlag} from '../../FeatureFlags'
 
 // The gap between the list items. It is a constant because the gap is used to calculate the possible number of items that can fit in the container.
 export const GAP = 8
@@ -31,16 +32,38 @@ export const StyledUnderlineWrapper = styled.div`
   ${sx};
 `
 
-export const StyledUnderlineItemList = styled.ul`
-  display: flex;
-  list-style: none;
-  white-space: nowrap;
-  padding: 0;
-  margin: 0;
-  align-items: center;
-  gap: ${GAP}px;
-  position: relative;
-`
+const StyledComponentUnderlineItemList = toggleStyledComponent(
+  CSS_MODULES_FEATURE_FLAG,
+  'ul',
+  styled.ul`
+    display: flex;
+    list-style: none;
+    white-space: nowrap;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    gap: ${GAP}px;
+    position: relative;
+  `,
+)
+
+export const StyledUnderlineItemList = forwardRef(({children, ...rest}: PropsWithChildren, forwardedRef) => {
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
+  if (enabled) {
+    return (
+      <StyledComponentUnderlineItemList className={classes.UnderlineItemList} ref={forwardedRef} {...rest}>
+        {children}
+      </StyledComponentUnderlineItemList>
+    )
+  }
+
+  return (
+    <StyledComponentUnderlineItemList ref={forwardedRef} {...rest}>
+      {children}
+    </StyledComponentUnderlineItemList>
+  )
+}) as PolymorphicForwardRefComponent<'ul'>
 
 export const StyledUnderlineItem = toggleStyledComponent(
   CSS_MODULES_FEATURE_FLAG,
