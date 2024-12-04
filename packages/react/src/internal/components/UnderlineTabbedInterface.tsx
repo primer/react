@@ -13,24 +13,59 @@ import {toggleStyledComponent} from '../utils/toggleStyledComponent'
 
 import classes from './UnderlineTabbedInterface.module.css'
 import {useFeatureFlag} from '../../FeatureFlags'
+import {clsx} from 'clsx'
 
 // The gap between the list items. It is a constant because the gap is used to calculate the possible number of items that can fit in the container.
 export const GAP = 8
 
 const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
 
-export const StyledUnderlineWrapper = styled.div`
-  display: flex;
-  padding-inline: var(--stack-padding-normal, ${get('space.3')});
-  justify-content: flex-start;
-  align-items: center;
-  /* make space for the underline */
-  min-height: var(--control-xlarge-size, 48px);
-  /* using a box-shadow instead of a border to accomodate 'overflow-y: hidden' on UnderlinePanels */
-  box-shadow: inset 0px -1px var(--borderColor-muted, ${get('colors.border.muted')});
+const StyledComponentUnderlineWrapper = toggleStyledComponent(
+  CSS_MODULES_FEATURE_FLAG,
+  'div',
+  styled.div`
+    display: flex;
+    padding-inline: var(--stack-padding-normal, ${get('space.3')});
+    justify-content: flex-start;
+    align-items: center;
+    /* make space for the underline */
+    min-height: var(--control-xlarge-size, 48px);
+    /* using a box-shadow instead of a border to accomodate 'overflow-y: hidden' on UnderlinePanels */
+    box-shadow: inset 0px -1px var(--borderColor-muted, ${get('colors.border.muted')});
 
-  ${sx};
-`
+    ${sx};
+  `,
+)
+
+export const StyledUnderlineWrapper = forwardRef(
+  (
+    {
+      children,
+      className,
+      ...rest
+    }: PropsWithChildren<{slot?: string; as?: React.ElementType; className?: string} & SxProp>,
+    forwardedRef,
+  ) => {
+    const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
+    if (enabled) {
+      return (
+        <StyledComponentUnderlineWrapper
+          className={clsx(classes.UnderlineWrapper, className)}
+          ref={forwardedRef}
+          {...rest}
+        >
+          {children}
+        </StyledComponentUnderlineWrapper>
+      )
+    }
+    return (
+      <StyledComponentUnderlineWrapper className={className} ref={forwardedRef} {...rest}>
+        {children}
+      </StyledComponentUnderlineWrapper>
+    )
+  },
+)
 
 const StyledComponentUnderlineItemList = toggleStyledComponent(
   CSS_MODULES_FEATURE_FLAG,

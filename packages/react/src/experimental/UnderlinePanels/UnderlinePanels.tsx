@@ -15,6 +15,10 @@ import {merge, type BetterSystemStyleObject, type SxProp} from '../../sx'
 import {defaultSxProp} from '../../utils/defaultSxProp'
 import {useResizeObserver, type ResizeObserverEntry} from '../../hooks/useResizeObserver'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
+import {useFeatureFlag} from '../../FeatureFlags'
+import classes from './UnderlinePanels.module.css'
+
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
 
 export type UnderlinePanelsProps = {
   /**
@@ -141,6 +145,27 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
     )
   }
 
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
+  if (enabled) {
+    return (
+      <TabContainerComponent>
+        <StyledUnderlineWrapper
+          ref={wrapperRef}
+          slot="tablist-wrapper"
+          data-icons-visible={iconsVisible}
+          sx={sxProp as BetterSystemStyleObject}
+          className={classes.StyledUnderlineWrapper}
+          {...props}
+        >
+          <StyledUnderlineItemList ref={listRef} aria-label={ariaLabel} aria-labelledby={ariaLabelledBy} role="tablist">
+            {tabs.current}
+          </StyledUnderlineItemList>
+        </StyledUnderlineWrapper>
+        {tabPanels.current}
+      </TabContainerComponent>
+    )
+  }
   return (
     <TabContainerComponent>
       <StyledUnderlineWrapper
