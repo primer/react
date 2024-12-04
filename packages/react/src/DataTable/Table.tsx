@@ -16,7 +16,7 @@ import {ScrollableRegion} from '../ScrollableRegion'
 import {useFeatureFlag} from '../FeatureFlags'
 import {toggleStyledComponent} from '../internal/utils/toggleStyledComponent'
 import {Button} from '../internal/components/ButtonReset'
-import * as classes from './Table.module.css'
+import classes from './Table.module.css'
 
 const cssModulesFlag = 'primer_react_css_modules_team'
 
