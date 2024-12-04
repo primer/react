@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AnchoredOverlay should render consistently when open 1`] = `
-.c0 {
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
-  line-height: 1.5;
-  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
-}
-
 .c2 {
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+}
+
+.c0 {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  line-height: 1.5;
+  color: var(--fgColor-default,var(--color-fg-default,#1F2328));
 }
 
 .c1 {
@@ -340,14 +340,14 @@ exports[`AnchoredOverlay should render consistently when open 1`] = `
     font-family="normal"
   >
     <button
-      aria-describedby=":rj:-loading-announcement"
+      aria-describedby=":rn:-loading-announcement"
       aria-expanded="true"
       aria-haspopup="true"
       class="c1"
       data-loading="false"
       data-no-visuals="true"
       data-size="medium"
-      id=":rj:"
+      id=":rn:"
       tabindex="0"
       type="button"
     >
