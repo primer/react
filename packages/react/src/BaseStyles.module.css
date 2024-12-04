@@ -13,6 +13,7 @@ body {
 }
 
 table {
+  /* stylelint-disable-next-line primer/borders */
   border-collapse: collapse;
 }
 
