@@ -5,25 +5,25 @@
   "a11yReviewed": false,
   "stories": [
     {
-      "id": "drafts-components-blankslate--default"
+      "id": "experimental-components-blankslate--default"
     },
     {
-      "id": "drafts-components-blankslate-features--with-visual"
+      "id": "experimental-components-blankslate-features--with-visual"
     },
     {
-      "id": "drafts-components-blankslate-features--with-primary-action"
+      "id": "experimental-components-blankslate-features--with-primary-action"
     },
     {
-      "id": "drafts-components-blankslate-features--with-secondary-action"
+      "id": "experimental-components-blankslate-features--with-secondary-action"
     },
     {
-      "id": "drafts-components-blankslate-features--with-border"
+      "id": "experimental-components-blankslate-features--with-border"
     },
     {
-      "id": "drafts-components-blankslate-features--narrow"
+      "id": "experimental-components-blankslate-features--narrow"
     },
     {
-      "id": "drafts-components-blankslate-features--spacious"
+      "id": "experimental-components-blankslate-features--spacious"
     }
   ],
   "importPath": "@primer/react/experimental",
