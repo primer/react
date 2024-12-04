@@ -797,81 +797,60 @@ export const WithCustomTrailingVisuals = () => (
   </ActionList>
 )
 
-export const ActionListWithButtonSemantics = () => {
-  return (
-    <FeatureFlags flags={{primer_react_action_list_item_as_button: true}}>
-      <ActionList>
-        <ActionList.Item>Copy link</ActionList.Item>
-        <ActionList.Item inactiveText="Nothing to quote">Quote reply</ActionList.Item>
-        <ActionList.Item disabled>Edit comment</ActionList.Item>
-        <ActionList.Divider />
-        <ActionList.Item variant="danger">Delete file</ActionList.Item>
-        <ActionList.LinkItem href="https://github.com/primer/react#readme">
-          Support
-          <ActionList.TrailingVisual>
-            <LinkExternalIcon />
-          </ActionList.TrailingVisual>
-        </ActionList.LinkItem>
-      </ActionList>
-    </FeatureFlags>
-  )
-}
-
-ActionListWithButtonSemantics.storyName = 'With Button Semantics (Behind feature flag)'
-
-export const WithTrailingAction = () => {
-  return (
-    <ActionList>
-      <ActionList.Item as="button">
-        <ActionList.LeadingVisual>
-          <FileDirectoryIcon />
-        </ActionList.LeadingVisual>
-        Item 1 (with default TrailingAction)
-        <ActionList.TrailingAction label="Expand sidebar" icon={ArrowLeftIcon} />
-      </ActionList.Item>
-      <ActionList.Item>
-        Item 2 (with link TrailingAction)
-        <ActionList.TrailingAction as="a" href="#" label="Some action 1" icon={ArrowRightIcon} />
-      </ActionList.Item>
-      <ActionList.Item>
-        Item 3<ActionList.Description>This is an inline description.</ActionList.Description>
-        <ActionList.TrailingAction label="Some action 2" icon={BookIcon} />
-      </ActionList.Item>
-      <ActionList.Item>
-        Item 4<ActionList.Description variant="block">This is a block description.</ActionList.Description>
-        <ActionList.TrailingAction label="Some action 3" icon={BookIcon} />
-      </ActionList.Item>
-      <ActionList.Item>
-        Item 5<ActionList.Description variant="block">This is a block description.</ActionList.Description>
-        <ActionList.TrailingAction label="Some action 4" />
-      </ActionList.Item>
-      <ActionList.Item>
-        Item 6
-        <ActionList.TrailingAction href="#" as="a" label="Some action 5" />
-      </ActionList.Item>
-      <ActionList.LinkItem href="#">
-        LinkItem 1
-        <ActionList.Description>
-          with TrailingAction this is a long description and should not cause horizontal scroll on smaller screen sizes
-        </ActionList.Description>
-        <ActionList.TrailingAction label="Another action" />
-      </ActionList.LinkItem>
-      <ActionList.LinkItem href="#">
-        LinkItem 2
-        <ActionList.Description>
-          with TrailingVisual this is a long description and should not cause horizontal scroll on smaller screen sizes
-        </ActionList.Description>
-        <ActionList.TrailingVisual>
-          <TableIcon />
-        </ActionList.TrailingVisual>
-      </ActionList.LinkItem>
-      <ActionList.Item inactiveText="Unavailable due to an outage">
-        Inactive Item<ActionList.Description>With TrailingAction</ActionList.Description>
-        <ActionList.TrailingAction as="a" href="#" label="Some action 8" icon={ArrowRightIcon} />
-      </ActionList.Item>
-    </ActionList>
-  )
-}
+// removing this until CSS Modules FF ships, currently broken in production
+// export const WithTrailingAction = () => {
+//   return (
+//     <ActionList>
+//       <ActionList.Item>
+//         <ActionList.LeadingVisual>
+//           <FileDirectoryIcon />
+//         </ActionList.LeadingVisual>
+//         Item 1 (with default TrailingAction)
+//         <ActionList.TrailingAction label="Expand sidebar" icon={ArrowLeftIcon} />
+//       </ActionList.Item>
+//       <ActionList.Item>
+//         Item 2 (with link TrailingAction)
+//         <ActionList.TrailingAction as="a" href="#" label="Some action 1" icon={ArrowRightIcon} />
+//       </ActionList.Item>
+//       <ActionList.Item>
+//         Item 3<ActionList.Description>This is an inline description.</ActionList.Description>
+//         <ActionList.TrailingAction label="Some action 2" icon={BookIcon} />
+//       </ActionList.Item>
+//       <ActionList.Item>
+//         Item 4<ActionList.Description variant="block">This is a block description.</ActionList.Description>
+//         <ActionList.TrailingAction label="Some action 3" icon={BookIcon} />
+//       </ActionList.Item>
+//       <ActionList.Item>
+//         Item 5<ActionList.Description variant="block">This is a block description.</ActionList.Description>
+//         <ActionList.TrailingAction label="Some action 4" />
+//       </ActionList.Item>
+//       <ActionList.Item>
+//         Item 6
+//         <ActionList.TrailingAction href="#" as="a" label="Some action 5" />
+//       </ActionList.Item>
+//       <ActionList.LinkItem href="#">
+//         LinkItem 1
+//         <ActionList.Description>
+//           with TrailingAction this is a long description and should not cause horizontal scroll on smaller screen sizes
+//         </ActionList.Description>
+//         <ActionList.TrailingAction label="Another action" />
+//       </ActionList.LinkItem>
+//       <ActionList.LinkItem href="#">
+//         LinkItem 2
+//         <ActionList.Description>
+//           with TrailingVisual this is a long description and should not cause horizontal scroll on smaller screen sizes
+//         </ActionList.Description>
+//         <ActionList.TrailingVisual>
+//           <TableIcon />
+//         </ActionList.TrailingVisual>
+//       </ActionList.LinkItem>
+//       <ActionList.Item inactiveText="Unavailable due to an outage">
+//         Inactive Item<ActionList.Description>With TrailingAction</ActionList.Description>
+//         <ActionList.TrailingAction as="a" href="#" label="Some action 8" icon={ArrowRightIcon} />
+//       </ActionList.Item>
+//     </ActionList>
+//   )
+// }
 
 export const FullVariant = () => (
   <ActionList variant="full">
