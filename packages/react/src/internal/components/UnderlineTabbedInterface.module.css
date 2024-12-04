@@ -126,3 +126,24 @@
     background-color: LinkText;
   }
 }
+
+.LoadingCounter {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1rem; /* 16px */
+  background-color: var(--bgColor-neutral-muted);
+  border-color: var(--borderColor-default);
+  /* stylelint-disable-next-line primer/borders */
+  border-radius: 20px;
+  animation: loadingCounterKeyFrames 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes loadingCounterKeyFrames {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0.2;
+  }
+}

@@ -214,7 +214,7 @@ const loadingKeyframes = keyframes`
   to { opacity: 0.2; }
 `
 
-export const LoadingCounter = styled.span`
+export const StyledComponentLoadingCounter = styled.span`
   animation: ${loadingKeyframes} 1.2s ease-in-out infinite alternate;
   background-color: var(--bgColor-neutral-muted, ${get('colors.neutral.subtle')});
   border-color: var(--borderColor-default, ${get('colors.border.default')});
@@ -223,6 +223,16 @@ export const LoadingCounter = styled.span`
   display: inline-block;
   border-radius: 20px;
 `
+
+export const LoadingCounter = () => {
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
+  if (enabled) {
+    return <StyledComponentLoadingCounter className={classes.LoadingCounter} />
+  }
+
+  return <StyledComponentLoadingCounter />
+}
 
 // We can uncomment these when/if we add overflow behavior
 // to the UnderlinePanels component
