@@ -216,6 +216,7 @@
       @media (hover: hover) {
         &:hover {
           background-color: var(--control-transparent-bgColor-hover);
+          cursor: pointer;
         }
       }
 
