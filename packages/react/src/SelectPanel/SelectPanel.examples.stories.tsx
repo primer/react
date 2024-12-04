@@ -345,3 +345,60 @@ export const ItemsInScope = () => {
     </>
   )
 }
+
+export const FetchMoreItems = () => {
+  const items = [
+    {leadingVisual: getColorCircle('#a2eeef'), text: 'enhancement - fetched after initial load', id: 1},
+    {leadingVisual: getColorCircle('#d73a4a'), text: 'bug - fetched after initial load', id: 2},
+    {leadingVisual: getColorCircle('#0cf478'), text: 'good first issue - fetched after initial load', id: 3},
+    {leadingVisual: getColorCircle('#ffd78e'), text: 'design', id: 4},
+    {leadingVisual: getColorCircle('#ff0000'), text: 'blocker', id: 5},
+    {leadingVisual: getColorCircle('#a4f287'), text: 'backend', id: 6},
+    {leadingVisual: getColorCircle('#8dc6fc'), text: 'frontend', id: 7},
+  ]
+  const [selected, setSelected] = React.useState<ItemInput | undefined>(items[4])
+  const [filter, setFilter] = React.useState('')
+  const [fetchedItems, setFetchedItems] = useState<typeof items>([])
+  const filteredItems = React.useMemo(
+    () => fetchedItems.filter(item => item.text.toLowerCase().startsWith(filter.toLowerCase())),
+    [fetchedItems, filter],
+  )
+  const [open, setOpen] = useState(false)
+
+  const onOpenChange = () => {
+    setOpen(!open)
+    setTimeout(() => {
+      setFetchedItems([items[4], items[5], items[6]])
+    }, 0)
+  }
+
+  const handleFilterChange = (value: string) => {
+    setTimeout(() => {
+      setFetchedItems([items[0], items[1], items[2], items[3], items[4], items[5], items[6]])
+      setFilter(value)
+    }, 1000)
+  }
+
+  return (
+    <SelectPanel
+      renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+        <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+          {children ?? 'Select Labels'}
+        </Button>
+      )}
+      placeholderText="Filter Labels"
+      open={open}
+      onOpenChange={onOpenChange}
+      items={filteredItems}
+      selected={selected}
+      onSelectedChange={setSelected}
+      onFilterChange={handleFilterChange}
+      showItemDividers={true}
+      footer={
+        <Button size="small" block>
+          Edit labels
+        </Button>
+      }
+    />
+  )
+}
