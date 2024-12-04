@@ -197,6 +197,9 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
           bg: selected ? 'fg.muted' : 'var(--control-bgColor-disabled, rgba(175, 184, 193, 0.2))',
           borderColor: selected ? 'fg.muted' : 'var(--color-input-disabled-bg, rgba(175, 184, 193, 0.2))',
         },
+        '[data-component="ActionList.Selection"]': {
+          color: 'primer.fg.disabled',
+        },
       },
 
       // Button reset styles (to support as="button")
@@ -224,7 +227,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         display: 'block',
         position: 'absolute',
         width: '100%',
-        top: '-7px',
+        top: '-8px',
         border: '0 solid',
         borderTopWidth: showDividers ? `1px` : '0',
         borderColor: 'var(--divider-color, transparent)',
@@ -393,6 +396,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                       fontWeight: slots.inlineDescription || slots.blockDescription || active ? 'bold' : 'normal',
                       marginBlockEnd: slots.blockDescription ? '4px' : undefined,
                       wordBreak: slots.inlineDescription ? 'normal' : 'break-word',
+                      lineHeight: '20px',
                     }}
                   >
                     {childrenWithoutSlots}
