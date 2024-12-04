@@ -173,7 +173,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       paddingX: 2,
       fontSize: 1,
       paddingY: '6px', // custom value off the scale
-      lineHeight: 'var(--text-caption-lineHeight, 1.3333)',
+      lineHeight: '16px',
       minHeight: 5,
       // marginX: listVariant === 'inset' && !buttonSemantics ? 2 : 0,
       borderRadius: 2,

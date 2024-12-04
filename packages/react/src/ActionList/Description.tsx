@@ -33,7 +33,7 @@ export const Description: React.FC<React.PropsWithChildren<ActionListDescription
 }) => {
   const styles = {
     fontSize: 0,
-    lineHeight: '1.3333',
+    lineHeight: '16px',
     flexGrow: 1,
     flexBasis: variant === 'inline' && !truncate ? 'auto' : 0,
     minWidth: 0,

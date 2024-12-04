@@ -88,11 +88,25 @@
 
       &:hover {
         background-color: var(--control-transparent-bgColor-hover);
+
+        &:not([data-active], :focus-visible) {
+          /* Support for "Windows high contrast mode" https:sarahmhigley.com/writing/whcm-quick-tips/ */
+          outline: solid var(--borderWidth-thin) transparent;
+          outline-offset: calc(-1 * var(--borderWidth-thin));
+          box-shadow: var(--boxShadow-thin) var(--control-transparent-borderColor-active);
+        }
       }
     }
 
     &:active {
       background-color: var(--control-transparent-bgColor-active);
+
+      &:not([data-active]) {
+        /* Support for "Windows high contrast mode" https:sarahmhigley.com/writing/whcm-quick-tips/ */
+        outline: solid var(--borderWidth-thin) transparent;
+        outline-offset: calc(-1 * var(--borderWidth-thin));
+        box-shadow: var(--boxShadow-thin) var(--control-transparent-borderColor-active);
+      }
     }
 
     &:focus-visible {
@@ -529,7 +543,12 @@
 .Description {
   font-size: var(--text-body-size-small);
   font-weight: var(--base-text-weight-normal);
-  line-height: var(--text-caption-lineHeight);
+
+  /* line-height: var(--text-caption-lineHeight); */
+
+  /* remove after FF ships */
+  /* stylelint-disable-next-line primer/typography */
+  line-height: 16px;
   color: var(--fgColor-muted);
 }
 
@@ -539,7 +558,7 @@
   display: flex;
   min-height: var(--control-medium-lineBoxHeight);
   /* stylelint-disable-next-line primer/typography */
-  line-height: 1.4285714; /* temporary until we fix line-height rounding in primitives */
+  line-height: 20px; /* temporary until we fix line-height rounding in primitives */
   color: var(--fgColor-muted);
   pointer-events: none;
   fill: var(--fgColor-muted);
@@ -552,14 +571,13 @@
   font-size: var(--text-body-size-medium);
   font-weight: var(--base-text-weight-normal);
   /* stylelint-disable-next-line primer/typography */
-  line-height: 1.4285714; /* temporary until we fix line-height rounding in primitives */
+  line-height: 20px; /* temporary until we fix line-height rounding in primitives */
   color: var(--fgColor-default);
   grid-area: label;
 }
 
 .SubGroup .ItemLabel {
   font-size: var(--text-body-size-small);
-  line-height: var(--text-body-lineHeight-small);
 }
 
 /* trailing action icon button */
@@ -605,7 +623,12 @@
 
 .InactiveWarning {
   font-size: var(--text-body-size-small);
-  line-height: var(--text-caption-lineHeight);
+
+  /* line-height: var(--text-caption-lineHeight); */
+
+  /* use variable when FF removed */
+  /* stylelint-disable-next-line primer/typography */
+  line-height: 16px;
   color: var(--fgColor-attention);
   grid-row: 2/2;
 }
