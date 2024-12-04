@@ -52,7 +52,6 @@
       transition: background-color 0.12s ease-out;
     }
   }
-
 }
 
 .UnderlineItem:focus {
@@ -113,7 +112,7 @@
 }
 
 .UnderlineItem[aria-current]:not([aria-current='false']) [data-component='text'],
-.UnderlineItem[aria-selected='true'] [data-component='text']{
+.UnderlineItem[aria-selected='true'] [data-component='text'] {
   font-weight: var(--base-text-weight-semibold);
 }
 
