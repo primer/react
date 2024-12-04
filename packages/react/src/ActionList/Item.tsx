@@ -43,6 +43,14 @@ const DivItemContainerNoBox = React.forwardRef(({children, ...props}, forwardedR
   )
 }) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>
 
+const DivItemContainer = React.forwardRef(({as: Component = 'div', children, styles, ...props}, forwardedRef) => {
+  return (
+    <Box as={Component as React.ElementType} ref={forwardedRef} sx={styles} {...props}>
+      {children}
+    </Box>
+  )
+}) as PolymorphicForwardRefComponent<React.ElementType, ActionListItemProps>
+
 export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
   (
     {
@@ -175,7 +183,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       paddingY: '6px', // custom value off the scale
       lineHeight: '16px',
       minHeight: 5,
-      // marginX: listVariant === 'inset' && !buttonSemantics ? 2 : 0,
       borderRadius: 2,
       transition: 'background 33.333ms linear',
       color: getVariantStyles(variant, disabled, inactive || loading).color,
@@ -259,8 +266,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
       /** Active styles */
       ...(active ? activeStyles : {}), // NavList
       '&[data-is-active-descendant]': {...activeStyles, fontWeight: 'normal'}, // SelectPanel
-
-      // ...(!buttonSemantics ? hoverStyles : {}),
     }
 
     const clickHandler = React.useCallback(
@@ -293,13 +298,6 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
     const blockDescriptionId = `${itemId}--block-description`
     const trailingVisualId = `${itemId}--trailing-visual`
     const inactiveWarningId = inactive && !showInactiveIndicator ? `${itemId}--warning-message` : undefined
-
-    // let DefaultItemWrapper = React.Fragment
-    // if (buttonSemanticsFeatureFlag) {
-    //   DefaultItemWrapper = listSemantics ? React.Fragment : ButtonItemContainer
-    // }
-
-    // const ItemWrapper = _PrivateItemWrapper || DefaultItemWrapper
 
     let DefaultItemWrapper = React.Fragment
     if (enabled) {

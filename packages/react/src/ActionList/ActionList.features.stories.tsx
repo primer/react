@@ -822,7 +822,7 @@ ActionListWithButtonSemantics.storyName = 'With Button Semantics (Behind feature
 export const WithTrailingAction = () => {
   return (
     <ActionList>
-      <ActionList.Item>
+      <ActionList.Item as="button">
         <ActionList.LeadingVisual>
           <FileDirectoryIcon />
         </ActionList.LeadingVisual>
@@ -875,7 +875,6 @@ export const WithTrailingAction = () => {
 
 export const FullVariant = () => (
   <ActionList variant="full">
-    <ActionList.Divider />
     <ActionList.Item>Copy link</ActionList.Item>
     <ActionList.Item>Quote reply</ActionList.Item>
     <ActionList.Item>Edit comment</ActionList.Item>
