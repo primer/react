@@ -158,11 +158,7 @@ export const InactiveItems = () => (
             <GearIcon />
           </ActionList.LeadingVisual>
         </ActionList.LinkItem>
-        <ActionList.Item
-          variant="danger"
-          onSelect={() => alert('Make a copy clicked')}
-          inactiveText="Unavailable due to an outage"
-        >
+        <ActionList.Item onSelect={() => alert('Make a copy clicked')} inactiveText="Unavailable due to an outage">
           Make a copy
           <ActionList.LeadingVisual>
             <CopyIcon />
