@@ -287,7 +287,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
         display: 'block',
         position: 'absolute',
         width: '100%',
-        top: '-7px',
+        top: '-8px',
         border: '0 solid',
         borderTopWidth: showDividers ? `1px` : '0',
         borderColor: 'var(--divider-color, transparent)',
