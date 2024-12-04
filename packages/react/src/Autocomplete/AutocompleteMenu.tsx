@@ -163,7 +163,7 @@ function AutocompleteMenu<T extends AutocompleteItemProps>(props: AutocompleteMe
           role: 'option',
           id: selectableItem.id,
           active: highlightedItem?.id === selectableItem.id,
-          selected: selectionVariant === 'multiple' ? selectedItemIds.includes(selectableItem.id) : undefined,
+          selected: selectedItemIds.includes(selectableItem.id),
           onAction: (item: T) => {
             const otherSelectedItemIds = selectedItemIds.filter(selectedItemId => selectedItemId !== item.id)
             const newSelectedItemIds = selectedItemIds.includes(item.id)

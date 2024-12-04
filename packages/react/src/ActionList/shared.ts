@@ -52,6 +52,8 @@ export type ActionListItemProps = {
    * Private API for use internally only. Used by LinkItem to wrap contents in an anchor
    */
   _PrivateItemWrapper?: React.FC<React.PropsWithChildren<MenuItemProps>>
+  className?: string
+  inlineStyles?: React.CSSProperties
 } & SxProp
 
 type MenuItemProps = {
@@ -62,6 +64,7 @@ type MenuItemProps = {
   'aria-labelledby'?: string
   'aria-describedby'?: string
   role?: string
+  className?: string
 }
 
 export type ItemContext = Pick<ActionListItemProps, 'variant' | 'disabled'> & {
@@ -112,8 +115,6 @@ export const getVariantStyles = (
   }
 }
 
-export const TEXT_ROW_HEIGHT = '20px' // custom value off the scale
-
 export type ActionListProps = React.PropsWithChildren<{
   /**
    * `inset` children are offset (vertically and horizontally) from `List`’s edges, `full` children are flush (vertically and horizontally) with `List` edges
@@ -131,6 +132,7 @@ export type ActionListProps = React.PropsWithChildren<{
    * The ARIA role describing the function of `List` component. `listbox` or `menu` are a common values.
    */
   role?: AriaRole
+  className?: string
 }> &
   SxProp
 
