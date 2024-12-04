@@ -559,6 +559,7 @@ export const Item = React.forwardRef<HTMLLIElement, ActionListItemProps>(
                       fontWeight: slots.inlineDescription || slots.blockDescription || active ? 'bold' : 'normal',
                       marginBlockEnd: slots.blockDescription ? '4px' : undefined,
                       wordBreak: slots.inlineDescription ? 'normal' : 'break-word',
+                      lineHeight: '20px',
                     }}
                   >
                     {childrenWithoutSlots}
