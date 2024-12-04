@@ -81,14 +81,14 @@
   content: attr(data-content);
 }
 
-.UnderlineItem[data-component='icon'] {
+.UnderlineItem [data-component='icon'] {
   display: inline-flex;
   color: var(--fgColor-muted);
   align-items: center;
   margin-inline-end: var(--base-size-8);
 }
 
-.UnderlineItem[data-component='counter'] {
+.UnderlineItem [data-component='counter'] {
   margin-inline-start: var(--base-size-8);
   display: flex;
   align-items: center;
