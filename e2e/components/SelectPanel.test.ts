@@ -76,27 +76,47 @@ test.describe('SelectPanel', () => {
     })
   }
 
-  test(`Default @vrt forced-colors .modern-action-list--true`, async ({page}) => {
+  test(`Default @vrt forced-colors light .modern-action-list--true`, async ({page}) => {
     await visit(page, {
       id: 'components-selectpanel--default',
       globals: {featureFlags: {primer_react_select_panel_with_modern_action_list: true}},
     })
 
+    // windows high contrast mode: light
+    await page.emulateMedia({forcedColors: 'active', colorScheme: 'light'})
+    await page.evaluate(() => matchMedia('(prefers-color-scheme: light)').matches)
+
     // Open select panel
-    const isPanelOpen = await page.isVisible('[role="listbox"]')
+    const isPanelOpen = await page.getByRole('listbox').isVisible()
     if (!isPanelOpen) {
       await page.keyboard.press('Tab')
       await page.keyboard.press('Enter')
     }
+    await expect(page.getByRole('listbox')).toBeVisible()
 
-    // windows high contrast mode: light
-    await page.emulateMedia({forcedColors: 'active', colorScheme: 'light'})
     expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
       `SelectPanel-Default-forced-colors-light-modern-action-list--true.png`,
     )
+  })
+
+  test(`Default @vrt forced-colors dark .modern-action-list--true`, async ({page}) => {
+    await visit(page, {
+      id: 'components-selectpanel--default',
+      globals: {featureFlags: {primer_react_select_panel_with_modern_action_list: true}},
+    })
 
     // windows high contrast mode: dark
     await page.emulateMedia({forcedColors: 'active', colorScheme: 'dark'})
+    await page.evaluate(() => matchMedia('(prefers-color-scheme: dark)').matches)
+
+    // Open select panel
+    const isPanelOpen = await page.getByRole('listbox').isVisible()
+    if (!isPanelOpen) {
+      await page.keyboard.press('Tab')
+      await page.keyboard.press('Enter')
+    }
+    await expect(page.getByRole('listbox')).toBeVisible()
+
     expect(await page.screenshot({animations: 'disabled'})).toMatchSnapshot(
       `SelectPanel-Default-forced-colors-dark-modern-action-list--true.png`,
     )
