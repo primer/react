@@ -1,7 +1,7 @@
 import React from 'react'
-import InputLabel from '../internal/components/InputLabel'
 import type {SxProp} from '../sx'
 import {useFormControlContext} from './_FormControlContext'
+import {InputLabel} from '../internal/components/InputLabel'
 
 export type Props = {
   /**
@@ -49,6 +49,7 @@ const FormControlLabel: React.FC<
           sx,
           ...props,
         }
+
   return <InputLabel {...labelProps}>{children}</InputLabel>
 }
 
