@@ -9,9 +9,14 @@ import sx, {type SxProp} from '../../sx'
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../../utils/polymorphic'
 import {defaultSxProp} from '../../utils/defaultSxProp'
 import {get} from '../../constants'
+import {toggleStyledComponent} from '../utils/toggleStyledComponent'
+
+import classes from './UnderlineTabbedInterface.module.css'
 
 // The gap between the list items. It is a constant because the gap is used to calculate the possible number of items that can fit in the container.
 export const GAP = 8
+
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
 
 export const StyledUnderlineWrapper = styled.div`
   display: flex;
@@ -37,110 +42,114 @@ export const StyledUnderlineItemList = styled.ul`
   position: relative;
 `
 
-export const StyledUnderlineItem = styled.div`
-  /* button resets */
-  appearance: none;
-  background-color: transparent;
-  border: 0;
-  cursor: pointer;
-  font: inherit;
-
-  /* underline tab specific styles */
-  position: relative;
-  display: inline-flex;
-  color: ${get('colors.fg.default')};
-  text-align: center;
-  text-decoration: none;
-  line-height: var(--text-body-lineHeight-medium, 1.4285);
-  border-radius: var(--borderRadius-medium, ${get('radii.2')});
-  font-size: var(--text-body-size-medium, ${get('fontSizes.1')});
-  padding-inline: var(--control-medium-paddingInline-condensed, ${get('space.2')});
-  padding-block: var(--control-medium-paddingBlock, 6px);
-  align-items: center;
-
-  @media (hover: hover) {
-    &:hover {
-      background-color: var(--bgColor-neutral-muted, ${get('colors.neutral.subtle')});
-      transition: background 0.12s ease-out;
-      text-decoration: none;
-    }
-  }
-
-  &:focus: {
-    outline: 2px solid transparent;
-    box-shadow: inset 0 0 0 2px var(--fgColor-accent, ${get('colors.accent.fg')});
-
-    /* where focus-visible is supported, remove the focus box-shadow */
-    &:not(:focus-visible) {
-      box-shadow: none;
-    }
-  }
-
-  &:focus-visible {
-    outline: 2px solid transparent;
-    box-shadow: inset 0 0 0 2px var(--fgColor-accent, ${get('colors.accent.fg')});
-  }
-
-  /* renders a visibly hidden "copy" of the label in bold, reserving box space for when label becomes bold on selected */
-  [data-content]::before {
-    content: attr(data-content);
-    display: block;
-    height: 0;
-    font-weight: var(--base-text-weight-semibold, ${get('fontWeights.semibold')});
-    visibility: hidden;
-    white-space: nowrap;
-  }
-
-  [data-component='icon'] {
-    color: var(--fgColor-muted, ${get('colors.fg.muted')});
-    align-items: center;
-    display: inline-flex;
-    margin-inline-end: var(--control-medium-gap, ${get('space.2')});
-  }
-
-  [data-component='counter'] {
-    margin-inline-start: var(--control-medium-gap, ${get('space.2')});
-    display: flex;
-    align-items: center;
-  }
-
-  /* selected state styles */
-  &::after {
-    position: absolute;
-    right: 50%;
-    /* TODO: see if we can simplify this positioning */
-    /* 48px total height / 2 (24px) + 1px */
-    bottom: calc(50% - calc(var(--control-xlarge-size, 48px) / 2 + 1px));
-    width: 100%;
-    height: 2px;
-    content: '';
+export const StyledUnderlineItem = toggleStyledComponent(
+  CSS_MODULES_FEATURE_FLAG,
+  'div',
+  styled.div`
+    /* button resets */
+    appearance: none;
     background-color: transparent;
-    border-radius: 0;
-    transform: translate(50%, -50%);
-  }
+    border: 0;
+    cursor: pointer;
+    font: inherit;
 
-  &[aria-current]:not([aria-current='false']),
-  &[aria-selected='true'] {
-    [data-component='text'] {
-      font-weight: var(--base-text-weight-semibold, ${get('fontWeights.semibold')});
-    }
+    /* underline tab specific styles */
+    position: relative;
+    display: inline-flex;
+    color: ${get('colors.fg.default')};
+    text-align: center;
+    text-decoration: none;
+    line-height: var(--text-body-lineHeight-medium, 1.4285);
+    border-radius: var(--borderRadius-medium, ${get('radii.2')});
+    font-size: var(--text-body-size-medium, ${get('fontSizes.1')});
+    padding-inline: var(--control-medium-paddingInline-condensed, ${get('space.2')});
+    padding-block: var(--control-medium-paddingBlock, 6px);
+    align-items: center;
 
-    &::after {
-      background-color: var(--underlineNav-borderColor-active, var(--color-primer-border-active, #fd8c73));
-    }
-  }
-
-  @media (forced-colors: active) {
-    &[aria-current]:not([aria-current='false']),
-    &[aria-selected='true'] {
-      ::after {
-        // Support for Window Force Color Mode https://learn.microsoft.com/en-us/fluent-ui/web-components/design-system/high-contrast
-        background-color: LinkText;
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--bgColor-neutral-muted, ${get('colors.neutral.subtle')});
+        transition: background 0.12s ease-out;
+        text-decoration: none;
       }
     }
-  }
-  ${sx};
-`
+
+    &:focus: {
+      outline: 2px solid transparent;
+      box-shadow: inset 0 0 0 2px var(--fgColor-accent, ${get('colors.accent.fg')});
+
+      /* where focus-visible is supported, remove the focus box-shadow */
+      &:not(:focus-visible) {
+        box-shadow: none;
+      }
+    }
+
+    &:focus-visible {
+      outline: 2px solid transparent;
+      box-shadow: inset 0 0 0 2px var(--fgColor-accent, ${get('colors.accent.fg')});
+    }
+
+    /* renders a visibly hidden "copy" of the label in bold, reserving box space for when label becomes bold on selected */
+    [data-content]::before {
+      content: attr(data-content);
+      display: block;
+      height: 0;
+      font-weight: var(--base-text-weight-semibold, ${get('fontWeights.semibold')});
+      visibility: hidden;
+      white-space: nowrap;
+    }
+
+    [data-component='icon'] {
+      color: var(--fgColor-muted, ${get('colors.fg.muted')});
+      align-items: center;
+      display: inline-flex;
+      margin-inline-end: var(--control-medium-gap, ${get('space.2')});
+    }
+
+    [data-component='counter'] {
+      margin-inline-start: var(--control-medium-gap, ${get('space.2')});
+      display: flex;
+      align-items: center;
+    }
+
+    /* selected state styles */
+    &::after {
+      position: absolute;
+      right: 50%;
+      /* TODO: see if we can simplify this positioning */
+      /* 48px total height / 2 (24px) + 1px */
+      bottom: calc(50% - calc(var(--control-xlarge-size, 48px) / 2 + 1px));
+      width: 100%;
+      height: 2px;
+      content: '';
+      background-color: transparent;
+      border-radius: 0;
+      transform: translate(50%, -50%);
+    }
+
+    &[aria-current]:not([aria-current='false']),
+    &[aria-selected='true'] {
+      [data-component='text'] {
+        font-weight: var(--base-text-weight-semibold, ${get('fontWeights.semibold')});
+      }
+
+      &::after {
+        background-color: var(--underlineNav-borderColor-active, var(--color-primer-border-active, #fd8c73));
+      }
+    }
+
+    @media (forced-colors: active) {
+      &[aria-current]:not([aria-current='false']),
+      &[aria-selected='true'] {
+        ::after {
+          // Support for Window Force Color Mode https://learn.microsoft.com/en-us/fluent-ui/web-components/design-system/high-contrast
+          background-color: LinkText;
+        }
+      }
+    }
+    ${sx};
+  `,
+)
 
 const loadingKeyframes = keyframes`
   from { opacity: 1; }
@@ -213,7 +222,7 @@ export const UnderlineItem = forwardRef(
     forwardedRef,
   ) => {
     return (
-      <StyledUnderlineItem ref={forwardedRef} as={as} sx={sxProp} {...rest}>
+      <StyledUnderlineItem ref={forwardedRef} as={as} sx={sxProp} {...rest} className={classes.UnderlineItem}>
         {iconsVisible && Icon && <span data-component="icon">{isElement(Icon) ? Icon : <Icon />}</span>}
         {children && (
           <span data-component="text" data-content={children}>
