@@ -24,7 +24,6 @@ export const LeadingVisualContainer: React.FC<React.PropsWithChildren<VisualProp
           alignItems: 'center',
           flexShrink: 0,
           marginRight: 2,
-          color: 'fg.muted',
         },
         sx as SxProp,
       )}
@@ -70,8 +69,6 @@ export const TrailingVisual: React.FC<React.PropsWithChildren<VisualProps>> = ({
           color: getVariantStyles(variant, disabled, inactive).annotationColor,
           marginLeft: 2,
           fontWeight: 'initial',
-          display: 'grid',
-          alignContent: 'center',
           '[data-variant="danger"]:hover &, [data-variant="danger"]:active &': {
             color: getVariantStyles(variant, disabled, inactive).hoverColor,
           },
