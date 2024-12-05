@@ -267,6 +267,8 @@ export const Tooltip = React.forwardRef(
         ) {
           tooltipElRef.current.hidePopover()
           setIsPopoverOpen(false)
+        } else {
+          setIsPopoverOpen(false)
         }
       } catch (error) {
         // older browsers don't support the :popover-open selector and will throw, even though we use a polyfill
