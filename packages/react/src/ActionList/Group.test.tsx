@@ -123,9 +123,11 @@ describe('ActionList.Group', () => {
     const Element = () => {
       return (
         <ActionList>
-          <ActionList.Heading as="h2" className="test-class-name">
-            Filter by
-          </ActionList.Heading>
+          <ActionList.Group>
+            <ActionList.GroupHeading as="h2" className="test-class-name">
+              Test
+            </ActionList.GroupHeading>
+          </ActionList.Group>
         </ActionList>
       )
     }
