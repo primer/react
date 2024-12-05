@@ -52,7 +52,7 @@ function BaseStyles(props: BaseStylesProps) {
 
   const stylingProps = enabled ? {className: clsx(classes.BaseStyles, className)} : {className}
 
-  const StyledDiv = toggleStyledComponent(CSS_MODULES_FEATURE_FLAG, 'div', Base)
+  // const StyledDiv = toggleStyledComponent(CSS_MODULES_FEATURE_FLAG, 'div', Base)
 
   /**
    * We need to map valid primer/react color modes onto valid color modes for primer/primitives
@@ -60,7 +60,7 @@ function BaseStyles(props: BaseStylesProps) {
    * valid color modes for primer/primer: auto | day | night | light | dark
    */
   return (
-    <StyledDiv
+    <Base
       {...rest}
       {...stylingProps}
       color={color}
@@ -73,7 +73,7 @@ function BaseStyles(props: BaseStylesProps) {
     >
       {!enabled && <GlobalStyle colorScheme={colorScheme?.includes('dark') ? 'dark' : 'light'} />}
       {children}
-    </StyledDiv>
+    </Base>
   )
 }
 
