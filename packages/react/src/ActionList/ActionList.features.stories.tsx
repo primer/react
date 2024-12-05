@@ -29,7 +29,6 @@ import {
   GitPullRequestIcon,
   IssueOpenedIcon,
   ProjectIcon,
-  LinkExternalIcon,
 } from '@primer/octicons-react'
 import {FeatureFlags} from '../FeatureFlags'
 
