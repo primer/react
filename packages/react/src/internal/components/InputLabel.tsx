@@ -1,7 +1,7 @@
 import React from 'react'
-import styled from 'styled-components'
-import {get} from '../../constants'
-import sx, {type SxProp} from '../../sx'
+import Box from '../../Box'
+import type {SxProp} from '../../sx'
+import VisuallyHidden from '../../_VisuallyHidden'
 
 type BaseProps = SxProp & {
   disabled?: boolean
@@ -23,9 +23,9 @@ export type LegendOrSpanProps = BaseProps & {
   htmlFor?: undefined
 }
 
-type Props = React.PropsWithChildren<LabelProps | LegendOrSpanProps>
+type Props = LabelProps | LegendOrSpanProps
 
-function InputLabel({
+const InputLabel: React.FC<React.PropsWithChildren<Props>> = ({
   children,
   disabled,
   htmlFor,
@@ -38,62 +38,37 @@ function InputLabel({
   as = 'label',
   className,
   ...props
-}: Props) {
+}) => {
   return (
-    <StyledLabel
-      as={as}
-      data-control-disabled={disabled ? '' : undefined}
-      data-visually-hidden={visuallyHidden ? '' : undefined}
+    <VisuallyHidden
+      isVisible={!visuallyHidden}
+      as={
+        as as 'label' /* This assertion is clearly wrong, but it's the only way TS will allow the htmlFor prop to be possibly defined */
+      }
       htmlFor={htmlFor}
       id={id}
       className={className}
-      sx={sx}
+      sx={{
+        fontWeight: 'bold',
+        fontSize: 1,
+        display: 'block',
+        color: disabled ? 'fg.muted' : 'fg.default',
+        cursor: disabled ? 'not-allowed' : 'pointer',
+        alignSelf: 'flex-start',
+        ...sx,
+      }}
       {...props}
     >
       {required || requiredText ? (
-        <StyledRequiredText>
-          <span>{children}</span>
+        <Box display="flex" as="span">
+          <Box mr={1}>{children}</Box>
           <span aria-hidden={requiredIndicator ? undefined : true}>{requiredText ?? '*'}</span>
-        </StyledRequiredText>
+        </Box>
       ) : (
         children
       )}
-    </StyledLabel>
+    </VisuallyHidden>
   )
 }
 
-const StyledRequiredText = styled.span`
-  display: flex;
-  column-gap: ${get('space.1')};
-`
-
-const StyledLabel = styled.label`
-  align-self: flex-start;
-  display: block;
-  color: var(--fgColor-default);
-  cursor: pointer;
-  font-weight: 600;
-  font-size: ${get('fontSizes.1')};
-
-  &:where([data-control-disabled]) {
-    color: var(--fgColor-muted);
-    cursor: not-allowed;
-  }
-
-  &:where([data-visually-hidden]) {
-    border: 0;
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    white-space: nowrap;
-    width: 1px;
-  }
-
-  ${sx}
-`
-
-export {InputLabel}
+export default InputLabel

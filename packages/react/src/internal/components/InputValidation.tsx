@@ -1,12 +1,10 @@
 import type {IconProps} from '@primer/octicons-react'
 import {AlertFillIcon, CheckCircleFillIcon} from '@primer/octicons-react'
 import React from 'react'
+import Box from '../../Box'
 import Text from '../../Text'
 import type {SxProp} from '../../sx'
 import type {FormValidationStatus} from '../../utils/types/FormValidationStatus'
-import styled from 'styled-components'
-import {get} from '../../constants'
-import sx from '../../sx'
 
 type Props = {
   id: string
@@ -21,8 +19,14 @@ const validationIconMap: Record<
   error: AlertFillIcon,
 }
 
+const validationColorMap: Record<NonNullable<Props['validationStatus']>, string> = {
+  success: 'success.fg',
+  error: 'danger.fg',
+}
+
 const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({children, id, validationStatus, sx}) => {
   const IconComponent = validationStatus ? validationIconMap[validationStatus] : undefined
+  const fgColor = validationStatus ? validationColorMap[validationStatus] : undefined
 
   // TODO: use `text-caption-lineHeight` token as a custom property when it's available
   // then, we can move this all to CSS and use `calc` to get our height values
@@ -31,57 +35,30 @@ const InputValidation: React.FC<React.PropsWithChildren<Props>> = ({children, id
   const iconBoxMinHeight = iconSize * captionLineHeight
 
   return (
-    <StyledInputValidation data-validation-status={validationStatus} sx={sx}>
-      {IconComponent ? (
-        <StyledValidationIcon
-          aria-hidden="true"
-          style={
-            {
-              '--inputValidation-iconSize': iconBoxMinHeight,
-            } as React.CSSProperties
-          }
-        >
+    <Text
+      sx={{
+        fontSize: 0,
+        fontWeight: 'bold',
+        alignItems: 'start',
+        color: fgColor,
+        display: 'flex',
+        a: {
+          color: 'currentColor',
+          textDecoration: 'underline',
+        },
+        ...sx,
+      }}
+    >
+      {IconComponent && (
+        <Box as="span" alignItems="center" display="flex" minHeight={iconBoxMinHeight} mr={1} aria-hidden="true">
           <IconComponent size={iconSize} fill="currentColor" />
-        </StyledValidationIcon>
-      ) : null}
-      <StyledValidationText id={id} style={{'--inputValidation-lineHeight': captionLineHeight} as React.CSSProperties}>
+        </Box>
+      )}
+      <Box as="span" id={id} sx={{lineHeight: captionLineHeight}}>
         {children}
-      </StyledValidationText>
-    </StyledInputValidation>
+      </Box>
+    </Text>
   )
 }
-
-const StyledInputValidation = styled(Text)`
-  color: var(--inputValidation-fgColor);
-  display: flex;
-  font-size: ${get('fontSizes.0')};
-  font-weight: 600;
-
-  & :where(a) {
-    color: currentColor;
-    text-dectoration: underline;
-  }
-
-  &:where([data-validation-status='success']) {
-    --inputValidation-fgColor: ${get('colors.success.fg')};
-  }
-
-  &:where([data-validation-status='error']) {
-    --inputValidation-fgColor: ${get('colors.danger.fg')};
-  }
-
-  ${sx}
-`
-
-const StyledValidationIcon = styled.span`
-  align-items: center;
-  display: flex;
-  margin-inline-end: ${get('space.1')};
-  min-height: var(--inputValidation-iconSize);
-`
-
-const StyledValidationText = styled.span`
-  line-height: var(--inputValidation-lineHeight);
-`
 
 export default InputValidation
