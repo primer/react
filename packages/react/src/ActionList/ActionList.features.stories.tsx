@@ -50,7 +50,7 @@ export const SimpleList = () => (
 
 export const WithVisualListHeading = () => (
   <ActionList>
-    <ActionList.Heading as="h2" variant="small">
+    <ActionList.Heading as="h2" size="small">
       Filter by
     </ActionList.Heading>
     <ActionList.Group>

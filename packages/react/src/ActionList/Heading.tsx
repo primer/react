@@ -17,13 +17,13 @@ type HeadingLevels = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 type HeadingVariants = 'large' | 'medium' | 'small'
 export type ActionListHeadingProps = {
   as: HeadingLevels
-  variant?: HeadingVariants
+  size?: HeadingVariants
   visuallyHidden?: boolean
   className?: string
 } & SxProp
 
 export const Heading = forwardRef(
-  ({as, variant, children, sx = defaultSxProp, visuallyHidden = false, className, ...props}, forwardedRef) => {
+  ({as, size, children, sx = defaultSxProp, visuallyHidden = false, className, ...props}, forwardedRef) => {
     const innerRef = React.useRef<HTMLHeadingElement>(null)
     useRefObjectAsForwardedRef(forwardedRef, innerRef)
 
@@ -49,7 +49,7 @@ export const Heading = forwardRef(
           sx !== defaultSxProp ? (
             <HeadingComponent
               as={as}
-              variant={variant}
+              variant={size}
               ref={innerRef}
               // use custom id if it is provided. Otherwise, use the id from the context
               id={props.id ?? headingId}
@@ -63,7 +63,7 @@ export const Heading = forwardRef(
           ) : (
             <HeadingComponent
               as={as}
-              variant={variant}
+              variant={size}
               ref={innerRef}
               // use custom id if it is provided. Otherwise, use the id from the context
               id={props.id ?? headingId}
@@ -77,7 +77,7 @@ export const Heading = forwardRef(
         ) : (
           <HeadingComponent
             as={as}
-            variant={variant}
+            variant={size}
             ref={innerRef}
             // use custom id if it is provided. Otherwise, use the id from the context
             id={props.id ?? headingId}
