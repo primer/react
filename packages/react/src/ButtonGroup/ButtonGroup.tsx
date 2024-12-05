@@ -19,17 +19,17 @@ const StyledButtonGroup = toggleStyledComponent(
     vertical-align: middle;
     isolation: isolate;
 
-    && > *:not([data-loading-wrapper]):is(button, a) {
+    && > *:not([data-loading-wrapper]) {
       margin-inline-end: -1px;
       position: relative;
       border-radius: 0;
 
-      :first-of-type {
+      :first-child {
         border-top-left-radius: ${get('radii.2')};
         border-bottom-left-radius: ${get('radii.2')};
       }
 
-      :last-of-type {
+      :last-child {
         border-top-right-radius: ${get('radii.2')};
         border-bottom-right-radius: ${get('radii.2')};
       }
