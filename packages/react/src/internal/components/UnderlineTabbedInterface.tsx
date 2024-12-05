@@ -37,15 +37,14 @@ const StyledComponentUnderlineWrapper = toggleStyledComponent(
   `,
 )
 
+type StyledUnderlineWrapperProps = {
+  slot?: string
+  as?: React.ElementType
+  className?: string
+} & SxProp
+
 export const StyledUnderlineWrapper = forwardRef(
-  (
-    {
-      children,
-      className,
-      ...rest
-    }: PropsWithChildren<{slot?: string; as?: React.ElementType; className?: string} & SxProp>,
-    forwardedRef,
-  ) => {
+  ({children, className, ...rest}: PropsWithChildren<StyledUnderlineWrapperProps>, forwardedRef) => {
     const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
     if (enabled) {
@@ -214,15 +213,19 @@ const loadingKeyframes = keyframes`
   to { opacity: 0.2; }
 `
 
-export const StyledComponentLoadingCounter = styled.span`
-  animation: ${loadingKeyframes} 1.2s ease-in-out infinite alternate;
-  background-color: var(--bgColor-neutral-muted, ${get('colors.neutral.subtle')});
-  border-color: var(--borderColor-default, ${get('colors.border.default')});
-  width: 1.5rem;
-  height: 1rem; /*16px*/
-  display: inline-block;
-  border-radius: 20px;
-`
+export const StyledComponentLoadingCounter = toggleStyledComponent(
+  CSS_MODULES_FEATURE_FLAG,
+  'span',
+  styled.span`
+    animation: ${loadingKeyframes} 1.2s ease-in-out infinite alternate;
+    background-color: var(--bgColor-neutral-muted, ${get('colors.neutral.subtle')});
+    border-color: var(--borderColor-default, ${get('colors.border.default')});
+    width: 1.5rem;
+    height: 1rem; /*16px*/
+    display: inline-block;
+    border-radius: 20px;
+  `,
+)
 
 export const LoadingCounter = () => {
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
@@ -289,8 +292,34 @@ export const UnderlineItem = forwardRef(
     }: PropsWithChildren<UnderlineItemProps>,
     forwardedRef,
   ) => {
+    const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
+    if (enabled) {
+      return (
+        <StyledUnderlineItem ref={forwardedRef} as={as} sx={sxProp} className={classes.UnderlineItem} {...rest}>
+          {iconsVisible && Icon && <span data-component="icon">{isElement(Icon) ? Icon : <Icon />}</span>}
+          {children && (
+            <span data-component="text" data-content={children}>
+              {children}
+            </span>
+          )}
+          {counter !== undefined ? (
+            loadingCounters ? (
+              <span data-component="counter">
+                <LoadingCounter />
+              </span>
+            ) : (
+              <span data-component="counter">
+                <CounterLabel>{counter}</CounterLabel>
+              </span>
+            )
+          ) : null}
+        </StyledUnderlineItem>
+      )
+    }
+
     return (
-      <StyledUnderlineItem ref={forwardedRef} as={as} sx={sxProp} {...rest} className={classes.UnderlineItem}>
+      <StyledUnderlineItem ref={forwardedRef} as={as} sx={sxProp} {...rest}>
         {iconsVisible && Icon && <span data-component="icon">{isElement(Icon) ? Icon : <Icon />}</span>}
         {children && (
           <span data-component="text" data-content={children}>
