@@ -280,7 +280,8 @@ export const InactiveSingleSelect = () => {
   const [selectedIndex, setSelectedIndex] = React.useState(1)
   return (
     <ActionList selectionVariant="single" showDividers role="menu" aria-label="Project">
-      <ActionList.Item role="menuitemradio" selected={false} inactiveText="Unavailable due to an outage">
+      {/* menuitem because state is inactive */}
+      <ActionList.Item role="menuitem" selected={false} inactiveText="Unavailable due to an outage">
         Inactive item
       </ActionList.Item>
       <ActionList.Item
@@ -408,7 +409,8 @@ export const InactiveMultiselect = () => {
   }
   return (
     <ActionList selectionVariant="multiple" role="menu" aria-label="Project">
-      <ActionList.Item role="menuitemcheckbox" selected={false} inactiveText="Unavailable due to an outage">
+      {/* menuitem because state is inactive */}
+      <ActionList.Item role="menuitem" selected={false} inactiveText="Unavailable due to an outage">
         Inactive item
       </ActionList.Item>
       <ActionList.Item
