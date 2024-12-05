@@ -31,8 +31,4 @@ export interface KeybindingHintProps {
    * Control the size of the hint.
    */
   size?: 'small' | 'normal'
-  /**
-   * Additional class name to apply to the hint.
-   */
-  className?: string
 }
