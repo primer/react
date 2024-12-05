@@ -5,13 +5,13 @@
   "a11yReviewed": false,
   "stories": [
     {
-      "id": "experimental-components-skeleton-skeletonbox--default"
+      "id": "drafts-components-skeletonbox--default"
     },
     {
-      "id": "experimental-components-skeleton-skeletonbox-features--custom-height"
+      "id": "drafts-components-skeletonbox-features--custom-height"
     },
     {
-      "id": "experimental-components-skeleton-skeletonbox-features--custom-width"
+      "id": "drafts-components-skeletonbox-features--custom-width"
     }
   ],
   "importPath": "@primer/react/experimental",

@@ -5,22 +5,22 @@
   "a11yReviewed": false,
   "stories": [
     {
-      "id": "experimental-components-skeleton-skeletonavatar--default"
+      "id": "drafts-components-skeletonavatar--default"
     },
     {
-      "id": "experimental-components-skeleton-skeletonavatar-features--square"
+      "id": "drafts-components-skeletonavatar-features--square"
     },
     {
-      "id": "experimental-components-skeleton-skeletonavatar-features--size"
+      "id": "drafts-components-skeletonavatar-features--size"
     },
     {
-      "id": "experimental-components-skeleton-skeletonavatar-features--size-responsive"
+      "id": "drafts-components-skeletonavatar-features--size-responsive"
     },
     {
-      "id": "experimental-components-skeleton-skeletonavatar-features--in-a-stack"
+      "id": "drafts-components-skeletonavatar-features--in-a-stack"
     },
     {
-      "id": "experimental-components-skeleton-skeletonavatar-features--in-an-avatar-pair"
+      "id": "drafts-components-skeletonavatar-features--in-an-avatar-pair"
     }
   ],
   "importPath": "@primer/react/experimental",
