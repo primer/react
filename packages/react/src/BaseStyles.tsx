@@ -6,7 +6,7 @@ import {COMMON, TYPOGRAPHY} from './constants'
 import {useTheme} from './ThemeProvider'
 import type {ComponentProps} from './utils/types'
 import {useFeatureFlag} from './FeatureFlags'
-import {toggleStyledComponent} from './internal/utils/toggleStyledComponent'
+// import {toggleStyledComponent} from './internal/utils/toggleStyledComponent'
 import classes from './BaseStyles.module.css'
 
 // load polyfill for :focus-visible
