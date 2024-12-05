@@ -6,34 +6,34 @@
   "a11yReviewed": false,
   "stories": [
     {
-      "id": "components-dialog--default"
+      "id": "drafts-components-dialog--default"
     },
     {
-      "id": "components-dialog-features--with-custom-renderers"
+      "id": "drafts-components-dialog-features--with-custom-renderers"
     },
     {
-      "id": "components-dialog-features--stress-test"
+      "id": "drafts-components-dialog-features--stress-test"
     },
     {
-      "id": "components-dialog-features--repro-multistep-dialog-with-conditional-footer"
+      "id": "drafts-components-dialog-features--repro-multistep-dialog-with-conditional-footer"
     },
     {
-      "id": "components-dialog-features--bottom-sheet-narrow"
+      "id": "drafts-components-dialog-features--bottom-sheet-narrow"
     },
     {
-      "id": "components-dialog-features--full-screen-narrow"
+      "id": "drafts-components-dialog-features--full-screen-narrow"
     },
     {
-      "id": "components-dialog-features--side-sheet"
+      "id": "drafts-components-dialog-features--side-sheet"
     },
     {
-      "id": "components-dialog-features--return-focus-ref"
+      "id": "drafts-components-dialog-features--return-focus-ref"
     },
     {
-      "id": "components-dialog-features--new-issues"
+      "id": "drafts-components-dialog-features--new-issues"
     },
     {
-      "id": "components-dialog-features--retains-focus-trap-with-dynamic-content"
+      "id": "drafts-components-dialog-features--retains-focus-trap-with-dynamic-content"
     }
   ],
   "importPath": "@primer/react/experimental",

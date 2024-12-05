@@ -5,37 +5,37 @@
   "a11yReviewed": false,
   "stories": [
     {
-      "id": "experimental-components-skeleton-skeletontext--default"
+      "id": "drafts-components-skeletontext--default"
     },
     {
-      "id": "experimental-components-skeleton-skeletontext-features--with-max-width"
+      "id": "drafts-components-skeletontext-features--with-max-width"
     },
     {
-      "id": "experimental-components-skeleton-skeletontext-features--with-multiple-lines"
+      "id": "drafts-components-skeletontext-features--with-multiple-lines"
     },
     {
-      "id": "experimental-components-skeleton-skeletontext-features--display"
+      "id": "drafts-components-skeletontext-features--display"
     },
     {
-      "id": "experimental-components-skeleton-skeletontext-features--subtitle"
+      "id": "drafts-components-skeletontext-features--subtitle"
     },
     {
-      "id": "experimental-components-skeleton-skeletontext-features--title-large"
+      "id": "drafts-components-skeletontext-features--title-large"
     },
     {
-      "id": "experimental-components-skeleton-skeletontext-features--title-medium"
+      "id": "drafts-components-skeletontext-features--title-medium"
     },
     {
-      "id": "experimental-components-skeleton-skeletontext-features--title-small"
+      "id": "drafts-components-skeletontext-features--title-small"
     },
     {
-      "id": "experimental-components-skeleton-skeletontext-features--body-large"
+      "id": "drafts-components-skeletontext-features--body-large"
     },
     {
-      "id": "experimental-components-skeleton-skeletontext-features--body-medium"
+      "id": "drafts-components-skeletontext-features--body-medium"
     },
     {
-      "id": "experimental-components-skeleton-skeletontext-features--body-small"
+      "id": "drafts-components-skeletontext-features--body-small"
     }
   ],
   "importPath": "@primer/react/experimental",
