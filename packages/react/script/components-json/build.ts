@@ -22,7 +22,6 @@ type Component = {
     | '@primer/react/experimental'
     | '@primer/react/drafts'
   stories: Array<{id: string; code?: string}>
-  source?: string
 }
 
 const ajv = new Ajv()
@@ -115,10 +114,7 @@ const components = docsFiles.map(docsFilepath => {
   }
 
   // TODO: Provide default type and description for sx and ref props
-  return {
-    source: `https://github.com/primer/react/tree/main/packages/react/${docsFilepath.substring(0, docsFilepath.lastIndexOf('/'))}`,
-    ...docs,
-  }
+  return docs
 })
 
 const data = {schemaVersion: 2, components: keyBy(components, 'id')}
