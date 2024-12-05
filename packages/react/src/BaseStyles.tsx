@@ -1,6 +1,7 @@
-import React, {type PropsWithChildren} from 'react'
+import React from 'react'
 import {clsx} from 'clsx'
 import styled, {createGlobalStyle} from 'styled-components'
+import type {ComponentProps} from './utils/types'
 import type {SystemCommonProps, SystemTypographyProps} from './constants'
 import {COMMON, TYPOGRAPHY} from './constants'
 import {useTheme} from './ThemeProvider'
@@ -43,12 +44,7 @@ const Base = toggleStyledComponent(
   `,
 )
 
-export type BaseStylesProps = PropsWithChildren &
-  SystemTypographyProps &
-  SystemCommonProps & {
-    className?: string
-    style?: React.CSSProperties
-  }
+export type BaseStylesProps = ComponentProps<typeof Base>
 
 function BaseStyles(props: BaseStylesProps) {
   const {children, color = 'fg.default', fontFamily = 'normal', lineHeight = 'default', className, ...rest} = props
