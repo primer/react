@@ -1,0 +1,51 @@
+/* wrapper span
+ default block */
+.ItemDescriptionWrap {
+  grid-area: label;
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-size-4);
+
+  & .ItemLabel {
+    font-weight: var(--base-text-weight-semibold);
+    word-break: break-word;
+  }
+
+  /* inline */
+  &:where([data-description-variant='inline']) {
+    position: relative;
+    word-break: normal;
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--base-size-8);
+
+    & .ItemLabel {
+      word-break: normal;
+    }
+
+    &:has([data-truncate='true']) {
+      & .ItemLabel {
+        flex: 1 0 auto;
+      }
+    }
+
+    & .Description {
+      /* adjust line-height for baseline alignment */
+      /* stylelint-disable-next-line primer/typography */
+      line-height: calc(var(--control-medium-lineBoxHeight) - var(--base-size-2));
+    }
+  }
+}
+
+/* description */
+.Description {
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-normal);
+
+  /* line-height: var(--text-caption-lineHeight); */
+
+  /* remove after FF ships */
+  /* stylelint-disable-next-line primer/typography */
+  line-height: 16px;
+  color: var(--fgColor-muted);
+}
