@@ -180,7 +180,7 @@ test.describe('DataTable', () => {
 
       await expect(region).toBeVisible()
       await expect(tabIndex).toHaveAttribute('tabindex', '0')
-      await expect(labelledby).toHaveAttribute('aria-labelledby', headingId)
+      await expect(labelledby).toHaveAttribute('aria-labelledby', headingId!)
 
       await expect(table).toBeVisible()
       expect(labelledby).toBe(headingId)
