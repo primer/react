@@ -1,11 +1,7 @@
-import {render as HTMLRender, waitFor, fireEvent} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import axe from 'axe-core'
+import {render as HTMLRender} from '@testing-library/react'
 import React from 'react'
 import theme from '../theme'
 import {ActionList} from '.'
-import {BookIcon} from '@primer/octicons-react'
-import {behavesAsComponent, checkExports} from '../utils/testing'
 import {BaseStyles, ThemeProvider, ActionMenu} from '..'
 import {FeatureFlags} from '../FeatureFlags'
 
