@@ -1,8 +1,0 @@
-.IssueLabel:where([data-has-remove-button='true']) {
-  padding-right: 0;
-}
-
-.RemoveButton:where([data-has-multiple-action-targets='true']) {
-  position: relative;
-  z-index: 1;
-}
