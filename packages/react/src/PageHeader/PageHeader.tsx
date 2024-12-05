@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import Box from '../Box'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
-import {isResponsiveValue, useResponsiveValue} from '../hooks/useResponsiveValue'
+import {useResponsiveValue} from '../hooks/useResponsiveValue'
 import type {SxProp, BetterSystemStyleObject, CSSCustomProperties} from '../sx'
 import {merge} from '../sx'
 import Heading from '../Heading'
@@ -10,18 +10,10 @@ import type {LinkProps as BaseLinkProps} from '../Link'
 import Link from '../Link'
 
 import type {ForwardRefComponent as PolymorphicForwardRefComponent} from '../utils/polymorphic'
-import {
-  areAllValuesTheSame,
-  getBreakpointDeclarations,
-  haveRegularAndWideSameValue,
-} from '../utils/getBreakpointDeclarations'
+import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
 import {warning} from '../utils/warning'
 import {useProvidedRefOrCreate} from '../hooks'
 import type {AriaRole} from '../utils/types'
-import {useFeatureFlag} from '../FeatureFlags'
-import {clsx} from 'clsx'
-
-import classes from './PageHeader.module.css'
 
 const GRID_ROW_ORDER = {
   ContextArea: 1,
@@ -66,8 +58,6 @@ const hiddenOnNarrow = {
   wide: false,
 }
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
-
 // Root
 // -----------------------------------------------------------------------------
 export type PageHeaderProps = {
@@ -79,8 +69,6 @@ export type PageHeaderProps = {
 
 const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeaderProps>>(
   ({children, className, sx = {}, as = 'div', 'aria-label': ariaLabel, role}, forwardedRef) => {
-    const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
-
     const rootStyles = {
       display: 'grid',
       // We have max 5 columns.
@@ -93,7 +81,7 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
     `,
       // line-height is calculated with calc(height/font-size) and the below numbers are from @primer/primitives
       //  --custom-font-size, --custom-line-height, --custom-font-weight are custom properties (passed by sx) that can be used to override the below values
-      // We don't want these values to be overridden but still want to allow consumers to override them if needed.
+      // We don't want these values to be overriden but still want to allow consumers to override them if needed.
       '&:has([data-component="TitleArea"][data-size-variant="large"])': {
         fontSize: 'var(--custom-font-size, var(--text-title-size-large, 2rem))',
         lineHeight: 'var(--custom-line-height, var(--text-title-lineHeight-large, 1.5))', // calc(48/32)
@@ -175,8 +163,8 @@ const Root = React.forwardRef<HTMLDivElement, React.PropsWithChildren<PageHeader
       <Box
         ref={rootRef}
         as={as}
-        className={clsx(enabled && classes.PageHeader, className)}
-        sx={enabled ? sx : merge<BetterSystemStyleObject>(rootStyles, sx)}
+        className={className}
+        sx={merge<BetterSystemStyleObject>(rootStyles, sx)}
         aria-label={ariaLabel}
         role={role}
       >
@@ -196,7 +184,6 @@ const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   hidden = hiddenOnRegularAndWide,
   sx = {},
 }) => {
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   const contentNavStyles = {
     gridRow: GRID_ROW_ORDER.ContextArea,
     gridArea: 'context-area',
@@ -205,6 +192,7 @@ const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
     alignItems: 'center',
     paddingBottom: '0.5rem',
     gap: '0.5rem',
+
     ...getBreakpointDeclarations(hidden, 'display', value => {
       return value ? 'none' : 'flex'
     }),
@@ -214,11 +202,7 @@ const ContextArea: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   }
 
   return (
-    <Box
-      className={clsx(enabled && classes.ContextArea, className)}
-      sx={enabled ? sx : merge<BetterSystemStyleObject>(contentNavStyles, sx)}
-      {...getHiddenDataAttributes(enabled, hidden)}
-    >
+    <Box className={className} sx={merge<BetterSystemStyleObject>(contentNavStyles, sx)}>
       {children}
     </Box>
   )
@@ -234,7 +218,6 @@ export type ParentLinkProps = React.PropsWithChildren<ChildrenPropTypes & LinkPr
 // PageHeader.ParentLink : Only visible on narrow viewports by default to let users navigate up in the hierarchy.
 const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
   ({children, className, sx = {}, href, 'aria-label': ariaLabel, as = 'a', hidden = hiddenOnRegularAndWide}, ref) => {
-    const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
     return (
       <>
         <Link
@@ -242,24 +225,19 @@ const ParentLink = React.forwardRef<HTMLAnchorElement, ParentLinkProps>(
           as={as}
           aria-label={ariaLabel}
           muted
-          className={clsx(enabled && classes.ParentLink, className)}
-          sx={
-            enabled
-              ? sx
-              : merge<BetterSystemStyleObject>(
-                  {
-                    display: 'flex',
-                    alignItems: 'center',
-                    order: CONTEXT_AREA_REGION_ORDER.ParentLink,
-                    gap: '0.5rem',
-                    ...getBreakpointDeclarations(hidden, 'display', value => {
-                      return value ? 'none' : 'flex'
-                    }),
-                  },
-                  sx,
-                )
-          }
-          {...getHiddenDataAttributes(enabled, hidden)}
+          className={className}
+          sx={merge<BetterSystemStyleObject>(
+            {
+              display: 'flex',
+              alignItems: 'center',
+              order: CONTEXT_AREA_REGION_ORDER.ParentLink,
+              gap: '0.5rem',
+              ...getBreakpointDeclarations(hidden, 'display', value => {
+                return value ? 'none' : 'flex'
+              }),
+            },
+            sx,
+          )}
           href={href}
         >
           <ArrowLeftIcon />
@@ -281,25 +259,19 @@ const ContextBar: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   sx = {},
   hidden = hiddenOnRegularAndWide,
 }) => {
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   return (
     <Box
-      className={clsx(enabled && classes.ContextBar, className)}
-      sx={
-        enabled
-          ? sx
-          : merge<BetterSystemStyleObject>(
-              {
-                display: 'flex',
-                order: CONTEXT_AREA_REGION_ORDER.ContextBar,
-                ...getBreakpointDeclarations(hidden, 'display', value => {
-                  return value ? 'none' : 'flex'
-                }),
-              },
-              sx,
-            )
-      }
-      {...getHiddenDataAttributes(enabled, hidden)}
+      className={className}
+      sx={merge<BetterSystemStyleObject>(
+        {
+          display: 'flex',
+          order: CONTEXT_AREA_REGION_ORDER.ContextBar,
+          ...getBreakpointDeclarations(hidden, 'display', value => {
+            return value ? 'none' : 'flex'
+          }),
+        },
+        sx,
+      )}
     >
       {children}
     </Box>
@@ -314,31 +286,24 @@ const ContextAreaActions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> =
   sx = {},
   hidden = hiddenOnRegularAndWide,
 }) => {
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   return (
     <Box
-      className={clsx(enabled && classes.ContextAreaActions, className)}
-      {...getHiddenDataAttributes(enabled, hidden)}
-      sx={
-        enabled
-          ? sx
-          : merge<BetterSystemStyleObject>(
-              {
-                display: 'flex',
-                flexDirection: 'row',
-                order: CONTEXT_AREA_REGION_ORDER.ContextAreaActions,
-                alignItems: 'center',
-                gap: '0.5rem',
-                flexGrow: '1',
-                justifyContent: 'right',
-                ...getBreakpointDeclarations(hidden, 'display', value => {
-                  return value ? 'none' : 'flex'
-                }),
-              },
-              sx,
-            )
-      }
-      {...getHiddenDataAttributes(enabled, hidden)}
+      className={className}
+      sx={merge<BetterSystemStyleObject>(
+        {
+          display: 'flex',
+          flexDirection: 'row',
+          order: CONTEXT_AREA_REGION_ORDER.ContextAreaActions,
+          alignItems: 'center',
+          gap: '0.5rem',
+          flexGrow: '1',
+          justifyContent: 'right',
+          ...getBreakpointDeclarations(hidden, 'display', value => {
+            return value ? 'none' : 'flex'
+          }),
+        },
+        sx,
+      )}
     >
       {children}
     </Box>
@@ -354,34 +319,28 @@ type TitleAreaProps = {
 
 const TitleArea = React.forwardRef<HTMLDivElement, React.PropsWithChildren<TitleAreaProps>>(
   ({children, className, sx = {}, hidden = false, variant = 'medium'}, forwardedRef) => {
-    const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
     const titleAreaRef = useProvidedRefOrCreate<HTMLDivElement>(forwardedRef as React.RefObject<HTMLDivElement>)
     const currentVariant = useResponsiveValue(variant, 'medium')
     return (
       <Box
-        className={clsx(enabled && classes.TitleArea, className)}
+        className={className}
         ref={titleAreaRef}
         data-component="TitleArea"
         data-size-variant={currentVariant}
-        sx={
-          enabled
-            ? sx
-            : merge<BetterSystemStyleObject>(
-                {
-                  gridRow: GRID_ROW_ORDER.TitleArea,
-                  gridArea: 'title-area',
-                  display: 'flex',
-                  gap: '0.5rem',
-                  ...getBreakpointDeclarations(hidden, 'display', value => {
-                    return value ? 'none' : 'flex'
-                  }),
-                  flexDirection: 'row',
-                  alignItems: 'flex-start',
-                },
-                sx,
-              )
-        }
-        {...getHiddenDataAttributes(enabled, hidden)}
+        sx={merge<BetterSystemStyleObject>(
+          {
+            gridRow: GRID_ROW_ORDER.TitleArea,
+            gridArea: 'title-area',
+            display: 'flex',
+            gap: '0.5rem',
+            ...getBreakpointDeclarations(hidden, 'display', value => {
+              return value ? 'none' : 'flex'
+            }),
+            flexDirection: 'row',
+            alignItems: 'flex-start',
+          },
+          sx,
+        )}
       >
         {children}
       </Box>
@@ -398,34 +357,28 @@ const LeadingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   sx = {},
   hidden = hiddenOnNarrow,
 }) => {
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   const style: CSSCustomProperties = {}
   // @ts-ignore sx has height attribute
   const {height} = sx
   if (height) style['--custom-height'] = height
   return (
     <Box
-      className={clsx(enabled && classes.LeadingAction, className)}
+      className={className}
       data-component="PH_LeadingAction"
-      sx={
-        enabled
-          ? sx
-          : merge<BetterSystemStyleObject>(
-              {
-                gridRow: GRID_ROW_ORDER.LeadingAction,
-                gridArea: 'leading-action',
-                paddingRight: '0.5rem',
-                display: 'flex',
-                ...getBreakpointDeclarations(hidden, 'display', value => {
-                  return value ? 'none' : 'flex'
-                }),
-                alignItems: 'center',
-              },
-              sx,
-            )
-      }
+      sx={merge<BetterSystemStyleObject>(
+        {
+          gridRow: GRID_ROW_ORDER.LeadingAction,
+          gridArea: 'leading-action',
+          paddingRight: '0.5rem',
+          display: 'flex',
+          ...getBreakpointDeclarations(hidden, 'display', value => {
+            return value ? 'none' : 'flex'
+          }),
+          alignItems: 'center',
+        },
+        sx,
+      )}
       style={style}
-      {...getHiddenDataAttributes(enabled, hidden)}
     >
       {children}
     </Box>
@@ -439,33 +392,26 @@ const Breadcrumbs: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   sx = {},
   hidden = false,
 }) => {
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
-
   return (
     <Box
-      className={clsx(enabled && classes.Breadcrumbs, className)}
+      className={className}
       data-component="PH_Breadcrumbs"
-      sx={
-        enabled
-          ? sx
-          : merge<BetterSystemStyleObject>(
-              {
-                gridRow: GRID_ROW_ORDER.Breadcrumbs,
-                gridArea: 'breadcrumbs',
-                paddingRight: '0.5rem',
-                display: 'flex',
-                ...getBreakpointDeclarations(hidden, 'display', value => {
-                  return value ? 'none' : 'flex'
-                }),
-                alignItems: 'center',
-                fontWeight: 'initial',
-                lineHeight: 'var(--text-body-lineHeight-medium, 1.4285)',
-                fontSize: 'var(--text-body-size-medium, 0.875rem)',
-              },
-              sx,
-            )
-      }
-      {...getHiddenDataAttributes(enabled, hidden)}
+      sx={merge<BetterSystemStyleObject>(
+        {
+          gridRow: GRID_ROW_ORDER.Breadcrumbs,
+          gridArea: 'breadcrumbs',
+          paddingRight: '0.5rem',
+          display: 'flex',
+          ...getBreakpointDeclarations(hidden, 'display', value => {
+            return value ? 'none' : 'flex'
+          }),
+          alignItems: 'center',
+          fontWeight: 'initial',
+          lineHeight: 'var(--text-body-lineHeight-medium, 1.4285)',
+          fontSize: 'var(--text-body-size-medium, 0.875rem)',
+        },
+        sx,
+      )}
     >
       {children}
     </Box>
@@ -479,33 +425,27 @@ const LeadingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   sx = {},
   hidden = false,
 }) => {
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   const style: CSSCustomProperties = {}
   // @ts-ignore sx has height attribute
   const {height} = sx
   if (height) style['--custom-height'] = height
   return (
     <Box
-      className={clsx(enabled && classes.LeadingVisual, className)}
+      className={className}
       data-component="PH_LeadingVisual"
-      sx={
-        enabled
-          ? sx
-          : merge<BetterSystemStyleObject>(
-              {
-                // using flex and order to display the leading visual in the title area.
-                display: 'flex',
-                order: TITLE_AREA_REGION_ORDER.LeadingVisual,
-                ...getBreakpointDeclarations(hidden, 'display', value => {
-                  return value ? 'none' : 'flex'
-                }),
-                alignItems: 'center',
-              },
-              sx,
-            )
-      }
+      sx={merge<BetterSystemStyleObject>(
+        {
+          // using flex and order to display the leading visual in the title area.
+          display: 'flex',
+          order: TITLE_AREA_REGION_ORDER.LeadingVisual,
+          ...getBreakpointDeclarations(hidden, 'display', value => {
+            return value ? 'none' : 'flex'
+          }),
+          alignItems: 'center',
+        },
+        sx,
+      )}
       style={style}
-      {...getHiddenDataAttributes(enabled, hidden)}
     >
       {children}
     </Box>
@@ -523,7 +463,6 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
   hidden = false,
   as = 'h2',
 }) => {
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   const style: CSSCustomProperties = {}
   // @ts-ignore sxProp can have color attribute
   const {fontSize, lineHeight, fontWeight} = sx
@@ -533,28 +472,23 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
 
   return (
     <Heading
-      className={clsx(enabled && classes.Title, className)}
+      className={className}
       data-component="PH_Title"
       as={as}
       style={style}
-      sx={
-        enabled
-          ? sx
-          : merge<BetterSystemStyleObject>(
-              {
-                // using flex and order to display the title in the title area.
-                display: 'flex',
-                order: TITLE_AREA_REGION_ORDER.Title,
-                ...getBreakpointDeclarations(hidden, 'display', value => {
-                  return value ? 'none' : 'flex'
-                }),
-                fontSize: 'inherit',
-                fontWeight: 'inherit',
-              },
-              sx,
-            )
-      }
-      {...getHiddenDataAttributes(enabled, hidden)}
+      sx={merge<BetterSystemStyleObject>(
+        {
+          // using flex and order to display the title in the title area.
+          display: 'flex',
+          order: TITLE_AREA_REGION_ORDER.Title,
+          ...getBreakpointDeclarations(hidden, 'display', value => {
+            return value ? 'none' : 'block'
+          }),
+          fontSize: 'inherit',
+          fontWeight: 'inherit',
+        },
+        sx,
+      )}
     >
       {children}
     </Heading>
@@ -568,33 +502,27 @@ const TrailingVisual: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   sx = {},
   hidden = false,
 }) => {
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   const style: CSSCustomProperties = {}
   // @ts-ignore sx has height attribute
   const {height} = sx
   if (height) style['--custom-height'] = height
   return (
     <Box
-      className={clsx(enabled && classes.TrailingVisual, className)}
+      className={className}
       data-component="PH_TrailingVisual"
-      sx={
-        enabled
-          ? sx
-          : merge<BetterSystemStyleObject>(
-              {
-                // using flex and order to display the trailing visual in the title area.
-                display: 'flex',
-                order: TITLE_AREA_REGION_ORDER.TrailingVisual,
-                ...getBreakpointDeclarations(hidden, 'display', value => {
-                  return value ? 'none' : 'flex'
-                }),
-                alignItems: 'center',
-              },
-              sx,
-            )
-      }
+      sx={merge<BetterSystemStyleObject>(
+        {
+          // using flex and order to display the trailing visual in the title area.
+          display: 'flex',
+          order: TITLE_AREA_REGION_ORDER.TrailingVisual,
+          ...getBreakpointDeclarations(hidden, 'display', value => {
+            return value ? 'none' : 'flex'
+          }),
+          alignItems: 'center',
+        },
+        sx,
+      )}
       style={style}
-      {...getHiddenDataAttributes(enabled, hidden)}
     >
       {children}
     </Box>
@@ -607,34 +535,28 @@ const TrailingAction: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   sx = {},
   hidden = hiddenOnNarrow,
 }) => {
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   const style: CSSCustomProperties = {}
   // @ts-ignore sx has height attribute
   const {height} = sx
   if (height) style['--custom-height'] = height
   return (
     <Box
-      className={clsx(enabled && classes.TrailingAction, className)}
+      className={className}
       data-component="PH_TrailingAction"
-      sx={
-        enabled
-          ? sx
-          : merge<BetterSystemStyleObject>(
-              {
-                gridRow: GRID_ROW_ORDER.TrailingAction,
-                gridArea: 'trailing-action',
-                paddingLeft: '0.5rem',
-                display: 'flex',
-                ...getBreakpointDeclarations(hidden, 'display', value => {
-                  return value ? 'none' : 'flex'
-                }),
-                alignItems: 'center',
-              },
-              sx,
-            )
-      }
+      sx={merge<BetterSystemStyleObject>(
+        {
+          gridRow: GRID_ROW_ORDER.TrailingAction,
+          gridArea: 'trailing-action',
+          paddingLeft: '0.5rem',
+          display: 'flex',
+          ...getBreakpointDeclarations(hidden, 'display', value => {
+            return value ? 'none' : 'flex'
+          }),
+          alignItems: 'center',
+        },
+        sx,
+      )}
       style={style}
-      {...getHiddenDataAttributes(enabled, hidden)}
     >
       {children}
     </Box>
@@ -647,38 +569,32 @@ const Actions: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   sx = {},
   hidden = false,
 }) => {
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   const style: CSSCustomProperties = {}
   // @ts-ignore sx has height attribute
   const {height} = sx
   if (height) style['--custom-height'] = height
   return (
     <Box
-      className={clsx(enabled && classes.Actions, className)}
+      className={className}
       data-component="PH_Actions"
-      sx={
-        enabled
-          ? sx
-          : merge<BetterSystemStyleObject>(
-              {
-                gridRow: GRID_ROW_ORDER.Actions,
-                gridArea: 'actions',
-                display: 'flex',
-                ...getBreakpointDeclarations(hidden, 'display', value => {
-                  return value ? 'none' : 'flex'
-                }),
-                flexDirection: 'row',
-                paddingLeft: '0.5rem',
-                gap: '0.5rem',
-                minWidth: 'max-content',
-                justifyContent: 'right',
-                alignItems: 'center',
-              },
-              sx,
-            )
-      }
+      sx={merge<BetterSystemStyleObject>(
+        {
+          gridRow: GRID_ROW_ORDER.Actions,
+          gridArea: 'actions',
+          display: 'flex',
+          ...getBreakpointDeclarations(hidden, 'display', value => {
+            return value ? 'none' : 'flex'
+          }),
+          flexDirection: 'row',
+          paddingLeft: '0.5rem',
+          gap: '0.5rem',
+          minWidth: 'max-content',
+          justifyContent: 'right',
+          alignItems: 'center',
+        },
+        sx,
+      )}
       style={style}
-      {...getHiddenDataAttributes(enabled, hidden)}
     >
       {children}
     </Box>
@@ -692,33 +608,27 @@ const Description: React.FC<React.PropsWithChildren<ChildrenPropTypes>> = ({
   sx = {},
   hidden = false,
 }) => {
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   return (
     <Box
-      className={clsx(enabled && classes.Description, className)}
-      sx={
-        enabled
-          ? sx
-          : merge<BetterSystemStyleObject>(
-              {
-                gridRow: GRID_ROW_ORDER.Description,
-                gridArea: 'description',
-                display: 'flex',
-                ...getBreakpointDeclarations(hidden, 'display', value => {
-                  return value ? 'none' : 'flex'
-                }),
-                flexDirection: 'row',
-                alignItems: 'center',
-                paddingTop: '0.5rem',
-                gap: '0.5rem',
-                fontWeight: 'initial',
-                lineHeight: 'var(--text-body-lineHeight-medium, 1.4285)',
-                fontSize: 'var(--text-body-size-medium, 0.875rem)',
-              },
-              sx,
-            )
-      }
-      {...getHiddenDataAttributes(enabled, hidden)}
+      className={className}
+      sx={merge<BetterSystemStyleObject>(
+        {
+          gridRow: GRID_ROW_ORDER.Description,
+          gridArea: 'description',
+          display: 'flex',
+          ...getBreakpointDeclarations(hidden, 'display', value => {
+            return value ? 'none' : 'flex'
+          }),
+          flexDirection: 'row',
+          alignItems: 'center',
+          paddingTop: '0.5rem',
+          gap: '0.5rem',
+          fontWeight: 'initial',
+          lineHeight: 'var(--text-body-lineHeight-medium, 1.4285)',
+          fontSize: 'var(--text-body-size-medium, 0.875rem)',
+        },
+        sx,
+      )}
     >
       {children}
     </Box>
@@ -741,105 +651,37 @@ const Navigation: React.FC<React.PropsWithChildren<NavigationProps>> = ({
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledBy,
 }) => {
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   warning(
     as === 'nav' && !ariaLabel && !ariaLabelledBy,
     'Use `aria-label` or `aria-labelledby` prop to provide an accessible label to the `nav` landmark for assistive technology',
   )
+
   return (
     <Box
       as={as}
       // Render `aria-label` and `aria-labelledby` only on `nav` elements
       aria-label={as === 'nav' ? ariaLabel : undefined}
       aria-labelledby={as === 'nav' ? ariaLabelledBy : undefined}
-      className={clsx(enabled && classes.Navigation, className)}
-      sx={
-        enabled
-          ? sx
-          : merge<BetterSystemStyleObject>(
-              {
-                gridRow: GRID_ROW_ORDER.Navigation,
-                gridArea: 'navigation',
-                paddingTop: '0.5rem',
-                display: 'flex',
-                ...getBreakpointDeclarations(hidden, 'display', value => {
-                  return value ? 'none' : 'block'
-                }),
-                fontWeight: 'initial',
-                lineHeight: 'var(--text-body-lineHeight-medium, 1.4285)',
-                fontSize: 'var(--text-body-size-medium, 0.875rem)',
-              },
-              sx,
-            )
-      }
-      {...getHiddenDataAttributes(enabled, hidden)}
+      className={className}
+      sx={merge<BetterSystemStyleObject>(
+        {
+          gridRow: GRID_ROW_ORDER.Navigation,
+          gridArea: 'navigation',
+          paddingTop: '0.5rem',
+          display: 'flex',
+          ...getBreakpointDeclarations(hidden, 'display', value => {
+            return value ? 'none' : 'block'
+          }),
+          fontWeight: 'initial',
+          lineHeight: 'var(--text-body-lineHeight-medium, 1.4285)',
+          fontSize: 'var(--text-body-size-medium, 0.875rem)',
+        },
+        sx,
+      )}
     >
       {children}
     </Box>
   )
-}
-
-// Based on getBreakpointDeclarations, this function will return the
-// correct data attribute for the given hidden value for CSS modules.
-function getHiddenDataAttributes(
-  isCssModules: boolean,
-  isHidden: boolean | ResponsiveValue<boolean>,
-): {
-  'data-hidden-all'?: boolean
-  'data-hidden-narrow'?: boolean
-  'data-hidden-regular'?: boolean
-  'data-hidden-wide'?: boolean
-} {
-  if (!isCssModules) {
-    return {}
-  }
-
-  if (isResponsiveValue(isHidden)) {
-    const responsiveValue = isHidden
-
-    // Build media queries with the giving cssProperty and mapFn
-    const narrowMediaQuery =
-      'narrow' in responsiveValue
-        ? {
-            'data-hidden-narrow': responsiveValue.narrow || undefined,
-          }
-        : {}
-
-    const regularMediaQuery =
-      'regular' in responsiveValue
-        ? {
-            'data-hidden-regular': responsiveValue.regular || undefined,
-          }
-        : {}
-
-    const wideMediaQuery =
-      'wide' in responsiveValue
-        ? {
-            'data-hidden-wide': responsiveValue.wide || undefined,
-          }
-        : {}
-
-    // check if all values are the same - this is not a recommended practice but we still should check for it
-    if (areAllValuesTheSame(responsiveValue)) {
-      // if all the values are the same, we can just use one of the value to determine the CSS property's value
-      return {'data-hidden-all': responsiveValue.narrow || undefined}
-      // check if regular and wide have the same value, if so we can just return the narrow and regular media queries
-    } else if (haveRegularAndWideSameValue(responsiveValue)) {
-      return {
-        ...narrowMediaQuery,
-        ...regularMediaQuery,
-      }
-    } else {
-      return {
-        ...narrowMediaQuery,
-        ...regularMediaQuery,
-        ...wideMediaQuery,
-      }
-    }
-  } else {
-    // If the given value is not a responsive value
-    return {'data-hidden-all': isHidden || undefined}
-  }
 }
 
 export const PageHeader = Object.assign(Root, {

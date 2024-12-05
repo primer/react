@@ -4,14 +4,14 @@ import type {BetterSystemStyleObject} from '../sx'
 import type {Properties as CSSProperties} from 'csstype'
 import {mediaQueries} from './layout'
 
-export function areAllValuesTheSame(responsiveValue: ResponsiveValue<boolean | number | string>): boolean {
+function areAllValuesTheSame(responsiveValue: ResponsiveValue<boolean | number | string>): boolean {
   if ('narrow' in responsiveValue && 'regular' in responsiveValue && 'wide' in responsiveValue) {
     const values = Object.values(responsiveValue)
     return values.every(value => value === values[0])
   }
   return false
 }
-export function haveRegularAndWideSameValue(responsiveValue: ResponsiveValue<boolean | number | string>): boolean {
+function haveRegularAndWideSameValue(responsiveValue: ResponsiveValue<boolean | number | string>): boolean {
   if ('regular' in responsiveValue && 'wide' in responsiveValue) {
     return responsiveValue.regular === responsiveValue.wide
   }
