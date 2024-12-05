@@ -1,0 +1,30 @@
+.InputValidation {
+  color: var(--inputValidation-fgColor);
+  display: flex;
+  font-size: var(--text-body-size-small);
+  font-weight: 600;
+
+  & :where(a) {
+    color: currentColor;
+    text-dectoration: underline;
+  }
+
+  &:where([data-validation-status='success']) {
+    --inputValidation-fgColor: var(--fgColor-success);
+  }
+
+  &:where([data-validation-status='error']) {
+    --inputValidation-fgColor: var(--fgColor-danger);
+  }
+}
+
+.ValidationIcon {
+  align-items: center;
+  display: flex;
+  margin-inline-end: var(--base-size-4);
+  min-height: var(--inputValidation-iconSize);
+}
+
+.ValidationText {
+  line-height: var(--inputValidation-lineHeight);
+}
