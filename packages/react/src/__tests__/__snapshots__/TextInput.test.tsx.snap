@@ -3381,6 +3381,13 @@ exports[`TextInput renders trailingAction text button 1`] = `
   height: var(--inner-action-size);
 }
 
+.c5 {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
 .c2 {
   border: 0;
   font-size: inherit;
