@@ -696,4 +696,57 @@ describe('ActionList', () => {
       expect(description.parentElement).toHaveAttribute('data-component', 'ActionList.Item--DividerContainer')
     })
   })
+
+  it('should support a custom `className` on the outermost element', () => {
+    const Element = () => {
+      return (
+        <ActionList className="test-class-name">
+          <ActionList.Item>Item</ActionList.Item>
+        </ActionList>
+      )
+    }
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(HTMLRender(<FeatureFlagElement />).container.querySelector('ul')).toHaveClass('test-class-name')
+    expect(HTMLRender(<Element />).container.querySelector('ul')).toHaveClass('test-class-name')
+  })
+
+  it('divider should support a custom `className`', () => {
+    const Element = () => {
+      return (
+        <ActionList>
+          <ActionList.Item>Item</ActionList.Item>
+          <ActionList.Divider className="test-class-name" />
+        </ActionList>
+      )
+    }
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Element />
+        </FeatureFlags>
+      )
+    }
+    expect(HTMLRender(<FeatureFlagElement />).container.querySelector('li[aria-hidden="true"]')).toHaveClass(
+      'test-class-name',
+    )
+    expect(HTMLRender(<Element />).container.querySelector('li[aria-hidden="true"]')).toHaveClass('test-class-name')
+  })
 })
