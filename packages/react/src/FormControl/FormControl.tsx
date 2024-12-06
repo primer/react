@@ -226,7 +226,7 @@ const StyledHorizontalLayout = toggleStyledComponent(
   styled.div`
     display: flex;
 
-    *:where([data-has-leading-visual]) {
+    &:where([data-has-leading-visual]) {
       align-items: center;
     }
 

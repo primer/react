@@ -1,7 +1,7 @@
 .ControlHorizontalLayout {
   display: flex;
 
-  *:where([data-has-leading-visual]) {
+  &:where([data-has-leading-visual]) {
     align-items: center;
   }
 }
