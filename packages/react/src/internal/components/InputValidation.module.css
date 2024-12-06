@@ -2,7 +2,7 @@
   color: var(--inputValidation-fgColor);
   display: flex;
   font-size: var(--text-body-size-small);
-  font-weight: 600;
+  font-weight: var(--base-text-weight-semibold);
 
   & :where(a) {
     color: currentColor;

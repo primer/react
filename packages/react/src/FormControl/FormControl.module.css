@@ -36,11 +36,11 @@
 }
 
 .LeadingVisual {
-  color: var(--fgColor-default);
+  color: var(--fgColor-muted);
   margin-left: var(--base-size-8);
 
   &:where([data-disabled]) {
-    color: var(--fgColor-muted);
+    color: var(--control-fgColor-disabled);
   }
 
   > * {

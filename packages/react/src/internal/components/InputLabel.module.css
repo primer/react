@@ -3,11 +3,11 @@
   display: block;
   color: var(--fgColor-default);
   cursor: pointer;
-  font-weight: 600;
+  font-weight: var(--base-text-weight-semibold);
   font-size: var(--text-body-size-medium);
 
   &:where([data-control-disabled]) {
-    color: var(--fgColor-muted);
+    color: var(--control-fgColor-disabled);
     cursor: not-allowed;
   }
 
