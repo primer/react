@@ -117,6 +117,21 @@ export const GroupHeadingCustomClassname = () => (
   </ActionList>
 )
 
+export const ListCustomClassname = () => (
+  <ActionList className="testCustomClassnameBorder">
+    <ActionList.Item>Copy link</ActionList.Item>
+    <ActionList.Item>Quote reply</ActionList.Item>
+  </ActionList>
+)
+
+export const DividerCustomClassname = () => (
+  <ActionList>
+    <ActionList.Item>Edit comment</ActionList.Item>
+    <ActionList.Divider className="testCustomClassnameBgColor" />
+    <ActionList.Item>Quote reply</ActionList.Item>
+  </ActionList>
+)
+
 export const HeadingCustomClassname = () => (
   <ActionList>
     <ActionList.Heading className="testCustomClassnameColor" as="h2">
