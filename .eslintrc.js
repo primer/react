@@ -183,7 +183,6 @@ module.exports = {
         '@eslint-react/ensure-forward-ref-using-ref': 'off',
         '@eslint-react/no-array-index-key': 'off',
         '@eslint-react/dom/no-dangerously-set-innerhtml': 'off',
-        '@eslint-react/no-nested-components': 'off',
         '@eslint-react/hooks-extra/prefer-use-state-lazy-initialization': 'off',
         '@eslint-react/no-children-count': 'off',
       },
