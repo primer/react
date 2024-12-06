@@ -130,6 +130,9 @@ export const getVariantStyles = (variant: VariantType = 'default', theme?: Theme
         '[data-component=ButtonCounter], [data-component="leadingVisual"], [data-component="trailingAction"]': {
           color: 'inherit',
         },
+        '[data-component=ButtonCounter]': {
+          backgroundColor: 'transparent',
+        },
       },
       '&[aria-expanded=true]': {
         backgroundColor: 'actionListItem.default.selectedBg',

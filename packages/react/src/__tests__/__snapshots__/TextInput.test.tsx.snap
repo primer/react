@@ -3019,6 +3019,10 @@ exports[`TextInput renders trailingAction icon button 1`] = `
   color: inherit;
 }
 
+.c4:disabled [data-component=ButtonCounter] {
+  background-color: transparent;
+}
+
 .c4 [data-component=ButtonCounter] {
   font-size: 12px;
 }
@@ -3764,6 +3768,10 @@ exports[`TextInput renders trailingAction text button 1`] = `
   color: inherit;
 }
 
+.c4:disabled [data-component=ButtonCounter] {
+  background-color: transparent;
+}
+
 .c4 [data-component=ButtonCounter] {
   font-size: 12px;
 }
@@ -4373,6 +4381,10 @@ exports[`TextInput renders trailingAction text button with a tooltip 1`] = `
 .c4:disabled [data-component="leadingVisual"],
 .c4:disabled [data-component="trailingAction"] {
   color: inherit;
+}
+
+.c4:disabled [data-component=ButtonCounter] {
+  background-color: transparent;
 }
 
 .c4 [data-component=ButtonCounter] {

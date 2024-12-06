@@ -1697,6 +1697,10 @@ exports[`Button styles invisible button appropriately 1`] = `
   color: inherit;
 }
 
+.c0:disabled [data-component=ButtonCounter] {
+  background-color: transparent;
+}
+
 .c0 [data-component=ButtonCounter] {
   font-size: 12px;
 }
