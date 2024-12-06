@@ -1,7 +1,7 @@
 .Caption {
-  color: var(--fgColor-muted);
   display: block;
   font-size: var(--text-body-size-small);
+  color: var(--fgColor-muted);
 
   &:where([data-control-disabled]) {
     color: var(--control-fgColor-disabled);

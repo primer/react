@@ -1,12 +1,13 @@
 .InputValidation {
-  color: var(--inputValidation-fgColor);
   display: flex;
   font-size: var(--text-body-size-small);
   font-weight: var(--base-text-weight-semibold);
+  /* stylelint-disable-next-line primer/colors */
+  color: var(--inputValidation-fgColor);
 
   & :where(a) {
     color: currentColor;
-    text-dectoration: underline;
+    text-decoration: underline;
   }
 
   &:where([data-validation-status='success']) {
@@ -26,5 +27,6 @@
 }
 
 .ValidationText {
+  /* stylelint-disable-next-line primer/typography */
   line-height: var(--inputValidation-lineHeight);
 }

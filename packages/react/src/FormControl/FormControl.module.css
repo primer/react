@@ -21,12 +21,13 @@
 }
 
 .ControlChoiceInputs > input {
-  margin-left: 0;
   margin-right: 0;
+  margin-left: 0;
 }
 
 .LabelContainer {
   > * {
+    /* stylelint-disable-next-line primer/spacing */
     padding-left: var(--stack-gap-condensed);
   }
 
@@ -36,17 +37,17 @@
 }
 
 .LeadingVisual {
-  color: var(--fgColor-muted);
   margin-left: var(--base-size-8);
+  color: var(--fgColor-muted);
 
   &:where([data-disabled]) {
     color: var(--control-fgColor-disabled);
   }
 
   > * {
-    fill: currentColor;
     min-width: var(--text-body-size-large);
     min-height: var(--text-body-size-large);
+    fill: currentColor;
   }
 
   > *:where([data-has-caption]) {

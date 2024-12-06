@@ -1,10 +1,10 @@
 .Label {
-  align-self: flex-start;
   display: block;
+  font-size: var(--text-body-size-medium);
+  font-weight: var(--base-text-weight-semibold);
   color: var(--fgColor-default);
   cursor: pointer;
-  font-weight: var(--base-text-weight-semibold);
-  font-size: var(--text-body-size-medium);
+  align-self: flex-start;
 
   &:where([data-control-disabled]) {
     color: var(--control-fgColor-disabled);
@@ -12,16 +12,17 @@
   }
 
   &:where([data-visually-hidden]) {
-    border: 0;
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
+    position: absolute;
+    width: 1px;
     height: 1px;
+    padding: 0;
+    /* stylelint-disable-next-line primer/spacing */
     margin: -1px;
     overflow: hidden;
-    padding: 0;
-    position: absolute;
+    clip: rect(0 0 0 0);
     white-space: nowrap;
-    width: 1px;
+    border: 0;
+    clip-path: inset(50%);
   }
 }
 
