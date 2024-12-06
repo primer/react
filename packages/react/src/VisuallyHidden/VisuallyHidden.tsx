@@ -7,7 +7,7 @@ import {useFeatureFlag} from '../FeatureFlags'
 import React, {type HTMLAttributes} from 'react'
 import classes from './VisuallyHidden.module.css'
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 /**
  * Provides a component that implements the "visually hidden" technique. This is
