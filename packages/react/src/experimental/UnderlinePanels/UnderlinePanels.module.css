@@ -1,0 +1,10 @@
+.StyledUnderlineWrapper {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: auto;
+}
+
+.StyledUnderlineWrapper[data-icons-visible='false'] [data-component='icon'] {
+  display: none;
+}

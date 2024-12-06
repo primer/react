@@ -1,5 +1,7 @@
 import React, {Children, isValidElement, cloneElement, useState, useRef, type FC, type PropsWithChildren} from 'react'
 import {TabContainerElement} from '@github/tab-container-element'
+import {clsx} from 'clsx'
+import type {IconProps} from '@primer/octicons-react'
 import {createComponent} from '../../utils/create-component'
 import {
   StyledUnderlineItemList,
@@ -10,11 +12,15 @@ import {
 import Box, {type BoxProps} from '../../Box'
 import {useId} from '../../hooks'
 import {invariant} from '../../utils/invariant'
-import type {IconProps} from '@primer/octicons-react'
 import {merge, type BetterSystemStyleObject, type SxProp} from '../../sx'
 import {defaultSxProp} from '../../utils/defaultSxProp'
 import {useResizeObserver, type ResizeObserverEntry} from '../../hooks/useResizeObserver'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
+import {useFeatureFlag} from '../../FeatureFlags'
+import classes from './UnderlinePanels.module.css'
+import {toggleStyledComponent} from '../../internal/utils/toggleStyledComponent'
+
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
 
 export type UnderlinePanelsProps = {
   /**
@@ -58,6 +64,12 @@ export type TabProps = PropsWithChildren<{
 export type PanelProps = Omit<BoxProps, 'as'>
 
 const TabContainerComponent = createComponent(TabContainerElement, 'tab-container')
+
+const StyledTabContainerComponent = toggleStyledComponent(
+  CSS_MODULES_FEATURE_FLAG,
+  'tab-container',
+  TabContainerComponent,
+)
 
 const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   'aria-label': ariaLabel,
@@ -141,8 +153,30 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
     )
   }
 
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
+  if (enabled) {
+    return (
+      <StyledTabContainerComponent>
+        <StyledUnderlineWrapper
+          ref={wrapperRef}
+          slot="tablist-wrapper"
+          data-icons-visible={iconsVisible}
+          sx={sxProp}
+          className={classes.StyledUnderlineWrapper}
+          {...props}
+        >
+          <StyledUnderlineItemList ref={listRef} aria-label={ariaLabel} aria-labelledby={ariaLabelledBy} role="tablist">
+            {tabs.current}
+          </StyledUnderlineItemList>
+        </StyledUnderlineWrapper>
+        {tabPanels.current}
+      </StyledTabContainerComponent>
+    )
+  }
+
   return (
-    <TabContainerComponent>
+    <StyledTabContainerComponent>
       <StyledUnderlineWrapper
         ref={wrapperRef}
         slot="tablist-wrapper"
@@ -166,7 +200,7 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
         </StyledUnderlineItemList>
       </StyledUnderlineWrapper>
       {tabPanels.current}
-    </TabContainerComponent>
+    </StyledTabContainerComponent>
   )
 }
 
