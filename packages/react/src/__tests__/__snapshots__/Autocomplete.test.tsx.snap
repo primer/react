@@ -2,9 +2,23 @@
 
 exports[`snapshots renders a custom empty state message 1`] = `
 [
-  .c0 {
+  .c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -20,8 +34,9 @@ exports[`snapshots renders a custom empty state message 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -57,21 +72,107 @@ exports[`snapshots renders a custom empty state message 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -91,27 +192,31 @@ exports[`snapshots renders a custom empty state message 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
@@ -177,9 +282,23 @@ exports[`snapshots renders a custom empty state message 1`] = `
 
 exports[`snapshots renders a loading state 1`] = `
 [
-  .c0 {
+  .c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -195,8 +314,9 @@ exports[`snapshots renders a loading state 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -232,21 +352,107 @@ exports[`snapshots renders a loading state 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -266,27 +472,31 @@ exports[`snapshots renders a loading state 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
@@ -409,9 +619,23 @@ exports[`snapshots renders a loading state 1`] = `
 
 exports[`snapshots renders a menu that contains an item to add to the menu 1`] = `
 [
-  .c0 {
+  .c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -427,8 +651,9 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -464,21 +689,107 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -498,22 +809,26 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (forced-colors:active) {
@@ -542,7 +857,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
@@ -591,6 +906,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   -ms-flex-negative: 0;
   flex-shrink: 0;
   margin-right: 8px;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
 .c6 {
@@ -653,6 +969,7 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   flex-grow: 1;
   font-weight: 400;
   word-break: break-word;
+  line-height: 20px;
 }
 
 .c9 {
@@ -753,6 +1070,11 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
+.c3[aria-disabled] [data-component="ActionList.Selection"],
+.c3[data-inactive] [data-component="ActionList.Selection"] {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
 .c3 [data-component="ActionList.Item--DividerContainer"] {
@@ -1260,9 +1582,23 @@ exports[`snapshots renders a menu that contains an item to add to the menu 1`] =
 
 exports[`snapshots renders a multiselect input 1`] = `
 [
-  .c0 {
+  .c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -1278,8 +1614,9 @@ exports[`snapshots renders a multiselect input 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -1315,21 +1652,107 @@ exports[`snapshots renders a multiselect input 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -1349,22 +1772,26 @@ exports[`snapshots renders a multiselect input 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (forced-colors:active) {
@@ -1381,7 +1808,7 @@ exports[`snapshots renders a multiselect input 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
@@ -1430,6 +1857,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   margin-right: 8px;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
 .c5 {
@@ -1492,6 +1920,7 @@ exports[`snapshots renders a multiselect input 1`] = `
   flex-grow: 1;
   font-weight: 400;
   word-break: break-word;
+  line-height: 20px;
 }
 
 .c0 {
@@ -1560,6 +1989,11 @@ exports[`snapshots renders a multiselect input 1`] = `
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
+.c3[aria-disabled] [data-component="ActionList.Selection"],
+.c3[data-inactive] [data-component="ActionList.Selection"] {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
 .c3 [data-component="ActionList.Item--DividerContainer"] {
@@ -1989,9 +2423,23 @@ exports[`snapshots renders a multiselect input 1`] = `
 
 exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 [
-  .c0 {
+  .c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -2007,8 +2455,9 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -2044,21 +2493,107 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -2078,22 +2613,26 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (forced-colors:active) {
@@ -2122,7 +2661,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
@@ -2171,6 +2710,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   margin-right: 8px;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
 .c5 {
@@ -2233,6 +2773,7 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   flex-grow: 1;
   font-weight: 400;
   word-break: break-word;
+  line-height: 20px;
 }
 
 .c9 {
@@ -2341,6 +2882,11 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   border-color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
+.c3[aria-disabled] [data-component="ActionList.Selection"],
+.c3[data-inactive] [data-component="ActionList.Selection"] {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+}
+
 .c3 [data-component="ActionList.Item--DividerContainer"] {
   position: relative;
 }
@@ -2436,6 +2982,11 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
+.c8[aria-disabled] [data-component="ActionList.Selection"],
+.c8[data-inactive] [data-component="ActionList.Selection"] {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
 .c8 [data-component="ActionList.Item--DividerContainer"] {
@@ -2901,9 +3452,23 @@ exports[`snapshots renders a multiselect input with selected menu items 1`] = `
 
 exports[`snapshots renders a single select input 1`] = `
 [
-  .c0 {
+  .c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -2919,8 +3484,9 @@ exports[`snapshots renders a single select input 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -2956,21 +3522,107 @@ exports[`snapshots renders a single select input 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -2990,22 +3642,26 @@ exports[`snapshots renders a single select input 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (forced-colors:active) {
@@ -3018,7 +3674,7 @@ exports[`snapshots renders a single select input 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 
@@ -3067,6 +3723,7 @@ exports[`snapshots renders a single select input 1`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   margin-right: 8px;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
 .c5 {
@@ -3091,6 +3748,7 @@ exports[`snapshots renders a single select input 1`] = `
   flex-grow: 1;
   font-weight: 400;
   word-break: break-word;
+  line-height: 20px;
 }
 
 .c0 {
@@ -3159,6 +3817,11 @@ exports[`snapshots renders a single select input 1`] = `
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
+.c3[aria-disabled] [data-component="ActionList.Selection"],
+.c3[data-inactive] [data-component="ActionList.Selection"] {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
 .c3 [data-component="ActionList.Item--DividerContainer"] {
@@ -3554,6 +4217,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
   -ms-flex-negative: 0;
   flex-shrink: 0;
   margin-right: 8px;
+  color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
 }
 
 .c5 {
@@ -3578,6 +4242,7 @@ exports[`snapshots renders with a custom text input component 1`] = `
   flex-grow: 1;
   font-weight: 400;
   word-break: break-word;
+  line-height: 20px;
 }
 
 .c0 {
@@ -3646,6 +4311,11 @@ exports[`snapshots renders with a custom text input component 1`] = `
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
+.c3[aria-disabled] [data-component="ActionList.Selection"],
+.c3[data-inactive] [data-component="ActionList.Selection"] {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
 .c3 [data-component="ActionList.Item--DividerContainer"] {
@@ -4005,9 +4675,23 @@ exports[`snapshots renders with a custom text input component 1`] = `
 
 exports[`snapshots renders with an input value 1`] = `
 [
-  .c0 {
+  .c2 {
+  border: 0;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  -webkit-appearance: none;
+  color: inherit;
+  width: 100%;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
   font-size: 14px;
-  line-height: 20px;
+  line-height: var(--base-size-20);
   color: var(--fgColor-default,var(--color-fg-default,#1F2328));
   vertical-align: middle;
   background-color: var(--bgColor-default,var(--color-canvas-default,#ffffff));
@@ -4023,8 +4707,9 @@ exports[`snapshots renders with an input value 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  min-height: 32px;
+  min-height: var(--base-size-32);
   overflow: hidden;
+  --inner-action-size: var(--base-size-24);
 }
 
 .c0 input,
@@ -4060,21 +4745,107 @@ exports[`snapshots renders with an input value 1`] = `
   color: var(---control-fgColor-placeholder,var(--fgColor-muted,var(--color-fg-muted,#656d76)));
 }
 
-.c0:focus-within {
+.c0:where([data-trailing-action][data-focused]),
+.c0:where(:not([data-trailing-action]):focus-within) {
   border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
   outline-offset: -1px;
 }
 
 .c0 > textarea {
-  padding: 12px;
+  padding: var(--base-size-12);
+}
+
+.c0:where([data-contrast]) {
+  background-color: var(--bgColor-inset,var(--color-canvas-inset,#f6f8fa));
+}
+
+.c0:where([data-disabled]) {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
+  background-color: var(--control-bgColor-disabled,var(--color-input-disabled-bg,rgba(175,184,193,0.2)));
+  box-shadow: none;
+  border-color: var(--control-borderColor-disabled,var(--borderColor-default,var(--color-border-default,#d0d7de)));
+}
+
+.c0:where([data-disabled]) input,
+.c0:where([data-disabled]) textarea,
+.c0:where([data-disabled]) select {
+  cursor: not-allowed;
+}
+
+.c0:where([data-monospace]) {
+  font-family: var(--fontStack-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,Courier,monospace);
+}
+
+.c0:where([data-validation='error']) {
+  border-color: var(--borderColor-danger-emphasis,var(--color-danger-emphasis,#cf222e));
+}
+
+.c0:where([data-validation='error']):where([data-trailing-action][data-focused]),
+.c0:where([data-validation='error']):where(:not([data-trailing-action])):focus-within {
+  border-color: var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline: 2px solid var(--fgColor-accent,var(--color-accent-fg,#0969da));
+  outline-offset: -1px;
+}
+
+.c0:where([data-validation='success']) {
+  border-color: var(--bgColor-success-emphasis,var(--color-success-emphasis,#1f883d));
+}
+
+.c0:where([data-block]) {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-self: stretch;
+  -ms-flex-item-align: stretch;
+  align-self: stretch;
+}
+
+.c0:where([data-size='small']) {
+  --inner-action-size: var(--base-size-20);
+  min-height: var(--base-size-28);
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-size='large']) {
+  --inner-action-size: var(--base-size-28);
+  height: var(--base-size-40);
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+}
+
+.c0:where([data-variant='small']) {
+  min-height: 28px;
+  padding-top: 3px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 3px;
+  padding-left: var(--base-size-8);
+  font-size: (--text-body-size-small);
+  line-height: var(--base-size-20);
+}
+
+.c0:where([data-variant='large']) {
+  padding-top: 10px;
+  padding-right: var(--base-size-8);
+  padding-bottom: 10px;
+  padding-left: var(--base-size-8);
+  font-size: var(--text-title-size-medium);
 }
 
 .c1 {
   background-repeat: no-repeat;
   background-position: right 8px center;
-  padding-left: 0;
   padding-right: 0;
+  padding-left: 0;
 }
 
 .c1 > :not(:last-child) {
@@ -4094,22 +4865,26 @@ exports[`snapshots renders with an input value 1`] = `
 
 .c1 > input,
 .c1 > select {
-  padding-left: 12px;
-  padding-right: 12px;
+  padding-right: 0;
+  padding-left: 0;
 }
 
-.c2 {
-  border: 0;
-  font-size: inherit;
-  font-family: inherit;
-  background-color: transparent;
-  -webkit-appearance: none;
-  color: inherit;
-  width: 100%;
+.c1:where([data-leading-visual]) {
+  padding-left: var(--base-size-12);
 }
 
-.c2:focus {
-  outline: 0;
+.c1:where([data-trailing-visual]:not([data-trailing-action])) {
+  padding-right: var(--base-size-12);
+}
+
+.c1:where(:not([data-leading-visual])) > input,
+.c1:where(:not([data-leading-visual])) > select {
+  padding-left: var(--base-size-12);
+}
+
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > input,
+.c1:where(:not([data-trailing-visual]):not([data-trailing-action])) > select {
+  padding-right: var(--base-size-12);
 }
 
 @media (forced-colors:active) {
@@ -4122,7 +4897,7 @@ exports[`snapshots renders with an input value 1`] = `
 
 @media (min-width:768px) {
   .c0 {
-    font-size: 14px;
+    font-size: var(--text-body-size-medium);
   }
 }
 

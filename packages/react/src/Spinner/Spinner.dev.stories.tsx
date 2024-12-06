@@ -7,4 +7,4 @@ export default {
   component: Spinner,
 } as Meta<typeof Spinner>
 
-export const Default = () => <Spinner sx={{border: '1px solid red'}} />
+export const Default = () => <Spinner sx={{border: '1px solid red'}} size="small" />

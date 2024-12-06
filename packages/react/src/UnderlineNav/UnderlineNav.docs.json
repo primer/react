@@ -3,15 +3,31 @@
   "name": "UnderlineNav",
   "status": "beta",
   "a11yReviewed": true,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-underlinenav--default"
+    },
+    {
+      "id": "components-underlinenav-features--default"
+    },
+    {
+      "id": "components-underlinenav-features--with-icons"
+    },
+    {
+      "id": "components-underlinenav-features--with-counter-labels"
+    },
+    {
+      "id": "components-underlinenav-features--overflow-template"
+    },
+    {
+      "id": "components-underlinenav-features--overflow-on-narrow-screen"
+    },
+    {
+      "id": "components-underlinenav-features--counters-loading-state"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
-    {
-      "name": "onSelect",
-      "type": "(event) => void",
-      "defaultValue": "",
-      "description": "The handler that gets called when a nav link child is selected"
-    },
     {
       "name": "aria-label",
       "type": "string",

@@ -9,6 +9,13 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   margin-right: 4px;
 }
 
+.c3 {
+  width: 16px;
+  height: 16px;
+  width: 100%;
+  height: 100%;
+}
+
 .c5 {
   position: absolute;
   width: 1px;
@@ -20,20 +27,6 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
   clip: rect(0,0,0,0);
   white-space: nowrap;
   border-width: 0;
-}
-
-.c3 {
-  display: inline-block;
-  overflow: hidden;
-  line-height: 1;
-  vertical-align: middle;
-  border-radius: 50%;
-  box-shadow: 0 0 0 1px var(--avatar-borderColor,var(--color-avatar-border,rgba(31,35,40,0.15)));
-  height: var(--avatar-size);
-  width: var(--avatar-size);
-  --avatar-size: 16px;
-  width: 100%;
-  height: 100%;
 }
 
 .c0 {
@@ -175,11 +168,15 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
     >
       <img
         alt=""
-        className="c3"
+        className="c3 Avatar"
         data-component="Avatar"
         height={16}
-        size={16}
         src="https://avatars.githubusercontent.com/mperrotti"
+        style={
+          {
+            "--avatarSize-regular": "16px",
+          }
+        }
         width={16}
       />
     </span>
@@ -198,8 +195,10 @@ exports[`Token components AvatarToken renders all sizes 1`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c6"
+    data-size="small"
     onClick={[Function]}
     size="small"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -235,6 +234,13 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   margin-right: 4px;
 }
 
+.c3 {
+  width: 20px;
+  height: 20px;
+  width: 100%;
+  height: 100%;
+}
+
 .c5 {
   position: absolute;
   width: 1px;
@@ -246,20 +252,6 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
   clip: rect(0,0,0,0);
   white-space: nowrap;
   border-width: 0;
-}
-
-.c3 {
-  display: inline-block;
-  overflow: hidden;
-  line-height: 1;
-  vertical-align: middle;
-  border-radius: 50%;
-  box-shadow: 0 0 0 1px var(--avatar-borderColor,var(--color-avatar-border,rgba(31,35,40,0.15)));
-  height: var(--avatar-size);
-  width: var(--avatar-size);
-  --avatar-size: 20px;
-  width: 100%;
-  height: 100%;
 }
 
 .c0 {
@@ -401,11 +393,15 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
     >
       <img
         alt=""
-        className="c3"
+        className="c3 Avatar"
         data-component="Avatar"
         height={20}
-        size={20}
         src="https://avatars.githubusercontent.com/mperrotti"
+        style={
+          {
+            "--avatarSize-regular": "20px",
+          }
+        }
         width={20}
       />
     </span>
@@ -424,8 +420,10 @@ exports[`Token components AvatarToken renders all sizes 2`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c6"
+    data-size="medium"
     onClick={[Function]}
     size="medium"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -461,6 +459,13 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   margin-right: 8px;
 }
 
+.c3 {
+  width: 24px;
+  height: 24px;
+  width: 100%;
+  height: 100%;
+}
+
 .c5 {
   position: absolute;
   width: 1px;
@@ -472,20 +477,6 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
   clip: rect(0,0,0,0);
   white-space: nowrap;
   border-width: 0;
-}
-
-.c3 {
-  display: inline-block;
-  overflow: hidden;
-  line-height: 1;
-  vertical-align: middle;
-  border-radius: 50%;
-  box-shadow: 0 0 0 1px var(--avatar-borderColor,var(--color-avatar-border,rgba(31,35,40,0.15)));
-  height: var(--avatar-size);
-  width: var(--avatar-size);
-  --avatar-size: 24px;
-  width: 100%;
-  height: 100%;
 }
 
 .c0 {
@@ -627,11 +618,15 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
     >
       <img
         alt=""
-        className="c3"
+        className="c3 Avatar"
         data-component="Avatar"
         height={24}
-        size={24}
         src="https://avatars.githubusercontent.com/mperrotti"
+        style={
+          {
+            "--avatarSize-regular": "24px",
+          }
+        }
         width={24}
       />
     </span>
@@ -650,8 +645,10 @@ exports[`Token components AvatarToken renders all sizes 3`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c6"
+    data-size="large"
     onClick={[Function]}
     size="large"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -687,6 +684,13 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   margin-right: 8px;
 }
 
+.c3 {
+  width: 32px;
+  height: 32px;
+  width: 100%;
+  height: 100%;
+}
+
 .c5 {
   position: absolute;
   width: 1px;
@@ -698,20 +702,6 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
   clip: rect(0,0,0,0);
   white-space: nowrap;
   border-width: 0;
-}
-
-.c3 {
-  display: inline-block;
-  overflow: hidden;
-  line-height: 1;
-  vertical-align: middle;
-  border-radius: 50%;
-  box-shadow: 0 0 0 1px var(--avatar-borderColor,var(--color-avatar-border,rgba(31,35,40,0.15)));
-  height: var(--avatar-size);
-  width: var(--avatar-size);
-  --avatar-size: 32px;
-  width: 100%;
-  height: 100%;
 }
 
 .c0 {
@@ -855,11 +845,15 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
     >
       <img
         alt=""
-        className="c3"
+        className="c3 Avatar"
         data-component="Avatar"
         height={32}
-        size={32}
         src="https://avatars.githubusercontent.com/mperrotti"
+        style={
+          {
+            "--avatarSize-regular": "32px",
+          }
+        }
         width={32}
       />
     </span>
@@ -878,8 +872,10 @@ exports[`Token components AvatarToken renders all sizes 4`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c6"
+    data-size="xlarge"
     onClick={[Function]}
     size="xlarge"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -916,15 +912,8 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
 }
 
 .c3 {
-  display: inline-block;
-  overflow: hidden;
-  line-height: 1;
-  vertical-align: middle;
-  border-radius: 50%;
-  box-shadow: 0 0 0 1px var(--avatar-borderColor,var(--color-avatar-border,rgba(31,35,40,0.15)));
-  height: var(--avatar-size);
-  width: var(--avatar-size);
-  --avatar-size: 20px;
+  width: 20px;
+  height: 20px;
   width: 100%;
   height: 100%;
 }
@@ -1018,11 +1007,15 @@ exports[`Token components AvatarToken renders isSelected 1`] = `
     >
       <img
         alt=""
-        className="c3"
+        className="c3 Avatar"
         data-component="Avatar"
         height={20}
-        size={20}
         src="https://avatars.githubusercontent.com/mperrotti"
+        style={
+          {
+            "--avatarSize-regular": "20px",
+          }
+        }
         width={20}
       />
     </span>
@@ -1044,6 +1037,13 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   margin-right: 4px;
 }
 
+.c3 {
+  width: 20px;
+  height: 20px;
+  width: 100%;
+  height: 100%;
+}
+
 .c5 {
   position: absolute;
   width: 1px;
@@ -1055,20 +1055,6 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
   clip: rect(0,0,0,0);
   white-space: nowrap;
   border-width: 0;
-}
-
-.c3 {
-  display: inline-block;
-  overflow: hidden;
-  line-height: 1;
-  vertical-align: middle;
-  border-radius: 50%;
-  box-shadow: 0 0 0 1px var(--avatar-borderColor,var(--color-avatar-border,rgba(31,35,40,0.15)));
-  height: var(--avatar-size);
-  width: var(--avatar-size);
-  --avatar-size: 20px;
-  width: 100%;
-  height: 100%;
 }
 
 .c0 {
@@ -1210,11 +1196,15 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
     >
       <img
         alt=""
-        className="c3"
+        className="c3 Avatar"
         data-component="Avatar"
         height={20}
-        size={20}
         src="https://avatars.githubusercontent.com/mperrotti"
+        style={
+          {
+            "--avatarSize-regular": "20px",
+          }
+        }
         width={20}
       />
     </span>
@@ -1233,8 +1223,10 @@ exports[`Token components AvatarToken renders with a remove button 1`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c6"
+    data-size="medium"
     onClick={[Function]}
     size="medium"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -1405,8 +1397,10 @@ exports[`Token components IssueLabelToken renders all sizes 1`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c2"
+    data-size="small"
     onClick={[Function]}
     size="small"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -1577,8 +1571,10 @@ exports[`Token components IssueLabelToken renders all sizes 2`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c2"
+    data-size="medium"
     onClick={[Function]}
     size="medium"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -1749,8 +1745,10 @@ exports[`Token components IssueLabelToken renders all sizes 3`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c2"
+    data-size="large"
     onClick={[Function]}
     size="large"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -1923,8 +1921,10 @@ exports[`Token components IssueLabelToken renders all sizes 4`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c2"
+    data-size="xlarge"
     onClick={[Function]}
     size="xlarge"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -2095,8 +2095,10 @@ exports[`Token components IssueLabelToken renders custom fill color 1`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c2"
+    data-size="medium"
     onClick={[Function]}
     size="medium"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -2267,8 +2269,10 @@ exports[`Token components IssueLabelToken renders default fill color 1`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c2"
+    data-size="medium"
     onClick={[Function]}
     size="medium"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -2550,8 +2554,10 @@ exports[`Token components IssueLabelToken renders with a remove button 1`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c2"
+    data-size="medium"
     onClick={[Function]}
     size="medium"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -2729,8 +2735,10 @@ exports[`Token components Token renders all sizes 1`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c3"
+    data-size="small"
     onClick={[Function]}
     size="small"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -2908,8 +2916,10 @@ exports[`Token components Token renders all sizes 2`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c3"
+    data-size="medium"
     onClick={[Function]}
     size="medium"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -3087,8 +3097,10 @@ exports[`Token components Token renders all sizes 3`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c3"
+    data-size="large"
     onClick={[Function]}
     size="large"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -3268,8 +3280,10 @@ exports[`Token components Token renders all sizes 4`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c3"
+    data-size="xlarge"
     onClick={[Function]}
     size="xlarge"
+    style={{}}
   >
     <svg
       aria-hidden="true"
@@ -3630,8 +3644,10 @@ exports[`Token components Token renders with a remove button 1`] = `
     aria-hidden="false"
     aria-label="Remove token"
     className="c3"
+    data-size="medium"
     onClick={[Function]}
     size="medium"
+    style={{}}
   >
     <svg
       aria-hidden="true"

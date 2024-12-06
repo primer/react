@@ -24,6 +24,12 @@
       "description": "A descriptive title for the panel"
     },
     {
+      "name": "defaultOpen",
+      "type": "boolean",
+      "description": "",
+      "defaultValue": "false"
+    },
+    {
       "name": "description",
       "type": "string",
       "description": "When provided, a description is displayed below the title"
@@ -80,6 +86,12 @@
       "type": "| 'xsmall' | 'small' | 'medium' | 'large' | 'xlarge' | 'fit-content'",
       "defaultValue": "'large'",
       "description": "Sets the height of the `Dialog`, pick from our set list of heights, or pass `fit-content` to set the height based on the contents. `xsmall` corresponds to `192px`, `small` corresponds to `256px`, `medium` corresponds to `320px`, `large` corresponds to `432px`, `xlarge` corresponds to `600px`."
+    },
+    {
+      "name": "maxHeight",
+      "type": "'small' | 'large' | 'medium' | 'fit-content' | 'xlarge'",
+      "description": "",
+      "defaultValue": "'large'"
     }
   ],
   "subcomponents": [
@@ -105,6 +117,12 @@
           "name": "children",
           "type": "React.ReactNode",
           "description": "Rendered before the list. Recommended: `SelectPanel.SearchInput`"
+        },
+        {
+          "name": "onBack",
+          "type": "() => void",
+          "description": "",
+          "defaultValue": ""
         }
       ]
     },

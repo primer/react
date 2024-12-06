@@ -234,7 +234,7 @@ exports[`SplitPageLayout renders default layout 1`] = `
 <div>
   <div
     class="c0"
-    style="--sticky-pane-height: 100vh;"
+    style="--sticky-pane-height: 100vh; --spacing: var(--spacing-none);"
   >
     <div
       class="c1"
