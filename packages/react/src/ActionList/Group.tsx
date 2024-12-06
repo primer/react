@@ -108,6 +108,7 @@ export const Group: React.FC<React.PropsWithChildren<ActionListGroupProps>> = ({
               aria-labelledby={listRole ? undefined : groupHeadingId}
               aria-label={listRole ? title ?? (slots.groupHeading?.props.children as string) : undefined}
               role={role || (listRole && 'group')}
+              className={groupClasses.GroupListTemp}
             >
               {slots.groupHeading ? childrenWithoutSlots : props.children}
             </ul>
