@@ -42,7 +42,7 @@ export type TextareaProps = {
 } & TextareaHTMLAttributes<HTMLTextAreaElement> &
   SxProp
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
 
 const StyledTextarea = toggleStyledComponent(
   CSS_MODULES_FEATURE_FLAG,
