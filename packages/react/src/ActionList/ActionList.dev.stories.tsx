@@ -117,7 +117,6 @@ export const GroupHeadingCustomClassname = () => (
   </ActionList>
 )
 
-
 export const ListCustomClassname = () => (
   <ActionList className="testCustomClassnameBorder">
     <ActionList.Item>Copy link</ActionList.Item>
