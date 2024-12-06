@@ -92,7 +92,7 @@ const StyledBaseSpinner = styled.div`
 `
 
 function StyledSpinner({sx, className, ...props}: SpinnerProps) {
-  const enabled = useFeatureFlag('primer_react_css_modules_staff')
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
   if (enabled) {
     if (sx) {
       return <StyledBaseSpinner sx={sx} as={Spinner} className={clsx(className, classes.SpinnerAnimation)} {...props} />
