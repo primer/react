@@ -31,7 +31,7 @@ const StyledTable = styled.table<React.ComponentPropsWithoutRef<'table'>>`
   display: grid;
   font-size: var(--table-font-size);
   grid-template-columns: var(--grid-template-columns);
-  line-height: calc(20 / var(--table-font-size));
+  line-height: calc(20 / 12);
   width: 100%;
 
   /* Density modes: condensed, normal, spacious */
