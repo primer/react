@@ -725,7 +725,7 @@ test.describe('ActionList', () => {
           })
 
           // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`Group Heading with Classname.${theme}.png`)
+          expect(await page.screenshot()).toMatchSnapshot(`Heading with Classname.${theme}.png`)
         })
 
         test('axe @aat', async ({page}) => {
