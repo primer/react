@@ -12,7 +12,9 @@ export function useStickyPaneHeight() {
   const rootRef = React.useRef<HTMLDivElement>(null)
 
   // Default the height to the viewport height
-  const [height, setHeight] = React.useState(dvh(100))
+  const [height, setHeight] = React.useState(() => {
+    return dvh(100)
+  })
   const [offsetHeader, setOffsetHeader] = React.useState<number | string>(0)
 
   // Create intersection observers to track the top and bottom of the content region
