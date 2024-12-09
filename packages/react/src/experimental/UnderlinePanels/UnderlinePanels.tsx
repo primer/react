@@ -1,5 +1,6 @@
 import React, {Children, isValidElement, cloneElement, useState, useRef, type FC, type PropsWithChildren} from 'react'
 import {TabContainerElement} from '@github/tab-container-element'
+import type {IconProps} from '@primer/octicons-react'
 import {createComponent} from '../../utils/create-component'
 import {
   StyledUnderlineItemList,
@@ -10,11 +11,15 @@ import {
 import Box, {type BoxProps} from '../../Box'
 import {useId} from '../../hooks'
 import {invariant} from '../../utils/invariant'
-import type {IconProps} from '@primer/octicons-react'
 import {merge, type BetterSystemStyleObject, type SxProp} from '../../sx'
 import {defaultSxProp} from '../../utils/defaultSxProp'
 import {useResizeObserver, type ResizeObserverEntry} from '../../hooks/useResizeObserver'
 import useIsomorphicLayoutEffect from '../../utils/useIsomorphicLayoutEffect'
+import {useFeatureFlag} from '../../FeatureFlags'
+import classes from './UnderlinePanels.module.css'
+import {toggleStyledComponent} from '../../internal/utils/toggleStyledComponent'
+
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
 
 export type UnderlinePanelsProps = {
   /**
@@ -59,6 +64,12 @@ export type PanelProps = Omit<BoxProps, 'as'>
 
 const TabContainerComponent = createComponent(TabContainerElement, 'tab-container')
 
+const StyledTabContainerComponent = toggleStyledComponent(
+  CSS_MODULES_FEATURE_FLAG,
+  'tab-container',
+  TabContainerComponent,
+)
+
 const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   'aria-label': ariaLabel,
   'aria-labelledby': ariaLabelledBy,
@@ -102,6 +113,8 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   )
   const tabsHaveIcons = tabs.current.some(tab => React.isValidElement(tab) && tab.props.icon)
 
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
   // this is a workaround to get the list's width on the first render
   const [listWidth, setListWidth] = useState(0)
   useIsomorphicLayoutEffect(() => {
@@ -114,15 +127,19 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
 
   // when the wrapper resizes, check if the icons should be visible
   // by comparing the wrapper width to the list width
-  useResizeObserver((resizeObserverEntries: ResizeObserverEntry[]) => {
-    if (!tabsHaveIcons) {
-      return
-    }
+  useResizeObserver(
+    (resizeObserverEntries: ResizeObserverEntry[]) => {
+      if (!tabsHaveIcons) {
+        return
+      }
 
-    const wrapperWidth = resizeObserverEntries[0].contentRect.width
+      const wrapperWidth = resizeObserverEntries[0].contentRect.width
 
-    setIconsVisible(wrapperWidth > listWidth)
-  }, wrapperRef)
+      setIconsVisible(wrapperWidth > listWidth)
+    },
+    wrapperRef,
+    [enabled],
+  )
 
   if (__DEV__) {
     // only one tab can be selected at a time
@@ -141,8 +158,28 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
     )
   }
 
+  if (enabled) {
+    return (
+      <StyledTabContainerComponent>
+        <StyledUnderlineWrapper
+          ref={wrapperRef}
+          slot="tablist-wrapper"
+          data-icons-visible={iconsVisible}
+          sx={sxProp}
+          className={classes.StyledUnderlineWrapper}
+          {...props}
+        >
+          <StyledUnderlineItemList ref={listRef} aria-label={ariaLabel} aria-labelledby={ariaLabelledBy} role="tablist">
+            {tabs.current}
+          </StyledUnderlineItemList>
+        </StyledUnderlineWrapper>
+        {tabPanels.current}
+      </StyledTabContainerComponent>
+    )
+  }
+
   return (
-    <TabContainerComponent>
+    <StyledTabContainerComponent>
       <StyledUnderlineWrapper
         ref={wrapperRef}
         slot="tablist-wrapper"
@@ -166,7 +203,7 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
         </StyledUnderlineItemList>
       </StyledUnderlineWrapper>
       {tabPanels.current}
-    </TabContainerComponent>
+    </StyledTabContainerComponent>
   )
 }
 

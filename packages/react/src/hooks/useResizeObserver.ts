@@ -9,7 +9,11 @@ export interface ResizeObserverEntry {
   contentRect: DOMRectReadOnly
 }
 
-export function useResizeObserver<T extends HTMLElement>(callback: ResizeObserverCallback, target?: RefObject<T>) {
+export function useResizeObserver<T extends HTMLElement>(
+  callback: ResizeObserverCallback,
+  target?: RefObject<T>,
+  depsArray: unknown[] = [],
+) {
   const savedCallback = useRef(callback)
 
   useLayoutEffect(() => {
@@ -31,5 +35,6 @@ export function useResizeObserver<T extends HTMLElement>(callback: ResizeObserve
     return () => {
       observer.disconnect()
     }
-  }, [target])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [target, ...depsArray])
 }
