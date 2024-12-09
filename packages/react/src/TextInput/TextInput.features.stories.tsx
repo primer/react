@@ -98,9 +98,9 @@ export const Required = () => (
   </Box>
 )
 
-export const WithLeadingVisual = () => {
-  const Checkmark = () => <CheckIcon aria-label="Checkmark" />
+const Checkmark = () => <CheckIcon aria-label="Checkmark" />
 
+export const WithLeadingVisual = () => {
   return (
     <Box as="form">
       <FormControl>
@@ -116,8 +116,6 @@ export const WithLeadingVisual = () => {
 }
 
 export const WithTrailingIcon = () => {
-  const Checkmark = () => <CheckIcon aria-label="Checkmark" />
-
   return (
     <Box>
       <FormControl>

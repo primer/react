@@ -54,7 +54,7 @@ export function useTable<Data extends UniqueRow>({
   const [sortByColumn, setSortByColumn] = useState<ColumnSortState>(() => {
     return getInitialSortState(columns, initialSortColumn, initialSortDirection)
   })
-  const {gridTemplateColumns} = useTableLayout(columns)
+  const {gridTemplateColumns} = getTableLayout(columns)
 
   // Reset the `sortByColumn` state if the columns change and that column is no
   // longer provided
@@ -281,7 +281,7 @@ function getInitialSortState<Data extends UniqueRow>(
   return null
 }
 
-export function useTableLayout<Data extends UniqueRow>(columns: Array<Column<Data>>): {gridTemplateColumns: string} {
+export function getTableLayout<Data extends UniqueRow>(columns: Array<Column<Data>>): {gridTemplateColumns: string} {
   return {
     gridTemplateColumns: getGridTemplateFromColumns(columns).join(' '),
   }

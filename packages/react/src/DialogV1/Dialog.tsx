@@ -180,10 +180,6 @@ const Dialog = forwardRef<HTMLDivElement, InternalDialogProps>(
   },
 )
 
-DialogHeader.propTypes = {
-  ...Box.propTypes,
-}
-
 DialogHeader.displayName = 'Dialog.Header'
 Dialog.displayName = 'Dialog'
 
