@@ -15,7 +15,7 @@ type StyledHeaderProps = React.ComponentProps<'header'> & SxProp
 type StyledHeaderItemProps = React.ComponentProps<'div'> & SxProp & {full?: boolean}
 type StyledHeaderLinkProps = React.ComponentProps<'a'> & SxProp & {to?: Location | Pathname}
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_ga'
 
 const StyledHeader = toggleStyledComponent(
   CSS_MODULES_FEATURE_FLAG,
