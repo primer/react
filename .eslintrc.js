@@ -170,7 +170,7 @@ module.exports = {
           },
         ],
 
-        '@eslint-react/dom/no-dangerously-set-innerhtml': 'off',
+        '@eslint-react/dom/no-dangerously-set-innerhtml': 'error',
         '@eslint-react/ensure-forward-ref-using-ref': 'off',
         '@eslint-react/hooks-extra/no-direct-set-state-in-use-effect': 'off',
         '@eslint-react/hooks-extra/no-redundant-custom-hook': 'off',

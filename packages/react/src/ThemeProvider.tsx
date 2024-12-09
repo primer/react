@@ -123,6 +123,7 @@ export const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>
       <SCThemeProvider theme={resolvedTheme}>
         {children}
         {props.preventSSRMismatch ? (
+          // eslint-disable-next-line @eslint-react/dom/no-dangerously-set-innerhtml
           <script
             type="application/json"
             id={`__PRIMER_DATA_${uniqueDataId}__`}
