@@ -204,18 +204,18 @@ export function SelectPanel({
   const loadingManagedExternally = !loadingManagedInternally
   const [inputRef, setInputRef] = React.useState<React.RefObject<HTMLInputElement> | null>(null)
   const [listContainerElement, setListContainerElement] = useState<HTMLElement | null>(null)
-  const [needItemChangedAnnouncement, setNeedItemsChangedAnnouncement] = useState<boolean>(false)
+  const [needItemsChangedAnnouncement, setNeedItemsChangedAnnouncement] = useState<boolean>(false)
 
   const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
     (node: HTMLElement | null) => {
       setListContainerElement(node)
 
-      if (needItemChangedAnnouncement) {
+      if (needItemsChangedAnnouncement) {
         announceItemsChanged(items, {current: node})
         setNeedItemsChangedAnnouncement(false)
       }
     },
-    [items, needItemChangedAnnouncement],
+    [items, needItemsChangedAnnouncement],
   )
 
   const onInputRefChanged = useCallback(

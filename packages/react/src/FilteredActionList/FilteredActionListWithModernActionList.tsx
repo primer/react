@@ -119,8 +119,7 @@ export function FilteredActionList({
       },
     },
     [
-      // List container isn't in the DOM while loading.  Need to re-bind focus zone when it changes
-      // listContainerElement,
+      // List container isn't in the DOM while loading.  Need to re-bind focus zone when it changes.
       listContainerElement,
     ],
   )
