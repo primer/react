@@ -4,6 +4,7 @@ import Box from '../Box'
 import {Button} from '../Button'
 import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
 import {SelectPanel} from './SelectPanel'
+import Link from '../Link'
 import {
   FilterIcon,
   GearIcon,
@@ -15,6 +16,8 @@ import {
   VersionsIcon,
 } from '@primer/octicons-react'
 import useSafeTimeout from '../hooks/useSafeTimeout'
+import ToggleSwitch from '../ToggleSwitch'
+import Text from '../Text'
 
 type SelectPanelPropsAndCustomArgs = React.ComponentProps<typeof SelectPanel> & {componentManagesLoading?: boolean}
 
@@ -451,6 +454,125 @@ export const AsyncFetch: StoryObj<SelectPanelPropsAndCustomArgs> = {
       control: {
         type: 'boolean',
       },
+    },
+  },
+}
+
+export const CustomisedNoInitialItems = () => {
+  const [selected, setSelected] = React.useState<ItemInput[]>([])
+  const [filteredItems, setFilteredItems] = React.useState<ItemInput[]>([])
+  const [open, setOpen] = useState(false)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const onFilterChange = (value: string = '') => {
+    setTimeout(() => {
+      // fetch the items
+      setFilteredItems([])
+    }, 0)
+  }
+  const [isError, setIsError] = React.useState(false)
+
+  const onClick = React.useCallback(() => {
+    setIsError(!isError)
+  }, [setIsError, isError])
+  return (
+    <>
+      <Text id="toggle" fontWeight={'bold'} fontSize={2}>
+        Enable Error State :{isError ? 'On' : 'Off'}
+      </Text>
+      <ToggleSwitch onClick={onClick} checked={isError} aria-labelledby="switchLabel" />
+      <SelectPanel
+        title="Set projects"
+        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <Button trailingAction={TriangleDownIcon} aria-labelledby={` ${ariaLabelledBy}`} {...anchorProps}>
+            {children ?? 'Select Labels'}
+          </Button>
+        )}
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={onFilterChange}
+        overlayProps={{width: 'medium', height: 'large'}}
+      >
+        <SelectPanel.Message variant="noInitialItems" title="You haven't created any projects yet">
+          <Link href="https://github.com/projects">Start your first project </Link> to organise your issues.
+        </SelectPanel.Message>
+        <SelectPanel.Message variant="noFilteredItems" title={`No language found for `}>
+          Adjust your search term to find other languages
+        </SelectPanel.Message>
+        {isError ? (
+          <SelectPanel.Message variant="error" title={`Ooops`}>
+            Something is wrong.
+          </SelectPanel.Message>
+        ) : null}
+      </SelectPanel>
+    </>
+  )
+}
+
+export const CustomisedNoFilteredItems: StoryObj<typeof SelectPanel> = {
+  render: ({initialLoadingType, height}) => {
+    const [selected, setSelected] = React.useState<ItemInput[]>([])
+    const [filteredItems, setFilteredItems] = React.useState<ItemInput[]>([])
+    const [filterValue, setFilterValue] = React.useState<string>('')
+    const [open, setOpen] = useState(false)
+    const filterTimerId = useRef<number | null>(null)
+    const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+    const onFilterChange = (value: string) => {
+      setFilterValue(value)
+      if (filterTimerId.current) {
+        safeClearTimeout(filterTimerId.current)
+      }
+
+      filterTimerId.current = safeSetTimeout(() => {
+        setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(value.toLowerCase())))
+      }, 2000) as unknown as number
+    }
+
+    return (
+      <SelectPanel
+        title="Select labels"
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <Button
+            trailingAction={TriangleDownIcon}
+            aria-labelledby={` ${ariaLabelledBy}`}
+            {...anchorProps}
+            aria-haspopup="dialog"
+          >
+            {children ?? 'Select Labels'}
+          </Button>
+        )}
+        placeholderText="Filter labels"
+        open={open}
+        onOpenChange={setOpen}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={onFilterChange}
+        showItemDividers={true}
+        initialLoadingType={initialLoadingType}
+        height={height}
+      >
+        <SelectPanel.Message variant="noFilteredItems" title={`No label found for ${filterValue}`}>
+          Adjust your search term to find other labels
+        </SelectPanel.Message>
+      </SelectPanel>
+    )
+  },
+  args: {
+    initialLoadingType: 'spinner',
+    height: 'medium',
+  },
+  argTypes: {
+    initialLoadingType: {
+      control: 'select',
+      options: ['spinner', 'skeleton'],
+    },
+    height: {
+      control: 'select',
+      options: ['auto', 'xsmall', 'small', 'medium', 'large', 'xlarge'],
     },
   },
 }
