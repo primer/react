@@ -171,7 +171,7 @@ module.exports = {
         ],
 
         '@eslint-react/dom/no-dangerously-set-innerhtml': 'error',
-        '@eslint-react/ensure-forward-ref-using-ref': 'off',
+        '@eslint-react/ensure-forward-ref-using-ref': 'error',
         '@eslint-react/hooks-extra/no-direct-set-state-in-use-effect': 'off',
         '@eslint-react/hooks-extra/no-redundant-custom-hook': 'off',
         '@eslint-react/hooks-extra/prefer-use-state-lazy-initialization': 'error',
@@ -193,6 +193,7 @@ module.exports = {
       files: ['**/*.test.{ts,tsx}'],
       extends: ['plugin:jest/recommended', 'plugin:testing-library/react'],
       rules: {
+        '@eslint-react/ensure-forward-ref-using-ref': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',
         'jest/expect-expect': 'off',
         'jest/no-conditional-expect': 'off',
