@@ -3,7 +3,14 @@
   "name": "TabNav",
   "status": "deprecated",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "deprecated-components-tabnav--default"
+    },
+    {
+      "id": "deprecated-components-tabnav-features--selected"
+    }
+  ],
   "importPath": "@primer/react/deprecated",
   "props": [
     {
@@ -32,6 +39,11 @@
         {
           "name": "selected",
           "type": "boolean"
+        },
+        {
+          "name": "to",
+          "type": "string | Partial<Path>",
+          "description": "Used when the item is rendered using a component like React Router's `Link`. The path to navigate to."
         },
         {
           "name": "sx",

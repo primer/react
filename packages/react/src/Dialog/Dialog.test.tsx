@@ -6,6 +6,7 @@ import MatchMediaMock from 'jest-matchmedia-mock'
 import {behavesAsComponent, checkExports} from '../utils/testing'
 import axe from 'axe-core'
 import {Button} from '../Button'
+import {FeatureFlags} from '../FeatureFlags'
 
 let matchMedia: MatchMediaMock
 
@@ -225,6 +226,53 @@ describe('Dialog', () => {
     await user.click(getByLabelText('Close'))
 
     expect(getByRole('button', {name: 'return focus to (button 2)'})).toHaveFocus()
+  })
+
+  it('should support `className` on the Dialog element', async () => {
+    const Fixture = () => {
+      const [isOpen, setIsOpen] = React.useState(true)
+      const triggerRef = React.useRef<HTMLButtonElement>(null)
+
+      return (
+        <>
+          <Button variant="primary" onClick={() => setIsOpen(true)}>
+            Show dialog
+          </Button>
+          {isOpen && (
+            <Dialog title="title" onClose={() => setIsOpen(false)} returnFocusRef={triggerRef} className="custom-class">
+              body
+            </Dialog>
+          )}
+        </>
+      )
+    }
+
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <Fixture />
+        </FeatureFlags>
+      )
+    }
+
+    const user = userEvent.setup()
+
+    let component = render(<Fixture />)
+    let triggerButton = component.getByRole('button', {name: 'Show dialog'})
+    await user.click(triggerButton)
+    expect(component.getByRole('dialog')).toHaveClass('custom-class')
+    component.unmount()
+
+    component = render(<FeatureFlagElement />)
+    triggerButton = component.getByRole('button', {name: 'Show dialog'})
+    await user.click(triggerButton)
+    expect(component.getByRole('dialog')).toHaveClass('custom-class')
   })
 })
 

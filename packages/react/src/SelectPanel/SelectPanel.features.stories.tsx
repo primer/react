@@ -19,10 +19,12 @@ import useSafeTimeout from '../hooks/useSafeTimeout'
 import ToggleSwitch from '../ToggleSwitch'
 import Text from '../Text'
 
+type SelectPanelPropsAndCustomArgs = React.ComponentProps<typeof SelectPanel> & {componentManagesLoading?: boolean}
+
 const meta = {
   title: 'Components/SelectPanel/Features',
   component: SelectPanel,
-} satisfies Meta<typeof SelectPanel>
+} satisfies Meta<SelectPanelPropsAndCustomArgs>
 
 export default meta
 
@@ -374,21 +376,37 @@ export const WithGroups = () => {
   )
 }
 
-export const AsyncFetch: StoryObj<typeof SelectPanel> = {
-  render: ({initialLoadingType, height}) => {
+export const AsyncFetch: StoryObj<SelectPanelPropsAndCustomArgs> = {
+  render: ({initialLoadingType, height, componentManagesLoading}: SelectPanelPropsAndCustomArgs) => {
+    const [loading, setLoading] = React.useState<boolean>(true)
     const [selected, setSelected] = React.useState<ItemInput[]>([])
     const [filteredItems, setFilteredItems] = React.useState<ItemInput[]>([])
     const [open, setOpen] = useState(false)
     const filterTimerId = useRef<number | null>(null)
     const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
-    const onFilterChange = (value: string) => {
+
+    const fetchItems = (query: string) => {
+      setLoading(true)
+
       if (filterTimerId.current) {
         safeClearTimeout(filterTimerId.current)
       }
 
       filterTimerId.current = safeSetTimeout(() => {
-        setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(value.toLowerCase())))
+        setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(query.toLowerCase())))
+        setLoading(false)
       }, 2000) as unknown as number
+    }
+
+    const onOpenChange = (value: boolean) => {
+      setLoading(true)
+      setOpen(value)
+      fetchItems('')
+    }
+
+    const loadingProps = {
+      initialLoadingType,
+      ...(componentManagesLoading ? {} : {loading}),
     }
 
     return (
@@ -407,20 +425,21 @@ export const AsyncFetch: StoryObj<typeof SelectPanel> = {
         )}
         placeholderText="Filter labels"
         open={open}
-        onOpenChange={setOpen}
+        onOpenChange={onOpenChange}
         items={filteredItems}
         selected={selected}
         onSelectedChange={setSelected}
-        onFilterChange={onFilterChange}
+        onFilterChange={fetchItems}
         showItemDividers={true}
-        initialLoadingType={initialLoadingType}
         height={height}
+        {...loadingProps}
       />
     )
   },
   args: {
     initialLoadingType: 'spinner',
     height: 'medium',
+    componentManagesLoading: true,
   },
   argTypes: {
     initialLoadingType: {
@@ -430,6 +449,11 @@ export const AsyncFetch: StoryObj<typeof SelectPanel> = {
     height: {
       control: 'select',
       options: ['auto', 'xsmall', 'small', 'medium', 'large', 'xlarge'],
+    },
+    componentManagesLoading: {
+      control: {
+        type: 'boolean',
+      },
     },
   },
 }

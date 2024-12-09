@@ -3,7 +3,35 @@
   "name": "PageLayout",
   "status": "alpha",
   "a11yReviewed": true,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-pagelayout--default"
+    },
+    {
+      "id": "components-pagelayout-features--pull-request-page"
+    },
+    {
+      "id": "components-pagelayout-features--sticky-pane"
+    },
+    {
+      "id": "components-pagelayout-features--nested-scroll-container"
+    },
+    {
+      "id": "components-pagelayout-features--custom-sticky-header"
+    },
+    {
+      "id": "components-pagelayout-features--resizable-pane"
+    },
+    {
+      "id": "components-pagelayout-features--scroll-container-within-page-layout-pane"
+    },
+    {
+      "id": "components-pagelayout-features--custom-pane-widths"
+    },
+    {
+      "id": "components-pagelayout-features--with-custom-pane-heading"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {
@@ -85,6 +113,18 @@
     {
       "name": "PageLayout.Content",
       "props": [
+        {
+          "name": "aria-label",
+          "type": "string",
+          "description": "A unique label for the rendered main landmark",
+          "defaultValue": ""
+        },
+        {
+          "name": "aria-labelledby",
+          "type": "string",
+          "description": "An id to an element which uniquely labels the rendered main landmark",
+          "defaultValue": ""
+        },
         {
           "name": "width",
           "type": "| 'full' | 'medium' | 'large' | 'xlarge'",
@@ -182,6 +222,12 @@
           "type": "| boolean | { narrow?: boolean regular?: boolean wide?: boolean }",
           "defaultValue": "false",
           "description": "Whether the pane is hidden."
+        },
+        {
+          "name": "position",
+          "type": "'end' | 'start' | { narrow?: 'end' | 'start'; regular?: 'end' | 'start'; wide?: 'end' | 'start'; }",
+          "description": "Which side of the page the pane should be on. Can be changed for different viewport widths.",
+          "defaultValue": ""
         },
         {
           "name": "sx",

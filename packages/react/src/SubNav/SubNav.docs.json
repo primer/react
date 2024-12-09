@@ -3,7 +3,14 @@
   "name": "SubNav",
   "status": "alpha",
   "a11yReviewed": false,
-  "stories": [],
+  "stories": [
+    {
+      "id": "components-subnav--default"
+    },
+    {
+      "id": "components-subnav-features--selected"
+    }
+  ],
   "importPath": "@primer/react",
   "props": [
     {
@@ -20,6 +27,12 @@
       "name": "full",
       "type": "boolean",
       "description": "Used to make navigation fill the width of the container."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "description": "Used to set the `aria-label` on the top level `<nav>` element.",
+      "defaultValue": ""
     },
     {
       "name": "aria-label",
@@ -46,7 +59,13 @@
         },
         {
           "name": "selected",
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Whether this item represents the current page"
+        },
+        {
+          "name": "to",
+          "type": "string | Partial<Path>",
+          "description": "Used when the item is rendered using a component like React Router's `Link`. The path to navigate to."
         },
         {
           "name": "sx",

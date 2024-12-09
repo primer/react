@@ -22,6 +22,92 @@ import useSafeTimeout from '../hooks/useSafeTimeout'
 import type {FilteredActionListLoadingType} from '../FilteredActionList/FilteredActionListLoaders'
 import {FilteredActionListLoadingTypes} from '../FilteredActionList/FilteredActionListLoaders'
 import {useFeatureFlag} from '../FeatureFlags'
+import {announce} from '@primer/live-region-element'
+
+import classes from './SelectPanel.module.css'
+import {clsx} from 'clsx'
+
+// we add a delay so that it does not interrupt default screen reader announcement and queues after it
+const delayMs = 500
+const loadingDelayMs = 1000
+
+const getItemWithActiveDescendant = (
+  listRef: React.RefObject<HTMLElement>,
+  items: FilteredActionListProps['items'],
+) => {
+  const listElement = listRef.current
+  const activeItemElement = listElement?.querySelector('[data-is-active-descendant]')
+
+  if (!listElement || !activeItemElement?.textContent) return
+
+  const optionElements = listElement.querySelectorAll('[role="option"]')
+
+  const index = Array.from(optionElements).indexOf(activeItemElement)
+  const activeItem = items[index]
+
+  const text = activeItem.text
+  const selected = activeItem.selected
+
+  return {index, text, selected}
+}
+
+function announceFilterFocused() {
+  const liveRegion = document.querySelector('live-region')
+
+  liveRegion?.clear() // clear previous announcements
+
+  announce('Focus on filter text box and list of items', {
+    delayMs,
+    from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+  })
+}
+
+function announceNoItems() {
+  const liveRegion = document.querySelector('live-region')
+
+  liveRegion?.clear() // clear previous announcements
+
+  announce('No matching items.', {
+    delayMs,
+    from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+  })
+}
+
+function announceLoading() {
+  const liveRegion = document.querySelector('live-region')
+
+  liveRegion?.clear() // clear previous announcements
+
+  announce('Loading.', {
+    delayMs,
+    from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+  })
+}
+
+function announceItemsChanged(items: FilteredActionListProps['items'], listContainerRef: React.RefObject<HTMLElement>) {
+  const liveRegion = document.querySelector('live-region')
+
+  liveRegion?.clear() // clear previous announcements
+
+  // give @primer/behaviors a moment to update active-descendant
+  window.requestAnimationFrame(() => {
+    const activeItem = getItemWithActiveDescendant(listContainerRef, items)
+    if (!activeItem) return
+    const {index, text, selected} = activeItem
+
+    const announcementText = [
+      'List updated',
+      `Focused item: ${text}`,
+      `${selected ? 'selected' : 'not selected'}`,
+      `${index + 1} of ${items.length}`,
+    ].join(', ')
+
+    announce(announcementText, {
+      delayMs,
+      from: liveRegion ? liveRegion : undefined, // announce will create a liveRegion if it doesn't find one
+    })
+  })
+}
 
 interface SelectPanelSingleSelection {
   selected: ItemInput | undefined
@@ -49,6 +135,7 @@ interface SelectPanelBaseProps {
   overlayProps?: Partial<OverlayProps>
   footer?: string | React.ReactElement
   initialLoadingType?: InitialLoadingType
+  className?: string
 }
 
 export type SelectPanelProps = React.PropsWithChildren<
@@ -110,34 +197,73 @@ function Panel({
   initialLoadingType = 'spinner',
   height,
   children,
+  className,
   ...listProps
 }: SelectPanelProps): JSX.Element {
-  const inputRef = React.useRef<HTMLInputElement>(null)
   const titleId = useId()
   const subtitleId = useId()
   const [dataLoadedOnce, setDataLoadedOnce] = useState(false)
-  const [isLoading, setIsLoading] = useProvidedStateOrCreate(loading, undefined, false)
+  const [isLoading, setIsLoading] = useState(false)
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
   const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
   const loadingDelayTimeoutId = useRef<number | null>(null)
+  const loadingManagedInternally = loading === undefined
+  const loadingManagedExternally = !loadingManagedInternally
+  const [inputRef, setInputRef] = React.useState<React.RefObject<HTMLInputElement> | null>(null)
+  const [listContainerElement, setListContainerElement] = useState<HTMLElement | null>(null)
+  const [needItemsChangedAnnouncement, setNeedItemsChangedAnnouncement] = useState<boolean>(false)
+
+  const onListContainerRefChanged: FilteredActionListProps['onListContainerRefChanged'] = useCallback(
+    (node: HTMLElement | null) => {
+      setListContainerElement(node)
+
+      if (needItemsChangedAnnouncement) {
+        announceItemsChanged(items, {current: node})
+        setNeedItemsChangedAnnouncement(false)
+      }
+    },
+    [items, needItemsChangedAnnouncement],
+  )
+
+  const onInputRefChanged = useCallback(
+    (ref: React.RefObject<HTMLInputElement>) => {
+      setInputRef(ref)
+    },
+    [setInputRef],
+  )
+
   const onFilterChange: FilteredActionListProps['onFilterChange'] = useCallback(
     (value, e) => {
-      if (dataLoadedOnce) {
-        // If data has already been loaded once, delay the spinner a bit. This also helps
-        // not show and then immediately hide the spinner if items are loaded quickly, i.e.
-        // not async.
+      if (loadingManagedInternally) {
+        if (dataLoadedOnce) {
+          // If data has already been loaded once, delay the spinner a bit. This also helps
+          // not show and then immediately hide the spinner if items are loaded quickly, i.e.
+          // not async.
 
-        if (loadingDelayTimeoutId.current) {
-          safeClearTimeout(loadingDelayTimeoutId.current)
-        }
+          if (loadingDelayTimeoutId.current) {
+            safeClearTimeout(loadingDelayTimeoutId.current)
+          }
 
-        loadingDelayTimeoutId.current = safeSetTimeout(() => setIsLoading(true), 1000)
-      } else {
-        // If this is the first data load and there are no items, show the loading spinner
-        // immediately
+          loadingDelayTimeoutId.current = safeSetTimeout(() => {
+            setIsLoading(true)
+            announceLoading()
+          }, loadingDelayMs)
+        } else {
+          // If this is the first data load and there are no items, show the loading spinner
+          // immediately
 
-        if (items.length === 0) {
-          setIsLoading(true)
+          if (items.length === 0) {
+            setIsLoading(true)
+          }
+
+          if (loadingDelayTimeoutId.current) {
+            safeClearTimeout(loadingDelayTimeoutId.current)
+          }
+
+          // We still want to announce if loading is taking too long
+          loadingDelayTimeoutId.current = safeSetTimeout(() => {
+            announceLoading()
+          }, loadingDelayMs)
         }
       }
 
@@ -145,27 +271,71 @@ function Panel({
       setInternalFilterValue(value)
     },
     [
-      dataLoadedOnce,
+      loadingManagedInternally,
       externalOnFilterChange,
       setInternalFilterValue,
+      dataLoadedOnce,
       safeSetTimeout,
       safeClearTimeout,
-      setIsLoading,
       items.length,
     ],
   )
 
   useEffect(() => {
+    if (open) {
+      if (items.length === 0) {
+        announceNoItems()
+      } else {
+        if (listContainerElement) {
+          announceItemsChanged(items, {current: listContainerElement})
+        } else {
+          setNeedItemsChangedAnnouncement(true)
+        }
+      }
+    }
+
+    if (loadingManagedExternally) {
+      if (items.length > 0) {
+        setDataLoadedOnce(true)
+      }
+
+      return
+    }
+
     if (isLoading) {
       setIsLoading(false)
       setDataLoadedOnce(true)
     }
+
+    if (loadingDelayTimeoutId.current) {
+      safeClearTimeout(loadingDelayTimeoutId.current)
+    }
+
     // Only fire this effect if items have changed
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items])
 
+  useEffect(() => {
+    if (inputRef?.current) {
+      const ref = inputRef.current
+      const listener = () => {
+        announceFilterFocused()
+      }
+
+      if (document.activeElement === ref) {
+        listener()
+      }
+
+      ref.addEventListener('focus', listener)
+
+      return () => ref.removeEventListener('focus', listener)
+    }
+  }, [inputRef])
+
   // Populate panel with items on first open
   useEffect(() => {
+    if (loadingManagedExternally) return
+
     // If data was already loaded once, do nothing
     if (dataLoadedOnce) return
 
@@ -177,7 +347,10 @@ function Panel({
         onFilterChange(filterValue, null)
       }
     }
-  }, [open, dataLoadedOnce, onFilterChange, filterValue, items])
+  }, [open, dataLoadedOnce, onFilterChange, filterValue, items, loadingManagedExternally, listContainerElement])
+
+  const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(
@@ -242,7 +415,7 @@ function Panel({
   }, [onClose, onSelectedChange, items, selected])
 
   const focusTrapSettings = {
-    initialFocusRef: inputRef,
+    initialFocusRef: inputRef || undefined,
   }
 
   const extendedTextInputProps: Partial<TextInputProps> = useMemo(() => {
@@ -354,13 +527,25 @@ function Panel({
             }
           />
         )}
-        <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}>
-          <Box sx={{pt: 2, px: 3}}>
-            <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
+        <Box
+          sx={enabled ? undefined : {display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}
+          className={enabled ? classes.Wrapper : undefined}
+        >
+          <Box sx={enabled ? undefined : {pt: 2, px: 3}} className={enabled ? classes.Content : undefined}>
+            <Heading
+              as="h1"
+              id={titleId}
+              sx={enabled ? undefined : {fontSize: 1}}
+              className={enabled ? classes.Title : undefined}
+            >
               {title}
             </Heading>
             {subtitle ? (
-              <Box id={subtitleId} sx={{fontSize: 0, color: 'fg.muted'}}>
+              <Box
+                id={subtitleId}
+                sx={enabled ? undefined : {fontSize: 0, color: 'fg.muted'}}
+                className={enabled ? classes.Subtitle : undefined}
+              >
                 {subtitle}
               </Box>
             ) : null}
@@ -368,6 +553,8 @@ function Panel({
           <FilteredActionList
             filterValue={filterValue}
             onFilterChange={onFilterChange}
+            onListContainerRefChanged={onListContainerRefChanged}
+            onInputRefChanged={onInputRefChanged}
             placeholderText={placeholderText}
             {...listProps}
             role="listbox"
@@ -378,23 +565,28 @@ function Panel({
             selectionVariant={isMultiSelectVariant(selected) ? 'multiple' : 'single'}
             items={itemsToRender}
             textInputProps={extendedTextInputProps}
-            inputRef={inputRef}
-            loading={isLoading}
+            loading={loading || isLoading}
             loadingType={loadingType()}
             // TODO: We will remove the flag in the follow up PR and make sure that the messages are properly implemented for the deprecated SelectPanel as well.
             {...(usingModernActionList ? {message: currentMessage} : undefined)}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
-            sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
+            sx={enabled ? sx : {...sx, height: 'inherit', maxHeight: 'inherit'}}
+            className={enabled ? clsx(className, classes.FilteredActionList) : className}
           />
           {footer && (
             <Box
-              sx={{
-                display: 'flex',
-                borderTop: '1px solid',
-                borderColor: 'border.default',
-                padding: 2,
-              }}
+              sx={
+                enabled
+                  ? undefined
+                  : {
+                      display: 'flex',
+                      borderTop: '1px solid',
+                      borderColor: 'border.default',
+                      padding: 2,
+                    }
+              }
+              className={enabled ? classes.Footer : undefined}
             >
               {footer}
             </Box>

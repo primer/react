@@ -4,6 +4,7 @@ import React from 'react'
 import {ThemeProvider} from '../ThemeProvider'
 import type {SubTreeState} from './TreeView'
 import {TreeView} from './TreeView'
+import {FeatureFlags} from '../FeatureFlags'
 
 jest.useFakeTimers()
 
@@ -189,6 +190,19 @@ describe('Markup', () => {
     expect(noDescription).toHaveAccessibleDescription(' ')
   })
 
+  it('should not have aria-describedby when no leading or trailing visual', () => {
+    const {getByLabelText} = renderWithTheme(
+      <TreeView aria-label="Test tree">
+        <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        <TreeView.Item id="item-2">Item 2</TreeView.Item>
+      </TreeView>,
+    )
+
+    const noDescription = getByLabelText(/Item 1/)
+    expect(noDescription).not.toHaveAccessibleDescription()
+    expect(noDescription).not.toHaveAttribute('aria-describedby')
+  })
+
   it('should include `aria-expanded` when a SubTree contains content', async () => {
     const user = userEvent.setup({
       advanceTimers: jest.advanceTimersByTime,
@@ -220,7 +234,7 @@ describe('Markup', () => {
     expect(treeitem).not.toHaveAttribute('aria-expanded')
 
     await user.click(getByText(/Item 2/))
-    expect(treeitem).not.toHaveAttribute('aria-expanded')
+    expect(treeitem).toHaveAttribute('aria-expanded', 'true')
   })
 
   it('should render with containIntrinsicSize', () => {
@@ -1351,7 +1365,7 @@ describe('State', () => {
   })
 })
 
-describe('Asyncronous loading', () => {
+describe('Asynchronous loading', () => {
   it('updates aria live region when loading is done', () => {
     function TestTree() {
       const [state, setState] = React.useState<SubTreeState>('initial')
@@ -1537,7 +1551,7 @@ describe('Asyncronous loading', () => {
     expect(parentItem).toHaveAttribute('aria-expanded', 'true')
   })
 
-  it('should remove `aria-expanded` if no content is loaded in', async () => {
+  it('should update `aria-expanded` if no content is loaded in', async () => {
     function Example() {
       const [state, setState] = React.useState<SubTreeState>('loading')
       const timeoutId = React.useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -1584,6 +1598,75 @@ describe('Asyncronous loading', () => {
       jest.runAllTimers()
     })
 
-    expect(treeitem).not.toHaveAttribute('aria-expanded')
+    expect(treeitem).toHaveAttribute('aria-expanded', 'true')
+    expect(getByLabelText('No items found')).toBeInTheDocument()
+  })
+
+  it('should have `aria-expanded` when directory is empty', async () => {
+    const {getByRole} = renderWithTheme(
+      <TreeView aria-label="Files changed">
+        <TreeView.Item id="src" defaultExpanded>
+          <TreeView.LeadingVisual>
+            <TreeView.DirectoryIcon />
+          </TreeView.LeadingVisual>
+          Parent
+          <TreeView.SubTree>
+            <TreeView.Item id="src/Avatar.tsx">child</TreeView.Item>
+            <TreeView.Item id="src/Button.tsx" current>
+              child current
+            </TreeView.Item>
+            <TreeView.Item id="src/Box.tsx">
+              empty child
+              <TreeView.SubTree />
+            </TreeView.Item>
+          </TreeView.SubTree>
+        </TreeView.Item>
+      </TreeView>,
+    )
+
+    const parentItem = getByRole('treeitem', {name: 'Parent'})
+
+    // Parent item should be expanded
+    expect(parentItem).toHaveAttribute('aria-expanded', 'true')
+
+    // Current child should not have `aria-expanded`
+    expect(getByRole('treeitem', {name: 'child current'})).not.toHaveAttribute('aria-expanded')
+
+    // Empty child should not have `aria-expanded` when closed
+    expect(getByRole('treeitem', {name: 'empty child'})).not.toHaveAttribute('aria-expanded')
+
+    fireEvent.click(getByRole('treeitem', {name: 'empty child'}))
+
+    // Empty child should have `aria-expanded` when opened
+    expect(getByRole('treeitem', {name: 'empty child'})).toHaveAttribute('aria-expanded')
+  })
+})
+
+describe('CSS Module Migration', () => {
+  it('should support `className` on the outermost element', () => {
+    const TreeViewTestComponent = () => (
+      <TreeView aria-label="Test tree" className={'test-class-name'}>
+        <TreeView.Item id="item-1">Item 1</TreeView.Item>
+        <TreeView.Item id="item-2">Item 2</TreeView.Item>
+        <TreeView.Item id="item-3">Item 3</TreeView.Item>
+      </TreeView>
+    )
+    const FeatureFlagElement = () => {
+      return (
+        <FeatureFlags
+          flags={{
+            primer_react_css_modules_team: true,
+            primer_react_css_modules_staff: true,
+            primer_react_css_modules_ga: true,
+          }}
+        >
+          <TreeViewTestComponent />
+        </FeatureFlags>
+      )
+    }
+
+    // Testing on the second child element because the first child element is visually hidden
+    expect(render(<TreeViewTestComponent />).container.children[1]).toHaveClass('test-class-name')
+    expect(render(<FeatureFlagElement />).container.children[1]).toHaveClass('test-class-name')
   })
 })

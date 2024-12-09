@@ -1,7 +1,7 @@
 import type {ScrollIntoViewOptions} from '@primer/behaviors'
 import {scrollIntoView, FocusKeys} from '@primer/behaviors'
 import type {KeyboardEventHandler} from 'react'
-import React, {useCallback, useEffect, useRef} from 'react'
+import React, {useCallback, useEffect, useRef, useState} from 'react'
 import styled from 'styled-components'
 import Box from '../Box'
 import type {TextInputProps} from '../TextInput'
@@ -11,7 +11,6 @@ import {ActionList} from '../ActionList'
 import type {GroupedListProps, ListPropsBase, ItemInput} from '../SelectPanel/types'
 import {useFocusZone} from '../hooks/useFocusZone'
 import {useId} from '../hooks/useId'
-import {useProvidedRefOrCreate} from '../hooks/useProvidedRefOrCreate'
 import {useProvidedStateOrCreate} from '../hooks/useProvidedStateOrCreate'
 import useScrollFlash from '../hooks/useScrollFlash'
 import {VisuallyHidden} from '../VisuallyHidden'
@@ -21,7 +20,6 @@ import {FilteredActionListLoadingTypes, FilteredActionListBodyLoader} from './Fi
 
 import {isValidElementType} from 'react-is'
 import type {RenderItemFn} from '../deprecated/ActionList/List'
-import {useAnnouncements} from './useAnnouncements'
 
 const menuScrollMargins: ScrollIntoViewOptions = {startMargin: 0, endMargin: 8}
 
@@ -34,9 +32,12 @@ export interface FilteredActionListProps
   placeholderText?: string
   filterValue?: string
   onFilterChange: (value: string, e: React.ChangeEvent<HTMLInputElement>) => void
+  onListContainerRefChanged?: (ref: HTMLElement | null) => void
+  onInputRefChanged?: (ref: React.RefObject<HTMLInputElement>) => void
   textInputProps?: Partial<Omit<TextInputProps, 'onChange'>>
   inputRef?: React.RefObject<HTMLInputElement>
   message?: React.ReactNode[]
+  className?: string
 }
 
 const StyledHeader = styled.div`
@@ -46,19 +47,22 @@ const StyledHeader = styled.div`
 
 export function FilteredActionList({
   loading = false,
-  loadingType = FilteredActionListLoadingTypes.bodySpinner,
   placeholderText,
   filterValue: externalFilterValue,
+  loadingType = FilteredActionListLoadingTypes.bodySpinner,
   onFilterChange,
+  onListContainerRefChanged,
+  onInputRefChanged,
   items,
   textInputProps,
-  inputRef: providedInputRef,
   sx,
   groupMetadata,
   showItemDividers,
   message,
+  className,
   ...listProps
 }: FilteredActionListProps): JSX.Element {
+  const inputRef = useRef<HTMLInputElement>(null)
   const [filterValue, setInternalFilterValue] = useProvidedStateOrCreate(externalFilterValue, undefined, '')
   const onInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,8 +74,7 @@ export function FilteredActionList({
   )
 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
-  const listContainerRef = useRef<HTMLUListElement>(null)
-  const inputRef = useProvidedRefOrCreate<HTMLInputElement>(providedInputRef)
+  const [listContainerElement, setListContainerElement] = useState<HTMLUListElement | null>(null)
   const activeDescendantRef = useRef<HTMLElement>()
   const listId = useId()
   const inputDescriptionTextId = useId()
@@ -89,9 +92,21 @@ export function FilteredActionList({
     [activeDescendantRef],
   )
 
+  const listContainerRefCallback = useCallback(
+    (node: HTMLUListElement | null) => {
+      setListContainerElement(node)
+      onListContainerRefChanged?.(node)
+    },
+    [onListContainerRefChanged],
+  )
+
+  useEffect(() => {
+    onInputRefChanged?.(inputRef)
+  }, [inputRef, onInputRefChanged])
+
   useFocusZone(
     {
-      containerRef: listContainerRef,
+      containerRef: {current: listContainerElement},
       bindKeys: FocusKeys.ArrowVertical | FocusKeys.PageUpDown,
       focusOutBehavior: 'wrap',
       focusableElementFilter: element => {
@@ -107,20 +122,22 @@ export function FilteredActionList({
       },
     },
     [
-      // List ref isn't set while loading.  Need to re-bind focus zone when it changes
-      loading,
+      // List container isn't in the DOM while loading.  Need to re-bind focus zone when it changes.
+      listContainerElement,
     ],
   )
 
   useEffect(() => {
     // if items changed, we want to instantly move active descendant into view
     if (activeDescendantRef.current && scrollContainerRef.current) {
-      scrollIntoView(activeDescendantRef.current, scrollContainerRef.current, {...menuScrollMargins, behavior: 'auto'})
+      scrollIntoView(activeDescendantRef.current, scrollContainerRef.current, {
+        ...menuScrollMargins,
+        behavior: 'auto',
+      })
     }
   }, [items])
 
   useScrollFlash(scrollContainerRef)
-  useAnnouncements(items, listContainerRef, inputRef)
 
   function getItemListForEachGroup(groupId: string) {
     const itemsInGroup = []
@@ -134,7 +151,14 @@ export function FilteredActionList({
   }
 
   return (
-    <Box display="flex" flexDirection="column" overflow="hidden" sx={sx}>
+    <Box
+      display="flex"
+      flexDirection="column"
+      overflow="hidden"
+      sx={sx}
+      className={className}
+      data-testid="filtered-action-list"
+    >
       <StyledHeader>
         <TextInput
           ref={inputRef}
@@ -164,7 +188,7 @@ export function FilteredActionList({
           message
         ) : (
           <ActionList
-            ref={listContainerRef}
+            ref={listContainerRefCallback}
             showDividers={showItemDividers}
             {...listProps}
             role="listbox"
@@ -179,13 +203,15 @@ export function FilteredActionList({
                         {group.header?.title ? group.header.title : `Group ${group.groupId}`}
                       </ActionList.GroupHeading>
                       {getItemListForEachGroup(group.groupId).map((item, index) => {
-                        return <MappedActionListItem key={index} {...item} renderItem={listProps.renderItem} />
+                        const key = ('key' in item ? item.key : undefined) ?? item.id?.toString() ?? index.toString()
+                        return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
                       })}
                     </ActionList.Group>
                   )
                 })
               : items.map((item, index) => {
-                  return <MappedActionListItem key={index} {...item} renderItem={listProps.renderItem} />
+                  const key = ('key' in item ? item.key : undefined) ?? item.id?.toString() ?? index.toString()
+                  return <MappedActionListItem key={key} {...item} renderItem={listProps.renderItem} />
                 })}
           </ActionList>
         )}

@@ -28,6 +28,11 @@ Playground.args = {
 }
 
 Playground.argTypes = {
+  square: {
+    control: {
+      type: 'boolean',
+    },
+  },
   size: {
     control: {
       type: 'number',
