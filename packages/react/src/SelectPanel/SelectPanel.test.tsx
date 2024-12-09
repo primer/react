@@ -436,6 +436,11 @@ for (const useModernActionList of [false, true]) {
         // this is only implemented with the feature flag
         if (!useModernActionList) return
 
+        beforeEach(() => {
+          const liveRegion = document.createElement('live-region')
+          document.body.appendChild(liveRegion)
+        })
+
         function LoadingSelectPanel({
           initialLoadingType = 'spinner',
           items = [],
@@ -503,7 +508,7 @@ for (const useModernActionList of [false, true]) {
           expect(screen.getByRole('combobox').hasAttribute('aria-describedby')).toBeTruthy()
         })
 
-        it('should announce initial focused item', async () => {
+        it('should announce initially focused item', async () => {
           const user = userEvent.setup()
           renderWithFlag(<FilterableSelectPanel />, useModernActionList)
 
@@ -513,7 +518,7 @@ for (const useModernActionList of [false, true]) {
           // we wait because announcement is intentionally updated after a timeout to not interrupt user input
           await waitFor(async () => {
             expect(getLiveRegion().getMessage('polite')).toBe(
-              'Focus on filter text box and list of items, Focused item: item one, not selected, 1 of 3',
+              'List updated, Focused item: item one, not selected, 1 of 3',
             )
           })
         })
@@ -523,6 +528,17 @@ for (const useModernActionList of [false, true]) {
           renderWithFlag(<FilterableSelectPanel />, useModernActionList)
 
           await user.click(screen.getByText('Select items'))
+          expect(screen.getByLabelText('Filter items')).toHaveFocus()
+
+          await waitFor(
+            async () => {
+              expect(getLiveRegion().getMessage('polite')).toBe(
+                'List updated, Focused item: item one, not selected, 1 of 3',
+              )
+            },
+            {timeout: 3000}, // increased timeout because we don't want the test to compare with previous announcement
+          )
+
           await user.type(document.activeElement!, 'o')
           expect(screen.getAllByRole('option')).toHaveLength(2)
 

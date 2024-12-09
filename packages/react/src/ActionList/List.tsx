@@ -39,7 +39,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
       enableFocusZone: enableFocusZoneFromContainer,
     } = React.useContext(ActionListContainerContext)
 
-    const ariaLabelledBy = slots.heading ? (slots.heading.props.id ?? headingId) : listLabelledBy
+    const ariaLabelledBy = slots.heading ? slots.heading.props.id ?? headingId : listLabelledBy
     const listRole = role || listRoleFromContainer
     const listRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLUListElement>)
 
