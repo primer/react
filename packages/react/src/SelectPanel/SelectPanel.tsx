@@ -23,6 +23,9 @@ import {FilteredActionListLoadingTypes} from '../FilteredActionList/FilteredActi
 import {useFeatureFlag} from '../FeatureFlags'
 import {announce} from '@primer/live-region-element'
 
+import classes from './SelectPanel.module.css'
+import {clsx} from 'clsx'
+
 // we add a delay so that it does not interrupt default screen reader announcement and queues after it
 const delayMs = 500
 const loadingDelayMs = 1000
@@ -342,6 +345,9 @@ export function SelectPanel({
     }
   }, [open, dataLoadedOnce, onFilterChange, filterValue, items, loadingManagedExternally, listContainerElement])
 
+  const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
   const anchorRef = useProvidedRefOrCreate(externalAnchorRef)
   const onOpen: AnchoredOverlayProps['onOpen'] = useCallback(
     (gesture: Parameters<Exclude<AnchoredOverlayProps['onOpen'], undefined>>[0]) => onOpenChange(true, gesture),
@@ -461,13 +467,25 @@ export function SelectPanel({
             }
           />
         )}
-        <Box sx={{display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}>
-          <Box sx={{pt: 2, px: 3}}>
-            <Heading as="h1" id={titleId} sx={{fontSize: 1}}>
+        <Box
+          sx={enabled ? undefined : {display: 'flex', flexDirection: 'column', height: 'inherit', maxHeight: 'inherit'}}
+          className={enabled ? classes.Wrapper : undefined}
+        >
+          <Box sx={enabled ? undefined : {pt: 2, px: 3}} className={enabled ? classes.Content : undefined}>
+            <Heading
+              as="h1"
+              id={titleId}
+              sx={enabled ? undefined : {fontSize: 1}}
+              className={enabled ? classes.Title : undefined}
+            >
               {title}
             </Heading>
             {subtitle ? (
-              <Box id={subtitleId} sx={{fontSize: 0, color: 'fg.muted'}}>
+              <Box
+                id={subtitleId}
+                sx={enabled ? undefined : {fontSize: 0, color: 'fg.muted'}}
+                className={enabled ? classes.Subtitle : undefined}
+              >
                 {subtitle}
               </Box>
             ) : null}
@@ -491,17 +509,22 @@ export function SelectPanel({
             loadingType={loadingType()}
             // inheriting height and maxHeight ensures that the FilteredActionList is never taller
             // than the Overlay (which would break scrolling the items)
-            sx={{...sx, height: 'inherit', maxHeight: 'inherit'}}
-            className={className}
+            sx={enabled ? sx : {...sx, height: 'inherit', maxHeight: 'inherit'}}
+            className={enabled ? clsx(className, classes.FilteredActionList) : className}
           />
           {footer && (
             <Box
-              sx={{
-                display: 'flex',
-                borderTop: '1px solid',
-                borderColor: 'border.default',
-                padding: 2,
-              }}
+              sx={
+                enabled
+                  ? undefined
+                  : {
+                      display: 'flex',
+                      borderTop: '1px solid',
+                      borderColor: 'border.default',
+                      padding: 2,
+                    }
+              }
+              className={enabled ? classes.Footer : undefined}
             >
               {footer}
             </Box>

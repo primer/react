@@ -43,6 +43,10 @@ const stories: Array<{title: string; id: string}> = [
     title: 'SX Prop',
     id: 'components-avatarstack-dev--sx-prop',
   },
+  {
+    title: 'With Link Wrappers',
+    id: 'components-avatarstack-dev--with-link-wrappers',
+  },
 ]
 
 test.describe('AvatarStack', () => {
