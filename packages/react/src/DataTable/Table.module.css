@@ -77,7 +77,7 @@
   /* stylelint-disable-next-line primer/typography */
   font-size: var(--table-font-size);
   /* stylelint-disable-next-line primer/typography */
-  line-height: calc(20 / var(--table-font-size));
+  line-height: calc(20 / 12);
   border-spacing: 0;
   /* stylelint-disable-next-line primer/borders */
   border-collapse: separate;

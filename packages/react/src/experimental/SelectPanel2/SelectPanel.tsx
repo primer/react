@@ -20,7 +20,7 @@ import {useSlots} from '../../hooks/useSlots'
 import {useProvidedRefOrCreate, useId, useAnchoredPosition} from '../../hooks'
 import type {OverlayProps} from '../../Overlay/Overlay'
 import {StyledOverlay, heightMap} from '../../Overlay/Overlay'
-import InputLabel from '../../internal/components/InputLabel'
+import {InputLabel} from '../../internal/components/InputLabel'
 import {invariant} from '../../utils/invariant'
 import {AriaStatus} from '../../live-region'
 import {useResponsiveValue} from '../../hooks/useResponsiveValue'
@@ -30,7 +30,7 @@ import {useFeatureFlag} from '../../FeatureFlags'
 
 import classes from './SelectPanel.module.css'
 
-const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_staff'
 
 const SelectPanelContext = React.createContext<{
   title: string
@@ -232,7 +232,7 @@ const Panel: React.FC<SelectPanelProps> = ({
     [internalOpen, anchorRef.current, dialogRef.current],
   )
 
-  /* 
+  /*
     We want to cancel and close the panel when user clicks outside.
     See decision log: https://github.com/github/primer/discussions/2614#discussioncomment-8544561
   */
@@ -468,7 +468,7 @@ const SelectPanelHeader: React.FC<React.ComponentPropsWithoutRef<'div'> & {onBac
             data-description={description ? true : undefined}
             data-on-back={onBack ? true : undefined}
           >
-            {/* heading element is intentionally hardcoded to h1, it is not customisable 
+            {/* heading element is intentionally hardcoded to h1, it is not customisable
             see https://github.com/github/primer/issues/2578 for context
           */}
             <Heading
