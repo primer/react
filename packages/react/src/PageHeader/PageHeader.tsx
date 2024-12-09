@@ -546,7 +546,7 @@ const Title: React.FC<React.PropsWithChildren<TitleProps>> = ({
                 display: 'flex',
                 order: TITLE_AREA_REGION_ORDER.Title,
                 ...getBreakpointDeclarations(hidden, 'display', value => {
-                  return value ? 'none' : 'flex'
+                  return value ? 'none' : 'block'
                 }),
                 fontSize: 'inherit',
                 fontWeight: 'inherit',

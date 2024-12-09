@@ -200,8 +200,14 @@ module.exports = {
       parserOptions: {
         project: 'tsconfig.json',
       },
-      extends: ['plugin:playwright/jest-playwright'],
-      rules: {},
+      extends: ['plugin:playwright/recommended'],
+      rules: {
+        'playwright/expect-expect': 'off',
+        'playwright/no-conditional-expect': 'off',
+        'playwright/no-conditional-in-test': 'off',
+        'playwright/no-wait-for-selector': 'off',
+        'playwright/valid-title': 'off',
+      },
     },
 
     // rules which apply only to Markdown

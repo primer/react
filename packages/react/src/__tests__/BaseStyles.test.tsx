@@ -30,4 +30,16 @@ describe('BaseStyles', () => {
     const {container} = render(<BaseStyles {...styles}></BaseStyles>)
     expect(container.children[0]).toHaveStyle({color: '#f00', 'font-family': 'Arial', 'line-height': '3.5'})
   })
+
+  it('accepts className and style props', () => {
+    const styles = {
+      style: {margin: '10px'},
+      className: 'test-classname',
+      sx: {},
+    }
+
+    const {container} = render(<BaseStyles {...styles}></BaseStyles>)
+    expect(container.children[0]).toHaveClass('test-classname')
+    expect(container.children[0]).toHaveStyle({margin: '10px'})
+  })
 })
