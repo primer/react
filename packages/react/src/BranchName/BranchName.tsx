@@ -31,7 +31,7 @@ type BranchNameProps<As extends React.ElementType> = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function BranchName<As extends React.ElementType>(props: BranchNameProps<As>, ref: ForwardedRef<any>) {
   const {as: BaseComponent = 'a', className, children, sx, ...rest} = props
-  const enabled = useFeatureFlag('primer_react_css_modules_staff')
+  const enabled = useFeatureFlag('primer_react_css_modules_ga')
 
   if (enabled) {
     if (sx) {
