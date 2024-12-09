@@ -114,6 +114,8 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
   )
   const tabsHaveIcons = tabs.current.some(tab => React.isValidElement(tab) && tab.props.icon)
 
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
   // this is a workaround to get the list's width on the first render
   const [listWidth, setListWidth] = useState(0)
   useIsomorphicLayoutEffect(() => {
@@ -126,15 +128,19 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
 
   // when the wrapper resizes, check if the icons should be visible
   // by comparing the wrapper width to the list width
-  useResizeObserver((resizeObserverEntries: ResizeObserverEntry[]) => {
-    if (!tabsHaveIcons) {
-      return
-    }
+  useResizeObserver(
+    (resizeObserverEntries: ResizeObserverEntry[]) => {
+      if (!tabsHaveIcons) {
+        return
+      }
 
-    const wrapperWidth = resizeObserverEntries[0].contentRect.width
+      const wrapperWidth = resizeObserverEntries[0].contentRect.width
 
-    setIconsVisible(wrapperWidth > listWidth)
-  }, wrapperRef)
+      setIconsVisible(wrapperWidth > listWidth)
+    },
+    wrapperRef,
+    [enabled],
+  )
 
   if (__DEV__) {
     // only one tab can be selected at a time
@@ -152,8 +158,6 @@ const UnderlinePanels: FC<UnderlinePanelsProps> = ({
       `The number of tabs and panels must be equal. Counted ${tabs.current.length} tabs and ${tabPanels.current.length} panels.`,
     )
   }
-
-  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
 
   if (enabled) {
     return (
