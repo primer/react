@@ -46,6 +46,7 @@ exports[`NavList renders a simple list 1`] = `
   flex-grow: 1;
   font-weight: 600;
   word-break: break-word;
+  line-height: 20px;
 }
 
 .c7 {
@@ -55,6 +56,7 @@ exports[`NavList renders a simple list 1`] = `
   flex-grow: 1;
   font-weight: 400;
   word-break: break-word;
+  line-height: 20px;
 }
 
 .c0 {
@@ -112,6 +114,11 @@ exports[`NavList renders a simple list 1`] = `
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
+.c2[aria-disabled] [data-component="ActionList.Selection"],
+.c2[data-inactive] [data-component="ActionList.Selection"] {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
 .c2 [data-component="ActionList.Item--DividerContainer"] {
@@ -220,6 +227,11 @@ exports[`NavList renders a simple list 1`] = `
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
+.c6[aria-disabled] [data-component="ActionList.Selection"],
+.c6[data-inactive] [data-component="ActionList.Selection"] {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
 .c6 [data-component="ActionList.Item--DividerContainer"] {
@@ -420,6 +432,8 @@ exports[`NavList renders with groups 1`] = `
   margin-top: calc(8px - 1px);
   margin-bottom: 8px;
   list-style: none;
+  margin-right: calc(-1 * var(--base-size-8,8px));
+  margin-left: calc(-1 * var(--base-size-8,8px));
 }
 
 .c1:first-child {
@@ -511,6 +525,7 @@ exports[`NavList renders with groups 1`] = `
   flex-grow: 1;
   font-weight: 600;
   word-break: break-word;
+  line-height: 20px;
 }
 
 .c11 {
@@ -520,6 +535,7 @@ exports[`NavList renders with groups 1`] = `
   flex-grow: 1;
   font-weight: 400;
   word-break: break-word;
+  line-height: 20px;
 }
 
 .c0 {
@@ -577,6 +593,11 @@ exports[`NavList renders with groups 1`] = `
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
+.c6[aria-disabled] [data-component="ActionList.Selection"],
+.c6[data-inactive] [data-component="ActionList.Selection"] {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
 .c6 [data-component="ActionList.Item--DividerContainer"] {
@@ -685,6 +706,11 @@ exports[`NavList renders with groups 1`] = `
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
+.c10[aria-disabled] [data-component="ActionList.Selection"],
+.c10[data-inactive] [data-component="ActionList.Selection"] {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
 .c10 [data-component="ActionList.Item--DividerContainer"] {
@@ -943,6 +969,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   flex-grow: 1;
   font-weight: 400;
   word-break: break-word;
+  line-height: 20px;
 }
 
 .c8 {
@@ -953,6 +980,10 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   margin-left: 8px;
   font-weight: initial;
+  display: grid;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
 }
 
 [data-variant="danger"]:hover .c1,
@@ -992,6 +1023,7 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   flex-grow: 1;
   font-weight: 600;
   word-break: break-word;
+  line-height: 20px;
 }
 
 .c10 {
@@ -1064,6 +1096,11 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
+.c11[aria-disabled] [data-component="ActionList.Selection"],
+.c11[data-inactive] [data-component="ActionList.Selection"] {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
 .c11 [data-component="ActionList.Item--DividerContainer"] {
@@ -1172,6 +1209,11 @@ exports[`NavList.Item with NavList.SubNav does not have active styles if SubNav 
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
+.c4[aria-disabled] [data-component="ActionList.Selection"],
+.c4[data-inactive] [data-component="ActionList.Selection"] {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
 .c4 [data-component="ActionList.Item--DividerContainer"] {
@@ -1428,6 +1470,10 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   color: var(--fgColor-muted,var(--color-fg-muted,#656d76));
   margin-left: 8px;
   font-weight: initial;
+  display: grid;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
 }
 
 [data-variant="danger"]:hover .c1,
@@ -1473,6 +1519,7 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   flex-grow: 1;
   font-weight: 600;
   word-break: break-word;
+  line-height: 20px;
 }
 
 .c0 {
@@ -1539,6 +1586,11 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
+.c11[aria-disabled] [data-component="ActionList.Selection"],
+.c11[data-inactive] [data-component="ActionList.Selection"] {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
 .c11 [data-component="ActionList.Item--DividerContainer"] {
@@ -1657,6 +1709,11 @@ exports[`NavList.Item with NavList.SubNav has active styles if SubNav contains t
   cursor: not-allowed;
   background-color: var(--control-bgColor-disabled,rgba(175,184,193,0.2));
   border-color: var(--color-input-disabled-bg,rgba(175,184,193,0.2));
+}
+
+.c4[aria-disabled] [data-component="ActionList.Selection"],
+.c4[data-inactive] [data-component="ActionList.Selection"] {
+  color: var(--fgColor-disabled,var(--color-primer-fg-disabled,#8c959f));
 }
 
 .c4 [data-component="ActionList.Item--DividerContainer"] {
