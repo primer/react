@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {type CSSProperties} from 'react'
 import {clsx} from 'clsx'
 import type {ResponsiveValue} from '../hooks/useResponsiveValue'
 import {getBreakpointDeclarations} from '../utils/getBreakpointDeclarations'
@@ -14,6 +14,7 @@ export type HiddenProps = {
   when: Array<Viewport> | Viewport
   children: React.ReactNode
   className?: string
+  style?: CSSProperties
 }
 
 /* Normalize the value that is received from the prop `when`.
@@ -37,7 +38,7 @@ function normalize(hiddenViewports: Array<Viewport> | Viewport): ResponsiveValue
   }
 }
 
-export const Hidden = ({when, className, children}: HiddenProps) => {
+export const Hidden = ({when, className, style, children}: HiddenProps) => {
   const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
   const normalizedStyles = normalize(when)
 
@@ -52,7 +53,8 @@ export const Hidden = ({when, className, children}: HiddenProps) => {
           '--hiddenDisplay-narrow': normalizedStyles.narrow ? 'none' : undefined,
           '--hiddenDisplay-regular': normalizedStyles.regular ? 'none' : undefined,
           '--hiddenDisplay-wide': normalizedStyles.wide ? 'none' : undefined,
-        } as React.CSSProperties
+          ...style,
+        } as CSSProperties
       }
     >
       {children}
