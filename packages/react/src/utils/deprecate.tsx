@@ -30,6 +30,7 @@ if (__DEV__) {
     return logDeprecation
   }
 } else {
+  // eslint-disable-next-line @eslint-react/hooks-extra/no-redundant-custom-hook
   useDeprecation = () => {
     return noop
   }

@@ -1124,6 +1124,7 @@ const fetchUsers = async (query: string, delay: number) => {
 
 /* lifted from the examples at https://react.dev/reference/react/Suspense */
 // @ts-ignore copied from untyped example
+// eslint-disable-next-line @eslint-react/hooks-extra/no-redundant-custom-hook
 function use(promise) {
   if (promise.status === 'fulfilled') {
     return promise.value

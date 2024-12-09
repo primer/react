@@ -173,7 +173,7 @@ module.exports = {
         '@eslint-react/dom/no-dangerously-set-innerhtml': 'error',
         '@eslint-react/ensure-forward-ref-using-ref': 'error',
         '@eslint-react/hooks-extra/no-direct-set-state-in-use-effect': 'off',
-        '@eslint-react/hooks-extra/no-redundant-custom-hook': 'off',
+        '@eslint-react/hooks-extra/no-redundant-custom-hook': 'error',
         '@eslint-react/hooks-extra/prefer-use-state-lazy-initialization': 'error',
         '@eslint-react/no-array-index-key': 'off',
         '@eslint-react/no-children-count': 'off',
