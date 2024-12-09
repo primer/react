@@ -1,7 +1,17 @@
 import React from 'react'
 import {render} from '@testing-library/react'
-import {Autocomplete, Checkbox, CheckboxGroup, Radio, Select, Textarea, TextInput, TextInputWithTokens} from '../..'
-import FormControl from '../../FormControl'
+import axe from 'axe-core'
+import {
+  Autocomplete,
+  Checkbox,
+  CheckboxGroup,
+  FormControl,
+  Radio,
+  Select,
+  Textarea,
+  TextInput,
+  TextInputWithTokens,
+} from '../..'
 import {MarkGithubIcon} from '@primer/octicons-react'
 
 const LABEL_TEXT = 'Form control'
@@ -319,6 +329,18 @@ describe('FormControl', () => {
         spy.mockRestore()
       })
     })
+
+    it('should have no axe violations', async () => {
+      const {container} = render(
+        <FormControl>
+          <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+          <TextInput />
+          <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
+        </FormControl>,
+      )
+      const results = await axe.run(container)
+      expect(results).toHaveNoViolations()
+    })
   })
 
   describe('checkbox and radio layout', () => {
@@ -415,6 +437,18 @@ describe('FormControl', () => {
         expect(getByTestId('checkbox-1')).toBeRequired()
         expect(getByTestId('checkbox-2')).not.toBeRequired()
       })
+    })
+
+    it('should have no axe violations', async () => {
+      const {container} = render(
+        <FormControl>
+          <FormControl.Label>{LABEL_TEXT}</FormControl.Label>
+          <Checkbox />
+          <FormControl.Caption>{CAPTION_TEXT}</FormControl.Caption>
+        </FormControl>,
+      )
+      const results = await axe.run(container)
+      expect(results).toHaveNoViolations()
     })
   })
 })
