@@ -1,6 +1,5 @@
 import React, {Children, isValidElement, cloneElement, useState, useRef, type FC, type PropsWithChildren} from 'react'
 import {TabContainerElement} from '@github/tab-container-element'
-import {clsx} from 'clsx'
 import type {IconProps} from '@primer/octicons-react'
 import {createComponent} from '../../utils/create-component'
 import {
