@@ -38,7 +38,6 @@ export const Selection: React.FC<React.PropsWithChildren<SelectionProps>> = ({se
       return (
         <VisualContainer className={className}>
           <CheckIcon className={classes.SingleSelectCheckmark} />
-          {/* {selected && <CheckIcon className={classes.SingleSelectCheckmark} />} */}
         </VisualContainer>
       )
     }

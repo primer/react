@@ -13,7 +13,7 @@
 
   &:where([data-variant='inset']) {
     /* change to padding (all) when Item is converted */
-    padding-block: var(--base-size-8);
+    padding: var(--base-size-8);
   }
 
   &:where([data-dividers='true']) {
