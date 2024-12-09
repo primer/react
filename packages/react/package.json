@@ -6,37 +6,35 @@
   "module": "lib-esm/index.js",
   "exports": {
     ".": {
-      "import": "./lib-esm/index.js",
-      "require": "./lib/index.js"
+      "import": "./dist/lib-esm/index.js",
+      "require": "./dist/lib/index.js"
     },
     "./experimental": {
-      "import": "./lib-esm/experimental/index.js",
-      "require": "./lib/experimental/index.js"
+      "import": "./dist/lib-esm/experimental/index.js",
+      "require": "./dist/lib/experimental/index.js"
     },
     "./deprecated": {
-      "import": "./lib-esm/deprecated/index.js",
-      "require": "./lib/deprecated/index.js"
+      "import": "./dist/lib-esm/deprecated/index.js",
+      "require": "./dist/lib/deprecated/index.js"
     },
     "./next": {
-      "import": "./lib-esm/next/index.js",
-      "require": "./lib/next/index.js"
+      "import": "./dist/lib-esm/next/index.js",
+      "require": "./dist/lib/next/index.js"
     },
     "./test-helpers": {
-      "import": "./lib-esm/test-helpers.js",
-      "require": "./lib/test-helpers.js"
+      "import": "./dist/lib-esm/test-helpers.js",
+      "require": "./dist/lib/test-helpers.js"
     }
   },
-  "typings": "lib/index.d.ts",
+  "typings": "dist/lib/index.d.ts",
   "sideEffects": [
-    "lib-esm/**/*.css",
-    "lib/**/*.css",
+    "dist/**/*.css",
     "src/**/test-helpers.tsx",
-    "lib-esm/**/test-helpers.js",
-    "lib/**/test-helpers.js"
+    "dist/**/test-helpers.js"
   ],
   "scripts": {
     "build": "./script/build",
-    "clean": "rimraf dist lib lib-esm css",
+    "clean": "rimraf dist lib lib-esm css generated",
     "start": "concurrently npm:start:*",
     "start:storybook": "STORYBOOK=true storybook dev -p 6006",
     "build:storybook": "script/build-storybook",
@@ -55,19 +53,8 @@
     "design-system"
   ],
   "files": [
-    "codemods",
     "dist",
-    "lib",
-    "lib/node_modules",
-    "lib-esm",
-    "css",
-    "index.d.ts",
-    "deprecated/package.json",
-    "experimental/package.json",
-    "!lib/__tests__",
-    "!lib/stories",
-    "!lib-esm/__tests__",
-    "!lib-esm/stories",
+    "dist/lib/node_modules",
     "generated",
     "CHANGELOG.md"
   ],
