@@ -314,7 +314,6 @@
     width: var(--base-size-16);
     height: var(--base-size-16);
     margin: 0;
-    margin-top: var(--base-size-2); /* 2px to center align with label (20px line-height) */
     cursor: pointer;
     background-color: var(--bgColor-default);
     border: var(--borderWidth-thin) solid var(--control-borderColor-emphasis);
