@@ -20,8 +20,12 @@
     /* place dividers on the wrapper that excludes leading visuals/actions */
     & .ActionListSubContent::before {
       position: absolute;
+
+      /* use this top size after FF removed */
+
+      /* top: calc(-1 * var(--control-medium-paddingBlock)); */
       /* stylelint-disable-next-line primer/spacing */
-      top: calc(-1 * var(--control-medium-paddingBlock));
+      top: -7px;
       display: block;
       width: 100%;
       height: 1px;
@@ -34,8 +38,12 @@
     & [data-description-variant='inline'] {
       &::before {
         position: absolute;
+
+        /* use this top size after FF removed */
+
+        /* top: calc(-1 * var(--control-medium-paddingBlock)); */
         /* stylelint-disable-next-line primer/spacing */
-        top: calc(-1 * var(--control-medium-paddingBlock));
+        top: -7px;
         display: block;
         width: 100%;
         height: var(--borderWidth-thin);
@@ -166,14 +174,34 @@
 
       /* blue accent line  */
       &::after {
-        position: absolute;
-        top: calc(50% - var(--base-size-12));
-        left: calc(-1 * var(--base-size-8));
-        width: var(--base-size-4);
-        height: var(--base-size-24);
-        content: '';
-        background: var(--bgColor-accent-emphasis);
-        border-radius: var(--borderRadius-medium);
+        @mixin activeIndicatorLine;
+      }
+    }
+
+    &:where([data-is-active-descendant]) {
+      background: var(--control-transparent-bgColor-selected);
+
+      /* provides a visual indication of the current item for Windows high-contrast mode */
+      outline: 2px solid transparent;
+
+      /* @media (hover: hover) {
+        &:hover {
+          background-color: var(--control-transparent-bgColor-hover);
+        }
+      } */
+
+      /* hide dividers if showDividers is true and item is active */
+
+      /* add back in after FF ship */
+
+      /* & .ActionListSubContent::before,
+      & + .ActionListItem .ActionListSubContent::before {
+        visibility: hidden;
+      } */
+
+      /* blue accent line  */
+      &::after {
+        @mixin activeIndicatorLine;
       }
     }
 
@@ -451,14 +479,7 @@
 
       /* blue accent line */
       &::after {
-        position: absolute;
-        top: calc(50% - var(--base-size-12));
-        left: calc(-1 * var(--base-size-8));
-        width: var(--base-size-4);
-        height: var(--base-size-24);
-        content: '';
-        background: var(--bgColor-accent-emphasis);
-        border-radius: var(--borderRadius-medium);
+        @mixin activeIndicatorLine;
       }
     }
   }

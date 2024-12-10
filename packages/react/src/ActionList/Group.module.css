@@ -13,7 +13,7 @@
   color: var(--fgColor-muted);
   flex-direction: column;
   padding-inline: var(--base-size-8);
-  padding-block: var(--base-size-8);
+  padding-block: var(--base-size-6);
 
   &:where([data-variant='filled']) {
     /* stylelint-disable-next-line primer/spacing */
