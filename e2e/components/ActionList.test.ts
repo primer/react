@@ -657,34 +657,6 @@ test.describe('ActionList', () => {
     }
   })
 
-  test.describe('With Trailing Action', () => {
-    for (const theme of themes) {
-      test.describe(theme, () => {
-        test('default @vrt', async ({page}) => {
-          await visit(page, {
-            id: 'components-actionlist-features--with-trailing-action',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-
-          // Default state
-          expect(await page.screenshot()).toMatchSnapshot(`ActionList.With Trailing Action.${theme}.png`)
-        })
-
-        test('axe @aat', async ({page}) => {
-          await visit(page, {
-            id: 'components-actionlist-features--with-trailing-action',
-            globals: {
-              colorScheme: theme,
-            },
-          })
-          await expect(page).toHaveNoViolations()
-        })
-      })
-    }
-  })
-
   test.describe('Full Variant', () => {
     for (const theme of themes) {
       test.describe(theme, () => {
@@ -731,6 +703,34 @@ test.describe('ActionList', () => {
         test('axe @aat', async ({page}) => {
           await visit(page, {
             id: 'components-actionlist-dev--group-heading-custom-classname',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+          await expect(page).toHaveNoViolations()
+        })
+      })
+    }
+  })
+
+  test.describe('Heading with Classname', () => {
+    for (const theme of themes) {
+      test.describe(theme, () => {
+        test('default @vrt', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionlist-dev--heading-custom-classname',
+            globals: {
+              colorScheme: theme,
+            },
+          })
+
+          // Default state
+          expect(await page.screenshot()).toMatchSnapshot(`Heading with Classname.${theme}.png`)
+        })
+
+        test('axe @aat', async ({page}) => {
+          await visit(page, {
+            id: 'components-actionlist-dev--heading-custom-classname',
             globals: {
               colorScheme: theme,
             },

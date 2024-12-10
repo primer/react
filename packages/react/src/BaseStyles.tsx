@@ -1,12 +1,18 @@
 import React from 'react'
+import {clsx} from 'clsx'
 import styled, {createGlobalStyle} from 'styled-components'
+import type {ComponentProps} from './utils/types'
 import type {SystemCommonProps, SystemTypographyProps} from './constants'
 import {COMMON, TYPOGRAPHY} from './constants'
 import {useTheme} from './ThemeProvider'
-import type {ComponentProps} from './utils/types'
+import {useFeatureFlag} from './FeatureFlags'
+import {toggleStyledComponent} from './internal/utils/toggleStyledComponent'
+import classes from './BaseStyles.module.css'
 
 // load polyfill for :focus-visible
 import 'focus-visible'
+
+const CSS_MODULES_FEATURE_FLAG = 'primer_react_css_modules_team'
 
 const GlobalStyle = createGlobalStyle<{colorScheme?: 'light' | 'dark'}>`
   * { box-sizing: border-box; }
@@ -29,27 +35,34 @@ const GlobalStyle = createGlobalStyle<{colorScheme?: 'light' | 'dark'}>`
   }
 `
 
-const Base = styled.div<SystemTypographyProps & SystemCommonProps>`
-  ${TYPOGRAPHY};
-  ${COMMON};
-`
+const Base = toggleStyledComponent(
+  CSS_MODULES_FEATURE_FLAG,
+  'div',
+  styled.div<SystemTypographyProps & SystemCommonProps>`
+    ${TYPOGRAPHY};
+    ${COMMON};
+  `,
+)
 
 export type BaseStylesProps = ComponentProps<typeof Base>
 
 function BaseStyles(props: BaseStylesProps) {
-  const {children, color = 'fg.default', fontFamily = 'normal', lineHeight = 'default', ...rest} = props
+  const {children, color = 'fg.default', fontFamily = 'normal', lineHeight = 'default', className, ...rest} = props
 
   const {colorScheme, dayScheme, nightScheme} = useTheme()
+  const enabled = useFeatureFlag(CSS_MODULES_FEATURE_FLAG)
+
+  const stylingProps = enabled ? {className: clsx(classes.BaseStyles, className)} : {className}
 
   /**
    * We need to map valid primer/react color modes onto valid color modes for primer/primitives
    * valid color modes for primer/primitives: auto | light | dark
    * valid color modes for primer/primer: auto | day | night | light | dark
    */
-
   return (
     <Base
       {...rest}
+      {...stylingProps}
       color={color}
       fontFamily={fontFamily}
       lineHeight={lineHeight}
@@ -58,7 +71,7 @@ function BaseStyles(props: BaseStylesProps) {
       data-light-theme={dayScheme}
       data-dark-theme={nightScheme}
     >
-      <GlobalStyle colorScheme={colorScheme?.includes('dark') ? 'dark' : 'light'} />
+      {!enabled && <GlobalStyle colorScheme={colorScheme?.includes('dark') ? 'dark' : 'light'} />}
       {children}
     </Base>
   )
