@@ -1,5 +1,81 @@
 # @primer/react
 
+## 37.7.0
+
+### Minor Changes
+
+- [#5324](https://github.com/primer/react/pull/5324) [`bd5f0d4`](https://github.com/primer/react/commit/bd5f0d4cd78d2fb557f2a7bb3ba7157d5ca5c3b9) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Convert SelectPanel to CSS modules behind feature flag
+
+- [#5336](https://github.com/primer/react/pull/5336) [`59a6654`](https://github.com/primer/react/commit/59a6654b34430d4469e94c5b56881558e599bccd) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Convert SegmentedControl to use CSS modules behind feature flag
+
+- [#5339](https://github.com/primer/react/pull/5339) [`dc2f083`](https://github.com/primer/react/commit/dc2f083eb3c07a4bcb9adcf9d2e8395d4daef1a9) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from ButtonGroup
+
+- [#5332](https://github.com/primer/react/pull/5332) [`3fcfba8`](https://github.com/primer/react/commit/3fcfba8a2c85a4d4f58eb66f7567b96adfcb2f20) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Convert PageHeader to CSS modules behind feature flag
+
+- [#5326](https://github.com/primer/react/pull/5326) [`1d79cc5`](https://github.com/primer/react/commit/1d79cc5c2ee19b0d957e68d783ac644728fae6ba) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - Convert KeybindingHint to CSS modules behind feature flag
+
+- [#5361](https://github.com/primer/react/pull/5361) [`2fbdd3b`](https://github.com/primer/react/commit/2fbdd3b9c6a4acb3b3356191c79a7d38fdd4163f) Thanks [@JelloBagel](https://github.com/JelloBagel)! - Convert BaseStyles to CSS modules behind team feature flag
+
+- [#5299](https://github.com/primer/react/pull/5299) [`8673664`](https://github.com/primer/react/commit/867366474d67360d74b771ffbf5b58789535dad2) Thanks [@jonrohan](https://github.com/jonrohan)! - Update `AvatarStack` component to use CSS modules behind the feature flag primer_react_css_modules_team
+
+- [#5376](https://github.com/primer/react/pull/5376) [`167c8d4`](https://github.com/primer/react/commit/167c8d493fdf75227b4a8987323ca9a555d3799a) Thanks [@hussam-i-am](https://github.com/hussam-i-am)! - fix(useFormControlForwardedProps): do not pass through validationStatus
+
+- [#5337](https://github.com/primer/react/pull/5337) [`7d9bb0c`](https://github.com/primer/react/commit/7d9bb0cad33fc4bcb1121f3437466924190952de) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from Checkbox
+
+- [#5282](https://github.com/primer/react/pull/5282) [`d6fe52e`](https://github.com/primer/react/commit/d6fe52e69edb123ee67321c818d94bf00082fae9) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from Banner
+
+- [#5367](https://github.com/primer/react/pull/5367) [`844e41f`](https://github.com/primer/react/commit/844e41f440d933b9a55d245bef6ff4ff3b7de325) Thanks [@langermank](https://github.com/langermank)! - Convert ActionList.Heading to CSS Modules
+
+- [#5302](https://github.com/primer/react/pull/5302) [`82bf850`](https://github.com/primer/react/commit/82bf85030b8f728b8a7845b0a523cff1b0704e05) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Convert `Pagination` component to use CSS modules
+
+- [#5271](https://github.com/primer/react/pull/5271) [`05db651`](https://github.com/primer/react/commit/05db651698af5a713cf0a5624016a2f86ab13a90) Thanks [@randall-krauskopf](https://github.com/randall-krauskopf)! - Update `Token`, `IssueLabelToken`, `AvatarToken` components to use CSS Modules
+
+- [#5342](https://github.com/primer/react/pull/5342) [`39df71e`](https://github.com/primer/react/commit/39df71e0c8724de6d26dcb35b8eb1bc85b36281e) Thanks [@joshblack](https://github.com/joshblack)! - Update FormControl sub-components to use new styled components format for migration
+
+- [#5338](https://github.com/primer/react/pull/5338) [`4c7056b`](https://github.com/primer/react/commit/4c7056bd979b605691d07fcb35cd2d8bd1780964) Thanks [@jonrohan](https://github.com/jonrohan)! - Remove the CSS modules feature flag from Checkbox
+
+- [#5222](https://github.com/primer/react/pull/5222) [`b5ff840`](https://github.com/primer/react/commit/b5ff84017842987388baae8e7950b8faf49bcfd4) Thanks [@jonrohan](https://github.com/jonrohan)! - feat(ButtonBase): Remove css modules feature flag from ButtonBase
+
+- [#5375](https://github.com/primer/react/pull/5375) [`ba0a6c0`](https://github.com/primer/react/commit/ba0a6c0446882bf2087f7c7e42576aa4a0a2cbab) Thanks [@langermank](https://github.com/langermank)! - Convert ActionList (wrapper) and ActionList.Divider to CSS Modules
+
+### Patch Changes
+
+- [#5343](https://github.com/primer/react/pull/5343) [`70005b8`](https://github.com/primer/react/commit/70005b8043ed8845ccc8d675f9bf4735a5da94c8) Thanks [@jonrohan](https://github.com/jonrohan)! - BugFix: Fix issue in ButtonGroup Overlay screenshots by updating the selector to use `:is(button, a)` and `:first-of-type` and `:last-of-type` pseudo-classes.
+
+- [#5402](https://github.com/primer/react/pull/5402) [`6978865`](https://github.com/primer/react/commit/6978865ab17cb31412a84180485fa3dab1da168d) Thanks [@francinelucca](https://github.com/francinelucca)! - fix(PageHeader): use display block insteaf of flex when FF off
+
+- [#5383](https://github.com/primer/react/pull/5383) [`efc5c47`](https://github.com/primer/react/commit/efc5c47a8eda691ded260b2cbc1247683c36fba1) Thanks [@jonrohan](https://github.com/jonrohan)! - Move VisuallyHidden component css module feature flag to ga
+
+- [#5394](https://github.com/primer/react/pull/5394) [`1a51288`](https://github.com/primer/react/commit/1a51288ee2d759a16c69f98823d227a9db9fe5d9) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Dialog component css module feature flag to staff
+
+- [#5397](https://github.com/primer/react/pull/5397) [`3dd1e5e`](https://github.com/primer/react/commit/3dd1e5e14c1721ee1332c48a1f8e1ec1802c7098) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Textarea component css module feature flag to staff
+
+- [#5358](https://github.com/primer/react/pull/5358) [`b08f770`](https://github.com/primer/react/commit/b08f7705eb56e5190279c45d8da45d99d353c2f1) Thanks [@langermank](https://github.com/langermank)! - ActionList UI bug fixes
+
+- [#5363](https://github.com/primer/react/pull/5363) [`3e0fc7c`](https://github.com/primer/react/commit/3e0fc7c883e80ce12652883b0d7e2fc728abba55) Thanks [@joshblack](https://github.com/joshblack)! - Update line-height value for Table to be a valid calc() expression
+
+- [#5377](https://github.com/primer/react/pull/5377) [`6bf3e9e`](https://github.com/primer/react/commit/6bf3e9efbc14edbdfc844b6edf9c6299d5b29895) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Radio component css module feature flag to ga
+
+- [#5345](https://github.com/primer/react/pull/5345) [`e231b5f`](https://github.com/primer/react/commit/e231b5f1f70d789fa65f28e768f8675ba2d8cad5) Thanks [@francinelucca](https://github.com/francinelucca)! - docs: fix \*.docs.json story ids
+
+- [#5379](https://github.com/primer/react/pull/5379) [`2ced9a3`](https://github.com/primer/react/commit/2ced9a363d5998992719a43c5c79b9a2f52243bc) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Details component css module feature flag to ga
+
+- [#5385](https://github.com/primer/react/pull/5385) [`2afdd5d`](https://github.com/primer/react/commit/2afdd5dc69d98e5e1ffe1504ad144cb755f70bde) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Spinner component css module feature flag to ga
+
+- [#5391](https://github.com/primer/react/pull/5391) [`f0a530b`](https://github.com/primer/react/commit/f0a530b31b45840c3690ae80a2390e9b628d8e53) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Popover component css module feature flag to staff
+
+- [#5396](https://github.com/primer/react/pull/5396) [`64bb31b`](https://github.com/primer/react/commit/64bb31bf9067a351619d245e3b7bab7a8abfef1a) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Textarea component css module feature flag to staff
+
+- [#5389](https://github.com/primer/react/pull/5389) [`2129f9d`](https://github.com/primer/react/commit/2129f9db86f936f7e863ead00a5373663fb7ad44) Thanks [@jonrohan](https://github.com/jonrohan)! - Move Timeline component css module feature flag to staff
+
+- [#5395](https://github.com/primer/react/pull/5395) [`a90da75`](https://github.com/primer/react/commit/a90da75c552677f62cb6d2e4629b76fcd9d5d59e) Thanks [@jonrohan](https://github.com/jonrohan)! - Move DialogV1 component css module feature flag to staff
+
+- [#5390](https://github.com/primer/react/pull/5390) [`20957b4`](https://github.com/primer/react/commit/20957b48bce649bfa8fa0f403fe4a3ecb58ad4dc) Thanks [@jonrohan](https://github.com/jonrohan)! - Move ProgressBar component css module feature flag to staff
+
+- [#5392](https://github.com/primer/react/pull/5392) [`184e292`](https://github.com/primer/react/commit/184e2920d8377a5b60be0664370a74961e767827) Thanks [@jonrohan](https://github.com/jonrohan)! - Move CheckboxOrRadioGroup component css module feature flag to staff
+
+- [#5393](https://github.com/primer/react/pull/5393) [`eec92da`](https://github.com/primer/react/commit/eec92dac3c77cdbf36b0f239dd8a5cb4c32b1901) Thanks [@jonrohan](https://github.com/jonrohan)! - Move UnstyledTextInput component css module feature flag to staff
+
 ## 37.6.0
 
 ### Minor Changes

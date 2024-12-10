@@ -133,6 +133,7 @@ export type ActionListProps = React.PropsWithChildren<{
    * The ARIA role describing the function of `List` component. `listbox` or `menu` are a common values.
    */
   role?: AriaRole
+  className?: string
 }> &
   SxProp
 

@@ -175,12 +175,12 @@ test.describe('DataTable', () => {
       const region = page.getByRole('region')
       const table = region.getByRole('table')
 
-      const tabIndex = await region.getAttribute('tabindex')
-      const labelledby = await region.getAttribute('aria-labelledby')
+      const tabIndex = region
+      const labelledby = region
 
       await expect(region).toBeVisible()
-      expect(tabIndex).toBe('0')
-      expect(labelledby).toBe(headingId)
+      await expect(tabIndex).toHaveAttribute('tabindex', '0')
+      await expect(labelledby).toHaveAttribute('aria-labelledby', headingId!)
 
       await expect(table).toBeVisible()
       expect(labelledby).toBe(headingId)
