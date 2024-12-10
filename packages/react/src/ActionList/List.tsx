@@ -25,7 +25,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
     const styles = {
       margin: 0,
       paddingInlineStart: 0, // reset ul styles
-      paddingY: variant === 'inset' ? 2 : 0,
+      padding: variant === 'inset' ? 2 : 0,
     }
 
     const [slots, childrenWithoutSlots] = useSlots(props.children, {
@@ -42,7 +42,7 @@ export const List = React.forwardRef<HTMLUListElement, ActionListProps>(
       enableFocusZone: enableFocusZoneFromContainer,
     } = React.useContext(ActionListContainerContext)
 
-    const ariaLabelledBy = slots.heading ? (slots.heading.props.id ?? headingId) : listLabelledBy
+    const ariaLabelledBy = slots.heading ? slots.heading.props.id ?? headingId : listLabelledBy
     const listRole = role || listRoleFromContainer
     const listRef = useProvidedRefOrCreate(forwardedRef as React.RefObject<HTMLUListElement>)
 

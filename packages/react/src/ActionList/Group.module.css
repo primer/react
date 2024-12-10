@@ -1,0 +1,40 @@
+.Group:not(:first-child) {
+  margin-block-start: var(--base-size-8);
+}
+
+.GroupHeadingWrap {
+  display: flex;
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
+
+  /* line-height: var(--text-body-lineHeight-small); use when FF rolls out */
+  /* stylelint-disable-next-line primer/typography */
+  line-height: 18px;
+  color: var(--fgColor-muted);
+  flex-direction: column;
+  padding-inline: var(--base-size-8);
+  padding-block: var(--base-size-8);
+
+  &:where([data-variant='filled']) {
+    /* stylelint-disable-next-line primer/spacing */
+    margin-block-start: calc(var(--base-size-8) - var(--borderWidth-thin));
+    margin-block-end: var(--base-size-8);
+    margin-inline: calc(-1 * var(--base-size-8));
+    background: var(--bgColor-muted);
+    border-top: solid var(--borderWidth-thin) var(--borderColor-muted);
+    border-bottom: solid var(--borderWidth-thin) var(--borderColor-muted);
+    padding-inline: var(--base-size-16);
+
+    &:first-child {
+      margin-block-start: 0;
+    }
+  }
+}
+
+.GroupHeading {
+  margin: 0;
+  font-size: var(--text-body-size-small);
+  font-weight: var(--base-text-weight-semibold);
+  color: var(--fgColor-muted);
+  align-self: flex-start;
+}
