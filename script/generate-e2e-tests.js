@@ -1126,10 +1126,6 @@ const components = new Map([
           name: 'With Placeholder for Search Input',
         },
         {
-          id: 'components-selectpanel-features--with-placeholder-select',
-          name: 'With Placeholder Select',
-        },
-        {
           id: 'components-selectpanel-examples--above-tall-body',
           name: 'Above Tall Body',
         },
