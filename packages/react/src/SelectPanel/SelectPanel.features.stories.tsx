@@ -1,5 +1,5 @@
 import React, {useState, useRef, useMemo} from 'react'
-import type {Meta} from '@storybook/react'
+import type {Meta, StoryObj} from '@storybook/react'
 import Box from '../Box'
 import {Button} from '../Button'
 import type {ItemInput, GroupedListProps} from '../deprecated/ActionList/List'
@@ -14,11 +14,14 @@ import {
   TypographyIcon,
   VersionsIcon,
 } from '@primer/octicons-react'
+import useSafeTimeout from '../hooks/useSafeTimeout'
+
+type SelectPanelPropsAndCustomArgs = React.ComponentProps<typeof SelectPanel> & {componentManagesLoading?: boolean}
 
 const meta = {
   title: 'Components/SelectPanel/Features',
   component: SelectPanel,
-} satisfies Meta<typeof SelectPanel>
+} satisfies Meta<SelectPanelPropsAndCustomArgs>
 
 export default meta
 
@@ -368,4 +371,86 @@ export const WithGroups = () => {
       overlayProps={{width: 'large', height: 'xlarge'}}
     />
   )
+}
+
+export const AsyncFetch: StoryObj<SelectPanelPropsAndCustomArgs> = {
+  render: ({initialLoadingType, height, componentManagesLoading}: SelectPanelPropsAndCustomArgs) => {
+    const [loading, setLoading] = React.useState<boolean>(true)
+    const [selected, setSelected] = React.useState<ItemInput[]>([])
+    const [filteredItems, setFilteredItems] = React.useState<ItemInput[]>([])
+    const [open, setOpen] = useState(false)
+    const filterTimerId = useRef<number | null>(null)
+    const {safeSetTimeout, safeClearTimeout} = useSafeTimeout()
+
+    const fetchItems = (query: string) => {
+      setLoading(true)
+
+      if (filterTimerId.current) {
+        safeClearTimeout(filterTimerId.current)
+      }
+
+      filterTimerId.current = safeSetTimeout(() => {
+        setFilteredItems(items.filter(item => item.text.toLowerCase().startsWith(query.toLowerCase())))
+        setLoading(false)
+      }, 2000) as unknown as number
+    }
+
+    const onOpenChange = (value: boolean) => {
+      setLoading(true)
+      setOpen(value)
+      fetchItems('')
+    }
+
+    const loadingProps = {
+      initialLoadingType,
+      ...(componentManagesLoading ? {} : {loading}),
+    }
+
+    return (
+      <SelectPanel
+        title="Select labels"
+        subtitle="Use labels to organize issues and pull requests"
+        renderAnchor={({children, 'aria-labelledby': ariaLabelledBy, ...anchorProps}) => (
+          <Button
+            trailingAction={TriangleDownIcon}
+            aria-labelledby={` ${ariaLabelledBy}`}
+            {...anchorProps}
+            aria-haspopup="dialog"
+          >
+            {children ?? 'Select Labels'}
+          </Button>
+        )}
+        placeholderText="Filter labels"
+        open={open}
+        onOpenChange={onOpenChange}
+        items={filteredItems}
+        selected={selected}
+        onSelectedChange={setSelected}
+        onFilterChange={fetchItems}
+        showItemDividers={true}
+        height={height}
+        {...loadingProps}
+      />
+    )
+  },
+  args: {
+    initialLoadingType: 'spinner',
+    height: 'medium',
+    componentManagesLoading: true,
+  },
+  argTypes: {
+    initialLoadingType: {
+      control: 'select',
+      options: ['spinner', 'skeleton'],
+    },
+    height: {
+      control: 'select',
+      options: ['auto', 'xsmall', 'small', 'medium', 'large', 'xlarge'],
+    },
+    componentManagesLoading: {
+      control: {
+        type: 'boolean',
+      },
+    },
+  },
 }
